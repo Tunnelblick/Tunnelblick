@@ -95,10 +95,19 @@
 "Delete" = "Διαγραφή";
 
 /* Button */
+"Disable network access" = "Απενεργοποίηση δικτυακής πρόσβασης";
+
+/* Button */
 "Disconnect" = "Αποσύνδεση";
 
 /* Button */
+"Do Not Re-enable Network Access" = "Μη επανα-ενεργοποίηση πρόσβασης στο διαδίκτυο";
+
+/* Button */
 "Do not use the plugin" = "Μη χρήση επιπροσθέτων";
+
+/* Button */
+"Do nothing" = "Να μη γίνει καμία ενέργεια";
 
 /* Button */
 "Download" = "Κατέβασμα";
@@ -133,6 +142,9 @@
 /* Button */
 "Monochrome icon" = "Μονόχρωμο εικονίδιο";
 
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "Περισσότερες πληροφορίες [%@]";
+
 /* Button */
 "More Info" = "Περισσότερες Πληροφορίες";
 
@@ -164,7 +176,7 @@
 "Open easy-rsa in Terminal" = "Άνοιξε το easy-rsa στο Τερματικό";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Τοποθετήστε το εικονίδιο δίπλα στο εικονίδιο του Spotlight";
+"Place Icon Near the Spotlight Icon" = "Τοποθέτηση εικονιδίου δίπλα στο εικονίδιο του Spotlight";
 
 /* Button */
 "Place Icon Normally" = "Κανονική Τοποθέτηση Εικονιδίου";
@@ -174,6 +186,10 @@
 
 /* Button */
 "Quit" = "Έξοδος";
+
+/* Button
+   Menu item */
+"Re-enable Network Access" = "Επανα-ενεργοποίηση πρόσβασης στο δίκτυο";
 
 /* Button */
 "Reinstall" = "Επανεγκαταστήσει";
@@ -188,6 +204,9 @@
 "Reset Disabled Warnings" = "Επαναφορά Απενεργοποιημένων ειδοποιήσεων";
 
 /* Button */
+"Reset primary interface" = "Επαναφορά κύριας διεπαφής";
+
+/* Button */
 "Restart connection" = "Επανεκκίνηση συνδέσεων";
 
 /* Button */
@@ -197,7 +216,13 @@
 "Retry" = "Δοκιμάστε ξανά";
 
 /* Button */
+"Revert to the Last Secured Copy" = "Επιστροφή στο τελευταίο ασφαλές αντίγραφο";
+
+/* Button */
 "Revert" = "Επιστροφή";
+
+/* Button */
+"Secure the Configuration" = "Ασφαλίστε την παραμετροποίηση";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Προβολή προεπιλεγμένης ανάλυσης (%1$u x %2$u)";
@@ -207,6 +232,9 @@
 
 /* Button */
 "Show when connection status changes" = "Δείξε όταν η κατάσταση σύνδεσης αλλάξει";
+
+/* Button */
+"Show while connecting and connected" = "Εμφάνιση κατά την σύνδεση και αφού συνδεθεί";
 
 /* Button */
 "Show while connecting" = "Δείξε κατα την σύνδεση";
@@ -302,10 +330,10 @@
 "OpenVPN level 3 - normal output" = "Επίπεδο OpenVPN 3 - κανονική καταγραφή";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "Επίπεδο OpenVPN 4 - καταγράφει τιμές για όλες τις ρυθμίσεις";
+"OpenVPN level 4 - values for all options" = "Επίπεδο OpenVPN 4 - τιμές για όλες τις ρυθμίσεις";
 
 /* Menu Item */
-"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "Επίπεδο OpenVPN 5 - καταγράφει \"R - παραλαβή\" ή \"W - αποστολή\" για κάθε πακέτο";
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "Επίπεδο OpenVPN 5 - \"R\" ή \"W\" για κάθε πακέτο";
 
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "Επίπεδο OpenVPN 11 - εξαιρετικά λεπτομερή καταγραφή";
@@ -376,9 +404,6 @@
 /* Checkbox name */
 "Do not ask again, always convert" = "Μην ερωτηθώ πάλι, πάντα μετατροπή";
 
-/* Checkbox name on a warning dialog */
-"Do not show again for any configuration" = "Μην εμφανιστεί ξανά για καμία παράμετρο";
-
 /* Checkbox name */
 "Do not show this type of warning again" = "Να μη μου ξαναεμφανιστεί αυτή η προειδοποίηση";
 
@@ -420,9 +445,6 @@
 
 /* Checkbox name */
 "Require administrator authorization for key and certificate changes" = "Να απαιτείται έγκριση από διαχειριστή για αλλαγές σε κλειδιά και πιστοποιητικά";
-
-/* Checkbox name */
-"Reset the primary interface after disconnecting" = "Επαναφορά κύριου περιβάλλοντος μετά την αποσύνδεση";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Δρομολόγιση όλης της κίνησης του IPv4 μέσω του VPN";
@@ -548,9 +570,6 @@
 "Alert" = "Ειδοποιήσεις";
 
 /* Window title */
-"All OpenVPN process were terminated." = "Όλες οι τερματισμένες διαδικασίες OpenVPN.";
-
-/* Window title */
 "All configuration files removed" = "Όλα τα αρχεία παραμέτρων που αφαιρέθηκαν";
 
 /* Window title */
@@ -620,9 +639,6 @@
 "No Credentials" = "Μη πιστοποιητικό";
 
 /* Window title */
-"One or more OpenVPN processes could not be terminated." = "Μια ή περισσότερες εργασίες OpenVPN δεν μπορούν να τερματιστούν.";
-
-/* Window title */
 "Only computer administrators should update Tunnelblick" = "Μόνο οι διαχειριστές του υπολογιστή πρέπει να ενημερώνουν το Tunnelblick";
 
 /* Window title */
@@ -653,19 +669,10 @@
 "System Requirements Not Met" = "Μη συμβατό με απαιτήσεις του συστήματος";
 
 /* Window title */
-"There are no OpenVPN processes running." = "Δεν υπάρχουν ενεργές διεργασίες OpenVPN.";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Πρόβλημα παραμέτρων του Tunnelblick";
 
 /* Window title */
 "Tunnelblick Error" = "Σφάλμα του Tunnelblick";
-
-/* Window title */
-"Tunnelblick Installation or Update" = "Εγκατάσταση ή ενημέρωση του Tunnelblick";
-
-/* Window title */
-"Tunnelblick Update" = "Ενημέρωση του Tunnelblick";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -808,9 +815,6 @@
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ έχει ανακτηθεί από το τελευταίο ασφαλές αντίγραφο (κρυφό).\n\n";
 
-/* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
-"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Το Tunnelblick είναι ελεύθερο λογισμικό: μπορείτε να το χρησιμοποιήσετε, να το αναδιανείμετε και / ή να τον τροποποιήσετε σύμφωνα με τους όρους της GNU General Public License έκδοσης 2 όπως δημοσιεύεται από το Ίδρυμα Ελεύθερου Λογισμικού.\n\nΤο Tunnelblick παρέχεται δωρεάν, ως έχει, χωρίς καμία εγγύηση. Η Tunnelblick και οι δημιουργοί της δεν αναλαμβάνουν καμία ευθύνη ή ευθύνη για ζημίες που προκύπτουν από τη χρήση της Tunnelblick ή οποιωνδήποτε τροποποιήσεων τρίτου μέρους στο Tunnelblick. Για λεπτομέρειες, ανατρέξτε στην έκδοση 2 της άδειας GNU General Public License.\n\nΕάν αποδεχτείτε και συμφωνήσετε με αυτούς τους όρους, η απάντησή σας θα σταλεί στο %2$@ ανώνυμα και θα σας ζητηθεί η εξουσιοδότηση ώστε το Tunnelblick να μπορεί να εγκατασταθεί ή να ενημερωθεί με ασφάλεια.";
-
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld οι ρυθμίσεις θα επιστρέψουν στο τελευταίο τους ασφαλές (σκιώδες) αντίγραφο (shadow Copy).\n\n";
 
@@ -822,6 +826,9 @@
 
 /* Window text */
 "'%@' was not terminated." = "Η παράμετρος '%@' τερματίστηκε.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "Το '%1$@' θα συνδεθεί χρησιμοποιώντας OpenVPN %2$@ αντί της έκδοσης (OpenVPN %3$@) που απαιτήθηκε.";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Οι προτιμήσεις το 'easy-rsaPath' αγνοήθηκαν, δεν καθορίζουν φάκελο";
@@ -881,7 +888,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Προσθέστε την κατάληξη '.sh' στο %@ για να είναι σωστά ασφαλισμένο";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Προσθέστε την κατάληξη '.unknown' στο %@ για να είναι σωστά ασφαλισμένο";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Προστέθηκε η κατάληξη '.unknown' στο %@ για να είναι σωστά ασφαλισμένο";
 
 /* Window text */
 "Additional contributions by" = "Επιπρόσθετη συνεισφορά από";
@@ -894,6 +901,9 @@
 
 /* Window text */
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Μετά την σύνδεση στο %@, φαίνεται οτι δεν έχει επιτευχθεί σύνδεση στο Internet.\n\nΑυτό ίσος οφείλεται στο ότι οι παράμετροι του VPN δεν είναι σωστοί.\n\n";
+
+/* Window text */
+"All OpenVPN processes have quit" = "Όλες οι διαδικασίες OpenVPN έχουν κλείσει";
 
 /* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "Όλα τα αρχεία παραμέτρων έχουν αφαιρεθεί. Πρέπει να γίνει έξοδος από το Tunnelblick.";
@@ -962,6 +972,9 @@
 "Backslash at end of line %u is not allowed" = "Δεν επιτρέπεται το σύμβολο '/' στο τέλος της γραμμής %u";
 
 /* Window text */
+"Cancelled trying to quit all OpenVPN processes" = "Ακυρώθηκε η προσπάθεια κλείσιμου όλων των OpenVPN διεργασιών";
+
+/* Window text */
 "Cannot find configuration file at %@" = "Δεν βρέθηκε αρχείο ρυθμίσεων στο %@";
 
 /* Window text */
@@ -974,19 +987,19 @@
 "Computer sleep/wake" = "Αναμονή/Επαναφορά του Υπολογιστή";
 
 /* Window text */
-"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Η σειρά ρυθμίσεων '%1$@' ('%2$@') θα αγνοηθεί, διότι το όνομα της περιέχει μη-επιτρεπτους χαρακτήρες.\n\nΟι χαρακτήρες που επιτρέπονται είναι: '%3$s'\n\n";
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Η ρύθμιση '%1$@' ('%2$@') θα αγνοηθεί, διότι το όνομα της περιέχει μη-επιτρεπτούς χαρακτήρες.\n\nΟι χαρακτήρες που επιτρέπονται είναι: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Η σειρά ρυμίσεων '%@' υπάρχει ήδη.";
+"Configuration '%@' already exists." = "Η ρύθμιση '%@' υπάρχει ήδη.";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Η παράμετρος '%@' περιέχει ένα ή περισσότερα σενάρια τα οποία μπορεί να προκαλέσουν προβλήματα αν αντικαταστήσει ή να απεγκαταστήσετε την παράμετρο, ενώ είστε συνδεδεμένοι.\n\nΘέλετε να αντικαταστήσετε την παράμετρο;";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Η σειρά ρυθμίσεων '%@' δεν είναι ασφαλής. Θα πρέπει να επανεγκατασταθεί.";
+"Configuration '%@' is not secure. It should be reinstalled." = "Η ρύθμιση '%@' δεν είναι ασφαλής. Θα πρέπει να επανεγκατασταθεί.";
 
 /* Window text */
-"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Η σειρά ρυθμίσεων '%@' δεν είναι ασφαλής. Παρακαλώ επανεγκαταστείστε το Tunnelblick.";
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Η ρύθμιση '%@' δεν είναι ασφαλής. Παρακαλώ επανεγκαταστείστε το Tunnelblick.";
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Η παράμετρος '%@' δεν είναι ενημερώσιμη επειδή δεν μπορεί να δηλωθεί ως \"ενημερώσιμη\".\n";
@@ -1150,9 +1163,6 @@
 /* Window text */
 "Icon:" = "Εικονίδιο:";
 
-/* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
-"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "If \"Check for updates\" is checked, Tunnelblick will access %1$@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %2$@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n";
-
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "Στο %@: \n\nΔεν υπάρχουν OpenVPN ρυθμίσεις για εγκατάσταση.";
 
@@ -1195,9 +1205,6 @@
 /* Window text */
 "Last checked: %@" = "Τελευταίος έλεγχος: %@";
 
-/* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
-"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "     %1$@\nΊδρυμα Ελεύθερου Λογισμικού:\n     %2$@\nΠολιτική Ιδιωτικότητας Tunnelblick:\n     %3$@\n\n";
-
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Η γραμμή %1$d του αρχείου '%2$@' περιέχει ένα μη εκτυπώσιμο χαρακτήρα (0x%3$X), κάτι που δεν επιτρέπεται.\n\n";
 
@@ -1237,6 +1244,15 @@
 /* Window text */
 "NetBIOS name:" = "Όνομα NetBIOS:";
 
+/* Window text; the %@ will be replaced by a list of configuration names. */
+"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "Η δικτυακή πρόσβαση δεν μπορεί να απενεργοποιηθεί μετά την αποσύνδεση για κάποιες ή όλες τις επιλεγμένες παραμετροποιήσεις γιατί περιλαμβάνουν επιλογές του χρήστη ή/και της ομάδας. Αυτές οι επιλογές αναγκάζουν το OpenVPN να μην τρέχει ως root κατά την αποσύνδεση, οπότε δεν μπορεί να απενεργοποιήσει την δικτυακή πρόσβαση.\n\nΑυτές οι παραμετροποιήσεις είναι:\n\n%@\n\n";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected." = "Η πρόσβαση στο δίκτυο απενεργοποιήθηκε όταν αποσυνδέθηκε ένα VPN.";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "Η δικτυακή πρόσβαση απενεργοποιήθηκε όταν αποσυνδέθηκε το VPN.\n\nΕπιθυμείτε να επανα-ενεργοποιήσετε την δικτυακή πρόσβαση;\n\n";
+
 /* Window text */
 "Network setting" = "Ρυθμίσεις δικτύου";
 
@@ -1271,6 +1287,12 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Δεν αντικαταστάθηκε η υπάρχουσα διαμόρφωση, έτσι διαμόρφωση '%@' δεν μπορεί να χρησιμοποιήσει το TBKeepExistingFilesList";
 
 /* Window text */
+"On expected disconnect:" = "Σε περίπτωση αναμενόμενης αποσύνδεσης:";
+
+/* Window text */
+"On unexpected disconnect:" = "Σε περίπτωση απρόσμενης αποσύνδεσης:";
+
+/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Μια ή περισσότερες εργασίες OpenVPN πραγματοποιούνται αλλά είναι άγνωστες στο Tunnelblick. Αν δεν ενεργοποιήσατε ξεχωριστά OpenVPN από το Tunnelblick αυτό σημαίνει ότι μια παλιότερη εκκίνηση του Tunnelblick δεν τερματίστηκε σωστά και πρέπει να τερματιστεί. Πιθανόν να εμποδίζετε από αυτή την λειτουργία. Θέλετε να τερματίσετε όλες της ενεργές εργασίες OpenVPN;";
 
 /* Window text */
@@ -1303,11 +1325,8 @@
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "Το OpenVPN δεν ανταποκρίνεται στα αιτήματα για αποσύνδεση %@.  \n\nΤο Tunnelblick θα αποσυνδεθεί όταν OpenVPN αρχίζει να ανταποκρίνεται στα αιτήματα αποσύνδεσης.  \n\nΑυτό μπορεί να διαρκέσει έως δύο λεπτά σε ορισμένες ασυνήθιστες περιστάσεις.\n\nΗ σύνδεση δεν θα είναι διαθέσιμη μέχρι να γίνει αποσύνδεση.";
 
-/* Window text */
-"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "Η έκδοση OpenVPN %1$@ δεν είναι διαθέσιμη. Αλλάξτε αυτή τη παράμετρο για χρήση της τελευταίας έκδοσης (%2$@) που περιλαμβάνεται σε αυτήν την έκδοση του Tunnelblick.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "Η OpenVPN έκδοση %1$@ δεν είναι διαθέσιμη. Θα χρησιμοποιηθεί τελευταία έκδοση (%2$@) ως προεπιλογή.";
+/* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
+"OpenVPN version %@ is not available. Using %@ as the default." = "Η OpenVPN έκδοση %1$@ δεν είναι διαθέσιμη. Θα χρησιμοποιηθεί η έκδοση %2$@ ως προεπιλογή.";
 
 /* Window text */
 "OpenVPN version:" = "Έκδοση OpenVPN:";
@@ -1423,8 +1442,14 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Οι προτιμήσεις στον 'ονόματαΟνόματα Πιστοποιητικών' πρέπει να είναι πίνακας με σειρές συμβόλων.";
 
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Το αρχείο παραμετροποίησης OpenVPN για '%@' τροποποιήθηκε αφού είχε ασφαλιστεί.\n\nΕπιθυμείτε να ασφαλίσετε την τροποποιημένη παραμετροποίηση ή να επαναφέρετε την τελευταία ασφαλή παραμετροποίηση;\n\n";
+
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "Το αρχείο παραμέτρων %1$@ του OpenVPN περιέχει την επιλογή '%2$@', η οποία είναι για Windows-μόνο. Δεν μπορεί να χρησιμοποιηθεί στο OS X.";
+
+/* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Η καταγραφή συμβάντων OpenVPN περιλαμβάνει το ακόλουθω μήνυμα: \n\n\"%1$@\".%2$@";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "Το αρχείο ιστορικού του OpenVPN δεν υπάρχει ακόμα ή έχει διαγραφεί.";
@@ -1490,6 +1515,9 @@
 "There are no OpenVPN configurations to install." = "Δεν υπάρχουν παράμετροι OpenVPN για την εγκατάσταση.";
 
 /* Window text */
+"There are no OpenVPN processes running" = "Δεν υπάρχουν ενεργές διεργασίες OpenVPN";
+
+/* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Δεν υπάρχουν εγκατεστημένες παράμετροι VPN.\n\nΤο Tunnelblick χρειάζεται μία ή περισσότερες παραμέτρους για να συνδεθεί σε ένα VPN. Οι παράμετροι εγκαθίστανται από αρχεία που συνήθως σας προμηθεύει ο διαχειριστής του δικτύου σας ή πάροχοι υπηρεσιών VPN. Τα αρχεία αυτά πρέπει να είναι εγκατεστημένα για αν χρησιμοποιηθούν.\n\nΤα αρχεία παραμέτρων έχουν της καταλήξεις .tblk, .ovpn, ή .conf.\n\n(μπορεί να υπάρχουν υποστηριζόμενα αρχεία με άλλες καταλήξεις, αυτά αγνοείστε τα για την ώρα.)\n\nΈχετε κανένα αρχείο παραμέτρων;\n";
 
 /* Window text */
@@ -1513,6 +1541,15 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Η παρούσα 'υπο ανάπτυξη' έκδοση του Tunnelblick δεν μπορεί να εκκινηθεί ή εγκατασταθεί επειδή δεν έχει το αρχείο Info.plist.\n\n";
 
+/* Window text. The '%@' will be replaced by the name of a configuration */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains Openvpn options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Αυτό το VPN δεν μπορεί να συνδεθεί.\n\nΤο αρχείο διαμόρφωσης OpenVPN για το '%@' περιέχει επιλογές Openvpn που συγκρούονται.\n\nΔηλαδή, μία ή περισσότερες επιλογές είναι διαθέσιμες μόνο σε παλιές εκδόσεις του OpenVPN και μία ή περισσότερες άλλες επιλογές είναι διαθέσιμες μόνο στις σύγχρονες εκδόσεις του OpenVPN. Καμία έκδοση του OpenVPN δε θα δέχεται όλες τις επιλογές στο αρχείο ρυθμίσεων.\n\nΘα πρέπει να ενημερώσετε τη διαμόρφωση ώστε να μπορεί να χρησιμοποιηθεί με τις σύγχρονες εκδόσεις του OpenVPN.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "Αυτό το VPN δεν μπορεί να συνδεθεί.\n\nΤο αρχείο διαμόρφωσης OpenVPN για το '%1$@' περιέχει αυτές τις επιλογές OpenVPN:\n\n%2$@\nΚαμία από τις εκδόσεις του OpenVPN που περιλαμβάνονται σε αυτήν την έκδοση του Tunnelblick δεν περιλαμβάνει την επιλογή (-ες).";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Αυτό το VPN δεν μπορεί να συνδεθεί.\n\nΤο αρχείο διαμόρφωσης OpenVPN για το '%1$@' περιέχει αυτές τις επιλογές OpenVPN:\n\n%2$@\nΚαμία από τις εκδόσεις του OpenVPN που περιλαμβάνονται σε αυτήν την έκδοση του Tunnelblick δεν περιλαμβάνει την επιλογή (-ες).\n\nΘα πρέπει να ενημερώσετε τη διαμόρφωση ώστε να μπορεί να χρησιμοποιηθεί με τις σύγχρονες εκδόσεις του OpenVPN.";
+
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Αυτός ο υπολογιστείς εμφανίζετε να μην έχει αλλάξει διεύθυνση ΙΡ μετά την σύνδεση στο %1$@. Παραμένει με την %2$@.\n\nΑυτό σημαίνει οτι το VPN σας δεν έχει διαμορφωθεί σωστά.\n\n";
 
@@ -1528,9 +1565,6 @@
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Αυτή η έκδοση του Tunnelblick δεν μπορεί να εκκινηθεί ή εγκατασταθεί επειδή δεν είναι έκδοση 'υπο ανάπτυξη' και μια ή περισσότερες εκδόσεις 'υπο ανάπτυξη' του Tunnelblick είχαν εγκατασταθεί παλιότερα.\n\n";
 
-/* Window text. The %@ is an Internet address like 'tunnelblick .net' */
-"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "Για να χρησιμοποιήσετε το Tunnelblick, πρέπει να δηλώσετε ότι αποδέχεστε και συμφωνείτε με τους συγκεκριμένους όρους, τοποθετώντας μια επιταγή στο πλαίσιο ελέγχου \"Αποδέχομαι και συμφωνώ με τα παραπάνω\".\n\nΑν το κάνετε αυτό και κάνετε κλικ στο κουμπί \"Συνέχεια\", το %@ θα έχει πρόσβαση ανώνυμα σύμφωνα με την Πολιτική Απορρήτου Tunnelblick και θα μπορείτε να εγκαταστήσετε, να ενημερώσετε και να χρησιμοποιήσετε το Tunnelblick.\n\nΕάν δεν το κάνετε, δεν μπορείτε να εγκαταστήσετε, να ενημερώσετε ή να χρησιμοποιήσετε το Tunnelblick.\n\n\n";
-
 /* Window text */
 "Too many configuration files in '%@'" = "Πάρα πολλά αρχεία παραμέτρων στο '%@'";
 
@@ -1539,6 +1573,9 @@
 
 /* Window text */
 "Translation by" = "Μεταφράστηκε από";
+
+/* Window text */
+"Trying to quit all OpenVPN processes..." = "Γίνεται προσπάθεια κλεισίματος όλων των OpenVPN διεργασιών…";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
 "Tunnelblick %@ has been secured successfully." = "Το Tunnelblick %@ έχει ασφαλιστεί επιτυχώς.";
@@ -1551,6 +1588,12 @@
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Διαδίκτυο χρήση Tunnelblick:";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check for updates when it is launched and periodically while it is running.\n\n" = "To Tunnelblick μπορεί να έχει πρόσβαση στο %@ για έλεγχο ενημερώσεων κατά την εκκίνηση και περιοδικά όσο τρέχει.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Το Tunnelblick μπορεί να έχει πρόσβαση στο %@ για να ελέγχει ότι η φαινόμενη δημόσια IP διεύθυνση του υπολογιστή αλλάζει κάθε φορά που συνδέεστε στο VPN.\n\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Το Tunnelblick δεν θα μπόρεσε να ρυθμιστεί αυτόματα κατά την εκκίνηση, μετά την σύνδεση σας.  \n\nΑνατρέξτε στο αρχείο καταγραφής κονσόλα για λεπτομέρειες.";
@@ -1571,7 +1614,7 @@
 "Tunnelblick could not create the sample configuration" = "Το Tunnelblick δεν μπόρεσε να δημιουργήσει δήγμα παραμέτρων";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Το Tunnel δεν μπορεί να εμφανίσει ένα παράθυρο.\n\nCFUserNotificationCreate() επέστρεψε ένα σφάλμα = %1$ld; ειδοποίηση = %2$@";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Το Tunnelblick δεν μπόρεσε να εμφανίσει ένα παράθυρο.\n\nCFUserNotificationCreate() επέστρεψε με σφάλμα = %1$ld; ειδοποίηση = %2$@";
 
 /* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Το Tunnelblick δεν θα μπορούσε να προσκομίσει πληροφορίες της διεύθυνσης IP πριν γίνει σύνδεση στο %@.\n\n";
@@ -1681,6 +1724,12 @@
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Το Tunnelblick ήταν αδύνατον να αρχίσει μια OpenVPN σύνδεση στο %@. Για πληροφορίες δείτε το ημερολόγιο στο παράθυρο Λεπτομέρειες VPN…";
 
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check for updates when it is launched and periodically while it is running. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "To Tunnelblick θα έχει πρόσβαση στο %@ για έλεγχο ενημερώσεων κατά την εκκίνηση και περιοδικά όσο τρέχει. Απευθυνθείτε στον διανομέα αυτού του αντιγράφου του Tunnelblick για πληροφορίες.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Το Tunnelblick θα έχει πρόσβαση στο %@ για να ελέγξει ότι η εμφανής δημόσια IP διεύθυνση του υπολογιστή σας αλλάζει κάθε φορά που συνδέεστε σε ένα VPN. Επικοινωνήστε με τον διανομέα αυτού του αντιγράφου του Tunnelblick για λεπτομέρειες.\n\n";
+
 /* Window text */
 "Unable to Establish Communication" = "Αδύνατον να επιτευχθεί επικοινωνία";
 
@@ -1783,6 +1832,9 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Ειδοποίηση: μια ή περισσότερες επιλογές δεν μπορούν να μετονομαστούν. Δείτε στο ημερολόγιο Κονσόλας για λεπτομέρειες.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Προειδοποίηση: Αυτό το VPN ενδέχεται να μην συνδεθεί στο μέλλον.\n\nΤο αρχείο διαμόρφωσης OpenVPN για το '%1$@' περιέχει αυτές τις επιλογές OpenVPN:\n\n%2$@\nΘα πρέπει να ενημερώσετε τη διαμόρφωση ώστε να μπορεί να χρησιμοποιηθεί με τις σύγχρονες εκδόσεις του OpenVPN.\n\nΤο Tunnelblick θα χρησιμοποιήσει το OpenVPN %3$@ για να συνδέσει αυτήν τη διαμόρφωση.\n\nΩστόσο, δεν θα μπορείτε να συνδεθείτε με αυτό το VPN με μελλοντικές εκδόσεις του Tunnelblick που δεν περιλαμβάνουν μια έκδοση του OpenVPN που δέχεται τις επιλογές.";
+
 /* Window text */
 "Warnings:" = "Ειδοποίηση:";
 
@@ -1883,6 +1935,9 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nΣΗΜΕΙΩΣΗ: Αυτή τη στιγμή μια ή περισσότερες ρυθμίσεις είναι συνδεδεμένες. Θα αποσυνδεθούν, εγκαταστάσεις/αντικαταστάσεις/απεγκαταστάσεις θα πραγματοποιηθούν και οι ρυθμίσεις θα επανασυνδεθούν εαν και μόνο δεν έχουν απεγκατασταθεί.\n\n";
 
 /* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nΑυτό το λάθος σημαίνει ότι κάποια παράμετρος που περιλαμβάνεται στο αρχείο παραμετροποίησης του OpenVPN ή \"τέθηκε\" από τον εξυπηρετητή OpenVPN:\n \n     • έχει κάποιο ορθογραφικό λάθος\n\n     • έχει λιγότερα ή περισσότερα ορίσματα από όσα απαιτούνται, ή\n\n     • δεν είναι υλοποιημένη στην έκδοση του OpenVPN που χρησιμοποιείται σε αυτή την παραμετροποίηση. Μπορεί να είναι καινούρια επιλογή που δεν είναι υλοποιημένη σε μια παλαιότερη έκδοση του OpenVPN, ή μια παλιά επιλογή που έχει διαγραφεί στην καινούρια έκδοση του OpenVPN. Μπορείτε να επιλέξετε την έκδοση του OpenVPN με αυτή την παραμετροποίηση στην καρτέλα \"Ρυθμίσεις\" του πλαισίου \"Παράμετροι\" στο παράθυρο \"Πληροφορίες VPN\" του Tunnelblick.\n\nΔείτε το αρχείο καταγραφής συμβάντων VPN στην καρτέλα \"Ιστορικό\" του πλαισίου \"Παράμετροι\" στο παράθυρο \"Πληροφορίες VPN\" του Tunnelblick.";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nκαι εγκαταστάθηκαν οι παράμετροι %ld VPN του Tunnelblick";
 
 /* Window text */
@@ -1906,26 +1961,47 @@
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d ημέρα(ες) %2$d:%3$02d:%4$02d";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+"'%@' was added in OpenVPN %@\n" = "'%1$@' προστέθηκε στο OpenVPN %2$@\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "Το '%1$@' καταργήθηκε στο OpenVPN %2$@ και αφαιρέθηκε στο OpenVPN %3$@\n";
+
 /* Credit description */
 "64-bit enabling and testing" = "64-bit ενεργοποιημένο και δοκιμασμένο";
 
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Καθορίζει την έκδοση του OpenVPN και το λογισμικό SSL που πρέπει να χρησιμοποιηθεί για τη σύνδεση του VPN.</strong><ul><li><strong>Η ρύθμιση \"Προεπιλογή\"</strong>θα χρησιμοποιήσει την προεπιλεγμένη έκδοση του OpenVPN με το OpenSSL που περιλαμβάνεται σε αυτήν την έκδοση του Tunnelblick. Η προεπιλογή μπορεί να διαφέρει σε διαφορετικές εκδόσεις του Tunnelblick.<br></li><li><strong>Η ρύθμιση \"Πρόσφατο\" </strong> θα χρησιμοποιήσει την τελευταία έκδοση του OpenVPN με το LibreSSL που περιλαμβάνεται σε αυτή την έκδοση του Tunnelblick. Η τελευταία έκδοση μπορεί να διαφέρει σε διαφορετικές εκδόσεις του Tunnelblick.<br></li><li><strong> Οποιαδήποτε άλλη ρύθμιση </strong> θα χρησιμοποιήσει την καθορισμένη έκδοση του λογισμικού OpenVPN και SSL εάν είναι διαθέσιμες σε αυτή την έκδοση του Tunnelblick. Εάν δεν είναι διαθέσιμο, θα χρησιμοποιηθεί το πλησιέστερο ταίριασμα.<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>";
+
+/* HTML info for the 'On unexpected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>";
+
+/* HTML info for the 'On expected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Καθορίζει πότε πρέπει να συνδεθεί το Tunnelblick στο VPN.</strong></p><p>Το \"Όταν ξεκινά ο υπολογιστής\" μπορεί να χρησιμοποιηθεί μόνο με τη παράμετρο \"Shared\".</p>";
+
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το IPv6 θα απενεργοποιηθεί.</p>\n<p>Η απενεργοποιήση του IPv6 συχνά προτείνεται γιατί πολλές ρυθμίσεις VPΝ δεν φρουρούν ενάντια σε διαρροές πληροφοριών οι οποίες έχουν προκληθεί από το IPv6. Η πρόσβαση στο Διαδίκτυο λειτουργικό κανονικά χωρίς IPv6.</p>\n<p><strong>Όταν είναι επιλεγμένο</strong>, το IPv6 δεν θα απενεργοποιηθεί.</p>\n<p><strong>Αυτό το κουτάκι είναι απενεργοποιημένο</strong> όταν χρήσιμοποιείται μια σύνδεση 'tap', γιατί δεν είναι δυνατή η επιβολλή σε μια σύνδεση 'tap'.</p>";
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το IPv6 θα απενεργοποιηθεί.</p>\n<p>Η απενεργοποιήση του IPv6 συχνά προτείνεται διότι πολλές ρυθμίσεις VPΝ δεν προστατεύουν σε πιθανές διαρροές πληροφοριών οι οποίες έχουν προκληθεί από το IPv6. Η πρόσβαση στο Διαδίκτυο συνήθως λειτουργεί κανονικά και χωρίς IPv6.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το IPv6 δεν θα απενεργοποιηθεί.</p>\n<p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> όταν χρήσιμοποιείται μια σύνδεση 'tap', διότι δεν είναι δυνατή η επιβολή σε μια σύνδεση 'tap'.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το IPv6 θα ενεργοποιηθεί.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το IPv6 θα απενεργοποιηθεί.</p>\n<p>Η απενεργοποιήση του IPv6 συχνά προτείνεται γιατί πολλές ρυθμίσεις VPΝ δεν φρουρούν ενάντια σε διαρροές πληροφοριών οι οποίες έχουν προκληθεί από το IPv6. Η πρόσβαση στο Διαδίκτυο λειτουργικό κανονικά χωρίς IPv6.</p>\n\n<p><strong>Αυτό το κουτάκι είναι απενεργοποιημένο</strong> για ρυθμίσεις Tun.</p>";
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το IPv6 θα ενεργοποιηθεί.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το IPv6 θα απενεργοποιηθεί.</p>\n<p>Η απενεργοποιήση του IPv6 συχνά προτείνεται διότι πολλές ρυθμίσεις VPΝ δεν προστατεύουν ενάντια σε διαρροές πληροφοριών οι οποίες έχουν προκληθεί από τη χρήση του IPv6. Η πρόσβαση στο Διαδίκτυο συνήθως λειτουργεί κανονικά και χωρίς IPv6.</p>\n\n<p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> για ρυθμίσεις Tun.</p>";
 
 /* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το OpenVPN θα τροποποιήσει πρώτα τις διαδρομές για το VPN και μετα τις ρυθμίσεις του DNS καθώς και αλλες ρυθμίσεις.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το OpenVPN θα τροποποιήσει πρώτα τις ρυθμίσεις του DNS καθως και άλλες ρυθμίσεις και μετα θα ορίσει τις διαδρομές για το VPN. Αυτό μπορεί να προκαλέσει λάθη στον DNS ή καθυστερήσεις εαν οι διαδρομές λαμβάνουν πολύ χρόνο να οριστούν - για παράδειγμα, αν πρέπει να οριστούν πολλές διαδρομές.</p>\n";
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το OpenVPN θα τροποποιήσει πρώτα τις διαδρομές για το VPN και μετα τις ρυθμίσεις του DNS καθώς και αλλες ρυθμίσεις.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το OpenVPN θα τροποποιήσει πρώτα τις ρυθμίσεις του DNS καθως και άλλες ρυθμίσεις και μετά θα ορίσει τις διαδρομές για το VPN. Αυτό μπορεί να προκαλέσει λάθη στον DNS ή καθυστερήσεις εάν οι διαδρομές χρειάζονται πολύ χρόνο για να οριστούν -- για παράδειγμα, εάν πρέπει να οριστούν πολλές διαδρομές.</p>\n";
 
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Όταν επιλεγεί</strong>, το OpenVPN θα πραγματοποιήσει ένα τεστ για να καθορίσει το μέγιστο μεγεθος MTU για την σύνδεση. Το τεστ θα ξεκινήσει κάθε φορά που πραγματοποιείται σύνδεση, και μπορεί να διαρκέσει αρκετά λεπτά. Τα αποτελέσματα του τεστ θα εμφανιστούν στο αρχείο καταγραφής (log) του Tunnelblick.</p>\n";
+"<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το OpenVPN θα πραγματοποιήσει ένα τεστ για να καθορίσει το μέγιστο μέγεθος MTU για την σύνδεση. Το τεστ θα ξεκινήσει κάθε φορά που πραγματοποιείται μια σύνδεση, και μπορεί να διαρκέσει αρκετά λεπτά. Τα αποτελέσματα του τεστ θα εμφανιστούν στο αρχείο καταγραφής (log) του Tunnelblick.</p>\n";
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το Tunnelblick θα ελέγξει για τυχόν ενημερώσεις δοκιμαστικών εκδόσεων (beta).</p><p><strong>Όταν δεν είναι επιλεγμένο</strong>, το Tunnelblick θα ελέγξει για τυχόν ενημερώσεις σταθερών εκδόσεων (stable).</p><p><strong>Αυτό το πλαίσιο πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> και επιλεγμένο όταν χρησιμοποιείται δοκιμαστική έκδοση (beta).</p>";
 
 /* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το Tunnelblick θα ελέγξει για τυχόν ενημερώσεις στην εκκίνηση και στη συνέχεια περιοδικά.</p><p><strong>Αυτό το πλαίσιο πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> και μη επιλεγμένο όταν είναι επιλεγμένο το «Αναστολή ελέγχου αυτόματης ενημέρωσης και ελέγχου διεύθυνσης IP».</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το Tunnelblick θα αποφασίσει την δημόσια διεύθυνση IP του υπολογιστή πριν και μετά την σύνδεση του VPN και θα ειδοποιήσει εάν η διεύθυνση IP δεν αλλαζει.</p>\n<p>Η ιστοσελίδα tunnelblick.net θα χρησιμοποιηθεί για να εκτελεστεί αυτή η λειτουργία. Η πρόσβαση γίνεται συνήθως μέσω https: χρησιμοποιώντα το ονομα tunnelblick.net, στην περίπτωση που η προσβαση αποτύχει γίνετε προσπάθει με χρήση http: και τη διεύθυνση IP της ιστοσελίδας</p> <p><strong>Όταν δεν είναι επιλεγμένο</strong>, το Tunnelblick δεν ελέγχει τις αλλαγές της διεύθυνση IP και δεν ειδοποιεί για αλλαγές της διεύθυνσης IP μετα την σύνδεση στο VPN.</p>\n";
@@ -1935,9 +2011,6 @@
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>";
-
-/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>";
@@ -1964,7 +2037,7 @@
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το εικονίδιο του Tunnelblick τοποθετείτε κοντά στο εικονίδιο του Spotlight:</p>\n<p>%1$@</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το εικονίδιο του Tunnelblick είναι τοποθετείτε κανονικά:\n</p>\n<p>%2$@</p>\n<p><strong>Αυτό το κουτάκι είναι απενεργοποιημένο</strong> στο macOS Sierra διότι δεν χρειάζεται και σε συστήματα που είναι γνωστό οτι δημιουργεί προβλήματα.</p>\n<p><a href=\"https://tunnelblick.net<a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Περισσότερες πληροφορίες</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το εικονίδιο του Tunnelblick τοποθετείται κοντά στο εικονίδιο του Spotlight:</p>\n<p>%1$@</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το εικονίδιο του Tunnelblick τοποθετείται κανονικά:\n</p>\n<p>%2$@</p>\n<p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> στο macOS Sierra διότι δεν χρειάζεται και σε συστήματα που είναι γνωστό οτι δημιουργεί προβλήματα.</p>\n<p><a href=\"https://tunnelblick.net<a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Περισσότερες πληροφορίες</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>";
@@ -1985,7 +2058,7 @@
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>";
 
 /* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>";
+"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, ο χρόνος από την πραγματοποίηση μιας σύνδεσης εμφανίζεται στο μενού του Tunnelblick και στον τίτλο του παραθύρου Λεπτομερειών VPN.</p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
 "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
@@ -1996,11 +2069,14 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>";
 
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addreses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addreses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>";
+
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>";
+"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Ανοίγει ένα παράθυρο του προγράμματος περιήγησης στην ιστοσελίδα της Tunnelblick, όπου περιέχει πληροφορίες σχετικά με την απεγκατάσταση του Tunnelblick.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>";
@@ -2011,20 +2087,41 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>";
 
+/* HTML info for the 'VPN log level' button. */
+"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>";
+
+/* HTML info for the 'Icon' button. */
+"<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunneblick's main menu.</p>" = "<p>Καθορίζει τα πλήκτρα που πρέπει να πατήσετε για να καλέσετε το κύριο μενού του Tunneblick.</p>";
+
+/* HTML info for the 'Maximum log display size' button. */
+"<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Καθορίζει τη μέγιστη ποσότητα αποθηκευτικού χώρου που θα χρησιμοποιηθεί για την εμφάνιση του αρχείου καταγραφής VPN.</p>";
+
+/* HTML info for the button for selecting which screen to show status windows. */
+"<p>Specifies the screen on which Tunnelblick should display VPN status windows.</p>" = "<p>Καθορίζει την οθόνη στην οποία το Tunnelblick θα εμφανίζει τα παράθυρα κατάστασης VPN.</p>";
+
+/* HTML info for the 'VPN status windows' button. */
+"<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>Καθορίζει πότε θα πρέπει το Tunnelblick να εμφανίζει τα παράθυρα κατάστασης VPN.</p>";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Η προσωρινή μνήμη DNS περιέχει αντίγραφα πληροφοριών DNS (Σύστημα Ονομάτων Τομέων).</p>\n<p><strong>Όταν είναι ενεργή η επιλογή</strong>, η προσωρινή μνήμη DNS θα εκκαθαρίζεται μετά από κάθε σύνδεση ή αποσύνδεση. Όλες οι επιλύσεις διευθύνσεων DNS θα εκτελούνται από τον εξυπηρετητή ονομάτων που έχει δηλωθεί στις ρυθμίσεις του VPN.</p>\n<p><strong>Όταν είναι ανενεργή η επιλογή</strong>, η προσωρινή μνήμη DNS δεν θα εκκαθαρίζεται. Αυτό μπορεί να δημιουργήσει προβλήματα αν υπάρχουν διενέξεις ονομάτων μεταξύ του εξυπηρετητή ονομάτων που έχει δηλωθεί στις ρυθμίσεις του προ-VPN και του εξυπηρετητή ονοματών και αν οι προ-VPN καταχωρήσεις ονομάτων έχουν αποθηκευτεί στην προσωρινή μνήμη.</p>";
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
-"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>";
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Το Tunnelblick περιλαμβάνει μια προσαρμοσμένη έκδοση του 'easy-rsa', το οποίο είναι ένα σύνολο μακροεντολών γραμμής εντολών γραμμένο από τους προγραμματιστές του OpenVPN για τη δημιουργία και τη διατήρηση πιστοποιητικών και κλειδιών.</p>\n<p>Κάνοντας κλικ σε αυτό το κουμπί ξεκινά η εφαρμογή τερματικού OS X με τον κατάλογο εργασίας που έχει οριστεί στο φάκελο που περιέχει τον κώδικα.</p><p>Ο κώδικας βρίσκεται κανονικά στο φάκελο της εφαρμογής ~/Library/Application Support/Tunnelblick/easy-rsa. Μια προτίμηση \"easy-rsaPath\" μπορεί να περιέχει τη διαδρομή σε ένα φάκελο που θα χρησιμοποιήσει το Tunnelblick. Το 'easy-rsaPath' πρέπει να είναι μια απόλυτη διαδρομή ή να ξεκινά με ένα '~', και ο γονικός φάκελος της διαδρομής πρέπει να υπάρχει. Εάν υπάρχει ένας φάκελος στη διαδρομή, θα χρησιμοποιηθεί. αν δεν υπάρχει, θα δημιουργηθεί και μακροεντολή easy-rsa θα εγκατασταθεί σε αυτό όταν ξεκινήσει το Tunnelblick.</p><p>Για πληροφορίες σχετικά με τη χρήση του easy-rsa, δείτε <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\"> Για δημιουργία δικών σας Certificate Authority (CA) και δημιουργία πιστοποιητικών και κλειδιών για διακομιστή OpenVPN και πολλαπλούς πελάτες</a>[openvpn.net]</p><p>Για λεπτομέρειες σχετικά με τις προσαρμογές του Tunnelblick του easy-rsa, ανατρέξτε στο αρχείο README που βρίσκεται στο φάκελο.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick was not able to load a system extension that is needed to connect to %1$@.</p><p>%2$@More information%3$@ [%4$@]</p>";
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Το Tunnelblick δεν μπόρεσε να φορτώσει μια επέκταση συστήματος που απαιτείται για να συνδεθεί με το %1$@.</p>\n<p>%2$@Περισσότερες πληροφορίες%3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "Κατάσταση διαχειριστή %@ απομένει";
+"Admin mode %@ remaining" = "Κατάσταση διαχειριστή %@ απομένουν";
 
 /* Credit description */
 "Afrikaans translation" = "Αφρικανική μετάφραση";
+
+/* Credit description */
+"Albanian translation" = "Albanian translation";
 
 /* Credit description */
 "Animation and icon sets code" = "Κωδικός ομάδων εικονιδίων και κινήσεων";
@@ -2086,6 +2183,9 @@
 /* Checkbox */
 "Do not show this again" = "Μην εμφανιστεί ξανά";
 
+/* Checkbox text */
+"Do not warn about this again, never re-enable" = "Να μην ειδοποιηθώ ξανά για αυτό, να μην γίνει ποτέ επανα-ενεργοποίηση";
+
 /* Credit description */
 "Dutch translation" = "Ολλανδική μετάφραση";
 
@@ -2116,9 +2216,6 @@
 
 /* Credit description */
 "Hungarian translation" = "Ούγγρικη μετάφραση";
-
-/* Checkbox text */
-"I accept and agree to the above" = "Συμφωνώ και αποδέχομαι τα παραπάνω";
 
 /* Credit description */
 "Icelandic translation" = "Ισλανδική μετάφραση";
@@ -2169,7 +2266,7 @@
 "Polish translation" = "Πολωνική μετάφραση";
 
 /* Credit description */
-"Portuguese (Brazilian) translation" = "Πορτογαλική (Βραζιλιας) μεταφραση";
+"Portuguese (Brazilian) translation" = "Πορτογαλική (Βραζιλίας) μετάφραση";
 
 /* Credit description */
 "Portuguese translation" = "Πορτογαλική μετάφραση";

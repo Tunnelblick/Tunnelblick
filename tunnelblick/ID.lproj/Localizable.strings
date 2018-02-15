@@ -14,7 +14,7 @@
 "No Active Connections" = "Koneksi Tidak Aktif";
 
 /* Textbox name */
-"Username:" = "Nama Pengguna:";
+"Username:" = "Username:";
 
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
@@ -95,10 +95,19 @@
 "Delete" = "Hapus";
 
 /* Button */
+"Disable network access" = "Matikan Akses Jaringan";
+
+/* Button */
 "Disconnect" = "Putuskan";
 
 /* Button */
+"Do Not Re-enable Network Access" = "Jangan Hidupkan Ulang Akses Jaringan";
+
+/* Button */
 "Do not use the plugin" = "Jangan pakai plugin";
+
+/* Button */
+"Do nothing" = "Jangan lakukan apa pun";
 
 /* Button */
 "Download" = "Unduh";
@@ -132,6 +141,9 @@
 
 /* Button */
 "Monochrome icon" = "Ikon monokrom";
+
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "Info Lain [%@]";
 
 /* Button */
 "More Info" = "Info Lebih Lanjut";
@@ -175,6 +187,10 @@
 /* Button */
 "Quit" = "Keluar";
 
+/* Button
+   Menu item */
+"Re-enable Network Access" = "Hidupkan Lagi Akses Jaringan";
+
 /* Button */
 "Reinstall" = "Install ulang";
 
@@ -188,6 +204,9 @@
 "Reset Disabled Warnings" = "Reset Peringatan Yang Dinonaktifkan";
 
 /* Button */
+"Reset primary interface" = "Reset antar muka primer";
+
+/* Button */
 "Restart connection" = "Menghubungi Ulang";
 
 /* Button */
@@ -197,7 +216,13 @@
 "Retry" = "Coba lagi";
 
 /* Button */
+"Revert to the Last Secured Copy" = "Pulihkan ke Salinan yang Diamankan Terakhir";
+
+/* Button */
 "Revert" = "Kembalikan";
+
+/* Button */
+"Secure the Configuration" = "Amankan Konfigurasi";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Tampilkan pada layar baku (%1$u x %2$u)";
@@ -207,6 +232,9 @@
 
 /* Button */
 "Show when connection status changes" = "Tampilkan ketika status koneksi berubah";
+
+/* Button */
+"Show while connecting and connected" = "Tampilkan ketika sedang menyambung dan tersambung";
 
 /* Button */
 "Show while connecting" = "Tampilkan saat Menghubungkan";
@@ -302,10 +330,10 @@
 "OpenVPN level 3 - normal output" = "OpenVPN tingkat 3 - keluaran normal";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN tingkat 4 - tampilkan juga keluaran nilai bagi semua opsi";
+"OpenVPN level 4 - values for all options" = "OpenVPN tingkat 4 - nilai bagi semua opsi";
 
 /* Menu Item */
-"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN tingkat 5 - juga keluarkan \"R\" atau \"W\" untuk setiap paket";
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN tingkat 5 - \"R\" atau \"W\" untuk setiap paket";
 
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPN tingkat 6 - keluaran sangat rinci";
@@ -376,9 +404,6 @@
 /* Checkbox name */
 "Do not ask again, always convert" = "Jangan tanya lagi, selalu konversikan";
 
-/* Checkbox name on a warning dialog */
-"Do not show again for any configuration" = "Jangan tampilkan lagi untuk sebarang konfigurasi";
-
 /* Checkbox name */
 "Do not show this type of warning again" = "Jangan tampilkan peringatan tipe ini lagi";
 
@@ -420,9 +445,6 @@
 
 /* Checkbox name */
 "Require administrator authorization for key and certificate changes" = "Memerlukan otorisasi administrator untuk perubahan kunci dan sertifikat";
-
-/* Checkbox name */
-"Reset the primary interface after disconnecting" = "Reset antarmuka utama setelah memutus";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Salurkan semua lalu lintas IPv4 melalui VPN";
@@ -548,9 +570,6 @@
 "Alert" = "Peringatan";
 
 /* Window title */
-"All OpenVPN process were terminated." = "Seluruh proses OpenVPN telah dihentikan.";
-
-/* Window title */
 "All configuration files removed" = "Semua berkas konfigurasi dihapus";
 
 /* Window title */
@@ -620,9 +639,6 @@
 "No Credentials" = "Tidak Ada Kredensial";
 
 /* Window title */
-"One or more OpenVPN processes could not be terminated." = "Satu atau lebih proses OpenVPN tidak dapat diakhiri.";
-
-/* Window title */
 "Only computer administrators should update Tunnelblick" = "Hanya administrator komputer yang mesti memutakhirkan Tunnelblick";
 
 /* Window title */
@@ -653,19 +669,10 @@
 "System Requirements Not Met" = "Persyaratan Sistem Tidak Dipenuhi";
 
 /* Window title */
-"There are no OpenVPN processes running." = "Tidak ada proses OpenVPN yang berjalan.";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Masalah Konfigurasi Tunnelblick";
 
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick Error";
-
-/* Window title */
-"Tunnelblick Installation or Update" = "Instalasi atau Pemutakhiran Tunnelblick";
-
-/* Window title */
-"Tunnelblick Update" = "Pemutakhiran Tunnelblick";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -808,9 +815,6 @@
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ telah dikembalikan kepada simpanan terakhir(bayangan).\n\n";
 
-/* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
-"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Tunnelblick adalah perangkat lunak bebas: Anda dapat memakainya, mendistribusikan ulang, dan/atau mengubahnya di bawah persyaratan GNU General Public License versi 2 sebagaimana dipublikasikan oleh Free Software Foundation.\n\nTunnelblick disediakan secara bebas, apa adanya, dan tanpa jaminan apapun. Tunnelblick dan para penulisnya tidak punya kewajiban atau tanggung jawab atas kerusakan yang disebabkan oleh penggunaan Tunnelblick, atau perubahan pihak ketiga apapun ke Tunnelblick. Lihat GNU General Public Licensi versi 2 untuk rinciannya.\n\nBila Anda menerima dan setuju dengan persyaratan ini, respons Anda akan dikirim ke %2$@ secara anonim dan Anda akan diminta mengotorisasi sehingga Tunnelblick dapat dipasang atau dimutakhirkan secara aman.";
-
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigurasi telah dipulihkan ke salinan terakhir mereka yang diamankan (bayangan).\n\n";
 
@@ -822,6 +826,9 @@
 
 /* Window text */
 "'%@' was not terminated." = "%@ belum diakhiri.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' akan menyambung memakai OpenVPN %2$@ sebagai pengganti versi yang diminta (OpenVPN %3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Preferensi 'easy-rsaPath' diabaikan; itu tidak menyatakan suatu folder";
@@ -896,6 +903,9 @@
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Setelah terhubung dengan %@, internet tidak dapat dihubungi.\n\nIni mungkin berarti VPN anda belum teratur dengan benar.\n\n";
 
 /* Window text */
+"All OpenVPN processes have quit" = "Semua proses OpenVPN telah keluar";
+
+/* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "Semua berkas konfigurasi sudah dibuang. Tunnelbick mesti keluar.";
 
 /* Window text */
@@ -960,6 +970,9 @@
 
 /* Window text */
 "Backslash at end of line %u is not allowed" = "Backslash di akhir baris %u tidak diijinkan";
+
+/* Window text */
+"Cancelled trying to quit all OpenVPN processes" = "Membatalkan mencoba keluar dari semua proses OpenVPN";
 
 /* Window text */
 "Cannot find configuration file at %@" = "File konfigurasi tidak dapat ditemukan dalam %@";
@@ -1150,9 +1163,6 @@
 /* Window text */
 "Icon:" = "Ikon:";
 
-/* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
-"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "Bila \"Periksa pemutakhiran\" dicentak, Tunnelblick akan mengakses %1$@ untuk memeriksa pemutakhiran ketika diluncurkan dan secara berkala ketika sedang berjalan. Anda dapat mengubah setelan ini nanti.\n\nBila \"Periksa perubahan alamat IP\" dicentang, Tunnelblick akan mengakses %2$@ untuk menentukan alamat IP publik yang muncul sebelum dan setelah VPN tersambung dan memperingatkan bila alamat IP tidak berubah. Anda dapat mengubah setelan ini nanti.\n\n\n";
-
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "Dalam %@:\n\nTidak ada konfigurasi OpenVPN yang akan dipasang.";
 
@@ -1195,9 +1205,6 @@
 /* Window text */
 "Last checked: %@" = "Terakhir diperiksa: %@";
 
-/* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
-"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "Lisensi:\n     %1$@\nFree Software Foundation:\n     %2$@\nKebijakan Privasi Tunnelblick:\n     %3$@\n\n";
-
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Baris %1$d dari berkas '%2$@' memuat suatu karakter tak dapat dicetak (0x%3$X) yang tidak diijinkan.\n\n";
 
@@ -1237,6 +1244,15 @@
 /* Window text */
 "NetBIOS name:" = "Nama NetBIOS:";
 
+/* Window text; the %@ will be replaced by a list of configuration names. */
+"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "Akses jaringan tidak dapat dinonaktifkan setelah memutus untuk beberapa atau semua dari konfigurasi yang dipilih karena mereka menyertakan opsi 'user' dan/atau 'group'. Opsi-opsi itu akan menyebabkan OpenVPN tidak berjalan sebagai root selama pemutusan, sehingga itu tidak akan bisa menonaktifkan akses jaringan.\n\nKonfigurasi yang memuat 'user' dan/atau 'group' adalah:\n\n%@\n\n";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected." = "Akses jaringan dimatikan ketika suatu VPN putus.";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "Akses jaringan dimatikan ketika suatu VPN putus.\n\nApakah Anda hendak memfungsikan ulang akses jaringan?\n\n";
+
 /* Window text */
 "Network setting" = "Setelan jaringan";
 
@@ -1271,6 +1287,12 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Tidak menggantikan konfigurasi yang ada, sehingga konfigurasi '%@' tidak bisa memakai 'TBKeepExistingFilesList'";
 
 /* Window text */
+"On expected disconnect:" = "Saat pemutusan yang sudah diduga:";
+
+/* Window text */
+"On unexpected disconnect:" = "Saat pemutusan yang tak diduga:";
+
+/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Satu atau beberapa proses OpenVPN sedang berjalan, tetapi tidak dikenali oleh Tunnelblick. Jika anda tidak menjalankan OpenVPN terpisah dari Tunnelblick, ini biasanya karena peluncuran Tunnelblick yang lalu tidak terhenti dengan benar dan Anda harus menghentukannya. Proses-proses tersebut bisa mencampuri jalannya Tunnelblick. Apakah Anda mau menghentikan semua proses OpenVPN?";
 
 /* Window text */
@@ -1303,11 +1325,8 @@
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN tidak merespon permintaan memutus %@.\n\nTunnelblick akan memutus ketika OpenVPN mulai merespon ke permintaan pemutusan.\n\nINI MUNGKIN MAKAN WAKTU SAMPAI DUA MENIT dalam keadaan tertentu yang tidak biasa.\n\nKoneksi akan tidak tersedia sampai diputus.";
 
-/* Window text */
-"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versi %1$@ tidak tersedia. Mengubah konfigurasi ini untuk memakai versi terbaru (%2$@) yang termasuk dalam versi Tunnelblick ini.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN versi %1$@ tidak tersedia. Memakai versi terakhir (%2$@) sebagai baku.";
+/* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
+"OpenVPN version %@ is not available. Using %@ as the default." = "OpenVPN versi %1$@ tidak tersedia. Memakai versi %2$@ sebagai baku.";
 
 /* Window text */
 "OpenVPN version:" = "Versi OpenVPN:";
@@ -1423,8 +1442,14 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Preferensi 'namedCredentialsNames' mesti berupa larik kalimat";
 
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Berkas konfigurasi OpenVPN bagi '%@' berubah setelah terakhir kali diamankan.\n\nApakah Anda hendak mengamankan konfigurasi yang diubah atau mengembalikan ke konfigurasi yang terakhir diamankan?\n\n";
+
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "Berkas konfigurasi OpenVPN dalam %1$@ memuat suatu opsi '%2$@', yang merupakan opsi khusus Windows. Itu tidak bisa dipakai pada OS X.";
+
+/* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Log OpenVPN mengandung pesan berikut: \n\n\"%1$@\".%2$@";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "Log OpenVPN belum ada atau telah dihapus.";
@@ -1490,6 +1515,9 @@
 "There are no OpenVPN configurations to install." = "Tidak ada konfigurasi OpenVPN yang akan dipasang.";
 
 /* Window text */
+"There are no OpenVPN processes running" = "Tidak ada proses OpenVPN yang sedang berjalan";
+
+/* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Tidak ada konfigurasi VPN yang terpasang.\n\nTunnelblick perlu satu atau lebih konfigurasi terpasang untuk menyambung ke suatu VPN. Konfigurasi dipasang dari berkas yang biasanya disediakan bagi Anda oleh manajer jaringan atau penyedia layanan VPN Anda. Berkas mesti dipasang sebelum digunakan.\n\nBerkas konfigurasi punya ekstensi .tblk, .ovpn, atau .conf.\n\n(Mungkin ada berkas lain yang terkait dengan konfigurasi yang memiliki ekstensi lain; abaikan saja mereka saat ini.)\n\nApakah Anda punya berkas konfigurasi?\n";
 
 /* Window text */
@@ -1513,6 +1541,15 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Versi Tunnelblick yang 'Disebarkan' ini tidak dapat diluncurkan atau dipasang karena tidak memiliki suatu Info.plist.\n\n";
 
+/* Window text. The '%@' will be replaced by the name of a configuration */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains Openvpn options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%@' memuat opsi-opsi OpenVPN yang bertentangan.\n\nYaitu, satu opsi atau lebih hanya tersedia di versi lama OpenVPN dan satu opsi atau lebih hanya tersedia di versi modern OpenVPN. Tidak ada versi OpenVPN akan menerima semua opsi dalam berkas konfigurasi.\n\nAnda mesti memutakhirkan konfigurasi sehingga itu dapat dipakai dengan versi modern OpenVPN.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%1$@' memuat opsi-opsi OpenVPN ini:\n\n%2$@\nTidak ada versi OpenVPN yang disertakan dalam versi Tunnelblick ini termasuk opsi itu.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%1$@' memuat opsi-opsi OpenVPN ini:\n\n%2$@\nTidak ada versi OpenVPN yang disertakan dalam versi Tunnelblick ini termasuk opsi itu.\n\nAnda mesti memutakhirkan konfigurasi sehingga itu dapat dipakai dengan versi modern OpenVPN.";
+
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Alamat yang terlihat sebagai IP publik komputer ini tidak berbeda setelah menyambung ke %1$@. Itu masih %2$@.\n\nIni mungkin berarti bahwa VPN Anda tidak dikonfigurasi secara benar.\n\n";
 
@@ -1528,9 +1565,6 @@
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Versi Tunnelblick ini tidak bisa dijalankan atau dipasang karena ini bukan versi yang dirilis, dan satu atau beberapa versi Tunnelblick yang dirilis telah dipasang sebelumnya.\n\n";
 
-/* Window text. The %@ is an Internet address like 'tunnelblick .net' */
-"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "Untuk menggunakan Tunnelblick, Anda mesti mengindikasikan penerimaan Anda atas dan persetujuan ke persyaratan yang dinyatakan dengan mengisi centang dalam kotak centang \"Saya menerima dan setuju ke yang di atas\".\n\nBila Anda melakukan itu dan mengeklik \"Lanjutkan\", %@ akan diakses secara anonim sesuai dengan Kebijakan Privasi Tunnelblick dan Anda akan bisa memasang, memutakhirkan, dan memakai Tunnelblick.\n\n\n";
-
 /* Window text */
 "Too many configuration files in '%@'" = "Terlalu banyak file konfigurasi di dalam '%@'";
 
@@ -1539,6 +1573,9 @@
 
 /* Window text */
 "Translation by" = "Terjemahan oleh";
+
+/* Window text */
+"Trying to quit all OpenVPN processes..." = "Mencoba keluar dari semua proses OpenVPN…";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
 "Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ telah sukses diamankan.";
@@ -1551,6 +1588,12 @@
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Penggunaan internet oleh Tunnelblick:";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check for updates when it is launched and periodically while it is running.\n\n" = "Tunnelblick dapat mengakses %@ untuk mengecek versi baru saat program dibuka dan secara berkala saat program berjalan.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick dapat mengakses %@ untuk memeriksa bahwa alamat IP publik yang tampak, berubah setiap kali Anda menyambung ke VPN.\n\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick tidak dapat dikonfigurasi untuk memulai secara otomatis setelah Anda log in.\n\nLihat Console Log untuk lebih detil.";
@@ -1681,6 +1724,12 @@
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick tidak bisa memulai OpenVPN untuk menyambung ke %@. Untuk rincian, lihat log dalam jendela Rincian VPN...";
 
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check for updates when it is launched and periodically while it is running. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick akan mengakses %@ untuk mengecek versi baru saat program dibuka dan secara berkala saat program berjalan.\nHubungi distributor Tunnelblick untuk keterangan lebih lanjut.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick dapat mengakses %@ untuk memeriksa bahwa alamat IP publik yang tampak, berubah setiap kali Anda menyambung ke VPN. Hubungi distributor dari salinan Tunnelblick ini untuk rincian.\n\n";
+
 /* Window text */
 "Unable to Establish Communication" = "Tidak Bisa Menjalin Komunikasi";
 
@@ -1783,6 +1832,9 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Peringatan: Satu preferensi atau lebih tidak dapat diubah nama. Lihat Log Konsol untuk rincian.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Peringatan: VPN ini mungkin tidak bisa menyambung di masa mendatang.\n\nBerkas konfigurasi OpenVPN bagi '%1$@' memuat opsi-opsi OpenVPN ini:\n\n%2$@\nAnda mesti memutakhirkan konfigurasi sehingga itu dapat dipakai dengan versi modern OpenVPN.\n\nTunnelblick akan memakai OpenVPN %3$@ untuk menyambungkan konfigurasi ini.\n\nNamun, Anda tidak akan bisa menyambung ke VPN ini dengan versi mendatang Tunnelblick yang tidak menyertakan suatu versi OpenVPN yang menerima opsi-opsi tersebut.";
+
 /* Window text */
 "Warnings:" = "Peringatan:";
 
@@ -1883,6 +1935,9 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nCATATAN: Satu atau lebih konfigurasi saat ini sedang tersambung. Mereka akan diputus, instalasi/penggantian/pembongkaran akan dilaksanakan, dan konfigurasi akan disambung ulang kecuali mereka dibongkar.\n\n";
 
 /* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nKesalahan ini berarti bahwa suatu opsi yang dimuat dalam berkas konfigurasi OpenVPN atau \"didorong\" oleh server OpenVPN:\n\n     • salah eja,\n\n     • kurang atau kelebihan argumen, atau\n\n     • tidak diimplementasikan oleh versi OpenVPN yang sedang dipakai untuk konfigurasi ini. Ini mungkin suatu opsi baru yang tidak diimplementasikan dalam versi lama OpenVPN, atau opsi lama yang telah dihapus dalam versi baru OpenVPN. Anda dapat memilih versi OpenVPN mana yang dipakai dengan konfigurasi ini dalam tab \"Pengaturan\" dari panel \"Konfigurasi\" dari jendela Tunnelblick \"Rincian VPN\".\n\nLihat log VPN dalam tab \"Log\" dari panel \"Konfigurasi\" dari jendela Tunnelblick \"Rincian VPN\" untuk rinciannya.";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ndan memasang %ld Konfigurasi VPN Tunnelblick";
 
 /* Window text */
@@ -1906,8 +1961,29 @@
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d hari %2$d:%3$02d:%4$02d";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+"'%@' was added in OpenVPN %@\n" = "'%1$@' ditambahkan dalam OpenVPN %2$@\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' sudah tidak dipakai lagi dalam OpenVPN %2$@ dan dihapus dalam OpenVPN %3$@\n";
+
 /* Credit description */
 "64-bit enabling and testing" = "pemfungsian dan pengujian 64 bit";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Menyatakan versi perangkat lunak SSL dan OpenVPN yang mesti dipakai untuk menyambungkan VPN.</strong><ul><li><strong>Pengaturan \"Baku\"</strong> akan memakai versi OpenVPN baku dengan OpenSSL yang disertakan dalam versi Tunnelblick ini. Nilai baku mungkin berbeda dalam versi lain dari Tunnelblick.<br></li><li><strong>Pengaturan \"Terbaru\"</strong> akan memakai versi OpenVPN terbaru dengan LibreSSL yang disertakan dalam versi Tunnelblick ini. Nilai terbaru mungkin berbeda dalam versi lain dari Tunnelblick.<br></li><li><strong>Sebarang setelan lain</strong> akan memakai versi perangkat lunak SSL dan OpenVPN yang dinyatakan bila mereka tersedia dalam versi Tunnelblick ini. Bila tidak tersedia, kecocokan paling dekat akan dipakai.<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Menyatakan perubahan apa (bila ada) yang dilakukan oleh Tunnelblick atas setelan DNS ketika VPN tersambung.</strong> Pilihannya adalah:<ul><li><strong>Jangan atur server nama</strong>: Tidak ada yang dilakukan.<br></li><li><strong>Atur server nama</strong>: Tunnelblick memakai skrip standarnya untuk menangani setelan DNS dan WINS. Ini biasanya adalah pilihan terbaik. Itu mengubah setelan DNS dan WINS mengikuti instruksi yang diberikan oleh OpenVPN. Setelah DNS dan WINS yang telah diatur secara manual tidak akan berubah kecuali \"Izinkan perubahan ke setelan jaringan yang ditata secara manual\" telah dipilih dalam jendela pengaturan \"Tingkat Lanjut\"<br></li><li><strong>Atur server nama (3.1)</strong>: Tunnelblick memakai skrip dari Tunnelblick 3.1 untuk menangani setelah DNS dan WINS.<br></li><li><strong>Atur server nama (3.0b10)</strong>: Tunnelblick memakai skrip dari Tunnelblick 3.0b10 untuk menangani setelah DNS dan WINS.<br></li><li><strong>Atur server nama (alternatif 1)</strong>: Tunnelblick memakai skrip alternatif untuk menangani setelan DNS dan WINS.<br></li></ul>";
+
+/* HTML info for the 'On unexpected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Menyatakan apa yang dilakukan Tunnelblick ketika VPN putus <em>tak disangka</em></strong> (misalnya, bila OpenVPN crash atau kehilangan koneksi ke VPN dan disiapkan untuk berhenti ketika itu terjadi). Pilihannya adalah:</p><ul><li><strong>Tidak lakukan apapun</strong><br></li><li><strong>Mereset antar muka primer</strong>: Tunnelblick mereset antar muka jaringan primer dengan memberikan perintah 'ipconfig down; ipconfig up' ke antar muka tersebut. Ini bisa membantu ketika suatu konfigurasi gagal memulihkan pengaturan jaringan secara benar setelah terputus.<br></li><li><strong>Nonaktifkan akses jaringan (\"Kill Switch\")</strong>: Tunnelblick memutus semua akses jaringan (lokal dan Internet)\n dengan mematikan Wi-Fi dan menonaktifkan semua layanan jaringan lain. Ini dapat membantu memastikan bahwa tidak ada yang bocor keluar komputer kecuali melalui VPN. Bila Tunnelblick telah menonaktifkan akses jaringan, suatu perintah menu untuk memfungsikan ulang semua akses yang dinonaktifkan akan tersedia dari ikon Tunnelblick dalam bilah menu. Anda juga dapat memfungsikan ulang Wi-Fi dengan menyalakannya,\n atau memfungsikan ulang layanan-layanan jaringan lain dalam Preferensi Sistem: Jaringan. <strong>Setelan ini mungkin tidak bekerja dengan benar ketika lebih dari satu VPN tersambung secara simultan. </strong></li></ul>";
+
+/* HTML info for the 'On expected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Menyatakan apa yang dilakukan Tunnelblick ketika VPN putus <em>seperti yang diharapkan</em></strong> (misalnya, tombol atau butir menu \"Putuskan\" diklik). Pilihannya adalah:</p><ul><li><strong>Tidak lakukan apapun</strong><br></li><li><strong>Mereset antar muka primer</strong>: Tunnelblick mereset antar muka jaringan primer dengan memberikan perintah 'ipconfig down; ipconfig up' ke antar muka tersebut. Ini bisa membantu ketika suatu konfigurasi gagal memulihkan pengaturan jaringan secara benar setelah terputus.<br></li><li><strong>Nonaktifkan akses jaringan (\"Kill Switch\")</strong>: Tunnelblick memutus semua akses jaringan (lokal dan Internet)\n dengan mematikan Wi-Fi dan menonaktifkan semua layanan jaringan lain. Ini dapat membantu memastikan bahwa tidak ada yang bocor keluar komputer kecuali melalui VPN. Bila Tunnelblick telah menonaktifkan akses jaringan, suatu perintah menu untuk memfungsikan ulang semua akses yang dinonaktifkan akan tersedia dari ikon Tunnelblick dalam bilah menu. Anda juga dapat memfungsikan ulang Wi-Fi dengan menyalakannya,\n atau memfungsikan ulang layanan-layanan jaringan lain dalam Preferensi Sistem: Jaringan. <strong>Setelan ini mungkin tidak bekerja dengan benar ketika lebih dari satu VPN tersambung secara simultan. </strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Menyatakan kapan Tunnelblick mesti menyambung ke VPN.</strong></p><p>\"Ketika komputer dihidupkan\" hanya booleh dipakai dengan konfigurasi \"Bersama\".</p>";
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Ketika dicentang</strong>, IPv6 akan dimatikan.</p>\n<p>Mematikan IPv6 sering disarankan karena banyak konfigurasi VPN tidak menjaga atas kebocoran informasi yang disebabkan oleh penggunaan IPv6. Kebanyakan akses internet bekerja baik tanpa IPv6.</p>\n<p><strong>Ketika tidak dicentang</strong>, IPv6 tidak akan dimatikan.</p>\n<p><strong>Kotak centang ini dimatikan</strong> ketika memakai koneksi 'tap' karena tidak bisa dipaksakan pada suatu koneksi 'tap'.</p>";
@@ -1935,9 +2011,6 @@
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan membutuhkan otorisasi administrator komputer untuk membuat perubahan ke berkas kunci dan sertifikat.</p>\n<p><strong>Ketika tidak dicentang</strong>, pengguna standar akan diijinkan membuat perubahan ke berkas kunci dan sertifikat.</p><p><strong>Catatan: Otorisasi administrator komputer diperlukan untuk mengubah pengaturan ini.</strong></p>";
-
-/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan mereset antarmuka jaringan primer setelah VPN terputus. Ini bisa mengatasi masalah yang disebabkan oleh beberapa server VPN yang salah konfigurasi dan oleh beberapa kesalahan konfigurasi OpenVPN.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick tidak akan mereset antarmuka jaringan primer.</p>\n<p><strong>Kotak centang ini dimatikan</strong> ketika 'Atur DNS/WINS' tidak ditata ke 'Atur nameserver'.</p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan mengamati dan berreaksi atas perubahan dalam pengaturan jaringan (sebagai contoh, perubahan yang disebabkan oleh pembaruan DHCP atau berpindah koneksi Internet) untuk mencoba menjaga VPN tersambung. Aksi baku Tunnelblick ketika pengaturan jaringan berubah biasanya bekerja dengan baik, tapi Anda boleh menyatakan aksi yang berbeda pada tab 'Ketika Tersambung' dari jendela pengaturan 'Tingkat Lanjut'.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick akan mengabaikan perubahan jaringan.</p>\n<p><strong>Kotak centang ini dimatikan</strong> ketika 'Atur DNS/WINS' ditata ke 'Atur nameserver' atau 'Atur nameserver (3.1)'.</p>";
@@ -1996,6 +2069,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Memeriksa pemutakhiran atas aplikasi Tunnelblick.</p><p>Mengakses situs web Tunnelblick; untuk rincian lebih lanjut lihat <a href=\"https://tunnelblick.net/cPrivacy.html\">Privasi dan Keamanan</a>[tunnelblick.net].</p><p>Juga memeriksa pemutakhiran ke konfigurasi bila penyedia layanan VPN Anda mengimplementasikan fitur itu.</p>";
 
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addreses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Menyalin informasi ke Papan Klip untuk membantu diagnosa masalah.</p><p>Informasi termasuk versi perangkat lunak dan pengaturan, berkas konfigurasi OpenVPN, pengaturan jaringan, dan lainnya.</p><p>Informasi sertifikat yang sensitif tidak disertakan, tapi data seperti alamat IP dan URL yang <em>mungkin</em> konfidensial disertakan. Anda mesti memeriksa informasi dan menghapus apapun yang ingin tetap Anda rahasiakan sebelum mengirimnya dalam suatu surel atau mengeposkannya secara publik.</p>";
+
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Menyalin bagian terakhir dari Log Konsol ke Papan Klip sehingga dapat ditempelkan ke dalam suatu surel atau dokumen lain.</p><p>Log memuat rincian operasi OpenVPN dan Tunnelblick. Itu termasuk pesan status dan pesan kesalahan terrinci yang terlalu panjang untuk disajikan ke pengguna dalam suatu jendela dialog normal.</p>";
 
@@ -2011,6 +2087,24 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Memulihkan peringatan yang telah dicegah oleh kotak centang 'Jangan ingatkan tentang hal ini lagi'.</p>";
 
+/* HTML info for the 'VPN log level' button. */
+"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Menyatakan banyaknya catatan log yang dilakukan oleh Tunnelblick dan OpenVPN.</p>";
+
+/* HTML info for the 'Icon' button. */
+"<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Menyatakan ikon yang mesti ditampilkan oleh Tunnelblick dalam bilah menu.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunneblick's main menu.</p>" = "<p>Menyatakan kunci yang mesti ditekan untuk memunculkan menu utama Tunnelblick.</p>";
+
+/* HTML info for the 'Maximum log display size' button. */
+"<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Menyatakan banyaknya penyimpanan maksimum yang dipakai untuk menampilkan log VPN.</p>";
+
+/* HTML info for the button for selecting which screen to show status windows. */
+"<p>Specifies the screen on which Tunnelblick should display VPN status windows.</p>" = "<p>Menyatakan pada layar mana Tunnelblick mesti menampilkan jendela status VPN.</p>";
+
+/* HTML info for the 'VPN status windows' button. */
+"<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>Menyatakan kapan Tunnelblick mesti menampilkan jendela status VPN.</p>";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Singgahan DNS memuat salinan informasi DNS (Domain Name System).</p>\n<p><strong>Ketika dicentang</strong>, singgahan DNS akan digelontor (dibersihkan) setelah menyambung atau memutus. Semua pencarian DNS akan dilaksanakan oleh server nama yang dinyatakan oleh penyiapan VPN.</p>\n<p><strong>Ketika tidak dicentang</strong>, singgahan DNS tidak akan digelontor. Ini bisa menyebabkan masalah bila ada konflik nama antara server nama yang dinyatakan oleh penyiapan VPN dan nama server pra VPN dan bila entri pra VPN telah disinggahkan.</p>";
 
@@ -2025,6 +2119,9 @@
 
 /* Credit description */
 "Afrikaans translation" = "Terjemahan bahasa Afrikaans";
+
+/* Credit description */
+"Albanian translation" = "Terjemahan bahasa Albania";
 
 /* Credit description */
 "Animation and icon sets code" = "Kode set ikon dan animasi";
@@ -2086,6 +2183,9 @@
 /* Checkbox */
 "Do not show this again" = "Jangan tampilkan ini lagi";
 
+/* Checkbox text */
+"Do not warn about this again, never re-enable" = "Jangan peringatkan tentang ini lagi, jangan pernah fungsikan ulang";
+
 /* Credit description */
 "Dutch translation" = "Terjemahan bahasa Belanda";
 
@@ -2116,9 +2216,6 @@
 
 /* Credit description */
 "Hungarian translation" = "Terjemahan bahasa Hungaria";
-
-/* Checkbox text */
-"I accept and agree to the above" = "Saya menerima dan setuju dengan yang di atas";
 
 /* Credit description */
 "Icelandic translation" = "Terjemahan bahasa Islandia";

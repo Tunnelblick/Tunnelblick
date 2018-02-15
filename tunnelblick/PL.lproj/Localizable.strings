@@ -95,10 +95,19 @@
 "Delete" = "Usuń";
 
 /* Button */
+"Disable network access" = "Wyłącz dostęp do sieci";
+
+/* Button */
 "Disconnect" = "Rozłącz";
 
 /* Button */
+"Do Not Re-enable Network Access" = "Nie włączaj ponownie dostępu do sieci";
+
+/* Button */
 "Do not use the plugin" = "Nie używaj wtyczki";
+
+/* Button */
+"Do nothing" = "Nie nie rób";
 
 /* Button */
 "Download" = "Pobierz";
@@ -132,6 +141,9 @@
 
 /* Button */
 "Monochrome icon" = "Ikona monochromatyczna";
+
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "Więcej informacji [%@]";
 
 /* Button */
 "More Info" = "Więcej informacji";
@@ -175,6 +187,10 @@
 /* Button */
 "Quit" = "Zakończ";
 
+/* Button
+   Menu item */
+"Re-enable Network Access" = "Włącz ponownie dostęp do sieci";
+
 /* Button */
 "Reinstall" = "Zainstaluj ponownie";
 
@@ -188,6 +204,9 @@
 "Reset Disabled Warnings" = "Zresetuj nie aktywne ostrzeżenia";
 
 /* Button */
+"Reset primary interface" = "Zresetuj główny interfejs";
+
+/* Button */
 "Restart connection" = "Restartuj połączenie";
 
 /* Button */
@@ -197,7 +216,13 @@
 "Retry" = "Spróbuj ponownie";
 
 /* Button */
+"Revert to the Last Secured Copy" = "Przywróć ostatnią zabezpieczoną kopię";
+
+/* Button */
 "Revert" = "Przywróć";
+
+/* Button */
+"Secure the Configuration" = "Zabezpiecz konfigurację";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Pokaż na ekranie domyślnym (%1$u x %2$u)";
@@ -207,6 +232,9 @@
 
 /* Button */
 "Show when connection status changes" = "Pokaż, gdy zmieni się status połączenia";
+
+/* Button */
+"Show while connecting and connected" = "Pokaż w czasie łączenia i gdy połączony";
 
 /* Button */
 "Show while connecting" = "Pokaż podczas łączenia";
@@ -302,10 +330,10 @@
 "OpenVPN level 3 - normal output" = "OpenVPN poziom 3 - normalne wyjście";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN poziom 4 - wyświetla również wartości dla wszystkich opcji";
+"OpenVPN level 4 - values for all options" = "OpenVPN poziom 4 - wartości dla wszystkich opcji";
 
 /* Menu Item */
-"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN poziom 5 - wyświetla również \"R\" lub \"W\" dla każdego pakietu";
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN poziom 5 - \"R\" lub \"W\" dla każdego pakietu";
 
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPN poziom 6 - bardzo szczegółowe logowanie";
@@ -376,9 +404,6 @@
 /* Checkbox name */
 "Do not ask again, always convert" = "Nie pytaj ponownie, zawsze konwertuj";
 
-/* Checkbox name on a warning dialog */
-"Do not show again for any configuration" = "Nie pokazuj ponownie dla żadnej konfiguracji";
-
 /* Checkbox name */
 "Do not show this type of warning again" = "Nie pokazuj więcej ostrzeżeń tego typu";
 
@@ -420,9 +445,6 @@
 
 /* Checkbox name */
 "Require administrator authorization for key and certificate changes" = "Wymagaj autoryzacji administratora dla zmiany klucza i certyfikatu";
-
-/* Checkbox name */
-"Reset the primary interface after disconnecting" = "Zresetuj podstawowy interfejs po rozłączeniu";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Kieruj cały ruch IPv4 przez VPN";
@@ -548,9 +570,6 @@
 "Alert" = "Powiadomienie";
 
 /* Window title */
-"All OpenVPN process were terminated." = "Wszystkie procesy OpenVPN zostały zakończone.";
-
-/* Window title */
 "All configuration files removed" = "Wszystkie pliki konfiguracyjne zostały usunięte";
 
 /* Window title */
@@ -620,9 +639,6 @@
 "No Credentials" = "Bez danych logowania";
 
 /* Window title */
-"One or more OpenVPN processes could not be terminated." = "Jeden lub więcej procesów OpenVPN nie mogło zostać zakończony.";
-
-/* Window title */
 "Only computer administrators should update Tunnelblick" = "Tylko Administrator komputera może aktualizować Tunnelblick";
 
 /* Window title */
@@ -653,19 +669,10 @@
 "System Requirements Not Met" = "Wymagania systemowe nie zostały spełnione";
 
 /* Window title */
-"There are no OpenVPN processes running." = "Nie wykryto działających procesów OpenVPN.";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Problem z konfiguracją Tunnelblick";
 
 /* Window title */
 "Tunnelblick Error" = "Błąd Tunnelblick";
-
-/* Window title */
-"Tunnelblick Installation or Update" = "Instalacja lub Aktualizacja Tunnelblick";
-
-/* Window title */
-"Tunnelblick Update" = "Aktualizacja Tunnelblick";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -808,9 +815,6 @@
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ zostało przywrócone do swojej ostatniej bezpiecznej (ukrytej) kopii.\n\n";
 
-/* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
-"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Tunnelblick jest bezpłatnym oprogramowaniem: możesz go używać, redystrybuować i/lub modyfikować zgodnie z warunkami licencji GNU General Public License w wersji 2 opublikowanej przez Free Software Foundation.\n\nTunnelblick jest oferowany bezpłatnie, tak jak jest i bez jakichkolwiek gwarancji. Tunnelblick i jego autorzy nie ponoszą żadnej odpowiedzialności za szkody wynikłe z korzystania z Tunnelblick lub jakichkolwiek jego modyfikacji przez firmę zewnętrzną. Szczegółowe informacje można znaleźć w dokumencie GNU General Public License w wersji 2.\n\nJeśli akceptujesz i zgadzasz się na te warunki, Twoja odpowiedź zostanie wysłana anonimowo do %2$@ i zostaniesz poproszony o autoryzację, aby Tunnelblick mógł być bezpiecznie zainstalowany lub zaktualizowany.";
-
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfiguracje zostały przywrócone do ich ostatniej bezpiecznej kopii.\n\n";
 
@@ -822,6 +826,9 @@
 
 /* Window text */
 "'%@' was not terminated." = "' %@ \"nie zostało zamknięte.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' połączy się używając OpenVPN %2$@ zamiast skonfigurowanej wersji (OpenVPN %3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Preferencje 'easy-rsaPath' zignorowane; nie określają folderu";
@@ -896,6 +903,9 @@
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Po połączeniu z %@, nie można połączyć się z Internetem.\n\nMoże to oznaczać, iż Twój VPN jest niepoprawnie skonfigurowany.\n\n";
 
 /* Window text */
+"All OpenVPN processes have quit" = "Wszystkie procesy OpenVPN zostały zakończone";
+
+/* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "Usunięto wszystkie pliki konfiguracyjne. Tunnelblick musi zostać wyłączony.";
 
 /* Window text */
@@ -960,6 +970,9 @@
 
 /* Window text */
 "Backslash at end of line %u is not allowed" = "Backslash na końcu linii %u jest niedozwolony";
+
+/* Window text */
+"Cancelled trying to quit all OpenVPN processes" = "Anulowano próbę zakończenia wszystkich procesów OpenVPN";
 
 /* Window text */
 "Cannot find configuration file at %@" = "Nie można odnaleźć pliku konfiguracyjnego w %@";
@@ -1150,9 +1163,6 @@
 /* Window text */
 "Icon:" = "Ikona:";
 
-/* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
-"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "Jeżeli opcja \"Sprawdź dostępność aktualizacji\" jest zaznaczona, Tunnelblick sprawdzi aktualizacje w %1$@ w momencie startu programu i okresowo w czasie pracy. Możesz zmienić to ustawienie później.\n\nJeżeli opcja \"Sprawdzaj zmiany adresu IP\" jest zaznaczona, Tunnelblick połączy się z %2$@ w celu weryfikacji aktualnego adresu IP komputera przed i po zestawieniu połączenia VPN i wyświetli ostrzeżenie jeśli adres nie uległ zmianie. Możesz zmienić to ustawienie później.\n\n\n";
-
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "W %@: \n\nnie ma konfiguracji OpenVPN do zainstalowania.";
 
@@ -1195,9 +1205,6 @@
 /* Window text */
 "Last checked: %@" = "Ostatnio sprawdzane: %@";
 
-/* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
-"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "Licencja:\n     %1$@\nFree Software Foundation:\n     %2$@\nTunnelblick - reguły prywatności:\n     %3$@\n\n";
-
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Wiersz %1$d pliku '%2$@' zawiera znak niedrukowalny (0x%3$X) co jest niedozwolone.\n\n";
 
@@ -1237,6 +1244,15 @@
 /* Window text */
 "NetBIOS name:" = "Nazwa NetBIOS:";
 
+/* Window text; the %@ will be replaced by a list of configuration names. */
+"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "Dostęp do sieci nie może być wyłączony po rozłączeniu niektórych lub wszystkich zaznaczonych konfiguracji ponieważ zawierają one opcje 'user' i/lub 'group'. Te opcje spowodują że OpenVPN nie będzie miał przywilejów root w czasie rozłączania więc nie będzie mógł wyłączyć dostępu do sieci.\n\nKonfiguracje zawierające opcje 'user' i/lub 'group':\n\n%@\n\n";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected." = "Dostęp do sieci został wyłączony po rozłączeniu połączenia VPN.";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "Dostęp do sieci został wyłączony po rozłączeniu VPN.\n\nCzy chcesz ponownie włączyć dostęp do sieci?\n\n";
+
 /* Window text */
 "Network setting" = "Ustawienia sieci";
 
@@ -1271,6 +1287,12 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nie zastępuję istniejącej konfiguracji, więc konfiguracja '%@' nie może używać \"TBKeepExistingFilesList\"";
 
 /* Window text */
+"On expected disconnect:" = "Przy spodziewanym rozłączeniu:";
+
+/* Window text */
+"On unexpected disconnect:" = "Przy niespodziewanym rozłączeniu:";
+
+/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Działa jeden lub więcej procesów OpenVPN, które nie są skojarzone z aktualną instancją Tunnelblick'a. Jeśli nie korzystasz z połączeń OpenVPN bez pośrednictwa Tunnelblick'a, oznacza to zazwyczaj, iż wcześniej uruchomiona instancja Tunnelblick'a nie była w stanie poprawnie zakończyć rozpoczętych przez siebie procesów i że powinieneś zakończyć je ręcznie. Jeśli nie zostaną zamknięte, mogą powodować błędy w działaniu Tunnelblick'a. Czy chcesz zakończyć wszystkie procesy OpenVPN?";
 
 /* Window text */
@@ -1303,11 +1325,8 @@
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN nie odpowiada na żądanie rozłączenia %@.\n\nTunnelblick rozłączy się gdy OpenVPN zacznie odpowiadać na żądania.\n\nW NIEKTÓRYCH SYTUACJACH MOŻE TO ZAJĄĆ DO DWÓCH MINUT.\n\nTo połączenie będzie niedostępne do chwili w której uda się je rozłączyć.";
 
-/* Window text */
-"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN w wersji %1$@ nie jest dostępny. Zmieniam wersję używaną przez tę konfigurację na najnowszą (%2$@) zawartą w tej wersji Tunnelblick.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN w wersji %1$@ nie jest dostępny. Używam najnowszej wersji (%2$@) jako domyślnej.";
+/* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
+"OpenVPN version %@ is not available. Using %@ as the default." = "OpenVPN wersja %1$@ jest niedostępna. Wersja %2$@ jest używana jako domyślna.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN wersja:";
@@ -1423,8 +1442,14 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Właściwość 'namedCredentialsNames' musi być tablicą stringów";
 
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Plik konfiguracyjny OpenVPN dla '%@' został zmodyfikowany po ostatnim jego zabezpieczeniu.\n\nCzy chcesz zabezpieczyć zmienioną konfigurację czy przywrócić ostatnio zabezpieczoną?\n\n";
+
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "Plik konfiguracji OpenVPN w %1$@ zawiera opcję '%2$@' która jest opcją system Windows. Nie może być wykorzystana pod OS X.";
+
+/* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Log OpenVPN zawiera następującą informację: \"%1$@\".%2$@";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "Dziennik OpenVPN jeszcze nie istnieje bądź został usunięty.";
@@ -1490,6 +1515,9 @@
 "There are no OpenVPN configurations to install." = "Brak konfiguracji OpenVPN do zainstalowania.";
 
 /* Window text */
+"There are no OpenVPN processes running" = "Nie ma więcej aktywnych procesów OpenVPN";
+
+/* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Żadna konfiguracja VPN nie jest zainstalowana.\n\nTunnelblick wymaga jednej bądź więcej zainstalowanych konfiguracji, aby się połączyć. Konfiguracje instalowane są z plików, dostarczonych zazwyczaj przez Twojego menadżera sieci bądź dostawcę usług VPN. Pliki muszą być zainstalowane, aby mogły być użyte.\n\nPliki konfiguracyjne mają rozszerzenia: .tblk, .ovpn, bądź .conf.\n\n(Inne pliki powiązane z konfiguracją mogą występować z innym rozszerzeniem; na razie je zignoruj.)\n\nCzy posiadasz jakiekolwiek pliki konfiguracyjne?\n";
 
 /* Window text */
@@ -1513,6 +1541,15 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Ta spersonalizowana wersja Tunnelblick'a nie może być uruchomiona lub zainstalowana ponieważ nie zawiera pliku Info.plist.\n\n";
 
+/* Window text. The '%@' will be replaced by the name of a configuration */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains Openvpn options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "To połączenie VPN nie może zostać zestawione.\n\nPlik konfiguracyjny OpenVPN '%@' zawiera opcje powodujące konflikt.\n\nJedna lub więcej opcji są tylko dostępne w starszej wersji OpenVPN i jedna lub więcej opcji są tylko dostępne w nowszej wersji OpenVPN. Żadna wersja OpenVPN nie może używać wszystkich tych opcji jednocześnie.\n\nPowinieneś uaktualnić plik konfiguracyjny zgodnie ze specyfikacją nowszej wersji OpenVPN.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "To połączenie VPN nie może zostać zestawione.\n\nPlik konfiguracyjny OpenVPN '%1$@' zawiera następujące opcje:\n\n%2$@\nŻadna wersja OpenVPN w tej edycji Tunnelblick nie zawiera tej lub tych opcji.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "To połączenie VPN nie może zostać zestawione.\n\nPlik konfiguracyjny OpenVPN '%1$@' zawiera następujące opcje:\n\n%2$@\nŻadna wersja OpenVPN w tej edycji Tunnelblick nie zawiera tej lub tych opcji.\n\nPowinieneś uaktualnić plik konfiguracyjny zgodnie ze specyfikacją nowszej wersji OpenVPN.";
+
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Publiczny adres IP tego komputera nie zmienił się po podłączeniu do %1$@. Ten adres to wciąż %2$@.\n\nMoże to oznaczać, że twój VPN jest niepoprawnie skonfigurowany.\n\n";
 
@@ -1528,9 +1565,6 @@
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Ta wersja Tunnelblick'a nie może zostać uruchomiona lub zainstalowana, ponieważ nie jest to wersja spersonalizowana i wykryto w systemie obecność wcześniej zainstalowanych wersji spersonalizowanych.\n\n";
 
-/* Window text. The %@ is an Internet address like 'tunnelblick .net' */
-"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "Aby korzystać z Tunnelblick, musisz zaakceptować umowę użytkowania, zaznaczając pole wyboru \"Akceptuję i zgadzam się na powyższe\".\n\nJeśli to zrobisz i klikniesz \"Kontynuuj\", zostaniesz anonimowo (zgodnie z Polityką Prywatności Tunnelblick) połączony z %@ i będziesz mógł zainstalować, aktualizować i używać Tunnelblick.\n\nJeśli nie wyrażasz zgody, nie możesz instalować, aktualizować ani używać Tunnelblick.\n\n\n";
-
 /* Window text */
 "Too many configuration files in '%@'" = "Zbyt wiele plików konfiguracyjnych w '%@'";
 
@@ -1539,6 +1573,9 @@
 
 /* Window text */
 "Translation by" = "Tłumaczenie przez";
+
+/* Window text */
+"Trying to quit all OpenVPN processes..." = "Próbuję zakończyć wszystkie aktywne procesy OpenVPN...";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
 "Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ został pomyślnie zabezpieczony.";
@@ -1551,6 +1588,12 @@
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Wykorzystanie internetu przez Tunnelblick:";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check for updates when it is launched and periodically while it is running.\n\n" = "Tunnelblick może połączyć się z %@ w celu sprawdzenia uaktualnień w momencie startu aplikacji a także okresowo w czasie pracy.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick może się połączyć z %@ w celu sprawdzenia czy publiczny adres IP twojego komputera zmienia się za każdym razem gdy połączenie VPN zostanie nawiązane.\n\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick nie mógł zostać dodany do autostartu.\n \nZobacz Dziennik konsoli, aby uzyskać szczegółowe informacje.";
@@ -1681,6 +1724,12 @@
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick nie mógł uruchomić OpenVPN dla połączenia %@. Szczegóły błędu znajdują się w logu w \"Właściwości VPN\"… oknie";
 
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check for updates when it is launched and periodically while it is running. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick połączy się z %@ w celu sprawdzenia uaktualnień w momencie startu aplikacji a także okresowo w czasie pracy. Skontaktuj się z dystrybutorem Tunnelblick po bardziej szczegółowe informacje.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick połączy się z %@ w celu sprawdzenia czy publiczny adres IP twojego komputera zmienia się za każdym razem gdy połączenie VPN zostanie nawiązane. Skontaktuj się z dystrybutorem tej kopi Tunnelblick jeśli potrzebujesz więcej informacji.\n\n";
+
 /* Window text */
 "Unable to Establish Communication" = "Połączenie nie może zostać zrealizowane";
 
@@ -1751,7 +1800,7 @@
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Aktualizowalna konfiguracja '%@' nie została zapisana jako aktualizowalna, ponieważ jej CFBundleIdentifier został już przetworzony\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Plik konfiguracyjny '%@' nie mógł być zapiany jako aktualizowalny ponieważ brakowało wpisu 'SUPublicDSAKey' w pliku Info.plist albo w wpisie 'SUFeedURL' nie określono protokołu https:\n";
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Plik konfiguracyjny '%@' nie mógł być zapisany jako aktualizowalny ponieważ brakowało wpisu 'SUPublicDSAKey' w pliku Info.plist albo w wpisie 'SUFeedURL' nie określono protokołu https:\n";
 
 /* Window text */
 "Updates:" = "Aktualizacje:";
@@ -1782,6 +1831,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Ostrzeżenie: nazwa jednej bądź więcej preferencji nie może zostać zmieniona. Szczegóły są dostępne w dzienniku konsoli.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Ostrzeżenie: Ta konfiguracja VPN może przestać działać w przyszłości.\n\nPlik konfiguracyjny OpenVPN '%1$@' zawiera następujące opcje:\n\n%2$@\nPowinieneś uaktualnić plik konfiguracyjny zgodnie ze specyfikacją nowszej wersji OpenVPN.\n\nTunnelblick będzie używał wersji OpenVPN %3$@ dla tej konfiguracji.\n\nUżywając przyszłych wersji Tunnelblick nie zawierających wymaganej dla tego połączenia wersji OpenVPN która akceptuje te opcje nie będziesz mógł używać tego połączenia VPN.";
 
 /* Window text */
 "Warnings:" = "Ostrzeżenia:";
@@ -1883,6 +1935,9 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nUWAGA: Jedna bądź więcej konfiguracji jest aktualnie aktywna. Zostaną one rozłączone, instalacja/deinstalacja zostanie przeprowadzone a następnie połączenia zostaną przywrócone, o ile nie zostały odinstalowane.";
 
 /* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nTen błąd oznacza że któraś z opcji w pliku konfiguracyjnym OpenVPN lub opcja wymuszona przez serwer OpenVPN:\n\n • zawiera literówki\n\n • ma brakujące lub dodatkowe argumenty, lub\n\n • nie jest częścią implementacji wersji OpenVPN używanej przez tą konfigurację. To może być nowa opcja która nie jest częścią implementacji starszych wersji OpenVPN, lub stara opcja która została usunięta w nowszej wersji OpenVPN. Możesz wybrać którą wersję OpenVPN używać z tą konfiguracją w zakładce ustawień panelu konfiguracji w okienku \"Właściwości VPN\" Tunnelblick.\n\nSzczegóły błędu znajdują się w logu VPN który możesz podejrzeć w zakładce 'Log' panelu konfiguracji w okienku \"Właściwości VPN\" Tunnelblick.";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ni zainstaluj %ld konfiguracji VPN Tunnelblick'a";
 
 /* Window text */
@@ -1906,8 +1961,29 @@
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d dni %2$d:%3$02d:%4$02d";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+"'%@' was added in OpenVPN %@\n" = "'%1$@' został dodany w OpenVPN %2$@\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' został uznany za przestarzały w OpenVPN %2$@ i całkowicie usunięty w OpenVPN %3$@\n";
+
 /* Credit description */
 "64-bit enabling and testing" = "implementacja i testowanie wersji 64-bitowej";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Określa wersję OpenVPN i programu SSL które powinny być użyte do połaczenia VPN.</strong><ul><li><strong>\"Domyślne\" ustawienie</strong> będzie używało domyślnej wersji OpenVPN z programem SSL które są zawarte w tej wersji Tunnelblick. Domyślne ustawienie może się różnić w zależności od wersji Tunnelblick.<br></li><li><strong>Ustawienie \"Najnowsze\"</strong> będzie używało najnowszej wersję OpenVPN z programem LibreSSL które są zawarte w tej wersji Tunnelblick. Najnowsza wersja może się różnić w zależności od wersji Tunnelblick.<br></li><li><strong>Jakiekolwiek inne ustawienia</strong> będą używały określonej wersji OpenVPN i programu SSL jeśli są one dostępne w tej wersji Tunnelblick. Jeśli ich brak używana będzie możliwie najbliższa wersja.<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Określa co (i czy cokolwiek) Tunnelblick robi w celu modyfikacji ustawień DNS gdy połączenie VPN jest aktywne.</strong> Następujące opcje są dostępne:<ul><li><strong> Nie ustawiaj serwera DNS</strong>: Nie nie jest zmieniane.<br></li><li><strong>Ustaw serwer DNS</strong>: Tunnelblick używa swojego standardowego skryptu do zarządzania ustawieniami DNS i WINS. To przeważnie jest najlepsza opcja. Ustawienia DNS i WINS są zmieniane zgodnie z instrukcjami OpenVPN. Ręcznie zmienione ustawiania DNS i WINS nie zostaną zmodyfikowane chyba że jest zaznaczona opcja \"Zezwalaj na zmiany dla ręcznie zmienionych ustawień sieci\" w okienku ustawień \"Zaawansowane\"<br></li><li><strong>Ustaw serwer DNS (3.1)</strong>: Tunnelblick używa skryptu z wersji Tunnelblick 3.1 do zarządzania ustawieniami DNS i WINS.<br></li><li><strong>Ustaw serwer DNS (3.0. b10)</strong>: Tunnelblick używa skryptu z wersji Tunnelblick 3.0b10 do zarządzania ustawieniami DNS i WINS.<br></li><li><strong>Ustaw serwer DNS (alternatywny 1)</strong>: Tunnelblick używa alternatywnego skryptu do zarządzania ustawieniami DNS i WINS.<br></li></ul>";
+
+/* HTML info for the 'On unexpected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Określa co Tunnelblick robi po <em>niespodziewanym</em> rozłączeniu VPN</strong> (na przykład w wypadku zawieszenia się programu lub utraty połączenia gdy OpenVPN jest skonfigurowany żeby zaprzestać pracy w takim przypadku). Następujące opcje są dostępne:</p><ul><li><strong>Nic nie rób</strong><br></li><li><strong>Zresetuj główny interfejs sieciowy</strong>: Tunnelblick resetuje główny interfejs sieciowy używając poleceń 'ipconfig down; ipconfig up' interfejsu sieciowego. To może być przydatne kiedy ustawienia sieciowe nie są poprawnie przywrócone po rozłączeniu VPN.<br></li><li><strong>Wyłącz dostęp do sieci (\"Kill Switch\")</strong>: Tunnelblick odcina wszelki dostęp do sieci (lokalnej i Internetu) wyłączając Wi-Fi i inne serwisy sieciowe. To może być przydatne dla zapewnienia że żadna komunikacja sieciowa nie odbywa się poza tunelem VPN. Jeśli Tunnelblick wyłączył dostęp do sieci opcja dla przywrócenia dostępu zostanie dodana do menu ikonki Tunnelblick na pasku narzędzi. Możesz także ponownie włączyć Wi-Fi i inne serwisy sieciowe w Ustawieniach Systemu twojego komputera: opcja Sieć. <strong>To ustawienie może nie działać poprawnie kiedy więcej niż jedno połączenie VPN jest aktywne w tym samym czasie.</strong></li></ul>";
+
+/* HTML info for the 'On expected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Określa co Tunnelblick robi po <em>zainicjowanym</em> rozłączeniu VPN</strong> (na przykład po kliknięciu na opcję wybory lub przycisk \"Rozłącz\"). Następujące opcje są dostępne:</p><ul><li><strong>Nic nie rób</strong><br></li><li><strong>Zresetuj główny interfejs sieciowy</strong>: Tunnelblick resetuje główny interfejs sieciowy używając poleceń 'ipconfig down; ipconfig up' interfejsu sieciowego. To może być przydatne kiedy ustawienia sieciowe nie są poprawnie przywrócone po rozłączeniu VPN.<br></li><li><strong>Wyłącz dostęp do sieci (\"Kill Switch\")</strong>: Tunnelblick odcina wszelki dostęp do sieci (lokalnej i Internetu) wyłączając Wi-Fi i inne serwisy sieciowe. To może być przydatne dla zapewnienia że żadna komunikacja sieciowa nie odbywa się poza tunelem VPN. Jeśli Tunnelblick wyłączył dostęp do sieci opcja dla przywrócenia dostępu zostanie dodana do menu ikonki Tunnelblick na pasku narzędzi. Możesz także ponownie włączyć Wi-Fi i inne serwisy sieciowe w Ustawieniach Systemu twojego komputera: opcja Sieć. <strong>To ustawienie może nie działać poprawnie kiedy więcej niż jedno połączenie VPN jest aktywne w tym samym czasie </strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Określa kiedy Tunnelblick powinien zainicjować połączenie VPN</strong></p><p>\"Przy starcie komputera\" może być używane tylko z konfiguracjami współdzielonymi.</p>";
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Jeśli zaznaczone</strong>, IPv6 zostanie wyłączony.</p>\n<p>Wyłączenie IPv6 jest często zalecane ponieważ wiele konfiguracji VPN nie strzeże wycieków informacji spowodowanych używaniem protokołu IPv6. Większość Internetu działa prawidłowo bez IPv6</p>\n<p><strong>Jeśli nie zaznaczone</strong>, IPv6 nie zostanie wyłączony.</p>\n<p><strong>Jeśli niedostępne</strong>, jeśli używasz połączenia 'tap' ponieważ nie może zostać wymuszone na połączeniu 'tap' .</p>";
@@ -1935,9 +2011,6 @@
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Jeśli zaznaczone</strong>, Tunnelblick będzie wymagał autoryzacji przez administratora komputera dla zmian przeprowadzanych na plikach klucza prywatnego oraz certyfikatu.</p>\n<p><strong>Kiedy nie zaznaczone</strong>, użytkownik ze standardowymi uprawnieniami będzie mógł dokonywać zmian na plikach klucza prywatnego oraz certyfikatu.</p><p><strong>Uwaga: Autoryzacja administratora komputera jest wymagana aby zmienić to ustawienie.</strong></p>";
-
-/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Jeśli zaznaczone</strong>, Tunnelblick resetuje główny Interfejs sieci po rozłączeniu VPN. Ta opcja może być przydatna aby obejść niektóre problemy spowodowane przez źle skonfigurowane serwery VPN albo niektóre błędy w konfiguracji OpenVPN.</p>\n<p><strong> Gdy opcja jest nie zaznaczona </strong>, Tunnelblick nie będzie resetować głównego Interfejsu sieci.</p>\n<p><strong> To pole wyboru jest nieaktywnie </strong> \nkiedy opcjia 'Ustaw DNS/WINS' ma inną wartość jak 'Ustaw nameserver'.</p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Jeśli zaznaczone</strong>, Tunnelblick będzie obserwować i reagować na zmiany w ustawieniach sieciowych (na przykład zmiany spowodowane odnawianiem DHCP lub przełączaniem się połączenia internetowego) aby utrzymywać połączenie VPN. Domyślne działania Tunnelblick podczas zmian ustwień sieciowych zwykle działają poprawnie ale możesz określić rózne działania w zaawansowanych ustawieniach 'Podczas połączenia'</p>\n<p><strong>Jeśli nie zaznaczone</strong>, Tunnelblick będzie ignorować zmiany ustawień sieciowych.</p>\n<p><strong>To pole jest zablokowane</strong> jeśli 'Ustaw DSN/WINS' nie jest ustawione na 'Ustaw nameserver' lub 'Ustaw nameserver (3.1).</p>";
@@ -1996,6 +2069,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Sprawdza uaktualnienia aplikacji Tunnelblick.</p><p>Więcej informacji na stronie internetowej Tunnelblick<a href=\"https://tunnelblick.net/cPrivacy.html\">Prywatność i bezpieczeństwo</a> [tunnelblick.net].</p><p>Sprawdza także uaktualnienia konfiguracji jeśli twój dostawca VPN je udostępnia.</p>";
 
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addreses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopiuje informacje do schowka dla analizy problemu.</p><p>Szczegóły będą zawierały wersję programu i ustawienia, plik konfiguracyjny OpenVPN, ustawienia sieci i inne szczegóły.</p><p>Poufne szczegóły certyfikatów będą pominięte, ale informacje takie jak IP adresy i linki które <em>mogą</em> być poufne będą zawarte. Powinieneś zweryfikować zawarte szczegóły i usunąć wszystko co uważasz za poufne przed wysłaniem informacji w mailu lub publicznym publikowaniem.</p>";
+
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Kopiuje ostatnią część logu konsoli do schowka. W ten sposób informacja z logów może być skopiowana do emaila lub innego dokumentu</p><p>Log zawiera szczegóły operacji Tunnelblick i OpenVPN - informacje statusu i szczegółowe informacje o błędach które są zbyt długie żeby je wyświetlić w normalnym oknie dialogowym.</p>";
 
@@ -2011,6 +2087,24 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Przywraca ostrzeżenia, które zostały wyłączone przez zaznaczone \"Nie ostrzegaj o tym ponownie\" pole wyboru</p>";
 
+/* HTML info for the 'VPN log level' button. */
+"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Określa poziom szczegółów logowania przez Tunnelblick i OpenVPN.</p>";
+
+/* HTML info for the 'Icon' button. */
+"<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Określa ikonę którą Tunnelblick powinien wyświetlić na pasku menu.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunneblick's main menu.</p>" = "<p>Określa klawisze używane do wywołania głównego menu Tunnelblick.</p>";
+
+/* HTML info for the 'Maximum log display size' button. */
+"<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Określa maksymalny rozmiar pamięci używanej do wyświetlania logu VPN</p>";
+
+/* HTML info for the button for selecting which screen to show status windows. */
+"<p>Specifies the screen on which Tunnelblick should display VPN status windows.</p>" = "<p>Określa ekran na którym Tunnelblick powinien wyświetlić okienko statusu VPN</p>";
+
+/* HTML info for the 'VPN status windows' button. */
+"<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>Określa kiedy Tunnelblick powinien pokazać okienko statusu VPN.</p>";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Pamięć podręczna DNS zawiera kopie informacji DNS (Domain Name System).</p>\n<p><strong>Jeśli zaznaczone</strong>, pamięć podręczna DNS zostanie wyczyszczona po połączeniu się lub rozłączeniu. Wszystkie zapytania DNS zostaną przeprowadzone przez serwer nazw określony przez konfigurację VPN.</p>\n<p><strong>Jeśli nie zaznaczone</strong>, pamięć podręczna DNS nie zostanie wyczyszczona. Może to prowadzić do problemów jeśli występują konflikty nazw pomiędzy serwerem nazw określonym w konfiguracji VPN i serwerem nazw z konfiguracji przed-VPNem oraz jeśli wpisy przed-VPNem zostały w pamięci podręcznej.</p>";
 
@@ -2025,6 +2119,9 @@
 
 /* Credit description */
 "Afrikaans translation" = "Afrykańskie tłumaczenie";
+
+/* Credit description */
+"Albanian translation" = "Albanian translation";
 
 /* Credit description */
 "Animation and icon sets code" = "animacja, kod implementacji zestawów ikon";
@@ -2086,6 +2183,9 @@
 /* Checkbox */
 "Do not show this again" = "Nie pokazuj tej informacji ponownie";
 
+/* Checkbox text */
+"Do not warn about this again, never re-enable" = "Nie ostrzegaj o tym i nigdy nie włączaj ponownie";
+
 /* Credit description */
 "Dutch translation" = "Holenderskie tłumaczenie";
 
@@ -2116,9 +2216,6 @@
 
 /* Credit description */
 "Hungarian translation" = "Węgierskie tłumaczenie";
-
-/* Checkbox text */
-"I accept and agree to the above" = "Akceptuję powyższe warunki";
 
 /* Credit description */
 "Icelandic translation" = "Islandzkie tłumaczenie";
