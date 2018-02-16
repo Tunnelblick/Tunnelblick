@@ -2384,7 +2384,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                 ? @""
                                 :  NSLocalizedString(@"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n", @"Window text"));
     
-    NSString * authMsg = [NSString stringWithFormat: @"Tunnelblick needs to:\n\n%@%@%@%@", uninstallMsg, replaceMsg, installMsg, disconnectMsg];
+    NSString * authMsg = [NSString stringWithFormat: @"%@\n%@%@%@%@", NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text"), uninstallMsg, replaceMsg, installMsg, disconnectMsg];
     
     // Get a SystemAuth WITH A RETAIN COUNT OF 1, from MenuController's startupInstallAuth, the lock, or from a user interaction
     SystemAuth * auth = [[((MenuController *)[NSApp delegate]) startupInstallAuth] retain];
