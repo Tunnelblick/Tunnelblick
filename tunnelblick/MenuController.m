@@ -4398,6 +4398,8 @@ static void signal_handler(int signalNumber)
         }
     }
     
+	[nameArray sortUsingSelector:@selector(compare:)];
+	
     if (  [nameArray count] == 0  ) {
         NSLog(@"There are no versions of OpenVPN in this copy of Tunnelblick");
         [self terminateBecause: terminatingBecauseOfError];
