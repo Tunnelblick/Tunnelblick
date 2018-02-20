@@ -1877,6 +1877,26 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			nil];
 }
 
+-(NSUInteger) defaultVersionIxFromVersionNames: (NSArray *) versionNames {
+	
+	// Use the default version of OpenVPN, from the "default" link
+	NSUInteger useVersionIx;
+	NSString * folderName = defaultOpenVpnFolderName();
+	if (  [folderName hasPrefix: @"openvpn-"]  ) {
+		NSString * versionName = [folderName substringFromIndex: [@"openvpn-" length]];
+		useVersionIx = [versionNames indexOfObject: versionName];
+		if (  useVersionIx == NSNotFound  ) {
+			NSLog(@"Default OpenVPN '%@' not found. Using '%@'", versionName, [versionNames firstObject]);
+			useVersionIx = 0;
+		}
+	} else {
+		NSLog(@"Default OpenVPN '%@' not prefixed by '-openvpn'. Using '%@'", folderName, [versionNames firstObject]);
+		useVersionIx = 0;
+	}
+	
+	return useVersionIx;
+}
+
 -(NSUInteger) getOpenVPNVersionIxToUseConnecting: (BOOL) connecting {
 
 	// Decides what version of OpenVPN to use with the configuration and returns its index in MenuController's "openvpnVersionNames" array.
@@ -1904,7 +1924,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	BOOL isLatest  = ([prefVersionName isEqualToString: @"-"]);
 	
 	NSUInteger versionIx = (  isDefault
-							? 0
+							? [self defaultVersionIxFromVersionNames: versionNames]
 							: (  isLatest
 							   ? [versionNames count] - 1
 							   : (  prefVersionName
