@@ -857,7 +857,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
             logMessage "Setting up to monitor system configuration with leasewatch"
         fi
         if [ "${LEASEWATCHER_TEMPLATE_PATH}" != "" ] ; then
-            sed -e "s|/Applications/Tunnelblick/.app/Contents/Resources|${TB_RESOURCES_PATH}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
+            sed -e "s|/Applications/Tunnelblick\.app/Contents/Resources|${TB_RESOURCES_PATH}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
 		fi
         launchctl load "${LEASEWATCHER_PLIST_PATH}"
 	fi
