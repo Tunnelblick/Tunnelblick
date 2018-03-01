@@ -815,7 +815,7 @@ extern volatile int32_t       gActiveInactiveState;
     }
     if (   stdErrString
         && ([stdErrString length] != 0)  ) {
-        NSLog(@"Error returned from 'openvpnstart printSanitizedConfigurationFile %@ %@':\n%@",
+        NSLog(@"stderr returned from 'openvpnstart printSanitizedConfigurationFile %@ %@':\n%@",
               [self displayName], configLocString, stdErrString);
     }
     
