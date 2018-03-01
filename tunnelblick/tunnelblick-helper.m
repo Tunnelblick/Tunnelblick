@@ -66,7 +66,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 170-246, plus the values in define.h (247-254)
+    // returnValue: have used 169-246, plus the values in define.h (247-254)
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -2168,6 +2168,13 @@ int startVPN(NSString * configFile,
     [arguments addObject: @"--management"];
     [arguments addObject: @"127.0.0.1"];
     [arguments addObject: [NSString stringWithFormat:@"%u", port]];
+	
+	NSString * themipName = mipName();
+	if (  ! themipName  ) {
+		fprintf(stderr, "Unable to find .mip\n");
+		exitOpenvpnstart(169);
+	}
+	[arguments addObject: [L_AS_T stringByAppendingPathComponent: [themipName stringByAppendingString: @".mip"]]];
     
 	if (  (bitMask & OPENVPNSTART_TEST_MTU) != 0  ) {
         [arguments addObject: @"--mtu-test"];

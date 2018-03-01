@@ -6702,6 +6702,16 @@ BOOL warnAboutNonTblks(void)
     return -1;
 }
 
+BOOL needToCreateMip(void) {
+	
+	if (  mipName()  ) {
+		return NO;
+	}
+	
+	NSLog(@"No .mip");
+	return YES;
+}
+
 // Checks whether the installer needs to be run
 // Sets bits in a flag for use by the runInstaller:extraArguments... method, and, ultimately, by the installer program
 //
@@ -6713,6 +6723,7 @@ unsigned needToRunInstaller(BOOL inApplications)
     unsigned flags = 0;
     
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
+	if (  ( needToCreateMip() )									 ) flags = flags | INSTALLER_SECURE_APP;
     if (  needToReplaceLaunchDaemon()                            ) flags = flags | INSTALLER_REPLACE_DAEMON;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;

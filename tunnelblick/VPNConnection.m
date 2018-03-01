@@ -2966,17 +2966,22 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
     TBLog(@"DB-ALL", @"Tunnelblick connected to management interface on port %d.", [managementSocket remotePort]);
     
-    NS_DURING {
-		[managementSocket writeString: @"pid\r\n"           encoding: NSASCIIStringEncoding];
-        [managementSocket writeString: @"state on\r\n"      encoding: NSASCIIStringEncoding];    
-		[managementSocket writeString: @"state\r\n"         encoding: NSASCIIStringEncoding];
-        [managementSocket writeString: @"bytecount 1\r\n"   encoding: NSASCIIStringEncoding];
-        [managementSocket writeString: @"hold release\r\n"  encoding: NSASCIIStringEncoding];
-    } NS_HANDLER {
-        NSLog(@"Exception caught while writing to socket: %@\n", localException);
-    }
-    NS_ENDHANDLER
-    
+    NSString * theMipName = mipName();
+	if (  theMipName  ) {
+		NSString * mipString = [theMipName stringByAppendingString: @"\r\n"];
+		NS_DURING {
+			[managementSocket writeString: mipString			encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"pid\r\n"           encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"state on\r\n"      encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"state\r\n"         encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"bytecount 1\r\n"   encoding: NSASCIIStringEncoding];
+		} NS_HANDLER {
+			NSLog(@"Exception caught while writing to socket: %@\n", localException);
+		}
+		NS_ENDHANDLER
+	} else {
+		NSLog(@"Unable to find .mip file");
+	}
 }
 
 -(void) setPIDFromLine:(NSString *)line 
@@ -3123,6 +3128,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  [line isEqualToString: @">FATAL:Error: private key password verification failed"]  ) {
 		// Private key verification failed. Rewrite the message to be similar to the regular password failed message so we can use the same code
 		line = @">PASSPHRASE:Verification Failed";
+	}
+	
+	if (  [line isEqualToString: @">HOLD:Waiting for hold release"]  ) {
+		[self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
+		return;
 	}
 	
      NSRange separatorRange = [line rangeOfString: @":"];

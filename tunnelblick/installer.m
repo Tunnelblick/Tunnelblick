@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -26,6 +26,7 @@
 #import <sys/stat.h>
 #import <sys/xattr.h>
 #import <CommonCrypto/CommonDigest.h>
+#import <Security/SecRandom.h>
 
 #import "defines.h"
 #import "sharedRoutines.h"
@@ -468,6 +469,31 @@ BOOL removeQuarantineBit(void) {
     return TRUE;
 }
 
+NSString * getStringOf40RandomCharacters(void) {
+	
+	// Returns a 40 character long string composed of random characters in the range 'a' through 'p'
+	// (A simple encoding of 20 bytes of random data.)
+	
+	// Get 20 random bytes
+	const char bytes[20];
+	int result = SecRandomCopyBytes(kSecRandomDefault, sizeof(bytes), (void *)bytes);
+	if (  result != errSecSuccess  ) {
+		appendLog(@"Unable to obtain data for .mip");
+		errorExit();
+	}
+	
+	// Convert each 4-bit nibble to a character from 'a' through 'p'
+	NSMutableString * outString = [[[NSMutableString alloc] initWithCapacity: 2 * sizeof(bytes)] autorelease];
+	NSUInteger ix;
+	for (  ix=0; ix<sizeof(bytes); ix++) {
+		char ch = bytes[ix];
+		char ch1 = (ch & 0xF) + 'a';
+		char ch2 = ((ch >> 4) & 0xF) + 'a';
+		[outString appendFormat: @"%c%c", ch1, ch2];
+	}
+	return outString;
+}
+
 /* DISABLED BECAUSE THIS IS NOT AVAILABLE ON 10.4 and 10.5
  *
  * UPDATE 2016-07-03: SMJobSubmit is now deprecated, but we are leaving the code in so that if 'launchctl load' stops working, we can try using it
@@ -736,6 +762,34 @@ int main(int argc, char *argv[])
             errorExit();
         }
     }
+	
+	// Create the .mip file owned by root with 0600 permissions in L_AS_T if it doesn't already exist
+	NSDirectoryEnumerator  * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T];
+	NSString * fileName;
+	while (  (fileName = [dirEnum nextObject])  ) {
+		[dirEnum skipDescendants];
+		if (  [fileName hasSuffix: @".mip"]  ) {
+			break;
+		}
+	}
+	if (  ! fileName) {
+		// Get 40 random characters A-P as a filename for the .mip file
+		NSString * name = getStringOf40RandomCharacters();
+		NSString * path = [L_AS_T stringByAppendingPathComponent: [name stringByAppendingString: @".mip"]];
+		NSString * contents = [name stringByAppendingString: @"\n"];
+		NSData * contentsAsData = [NSData dataWithBytes: [contents cStringUsingEncoding: NSASCIIStringEncoding] length: [contents length]];
+		NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+									 [NSNumber numberWithInt: 0], NSFileOwnerAccountID,
+									 [NSNumber numberWithInt: 0], NSFileGroupOwnerAccountID,
+									 [NSNumber numberWithInt: PERMS_SECURED_ROOT_RO], NSFilePosixPermissions,
+									 nil];
+		if (  ! [gFileMgr createFileAtPath: path contents: contentsAsData attributes: attributes] ) {
+			appendLog(@"Unable to create .mip");
+			errorExit();
+		}
+		
+		appendLog(@"Created .mip");
+	}
     
     NSString * userL_AS_T_Path= [[[NSHomeDirectory()
                                    stringByAppendingPathComponent: @"Library"]
@@ -867,7 +921,7 @@ int main(int argc, char *argv[])
     //      (5) Renames /Library/LaunchDaemons/net.tunnelblick.startup.*
     //               to                        net.tunnelblick.tunnelblick.startup.*
     
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: @"/Library/LaunchDaemons"];
+    dirEnum = [gFileMgr enumeratorAtPath: @"/Library/LaunchDaemons"];
     NSString * file;
     NSString * oldPrefix = @"net.tunnelblick.startup.";
     NSString * newPrefix = @"net.tunnelblick.tunnelblick.startup.";
