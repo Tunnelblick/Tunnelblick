@@ -3130,7 +3130,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		line = @">PASSPHRASE:Verification Failed";
 	}
 	
-	if (  [line isEqualToString: @">HOLD:Waiting for hold release"]  ) {
+	if (  [line hasPrefix: @">HOLD:Waiting for hold release"]  ) {
 		[self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
 		return;
 	}
