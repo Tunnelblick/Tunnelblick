@@ -1937,12 +1937,16 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								? [versionNames objectAtIndex: versionIx]
 								: [[prefVersionName copy] autorelease]);
 	
-	BOOL wantOpenSSL = (   isDefault
-						|| (   ( ! isLatest )
-							&& ( [versionWanted rangeOfString: @"libressl"].length == 0 )
-							)
-						);
+	NSString * versionNameFromPreference = (  isDefault
+											? [versionNames firstObject]
+											: (  isLatest
+											   ? [versionNames lastObject]
+											   : prefVersionName
+											   )
+											);
 
+	BOOL wantOpenSSL = ( [versionNameFromPreference rangeOfString: @"libressl"].length == 0 );
+	
 	NSString * sslString = (  wantOpenSSL
 							? @"openssl"
 							: @"libressl");
@@ -2156,8 +2160,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 													 @" The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
 								   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry)]);
 			}
-			
-			return [versionNames indexOfObject: versionToTry];
 		}
 	}
 
