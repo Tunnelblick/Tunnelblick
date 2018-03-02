@@ -1610,7 +1610,7 @@ BOOL moveContents(NSString * fromPath, NSString * toPath)
 void errorExitIfAnySymlinkInPath(NSString * path)
 {
     NSString * curPath = path;
-    while (   curPath
+    while (   ([curPath length] != 0)
            && ! [curPath isEqualToString: @"/"]  ) {
         if (  [gFileMgr fileExistsAtPath: curPath]  ) {
             NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
