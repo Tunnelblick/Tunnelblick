@@ -4409,7 +4409,7 @@ static void signal_handler(int signalNumber)
 	// Sort the array so OpenSSL comes before LibreSSL
 	NSMutableArray * sortedNames = [[[NSMutableArray alloc] initWithCapacity: [nameArray count]] autorelease];
 	NSUInteger ix;
-	for (  ix=0; ix<[nameArray count]-1; ix++  ) {
+	for (  ix=0; ix<[nameArray count]; ix++  ) {
 		if (   (ix != [nameArray count]-1)
             && ([[nameArray objectAtIndex: ix]     rangeOfString: @"libressl"].length != 0)
 			&& ([[nameArray objectAtIndex: ix + 1] rangeOfString: @"openssl"].length  != 0)  ) {
