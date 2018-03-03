@@ -86,7 +86,7 @@
 "Delete Credentials" = "Hitelesítőadatok törlése";
 
 /* Button */
-"Delete saved passphrase and try again" = "Töröld az elmentett jelmondatot és próbáld úja";
+"Delete saved passphrase and try again" = "Töröld a mentett jelmondatot és próbáld úja";
 
 /* Button */
 "Delete saved password and try again" = "Töröld a mentett jelszót és próbáld újra";
@@ -116,7 +116,7 @@
 "Help" = "Súgó";
 
 /* Button */
-"I DO NOT have configuration files" = "Nincsen konfigurációs állományom";
+"I DO NOT have configuration files" = "NINCS konfigurációs állományom";
 
 /* Button */
 "I have configuration files" = "Van konfigurációs állományom";
@@ -237,7 +237,7 @@
 "Show while connecting and connected" = "Mutassa a kapcsolódás és a kapcsolat alatt";
 
 /* Button */
-"Show while connecting" = "Mutassa, kapcsolat közben";
+"Show while connecting" = "Mutassa kapcsolódás közben";
 
 /* Button */
 "Skip" = "Kihagy";
@@ -267,10 +267,10 @@
 "Try again with saved username and password" = "Újrapróbálkozás az elmentett felhasználónévvel és jelszóval";
 
 /* Button */
-"Try again" = "Újra próbál";
+"Try again" = "Próbáld újra";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick v3.3 ikon";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikon";
 
 /* Button */
 "When Tunnelblick launches" = "Amikor a Tunnelblick indul";
@@ -285,7 +285,7 @@
 "Connect %@%@" = "Kapcsolódás: %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "A konfiguráció hitelesítőadatainak törlése a kulcstartóról…";
+"Delete Configuration's Credentials in Keychain..." = "A konfiguráció hitelesítőadatainak törlése a Kulcskarikából…";
 
 /* Menu item tooltip */
 "Disabled because this setting is being forced" = "Letiltva, mert ez a beállítás kényszerített";
@@ -294,10 +294,10 @@
 "Disconnect %@%@" = "%@%@ Megszakítás";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Rejtsd el a Tunnelblick menüben";
+"Do Not Show on Tunnelblick Menu" = "Ne mutasd a Tunnelblick menüben";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Másolat készítése…";
+"Duplicate Configuration..." = "Konfiguráció másolása…";
 
 /* Menu Item */
 "Edit OpenVPN Configuration File..." = "OpenVPN Konfigurációs fájl szerkesztése…";
@@ -342,7 +342,7 @@
 "OpenVPN logging level set by the configuration" = "OpenVPN naplózási szint a konfiguráció alapján beállítva";
 
 /* Menu item */
-"Quit Tunnelblick" = "Kilépés a Tunnelblick-ből";
+"Quit Tunnelblick" = "Kilépés a Tunnelblickből";
 
 /* Menu Item */
 "Rename Configuration..." = "Konfiguráció átnevezése…";
@@ -360,13 +360,13 @@
 "Suggestion or Bug Report..." = "Javaslat vagy programhiba küldése…";
 
 /* Menu item */
-"VPN Details..." = "VPN Részletek…";
+"VPN Details..." = "VPN részletek…";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Változások engedélyezése a hálózati beállítások kézi változtatásához";
 
 /* Checkbox name */
-"Apply to all" = "Alkalmazás mindre";
+"Apply to all" = "Mindre";
 
 /* Checkbox name */
 "Check for updates automatically" = "Frissítések automatikus ellenőrzése";
@@ -375,7 +375,7 @@
 "Check for updates to beta versions" = "Frissítések keresése a béta verziók között";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Jelezze ha a látható publikus IP cím változott a kapcsolódás után";
+"Check if the apparent public IP address changed after connecting" = "Jelezze ha a látszólagos nyilvános IP cím változott a kapcsolódás után";
 
 /* Checkbox name */
 "Disable IPv6 (tun only)" = "IPv6 kikapcsolása (csak tun)";
@@ -393,7 +393,7 @@
 "Display connection timers" = "Kapcsolat időtartamának megjelenítése";
 
 /* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Üdvözlő képernyő megjelenítése amikor a Tunnelblick indul";
+"Display window while Tunnelblick is starting up" = "Üdvözlőképernyő megjelenítése amikor a Tunnelblick indul";
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Ne kérdezzen rá ismét, mindig 'Mellőzze'";
@@ -453,7 +453,7 @@
 "Run MTU maximum size test after connecting" = "Csatlakozás után tesztelje az MTU maximális méretét";
 
 /* Checkbox name */
-"Save in Keychain" = "Mentés a kulcstartóra";
+"Save in Keychain" = "Mentés a Kulcskarikába";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "DNS beállítása az útvonal beállítása után";
@@ -507,10 +507,10 @@
 "GET_CONFIG" = "Konfiguráció betöltése"; // Please translate ""
 
 /* Connection status */
-"PASSWORD_WAIT" = "Jelszóra várakozás"; // Please translate "Waiting for password"
+"PASSWORD_WAIT" = "Hitelesítés jelszóval"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "Jelmondatra várakozás"; // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "Hitelesítés kulccsal"; // Please translate "Waiting for password"
 
 /* Connection status */
 "RECONNECTING" = "Újracsatlakozás"; // Please translate ""
@@ -639,7 +639,7 @@
 "No Credentials" = "Nem található hitelesítőadat";
 
 /* Window title */
-"Only computer administrators should update Tunnelblick" = "Csak a rendszergazdai jogosultságokkal lehetséges a Tunnelblick frissítése";
+"Only computer administrators should update Tunnelblick" = "Csak rendszergazdai jogosultságokkal lehetséges a Tunnelblick frissítése";
 
 /* Window title */
 "OpenVPN is Not Responding" = "Az OpenVPN nem válaszol";
@@ -711,10 +711,10 @@
 "Warning" = "Figyelmeztetés";
 
 /* Window title */
-"Warning: Unknown OpenVPN processes" = "Figyelem: Ismeretlen OpenVPN folyamat";
+"Warning: Unknown OpenVPN processes" = "Figyelem: Ismeretlen OpenVPN folyamatok";
 
 /* Window title */
-"Welcome to Tunnelblick" = "Üdvözöljük a Tunnelblick-ben";
+"Welcome to Tunnelblick" = "Üdvözöljük a Tunnelblickben";
 
 /* Window title */
 "Welcome" = "Üdvözöljük";
@@ -759,7 +759,7 @@
 "    • Uninstall one configuration\n" = "    • Egy konfiguráció eltávolítása\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • A Tunnelblick az /Alkalmazások-ba lett telepítve\n";
+"  • Be installed in /Applications as Tunnelblick\n" = "  • A Tunnelblick telepítése az /Alkalmazások-ba\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Tulajdonosok és jogosultságok lecserélése a programon, annak biztonságossá tételéhez\n";
@@ -771,10 +771,10 @@
 "  • Convert OpenVPN configurations\n" = "  • OpenVPN konfigurációs fájlok konvertálása\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  Kényszerített beállítások telepítése\n";
+"  • Install forced preferences\n" = "  • Kényszerített beállítások telepítése\n";
 
 /* Window text */
-"  • Install or update configuration(s)\n" = "  • Telepítés vagy konfigurációs fájlok frissítése\n";
+"  • Install or update configuration(s)\n" = "  • Konfigurációs fájlok telepítése vagy frissítése\n";
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Privát konfigurációs könyvtár mozgatása\n";
@@ -822,13 +822,13 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' már megtalálható az Íróasztalon.\n\nSzeretné lecserélni?";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' Nem található hitelesítőadat (privát kulcs vagy felhasználónév és jelszó) a kulcstartón.";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' Nem található hitelesítőadat (privát kulcs vagy felhasználónév és jelszó) a Kulcskarikában.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' nem lett befejezve.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' will connect using OpenVPN %2$@ instead of the requested version (OpenVPN %3$@).";
+"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' OpenVPN %2$@ segítségével fog kapcsolódni a kért verzió helyett (OpenVPN %3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' beállítás figyelmen kívül hagyva; nem lett könyvtár megadva";
@@ -852,16 +852,16 @@
 "(if connected when user switched out)" = "(ha csatlakozott és a felhasználó kijelentkezett)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>A Tunnelblickre épülő ingyenes software elérhető itt:<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>Az OpenVPN az OpenVPN Technologies, Inc. bejegyzett védjegye.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>A Tunnelblickre épülő szabad szoftver elérhető itt:<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>Az OpenVPN az OpenVPN Technologies, Inc. bejegyzett védjegye.";
 
 /* Window text */
-"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Egy TBPreference vagy a TBAlwaysSetPreference kulcs hivatkozik egy ismeretlen beállításra ' %1$@' %2$@";
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Egy TBPreference vagy TBAlwaysSetPreference kulcs hivatkozik egy ismeretlen beállításra '%1$@' itt: %2$@";
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "A Tunnelblick VPN konfiguráció túl mélyen beágyazott a(z) \"%@\" fájlban";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Egy konfigurációs fájl, amely jelmondatot (privát kulcs) vagy felhasználónevet és jelszót igényel nem tudott elindulni a számítógép indulásánál.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Egy jelmondatot (privát kulcs) vagy felhasználónevet és jelszót igénylő konfiguráció nem indítható a számítógép indulásakor.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Egy jelmondat szükséges a(z)\n  %1$@%2$@ csatlakozáshoz";
@@ -870,10 +870,10 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A(z) '%@' személyes konfiguráció már létezik.\n\nSzeretné lecserélni a megosztott konfigurációval?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Probléma adódott a számítógép látszólagos nyilvános IP-címének ellenőrzése közben.\n\nLásd a konzol log-ot a részletekért.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Probléma adódott a számítógép látszólagos nyilvános IP-címének ellenőrzése közben.\n\nLásd a konzol naplót a részletekért.\n\n";
 
 /* Window text */
-"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Egy '%@' nevű megosztott konfiguráció már létezik.\n\nSzeretné felülírni egy privát konfigurációval?";
+"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Egy '%@' nevű megosztott konfiguráció már létezik.\n\nSzeretné felülírni a privát konfigurációval?";
 
 /* Window text */
 "A username and password are required to connect to\n  %@" = "Felhasználónév és jelszó szükséges a következőhöz való kapcsolódáshoz:\n  %@";
@@ -885,22 +885,22 @@
 "Add Credentials" = "Hitelesítő adatok hozzáadása";
 
 /* Window text */
-"Added '.sh' extension to %@ so it will be secured properly" = "'.sh' kiterjesztés a(z) %@ -hoz hozzáadva, így az megfelelő biztonságban van";
+"Added '.sh' extension to %@ so it will be secured properly" = "'.sh' kiterjesztés hozzáadva a(z) %@ fájlhoz, így az biztonságban van";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "'.unknown' kiterjesztés hozzáadva a %@ filehoz, így az megfelelő biztonságban van";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "'.unknown' kiterjesztés hozzáadva a(z) %@ fájlhoz, így az biztonságban van";
 
 /* Window text */
-"Additional contributions by" = "További segítők és fejlesztők";
+"Additional contributions by" = "További fejlesztők és közreműködők";
 
 /* Window text */
-"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = " %1$.1f másodperc után feladta az IP-cím meghatározását.\n\nA Tunnelblick nem fogja ellenőrizni az IP cím változását amikor a(z) %2$@ kapcsolatot felépíti.\n\n";
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = " %1$.1f másodperc után feladtam az IP-cím meghatározását.\n\nA Tunnelblick ezentúl nem fogja ellenőrizni hogy a számtógép látszólagos IP címe megváltozik-e a(z) %2$@ kapcsolat felépítése során.\n\n";
 
 /* Window text */
-"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Miután a(z) %@ kapcsolat felépült, a DNS nem tűnik működőnek.\n\nEz jelentheti azt, hogy a VPN beállítások nem megfelelőek.\n\n";
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Miután a(z) %@ kapcsolat felépült, a DNS nem tűnik működőnek.\n\nLehetséges hogy a VPN beállítások nem megfelelőek.\n\n";
 
 /* Window text */
-"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Miután a(z) %@ kapcsolat felépült, Az Internet nem tűnik elérhetőnek.\n\nEz jelentheti azt, hogy a VPN beállítások nem megfelelőek.\n\n";
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Miután a(z) %@ kapcsolat felépült, Az Internet nem tűnik elérhetőnek.\n\nLehetséges hogy a VPN beállítások nem megfelelőek.\n\n";
 
 /* Window text */
 "All OpenVPN processes have quit" = "Minden OpenVPN folyamat kilépett";
@@ -918,7 +918,7 @@
 "An error occurred while trying to launch %@" = "Hiba történt az indítás során %@";
 
 /* Window text */
-"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Hiba történt a biztonsági másolatból történő helyreállítás során. További információk a Konzol naplóban.\n\n";
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Hiba történt a biztonsági másolatból történő helyreállítás során. További információk a konzol naplóban.\n\n";
 
 /* Window text */
 "An error occurred. See the Console Log for details." = "Hiba történt. A részleteket lásd a konzol naplóban.";
@@ -930,7 +930,7 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Tunnelblick belső hiba történt: fileIsReasonableSize: nincs attribútom: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Tunnelblick belső hiba történt: fileIsReasonableSize: Nincs méret: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Tunnelblick belső hiba történt: fileIsReasonableSize: nincs méret: %@";
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Tunnelblick belső hiba történt: fileIsReasonableSize: nincs típus: %@";
@@ -942,22 +942,22 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Tunnelblick belső hiba történt: fileIsReasonableSize: elérési út üres";
 
 /* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Biztosan konvertálni szeretné az OpenVPN konfigurációt Tunnelblick konfigurációra?\n\nA KONFIGURÁCIÓ NEM LESZ HASZNÁLHATÓ KONVERTÁLÁS NÉLKÜL!\n\n";
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Biztos hogy nem szeretné konvertálni az OpenVPN konfigurációt Tunnelblick konfigurációra?\n\nA KONFIGURÁCIÓ NEM LESZ HASZNÁLHATÓ KONVERTÁLÁS NÉLKÜL!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Biztos, hogy törölni akarja hitelesítő adatokat (privát kulcs és/vagy felhasználónév és jelszó) a kulcskarikában tárolt %ld konfigurációhoz?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Biztos, hogy törölni akarja a hitelesítő adatokat (privát kulcs és/vagy felhasználónév és jelszó) a Kulcskarikában tárolt %ld konfigurációhoz?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Biztos, hogy törölni akarja hitelesítő adatokat (privát kulcs és/vagy felhasználónév és jelszó) a kulcskarikában tárolt '%@' konfigurációhoz?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Biztos, hogy törölni akarja a hitelesítő adatokat (privát kulcs és/vagy felhasználónév és jelszó) a Kulcskarikában tárolt '%@' konfigurációhoz?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Biztos, hogy törölni akarja hitelesítő adatokat (privát kulcs és/vagy felhasználónév és jelszó) a kulcskarikában tárolt '%@' hitelesítő csoporthoz?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Biztos, hogy törölni akarja a hitelesítő adatokat (privát kulcs és/vagy felhasználónév és jelszó) a Kulcskarikában tárolt '%@' hitelesítő csoporthoz?";
 
 /* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Biztos, hogy telepíteni akarja a konfigurációt, ami TELJES IRÁNYÍTÁST KAP A SZÁMÍTÓGÉPÉHEZ?\n\n";
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Biztos, hogy telepíteni akar konfigurációkat, amik TELJES IRÁNYÍTÁST KAPNAK A SZÁMÍTÓGÉPÉHEZ?\n\n";
 
 /* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Biztos, hogy telepíteni akar konfigurációkat, amik TELJES IRÁNYÍTÁST KAPHATNAK A SZÁMÍTÓGÉPÉHEZ?\n\n";
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Biztos, hogy telepíteni akar konfigurációkat, amik TELJES IRÁNYÍTÁST SZEREZHETNEK A SZÁMÍTÓGÉPÉHEZ?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Az OpenVPN konfigurációs fájl: %2$@, a(z) %1$lu sorában";
@@ -972,19 +972,19 @@
 "Backslash at end of line %u is not allowed" = "Fordított perjel nem engedélyezett a sorok végén (sorszám: %u)";
 
 /* Window text */
-"Cancelled trying to quit all OpenVPN processes" = "Cancelled trying to quit all OpenVPN processes";
+"Cancelled trying to quit all OpenVPN processes" = "Kilépés az összes OpenVPN folyamatból megszakítva";
 
 /* Window text */
-"Cannot find configuration file at %@" = "Nem található konfigurációs fájl %@";
+"Cannot find configuration file at %@" = "Nem található konfigurációs fájl a(z) %@ helyen";
 
 /* Window text */
-"Cannot install configurations to either shared or private locations" = "Nem telepíthető sem privát sem közös konfigurációs fájl";
+"Cannot install configurations to either shared or private locations" = "Nem telepíthető sem megosztott sem személyes konfigurációs fájl";
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "A(z) '%@' nem távolítható el, mert nem is lett telepítve.";
 
 /* Window text */
-"Computer sleep/wake" = "Számítógép elalvása/felébredése";
+"Computer sleep/wake" = "Számítógép alvás/ébredés";
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "A '%1$@' ('%2$@') konfiguráció figyelmen kívül lesz hagyva, mert tiltott karaktereket tartalmaz.\n\nA tiltott karakterek: '%3$s'\n\n";
@@ -1011,7 +1011,7 @@
 "Configuration changes:" = "A konfiguráció változásai:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "A konfigurációkat a hálózati rendszergazdája vagy a VPN szolgáltatója által adott fájlokból telepítjük.\n\nA konfigurációs fájlok kiterjesztése: .tblk, .ovpn, vagy .conf.\n\n(Előfordulhatnak egyéb fájlok, amik a konfigurációhoz tartoznak, hagyja őket figyelmen kívül.)\n\nA konfiguráció telepítéséhez jelölje ki és húzza őket a Tunnelblick ikonjára a felső menüsorban, vagy a konfigurációk listájára a 'Konfigurációk' fülön a 'VPN részletek' ablakban.\n\nTöbb konfiguráció egyidejű telepítéséhez jelölje ki az összes fájlt, és húzza az összeset a Tunnelblick ikonjára a felső menüsorban.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "A konfigurációkat a hálózati rendszergazdája vagy a VPN szolgáltatója által adott fájlokból telepítheti.\n\nA konfigurációs fájlok kiterjesztése: .tblk, .ovpn, vagy .conf.\n\n(Előfordulhatnak egyéb fájlok, amik a konfigurációhoz tartoznak; hagyja őket figyelmen kívül.)\n\nA konfiguráció telepítéséhez jelölje ki és húzza őket a Tunnelblick ikonjára a felső menüsorban, vagy a konfigurációk listájára a 'Konfigurációk' fülön a 'VPN részletek' ablakban.\n\nTöbb konfiguráció egyidejű telepítéséhez jelölje ki az összes fájlt, és húzza az összeset a Tunnelblick ikonjára a felső menüsorban.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "A jelen beállításokkal olyan konfigurációk is települnek a Tunnelblick telepítésével, amelyek nem részei a Tunnelblicknek.\n\n";
@@ -1275,13 +1275,13 @@
 "Non-string value for '%@' in %@" = "Nem szöveg érték erre: '%1$@', itt: %2$@";
 
 /* Window text */
-"Non-string value for an item in '%@' in %@" = "Nem-tömb érték egy elemre itt: '%1$@', %2$@";
+"Non-string value for an item in '%@' in %@" = "Nem szöveg érték egy elemre itt: '%1$@', %2$@";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "A kiválasztott %ld konfiguráció közül egyik sem tartalmaz a kulcskarikán tárolt hitelesítési adatokat (privát kulcs vagy felhasználónév és jelszó).";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "A kiválasztott %ld konfiguráció közül egyik sem tartalmaz a Kulcskarikán tárolt hitelesítési adatokat (privát kulcs vagy felhasználónév és jelszó).";
 
 /* Window text */
-"Not a .ovpn or .conf: %@" = "Nem egy .ovpn vagy .conf fájl: %@";
+"Not a .ovpn or .conf: %@" = "Nem .ovpn vagy .conf fájl: %@";
 
 /* Window text */
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nem meglévő konfigurációt cserél, így a(z) '%@' konfigurációban nem használható a 'TBKeepExistingFilesList'";
@@ -1296,7 +1296,7 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Egy vagy több OpenVPN folyamat fut, de ezeket nem a Tunnelblick kezeli. Ha nem futtatt a Tunnelblicken kívül más OpenVPN alkalmazást, akkor valószínűleg egy korábban indított Tunnelblick nem tudta megfelelően leállítani ezeket. Ezek a folyamatok zavarhatják a Tunnelblick működését, kívánja megszakítani az ismeretlen OpenVPN folyamatokat?";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Egy vagy több OpenVPN folyamat már fut, de a Tunnelblick számára ismeretlenek. Ha nem futtat más OpenVPN programot a Tunnelblick-en kívül akkor előfordulhat, hogy ezeket a Tunnelblick indította korábban, de valami miatt a leállításuk nem volt sikeres, ebben az esetben ezek leállíthatók. A jelenlegi állapotban akadályozzák a Tunnelblick futását. Le kívánja állítani őket?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Egy vagy több OpenVPN folyamat már fut, de a Tunnelblick számára ismeretlenek. Ha nem futtat más OpenVPN programot a Tunnelblicken kívül akkor előfordulhat, hogy ezeket a Tunnelblick indította korábban, de valami miatt a leállításuk nem volt sikeres, ebben az esetben ezek leállíthatók. A jelenlegi állapotban akadályozzák a Tunnelblick futását. Le kívánja állítani őket?";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Egy vagy több OpenVPN folyamat fut, de ezeket nem a Tunnelblick kezeli. Ha nem futtatt a Tunnelblicken kívül más OpenVPN alkalmazást, akkor valószínűleg egy korábban indított Tunnelblick nem tudta megfelelően leállítani ezeket. A folyamatokat Önnek kell leállítania, mert zavarhatják a Tunnelblick működését.\n\nA folyamatok az 'Activity Monitor' alkalmazás segítségével állíthatók le.\n\n";
@@ -1389,7 +1389,7 @@
 "Starting Tunnelblick %@..." = "Tunnelblick %@ indítása…";
 
 /* Window text */
-"Startup window:" = "Induló képernyő:";
+"Startup window:" = "Üdvözlőképernyő:";
 
 /* Window text */
 "Symbolic links nested too deeply. Gave up at %@" = "Túl mély szimbolikus link: %@";
@@ -1410,7 +1410,7 @@
 "Thank you very much for your donation to the TunnelblickProject." = "Köszönjük szépen adományát a TunnelblickProject nevében.";
 
 /* Window text */
-"Thanks for your Tunnelblick donation" = "Köszönjük Tunnelblick adományát";
+"Thanks for your Tunnelblick donation" = "Köszönjük adományát a Tunnelblick részére";
 
 /* Window text */
 "That name is being used.\n\n" = "A megadott név már használatban van.\n\n";
@@ -1437,10 +1437,10 @@
 "The '%@' credentials may not be deleted because the list of named credentials is being forced." = "A(z) '%@' hitelesítőadat nem törölhető, mert a nevesített hitelesítőadatok kényszerítettek.";
 
 /* Window text */
-"The 'credentialsNames' preference must be an array of strings." = "A 'credentialsNames' tulajdonságnak string tömbnek kell lennie.";
+"The 'credentialsNames' preference must be an array of strings." = "A 'credentialsNames' tulajdonságnak sztring tömbnek kell lennie.";
 
 /* Window text */
-"The 'namedCredentialsNames' preference must be an array of strings" = "A 'namedCredentialsNames' tulajdonságnak string tömbnek kell lennie";
+"The 'namedCredentialsNames' preference must be an array of strings" = "A 'namedCredentialsNames' tulajdonságnak sztring tömbnek kell lennie";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "A '%@'-hez tartozó OpenVPN konfigurációs fájl az utolsó biztosítás óta módosításra került.\n\nSzeretné biztosítani a módosított konfigurációt, vagy visszatér az utolsó biztosított konfigurációhoz?\n\n";
@@ -1497,7 +1497,7 @@
 "The installation or repair took too long or failed. Try again?" = "A telepítés vagy helyreállítás túl sok időt vett igénybe, vagy sikertelen. Megpróbálja újra?";
 
 /* Window text */
-"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "A telepítés, eltávolítás, visszaállítás, vagy javaítás egy vagy több Tunnelblick komponense sikertelenül ért véget. Részletek tekintse meg Konzol Log-ot.";
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Egy vagy több Tunnelblick komponens telepítése, eltávolítása, visszaállítása, vagy javítása sikertelenül ért véget. Részletekért tekintse meg a konzol naplót.";
 
 /* Window text */
 "The passphrase was not accepted." = "A jelmondatot nem fogadtuk el.";
@@ -1506,7 +1506,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "A privát konfigurációról nem készült biztonsági másolat, ezért nem is állítható vissza.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "A minta konfigurációs mappa létrejött az asztalán, és az OpenVPN konfigurációt megnyitottuk a szövegszerkesztőben, hogy módosíthassa a fájlt az Ön VPN beállításához.\n\nHa végzett az OpenVPN konfiguráció fájl szerkesztésével és elmentette a változásokat, kérjük:\n\n1. Helyezzen át vagy másoljon egy a konfigurációhoz társított kulcsot vagy tanúsítványt a 'Minta Tunnelblick VPN konfiguráció' mappába az asztalon.\n\n(Ezt a mappát egy Finder ablakban megnyitottuk, így behúzhatja oda a fájlokat.)\n\n2. Változtassa meg tetszőlegesen a konfigurációs fájl nevét (de ne változtassa meg a kiterjesztését). Ez lesz az a név, amit a Tunnelblick használni fog a konfigurációhoz.\n\n3. A konfiguráció telepítéséhez jelölje ki a konfigurációs fájlt és húzza a Tunnelblick ikonra a felső menüsorban, vagy húzza a konfigurációk listájára a 'Konfigurációk' fülön a 'VPN részletek' ablakban.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "A minta konfigurációs mappa létrejött az Íróasztalán, és az OpenVPN konfigurációt megnyitottuk a szövegszerkesztőben, hogy módosíthassa a fájlt az Ön VPN beállításához.\n\nHa végzett az OpenVPN konfiguráció fájl szerkesztésével és elmentette a változásokat, kérjük:\n\n1. Helyezzen át vagy másoljon egy a konfigurációhoz társított kulcsot vagy tanúsítványt a 'Minta Tunnelblick VPN konfiguráció' mappába az Íróasztalon.\n\n(Ezt a mappát egy Finder ablakban megnyitottuk, így behúzhatja oda a fájlokat.)\n\n2. Változtassa meg tetszőlegesen a konfigurációs fájl nevét (de ne változtassa meg a kiterjesztését). Ez lesz az a név, amit a Tunnelblick használni fog a konfigurációhoz.\n\n3. A konfiguráció telepítéséhez jelölje ki a konfigurációs fájlt és húzza a Tunnelblick ikonra a felső menüsorban, vagy húzza a konfigurációk listájára a 'Konfigurációk' fülön a 'VPN részletek' ablakban.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "A távoli VPN szerver nem fogadta el a felhasználónevet és a jelszót.";
@@ -1518,7 +1518,7 @@
 "There are no OpenVPN processes running" = "There are no OpenVPN processes running";
 
 /* Window text */
-"There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Nincsen VPN konfiguráció telepítve.\n\nA Tunnelblick-nek legalább egy szükséges a VPN kapcsolathoz. A konfigurációkat általában a VPN szolgáltatótól vagy a hálózati rendszergazdától kaphatja meg. A fájlokat telepítenie kell, használat előtt.\n\nA konfigurációs fájloknak általában .tblk, .ovpn, vagy .conf végződésük (kiterjesztésük) van.\n\n(Elképzelhető, hogy kapott més kiterjesztésű állományokat is, azokat most hagyja figyelmen kívül.)\n\nVan konfigurációs állománya?\n";
+"There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Nincsen VPN konfiguráció telepítve.\n\nA Tunnelblicknek legalább egy szükséges a VPN kapcsolathoz. A konfigurációkat általában a VPN szolgáltatótól vagy a hálózati rendszergazdától kaphatja meg. A fájlokat telepítenie kell, használat előtt.\n\nA konfigurációs fájloknak általában .tblk, .ovpn, vagy .conf végződésük (kiterjesztésük) van.\n\n(Elképzelhető, hogy kapott més kiterjesztésű állományokat is, azokat most hagyja figyelmen kívül.)\n\nVan konfigurációs állománya?\n";
 
 /* Window text */
 "There is not an OpenVPN configuration file in '%@'" = "A '%@' nem egy OpenVPN konfigurációs állomány";
@@ -1578,10 +1578,10 @@
 "Trying to quit all OpenVPN processes..." = "Trying to quit all OpenVPN processes…";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "A Tunnelblick %@ sikeresen biztonságossá vált.";
+"Tunnelblick %@ has been secured successfully." = "A Tunnelblick %@ most már biztonságos.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "A Tunnelblick %@ készen áll a munkára.";
+"Tunnelblick %@ is ready." = "A Tunnelblick %@ készen áll a használatra.";
 
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Rendszergazdai mód\n\nIdeiglenes engedély azon változtatásokhoz, melyekhez rendszergazdai jelszó szükséges.\n\nA munkamenet 5 perc után lejár, illetve ha a 'VPN részletek' ablak bezárásra kerül.";
@@ -1602,10 +1602,10 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "A Tunnelblick nem tudott elindulni, mert valamilyen probléma van a konfigurációs fájllal. Kérem tekintse meg a Konzol log-ot.";
 
 /* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudta teljesen eltávolítani a(z) '%@' konfigurációt. További információk a Konzol logban.";
+"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudta teljesen eltávolítani a(z) '%@' konfigurációt. A részleteket lásd a konzol naplóban.";
 
 /* Window text */
-"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudja másolni a(z) '%@' konfigurációt. Részletek a Konzol log-ban.";
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudja másolni a(z) '%@' konfigurációt. A részleteket lásd a konzol naplóban.";
 
 /* Window text */
 "Tunnelblick could not create the empty configuration folder" = "A Tunnelblick nem tudja elkészíteni az üres konfigurációs könyvtárat";
@@ -1626,16 +1626,16 @@
 "Tunnelblick could not find a free port to use for communication with OpenVPN" = "A Tunnelblick nem talál olyan szabad portot, mely OpenVPN kommunikációra alkalmas";
 
 /* Window text */
-"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick nem találta meg a konfigurációs fájlt vagy a konfigurációs fájlt nem lehet megtisztítani. Lásd a Konzol alkalmazást, részletekért.";
+"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick nem találta meg a konfigurációs fájlt vagy a konfigurációs fájlt nem lehet megtisztítani. A részleteket lásd a konzol naplóban.";
 
 /* Window text */
-"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudta átmozgatni a(z) '%@' konfigurációt. Részletek a Konzol log-ban.";
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudta átmozgatni a(z) '%@' konfigurációt. A részleteket lásd a konzol naplóban.";
 
 /* Window text */
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudta felülírni a '%@' konfigurációt. A részleteket lásd a konzol naplóban.";
 
 /* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudta eltávolítani a(z) '%@' konfigurációt. Részletek a Konzol log-ban.";
+"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudta eltávolítani a(z) '%@' konfigurációt. A részleteket lásd a konzol naplóban.";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "A Tunnelblick végzetes hibát észlelt.\n\nKérjük, lépjen kapcsolatba a fejlesztőkkel a developers@tunnelblick.net további segítségért.\n\nA következő hiba történt:\n\n%@";
@@ -1644,7 +1644,7 @@
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "A Tunnelbilck hibát észlelt a(z) %1$lu konfigurációnál:\n\n%2$@%3$@%4$@%5$@";
 
 /* Window text */
-"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "A Tunnelblick nem tudta megjavítani a(z) '%@' konfigurációhoz tartozó beállításokat. Részletek a Konzol log-ban.";
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "A Tunnelblick nem tudta megjavítani a(z) '%@' konfigurációhoz tartozó beállításokat. A részleteket lásd a konzol naplóban.";
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "A Tunnelblick megszakította a(z) '%@' kapcsolatot, mert a konfigurációs állományt törölték.";
@@ -1719,7 +1719,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "A Tunnelblick nem tudta felvenni a kapcsolatot a meglévő OpenVPN folyamattal a(z) '%1$@' konfigurációnak, %2$d mp alatt. A kísérlet a kapcsolatfelvételre, meghiúsult";
 
 /* Window text */
-"Tunnelblick was unable to make the change. See the Console Log for details." = "A Tunnelblicknek nem sikerült létrehozni a változásokat. Lásd a konzol logot a részletekért.";
+"Tunnelblick was unable to make the change. See the Console Log for details." = "A Tunnelblicknek nem sikerült létrehozni a változásokat. A részleteket lásd a konzol naplóban.";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "A Tunnelblick nem tudja elindítani az OpenVPN-t a(z) %@ kapcsolathoz. További információk a VPN Részletek… ablakban láthatók";
@@ -1788,7 +1788,7 @@
 "Unknown value '%@' for '%@' in %@" = "Ismeretlen érték ('%1$@') a(z) '%2$@' paraméterhez a(z) %3$@ fájlban";
 
 /* Window text */
-"Unreadable file at %@\n\nSee the Console log for details." = "Olvashatatlan fájl a következő helyen: %@\n\nLásd a Konzol-logot a részletekért.";
+"Unreadable file at %@\n\nSee the Console log for details." = "Olvashatatlan fájl a következő helyen: %@\n\nA részleteket lásd a konzol naplóban.";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "A(z) '%@' frissíthető konfiguráció nem lett elmentve frissíthetőként, mert a 'Tartalom' a részleges .tblk állományban nem készült el\n";
@@ -1827,10 +1827,10 @@
 "Warning: '%@' is already a named credential." = "Figyelem: '%@' néven már létezik hitelesítőadat.";
 
 /* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Figyelem: Egy vagy több beállítás nem duplikálható. Nézze meg a Konzol log-ot részletekért.";
+"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Figyelem: Egy vagy több beállítás nem duplikálható. A részleteket lásd a konzol naplóban.";
 
 /* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Figyelem: Egy vagy több beállítás nem nevezhető át. Nézze meg a Konzol log-ot részletekért.";
+"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Figyelem: Egy vagy több beállítás nem nevezhető át. A részleteket lásd a konzol naplóban.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%1$@' contains these OpenVPN options:\n\n%2$@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %3$@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options.";
@@ -1854,7 +1854,7 @@
 "You are not allowed to replace a private configuration" = "Nincsen jogosultsága lecserélni egy privát konfigurációt";
 
 /* Window text */
-"You are not allowed to replace a shared configuration" = "Nincsen jogosultsága lecserélni a megosztott konfigurációt";
+"You are not allowed to replace a shared configuration" = "Nincsen jogosultsága lecserélni egy megosztott konfigurációt";
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "A '%@' konfiguráció nem tehető priváttá, mert úgy van beállítva, hogy a számítógép indulásával együtt induljon.";
@@ -1905,7 +1905,7 @@
 "You may not remove a configuration which is set to start when the computer starts." = "Olyan konfiguráció, ami a számítógéppel együtt indul, nem távolítható el.";
 
 /* Window text */
-"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "A frissítés után addig nem tudja használni a Tunnelblick-et amíg meg nem ad egy adminisztrátor jogú felhasználónevet és jelszót.\n\nBiztosan ellenőrizni szeretné a frissítéseket?";
+"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "A frissítés után addig nem tudja használni a Tunnelblicket amíg meg nem ad egy adminisztrátor jogú felhasználónevet és jelszót.\n\nBiztosan ellenőrizni szeretné a frissítéseket?";
 
 /* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "A számítógépe esetleg nem tudja megfelelően megjeleníteni a Tunnelblick ikont a Spotlight ikon mellett.\n\nEmiatt a Tunnelblick ikon időnként eltűnhet a felső menüsorból.\n\nBiztos, hogy a Tunnelblick ikont a Spotlight ikon mellé akarja helyezni?\n\n";
@@ -2073,7 +2073,7 @@
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addreses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addreses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>";
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
-"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p> A vágólapra másolja a konzol naplójának az utolsó részét, így be lehet illeszteni egy e-mailbe vagy egyéb dokumentumba. </p><p> A napló a Tunnelblick és OpenVPN tevékenységének adatait tartalmazza. Ez tartalmazza a szokásos állapotüzeneteket és részletes hibaüzenetek amelyek túl hosszúak ahoz hogy a felhasználónak bemutassa egy párbeszéd ablakban. </p>";
+"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p> A vágólapra másolja a konzol naplójának az utolsó részét, így be lehet illeszteni egy e-mailbe vagy egyéb dokumentumba. </p><p> A napló a Tunnelblick és OpenVPN tevékenységének adatait tartalmazza. Ez tartalmazza a szokásos állapotüzeneteket és részletes hibaüzenetek amelyek túl hosszúak ahhoz hogy a felhasználónak bemutassa egy párbeszéd ablakban. </p>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Megnyitja a böngésző ablakot a Tunnelblick honlapján, amelyik információkat tartalmaz a Tunnelblick eltávolításáról.</p>";
@@ -2109,7 +2109,7 @@
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>A DNS Cache másolatot tartalmaz a DNS (tartománynévrendszer) információiról.</p>\n<p><strong>Kiválasztás esetén</strong> a DNS cache kiürítésre (törlésre) kerül a csatlakozáskor vagy a kapcsolat bontásakor. Az összes DNS lekérdezés a VPN beállításokban szereplő DNS szervertől kerül lekérdezésre.</p>\n<p><strong>Ha nincs kiválasztva,</strong>a DNS cache nem kerül kiürítésre. Ez problémákat okozhat, ha névütközés áll fent a VPN beállításokban kiválasztott névszerver és a korábban használt névszerver között, amennyiben a a bejegyzések tárolásra kerültek.</p>";
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
-"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick tartalmaz egy testreszabott \"könnyű-rsa\" változatot, amelyek OpenVPN fejlesztők által készített parancssoros szkriptek a tanúsítványok és kulcsok létrehozásához és fenntartásához. </p><p> Erre a gombra kattintva elindul a OS X Terminal alkalmazás a könyvtár a szkripteket tartalmazó mappával. </p><p> A szkriptek általában a ~/Library/Application Support/Tunnelblick/easy-rsa mappában találhatók. \"Könnyű-rsa Path\" preferencia tartalmazhat egy utat egy mappához amit Tunnelblick fogja helyette használni. \"Könnyű rsa Path\" egy abszolút útvonal kell hogy legyen, vagy egy '~', és a szülő mappának léteznie kell. Ha van egy mappa az elérési úton, akkor azt fogja használni; ha nem létezik, akkor egy új jön létre, és a könnyű rsa script ebbe lesz telepítve amikor Tunnelblick elindúl. </p> <p> A könnyű rsa használatával kapcsolatos információkat lásd: <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\"> A saját hitelesítésszolgáltató (CA) és a termelő tanúsítványokat és kulcsokat felállítani egy OpenVPN szerver és több ügyfél </a> [openvpn.net]. </p> <p> a részleteket Tunnelblick terveit az a könnyű rsa-ról lásd a README fájlt található a mappát. </p>";
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>A Tunnelblick tartalmaz egy testreszabott \"easy-rsa\" változatot, amely OpenVPN fejlesztők által készített parancssoros szkriptek tanúsítványok és kulcsok létrehozásához és kezeléséhez.</p><p>Erre a gombra kattintva elindul a OS X Terminal alkalmazás a szkripteket tartalmazó mappában.</p><p>A szkriptek általában a ~/Library/Application Support/Tunnelblick/easy-rsa mappában találhatók. Az \"easy-rsaPath\" beállítás tartalmazhat egy elérési utat amit Tunnelblick az alapbeállítás helyett fog használni. Az \"easy-rsaPath\" egy abszolút útvonal kell hogy legyen, vagy '~'-vel kell kezdődnie, és a szülő mappának léteznie kell. Ha van egy mappa a megadott elérési úton, akkor azt fogja használni; ha nem létezik, akkor egy új jön létre, amelybe az easy-rsa szkriptek telepítve lesznek amikor a Tunnelblick elindul.</p><p>Az easy-rsa használatával kapcsolatos információkat lásd: <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Saját hitelesítésszolgáltató (CA) felállítása, tanúsítványok és kulcsok generálása egy OpenVPN szerver és több ügyfél számára</a> [openvpn.net]. </p><p>A Tunnelblick easy-rsa testreszabásának részleteit lásd a README fájlban.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>A Tunnelblick nem tudta betölteni a rendszerkiegészítést ami szükséges a %1$@-hoz való csatlakozáshoz.</p><p>%2$@ További információ: %3$@ [%4$@]</p>";
@@ -2121,10 +2121,10 @@
 "Afrikaans translation" = "Afrikaans fordítás";
 
 /* Credit description */
-"Albanian translation" = "Albanian translation";
+"Albanian translation" = "Albán fordítás";
 
 /* Credit description */
-"Animation and icon sets code" = "Animáció, ikon készlet kód";
+"Animation and icon sets code" = "Animáció és ikonkészlet kód";
 
 /* Credit description */
 "Arabic translation" = "Arab fordítás";
@@ -2305,7 +2305,7 @@
 "Ukrainian translation" = "Ukrán fordítás";
 
 /* Credit description */
-"Up and Down scripts" = "fel és lecsatoló scriptek";
+"Up and Down scripts" = "fel- és lecsatoló scriptek";
 
 /* Notification text */
 "Updated to %@." = "Frissítve %@-ra.";
@@ -2332,7 +2332,7 @@
 "Reject" = "Elutasít";
 
 /* Menu item VPNService */
-"Register for Tunnelblick..." = "Regisztrálás a Tunnelblick-hez…";
+"Register for Tunnelblick..." = "Regisztrálás a Tunnelblickhez…";
 
 /* Window title  VPNService */
 "Cannot obtain image" = "Nem sikerült a képet letölteni";
@@ -2359,7 +2359,7 @@
 "Prove You are Human" = "Meg kell győződnünk róla, hogy ön nem egy robot";
 
 /* Window title  VPNService */
-"Register with Tunnelblick" = "Regisztráció a Tunnelblick-kel";
+"Register with Tunnelblick" = "Regisztrálás a Tunnelblickhez";
 
 /* Window title  VPNService */
 "Sorry" = "Elnézést";
@@ -2380,7 +2380,7 @@
 "Confirm password:" = "Erősítse meg jelszavát:";
 
 /* Window text VPNService */
-"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Gratulálunk! A fiókja elkészült. Hamarosan egy email-t fog kapni a Tunnelblick-től. Kövesse az abban található utasításokat, annak érdekében, hogy megerősíthesse regisztrációját, majd kattintson a 'Tovább' gombra.";
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Gratulálunk! A fiókja elkészült. Hamarosan kap egy emailt fog a Tunnelblicktől. Kövesse az abban található utasításokat, hogy megerősíthesse regisztrációját, majd kattintson a 'Tovább' gombra.";
 
 /* Window text VPNService */
 "Could not check registration" = "Nem sikerült a regisztráció ellenőrzés";
@@ -2437,7 +2437,7 @@
 "The text you entered did not match the text in the Captcha image." = "A begépelt karakterek nem egyeznek a Captcha képen találhatókkal";
 
 /* Window text VPNService */
-"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Nincsen '%@' nevű konfiguráció telepítve.\n\nPróbálja újratelepíteni a  Tunnelblick-et a disk image fájlból.";
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Nincsen '%@' nevű konfiguráció telepítve.\n\nPróbálja újratelepíteni a Tunnelblicket a disk image fájlból.";
 
 /* Window text VPNService */
 "To create your free Tunnelblick account we need your email address and a password of your choosing." = "Az ingyenes Tunnelblick azonosító létrehozásához kérem adja meg email címét és válasszon jelszót.";
