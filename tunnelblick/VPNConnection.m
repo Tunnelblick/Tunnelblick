@@ -2023,8 +2023,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 					  [self displayName], displayNameForOpenvpnName(versionToTry));
 			}
 			NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatCannotConnectBecauseOfOpenVPNOptions"];
-			if (   connecting
-				&& ( ! [gTbDefaults boolForKey: key] )  ) {
+			if (  ! [gTbDefaults boolForKey: key]  ) {
 				[gTbDefaults setBool: TRUE forKey: key];
 				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
 				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
@@ -2052,13 +2051,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		NSString * addedInMajorMinor = [addedOptionsInfo objectForKey: @"addedInOpenvpnVersion"];
 		
 		if (  [maximumMajorMinor compare: addedInMajorMinor] == NSOrderedAscending  ) {
-			if (  connecting  )  {
-				TBLog(@"DB-CD", @"Cannot connect %@ using OpenVPN %@ because of conflicting options",
+			TBLog(@"DB-CD", @"Cannot connect %@ using OpenVPN %@ because of conflicting options",
 					  [self displayName], displayNameForOpenvpnName(versionToTry));
-			}
 			NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatCannotConnectBecauseOfOpenVPNOptionConflicts"];
-			if (   connecting
-				&& ( ! [gTbDefaults boolForKey: key] )  ) {
+			if (  ! [gTbDefaults boolForKey: key]  ) {
 				[gTbDefaults setBool: TRUE forKey: key];
 				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
 				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
@@ -2104,8 +2100,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 					  [self displayName], displayNameForOpenvpnName(versionToTry));
 			}
 			NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatCannotConnectBecauseOfOpenVPNOptions"];
-			if (   connecting
-				&& ( ! [gTbDefaults boolForKey: key] )  ) {
+			if (  ! [gTbDefaults boolForKey: key]  ) {
 				[gTbDefaults setBool: TRUE forKey: key];
 				NSString * problematicOptions =[addedOptionsInfo objectForKey: @"problematicOptions"];
 				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
@@ -2135,8 +2130,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 					  [self displayName], displayNameForOpenvpnName(versionToTry));
 			}
 			NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatMayNotConnectInFutureBecauseOfOpenVPNOptions"];
-			if (   connecting
-				&& ( ! [gTbDefaults boolForKey: key] )  ) {
+			if (  ! [gTbDefaults boolForKey: key]  ) {
 				[gTbDefaults setBool: TRUE forKey: key];
 				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
 				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
@@ -2171,8 +2165,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				  [self displayName], displayNameForOpenvpnName(versionToTry), displayNameForOpenvpnName(versionWanted));
 		}
 		NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatNotUsingSpecifiedOpenVPN"];
-		if (   connecting
-			&& ( ! [gTbDefaults boolForKey: key] )  ) {
+		if (  ! [gTbDefaults boolForKey: key]  ) {
 			[gTbDefaults setBool: TRUE forKey: key];
 			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
 							  [NSString stringWithFormat:
