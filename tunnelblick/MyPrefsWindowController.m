@@ -1924,6 +1924,12 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
+-(void) setupPerConfigOpenvpnVersionAfterDelay {
+	
+	VPNConnection * connection = [self selectedConnection];
+	[self performSelector: @selector(setupPerConfigOpenvpnVersion:) withObject: connection afterDelay: 0.1];
+}
+
 -(void) setSelectedPerConfigOpenvpnVersionIndex: (NSNumber *) newValue
 {
     if (  [newValue isNotEqualTo: [self selectedPerConfigOpenvpnVersionIndex]]  ) {
@@ -1941,6 +1947,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 									   @"-openvpnVersion", @"PreferenceName",
 									   nil];
 				[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+				[self performSelectorOnMainThread: @selector(setupPerConfigOpenvpnVersionAfterDelay) withObject: nil waitUntilDone: NO];
 			}
         }
     }
