@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2018. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -2441,17 +2441,22 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
     TBLog(@"DB-ALL", @"Tunnelblick connected to management interface on port %d.", [managementSocket remotePort]);
     
-    NS_DURING {
-		[managementSocket writeString: @"pid\r\n"           encoding: NSASCIIStringEncoding];
-        [managementSocket writeString: @"state on\r\n"      encoding: NSASCIIStringEncoding];    
-		[managementSocket writeString: @"state\r\n"         encoding: NSASCIIStringEncoding];
-        [managementSocket writeString: @"bytecount 1\r\n"   encoding: NSASCIIStringEncoding];
-        [managementSocket writeString: @"hold release\r\n"  encoding: NSASCIIStringEncoding];
-    } NS_HANDLER {
-        NSLog(@"Exception caught while writing to socket: %@\n", localException);
-    }
-    NS_ENDHANDLER
-    
+	NSString * theMipName = mipName();
+	if (  theMipName  ) {
+		NSString * mipString = [theMipName stringByAppendingString: @"\r\n"];
+		NS_DURING {
+			[managementSocket writeString: mipString			encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"pid\r\n"           encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"state on\r\n"      encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"state\r\n"         encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"bytecount 1\r\n"   encoding: NSASCIIStringEncoding];
+		} NS_HANDLER {
+			NSLog(@"Exception caught while writing to socket: %@\n", localException);
+		}
+		NS_ENDHANDLER
+	} else {
+		NSLog(@"Unable to find .mip file");
+	}
 }
 
 -(void) setPIDFromLine:(NSString *)line 
@@ -2588,6 +2593,16 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  [line isEqualToString: @">FATAL:Error: private key password verification failed"]  ) {
 		// Private key verification failed. Rewrite the message to be similar to the regular password failed message so we can use the same code
 		line = @">PASSPHRASE:Verification Failed";
+	}
+	
+	if (  [line hasPrefix: @">HOLD:Waiting for hold release"]  ) {
+		NS_DURING {
+			[managementSocket writeString: @"hold release\r\n"   encoding: NSASCIIStringEncoding];
+		} NS_HANDLER {
+			NSLog(@"Exception caught while writing to socket: %@\n", localException);
+		}
+		NS_ENDHANDLER
+		return;
 	}
 	
      NSRange separatorRange = [line rangeOfString: @":"];

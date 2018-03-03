@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -60,6 +60,8 @@
 
 //*************************************************************************************************
 // Paths:
+
+#define L_AS_T        @"/Library/Application Support/Tunnelblick"
 
 // NOTE: Several up scripts refer to the log directory without using this header file
 #define L_AS_T_LOGS   @"/Library/Application Support/Tunnelblick/Logs"
@@ -177,6 +179,7 @@
 #define PERMS_SECURED_SCRIPT     0700
 #define PERMS_SECURED_EXECUTABLE 0755
 #define PERMS_SECURED_ROOT_EXEC  0744
+#define PERMS_SECURED_ROOT_RO    0400
 #define PERMS_SECURED_READABLE   0744
 #define PERMS_SECURED_PLIST      0644
 #define PERMS_SECURED_OTHER      0700

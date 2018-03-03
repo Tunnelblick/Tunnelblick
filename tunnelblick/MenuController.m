@@ -3,7 +3,7 @@
  * Contributions by Dirk Theisen <dirk@objectpark.org>,
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2018. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -6024,6 +6024,16 @@ BOOL warnAboutNonTblks(void)
     return -1;
 }
 
+BOOL needToCreateMip(void) {
+	
+	if (  mipName()  ) {
+		return NO;
+	}
+	
+	NSLog(@"No .mip");
+	return YES;
+}
+
 // Checks whether the installer needs to be run
 // Sets bits in a flag for use by the runInstaller:extraArguments method, and, ultimately, by the installer program
 //
@@ -6035,6 +6045,7 @@ unsigned needToRunInstaller(BOOL inApplications)
     unsigned flags = 0;
     
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
+	if (  ( needToCreateMip() )									 ) flags = flags | INSTALLER_SECURE_APP;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToConvertNonTblks()                                ) flags = flags | INSTALLER_CONVERT_NON_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;

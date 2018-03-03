@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2018. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -428,6 +428,20 @@ void loadLaunchDaemonUsingLaunchctl(void) {
 	}
 }
 
+NSString * getStringOf40RandomCharacters(void) {
+	
+	// Returns a 40 character long string composed of random characters in the range 'a' through 'p'
+	
+	NSString * letters = @"abcdefghijklmnop";
+	NSMutableString * outString = [NSMutableString stringWithCapacity: 40];
+	NSUInteger i;
+	for (  i=0; i<40; i++  ) {
+		[outString appendFormat: @"%C", [letters characterAtIndex: arc4random() % ([letters length] - 1)]];
+	}
+	
+	return outString;
+}
+
 /* DISABLED BECAUSE THIS IS NOT AVAILABLE ON 10.4 and 10.5
  *
  * When/if this is enabled, must add the ServiceManagement framework, too, via the following line at the start of this file:
@@ -647,7 +661,35 @@ int main(int argc, char *argv[])
                                                 PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
     }
-    
+	
+	// Create the .mip file owned by root with 0400 permissions in L_AS_T if it doesn't already exist
+	NSDirectoryEnumerator  * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T];
+	NSString * fileName;
+	while (  (fileName = [dirEnum nextObject])  ) {
+		[dirEnum skipDescendents];
+		if (  [fileName hasSuffix: @".mip"]  ) {
+			break;
+		}
+	}
+	if (  ! fileName) {
+		// Get 40 random characters A-P as a filename for the .mip file
+		NSString * name = getStringOf40RandomCharacters();
+		NSString * path = [L_AS_T stringByAppendingPathComponent: [name stringByAppendingString: @".mip"]];
+		NSString * contents = [name stringByAppendingString: @"\n"];
+		NSData * contentsAsData = [NSData dataWithBytes: [contents cStringUsingEncoding: NSASCIIStringEncoding] length: [contents length]];
+		NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+									 [NSNumber numberWithInt: 0], NSFileOwnerAccountID,
+									 [NSNumber numberWithInt: 0], NSFileGroupOwnerAccountID,
+									 [NSNumber numberWithInt: PERMS_SECURED_ROOT_RO], NSFilePosixPermissions,
+									 nil];
+		if (  ! [gFileMgr createFileAtPath: path contents: contentsAsData attributes: attributes] ) {
+			appendLog(@"Unable to create .mip");
+			errorExit();
+		}
+		
+		appendLog(@"Created .mip");
+	}
+	
     NSString * userL_AS_T_Path= [[[NSHomeDirectory()
                                    stringByAppendingPathComponent: @"Library"]
                                   stringByAppendingPathComponent: @"Application Support"]
@@ -768,7 +810,7 @@ int main(int argc, char *argv[])
     //      (5) Renames /Library/LaunchDaemons/net.tunnelblick.startup.*
     //               to                        net.tunnelblick.tunnelblick.startup.*
     
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: @"/Library/LaunchDaemons"];
+    dirEnum = [gFileMgr enumeratorAtPath: @"/Library/LaunchDaemons"];
     NSString * file;
     NSString * oldPrefix = @"net.tunnelblick.startup.";
     NSString * newPrefix = @"net.tunnelblick.tunnelblick.startup.";

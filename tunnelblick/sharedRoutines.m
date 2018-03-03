@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -45,6 +45,20 @@ extern NSString * gDeployPath;
 // External reference that must be defined in Tunnelblick, installer, and any other target using this module
 void appendLog(NSString * msg);	// Appends a string to the log
 
+
+NSString * mipName(void) {
+	
+	NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T];
+	NSString * fileName;
+	while (  (fileName = [dirEnum nextObject])  ) {
+		[dirEnum skipDescendents];
+		if (  [fileName hasSuffix: @".mip"]  ) {
+			break;
+		}
+	}
+	
+	return [fileName stringByDeletingPathExtension];
+}
 
 OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix) {
     

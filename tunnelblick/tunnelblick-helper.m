@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Angelo Laub
  * Contributions by Dirk Theisen
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2018. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -66,7 +66,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 173-247, plus the values in define.h (248-254)
+// returnValue: have used 172-247, plus the values in define.h (248-254)
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -1954,6 +1954,12 @@ int startVPN(NSString * configFile,
     deleteLogFiles(configFile, cfgLocCode);
     NSString * logPath = createOpenVPNLog(configFile, cfgLocCode, port);
     
+	NSString * theMipName = mipName();
+	if (  ! theMipName  ) {
+		fprintf(stderr, "Unable to find .mip\n");
+		exitOpenvpnstart(172);
+	}
+	
     // First arguments that go in the OpenVPN command line
 	NSMutableArray* arguments = [NSMutableArray arrayWithObjects:
 								 
@@ -1969,8 +1975,10 @@ int startVPN(NSString * configFile,
 								 @"--cd",         cdFolderPath,
                                  
                                  // Specify the rest of the options after the config file, so they override any correspondng options in it
-								 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%u", port],
-                                 
+								 @"--management", @"127.0.0.1",
+								 [NSString stringWithFormat:@"%u", port],
+								 [L_AS_T stringByAppendingPathComponent: [theMipName stringByAppendingString: @".mip"]],
+								 
                                  // (Additional options are added to 'arguments' below)
 								 nil];
     

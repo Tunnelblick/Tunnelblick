@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,6 +21,8 @@
 
 #import <Foundation/Foundation.h>
 
+
+NSString * mipName(void);
 
 OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix);
 
