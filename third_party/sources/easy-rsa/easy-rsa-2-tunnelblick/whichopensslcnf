@@ -15,7 +15,7 @@ if [ "$OPENSSL" ]; then
                 echo "HOME =" $HOME >> $cnf
                 env | fgrep "KEY_" >> $cnf
                 env | fgrep "PKCS11_" >> $cnf
-                cat $cnf.template >> $cnf
+                cat "$cnf.template" >> $cnf
 	else
 		cnf="$1/openssl.cnf"
 	fi
