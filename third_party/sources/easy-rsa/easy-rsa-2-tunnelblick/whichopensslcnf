@@ -11,11 +11,11 @@ if [ "$OPENSSL" ]; then
                 cnf="$1/openssl-1.0.0.cnf"
 	elif "$OPENSSL" version | fgrep "LibreSSL" > /dev/null; then
                 cnf="$1/libressl.cnf"
-                echo "# Generated from environment" > $cnf
-                echo "HOME =" $HOME >> $cnf
-                env | fgrep "KEY_" >> $cnf
-                env | fgrep "PKCS11_" >> $cnf
-                cat "$cnf.template" >> $cnf
+                echo "# Generated from environment" > "$cnf"
+                echo "HOME =" $HOME >> "$cnf"
+                env | fgrep "KEY_" >> "$cnf"
+                env | fgrep "PKCS11_" >> "$cnf"
+                cat "$cnf.template" >> "$cnf"
 	else
 		cnf="$1/openssl.cnf"
 	fi
