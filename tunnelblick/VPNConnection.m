@@ -2061,7 +2061,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								  [NSString stringWithFormat:
 								   NSLocalizedString(@"This VPN cannot be connected.\n\n"
 													 
-													 @"The OpenVPN configuration file for '%@' contains Openvpn options which conflict.\n\n"
+													 @"The OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\n"
 													 
 													 @"That is, one or more options are available only in old versions of OpenVPN and one or more"
 													 @" other options are available only in modern versions of OpenVPN. No version of OpenVPN will"
