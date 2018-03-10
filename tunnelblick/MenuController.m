@@ -3793,6 +3793,11 @@ static void signal_handler(int signalNumber)
             }
     }
     
+	if (  signalNumber == SIGPIPE  ) {
+		NSLog(@"Ignoring SIGPIPE (signal %d)", signalNumber);
+		return;
+	}
+	
     const char * siglist = (  signalNumber < NSIG
                             ? sys_siglist[signalNumber]
                             : "");
