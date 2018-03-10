@@ -123,7 +123,7 @@ extern TBUserDefaults * gTbDefaults;
 	[generalAdminApprovalForKeyAndCertificateChangesCheckbox
 	 setTitle: NSLocalizedString(@"Require administrator authorization for key and certificate changes", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n"
-														   @"<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p>"
+														   @"<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p>"
 														   @"<p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>",
 														   @"HTML info for the 'Require administrator authorization for key and certificate changes' checkbox."))];
 	
