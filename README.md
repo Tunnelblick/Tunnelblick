@@ -17,3 +17,8 @@ Bugs
 ----
 
 Please report problems using Tunnelblick on the [Tunnelblick Discussion Group](https://groups.google.com/forum/#!forum/tunnelblick-discuss).
+
+Pull Requests
+-------------
+
+We accept PRs for everything **except** translations and localization. To help with translations and localization, please contact developers@tunnelblick.net.
