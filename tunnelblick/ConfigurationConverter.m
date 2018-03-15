@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2015, 2016, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -270,6 +270,22 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 }
 
 -(NSMutableArray *) getTokens {
+
+	// These are the OpenVPN options that can be used to insert the contents of a file inline. The array is used to skip over the
+	// contents of such inlined files. All such contents are UTF-8 or ASCII. (Because the contents of a pkcs12 file must be encoded
+	// in base 64, the contents are always ASCII.)
+	NSArray * inlineOptions = @[@"<ca>",
+								@"<cert>",
+								@"<crl-verify>",
+								@"<dh>",
+								@"<extra-certs>",
+								@"<http-proxy-user-pass>",
+								@"<key>",
+								@"<pkcs12>",
+								@"<secret>",
+								@"<tls-auth>",
+								@"<tls-crypt>"];
+	
 	NSMutableArray * arr = [NSMutableArray arrayWithCapacity: 300];
 	
 	inputIx = 0;
@@ -294,6 +310,40 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 			[arr addObject: [[[ConfigurationToken alloc] initWithRange: r
                                                               inString: configString
                                                             lineNumber: lineNum] autorelease]];
+		}
+		
+		// Skip lines that are between "<ca>" and "</ca>", "<cert>" and "</cert>", etc.
+		// We use a list of options that can be in angle brackets because we do not want to process "<connect>" and similar
+		// configuration file directives that should not be skipped because they contain OpenVPN options that should be parsed.
+
+		// Look for "<something-on-the-list>\n", preceded by "\n" unless it appears at the start of a configuration file
+		if (   ([arr count] > 1)
+			&& [[[arr lastObject] stringValue] isEqualToString: @"\n"]
+			&&     [inlineOptions containsObject: [[arr objectAtIndex: [arr count] - 2] stringValue]]
+			&& (   ( [arr count] == 2 )
+				|| [[[arr objectAtIndex: [arr count] - 3] stringValue] isEqualToString: @"\n"]
+				)
+			) {
+
+			// Have started an inline cert or key with "<abc>\n", tokenized as "<abc>" and "\n".
+			//Skip everything up to but not including the "</abc>" that closes the inline cert or key
+			NSString * startTag = [[arr objectAtIndex: [arr count] - 2] stringValue];
+			NSMutableString * endTag = [[startTag mutableCopy] autorelease];
+			[endTag insertString: @"/" atIndex: 1];
+			r = NSMakeRange(inputIx, [configString length] - inputIx);
+			r = [configString rangeOfString: endTag options: 0 range: r];
+			if (  r.location == NSNotFound  ) {
+				[self logMessage: [NSString stringWithFormat: @"'%@' at line %u was not terminated properly", startTag, lineNum - 1]
+					   localized: [NSString stringWithFormat: NSLocalizedString(@"'%@' at line %u was not terminated properly", @"Window text"), startTag, lineNum - 1]];
+				return nil;
+			}
+			// Update lineNum to reflect the lines that we skipped between inputIx and r.location
+			// Update inputIx to the start of "</abc>" (r.location)
+			while (  inputIx < r.location  ) {
+				if (  [[configString substringWithRange: NSMakeRange(inputIx++, 1)] isEqualToString: @"\n"]  ) {
+					lineNum++;
+				}
+			}
 		}
 	}
 	
