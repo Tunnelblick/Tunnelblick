@@ -822,6 +822,9 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "Desktop에 '%@' 폴더가 이미 있습니다.\n\n기존 것을 교체하겠습니까?";
 
 /* Window text */
+"'%@' at line %u was not terminated properly" = "'%1$@' at line %2$u was not terminated properly";
+
+/* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@'는 키체인에 저장된 인증(개인 키 또는 사용자 계정과 암호)이 없습니다.";
 
 /* Window text */
@@ -903,7 +906,7 @@
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "%@에 연결한 후, 인터넷에 접속할 수 없습니다.\n\nVPN이 올바르게 설정되지 않았을 수 있습니다.\n\n";
 
 /* Window text */
-"All OpenVPN processes have quit" = "All OpenVPN processes have quit";
+"All OpenVPN processes have quit" = "모든 OpenVPN 프로세스가 종료되었습니다";
 
 /* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "모든 설정 파일이 삭제되었습니다. Tunnelblick을 종료해야 합니다.";
@@ -972,7 +975,7 @@
 "Backslash at end of line %u is not allowed" = "줄 %u 끝에 역 슬래시는 허용되지 않습니다";
 
 /* Window text */
-"Cancelled trying to quit all OpenVPN processes" = "Cancelled trying to quit all OpenVPN processes";
+"Cancelled trying to quit all OpenVPN processes" = "모든 OpenVPN 프로세스 종료를 취소합니다";
 
 /* Window text */
 "Cannot find configuration file at %@" = "%@에서 설정 파일을 찾을 수 없습니다";
@@ -1515,7 +1518,7 @@
 "There are no OpenVPN configurations to install." = "설치할 OpenVPN 설정이 없습니다.";
 
 /* Window text */
-"There are no OpenVPN processes running" = "There are no OpenVPN processes running";
+"There are no OpenVPN processes running" = "실행 중인 OpenVPN 프로세스가 없습니다";
 
 /* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "설치된 VPN 설정이 없습니다.\n\nVPN에 연결하려면 Tunnelblick은 1개 또는 이상의 설치된 설정이 필요합니다. 설정은 일반적으로 네트워크 관리자 또는 VPN 서비스 제공자가 제공한 파일을 사용해 설치합니다. 파일은 사용하려면 설치해야 합니다.\n\n설정 파일은 .tblk 이나 .ovpn 또는 .conf 확장자를 가집니다.\n\n(설정과 관련된 다른 파일은 다른 확장자를 가질 수 있습니다. 지금은 무시하십시오.)\n\n설정 파일을 가지고 있습니까?\n";
@@ -1542,7 +1545,7 @@
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "이 '배포된' Tunnelblick 버전은 Info.plist가 없어서 실행하거나 설치할 수 없습니다.\n\n";
 
 /* Window text. The '%@' will be replaced by the name of a configuration */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains Openvpn options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains Openvpn options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN.";
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%1$@' contains these OpenVPN options:\n\n%2$@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).";
@@ -1575,7 +1578,7 @@
 "Translation by" = "번역자";
 
 /* Window text */
-"Trying to quit all OpenVPN processes..." = "Trying to quit all OpenVPN processes…";
+"Trying to quit all OpenVPN processes..." = "모든 OpenVPN 프로세스를 종료합니다...";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
 "Tunnelblick %@ has been secured successfully." = "Tunnelblick %@이 성공적으로 구성되었습니다.";
@@ -2010,7 +2013,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>체크되었을 때</strong>, Tunnelblick이 모든 IPv4 트래픽에 대해 VPN 서버를 통하도록 OpenVPN에 명령합니다.</p>\n<p><strong>체크되지 않았을 때</strong>, 기본적으로 OpenVPN이 VPN 네트워크를 향하는 트래픽에 대해서만 VPN만을 사용합니다. 모든 다른 트래픽은 VPN을 통하지 않는 인터넷 연결을 사용합니다. OpenVPN의 기본 행동은 OpenVPN 구성이나 VPN 서버에 의해 변경 될 수 있으며, 마치 이 체크상자가 체크된 것마냥 모든 IPv4 트래픽이 VPN 서버를 지나치도록 행동할 수 있습니다.</p>\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>체크되었을 때</strong>, 키와 인증서 파일의 변경을 위해 Tunnelblick이 컴퓨터 관리자의 인증을 요구합니다.</p>\n<p><strong>체크되지 않았을 때</strong>, 표준 사용자가 키와 인증서 파일의 변경을 허가합니다.</p><p><strong>주: 이 설정을 위해 컴퓨터 관리자 인증이 요구됩니다.</strong></p>";
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>체크되었을 때</strong>, Tunnelblick이 네트워크 설정 변화(예를 들어, DHCP 갱신 또는 인터넷 연결 변경으로 인한 변화) 를 감시하고 VPN 연결을 유지하도록 합니다.</p>\n<p><strong>체크되지 않았을 때</strong>, Tunnelblick이 네트워크 변화를 무시합니다.</p>\n<p>'DNS/WINS 설정'이 '이름 서버 설정' 또는 '이름 서버 설정 (3.1)'을 하도록 정해지지 않았다면, <strong>이 체크상자는 사용이 불가합니다.</strong></p>";
@@ -2037,7 +2040,7 @@
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>체크되었을 때</strong>, 다른 설정에 관계없이 어떠한 자동 업데이트 확인 또는 IP 주소 변경 확인도 하지 않습니다. 주: 두 활동 모두 Tunnelblick 웹사이트에 접속합니다.</p>\n<p><strong>체크되지 않았을 때</strong>, 아래 활성화 되었다면 자동 업데이트 확인이 이루어지고, 만약 구성 설정에 활성화되었다면 구성에 연결되었을 때 IP 주소 변경 확인을 합니다.</p><p>자세한 사항은 [tunnelblick.net]의 <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> 항목을 보십시오.</p><p>&nbsp;</p>";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>체크되었을 때</strong>, Tunnelblick 아이콘이 Spotlight 아이콘 근처에 위치합니다:</p>\n<p>%1$@</p>\n<p><strong>체크되지 않았을 때</strong>, Tunnelblick 아이콘이 원래 자리에 위치합니다:</p>\n<p>%2$@</p>\n<p><strong>이 체크상자가 비활성화된 경우</strong> 옵션이 필요가 없는 macOS Sierra거나 문제를 일으키는 것으로 알려진 시스템입니다</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">추가 정보</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%1$@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%2$@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>체크되었을 때</strong>, 구성이 연결 해제되었더라도 VPN 상태창이 표시됩니다.</p><p>상단의 '보지 않기'가 선택되었다면 <strong>이 체크상자는 사용이 불가합니다.</strong></p>";
@@ -2121,7 +2124,7 @@
 "Afrikaans translation" = "아프리칸스어 번역";
 
 /* Credit description */
-"Albanian translation" = "Albanian translation";
+"Albanian translation" = "알바니아어 번역";
 
 /* Credit description */
 "Animation and icon sets code" = "애니메이션, 아이콘 세트 코드";
