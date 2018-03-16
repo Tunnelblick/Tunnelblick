@@ -133,6 +133,7 @@
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
 		639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639A10EA132AC74B00754C2A /* StatusWindow.xib */; };
 		639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639A10FE132AC9D800754C2A /* StatusWindowController.m */; };
+		639B6119205BE7FD00BC2FF5 /* HE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 639B6118205BE7FD00BC2FF5 /* HE.lproj */; };
 		639BCE5B1D07894C00A9111D /* RO.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 639BCE5A1D07894C00A9111D /* RO.lproj */; };
 		639C2F0E1D84812800DA3386 /* AuthIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 639C2F0D1D84812800DA3386 /* AuthIcon.png */; };
 		639EC33E1C0E16A9001FE378 /* StatusWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */; };
@@ -499,6 +500,7 @@
 		639A10EA132AC74B00754C2A /* StatusWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusWindow.xib; sourceTree = "<group>"; };
 		639A10FE132AC9D800754C2A /* StatusWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusWindowController.m; sourceTree = "<group>"; };
 		639A10FF132AC9D800754C2A /* StatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusWindowController.h; sourceTree = "<group>"; };
+		639B6118205BE7FD00BC2FF5 /* HE.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HE.lproj; sourceTree = "<group>"; };
 		639BCE5A1D07894C00A9111D /* RO.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RO.lproj; sourceTree = "<group>"; };
 		639C2F0D1D84812800DA3386 /* AuthIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AuthIcon.png; sourceTree = "<group>"; };
 		639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StatusWindow-RTL.xib"; sourceTree = "<group>"; };
@@ -1058,6 +1060,7 @@
 				63EA2CA71C9EFCF0005F0872 /* FA.lproj */,
 				B896C2DF1767B753004D9A21 /* FI.lproj */,
 				615F748C0ED3A4E5007F6F0A /* FR.lproj */,
+				639B6118205BE7FD00BC2FF5 /* HE.lproj */,
 				634E02061CAD9776008637FF /* HR.lproj */,
 				63903D12145EAD49006627C9 /* HU.lproj */,
 				63EA2CA81C9EFCF0005F0872 /* ID.lproj */,
@@ -1639,6 +1642,7 @@
 				63DC245719FA73E3006B1BDF /* BG.lproj in Resources */,
 				631494A519FA7B9E009057D1 /* PT_PT.lproj in Resources */,
 				63ED903A1A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist in Resources */,
+				639B6119205BE7FD00BC2FF5 /* HE.lproj in Resources */,
 				6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */,
 				635713A61A6709D800709670 /* AR.lproj in Resources */,
 				63206BC41D273CBD00019DFB /* info-icon-on-right-360x40.png in Resources */,
