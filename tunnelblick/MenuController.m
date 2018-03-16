@@ -430,6 +430,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 								@"inhibitOutboundTunneblickTraffic",
                                 @"placeIconInStandardPositionInStatusBar",
                                 @"doNotMonitorConfigurationFolder",
+								@"doNotIgnoreSignal13",
 								@"doNotLaunchOnLogin", // DISABLE the ability to launch on login provided by launchAtNextLogin
                                 @"launchAtNextLogin",
                                 @"onlyAdminsCanUnprotectConfigurationFiles",
@@ -3793,7 +3794,8 @@ static void signal_handler(int signalNumber)
             }
     }
     
-	if (  signalNumber == SIGPIPE  ) {
+	if (   (signalNumber == SIGPIPE)
+		&& ( ! [gTbDefaults boolForKey: @"doNotIgnoreSignal13"])  ) {
 		NSLog(@"Ignoring SIGPIPE (signal %d)", signalNumber);
 		return;
 	}
