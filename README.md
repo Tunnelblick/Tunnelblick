@@ -29,3 +29,8 @@ Code of Conduct
 ---------------
 
 See our [Code of Conduct](https://github.com/Tunnelblick/Tunnelblick/blob/master/.github/CODE_OF_CONDUCT.md)
+
+Contributing
+------------
+
+See [Contributing](https://github.com/Tunnelblick/Tunnelblick/blob/master/.github/CONTRIBUTING.md).
