@@ -21,4 +21,4 @@ Please report problems using Tunnelblick on the [Tunnelblick Discussion Group](h
 Pull Requests
 -------------
 
-We accept PRs for everything **except** translations and localization. To help with translations and localization, please contact developers@tunnelblick.net.
+We welcome PRs for everything **except** translations and localization. To help with translations and localization, please contact developers@tunnelblick.net.
