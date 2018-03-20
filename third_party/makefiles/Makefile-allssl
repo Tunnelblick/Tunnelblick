@@ -74,37 +74,32 @@ built-allssl: built-allssl-prepare
 				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
 				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
 				$(MAKE) install_sw; \
+			elif [ "$${sslvariant}" = "libressl" ] ; then \
+				CC=$(CC) CFLAGS="$(CFLAGS)" ./configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+				$(MAKE) check; \
+				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
+				$(MAKE) install; \
 			else \
-				if [ "$${sslvariant}" = "libressl" ] ; then \
-					CC=$(CC) CFLAGS="$(CFLAGS)" ./configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
-					$(MAKE) check; \
-					echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
-					$(MAKE) install; \
-				else \
-					echo "error: do not know how to build '$${sslvariant}' ($${sslversion})" ; \
-				fi ; \
+				echo "error: do not know how to build '$${sslvariant}' ($${sslversion})" ; \
 			fi ; \
 			cd .. ; \
 		done ; \
+		if [ -e "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" ] ; then \
+			mv "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" "$(STAGING_DIR)/$${sslversion}/x86_64" ; \
+		fi ; \
+		mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
 		if [ "$${sslvariant}" = "openssl" ] ; then \
-			if [ -e "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" ] ; then \
-				mv "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" "$(STAGING_DIR)/$${sslversion}/x86_64" ; \
-			fi ; \
-			mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
-			for t in $(OPENSSL_TARGET_FILES); do \
+			for t in $(OPENSSL_1_0_TARGET_FILES); do \
+				lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
+				ranlib $$t; \
+			done ; \
+		elif [ "$${sslvariant}" = "libressl" ] ; then \
+			for t in $(LIBRESSL_TARGET_FILES); do \
 				lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
 				ranlib $$t; \
 			done ; \
 		else \
-			if [ "$${sslvariant}" = "libressl" ] ; then \
-				mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
-				for t in $(LIBRESSL_TARGET_FILES); do \
-					lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
-					ranlib $$t; \
-				done ; \
-			else \
-				echo "error: do not know how to lipo '$${sslvariant}' ($${sslversion})" ; \
-			fi ; \
+			echo "error: do not know how to lipo '$${sslvariant}' ($${sslversion})" ; \
 		fi ; \
 	done
 	cd $(TOPDIR)
@@ -115,4 +110,3 @@ built-allssl-clean:
 	find -xsdE $(BUILD_DIR)   -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" -exec rm -f -R {} \;
 	find -xsdE $(STAGING_DIR) -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" -exec rm -f -R {} \;
 	rm -f built-allssl built-allssl-prepare
-	
