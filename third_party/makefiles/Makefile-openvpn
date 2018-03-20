@@ -191,6 +191,7 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 					-o ! -e $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so ] ; then \
 					cd openvpn ; \
 					rm -f -R $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name ; \
+					echo "warning: removed $$openvpn_name-$$ssl_name folder because it did not contain both openvpn-executable and openvpn-down-root.so" ; \
 				fi ; \
 				cd openvpn ; \
 			else \
