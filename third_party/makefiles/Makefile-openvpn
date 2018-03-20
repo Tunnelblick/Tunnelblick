@@ -78,7 +78,31 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 						 		--enable-crypto \
 						 		--enable-ssl" ; \
 		fi ; \
+		openvpn_major_minor="$${openvpn_name:8:3}" ; \
 		for ssl_name in $(LIBRESSL_NAME) $(OPENSSL_1_0_NAME) ; do \
+			ssl_prefix="$${ssl_name:0:11}" ; \
+			if [  "$$openvpn_major_minor" = "2.3" ] ; then \
+				if [ "$$ssl_prefix" = "openssl-1.0" -o "$$ssl_prefix" = "libressl-2." ] ; then \
+					build_it=true ; \
+				else \
+					build_it=false ; \
+				fi ; \
+			elif [   "$$openvpn_major_minor" = "2.4" \
+				  -o "$$openvpn_major_minor" = "2.5" ] ; then \
+				if [   "$$ssl_prefix" = "openssl-1.0" \
+					-o "$$ssl_prefix" = "openssl-1.1" ] ; then \
+					build_it=true ; \
+				else \
+					build_it=false ; \
+				fi ; \
+			else \
+				echo "warning: Will try to build UNKNOWN $$openvpn_major_minor version of OpenVPN with $$ssl_name" ; \
+				build_it=true ; \
+			fi ; \
+			if [ "$$build_it" = true ] ; then \
+ \
+ \
+ \
 			echo "Making $$openvpn_name with $$ssl_name"; \
 			for a in $(TARGET_ARCHS); do \
 				echo "Making $$openvpn_name with $$ssl_name for $$a" ; \
@@ -172,6 +196,12 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 			    rm -f -R $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name ; \
 			fi ; \
 			cd openvpn ; \
+ \
+ \
+ \
+		else \
+			echo "NOT making OpenVPN $$openvpn_major_minor with $$ssl_prefix ($$openvpn_name - $$ssl_name) because they are not compatible"; \
+		fi ; \
 		done; \
 	done
 	touch $(TOPDIR)/built-openvpn
