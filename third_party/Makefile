@@ -39,6 +39,7 @@ LZ4_NAME         = lz4-1.8.1.2
 LZ4_TARGET_ARCHS = x86_64
 
 OPENSSL_1_0_NAME = openssl-1.0.2n
+OPENSSL_1_1_NAME = openssl-1.1.0g
 LIBRESSL_NAME	 = libressl-2.6.3
 
 PKCS11_NAME      = pkcs11-helper-1.22
@@ -71,6 +72,9 @@ STAGING_DIR = $(BUILD_DIR)/staging
 
 OPENSSL_1_0_STAGING_DIR = $(STAGING_DIR)/$(OPENSSL_1_0_NAME)
 OPENSSL_1_0_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(OPENSSL_1_0_STAGING_DIR)/lib/$(f))
+
+OPENSSL_1_1_STAGING_DIR = $(STAGING_DIR)/$(OPENSSL_1_1_NAME)
+OPENSSL_1_1_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(OPENSSL_1_1_STAGING_DIR)/lib/$(f))
 
 LIBRESSL_STAGING_DIR = $(STAGING_DIR)/$(LIBRESSL_NAME)
 LIBRESSL_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(LIBRESSL_STAGING_DIR)/lib/$(f))

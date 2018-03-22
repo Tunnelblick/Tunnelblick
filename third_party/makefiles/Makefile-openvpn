@@ -66,20 +66,8 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 	cd $(BUILD_DIR) ; \
 	for openvpn_name in `ls openvpn`; do \
 		cd $(BUILD_DIR)/openvpn/$$openvpn_name/openvpn ; \
-		if [ -f $(OPENVPN_SOURCE_DIR)/$$openvpn_name/configure-options.txt ] ; then \
-			configure_options=`cat $(OPENVPN_SOURCE_DIR)/$$openvpn_name/configure-options.txt` ; \
-		else \
-			configure_options=" --enable-static=yes \
-						 		--enable-shared \
-						 		--enable-pkcs11 \
-						 		--disable-debug \
-						 		--disable-plugin-auth-pam \
-						 		--disable-dependency-tracking \
-						 		--enable-crypto \
-						 		--enable-ssl" ; \
-		fi ; \
 		openvpn_major_minor="$${openvpn_name:8:3}" ; \
-		for ssl_name in $(LIBRESSL_NAME) $(OPENSSL_1_0_NAME) ; do \
+		for ssl_name in "$(LIBRESSL_NAME)" "$(OPENSSL_1_0_NAME)" "$(OPENSSL_1_1_NAME)" ; do \
 			ssl_prefix="$${ssl_name:0:11}" ; \
 			if [  "$$openvpn_major_minor" = "2.3" ] ; then \
 				if [ "$$ssl_prefix" = "openssl-1.0" -o "$$ssl_prefix" = "libressl-2." ] ; then \
@@ -99,22 +87,35 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 				echo "warning: Will try to build UNKNOWN $$openvpn_major_minor version of OpenVPN with $$ssl_name" ; \
 				build_it=true ; \
 			fi ; \
-			if [ "$$build_it" = true ] ; then \
-				echo "Making $$openvpn_name with $$ssl_name"; \
+			if [ "$$ssl_name" = "$(OPENSSL_1_0_NAME)" ] ; then \
+				ssl_staging_dir="$(OPENSSL_1_0_STAGING_DIR)" ; \
+				ssl_target_files="$(OPENSSL_1_0_TARGET_FILES)" ; \
+				pkcs11_enable="--enable-pkcs11" ; \
+			elif [ "$$ssl_name" = "$(OPENSSL_1_1_NAME)" ] ; then \
+				ssl_staging_dir="$(OPENSSL_1_1_STAGING_DIR)" ; \
+				ssl_target_files="$(OPENSSL_1_1_TARGET_FILES)" ; \
+				pkcs11_enable="" ; \
+			elif [ "$$ssl_name" = "$(LIBRESSL_NAME)"    ] ; then \
+				ssl_staging_dir="$(LIBRESSL_STAGING_DIR)" ; \
+				ssl_target_files="$(OPENSSL_1_0_TARGET_FILES)" ; \
+				pkcs11_enable="--enable-pkcs11" ; \
+			else \
+				echo "error: do not know how to build OpenVPN $$openvpn_major_minor with '$$ssl_name'" ; \
+				exit -1 ; \
+			fi ; \
+			if [ "$$build_it" = true \
+			     -a -e "$$ssl_staging_dir" ] ; then \
 				for a in $(TARGET_ARCHS); do \
 					echo "Making $$openvpn_name with $$ssl_name for $$a" ; \
 					mwd="$$(pwd)" ; \
-					if [ "$$ssl_name" = "$(OPENSSL_1_0_NAME)" ] ; then \
-						ssl_staging_dir="$(OPENSSL_1_0_STAGING_DIR)" ; \
-					else \
-						if [ "$$ssl_name" = "$(LIBRESSL_NAME)" ] ; then \
-							ssl_staging_dir="$(LIBRESSL_STAGING_DIR)" ; \
-						else \
-							echo "error: do not know how to build OpenVPN with '$$ssl_name'" ; \
-							exit -1 ; \
-						fi ; \
-					fi ; \
 					$(MAKE) clean; \
+					\
+					if [ -f "$(OPENVPN_SOURCE_DIR)/$$openvpn_name/configure-options.txt" ] ; then \
+						configure_options="$$(cat $(OPENVPN_SOURCE_DIR)/$$openvpn_name/configure-options.txt)" ; \
+					else \
+						echo "error: configure-options.txt misssing in $(OPENVPN_SOURCE_DIR)/$$openvpn_name" ; \
+						exit -1 ; \
+					fi ; \
 					\
 					mwd="$$(pwd)" ; \
 					CC="$(CC)" \
@@ -166,7 +167,7 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 							--build=$$a-apple-darwin \
 							$$configure_options ; \
 					\
-                    $(MAKE) LIBS="$(OPENSSL_1_0_TARGET_FILES) \
+                    $(MAKE) LIBS="$$ssl_target_files \
 							      -L$(PKCS11_STAGING_DIR)/lib \
 							      -L$(LZO_STAGING_DIR)/lib \
 							      -L$(LZ4_STAGING_DIR)/lib \
@@ -180,22 +181,35 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 					$(MAKE) LDFLAGS="-bundle \
 									 -Wl,-dylib_install_name,openvpn-down-root.so" \
 									 -C src/plugins/down-root ; \
-					cp -f -p -R src/openvpn/openvpn ../openvpn_tblk_$$a; \
-					cp -f -p -R src/plugins/down-root/.libs/openvpn-plugin-down-root.so ../openvpn-plugin-down-root.so_tblk_$$a; \
+					if [ -e src/openvpn/openvpn ] ; then \
+						cp -f -p -R src/openvpn/openvpn ../openvpn_tblk_$$a; \
+					else \
+						echo "warning: No file at $$mwd/src/openvpn/openvpn" ; \
+					fi ; \
+					if [ -e src/plugins/down-root/.libs/openvpn-plugin-down-root.so ] ; then \
+						cp -f -p -R src/plugins/down-root/.libs/openvpn-plugin-down-root.so ../openvpn-plugin-down-root.so_tblk_$$a; \
+					else \
+						echo "warning: No file at $$mwd/src/plugins/down-root/.libs/openvpn-plugin-down-root.so" ; \
+					fi ; \
 				done; \
-				mkdir -p $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name ; \
-				lipo ../openvpn-plugin-down-root.so_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so; \
+				mkdir -p "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name" ; \
+				lipo ../openvpn-plugin-down-root.so_tblk_* -create -output "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so"; \
 				cd ../; \
 				lipo openvpn_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable; \
 				if [   ! -e $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable \
 					-o ! -e $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so ] ; then \
 					cd openvpn ; \
-					rm -f -R $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name ; \
 					echo "warning: removed $$openvpn_name-$$ssl_name folder because it did not contain both openvpn-executable and openvpn-down-root.so" ; \
+					rm -f -R "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name" ; \
 				fi ; \
 				cd openvpn ; \
 			else \
-				echo "NOT making OpenVPN $$openvpn_major_minor with $$ssl_prefix ($$openvpn_name - $$ssl_name) because they are not compatible"; \
+				if [ "$$build_it" != true ] ; then \
+					echo "Not making OpenVPN $$openvpn_major_minor with $$ssl_prefix ($$openvpn_name - $$ssl_name) because they are not compatible"; \
+				fi ; \
+				if [ ! -e "$$ssl_staging_dir" ] ; then \
+					echo "Not making OpenVPN $$openvpn_major_minor with $$ssl_prefix ($$openvpn_name - $$ssl_name) because $$ssl_prefix is not available"; \
+				fi ; \
 			fi ; \
 		done; \
 	done

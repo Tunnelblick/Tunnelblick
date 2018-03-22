@@ -69,12 +69,21 @@ built-allssl: built-allssl-prepare
 			echo "BUILDARCH: $${!BUILDARCH}"; \
 			echo "CC: $(CC)"; \
 			echo "CFLAGS: $(CFLAGS)"; \
-			if [ "$${sslvariant}" = "openssl" ] ; then \
+			if [ "$${sslversion}" = "$(OPENSSL_1_0_NAME)" ] ; then \
 				CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
 				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
 				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
 				$(MAKE) install_sw; \
-			elif [ "$${sslvariant}" = "libressl" ] ; then \
+			elif [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] ; then \
+				CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" --openssldir="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
+				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
+				$(MAKE) DESTDIR="$(STAGING_DIR)/$${sslversion}/$$a" install_sw; \
+				mv "$(STAGING_DIR)/$${sslversion}/$$a/usr/local/bin" "$(STAGING_DIR)/$${sslversion}/$$a/bin" ;\
+				mv "$(STAGING_DIR)/$${sslversion}/$$a/usr/local/lib" "$(STAGING_DIR)/$${sslversion}/$$a/lib" ; \
+				mv "$(STAGING_DIR)/$${sslversion}/$$a/usr/local/include" "$(STAGING_DIR)/$${sslversion}/$$a/include" ; \
+				rm -f -r "$(STAGING_DIR)/$${sslversion}/$$a/usr" ; \
+			elif [ "$${sslversion}" = "$(LIBRESSL_NAME)" ] ; then \
 				CC=$(CC) CFLAGS="$(CFLAGS)" ./configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
 				$(MAKE) check; \
 				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
@@ -88,12 +97,17 @@ built-allssl: built-allssl-prepare
 			mv "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" "$(STAGING_DIR)/$${sslversion}/x86_64" ; \
 		fi ; \
 		mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
-		if [ "$${sslvariant}" = "openssl" ] ; then \
+		if [ "$${sslversion}" = "$(OPENSSL_1_0_NAME)" ] ; then \
 			for t in $(OPENSSL_1_0_TARGET_FILES); do \
 				lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
 				ranlib $$t; \
 			done ; \
-		elif [ "$${sslvariant}" = "libressl" ] ; then \
+		elif [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] ; then \
+			for t in $(OPENSSL_1_1_TARGET_FILES); do \
+				lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
+				ranlib $$t; \
+			done ; \
+		elif [ "$${sslversion}" = "$(LIBRESSL_NAME)" ] ; then \
 			for t in $(LIBRESSL_TARGET_FILES); do \
 				lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
 				ranlib $$t; \
