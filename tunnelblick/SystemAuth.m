@@ -329,7 +329,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
                                         reactivationAllowed: NO];
         if (  status == errAuthorizationSuccess  ) {
             TBLog(@"DB-AA", @"SystemAuth|authRef: returning authRef from lock");
-            NSLog(@"Authorizing an operation without admin username/password because Tunnelblick is in administrator mode");
+            NSLog(@"Authorizing an operation without a new admin authorization because Tunnelblick is in administrator mode");
             return lockRef;
         }
         

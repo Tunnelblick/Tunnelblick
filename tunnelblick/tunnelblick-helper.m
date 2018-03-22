@@ -277,7 +277,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "This executable, openvpn, tap.kext, and tun.kext (and client.up.osx.sh and client.down.osx.sh if they are used)\n"
             "must all be located in /Library/Application Support/Tunnelblick/bin/.\n\n"
             
-            "Tunnelblick must have been run and an administrator password entered at least once before openvpnstart can be used.\n\n"
+            "Tunnelblick must have been installed before openvpnstart can be used.\n\n"
             
             "For more information on using Deploy, see the Deployment wiki at https://tunnelblick.net/cCusDeployed.html\n"
             , killStringC, killAllStringC);
@@ -2922,7 +2922,7 @@ int main(int argc, char * argv[]) {
     NSString * ourPath = [gResourcesPath stringByAppendingPathComponent: @"tunnelblick-helper"];
     if (  pathIsNotSecure(ourPath, PERMS_SECURED_EXECUTABLE)  ) {
         fprintf(stderr, "tunnelblick-helper and the path to it have not been secured\n"
-                "You must have run Tunnelblick and entered a computer administrator password at least once to use tunnelblick-helper\n");
+                "You must have installed Tunnelblick to use tunnelblick-helper\n");
         exitOpenvpnstart(244);
     }
 #endif

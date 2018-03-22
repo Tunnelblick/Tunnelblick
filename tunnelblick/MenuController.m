@@ -2952,7 +2952,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 		if (  [updater respondsToSelector: @selector(checkForUpdates:)]  ) {
 			if (  ! userIsAnAdmin  ) {
 				int response = TBRunAlertPanelExtended(NSLocalizedString(@"Only computer administrators should update Tunnelblick", @"Window title"),
-													   NSLocalizedString(@"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?", @"Window text"),
+													   NSLocalizedString(@"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?", @"Window text"),
 													   NSLocalizedString(@"Check For Updates Now", @"Button"),  // Default button
 													   NSLocalizedString(@"Cancel", @"Button"),                 // Alternate button
 													   nil,                                                     // Other button
@@ -6516,7 +6516,7 @@ BOOL warnAboutNonTblks(void)
     }
     
     if (  ! appended  ) {
-        msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to perform an action that requires administrator authorization.\n", @"Window text")];
+        msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n", @"Window text")];
     }
     
     return [NSString stringWithFormat: @"%@", msg];

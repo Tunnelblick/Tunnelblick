@@ -620,7 +620,7 @@ extern volatile int32_t       gActiveInactiveState;
 // User wants to connect, or not connect, the configuration when the system starts.
 // Returns TRUE if can and will connect, FALSE otherwise
 //
-// Needs and asks for administrator username/password to make a change if a change is necessary and authRef is nil.
+// Needs and asks for computer administrator's authorization to make a change if a change is necessary and authRef is nil.
 // (authRef is non-nil only when Tunnelblick is in the process of launching, and only when it was used for something else.)
 //
 // A change is necesary if changing connect/not connect status, or if preference changes would change
