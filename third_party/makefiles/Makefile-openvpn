@@ -21,10 +21,10 @@
 built-openvpn-prepare:
 	@echo "THIRD_PARTY: Expanding and Patching OpenVPN..."
 	mkdir -p $(OPENVPN_BUILD_DIR)
-	cd $(SOURCES_DIR) ; \
-	for openvpn_folder_name in `ls openvpn` ; do \
+	cd "$(SOURCES_DIR)" ; \
+	for openvpn_folder_name in $$(ls openvpn) ; do \
 		cd "$(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name" ; \
-		openvpn_tar_gz_name=`ls openvpn*.tar.?z` ; \
+		openvpn_tar_gz_name=$$(ls openvpn*.tar.?z) ; \
 		cd ../../ ; \
 		echo "THIRD_PARTY: Expanding $$openvpn_folder_name/$$openvpn_tar_gz_name..." ; \
 		mkdir -p $(OPENVPN_BUILD_DIR)/$$openvpn_folder_name ; \
@@ -35,7 +35,7 @@ built-openvpn-prepare:
 		mv $$openvpn_name   openvpn ; \
 		cd  openvpn ; \
 		if [ -d $(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name/patches ]; then \
-			for patch_file in `ls $(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name/patches/*.diff`; do \
+			for patch_file in $$(ls $(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name/patches/*.diff); do \
 				patch_name=$$(basename "$${patch_file}") ; \
 				if [  $$patch_name != 01-enable-utun.diff \
 				   -o $(XCODE_VERSION_MAJOR) = 0300 ] ; then \
@@ -64,7 +64,7 @@ built-openvpn-prepare:
 built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper built-allssl
 	@echo "THIRD_PARTY: Building OpenVPN..."
 	cd $(BUILD_DIR) ; \
-	for openvpn_name in `ls openvpn`; do \
+	for openvpn_name in $$(ls openvpn); do \
 		cd $(BUILD_DIR)/openvpn/$$openvpn_name/openvpn ; \
 		openvpn_major_minor="$${openvpn_name:8:3}" ; \
 		for ssl_name in "$(LIBRESSL_NAME)" "$(OPENSSL_1_0_NAME)" "$(OPENSSL_1_1_NAME)" ; do \
@@ -138,7 +138,7 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 						PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
 						PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
 											-lpkcs11-helper" \
-						OS_VERSION=`uname -r` \
+						OS_VERSION=$$(uname -r) \
 						autoreconf -i -v; \
 					\
 					mwd="$$(pwd)" ; \
@@ -162,9 +162,10 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 						PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
 						PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
 											-lpkcs11-helper" \
-						OS_VERSION=`uname -r` \
+						OS_VERSION=$$(uname -r) \
 						./configure \
 							--build=$$a-apple-darwin \
+							$$pkcs11_enable \
 							$$configure_options ; \
 					\
                     $(MAKE) LIBS="$$ssl_target_files \
@@ -195,12 +196,13 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 				mkdir -p "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name" ; \
 				lipo ../openvpn-plugin-down-root.so_tblk_* -create -output "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so"; \
 				cd ../; \
-				lipo openvpn_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable; \
-				if [   ! -e $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable \
-					-o ! -e $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so ] ; then \
+				lipo openvpn_tblk_* -create -output "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable"; \
+				if [   ! -e "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable" \
+					-o ! -e "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so" ] ; then \
 					cd openvpn ; \
-					echo "warning: removed $$openvpn_name-$$ssl_name folder because it did not contain both openvpn-executable and openvpn-down-root.so" ; \
 					rm -f -R "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name" ; \
+					echo "error: removed $$openvpn_name-$$ssl_name folder because it did not contain both openvpn-executable and openvpn-down-root.so" ; \
+					exit -1; \
 				fi ; \
 				cd openvpn ; \
 			else \
@@ -213,11 +215,11 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 			fi ; \
 		done; \
 	done
-	touch $(TOPDIR)/built-openvpn
+	touch "$(TOPDIR)/built-openvpn"
 	@echo "THIRD_PARTY: Built OpenVPN"
 
 built-openvpn-clean:
 	@echo "THIRD_PARTY: Cleaning OpenVPN..."
-	rm -f -R $(OPENVPN_BUILD_DIR)
+	rm -f -R "$(OPENVPN_BUILD_DIR)"
 	rm -f built-openvpn
 	@echo "THIRD_PARTY: Cleaned OpenVPN"
