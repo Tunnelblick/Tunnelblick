@@ -169,6 +169,65 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	return FALSE;
 }
 
++(NSString *) rawTunnelblickVersion {
+	
+	// Returns '3.5beta02' from 'Tunnelblick 3.5beta02 (build...'
+	
+	NSString * thisTunnelblickVersion = tunnelblickVersion([NSBundle mainBundle]);
+	if (  [thisTunnelblickVersion hasPrefix: @"Tunnelblick "]  ) {
+		thisTunnelblickVersion = [thisTunnelblickVersion substringFromIndex: [@"Tunnelblick " length]];
+	} else {
+		NSLog(@"Invalid Tunnelblick version (not prefixed by 'Tunnelblick '): '%@'", thisTunnelblickVersion);
+	}
+	
+	NSRange r = [thisTunnelblickVersion rangeOfString: @" "];
+	if (  r.length == 0  ) {
+		NSLog(@"Invalid Tunnelblick version (no space after 'Tunnelblick '): '%@'", thisTunnelblickVersion);
+		r.location = [thisTunnelblickVersion length];
+	}
+	
+	return [thisTunnelblickVersion substringToIndex: r.location];
+}
+
++(NSString *) checkTunnelblickVersionAgainstInfoPlist: (NSDictionary *) plist displayName: (NSString *) displayName {
+	
+	// Returns nil if:
+	//         The .plist is nil; or
+	//		   The version of Tunnelblick is within all TBMinimumTunnelblickVersion and TBMaximumTunnelblickVersion limits in the .plist.
+	// Otherwise returns a localized error string.
+	
+	if (  ! plist  ) {
+		return nil;
+	}
+	
+	NSEnumerator * e = [plist keyEnumerator];
+	NSString * key;
+	while (  (key = [e nextObject])  ) {
+		
+		if (  [key isEqualToString: @"TBMinimumTunnelblickVersion"]  ) {
+			NSString * minimumTunnelblickVersion = [plist objectForKey: key];
+			NSString * thisTunnelblickVersion = [self rawTunnelblickVersion];
+			if (  [minimumTunnelblickVersion tunnelblickVersionCompare: thisTunnelblickVersion] == NSOrderedDescending) {
+				return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\n"
+																	 @"You must update Tunnelblick to install this configuration.",
+																	 @"Window text. Each '%@' will be a version number such as '3.5.4' or '3.5.3beta02'"),
+						displayName, minimumTunnelblickVersion, thisTunnelblickVersion];
+			};
+			
+		} else if (  [key isEqualToString: @"TBMaximumTunnelblickVersion"]  ) {
+			NSString * maximumTunnelblickVersion = [plist objectForKey: key];
+			NSString * thisTunnelblickVersion = [self rawTunnelblickVersion];
+			if (  [maximumTunnelblickVersion tunnelblickVersionCompare: thisTunnelblickVersion] == NSOrderedAscending) {
+				return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@.",
+																	 @"Window text. Each '%@' will be a version number such as '3.5.4' or '3.5.3beta02'"),
+						displayName, maximumTunnelblickVersion, thisTunnelblickVersion];
+			};
+		}
+	}
+	
+	return nil; // Info.plist does not require a different Tunnelblick version
+}
+
 +(NSString *) checkPlistEntries: (NSDictionary *) dict
                        fromPath: (NSString *)     path {
     
@@ -291,7 +350,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				if (  ! [gConfigurationPreferences containsObject: pref]  ) {
 					return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
 				}
-			} else if (  ! [key isEqualToString: @"TBUninstall"]  ) {
+			} else if (   ( ! [key isEqualToString: @"TBUninstall"] )
+					   && ( ! [key isEqualToString: @"TBMinimumTunnelblickVersion"] )
+					   && ( ! [key isEqualToString: @"TBMaximumTunnelblickVersion"] )  ) {
                 return [NSString stringWithFormat: NSLocalizedString(@"Unknown key '%@' in %@", @"Window text"), key, path];
             }
         }
@@ -1576,6 +1637,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 														  @"CFBundleIdentifier",
 														  @"CFBundleVersion",
 														  @"CFBundleShortVersionString",
+														  @"TBMinimumTunnelblickVersion",
+														  @"TBMaximumTunnelblickVersion",
                                                           @"TBPackageVersion",
                                                           @"TBReplaceIdentical",
                                                           @"TBSharePackage",
@@ -1585,6 +1648,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             
             NSString * innerBundleIdentifier = nil;
             NSString * innerBundleVersion    = nil;
+			
             NSMutableDictionary * mDict = [[outerTblkInfoPlist mutableCopy] autorelease];
             NSEnumerator * e = [innerTblkInfoPlist keyEnumerator];
             NSString * key;
@@ -1601,6 +1665,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				} else 	if (   [allowedInnerPlistReplacementKeys containsObject: key]
 							|| [key hasPrefix: @"TBPreference"]
 							|| [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
+					[mDict setObject: obj forKey: key];
+				} else if (  [key isEqualToString: @"TBMinimumTunnelblickVersion"]  ) {
+					[mDict setObject: obj forKey: key];
+				} else if (  [key isEqualToString: @"TBMaximumTunnelblickVersion"]  ) {
 					[mDict setObject: obj forKey: key];
 				} else if (  ! [[mDict objectForKey: key] isEqualTo: obj ]) {
 					return [NSString stringWithFormat: NSLocalizedString(@"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk.", @"Window text"), key, fullPath];
@@ -1620,6 +1688,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             mergedInfoPlist = innerTblkInfoPlist;
         }
         
+		// Make sure this version of Tunnelblick is within any minimum or maximum required by the plist
+		NSString * errorMessage = [ConfigurationManager checkTunnelblickVersionAgainstInfoPlist: mergedInfoPlist displayName: innerFilePath];
+		if (  errorMessage  ) {
+			return errorMessage;
+		}
+		
         // Get a relative path to the configuration file. If both a ".ovpn" and a ".conf" file exist, use the ".ovpn" file
         
         // (Put all the config files in a list, then look at the list)
@@ -1818,7 +1892,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 	NSDictionary * outerUpdatablePlist = (NSDictionary *)obj;
 		
-    // Build lists of .tblks and of .ovpn/.conf files
+	// Make sure this version of Tunnelblick is within any minimum or maximum required by the configuration's .plist
+	NSString * errorMessage = [ConfigurationManager checkTunnelblickVersionAgainstInfoPlist: outerTblkPlist displayName: [outerTblkPath lastPathComponent]];
+	if (  errorMessage  ) {
+		return errorMessage;
+	}
+	
+	// Build lists of .tblks and of .ovpn/.conf files
     NSMutableArray * ovpnAndConfInnerFilePartialPaths = [NSMutableArray arrayWithCapacity: 100];
     NSMutableArray * tblkInnerFilePartialPaths        = [NSMutableArray arrayWithCapacity: 100];
     
