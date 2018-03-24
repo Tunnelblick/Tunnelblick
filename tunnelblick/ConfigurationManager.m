@@ -210,7 +210,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			if (  [minimumTunnelblickVersion tunnelblickVersionCompare: thisTunnelblickVersion] == NSOrderedDescending) {
 				return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\n"
 																	 @"You must update Tunnelblick to install this configuration.",
-																	 @"Window text. Each '%@' will be a version number such as '3.5.4' or '3.5.3beta02'"),
+																	 @"Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02'"),
 						displayName, minimumTunnelblickVersion, thisTunnelblickVersion];
 			};
 			
@@ -219,7 +219,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			NSString * thisTunnelblickVersion = [self rawTunnelblickVersion];
 			if (  [maximumTunnelblickVersion tunnelblickVersionCompare: thisTunnelblickVersion] == NSOrderedAscending) {
 				return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@.",
-																	 @"Window text. Each '%@' will be a version number such as '3.5.4' or '3.5.3beta02'"),
+																	 @"Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02'"),
 						displayName, maximumTunnelblickVersion, thisTunnelblickVersion];
 			};
 		}

@@ -225,7 +225,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     allowReactivation = reactivateOk;
     
     if (  [SystemAuth haveValidLockSystemAuth ] ) {
-        NSString * expandedPrompt = [NSString stringWithFormat: NSLocalizedString(@"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required.", @"Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken."), prompt];
+        NSString * expandedPrompt = [NSString stringWithFormat: NSLocalizedString(@"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required.",
+																				  @"Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken."), prompt];
         int result = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                              expandedPrompt,
                                              NSLocalizedString(@"OK", @"Button"),     // Default button
