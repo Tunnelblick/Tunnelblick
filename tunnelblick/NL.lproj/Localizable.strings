@@ -234,7 +234,7 @@
 "Show when connection status changes" = "Tonen wanneer verbindingsstatus wijzigt";
 
 /* Button */
-"Show while connecting and connected" = "Toon tijdens connecten en gedurende connectie";
+"Show while connecting and connected" = "Toon tijdens verbinding maken en tijdens verbinding";
 
 /* Button */
 "Show while connecting" = "Tonen tijdens verbinding maken";
@@ -815,6 +815,9 @@
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ is hersteld naar zijn laatste (schaduw) kopie.\n\n";
 
+/* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required.";
+
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configuraties zijn teruggezet naar hun laatst beveiligde (schaduw) kopie.\n\n";
 
@@ -942,7 +945,7 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Er is een interne Tunnelblick fout opgetreden: fileIsReasonableSize: ongeldig bestandstype: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Er is een interne Tunnelblick fout opgetreden: fileIsReasonableSize: pad is nihil";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Er is een interne Tunnelblick fout opgetreden: fileIsReasonableSize: pad is leeg";
 
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Weet u zeker dat u de OpenVPN configuraties niet wilt omzetten naar Tunnelblick VPN Configuraties?\n\nCONFIGURATIES ZULLEN NIET BESCHIKBAAR ZIJN ALS U ZE NIET OMZET!\n\n";
@@ -1005,7 +1008,13 @@
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Configuratie '%@' is niet veilig. Installeer Tunnelblick opnieuw.";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuratie ' %@' is niet bijgewerkt, omdat het kon worden gemarkeerd als 'bijgewerkt'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuratie ' %@' is niet bij te werken, omdat het niet kon worden gemarkeerd als 'bij te werken'.\n";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Configuration '%1$@' requires Tunnelblick %2$@ or higher; you are using Tunnelblick %3$@.\n\nYou must update Tunnelblick to install this configuration.";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Configuration '%1$@' requires Tunnelblick %2$@ or lower; you are using Tunnelblick %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuratie '%1$@' zal genegeerd worden, omdat de naam karakters bevat die niet zijn toegestaan.\n\nKarakters die niet zijn toegestaan: '%2$s'\n\n";
@@ -1035,10 +1044,10 @@
 "Converting %@: %@" = "Converteren van %1$@: %2$@";
 
 /* Window text */
-"Copied %@" = "Gekopieerd %@";
+"Copied %@" = "%@ gekopieerd";
 
 /* Window text */
-"Copied %@, removing CR characters" = "Gekopieerd %@, CR tekens verwijderen";
+"Copied %@, removing CR characters" = "%@ gekopieerd, CR tekens verwijderen";
 
 /* Window text */
 "Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub en anderen.";
@@ -1437,13 +1446,13 @@
 "The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "De'%@' aanmeldgegevens mogen niet worden verwijderd, omdat een of meer configuraties geforceerd worden ze te gebruiken.";
 
 /* Window text */
-"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "De '%@' aanmeldgegevens mogen niet worden verwijderd, omdat de lijst met benoemde aanmeldgegevens wordt opgelegd.";
+"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "De '%@' aanmeldgegevens worden mogelijk niet worden verwijderd, omdat de lijst met benoemde aanmeldgegevens is vastgezet.";
 
 /* Window text */
 "The 'credentialsNames' preference must be an array of strings." = "De 'credentialsNames' voorkeur moet een array van strings zijn.";
 
 /* Window text */
-"The 'namedCredentialsNames' preference must be an array of strings" = "De 'namedCredentialsNames' voorkeur moet een array van strings zijn";
+"The 'namedCredentialsNames' preference must be an array of strings" = "De 'namedCredentialsNames' instelling moet een array van strings zijn";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Het OpenVPN configuratiebestand voor '%@' is gewijzigd nadat het voor het laatst was beveiligd.\n\nWilt u de gewijzigde configuratie beveiligen of terugdraaien naar de laatst beveiligde configuratie?\n\n";
@@ -1452,13 +1461,13 @@
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "Het OpenVPN configuratiebestand in %1$@ bevat een \"%2$@\" optie, wat een Windows optie is. Het kan niet gebruikt worden in OS X.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
-"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Het OpenVPN logboek bevat het volgende bericht:\n\n\"%1$@\".%2$@";
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Het OpenVPN-logboek bevat het volgende bericht:\n\n\"%1$@\".%2$@";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "Het OpenVPN-log bestaat nog niet of werd verwijderd.";
 
 /* Window text */
-"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "De Tunnelblick instellingen zijn beschadigd en zijn daarom gewist. (De oude voorkeuren werden hernoemd.)  \n\nBekijk het logboek van de console voor meer informatie.";
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "De Tunnelblick instellingen zijn beschadigd en zijn daarom gewist. (De oude instellingen zijn hernoemd.) \n\nBekijk het logboek van de console voor meer informatie.";
 
 /* Window text */
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "De poging om verbinding te maken met %1$@ is geannuleerd: het runOnConnect script heeft de volgende status geretourneerd: %2$ld.";
@@ -1470,19 +1479,19 @@
 "The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Het configuratiebestand voor '%@' blijkt geen 'dev tun', 'dev utun' of 'dev tap' optie te bevatten. Deze optie is wellicht nodig voor een goede werking van Tunnelblick. Raadpleeg uw netwerkbeheerder of de OpenVPN documentatie.";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Het configuratiebestand verwijst naar een bestand \n\n%@ \n\nwelke niet bestaat (zelfs in de configuratie is deze vervangen).";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Het configuratiebestand verwijst naar een bestand \n\n%@ \n\ndat niet bestaat (ook niet in de configuratie die wordt vervangen).";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "Het configuratiebestand verwijst naar een bestand \n\n%@ \n\nwelke niet bestaat in de nieuwe configuratie, daarom is het niet beveiligde bestand gebruikt.";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "Het configuratiebestand verwijst naar een bestand \n\n%@ \n\ndat niet bestaat in de nieuwe configuratie, daarom is het niet beveiligde bestand gebruikt.";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "Het configuratiebestand verwijst naar een bestand \n\n%@ \n\nwelke niet bestaat.";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "Het configuratiebestand verwijst naar een bestand \n\n%@ \n\ndat niet bestaat.";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "Het configuratiebestand verwijst naar een bestand\n\n%1$@\n\nwelke zich bevindt op locatie\n\n%2$@\n\nechter bestaat het bestand hier niet (ook in de configuratie vervangen).";
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "Het configuratiebestand verwijst naar een bestand\n\n%1$@\n\ndat zich moet bevinden op locatie\n\n%2$@\n\nmaar het bestand bestaat hier niet (ook in de configuratie die wordt vervangen).";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Het configuratiebestand verwijst naar een bestand\n\n%1$@\n\nwelke zich bevindt op locatie\n\n%2$@\n\nechter bestaat het bestand hier niet.";
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Het configuratiebestand verwijst naar een bestand\n\n%1$@\n\ndat zich moet bevinden op locatie\n\n%2$@\n\nmaar bestaat het bestand hier niet.";
 
 /* Window text */
 "The credentials named %@ could not be added:\n\n%@" = "De aanmeldgegevens %1$@ konden niet toegevoegd worden:\n\n%2$@";
@@ -1587,7 +1596,7 @@
 "Tunnelblick %@ is ready." = "Tunnelblick %@ is gereed.";
 
 /* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick beheermodus\n\n Sta tijdelijk wijzigingen toe die een beheerder wachtwoord vereisen.\n\n De sessie verloopt na vijf minuten of wanneer het 'VPN Details' venster wordt gesloten.";
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick internet gebruik:";
@@ -1692,7 +1701,7 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick moet een beveiligde (schaduw) kopie van het configuratiebestand maken of bijwerken";
 
 /* Window text */
-"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick moet een handeling verrichten die beheerder rechten vereist.\n";
+"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick moet:\n";
@@ -1743,7 +1752,7 @@
 "Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "Niet in staat om het bestand '%1$@' te kopieren naar '%2$@' omdat dezelfde naam wordt gebruikt voor verschillende inhoud";
 
 /* Window text */
-"Unable to create %@ owned by %ld:%ld with %lo permissions" = "Niet in staat om %1$@  aan te maken, eigendom van %2$ld:%3$ld met %4$lo machtigingen";
+"Unable to create %@ owned by %ld:%ld with %lo permissions" = "Niet in staat om %1$@ aan te maken, eigendom van %2$ld:%3$ld met %4$lo rechten";
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "Niet in staat om de configuratie '%@' te installeren\n";
@@ -1758,7 +1767,7 @@
 "Unable to parse configuration file as UTF-8" = "Kan configuratiebestand niet verwerken als UTF-8";
 
 /* Window text */
-"Unable to replace the '%@' configuration\n" = "Onmogelijk om configuratie '%@' te vervangen\n";
+"Unable to replace the '%@' configuration\n" = "Kon configuratie '%@' niet vervangen\n";
 
 /* Window text */
 "Unable to secure %@ because it is owned by %@" = "Niet in staat om %1$@ te beveiligen, omdat het eigendom is van %2$@";
@@ -1908,7 +1917,7 @@
 "You may not remove a configuration which is set to start when the computer starts." = "Het is niet toegestaan om een configuratie te verwijderen indien deze is ingesteld om te starten wanneer de computer start.";
 
 /* Window text */
-"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "U zult Tunnelblick niet kunnen gebruiken na het installeren van een update, tenzij u de gebruikersnaam & wachtwoord van een beheerder ingeeft.\n\nWeet u zeker dat u op updates wilt controleren?";
+"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?";
 
 /* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Uw computer kan mogelijk niet het Tunnelblick-icoon betrouwbaar naast het Spotlight-icoon weergeven.\n\nDit kan er voor zorgen dat het Tunnelblick-icoon soms VERDWIJNT uit de menu bar.\n\nWeet u zeker dat u het Tunnelblick-icoon naast het Spotlight-icoon wilt plaatsen?\n\n";
@@ -2010,7 +2019,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Wanneer aangevinkt </strong>, zal Tunnelblick bekijken of het zichtbare IP adres van de computer voor en na de verbinding met de VPN verandert en waarschuwen indien dit niet het geval is.</p>\n<p>De tunnelblick.net website zal benaderd worden om deze functie uit te voeren. De toegang wordt gewoonlijk gemaakt via https: en de naam tunnelblick.net, behalve als de toegang faalt. In dat geval wordt geprobeerd een verbinding te maken via http: en het IP adres van de website.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zal Tunnelblick geen IP wijzigingen controleren en geen waarschuwing geven als het adres niet wijzigt nadat de VPN is verbonden.</p>\n \nContext | Request Context\n";
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Wanner aangevinkt</strong>, zal Tunnelblick OpenVPN instrueren om alle IPv4 verkeer door de VPN server te geleiden.</p>\n<p><strong>Wanner niet aangevinkt</strong>, per standaard zal OpenVPN enkel de VPN gebruiken voor verkeer bedoeld voor het VPN Netwerk. Al het andere verkeer zal de gewone internet verbinding gebruiken zonder door de VPN te gaan. Het standaard OpenVPN gedrag kan gewijzigd worden in de OpenVPN configuratie of de VPN server en er de oorzaak van wordt dat alle IPv4 verkeer geleid wordt door de VPN server zoals deze functie aangevinkt werd.</p>\n";
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Wanneer aangevinkt</strong>, zal Tunnelblick OpenVPN instrueren om alle IPv4 verkeer door de VPN server te sturen.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zal OpenVPN standaard enkel de VPN gebruiken voor verkeer bedoeld voor het VPN-Netwerk. Al het andere verkeer zal de gewone internetverbinding gebruiken zonder via de VPN te gaan. Het standaard OpenVPN-gedrag kan gewijzigd worden in de OpenVPN-configuratie of de VPN-server en zodat alle IPv4 verkeer door de VPN-server geleid wordt, alsof deze functie aangevinkt werd.</p>\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>";
@@ -2022,7 +2031,7 @@
 "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Wanneer aangevinkt</strong>, wordt het VPN status scherm voor alle 'actieve' configuraties getoond als de muis over het Tunnelblick icoon wordt geplaatst.</p><p>'Actieve' configuraties zijn configuraties die sinds het opstarten van Tunnelblick zijn gebruikt om een verbinding te maken.</p><p><strong>Dit keuzevak is gedeactiveerd</strong> als 'Toon nooit' hierboven is geselecteerd.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
-"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Wanneer aangevinkt</strong>, een venster zal Tunnelblick's voortgang tonen tijdens opstarten.</p>";
+"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Wanneer aangevinkt</strong>, zal een venster Tunnelblick's voortgang tonen tijdens opstarten.</p>";
 
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Wanneer aangevinkt</strong>, zullen alle configuraties dezelfde gebruikersnaam, wachtwoord en/of privé sleutel gebruiken.</p>\n";
@@ -2216,6 +2225,9 @@
 
 /* Credit description */
 "Greek translation" = "Griekse vertaling";
+
+/* Credit description */
+"Hebrew translation" = "Hebrew translation";
 
 /* Credit description */
 "Hungarian translation" = "Hongaarse vertaling";
