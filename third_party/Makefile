@@ -40,7 +40,7 @@ LZ4_TARGET_ARCHS = x86_64
 
 OPENSSL_1_0_NAME = openssl-1.0.2n
 OPENSSL_1_1_NAME = openssl-1.1.0g
-LIBRESSL_NAME	 = libressl-2.6.3
+LIBRESSL_NAME	 = libressl-2.7.1
 
 PKCS11_NAME      = pkcs11-helper-1.22
 
