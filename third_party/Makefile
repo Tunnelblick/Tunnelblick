@@ -51,6 +51,29 @@ TUNTAP_CURRENT_NAME   = tuntap-20141104
 TUNTAP_20111101_TARGZ = tuntap_20111101_src.tar.gz
 TUNTAP_CURRENT_TARGZ  = tuntap_20141104_src.tar.gz
 
+
+
+#######################################################################################
+#######################################################################################
+#######################################################################################
+###                                                                                 ###
+### THE REST OF THIS SCRIPT NEEDS TO BE CHANGED ONLY RARELY                         ###
+###                                                                                 ###
+### (For example, when a new major.minor version of OpenVPN or OpenSSL is added.)   ###
+###                                                                                 ###
+#######################################################################################
+#######################################################################################
+#######################################################################################
+
+
+#######################################################################################
+# Define tests (inside bash [ ]) which determine which SSL libraries to link to for each major.minor version of OpenVPN
+# Each test compares a bash variable ($$ssl_name) with one or more make variables ( e.g., $(OPENSSL_1_0_NAME) )
+
+OPENVPN_2_3_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_0_NAME) -o $$ssl_name = $(LIBRESSL_NAME)
+OPENVPN_2_4_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_0_NAME) -o $$ssl_name = $(OPENSSL_1_1_NAME)
+OPENVPN_2_5_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_0_NAME) -o $$ssl_name = $(OPENSSL_1_1_NAME)
+
 #######################################################################################
 # Define treatment of deprecated functions, methods, etc. for OpenVPN
 

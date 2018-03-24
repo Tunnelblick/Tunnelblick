@@ -68,23 +68,21 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 		cd $(BUILD_DIR)/openvpn/$$openvpn_name/openvpn ; \
 		openvpn_major_minor="$${openvpn_name:8:3}" ; \
 		for ssl_name in "$(LIBRESSL_NAME)" "$(OPENSSL_1_0_NAME)" "$(OPENSSL_1_1_NAME)" ; do \
-			ssl_prefix="$${ssl_name:0:11}" ; \
-			if [  "$$openvpn_major_minor" = "2.3" ] ; then \
-				if [ "$$ssl_prefix" = "openssl-1.0" -o "$$ssl_prefix" = "libressl-2." ] ; then \
+			build_it=false; \
+			if [   "$$openvpn_major_minor" = "2.3" ] ; then \
+				if [ $(OPENVPN_2_3_SSL_LIBRARIES_TEST) ] ; then \
 					build_it=true ; \
-				else \
-					build_it=false ; \
 				fi ; \
-			elif [   "$$openvpn_major_minor" = "2.4" \
-				  -o "$$openvpn_major_minor" = "2.5" ] ; then \
-				if [   "$$ssl_prefix" = "openssl-1.0" \
-					-o "$$ssl_prefix" = "openssl-1.1" ] ; then \
+			elif [ "$$openvpn_major_minor" = "2.4" ] ; then \
+				if [ $(OPENVPN_2_4_SSL_LIBRARIES_TEST) ] ; then \
 					build_it=true ; \
-				else \
-					build_it=false ; \
+				fi ; \
+			elif [ "$$openvpn_major_minor" = "2.5"  ] ; then \
+				if [ $(OPENVPN_2_5_SSL_LIBRARIES_TEST) ] ; then \
+					build_it=true ; \
 				fi ; \
 			else \
-				echo "warning: Will try to build UNKNOWN $$openvpn_major_minor version of OpenVPN with $$ssl_name" ; \
+				echo "warning: Will try to build unknown $$openvpn_major_minor version of OpenVPN with $$ssl_name" ; \
 				build_it=true ; \
 			fi ; \
 			if [ "$$ssl_name" = "$(OPENSSL_1_0_NAME)" ] ; then \
@@ -207,10 +205,10 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 				cd openvpn ; \
 			else \
 				if [ "$$build_it" != true ] ; then \
-					echo "Not making OpenVPN $$openvpn_major_minor with $$ssl_prefix ($$openvpn_name - $$ssl_name) because they are not compatible"; \
+					echo "Not making $$openvpn_name with $$ssl_name because they are not compatible"; \
 				fi ; \
 				if [ ! -e "$$ssl_staging_dir" ] ; then \
-					echo "Not making OpenVPN $$openvpn_major_minor with $$ssl_prefix ($$openvpn_name - $$ssl_name) because $$ssl_prefix is not available"; \
+					echo "Not making $$openvpn_name with $$ssl_name because $$ssl_name is not available"; \
 				fi ; \
 			fi ; \
 		done; \
