@@ -38,8 +38,8 @@ LZO_NAME         = lzo-2.10
 LZ4_NAME         = lz4-1.8.1.2
 LZ4_TARGET_ARCHS = x86_64
 
-OPENSSL_1_0_NAME = openssl-1.0.2n
-OPENSSL_1_1_NAME = openssl-1.1.0g
+OPENSSL_1_0_NAME = openssl-1.0.2o
+OPENSSL_1_1_NAME = openssl-1.1.0h
 LIBRESSL_NAME	 = libressl-2.7.1
 
 PKCS11_NAME      = pkcs11-helper-1.22
