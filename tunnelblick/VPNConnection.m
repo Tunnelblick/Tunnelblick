@@ -1991,31 +1991,44 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	NSString * configString = [self sanitizedConfigurationFileContents];
 	NSString * maximumMajorMinor = nil; // Maximum OpenVPN version that can be used because of options that are removed in later versions.
+	NSString * originalVersionToTry = [[versionToTry retain] autorelease];
 	
 	// Deal with deprecated/removed options in this configuration file
 	NSDictionary * removedAndDeprecatedOptionsInfo = [self removedAndDeprecatedOptionsInfoForConfigurationFile: configString];
 	if (  removedAndDeprecatedOptionsInfo  ) {
 		NSString * removedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"removedInOpenvpnVersion"];
 
-		while (  [[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending) {
-
+		while (   ([[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending)
+			   && ( [versionToTry rangeOfString: sslString].length != 0 )  ) {
+			
 			// Config has option(s) that were removed. Try the next lower OpenVPN version with the requested SSL.
 			
-			NSInteger ix = [versionNames indexOfObject: versionToTry] -1;
-			for (  ; ix>=0; ix--  ) {
-				versionToTry = [versionNames objectAtIndex: ix];
-				if (  [versionToTry rangeOfString: sslString].length != 0  ) {
+			if (  [versionToTry rangeOfString: sslString].length != 0  ) {
+				NSInteger ix = [versionNames indexOfObject: versionToTry] - 1;
+				if (  ix < 0  ) {
 					break;
 				}
-			}
-			
-			if (  ix >= 0  ) {
-				maximumMajorMinor = [versionToTry substringToIndex: 3];
-				break;
+				
+				versionToTry = [versionNames objectAtIndex: ix];
 			}
 		}
 		
 		if (  [[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending) {
+			
+			versionToTry = [[originalVersionToTry retain] autorelease];
+			while (  [[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending  ) {
+				
+				// Config has option(s) that were removed. Try the next lower OpenVPN version IGNORING the requested SSL.
+				
+				if (  [versionToTry rangeOfString: sslString].length != 0  ) {
+					NSInteger ix = [versionNames indexOfObject: versionToTry] - 1;
+					if (  ix < 0  ) {
+						break;
+					}
+					
+					versionToTry = [versionNames objectAtIndex: ix];
+				}
+			}
 			
 			// One or more options in the configuration file are not included in any version of OpenVPN in this copy of Tunnelblick
 			if (  connecting  )  {
