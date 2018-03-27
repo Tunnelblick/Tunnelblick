@@ -95,7 +95,7 @@
 "Delete" = "Șterge";
 
 /* Button */
-"Disable network access" = "Disable network access";
+"Disable network access" = "Dezactivați accesul la rețea";
 
 /* Button */
 "Disconnect" = "Deconectare";
@@ -204,7 +204,7 @@
 "Reset Disabled Warnings" = "Resetează avertismentele dezactivate";
 
 /* Button */
-"Reset primary interface" = "Reset primary interface";
+"Reset primary interface" = "Resetați interfața primară";
 
 /* Button */
 "Restart connection" = "Repornește conexiunea";
@@ -816,7 +816,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ a fost resetat la ultima sa copie securizată.\n\n";
 
 /* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
-"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required.";
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\nNotă: Tunnelblick este în modul administrator, deci nu este necesară autorizarea unui administrator de computer.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configurări au fost resetate la ultima lor copie securizată.\n\n";
@@ -825,7 +825,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' deja există pe Desktop.\n\nDoriți să înlocuiți?";
 
 /* Window text */
-"'%@' at line %u was not terminated properly" = "'%1$@' at line %2$u was not terminated properly";
+"'%@' at line %u was not terminated properly" = "'%1$@' la linia %2$u nu a fost terminată corect";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' nu are nici un fel de credențiale (cheie privată sau utilizator și parolă) salvată în Keychain.";
@@ -834,7 +834,7 @@
 "'%@' was not terminated." = "'%@' nu a fost terminat.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' will connect using OpenVPN %2$@ instead of the requested version (OpenVPN %3$@).";
+"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' se va conecta folosind OpenVPN %2$@ în loc de versiunea cerută (OpenVPN %3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Preferința 'easy-rsaPath' ignorată; nu specifică un dosar";
@@ -909,7 +909,7 @@
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "După conectarea la %@, internetul nu pare să fie accesibil.\n\nAcest lucru poate însemna că rețeaua VPN nu este configurată corect.\n\n";
 
 /* Window text */
-"All OpenVPN processes have quit" = "All OpenVPN processes have quit";
+"All OpenVPN processes have quit" = "Toate procesele OpenVPN au fost închise";
 
 /* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "Toate fișierele de configurare au fost eliminate. Tunnelblick trebuie să renunțe.";
@@ -978,7 +978,7 @@
 "Backslash at end of line %u is not allowed" = "Backslash la sfârșitul liniei %u nu este permisă";
 
 /* Window text */
-"Cancelled trying to quit all OpenVPN processes" = "Cancelled trying to quit all OpenVPN processes";
+"Cancelled trying to quit all OpenVPN processes" = "S-a anulat încercarea de a închide toate procesele OpenVPN";
 
 /* Window text */
 "Cannot find configuration file at %@" = "Fișierul de configurare %@ nu poate fi găsit";

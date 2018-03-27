@@ -95,7 +95,7 @@
 "Delete" = "حذف";
 
 /* Button */
-"Disable network access" = "Disable network access";
+"Disable network access" = "تعطيل الوصول إلى الشبكة";
 
 /* Button */
 "Disconnect" = "قطع الاتصال";
@@ -107,7 +107,7 @@
 "Do not use the plugin" = "لا تستخدم البرنامج مساعد";
 
 /* Button */
-"Do nothing" = "Do nothing";
+"Do nothing" = "عدم إجراء شيء";
 
 /* Button */
 "Download" = "تنزيل";
@@ -143,7 +143,7 @@
 "Monochrome icon" = "أيقونة أحادية اللون";
 
 /* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
-"More Info [%@]" = "More Info [%@]";
+"More Info [%@]" = "مزيد من معلومات [%@]";
 
 /* Button */
 "More Info" = "مزيد من المعلومات";
@@ -189,7 +189,7 @@
 
 /* Button
    Menu item */
-"Re-enable Network Access" = "Re-enable Network Access";
+"Re-enable Network Access" = "إعادة تمكين الوصول إلى الشبكة";
 
 /* Button */
 "Reinstall" = "إعادة التثبيت";
@@ -204,7 +204,7 @@
 "Reset Disabled Warnings" = "إعادة تفعيل التحذيرات المعطلة";
 
 /* Button */
-"Reset primary interface" = "Reset primary interface";
+"Reset primary interface" = "إعادة تعيين الواجهة الأساسية";
 
 /* Button */
 "Restart connection" = "إعادة انشاء الإتصال";
@@ -216,13 +216,13 @@
 "Retry" = "إعادة المحاولة";
 
 /* Button */
-"Revert to the Last Secured Copy" = "Revert to the Last Secured Copy";
+"Revert to the Last Secured Copy" = "العودة إلى آخر نسخة مؤمنة";
 
 /* Button */
 "Revert" = "تراجع";
 
 /* Button */
-"Secure the Configuration" = "Secure the Configuration";
+"Secure the Configuration" = "تأمين التكوين";
 
 /* Button */
 "Show on default screen (%u x %u)" = "الاظهار على الشاشة الرئيسة (%u x %u)";
@@ -234,7 +234,7 @@
 "Show when connection status changes" = "عرض عند تغيير حالة الاتصال";
 
 /* Button */
-"Show while connecting and connected" = "Show while connecting and connected";
+"Show while connecting and connected" = "Show while connecting and connected\n\n35/5000\nعرض أثناء الاتصال والتوصيل";
 
 /* Button */
 "Show while connecting" = "عرض أثناء انشاء الإتصال";
@@ -330,7 +330,7 @@
 "OpenVPN level 3 - normal output" = "OpenVPN مستوى 3 - ناتج عادي";
 
 /* Menu Item */
-"OpenVPN level 4 - values for all options" = "OpenVPN level 4 - values for all options";
+"OpenVPN level 4 - values for all options" = "OpenVPN مستوى 4 - القيم لجميع الخيارات";
 
 /* Menu Item */
 "OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN level 5 - \"R\" or \"W\" for each packet";
@@ -909,7 +909,7 @@
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "بعد الاتصال ب %@، يبدو ان الاتصال بشبكة الانترنت غير ممكن.\nهذا قد يعني أن تثبيت الشبكة الافتراضية الخاصة (VPN) لم يتم بشكل صحيح.\n\n";
 
 /* Window text */
-"All OpenVPN processes have quit" = "All OpenVPN processes have quit";
+"All OpenVPN processes have quit" = "لقد توقفت جميع عمليات OpenVPN";
 
 /* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "جميع ملفات الاعداد تم حذفهم. يجب اغلاق البرنامج.";
@@ -1299,10 +1299,10 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "لن يتم تغيير الاعدادات الحالية ، لذلك لا يمكن لاعدادات %@ استخدام TBKeepExistingFilesList";
 
 /* Window text */
-"On expected disconnect:" = "On expected disconnect:";
+"On expected disconnect:" = "عند قطع الاتصال المتوقع:";
 
 /* Window text */
-"On unexpected disconnect:" = "On unexpected disconnect:";
+"On unexpected disconnect:" = "عند قطع الاتصال غير المتوقع:";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "هناك واحدة او اكثر من عمليات OpenVPN تعمل الآن ، ولكنها غير مرتبطة ب Tunnelblick. اذا كنت لا تستخدم OpenVPN دون استخدام Tunnelblick فهذا يعنى وجود نسخة قديمة من البرنامج لم يتم اغلاقها بعد ، ويجب اغلاقها لكي تعمل النسخة الجديدة. هل تريد اغلاق كل عمليات OpenVPN الآن ؟";
@@ -1587,7 +1587,7 @@
 "Translation by" = "تمت الترجمة من قبل ";
 
 /* Window text */
-"Trying to quit all OpenVPN processes..." = "Trying to quit all OpenVPN processes…";
+"Trying to quit all OpenVPN processes..." = "محاولة إنهاء جميع عمليات OpenVPN…";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
 "Tunnelblick %@ has been secured successfully." = "تم تأمين %@ تُنلـبليك بنجاح.";

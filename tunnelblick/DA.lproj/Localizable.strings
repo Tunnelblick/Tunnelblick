@@ -816,7 +816,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ er blevet sat tilbage til den sidste sikre (skygge) kopi.\n\n";
 
 /* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
-"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required.";
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\nBemærk: Tunnelblick er i administrationstilstand, så tilladelse fra computer administratoren er påkrævet.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigurationer er blevet gendannet til deres sidste sikrede (skygge) kopi.\n\n";
@@ -825,7 +825,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' findes allerede på skrivebord.\n\nVil du erstatte den?";
 
 /* Window text */
-"'%@' at line %u was not terminated properly" = "'%1$@' at line %2$u was not terminated properly";
+"'%@' at line %u was not terminated properly" = "'%1$@' på linje %2$u blev ikke afsluttet korreekt";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' har ikke nogen legitimationsoplysninger (privat nøgle eller brugernavn og adgangskode) opbevaret i nøgleringen.";
@@ -1011,10 +1011,10 @@
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguration ' %@' er ikke opdaterebar, da den ikke kunne markeres som 'opdaterebar'.\n";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Configuration '%1$@' requires Tunnelblick %2$@ or higher; you are using Tunnelblick %3$@.\n\nYou must update Tunnelblick to install this configuration.";
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfiguration '%1$@' kræver Tunnelblick %2$@ eller højere; du bruger Tunnelblick %3$@.\n\nDu skal opdatere Tunnelblick for installere denne konfiguration.";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Configuration '%1$@' requires Tunnelblick %2$@ or lower; you are using Tunnelblick %3$@.";
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfiguration '%1$@' kræver Tunnelblick %2$@ eller lavere; du bruger Tunnelblick %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguration '%1$@' ignoreres, da navnet indeholder tegn der ikke er tilladt.\n\nFølgende tegn er ikke tilladt: '%2$s'\n\n";

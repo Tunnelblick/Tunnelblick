@@ -816,7 +816,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ son güvenli (gölge) kopyasına geri alındı.\n\n";
 
 /* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
-"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required.";
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\nNot: Tunneblick admin modunda. Bu yüzden bilgisayar yöneticisinin onayı gerekmemektedir.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld yapılandırmaları en son güvenli (gölge) kopyaları ile değiştirildi.\n\n";
@@ -1011,7 +1011,7 @@
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Yapılandırma '%@' güncellenemez çünkü 'güncellenebilir' olarak işaretlenmemiş.\n";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Configuration '%1$@' requires Tunnelblick %2$@ or higher; you are using Tunnelblick %3$@.\n\nYou must update Tunnelblick to install this configuration.";
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "%1$@ konfigürasyonunu kullanmak için en az %2$@ versiyonuna sahip olmalısınız. Sizin versiyonunuz: %3$@. Bu konfigürasyonu kullanmak için lütfen Tunnelblick’i güncelleyin.";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Configuration '%1$@' requires Tunnelblick %2$@ or lower; you are using Tunnelblick %3$@.";

@@ -816,7 +816,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ wurde auf den Stand seiner letzten sicheren (Schatten-) Kopie zurückgesetzt.\n\n";
 
 /* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
-"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required.";
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\nHinweis: Tunnelblick ist im Administrator-Modus, deshalb wird keine Autorisierung eines Administrators benötigt.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld Konfigurationen wurden zu ihrer letzten sicheren (Schatten-) Kopie zurückgesetzt.\n\n";
@@ -825,7 +825,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "Es existiert bereits eine Datei „%@“ auf dem Schreibtisch.\n\nMöchten Sie sie ersetzen?";
 
 /* Window text */
-"'%@' at line %u was not terminated properly" = "'%1$@' at line %2$u was not terminated properly";
+"'%@' at line %u was not terminated properly" = "'%1$@' in Zeile %2$u wurde nicht richtig beendet";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' hat keine Zugangsdaten (privater Schlüssel oder Benutzername/Kennwort) im Schlüsselbund gespeichert.";
@@ -1014,7 +1014,7 @@
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Configuration '%1$@' requires Tunnelblick %2$@ or higher; you are using Tunnelblick %3$@.\n\nYou must update Tunnelblick to install this configuration.";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Configuration '%1$@' requires Tunnelblick %2$@ or lower; you are using Tunnelblick %3$@.";
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfiguration '%1$@' benötigt Tunnelblick %2$@ oder niedriger; Sie benutzen Tunnelblick %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Die Konfiguration '%1$@' kann wegen unzulässiger Zeichen im Namen nicht verwendet werden.\n\nNicht zulässige Zeichen sind: '%2$s'\n\n";
@@ -1554,7 +1554,7 @@
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Diese 'Ausgelieferte' Version von Tunnelblick kann nicht gestartet oder installiert werden, da sie keine Info.plist besitzt.\n\n";
 
 /* Window text. The '%@' will be replaced by the name of a configuration */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN.";
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Dieses VPN kann nicht verbunden werden.\n\nDie OpenVPN-Konfigurationsdatei für \"%@\" enthält widersprüchliche OpenVPN-Optionen.\n\nDas heißt, eine oder mehr Optionen sind nur in alten Versionen von OpenVPN verfügbar und eine oder mehr Optionen sind nur in modernen Versionen von OpenVPN verfügbar. Keine Version von OpenVPN wird all die Optionen in der Konfigurationsdatei akzeptieren.\n\nSie sollten die Konfiguration aktualisieren, damit sie mit modernen Versionen von OpenVPN genutzt werden kann.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "Dieses VPN kann nicht verbunden werden.\n\nDie OpenVPN Konfigurationsdatei für \"%1$@\" enthält die folgenden OpenVPN Optionen:\n\n%2$@\nKeine der Versionen von OpenVPN, die in dieser Version von Tunnelblick enthalten sind, beinhaltet diese Option(en).";
@@ -1596,7 +1596,7 @@
 "Tunnelblick %@ is ready." = "Tunnelblick %@ ist bereit.";
 
 /* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Administratormodus\n\nTemporär Veränderungen autorisieren, die ein Administratorpasswort benötigen.\n\nDie Sitzung läuft nach fünf Minuten, oder wenn das 'VPN Details' Fenster geschlossen wird, aus.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick Internet-Nutzung:";
@@ -1701,7 +1701,7 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick muss eine sichere (Schatten-) Kopie der Konfigurationsdatei erstellen oder updaten.";
 
 /* Window text */
-"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n";
+"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick muss eine Aktion durchführen, die Administratorrechte benötigt.\n";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick muss:\n";
@@ -1917,7 +1917,7 @@
 "You may not remove a configuration which is set to start when the computer starts." = "Eine Konfiguration, deren Verbindung mit dem Computer startet, kann nicht gelöscht werden.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?";
+"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Sie können kein Update von Tunnelblick machen, bis sie das Passwort eines Computeradministrators eingegeben haben.\n\nSind Sie sich sicher, dass Sie nach Updates suchen möchten?";
 
 /* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Es besteht die Möglichkeit, dass Ihr Rechner das Icon nicht neben dem Spotlight-Icon platzieren kann.\n\nDies kann zum VERSCHWINDEN des Tunnelblick-Icons von der Menüleiste führen.\n\nSind Sie sicher dass Sie das Tunnelblick-Icon neben dem Spotlight-Icon platzieren wollen?\n\n";
@@ -2022,7 +2022,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick OpenVPN anweisen, allen Datenverkehr durch IPv4 zu routen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird OpenVPN standardmäßig das VPN nur für den Verkehr nutzen, dessen Ziel das VPN-Netzwerk ist. Anderer Datenverkehr wird das normale Internet benutzen, ohne durch das VPN zu gehen. Das Standardverhalten von OpenVPN kann durch die OpenVPN-Konfiguration oder den VPN-Server beeinflusst werden, so dass aller IPv4-Traffic durch den VPN-Server geroutet wird, als wäre diese Checkbox ausgewählt worden. </p>\n \nContext | Request Context\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>";
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick die Freigabe eines Administrators benötigen, um Änderungen an den Key- und Zertifikatsdateien vorzunehmen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, kann ein Standardbenutzer Änderungen an den Key- und Zertifikatsdateien vornehmen.</p><p><strong>Hinweis: Es wird Freigabe eines Administrators benötigt, um diese Einstellung zu ändern.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick auf Veränderungen in den Netzwerkeinstellungen achten und darauf reagieren (beispielsweise Veränderungen durch DHCP Erneuerungen oder Wechsel der Internetverbindungen), um zu versuchen, die VPN-Verbindung aufrecht zu erhalten. Die Standardaktionen von Tunnelblick bei solchen Veränderungen der Netzwerkeinstellungen funktionieren üblicherweise gut, Sie können aber andere Aktionen über den \n'Während der Verbindung' Reiter des 'Erweiterte Einstellungen' Fensters wählen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird Tunnelblick Veränderungen des Netzwerks ignorieren.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> wenn 'DNS/WINS einstellen' nicht auf 'Nameserver festlegen' oder 'Nameserver festlegen (3.1)' gesetzt ist.</p>";
@@ -2049,7 +2049,7 @@
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Falls ausgewählt</strong>, wird, unabhängig von anderen Einstellungen, keine automatische Überprüfung auf Updates oder Änderungen der IP-Adresse durchgeführt. Achtung: Beide dieser Aktivitäten greifen auf die Tunnelblick Webseite zu.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird automatisch auf Updates geprüft, falls dies unten ausgewählt ist, und die IP-Adresse auf Änderungen überprüft, falls eine Verbindung aufgebaut wird und dies in den Einstellungen dieser Konfiguration aktiviert ist.</p><p>Besuchen Sie <a href=\"https://tunnelblick.net/cPrivacy.html\">Privatsphäre und Sicherheit</a> [tunnelblick.net] für Details.</p><p>&nbsp;</p>";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%1$@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%2$@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Falls ausgewählt</strong>, wird das Tunnelblick-Icon in der Nähe des Spotlight-Icons positioniert:</p>\n<p>%1$@</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird das Tunnelblick-Icon normal positioniert:</p>\n<p>%2$@</p>\n<p><strong>Diese Auswahl</strong> ist auf macOS Sierra oder höher deaktiviert, weil sie nicht benötigt wird und auf Systemen, auf denen sie bekanntermaßen Probleme verursacht.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Falls ausgewählt</strong>, wird das VPN Status Fenster angezeigt, selbst wenn die Konfiguration getrennt ist.</p><p><strong>Diese Checkbox ist deaktiviert</strong> wenn \"Niemals anzeigen\" darüber ausgewählt ist.</p>";
@@ -2227,7 +2227,7 @@
 "Greek translation" = "Griechische Übersetzung";
 
 /* Credit description */
-"Hebrew translation" = "Hebrew translation";
+"Hebrew translation" = "Hebräische Übersetzung";
 
 /* Credit description */
 "Hungarian translation" = "Ungarische Übersetzung";

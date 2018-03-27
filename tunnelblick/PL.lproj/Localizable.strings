@@ -816,7 +816,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ zostało przywrócone do swojej ostatniej bezpiecznej (ukrytej) kopii.\n\n";
 
 /* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
-"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required.";
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Uwaga: Tunnelblick jest w trybie administratora, także autoryzacja administratora komputera nie jest wymagana.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfiguracje zostały przywrócone do ich ostatniej bezpiecznej kopii.\n\n";
@@ -825,7 +825,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@'już istnieje na pulpicie.\n\nCzy chcesz ją zastąpić?";
 
 /* Window text */
-"'%@' at line %u was not terminated properly" = "'%1$@' at line %2$u was not terminated properly";
+"'%@' at line %u was not terminated properly" = "Tag '%1$@' w linii %2$u nie jest prawidłowo zamknięty";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' nie posiada żadnych danych logowania (prywatny klucz lub nazwa użytkownika i hasło) przechowywanych w programie Keychain.";
@@ -1011,10 +1011,10 @@
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguracja '%@' nie jest aktualizowalna, ponieważ nie mogła zostać oznaczona jako aktualizowalna.\n";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Configuration '%1$@' requires Tunnelblick %2$@ or higher; you are using Tunnelblick %3$@.\n\nYou must update Tunnelblick to install this configuration.";
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfiguracja '%1$@' wymaga minimum Tunnelblick %2$@; twoja wersja to Tunnelblick %3$@.\n\nMusisz uaktualnić Tunnelblick żeby zainstalować tą konfigurację.";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Configuration '%1$@' requires Tunnelblick %2$@ or lower; you are using Tunnelblick %3$@.";
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfiguracja '%1$@' wymaga maksymalnie Tunnelblick %2$@; twoja wersja to Tunnelblick %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguracja '%1$@' zostanie zignorowana, ponieważ jej nazwa zawiera niedozwolone znaki.\n\nZnaki niedozwolone to: '%2$s'\n\n";
@@ -2133,7 +2133,7 @@
 "Afrikaans translation" = "Afrykańskie tłumaczenie";
 
 /* Credit description */
-"Albanian translation" = "Albanian translation";
+"Albanian translation" = "Albańskie tłumaczenie";
 
 /* Credit description */
 "Animation and icon sets code" = "animacja, kod implementacji zestawów ikon";
@@ -2227,7 +2227,7 @@
 "Greek translation" = "Greckie tłumaczenie";
 
 /* Credit description */
-"Hebrew translation" = "Hebrew translation";
+"Hebrew translation" = "Hebrajskie tłumaczenie";
 
 /* Credit description */
 "Hungarian translation" = "Węgierskie tłumaczenie";

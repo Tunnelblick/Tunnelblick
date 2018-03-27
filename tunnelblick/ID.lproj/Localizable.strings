@@ -816,7 +816,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ telah dikembalikan kepada simpanan terakhir(bayangan).\n\n";
 
 /* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
-"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required.";
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Catatan: Tunnelblick ada dalam mode administrator, sehingga otorisasi administrator komputer tidak diperlukan.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigurasi telah dipulihkan ke salinan terakhir mereka yang diamankan (bayangan).\n\n";
@@ -825,7 +825,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "%@ sudah ada di Desktop.\n\nApakah anda mau menggantikannya?";
 
 /* Window text */
-"'%@' at line %u was not terminated properly" = "'%1$@' at line %2$u was not terminated properly";
+"'%@' at line %u was not terminated properly" = "'%1$@' pada baris %2$u tidak diakhiri dengan benar";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' tidak punya kredensial (kunci privat atau nama pengguna dan sandi) yang tersimpan di dalam Ring kunci.";
@@ -1011,10 +1011,10 @@
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurasi '%@' tidak dapat dimutakhirkan karena tidak dapat ditandai sebagai 'dapat dimutakhirkan'.\n";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Configuration '%1$@' requires Tunnelblick %2$@ or higher; you are using Tunnelblick %3$@.\n\nYou must update Tunnelblick to install this configuration.";
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfigurasi '%1$@' memerlukan Tunnelblick %2$@ atau lebih tinggi; Anda sedang memakai Tunnelblick %3$@.\n\nAnda harus memperbarui Tunnelblick untuk memasang konfigurasi ini.";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Configuration '%1$@' requires Tunnelblick %2$@ or lower; you are using Tunnelblick %3$@.";
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfigurasi '%1$@' memerlukan Tunnelblick %2$@ atau lebih rendah; Anda sedang memakai Tunnelblick %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurasi '%1$@' akan diabaikan karena nama memuat karakter yang tidak diijinkan.\n\nKarakter yang tidak diijinkan: '%2$s'\n\n";
@@ -1554,7 +1554,7 @@
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Versi Tunnelblick yang 'Disebarkan' ini tidak dapat diluncurkan atau dipasang karena tidak memiliki suatu Info.plist.\n\n";
 
 /* Window text. The '%@' will be replaced by the name of a configuration */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN.";
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%@' memuat opsi-opsi OpenVPN yang bertentangan.\n\nYaitu, satu opsi atau lebih hanya tersedia di versi lama OpenVPN dan satu opsi atau lebih hanya tersedia di versi modern OpenVPN. Tidak ada versi OpenVPN akan menerima semua opsi dalam berkas konfigurasi.\n\nAnda mesti memutakhirkan konfigurasi sehingga itu dapat dipakai dengan versi modern OpenVPN.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%1$@' memuat opsi-opsi OpenVPN ini:\n\n%2$@\nTidak ada versi OpenVPN yang disertakan dalam versi Tunnelblick ini termasuk opsi itu.";
@@ -1596,7 +1596,7 @@
 "Tunnelblick %@ is ready." = "Tunnelblick %@ siap.";
 
 /* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Mode Admin Tunnelblick\n\nUntuk sementara mengizinkan perubahan yang memerlukan otorisasi administrator.\n\nSesi akan berakhir setelah lima menit atau saat jendela 'Detil VPN' ditutup.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Penggunaan internet oleh Tunnelblick:";
@@ -1701,7 +1701,7 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick perlu membuat atau memutakhirkan suatu salinan aman (bayangan) dari berkas konfigurasi.";
 
 /* Window text */
-"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n";
+"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick perlu melakukan suatu aksi yang membutuhkan otorisasi administrator komputer.\n";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick perlu:\n";
@@ -1917,7 +1917,7 @@
 "You may not remove a configuration which is set to start when the computer starts." = "Anda tidak bisa menghapus suatu konfigurasi yang ditata agar mulai berjalan ketika komputer mulai menyala.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?";
+"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Anda tidak akan bisa memutakhirkan Tunnelblick kecuali Anda memberikan otorisasi administrator komputer.\n\nApakah Anda yakin hendak memeriksa pemutakhiran?";
 
 /* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Komputer Anda mungkin tidak bisa secara handal menampilkan ikon Tunnelblick dekat ikon Spotlight.\n\nIni dapat menyebabkan ikon Tunnelblick kadang-kadang MENGHILANG dari bilah menu.\n\nApakah Anda yakin hendak menempatkan ikon Tunnelblick dekat ikon Spotlight?\n\n";
@@ -2022,7 +2022,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan menginstruksikan OpenVPN untuk mengarahkan semua trafik IPv4 melalui server VPN.</p>\n<p><strong>Ketika tidak dicentang</strong>, secara default OpenVPN akan memakai VPN hanya untuk trafik yang menuju jaringan VPN. Semua trafik lain akan memakai koneksi Internet normal tanpa melalui VPN. Perilaku baku OpenVPN dapat diubah oleh konfigurasi OpenVPN atau server VPN dan menyebabkan semua trafik IPv4 diarahkan melalui server VPN seolah kotak centang ini telah dicentang.</p>\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>";
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan membutuhkan otorisasi administrator komputer untuk membuat perubahan ke berkas kunci dan sertifikat.</p>\n<p><strong>Ketika tidak dicentang</strong>, pengguna standar akan diizinkan membuat perubahan ke berkas kunci dan sertifikat.</p><p><strong>Catatan: Otorisasi administrator komputer diperlukan untuk mengubah pengaturan ini.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan mengamati dan berreaksi atas perubahan dalam pengaturan jaringan (sebagai contoh, perubahan yang disebabkan oleh pembaruan DHCP atau berpindah koneksi Internet) untuk mencoba menjaga VPN tersambung. Aksi baku Tunnelblick ketika pengaturan jaringan berubah biasanya bekerja dengan baik, tapi Anda boleh menyatakan aksi yang berbeda pada tab 'Ketika Tersambung' dari jendela pengaturan 'Tingkat Lanjut'.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick akan mengabaikan perubahan jaringan.</p>\n<p><strong>Kotak centang ini dimatikan</strong> ketika 'Atur DNS/WINS' ditata ke 'Atur nameserver' atau 'Atur nameserver (3.1)'.</p>";
@@ -2049,7 +2049,7 @@
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Ketika dicentang</strong>, pemeriksaan otomatis untuk pemutakhiran atau pemeriksaan perubahan alamat IP tidak dilakukan, tanpa peduli pengaturan lain. Catatan: kedia aktivitas ini mengakses situs web Tunnelblick.</p>\n<p><strong>Ketika tidak dicentang</strong>, pemeriksaan otomatis untuk pemutakhiran akan dilakukan bila difungsikan di bawah, dan pemeriksaan perubahan alamat IP akan dilakukan ketika menyambungkan suatu konfigurasi bila pengaturan konfigurasi untuk melakukan hal itu difungsikan.</p><p>Lihat <a href=\"https://tunnelblick.net/cPrivacy.html\">Privasi dan Keamanan</a>[tunnelblick.net] untuk rincian.</p><p>&nbsp;</p>";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%1$@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%2$@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Ketika dicentang</strong>, ikon Tunnelblick ditempatkan dekat ikon Spotlight:</p>\n<p>%1$@</p>\n<p><strong>Ketika tidak dicentang</strong>, ikon Tunnelblick ditempatkan secara normal:</p>\n<p>%2$@</p>\n<p><strong>Kotak centang ini dimatikan</strong> pada macOS Sierra dan yang lebih tinggi karena tidak diperlukan, dan pada sistem yang telah diketahui menyebabkan masalah.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Info lebih lanjut</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Ketika dicentang</strong>, jendela status VPN ditampilkan bahkan ketika konfigurasi sedang terputus.</p><p><strong>Kotak centang ini dinonaktifkan</strong> ketika 'Jangan Pernah Tampilkan' dipilih di atas.</p>";
@@ -2227,7 +2227,7 @@
 "Greek translation" = "Terjemahan bahasa Yunani";
 
 /* Credit description */
-"Hebrew translation" = "Hebrew translation";
+"Hebrew translation" = "Terjemahan bahasa Ibrani";
 
 /* Credit description */
 "Hungarian translation" = "Terjemahan bahasa Hungaria";
