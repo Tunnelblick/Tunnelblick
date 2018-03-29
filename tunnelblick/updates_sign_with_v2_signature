@@ -133,7 +133,15 @@ echo "$validity_comment" > "$temp_file2"
 cat  "$temp_file1"  >> "$temp_file2"
 
 # Get the new signature of (the file prepended with the validity line)
-readonly new_sig="$(  openssl dgst -sha1 -binary < "$temp_file2" | openssl dgst -dss1 -sign "$private_key_path" | openssl enc -base64 )"
+# NOTE: The OpenSSL dss1 digest algorithm usually returns something which encodes into 64 base64 bytes, but about
+#       1/256 of the time it returns something that encodes into 60 bytes. We always want 64 bytes digests so they
+#       fit into the fixed size Tunnelblick_Signature v2 format, so we discard these short signatures.
+new_sig=""
+while [ ${#new_sig} -ne 64 ] ; do
+    new_sig="$(  openssl dgst -sha1 -binary < "$temp_file2" | openssl dgst -dss1 -sign "$private_key_path" | openssl enc -base64 )"
+done
+readonly new_sig
+
 
 # Replace the input file: First line of the new contents is the new signature comment
 readonly new_line="<!-- Tunnelblick_Signature v2 $new_sig -->"
