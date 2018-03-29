@@ -121,7 +121,7 @@ if [ -n "$(  printf '%s' "$file_length" | sed 's/[0-9]//g'  )" ]; then
 	exit 1
 fi
 if [ "$file_length" -gt 9999999 ] ; then
-	echo "File length $file_length is too large! It must be smaller than 10,000,000 bytes"
+	echo "File length $file_length is too large! It must be smaller than 10,000,000 bytes: $temp_file1"
 	exit 1
 fi
 
