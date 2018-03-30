@@ -203,8 +203,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            cancellingIPCheckTh
 TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationMultiUpdater *, myConfigMultiUpdater)
 
 TBSYNTHESIZE_OBJECT(retain, SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
-TBSYNTHESIZE_OBJECT(retain, NSStatusBarButton *, statusItemButton,          setStatusItemButton)
+TBSYNTHESIZE_OBJECT(retain, NSStatusBarButton *, statusItemButton,     setStatusItemButton)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, screenList,                setScreenList)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, cachedMenuItems,		   setCachedMenuItems)
 TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
@@ -371,6 +372,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"DB-HU",     // Extra logging for hookup,
                                 @"DB-IC",     // Extra logging for IP address checking
                                 @"DB-IT",     // Extra logging for IP address check threading
+								@"DB-MC",	  // Extra logging for menu cache creation and use
                                 @"DB-MO",     // Extra logging for mouseover (of icon and status windows)
                                 @"DB-PU",     // Extra logging for information popups
 								@"DB-SD",     // Extra logging for shutdown
@@ -1977,23 +1979,41 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSUInteger itemsToSkip = (  showVpnDetailsAtTop
 							  ? 4
 							  : 2);
-    while (  (dispNm = [e nextObject])  ) {
-        if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-doNotShowOnTunnelblickMenu"]]  ) {
-            // configure connection object:
-            NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
-            VPNConnection* myConnection = [[self myVPNConnectionDictionary] objectForKey: dispNm];
-            
-            // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem and by uiUpdater
-            [connectionItem setTarget:myConnection]; 
-            [connectionItem setAction:@selector(toggle:)];
-            
-			NSString * menuItemName = [myConnection localizedName];
-            [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: itemsToSkip withName: menuItemName];
-            
-            [myConnection setMenuItem: connectionItem];
-        }
-    }
-    
+
+	NSUInteger itemsBeforeInsertingConfigurations = [myVPNMenu numberOfItems];
+	TBLog(@"DB-MC", @"itemsBeforeInsertingConfigurations = %lu", (unsigned long)itemsBeforeInsertingConfigurations);
+	
+	if (  cachedMenuItems  ) {
+		TBLog(@"DB-MC", @"Using cachedMenuItems for configurations");
+		NSUInteger ix;
+		for (  ix=0; ix<[cachedMenuItems count]; ix++  ) {
+			NSMenuItem * item = [[[cachedMenuItems objectAtIndex: ix] copy] autorelease];
+			[myVPNMenu addItem: item];
+		}
+	} else {
+		TBLog(@"DB-MC", @"Creating menu items for configurations");
+		// Don't create cachedMenuItems here because items may be reordered as they are inserted.
+		while (  (dispNm = [e nextObject])  ) {
+			if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-doNotShowOnTunnelblickMenu"]]  ) {
+				// configure connection object:
+				NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
+				VPNConnection* myConnection = [[self myVPNConnectionDictionary] objectForKey: dispNm];
+				
+				// Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem and by uiUpdater
+				[connectionItem setTarget:myConnection];
+				[connectionItem setAction:@selector(toggle:)];
+				
+				NSString * menuItemName = [myConnection localizedName];
+				[self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: itemsToSkip withName: menuItemName];
+				
+				[myConnection setMenuItem: connectionItem];
+			}
+		}
+	}
+	
+	NSUInteger itemsAfterInsertingConfigurations = [myVPNMenu numberOfItems];
+	TBLog(@"DB-MC", @"itemsAfterInsertingConfigurations = %lu", (unsigned long)itemsAfterInsertingConfigurations);
+
     if (  [[self myConfigDictionary] count] == 0  ) {
         [myVPNMenu addItem: noConfigurationsItem];
         if (  ! [gTbDefaults boolForKey:@"doNotShowAddConfigurationMenuItem"]  ) {
@@ -2029,6 +2049,30 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         [statusItemButton setImage: mainImage];
         [statusItem setMenu: myVPNMenu];
     }
+	
+	// If appropriate, create a cache of the menu items that are configurations and/or folders of configurations.
+	// This is done after the creation of all menu items because the menu may be reordered as items are inserted.
+	
+	NSUInteger maxConfigurationsForUncachedMenu = [gTbDefaults unsignedIntForKey: @"maxConfigurationsForUncachedMenu"
+																		 default: 100
+																			 min: 0
+																			 max: 99999999]; // "100 million configurations ought to be enough for everybody"
+	TBLog(@"DB-MC", @"%ld configurations; maxConfigurationsForUncachedMenu = %lu; cachedMenuItems = %@",
+		  (unsigned long)maxConfigurationsForUncachedMenu, (unsigned long)maxConfigurationsForUncachedMenu, cachedMenuItems);
+	if (   (! cachedMenuItems)
+		&& ([myConfigDictionary count] > maxConfigurationsForUncachedMenu)  ) {
+		NSArray * menuItems = [myVPNMenu itemArray];
+		TBLog(@"DB-MC", @"Creating cachedMenuItems; %lu items in menuItems", (unsigned long)[menuItems count]);
+		NSMutableArray * list = [[[NSMutableArray alloc] initWithCapacity: [menuItems count]] autorelease];
+		NSUInteger ix;
+		for (  ix=itemsBeforeInsertingConfigurations; ix<itemsAfterInsertingConfigurations; ix++  ) {
+			NSMenuItem * item = [menuItems objectAtIndex: ix];
+			[list addObject: item];
+		}
+		
+		[self setCachedMenuItems: [NSArray arrayWithArray: list]];
+		TBLog(@"DB-MC", @"Created cachedMenuItems with %lu items", (unsigned long)[list count]);
+	}
 	
     status = pthread_mutex_unlock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
@@ -2441,8 +2485,11 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	//     (2) The newly-installed openvpnstart won't be secured and thus will fail
 }
 
--(void) recreateMainMenu
+-(void) recreateMainMenuClearCache: (BOOL) clearCache
 {
+	if (  clearCache  ) {
+		[self setCachedMenuItems: nil];
+	}
     [self recreateMenu];
 }
 

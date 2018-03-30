@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen, Jens Ohlig, Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -85,6 +85,7 @@ enum StatusIconPosition {
 
 {
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
+	NSArray                 * cachedMenuItems;				// Cached copy of configuration items and folders for menu
     NSStatusItem            * statusItem;                   // Our place in the Status Bar
     NSStatusBarButton       * statusItemButton;             // Or nil if not on 10.10 or higher
     MainIconView            * ourMainIconView;              // View for the main icon
@@ -235,7 +236,7 @@ enum StatusIconPosition {
 															 inverted: (BOOL)		inverted;
 -(BOOL)				askAndMaybeReenableNetworkAccessAllowCancel:	(BOOL) allowCancel;
 -(void)             showConfirmIconNearSpotlightIconDialog;
--(void)             recreateMainMenu;
+-(void)             recreateMainMenuClearCache:				(BOOL)				clearCache;
 -(void)             changedDisplayConnectionTimersSettings;
 -(void)             checkForUpdates:                        (id)                sender;
 -(BOOL)             cleanup;
@@ -345,6 +346,7 @@ TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
 TBPROPERTY_READONLY(ConfigurationMultiUpdater *, myConfigMultiUpdater)
 
 TBPROPERTY(SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
+TBPROPERTY(NSArray      *, cachedMenuItems,			  setCachedMenuItems)
 TBPROPERTY(NSArray      *, screenList,                setScreenList)
 TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
