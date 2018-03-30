@@ -9,8 +9,9 @@
 #		An HTML comment with the signature terminated by an LF character
 #		The contents of the file itself
 #
-# Copyright © 2016, 2017 by Jonathan K. Bullard. All rights reserved.
+# Copyright © 2016, 2017, 2018 by Jonathan K. Bullard. All rights reserved.
 
+export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
 readonly temp_file="/tmp/net.tunnelblick.tunnelblick-tmp.txt"
 

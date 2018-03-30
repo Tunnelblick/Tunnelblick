@@ -30,7 +30,9 @@
 #		<!-- 00009972 2017-01-05T00:22:09 2017-05-06T00:22:09 -->
 #
 #
-# Copyright © 2016, 2017 by Jonathan K. Bullard. All rights reserved.
+# Copyright © 2016, 2017, 2018 by Jonathan K. Bullard. All rights reserved.
+
+export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
 readonly temp_file1="/tmp/net.tunnelblick.tunnelblick-tmp1.txt"
 readonly temp_file2="/tmp/net.tunnelblick.tunnelblick-tmp2.txt"
