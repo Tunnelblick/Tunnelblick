@@ -3186,10 +3186,8 @@ int main(int argc, char * argv[]) {
                 for (  i=0; i<10; i++  ) {
                     
                     if (  i != 0  ) {
-                        // Delay for a random time of up to 1.048576 seconds.
-                        // Use a delay that is a power of two to avoid modulo bias (arc4random_uniform is available only on OS X 10.7 and higher)
-                        
-                        uint32_t randomDelayMicroseconds = arc4random() % (1024*1024);
+                        // Delay for a random time of up to 1.0 seconds.
+                        uint32_t randomDelayMicroseconds = arc4random_uniform(1.0e6);
                         fprintf(stderr, "Trying to start OpenVPN again, after a delay of %lu microseconds...\n",
                                 (unsigned long) randomDelayMicroseconds);
 
