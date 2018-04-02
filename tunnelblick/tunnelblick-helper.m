@@ -2089,11 +2089,16 @@ int startVPN(NSString * configFile,
         }
     }
     
-    if (  port == 0  ) {
-        port = getFreePort(1337);   // If port number is zero, preserve old default behavior: start looking for a free port starting with 1337
-    } else if (  (bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS) != 0  ) {
-        port = getFreePort(port);   // If no GUI, start looking for a free port with the specified starting port number
-    }                               // Otherwise, use the specified port
+	// If  we're starting when the computer starts or port = 0, get a free port.
+	// Otherwise use the specified port, warning if that port isn't in the dynamic/private/emphemeral range.
+    if (   (port == 0)
+		|| ( (bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS) == 0 )  ) {
+		port = getFreePort();
+	} else if (   (port < MIN_MANAGMENT_INTERFACE_PORT_NUMBER)
+			   || (port > MAX_MANAGMENT_INTERFACE_PORT_NUMBER)  ) {
+		fprintf(stderr, "Warning: specified port %u for OpenVPN management interface is not between %u and %u, inclusive\n",
+				port, MIN_MANAGMENT_INTERFACE_PORT_NUMBER, MAX_MANAGMENT_INTERFACE_PORT_NUMBER);
+	}
     if (  port == 0  ) {
         fprintf(stderr, "Unable to find a free port to connect to the management interface\n");
         exitOpenvpnstart(248);

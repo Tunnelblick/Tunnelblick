@@ -83,7 +83,7 @@ NSDictionary * highestEditionForEachBundleIdinL_AS_T(void);
 BOOL invalidConfigurationName (NSString * name,
                                const char badChars[]);
 
-unsigned int getFreePort(unsigned int startingPort);
+unsigned int getFreePort();
 
 BOOL itemIsVisible(NSString * path);
 

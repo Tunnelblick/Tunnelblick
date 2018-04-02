@@ -427,7 +427,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 								@"delayBeforePopupHelp",
                                 @"hookupTimeout",
                                 @"displayUpdateInterval",
-                                @"managementPortStartingPortNumber",
                                 
 								@"inhibitOutboundTunneblickTraffic",
                                 @"placeIconInStandardPositionInStatusBar",
@@ -546,6 +545,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"ApplicationCrashedAfterRelaunch",
                                 
                                 // No longer used
+								@"managementPortStartingPortNumber",
 								@"userAgreementVersionAgreedTo",
 								@"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",
                                 @"doNotShowCheckForUpdatesNowMenuItem",

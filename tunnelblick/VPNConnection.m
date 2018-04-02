@@ -2213,20 +2213,20 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     BOOL useDeploy     = [cfgPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]];
     BOOL useShared     = [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]];
     
-    // "port" argument to openvpnstart is the port to use if "forNow" (starting from the GUI) so we find one now
-    //                    otherwise it is the starting port to use when searching for a free port when not starting without the GUI
+    // "port" argument to openvpnstart is the port to use for the management interface:
+	// If "forNow" (starting from the GUI) we find a free port now and remember it for immediate use
+    // else we use 0 to flag that openvpnstart should find a free port
     unsigned int thePort;
-    unsigned int startingPort = [gTbDefaults unsignedIntForKey: @"managementPortStartingPortNumber" default: 1337 min: 1 max: 65535];
     if (  forNow  ) {
-        thePort = getFreePort(startingPort);
+        thePort = getFreePort();
         if (  thePort == 0  ) {
 			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							  NSLocalizedString(@"Tunnelblick could not find a free port to use for communication with OpenVPN", @"Window text"));;;
+							  NSLocalizedString(@"Tunnelblick could not find a free port to use for communication with OpenVPN", @"Window text"));
 			return nil;
         }
         [self setPort: thePort]; // GUI active, so remember the port number
     } else {
-        thePort = startingPort;
+        thePort = 0;
     }
     NSString *portString = [NSString stringWithFormat:@"%u", thePort];
     

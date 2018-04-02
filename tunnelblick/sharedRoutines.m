@@ -830,24 +830,24 @@ NSDictionary * highestEditionForEachBundleIdinL_AS_T(void) {
 	return bundleIdEditions;
 }
 
-unsigned int getFreePort(unsigned int startingPort)
+unsigned int getFreePort()
 {
 	// Returns a free port or 0 if no free port is available
 	
-    if (  startingPort > 65535  ) {
-        appendLog([NSString stringWithFormat: @"getFreePort: startingPort must be < 65536; it was %u", startingPort]);
-        return 0;
-    }
-    
-    unsigned int resultPort = startingPort - 1;
-
     int fd = socket(AF_INET, SOCK_STREAM, 0);
     if (  fd == -1  ) {
+		appendLog(@"getFreePort: could not get an fd");
         return 0;
     }
     
+	unsigned int resultPort;
+	
     int result = 0;
-    
+
+	// Try many times to get a port to have a good chance of finding a free port even if most are in use.
+	unsigned tries_to_do = 2 * (MAX_MANAGMENT_INTERFACE_PORT_NUMBER - MIN_MANAGMENT_INTERFACE_PORT_NUMBER);
+	unsigned tries_left = tries_to_do;
+
     do {
         struct sockaddr_in address;
         unsigned len = sizeof(struct sockaddr_in);
@@ -856,26 +856,31 @@ unsigned int getFreePort(unsigned int startingPort)
             close(fd);
             return 0;
         }
-        if (  resultPort >= 65535  ) {
-            appendLog([NSString stringWithFormat: @"getFreePort: cannot get a free port between %u and 65536", startingPort - 1]);
-            close(fd);
-            return 0;
-        }
-        resultPort++;
-        
+		
+		// Try a random port in the range for the managment port
+        resultPort = arc4random_uniform(MAX_MANAGMENT_INTERFACE_PORT_NUMBER - MIN_MANAGMENT_INTERFACE_PORT_NUMBER) + MIN_MANAGMENT_INTERFACE_PORT_NUMBER;
+		
         address.sin_len = (unsigned char)len;
         address.sin_family = AF_INET;
         address.sin_port = htons(resultPort);
         address.sin_addr.s_addr = htonl(0x7f000001); // 127.0.0.1, localhost
         
-        memset(address.sin_zero,0,sizeof(address.sin_zero));
+        memset(address.sin_zero, 0, sizeof(address.sin_zero));
         
-        result = bind(fd, (struct sockaddr *)&address,sizeof(address));
+        result = bind(fd, (struct sockaddr *)&address, sizeof(address));
         
-    } while (result!=0);
+    } while (   ( result != 0 )
+			 && ( tries_left-- != 0 )
+			 );
     
     close(fd);
     
+	if (  result != 0  ) {
+		appendLog([NSString stringWithFormat: @"getFreePort: could not get a free port (in %u through %u) in %u tries",
+				   MIN_MANAGMENT_INTERFACE_PORT_NUMBER, MAX_MANAGMENT_INTERFACE_PORT_NUMBER, tries_to_do]);
+		resultPort = 0;
+	}
+	
     return resultPort;
 }
 

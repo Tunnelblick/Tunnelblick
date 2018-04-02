@@ -39,8 +39,11 @@
 // The newline character as a unichar
 #define UNICHAR_LF [@"\n" characterAtIndex:0]
 
-// Maximum port number
-#define MAX_PORT_NUMBER 65536
+// Range of ports to be used to connect to the OpenVPN management interface.
+// We chose one dynamic/private/ephemeral port per connection at random within this range.
+// (See https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
+#define MIN_MANAGMENT_INTERFACE_PORT_NUMBER 49152
+#define MAX_MANAGMENT_INTERFACE_PORT_NUMBER 65535
 
 // Maximum length of a response from https://tunnelblick.net/ipinfo
 // Will be IP,port#,IP. An IPv6 addresses takes up to 39 bytes, port# up to five, and two commas separating the three items, so 78 + 5 + 2 = 85 bytes.
