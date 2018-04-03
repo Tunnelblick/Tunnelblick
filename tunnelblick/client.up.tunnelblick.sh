@@ -1472,9 +1472,9 @@ if ${ARG_TAP} ; then
 	bRouteGatewayIsDhcp="false"
 	if [ -z "${route_vpn_gateway}" -o "$route_vpn_gateway" == "dhcp" -o "$route_vpn_gateway" == "DHCP" ]; then
 		# Check if $dev already has an ip configuration
-		hasIp="$(ifconfig ${dev} | grep inet | cut -d ' ' -f 2)"
+		hasIp="$(ifconfig "$dev" | grep inet | cut -d ' ' -f 2)"
 		if [ "${hasIp}" ]; then
-			logMessage "Not using DHCP because ${dev} already has an ip configuration."
+			logMessage "Not using DHCP because $dev already has an ip configuration."
 		else
 			bRouteGatewayIsDhcp="true"
 		fi

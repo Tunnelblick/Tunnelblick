@@ -127,7 +127,7 @@ if [ "$file_length" -gt 9999999 ] ; then
 	exit 1
 fi
 
-readonly file_length_7_digits="$(  printf %07d $file_length  )"
+readonly file_length_7_digits="$(  printf %07d "$file_length"  )"
 
 readonly validity_comment="<!-- $file_length_7_digits $valid_start $valid_end -->"
 

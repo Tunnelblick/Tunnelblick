@@ -59,7 +59,7 @@ disableNetworkAccess()
 
 			if [ "$dia_service" = "Wi-Fi" ] ; then
 				dia_interface="$(networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
-				dia_airport_power="$( networksetup -getairportpower $dia_interface | sed -e 's/^.*: //g' )"
+				dia_airport_power="$( networksetup -getairportpower "$dia_interface" | sed -e 's/^.*: //g' )"
 				if [  "$dia_airport_power" = "On"  ] ; then
 					networksetup -setairportpower "$dia_interface" off
 					logMessage "Turned off $dia_service ($dia_interface)"
