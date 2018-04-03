@@ -73,7 +73,7 @@ fi
 
 # Make sure $duration_arg is a number
 readonly duration_arg="$3"
-if [ -n "$(  printf '%s' "$duration_arg" | sed 's/[0-9]//g'  )" ]; then
+if [ "" != "$(echo "$3" | sed 's/[0-9]//g' )" ] ; then
 	echo "The third argument must be an integer between 1 and 36500 (100 years)"
 	echo "$usage_message"
 	exit 1
