@@ -488,6 +488,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 
                                 @"openvpnVersion",
                                 @"maximumNumberOfTabs",
+								@"maxConfigurationsForUncachedMenu",
                                 @"onlyAdminCanUpdate",
                                 @"connectionWindowDisplayCriteria",
                                 @"showTooltips",
