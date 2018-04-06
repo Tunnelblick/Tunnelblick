@@ -119,6 +119,8 @@ extern volatile int32_t       gActiveInactiveState;
 
 -(NSString *)       timeString;
 
+TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,        setMessagesIfConnectionFails)
+
 @end
 
 @implementation VPNConnection
@@ -177,6 +179,8 @@ extern volatile int32_t       gActiveInactiveState;
         // Set preferences that haven't been defined yet or that should always be set
 		[self reloadPreferencesFromTblk];
         
+		messagesIfConnectionFails = [[NSMutableArray alloc] initWithCapacity: 8];
+		
 		speakWhenConnected    = FALSE;
 		speakWhenDisconnected = FALSE;
         NSString * upSoundKey  = [displayName stringByAppendingString: @"-tunnelUpSoundName"];
@@ -1395,6 +1399,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
     [self invalidateConfigurationParse];
     
+	[messagesIfConnectionFails removeAllObjects];
+	
     if (   ( ! [[self configPath] hasPrefix: @"/Library/"] )
         && ( ! [[[self configPath] pathExtension] isEqualToString: @"tblk"] )  ) {
         TBShowAlertWindow(NSLocalizedString(@"Unavailable", @"Window title"),
@@ -1651,7 +1657,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
         
 		if (  userKnows  ) {
-			if (  ! [self logEntriesWereExplained]  ) {
+			if (  [messagesIfConnectionFails count] != 0  ) {
+				NSEnumerator * e = [messagesIfConnectionFails objectEnumerator];
+				NSString * message;
+				while (  (message = [e nextObject])  ) {
+					TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
+				}
+				[messagesIfConnectionFails removeAllObjects];
+			} else {
 				TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
 								  [NSString stringWithFormat:
 								   NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
@@ -1670,6 +1683,11 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		[((MenuController *)[NSApp delegate]) addNonconnection: self];
         [self connectToManagementSocket];
     }
+}
+
+-(void) addMessageToDisplayIfConnectionFails: (NSString *) message {
+	
+	[messagesIfConnectionFails addObject: message];
 }
 
 -(BOOL) shadowCopyIsIdentical
@@ -4218,6 +4236,8 @@ TBSYNTHESIZE_OBJECT_SET(        NSSound *,                tunnelDownSound,      
 TBSYNTHESIZE_OBJECT(retain,     NSDate *,                 bytecountsUpdated,                setBytecountsUpdated)
 
 TBSYNTHESIZE_OBJECT(retain,     NSArray *,                argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
+
+TBSYNTHESIZE_OBJECT(retain,     NSMutableArray *,         messagesIfConnectionFails,        setMessagesIfConnectionFails)
 
 TBSYNTHESIZE_OBJECT(retain,     NSMenuItem *,             menuItem,                         setMenuItem)
 

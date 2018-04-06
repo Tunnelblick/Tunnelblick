@@ -101,6 +101,8 @@ struct Statistics {
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     volatile int32_t avoidHasDisconnectedDeadlock; // See note at start of 'hasDisconnected' method
     
+	NSMutableArray * messagesIfConnectionFails; // Localized strings to display if connection failed (e.g., "Unrecognized option...")
+	
     VPNConnectionUserWantsState
                     userWantsState;     // Indicates what the user wants to do about authorization failures
     
@@ -147,6 +149,8 @@ struct Statistics {
 
 // PUBLIC METHODS:
 // (Private method interfaces are in VPNConnection.m)
+
+-(void)             addMessageToDisplayIfConnectionFails: (NSString *) message;
 
 -(void)             addToLog:                   (NSString *)        text;
 
