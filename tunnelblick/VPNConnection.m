@@ -295,6 +295,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [lastState          release]; lastState = @"EXITING";
     [requestedState     release]; requestedState = @"EXITING";
     [tunOrTap           release]; tunOrTap = nil;
+	[messagesIfConnectionFails removeAllObjects];
     portNumber       = 0;
     pid              = 0;
     tryingToHookup   = FALSE;
@@ -3119,6 +3120,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		
 		logFilesMayExist = TRUE;
 		logEntriesWereExplained = FALSE;
+		[messagesIfConnectionFails removeAllObjects];
 
 	} else if (   isHookedup
 			   && ( ! tryingToHookup )  ) {
