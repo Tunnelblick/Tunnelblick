@@ -233,7 +233,6 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         serverNotClient = FALSE;
         ipCheckLastHostWasIPAddress = FALSE;
 		connectAfterDisconnect = FALSE;
-		logEntriesWereExplained = FALSE;
         logFilesMayExist = ([[gTbDefaults stringForKey: @"lastConnectedDisplayName"] isEqualToString: displayName]);
 
         userWantsState   = userWantsUndecided;
@@ -307,7 +306,6 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     loadedOurTap     = FALSE;
     loadedOurTun     = FALSE;
     logFilesMayExist = FALSE;
-	logEntriesWereExplained = FALSE;
     serverNotClient  = FALSE;
 }
 
@@ -1492,7 +1490,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     logFilesMayExist = TRUE;
-	logEntriesWereExplained = FALSE;
     authFailed = FALSE;
     credentialsAskedFor = FALSE;
     userWantsState = userWantsUndecided;
@@ -3119,7 +3116,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 		
 		logFilesMayExist = TRUE;
-		logEntriesWereExplained = FALSE;
 		[messagesIfConnectionFails removeAllObjects];
 
 	} else if (   isHookedup
@@ -4253,7 +4249,6 @@ TBSYNTHESIZE_OBJECT(retain,     NSString *,               localizedName,        
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     haveConnectedSince,               setHaveConnectedSince)
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     logFilesMayExist,                 setLogFilesMayExist)
-TBSYNTHESIZE_NONOBJECT(         BOOL,                     logEntriesWereExplained,          setLogEntriesWereExplained)
 
 
 //*********************************************************************************************************
