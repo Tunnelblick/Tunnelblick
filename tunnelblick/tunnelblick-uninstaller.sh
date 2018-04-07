@@ -41,6 +41,21 @@
 
 ####################################################################################
 #
+####################################################################################
+#
+# Routine that logs to stdout and to the uninstaller log
+#
+# Argument: string to log
+#
+####################################################################################
+log()
+{
+  echo "$1"
+}
+
+
+####################################################################################
+#
 # Routine that trims leading/trailing spaces from its arguments
 #
 # Arguments: content to be trimmed
@@ -86,13 +101,13 @@ uninstall_tb_remove_item_at_path()
     fi
 
     if [ "${status}" = "0" ]; then
-      echo "Removed${secure_note} ${1}"
+      log "Removed${secure_note} ${1}"
     else
-      echo "Problem: an error was returned by 'rm -f ${secure} ${recursive} \"$1\"'"
-      echo "Output from 'ls ${recursive} -@ -A -b -e -l -O "$1"':"
-      echo "$(ls ${recursive} -@ -A -b -e -l -O "$1")"
+      log "Problem: an error was returned by 'rm -f ${secure} ${recursive} \"$1\"'"
+      log "Output from 'ls ${recursive} -@ -A -b -e -l -O "$1"':"
+      log "$(ls ${recursive} -@ -A -b -e -l -O "$1")"
       if [ "${$1:0:7}" = "/Users/" ] ; then
-        echo "If the user's home folder is on a network drive, that could be the cause of the problem. (Tunnelblick cannot be installed or uninstalled if the user's home folder is on a network drive.)"
+        log "If the user's home folder is on a network drive, that could be the cause of the problem. (Tunnelblick cannot be installed or uninstalled if the user's home folder is on a network drive.)"
       fi
     fi
   fi
@@ -190,7 +205,6 @@ uninstall_tb_user_keychain_items()
                   if [ "$?" = "0" ]; then
                     echo "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
                   else
-					echo "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
 			      fi
                 else
 				  echo "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
@@ -408,10 +422,11 @@ if [ "${openvpn_instances}" != "" ] ; then
 fi
 
 # Output initial messages
-echo "$(date '+%a %b %e %T %Y') Tunnelblick Uninstaller:"
 echo ""
-echo "     Uninstalling '${uninstall_tb_app_name}'"
-echo "     with bundle ID '${uninstall_tb_bundle_identifier}'"
+log "$(date '+%a %b %e %T %Y') Tunnelblick Uninstaller:"
+log ""
+log "     Uninstalling '${uninstall_tb_app_name}'"
+log "     with bundle ID '${uninstall_tb_bundle_identifier}'"
 
 if [ "${uninstall_tb_app_path}" != "" ] ; then
   echo "     at ${uninstall_tb_app_path}"
@@ -420,17 +435,22 @@ fi
 if [ "${uninstall_remove_data}" != "true" ] ; then
   echo ""
   echo "Testing only -- NOT removing or unloading anything"
-  echo ""
+  log ""
+  log "Testing only -- NOT removing or unloading anything"
+  log ""
 fi
 
 if [ "${uninstall_use_insecure_rm}" = "true" ] ; then
   echo ""
   echo "Secure erase ('rm -P') will not be used to delete files because you are uninstalling from an SSD, and secure erase is not effective on SSDs."
-  echo ""
+  log ""
+  log "Secure erase ('rm -P') will not be used to delete files because you are uninstalling from an SSD, and secure erase is not effective on SSDs."
+  log ""
 else
-  echo ""
   echo "Secure erase ('rm -P') will be used to delete files because you are not uninstalling from an SSD."
-  echo ""
+  log ""
+  log "Secure erase ('rm -P') will be used to delete files because you are not uninstalling from an SSD."
+  log ""
 fi
 
 ####################################################################################
@@ -571,7 +591,7 @@ for user in `dscl . list /users` ; do
 	# run the per-user routine to delete keychain items
     output="$(/usr/bin/su "${user}" -c "/bin/bash -c uninstall_tb_user_keychain_items")"
     if [ "${output}" != "" ] ; then
-	  echo "${output}"
+	  log "${output}"
 	  if [ "${output:0:7}" = "Error: " ] ; then
 		exit 0
 	  fi
@@ -617,9 +637,9 @@ for user in `dscl . list /users` ; do
 		  status="0"
 	    fi
 	    if [ "${status}" = "0" ]; then
-	      echo "Removed ${item_path} uchg and/or uappnd flags (if there were any)"
+	      log "Removed ${item_path} uchg and/or uappnd flags (if there were any)"
 	    else
-		  echo "Problem: Error trying to remove uchg and/or uappnd flags on or inside ${item_path}"
+		  log "Problem: Error (${status}) trying to remove uchg and/or uappnd flags on or inside ${item_path}"
 	    fi
 	
 	    # Delete the bad links in ancient versions of Tunnelblick in the Trash (in the Sparkle framework).
@@ -631,9 +651,9 @@ for user in `dscl . list /users` ; do
 		  status="0"
 	    fi
 		if [ "${status}" = "0" ]; then
-		  echo "Removed ${item_path} symlinks (if there were any)"
+		  log "Removed ${item_path} symlinks (if there were any)"
 	    else
-		  echo "Problem: Error trying to remove bad links inside ${item_path}"
+		  log "Problem: Error (${status}) trying to remove bad links inside ${item_path}"
 	    fi
 	
 		# Delete the app in the Trash
@@ -666,9 +686,9 @@ if [ "${uninstall_tb_app_path}" != "" ] ; then
     status="0"
   fi
   if [ "${status}" = "0" ]; then
-    echo "Removed ${uninstall_tb_app_path} uchg and/or uappnd flags (if there were any)"
+    log "Removed ${uninstall_tb_app_path} uchg and/or uappnd flags (if there were any)"
   else
-    echo "Problem: Error trying to remove uchg and/or uappnd flags on or inside ${uninstall_tb_app_path}"
+    log "Problem: Error trying to remove uchg and/or uappnd flags on or inside ${uninstall_tb_app_path}"
   fi
 
   # Delete the bad links in ancient versions of Tunnelblick(in the Sparkle framework).
@@ -680,9 +700,9 @@ if [ "${uninstall_tb_app_path}" != "" ] ; then
     status="0"
   fi
   if [ "${status}" = "0" ]; then
-    echo "Removed ${uninstall_tb_app_path} symlinks (if there were any)"
+    log "Removed ${uninstall_tb_app_path} symlinks (if there were any)"
   else
-    echo "Problem: Error trying to remove bad links inside ${uninstall_tb_app_path}"
+    log "Problem: Error trying to remove bad links inside ${uninstall_tb_app_path}"
   fi
 
   # Remove the application itself
@@ -690,13 +710,15 @@ if [ "${uninstall_tb_app_path}" != "" ] ; then
 fi
 
 if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
-  echo ""
-  echo "Note: On OS X 10.4, Tunnelblick Uninstaller cannot delete Tunnelblick's keychain items. They must be deleted using the OS X 'Keychain Access' utility."
+  log ""
+  log "Note: On OS X 10.4, Tunnelblick Uninstaller cannot delete Tunnelblick's keychain items. They must be deleted using the OS X 'Keychain Access' utility."
 fi
 
 if [ "${uninstall_remove_data}" != "true" ] ; then
-  echo ""
-  echo "Note:  NOTHING WAS REMOVED OR UNLOADED -- this was a test"
+  log ""
+  log "Note:  NOTHING WAS REMOVED OR UNLOADED -- this was a test"
 fi
+
+log ""
 
 exit 0
