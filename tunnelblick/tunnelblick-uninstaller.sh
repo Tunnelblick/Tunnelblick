@@ -601,6 +601,21 @@ for user in `dscl . list /users` ; do
     fi
 
     if [ "${uninstall_tb_bundle_identifier}" != "" ] ; then
+	  if [ -e "/Users/${user}/Library/Preferences/${uninstall_tb_bundle_identifier}.plist" ] ; then
+		if [  ] ; then
+		  sudo -n -u ${user} defaults read > /dev/null
+		  status=$?
+		else
+		  status=0
+		fi
+		if [ $status -eq 0 ] ; then
+		  log "Cleared defaults cache for ${user}"
+		else
+		  log "Error occurred clearing defaults cache for ${user}"
+		fi
+	  else
+		log "No ${uninstall_tb_bundle_identifier}.plist so not attempting to clear defaults cache for ${user}"
+	  fi
       uninstall_tb_remove_item_at_path "/Users/${user}/Library/Preferences/${uninstall_tb_bundle_identifier}.plist.lock"
       uninstall_tb_remove_item_at_path "/Users/${user}/Library/Preferences/${uninstall_tb_bundle_identifier}.plist"
       uninstall_tb_remove_item_at_path "/Users/${user}/Library/Caches/${uninstall_tb_bundle_identifier}"
