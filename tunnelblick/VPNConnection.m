@@ -1040,14 +1040,6 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         TBLog(@"DB-IC", @"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds);
 	}
     
-    // If checking via IP address, we don't care about the data that is returned.
-    //
-    // Some multi-site servers reply to a by-IP-address request with an error page,
-    // but any response means the server was reachable, which is all we care about.
-    if (  useIPAddress  ) {
-        return [NSArray arrayWithObjects: @"0.0.0.0", @"0", @"0.0.0.0", nil];
-    }
-    
     if (  [data length] > TUNNELBLICK_DOT_NET_IPINFO_RESPONSE_MAX_LENGTH  ) {
         NSLog(@"%@:  Response data was too long (%ld bytes)", logHeader, (long) [data length]);
         return nil;
