@@ -20,6 +20,7 @@
 #		   /Library/LaunchDaemons/net.tunnelblick.tunnelblick.tunnelblickd.plist (unloaded using launchctl before being removed)
 #          /var/logs/Tunnelblick
 #          /tmp/TunnelblickAuthIcon.png
+#		   /tmp/Tunnelblick Uninstaller Log.txt
 #
 #    2. Removes the following for each user:
 #          Login items
@@ -41,6 +42,20 @@
 
 ####################################################################################
 #
+# Routine that logs to the uninstaller log
+#
+# Argument: string to log
+#
+####################################################################################
+uninstall_log()
+{
+  if [ "$uninstall_do_not_log" != "true" ] ; then
+    local d="$( date -j +'%Y-%m-%d %H:%M:%S: ' )"
+    printf "$d$1" >> "/tmp/Tunnelblick Uninstaller Log.txt"
+  fi
+}
+
+
 ####################################################################################
 #
 # Routine that logs to stdout and to the uninstaller log
@@ -51,6 +66,7 @@
 log()
 {
   echo "$1"
+  uninstall_log "$1\n"
 }
 
 
@@ -110,6 +126,8 @@ uninstall_tb_remove_item_at_path()
         log "If the user's home folder is on a network drive, that could be the cause of the problem. (Tunnelblick cannot be installed or uninstalled if the user's home folder is on a network drive.)"
       fi
     fi
+  else
+    uninstall_log ">>>>> Does not exist: $1\n"
   fi
 }
 
@@ -131,17 +149,17 @@ uninstall_tb_user_keychain_items()
 {
   if [ "$EUID" != "" ] ; then
 	if [ "$EUID" = "0" ] ; then
-	  echo "Error: uninstall_tb_user_keychain_items must not be run as root"
+	  log "Error: uninstall_tb_user_keychain_items must not be run as root"
 	  exit 0
 	fi
   else
 	if [ "$(id -u)" != "" ]; then
 	  if [ "$(id -u)" = "0" ]; then
-		echo "Error: uninstall_tb_user_keychain_items must not be run as root"
+		log "Error: uninstall_tb_user_keychain_items must not be run as root"
 		exit 0
 	  fi
 	else
-	  echo "Error: uninstall_tb_user_keychain_items must not be run as root. Unable to determine if it is running as root"
+	  log "Error: uninstall_tb_user_keychain_items must not be run as root. Unable to determine if it is running as root"
 	  exit 0
 	fi
   fi
@@ -157,7 +175,7 @@ uninstall_tb_user_keychain_items()
     # keychain_list is a list of all the user's keychains, separated by spaces
     readonly keychain_list="$(uninstall_tb_trim "$(security list-keychains | grep login.keychain | tr '\n' ' ' | tr -d '"')")"
 	if [ "$?" != "0" ] ; then
-	  echo "Problem: 'security list-keychains' failed for user ${USER}"
+	  log "Problem: 'security list-keychains' failed for user ${USER}"
 	  exit 0
 	fi
 	
@@ -191,7 +209,7 @@ uninstall_tb_user_keychain_items()
       for service in "${tb_service_array[@]}" ; do
         if [ "${service}" != "${last_service}" ] ; then
 		  if [ "${os_version}" = "10.4" ] ; then
-			echo "Problem: Will not be able to remove ${USER}'s Keychain entries: for '${service}'"
+			log "Problem: Will not be able to remove ${USER}'s Keychain entries: for '${service}'"
 		  else
 		  
             # Process any privateKey, username, or password items for the service/account
@@ -203,11 +221,12 @@ uninstall_tb_user_keychain_items()
                 if [ "${uninstall_remove_data}" = "true" ] ; then
                   security delete-generic-password -s "${service}" -a "${account}" > /dev/null
                   if [ "$?" = "0" ]; then
-                    echo "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
+                    log "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
                   else
+					log "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
 			      fi
                 else
-				  echo "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
+				  log "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
 				fi
 			  fi
             done
@@ -227,6 +246,11 @@ uninstall_tb_user_keychain_items()
 # Start of script
 #
 ####################################################################################
+
+
+uninstall_log "===========================================================\n"
+uninstall_log "===========================================================\n"
+uninstall_log "===========================================================\n"
 
 usage_message="Usage:
 
@@ -275,17 +299,17 @@ show_usage_message="false"
 # Complain and exit if not running as root
 if [ "$EUID" != "" ] ; then
   if [ "$EUID" != "0" ] ; then
-    echo "Error: This program must be run as root"
+    log "Error: This program must be run as root"
     exit 0
   fi
 else
   if [ "$(id -u)" != "" ]; then
     if [ "$(id -u)" != "0" ]; then
-      echo "Error: This program must be run as root"
+      log "Error: This program must be run as root"
       exit 0
     fi
   else
-    echo "Error: This program must be run as root. Unable to determine if it is running as root"
+    log "Error: This program must be run as root. Unable to determine if it is running as root"
     exit 0
   fi
 fi
@@ -303,7 +327,7 @@ if [ $# != 0 ] ; then
       if [ "${uninstall_remove_data}" = "" ] ; then
         readonly uninstall_remove_data="true"
       else
-        echo "Only one -t or -u option may be specified"
+        log "Only one -t or -u option may be specified"
         show_usage_message="true"
       fi
 
@@ -311,7 +335,7 @@ if [ $# != 0 ] ; then
 	  if [ "${uninstall_remove_data}" = "" ] ; then
 		readonly uninstall_remove_data="false"
 	  else
-		echo "Only one -t or -u option may be specified"
+		log "Only one -t or -u option may be specified"
 		show_usage_message="true"
 	  fi
 
@@ -319,7 +343,7 @@ if [ $# != 0 ] ; then
 	  if [ "${uninstall_secure_or_insecure}" = "" ] ; then
 		readonly uninstall_secure_or_insecure="i"
 	  else
-		echo "Only one -i or -s option may be specified"
+		log "Only one -i or -s option may be specified"
 		show_usage_message="true"
 	  fi
 
@@ -327,12 +351,12 @@ if [ $# != 0 ] ; then
 	  if [ "${uninstall_secure_or_insecure}" = "" ] ; then
 		readonly uninstall_secure_or_insecure="s"
 	  else
-		echo "Only one -i or -s option may be specified"
+		log "Only one -i or -s option may be specified"
 		show_usage_message="true"
 	  fi
 
 	else
-	  echo "Unknown option: ${1}"
+	  log "Unknown option: ${1}"
 	  show_usage_message="true"
     fi
 
@@ -343,13 +367,13 @@ if [ $# != 0 ] ; then
 fi
 
 if [ "${uninstall_remove_data}" = "" ] ; then
-  echo "One of -u or -t is required"
+  log "One of -u or -t is required"
   show_usage_message="true"
 fi
 
 
 if [ "$#" -gt "3" ] ; then
-  echo "Too many arguments"
+  log "Too many arguments"
   show_usage_message="true"
 fi
 
@@ -388,17 +412,17 @@ fi
 # The path can be empty (e.g., if the application has already been Trashed, for example),
 # but the name and bundle ID must be provided
 if [ "${uninstall_tb_app_name}" == "" -o "${uninstall_tb_bundle_identifier}" == "" ] ; then
-  echo "You must include the application name and the bundle identifier"
+  log "You must include the application name and the bundle identifier"
   show_usage_message="true"
 fi
 
 if [ "${uninstall_tb_app_path}" != "" -a ! -e "${uninstall_tb_app_path}" ] ; then
-  echo "Nothing at '${uninstall_tb_app_path}'"
+  log "Nothing at '${uninstall_tb_app_path}'"
   show_usage_message="true"
 fi
 
 if [ "${show_usage_message}" != "false" ] ; then
-  echo "${usage_message}"
+  log "${usage_message}"
   exit 0
 fi
 
@@ -411,47 +435,48 @@ fi
 
 readonly app_instances="$(ps -x | grep ".app/Contents/MacOS/${uninstall_tb_app_name}" | grep -x grep)"
 if [ "${app_instances}" != "" ] ; then
-  echo "Error: ${uninstall_tb_app_name} cannot be uninstalled while it is running"
+  log "Error: ${uninstall_tb_app_name} cannot be uninstalled while it is running"
   exit 0
 fi
+
+uninstall_log ">>>>> Checked instances of the application\n"
 
 readonly openvpn_instances="$(ps -x | grep "openvpn" | grep -x grep)"
 if [ "${openvpn_instances}" != "" ] ; then
-  echo "Error: ${uninstall_tb_app_name} cannot be uninstalled while OpenVPN is running"
+  log "Error: ${uninstall_tb_app_name} cannot be uninstalled while OpenVPN is running"
   exit 0
 fi
 
+uninstall_log ">>>>> Checked instances of the openvpn\n"
+
 # Output initial messages
-echo ""
 log "$(date '+%a %b %e %T %Y') Tunnelblick Uninstaller:"
 log ""
 log "     Uninstalling '${uninstall_tb_app_name}'"
 log "     with bundle ID '${uninstall_tb_bundle_identifier}'"
 
 if [ "${uninstall_tb_app_path}" != "" ] ; then
-  echo "     at ${uninstall_tb_app_path}"
+  log "     at ${uninstall_tb_app_path}"
 fi
 
 if [ "${uninstall_remove_data}" != "true" ] ; then
-  echo ""
-  echo "Testing only -- NOT removing or unloading anything"
   log ""
   log "Testing only -- NOT removing or unloading anything"
   log ""
 fi
 
 if [ "${uninstall_use_insecure_rm}" = "true" ] ; then
-  echo ""
-  echo "Secure erase ('rm -P') will not be used to delete files because you are uninstalling from an SSD, and secure erase is not effective on SSDs."
   log ""
   log "Secure erase ('rm -P') will not be used to delete files because you are uninstalling from an SSD, and secure erase is not effective on SSDs."
   log ""
 else
-  echo "Secure erase ('rm -P') will be used to delete files because you are not uninstalling from an SSD."
   log ""
   log "Secure erase ('rm -P') will be used to delete files because you are not uninstalling from an SSD."
   log ""
 fi
+
+uninstall_log ">>>>> Wrote initial messages\n"
+
 
 ####################################################################################
 #
@@ -539,6 +564,8 @@ done
 #
 ####################################################################################
 
+export -f uninstall_log
+export -f log
 export -f uninstall_tb_trim
 export -f uninstall_tb_remove_item_at_path
 export -f uninstall_tb_user_keychain_items
@@ -589,7 +616,9 @@ for user in `dscl . list /users` ; do
     done
 
 	# run the per-user routine to delete keychain items
+	uninstall_log ">>>>> Will do  /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'\n"
     output="$(/usr/bin/su "${user}" -c "/bin/bash -c uninstall_tb_user_keychain_items")"
+	uninstall_log ">>>>> Finished /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'\n"
     if [ "${output}" != "" ] ; then
 	  log "${output}"
 	  if [ "${output:0:7}" = "Error: " ] ; then
@@ -667,14 +696,18 @@ for user in `dscl . list /users` ; do
 done
 
 # delete login items for this user only
+uninstall_log ">>>>> Will remove login items for ${USER} only\n"
 if [ "{uninstall_remove_data}" = "true" ] ; then
   output=$(/usr/bin/su ${USER} -c "osascript -e 'set n to 0' -e 'tell application \"System Events\"' -e 'set login_items to the name of every login item whose name is \"${uninstall_tb_app_name}\"' -e 'tell me to set n to the number of login_items' -e 'repeat (the number of login_items) times' -e 'remove login item \"${uninstall_tb_app_name}\"' -e 'end repeat' -e 'end tell' -e 'n'")
 else
   output=$(/usr/bin/su ${USER} -c "osascript -e 'set n to 0' -e 'tell application \"System Events\"' -e 'set login_items to the name of every login item whose name is \"${uninstall_tb_app_name}\"' -e 'tell me to set n to the number of login_items' -e 'end tell' -e 'n'")
 fi
+uninstall_log ">>>>> Finished removing login items for ${USER} only\n"
 if [    "${output}" != "0"
      -a "${output}" != "" ] ; then
-  echo "Removed ${output} of  ${USER}'s login items"
+  log "Removed ${output} of  ${USER}'s login items"
+else
+  log "There were no '${uninstall_tb_app_name}' login items for ${USER}"
 fi
 
 if [ "${uninstall_tb_app_path}" != "" ] ; then
@@ -708,6 +741,17 @@ if [ "${uninstall_tb_app_path}" != "" ] ; then
   # Remove the application itself
   uninstall_tb_remove_item_at_path "${uninstall_tb_app_path}"
 fi
+
+
+####################################################################################
+#
+# STOP LOGGING TO THE UNINSTALL LOG
+uninstall_do_not_log="true"
+#
+####################################################################################
+
+# Remove the uninstall log (without logging the removal!)
+uninstall_tb_remove_item_at_path "/tmp/Tunnelblick Uninstaller Log.txt"
 
 if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
   log ""
