@@ -131,6 +131,29 @@ uninstall_tb_remove_item_at_path()
   fi
 }
 
+
+####################################################################################
+#
+# Routine that unloads and removes a launchctl item at path $1
+#
+####################################################################################
+uninstall_unload_and_remove()
+{
+  if [ "${uninstall_remove_data}" = "true" ] ; then
+	launchctl unload "${1}"
+	status=$?
+  else
+	status=0
+  fi
+  if [ $status -ne 0 ] ; then
+	log "Failed with status $status: launchctl unload '${1}'"
+  else
+	log "Unloaded ${1}"
+  fi
+
+  uninstall_tb_remove_item_at_path "${1}"
+}
+
 ####################################################################################
 #
 # Routine that uninstalls items in a user's Keychain
@@ -495,31 +518,19 @@ tempTbBundleId="net.tunnelblick"
 tempTbBundleId="${tbBundleId}.tunnelblick"
 if [ "${uninstall_tb_bundle_identifier}" == "${tempTbBundleId}" ] ; then
   for path in `ls /Library/LaunchDaemons/net.tunnelblick.startup.* 2> /dev/null` ; do
-    if [ "${uninstall_remove_data}" = "true" ] ; then
-      launchctl unload "${path}"
-    fi
-    echo "Unloaded ${path}"
-    uninstall_tb_remove_item_at_path "${path}"
+    uninstall_unload_and_remove "${path}"
   done
 fi
 
 # Remove new startup launch daemons that use the (possibly rebranded) CFBundleIdentifier as the prefix
 for path in `ls /Library/LaunchDaemons/${uninstall_tb_bundle_identifier}.startup.* 2> /dev/null` ; do
-  if [ "${uninstall_remove_data}" = "true" ] ; then
-    launchctl unload "${path}"
-  fi
-  echo "Unloaded ${path}"
-  uninstall_tb_remove_item_at_path "${path}"
+  uninstall_unload_and_remove "${path}"
 done
 
 # Remove tunnelblickd launch daemon: unload, remove the .plist, and remove the socket
 path="/Library/LaunchDaemons/${uninstall_tb_bundle_identifier}.tunnelblickd.plist"
 if [ -f "${path}" ] ; then
-  if [ "${uninstall_remove_data}" = "true" ] ; then
-    launchctl unload "${path}"
-  fi
-  echo "Unloaded ${path}"
-  uninstall_tb_remove_item_at_path "${path}"
+  uninstall_unload_and_remove "${path}"
 fi
 path="/var/run/${uninstall_tb_bundle_identifier}.tunnelblickd.socket"
 uninstall_tb_remove_item_at_path "${path}"
