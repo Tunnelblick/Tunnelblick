@@ -222,7 +222,7 @@ uninstall_tb_user_keychain_items()
 	  log "Problem: 'security list-keychains' failed for user ${USER}"
 	  exit 0
 	fi
-	
+
 	readonly os_version="$( sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*' )"
 
     for keychain in ${keychain_list} ; do
@@ -244,7 +244,7 @@ uninstall_tb_user_keychain_items()
       IFS=$'\n'
       tb_service_array=(${tb_service_list})
       IFS=${saved_IFS}
-  
+
       # Loop through the array, processing each different service only once
 
       # last_service is the name of the last service processed. It is used to process each service only once
@@ -255,7 +255,7 @@ uninstall_tb_user_keychain_items()
 		  if [ "${os_version}" = "10.4" ] ; then
 			log "Problem: Will not be able to remove ${USER}'s Keychain entries: for '${service}'"
 		  else
-		  
+
             # Process any privateKey, username, or password items for the service/account
             for account in privateKey username password ; do
 
@@ -278,7 +278,7 @@ uninstall_tb_user_keychain_items()
           last_service="${service}"
         fi
       done
-      
+
     done
 
   fi
@@ -676,20 +676,20 @@ for user in `dscl . list /users` ; do
 	      warn_about_10_4_keychain_problem="true"
 		fi
 	  fi
-	fi	
-	
+	fi
+
 	# Get a list of copies of Tunnelblick in the user's Trash that should be deleted
 	trash_path="/Users/${user}/.Trash"
     if [   -d "${trash_path}" -a "${uninstall_tb_app_name}" != "" ] ; then
-      
+
 	  items_to_remove=""
 	  name_length="${#uninstall_tb_app_name}"
-	  
+
 	  saved_wd="$(pwd)"
 	  cd "${trash_path}"
       items_in_trash="$(ls 2> /dev/null)"
 	  cwd "${saved_wd}"
-	  
+
 	  saved_IFS=$IFS
 	  IFS=$(echo -en "\n\b")
 	  for item_name in ${items_in_trash} ; do
@@ -703,7 +703,7 @@ for user in `dscl . list /users` ; do
 	  done
 
 	  for item_name in ${items_to_remove} ; do
-	  
+
 		item_path="${trash_path}/${item_name}"
 		# Remove the uchg and uappnd flags, which can interfere with deleting
     	if [ "${uninstall_remove_data}" = "true" ] ; then
@@ -717,7 +717,7 @@ for user in `dscl . list /users` ; do
 	    else
 		  log "Problem: Error (${status}) trying to remove uchg and/or uappnd flags on or inside ${item_path}"
 	    fi
-	
+
 	    # Delete the bad links in ancient versions of Tunnelblick in the Trash (in the Sparkle framework).
 		# ("rm" supposedly won't delete certain bad links but find... -delete will.)
 		if [ "${uninstall_remove_data}" = "true" ] ; then
@@ -731,11 +731,11 @@ for user in `dscl . list /users` ; do
 	    else
 		  log "Problem: Error (${status}) trying to remove bad links inside ${item_path}"
 	    fi
-	
+
 		# Delete the app in the Trash
 	    uninstall_tb_remove_item_at_path "${item_path}"
 	  done
-	
+
       IFS="saved_IFS"
     fi
   fi
