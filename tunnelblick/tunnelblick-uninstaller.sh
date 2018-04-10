@@ -97,6 +97,17 @@ uninstall_tb_remove_item_at_path()
   if [ -e "$1" ] ; then
     if [ -d "$1" ] ; then
       recursive="-R"
+      # Delete any bad links in the Sparkle framework in ancient versions of Tunnelblick.
+      # ("rm" won't delete certain bad links but find... -delete will.)
+      if [ "${uninstall_remove_data}" = "true" ] ; then
+        find "$1" -type l -delete
+        status=$?
+      else
+        status="0"
+      fi
+      if [ "${status}" != "0" ]; then
+        log "Problem: Error trying to remove bad links inside $1"
+      fi
     else
       recursive=""
     fi
@@ -748,20 +759,6 @@ if [ "${uninstall_tb_app_path}" != "" ] ; then
     log "Removed ${uninstall_tb_app_path} uchg and/or uappnd flags (if there were any)"
   else
     log "Problem: Error trying to remove uchg and/or uappnd flags on or inside ${uninstall_tb_app_path}"
-  fi
-
-  # Delete the bad links in ancient versions of Tunnelblick(in the Sparkle framework).
-  # ("rm" supposedly won't delete certain bad links but find... -delete will.)
-  if [ "${uninstall_remove_data}" = "true" ] ; then
-    find "${uninstall_tb_app_path}" -type l -delete
-    status=$?
-  else
-    status="0"
-  fi
-  if [ "${status}" = "0" ]; then
-    log "Removed ${uninstall_tb_app_path} symlinks (if there were any)"
-  else
-    log "Problem: Error trying to remove bad links inside ${uninstall_tb_app_path}"
   fi
 
   # Remove the application itself
