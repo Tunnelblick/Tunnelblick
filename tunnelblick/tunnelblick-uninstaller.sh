@@ -120,13 +120,23 @@ uninstall_tb_remove_item_at_path()
 	  secure_note=" (using 'rm -P')"
     fi
 
+    # Remove uchg and uappnd, which can interfere with deleting
+    if [ "${uninstall_remove_data}" = "true" ] ; then
+      chflags ${recursive} nouchg,nouappnd "$1}" # 2> /dev/null
+      status=$?
+    else
+      status="0"
+    fi
+    if [ "${status}" != "0" ]; then
+      log "Problem: Error trying to remove uchg and/or uappnd flags on or inside $1"
+    fi
+
     if [ "${uninstall_remove_data}" = "true" ] ; then
       rm -f ${secure} ${recursive} "$1"
       status=$?
     else
       status="0"
     fi
-
     if [ "${status}" = "0" ]; then
       log "Removed${secure_note} ${1}"
     else
@@ -748,19 +758,6 @@ else
 fi
 
 if [ "${uninstall_tb_app_path}" != "" ] ; then
-  # Remove the uchg and uappnd flags in the application, which can interfere with deleting
-  if [ "${uninstall_remove_data}" = "true" ] ; then
-    chflags -R nouchg,nouappnd "${uninstall_tb_app_path}" # 2> /dev/null
-    status=$?
-  else
-    status="0"
-  fi
-  if [ "${status}" = "0" ]; then
-    log "Removed ${uninstall_tb_app_path} uchg and/or uappnd flags (if there were any)"
-  else
-    log "Problem: Error trying to remove uchg and/or uappnd flags on or inside ${uninstall_tb_app_path}"
-  fi
-
   # Remove the application itself
   uninstall_tb_remove_item_at_path "${uninstall_tb_app_path}"
 fi
