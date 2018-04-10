@@ -140,9 +140,9 @@ uninstall_tb_remove_item_at_path()
     if [ "${status}" = "0" ]; then
       log "Removed${secure_note} ${1}"
     else
-      log "Problem: an error was returned by 'rm -f ${secure} ${recursive} \"$1\"'"
-      log "Output from 'ls ${recursive} -@ -A -b -e -l -O "$1"':"
-      log "$(ls ${recursive} -@ -A -b -e -l -O "$1")"
+      log "Problem: an error was returned by 'rm -f ${secure} ${recursive} $1'"
+      log "Output from 'ls ${recursive} -@ -A -b -e -l -O $1':"
+      log "$(ls ${recursive} -@ -A -b -e -l -O $1)"
       if [ "${$1:0:7}" = "/Users/" ] ; then
         log "If the user's home folder is on a network drive, that could be the cause of the problem. (Tunnelblick cannot be installed or uninstalled if the user's home folder is on a network drive.)"
       fi
