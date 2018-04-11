@@ -89,13 +89,7 @@ fi
   rm -r -f                                  "${app_path}/Contents/Resources/tun-20111101.kext"
   cp -R "../third_party/products/tuntap/tun-20111101.kext/" "${app_path}/Contents/Resources/tun-20111101.kext"
 
-  rm -r -f                                  "${app_path}/Contents/Resources/tap.kext"
-  cp -R "../third_party/products/tuntap/tap.kext/"          "${app_path}/Contents/Resources/tap.kext"
- 
-  rm -r -f                                  "${app_path}/Contents/Resources/tun.kext"
-  cp -R "../third_party/products/tuntap/tun.kext/"          "${app_path}/Contents/Resources/tun.kext"
-
-# Create copies of kexts to be signed, too, for Mavericks and higher
+# Create kexts to be signed, too, for Mavericks and higher
   rm -r -f                                  "${app_path}/Contents/Resources/tap-signed.kext"
   cp -R "../third_party/products/tuntap/tap.kext/"          "${app_path}/Contents/Resources/tap-signed.kext"
  
@@ -141,8 +135,6 @@ changeEntry "${uninstaller_path}/Contents/Info.plist" TBBUILDNUMBER "${tbbn}"
 readonly kextbn="${tbbn##*.}"
 changeEntry "${app_path}/Contents/Resources/tun-20111101.kext/Contents/Info.plist"   TBBUILDNUMBER "${kextbn}"
 changeEntry "${app_path}/Contents/Resources/tap-20111101.kext/Contents/Info.plist"   TBBUILDNUMBER "${kextbn}"
-changeEntry "${app_path}/Contents/Resources/tun.kext/Contents/Info.plist"            TBBUILDNUMBER "${kextbn}"
-changeEntry "${app_path}/Contents/Resources/tap.kext/Contents/Info.plist"            TBBUILDNUMBER "${kextbn}"
 changeEntry "${app_path}/Contents/Resources/tun-signed.kext/Contents/Info.plist"     TBBUILDNUMBER "${kextbn}"
 changeEntry "${app_path}/Contents/Resources/tap-signed.kext/Contents/Info.plist"     TBBUILDNUMBER "${kextbn}"
 
