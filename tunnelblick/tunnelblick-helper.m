@@ -274,9 +274,6 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             
             "The normal return code is 0. If an error occurs a message is sent to stderr and a non-zero value is returned.\n\n"
             
-            "This executable, openvpn, tap.kext, and tun.kext (and client.up.osx.sh and client.down.osx.sh if they are used)\n"
-            "must all be located in /Library/Application Support/Tunnelblick/bin/.\n\n"
-            
             "Tunnelblick must have been installed before openvpnstart can be used.\n\n"
             
             "For more information on using Deploy, see the Deployment wiki at https://tunnelblick.net/cCusDeployed.html\n"
