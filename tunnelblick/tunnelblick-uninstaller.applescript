@@ -389,38 +389,6 @@ on QuitOpenVPN(TBName) -- (String) as Boolean
 end QuitOpenVPN
 
 ------------------------------------------------------------------------------------------------------------------
---ClearDefaultsCache: function returns a message if the defaults cache for the user was cleared, otherwise returns an empty string.
---
--- After deleting the preferences file, the "defaults cache" still holds it's old values. Performing a 'defaults read'
--- will clear that cache, so we do this after the main uninstall script has deleted the file.
---
--- 'sudo -n -u <username> defaults read' in the main uninstall script doesn't seem to work reliably, so there isn't a way to do this
--- in that script. Instead, we do it in this script which is running as the current logged-in user.
---
--- This really only matters when the user uninstalls Tunnelblick and then reinstalls it. The user would probably do the reinstall
--- as the same logged-in user that did the uninstall and this is sufficent for that situation. Otherwise, the user should restart
--- the computer.
-------------------------------------------------------------------------------------------------------------------
-on ClearDefaultsCache(theBundleId, testFlag) -- (String) as String
-
-	if theBundleId = "" then
-		return ""
-	end if
-	
-	try
-		if not testFlag then
-			do shell script "defaults read " & theBundleId
-		end if
-	on error
-		-- Ignore errors -- an error is expected because we deleted the defaults file. But the 'defaults read' clears the cache anyway.
-	end try
-return LocalizedFormattedString("
-Cleared %s defaults cache for current user
-", {theBundleId})
-
-end ClearDefaultsCache
-
-------------------------------------------------------------------------------------------------------------------
 -- UserConfirmation: function asks user what action to take and returns "cancel", "test", or "uninstall".
 ------------------------------------------------------------------------------------------------------------------
 on UserConfirmation(fullPath, TBName, TBIdentifier) -- (String, String, String) as String
@@ -534,8 +502,6 @@ While the uninstall is being done there will be no indication that anything is h
 		set argumentString to argumentString & " " & quoted form of thePath
 	end if
 	set scriptOutput to do shell script (quoted form of myScriptPath) & argumentString with administrator privileges
-	
-	set clearDefaultsCacheOutput to ClearDefaultsCache(theBundleId, testFlag)
 	
 	-- Inform the user about errors (indicated by "Error: " or "Problem: " anywhere in the shell script's stdout)
 	-- and successful tests or uninstalls
