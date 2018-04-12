@@ -97,17 +97,6 @@ uninstall_tb_remove_item_at_path()
   if [ -e "$1" ] ; then
     if [ -d "$1" ] ; then
       recursive="-R"
-      # Delete any bad links in the Sparkle framework in ancient versions of Tunnelblick.
-      # ("rm" won't delete certain bad links but find... -delete will.)
-      if [ "${uninstall_remove_data}" = "true" ] ; then
-        find "$1" -type l -delete
-        status=$?
-      else
-        status="0"
-      fi
-      if [ "${status}" != "0" ]; then
-        log "Problem: Error trying to remove bad links inside $1"
-      fi
     else
       recursive=""
     fi
@@ -120,7 +109,7 @@ uninstall_tb_remove_item_at_path()
 	  secure_note=" (using 'rm -P')"
     fi
 
-    # Remove uchg and uappnd, which can interfere with deleting
+    # Remove uchg and uappnd flags, which can interfere with deleting
     if [ "${uninstall_remove_data}" = "true" ] ; then
       chflags ${recursive} nouchg,nouappnd "$1}" # 2> /dev/null
       status=$?
@@ -131,6 +120,22 @@ uninstall_tb_remove_item_at_path()
       log "Problem: Error trying to remove uchg and/or uappnd flags on or inside $1"
     fi
 
+    # Delete all links inside a folder.
+    # (Ancient versions of Tunnelblick included a Sparkle framework contained
+    #  "bad" links that rm cannot delete, but find... -delete can delete.)
+    if [ "$recursive" != "" ] ; then
+      if [ "${uninstall_remove_data}" = "true" ] ; then
+        find "$1" -type l -delete
+        status=$?
+      else
+        status="0"
+      fi
+      if [ "${status}" != "0" ]; then
+        log "Problem: Error trying to remove bad links inside $1"
+      fi
+    fi
+
+    # Finally, delete the file or folder
     if [ "${uninstall_remove_data}" = "true" ] ; then
       rm -f ${secure} ${recursive} "$1"
       status=$?
