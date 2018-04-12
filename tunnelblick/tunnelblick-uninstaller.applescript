@@ -456,7 +456,15 @@ end UserConfirmation
 ------------------------------------------------------------------------------------------------------------------
 on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (String, String, String, Boolean, String)
 	
-	set diskutilOutput to do shell script "diskutil info $(  bless --info --getboot ) | grep 'Solid State:' | grep 'Yes'"
+	try
+		set blessOutput to do shell script "bless --info --getboot"
+	on error
+		display alert "Caught error in shell script bless --info --getboot"
+		return
+	end try
+	
+	-- Ignore errors by executing "true" command at end (if grep does not find string, it returns an error)
+	set diskutilOutput to do shell script "diskutil info " & blessOutput & " | grep 'Solid State:' | grep 'Yes' | true"
 	if diskutilOutput = "" then
 		set secureEraseOption to "-s"
 	else
