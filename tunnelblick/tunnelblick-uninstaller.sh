@@ -86,7 +86,7 @@ uninstall_tb_remove_item_at_path()
 
     # Remove uchg and uappnd flags, which can interfere with deleting
     if [ "${uninstall_remove_data}" = "true" ] ; then
-      chflags ${recursive} nouchg,nouappnd "$1}" # 2> /dev/null
+      chflags -f ${recursive} nouchg,nouappnd "$1" # 2> /dev/null
       status=$?
     else
       status="0"
