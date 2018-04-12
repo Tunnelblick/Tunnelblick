@@ -771,13 +771,11 @@ fi
 
 ####################################################################################
 #
-# STOP LOGGING TO THE UNINSTALL LOG
+# STOP LOGGING TO THE UNINSTALL LOG AND REMOVE IT
 uninstall_do_not_log="true"
+uninstall_tb_remove_item_at_path "/tmp/Tunnelblick Uninstaller Log.txt"
 #
 ####################################################################################
-
-# Remove the uninstall log (without logging the removal!)
-uninstall_tb_remove_item_at_path "/tmp/Tunnelblick Uninstaller Log.txt"
 
 if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
   log ""
