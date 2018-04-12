@@ -92,7 +92,7 @@ uninstall_tb_remove_item_at_path()
       status="0"
     fi
     if [ "${status}" != "0" ]; then
-      log "Problem: Error trying to remove uchg and/or uappnd flags on or inside $1"
+      log "Problem: Error (${status}) trying to remove uchg and/or uappnd flags on or inside $1"
     fi
 
     # Delete all links inside a folder.
@@ -106,7 +106,7 @@ uninstall_tb_remove_item_at_path()
         status="0"
       fi
       if [ "${status}" != "0" ]; then
-        log "Problem: Error trying to remove bad links inside $1"
+        log "Problem: Error (${status}) trying to remove bad links inside $1"
       fi
     fi
 
@@ -120,7 +120,7 @@ uninstall_tb_remove_item_at_path()
     if [ "${status}" = "0" ]; then
       log "Removed${secure_note} ${1}"
     else
-      log "Problem: an error was returned by 'rm -f ${secure} ${recursive} $1'"
+      log "Problem: Error (${status}) trying to 'rm -f ${secure} ${recursive} $1'"
       log "Output from 'ls ${recursive} -@ -A -b -e -l -O $1':"
       log "$(ls ${recursive} -@ -A -b -e -l -O $1)"
       if [ "${$1:0:7}" = "/Users/" ] ; then
@@ -198,8 +198,9 @@ uninstall_tb_user_keychain_items()
 
     # keychain_list is a list of all the user's keychains, separated by spaces
     readonly keychain_list="$(uninstall_tb_trim "$(security list-keychains | grep login.keychain | tr '\n' ' ' | tr -d '"')")"
-	if [ "$?" != "0" ] ; then
-	  log "Problem: 'security list-keychains' failed for user ${USER}"
+	status=$?
+	if [ "${status}" != "0" ] ; then
+	  log "Problem: Error (${status}) trying to 'security list-keychains' for user ${USER}"
 	  exit 0
 	fi
 
@@ -245,10 +246,11 @@ uninstall_tb_user_keychain_items()
 			  if [ "${item}" != "" ] ; then
                 if [ "${uninstall_remove_data}" = "true" ] ; then
                   security delete-generic-password -s "${service}" -a "${account}" > /dev/null
-                  if [ "$?" = "0" ]; then
+                  status=$?
+				  if [ "${status}" = "0" ]; then
                     log "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
                   else
-					log "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
+					log "Problem: Error (${status}) trying to remove ${USER}'s Keychain entry: '${account}' for '${service}'"
 			      fi
                 else
 				  log "Removed Keychain entry for ${USER}: '${account}' for '${service}'"
