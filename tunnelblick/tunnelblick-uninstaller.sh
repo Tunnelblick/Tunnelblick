@@ -10,31 +10,6 @@
 #
 # This script does everything to uninstall Tunnelblick or a rebranded version of Tunnelblick:
 #
-#    1. Removes the following files and folders:
-#          /Applications/Tunnelblick.app (or other copy of Tunnelblick)
-#          /Library/Application Support/Tunnelblick
-#          /Library/Logs/CrashReporter/Tunnelblick_*.crash
-#          /Library/Logs/CrashReporter/openvpnstart_*.crash
-#		   /Library/LaunchDaemons/net.tunnelblick.startup.* (ONLY IF uninstalling a NON-REBRANDED version of Tunnelblick)
-#		   /Library/LaunchDaemons/net.tunnelblick.tunnelblick.startup.* (unloaded using launchctl before being removed)
-#		   /Library/LaunchDaemons/net.tunnelblick.tunnelblick.tunnelblickd.plist (unloaded using launchctl before being removed)
-#          /var/logs/Tunnelblick
-#          /tmp/TunnelblickAuthIcon.png
-#		   /tmp/Tunnelblick Uninstaller Log.txt
-#
-#    2. Removes the following for each user:
-#          Login items
-#          Keychain items
-#		   ~/Library/Application Support/Tunnelblick
-#		   ~/Library/Preferences/net.tunnelblick.tunnelblick.plist.lock
-#		   ~/Library/Preferences/net.tunnelblick.tunnelblick.plist
-#          ~/Library/Caches/net.tunnelblick.tunnelblick
-#		   ~/Library/Preferences/com.openvpn.tunnelblick.plist
-#		   ~/Library/openvpn
-#		   ~/Library/Logs/CrashReporter/Tunnelblick_*.crash
-#		   ~/Library/Logs/CrashReporter/openvpnstart_*.crash
-#
-#
 # For a usage message, run this script with no arguments.
 #
 ####################################################################################
