@@ -501,8 +501,14 @@ While the uninstall is being done there will be no indication that anything is h
 	if FileOrFolderExists(thePath) then
 		set argumentString to argumentString & " " & quoted form of thePath
 	end if
-	set scriptOutput to do shell script (quoted form of myScriptPath) & argumentString with administrator privileges
-	
+
+	try
+		set scriptOutput to do shell script (quoted form of myScriptPath) & argumentString with administrator privileges
+	on error
+		display alert "Caught error in shell script: " & (quoted form of myScriptPath) & argumentString & "with administrator privileges"
+		return
+	end try
+
 	-- Inform the user about errors (indicated by "Error: " or "Problem: " anywhere in the shell script's stdout)
 	-- and successful tests or uninstalls
 	with timeout of 360000 seconds
@@ -572,7 +578,12 @@ on ProcessFile(fullPath) -- (POSIX path)
 		return
 	end if
 	
-	set confirmString to UserConfirmation(fullPath, TBName, TBIdentifier)
+	try
+		set confirmString to UserConfirmation(fullPath, TBName, TBIdentifier)
+	on error
+		display alert "Caught error in UserConfirmation()"
+		return
+	end try
 	if confirmString = "cancel" then
 		return
 	end if
@@ -596,9 +607,13 @@ on ProcessFile(fullPath) -- (POSIX path)
 	if scriptPath = "" then
 		return
 	end if
-	
-	DoProcessing(TBName, TBIdentifier, fullPath, testFlag, scriptPath)
-	
+
+	try
+		DoProcessing(TBName, TBIdentifier, fullPath, testFlag, scriptPath)
+	on error
+		display alert "Caught error in DoProcessing()"
+	end try
+
 end ProcessFile
 
 
@@ -665,5 +680,9 @@ on error
 end try
 
 if not IsDefined then
-	ProcessFile(POSIX path of "/Applications/Tunnelblick.app")
+	try
+		ProcessFile(POSIX path of "/Applications/Tunnelblick.app")
+	on error
+		display alert "Caught error in ProcessFile"
+	end try
 end if
