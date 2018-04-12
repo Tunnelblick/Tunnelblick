@@ -241,7 +241,8 @@ uninstall_tb_user_keychain_items()
       #                 Notes:
       #                      1. Each service name may be duplicated several times
       #                      2. Each service name is enclosed in double-quotes and may contain spaces
-      tb_service_list="$(echo "${keychain_contents}" | grep "=\"${uninstall_tb_app_name}-Auth-" |  sed -e 's/.*<blob>=//' | tr -d '"')"
+      # Note: '\042' is used instead of '"' so simple syntax parsers (BBedit) don't see a mismatched double-quote
+      tb_service_list="$(echo "${keychain_contents}" | grep "Tunnelblick-Auth-" |  sed -e 's/.*<blob>=//' | tr -d '\042')"
 
       # tb_service_array is an array containing the service list
       # (Temporarily change the token separator to consider only newlines as separators while reading from tb_service_list)
@@ -275,7 +276,7 @@ uninstall_tb_user_keychain_items()
 					log "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
 			      fi
                 else
-				  log "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
+				  log "Removed Keychain entry for ${USER}: '${account}' for '${service}'"
 				fi
 			  fi
             done
