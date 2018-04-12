@@ -37,8 +37,6 @@
 
 -(void) setupNewAutoLaunchOnLogin;
 
-+(AuthorizationRef) getAuthorizationRef:        (NSString *)        msg;
-
 typedef enum {
     wfeaExecAuthFailed,
     wfeaTimedOut,
