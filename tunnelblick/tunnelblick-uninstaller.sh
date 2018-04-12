@@ -781,7 +781,7 @@ uninstall_tb_remove_item_at_path "/tmp/Tunnelblick Uninstaller Log.txt"
 
 if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
   log ""
-  log "Note: On OS X 10.4, Tunnelblick Uninstaller cannot delete Tunnelblick's keychain items. They must be deleted using the OS X 'Keychain Access' utility."
+  log "Note: On OS X 10.4, Tunnelblick Uninstaller cannot delete Tunnelblick's keychain items. They must be deleted for each user using the OS X 'Keychain Access' utility."
 fi
 
 if [ "${uninstall_remove_data}" != "true" ] ; then
