@@ -748,7 +748,7 @@ fi
 
 ####################################################################################
 #
-# STOP LOGGING TO THE UNINSTALL LOG AND REMOVE IT
+# STOP LOGGING TO THE UNINSTALL LOG AND REMOVE THE LOG (stdout from this script has the log to show the user)
 uninstall_do_not_log="true"
 uninstall_tb_remove_item_at_path "/tmp/Tunnelblick Uninstaller Log.txt"
 #
