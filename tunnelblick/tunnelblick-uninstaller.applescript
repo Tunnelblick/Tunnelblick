@@ -394,7 +394,7 @@ end QuitOpenVPN
 -- After deleting the preferences file, the "defaults cache" still holds it's old values. Performing a 'defaults read'
 -- will clear that cache, so we do this after the main uninstall script has deleted the file.
 --
--- 'sudo -n -u <username> defaults read' in the main uninstall script doesn't seem to work, so there isn't a way to do this
+-- 'sudo -n -u <username> defaults read' in the main uninstall script doesn't seem to work reliably, so there isn't a way to do this
 -- in that script. Instead, we do it in this script which is running as the current logged-in user.
 --
 -- This really only matters when the user uninstalls Tunnelblick and then reinstalls it. The user would probably do the reinstall
@@ -407,25 +407,17 @@ on ClearDefaultsCache(theBundleId, testFlag) -- (String) as String
 		return ""
 	end if
 	
-	if testFlag then
-		return ""
-	end if
-	
 	try
-		set clearDefaultsOutput to do shell script "defaults read " & theBundleId
+		if not testFlag then
+			do shell script "defaults read " & theBundleId
+		end if
 	on error
-		set clearDefaultsOutput to "***"
+		-- Ignore errors -- an error is expected because we deleted the defaults file. But the 'defaults read' clears the cache anyway.
 	end try
-
-	if clearDefaultsOutput = "***" then
-		return "An error occurred while trying to clear the defaults cache."
-	else
-		return LocalizedFormattedString("
-			
+return LocalizedFormattedString("
 Cleared %s defaults cache for current user
 ", {theBundleId})
-	end if
-	
+
 end ClearDefaultsCache
 
 ------------------------------------------------------------------------------------------------------------------
