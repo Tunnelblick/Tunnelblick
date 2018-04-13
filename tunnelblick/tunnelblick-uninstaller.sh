@@ -138,19 +138,23 @@ uninstall_tb_remove_item_at_path()
 ####################################################################################
 uninstall_unload_and_remove()
 {
-  if [ "${uninstall_remove_data}" = "true" ] ; then
-	launchctl unload "${1}"
-	status=$?
-  else
-	status=0
-  fi
-  if [ $status -ne 0 ] ; then
-	log "Failed with status $status: launchctl unload '${1}'"
-  else
-	log "Unloaded ${1}"
-  fi
+  if [ -e "$1" ] ; then
+    if [ "${uninstall_remove_data}" = "true" ] ; then
+	  launchctl unload "${1}"
+	  status=$?
+    else
+      status=0
+    fi
+    if [ $status -ne 0 ] ; then
+	  log "Failed with status $status: launchctl unload '${1}'"
+    else
+	  log "Unloaded ${1}"
+    fi
 
-  uninstall_tb_remove_item_at_path "${1}"
+    uninstall_tb_remove_item_at_path "${1}"
+  else
+    uninstall_log "     >>> Does not exist: $1"
+  fi
 }
 
 ####################################################################################
