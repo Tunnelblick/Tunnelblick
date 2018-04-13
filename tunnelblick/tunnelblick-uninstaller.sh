@@ -516,10 +516,10 @@ uninstall_tb_remove_item_at_path  "/Library/Application Support/${uninstall_tb_a
 
 # Special-case old startup launch daemons that use net.tunnelblick.startup as the prefix when removing a NON-REBRANDED Tunnelblick
 # (Create tbBundleId variable so it does _not_ get changed by rebranding
-tempTbBundleId="net.tunnelblick"
-tempTbBundleId="${tbBundleId}.tunnelblick"
-if [ "${uninstall_tb_bundle_identifier}" == "${tempTbBundleId}" ] ; then
   for path in `ls /Library/LaunchDaemons/net.tunnelblick.startup.* 2> /dev/null` ; do
+tbBundleId="net.tunnelblick"
+tbBundleId="${tbBundleId}.tunnelblick"
+if [ "${uninstall_tb_bundle_identifier}" == "${tbBundleId}" ] ; then
     uninstall_unload_and_remove "${path}"
   done
 fi
