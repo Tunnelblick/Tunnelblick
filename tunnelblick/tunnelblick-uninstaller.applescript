@@ -464,7 +464,7 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 	end try
 	
 	-- Ignore errors by executing "true" command at end (if grep does not find string, it returns an error)
-	set diskutilOutput to do shell script "diskutil info " & blessOutput & " | grep 'Solid State:' | grep 'Yes' | true"
+	set diskutilOutput to do shell script "diskutil info '" & blessOutput & "' | grep 'Solid State:' | grep 'Yes' ; true"
 	if diskutilOutput = "" then
 		set secureEraseOption to "-s"
 	else
