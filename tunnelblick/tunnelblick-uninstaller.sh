@@ -673,21 +673,26 @@ for user in $( dscl . list /users ) ; do
 
 	  saved_wd="$(pwd)"
 	  cd "${trash_path}"
+	  if [ "$?" != "0" ] ; then
+		log "Error; could not 'cwd' to ${trash_path}"
+	  fi
       items_in_trash="$(ls 2> /dev/null)"
-	  cwd "${saved_wd}"
-
-	  saved_IFS=$IFS
-	  IFS=$(echo -en "\n\b")
-	  for item_name in ${items_in_trash} ; do
-	    start_of_item_name="${item_name:0:$name_length}"
-		end_of_item_name="${item_name:(-4)}"
-	    if [    "${start_of_item_name}" = "${uninstall_tb_app_name}" \
-	         -a "${end_of_item_name}"   = ".app" ] ; then
-		    items_to_remove="${items_to_remove}${item_name}
+	  cd "${saved_wd}"
+	  if [ "$?" = "0" ] ; then
+		saved_IFS=$IFS
+		IFS=$(echo -en "\n\b")
+		for item_name in ${items_in_trash} ; do
+		  start_of_item_name="${item_name:0:$name_length}"
+		  end_of_item_name="${item_name:(-4)}"
+	      if [    "${start_of_item_name}" = "${uninstall_tb_app_name}" \
+	           -a "${end_of_item_name}"   = ".app" ] ; then
+			items_to_remove="${items_to_remove}${item_name}
 "
-	    fi
-	  done
-
+	      fi
+	    done
+	  else
+		log "Error; could not 'cwd' to ${saved_wd}"
+	  fi
 	  for item_name in ${items_to_remove} ; do
 
 		item_path="${trash_path}/${item_name}"
