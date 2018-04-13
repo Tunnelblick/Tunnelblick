@@ -516,16 +516,16 @@ uninstall_tb_remove_item_at_path  "/Library/Application Support/${uninstall_tb_a
 
 # Special-case old startup launch daemons that use net.tunnelblick.startup as the prefix when removing a NON-REBRANDED Tunnelblick
 # (Create tbBundleId variable so it does _not_ get changed by rebranding
-  for path in `ls /Library/LaunchDaemons/net.tunnelblick.startup.* 2> /dev/null` ; do
 tbBundleId="net.tunnelblick"
 tbBundleId="${tbBundleId}.tunnelblick"
 if [ "${uninstall_tb_bundle_identifier}" == "${tbBundleId}" ] ; then
+  for path in $( ls "/Library/LaunchDaemons/net.tunnelblick.startup."* 2> /dev/null ) ; do
     uninstall_unload_and_remove "${path}"
   done
 fi
 
 # Remove new startup launch daemons that use the (possibly rebranded) CFBundleIdentifier as the prefix
-for path in `ls /Library/LaunchDaemons/${uninstall_tb_bundle_identifier}.startup.* 2> /dev/null` ; do
+for path in $( ls "/Library/LaunchDaemons/${uninstall_tb_bundle_identifier}.startup."* 2> /dev/null ) ; do
   uninstall_unload_and_remove "${path}"
 done
 
@@ -547,27 +547,27 @@ uninstall_tb_remove_item_at_path "/tmp/tunnelblick-installer-log.txt"
 uninstall_tb_remove_item_at_path "/tmp/${uninstall_tb_app_name}AuthIcon.png"
 
 # Remove non-per-user CrashReporter files for the application, openvpn, openvpnstart, and tunnelblickd
-for path in `ls /Library/Logs/CrashReporter/${uninstall_tb_app_name}_* 2> /dev/null` ; do
+for path in $( ls "/Library/Logs/CrashReporter/${uninstall_tb_app_name}"_* 2> /dev/null ) ; do
   uninstall_tb_remove_item_at_path "${path}"
 done
 
-for path in `ls /Library/Logs/DiagnosticReports/${uninstall_tb_app_name}_* 2> /dev/null` ; do
+for path in $( ls "/Library/Logs/DiagnosticReports/${uninstall_tb_app_name}"_* 2> /dev/null ) ; do
   uninstall_tb_remove_item_at_path "${path}"
 done
 
-for path in `ls /Library/Logs/CrashReporter/openvpn_* 2> /dev/null` ; do
+for path in $( ls /Library/Logs/CrashReporter/openvpn_* 2> /dev/null ) ; do
   uninstall_tb_remove_item_at_path "${path}"
 done
 
-for path in `ls /Library/Logs/DiagnosticReports/openvpn_* 2> /dev/null` ; do
+for path in $( ls /Library/Logs/DiagnosticReports/openvpn_* 2> /dev/null ) ; do
   uninstall_tb_remove_item_at_path "${path}"
 done
 
-for path in `ls /Library/Logs/CrashReporter/tunnelblickd_* 2> /dev/null` ; do
+for path in $( ls /Library/Logs/CrashReporter/tunnelblickd_* 2> /dev/null ) ; do
   uninstall_tb_remove_item_at_path "${path}"
 done
 
-for path in `ls /Library/Logs/DiagnosticReports/tunnelblickd_* 2> /dev/null` ; do
+for path in $( ls /Library/Logs/DiagnosticReports/tunnelblickd_* 2> /dev/null ) ; do
   uninstall_tb_remove_item_at_path "${path}"
 done
 
@@ -631,20 +631,20 @@ for user in $( dscl . list /users ) ; do
 
 	# Remove per-user CrashReporter files
     if [ "${uninstall_tb_app_name}" != "" ] ; then
-      for path in `ls /Users/${user}/Library/Logs/DiagnosticReports/${uninstall_tb_app_name}_*.crash 2> /dev/null` ; do
+      for path in $( ls "/Users/${user}/Library/Logs/DiagnosticReports/${uninstall_tb_app_name}_"*.crash 2> /dev/null ) ; do
         uninstall_tb_remove_item_at_path "${path}"
       done
 
-      for path in `ls /Users/${user}/Library/Logs/CrashReporter/${uninstall_tb_app_name}_*.crash 2> /dev/null` ; do
+      for path in $( ls "/Users/${user}/Library/Logs/CrashReporter/${uninstall_tb_app_name}_"*.crash 2> /dev/null ) ; do
         uninstall_tb_remove_item_at_path "${path}"
       done
     fi
 
-    for path in `ls /Users/${user}/Library/Logs/DiagnosticReports/openvpnstart_*.crash 2> /dev/null` ; do
+    for path in $( ls "/Users/${user}/Library/Logs/DiagnosticReports/openvpnstart_"*.crash 2> /dev/null ) ; do
       uninstall_tb_remove_item_at_path "${path}"
     done
 
-    for path in `ls /Users/${user}/Library/Logs/CrashReporter/openvpnstart_*.crash 2> /dev/null` ; do
+    for path in $( ls "/Users/${user}/Library/Logs/CrashReporter/openvpnstart_"*.crash 2> /dev/null ) ; do
       uninstall_tb_remove_item_at_path "${path}"
     done
 
