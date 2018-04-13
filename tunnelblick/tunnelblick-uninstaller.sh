@@ -600,6 +600,11 @@ for user in $( dscl . list /users ) ; do
 
     if [ "${uninstall_tb_app_name}" != "" ] ; then
       uninstall_tb_remove_item_at_path "/Users/${user}/Library/Application Support/${uninstall_tb_app_name}"
+	  tunnelblick_dock_prefs="$( sudo -n -u "${user}" defaults read com.apple.dock | grep "/Applications/${uninstall_tb_app_name}" )"
+	  if [ "$tunnelblick_dock_prefs" != "" ] ; then
+		remove_dock_items="${remove_dock_items}You need to manually remove one or more ${uninstall_tb_app_name} items from the Dock for user ${user}
+"
+	  fi
     fi
 
     if [ "${uninstall_tb_bundle_identifier}" != "" ] ; then
@@ -767,6 +772,11 @@ fi
 if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
   echo ""
   echo ">>>>>>You need to manually delete Tunnelblick's keychain items for each user using the OS X 10.4 'Keychain Access' utility."
+fi
+
+if [ "$remove_dock_items" != "" ] ; then
+  echo ""
+  echo ">>>>>>$remove_dock_items"
 fi
 
 if [ "${uninstall_remove_data}" != "true" ] ; then
