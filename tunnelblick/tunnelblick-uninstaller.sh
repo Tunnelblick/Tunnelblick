@@ -609,8 +609,8 @@ for user in $( dscl . list /users ) ; do
 
     if [ "${uninstall_tb_bundle_identifier}" != "" ] ; then
 	  if [ -e "/Users/${user}/Library/Preferences/${uninstall_tb_bundle_identifier}.plist" ] ; then
-		if [  ] ; then
-		  sudo -n -u ${user} defaults read > /dev/null
+		if [ "${uninstall_remove_data}" = "true" ] ; then
+		  sudo -n -u "${user}" defaults read > /dev/null
 		  status=$?
 		else
 		  status=0
