@@ -120,7 +120,7 @@ uninstall_tb_remove_item_at_path()
     else
       log "Problem: Error (${status}) trying to 'rm -f ${secure} ${recursive} $1'"
       log "Output from 'ls ${recursive} -@ -A -b -e -l -O $1':"
-      log "$(ls ${recursive} -@ -A -b -e -l -O $1)"
+      log "$( ls ${recursive} -@ -A -b -e -l -O "$1" )"
       if [ "${$1:0:7}" = "/Users/" ] ; then
         log "If the user's home folder is on a network drive, that could be the cause of the problem. (Tunnelblick cannot be installed or uninstalled if the user's home folder is on a network drive.)"
       fi
@@ -208,7 +208,7 @@ uninstall_tb_user_keychain_items()
 
       # keychain_contents is the dumped contents of the keychain (for security reasons we don't
       #                   use the "-d" option, thus decrypted passwords are not included in the dump)
-      keychain_contents="$(security dump-keychain ${keychain})"
+      keychain_contents="$( security dump-keychain "${keychain}" )"
 
       # tb_service_list is a list, one per line, of the names of services in the contents whose names
       #                 begin with "Tunnelblick-Auth-"
@@ -222,7 +222,7 @@ uninstall_tb_user_keychain_items()
       # (Temporarily change the token separator to consider only newlines as separators while reading from tb_service_list)
       saved_IFS=${IFS}
       IFS=$'\n'
-      tb_service_array=(${tb_service_list})
+      tb_service_array="(${tb_service_list})"
       IFS=${saved_IFS}
 
       # Loop through the array, processing each different service only once
@@ -426,7 +426,7 @@ elif [ "$uninstall_secure_or_insecure" == "i" ] ; then
 
 else
   readonly boot_drive_id="$(  bless --info --getboot )"
-  readonly have_ssd="$(  diskutil info $boot_drive_id | grep 'Solid State:' | grep 'Yes' )"
+  readonly have_ssd="$(  diskutil info "$boot_drive_id" | grep 'Solid State:' | grep 'Yes' )"
   if [ "${have_ssd}" = "" ] ; then
 	readonly uninstall_use_insecure_rm="false"
   else
