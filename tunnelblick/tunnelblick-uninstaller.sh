@@ -591,7 +591,7 @@ export    uninstall_tb_bundle_identifier
 readonly os_version="$( sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*' )"
 warn_about_10_4_keychain_problem="false"
 
-for user in `dscl . list /users` ; do
+for user in $( dscl . list /users ) ; do
   if [ "${user:0:1}" != "_" -a -e "/Users/${user}" ] ; then
 
     # Remove old preferences and configurations folder or symlink to the configurations folder
