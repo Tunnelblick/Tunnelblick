@@ -733,19 +733,15 @@ for user in $( dscl . list /users ) ; do
 
 done
 
-# delete login items for this user only
-uninstall_log ">>>>> Will remove login items for ${USER} only\n"
-if [ "{uninstall_remove_data}" = "true" ] ; then
-  output=$(/usr/bin/su ${USER} -c "osascript -e 'set n to 0' -e 'tell application \"System Events\"' -e 'set login_items to the name of every login item whose name is \"${uninstall_tb_app_name}\"' -e 'tell me to set n to the number of login_items' -e 'repeat (the number of login_items) times' -e 'remove login item \"${uninstall_tb_app_name}\"' -e 'end repeat' -e 'end tell' -e 'n'")
-else
-  output=$(/usr/bin/su ${USER} -c "osascript -e 'set n to 0' -e 'tell application \"System Events\"' -e 'set login_items to the name of every login item whose name is \"${uninstall_tb_app_name}\"' -e 'tell me to set n to the number of login_items' -e 'end tell' -e 'n'")
-fi
-uninstall_log ">>>>> Finished removing login items for ${USER} only\n"
-if [    "${output}" != "0"
+# find login items for this user only
+uninstall_log "     >>> Will check for login items for ${USER} only"
+output=$(/usr/bin/su "${USER}" -c "osascript -e 'set n to 0' -e 'tell application \"System Events\"' -e 'set login_items to the name of every login item whose name is \"${uninstall_tb_app_name}\"' -e 'tell me to set n to the number of login_items' -e 'end tell' -e 'n'")
+uninstall_log "     >>> Finished checking for login items for ${USER} only"
+if [    "${output}" != "0" \
      -a "${output}" != "" ] ; then
-  log "Removed ${output} of  ${USER}'s login items"
+  remove_login_items="You need to manually remove one or more ${uninstall_tb_app_name} login items for ${USER}, and perhaps for other users, too."
 else
-  log "There were no '${uninstall_tb_app_name}' login items for ${USER}"
+  remove_login_items=""
 fi
 
 if [ "${uninstall_tb_app_path}" != "" ] ; then
@@ -777,6 +773,11 @@ fi
 if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
   echo ""
   echo ">>>>>>You need to manually delete Tunnelblick's keychain items for each user using the OS X 10.4 'Keychain Access' utility."
+fi
+
+if [ "$remove_login_items" != "" ] ; then
+  echo ""
+  echo ">>>>>>$remove_login_items"
 fi
 
 if [ "$remove_dock_items" != "" ] ; then
