@@ -24,10 +24,8 @@
 ####################################################################################
 uninstall_log()
 {
-  if [ "$uninstall_do_not_log" != "true" ] ; then
-    local d="$( date -j +'%Y-%m-%d %H:%M:%S: ' )"
-    printf "$d$1" >> "/tmp/Tunnelblick Uninstaller Log.txt"
-  fi
+  local d="$( date -j +'%Y-%m-%d %H:%M:%S: ' )"
+  printf '%s%s\n' "$d" "$1" >> "/tmp/Tunnelblick Uninstaller Log.txt"
 }
 
 
@@ -41,7 +39,7 @@ uninstall_log()
 log()
 {
   echo "$1"
-  uninstall_log "$1\n"
+  uninstall_log "$1"
 }
 
 
@@ -128,7 +126,7 @@ uninstall_tb_remove_item_at_path()
       fi
     fi
   else
-    uninstall_log ">>>>> Does not exist: $1\n"
+    uninstall_log "     >>> Does not exist: $1"
   fi
 }
 
@@ -275,9 +273,9 @@ uninstall_tb_user_keychain_items()
 ####################################################################################
 
 
-uninstall_log "===========================================================\n"
-uninstall_log "===========================================================\n"
-uninstall_log "===========================================================\n"
+uninstall_log "==========================================================="
+uninstall_log "==========================================================="
+uninstall_log "==========================================================="
 
 usage_message="Usage:
 
@@ -466,7 +464,7 @@ if [ "${app_instances}" != "" ] ; then
   exit 0
 fi
 
-uninstall_log ">>>>> Checked instances of the application\n"
+uninstall_log "     >>> Checked instances of the application"
 
 readonly openvpn_instances="$(ps -x | grep "openvpn" | grep -x grep)"
 if [ "${openvpn_instances}" != "" ] ; then
@@ -474,7 +472,7 @@ if [ "${openvpn_instances}" != "" ] ; then
   exit 0
 fi
 
-uninstall_log ">>>>> Checked instances of the openvpn\n"
+uninstall_log "     >>> Checked instances of the openvpn"
 
 # Output initial messages
 log "$(date '+%a %b %e %T %Y') Tunnelblick Uninstaller:"
@@ -502,7 +500,7 @@ else
   log ""
 fi
 
-uninstall_log ">>>>> Wrote initial messages\n"
+uninstall_log "     >>> Wrote initial messages"
 
 
 ####################################################################################
@@ -646,9 +644,9 @@ for user in `dscl . list /users` ; do
     done
 
 	# run the per-user routine to delete keychain items
-	uninstall_log ">>>>> Will do  /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'\n"
+	uninstall_log "     >>> Will do  /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'"
     output="$(/usr/bin/su "${user}" -c "/bin/bash -c uninstall_tb_user_keychain_items")"
-	uninstall_log ">>>>> Finished /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'\n"
+	uninstall_log "     >>> Finished /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'"
     if [ "${output}" != "" ] ; then
 	  log "${output}"
 	  if [ "${output:0:7}" = "Error: " ] ; then
@@ -745,25 +743,37 @@ if [ "${uninstall_tb_app_path}" != "" ] ; then
   uninstall_tb_remove_item_at_path "${uninstall_tb_app_path}"
 fi
 
+# Remove the log file. (The log for the user is the stdout from this script.)
+if [ "${uninstall_use_insecure_rm}" = "true" ] ; then
+  secure=""
+else
+  secure="-P"
+fi
 
-####################################################################################
-#
-# STOP LOGGING TO THE UNINSTALL LOG AND REMOVE THE LOG (stdout from this script has the log to show the user)
-uninstall_do_not_log="true"
-uninstall_tb_remove_item_at_path "/tmp/Tunnelblick Uninstaller Log.txt"
-#
-####################################################################################
+if [ "${uninstall_remove_data}" = "true" ] ; then
+  rm -f ${secure} "/tmp/Tunnelblick Uninstaller Log.txt"
+  status=$?
+else
+  status="0"
+fi
+if [ "${status}" = "0" ]; then
+  echo "Removed${secure_note} /tmp/Tunnelblick Uninstaller Log.txt"
+else
+  echo "Problem: Error (${status}) trying to 'rm -f ${secure} /tmp/Tunnelblick Uninstaller Log.txt'"
+  echo "Output from 'ls -@ -A -b -e -l -O /tmp/Tunnelblick Uninstaller Log.txt':"
+  echo "$( ls -@ -A -b -e -l -O "/tmp/Tunnelblick Uninstaller Log.txt" )"
+fi
 
 if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
-  log ""
-  log "Note: On OS X 10.4, Tunnelblick Uninstaller cannot delete Tunnelblick's keychain items. They must be deleted for each user using the OS X 'Keychain Access' utility."
+  echo ""
+  echo ">>>>>>You need to manually delete Tunnelblick's keychain items for each user using the OS X 10.4 'Keychain Access' utility."
 fi
 
 if [ "${uninstall_remove_data}" != "true" ] ; then
-  log ""
-  log "Note:  NOTHING WAS REMOVED OR UNLOADED -- this was a test"
+  echo ""
+  echo "Note:  NOTHING WAS REMOVED OR UNLOADED -- this was a test"
 fi
 
-log ""
+ echo ""
 
 exit 0
