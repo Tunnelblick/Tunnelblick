@@ -519,6 +519,8 @@ While the uninstall is being done there will be no indication that anything is h
 
 	-- Inform the user about errors (indicated by "Error: " or "Problem: " anywhere in the shell script's stdout)
 	-- and successful tests or uninstalls
+
+	set timed_out to true
 	with timeout of 360000 seconds
 		if (scriptOutput contains "Problem: ") Â
 			or (scriptOutput contains "Error: ") then
@@ -527,29 +529,33 @@ While the uninstall is being done there will be no indication that anything is h
 					message LocalizedFormattedString("One or more errors occurred during the %s uninstall test.", {theName}) Â
 					as critical Â
 					buttons {localized string of "OK", localized string of "Details"}
+				set timed_out to false
 			else
 				set alertResult to display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
-				message LocalizedFormattedString("One or more errors occurred while uninstalling %s.", {theName}) Â
-				as critical Â
+					message LocalizedFormattedString("One or more errors occurred while uninstalling %s.", {theName}) Â
+					as critical Â
 				buttons {localized string of "OK", localized string of "Details"}
+				set timed_out to false
 			end if
 		
 		else
 			if testFlag then
 				set alertResult to display dialog LocalizedFormattedString("The %s uninstall test succeeded.", {theName}) Â
 					buttons {localized string of "Details", localized string of "OK"}
+				set timed_out to false
 			else
 				set alertResult to display dialog LocalizedFormattedString("%s was uninstalled successfully", {theName}) Â
 					buttons {localized string of "Details", localized string of "OK"}
+				set timed_out to false
 			end if
 		end if
 	end timeout
 
-	-- If the user asked for details, store the log in /tmp and open the log in TextEdit
-	if alertResult = {button returned:localized string of "Details"} then
+	-- If timed out or the user asked for details, store the log in /tmp and open the log in TextEdit
+	if timed_out or alertResult = {button returned:localized string of "Details"} then
 		tell application "TextEdit"
 			activate
-			set the clipboard to scriptOutput & clearDefaultsCacheOutput
+			set the clipboard to scriptOutput
 			make new document
 			tell front document to set its text to the clipboard
 		end tell
@@ -588,8 +594,8 @@ on ProcessFile(fullPath) -- (POSIX path)
 	
 	try
 		set confirmString to UserConfirmation(fullPath, TBName, TBIdentifier)
-	on error
-		display alert "Caught error in UserConfirmation()"
+	on error errorMessage number errorNumber
+		display alert "Caught error in UserConfirmation(): '" & errorMessage & "' (" & errorNumber & ")"
 		return
 	end try
 	if confirmString = "cancel" then
@@ -618,8 +624,8 @@ on ProcessFile(fullPath) -- (POSIX path)
 
 	try
 		DoProcessing(TBName, TBIdentifier, fullPath, testFlag, scriptPath)
-	on error
-		display alert "Caught error in DoProcessing()"
+	on error errorMessage number errorNumber
+		display alert "Caught error in DoProcessing(): '" & errorMessage & "' (" & errorNumber & ")"
 	end try
 
 end ProcessFile
@@ -690,7 +696,7 @@ end try
 if not IsDefined then
 	try
 		ProcessFile(POSIX path of "/Applications/Tunnelblick.app")
-	on error
-		display alert "Caught error in ProcessFile"
+	on error errorMessage number errorNumber
+		display alert "Caught error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")"
 	end try
 end if
