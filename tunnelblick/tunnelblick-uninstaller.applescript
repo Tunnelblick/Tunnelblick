@@ -176,7 +176,7 @@ on ReplaceLastPathComponent(path, newLastComponent) -- (String,String) as String
 	
 	if lastColonIx = -1 then
 		display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
-			message LocalizedFormattedString("There is a problem. The path to this script (%s) does not contain any colons", {path}) Â
+			message LocalizedFormattedString("There is a problem. The path to this script (%s) does not contain any colons.\n\nPlease email developers@tunnelblick.net for help.", {path}) Â
 			as critical
 		return ""
 	end if
@@ -221,7 +221,7 @@ on GetMyScriptPath() -- As POSIX path
 	end if
 	
 	display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
-		message LocalizedFormattedString("There is a problem. The uninstaller shell script does not exist at %s", {myScriptPath}) Â
+		message LocalizedFormattedString("There is a problem. The uninstaller shell script does not exist at %s.\n\nPlease email developers@tunnelblick.net for help.", {myScriptPath}) Â
 		as critical
 	return ""
 	
@@ -458,8 +458,8 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 	
 	try
 		set blessOutput to do shell script "bless --info --getboot"
-	on error
-		display alert "Caught error in shell script bless --info --getboot"
+	on error  errorMessage number errorNumber
+		display alert "Error in shell script bless --info --getboot" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
 		return
 	end try
 	
@@ -513,15 +513,15 @@ While the uninstall is being done there will be no indication that anything is h
 	try
 		set scriptOutput to do shell script (quoted form of myScriptPath) & argumentString with administrator privileges
 	on error
-		display alert "Caught error in shell script: " & (quoted form of myScriptPath) & argumentString & "with administrator privileges"
+		display alert "Error in shell script: " & (quoted form of myScriptPath) & argumentString & "with administrator privileges.\n\nPlease email developers@tunnelblick.net for help."
 		return
 	end try
 
 	-- Inform the user about errors (indicated by "Error: " or "Problem: " anywhere in the shell script's stdout)
 	-- and successful tests or uninstalls
 
-	set timed_out to true
-	with timeout of 360000 seconds
+	set error_happened to false
+	try
 		if (scriptOutput contains "Problem: ") Â
 			or (scriptOutput contains "Error: ") then
 			if testFlag then
@@ -529,30 +529,29 @@ While the uninstall is being done there will be no indication that anything is h
 					message LocalizedFormattedString("One or more errors occurred during the %s uninstall test.", {theName}) Â
 					as critical Â
 					buttons {localized string of "OK", localized string of "Details"}
-				set timed_out to false
 			else
 				set alertResult to display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
 					message LocalizedFormattedString("One or more errors occurred while uninstalling %s.", {theName}) Â
 					as critical Â
-				buttons {localized string of "OK", localized string of "Details"}
-				set timed_out to false
+					buttons {localized string of "OK", localized string of "Details"}
 			end if
 		
 		else
 			if testFlag then
 				set alertResult to display dialog LocalizedFormattedString("The %s uninstall test succeeded.", {theName}) Â
 					buttons {localized string of "Details", localized string of "OK"}
-				set timed_out to false
 			else
 				set alertResult to display dialog LocalizedFormattedString("%s was uninstalled successfully", {theName}) Â
 					buttons {localized string of "Details", localized string of "OK"}
-				set timed_out to false
 			end if
 		end if
-	end timeout
+	on error errorMessage number errorNumber
+		display alert "Error displaying result dialog: '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
+		set error_happened to true
+	end try
 
-	-- If timed out or the user asked for details, store the log in /tmp and open the log in TextEdit
-	if timed_out or alertResult = {button returned:localized string of "Details"} then
+	-- If an error happened or the user asked for details, store the log in /tmp and open the log in TextEdit
+	if error_happened or alertResult = {button returned:localized string of "Details"} then
 		tell application "TextEdit"
 			activate
 			set the clipboard to scriptOutput
@@ -595,7 +594,7 @@ on ProcessFile(fullPath) -- (POSIX path)
 	try
 		set confirmString to UserConfirmation(fullPath, TBName, TBIdentifier)
 	on error errorMessage number errorNumber
-		display alert "Caught error in UserConfirmation(): '" & errorMessage & "' (" & errorNumber & ")"
+		display alert "Error in UserConfirmation(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
 		return
 	end try
 	if confirmString = "cancel" then
@@ -607,12 +606,15 @@ on ProcessFile(fullPath) -- (POSIX path)
 		if confirmString = "uninstall" then
 			set testFlag to false
 		else
-			with timeout of 360000 seconds
+			try
 				display alert (localized string of "Tunnelblick Uninstaller TEST FAILED") Â
-					message LocalizedFormattedString("An internal error occurred: UserConfirmation('%s','%s','%s') returned '%s'", {fullPath, TBName, TBIdentifier, confirmString}) Â
+					message LocalizedFormattedString("An internal error occurred: UserConfirmation('%s','%s','%s') returned '%s'.\n\nPlease email developers@tunnelblick.net for help.", {fullPath, TBName, TBIdentifier, confirmString}) Â
 					as critical Â
 					buttons {localized string of "OK"}
-			end timeout
+			on error errorMessage number errorNumber
+				display alert "Error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
+				return
+			end try
 			return
 		end if
 	end if
@@ -625,7 +627,7 @@ on ProcessFile(fullPath) -- (POSIX path)
 	try
 		DoProcessing(TBName, TBIdentifier, fullPath, testFlag, scriptPath)
 	on error errorMessage number errorNumber
-		display alert "Caught error in DoProcessing(): '" & errorMessage & "' (" & errorNumber & ")"
+		display alert "Error in DoProcessing(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
 	end try
 
 end ProcessFile
@@ -697,6 +699,6 @@ if not IsDefined then
 	try
 		ProcessFile(POSIX path of "/Applications/Tunnelblick.app")
 	on error errorMessage number errorNumber
-		display alert "Caught error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")"
+		display alert "Error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
 	end try
 end if
