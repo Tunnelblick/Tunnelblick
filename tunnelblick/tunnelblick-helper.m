@@ -66,8 +66,9 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 169-246, plus the values in define.h (247-254)
 void exitOpenvpnstart(OSStatus returnValue) {
+	// returnValue: have used 164-246, plus the values in define.h (247-254)
+
     [pool drain];
     exit(returnValue);
 }
@@ -1411,7 +1412,7 @@ NSString * constructLogBase(NSString * configurationFile, unsigned cfgLocCode) {
             break;
         default:
             fprintf(stderr, "Invalid cfgLocCode = %u\n", cfgLocCode);
-            exit(EXIT_FAILURE);
+            exitOpenvpnstart(168);
     }
     
     NSMutableString * base = [[[configPrefix stringByAppendingPathComponent: configurationFile] mutableCopy] autorelease];
@@ -1720,7 +1721,7 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
             break;
         default:
             fprintf(stderr, "Invalid cfgLocCode = %u\n", cfgLocCode);
-            exit(EXIT_FAILURE);
+            exitOpenvpnstart(167);
     }
     
     NSString * configSuffix = @"";
@@ -1738,23 +1739,23 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
     
     if (  ! data  ) {
         fprintf(stderr, "No configuration file at %s\n", [actualConfigPath UTF8String]);
-        exit(EXIT_FAILURE);
+        exitOpenvpnstart(166);
     }
     
     NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
 	if (  ! cfgContents  ) {
 		fprintf(stderr, "Could not interpret the configuration file at %s as UTF-8\n", [actualConfigPath UTF8String]);
-		exit(EXIT_FAILURE);
+		exitOpenvpnstart(165);
 	}
 	
     NSString * sanitizedCfgContents = sanitizedConfigurationContents(cfgContents);
     if (  ! sanitizedCfgContents  ) {
         fprintf(stderr, "There was a problem in the configuration file at %s\n", [actualConfigPath UTF8String]);
-        exit(EXIT_FAILURE);
+        exitOpenvpnstart(164);
     }
     
     fprintf(stdout, "%s", [sanitizedCfgContents UTF8String]);
-    exit(EXIT_SUCCESS);
+    exitOpenvpnstart(EXIT_SUCCESS);
 }
 
 //**************************************************************************************************************************
@@ -1914,7 +1915,7 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
 
     if (  gUidOfUser == 0  ) {
         fprintf(stderr, "safeUpdate/safeUpdateTest not allowed when running as root\n");
-        exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
     }
     
     // Make sure an admin has authorized safe updates
@@ -1922,7 +1923,7 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
     if (  ! (   [obj respondsToSelector: @selector(boolValue)]
              && [obj boolValue])  ) {
         fprintf(stderr, "safeUpdate/safeUpdateTest not been approved by an administrator\n");
-        exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
     }
     
     NSString * sourcePrefix = [gUserHome     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
@@ -1940,7 +1941,7 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
         stopBeingRoot();
         if (  ! ok  ) {
             fprintf(stderr, "Unable to secure privatefolder %s\n", [sourcePath UTF8String]);
-            exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
         }
         
         // Make sure it is OK to update
@@ -1949,7 +1950,7 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
         stopBeingRoot();
         if (  ! ok  ) {
             fprintf(stderr, "SafeUpdate test failed; source = %s; target = %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
-            exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
         }
 
         // Do the actual update
@@ -1958,7 +1959,7 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
         stopBeingRoot();
         if (  ! ok  ) {
             fprintf(stderr, "SafeUpdate failed; source = %s; target = %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
-            exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
         }
         
         // Restore normal security on the user's private configuration
@@ -1967,7 +1968,7 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
         stopBeingRoot();
         if (  ! ok  ) {
             fprintf(stderr, "Unable to restore normal security on folder %s\n", [sourcePath UTF8String]);
-            exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
         }
         
     } else {
@@ -1977,11 +1978,11 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
         stopBeingRoot();
         if (  ! ok  ) {
             fprintf(stderr, "SafeUpdateTest failed; source = %s; target = %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
-            exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+            exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
         }
     }
     
-    exit(OPENVPNSTART_UPDATE_SAFE_OK);
+    exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_OK);
 }
 
 //**************************************************************************************************************************
@@ -3056,7 +3057,7 @@ int main(int argc, char * argv[]) {
 				NSString* fileName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(fileName);
                 compareShadowCopy(fileName);
-                // compareShadowCopy() should never return (it does exit() with its own exit codes)
+                // compareShadowCopy() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
             
@@ -3065,7 +3066,7 @@ int main(int argc, char * argv[]) {
 				NSString* fileName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(fileName);
                 revertToShadow(fileName);
-                // revertToShadow() should never return (it does exit() with its own exit codes)
+                // revertToShadow() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
             
@@ -3074,7 +3075,7 @@ int main(int argc, char * argv[]) {
                 NSString* fileName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(fileName);
                 safeUpdate(fileName, YES);
-                // safeUpdate() should never return (it does exit() with its own exit codes)
+                // safeUpdate() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
             
@@ -3083,7 +3084,7 @@ int main(int argc, char * argv[]) {
                 NSString* fileName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(fileName);
                 safeUpdate(fileName, NO);
-                // safeUpdateTest() should never return (it does exit() with its own exit codes)
+                // safeUpdateTest() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
             
@@ -3110,7 +3111,7 @@ int main(int argc, char * argv[]) {
 				}
 				validateCfgLocCode(cfgLocCode);
                 printSanitizedConfigurationFile(configFile, cfgLocCode);
-                // printSanitizedConfigurationFile() should never return (it does exit() with its own exit codes)
+                // printSanitizedConfigurationFile() should never return (it does exitOpenvpnstart() with its own exit codes)
                 // but just in case, we force an error by NOT setting syntaxError FALSE
             }
             
@@ -3223,6 +3224,5 @@ int main(int argc, char * argv[]) {
         printUsageMessageAndExitOpenvpnstart();
 	}
 	
-	[pool drain];
-	exit(retCode);
+	exitOpenvpnstart(retCode);
 }
