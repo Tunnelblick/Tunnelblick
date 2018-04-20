@@ -83,13 +83,13 @@ fi
   hiutil -Caf "${app_path}/Contents/Resources/help/help.helpindex" "${app_path}/Contents/Resources/help"
 
 # Copy the tun and tap kexts
-  rm -r -f                                  "${app_path}/Contents/Resources/tap-20111101.kext"
-  cp -R "../third_party/products/tuntap/tap-20111101.kext/" "${app_path}/Contents/Resources/tap-20111101.kext"
+  rm -r -f                                  "${app_path}/Contents/Resources/tap.kext"
+  cp -R "../third_party/products/tuntap/tap.kext/"          "${app_path}/Contents/Resources/tap.kext"
+ 
+  rm -r -f                                  "${app_path}/Contents/Resources/tun.kext"
+  cp -R "../third_party/products/tuntap/tun.kext/"          "${app_path}/Contents/Resources/tun.kext"
 
-  rm -r -f                                  "${app_path}/Contents/Resources/tun-20111101.kext"
-  cp -R "../third_party/products/tuntap/tun-20111101.kext/" "${app_path}/Contents/Resources/tun-20111101.kext"
-
-# Create kexts to be signed, too, for Mavericks and higher
+# Create copies of kexts to be signed, too, for Mavericks and higher
   rm -r -f                                  "${app_path}/Contents/Resources/tap-signed.kext"
   cp -R "../third_party/products/tuntap/tap.kext/"          "${app_path}/Contents/Resources/tap-signed.kext"
  
@@ -133,8 +133,8 @@ changeEntry "${uninstaller_path}/Contents/Info.plist" TBBUILDNUMBER "${tbbn}"
 # So we change a Tunnelblick build # of (for example) 1234.5678 to just 5678 for use in the kexts.
 # Since the kexts have TBBUILDNUMBER.1, TBBUILDNUMBER.2, or TBBUILDNUMBER.3, they will be 5678.1, 5678.2, and 5678.3
 readonly kextbn="${tbbn##*.}"
-changeEntry "${app_path}/Contents/Resources/tun-20111101.kext/Contents/Info.plist"   TBBUILDNUMBER "${kextbn}"
-changeEntry "${app_path}/Contents/Resources/tap-20111101.kext/Contents/Info.plist"   TBBUILDNUMBER "${kextbn}"
+changeEntry "${app_path}/Contents/Resources/tun.kext/Contents/Info.plist"            TBBUILDNUMBER "${kextbn}"
+changeEntry "${app_path}/Contents/Resources/tap.kext/Contents/Info.plist"            TBBUILDNUMBER "${kextbn}"
 changeEntry "${app_path}/Contents/Resources/tun-signed.kext/Contents/Info.plist"     TBBUILDNUMBER "${kextbn}"
 changeEntry "${app_path}/Contents/Resources/tap-signed.kext/Contents/Info.plist"     TBBUILDNUMBER "${kextbn}"
 
