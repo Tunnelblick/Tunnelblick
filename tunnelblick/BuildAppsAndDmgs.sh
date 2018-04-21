@@ -49,10 +49,7 @@ fi
   rm -r -f      "${uninstaller_path}"
   osacompile -o "${uninstaller_path}" -x "tunnelblick-uninstaller.applescript"
 
-  # The droplet product of the above 'osacompile' command doesn't support PowerPC G3 processors, so we replace it with a droplet compiled on Tiger (which supports PowerPC G3 and 32-bit Intel processors)
-  # See tunnelblick-uninstaller-droplet-note.txt for details 
-  rm -f "${uninstaller_path}/Contents/MacOS/droplet"
-  cp -p "tunnelblick-uninstaller-droplet-compiled-on-tiger" "${uninstaller_path}/Contents/MacOS/Tunnelblick Uninstaller"
+  mv "${uninstaller_path}/Contents/MacOS/droplet" "${uninstaller_path}/Contents/MacOS/Tunnelblick Uninstaller"
 
   # Add the Uninstaller .app's Info.plist and its icon, script, and localization resources
   cp -p -f "tunnelblick-uninstaller.Info.plist"   "${uninstaller_path}/Contents/Info.plist"
