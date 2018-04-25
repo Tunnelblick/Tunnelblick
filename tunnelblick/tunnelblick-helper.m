@@ -60,15 +60,34 @@ int                   gPendingRootCounter = 0;  // Number of becomeRoot requests
 //                                              //        when increments to one, become root
 //                                              //        when decements to zero, become non-root
 
+NSString * gTemporaryDirectory = nil;			// Path to a temporary directory if one was created for this process, otherwise nil.
+												// If not nil, the TMPDIR environment variable was set to this value and
+												// the directory and its contents should be deleted upon exit from main().
+
 //**************************************************************************************************************************
 
 void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
+const char * fileSystemRepresentationOrNULL(NSString * s) {
+
+	// Returns the fileSystemRepresentation of an NSString.
+	// Returns "NULL" without raising an exception if the NSString is nil or the empty string.
+	
+	return (  0 == [s length]
+			? "NULL"
+			: [s fileSystemRepresentation]);
+}
+
 void exitOpenvpnstart(OSStatus returnValue) {
+	
 	// returnValue: have used 164-246, plus the values in define.h (247-254)
 
+	if (  gTemporaryDirectory  ) {
+		[[NSFileManager defaultManager] tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
+	}
+	
     [pool drain];
     exit(returnValue);
 }
@@ -1349,6 +1368,7 @@ void killOneOpenvpn(pid_t pid) {
                     if (  errno == ESRCH  ) {
                         fprintf(stderr, "killOneOpenvpn(%lu): kill() failed: Process does not exist\n", (unsigned long) pid);
                         exitOpenvpnstart(OPENVPNSTART_NO_SUCH_OPENVPN_PROCESS);
+						return; // Make analyzer happy
                     }
                     
                     fprintf(stderr, "killOneOpenvpn(%lu): kill() failed; errno %d: %s\n", (unsigned long) pid, errno, strerror(errno));
@@ -2807,7 +2827,12 @@ void validateOpenvpnVersion(NSString * s) {
     }
 }
 
-void validateEnvironment(void) {
+NSString * validateEnvironment(void) {
+	
+	// Exits with error if any environment variable other than TMPDIR is not set to its expected value.
+	// If TMPDIR is as expected, returns nil.
+	// If TMPDIR is not as expected, sets TMPDIR to the path of a newly-created temporary directory and returns that directory's path.
+	//								 (That directory and its contents must be deleted when it is no longer needed.)
 	
 	BOOL errorFound = FALSE;
 
@@ -2827,7 +2852,6 @@ void validateEnvironment(void) {
 	
 	// Check some other environment variables for exact matches but allow them to be undefined
 	NSDictionary * envVarsList = [NSDictionary dictionaryWithObjectsAndKeys:
-								  NSTemporaryDirectory(), @"TMPDIR",
 								  NSUserName(),           @"USER",
 								  NSUserName(),           @"LOGNAME",
 								  NSHomeDirectory(),      @"HOME",
@@ -2848,10 +2872,27 @@ void validateEnvironment(void) {
 		}
 	}
 	
+	// If the TMPDIR environment variable != NSTemporaryDirectory(), create a new subfolder of NSTemporaryDirectory() and set TMPDIR to that
+	NSString * nstDir = NSTemporaryDirectory();
+	NSString * oldDir = [env objectForKey: @"TMPDIR"];
+	NSString * newDir = nil;
+	if (  [nstDir isNotEqualTo: oldDir]  )  {
+		newDir = newTemporaryDirectoryPath();
+		const char * newDirC = [newDir fileSystemRepresentation];
+		setenv("TMPDIR", newDirC, 1);
+		const char * newDirAfterSetC = fileSystemRepresentationOrNULL([[[NSProcessInfo processInfo] environment] objectForKey: @"TMPDIR"]);
+		if (  0 != strcmp(newDirC, newDirAfterSetC)  ) {
+			fprintf(stderr, "Failed to set the TMPDIR environment variable to\n'%s'\nIt is\n'%s'\n", newDirC, newDirAfterSetC);
+			errorFound = TRUE;
+		}
+	}
+	
 	if (  errorFound  ) {
-		fprintf(stderr, "Complete environment = %s\n", [[env description] UTF8String]);
+		fprintf(stderr, "Complete environment on entry to validateEnvironment() = %s\n", [[env description] UTF8String]);
 		exitOpenvpnstart(173);
 	}
+	
+	return newDir;
 }
 
 //**************************************************************************************************************************
@@ -2934,7 +2975,7 @@ int main(int argc, char * argv[]) {
     }
 #endif
 	
-	validateEnvironment();
+	gTemporaryDirectory = validateEnvironment();
 	
     // Process arguments
     
