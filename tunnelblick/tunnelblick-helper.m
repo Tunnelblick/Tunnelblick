@@ -2809,6 +2809,8 @@ void validateOpenvpnVersion(NSString * s) {
 
 void validateEnvironment(void) {
 	
+	BOOL errorFound = FALSE;
+
 	NSDictionary * env = [[NSProcessInfo processInfo] environment];
 	
 	// Check that the PATH starts with known system directories
@@ -2816,11 +2818,11 @@ void validateEnvironment(void) {
     if (  envPath  ) {
 		if (  ! [envPath hasPrefix: STANDARD_PATH]  ) {
 			fprintf(stderr, "the PATH environment variable must start with '%s'; it is '%s'\n", [STANDARD_PATH UTF8String], [envPath UTF8String]);
-			exitOpenvpnstart(177);
+			errorFound = TRUE;
 		}
 	} else {
 		fprintf(stderr, "the PATH environment variable is missing; it must be '%s'\n", [envPath UTF8String]);
-		exitOpenvpnstart(176);
+		errorFound = TRUE;
 	}
 	
 	// Check some other environment variables for exact matches but allow them to be undefined
@@ -2833,7 +2835,6 @@ void validateEnvironment(void) {
 								  @"unix2003",            @"COMMAND_MODE",
 								  nil];
 	
-	BOOL errorFound = FALSE;
 	NSEnumerator * e = [envVarsList keyEnumerator];
 	NSString * key;
 	while (  (key = [e nextObject])  ) {
