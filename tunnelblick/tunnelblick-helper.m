@@ -1353,6 +1353,7 @@ void killOneOpenvpn(pid_t pid) {
                     
                     fprintf(stderr, "killOneOpenvpn(%lu): kill() failed; errno %d: %s\n", (unsigned long) pid, errno, strerror(errno));
                     exitOpenvpnstart(218);
+					return; // Make analyzer happy
                 }
             }
         }
@@ -2064,6 +2065,7 @@ int startVPN(NSString * configFile,
         default:
             fprintf(stderr, "Syntax error: Invalid cfgLocCode (%d)\n", cfgLocCode);
             exitOpenvpnstart(OPENVPNSTART_RETURN_SYNTAX_ERROR);
+			return -1; // Make analyzer happy
     }
     
     if (  [[gConfigPath pathExtension] isEqualToString: @"tblk"]) {
@@ -2921,6 +2923,7 @@ int main(int argc, char * argv[]) {
         ) {
         fprintf(stderr, "Tunnelblick must be in /Applications (bundlePath = %s)\n", [gResourcesPath UTF8String]);
         exitOpenvpnstart(243);
+		return -1; // Make analyzer happy
     }
     NSString * ourPath = [gResourcesPath stringByAppendingPathComponent: @"tunnelblick-helper"];
     if (  pathIsNotSecure(ourPath, PERMS_SECURED_EXECUTABLE)  ) {
@@ -2945,6 +2948,7 @@ int main(int argc, char * argv[]) {
 			|| ([NSString stringWithUTF8String: arg] == NULL)  ) {
 			fprintf(stderr, "Invalid argument #%d (0 = command; 1 = first actual argument)\n", ix);
 			exitOpenvpnstart(171);
+			return -1; // Make analyzer happy
 		}
 	}
 
