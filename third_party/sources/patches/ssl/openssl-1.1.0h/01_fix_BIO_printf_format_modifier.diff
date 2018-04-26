@@ -1,0 +1,23 @@
+diff -u -r openssl-1.1.0h-A/e_os.h openssl-1.1.0h-B/e_os.h
+--- openssl-1.1.0h-A/e_os.h	2018-03-27 09:50:40.000000000 -0400
++++ openssl-1.1.0h-B/e_os.h	2018-04-26 09:29:32.000000000 -0400
+@@ -32,12 +32,14 @@
+ /*
+  * BIO_printf format modifier for [u]int64_t.
+  */
+-# if defined(__LP64__) || (defined(__SIZEOF_LONG__) && __SIZEOF_LONG__==8)
+-#  define BIO_PRI64 "l"     /* 'll' does work "universally", but 'l' is
+-                             * here to shut -Wformat warnings in LP64... */
+-# else
++// Tunnelblick patch: Always use "ll" to avoid warnings about printing a "long long" with the "l" format.
++// (Both "long" and "long long" are 64 bits, so this doesn't change the code's behavior.)
++// # if defined(__LP64__) || (defined(__SIZEOF_LONG__) && __SIZEOF_LONG__==8)
++// #  define BIO_PRI64 "l"     /* 'll' does work "universally", but 'l' is
++//                              * here to shut -Wformat warnings in LP64... */
++// # else
+ #  define BIO_PRI64 "ll"
+-# endif
++// # endif
+ 
+ # if !defined(NDEBUG) && !defined(OPENSSL_NO_STDIO)
+ #  define REF_ASSERT_ISNT(test) \
