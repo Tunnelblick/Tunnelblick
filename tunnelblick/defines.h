@@ -391,6 +391,12 @@ typedef enum
 // Debugging macro to NSLog if a specified preference is TRUE
 #define TBLog(preference_key, ...)     if (  [gTbDefaults boolForKey: preference_key] || [gTbDefaults boolForKey: @"DB-ALL"]  ) NSLog(preference_key @": "  __VA_ARGS__);
 
+
+//*************************************************************************************************
+// Macros to make it easy to use nil values in dictionaries or arrays
+#define NSNullIfNil(v) (v                  ? v   : [NSNull null])
+#define nilIfNSNull(v) (v != [NSNull null] ? v   : nil)
+
 //*************************************************************************************************
 // Tiger-compatible macros that implement something like @property and @synthesize
 //
