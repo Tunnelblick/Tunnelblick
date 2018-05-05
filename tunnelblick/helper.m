@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -385,25 +385,66 @@ NSString * defaultOpenVpnFolderName (void) {
 	return defaultLinkTarget;
 }
 
-AlertWindowController * TBShowAlertWindow (NSString * title,
-                                           id         msg) {
+AlertWindowController * TBShowAlertWindowExtended(NSString * title,
+												  id				   msg, // NSString or NSAttributedString only
+												  NSString			 * preferenceToSetTrue,
+												  NSString			 * checkboxTitle,
+												  NSAttributedString * checkboxInfoTitle,
+												  BOOL				   checkboxIsOn) {
 	
-	// Displays an alert window and returns the window controller immediately, so it doesn't block the main thread.
-	// Used for informational messages that do not return a choice or have any side effects.
+	// Displays an alert window and returns the window controller immediately, so it doesn't block the thread. (Or nil may returned, see below.)
 	//
-	// The "msg" argument can be an NSString or an NSAttributedString only
+	// The window controller is returned so that it can be closed programmatically if there is a change to the
+	// conditions that caused the window to be opened.
+	//
+	// (Note: the alert window is always displayed on the main thread, regarless of what thread this routine is called on.)
+	//
+	// The "msg" argument can be an NSString or an NSAttributedString.
     //
-    // The window controller is returned so that it can be closed programmatically if the conditions that caused
-    // the window to be opened change.
+	// If "preferenceToSetTrue" is not nil:
+	//
+	//		If the preferences is true, no alert window will be displayed, and nil will be returned;
+	//
+	//		Otherwise:
+	//
+	//			A checkbox will be displayed and the corresponding preference will be set TRUE when the window is closed if the checkbox
+	//			had a check in it at the time the window was closed (via the "OK" button, the close button, or the ESC key).
+	//
+	//			The title of the checkbox will be the string in "checkboxTitle", the infoTitle will be the string in
+	//			"checkboxInfoTitle", and the checkbox will be checked if "checkboxIsOn" is true.
+	//
+	//			If nil, "checkboxTitle" defaults to "Do not warn about this again".
+	//			If nil, "checkboxInfoTitle" defaults to
+	//				    "When checked, Tunnelblick will not show this warning again. When not checked, Tunnelblick will show this warning again."
 	
-    if ( ! [NSThread isMainThread]  ) {
-        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys: title, @"title", msg, @"msg", nil];
+	// Always show the alert window on the main thread
+	if ( ! [NSThread isMainThread]  ) {
+        NSDictionary * dict =  [NSDictionary dictionaryWithObjectsAndKeys:
+							   NSNullIfNil(title),               @"title",
+							   NSNullIfNil(msg),                 @"msg",
+							   NSNullIfNil(preferenceToSetTrue), @"preferenceToSetTrue",
+							   NSNullIfNil(checkboxTitle),       @"checkboxTitle",
+							   NSNullIfNil(checkboxInfoTitle),   @"checkboxInfoTitle",
+							   [NSNumber numberWithBool: checkboxIsOn], @"checkboxIsOn",
+							   nil];
         [UIHelper performSelectorOnMainThread: @selector(showAlertWindow:) withObject: dict waitUntilDone: NO];
         return nil;
     }
+
+	// If user has previously checked "Do not warn about this again", don't do anything and return nil
+	if (  preferenceToSetTrue  ) {
+		if (  [gTbDefaults boolForKey: preferenceToSetTrue]  ) {
+			return nil;
+		}
+	}
     
 	AlertWindowController * awc = [[[AlertWindowController alloc] init] autorelease];
-	[awc setHeadline: title];
+
+	[awc setHeadline:			 title];
+	[awc setPreferenceToSetTrue: preferenceToSetTrue];
+	[awc setCheckboxTitle:       checkboxTitle];
+	[awc setCheckboxInfoTitle:   checkboxInfoTitle];
+	[awc setCheckboxIsChecked:   checkboxIsOn];
 	
 	if (  [[msg class] isSubclassOfClass: [NSString class]]  ) {
 		[awc setMessage: msg];
@@ -422,6 +463,12 @@ AlertWindowController * TBShowAlertWindow (NSString * title,
 	return awc;
 }
 
+AlertWindowController * TBShowAlertWindow (NSString * title,
+										   id         msg) {
+	
+	return TBShowAlertWindowExtended(title, msg, nil, nil, nil, NO);
+
+}
 
 // Alow several alert panels to be open at any one time, keeping track of them in AlertRefs.
 // TBCloseAllAlertPanels closes all of them when Tunnelblick quits.

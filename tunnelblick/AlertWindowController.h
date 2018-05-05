@@ -1,5 +1,5 @@
 /*
-* Copyright 2014 Jonathan Bullard
+* Copyright 2014, 2018 Jonathan Bullard
 *
 *  This file is part of Tunnelblick.
 *
@@ -21,11 +21,17 @@
 
 #import "defines.h"
 
+@class TBButton;
+
 @interface AlertWindowController : NSWindowController <NSWindowDelegate> {
     
     NSString                    * headline;
     NSString                    * message;
 	NSAttributedString			* messageAS;
+	NSString					* preferenceToSetTrue;
+	NSString					* checkboxTitle;
+	NSAttributedString			* checkboxInfoTitle;
+	BOOL					      checkboxIsChecked;
     
 	IBOutlet NSImageView        * iconIV;
 	
@@ -34,15 +40,21 @@
     
 	IBOutlet NSScrollView       * messageSV;
 	IBOutlet NSTextView         * messageTV;
-    
+
+	IBOutlet TBButton			* doNotWarnAgainCheckbox;
+
     IBOutlet NSButton           * okButton;
 
 }
 
 
-TBPROPERTY(NSString *, headline, setHeadline)
-TBPROPERTY(NSString *, message,  setMessage)
-TBPROPERTY(NSAttributedString *, messageAS,  setMessageAS)
+TBPROPERTY(NSString *,           headline,            setHeadline)
+TBPROPERTY(NSString *,           message,             setMessage)
+TBPROPERTY(NSAttributedString *, messageAS,           setMessageAS)
+TBPROPERTY(NSString *,           preferenceToSetTrue, setPreferenceToSetTrue)
+TBPROPERTY(NSString *,           checkboxTitle,       setCheckboxTitle)
+TBPROPERTY(NSAttributedString *, checkboxInfoTitle,   setCheckboxInfoTitle)
+TBPROPERTY(BOOL,                 checkboxIsChecked,   setCheckboxIsChecked)
 
 TBPROPERTY_READONLY(NSImageView     *, iconIV)
 
@@ -51,6 +63,8 @@ TBPROPERTY_READONLY(NSTextFieldCell *, headlineTFC)
 
 TBPROPERTY_READONLY(NSScrollView    *, messageSV)
 TBPROPERTY_READONLY(NSTextView      *, messageTV)
+
+TBPROPERTY_READONLY(TBButton        *, doNotWarnAgainCheckbox)
 
 TBPROPERTY_READONLY(NSButton        *, okButton)
 @end

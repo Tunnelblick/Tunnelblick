@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2015, 2016, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -207,10 +207,13 @@ extern TBUserDefaults * gTbDefaults;
         [self performSelectorOnMainThread: @selector(showAlertWindow:)  withObject: dict waitUntilDone: NO];
         return;
     }
-    
-    NSString * title = [dict objectForKey: @"title"];
-    NSString * msg   = [dict objectForKey: @"msg"];
-    TBShowAlertWindow(title, msg);
+
+	TBShowAlertWindowExtended(nilIfNSNull([dict objectForKey: @"title"]),
+							  nilIfNSNull([dict objectForKey: @"msg"]),
+							  nilIfNSNull([dict objectForKey: @"preferenceToSetTrue"]),
+							  nilIfNSNull([dict objectForKey: @"checkboxTitle"]),
+							  nilIfNSNull([dict objectForKey: @"checkboxInfoTitle"]),
+							             [[dict objectForKey: @"checkboxIsOn"] boolValue]);
 }
 
 +(void) showSuccessNotificationTitle: (NSString *) title
