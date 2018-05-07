@@ -456,19 +456,35 @@ end UserConfirmation
 ------------------------------------------------------------------------------------------------------------------
 on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (String, String, String, Boolean, String)
 	
+	-- Decide whether to use a "secure" erase or a normal erase. A "secure" erase writes over a file's data one or more times before deleting
+	-- the file's directory entry.
+	-- We want to do a "secure" erase on hard drives, but on SSDs we don't: it takes a lot more time and doesn't really do anything on an SSD
+	-- because of the way SSDs work.
+
+	set ssdDetectionErrorMessage to ""
+
+	-- Try to use the "bless" command to get the boot volume's ID. This fails on some Hackintoshes and in some other situations where the NVRAM is corrupt.
 	try
 		set blessOutput to do shell script "bless --info --getboot"
 	on error  errorMessage number errorNumber
-		display alert "Error in shell script bless --info --getboot" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
-		return
+		set blessOutput to ""
+		set ssdDetectionErrorMessage to "The uninstaller could not determine whether the boot volume is an SSD or an HDD, which can happen on Hackintoshes and on systems with corrupt NVRAM.
+Because of this, 'secure' erase will be used (files will be overwritten before they are deleted), which will take a long time.
+The error message from 'bless --info --getboot' was '" & errorMessage & "'.
+
+"
 	end try
 	
-	-- Ignore errors by executing "true" command at end (if grep does not find string, it returns an error)
-	set diskutilOutput to do shell script "diskutil info '" & blessOutput & "' | grep 'Solid State:' | grep 'Yes' ; true"
-	if diskutilOutput = "" then
+	if blessOutput = "" then
 		set secureEraseOption to "-s"
 	else
-		set secureEraseOption to "-i"
+		-- Ignore errors by executing "true" command at end (if grep does not find string, it returns an error)
+		set diskutilOutput to do shell script "diskutil info '" & blessOutput & "' | grep 'Solid State:' | grep 'Yes' ; true"
+		if diskutilOutput = "" then
+			set secureEraseOption to "-s"
+		else
+			set secureEraseOption to "-i"
+		end if
 	end if
 	
 	if testFlag then
@@ -486,7 +502,7 @@ The uninstaller needs administrator authorization so it can read the %s preferen
 
 The uninstaller needs the authorization so it can make the changes required to uninstall %s.
 
-Uninstalling may take SEVERAL MINUTES because the uninstall is being done on a hard drive and a secure erase process is used.
+Uninstalling may take SEVERAL MINUTES because files will be overwritten before being deleted.
 
 While the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", {theName})
 
@@ -517,6 +533,11 @@ While the uninstall is being done there will be no indication that anything is h
 		return
 	end try
 
+	-- If SSD detection failed, prepend a message about that to the script output
+	if (ssdDetectionErrorMessage ­ "") then
+		set scriptOutput to ssdDetectionErrorMessage & scriptOutput
+	end if
+	
 	-- Inform the user about errors (indicated by "Error: " or "Problem: " anywhere in the shell script's stdout)
 	-- and successful tests or uninstalls
 
