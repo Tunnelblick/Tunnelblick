@@ -509,8 +509,6 @@
 		63AA8E581492C75200C791C9 /* process-network-changes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "process-network-changes"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA8E5E1492C77700C791C9 /* process-network-changes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "process-network-changes.m"; sourceTree = "<group>"; };
 		63AB7CFF1D930BCE008ED621 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		63ABA4CC1AC42C8C00C03EAE /* tunnelblick-uninstaller-droplet-compiled-on-tiger */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "tunnelblick-uninstaller-droplet-compiled-on-tiger"; sourceTree = "<group>"; };
-		63ABA4CD1AC42C8C00C03EAE /* tunnelblick-uninstaller-droplet-note.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "tunnelblick-uninstaller-droplet-note.txt"; sourceTree = "<group>"; };
 		63ABFE9A1349E435003DEB64 /* LoginWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWindowController.h; sourceTree = "<group>"; };
 		63ABFE9B1349E435003DEB64 /* LoginWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWindowController.m; sourceTree = "<group>"; };
 		63ABFE9E1349F086003DEB64 /* LoginWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginWindow.xib; sourceTree = "<group>"; };
@@ -1321,10 +1319,8 @@
 		B891E52016F60E7000627008 /* Uninstaller */ = {
 			isa = PBXGroup;
 			children = (
-				63ABA4CD1AC42C8C00C03EAE /* tunnelblick-uninstaller-droplet-note.txt */,
 				B891E56116F6164E00627008 /* tunnelblick-uninstaller.applescript */,
 				B891E53316F60F4700627008 /* tunnelblick-uninstaller.sh */,
-				63ABA4CC1AC42C8C00C03EAE /* tunnelblick-uninstaller-droplet-compiled-on-tiger */,
 				B8BDEEEC17E650C0007FAE55 /* tunnelblick-uninstaller-localization */,
 				B891E53216F60F4700627008 /* tunnelblick-uninstaller.icns */,
 				B891E57416F61A3800627008 /* tunnelblick-uninstaller.Info.plist */,
