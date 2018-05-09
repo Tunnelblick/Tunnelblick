@@ -627,9 +627,13 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	logDebugMessage "DEBUG: SKP_SETUP_DNS = ${SKP_SETUP_DNS}"
 	logDebugMessage "DEBUG: SKP_SMB = ${SKP_SMB}; SKP_SMB_NN = ${SKP_SMB_NN}; SKP_SMB_WG = ${SKP_SMB_WG}; SKP_SMB_WA = ${SKP_SMB_WA}"
 
-    set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-    original_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
-    set -e # resume abort on error
+	if [ -e /etc/resolv.conf ] ; then
+		set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
+		original_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
+		set -e # resume abort on error
+	else
+		original_resolver_contents="(unavailable)"
+	fi
     logDebugMessage "DEBUG:"
     logDebugMessage "DEBUG: /etc/resolve = ${original_resolver_contents}"
     logDebugMessage "DEBUG:"
@@ -823,9 +827,13 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
     logDebugMessage "DEBUG: State:/Network/OpenVPN/DNS = ${EXPECTED_NEW_DNS_GLOBAL_CONFIG}"
     logDebugMessage "DEBUG: State:/Network/OpenVPN/SMB = ${EXPECTED_NEW_SMB_GLOBAL_CONFIG}"
 
-    set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-    new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
-    set -e # resume abort on error
+	if [ -e /etc/resolv.conf ] ; then
+		set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
+		new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
+		set -e # resume abort on error
+	else
+		new_resolver_contents="(unavailable)"
+	fi
     logDebugMessage "DEBUG:"
     logDebugMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
     logDebugMessage "DEBUG:"

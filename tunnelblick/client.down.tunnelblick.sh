@@ -407,9 +407,13 @@ fi
 
 logMessage "Restored the DNS and SMB configurations"
 
-set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
-set -e # resume abort on error
+if [ -e /etc/resolv.conf ] ; then
+	set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
+	new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
+	set -e # resume abort on error
+else
+	new_resolver_contents="(unavailable)"
+fi
 logDebugMessage "DEBUG:"
 logDebugMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
 
