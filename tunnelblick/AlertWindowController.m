@@ -132,7 +132,7 @@ float heightForStringDrawing(NSString *myString,
 			usedRectForTextContainer:textContainer].size.height;
 }
 
--(void) setupMessage {
+-(void) setupMessageAndCheckbox {
 	
 	NSTextView * tv = [self messageTV];
 	
@@ -184,14 +184,20 @@ float heightForStringDrawing(NSString *myString,
 	
 	// Make the cursor disappear
 	[tv setSelectedRange: NSMakeRange([msg length] + 1, 0)];
+	
+	[self setupCheckboxWithHeightChange: heightChange];
 }
 
--(void) setupCheckbox {
+-(void) setupCheckboxWithHeightChange: (CGFloat) heightChange {
 	
 	if (  ! preferenceToSetTrue  ) {
 		[doNotWarnAgainCheckbox setHidden: TRUE];
 		return;
 	}
+	
+	NSRect frame = [doNotWarnAgainCheckbox frame];
+	frame.origin.y -= heightChange;
+	[doNotWarnAgainCheckbox setFrame: frame];
 	
 	NSAttributedString * infoTitle = (  checkboxInfoTitle
 									  ? checkboxInfoTitle
@@ -219,10 +225,8 @@ float heightForStringDrawing(NSString *myString,
     
 	[self setupHeadline];
     
-	[self setupMessage];
+	[self setupMessageAndCheckbox];
 	
-	[self setupCheckbox];
-
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
     [UIHelper setTitle: NSLocalizedString(@"OK", @"Button") ofControl: [self okButton] shift: ( !rtl ) narrow: NO enable: YES];
     
