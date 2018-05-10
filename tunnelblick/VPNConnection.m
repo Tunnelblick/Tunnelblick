@@ -886,7 +886,6 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [tunnelUpSound                    release]; tunnelUpSound                    = nil;
 	[ipAddressBeforeConnect           release]; ipAddressBeforeConnect           = nil;
 	[serverIPAddress                  release]; serverIPAddress                  = nil;
-    [statusScreen                     release]; statusScreen                     = nil;
     [statistics.lastSet               release]; statistics.lastSet               = nil;
     [bytecountsUpdated                release]; bytecountsUpdated                = nil;
     [argumentsUsedToStartOpenvpnstart release]; argumentsUsedToStartOpenvpnstart = nil;
