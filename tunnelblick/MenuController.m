@@ -452,11 +452,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
                                 @"disableResetDisabledWarningsButton",
-                                
                                 @"disableAddConfigurationButton",
                                 @"disableRemoveConfigurationButton",
                                 @"disableWorkOnConfigurationButton",
-                                
                                 @"disableRenameConfigurationMenuItem",
                                 @"disableDuplicateConfigurationMenuItem",
                                 @"disableMakeConfigurationPublicOrPrivateMenuItem",
@@ -465,7 +463,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"disableExamineOpenVpnConfigurationFileMenuItem",
                                 @"disableShowOpenVpnLogInFinderMenuItem",
                                 @"disableDeleteConfigurationCredentialsInKeychainMenuItem",
-                                
                                 @"disableCopyLogToClipboardButton",
                                 
                                 @"doNotShowNotificationWindowBelowIconOnMouseover",
@@ -478,7 +475,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"doNotShowSplashScreen",
 								@"doNotShowOutlineViewOfConfigurations",
                                 @"showConnectedDurations",
-                                
+								
+								@"chooseSameOpenvpnOverSameSsl",
+								
                                 @"welcomeURL",
                                 @"welcomeWidth",
                                 @"welcomeHeight",

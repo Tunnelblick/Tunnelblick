@@ -1778,8 +1778,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(NSDictionary *) removedAndDeprecatedOptionsInfoForConfigurationFile: (NSString *) configString {
 	
-	// Returns a dictionary with info about the maximum major.minor version of OpenVPN that can be used with the configuration (because of removed options)
-	// and info about any options in the configuration that have been deprecated.
+	// Returns a dictionary with:
+	//		"removedInOpenvpnVersion"    the lowest OpenVPN version that removed any options that are contained in the configuration;
+	//		"deprecatedInOpenvpnVersion" the lowest OpenVPN version that deprecated any options that are contained in the configuration; and
+	//		"problematicOptions"         a localized string listing the problematic options and in which OpenVPN version each was deprecated and/or removed.
 	//
 	// If there are no deprecated or removed options in the configuration file, returns nil.
 
@@ -1793,8 +1795,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								[NSArray arrayWithObjects: @"2.5", @"2.6", @"keysize", nil],
 								nil];
 	
-	NSString * lowestRemovedInOpenvpnVersion = nil;
-	NSString * lowestIncludedInOpenvpnVersion = nil;
+	NSString * lowestRemovedInOpenvpnVersion    = nil;
+	NSString * lowestDeprecatedInOpenvpnVersion = nil;
 	NSMutableString * optionsThatAreProblematic = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
 	
 	NSString * deprecatedInOpenvpnVersion;
@@ -1802,7 +1804,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSArray * removedList;
 	for ( removedList in removedOptions  ) {
 		deprecatedInOpenvpnVersion = [removedList firstObject];
-		removedInOpenvpnVersion  = [removedList objectAtIndex: 1];
+		removedInOpenvpnVersion    = [removedList objectAtIndex: 1];
 		NSUInteger ix;
 		for (  ix=2; ix<[removedList count]; ix++  ) {
 			NSString * option = [removedList objectAtIndex: ix];
@@ -1813,31 +1815,36 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				if (   ( ! lowestRemovedInOpenvpnVersion)
 					|| [lowestRemovedInOpenvpnVersion compare: removedInOpenvpnVersion] == NSOrderedDescending  ) {
 					lowestRemovedInOpenvpnVersion  = removedInOpenvpnVersion;
-					lowestIncludedInOpenvpnVersion = deprecatedInOpenvpnVersion;
+				}
+				if (   ( ! lowestDeprecatedInOpenvpnVersion)
+					|| [lowestDeprecatedInOpenvpnVersion compare: deprecatedInOpenvpnVersion] == NSOrderedDescending  ) {
+					lowestDeprecatedInOpenvpnVersion = deprecatedInOpenvpnVersion;
 				}
 			}
 		}
 	}
 	
-	if (  ! lowestRemovedInOpenvpnVersion  ) {
+	if (   ( ! lowestRemovedInOpenvpnVersion )
+		&& ( ! lowestDeprecatedInOpenvpnVersion)  ) {
 		return nil;
 	}
 	
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			lowestRemovedInOpenvpnVersion,  @"removedInOpenvpnVersion",		// One or more options is removed in this version of OpenVPN
-			lowestIncludedInOpenvpnVersion, @"deprecatedInOpenvpnVersion",	// One or more options is deprecated in this version of OpenVPN
-			optionsThatAreProblematic,		@"problematicOptions",
+			NSNullIfNil(lowestRemovedInOpenvpnVersion),    @"removedInOpenvpnVersion",      // One or more options is removed in this version of OpenVPN
+			NSNullIfNil(lowestDeprecatedInOpenvpnVersion), @"deprecatedInOpenvpnVersion",	// One or more options is deprecated in this version of OpenVPN
+			optionsThatAreProblematic,					   @"problematicOptions",
 			nil];
 }
 
 -(NSDictionary *) addedOptionsInfoForConfigurationFile: (NSString *) configString {
 	
-	// Returns a dictionary with info about the minimum major.minor version of OpenVPN that can be used with the configuration because of new (since
-	// OpenVPN 2.3) options that appear in the configuration file.
+	// Returns a dictionary with:
+	//		"addedInOpenvpnVersion" the lowest OpenVPN version that added any options that are contained in the configuration;
+	//		"problematicOptions"    a localized string listing the problematic options and in which OpenVPN version each was added.
 	//
-	// If there are no new options, returns nil.
+	// If all options in the configuration file are included in all versions of OpenVPN, returns nil.
 	
-	// Info about options:
+	// Dictionary with info about added options:
 	//		OpenVPN version the option(s) first appeared in,
 	//		Option name...
 	NSArray * addedOptions = [NSArray arrayWithObjects:
@@ -1853,7 +1860,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								 nil],
 								nil];
 	
-	NSString * highestAddedInOpenvpnVersion = nil;
+	NSString * lowestAddedInOpenvpnVersion = nil;
 	NSMutableString * optionsThatAreProblematic = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
 	
 	NSString * addedInOpenvpnVersion;
@@ -1867,21 +1874,21 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				[optionsThatAreProblematic appendFormat: NSLocalizedString(@"'%@' was added in OpenVPN %@\n",
 																		   @"The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5'"),
 				 option, addedInOpenvpnVersion];
-				if (   ( ! highestAddedInOpenvpnVersion )
-					|| [highestAddedInOpenvpnVersion compare: addedInOpenvpnVersion] == NSOrderedDescending  ) {
-					highestAddedInOpenvpnVersion  = addedInOpenvpnVersion;
+				if (   ( ! lowestAddedInOpenvpnVersion )
+					|| [lowestAddedInOpenvpnVersion compare: addedInOpenvpnVersion] == NSOrderedDescending  ) {
+					lowestAddedInOpenvpnVersion  = addedInOpenvpnVersion;
 				}
 			}
 		}
 	}
 	
-	if (  ! highestAddedInOpenvpnVersion  ) {
+	if (  ! lowestAddedInOpenvpnVersion  ) {
 		return nil;
 	}
 	
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			highestAddedInOpenvpnVersion, @"addedInOpenvpnVersion",	 // One or more options is added in this version of OpenVPN
-			optionsThatAreProblematic,	  @"problematicOptions",
+			lowestAddedInOpenvpnVersion, @"addedInOpenvpnVersion",	 // One or more options is added in this version of OpenVPN
+			optionsThatAreProblematic,	 @"problematicOptions",
 			nil];
 }
 
@@ -1918,10 +1925,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	//			or
 	//		the configuration contains options that have been deprecated,
 	//			or
-	//		the user specified a version of OpenVPN that is not available in thie copy of Tunnelblick.
+	//		the user specified a version of OpenVPN that is not available in this copy of Tunnelblick (a different version will be used).
 
 	// We first decide what version the user would like, and then try to get as close a match to that version as possible, then adjust that if
-	// the configuration requires a different version (because of added/removed/deprecated options).
+	// the configuration requires a different version (because it contains options that are not included in that version).
 	
 	NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
 
@@ -1965,11 +1972,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	if (  ! versionToTry  ) {
 		
-		// We don't have the version of OpenVPN specified by the user. Try to find one with the same major.minor version with or without libressl
+		// We don't have the version of OpenVPN specified by the user. Try to find one with the same major.minor version and the same SSL type
 		NSString * requestedMajorMinor = [prefVersionName substringToIndex: 3];
 		NSString * version;
-		NSEnumerator * e = [versionNames objectEnumerator];
-		while (  (version = [e nextObject])  ) {
+		NSUInteger ix;
+		for (  ix=0; ix<[versionNames count]; ix++  ) {
+			version = [versionNames objectAtIndex: ix];
 			if (  [version hasPrefix: requestedMajorMinor]  ) {
 				if (  [version rangeOfString: sslString].length != 0  ) {
 					versionToTry = [[version copy] autorelease];
@@ -1978,11 +1986,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			}
 		}
 		
-		if (  ! versionToTry  ) {
-			// Don't have the same major.minor, try to at least get OpenSSL or LibreSSL that the user specified
-			NSEnumerator * e = [versionNames objectEnumerator];
-			while (  (version = [e nextObject])  ) {
-				if (  [version rangeOfString: sslString].length != 0  ) {
+		BOOL chooseSameOpenvpnOverSameSsl = [gTbDefaults boolForKey: @"chooseSameOpenvpnOverSameSsl"];
+		
+		if (   (! versionToTry)
+			&& chooseSameOpenvpnOverSameSsl  ) {
+			// Don't have the same major.minor with the same SSL that the user specified, try to get the same major.minor with any SSL type
+			for (  ix=0; ix<[versionNames count]; ix++  ) {
+				version = [versionNames objectAtIndex: ix];
+				if (  [version hasPrefix: requestedMajorMinor]  ) {
 					versionToTry = [[version copy] autorelease];
 					break;
 				}
@@ -1990,34 +2001,57 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 		
 		if (  ! versionToTry  ) {
-			// Can't find a match to either major.minor or to SSL, so just use default
-			versionToTry = [versionNames firstObject];
+			// Don't have the same major.minor, try to at least get SSL that the user specified
+			for (  ix=0; ix<[versionNames count]; ix++  ) {
+				version = [versionNames objectAtIndex: ix];
+				if (  [version rangeOfString: sslString].length != 0  ) {
+					versionToTry = [[version retain] autorelease];
+					break;
+				}
+			}
+		}
+		
+		if (   (! versionToTry)
+			&& ( ! chooseSameOpenvpnOverSameSsl )  ) {
+			// Don't have the same major.minor with the SSL that the user specified, try to get the same major.minor with any SSL type
+			for (  ix=0; ix<[versionNames count]; ix++  ) {
+				version = [versionNames objectAtIndex: ix];
+				if (  [version hasPrefix: requestedMajorMinor]  ) {
+					versionToTry = [[version copy] autorelease];
+					break;
+				}
+			}
+		}
+		
+		if (  ! versionToTry  ) {
+			// Can't find a match to either major.minor or to SSL, so use default
+			ix = [self defaultVersionIxFromVersionNames: versionNames];
+			versionToTry = [versionNames objectAtIndex: ix];
 		}
 	}
 	
-	// We have a version to try. Make sure it can use the configuration.
+	// We have a version to try. Make sure the configuration can be used with that version.
 
 	NSString * configString = [self sanitizedConfigurationFileContents];
-	NSString * maximumMajorMinor = nil; // Maximum OpenVPN version that can be used because of options that are removed in later versions.
 	NSString * originalVersionToTry = [[versionToTry retain] autorelease];
 	
-	// Deal with deprecated/removed options in this configuration file
+	// Deal with removed options in this configuration file
 	NSDictionary * removedAndDeprecatedOptionsInfo = [self removedAndDeprecatedOptionsInfoForConfigurationFile: configString];
 	if (  removedAndDeprecatedOptionsInfo  ) {
 		NSString * removedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"removedInOpenvpnVersion"];
 
-		while (   ([[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending)
-			   && ( [versionToTry rangeOfString: sslString].length != 0 )  ) {
+		while (  [[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending  ) {
 			
 			// Config has option(s) that were removed. Try the next lower OpenVPN version with the requested SSL.
 			
+			NSInteger ixOfNextLowerVersion = [versionNames indexOfObject: versionToTry] - 1;
+			if (  ixOfNextLowerVersion < 0  ) {
+				break;
+			}
+			versionToTry = [versionNames objectAtIndex: ixOfNextLowerVersion];
+			
 			if (  [versionToTry rangeOfString: sslString].length != 0  ) {
-				NSInteger ix = [versionNames indexOfObject: versionToTry] - 1;
-				if (  ix < 0  ) {
-					break;
-				}
-				
-				versionToTry = [versionNames objectAtIndex: ix];
+				break;
 			}
 		}
 		
@@ -2028,24 +2062,20 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				
 				// Config has option(s) that were removed. Try the next lower OpenVPN version IGNORING the requested SSL.
 				
-				if (  [versionToTry rangeOfString: sslString].length != 0  ) {
-					NSInteger ix = [versionNames indexOfObject: versionToTry] - 1;
-					if (  ix < 0  ) {
-						break;
-					}
-					
-					versionToTry = [versionNames objectAtIndex: ix];
+				NSInteger ixOfNextLowerVersion = [versionNames indexOfObject: versionToTry] - 1;
+				if (  ixOfNextLowerVersion < 0  ) {
+					break;
 				}
+				versionToTry = [versionNames objectAtIndex: ixOfNextLowerVersion];
 			}
-			
-			// One or more options in the configuration file are not included in any version of OpenVPN in this copy of Tunnelblick
-			if (  connecting  )  {
-				TBLog(@"DB-CD", @"Cannot connect %@ using OpenVPN %@ because of removed options",
-					  [self displayName], displayNameForOpenvpnName(versionToTry));
-			}
-			NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatCannotConnectBecauseOfOpenVPNOptions"];
-			if (  ! [gTbDefaults boolForKey: key]  ) {
-				[gTbDefaults setBool: TRUE forKey: key];
+
+			if (  [[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending) {
+
+				// One or more options in the configuration file are not included in any version of OpenVPN in this copy of Tunnelblick
+				if (  connecting  )  {
+					TBLog(@"DB-CD", @"Cannot connect %@ because the configuration file includesone or more options that are not included in any OpenVPN version in this version of Tunnelblick",
+						  [self displayName]);
+				}
 				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
 				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								  [NSString stringWithFormat:
@@ -2059,9 +2089,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 													 @" The first '%@' will be replaced by the name of a configuration."
 													 @" The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed."),
 								   [self displayName], problematicOptions]);
+				
+				return NSNotFound;
 			}
-			
-			return NSNotFound;
 		}
 	}
 
@@ -2070,79 +2100,66 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  addedOptionsInfo  ) {
 		
 		NSString * addedInMajorMinor = [addedOptionsInfo objectForKey: @"addedInOpenvpnVersion"];
-		
-		if (  [maximumMajorMinor compare: addedInMajorMinor] == NSOrderedAscending  ) {
-			TBLog(@"DB-CD", @"Cannot connect %@ using OpenVPN %@ because of conflicting options",
-					  [self displayName], displayNameForOpenvpnName(versionToTry));
-			NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatCannotConnectBecauseOfOpenVPNOptionConflicts"];
-			if (  ! [gTbDefaults boolForKey: key]  ) {
-				[gTbDefaults setBool: TRUE forKey: key];
-				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
-				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								  [NSString stringWithFormat:
-								   NSLocalizedString(@"This VPN cannot be connected.\n\n"
-													 
-													 @"The OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\n"
-													 
-													 @"That is, one or more options are available only in old versions of OpenVPN and one or more"
-													 @" other options are available only in modern versions of OpenVPN. No version of OpenVPN will"
-													 @" accept all of the options in the configuration file.\n\n"
-													 
-													 @"You should update the configuration so it can be used with modern versions of OpenVPN.",
-													 
-													 @"Window text."
-													 @" The '%@' will be replaced by the name of a configuration"),
-								   [self displayName], problematicOptions]);
+
+		while (  [[versionToTry substringToIndex: 3] compare: addedInMajorMinor] == NSOrderedAscending  ) {
+			
+			// Config has option(s) that were added in a later. Try the next OpenVPN version with the requested SSL.
+
+			NSUInteger ixOfNextHigherVersion = [versionNames indexOfObject: versionToTry] + 1;
+			if (  ixOfNextHigherVersion > [versionNames count]  ) {
+				break;
 			}
-		}
-		
-		while (  [[versionToTry substringToIndex: 3] compare: addedInMajorMinor] == NSOrderedAscending) {
+			versionToTry = [versionNames objectAtIndex: ixOfNextHigherVersion];
 			
-			// Config has option(s) that were added in a later version of OpenVPN. Try the next higher version with the requested SSL.
-			
-			NSUInteger ix = [versionNames indexOfObject: versionToTry] + 1;
-			for (  ; ix<[versionNames count]; ix++  ) {
-				versionToTry = [versionNames objectAtIndex: ix];
-				if (  [versionToTry rangeOfString: sslString].length != 0  ) {
-					break;
-				}
-			}
-			
-			if (  ix < [versionNames count]  ) {
+			if (  [versionToTry rangeOfString: sslString].length != 0  ) {
 				break;
 			}
 		}
 		
 		if (  [[versionToTry substringToIndex: 3] compare: addedInMajorMinor] == NSOrderedAscending) {
 			
-			// One or more options in the configuration file are not included in any version of OpenVPN in this copy of Tunnelblick
-			if (  connecting  )  {
-				TBLog(@"DB-CD", @"Cannot connect %@ using OpenVPN %@ because of added options",
-					  [self displayName], displayNameForOpenvpnName(versionToTry));
+			versionToTry = [[originalVersionToTry retain] autorelease];
+			while (  [[versionToTry substringToIndex: 3] compare: addedInMajorMinor] == NSOrderedAscending  ) {
+				
+				// Config has option(s) that were added. Try the next OpenVPN version IGNORING the requested SSL.
+				
+				NSUInteger ixOfNextHigherVersion = [versionNames indexOfObject: versionToTry] + 1;
+				if (  ixOfNextHigherVersion > [versionNames count]  ) {
+					break;
+				}
+				versionToTry = [versionNames objectAtIndex: ixOfNextHigherVersion];
 			}
-			NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatCannotConnectBecauseOfOpenVPNOptions"];
-			if (  ! [gTbDefaults boolForKey: key]  ) {
-				[gTbDefaults setBool: TRUE forKey: key];
-				NSString * problematicOptions =[addedOptionsInfo objectForKey: @"problematicOptions"];
+			
+			if (  [[versionToTry substringToIndex: 3] compare: addedInMajorMinor] == NSOrderedAscending) {
+				
+				// One or more options in the configuration file are not included in any version of OpenVPN in this copy of Tunnelblick
+				if (  connecting  )  {
+					TBLog(@"DB-CD", @"Cannot connect %@ because the configuration file includesone or more options that are not included in any OpenVPN version in this version of Tunnelblick",
+						  [self displayName]);
+				}
+				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
 				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								  [NSString stringWithFormat:
 								   NSLocalizedString(@"This VPN cannot be connected.\n\n"
 													 @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
 													 @"%@\n"
-													 @"None of the versions of OpenVPN included in this version of Tunnelblick include the option(s).",
+													 @"None of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\n"
+													 @"You should update the configuration so it can be used with modern versions of OpenVPN.",
 													 
 													 @"Window text."
 													 @" The first '%@' will be replaced by the name of a configuration."
-													 @" The second '%@' will be replaced by a list of names of OpenVPN options."),
+													 @" The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed."),
 								   [self displayName], problematicOptions]);
+				
+				return NSNotFound;
 			}
-			
-			return NSNotFound;
 		}
 	}
 	
 	// We have a version of OpenVPN that can be used. Warn if the configuration includes any deprecated options
 	
+	NSString * warningMessage1 = @"";
+
 	if (  removedAndDeprecatedOptionsInfo  ) {
 		NSString * deprecatedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"deprecatedInOpenvpnVersion"];
 		if (  [[versionToTry substringToIndex: 3] compare: deprecatedInMajorMinor] != NSOrderedAscending) {
@@ -2154,8 +2171,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			if (  ! [gTbDefaults boolForKey: key]  ) {
 				[gTbDefaults setBool: TRUE forKey: key];
 				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
-				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								  [NSString stringWithFormat:
+				warningMessage1 = [NSString stringWithFormat:
 								   NSLocalizedString(@"Warning: This VPN may not connect in the future.\n\n"
 													 
 													 @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
@@ -2173,11 +2189,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 													 @" The first '%@' will be replaced by the name of a configuration."
 													 @" The third '%@' will be replaced by a list of names of OpenVPN options, one on each line."
 													 @" The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
-								   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry)]);
+								   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry)];
 			}
 		}
 	}
 
+	NSString * warningMessage2 = @"";
+	
 	if (  [versionWanted isNotEqualTo: versionToTry]  ) {
 		NSLog(@"Configuration %@ will use OpenVPN %@ instead of %@",
 			  [self displayName], displayNameForOpenvpnName(versionToTry), displayNameForOpenvpnName(versionWanted));
@@ -2187,15 +2205,26 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 		NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatNotUsingSpecifiedOpenVPN"];
 		if (  ! [gTbDefaults boolForKey: key]  ) {
-			[gTbDefaults setBool: TRUE forKey: key];
-			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							  [NSString stringWithFormat:
+			warningMessage2 = [NSString stringWithFormat:
 							   NSLocalizedString(@"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@).",
 												 
 												 @"Window text."
 												 @" The first '%@' will be replaced by the name of a configuration."
 												 @" The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n"),
-							   [self displayName], displayNameForOpenvpnName(versionToTry), displayNameForOpenvpnName(versionWanted)]);
+							   [self displayName], displayNameForOpenvpnName(versionToTry), displayNameForOpenvpnName(versionWanted)];
+		}
+	}
+	
+	if (  [warningMessage2 length] != 0  ) {
+		if (  [warningMessage1 length] != 0  ) {
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							  [NSString stringWithFormat: @"%@\n\n%@", warningMessage2, warningMessage1]);
+		} else {
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), warningMessage2);
+		}
+	} else {
+		if (  [warningMessage1 length] != 0  ) {
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), warningMessage1);
 		}
 	}
 	
