@@ -886,11 +886,15 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * prefVersion = [gTbDefaults stringForKey: key];
     NSUInteger listIx;                              // Default to the first entry -- "Default (x.y.z)"
 
+	NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+	NSUInteger versionIx = [connection getOpenVPNVersionIxToUseConnecting: NO];
     if (  [prefVersion length] == 0  ) {
-        // Use default
-		listIx = 0;
+		if (  versionIx == [connection defaultVersionIxFromVersionNames: versionNames]  ) {
+			listIx = 0;
+		} else {
+			listIx = versionIx + 1; // + 1 to skip over the 1st entry (default)
+		}
 	} else {
-		NSUInteger versionIx    = [connection getOpenVPNVersionIxToUseConnecting: NO];
 		if (  versionIx == NSNotFound  ) {
 			listIx = 0; // Don't have a version of OpenVPN that will work with this configuration, so display it as using the default version of OpenVPN
 		} else if (  [prefVersion isEqualToString: @"-"]  ) {

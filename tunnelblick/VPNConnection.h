@@ -184,6 +184,8 @@ struct Statistics {
 
 -(void)             waitUntilCompletelyDisconnected;
 
+-(NSUInteger)		defaultVersionIxFromVersionNames: (NSArray *) versionNames;
+
 -(NSString *)       displayLocation;
 
 -(NSString *)       displayName;
