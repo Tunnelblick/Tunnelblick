@@ -76,6 +76,7 @@ oc6bOLFBXyEyrd3DpOjF
 -----END PUBLIC KEY-----
 </string>
 	<key>TBAppcastRequiresDSASignature</key>		<true/>
+	<key>TBBuildTimestamp</key>                 	<string>TBBUILDTIMESTAMP</string>
 	<key>TBGitHash</key>							<string>TBGITHASH</string>
 	<key>TBGitStatus</key>							<string>TBGITSTATUS</string>
 	<key>TBPrivacyURL</key>							<string>https://tunnelblick.net/cPrivacy.html#tunnelblick-privacy</string>
