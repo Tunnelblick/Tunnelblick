@@ -50,6 +50,8 @@
 // So we use 90 to give ourself some breathing room (to allow CR-LF at the end, for example, although ipinfo currently doesn't return one).
 #define TUNNELBLICK_DOT_NET_IPINFO_RESPONSE_MAX_LENGTH 90
 
+#define SECONDS_PER_DAY ( 24 * 60 * 60 )
+
 // Maximum hotKey index
 #define MAX_HOTKEY_IX 12
 
