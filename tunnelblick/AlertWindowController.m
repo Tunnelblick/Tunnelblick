@@ -40,6 +40,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString *,			  headline,			      setHeadline)
 TBSYNTHESIZE_OBJECT(retain, NSString *,			  message,			      setMessage)
 TBSYNTHESIZE_OBJECT(retain, NSAttributedString *, messageAS,		      setMessageAS)
 TBSYNTHESIZE_OBJECT(retain, NSString *,			  preferenceToSetTrue,    setPreferenceToSetTrue)
+TBSYNTHESIZE_OBJECT(retain, NSString *,			  preferenceName,         setPreferenceName)
+TBSYNTHESIZE_OBJECT(retain, id,					  preferenceValue,        setPreferenceValue)
 TBSYNTHESIZE_OBJECT(retain, NSString *,			  checkboxTitle,          setCheckboxTitle)
 TBSYNTHESIZE_OBJECT(retain, NSAttributedString *, checkboxInfoTitle,      setCheckboxInfoTitle)
 TBSYNTHESIZE_OBJECT(retain, TBButton *,           doNotWarnAgainCheckbox, setDoNotWarnAgainCheckbox)
@@ -83,10 +85,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, okButton)
 	
     (void) notification;
 
-	if (  preferenceToSetTrue  ) {
-		if (  [doNotWarnAgainCheckbox state] == NSOnState  ) {
+	if (  [doNotWarnAgainCheckbox state] == NSOnState  ) {
+		if (  preferenceToSetTrue  ) {
 			[gTbDefaults setBool: TRUE forKey: preferenceToSetTrue];
 		}
+		
+		if (   preferenceName
+			&& preferenceValue  ) {
+			[gTbDefaults setObject: preferenceValue forKey: preferenceName];
+		}
+		
 	}
 	
 	[self autorelease];
@@ -190,7 +198,9 @@ float heightForStringDrawing(NSString *myString,
 
 -(void) setupCheckboxWithHeightChange: (CGFloat) heightChange {
 	
-	if (  ! preferenceToSetTrue  ) {
+	if (   ( ! preferenceToSetTrue )
+		&& ( ! (   preferenceName
+				&& preferenceValue))) {
 		[doNotWarnAgainCheckbox setHidden: TRUE];
 		return;
 	}

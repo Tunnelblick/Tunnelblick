@@ -211,6 +211,8 @@ extern TBUserDefaults * gTbDefaults;
 	TBShowAlertWindowExtended(nilIfNSNull([dict objectForKey: @"title"]),
 							  nilIfNSNull([dict objectForKey: @"msg"]),
 							  nilIfNSNull([dict objectForKey: @"preferenceToSetTrue"]),
+							  nilIfNSNull([dict objectForKey: @"preferenceName"]),
+							  nilIfNSNull([dict objectForKey: @"preferenceValue"]),
 							  nilIfNSNull([dict objectForKey: @"checkboxTitle"]),
 							  nilIfNSNull([dict objectForKey: @"checkboxInfoTitle"]),
 							             [[dict objectForKey: @"checkboxIsOn"] boolValue]);

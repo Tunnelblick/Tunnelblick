@@ -92,6 +92,8 @@ AlertWindowController * TBShowAlertWindow(NSString * title,
 AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 												  id				   msg, // NSString or NSAttributedString only
 												  NSString			 * preferenceToSetTrue,
+												  NSString			 * preferenceName,
+												  id				   preferenceValue, // any object
 												  NSString			 * checkboxTitle,
 												  NSAttributedString * checkboxInfoTitle,
 												  BOOL				   checkboxIsOn);

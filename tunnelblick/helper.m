@@ -388,6 +388,8 @@ NSString * defaultOpenVpnFolderName (void) {
 AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 												  id				   msg, // NSString or NSAttributedString only
 												  NSString			 * preferenceToSetTrue,
+												  NSString			 * preferenceName,
+												  id				   preferenceValue,
 												  NSString			 * checkboxTitle,
 												  NSAttributedString * checkboxInfoTitle,
 												  BOOL				   checkboxIsOn) {
@@ -416,17 +418,31 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	//			If nil, "checkboxTitle" defaults to "Do not warn about this again".
 	//			If nil, "checkboxInfoTitle" defaults to
 	//				    "When checked, Tunnelblick will not show this warning again. When not checked, Tunnelblick will show this warning again."
-	
+	//
+	// If "preferenceName" and "preferenceValue are both not nil:
+	//
+	//		A checkbox will be displayed and the preference "preferenceName" will be set to the preferenceValue when the window is
+	//		closed if the checkbox had a check in it at the time the window was closed (via the "OK" button, the close button, or the ESC key).
+	//
+	//			The title of the checkbox will be the string in "checkboxTitle", the infoTitle will be the string in
+	//			"checkboxInfoTitle", and the checkbox will be checked if "checkboxIsOn" is true.
+	//
+	//			If nil, "checkboxTitle" defaults to "Do not warn about this again".
+	//			If nil, "checkboxInfoTitle" defaults to
+	//				    "When checked, Tunnelblick will not show this warning again. When not checked, Tunnelblick will show this warning again."
+
 	// Always show the alert window on the main thread
 	if ( ! [NSThread isMainThread]  ) {
-        NSDictionary * dict =  [NSDictionary dictionaryWithObjectsAndKeys:
-							   NSNullIfNil(title),               @"title",
-							   NSNullIfNil(msg),                 @"msg",
-							   NSNullIfNil(preferenceToSetTrue), @"preferenceToSetTrue",
-							   NSNullIfNil(checkboxTitle),       @"checkboxTitle",
-							   NSNullIfNil(checkboxInfoTitle),   @"checkboxInfoTitle",
-							   [NSNumber numberWithBool: checkboxIsOn], @"checkboxIsOn",
-							   nil];
+		NSDictionary * dict =  [NSDictionary dictionaryWithObjectsAndKeys:
+								NSNullIfNil(title),               @"title",
+								NSNullIfNil(msg),                 @"msg",
+								NSNullIfNil(preferenceToSetTrue), @"preferenceToSetTrue",
+								NSNullIfNil(preferenceName),	  @"preferenceName",
+								NSNullIfNil(preferenceValue),	  @"preferenceName",
+								NSNullIfNil(checkboxTitle),       @"checkboxTitle",
+								NSNullIfNil(checkboxInfoTitle),   @"checkboxInfoTitle",
+								[NSNumber numberWithBool: checkboxIsOn], @"checkboxIsOn",
+								nil];
         [UIHelper performSelectorOnMainThread: @selector(showAlertWindow:) withObject: dict waitUntilDone: NO];
         return nil;
     }
@@ -442,6 +458,8 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 
 	[awc setHeadline:			 title];
 	[awc setPreferenceToSetTrue: preferenceToSetTrue];
+	[awc setPreferenceName:      preferenceName];
+	[awc setPreferenceValue:     preferenceValue];
 	[awc setCheckboxTitle:       checkboxTitle];
 	[awc setCheckboxInfoTitle:   checkboxInfoTitle];
 	[awc setCheckboxIsChecked:   checkboxIsOn];
@@ -466,7 +484,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 AlertWindowController * TBShowAlertWindow (NSString * title,
 										   id         msg) {
 	
-	return TBShowAlertWindowExtended(title, msg, nil, nil, nil, NO);
+	return TBShowAlertWindowExtended(title, msg, nil, nil, nil, nil, nil, NO);
 
 }
 

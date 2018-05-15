@@ -29,6 +29,8 @@
     NSString                    * message;
 	NSAttributedString			* messageAS;
 	NSString					* preferenceToSetTrue;
+	NSString					* preferenceName;
+	id							  preferenceValue;
 	NSString					* checkboxTitle;
 	NSAttributedString			* checkboxInfoTitle;
 	BOOL					      checkboxIsChecked;
@@ -52,6 +54,8 @@ TBPROPERTY(NSString *,           headline,            setHeadline)
 TBPROPERTY(NSString *,           message,             setMessage)
 TBPROPERTY(NSAttributedString *, messageAS,           setMessageAS)
 TBPROPERTY(NSString *,           preferenceToSetTrue, setPreferenceToSetTrue)
+TBPROPERTY(NSString *,           preferenceName,      setPreferenceName)
+TBPROPERTY(id,                   preferenceValue,     setPreferenceValue)
 TBPROPERTY(NSString *,           checkboxTitle,       setCheckboxTitle)
 TBPROPERTY(NSAttributedString *, checkboxInfoTitle,   setCheckboxInfoTitle)
 TBPROPERTY(BOOL,                 checkboxIsChecked,   setCheckboxIsChecked)
