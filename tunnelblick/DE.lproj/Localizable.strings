@@ -417,6 +417,9 @@
 "Do not warn about this again" = "Nicht mehr darauf hinweisen";
 
 /* Checkbox name */
+"Do not warn about this for %lu days" = "Warnung für %lu Tage nicht mehr anzeigen";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "IPv6 aktivieren (nur Tap)";
 
 /* Checkbox name */
@@ -669,6 +672,9 @@
 "System Requirements Not Met" = "Systemvoraussetzungen nicht erfüllt";
 
 /* Window title */
+"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ muss möglicherweise aktualisiert werden";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick-Konfigurationsproblem";
 
 /* Window title */
@@ -861,6 +867,9 @@
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Basierend auf Tunnelblick, kostenlos verfügbar unter<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN ist eine eingetragene Marke der OpenVPN Technologies, Inc.";
 
 /* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Diese Version von Tunnelblick ist %lu Tage alt.</p><p>Bitte überprüfen Sie, ob es eine neuere Version gibt.</p>-<ul>-<li>Entweder manuell im Fenster \"Einstellungen\" unter \"VPN Details\"; oder<br></li><li> auf der <a href=\"https://tunnelblick.net/downloads.html\">-Tunnelblick Downloads Seite</a> [tunnelblick.net].</li>-</ul>";
+
+/* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Ein TBPreference oder TBAlwaysSetPreference Schlüssel zeigt auf unbekannte Einstellung '%1$@' in %2$@";
 
 /* Window text */
@@ -1011,7 +1020,7 @@
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Die Konfiguration '%@' ist nicht updatebar, da sie nicht als 'updatebar' gekennzeichnet werden konnte.\n";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Configuration '%1$@' requires Tunnelblick %2$@ or higher; you are using Tunnelblick %3$@.\n\nYou must update Tunnelblick to install this configuration.";
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Die Konfiguration '%1$@' benötigt Tunnelblick %2$@ or höher; sie nutzen Tunnelblick %3$@.";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfiguration '%1$@' benötigt Tunnelblick %2$@ oder niedriger; Sie benutzen Tunnelblick %3$@.";
@@ -1553,12 +1562,6 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Diese 'Ausgelieferte' Version von Tunnelblick kann nicht gestartet oder installiert werden, da sie keine Info.plist besitzt.\n\n";
 
-/* Window text. The '%@' will be replaced by the name of a configuration */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Dieses VPN kann nicht verbunden werden.\n\nDie OpenVPN-Konfigurationsdatei für \"%@\" enthält widersprüchliche OpenVPN-Optionen.\n\nDas heißt, eine oder mehr Optionen sind nur in alten Versionen von OpenVPN verfügbar und eine oder mehr Optionen sind nur in modernen Versionen von OpenVPN verfügbar. Keine Version von OpenVPN wird all die Optionen in der Konfigurationsdatei akzeptieren.\n\nSie sollten die Konfiguration aktualisieren, damit sie mit modernen Versionen von OpenVPN genutzt werden kann.";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "Dieses VPN kann nicht verbunden werden.\n\nDie OpenVPN Konfigurationsdatei für \"%1$@\" enthält die folgenden OpenVPN Optionen:\n\n%2$@\nKeine der Versionen von OpenVPN, die in dieser Version von Tunnelblick enthalten sind, beinhaltet diese Option(en).";
-
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Dieses VPN kann nicht verbunden werden.\n\nDie OpenVPN Konfigurationsdatei für \"%1$@\" enthält die folgenden OpenVPN Optionen:\n\n%2$@\nKeine der Versionen von OpenVPN, die in dieser Version von Tunnelblick enthalten sind, beinhaltet diese Option(en).\n\nSie sollten die Konfiguration aktualisieren, damit sie mit modernen Versionen von OpenVPN genutzt werden kann.";
 
@@ -2020,6 +2023,12 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick OpenVPN anweisen, allen Datenverkehr durch IPv4 zu routen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird OpenVPN standardmäßig das VPN nur für den Verkehr nutzen, dessen Ziel das VPN-Netzwerk ist. Anderer Datenverkehr wird das normale Internet benutzen, ohne durch das VPN zu gehen. Das Standardverhalten von OpenVPN kann durch die OpenVPN-Konfiguration oder den VPN-Server beeinflusst werden, so dass aller IPv4-Traffic durch den VPN-Server geroutet wird, als wäre diese Checkbox ausgewählt worden. </p>\n \nContext | Request Context\n";
+
+/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick die Warnung für %lu Tage nicht mehr anzeigen.</p>\n<p><strong>Falls nicht ausgewählt</strong>,wird Tunnelblick diese Warnung bei jedem Start anzeigen.</p>";
+
+/* HTML info for the 'Do not warn about this again' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick diese Warnung nicht wieder anzeigen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird Tunnelblick diese Warnung wieder anzeigen.</p>\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick die Freigabe eines Administrators benötigen, um Änderungen an den Key- und Zertifikatsdateien vorzunehmen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, kann ein Standardbenutzer Änderungen an den Key- und Zertifikatsdateien vornehmen.</p><p><strong>Hinweis: Es wird Freigabe eines Administrators benötigt, um diese Einstellung zu ändern.</strong></p>";

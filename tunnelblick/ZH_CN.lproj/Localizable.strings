@@ -95,10 +95,19 @@
 "Delete" = "删除";
 
 /* Button */
+"Disable network access" = "停止网络访问";
+
+/* Button */
 "Disconnect" = "断开连接";
 
 /* Button */
+"Do Not Re-enable Network Access" = "不要重新打开网络访问";
+
+/* Button */
 "Do not use the plugin" = "不使用此插件";
+
+/* Button */
+"Do nothing" = "无操作";
 
 /* Button */
 "Download" = "下载";
@@ -132,6 +141,9 @@
 
 /* Button */
 "Monochrome icon" = "单色图标";
+
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "更多信息[%@]";
 
 /* Button */
 "More Info" = "更多信息";
@@ -175,6 +187,10 @@
 /* Button */
 "Quit" = "退出";
 
+/* Button
+   Menu item */
+"Re-enable Network Access" = "重新打开网络访问";
+
 /* Button */
 "Reinstall" = "重新安装";
 
@@ -188,6 +204,9 @@
 "Reset Disabled Warnings" = "重置被禁用的警告信息";
 
 /* Button */
+"Reset primary interface" = "重置主要接口";
+
+/* Button */
 "Restart connection" = "重新建立连接";
 
 /* Button */
@@ -197,7 +216,13 @@
 "Retry" = "重试";
 
 /* Button */
+"Revert to the Last Secured Copy" = "撤回到最后的加密副本";
+
+/* Button */
 "Revert" = "重置";
+
+/* Button */
+"Secure the Configuration" = "加密配置";
 
 /* Button */
 "Show on default screen (%u x %u)" = "在默认屏幕 (%1$u x %2$u) 上显示";
@@ -207,6 +232,9 @@
 
 /* Button */
 "Show when connection status changes" = "当连接状态改变时显示";
+
+/* Button */
+"Show while connecting and connected" = "在连接中和已连接时显示";
 
 /* Button */
 "Show while connecting" = "当建立连接时显示";
@@ -302,10 +330,10 @@
 "OpenVPN level 3 - normal output" = "OpenVPN 日志等级 3 - 一般输出";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN 日志等级 4 - 同时输出所有选项的值";
+"OpenVPN level 4 - values for all options" = "OpenVPN 日志等级 4 - 所有选项的值";
 
 /* Menu Item */
-"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN 日志等级 5 - 同时输出每一个包的 \"R\" or \"W\"";
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN 日志等级 5 - 每一个包的 \"R\" or \"W\"";
 
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPN 日志等级 6 - 非常详细的输出";
@@ -376,9 +404,6 @@
 /* Checkbox name */
 "Do not ask again, always convert" = "不再询问, 总是 ‘转换’ ";
 
-/* Checkbox name on a warning dialog */
-"Do not show again for any configuration" = "不再显示";
-
 /* Checkbox name */
 "Do not show this type of warning again" = "不再显示此类警告信息";
 
@@ -390,6 +415,9 @@
 
 /* Checkbox name */
 "Do not warn about this again" = "不再发出此警告";
+
+/* Checkbox name */
+"Do not warn about this for %lu days" = "在%lu天内不要再警告";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "启用 IPv6 (仅 Tap)";
@@ -420,9 +448,6 @@
 
 /* Checkbox name */
 "Require administrator authorization for key and certificate changes" = "变更密钥和证书时需要管理员权限";
-
-/* Checkbox name */
-"Reset the primary interface after disconnecting" = "断开连接后重置计算机的主要网络接口";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "通过 VPN 路由所有的 IPv4 流量";
@@ -548,9 +573,6 @@
 "Alert" = "警告";
 
 /* Window title */
-"All OpenVPN process were terminated." = "所有 OpenVPN 进程已经被终止.";
-
-/* Window title */
 "All configuration files removed" = "所以配置文件都已删除";
 
 /* Window title */
@@ -620,9 +642,6 @@
 "No Credentials" = "没有认证信息";
 
 /* Window title */
-"One or more OpenVPN processes could not be terminated." = "一个或多个 OpenVPN 进程无法被终止.";
-
-/* Window title */
 "Only computer administrators should update Tunnelblick" = "只有计算机管理员可以更新 Tunnelblick";
 
 /* Window title */
@@ -653,19 +672,13 @@
 "System Requirements Not Met" = "未满足对系统的要求";
 
 /* Window title */
-"There are no OpenVPN processes running." = "当前没有正在运行的OpenVPN 进程";
+"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ 可能需要更新";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 配置错误";
 
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick 错误";
-
-/* Window title */
-"Tunnelblick Installation or Update" = "Tunnelblick 安装或更新";
-
-/* Window title */
-"Tunnelblick Update" = "Tunnelblick 更新";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -808,8 +821,8 @@
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ 被重置为它的上一个安全副本.\n\n";
 
-/* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
-"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Tunnelblick 是自由软件：你可以使用它，重新分发它，和/或在由自由软件基金会颁布的 GPL v2 的条款规定下修改它。\n\nTunnelblick 免费提供使用，不提供没有任何形式的保障。Tunnelblick 和它的作者们不承担在使用 Tunnelblick 或任何第三方修改过后的 Tunnelblick 时带来的损害的责任。详情请参阅 GPLv2。\n\n如果你同意这些条款，那么你的回复将会被匿名地发送到 %2$@，并且你会被请求授权，这样 Tunnelblick 可以安全地安装或更新。";
+/* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n注意：Tunnelblick正在以管理员模式运行，所以不需要管理员授权。";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld 配置己经被重置为最后一次安全(影子) 拷贝.\n\n";
@@ -818,10 +831,16 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' 已经在桌面存在.\n\n你想要取得它吗?";
 
 /* Window text */
+"'%@' at line %u was not terminated properly" = "行%2$u的'%1$@'没有正确结束";
+
+/* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' 没有任何认证信息 (私人密钥, 或用户名和密码) 存储在钥匙串中.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' 没有终结符";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' 将采用 OpenVPN %2$@ 连接而不是被要求的版本 (OpenVPN %3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' 被忽略，因为它没有指定一个文件夹";
@@ -846,6 +865,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>基于 Tunnelblick, 可在 <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a> 下载到的自由软件. <br><br>OpenVPN 是 OpenVPN 技术股份有限公司的注册商标.";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>此版本的Tunnelblick已发布%lu天。</p><p>请检查新版本：</p><ul><li>手动检查：在Tunnelblick中VPN详情窗口的偏好面板，或者：<br></li><li>查看<a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick下载页面</a> [tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "在 %2$@ 中，一个 TBPreference 或 TBAlwaysSetPreference 的密钥引用到一个未知的首选项 '%1$@'";
@@ -894,6 +916,9 @@
 
 /* Window text */
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "连接到 VPN  %@ 后, 似乎无法连接到 internet .\n\n可能原因是你的 VPN 没有正确配置.\n\n";
+
+/* Window text */
+"All OpenVPN processes have quit" = "所有 OpenVPN 进程已退出";
 
 /* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "所有的配置文件已经删除. Tunnelblick 必须退出了.";
@@ -962,6 +987,9 @@
 "Backslash at end of line %u is not allowed" = "不允许在 %u 的行末使用反斜杠";
 
 /* Window text */
+"Cancelled trying to quit all OpenVPN processes" = "取消尝试退出所有 OpenVPN 进程";
+
+/* Window text */
 "Cannot find configuration file at %@" = "在 %@ 找不到配置文件";
 
 /* Window text */
@@ -990,6 +1018,12 @@
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "配置文件 '%@' 是不能自动更新的，因为它不能被标记为为 '可自动更新的'\n";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "选项 '%1$@' 需要 Tunnelblick %2$@ 或更低的版本，您在使用Tunnelblick %3$@.\n\n要安装此配置文件，您需要升级 Tunnelblick。";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "选项 '%1$@' 需要 Tunnelblick %2$@ 或更低的版本，您在使用Tunnelblick %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "配置 '%1$@'将会被忽略，因为它的名字里含有禁止的字符.\n\n不合法的字符是: '%2$s'\n\n";
@@ -1150,9 +1184,6 @@
 /* Window text */
 "Icon:" = "图标:";
 
-/* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
-"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "如果勾选了 \"检查更新\"，当 Tunnelblick 运行时，将会定期访问 %1$@ 以获得更新的信息。你可以稍后去变更改设置。\n\n如果勾选了 \"检查 IP 地址的变更\" ，在连接 VPN 之前或之后，Tunnelblick 将会访问 %2$@ 以获取此电脑的对外显示 IP ，如果对外的 IP 没有变动将会发出警告。你可以稍后去变更改设置。\n\n\n";
-
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "在 %@ 中:\n\n没有 OpenVPN 配置可以安装";
 
@@ -1195,9 +1226,6 @@
 /* Window text */
 "Last checked: %@" = "上一次查看: %@";
 
-/* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
-"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "许可证：\n     %1$@\n自由软件基金会：\n     %2$@\nTunnelblick 隐私协议：\n     %3$@\n\n";
-
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "文件 '%2$@' 中的 %1$d 行不能含有一个非打印字符 (0x%3$X)\n\n";
 
@@ -1237,6 +1265,15 @@
 /* Window text */
 "NetBIOS name:" = "NetBIOS 名字:";
 
+/* Window text; the %@ will be replaced by a list of configuration names. */
+"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "因为某些或全部被选配置包括 ‘用户’ 和／或 ‘组’ 选项，所以断开连接后该配置无法停止网络访问。这些选项会导致 OpenVPN 断开连接的时候不以 root 运行，所以不能停止网络访问。\n\n包括 ‘用户’ 和／或 ‘组’ 的配置是:\n\n%@\n\n";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected." = "VPN 断开连接的时候网络访问被停止了。";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "VPN 断开连接的时候网络访问被停止了。\n\n你想重新连上网络吗？\n\n";
+
 /* Window text */
 "Network setting" = "网络选项";
 
@@ -1271,6 +1308,12 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "不替换现有的配置，所以配置 ' %@' 不能使用 'TBKeepExistingFilesList'";
 
 /* Window text */
+"On expected disconnect:" = "故意断开连接：";
+
+/* Window text */
+"On unexpected disconnect:" = "意外断开连接：";
+
+/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "一个或多个 OpenVPN 的进程正在运行，但 Tunnelblick 并不知情. 如果你没有单独地运行 OpenVPN 进程, 这个状况可能由于之前运行的 Tunnelblick 程序并没有正确地被关闭. OpenVPN 进程的存在干扰了 Tunnelblick 的运作. 你确定要强制终止所有 OpenVPN 的进程吗?";
 
 /* Window text */
@@ -1303,11 +1346,8 @@
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN 不响应请求断开 %@ 的连接\n\n当 OpenVPN 开始响应断开连接的请求时，Tunnelblick 将会断开连接。\n\n在这种意料之外的情况下，这将需要 2 分钟。\n\n当它断开连接时，该连接将不可用。";
 
-/* Window text */
-"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN 版本 %1$@ 不可用. 请更改它的配置文件去使用已经包含在此版本之内的 Tunnelblick 的最新的版本 (%2$@)";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN 版本 %1$@ 不可用. 请使用最新的版本 (%2$@) 作为默认值.";
+/* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
+"OpenVPN version %@ is not available. Using %@ as the default." = "OpenVPN 版本 %1$@ 不齐备。将使用 %2$@ 作为默认版本。";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN 版本:";
@@ -1423,8 +1463,14 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = " 'namedCredentialsNames' 的偏好设置必须一个字符串的数组";
 
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "'%@' 的配置文件在上次锁定后被修改。\n\n你想锁定被修改的配置还是归回上次锁定的配置？\n\n";
+
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "在OpenVPN 配置文件 %1$@ 中包含 ' %2$@' 选项。它是一个仅限于Windows 使用的选项，不能用在 OS X 上。";
+
+/* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN 日记包括以下信息：\n\n\"%1$@\".%2$@";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "OpenVPN 日志不存在或已被删除.";
@@ -1490,6 +1536,9 @@
 "There are no OpenVPN configurations to install." = "没有可安装的OpenVPN 配置";
 
 /* Window text */
+"There are no OpenVPN processes running" = "已经没有任何 OpenVPN 进程正在运行了";
+
+/* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "没有已安装的 VPN 配置.\n\nTunnelblick 需要一个或多个已安装的配置才能连接 VPN. 配置文件通常会由你的网络管理员或 VPN 服务提供者提供. 这些文件必须安装到 Tunnelblick 才能使用.\n\n配置文件的后缀包括 .tblk, .ovpn, 或 .conf.\n\n(其它相关文件会有不同后缀; 暂时不要理会这些文件.)\n\n你有配置文件吗?\n";
 
 /* Window text */
@@ -1513,6 +1562,9 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "因为缺少 Info.plist 文件，部署版的 Tunnelblick 不能启动或安装.\n\n";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "这个 VPN 无法连接。\n\n'%1$@' 的 OpenVPN 配置文件里有以下 OpenVPN 选项：\n\n%2$@\n这个 Tunnelblick 版本包含的任何 OpenVPN 版本都不接受以上选项。\n\n你应该要修改配置以保证 OpenVPN 的先进版本能够采用。";
+
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "这个计算机的对外显示 IP 在连接到 %1$@ 后并没有改变. 仍然是 %2$@.\n\n这个说明了你的 VPN 可能没有配置正确.\n\n";
 
@@ -1528,9 +1580,6 @@
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "因为你安装了旧版本的部署版 Tunnelblick, 而这个版本的 Tunnelblick 并不是’部署版’, 所以 Tunnelblick 无法启动或安装 .\n\n";
 
-/* Window text. The %@ is an Internet address like 'tunnelblick .net' */
-"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "如果需要使用 Tunnelblick，你必须标明你已经接受和同意指定的条款，请勾选以下复选框 \"我接受并同意上述\"。\n\n如果你已勾选了，并且按了 \"继续\"，%@ 将会遵循 Tunnelblick 的隐私协议去匿名访问，并且你也可以安装、更新和使用 Tunnelblick 。\n\n如果你没有勾选，那么你无法安装、更新和使用 Tunnelblick。\n\n\n";
-
 /* Window text */
 "Too many configuration files in '%@'" = "在 '%@' 里有太多配置文件了";
 
@@ -1540,6 +1589,9 @@
 /* Window text */
 "Translation by" = "翻译：";
 
+/* Window text */
+"Trying to quit all OpenVPN processes..." = "尝试退出所有 OpenVPN 进程...";
+
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
 "Tunnelblick %@ has been secured successfully." = "Tunnelblick %@的安全配置已经完成.";
 
@@ -1547,10 +1599,16 @@
 "Tunnelblick %@ is ready." = "Tunnelblick%@ 已经就绪。";
 
 /* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick 管理模式\n\n 临时的授权变更需要输入管理员的密码\n\n 本会话会在五分钟后过期，或，当 ' VPN 详情' 窗口关闭时";
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick 管理模式\n\n 临时管理员授权变更需要输入管理员密码。\n\n 本会话会在五分钟后过期，或，当 ' VPN 详情' 窗口关闭时";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick 的互联网行为:";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check for updates when it is launched and periodically while it is running.\n\n" = "Tunnelblick 能在启动时以及运行中定期访问 %@ 查找更新。\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick 能访问 %@ 查证你的电脑的公开 IP 地址每次连接 VPN 时都会改变。\n\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick 不能被配置为在你登陆系统后自动启动";
@@ -1646,7 +1704,7 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick 需要创建或更新一个配置文件的安全副本.";
 
 /* Window text */
-"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick 需要进行一个需要管理员授权的操作.\n";
+"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick 需要进行需要管理员授权方可进行的操作.\n";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick 需要:\n";
@@ -1680,6 +1738,12 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick 无法启动 OpenVPN 连接到 %@. 详情请查看控制台日志…";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check for updates when it is launched and periodically while it is running. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick 会在启动时以及运行中定期访问 %@ 查找更新。联系这份 Tunnelblick 的配送者取得详情。\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick 会访问 %@ 查证你的电脑的公开 IP 地址每次连接 VPN 时都会改变。联系这份 Tunnelblick 的配送者取得详情。\n\n";
 
 /* Window text */
 "Unable to Establish Communication" = "未能建立通讯";
@@ -1783,6 +1847,9 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "警告: 未能重命名一个或多个偏好. 详情请查看控制台日志.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "警告：这个 VPN 未来可能无法连接。\n\n'%1$@' 的 OpenVPN 配置文件里有以下 OpenVPN 选项：\n\n%2$@\n你应该要修改配置以保证 OpenVPN 的先进版本能够采用。\n\nTunnelblick 将使用 OpenVPN %3$@ 连接这个配置。\n\n不过，未来的 Tunnelblick 版本不一定包含一个能接受以上选项的 OpenVPN 版本。你将无法用这样的 Tunnelblick 版本来连接这个 VPN。";
+
 /* Window text */
 "Warnings:" = "警告:";
 
@@ -1853,7 +1920,7 @@
 "You may not remove a configuration which is set to start when the computer starts." = "你不能移除一个被设置为开机自动启动的配置文件";
 
 /* Window text */
-"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "更新 Tunnelblick 之后, 你必须提供计算机管理员的用户名和密码, 才能继续使用 Tunnelblick.\n\n你确定想要查找更新吗?";
+"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "你必须提供计算机管理员的用户名和密码, 才能继续升级 Tunnelblick.\n\n你确定想要查找更新吗?";
 
 /* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "您的计算机或许无法保证 Tunnelblick 图标能在搜索图标附近显示。\n\n该选项或许导致 Tunnelblick 图标有时从菜单栏消失。\n\n您确定要设定 Tunnelblick 图标置于搜索图标附近吗？\n\n";
@@ -1883,6 +1950,9 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\n注意: 一个或多个配置文件现在正在连接中。他们将会被断开，任何安装/替换/卸载的动作将会被执行，除非配置文件被卸载，否则所有的配置文件将会重新连接\n\n";
 
 /* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\n这个错误意味着 OpenVPN 配置文件包含的或 OpenVPN 服务器“推”的选项：\n\n     • 拼错了，\n\n     • 有缺少的或多余的参数，或\n\n     • 这个配置采用的 OpenVPN 版本不实现。也许是旧版本 OpenVPN 不实现的新的选项，也许是新版本 OpenVPN 已经去除的旧的选项。你可以在 TunnelBlick 的 “VPN 详情” 窗口中的 “配置” 面板中的 “选项” 标签页中选择这个配置要用什么 OpenVPN 版本。\n\n另见 Tunnelblick 的 “VPN 详情” 窗口中的 “配置” 面板中的 “日记” 标签页中的 VPN 日记获得详细信息。";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\n安装 %ld Tunnelblick VPN 配置";
 
 /* Window text */
@@ -1906,8 +1976,29 @@
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d 天 %2$d:%3$02d:%4$02d";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+"'%@' was added in OpenVPN %@\n" = "'%1$@' 选项在 OpenVPN %2$@ 版本添加\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' 选项是在 OpenVPN %2$@ 版本已不推荐使用以及在 OpenVPN %3$@ 版本完全去除了\n";
+
 /* Credit description */
 "64-bit enabling and testing" = "64位程序的实现和测试";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>指定连接 VPN 应该使用的 OpenVPN 和 SSL 软件版本。</strong><ul><li><strong>“默认”选项</strong>将使用这个 Tunnelblick 版本包含的默认 OpenVPN 与 OpenSSL 版本。不同的 Tunnelblick 版本的默认可能不一样。<br></li><li><strong>“最新”选项</strong>将使用这个 Tunnelblick 版本包含的最新 OpenVPN 与 LibreSSL 版本。不同的 Tunnelblick 版本的最新版本可能不一样。<br></li><li><strong>任何其他的选项</strong>将使用指定的 OpenVPN 与 SSL 软件，只要这个 Tunnelblick 版本有包含。如果没有包含的话，最接近的搭配将被使用。<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>指定 VPN 连接的时候 Tunnelblick 要做什么。</strong> 选项是：<ul><li><strong>不要设定域名服务器</strong>：什么都不做。<br></li><li><strong>设定域名服务器</strong>：Tunnelblick 采用标准的脚本处理 DNS 和 WINS 设置。这个一般是最好的选择。该脚本按照 OpenVPN 提供的指令改变 DNS 和 WINS 设置。手动设定的 DNS 和 WINS 设置不会改变，除非 “高级” 设置窗口里已经设定了 “允许改变手动设定的网络设置”。<br></li><li><strong>设定域名服务器 （3.1）</strong>：Tunnelblick 采用 3.1 版本的脚本处理 DNS 和 WINS 设置。<br></li><li><strong>设定域名服务器 （3.0b10）</strong>：Tunnelblick 采用 3.0b10 版本的脚本处理 DNS 和 WINS 设置。<br></li><li><strong>设定域名服务器 （备用 1）</strong>：Tunnelblick 采用另外的脚本处理 DNS 和 WINS 设置。<br></li></ul>";
+
+/* HTML info for the 'On unexpected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>指定 VPN <em>意外</em>断开连接的时候 Tunnelblick 要做什么。</strong> (比如，OpenVPN 崩溃或失去连接以及设定为失去连接时要停止)。选项是：</p><ul><li><strong>什么都不做</strong><br></li><li><strong>重置主要借口</strong>: Tunnelblick 发送 'ipconfig down; ipconfig up' 命令给主要网络接口以重置该借口。这个选项有助于配置断开后不完美地恢复网络设置的情况。<br></li><li><strong>停止网络访问 (\"急停按钮\")</strong>: Tunnelblick 关闭无线网络，停用所有其他的网络服务，来断开所有网络访问（包括局部和互联网）。这个选项有助保证，除了通过 VPN 以外没有信息能够从电脑透露出去。如果 Tunnelblick 已经停止了网络访问，菜单行里的 Tunnelblick 图标菜单中会出现一个命令，该命令能够重新打开所有被停用的网络服务。你也可以在系统选项的网络选项中重新打开无线网络或其他的网络服务。<strong>在多于一个 VPN 同时连接的时候，这个选项可能不能正常工作。</strong></li></ul>";
+
+/* HTML info for the 'On expected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>指定 VPN <em>故意</em>断开连接的时候 Tunnelblick 要做什么。</strong> (比如，点击“断开”菜单选项或按钮)。选项是：</p><ul><li><strong>什么都不做</strong><br></li><li><strong>重置主要借口</strong>: Tunnelblick 发送 'ipconfig down; ipconfig up' 命令给主要网络接口以重置该借口。这个选项有助于配置断开后不完美地恢复网络设置的情况。<br></li><li><strong>停止网络访问 (\"急停按钮\")</strong>: Tunnelblick 关闭无线网络，停用所有其他的网络服务，来断开所有网络访问（包括局部和互联网）。这个选项有助保证，除了通过 VPN 以外没有信息能够从电脑透露出去。如果 Tunnelblick 已经停止了网络访问，菜单行里的 Tunnelblick 图标菜单中会出现一个命令，该命令能够重新打开所有被停用的网络服务。你也可以在系统选项的网络选项中重新打开无线网络或其他的网络服务。<strong>在多于一个 VPN 同时连接的时候，这个选项可能不能正常工作。</strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>指定 Tunnelblick 要什么时候连接 VPN。</strong></p><p>“在电脑驱动时”选项只能用于“分享”的配置。</p>";
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>选中时</strong>将停用IPV6</p>\n<p>当某些VPN配置会泄漏信息时，请关闭IPv6。多数网络配置在没有IPv6的时候也可以正常工作</p>\n<p><strong>不选中此项时</strong>IPv6不会被关闭。</p>\n<p><strong>在使用tap时</strong> 此项不可用。因为它与tap冲突</p>";
@@ -1933,11 +2024,14 @@
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>当勾选时</strong>，Tunnelblick 将会让 OpenVPN 路由所有的 IPv4 流量通过 VPN 服务器。</p>\n<p><strong>当没有勾选是</strong>，默认地，OpenVPN 将会只路由那些指定通过 VPN 的流量。所有另外的流量将会使用正常的互联网连接而不是通过 VPN 服务器。OpenVPN 的默认行为可以通过 OpenVPN 配置文件或者 VPN 服务器去改变，令到所有的 IPv4 流量路由到 VPN 服务器，如果该复选框被勾选。</p>\n";
 
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>选中时</strong>，Tunnelblick将申请电脑管理员的授权才能允许用户修改秘钥和证书文件。</p>\n<p><strong>不选中时</strong>，一个普通用户将被允许修改秘钥和证书文件。</p><p><strong>提示：需要电脑管理员授权才能修改此项设置。</strong></p>";
+/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>如果您选择检查</strong>，Tunnelblick在接下来的 %lu 天内不会再提示更新。</p>\n<p><strong>如果您不检查</strong>Tunnelblick每次启动时会提醒一次。</p>\n";
 
-/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>当勾选时</strong>，断开 VPN 连接时，Tunnelblick 将会重置主要的网络接口。当发生一些 VPN 服务器或者 OpenVPN 配置错误是，这是一个不错的应急解决办法。</p>\n<p><strong>当没有勾选是</strong>，Tunnelblick 不会重置主要的网络接口。</p>\n当 'Set DNS/WINS' 没有被设置为 'Set nameserver' 时，<p><strong>该复选框不可用</strong></p>。";
+/* HTML info for the 'Do not warn about this again' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>如果您选择检查</strong>，Tunnelblick在接下来的 %lu 天内不会再提示更新。</p>\n<p><strong>如果您不检查</strong>Tunnelblick不会再提示您。</p>\n";
+
+/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>选中时</strong>，Tunnelblick将申请电脑管理员的授权才能允许用户修改秘钥和证书文件。</p>\n<p><strong>不选中时</strong>，将允许普通用户修改秘钥和证书文件。</p><p><strong>提示：需要管理员授权才能修改此项设置。</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>当勾选时</strong>，Tunnelblick 将会监视并在网络发生变化时 （例如，由 DHCP 续租发生的网络变化，或者切换网络连接时）重新连接，以保持与 VPN 服务器的连接。当网络发生变化是，Tunnelblick 的默认行为通常会正常工作，但你可以在 '高级'设置窗口中的 '当连接时' 选项卡中指定不同的行为。</p>\n<p><strong>当没有勾选是</strong>，Tunnelblick 会负略掉网络的改变。</p>\n<p>当 'Set DNS/WINS' 没有被设置为 'Set nameserver' 或 'Set nameserver(3.1)' 时，<strong>该复选框不可用</strong></p>。";
@@ -1964,7 +2058,7 @@
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>选中时</strong>，自动检测更新和IP地址检查的相关修改都不会生效，无视其他相关设置。提示：这两项修改都会访问Tunnelblick网站。</p>\n<p><strong>不选中时</strong>，如果下面开启了，会开启自动更新，并且如果配置中开启了检查IP地址的设置，在连接配置的时候会进行IP地址检查。</p><p>参见 <a href=\"https://tunnelblick.net/cPrivacy.html\">隐私和安全</a> [tunnelblick.net] 获取详细说明。</p><p>&nbsp;</p>";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>若打勾</strong>，Tunnelblick 图标位于搜索图标附近：</p>\n<p>%1$@</p>\n<p><strong>未打勾</strong>，Tunnelblick 图标位于正常的位置：</p>\n<p>%2$@</p>\n<p>该选项 macOS Sierra 并不需要，而且有的计算机已发现该选项导致故障，两者情况下<strong>该复选框已被禁用</strong>。</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">了解详情</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>若打勾</strong>，Tunnelblick 图标位于搜索图标附近：</p>\n<p>%1$@</p>\n<p><strong>未打勾</strong>，Tunnelblick 图标位于正常的位置：</p>\n<p>%2$@</p>\n<p>macOS Sierra 或更高版本并不需要该选项，而且有的计算机已发现该选项会导致故障，两者情况下<strong>该复选框已被禁用</strong>。</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">了解详情</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>选中时</strong>，配置连接断开的时候也将展示VPN状态窗口。</p><p>如果选择了上面的‘永不显示’<strong>此复选框被禁用</strong>。</p>";
@@ -1996,6 +2090,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>检查Tunnelblick程序的更新。</p><p>详情请参考Tunnelblick网站中的<a href=\"https://tunnelblick.net/cPrivacy.html\">隐私和安全</a> [tunnelblick.net]。</p><p>如果你的VPN服务商实现了这个特性也请检查配置的更新。</p>";
 
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addreses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>复制有助诊断问题的信息到剪贴板。</p><p>该信息包括软件版本与选项，OpenVPN 配置文件，网络选项，等等。</p><p>保密的认证信息不会包括，但是会包括<em>也许</em>秘密的信息，如 IP 地址和网址。在发电子邮件或公开发帖前，你应该检查这个信息，去除要保密的部分。</p>";
+
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>复制控制台日志的最后一部分，以用于粘贴到邮件或者其他的文档中。</p><p>日志中包含Tunnelblick和OpenVPN的详细操作信息。其中包含一般状态信息和详细错误描述信息，因为太长而不适合展示在一般的窗口中。</p>";
 
@@ -2011,6 +2108,24 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>重置被‘不再显示这个警告’ 复选框阻挡了的警告。</p>";
 
+/* HTML info for the 'VPN log level' button. */
+"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>指定 Tunnelblick 和 OpenVPN 的日记输出量。</p>";
+
+/* HTML info for the 'Icon' button. */
+"<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>指定 Tunnelblick 在菜单行要显示的图标。</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunneblick's main menu.</p>" = "<p>指定调用 Tunnelblick 的主要菜单要按的按键。</p>";
+
+/* HTML info for the 'Maximum log display size' button. */
+"<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>指定显示 VPN 日记的最大储存量。</p>";
+
+/* HTML info for the button for selecting which screen to show status windows. */
+"<p>Specifies the screen on which Tunnelblick should display VPN status windows.</p>" = "<p>指定 Tunnelblick 要在哪一个显示器显示 VPN 状态窗口。</p>";
+
+/* HTML info for the 'VPN status windows' button. */
+"<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>指定 Tunnelblick 要什么时候显示 VPN 状态窗口。</p>";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 缓存包含了 DNS （域名系统）的信息的副本。</p>\n<p><strong>当勾选时</strong>，在连接时或者断开连接时，DNS 缓存将会被刷新（清除）。将会使用 VPN 设置中的域名服务器去执行所有的 DNS 查询。</p>\n<p><strong>当没有被勾选时</strong>，DNS 缓存不会被刷新。这样会造成一些问题，如果由 VPN 设置的域名服务器与拨通 VPN 之前的域名服务器查询出来的结果不一样，而之前的结果被缓存起来了。</p>";
 
@@ -2025,6 +2140,9 @@
 
 /* Credit description */
 "Afrikaans translation" = "南非语翻译";
+
+/* Credit description */
+"Albanian translation" = "阿尔巴尼亚语翻译";
 
 /* Credit description */
 "Animation and icon sets code" = "动画, 图标的定位代码";
@@ -2086,6 +2204,9 @@
 /* Checkbox */
 "Do not show this again" = "不再显示";
 
+/* Checkbox text */
+"Do not warn about this again, never re-enable" = "不再警告这一条，从不重新打开";
+
 /* Credit description */
 "Dutch translation" = "荷兰语翻译";
 
@@ -2115,10 +2236,10 @@
 "Greek translation" = "希腊语翻译";
 
 /* Credit description */
-"Hungarian translation" = "匈牙利语翻译";
+"Hebrew translation" = "希伯来语翻译";
 
-/* Checkbox text */
-"I accept and agree to the above" = "我接受并同意上述";
+/* Credit description */
+"Hungarian translation" = "匈牙利语翻译";
 
 /* Credit description */
 "Icelandic translation" = "冰岛语翻译";

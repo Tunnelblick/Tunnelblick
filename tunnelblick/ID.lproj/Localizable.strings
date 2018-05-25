@@ -417,6 +417,9 @@
 "Do not warn about this again" = "Jangan peringatkan tentang hal ini lagi";
 
 /* Checkbox name */
+"Do not warn about this for %lu days" = "Jangan peringatkan tentang ini selama %lu hari";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Fungsikan IPv6 (tap saja)";
 
 /* Checkbox name */
@@ -669,6 +672,9 @@
 "System Requirements Not Met" = "Persyaratan Sistem Tidak Dipenuhi";
 
 /* Window title */
+"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ mungkin perlu dimutakhirkan";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Masalah Konfigurasi Tunnelblick";
 
 /* Window title */
@@ -859,6 +865,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Berbasis Tunnelblick, perangkat lunak bebas yang tersedia di<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN adalah merk dagang terdaftar dari OpenVPN Technologies, Inc.";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Versi Tunnelblick ini berusia %lu hari.</p><p>Harap periksa adanya versi yang lebih baru:</p><ul><li>Secara manual pada panel 'Preferensi' dari jendela 'Rincian VPN' Tunnelblick; atau<br></li><li>Dengan mencari versi yang lebih baru pada <a href=\"https://tunnelblick.net/downloads.html\">halaman Unduh Tunnelblick</a>[tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Suatu kunci TBPreference atau TBAlwaysSetPreference mengacu ke sebuah preferensi '%1$@' yang tak dikenal dalam %2$@";
@@ -1553,12 +1562,6 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Versi Tunnelblick yang 'Disebarkan' ini tidak dapat diluncurkan atau dipasang karena tidak memiliki suatu Info.plist.\n\n";
 
-/* Window text. The '%@' will be replaced by the name of a configuration */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%@' memuat opsi-opsi OpenVPN yang bertentangan.\n\nYaitu, satu opsi atau lebih hanya tersedia di versi lama OpenVPN dan satu opsi atau lebih hanya tersedia di versi modern OpenVPN. Tidak ada versi OpenVPN akan menerima semua opsi dalam berkas konfigurasi.\n\nAnda mesti memutakhirkan konfigurasi sehingga itu dapat dipakai dengan versi modern OpenVPN.";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%1$@' memuat opsi-opsi OpenVPN ini:\n\n%2$@\nTidak ada versi OpenVPN yang disertakan dalam versi Tunnelblick ini termasuk opsi itu.";
-
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%1$@' memuat opsi-opsi OpenVPN ini:\n\n%2$@\nTidak ada versi OpenVPN yang disertakan dalam versi Tunnelblick ini termasuk opsi itu.\n\nAnda mesti memutakhirkan konfigurasi sehingga itu dapat dipakai dengan versi modern OpenVPN.";
 
@@ -2020,6 +2023,12 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan menginstruksikan OpenVPN untuk mengarahkan semua trafik IPv4 melalui server VPN.</p>\n<p><strong>Ketika tidak dicentang</strong>, secara default OpenVPN akan memakai VPN hanya untuk trafik yang menuju jaringan VPN. Semua trafik lain akan memakai koneksi Internet normal tanpa melalui VPN. Perilaku baku OpenVPN dapat diubah oleh konfigurasi OpenVPN atau server VPN dan menyebabkan semua trafik IPv4 diarahkan melalui server VPN seolah kotak centang ini telah dicentang.</p>\n";
+
+/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Ketika dicentang</strong>, Tunnelblick tidak akan menampilkan peringatan ini lagi selama %lu hari.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick akan menampilkan peringatan ini setiap kali diluncurkan.</p>\n";
+
+/* HTML info for the 'Do not warn about this again' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Ketika dicentang</strong>, Tunnelblick tidak akan menampilkan peringatan ini lagi.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick akan menampilkan peringatan ini lagi.</p>\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan membutuhkan otorisasi administrator komputer untuk membuat perubahan ke berkas kunci dan sertifikat.</p>\n<p><strong>Ketika tidak dicentang</strong>, pengguna standar akan diizinkan membuat perubahan ke berkas kunci dan sertifikat.</p><p><strong>Catatan: Otorisasi administrator komputer diperlukan untuk mengubah pengaturan ini.</strong></p>";

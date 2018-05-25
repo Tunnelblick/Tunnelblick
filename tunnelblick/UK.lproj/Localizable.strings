@@ -417,6 +417,9 @@
 "Do not warn about this again" = "Більше не попереджувати про це";
 
 /* Checkbox name */
+"Do not warn about this for %lu days" = "Не нагадувати протягом %lu днів";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Дозволити IPv6 (тільки для tap)";
 
 /* Checkbox name */
@@ -669,6 +672,9 @@
 "System Requirements Not Met" = "Системні вимоги незадоволені";
 
 /* Window title */
+"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ може потребувати оновлення";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Помилка конфігурації Tunnelblick";
 
 /* Window title */
@@ -859,6 +865,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Безкоштовні програми, побудовані на базі Tunnelblick, доступні за<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN є зареєстрованою торгівельною маркою OpenVPN Technologies, Inc.";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Ця версія Tunnelblick застаріла на %lu днів.</p><p>Будь ласка перевірте наявність нової версії:</p><ul><li>Вручну за допомогою панелі \"Налаштуваня\" вікна \"Деталі VPN\"; або<br></li><li>Завантаживши найновішу версію із сторінки <a href=\"https://tunnelblick.net/downloads.html\">Завантаження Tunnelblick</a> [tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Ключ TBPreference або TBAlwaysSetPreference має посилання на невідомий параметр '%1$@' в %2$@";
@@ -1553,12 +1562,6 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Цю 'Розгорнуту' версію Tunnelblick не може бути запущено або встановлено, оскільки вона не має info.plist.\n\n";
 
-/* Window text. The '%@' will be replaced by the name of a configuration */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Цей VPN не може під'єднатись.\n\nФайл конфігурації OpenVPN для \"%@\" містить налаштування, що конфліктують між собою.\n\nЦе означає, що один чи декілька параметрів доступні лише в старих версіях OpenVPN, в той час як інші - лише в нових. Таким чином не існує версії OpenVPN, яка б прийняла всі параметри, що вказані в файлі конфігураціі.\n\nВам варто оновити конфігурацію, щоб вона стала сумісною з актуальними версіями OpenVPN.";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "З'єднання із VPN не можливе.\n\nФайл конфігураціі OpenVPN для '%1$@' містить такі опції:\n\n%2$@\nЖодна з версій OpenVPN, що входить до складу цієї версії Tunnelblick ці опції не підтримує.";
-
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "З'єднання із VPN не можливе.\n\nФайл конфігураціі OpenVPN для '%1$@' містить такі опції:\n\n%2$@\nЖодна з версій OpenVPN, що входить до складу цієї версії Tunnelblick ці опції не підтримує.\n\nПотрібне оновлення конфігурації для сумісності із сучасними версіями OpenVPN.";
 
@@ -2020,6 +2023,12 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Якщо позначено</strong>, Tunnelblick буде наказувати OpenVPN маршрутизувати весь трафік IPv4 через VPN сервер.</p>\n<p><strong>Якщо не позначено</strong>, за замовчуванням OpenVPN буде використовувати VPN тільки для трафіку, призначеного для мережі VPN. Весь інший трафік буде використовувати нормальне підключення до Інтернет без проходження через VPN. Типова поведінка OpenVPN може бути змінена конфігурацією OpenVPN або VPN сервером та змусити весь трафік IPv4 проходити через VPN сервер так само, як було би якщо б цю опцію було позначено.</p>\n";
+
+/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Коли відмічено</strong>, Tunnelblick не відображатиме попередження потягом %lu днів.</p>\n<p><strong>Коли не відмічено</strong>, Tunnelblick відображатиме попередження під час кожного запуску.</p>\n";
+
+/* HTML info for the 'Do not warn about this again' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Коли відмічено</strong>, Tunnelblick не показуватиме попередження повторно.</p>\n<p><strong>Коли не відмічено</strong>, Tunnelblick показуватиме попередження знову.</p>\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Якщо відмічено</strong>, Tunnelblick знадобиться дозвіл адміністратора для внесення змін до файлів ключів та сертифікатів.</p>\n<p><strong>Якщо не відмічено</strong>, звичайні користувачі зможуть вносити зміни до файлів ключів та сертифікатів.</p><p><strong>Примітка: Для зміни цього налаштування знадобиться дозвіл адміністратора.</strong></p>";

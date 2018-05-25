@@ -417,6 +417,9 @@
 "Do not warn about this again" = "No m'avisis més sobre això";
 
 /* Checkbox name */
+"Do not warn about this for %lu days" = "No tornar a avisar sobre això fins d'ací %lu dies";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Habilitar IPv6 (només tap)";
 
 /* Checkbox name */
@@ -669,6 +672,9 @@
 "System Requirements Not Met" = "No es compleixen els requeriments de sistema";
 
 /* Window title */
+"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ pot ser necessite ser actualitzat";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Problema de configuració del Tunnelblick";
 
 /* Window title */
@@ -859,6 +865,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Basat en Tunnelblick, programari lliure disponible a<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN és una marca registrada d'OpenVPN Technologies, Inc.";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Aquesta versió de Tunnelblick és de fa %lu dies.</p><p>Comproveu si hi ha una versió més nova:</p><ul><li>Manualment al tauler de 'Preferències' de la finestra de Tunnelblick 'Detalls VPN'; o<br></li><li>Buscant una versió més recent a la <a href=\"https://tunnelblick.net/downloads.html\">pàgina de descàrregues de Tunnelblick</a> [tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Una clau de TBPreference o TBAlwaysSetPreference apunta a una preferència desconeguda '%1$@' a %2$@";
@@ -1553,12 +1562,6 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Aquesta versió 'Desplegada' de Tunnelblick no es pot iniciar o instal·lar ja que no disposa d'un arxiu Info.plist.\n\n";
 
-/* Window text. The '%@' will be replaced by the name of a configuration */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Aquesta VPN no es pot connectar.\n\nEl fitxer de configuració OpenVPN per a '%@' conté opcions OpenVPN incompatibles.\n\nÉs a dir, una o més opcions només estan disponibles en versions anteriors d'OpenVPN i una o més opcions estan disponibles només en versions modernes d'OpenVPN. Cap versió d'OpenVPN acceptarà totes les opcions del fitxer de configuració.\n\nHeu d'actualitzar la configuració perquè pugui utilitzar-se amb versions modernes d'OpenVPN.";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "No es pot connectar aquest VPN.\n\nL'arxius de configuració d'OpenVPN per a \"%1$@\" conté aquestes opcions:\n\n%2$@\nCap de les versions d'OpenVPN incloses en aquesta versió de Tunnelblick inclouen la/les opció/ns.";
-
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Aquesta VPN no es pot connectar.\n\nEl fitxer de configuració OpenVPN per a '%1$@' conté aquestes opcions OpenVPN:\n\n%2$@\nCap de les versions d'OpenVPN incloses en aquesta versió de Tunnelblick inclouen estes opcions.\n\nHeu d'actualitzar la configuració perquè pugui utilitzar-se amb versions modernes d'OpenVPN.";
 
@@ -2020,6 +2023,12 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Quan se selecciona</strong>, Tunnelblick notificarà a OpenVPN perquè encamini tot el tràfic a través del servidor VPN.</p>\n<p><strong>Quan no se selecciona</strong>, per defecte OpenVPN utilitzarà la VPN únicament per al tràfic destinat a la xarxa de VPN. Tota la resta del tràfic utilitzarà la connexió normal d'Internet sense passar a través de la VPN.\nEl comportament per defecte d'OpenVPN pot ser modificat per la configuració d'OpenVPN o pel servidor VPN i fer que tot el tràfic sigui encaminat a través del servidor VPN com si aquest checkbox hagués estat seleccionat.</p>\n";
+
+/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Quan estigui seleccionat</strong>, Tunnelblick no mostrarà aquesta advertència de nou fins d'ací a %lu dies.</p>\n<p><strong>Quan no estigui seleccionat</strong>, Tunnelblick mostrarà aquesta advertència cada vegada que es llança.</p>\n";
+
+/* HTML info for the 'Do not warn about this again' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Quan estigui seleccionat</strong>, Tunnelblick no mostrarà aquesta advertència de nou.</p>\n<p><strong>Quan no estigui seleccionat</strong>, Tunnelblick mostrarà aquesta advertència de nou.</p>\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Quan estigui marcat</strong>, Tunnelblick requerirà l'autorització de l'administrador de l'ordinador per fer canvis en els fitxers de clau i certificats.</p>\n<p><strong>Quan no estigui seleccionat</strong>, es permetrà que un usuari estàndard faci canvis a la clau i als fitxers de certificats.</p><p><strong>Nota: Cal que un administrador de l'ordinador autoritzi la modificació d'aquesta configuració.</strong></p>";

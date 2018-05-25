@@ -417,6 +417,9 @@
 "Do not warn about this again" = "Waarschuw mij niet nog een keer";
 
 /* Checkbox name */
+"Do not warn about this for %lu days" = "Waarschuw niet meer voor %lu dagen";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "IPv6 inschakelen (alleen tap)";
 
 /* Checkbox name */
@@ -669,6 +672,9 @@
 "System Requirements Not Met" = "Systeemvereisten niet voldaan";
 
 /* Window title */
+"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ heeft mogelijk een update nodig";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick configuratieprobleem";
 
 /* Window title */
@@ -859,6 +865,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Gebaseerd op Tunnelblick, gratis software beschikbaar op<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is een geregistreerd handelsmerk van OpenVPN Technologies, Inc.";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>De versie van Tunnelblick is %lu dagen oud.</p><p>Controleer of er een nieuwe versie beschikbaar is:</p><ul><li>Handmatig op het 'Preferences' panel van Tunnelblick's 'VPN Details' window; of<br></li><li>of kijk voor een recente versie op<a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>R";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Een TBPreference of TBAlwaysSetPreference sleutel verwijst naar een onbekende instelling ' %1$@' in %2$@";
@@ -1553,12 +1562,6 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Deze 'verspreide' versie van Tunnelblick kan niet opgestart of geïnstalleerd worden, omdat het geen Info.plist bevat.\n\n";
 
-/* Window text. The '%@' will be replaced by the name of a configuration */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains OpenVPN options which conflict.\n\nThat is, one or more options are available only in old versions of OpenVPN and one or more other options are available only in modern versions of OpenVPN. No version of OpenVPN will accept all of the options in the configuration file.\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Deze VPN kon geen verbinding maken.\n\nHet OpenVPN-configuratiebestand voor '%@' bevat conflicterende OpenVPN-opties.\n\nDat wil zeggen, één of meerdere opties zijn alleen beschikbaar in oudere versies van OpenVPN en één of meerdere opties zijn alleen beschikbaar in nieuwere versies van OpenVPN. Er is geen versie van OpenVPN die alle opties in het configuratiebestand ondersteunt.\n\nU dient de configuratie bij te werken zodat het gebruikt kan worden met moderne versies van OpenVPN.";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options. */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s)." = "Deze VPN kan niet verbonden worden.\n\nHet OpenVPN configuratiebestand voor '%1$@' bevat deze OpenVPN opties:\n\n%2$@\nGeen enkele versie van OpenVPN bijgeleverd met deze versie van Tunnelblick bevat de optie(s).";
-
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Deze VPN kan niet verbonden worden.\n\nHet OpenVPN configuratiebestand voor '%1$@' bevat deze OpenVPN opties:\n\n%2$@\nGeen enkele versie van OpenVPN bijgeleverd met deze versie van Tunnelblick bevat de optie(s).\n\nU dient de configuratie bij te werken zodat het gebruikt kan worden met moderne versies van OpenVPN.";
 
@@ -2020,6 +2023,12 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Wanneer aangevinkt</strong>, zal Tunnelblick OpenVPN instrueren om alle IPv4 verkeer door de VPN server te sturen.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zal OpenVPN standaard enkel de VPN gebruiken voor verkeer bedoeld voor het VPN-Netwerk. Al het andere verkeer zal de gewone internetverbinding gebruiken zonder via de VPN te gaan. Het standaard OpenVPN-gedrag kan gewijzigd worden in de OpenVPN-configuratie of de VPN-server en zodat alle IPv4 verkeer door de VPN-server geleid wordt, alsof deze functie aangevinkt werd.</p>\n";
+
+/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Indien aangevinkt</strong>, zal Tunnelblick deze melding gedurende %lu dagen niet meer tonen.</p>\n<p><strong>Indien uitgevinkt</strong>, zal Tunnelblick deze melding iedere keer na opstarten tonen.</p>\n";
+
+/* HTML info for the 'Do not warn about this again' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Indien aangevinkt</strong>, zal Tunnelblick deze melding niet meer tonen.</p>\n<p><strong>Indien uitgevinkt</strong>, zal Tunnelblick deze melding weer tonen.</p>\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Wanneer aangevinkt</strong> zal Tunnelblick beheerderstoegang vereisen om sleutel- en certificaatbestanden te kunnen wijzigen.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zal een standaardgebruiker in staat zijn om sleutel- en certificaatbestanden te wijzigen.</p><p><strong>Let op: Beheerderstoegang is vereist om deze instelling te wijzigen.</strong></p>";
