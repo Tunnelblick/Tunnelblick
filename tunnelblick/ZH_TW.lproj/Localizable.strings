@@ -821,6 +821,9 @@
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ 已被重置為它的上一個被保護的 (陰影) 副本。\n\n";
 
+/* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n 注意：Tunnelblick 正在管理模者模式，所以不需要電腦管理員的授權。";
+
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld 個設定檔已被復原為最近的安全 (影子) 複本\n\n";
 
@@ -828,10 +831,16 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' 已經存在在桌面裡。\n\n你要取代它嗎?";
 
 /* Window text */
+"'%@' at line %u was not terminated properly" = "'%1$@' 在第 %2$u 行沒有被正確的終止。";
+
+/* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "「%@」 並沒有任何認證資訊 (私人密匙，用戶名稱及密碼) 存取於鑰匙圈內。";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' 沒有結束。";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' 將使用 OpenVPN %2$@ 連線，而不是要求的版本（OpenVPN %3$@）。";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "「easy-rsaPath」偏好設定被略過；它沒有指定一個檔案夾。";
@@ -856,6 +865,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>建構於 Tunnelblick 之上，自由軟體可以在<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a>取得<br><br>OpenVPN 是 OpenVPN Technologies, Inc. 的註冊商標";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>這個 Tunnelblick 的版本已經有 %lu 添了。</p><p>請檢查較新的版本：</p><ul><li>手動在 Tunnelblick「VPN 詳情」視窗的「偏好設定」面板上；或<br></li><li>藉由在<a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick 下載頁面</a>[tunnelblick.net]來尋找最近的版本。</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "一個 TBPreference 或 TBAlwaysSetPreference 鍵參照了末知的偏好設定「%1$@」於 %2$@";
