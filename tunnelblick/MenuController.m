@@ -453,6 +453,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"allow64BitIntelOpenvpnOnTigerOrLeopard",
 								@"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep",
                                 @"doNotEjectTunnelblickVolume",
+								@"doNotCheckThatOpenvpnVersionIsCompatibleWithConfiguration",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",

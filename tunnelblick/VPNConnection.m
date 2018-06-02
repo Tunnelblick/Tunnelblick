@@ -2029,6 +2029,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 	}
 	
+	if (  [gTbDefaults boolForKey: @"doNotCheckThatOpenvpnVersionIsCompatibleWithConfiguration"]  ) {
+		return [versionNames indexOfObject: versionToTry];
+	}
+	
 	// We have a version to try. Make sure the configuration can be used with that version.
 
 	NSString * configString = [self sanitizedConfigurationFileContents];
