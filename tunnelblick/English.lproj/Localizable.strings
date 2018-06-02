@@ -2335,6 +2335,9 @@
 "Updated to %@." = "Updated to %@.";
 
 /* Credit description */
+"Vietnamese translation" = "Vietnamese translation";
+
+/* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";
 
 /* Button VPNService */
