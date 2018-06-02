@@ -76,7 +76,6 @@
 		634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */; };
 		634E02051CAD9764008637FF /* AF.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 634E02041CAD9764008637FF /* AF.lproj */; };
 		634E02071CAD9776008637FF /* HR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 634E02061CAD9776008637FF /* HR.lproj */; };
-		634E02091CAD9783008637FF /* SR_CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 634E02081CAD9783008637FF /* SR_CS.lproj */; };
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 634F1B9C1D23FD9D00B1E929 /* Tracker.m */; };
 		635497FF1FABD9E10009E149 /* SQ.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635497FE1FABD9E10009E149 /* SQ.lproj */; };
@@ -176,6 +175,7 @@
 		63DC245719FA73E3006B1BDF /* BG.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63DC245419FA73E3006B1BDF /* BG.lproj */; };
 		63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
+		63E5276A20C2DA7E00963456 /* SR_Latn.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63E5276920C2DA7E00963456 /* SR_Latn.lproj */; };
 		63E56EC413848194007E39AB /* VPNServiceCreateAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E56EBD13848194007E39AB /* VPNServiceCreateAccount.xib */; };
 		63E56EC513848194007E39AB /* VPNServiceIntro.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E56EBE13848194007E39AB /* VPNServiceIntro.xib */; };
 		63E56EC613848194007E39AB /* VPNServiceLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E56EBF13848194007E39AB /* VPNServiceLogin.xib */; };
@@ -433,7 +433,6 @@
 		634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationsView.m; sourceTree = "<group>"; };
 		634E02041CAD9764008637FF /* AF.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AF.lproj; sourceTree = "<group>"; };
 		634E02061CAD9776008637FF /* HR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HR.lproj; sourceTree = "<group>"; };
-		634E02081CAD9783008637FF /* SR_CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SR_CS.lproj; sourceTree = "<group>"; };
 		634F1B9B1D23FD9D00B1E929 /* Tracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
 		634F1B9C1D23FD9D00B1E929 /* Tracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tracker.m; sourceTree = "<group>"; };
 		635497FE1FABD9E10009E149 /* SQ.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SQ.lproj; sourceTree = "<group>"; };
@@ -546,6 +545,7 @@
 		63DEC28E13B890F70063CE11 /* NSString+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TB.h"; sourceTree = "<group>"; };
 		63DEC28F13B890F70063CE11 /* NSString+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TB.m"; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
+		63E5276920C2DA7E00963456 /* SR_Latn.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SR_Latn.lproj; sourceTree = "<group>"; };
 		63E56EBD13848194007E39AB /* VPNServiceCreateAccount.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPNServiceCreateAccount.xib; sourceTree = "<group>"; };
 		63E56EBE13848194007E39AB /* VPNServiceIntro.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPNServiceIntro.xib; sourceTree = "<group>"; };
 		63E56EBF13848194007E39AB /* VPNServiceLogin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPNServiceLogin.xib; sourceTree = "<group>"; };
@@ -1079,7 +1079,7 @@
 				63611FCD13CE2A8B000240F0 /* RU.lproj */,
 				B8051F4C1754DA630024841C /* SK.lproj */,
 				635497FE1FABD9E10009E149 /* SQ.lproj */,
-				634E02081CAD9783008637FF /* SR_CS.lproj */,
+				63E5276920C2DA7E00963456 /* SR_Latn.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
 				6389ADBC1AE4265100E2FAD8 /* TR.lproj */,
 				B87C59DA17982F3900FFE540 /* UK.lproj */,
@@ -1536,8 +1536,8 @@
 				61BC4DB40E2FA3C300F24255 /* MainMenu.xib in Resources */,
 				61F294A60ED389520097DE94 /* openvpn.conf in Resources */,
 				615F748A0ED3A4C2007F6F0A /* English.lproj in Resources */,
-				634E02091CAD9783008637FF /* SR_CS.lproj in Resources */,
 				634E02051CAD9764008637FF /* AF.lproj in Resources */,
+				63E5276A20C2DA7E00963456 /* SR_Latn.lproj in Resources */,
 				6364DB8B1E3F5CB40089962B /* VI.lproj in Resources */,
 				63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */,
 				630210131465CBBC00283B78 /* CS.lproj in Resources */,
