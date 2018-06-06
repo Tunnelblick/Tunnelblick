@@ -830,7 +830,7 @@ NSDictionary * highestEditionForEachBundleIdinL_AS_T(void) {
 	return bundleIdEditions;
 }
 
-unsigned int getFreePort()
+unsigned int getFreePort(void)
 {
 	// Returns a free port or 0 if no free port is available
 	

@@ -126,7 +126,7 @@ BOOL tunnelblickTestPrivateOnlyHasTblks(void);
 
 //**************************************************************************************************************************
 
-void errorExit();
+void errorExit(void);
 void errorExitIfAnySymlinkInPath(NSString * path);
 
 void debugLog(NSString * string) {
