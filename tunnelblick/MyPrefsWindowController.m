@@ -3079,7 +3079,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
     } else {
 		
-        unsigned displayNumberFromPrefs = [gTbDefaults unsignedIntForKey: @"statusDisplayNumber" default: 0 min: 0 max: NSNotFound];
+        unsigned displayNumberFromPrefs = [gTbDefaults unsignedIntForKey: @"statusDisplayNumber" default: 0 min: 0 max: UINT_MAX];
         NSUInteger screenIxToSelect;
         if (  displayNumberFromPrefs == 0 ) {
             screenIxToSelect = 0;   // Screen to use was not specified, use default screen
