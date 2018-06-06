@@ -1803,7 +1803,7 @@
 "Unknown value '%@' for '%@' in %@" = "Neznámá hodnota '%1$@' pro '%2$@' v %3$@";
 
 /* Window text */
-"Unreadable file at %@\n\nSee the Console log for details." = "Nečitelný soubor %@\n\nVíce informací je v logovací konzole.";
+"Unreadable file at %@\n\nSee the Console log for details." = "Nečitelný soubor %@\n\nVíce informací je v logu konzole.";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Aktualizovatelná konfigurace '%@' nebyla uložena jako aktualizovatelná, protože nebylo možné vytvořit 'Contents' v části .tblk\n";
@@ -2333,6 +2333,9 @@
 
 /* Notification text */
 "Updated to %@." = "Aktualizováno na %@.";
+
+/* Credit description */
+"Vietnamese translation" = "Vietnamský překlad";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Nápověda Xcode & integrace OpenSSL";

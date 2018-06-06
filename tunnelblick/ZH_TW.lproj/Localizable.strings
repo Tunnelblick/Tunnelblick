@@ -1019,6 +1019,12 @@
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "配置「%@」不能被自動更新，因為它不能被標記為「可自動更新的」。\n";
 
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "組態 '%1$@' 需要 Tunnelblick %2$@ 或更新的版本；你正使用 Tunnelblick %3$@。\n\n你需要先更新 Tunnelblick 才能套用此組態。";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "組態 '%1$@' 需要 Tunnelblick %2$@ 或更舊的版本；你正使用 Tunnelblick %3$@。";
+
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "配置「%1$@」將會被忽略，因為它的名字裏含有被禁止的字元。\n\n被禁止的字元是：「'%2$s」\n\n";
 
@@ -1263,6 +1269,9 @@
 "Network access was disabled when a VPN disconnected." = "當 VPN 中斷連線的時候中斷網路存取。";
 
 /* Window text */
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "當 VPN 中斷連線時，網路存取已經被停用。\n\n你是否要重新啟用網路存取？\n\n";
+
+/* Window text */
 "Network setting" = "網絡設定";
 
 /* Window text */
@@ -1453,6 +1462,9 @@
 
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "在 「%1$@」 OpenVPN 設定檔中含有選項 「%2$@」。它是一個僅限於 Windows 作業系統使用的選項，並不能使用在 OS X 上。";
+
+/* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN 記錄包含下列訊息：\n\n\"%1$@\".%2$@";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "OpenVPN 日誌不存在或已被刪除。";
@@ -2243,6 +2255,9 @@
 
 /* Notification text */
 "Updated to %@." = "已更新到 %@";
+
+/* Credit description */
+"Vietnamese translation" = "越南文翻譯";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode 協助與 OpenSSL 統合";

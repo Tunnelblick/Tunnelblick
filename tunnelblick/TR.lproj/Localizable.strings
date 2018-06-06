@@ -1,11 +1,11 @@
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Bütün (%1$@) Bağlantısını Kes - görünen açık IP adresi %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Bütün (%1$@) Bağlantıları Kes - görünen açık IP adresi %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Tüm bağlantıları kes (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Bütün (%1$d Sayıda) Bağlantıyı Kes - görünen açık IP adresi %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Bütün (%1$d) Bağlantıları Kes - görünen açık IP adresi %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Tüm bağlantıları kes (%d Bağlantı)";

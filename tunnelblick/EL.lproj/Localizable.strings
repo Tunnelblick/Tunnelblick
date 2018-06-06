@@ -2335,6 +2335,9 @@
 "Updated to %@." = "Ενημερώθηκε σε %@.";
 
 /* Credit description */
+"Vietnamese translation" = "Βιετναμέζικη μετάφραση";
+
+/* Credit description */
 "Xcode help and OpenSSL integration" = "Βοήθεια Xcode και OpenSSL ενσωμάτωση";
 
 /* Button VPNService */

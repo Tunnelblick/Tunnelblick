@@ -5,7 +5,7 @@
 "Disconnect All (%@)" = "Katkaise kaikki (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Katkaise kaikki (%1$d yhteyttä) - näkyvä julkinen IP osoite %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Katkaise kaikki (%1$d yhteyttä) - näkyvä julkinen IP-osoite %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Katkaise kaikki (%d yhteyttä)";
@@ -204,7 +204,7 @@
 "Reset Disabled Warnings" = "Nollaa käytöstä poistetut varoitukset";
 
 /* Button */
-"Reset primary interface" = "Nollaa ensisijainen verkko";
+"Reset primary interface" = "Nollaa ensisijainen verkkoliitäntä";
 
 /* Button */
 "Restart connection" = "Muodosta yhteys uudelleen";
@@ -234,7 +234,7 @@
 "Show when connection status changes" = "Ilmoita yhteyden tilan muuttuessa";
 
 /* Button */
-"Show while connecting and connected" = "Näytä kun yhdistetään ja yhdistetty";
+"Show while connecting and connected" = "Näytä yhdistäessä ja yhteydessä ollessa";
 
 /* Button */
 "Show while connecting" = "Ilmoita yhteyttä luotaessa";
@@ -324,7 +324,7 @@
 "OpenVPN level 0 - no output except fatal errors" = "OpenVPN taso 0 - ei tulostusta, paitsi vakavat virheet";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN taso 11 - erittäin laaja tulostus";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN taso 11 - erittäin laaja lokikirjaus";
 
 /* Menu Item */
 "OpenVPN level 3 - normal output" = "OpenVPN taso 3 - normaali tulostus";
@@ -336,10 +336,10 @@
 "OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN taso 5 - \"R\" tai \"W\" kaikille paketeille";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN taso 6 - hyvin monisanainen tulostus";
+"OpenVPN level 6 - very verbose output" = "OpenVPN taso 6 - hyvin monisanainen lokikirjaus";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "OpenVPN konfiguraation määrittämä lokitaso";
+"OpenVPN logging level set by the configuration" = "OpenVPN-asetusten määrittämä lokitaso";
 
 /* Menu item */
 "Quit Tunnelblick" = "Lopeta Tunnelblick";
@@ -441,7 +441,7 @@
 "Prepend domain name to search domains" = "Liitä domain-nimi etsittyihin";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Yhdistä uudelleen kun tietokone herää";
+"Reconnect when computer wakes up" = "Yhdistä uudelleen tietokoneen herätessä";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Yhdistä uudelleen sisäänkirjautuessa";
@@ -459,7 +459,7 @@
 "Save in Keychain" = "Tallenna Avainnippuun";
 
 /* Checkbox name */
-"Set DNS after routes are set" = "Aseta DNS reititysten määrityksen jälkeen";
+"Set DNS after routes are set" = "Aseta DNS vasta reititysten määrityksen jälkeen";
 
 /* Checkbox name */
 "Show when disconnected" = "Näytä yhteyden ollessa poikki";
@@ -1562,6 +1562,9 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Tätä 'Käyttöönotettua’' Tunnelblickin versiota ei voida käynnistää tai asentaa, koska sillä ei ole tiedostoa Info.plist.\n\n";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Tätä VPN yhteyttä ei voida muodostaa.\n\nOpenVPN konfiguraatiotiedosto '%1$@' sisältää nämä OpenVPN asetukset:\n\n%2$@\nMikään tämän Tunnelblickin sisältämistä OpenVPN versioista ei tue näitä asetuksia.\n\nSinun tulee muokata konfiguraatiota, jotta se tukee tuoreimpia OpenVPN versioita.";
+
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Tämän tietokoneen julkinen IP-osoite ei muuttunut, kun yhteys muodostettin kohteeseen %1$@. Se on edelleen %2$@.\n\nTämä voi tarkoittaa, että VPN:si ei ole oikein konfiguroitu.\n\n";
 
@@ -1594,6 +1597,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Tunnelblick %@ is ready." = "Tunnelblick %@ on valmis.";
+
+/* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin -tila\n\n Salli väliaikaisesti muutokset jotka vaativat järjestelmänvalvojan oikeuksia.\n \n Sessio vanhenee 5 minuutin jälkeen, tai kun 'VPN-yksityiskohdat' ikkuna suljetaan.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblickin Internet-yhteyden käyttö:";
@@ -1698,6 +1704,9 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblickin on luotava tai päivitettävä turvallinen (varjo)kopio konfiguraatiotiedostosta.";
 
 /* Window text */
+"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick tarvitsee järjestelmänvalvojan oikeuksia suorittaakseen tarvitsemansa muutoksen.\n";
+
+/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblickin tarvitsee:\n";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
@@ -1729,6 +1738,12 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick ei pystynyt käynnistämään OpenVPN:ää muodostaakseen yhteyden %@. Katso lisätietoja lokitiedoista kohdasta VPN-Tiedot… ikkuna";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check for updates when it is launched and periodically while it is running. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick yhdistää osoitteeseen %@ tarkistaakseen uusimmat päivitykset käynnistyksen yhteydessä ja ajoittain ohjelman pyöriessä taustalla. Ota yhteyttä tämän Tunnelblick version jakelijaan saadaksesi lisätietoja.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick yhdistää osoitteeseen %@ tarkistaakseen tietokoneesi julkisen IP osoitteesi muutokset joka kerta yhdistäessäsi VPN:iin. Ota yhteyttä tämän Tunnelblick version jakelijaan saadaksesi lisätietoja.\n\n";
 
 /* Window text */
 "Unable to Establish Communication" = "Ei pystytä muodostamaan yhteyttä";
@@ -1935,6 +1950,9 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nHUOM: Yksi tai useampi konfiguraatio on yhdistetty. Yhteydet katkaistaan, asennus/korvaus/poisto operaatoita tehdään ja konfiguraatiot yhdistetään uudellen tämän jälkeen, mikäli niitä ei poistettu.\n\n";
 
 /* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nTämä virhe tarkoittaa että asetus joka on määritetty OpenVPN konfiguraatiossa tiedostossa tai on \"pakotettu\" OpenVPN palvelimen toimesta:\n\n     • sisältää kirjoitusvirheitä,\n\n     • puutteellisia tai ylimääräisiä muuttujia, tai\n\n     • ei sisälly käytettävään OpenVPN version tukemiin asetuksiin. Tämä voi olla uusi asetus joka ei sisälly vanhaan versioon, tai asetus joka on poistettu uudesta OpenVPN versiosta. \nVoit valita tämän konfiguraation kanssa käytettävän OpenVPN version Tunnelblickin \"VPN-yksityiskohdat\" ikkunan \"Asetukset\" välilehdeltä \"Konfiguraatiot\" paneelista.\n\nKatso VPN logit \"VPN-yksityiskohdat\" ikkunan \"Konfiguraatiot\" paneelin \"Logit\" välilehdeltä lisätietoja varten.";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nja asentaa %ld Tunnelblick VPN-konfiguraatiota";
 
 /* Window text */
@@ -1960,6 +1978,9 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' lisättiin OpenVPN versioon %2$@\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' tuki on vanhentunut OpenVPN versiossa %2$@ ja poistettu OpenVPN versiossa %3$@\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit tuki ja testaus";
@@ -2288,6 +2309,9 @@
 
 /* Notification text */
 "Updated to %@." = "Päivitetty versioon %@.";
+
+/* Credit description */
+"Vietnamese translation" = "Vietnamilainen käännös";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode-apu ja OpenSSL-integraatio";

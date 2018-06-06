@@ -417,6 +417,9 @@
 "Do not warn about this again" = "درباره ی این دیگر به من هشدار نده";
 
 /* Checkbox name */
+"Do not warn about this for %lu days" = "درباره ی این تا %lu روز دیگر به من هشدار نده";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "فعال نمودن IPv6 (فقط در tap)";
 
 /* Checkbox name */
@@ -667,6 +670,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "پیش نیاز سامانه یافت نشد";
+
+/* Window title */
+"Tunnelblick %@ may need to be updated" = "Tunnelbilk %@ نیاز به بروز رسانی دارد";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "خطا در پیکربندی Tunnelblick";
@@ -2189,6 +2195,9 @@
 
 /* Notification text */
 "Updated to %@." = "بروزرسانی شد به %@.";
+
+/* Credit description */
+"Vietnamese translation" = "ترجمه ویتنامی";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "کمک Xcode و مجتمع سازی OpenSSL";

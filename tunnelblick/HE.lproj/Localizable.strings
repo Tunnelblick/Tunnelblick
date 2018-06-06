@@ -457,3 +457,126 @@
 
 /* Checkbox name */
 "Set DNS after routes are set" = "הגדר DNS לאחר שהנתיבים מוכנים";
+
+/* Connection status */
+"CONNECTED" = "מחובר"; // Please translate "Connected"
+
+/* Connection status */
+"CONNECTING" = "מתחבר"; // Please translate "Connecting"
+
+/* Connection status */
+"DISCONNECTING" = "מתנתק"; // Please translate "Disconnecting"
+
+/* Connection status */
+"EXITING" = "מנותק"; // Please translate "Disconnected"
+
+/* Connection status */
+"RECONNECTING" = "מתחבר מחדש"; // Please translate ""
+
+/* Connection status */
+"WAIT" = "ממתין לתגובת השרת"; // Please translate "Waiting for Server Response"
+
+/* System profile item */
+"Configurations" = "קונפיגורציות";
+
+/* Window title */
+"'%@' has been disconnected" = "'%@' התנתק בהצלחה";
+
+/* Window title */
+"Active connection" = "אין חיבורים פעילים";
+
+/* Window title */
+"Add a Configuration" = "הוסף קונפיגורציה";
+
+/* Window title */
+"Alert" = "התראות";
+
+/* Window title */
+"All configuration files removed" = "כל קבצי קונפיגורציה הוסרו בהצלחה";
+
+/* Window title */
+"Appearance" = "מראה";
+
+/* Window title */
+"Authentication failed" = "אימות נכשל";
+
+/* Window title */
+"Connecting & Disconnecting" = "חיבור וניתוק";
+
+/* Window title */
+"Details - Tunnelblick" = "Tunnelblick – פרטים";
+
+/* Window title */
+"Do you wish to connect?" = "האם ברצונך להתחבר?";
+
+/* Window title */
+"File not found" = "קובץ לא נמצא";
+
+/* Window title */
+"Info" = "אודות";
+
+/* Window title */
+"Install Configuration For All Users?" = "להתקין את הקונפיגורציה הזאת לכל המשתמשים?";
+
+/* Window title */
+"Installation failed" = "התקנה נכשלה";
+
+/* Window title */
+"Installation succeeded" = "ההתקנה הוצלחה";
+
+/* Window title */
+"Preferences" = "הגדרות";
+
+/* Window title */
+"Replace VPN Configuration?" = "החלף קונפיגורציאת VPN?";
+
+/* Window title */
+"Settings" = "הגדרות";
+
+/* Window title */
+"Sounds" = "קול";
+
+/* Window title */
+"Utilities" = "כלי עזר";
+
+/* Window title */
+"Welcome to Tunnelblick" = "ברוכים הבאים ל–Tunnelblick";
+
+/* Window title */
+"Welcome" = "ברוכים הבאים";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed %lu configurations\n\n" = "     %lu קונפיגורציות הותקנו בהצלחה\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed one configuration\n\n" = "     קונפיגורציה בודדת הותקנה בהצלחה\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Replaced %lu configurations\n\n" = "     %lu קונפיגורציות הוסרו בהצלחה\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Replaced one configuration\n\n" = "     קונפיגורציה אחת הוחלפה בהצלחה\n\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Uninstalled %lu configurations\n\n" = "%lu קונפיגורציות הוסרו בהצלחה";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Uninstalled one configuration\n\n" = "     קונפיגורציה אחת הוסרה בהצלחה";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install %lu configurations\n\n" = "התקן %lu  קונפיגורציות";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install one configuration\n" = "    התקן קונפיגורציה אחת\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace %lu configurations\n\n" = "    החלף %lu קונפיגורציות\n\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace one configuration\n" = "    החלף קונפיגורציה אחת\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall %lu configurations\n\n" = "    הסר %lu קונפיגורציות\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall one configuration\n" = "    הסר קונפיגורציה אחת\n";

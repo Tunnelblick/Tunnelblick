@@ -204,7 +204,7 @@
 "Reset Disabled Warnings" = "Obnoviť vypnuté upozornenia";
 
 /* Button */
-"Reset primary interface" = "Resetovať primárne rozhranie";
+"Reset primary interface" = "Resetovať primárne sieťové rozhranie";
 
 /* Button */
 "Restart connection" = "Reštartovať spojenie";
@@ -2333,6 +2333,9 @@
 
 /* Notification text */
 "Updated to %@." = "Aktualizované na verziu %@.";
+
+/* Credit description */
+"Vietnamese translation" = "Vietnamský preklad";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Pomoc s Xcode a integrácia OpenSSL";

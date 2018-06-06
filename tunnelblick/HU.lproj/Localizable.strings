@@ -2311,6 +2311,9 @@
 "Updated to %@." = "Frissítve %@-ra.";
 
 /* Credit description */
+"Vietnamese translation" = "Vietnámi fordítás";
+
+/* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode súgó & OpenSSL integráció";
 
 /* Button VPNService */

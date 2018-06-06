@@ -216,7 +216,7 @@
 "Retry" = "Prøv igjen";
 
 /* Button */
-"Revert to the Last Secured Copy" = "Gå tilbake til siste sikret kopi";
+"Revert to the Last Secured Copy" = "Gå tilbake til siste sikre kopi";
 
 /* Button */
 "Revert" = "Hent tilbake";
@@ -234,7 +234,7 @@
 "Show when connection status changes" = "Vis når en oppkoblingsstatus endres";
 
 /* Button */
-"Show while connecting and connected" = "Vis mens det tilkobles, samt når det er tilkoblet";
+"Show while connecting and connected" = "Vis under tilkobling og tilkoblet";
 
 /* Button */
 "Show while connecting" = "Vis mens det kobles opp";
@@ -2333,6 +2333,9 @@
 
 /* Notification text */
 "Updated to %@." = "Oppdatert til %@.";
+
+/* Credit description */
+"Vietnamese translation" = "Vietnamesisk oversettelse";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode hjelp og OpenSSL integrasjon";

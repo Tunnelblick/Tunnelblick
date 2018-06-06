@@ -95,10 +95,19 @@
 "Delete" = "Obriši";
 
 /* Button */
+"Disable network access" = "Onemogući mrežni pristup";
+
+/* Button */
 "Disconnect" = "Prekini vezu";
 
 /* Button */
+"Do Not Re-enable Network Access" = "Onemogući ponovni mrežni pristup";
+
+/* Button */
 "Do not use the plugin" = "Nemoj koristiti plugin";
+
+/* Button */
+"Do nothing" = "Ne poduzimaj ništa";
 
 /* Button */
 "Download" = "Preuzmi";
@@ -132,6 +141,9 @@
 
 /* Button */
 "Monochrome icon" = "Crno/bijela ikona";
+
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "Više informacija na [%@]";
 
 /* Button */
 "More Info" = "Više informacija";
@@ -174,6 +186,10 @@
 
 /* Button */
 "Quit" = "Prekini";
+
+/* Button
+   Menu item */
+"Re-enable Network Access" = "Omogući ponovni pristup mreži";
 
 /* Button */
 "Reinstall" = "Ponovna instalacija";
