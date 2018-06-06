@@ -4055,7 +4055,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
 	if (  sizeof(pid_t) != 4  ) {
 		NSLog(@"sizeof(pid_t) is %lu, not 4!", sizeof(pid_t));
-		[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
 		return;
 	}
 	pid_t pid = [connection pid];

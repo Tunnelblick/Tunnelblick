@@ -41,7 +41,7 @@ extern BOOL              gShuttingDownWorkspace;
         return;
     }
 	
-	[[NSApp delegate] recreateMainMenuClearCache: NO];
+	[(MenuController *)[NSApp delegate] recreateMainMenuClearCache: NO];
     
 	// Detect a triple-click:
 	//        First click comes here and pops up the menu

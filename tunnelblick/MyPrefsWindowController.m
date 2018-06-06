@@ -2004,7 +2004,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 				VPNConnection * connection = [[(MenuController*)[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
 				if (  ! connection  ) {
 					NSLog(@"Error: no connection for displayName '%@'", displayName);
-					[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+					[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
 					[cancelled appendString: @"X"];
 				} else {
 
