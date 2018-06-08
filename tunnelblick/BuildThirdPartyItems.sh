@@ -47,22 +47,6 @@ COMMAND_MODE=unix2003
 # The following line is needed so up-to-date autotools are used
 PATH="/usr/local/bin:$PATH"
 
-# Test for version 2.69 of autoconf
-autoconf_version="$(autoconf --version | grep autoconf | sed -e 's/autoconf (GNU Autoconf) //')"
-if [ "${autoconf_version}" != "2.69" ] ; then
-  echo "warning: autoconf is version '${autoconf_version}'; expected version 2.69. Autotools may be out-of-date which can cause problems building some of the third_party programs"
-fi
-
-# Test for version 1.9 or 1.15 of automake
-automake_version="$(automake --version | grep automake | sed -e 's/automake (GNU automake) //')"
-if [ "${automake_version}" != "1.9" ]
-then
-  if [ "${automake_version}" != "1.15.1" ]
-    then
-      echo "warning: automake is version '${automake_version}'; expected version 1.9 or 1.15.1. Autotools may be out-of-date which can cause problems building some of the third_party programs"
-  fi
-fi
-
 if [ ! -e do-not-clean ]; then
   make clean
 fi
