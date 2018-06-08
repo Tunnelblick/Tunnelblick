@@ -32,10 +32,10 @@
 # So, to do a clean build of the third party items, make sure that the
 # third_party/do-not-clean file does not exist, and then build Tunnelblick normally.
 
-# Make sure we have the correct version of tunnelblick.xcodeproj for the version of Xcode that we are using
-if [ ${XCODE_VERSION_ACTUAL} -lt 0630 ] ; then
+# Make sure we have a recent version of Xcode
+if [ ${XCODE_VERSION_ACTUAL} -lt 0731 ] ; then
   outer_dir="${PWD%/*}"
-  echo "error: Tunnelblick must be built with Xcode 6.3 or higher, or 3.3.2. This version of Tunnelblick.xcodeproj is for Xcode 6.3 or higher on OS X 10.10.3 or higher. See ${outer_dir}/README.txt"
+  echo "error: Tunnelblick must be built with Xcode 6.3 or higher. This version of Tunnelblick.xcodeproj is for Xcode 7.3.1 or higher on OS X 10.10.3 or higher. See ${outer_dir}/README.txt"
   exit 1
 fi
 
