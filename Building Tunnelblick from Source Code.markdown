@@ -1,16 +1,17 @@
 **Building Tunnelblick from Source Code**
 
-You can build Tunnelblick from the source code. Usually, people install and use a ready-to-use binary version of Tunnelblick. The most recent binary is available on the [Tunnelblick website](https://tunnelblick.net) and is a disk image (".dmg") file. It's easy to install Tunnelblick from this .dmg -- you simple double-click it.
+You can build Tunnelblick from the source code. Usually, people install and use a ready-to-use binary version of Tunnelblick. The most recent binary is available on the [Tunnelblick website](https://tunnelblick.net) as a disk image (".dmg") file containing a copy of the Tunnelblick application. It's easy to install the Application from this .dmg -- you simply double-click it.
 
-Because Tunnelblick is distributed using the "GNU General Public License, version 2", the source code itself is also available, including the source code for changes before they are incorporated into a binary. That means that anyone with sufficient technical skills and resources can create their own binary and use it as they see fit under the terms of the license. This document describes how to do that.
+Because Tunnelblick is distributed using the "GNU General Public License, version 2", the source code itself is also available. Anyone with sufficient technical skills and resources can create their own binary and use it as they see fit under the terms of the license. This document describes how to do that.
 
 To build Tunnelblick from the source code:
 
- 1.	You need a copy of the Tunnelblick source code;
- 2.	You need a supported version of OS X and Xcode;
- 3.	You need to have set up Xcode to build Tunnelblick;
- 4.	You need to have installed the GNU autotools;
- 5.	You need to select the type of build you want to create.
+ 1.	You need a supported version of macOS and Xcode;
+ 2.	You need a copy of the Tunnelblick source code;
+ 3.	You need to have installed the GNU autotools;
+ 4. You need to select Xcode 10 if you are not using Xcode 7.3.1;
+ 5.	You need to have set up Xcode to build Tunnelblick; and
+ 6.	You need to select the type of build you want to create.
 
 This document has a section about each of these requirements.
 
@@ -22,7 +23,27 @@ Interspersed with these are sections on **Using a Virtual Machine**, **Beginning
 Using a virtual machine to build Tunnelblick is fine – Tunnelblick releases are built using Parallels and VirtualBox. However, there have been unreproducible errors when the Tunnelblick source code is located on a network device or the host computer, so copying the source to the virtual machine's hard drive and building there is recommended. Using Parallels with more than one virtual CPU also can also cause unreproducible errors, so a virtual machine setting of one CPU is recommended for Parallels.
 
 
-**1. Getting the Tunnelblick Source Code**
+**1. Supported Versions of macOS and Xcode**
+
+Tunnelblick should be built using Xcode 7.3.1 on macOS 10.11.6. Older versions (such as the "3.5" branch of the source code) should be built using Xcode 3.2.2 on macOS 10.6.8 -- do not use Xcode 3.2.3.
+
+Tunnelblick can also be built -- FOR TESTING PURPOSES ONLY -- using Xcode 10 beta on macOS 10.13.4.
+
+Other versions of Xcode and macOS may create Tunnelblick binaries that crash or have other unpredictable behavior.
+
+Which platform you build on determines what platforms can run the Tunnelblick application you build:
+
+ * When Tunnelblick is built using Xcode 7.3.1 or with the Xcode 10 beta:
+   ⁃ The Tunnelblick application and all supporting programs are 64-bit Intel programs.
+   ⁃ Tunnelblick works on macOS 10.8 and higher and on macOS 10.7.5 and higher when running a 64-bit kernel.
+
+ * When Tunnelblick is built using Xcode 3.2.2 ("3.5" branch of the source code):
+   ⁃ Tunnelblick works on macOS 10.4 - 10.10 using PowerPC or Intel processors.
+   ⁃ Tunnelblick and most of its supporting programs are 32-bit PowerPC/Intel programs.
+   ⁃ OpenVPN and the tun and tap kexts are 32/64-bit PowerPC/Intel programs.
+
+
+**2. Getting the Tunnelblick Source Code**
 
 Download the Tunnelblick source code from the [Tunnelblick Project on GitHub](https://github.com/Tunnelblick//Tunnelblick).
 
@@ -30,29 +51,14 @@ You can download a .zip containing the source from the "master" branch (which in
 
 The rest of this document refers to the folder in which you have downloaded Tunnelblick as "**TunnelblickSource**".
 
-**2. Supported Versions of OS X and Xcode**
-
-As of 2016-09-30, Tunnelblick is built using Xcode 7.3.1 on OS X 10.11.6. (Xcode 8.0 creates binaries without complaint but they cause peculiar, unreproducible crashes.)
-
-Older versions (such as the 3.5 branch) of Tunnelblick can be built using Xcode 3.2.2 on OS X 10.6.8. (Do not use Xcode 3.2.3.)
-
-Other versions of Xcode and OS X may be used, but additional work may be required.
-
-Which platform you build on determines what platforms can run the Tunnelblick application you build:
-
- * When Tunnelblick is built using Xcode 7.0 and higher on OS X 10.10.5 or higher:
-   ⁃ The Tunnelblick application and all supporting programs are 64-bit Intel programs.
-   ⁃ Tunnelblick works on OS X 10.8 and higher and on OS X 10.7.0 and higher when running a 64-bit kernel.
-
- * When Tunnelblick is built using Xcode 3.2.2 on OS X 10.6.8:
-   ⁃ Tunnelblick works on OS X 10.4 - 10.10 using PowerPC or Intel processors.
-   ⁃ Tunnelblick and most of its supporting programs are 32-bit PowerPC/Intel programs.
-   ⁃ OpenVPN and the tun and tap kexts are 32/64-bit PowerPC/Intel programs.
-
 
 **3. Installing the GNU autotools**
 
-To build Tunnelblick, the build computer must have appropriate versions of the GNU "auto tools" installed in /usr/local/bin.
+To build the third-party parts of Tunnelblick, the build computer must have appropriate versions of the GNU "auto tools" installed in /usr/local/bin.
+
+Notes:
+ 1. automake version 2.0 and higher cannot be used.
+ 2. If built with automake version 1.14 or higher, warnings and errors concerning "subdir-objects" may be ignored.
 
   **Method 1. Homebrew Install**
 
@@ -69,30 +75,46 @@ To build Tunnelblick, the build computer must have appropriate versions of the G
   The script downloads appropriate versions of the tools and installs them. Because it installs to a protected folder, you will be asked for your password at one point in the process. (You must install as an "administrator" user, not as a "standard" user.)
 
 
-**4. Setting up Xcode to Build Tunnelblick**
+**4. Selecting an Xcode Version**
+
+  If you are using Xcode 10 beta to build Tunnelblick, you need to copy Tunnelblick.xcodeproj from the **TunnelblickSource**/tunnelblick/xcodeproj-versions/xcode-10beta folder to the **TunnelblickSource**/tunnelblick folder, replacing the existing Tunnelblick.xcodeproj, which is for use with Xcode 7.3.1.
+
+
+**5. Setting up Xcode to Build Tunnelblick**
 
 Double-click …TunnelblickSource/tunnelblick/Tunnelblick.xcodeproj to open the Tunnelblick source code in Xcode.
 
 After a few moments, recent versions of Xcode will begin indexing files, indicated in the progress bar at the top of the Xcode window. Allow the indexing to complete, which usually takes a minute or two. Xcode does indexing at various times, and if you click a button while Xcode is indexing it will often crash. (This is an Xcode problem, not a Tunnelblick problem.) The safest way to proceed if Xcode crashes is to download the source code again, because Xcode creates caches which can be corrupted when Xcode crashes and cause even more crashes.
 
-To build Tunnelblick using Xcode 7.0+, it needs to be set up to use "legacy" locations for build products:
+To build Tunnelblick using Xcode 7.3.1, Xcode needs to be set up to use "legacy" locations for build products:
 
-1. Launch Xcode
-2. Click "File" > "Project Settings..."
-3. Click the "Advanced" button
-4. Click on the "Legacy" radio button
-5. Click the "Done" button
+ 1. Launch Xcode
+ 2. Click "File" > "Project Settings..."
+ 3. Click the "Advanced" button
+ 4. Click on the "Legacy" radio button (for "Build Location")
+ 5. Click the "Done" button
 
-Xcode 7.0+ also need to have the command line tools installed. You can do that in Terminal with the following command: ```xcode-select&nbsp;--install```
+Xcode 7.3.1 also needs to have the command line tools installed. You can do that in Terminal with the following command: ```xcode-select&nbsp;--install```
 
+To build Tunnelblick using Xcode 10 beta, Xcode needs to be set up to use the "legacy" build system and use "legacy" locations for build products:
 
-**5. Selecting  the Type of Build You Want to Create**
+ 1. Launch Xcode
+ 2. Click "File" > "Project Settings..."
+ 3. Set both "Shared Project Settings" and "Per-User Project Settings" to "Legacy Build System"
+ 4. Click the "Advanced" button
+ 5. Click on the "Legacy" radio button (for "Build Location")
+ 6. Click the "Done" button to close the "Advanced" window
+ 7. Click the "Done" button to close the "Project Settings" window
+
+Xcode 10 beta also needs to have the command line tools installed and associated with Xcode 10 beta. Consult Apple's Xcode documentation for details.
+
+**6. Selecting  the Type of Build You Want to Create**
 
 There are two different types of builds. Unfortunately Xcode defaults to using the one you shouldn't use, "Debug". You should use the "Release" build instead.
 
 To select the type of build in Xcode 3.2.2, change it in the drop-down list to "Unsigned Release".
 
-To select the type of build in Xcode 7.0+:
+To select the type of build in Xcode 7.3.1:
  1. Click Product > Scheme > Edit Scheme…
  2. Select "Run Tunnelblick" in the list on the left of the window that appears
  3. Select "Info" at the top of the window
