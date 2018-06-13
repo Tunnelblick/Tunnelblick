@@ -4869,7 +4869,7 @@ static void signal_handler(int signalNumber)
 		[self setLanguageAtLaunch: @"english"];
 	}
     
-    NSArray * rtlLanguages = [NSArray arrayWithObjects: @"ar", @"fa", nil]; // Arabic, Farsi (Persian)
+    NSArray * rtlLanguages = [NSArray arrayWithObjects: @"ar", @"fa", @"he", nil]; // Arabic, Farsi (Persian), Hebrew
 	languageAtLaunchWasRTL = (   [rtlLanguages containsObject: [self languageAtLaunch]]
 							  || [gTbDefaults boolForKey: @"useRtlLayout"]);
 	
