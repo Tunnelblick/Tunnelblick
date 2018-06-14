@@ -417,6 +417,9 @@
 "Do not warn about this again" = "אל תציג אזהרה זו שוב";
 
 /* Checkbox name */
+"Do not warn about this for %lu days" = "אל תציג אזהרה זו למשך %lu ימים";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "אפשר IPv6 (tap בלבד(";
 
 /* Checkbox name */
@@ -458,6 +461,39 @@
 /* Checkbox name */
 "Set DNS after routes are set" = "הגדר DNS לאחר שהנתיבים מוכנים";
 
+/* Checkbox name */
+"Show when disconnected" = "הצג כאשר מנותק";
+
+/* Checkbox name */
+"Show when the pointer is over the Tunnelblick icon" = "הצג כאשר סמן העכבר מרחף מעל סמליל Tunnelblick";
+
+/* PopUpButton */
+"Do not set nameserver" = "אל תקבע שרת שמות תחום";
+
+/* PopUpButton */
+"Set nameserver (3.0b10)" = "קבע שרת שמות תחום (3.0b10)";
+
+/* PopUpButton */
+"Set nameserver (3.1)" = "קבע שרת שמות תחום (3.1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 1)" = "קבע שרת שמות תחום (אלטרנטיבי 1)";
+
+/* PopUpButton *//* System profile item */
+"Set nameserver" = "קבע שרת שמות תחום";
+
+/* Text on disk image */
+"Double-click to begin" = "בצע לחיצה כפולה על מנת להתחיל";
+
+/* Connection status */
+"ADD_ROUTES" = "קובע מסלולי ניתוב"; // Please translate "Adding routes"
+
+/* Connection status */
+"ASSIGN_IP" = "משייך כתובת IP"; // Please translate "Assigning IP address"
+
+/* Connection status */
+"AUTH" = "בודק הרשאה"; // Please translate "Authorizing"
+
 /* Connection status */
 "CONNECTED" = "מחובר"; // Please translate "Connected"
 
@@ -471,13 +507,37 @@
 "EXITING" = "מנותק"; // Please translate "Disconnected"
 
 /* Connection status */
+"GET_CONFIG" = "מייבא הגדרות"; // Please translate ""
+
+/* Connection status */
+"PASSWORD_WAIT" = "ממתין לסיסמה"; // Please translate "Waiting for password"
+
+/* Connection status */
+"PRIVATE_KEY_WAIT" = "ממתין לביטוי מעבר"; // Please translate "Waiting for password"
+
+/* Connection status */
 "RECONNECTING" = "מתחבר מחדש"; // Please translate ""
+
+/* Connection status */
+"TCP_CONNECT" = "יוצר חיבור TCP"; // Please translate "Making TCP connection"
+
+/* Connection status */
+"UDP_CONNECT" = "יוצר חיבור UDP"; // Please translate "Making UDP connection"
 
 /* Connection status */
 "WAIT" = "ממתין לתגובת השרת"; // Please translate "Waiting for Server Response"
 
+/* Folder name */
+"Sample Tunnelblick VPN Configuration" = "הגדרות Tunnelblick VPN לדוגמה";
+
 /* System profile item */
 "Configurations" = "קונפיגורציות";
+
+/* Window title */
+" (Private)" = " (פרטי)";
+
+/* Window title */
+" (Shared)" = " (משותף)"; // Indicates a shared configuration
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' התנתק בהצלחה";
@@ -487,6 +547,9 @@
 
 /* Window title */
 "Add a Configuration" = "הוסף קונפיגורציה";
+
+/* Window title */
+"Alert sounds" = "צלילי אזהרה";
 
 /* Window title */
 "Alert" = "התראות";
@@ -502,6 +565,21 @@
 
 /* Window title */
 "Connecting & Disconnecting" = "חיבור וניתוק";
+
+/* Window title */
+"Could Not Copy Configuration" = "העתקת הגדרות נכשלה";
+
+/* Window title */
+"Could Not Move Configuration" = "העברת הגדרות נכשלה";
+
+/* Window title */
+"Could Not Replace Configuration" = "החלפת הגדרות נכשלה";
+
+/* Window title */
+"Could Not Uninstall Configuration" = "הסרת הגדרות נכשלה";
+
+/* Window title */
+"Create and Edit a Sample Configuration?" = "צור וערוך הגדרות לדוגמה?";
 
 /* Window title */
 "Details - Tunnelblick" = "Tunnelblick – פרטים";
@@ -522,13 +600,40 @@
 "Installation failed" = "התקנה נכשלה";
 
 /* Window title */
+"Installation or Repair Failed" = "התקנה או תיקון נכשל/ה";
+
+/* Window title */
 "Installation succeeded" = "ההתקנה הוצלחה";
+
+/* Window title */
+"Log" = "יומן תיעוד";
+
+/* Window title */
+"Name Required" = "יש להזין שם";
+
+/* Window title */
+"No Credentials" = "פרטי הזדהות לא קיימים";
+
+/* Window title */
+"Only computer administrators should update Tunnelblick" = "עדכון Tunnelblick יכול להתבצע רק על ידי מנהל";
+
+/* Window title */
+"OpenVPN is Not Responding" = "OpenVPN אינו מגיב";
+
+/* Window title */
+"Please insert token" = "אנא הכנס קוד";
 
 /* Window title */
 "Preferences" = "הגדרות";
 
 /* Window title */
+"Replace Existing File?" = "האם להחליף קובץ קיים?";
+
+/* Window title */
 "Replace VPN Configuration?" = "החלף קונפיגורציאת VPN?";
+
+/* Window title */
+"Sample Configuration Created" = "הגדרות לדוגמה נוצרו";
 
 /* Window title */
 "Settings" = "הגדרות";
@@ -537,13 +642,61 @@
 "Sounds" = "קול";
 
 /* Window title */
+"System Requirements Not Met" = "דרישות מערכת לא תואמות";
+
+/* Window title */
+"Tunnelblick Configuration Problem" = "בעייה בהגדרות Tunnelblick";
+
+/* Window title */
+"Tunnelblick Error" = "שגיאת Tunnelblick";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: דרושה התחברות";
+
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: דרוש ביטוי מעבר";
+
+/* Window title */
+"Unable to launch Tunnelblick" = "לא ניתן להפעיל את Tunnelblick";
+
+/* Window title */
+"Unavailable" = "לא זמין";
+
+/* Window title */
+"Use 'down-root' plugin for OpenVPN?" = "האם להשתמש בתוסף 'down-root' עבור OpenVPN?";
+
+/* Window title */
 "Utilities" = "כלי עזר";
+
+/* Window title */
+"VPN Configuration Installation Error" = "שגיאה בהתקנת הגדרות OpenVPN";
+
+/* Window title */
+"VPN Configuration Installation" = "התקנת הגדרות VPN";
+
+/* Window title */
+"VPN Credentials" = "פרטי הזדהות עבור VPN";
+
+/* Window title */
+"Warning!" = "אזהרה!";
+
+/* Window title */
+"Warning" = "אזהרה";
+
+/* Window title */
+"Warning: Unknown OpenVPN processes" = "אזהרה: תהליך OpenVPN לא ידוע";
 
 /* Window title */
 "Welcome to Tunnelblick" = "ברוכים הבאים ל–Tunnelblick";
 
 /* Window title */
 "Welcome" = "ברוכים הבאים";
+
+/* Window title */
+"While Connected" = "בזמן חיבור פעיל";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     %lu קונפיגורציות הותקנו בהצלחה\n\n";
@@ -580,3 +733,132 @@
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    הסר קונפיגורציה אחת\n";
+
+/* Window text -- appears in log display when logging is disabled\n */
+"(Logging is disabled.)" = "(תיעוד ביומן כבוי.)";
+
+/* Window text */
+"Add Credentials" = "הוסף פרטי זיהוי";
+
+/* Window text */
+"Additional contributions by" = "תרומות נוספות על ידי";
+
+/* Window text */
+"All OpenVPN processes have quit" = "כל תהליכי OpenVPN נסגרו";
+
+/* Window text */
+"All configuration files have been removed. Tunnelblick must quit." = "כל ההגדרות הוסרו. Tunnelblick חייב להיסגר.";
+
+/* Window text */
+"B" = "בתים";
+
+/* Window text */
+"B/s" = "בתים לשנייה";
+
+/* Window text */
+"Cancelled trying to quit all OpenVPN processes" = "בוטל ניסיון לסגור את כל תהליכי OpenVPN";
+
+/* Window text */
+"Configuration changes:" = "שינוי הגדרות:";
+
+/* Window text */
+"Connect:" = "התחבר:";
+
+/* Window text */
+"Connection:" = "חיבור:";
+
+/* Window text */
+"Converted OpenVPN configuration" = "הגדרות OpenVPN הומרו בהצלחה";
+
+/* Window text */
+"Could not find easy-rsa in Tunnelblick.app" = "לא ניתן למצוא את easy-rsa בתוך Tunnelblick.app";
+
+/* Window text */
+"Could not find easy-rsa version information in Tunnelblick.app" = "לא ניתן למצוא מידע עבור גרסת easy-rsa בתוך Tunnelblick.app";
+
+/* Window text */
+"DNS servers:" = "שרתי תחום (DNS):";
+
+/* Window text */
+"Did not need to modify configuration file; no path information to remove" = "לא נמצא צורך לעדכן את קובץ ההגדרות; אין הגדרות נתיב להסרה";
+
+/* Window text */
+"Domain:" = "שם תחום:";
+
+/* Window text */
+"EB" = "אקסה-בתים";
+
+/* Window text */
+"EB/s" = "אקסה-בתים לשנייה";
+
+/* Window text */
+"Fast User Switching" = "החלפת משתמשים מהירה";
+
+/* Window text */
+"Installing configurations is not allowed" = "התקנת הגדרות אינה מורשית";
+
+/* Window text */
+"KB" = "קילו-בתים";
+
+/* Window text */
+"KB/s" = "קילו-בתים לשנייה";
+
+/* Window text */
+"Keyboard shortcut:" = "קיצורי מקלדת:";
+
+/* Window text */
+"MB" = "מגה-בתים";
+
+/* Window text */
+"MB/s" = "מגה-בתים לשנייה";
+
+/* Window text */
+"Maximum log display size:" = "גודל תצוגת יומן מירבי:";
+
+/* Window text */
+"Menu:" = "תפריט:";
+
+/* Window text */
+"Modified configuration file to remove path information" = "קובץ ההגדרות עודכן להסרת מידע על נתיב";
+
+/* Window text */
+"NetBIOS name:" = "שם NetBIOS:";
+
+/* Window text */
+"Network setting" = "הגדרות רשת";
+
+/* Window text */
+"On expected disconnect:" = "בעת ניתוק צפוי:";
+
+/* Window text */
+"On unexpected disconnect:" = "בעת ניתוק בלתי צפוי:";
+
+/* Window text */
+"OpenVPN version:" = "גרסת OpenVPN:";
+
+/* Window text */
+"Set DNS/WINS:" = "קבע DNS/WINS:";
+
+/* Window text */
+"TB" = "טרה-בתים";
+
+/* Window text */
+"TB/s" = "טרה-בתים לשנייה";
+
+/* Window text */
+"TBRunAlertPanel returned an error" = "TBRunAlertPanel החזיר שגיאה";
+
+/* Window text */
+"TUNNELBLICK is brought to you by" = "TUNNELBLICK הובא אליכם על ידי";
+
+/* Window text */
+"Thank you very much for your donation to the TunnelblickProject." = "תודה רבה על תרומתכם לפרוייקט Tunnelblick.";
+
+/* Window text */
+"Thanks for your Tunnelblick donation" = "תודה על תרומתכם לTunnelblick";
+
+/* Window text */
+"That name is being used.\n\n" = "שם זה נמצא בשימוש.\n\n";
+
+/* Window text */
+"The installation or repair took too long or failed. Try again?" = "ההתקנה או התיקון לקחו זמן ממושך מידיי או נכשלו. האם לנסות שוב?";

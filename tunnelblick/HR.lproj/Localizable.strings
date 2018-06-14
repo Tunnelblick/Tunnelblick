@@ -255,7 +255,7 @@
 "Try again with saved username and password" = "Pokušaj ponovo sa spremljenim korisničkim imenom i zaporkom";
 
 /* Button */
-"Try again" = "Pokušaj ponovo";
+"Try again" = "Pokušajte ponovo";
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikona";
@@ -399,6 +399,9 @@
 "Do not warn about this again" = "Nemoj više upozoravati";
 
 /* Checkbox name */
+"Do not warn about this for %lu days" = "Ne upozoravaj me na ovo %lu dana";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Omogući IPv6 (samo za Tap)";
 
 /* Checkbox name */
@@ -429,7 +432,16 @@
 "Require administrator authorization for key and certificate changes" = "Uključi administratorska prava kod promjene ključa ili certifikata";
 
 /* Checkbox name */
+"Route all IPv4 traffic through the VPN" = "Preusmjeri sav IPv4 promet preko VPN-a";
+
+/* Checkbox name */
+"Run MTU maximum size test after connecting" = "Pokreni testiranje MTU maksimalne veličine nakon spajanja";
+
+/* Checkbox name */
 "Save in Keychain" = "Pohrani u Privjesak ključeva";
+
+/* Checkbox name */
+"Set DNS after routes are set" = "Postavi DNS nakon što su uspostavljene poveznice";
 
 /* Checkbox name */
 "Show when disconnected" = "Prikaži kad odspojen";
@@ -688,3 +700,114 @@
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace one configuration\n" = "    Zamijeniti konfiguraciju\n";
+
+/* Window text -- appears in log display when logging is disabled\n */
+"(Logging is disabled.)" = "(Logiranje je isključeno.)";
+
+/* Window text */
+"(Never checked)" = "(Nikad ne provjeravaj)";
+
+/* Window text */
+"B/s" = "B/s";
+
+/* Window text */
+"Configuration changes:" = "Promjene konfiguracije:";
+
+/* Window text */
+"In:" = "Ulazno:";
+
+/* Window text */
+"Installation failed:\n\n%@" = "Instalacija nije uspjela:\n\n%@";
+
+/* Window text */
+"KB" = "KB";
+
+/* Window text */
+"KB/s" = "KB/s";
+
+/* Window text */
+"Network setting" = "Postavke mreže";
+
+/* Window text */
+"Startup window:" = "Početni zaslon:";
+
+/* Window text */
+"Thank you very much for your donation to the TunnelblickProject." = "Veliko hvala na vašoj donaciji Tunnelblick projektu.";
+
+/* Window text */
+"Thanks for your Tunnelblick donation" = "Hvala na vašoj donaciji Tunnelblicku";
+
+/* Window text */
+"That name is being used.\n\n" = "Taj naziv već se koristi.\n\n";
+
+/* Window text */
+"There was a problem:\n\n%@" = "Došlo je do problema: \n\n%@";
+
+/* Window text */
+"Too many configuration files in '%@'" = "Previše konfiguracijskih datoteka u '%@'";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ je spreman.";
+
+/* Window text */
+"Unexpected disconnection:" = "Nepredviđen prekid konekcije:";
+
+/* Window text */
+"Unknown extension '%@' for %@" = "Nepoznata ekstenzija '%1$@' for %2$@";
+
+/* Window text */
+"Unknown key '%@' in %@" = "Nepoznat ključ '%1$@' in %2$@";
+
+/* Window text */
+"Unknown value '%@' for '%@' in %@" = "Nepoznate vrijednosti '%1$@' for '%2$@' in %3$@";
+
+/* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Nije moguće pročitati datoteku %@.";
+
+/* Window text */
+"Updates:" = "Ažuriranja:";
+
+/* Suffix for a duplicate of a file */
+" copy %d" = " kopiraj %d";
+
+/* Suffix for a duplicate of a file */
+" copy" = " kopiraj";
+
+/* Speak string */
+"Connected to %@" = "Spojen na %@";
+
+/* Credit description */
+"Croatian translation" = "Hrvatski prijevod";
+
+/* Credit description */
+"Czech translation" = "Češki prijevod";
+
+/* Checkbox */
+"Do not show this again" = "Ne prikazuj ponovno";
+
+/* Credit description */
+"PKCS#11 support" = "PKCS#11 podrška";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Prijava";
+
+/* Button VPNService */
+"Reject" = "Odbaci";
+
+/* Window title  VPNService */
+"Email not verified" = "Email adresa nije potvrđena";
+
+/* Window title  VPNService */
+"Entries required" = "Potreban je unos";
+
+/* Window title  VPNService */
+"Terms of Service" = "Uvjeti korištenja";
+
+/* Window text VPNService */
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Čestitamo! Vaš korisnički račun je kreiran. Trebali biste uskoro dobiti email od Tunnelblicka. slijedite upute u emailu kako biste potvrdili vašu email adresu i zatim pritisnite 'Slijedeće'.";
+
+/* Window text VPNService */
+"Type the characters above:" = "Upišite znakove iznad:";
+
+/* Window text VPNService */
+"Unable to connect to server" = "Neuspješno povezivanje sa serverom";
