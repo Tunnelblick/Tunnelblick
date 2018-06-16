@@ -21,6 +21,14 @@
 #  or see http://www.gnu.org/licenses/.
 #
 
+# We delete Tunnelblick.app before building so it will be recreated with fresh digital
+# signatures.
+#
+# When we run a debug build we change ownership of Tunnelblick.app to root:wheel, so we
+# can't delete it normally. Instead, we move it to the Trash.
+#
+# This script handles that.
+
 # The following script is modified from the model at http://yeahrightkeller.com/2009/run-script-while-cleaning-in-xcode/
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -144,18 +152,24 @@ rm -f /tmp/tunnelblick-trash.scpt
 # MAIN
 
 case $ACTION in
-    # NOTE: for some reason, it gets set to "" rather than "build" when
-    # doing a build.
+	# $ACTION is ""        when doing a build.
+	#            "install" when doing an "archive".
     "")
-        buildAction "${CONFIGURATION}"
+		# Build: do a build
+		buildAction "${CONFIGURATION}"
         ;;
 
     "clean")
+		# Clean: delete or Trash everything
         cleanAction "${CONFIGURATION}"
         ;;
         
+	"install")
+		# Archive: do nothing -- do NOT delete or Trash the application.
+		;;
+
     *)
-        echo "error: Invalid action. Must be empty or 'clean'"
+        echo "error: Invalid action '$ACTION'. Must be empty or 'clean'"
         exit 1
         ;;
 esac

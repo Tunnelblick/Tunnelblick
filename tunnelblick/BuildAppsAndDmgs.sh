@@ -31,7 +31,11 @@ readonly uninstaller_path="build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.ap
 
 # If Xcode has built Tunnelblick.app in somewhere unexpected, complain and quit
 if [ ! -d "${app_path}" ] ; then
-  echo "error: An Xcode preference must be set to put build products in the 'tunnelblick/build' folder. Please set Xcode preference > Locations > Advanced to 'Legacy'"
+  if [ "$ACTION" = "install" ] ; then
+    echo "You must 'Build' Tunnelblick before doing an 'Archive'"
+  else
+    echo "An Xcode preference must be set to put build products in the 'tunnelblick/build' folder. Please set Xcode preference > Locations > Advanced to 'Legacy'"
+  fi
   exit 1
 fi
 
