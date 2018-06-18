@@ -11,9 +11,6 @@
 --     The application may be double-clicked to uninstall /Applications/Tunnelblick.app, or
 --     a Tunnelblick (or rebranded) application may be dropped on it.
 --
---     NOTE: IF THIS FILE IS MODIFIED, it should be compiled on OS X 10.4 and its droplet saved as
---           tunnelblick-uninstaller-droplet-compiled-on-tiger. See tunnelblick-uninstaller-droplet-note.txt.
---
 ------------------------------------------------------------------------------------------------------------------
 
 
@@ -541,38 +538,47 @@ While the uninstall is being done there will be no indication that anything is h
 	-- Inform the user about errors (indicated by "Error: " or "Problem: " anywhere in the shell script's stdout)
 	-- and successful tests or uninstalls
 
-	set error_happened to false
-	try
-		if (scriptOutput contains "Problem: ") Â
-			or (scriptOutput contains "Error: ") then
-			if testFlag then
-				set alertResult to display alert (localized string of "Tunnelblick Uninstaller TEST FAILED") Â
-					message LocalizedFormattedString("One or more errors occurred during the %s uninstall test.", {theName}) Â
-					as critical Â
-					buttons {localized string of "OK", localized string of "Details"}
-			else
-				set alertResult to display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
-					message LocalizedFormattedString("One or more errors occurred while uninstalling %s.", {theName}) Â
-					as critical Â
-					buttons {localized string of "OK", localized string of "Details"}
-			end if
-		
-		else
-			if testFlag then
-				set alertResult to display dialog LocalizedFormattedString("The %s uninstall test succeeded.", {theName}) Â
-					buttons {localized string of "Details", localized string of "OK"}
-			else
-				set alertResult to display dialog LocalizedFormattedString("%s was uninstalled successfully", {theName}) Â
-					buttons {localized string of "Details", localized string of "OK"}
-			end if
-		end if
-	on error errorMessage number errorNumber
-		display alert "Error displaying result dialog: '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
-		set error_happened to true
-	end try
+	-- Set timeout to 10,000 hours, so the dialog never times out
+	set timeoutValue to 60*60*100000
 
-	-- If an error happened or the user asked for details, store the log in /tmp and open the log in TextEdit
-	if error_happened or alertResult = {button returned:localized string of "Details"} then
+	activate me
+
+	if (scriptOutput contains "Problem: ") Â
+		or (scriptOutput contains "Error: ") then
+		if testFlag then
+			set alertResult to display dialog Â
+				LocalizedFormattedString("One or more errors occurred during the %s uninstall test.", {theName}) Â
+				with title (localized string of "Tunnelblick Uninstaller TEST FAILED") Â
+				with icon stop Â
+				buttons {localized string of "Details", localized string of "OK"} Â
+				giving up after timeoutValue
+		else
+			set alertResult to display dialog Â
+				LocalizedFormattedString("One or more errors occurred while uninstalling %s.", {theName}) Â
+				with title (localized string of "Tunnelblick Uninstaller FAILED") Â
+				with icon  stop Â
+				buttons {localized string of "Details", localized string of "OK"} Â
+				giving up after timeoutValue
+		end if
+
+	else
+		if testFlag then
+			set alertResult to display dialog Â
+				LocalizedFormattedString("The %s uninstall test succeeded.", {theName}) Â
+				with title (localized string of "Tunnelblick Uninstall test succeeded") Â
+				buttons {localized string of "Details", localized string of "OK"} Â
+				giving up after timeoutValue
+		else
+			set alertResult to display dialog Â
+				LocalizedFormattedString("%s was uninstalled successfully", {theName}) Â
+				with title (localized string of "Tunnelblick was Uninstalled") Â
+				buttons {localized string of "Details", localized string of "OK"} Â
+				giving up after timeoutValue
+		end if
+	end if
+
+-- If the user asked for details, open the log in TextEdit
+	if the button returned of alertResult = localized string of "Details" then
 		tell application "TextEdit"
 			activate
 			set the clipboard to scriptOutput
