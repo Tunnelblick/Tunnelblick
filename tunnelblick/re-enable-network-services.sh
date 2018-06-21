@@ -39,7 +39,7 @@ while IFS= read -r dia_service ; do
 			dia_service="${dia_service:1}"
 		fi
 
-		if [[  $list =~ \"$dia_service\"  ]] ; then
+		if [[  "$list" =~ "\"$dia_service\""  ]] ; then
 
 			if [ "$dia_service" = "Wi-Fi" ] ; then
 				dia_interface="$(networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
