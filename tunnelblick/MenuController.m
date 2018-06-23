@@ -7437,6 +7437,8 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	(void) n;
 	
+	gShuttingDownOrRestartingComputer = FALSE;
+	gShuttingDownWorkspace = FALSE;
     reasonForTermination = terminatingForUnknownReason;
     TBLog(@"DB-SD", @"Cancelled logout, or computer shutdown or restart.")
 }
@@ -7445,23 +7447,6 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void) setShutdownVariables
 {
-    // Only change the shutdown variables once. Maybe by logoutContinuedHandler:, maybe by willLogoutOrShutdownHandler:, whichever
-    // occurs first.
-    //
-    // NEVER unlock this mutex. It is only invoked when Tunnelblick is quitting or about to quit
-    static pthread_mutex_t shuttingDownMutex = PTHREAD_MUTEX_INITIALIZER;
-    
-    int status = pthread_mutex_trylock( &shuttingDownMutex );
-    if (  status != EXIT_SUCCESS  ) {
-        if (  status == EBUSY  ) {
-            NSLog(@"setShutdownVariables: invoked, but have already set them");
-        } else {
-            NSLog(@"setShutdownVariables: pthread_mutex_trylock( &myVPNMenuMutex ) failed; status = %ld; %s", (long) status, strerror(status));
-        }
-        
-        return;
-    }
-
     gShuttingDownTunnelblick = TRUE;
     if (   (reasonForTermination == terminatingBecauseOfRestart)
         || (reasonForTermination == terminatingBecauseOfShutdown)  ) {
@@ -7473,7 +7458,13 @@ void terminateBecauseOfBadConfiguration(void)
         
         NSNotification * note = [NSNotification notificationWithName: @"TunnelblickUIShutdownNotification" object: nil];
         [[NSNotificationCenter defaultCenter] postNotification:note];
-    }
+		TBLog(@"DB-SD", @"TunnelblickUIShutdownNotification sent")
+	} else {
+		TBLog(@"DB-SD", @"TunnelblickUIShutdownNotification NOT sent")
+	}
+
+	TBLog(@"DB-SD", @"setShutdownVariables: reasonForTermination = %d; gShuttingDownTunnelblick = %s; gShuttingDownOrRestartingComputer = %s; gShuttingDownWorkspace = %s",
+		  reasonForTermination, CSTRING_FROM_BOOL(gShuttingDownTunnelblick), CSTRING_FROM_BOOL(gShuttingDownOrRestartingComputer), CSTRING_FROM_BOOL(gShuttingDownWorkspace))
 }
 
 -(void) logoutContinuedHandler: (NSNotification *) n
