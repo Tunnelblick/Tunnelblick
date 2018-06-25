@@ -7437,8 +7437,6 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	(void) n;
 	
-	gShuttingDownOrRestartingComputer = FALSE;
-	gShuttingDownWorkspace = FALSE;
     reasonForTermination = terminatingForUnknownReason;
     TBLog(@"DB-SD", @"Cancelled logout, or computer shutdown or restart.")
 }
@@ -7472,7 +7470,6 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     TBLog(@"DB-SD", @"logoutContinuedHandler: Confirmed logout, or computer shutdown or restart.")
-    [self setShutdownVariables];
 }
 
 // This notification happens when we know we actually will logout or shutdown (or restart)
@@ -7480,7 +7477,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
  	(void) n;
 	
-   TBLog(@"DB-SD", @"willLogoutOrShutdownHandler: Received 'NSWorkspaceWillPowerOffNotification' notification")
+    TBLog(@"DB-SD", @"willLogoutOrShutdownHandler: Received 'NSWorkspaceWillPowerOffNotification' notification")
     [self setShutdownVariables];
 }
 
