@@ -26,7 +26,6 @@
 #import "TBUserDefaults.h"
 
 extern  TBUserDefaults * gTbDefaults;
-extern BOOL              gShuttingDownWorkspace;
 
 @implementation DropConfigsView
 

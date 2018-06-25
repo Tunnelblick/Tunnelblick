@@ -33,7 +33,6 @@
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
-extern BOOL             gShuttingDownWorkspace;
 
 @implementation ConfigurationMultiUpdater
 
