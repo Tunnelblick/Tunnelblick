@@ -30,7 +30,6 @@
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 
-extern BOOL              gShuttingDownWorkspace;
 extern TBUserDefaults  * gTbDefaults;
 
 @implementation AlertWindowController
