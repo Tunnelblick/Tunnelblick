@@ -24,6 +24,7 @@
 
 #import <mach/mach_time.h>
 #import <pthread.h>
+#import <Security/Security.h>
 #import <sys/stat.h>
 #import <sys/sysctl.h>
 #import <sys/utsname.h>
@@ -60,6 +61,85 @@ extern BOOL              gShuttingDownTunnelblick;
 void appendLog(NSString * msg)
 {
 	NSLog(@"%@", msg);
+}
+
+
+// The following base64 routines were inspired by an answer by denis2342 to the thread at https://stackoverflow.com/questions/11386876/how-to-encode-and-decode-files-as-base64-in-cocoa-objective-c
+
+static NSData * base64helper(NSData * input, SecTransformRef transform) {
+	
+	NSData * output = nil;
+	
+	if (  input  ) {
+		if (  transform  ) {
+			if (  SecTransformSetAttribute(transform, kSecTransformInputAttributeName, input, NULL)  ) {
+				output = [(NSData *)SecTransformExecute(transform, NULL) autorelease];
+				if (  ! output  ) {
+					appendLog(@"base64helper: SecTransformExecute() returned NULL");
+				}
+			} else {
+				appendLog(@"base64helper: SecTransformSetAttribute() returned FALSE");
+			}
+		} else {
+			appendLog(@"base64helper: transform is nil");
+		}
+	} else {
+		appendLog(@"base64helper: input is nil");
+	}
+	
+	return output;
+}
+
+NSString * base64Encode(NSData * input) {
+	
+	// Returns an empty string on error after logging the reason for the error.
+	
+	NSString * output = @"";
+	
+	if (  input  ) {
+		SecTransformRef transform = SecEncodeTransformCreate(kSecBase64Encoding, NULL);
+		if (  transform != NULL  ) {
+			NSData * data = base64helper(input, transform);
+			CFRelease(transform);
+			if (  data  ) {
+				output = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];
+			} else {
+				appendLog(@"base64Encode: base64helper() returned nil");
+			}
+		} else {
+			appendLog(@"base64Decode: SecEncodeTransformCreate() returned NULL");
+		}
+	} else {
+		appendLog(@"base64Decode: input is nil");
+	}
+	
+	return output;
+}
+
+NSData * base64Decode(NSString * input) {
+	
+	// Returns nil on error after logging the reason for the error.
+	
+	NSData * output = nil;
+	
+	if (  input  ) {
+		NSData * data = [input dataUsingEncoding: NSASCIIStringEncoding];
+		if (  data  ) {
+			SecTransformRef transform = SecDecodeTransformCreate(kSecBase64Encoding, NULL);
+			if (  transform != NULL  ) {
+				output = base64helper(data, transform);
+				CFRelease(transform);
+			} else {
+				appendLog(@"base64Decode: SecEncodeTransformCreate() returned NULL");
+			}
+		} else {
+			appendLog(@"base64Decode: [input dataUsingEncoding: NSASCIIStringEncoding] returned nil");
+		}
+	} else {
+		appendLog(@"base64Decode: input is nil");
+	}
+	
+	return output;
 }
 
 uint64_t nowAbsoluteNanoseconds (void)

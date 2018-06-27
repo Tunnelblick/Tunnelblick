@@ -48,7 +48,6 @@
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 #import "VPNConnection.h"
-#import "MF_Base64Additions.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gPrivatePath;
@@ -3151,29 +3150,35 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }
 
-- (NSString *)getResponseFromChallenge: (NSString *)challenge echoResponse: (BOOL)echoResponse{
-    NSAlert *alert = [NSAlert alertWithMessageText: challenge
-                                     defaultButton:@"OK"
-                                   alternateButton:@"Cancel"
-                                       otherButton:nil
-                         informativeTextWithFormat:@""];
-
-    NSTextField *input;
-    input = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
-    [input autorelease];
-    [alert setAccessoryView:input];
-    [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
-    [[alert window] setInitialFirstResponder: input];
-    NSInteger button = [alert runModal];
-    if (button == NSAlertDefaultReturn) {
-        [input validateEditing];
-        return [input stringValue];
-    } else if (button == NSAlertAlternateReturn) {
-        return nil;
-    } else {
-        NSAssert1(NO, @"Invalid input dialog button %ld", (long)button);
-        return nil;
-    }
+- (NSString *) getResponseFromChallenge: (NSString *) challenge
+						   echoResponse: (BOOL)       echoResponse {
+	
+	if (  [challenge length] == 0  ) {
+		challenge = NSLocalizedString(@"This VPN requires a response to a challenge but does not provide the challenge.", @"Window text");
+	}
+	
+	NSAlert * alert = [NSAlert alertWithMessageText: challenge
+									  defaultButton: NSLocalizedString(@"OK",     @"Button")
+									alternateButton: NSLocalizedString(@"Cancel", @"Button")
+										otherButton: nil
+						  informativeTextWithFormat: @""];
+	id input = (  echoResponse
+				? [[[NSTextField       alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)] autorelease]
+				: [[[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)] autorelease]);
+	[alert setAccessoryView: input];
+	[[alert window] setInitialFirstResponder: input];
+	[NSApp activateIgnoringOtherApps: YES];
+	
+	NSModalResponse button = [alert runModal];
+	
+	if (  button == NSAlertDefaultReturn  ) {
+		[input validateEditing];
+		return [input stringValue];
+	} else if (  button != NSAlertAlternateReturn  ) {
+		NSLog(@"getResponseFromChallenge:echoResponse: Invalid input dialog button %ld", (long)button);
+	}
+	
+	return nil;
 }
 
 - (void) processLine: (NSString*) line
@@ -3468,15 +3473,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         TBLog(@"DB-AU", @"processLine: Server asking for Static Challenge");
 
         NSRange rngStartChallenge = [line rangeOfString: @" SC:"];
-        NSAssert(rngStartChallenge.length != 0, @"rngStartChallenge.length should not be 0, we tested it before...");
-
+ 
         NSString * afterStartChallenge = [line substringFromIndex: rngStartChallenge.location + rngStartChallenge.length];
         NSString * echoResponseStr = [afterStartChallenge substringToIndex: 1]; // take "0" or "1"
         echoResponse = [echoResponseStr isEqualToString:@"1"];
-        TBLog(@"DB-AU", @"echoResponse is '%d'", echoResponse);
-        challengeText = [afterStartChallenge substringFromIndex: 2]; // drop "0," or "1,"
-        TBLog(@"DB-AU", @"challengeText is '%@'", challengeText);
-    }
+         challengeText = [afterStartChallenge substringFromIndex: 2]; // drop "0," or "1,"
+     }
 
     // Find out whether the server wants a private key or user/auth:
     NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
@@ -3532,13 +3534,21 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
             } else {
                 NSString * response = nil;
-                if (challengeText) {
+                if (  challengeText  ) {
                     response = [self getResponseFromChallenge: challengeText echoResponse: echoResponse];
-                    TBLog(@"DB-AU", @"response is '%@'", response);
+					if (  response  ) {
+						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: User responded to static challenge: '%@'", challengeText]];
+					} else {
+						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: User cancelled when presented with static challenge: '%@'", challengeText]];
+						[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
+					}
                 }
                 [self sendStringToManagementSocket:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUTF8StringEncoding];
-                if (response) {
-                    [self sendStringToManagementSocket:[NSString stringWithFormat:@"password \"Auth\" \"SCRV1:%@:%@\"\r\n", [myPassword base64String], [response base64String]] encoding:NSUTF8StringEncoding];
+                if (  response  ) {
+					[self sendStringToManagementSocket: [NSString stringWithFormat:@"password \"Auth\" \"SCRV1:%@:%@\"\r\n",
+														 base64Encode([myPassword dataUsingEncoding: NSUTF8StringEncoding]),
+														 base64Encode([response   dataUsingEncoding: NSUTF8StringEncoding])]
+											  encoding: NSASCIIStringEncoding];
                 } else {
                     [self sendStringToManagementSocket:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
                 }

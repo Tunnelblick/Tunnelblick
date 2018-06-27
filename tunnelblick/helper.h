@@ -28,6 +28,9 @@ void           appendLog				 (NSString * msg);
 
 BOOL           appHasValidSignature(void);
 
+NSString	 * base64Encode(NSData   * input);
+NSData       * base64Decode(NSString * input);
+
 uint64_t       nowAbsoluteNanoseconds    (void);
 
 NSString     * configPathFromTblkPath   (NSString * path);
