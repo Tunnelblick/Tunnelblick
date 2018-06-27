@@ -3157,11 +3157,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		challenge = NSLocalizedString(@"This VPN requires a response to a challenge but does not provide the challenge.", @"Window text");
 	}
 	
-	NSAlert * alert = [NSAlert alertWithMessageText: challenge
+	NSAlert * alert = [NSAlert alertWithMessageText: NSLocalizedString(@"Tunnelblick", @"Window title")
 									  defaultButton: NSLocalizedString(@"OK",     @"Button")
 									alternateButton: NSLocalizedString(@"Cancel", @"Button")
 										otherButton: nil
-						  informativeTextWithFormat: @""];
+						  informativeTextWithFormat: @"%@", challenge];
 	id input = (  echoResponse
 				? [[[NSTextField       alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)] autorelease]
 				: [[[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)] autorelease]);
