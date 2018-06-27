@@ -3465,22 +3465,17 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     if (   [line rangeOfString: @" SC:0,"].length
         || [line rangeOfString: @" SC:1,"].length  ) {
+        TBLog(@"DB-AU", @"processLine: Server asking for Static Challenge");
 
         NSRange rngStartChallenge = [line rangeOfString: @" SC:"];
         NSAssert(rngStartChallenge.length != 0, @"rngStartChallenge.length should not be 0, we tested it before...");
 
-        TBLog(@"DB-AU", @"processLine: Server asking for Static Challenge");
-        if (  rngStartChallenge.length != 0  ) {
-            NSString * afterStartChallenge = [line substringFromIndex: rngStartChallenge.location + 4];
-            NSRange rngComma = [afterStartChallenge rangeOfString: @","];
-
-            NSString * echoResponseStr = [afterStartChallenge substringToIndex: rngComma.location];
-            echoResponse = [echoResponseStr isEqualToString:@"1"];
-
-            TBLog(@"DB-AU", @"echoResponse is '%d'", echoResponse);
-            challengeText = [afterStartChallenge substringFromIndex: rngComma.location + 1];
-            TBLog(@"DB-AU", @"challengeText is '%@'", challengeText);
-        }
+        NSString * afterStartChallenge = [line substringFromIndex: rngStartChallenge.location + rngStartChallenge.length];
+        NSString * echoResponseStr = [afterStartChallenge substringToIndex: 1]; // take "0" or "1"
+        echoResponse = [echoResponseStr isEqualToString:@"1"];
+        TBLog(@"DB-AU", @"echoResponse is '%d'", echoResponse);
+        challengeText = [afterStartChallenge substringFromIndex: 2]; // drop "0," or "1,"
+        TBLog(@"DB-AU", @"challengeText is '%@'", challengeText);
     }
 
     // Find out whether the server wants a private key or user/auth:
@@ -3542,10 +3537,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     TBLog(@"DB-AU", @"response is '%@'", response);
                 }
                 [self sendStringToManagementSocket:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUTF8StringEncoding];
-                if (!response) {
-                    [self sendStringToManagementSocket:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
-                } else {
+                if (response) {
                     [self sendStringToManagementSocket:[NSString stringWithFormat:@"password \"Auth\" \"SCRV1:%@:%@\"\r\n", [myPassword base64String], [response base64String]] encoding:NSUTF8StringEncoding];
+                } else {
+                    [self sendStringToManagementSocket:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
                 }
             }
         } else {
