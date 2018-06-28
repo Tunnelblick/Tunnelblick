@@ -12,7 +12,6 @@
 		615F74990ED3A4FA007F6F0A /* DE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74900ED3A4FA007F6F0A /* DE.lproj */; };
 		615F749A0ED3A4FA007F6F0A /* JA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74930ED3A4FA007F6F0A /* JA.lproj */; };
 		615F749B0ED3A4FA007F6F0A /* KO.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74960ED3A4FA007F6F0A /* KO.lproj */; };
-		6165CC8C0E9072A5007312DC /* RouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6165CC8B0E9072A5007312DC /* RouteManager.m */; };
 		6185E7400E76045D0009C2FD /* helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6185E73F0E76045D0009C2FD /* helper.m */; };
 		61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B660E2F9EBC00F24255 /* VPNConnection.m */; };
 		61BC4B7A0E2F9EBC00F24255 /* NSArray+cArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */; };
@@ -352,8 +351,6 @@
 		615F74900ED3A4FA007F6F0A /* DE.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DE.lproj; sourceTree = "<group>"; };
 		615F74930ED3A4FA007F6F0A /* JA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JA.lproj; sourceTree = "<group>"; };
 		615F74960ED3A4FA007F6F0A /* KO.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KO.lproj; sourceTree = "<group>"; };
-		6165CC8A0E9072A5007312DC /* RouteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteManager.h; sourceTree = "<group>"; };
-		6165CC8B0E9072A5007312DC /* RouteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteManager.m; sourceTree = "<group>"; };
 		616A44E10E38CAA700477476 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = /System/Library/Frameworks/Kernel.framework; sourceTree = "<absolute>"; };
 		6185E73E0E76045D0009C2FD /* helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
 		6185E73F0E76045D0009C2FD /* helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = helper.m; sourceTree = "<group>"; };
@@ -790,13 +787,10 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				6165CC8A0E9072A5007312DC /* RouteManager.h */,
-				6165CC8B0E9072A5007312DC /* RouteManager.m */,
 				635CA99F12F9DCE300287298 /* AppKit.framework */,
 				63B9CFA4132C73DD009EC6D0 /* WebKit.framework */,
 				638A2004135CC41C00FB932C /* Foundation.framework */,
 				63432572140D7F5A00015CE0 /* CoreServices.framework */,
-				63F0A8B21507D24800526AF9 /* MainIcon.xib */,
 				63B4DCE41A409DF300F6A74C /* ServiceManagement.framework */,
 				634616861A9B85C60049C16C /* SystemConfiguration.framework */,
 			);
@@ -938,14 +932,14 @@
 		63C374521D281EBD004758A3 /* InfoButton */ = {
 			isa = PBXGroup;
 			children = (
-				631BC4301FC4496300730786 /* TBPopUpButton.h */,
-				631BC42F1FC4496300730786 /* TBPopUpButton.m */,
-				6395C2301E37B90000E3C176 /* TBButton.h */,
-				6395C2311E37B90000E3C176 /* TBButton.m */,
-				634F1B9B1D23FD9D00B1E929 /* Tracker.h */,
-				634F1B9C1D23FD9D00B1E929 /* Tracker.m */,
 				63FA093F1D25E68500859556 /* MAAttachedWindow.h */,
 				63FA09401D25E68500859556 /* MAAttachedWindow.m */,
+				6395C2301E37B90000E3C176 /* TBButton.h */,
+				6395C2311E37B90000E3C176 /* TBButton.m */,
+				631BC4301FC4496300730786 /* TBPopUpButton.h */,
+				631BC42F1FC4496300730786 /* TBPopUpButton.m */,
+				634F1B9B1D23FD9D00B1E929 /* Tracker.h */,
+				634F1B9C1D23FD9D00B1E929 /* Tracker.m */,
 			);
 			name = InfoButton;
 			sourceTree = "<group>";
@@ -1099,6 +1093,7 @@
 				B86D1313181186E900FDFB3B /* ListingWindow.xib */,
 				63ABFE9E1349F086003DEB64 /* LoginWindow.xib */,
 				633888F21C00F2FC0076032D /* LoginWindow-RTL.xib */,
+				63F0A8B21507D24800526AF9 /* MainIcon.xib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.xib */,
 				6388569F134B8056008DF8C1 /* PassphraseWindow.xib */,
 				633888F31C00F2FC0076032D /* PassphraseWindow-RTL.xib */,
@@ -1162,12 +1157,12 @@
 				63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */,
 				63DEC28E13B890F70063CE11 /* NSString+TB.h */,
 				63DEC28F13B890F70063CE11 /* NSString+TB.m */,
+				B8D807011832EEC400A0B937 /* NSTimer+TB.h */,
+				B8D807021832EEC400A0B937 /* NSTimer+TB.m */,
 				B82DF4D6182704D800A121DE /* TBPerformer.h */,
 				B82DF4D7182704D800A121DE /* TBPerformer.m */,
 				6337527B101A1EBD00775AA2 /* TBTextView.h */,
 				6337527C101A1EBD00775AA2 /* TBTextView.m */,
-				B8D807011832EEC400A0B937 /* NSTimer+TB.h */,
-				B8D807021832EEC400A0B937 /* NSTimer+TB.m */,
 			);
 			name = "Class Extensions & Subclasses";
 			sourceTree = "<group>";
@@ -1188,10 +1183,10 @@
 		B8407883170CE5400002B941 /* EasyRSA & AppleScript */ = {
 			isa = PBXGroup;
 			children = (
-				B8F6264A1641C8C700943C59 /* easyRsa.h */,
-				B8F6264B1641C8C700943C59 /* easyRsa.m */,
 				635C80441300353000DB27AE /* ApplescriptCommands.h */,
 				635C80451300353000DB27AE /* ApplescriptCommands.m */,
+				B8F6264A1641C8C700943C59 /* easyRsa.h */,
+				B8F6264B1641C8C700943C59 /* easyRsa.m */,
 			);
 			name = "EasyRSA & AppleScript";
 			sourceTree = "<group>";
@@ -1209,10 +1204,10 @@
 				B8C9FB44170C77A400BCA243 /* LeftNavItem.m */,
 				B8C9FB45170C77A400BCA243 /* LeftNavViewController.h */,
 				B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */,
-				63A505FC11DA0E88006CB2B6 /* LogDisplay.h */,
-				63A505FD11DA0E88006CB2B6 /* LogDisplay.m */,
 				B86D13071811859000FDFB3B /* ListingWindowController.h */,
 				B86D13081811859000FDFB3B /* ListingWindowController.m */,
+				63A505FC11DA0E88006CB2B6 /* LogDisplay.h */,
+				63A505FD11DA0E88006CB2B6 /* LogDisplay.m */,
 			);
 			name = Configurations;
 			sourceTree = "<group>";
@@ -1771,7 +1766,6 @@
 				61BC4B930E2F9EDA00F24255 /* UKKQueue.m in Sources */,
 				61BC4B940E2F9EDA00F24255 /* UKMainThreadProxy.m in Sources */,
 				6185E7400E76045D0009C2FD /* helper.m in Sources */,
-				6165CC8C0E9072A5007312DC /* RouteManager.m in Sources */,
 				631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */,
 				6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */,
 				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
