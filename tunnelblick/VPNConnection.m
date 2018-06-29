@@ -3151,10 +3151,32 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 - (NSString *) getResponseFromChallenge: (NSString *) challenge
-						   echoResponse: (BOOL)       echoResponse {
+						   echoResponse: (BOOL)       echoResponse
+					   responseRequired: (BOOL)       responseRequired {
+	
+	// If responseRequired is TRUE
+	//		'challenge' is displayed with an OK button and a Cancel button in a modal window
+	//		Control is returned when the user clicks OK or Cancel
+	//		If the user clicks Cancel, nil is returned, otherwise the response is returned (it could be an empty string)
+	// Else
+	//		'challenge' is displayed with an OK button in a non-modal window (or ignored and logged if the challenge is nil or an empty string)
+	//		nil is returned immediately
 	
 	if (  [challenge length] == 0  ) {
-		challenge = NSLocalizedString(@"This VPN requires a response to a challenge but does not provide the challenge.", @"Window text");
+		if (  ! responseRequired  ) {
+			NSLog(@"Empty challenge message for %@ ignored because no response is required", [self displayName]);
+			return nil;
+		}
+		
+		challenge = NSLocalizedString(@"This VPN requires you to respond to a question but has not provided the question.", @"Window text");
+	}
+
+	// Prefix the challenge with a line containing the VPN name
+	challenge = [NSString stringWithFormat: @"%@\n\n%@", [self displayName], challenge];
+	
+	if (  ! responseRequired  ) {
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), challenge);
+		return nil;
 	}
 	
 	NSAlert * alert = [NSAlert alertWithMessageText: NSLocalizedString(@"Tunnelblick", @"Window title")
@@ -3175,7 +3197,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		[input validateEditing];
 		return [input stringValue];
 	} else if (  button != NSAlertAlternateReturn  ) {
-		NSLog(@"getResponseFromChallenge:echoResponse: Invalid input dialog button %ld", (long)button);
+		NSLog(@"getResponseFromChallenge: Invalid input dialog button %ld for %@", (long)button, [self displayName]);
 	}
 	
 	return nil;
@@ -3355,6 +3377,45 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     [self sendStringToManagementSocket: @"needok token-insertion-request cancel\r\n" encoding: NSASCIIStringEncoding];
                 }
             }
+		} else if ([command isEqualToString:@"CRV1"]) {
+			line = [NSString stringWithFormat: @"CRV1:R:TheState:%@:TheChallenge", base64Encode([@"TheUsername" dataUsingEncoding: NSUTF8StringEncoding])];
+			[self addToLog: line];
+			NSArray * parts = [line componentsSeparatedByString: @":"];
+			if (  [parts count] > 4 ) {
+				
+				NSString * flags     = [parts objectAtIndex: 1];
+				NSString * state     = [parts objectAtIndex: 2];
+				NSString * username  = [[[NSString alloc] initWithData: base64Decode([parts objectAtIndex: 3]) encoding: NSUTF8StringEncoding] autorelease];;
+				
+				NSString * challenge = [parts objectAtIndex: 4];
+				// (Handle colons in the challenge properly)
+				NSUInteger i;
+				for (  i=5; i<[parts count]; i++) {
+					challenge = [challenge stringByAppendingFormat: @":%@", [parts objectAtIndex: i]];
+				}
+				
+				BOOL echoResponse     = [flags rangeOfString: @"E"].length != 0;
+				BOOL responseRequired = [flags rangeOfString: @"R"].length != 0;
+				NSString * response   = [self getResponseFromChallenge: challenge echoResponse: echoResponse responseRequired: responseRequired];
+
+				if (  responseRequired  ) {
+					if (  response  ) {
+						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: User responded to dynamic challenge: '%@'", challenge]];
+						NSString * responseB64 = base64Encode([response dataUsingEncoding: NSUTF8StringEncoding]);
+						[self sendStringToManagementSocket:[NSString stringWithFormat:@"Username: %@\r\n", username] encoding: NSUTF8StringEncoding];
+						[self sendStringToManagementSocket:[NSString stringWithFormat:@"Password CRV1::%@::%@r\n", state, responseB64] encoding: NSUTF8StringEncoding];
+					} else {
+						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: User cancelled when presented with dynamic challenge: '%@'", challenge]];
+						[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
+					}
+				}
+			} else {
+				NSLog(@"Ignored CRV1: because line did not have at least four colons: '%@'", line);
+			}
+		} else if ([command isEqualToString:@"INFO"]) {
+			[self addToLog: line];
+		} else {
+			TBLog(@"DB-AU", @"Ignored unrecognized message from management interface for %@: %@", [self displayName], line);
         }
     }
 }
@@ -3461,7 +3522,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 {
 	TBLog(@"DB-AU", @"processLine: provideCredentials: invoked");
 	
-    authFailed = FALSE;
+	if (  areDisconnecting  ) {
+		[self addToLog: @"*Tunnelblick: Ignoring credentials request because the VPN is disconnecting"];
+		return;
+	}
+	
+	authFailed = FALSE;
     credentialsAskedFor = FALSE;
     userWantsState = userWantsUndecided;
 
@@ -3535,7 +3601,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             } else {
                 NSString * response = nil;
                 if (  challengeText  ) {
-                    response = [self getResponseFromChallenge: challengeText echoResponse: echoResponse];
+                    response = [self getResponseFromChallenge: challengeText echoResponse: echoResponse responseRequired: YES];
 					if (  response  ) {
 						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: User responded to static challenge: '%@'", challengeText]];
 					} else {
