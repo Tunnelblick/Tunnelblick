@@ -265,6 +265,7 @@ ARG_MONITOR_NETWORK_CONFIGURATION="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[
 LEASEWATCHER_PLIST_PATH="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :' | sed -e 's/^.*: //g')"
 REMOVE_LEASEWATCHER_PLIST="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RemoveLeaseWatcherPlist :' | sed -e 's/^.*: //g')"
 PSID="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*Service :' | sed -e 's/^.*: //g')"
+VPN_SID="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*VpnService :' | sed -e 's/^.*: //g')"
 # Don't need: SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLogFile :' | sed -e 's/^.*: //g')"
 # Don't need: ARG_RESTORE_ON_DNS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnDNSReset :' | sed -e 's/^.*: //g')"
 # Don't need: ARG_RESTORE_ON_WINS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnWINSReset :' | sed -e 's/^.*: //g')"
@@ -323,8 +324,8 @@ EOF
 grep 'Service : ' | sed -e 's/.*Service : //'
 )"
 set -e # resume abort on error
-if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
-	logMessage "Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
+if [ "${VPN_SID}" != "${PSID_CURRENT}" ] ; then
+	logMessage "Ignoring change of Network Primary Service from ${VPN_SID} to ${PSID_CURRENT}"
 fi
 
 # Restore configurations
@@ -405,15 +406,43 @@ else
 EOF
 fi
 
+GLOBAL_IPv4_OLD="$( scutil <<-EOF
+	open
+	show State:/Network/Global/PreVPNIPv4
+	quit
+EOF
+)"
+
+GLOBAL_IPv6_OLD="$( scutil <<-EOF
+	open
+	show State:/Network/Global/PreVPNIPv6
+	quit
+EOF
+)"
+
+if [ "${GLOBAL_IPv4_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
+	scutil > /dev/null <<-EOF
+		open
+		get State:/Network/Global/PreVPNIPv4
+		set State:/Network/Global/IPv4
+		quit
+	EOF
+fi
+
+if [ "${GLOBAL_IPv6_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
+	scutil > /dev/null <<-EOF
+		open
+		get State:/Network/Global/PreVPNIPv6
+		set State:/Network/Global/IPv6
+		quit
+	EOF
+fi
+
 logMessage "Restored the DNS and SMB configurations"
 
-if [ -e /etc/resolv.conf ] ; then
-	set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-	new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
-	set -e # resume abort on error
-else
-	new_resolver_contents="(unavailable)"
-fi
+set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
+new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
+set -e # resume abort on error
 logDebugMessage "DEBUG:"
 logDebugMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
 
@@ -437,6 +466,15 @@ scutil <<-EOF
 	remove State:/Network/OpenVPN/DNS
 	remove State:/Network/OpenVPN/SMB
 	remove State:/Network/OpenVPN
+
+	remove State:/Network/Global/PreVPNIPv4
+	remove State:/Network/Global/PreVPNIPv6
+
+	remove State:/Network/Service/${VPN_SID}/DNS
+	remove Setup:/Network/Service/${VPN_SID}/DNS
+	remove State:/Network/Service/${VPN_SID}/SMB
+	remove State:/Network/Service/${VPN_SID}/IPv4
+	remove State:/Network/Service/${VPN_SID}/IPv6
 	quit
 EOF
 

@@ -129,6 +129,24 @@ EOF
 grep PrimaryService | sed -e 's/.*PrimaryService : //'
 )"
 
+	VPN_SID="Tunnelblick${dev}"
+
+	scutil <<-EOF
+		open
+
+		d.init
+		d.add TunnelblickNoSuchKey true
+		get State:/Network/Global/IPv4
+		set State:/Network/Global/PreVPNIPv4
+
+		d.init
+		d.add TunnelblickNoSuchKey true
+		get State:/Network/Global/IPv6
+		set State:/Network/Global/PreVPNIPv6
+
+		quit
+EOF
+
 	set -e # resume abort on error
 
 	MAN_DNS_CONFIG="$( scutil <<-EOF |
@@ -627,13 +645,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	logDebugMessage "DEBUG: SKP_SETUP_DNS = ${SKP_SETUP_DNS}"
 	logDebugMessage "DEBUG: SKP_SMB = ${SKP_SMB}; SKP_SMB_NN = ${SKP_SMB_NN}; SKP_SMB_WG = ${SKP_SMB_WG}; SKP_SMB_WA = ${SKP_SMB_WA}"
 
-	if [ -e /etc/resolv.conf ] ; then
-		set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-		original_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
-		set -e # resume abort on error
-	else
-		original_resolver_contents="(unavailable)"
-	fi
+    set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
+    original_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
+    set -e # resume abort on error
     logDebugMessage "DEBUG:"
     logDebugMessage "DEBUG: /etc/resolve = ${original_resolver_contents}"
     logDebugMessage "DEBUG:"
@@ -672,6 +686,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		# The '#' in the next line does NOT start a comment; it indicates to scutil that a number follows it (as opposed to a string or an array)
 		d.add PID # ${PPID}
 		d.add Service ${PSID}
+		d.add VpnService ${VPN_SID}
 		d.add LeaseWatcherPlistPath "${LEASEWATCHER_PLIST_PATH}"
 		d.add RemoveLeaseWatcherPlist "${REMOVE_LEASEWATCHER_PLIST}"
 		d.add ScriptLogFile         "${SCRIPT_LOG_FILE}"
@@ -698,40 +713,105 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		d.add TunnelblickNoSuchKey true
 		get State:/Network/Service/${PSID}/DNS
 		set State:/Network/OpenVPN/OldDNS
+		remove State:/Network/Service/${PSID}/DNS
 
 		d.init
 		d.add TunnelblickNoSuchKey true
 		get Setup:/Network/Service/${PSID}/DNS
 		set State:/Network/OpenVPN/OldDNSSetup
+		remove Setup:/Network/Service/${PSID}/DNS
 
 		d.init
 		d.add TunnelblickNoSuchKey true
 		get State:/Network/Service/${PSID}/SMB
 		set State:/Network/OpenVPN/OldSMB
+		remove State:/Network/Service/${PSID}/SMB
 
 		# Initialize the new DNS map via State:
 		${SKP_DNS}d.init
 		${SKP_DNS}${SKP_DNS_SA}d.add ServerAddresses * ${FIN_DNS_SA}
 		${SKP_DNS}${SKP_DNS_SD}d.add SearchDomains   * ${FIN_DNS_SD}
 		${SKP_DNS}${SKP_DNS_DN}d.add DomainName        ${FIN_DNS_DN}
-		${SKP_DNS}set State:/Network/Service/${PSID}/DNS
+		${SKP_DNS}set State:/Network/Service/${VPN_SID}/DNS
 
 		# If necessary, initialize the new DNS map via Setup: also
 		${SKP_SETUP_DNS}${SKP_DNS}d.init
 		${SKP_SETUP_DNS}${SKP_DNS}${SKP_DNS_SA}d.add ServerAddresses * ${FIN_DNS_SA}
 		${SKP_SETUP_DNS}${SKP_DNS}${SKP_DNS_SD}d.add SearchDomains   * ${FIN_DNS_SD}
 		${SKP_SETUP_DNS}${SKP_DNS}${SKP_DNS_DN}d.add DomainName        ${FIN_DNS_DN}
-		${SKP_SETUP_DNS}${SKP_DNS}set Setup:/Network/Service/${PSID}/DNS
+		${SKP_SETUP_DNS}${SKP_DNS}set Setup:/Network/Service/${VPN_SID}/DNS
 
 		# Initialize the SMB map
 		${SKP_SMB}d.init
 		${SKP_SMB}${SKP_SMB_NN}d.add NetBIOSName     ${FIN_SMB_NN}
 		${SKP_SMB}${SKP_SMB_WG}d.add Workgroup       ${FIN_SMB_WG}
 		${SKP_SMB}${SKP_SMB_WA}d.add WINSAddresses * ${FIN_SMB_WA}
-		${SKP_SMB}set State:/Network/Service/${PSID}/SMB
+		${SKP_SMB}set State:/Network/Service/${VPN_SID}/SMB
 
 		quit
 EOF
+
+
+	IPv4_ADDRESSES="$(ifconfig ${dev} | sed -n 's/^.*inet \([0-9.]*\) --> \([0-9.]*\).*$/\1/p' | tr '\n' ' ')"
+	IPv4_DEST_ADDRESSES="$(ifconfig ${dev} | sed -n 's/^.*inet \([0-9.]*\) --> \([0-9.]*\).*$/\2/p' | tr '\n' ' ')"
+
+	scutil <<-EOF
+		d.init
+		d.add Addresses * ${IPv4_ADDRESSES}
+		d.add DestAddresses * ${IPv4_DEST_ADDRESSES}
+		d.add InterfaceName ${dev}
+		set State:/Network/Service/${VPN_SID}/IPv4
+EOF
+
+	# osx seems to ignore this argument, so we'd just pass any value
+	# since parsing routing tables won't be easy
+	IPv4_ROUTER="0.0.0.0"
+
+	scutil <<-EOF
+		d.init
+		d.add PrimaryInterface ${dev}
+		d.add PrimaryService ${VPN_SID}
+		d.add Router ${IPv4_ROUTER}
+		set State:/Network/Global/IPv4
+EOF
+
+	# Only set up IPv6 service if there's inet6 address on device
+	if ifconfig ${dev} | grep -q inet6; then
+		logMessage "Setting up IPv6 service"
+		readonly SKP_VPN_IPv6=""
+	else
+		logMessage "NOT Setting up IPv6 service"
+		readonly SKP_VPN_IPv6="#"
+	fi
+
+	if [ "${SKP_VPN_IPv6}" != "#" ]; then
+		IPv6_ADDRESSES="$(ifconfig utun1 | sed -n 's/^.*inet6 \([0-9a-f:]*\)[^ ]* prefixlen \([0-9]*\).*$/\1/p' | tr '\n' ' ')"
+		IPv6_PREFIXLEN="$(ifconfig utun1 | sed -n 's/^.*inet6 \([0-9a-f:]*\)[^ ]* prefixlen \([0-9]*\).*$/\2/p' | tr '\n' ' ')"
+		# All zeroes
+		IPv6_FLAGS="$(ifconfig utun1 | sed -n 's/^.*inet6 \([0-9a-f:]*\)[^ ]* prefixlen \([0-9]*\).*$/0/p' | tr '\n' ' ')"
+
+		scutil <<-EOF
+		d.init
+		d.add Addresses * ${IPv6_ADDRESSES}
+		# DestAddresses don't really matter, since all of this is only needed to trick macOS into resolving AAAA records
+		d.add DestAddresses * ${IPv6_ADDRESSES}
+		d.add Flags * ${IPv6_FLAGS}
+		d.add InterfaceName ${dev}
+		d.add PrefixLength * ${IPv6_PREFIXLEN}
+		set State:/Network/Service/${VPN_SID}/IPv6
+EOF
+
+		# See IPv4_ROUTER note
+		IPv6_ROUTER="::ffff:ffff:ffff:ffff:ffff:ffff"
+
+		scutil <<-EOF
+			d.init
+			d.add PrimaryInterface ${dev}
+			d.add PrimaryService ${VPN_SID}
+			d.add Router ${IPv6_ROUTER}
+			set State:/Network/Global/IPv6
+EOF
+	fi
 
 	logDebugMessage "DEBUG:"
 	logDebugMessage "DEBUG: Pause for configuration changes to be propagated to State:/Network/Global/DNS and .../SMB"
