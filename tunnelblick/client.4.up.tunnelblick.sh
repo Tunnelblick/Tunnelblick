@@ -1090,6 +1090,10 @@ configureOpenVpnDns()
 				aNameServers[nNameServerIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DNS /}" )"
 				let nNameServerIndex++
 				;;
+			"dhcp-option DNS6 "*    )
+				aNameServers[nNameServerIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DNS6 /}" )"
+				let nNameServerIndex++
+				;;
 			"dhcp-option WINS "*   )
 				aWinsServers[nWinsServerIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option WINS /}" )"
 				let nWinsServerIndex++
