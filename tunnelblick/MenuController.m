@@ -299,7 +299,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
     
     NSString * path = [myConfigDictionary objectForKey: displayName];
     if (  ! path  ) {
-        NSLog(@"localNameFromDisplayName: '%@' is not a known displayName", displayName);
+        NSLog(@"localizedNameForDisplayName: '%@' is not a known displayName; stack trace: %@", displayName, callStack());
         return displayName;
     }
     
