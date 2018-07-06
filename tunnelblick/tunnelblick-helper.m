@@ -788,6 +788,7 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.1.down.tunnelblick.sh"]
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.2.down.tunnelblick.sh"]
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.3.down.tunnelblick.sh"]
+								|| [[pathComponents objectAtIndex: 5] isEqualToString: @"client.4.down.tunnelblick.sh"]
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.route-pre-down.tunnelblick.sh"]
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"re-enable-network-services.sh"]
                                 )

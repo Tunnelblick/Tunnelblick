@@ -172,6 +172,8 @@
 		63DC244F19FA7379006B1BDF /* PT_BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63DC244C19FA7379006B1BDF /* PT_BR.lproj */; };
 		63DC245319FA73A9006B1BDF /* EL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63DC245019FA73A9006B1BDF /* EL.lproj */; };
 		63DC245719FA73E3006B1BDF /* BG.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63DC245419FA73E3006B1BDF /* BG.lproj */; };
+		63DEC01A20EFC2C90008AC26 /* client.4.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63DEC01920EFC2C90008AC26 /* client.4.up.tunnelblick.sh */; };
+		63DEC01C20EFC2D30008AC26 /* client.4.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63DEC01B20EFC2D30008AC26 /* client.4.down.tunnelblick.sh */; };
 		63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
 		63E5276A20C2DA7E00963456 /* SR_Latn.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63E5276920C2DA7E00963456 /* SR_Latn.lproj */; };
@@ -539,6 +541,8 @@
 		63DC244C19FA7379006B1BDF /* PT_BR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PT_BR.lproj; sourceTree = "<group>"; };
 		63DC245019FA73A9006B1BDF /* EL.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EL.lproj; sourceTree = "<group>"; };
 		63DC245419FA73E3006B1BDF /* BG.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BG.lproj; sourceTree = "<group>"; };
+		63DEC01920EFC2C90008AC26 /* client.4.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.4.up.tunnelblick.sh; sourceTree = "<group>"; };
+		63DEC01B20EFC2D30008AC26 /* client.4.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.4.down.tunnelblick.sh; sourceTree = "<group>"; };
 		63DEC28E13B890F70063CE11 /* NSString+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TB.h"; sourceTree = "<group>"; };
 		63DEC28F13B890F70063CE11 /* NSString+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TB.m"; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
@@ -1028,6 +1032,8 @@
 				634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */,
 				634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */,
 				63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */,
+				63DEC01B20EFC2D30008AC26 /* client.4.down.tunnelblick.sh */,
+				63DEC01920EFC2C90008AC26 /* client.4.up.tunnelblick.sh */,
 				636BB3F7197776A900FDC5DE /* launchAtLogin.sh */,
 				638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */,
 			);
@@ -1630,6 +1636,7 @@
 				63B16B521E204D37002958D0 /* updates_sign_with_v1_signature in Resources */,
 				633888F81C00F2FC0076032D /* LoginWindow-RTL.xib in Resources */,
 				63DC245319FA73A9006B1BDF /* EL.lproj in Resources */,
+				63DEC01A20EFC2C90008AC26 /* client.4.up.tunnelblick.sh in Resources */,
 				63DC245719FA73E3006B1BDF /* BG.lproj in Resources */,
 				631494A519FA7B9E009057D1 /* PT_PT.lproj in Resources */,
 				63ED903A1A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist in Resources */,
@@ -1637,6 +1644,7 @@
 				6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */,
 				635713A61A6709D800709670 /* AR.lproj in Resources */,
 				63206BC41D273CBD00019DFB /* info-icon-on-right-360x40.png in Resources */,
+				63DEC01C20EFC2D30008AC26 /* client.4.down.tunnelblick.sh in Resources */,
 				634E02071CAD9776008637FF /* HR.lproj in Resources */,
 				63F7497D1CB149820043C198 /* TBVersionString.txt in Resources */,
 			);

@@ -7040,6 +7040,8 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	NSString *clientNewAlt2DownPath     = [resourcesPath stringByAppendingPathComponent: @"client.2.down.tunnelblick.sh"        ];
 	NSString *clientNewAlt3UpPath       = [resourcesPath stringByAppendingPathComponent: @"client.3.up.tunnelblick.sh"          ];
 	NSString *clientNewAlt3DownPath     = [resourcesPath stringByAppendingPathComponent: @"client.3.down.tunnelblick.sh"        ];
+	NSString *clientNewAlt4UpPath       = [resourcesPath stringByAppendingPathComponent: @"client.4.up.tunnelblick.sh"          ];
+	NSString *clientNewAlt4DownPath     = [resourcesPath stringByAppendingPathComponent: @"client.4.down.tunnelblick.sh"        ];
     NSString *reactivateTunnelblickPath = [resourcesPath stringByAppendingPathComponent: @"reactivate-tunnelblick.sh"           ];
     NSString *reenableNetworkServicesPath = [resourcesPath stringByAppendingPathComponent: @"re-enable-network-services.sh"     ];
 	NSString *freePublicDnsServersPath  = [resourcesPath stringByAppendingPathComponent: @"FreePublicDnsServersList.txt"        ];
@@ -7159,6 +7161,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 									  clientNewAlt1UpPath, clientNewAlt1DownPath,
 									  clientNewAlt2UpPath, clientNewAlt2DownPath,
 									  clientNewAlt3UpPath, clientNewAlt3DownPath,
+									  clientNewAlt4UpPath, clientNewAlt4DownPath,
 									  reenableNetworkServicesPath,
 									  nil];
 	NSEnumerator *e = [rootExecutableObjects objectEnumerator];

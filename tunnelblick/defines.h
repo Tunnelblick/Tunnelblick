@@ -73,7 +73,7 @@
 #define MAX_VERSIONS_IN_HISTORY 10
 
 // Maximum index for the "Set DNS/WINS" dropdown box. Must be equal to the number of entries minus one.
-#define MAX_SET_DNS_WINS_INDEX 4
+#define MAX_SET_DNS_WINS_INDEX 5
 
 // Header for commands to tunnelblickd that are to be handled by openvpnstart (note that this is a C-string, not an NSString)
 #define TUNNELBLICKD_OPENVPNSTART_HEADER_C "openvpnstart: "
