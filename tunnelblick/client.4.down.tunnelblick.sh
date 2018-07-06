@@ -317,7 +317,7 @@ fi
 set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
 PSID_CURRENT="$( scutil <<-EOF |
 	open
-	show State:/Network/OpenVPN
+	show State:/Network/Global/IPv4
 	quit
 EOF
 grep 'Service : ' | sed -e 's/.*Service : //'
