@@ -681,7 +681,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
--(BOOL) usingSetNameserver {
+-(BOOL) usingSmartSetNameserverScript {
     NSString * name = [[self selectedConnection] displayName];
 	if (  ! name  ) {
 		return NO;
@@ -692,7 +692,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                                          default: 1
                                              min: 0
                                              max: MAX_SET_DNS_WINS_INDEX];
-    return (ix == 1);
+    return (ix == 1) || (ix == 5);
 }
 
 -(void) setupSetNameserver: (VPNConnection *) connection
@@ -856,7 +856,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
 	NSString * type = [connection tapOrTun];
     if (   ( ! [type isEqualToString: @"tap"] )
-		&& [self usingSetNameserver]  ) {
+		&& [self usingSmartSetNameserverScript]  ) {
         [self setupPerConfigurationCheckbox: [configurationsPrefsView disableIpv6OnTunCheckbox]
                                         key: @"-doNotDisableIpv6onTun"
                                    inverted: YES
@@ -1572,11 +1572,13 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(BOOL) forceDisableOfNetworkMonitoring
 {
+	// Some up/down scripts do not implement network monitoring, so we disable the checkbox if one of them is selected in "Set DNS/WINS"
     NSArray * content = [[configurationsPrefsView setNameserverArrayController] content];
     NSUInteger ix = [selectedSetNameserverIndex unsignedIntegerValue];
-    if (   ([content count] < 4)
-        || (ix > 2)
-        || (ix == 0)  ) {
+    if (   ([content count] <= MAX_SET_DNS_WINS_INDEX)
+        || (ix == 0)		// Do not set nameserver
+		|| (ix == 2)		// Set nameserver (3.1)		-- client.1.up.tunnelblick.sh and client.1.down.tunnelblick.sh
+        || (ix == 3)  ) {	// Set nameserver (3.0b10)	-- client.2.up.tunnelblick.sh and client.2.down.tunnelblick.sh
         return TRUE;
     } else {
         return FALSE;
@@ -2469,18 +2471,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
         [self setSelectedSetNameserverIndexDirect: newValue];
         
-        // If script doesn't support monitoring, indicate it is off and disable it
-        if (   ([newValue unsignedIntegerValue] > 2)
-            || ([newValue unsignedIntegerValue] == 0)
-            || ([[[configurationsPrefsView setNameserverArrayController] content] count] < 4)  ) {
-            [[configurationsPrefsView monitorNetworkForChangesCheckbox] setState: NSOffState];
-            [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
-        } else {
-            [self setupPerConfigurationCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
-                                            key: @"-notMonitoringConnection"
-                                       inverted: YES
-                                      defaultTo: NO];
-        }
+		[self setupNetworkMonitoring: [self selectedConnection]];
 		
 		// Set up IPv6 and reset of primary interface
 		[self setupDisableIpv6OnTun: [self selectedConnection]];

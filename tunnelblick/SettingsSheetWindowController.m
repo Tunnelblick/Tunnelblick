@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -166,7 +166,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 }
 
 
--(BOOL) usingSetNameserver {
+-(BOOL) usingSmartSetNameserverScript {
     
     if (  ! configurationName  ) {
         return FALSE;
@@ -177,7 +177,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                                          default: 1
                                              min: 0
                                              max: MAX_SET_DNS_WINS_INDEX];
-    return (ix == 1);
+    return (ix == 1) || (ix == 5);
 }
 
 - (void) setupCredentialsGroupButton {
@@ -226,7 +226,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         return;
     }
     
-    if (  [self usingSetNameserver]  ) {
+    if (  [self usingSmartSetNameserverScript]  ) {
         [self setupCheckbox: prependDomainNameCheckbox
                         key: @"-prependDomainNameToSearchDomains"
                    inverted: NO];
@@ -242,7 +242,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         return;
     }
     
-    if (  [self usingSetNameserver]  ) {
+    if (  [self usingSmartSetNameserverScript]  ) {
         [self setupCheckbox: flushDnsCacheCheckbox
                         key: @"-doNotFlushCache"
                    inverted: YES];
@@ -258,7 +258,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 		return;
 	}
 	
-	if (  [self usingSetNameserver]  ) {
+	if (  [self usingSmartSetNameserverScript]  ) {
 		[self setupCheckbox: allowManualNetworkSettingsOverrideCheckbox
 						key: @"-allowChangesToManuallySetNetworkSettings"
 				   inverted: NO];
@@ -287,7 +287,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     NSString * type = [connection tapOrTun];
     if (   ([type rangeOfString: @"tun"].length != 0)
-		|| ( ! [self usingSetNameserver] )  ) {
+		|| ( ! [self usingSmartSetNameserverScript] )  ) {
         [enableIpv6OnTapCheckbox setState: NSOffState];
         [enableIpv6OnTapCheckbox setEnabled: NO];
     } else {
