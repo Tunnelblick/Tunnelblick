@@ -3620,36 +3620,38 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * configPathTail = [configPath lastPathComponent];
     
     if (  [configPath hasSuffix: @".tblk"]  ) {
-        NSMutableString * fileListString = [[[NSMutableString alloc] initWithCapacity: 500] autorelease];
+		NSArray * keyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
+        NSMutableString * fileListString = [[[NSMutableString alloc] initWithCapacity: 10000] autorelease];
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: configPath];
         NSString * filename;
         while (  (filename = [dirEnum nextObject])  ) {
-            if (  ! [filename hasPrefix: @"."]  ) {
-                NSString * extension = [filename pathExtension];
-                NSString * nameOnly = [filename lastPathComponent];
-                NSArray * extensionsToSkip = KEY_AND_CRT_EXTENSIONS;
-                if (   ( ! [extensionsToSkip containsObject: extension])
-                    && ( ! [extension isEqualToString: @"ovpn"])
-                    && ( ! [extension isEqualToString: @"lproj"])
-                    && ( ! [extension isEqualToString: @"strings"])
-                    && ( ! [nameOnly  isEqualToString: @"Info.plist"])
-                    && ( ! [nameOnly  isEqualToString: @".DS_Store"])
-                    ) {
-                    NSString * fullPath = [configPath stringByAppendingPathComponent: filename];
-                    BOOL isDir;
-                    if (  ! (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
-                             && isDir)  ) {
-                        [fileListString appendFormat: @"      %@\n", filename];
-                    }
-                }
-            }
-        }
-        
+			BOOL isDir;
+			if (   [gFileMgr fileExistsAtPath: [configPath stringByAppendingPathComponent: filename] isDirectory: &isDir]
+				&& ( ! isDir )  ) {
+				NSString * extension  = [filename pathExtension];
+				
+				// Obfuscate key and certificate filenames by truncating them after the first three characters
+				if (  [keyAndCrtExtensions containsObject: extension]  ) {
+					NSString * folderName = [filename stringByDeletingLastPathComponent];
+					if (  [folderName length] != 0  ) {
+						folderName = [folderName stringByAppendingString: @"/"];
+					}
+					NSString * filenameOnly = [[filename lastPathComponent] stringByDeletingPathExtension];
+					NSString * filenameOnlyObfuscated = (  ([filenameOnly length] > 3)
+														 ? [[filenameOnly substringToIndex: 3] stringByAppendingString: @"…"]
+														 : filenameOnly);
+					[fileListString appendFormat: @"      %@%@.%@\n", folderName, filenameOnlyObfuscated, extension];
+				} else {
+					[fileListString appendFormat: @"      %@\n", filename];
+				}
+			}
+		}
+
         return (  ([fileListString length] == 0)
-                ? [NSString stringWithFormat: @"There are no unusual files in %@\n", configPathTail]
-                : [NSString stringWithFormat: @"Unusual files in %@:\n%@", configPathTail, fileListString]);
+                ? [NSString stringWithFormat: @"There are no files in %@\n", configPathTail]
+                : [NSString stringWithFormat: @"Files in %@:\n%@", configPathTail, fileListString]);
     } else {
-        return [NSString stringWithFormat: @"Cannot list unusual files in %@; not a .tblk\n", configPathTail];
+        return [NSString stringWithFormat: @"Cannot list files in %@; not a .tblk\n", configPathTail];
     }
 }
 
@@ -3874,9 +3876,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(void) putDiagnosticInfoOnClipboardWithDisplayName: (NSString *) displayName {
 	
+	NSPasteboard * pb = [NSPasteboard generalPasteboard];
+	[pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
+
 	VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
     if (  connection  ) {
 		
+		[pb setString: @"You pasted too soon! The Tunnelblick diagnostic info was not yet available on the Clipboard when you pasted. Try to paste again.\n" forType: NSStringPboardType];
+
 		// Get OS and Tunnelblick version info
 		NSString * versionContents = [[((MenuController *)[NSApp delegate]) openVPNLogHeader] stringByAppendingString:
                                       (isUserAnAdmin()
@@ -3942,10 +3949,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              ifconfigOutput, separatorString,
                              consoleContents];
         
-        NSPasteboard * pb = [NSPasteboard generalPasteboard];
+        pb = [NSPasteboard generalPasteboard];
         [pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
         [pb setString: output forType: NSStringPboardType];
     } else {
+		[pb setString: @"No diagnostic info is available because no configuration has been selected.\n" forType: NSStringPboardType];
         NSLog(@"diagnosticInfoToClipboardButtonWasClicked but no configuration selected");
     }
 	
