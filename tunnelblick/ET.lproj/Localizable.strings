@@ -695,9 +695,6 @@
 "  • Secure configurations\n" = "  Turvalised konfiguratsioonid\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ on vabavara: Seda võib jagada ja modifitseerida vastavalt %2$@ tingimustele, kirjastaud %3$@ poolt.\n%4$@ on OpenVPN Technologies, Inc. registreeritud kaubamärk.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Kas soovite %1$@ installeerida %2$@%3$@?\n\n";
 
 /* Window text */

@@ -786,9 +786,6 @@
 "  • Secure configurations\n" = "  • Verseker konfigurasies\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is gratis sagteware: u kan dit herversprei en/of verander onder die voorwaardes van die %2$@ soos gepubliseer deur die %3$@.\n\n%4$@ is 'n geregistreerde handelsmerk van OpenVPN Technologies, Inc.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Wil u %1$@ installeer na %2$@%3$@?\n\n";
 
 /* Window text */
@@ -850,9 +847,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(indien gekoppel wanneer gebruiker uitskakel)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Gebaseer op Tunnelblick, verniet sagteware by<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is 'n geregistreerde handelsmerk van OpenVPN Technologies, Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "'n TBPreference of TBAlwaysSetPreference sleutel verwys na 'n onbekende keuse '%1$@' in %2$@\n \nContext | Request Context";

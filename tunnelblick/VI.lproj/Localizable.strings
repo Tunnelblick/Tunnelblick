@@ -792,7 +792,7 @@
 "  • Secure configurations\n" = "• Cấu hình bảo mật";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = "%1$@ là phần mềm miễn phí: bạn có thể phân phối lại hoặc chỉnh sửa tuân theo điều khoản %2$@ với tư cách là nhà phát hành với %3$@.\n\n%4$@ là nhãn hiệu được đăng ký bản quyền bởi OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ là phần mềm miễn phí: bạn có thể phân phối lại hoặc chỉnh sửa tuân theo các điều khoản của %2$@ được phát hành bởi %3$@.\n\n%4$@ là nhãn hiệu đã được đăng ký bản quyền của OpenVPN, Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = "Bạn có muốn cài đặt %1$@ vào %2$@%3$@ không?";
@@ -867,7 +867,13 @@
 "(if connected when user switched out)" = "(Nếu đã kết nối khi chuyển sang người dùng khác)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Dựa trên Tunnelblick, phần mềm miễn phí khả dụng tại<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN là một nhẫn hiệu đã được đăng ký của OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Được cung cấp bởi Tunnelblick, phần mềm này có thể sử dụng miễn phí tại<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN là một nhẫn hiệu đã được đăng ký của OpenVPN, Inc.";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Phiên bản hiện tại của Tunnelblick đã cũ hơn %lu ngày.</p><p>Vui lòng kiểm tra phiên bản mới hơn:</p><ul><li>Tại khung 'Preferences' của cửa sổ 'VPN Details' của Tunnelblick; hoặc<br></li><li>Tìm một phiên bản mới hơn tại <a href=\"https://tunnelblick.net/downloads.html\">Trang tải về của Tunnelblick</a> [tunnelblick.net].</li></ul>";
+
+/* Window text */
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Một giá trị của từ khoá TBPreference hay TBAlwaysSetPreference có giá trị tham khảo không xác định '%1$@' ở trong %2$@";
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Cấu hình VPN Tunnelblick bị lồng vào quá sâu tại '%@'";
@@ -906,6 +912,15 @@
 "Additional contributions by" = "Đóng góp bổ sung của";
 
 /* Window text */
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "Sau %1$.1f giây, huỷ bỏ việc nạp thông tin địa chỉ IP.\n\nTunnelblick sẽ không kiểm tra đối với việc thay đổi một cách hiển nhiên của địa chỉ IP của máy này khi %2$@ được kết nối.\n\n";
+
+/* Window text */
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Sau khi kết nối đến %@, DNS dường như không hoạt động.\n\nĐây có thể là do VPN không được cấu hình chính xác.\n\n";
+
+/* Window text */
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Sau khi kết nối đến %@, mạng Internet dường như không kết nối được.\n\nĐây có thể là do VPN không được cấu hình đúng.\n\n";
+
+/* Window text */
 "All OpenVPN processes have quit" = "Tất cả tiến trình VPN đã kết thúc";
 
 /* Window text */
@@ -921,7 +936,49 @@
 "An error occurred while trying to launch %@" = "Một lỗi xuất hiện trong khi cố gắng khởi động %@";
 
 /* Window text */
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Đã xảy ra lỗi khi thử đảo ngược lại bản sao chép (được che) đã được bảo mật. Xem Console Log để biết chi tiết hơn.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "Đã xảy ra lỗi. Xem Console Log để biết chi tiết hơn.";
+
+/* Window text */
+"An internal Tunnelblick error occurred%@%@" = "Đã xảy ra lỗi của Tunnelblick%1$@%2$@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Đã xảy ra lỗi của Tunnelblick: fileIsReasonableSize: Không thể lấy giá trị các thuộc tính: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Đã xảy ra lỗi của Tunnelblick: fileIsReasonableSize: Không thể lấy giá trị kích thước: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Đã xảy ra lỗi của Tunnelblick: fileIsReasonableSize: Không thể lấy giá trị kiểu: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Đã xảy ra lỗi của Tunnelblick: fileIsReasonableSize: giá trị kiểu không hợp lệ: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Đã xảy ra lỗi của Tunnelblick: fileIsReasonableSize: đường dẫn không có giá trị";
+
+/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Bạn có chắc rằng không muốn chuyển đổi cấu hình từ OpenVPN thành cấu hình Tunnelblick  VPN không?";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Bạn có muốn xoá thông tin xác thực (khoá bí mật, tên đăng nhập và mật khẩu) cho cấu hình của %ld đang được lưu trong Keychain?";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Bạn có muốn xoá thông tin xác thực (khoá bí mật, tên đăng nhập và mật khẩu) của '%@' đang được lưu trong Keychain?";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Bạn có muốn xoá thông tin xác thực (khoá bí mật, tên đăng nhập và mật khẩu) được lưu trong Keychain cho thông tin xác thực của '%@'?";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Bạn có muốn cài đặt cấu hình mà có thể CHIẾM DỤNG HOÀN TOÀN QUYỀN ĐIỀU KHIỂN MÁY TÍNH CỦA BẠN?\n\n";
+
+/* Window text */
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Bạn có muốn cài đặt cấu hình mà có khả năng CHIẾM DỤNG HOÀN TOÀN QUYỀN ĐIỀU KHIỂN MÁY TÍNH CỦA BẠN?\n\n";
+
+/* Window text */
+"At line %lu of the OpenVPN configuration file: %@" = "Tại dòng %1$lu của tập tin cấu hình OpenVPN: %2$@";
 
 /* Window text */
 "B" = "B";
@@ -930,10 +987,25 @@
 "B/s" = "B/s";
 
 /* Window text */
+"Backslash at end of line %u is not allowed" = "Dấu gạch chéo ngược ở cuối dòng %u không được cho phép";
+
+/* Window text */
+"Cancelled trying to quit all OpenVPN processes" = "Huỷ bỏ việc thoát tất cả các tiến trình của OpenVPN";
+
+/* Window text */
 "Cannot find configuration file at %@" = "Không tìm thấy file cấu hình tại %@";
 
 /* Window text */
+"Cannot install configurations to either shared or private locations" = "Không thể cài đặt cấu hình cho các vị trí được chia sẽ hay riêng tư";
+
+/* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Không thể gỡ bỏ cấu hình '%@' vì nó chưa được cài đặt.";
+
+/* Window text */
 "Computer sleep/wake" = "Máy tính ở trạng thái ngủ/ hoạt động";
+
+/* Window text */
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Cấu hình cho '%1$@' ('%2$@') sẽ bị bỏ qua vì tên của nó có chứa những ký tự không hợp lệ.\n\nCác ký tự không hợp lệ: '%3$s'\n\n";
 
 /* Window text */
 "Configuration '%@' already exists." = "Cấu hình '%@' đã có.";
@@ -950,11 +1022,23 @@
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Cấu hình '%@' không thể update được do chưa được đánh dấu như là 'updatable'.";
 
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Cấu hình của '%1$@' đòi hỏi Tunnelblick %2$@ hoặc phiên bản cao hơn; bạn đang sử dụng Tunnelblick %3$@.\n\nBạn phải cập nhật Tunnelblick để cài đặt cấu hình này.";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Cấu hình của '%1$@' đòi hỏi Tunnelblick %2$@ hoặc phiên bản thấp hơn; bạn đang sử dụng Tunnelblick %3$@.";
+
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Cấu hình '%1$@' sẽ bị bỏ qua do tên nó có ký tự không hợp lệ.\n\n Ký tự không hợp lệ là:'%2$s'";
 
 /* Window text */
 "Configuration changes:" = "Thay đổi cấu hình:";
+
+/* Window text */
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Các cấu hình đã được cài đặt từ những tập tin mà được cung cấp cho bạn bởi nhà quán lý mạng hoặc nhà cung cấp dịch vụ VPN của bạn.\n\nCác tập tin cấu hình có phần mở rộng là .tblk, .ovpn, hoặc .conf.\n\n(Có khả năng các tập tin được gán với cấu hình mà có phần mở rộng khác; bỏ qua chúng.)\n\nĐể cài đặt tập tin cấu hình, kéo và thả nó vào biểu tượng Tunnelblick trong thanh trình đơn hay trên danh sách các cấu hình ở trong bảng 'Configurations' của cửa sổ 'VPN Details'.\n\nĐể cài đặt nhiều tập tin cấu hình cùng một lúc, chọn tất cả các tập tin và kéo thả tất cả chúng.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Các cấu hình không thuộc về Tunnelblick đã được thiết lập là cài đặt khi bạn cài đặt Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Kết nối:";
@@ -963,10 +1047,22 @@
 "Connection:" = "Kết nối:";
 
 /* Window text */
+"Converted OpenVPN configuration" = "Cấu hình OpenVPN đã được chuyển đổi";
+
+/* Window text */
+"Converting %@ at line %lu: %@" = "Đang chuyển đổi %1$@ ở dòng %2$lu: %3$@";
+
+/* Window text */
+"Converting %@: %@" = "Đang chuyển đổi %1$@: %2$@";
+
+/* Window text */
 "Copied %@" = "Sao chép %@";
 
 /* Window text */
 "Copied %@, removing CR characters" = "Sao chép %@, bỏ ký tự CR";
+
+/* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "Bản quyền © 2004-%@ của Angelo Laub và những người khác.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Không thể sao chép %1$@ tới %2$@";
@@ -984,10 +1080,49 @@
 "Could not find easy-rsa version information in Tunnelblick.app" = "Không thể tìm thông tin phiên bản easy-rsa trong Tunnelblick.app";
 
 /* Window text */
+"Could not get attributes of %@" = "Không thể lấy giá trị các giá trị thuộc tính của %@";
+
+/* Window text */
+"Could not get modification date of %@" = "Không thể lấy giá trị ngày thay đổi của %@";
+
+/* Window text */
+"Could not resolve symbolic link at %@" = "Không thể phân giải liên kết tượng trưng tại %@";
+
+/* Window text */
+"Could not set modification date of %@ to %@" = "Không thể thiết lập ngày thay đổi của %1$@ bằng giá trị %2$@";
+
+/* Window text */
 "DNS servers:" = "Máy chủ DNS:";
 
 /* Window text */
+"Did not need to modify configuration file; no path information to remove" = "Không cần chỉnh sửa cấu hình; không có thông tin đường dẫn để xoá";
+
+/* Window text */
+"Do you wish to delete the %@ credentials?" = "Bạn có muốn xoá thông tin xác thực %@?";
+
+/* Window text */
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Bạn có muốn cài đặt cấu hình '%@' để cho tất cả mọi người đều có thể sử dụng, hay chỉ mình bạn có thể sử dụng?\n\n";
+
+/* Window text */
+"Do you wish to reinstall '%@' version %@?" = "Bạn có muốn cài đặt lại '%1$@' phiên bản %2$@?";
+
+/* Window text */
+"Do you wish to replace '%@' version %@ with version %@?" = "Bạn có muốn thay thế '%1$@' phiên bản %2$@ bằng phiên bản %3$@?";
+
+/* Window text */
+"Do you wish to replace the '%@' configuration?\n\n" = "Bạn có muốn thay thế cấu hình '%@'?\n\n";
+
+/* Window text */
+"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Bạn có muốn đảo ngược lại các cấu hình %ld về lại bản sao được bảo mật (đã che) trước đó?\n\n";
+
+/* Window text */
+"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Bạn có muốn đảo ngược lại cấu hình '%@' về lại bản sao được bảo mật (đã che) trước đó?\n\n";
+
+/* Window text */
 "Domain:" = "Tên miền:";
+
+/* Window text */
+"Double-quote missing in line %u" = "Thiếu dấu ngoặc kép ở dòng %u";
 
 /* Window text */
 "EB" = "EB";
@@ -996,7 +1131,229 @@
 "EB/s" = "EB/s";
 
 /* Window text */
+"Expected command not found for '%@'" = "Không tìm thấy câu lệnh được mong muốn cho '%@'";
+
+/* Window text */
+"Expected path not found for '%@'" = "Không tìm thấy đường dẫn được mong muốn cho '%@'";
+
+/* Window text */
+"Failed to copy %@ to %@" = "Có lỗi khi sao chép %1$@ đến %2$@";
+
+/* Window text */
+"Failed to create folder at %@" = "Có lỗi khi tạo thư mục tại %@";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Có lỗi khi tạo liên kết tượng trưng\n  đến %1$@\n  tại %2$@";
+
+/* Window text */
+"Failed to set permissions on %@\n" = "Có lỗi khi thiết lập quyền trên %@\n";
+
+/* Window text */
+"Fast User Switching" = "Chuyển Đổi Nhanh Người Dùng";
+
+/* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Tập tin '%@' đang được định dạng bằng UTF-16. Tất cả các tập tin liên quan đến OpenVPN phải ở dạng văn bản thuần tuý hoặc định dạng bằng UTF-8.";
+
+/* Window text */
+"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Tập tin '%@' đang được định dạng là 'văn bản đa dạng' bởi vì nó bắt đầu bằng một ký tự '{'. Mọi tập tin liên quan đến OpenVPN phải ở dạng 'văn bản thuần tuý' hay định dạng bằng 'UTF-8'.";
+
+/* Window text */
+"File '%@' contains one or more NUL characters." = "Tập tin '%@' có chứa một hay nhiều ký tự NUL.";
+
+/* Window text */
+"File '%@' ends with a backslash, which is not allowed." = "Tập tin '%@' kết thúc bởi một dấu gạch chéo ngược, nó không hợp lệ.";
+
+/* Window text */
+"File '%@' has an extension which is not known to Tunnelblick." = "Tập tin '%@' có phần mở rộng không được hỗ trợ bởi Tunnelblick.";
+
+/* Window text */
+"File '%@' is missing" = "Tập tin '%@' bị thiếu";
+
+/* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "Tập tin '%@' không phải là một văn bản thuần tuý hoặc được định dạng bằng UTF-8.";
+
+/* Window text */
+"File '%@' is too short (%lu bytes)" = "Tập tin '%1$@' quá ngắn (%2$lu bytes)";
+
+/* Window text */
+"File is too large: %@" = "Tập tin quá lớn: %@";
+
+/* Window text */
+"GB" = "GB";
+
+/* Window text */
+"GB/s" = "GB/s";
+
+/* Window text */
+"Icon:" = "Biểu tượng:";
+
+/* Window text */
+"In %@:\n\nThere are no OpenVPN configurations to install." = "Trong %@:\n\nKhông có cấu hình OpenVPN nào để cài đặt.";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "Trong tập tin cấu hình cho '%1$@' ở dòng %2$lu: %3$@";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@': %@" = "Trong tập tin cấu hình OpenVPN cho '%1$@': %2$@";
+
+/* Window text */
+"In:" = "Trong:";
+
+/* Window text */
+"Installation failed:\n\n%@" = "Cài đặt bị lỗi:\n\n%@";
+
+/* Window text */
+"Installation finished successfully." = "Cài đặt kết thúc thành công.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Đang cài đặt và bảo mật Tunnelblick %@…";
+
+/* Window text */
+"Installing configurations is not allowed" = "Cài đặt các cấu hình không hợp lệ";
+
+/* Window text */
+"Internal error: commentOutLines: line %lu does not exist" = "Lỗi hệ thống: commentOutLines: dòng %lu không tồn tại";
+
+/* Window text */
+"Invalid value '%@' for '%@' in %@" = "Giá trị không hợp lệ '%1$@' cho '%2$@' trong %3$@";
+
+/* Window text */
+"KB" = "KB";
+
+/* Window text */
+"KB/s" = "KB/s";
+
+/* Window text */
+"Keyboard shortcut:" = "Phím tắt:";
+
+/* Window text */
+"Last checked: %@" = "Kiểm tra lần cuối: %@";
+
+/* Window text */
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Dòng %1$d của tập tin '%2$@' chứa một ký tự không thể in được (0x%3$X) do đó nó không hợp lệ.\n\n";
+
+/* Window text */
+"MB" = "MB";
+
+/* Window text */
+"MB/s" = "MB/s";
+
+/* Window text */
+"Maximum log display size:" = "Kích thước hiển thị nhật ký tối đa:";
+
+/* Window text */
+"Menu:" = "Trình đơn:";
+
+/* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Thiếu CFBundleIdentifier hoặc CFBundleVersion trong Info.plist cho\n\n%@\n\nCấu hình VPN này được kèm theo trong cấu hình VPN có thể cập nhật bên ngoài, vì thế nó phải chứa giá trị của CFBundleIdentifier và CFBundleVersion của riêng nó.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Thiếu Info.plist cho\n\n%@\n\nCấu hình VPN này được kèm theo trong một cấu hình VPN có thể cập nhật bên ngoài, vì thế nó phải có chứa một Info.plist.";
+
+/* Window text */
+"Modified configuration file to remove path information" = "Tập tin cấu hình được chỉnh sửa để xoá thông tin đường dẫn";
+
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Nhiều kết nối đồng thời có thể được tạo ra (%1$d với 'Set nameserver', %2$d không có 'Set nameserver').";
+
+/* Window text */
+"Named Credentials" = "Thông tin xác thực được đặt tên";
+
+/* Window text */
+"Names may not include any of the following characters: %s" = "Tên không được chứa bất kỳ ký tự nào sau đây: %s";
+
+/* Window text */
+"Names may not include any of the following characters: %s\n\n%@" = "Tên không được chứa bất kỳ ký tự nào sau đây: %1$s\n\n%2$@";
+
+/* Window text */
+"NetBIOS name:" = "Tên NetBIOS:";
+
+/* Window text; the %@ will be replaced by a list of configuration names. */
+"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "Truy xuất mạng không thể bị vô hiệu sau khi ngắt kết nối cho vài hoặc tất cả các cấu hình được chọn bởi vì chúng kèm theo các tuỳ chọn cho 'người' hoặc 'nhóm'. Những tuỳ chọn này sẽ làm cho OpenVPN không thể được chạy dưới quyền root trong quá trình ngắt kết nối, vì vậy không thể vô hiệu hoá truy xuất mạng.\n\nCác cấu hình có chứa 'người' hoặc 'nhóm':\n\n%@\n\n";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected." = "Truy xuất mạng bị vô hiệu khi một kết nối VPN bị ngắt.";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "Truy xuất mạng bị vô hiệu khi một kết nối VPN bị ngắt.\n\nBạn có muốn cho phép truy xuất mạng lại?\n\n";
+
+/* Window text */
 "Network setting" = "Thiết lập mạng";
+
+/* Window text */
+"No 'TBPackageVersion' in %@" = "Không có 'TBPackageVersion' trong %@";
+
+/* Window text */
+"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Không có đường dẫn đến easy-rsa. Nguyên nhân khả dĩ nhất là do một vấn đề với tuỳ chỉnh 'easy-rsaPath'";
+
+/* Window text */
+"Non-array value for '%@' in %@" = "Giá trị không phải mảng cho '%1$@' trong %2$@";
+
+/* Window text */
+"Non-boolean value for '%@' in %@" = "Giá trị không phải luận lý cho '%1$@' trong %2$@";
+
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Giá trị không phải số nguyên cho '%1$@' trong %2$@";
+
+/* Window text */
+"Non-string value for '%@' in %@" = "Giá trị không phải chuỗi cho '%1$@' trong %2$@";
+
+/* Window text */
+"Non-string value for an item in '%@' in %@" = "Giá trị không phải chuỗi cho một phần tử trong '%1$@' trong %2$@";
+
+/* Window text */
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Không có cấu hình %ld được chọn nào có bất kỳ thông tin xác thực (khoá bí mật hay tên đăng nhập và mật khẩu) được lưu trữ ở trong Keychain.";
+
+/* Window text */
+"Not a .ovpn or .conf: %@" = "Không phải là một tập tin .ovpn hoặc .conf: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Không thay thế một cấu hình sẵn có, vì thế cấu hình '%@' không thể sử dụng 'TBKeepExistingFilesList'";
+
+/* Window text */
+"On expected disconnect:" = "Trong sự ngắt kết nối được mong đợi:";
+
+/* Window text */
+"On unexpected disconnect:" = "Trong một sự ngắt kết nối không mong đợi:";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Một hoặc nhiều tiến trình OpenVPN đang chạy nhưng không phải từ Tunnelblick. Nếu bạn không có chạy OpenVPN riêng biệt với Tunnelblick, thì điều này có nghĩa là lần chạy trước của Tunnelblick đã không thể ngừng chúng một cách hợp lý. Chúng có vẻ là đang can thiệp đến các tác vụ của Tunnelblick. Bạn có muốn kết thúc tất cả các tiến trình OpenVPN?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Một hoặc nhiều tiến trình OpenVPN đang chạy nhưng không được Tunnelblick biết đến. Nếu bạn không đang chạy OpenVPN riêng biệt với Tunnelblick, thì điều này có nghĩa là lần chạy trước của Tunnelblick đã khộng thể ngừng chúng một cách đúng đắn và bạn nên ngừng chúng. Chúng có vẻ là đang can thiệp đến các tác vụ của Tunnelblick. Bạn có muốn kết thúc chúng?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Một hoặc nhiều tiến trình OpenVPN đang chạy không được Tunnelblick biết đến. Nếu bạn không đang chạy OpenVPN riêng biệt với Tunnelblick, thì điều này có nghĩa là lần chạy trước của Tunnelblick đã không thể ngừng chúng hoàn toàn và bạn nên ngừng chúng. Chúng có vẻ đang can thiệp đến các tác vụ của Tunnelblick.\n\nChúng có thể bị kết thúc trong chương trình 'Activity Monitor'.\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Một hoặc nhiều cấu hình VPN đang được cập nhật bao gồm những chương trình mà sẽ thực thi dưới quyền root khi bạn kết nối đến một mạng nội bộ. Chúng có khả năng CHIẾM TOÀN BỘ QUYỀN ĐIỀU KHIỂN MÁY TÍNH CỦA BẠN.\n\nBẠN KHÔNG NÊN CÀI ĐẶT NHỮNG CẤU HÌNH NÀY TRỪ KHI BẠN TIN TƯỞNG TÁC GIẢ.\n\nBạn có tin tưởng tác giả của những cấu hình đó và muốn cài đặt chúng?\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Một hoặc nhiều cấu hình VPN mà bạn đang cài đặt bao gồm các tuỳ chọn mà không được nhận ra bởi Tunnelblick. Đó có thể là một lỗi trong cấu hình hoặc là lỗi trong Tunnelblick, hoặc các cấu hình có bao gồm những chương trình sẽ chạy dưới quyền root khi bạn kết nối đến một mạng riêng ảo. Những chương trình như vậy sẽ có khả năng CHIẾM TOÀN QUYỀN ĐIỀU KHIỂN MÁY TÍNH CỦA BẠN.\n\nBẠN KHÔNG NÊN CÀI ĐẶT NHỮNG CẤU HÌNH NÀY TRỪ KHI BẠN TIN TƯỞNG CÁC TÁC GIẢ CỦA\n CHÚNG.\n\nBạn có tin tưởng tác giả của những cấu hình này và muốn cài đặt chúng?\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Một hoặc nhiều cấu hình VPN mà bạn đang cài đặt bao gồm những chương trình mà sẽ thực thi dưới quyền root khi bạn kết nối đến một mạng nội bộ. Chúng có khả năng CHIẾM TOÀN BỘ QUYỀN ĐIỀU KHIỂN MÁY TÍNH CỦA BẠN.\n\nBẠN KHÔNG NÊN CÀI ĐẶT NHỮNG CẤU HÌNH NÀY TRỪ KHI BẠN TIN TƯỞNG TÁC GIẢ.\n\nBạn có tin tưởng tác giả của những cấu hình đó và muốn cài đặt chúng?\n\n";
+
+/* Window text */
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Một hoặc nhiều mạng VPN đang được kết nối. Vui lòng ngắt kết nối tất cả các mạng VPN và thoát Tunnelblick trước khi tiến hành.";
+
+/* Window text */
+"One or more configurations are being ignored. See the Console Log for details." = "Một hoặc nhiều cấu hình đang bị bỏ qua. Xem Console Log để biết chi tiết hơn.";
+
+/* Window text */
+"One or more problems were detected:\n\n%@" = "Một hoặc nhiều lỗi được phát hiện:\n\n%@";
+
+/* Window text */
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Chỉ có một cấu hình Tunnelblick VPN (.tblk) có thể chạy khi máy tính khởi chạy.";
+
+/* Window text */
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN đang không phản hồi đến yêu cầu ngắt kết nối %@.\n\nTunnelblick sẽ ngắt kết nối khi OpenVPN bắt đầu phản hồi đến yêu cầu ngắt kết nối.\n\nĐIỀU NÀY CÓ THỂ TỐN ĐẾN HAI PHÚT trong một số trường hợp bất thường.\n\nKết nối sẽ không sẵn sàng cho đến khi nó bị ngắt kết nối.";
+
+/* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
+"OpenVPN version %@ is not available. Using %@ as the default." = "OpenVPN phiên bản %1$@ không sẵn có. Đang sử dụng %2$@ như là mặc định.";
+
+/* Window text */
+"OpenVPN version:" = "Phiên bản OpenVPN:";
 
 /* Window text */
 "Out:" = "Gửi:";
@@ -1011,6 +1368,33 @@
 "Password:" = "Mật khẩu:";
 
 /* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Đường dẫn '%1$@' có chứa những ký tự không hợp lệ.\n\nCác ký tự không hợp lệ: '%2$s'\n\n";
+
+/* Window text */
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Vui lòng nhập một tên và nhấn \"OK\" hay nhấn \"Cancel\".\n\n";
+
+/* Window text */
+"Please enter a new name for '%@'." = "Vui lòng nhập một tên mới cho '%@'.";
+
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "Vui lòng chèn mã khoá \"%@\", và sau đó nhấn \"OK\"";
+
+/* Window text */
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Các cấu hình riêng tư không thể kết nối khi máy tính khởi chạy.\n\nĐầu tiên cần chia sẽ cấu hình, sau đó thay đổi thiết lập.";
+
+/* Window text */
+"Program error, please see the Console log." = "Chương trình lỗi, vui lòng xem nhật ký Console.";
+
+/* Window text */
+"Received fatal signal %d." = "Nhận được tín hiệu lỗi %d.";
+
+/* Window text */
+"Rename failed; see the Console Log for details." = "Đổi tên bị lỗi; xem Console Log để biết chi tiết hơn.";
+
+/* Window text */
+"Resolved symbolic link at '%@' to '%@'" = "Liên kết biểu tượng được phân giải tại '%1$@' đến '%2$@'";
+
+/* Window text */
 "Search domain:" = "Tìm kiếm tên miền:";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
@@ -1023,7 +1407,16 @@
 "Single-quote missing in line %u" = "Thiếu dấu ngoặc đơn ở dòng %u";
 
 /* Window text */
+"Skipped copying %@ because a file with that name and contents has already been copied." = "Bỏ qua việc sao chép %@ bởi vì có một tập tin có cùng tên và nội dung đã được sao chép.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Đang khởi chạy Tunnelblick %@…";
+
+/* Window text */
 "Startup window:" = "Cửa sổ khởi động:";
+
+/* Window text */
+"Symbolic links nested too deeply. Gave up at %@" = "Liên kết biểu tượng bị lồng vào nhau quá nhiều lớp. Từ bỏ tại %@";
 
 /* Window text */
 "TB" = "TB";
@@ -1032,4 +1425,73 @@
 "TB/s" = "TB/s";
 
 /* Window text */
+"TBRunAlertPanel returned an error" = "TBRunAlertPanel trả về một lỗi";
+
+/* Window text */
+"TUNNELBLICK is brought to you by" = "TUNNELBLICK được cung cấp cho bạn bởi";
+
+/* Window text */
+"Thank you very much for your donation to the TunnelblickProject." = "Cảm ơn bạn rất nhiều về khoản tặng cho dự án Tunnelblick.";
+
+/* Window text */
+"Thanks for your Tunnelblick donation" = "Cảm ơn về khoản tặng Tunnelblick của bạn";
+
+/* Window text */
 "That name is being used.\n\n" = "Tên này đã được sử dụng.\n\n";
+
+/* Window text */
+"The %@ system folder (%@) does not exist." = "Thư mục hệ thống %1$@ (%2$@) không tồn tại.";
+
+/* Window text */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Thư mục hệ thống %1$@ (%2$@) không an toàn.\n\nTunnelblick có thể không hoạt động đúng trừ khi vấn đề này được sửa.\n\nTính răng 'Sửa quyền truy cập đĩa' của Disk Utility có thể sửa được vấn đề này.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Tuỳ chọn '%@' của OpenVPN không hợp lệ trên OS X. Đây là tuỳ chọn 'chỉ cho Windows'.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Tuỳ chọn '%@' của OpenVPN không hợp lệ khi sử dụng Tunnelblick.";
+
+/* Window text */
+"The '%@' credentials may not be added because the list of named credentials is being forced." = "Thông tin xác thực '%@' có thể không được thêm vào bởi vì danh sách của các thông tin xác thực được đặt tên đang bị ép buột.";
+
+/* Window text */
+"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "Thông tin xác thực '%@' có thể không được xoá bởi vì một hoặc nhiều cấu hình đang bị ép buộc sử dụng chúng.";
+
+/* Window text */
+"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "Thông tin xác thực '%@' có thể không được xoá bởi vì danh sách của những thông tin xác thực được đặt tên đang bị ép buộc.";
+
+/* Window text */
+"The 'credentialsNames' preference must be an array of strings." = "Tuỳ chỉnh 'credentialsNames' phải là một danh sách các chuỗi ký tự.";
+
+/* Window text */
+"The 'namedCredentialsNames' preference must be an array of strings" = "Tuỳ chỉnh 'namedCredentialsNames' phải là một danh sách các chuỗi ký tự";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Tập tin cấu hình OpenVPN cho '%@' đã bị chỉnh sửa sau lần cuối nó mà nó được bảo mật.\n\nBạn có muốn bảo mật cấu hình đã bị chỉnh sửa hay đảo ngược về cấu hình lần cuối được bảo mật?\n\n";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "Tập tin cấu hình OpenVPN trong %1$@ có chứa một tuỳ chọn '%2$@', là một tuỳ chọn chỉ dành cho Windows. Nó không thể sử dụng được trên OS X.";
+
+/* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Nhật ký của OpenVPN có chứa thông điệp sau: \n\n\"%1$@\".%2$@";
+
+/* Window text */
+"The OpenVPN log does not yet exist or has been deleted." = "Nhật ký của OpenVPN chưa tồn tại hoặc đã bị xoá.";
+
+/* Window text */
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Các tuỳ chỉnh của Tunnelblick đã bị hư hỏng hoặc bị xoá. (Các tuỳ chỉnh cũng đã bị đổi tên.)\n\nXem Console Log để biết chi tiết hơn.";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "Nỗ lực để kết nối %1$@ đã bị huỷ: đoạn mã runOnConnect trả về trạng thái: %2$ld.";
+
+/* Window text */
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Tập tin cấu hình cho '%@' có vẻ sử dụng các tuỳ chọn 'user' hay 'group' và đang sử dụng một đoạn mã thấp ('Không thiết lập nameserver' không được chọn, hoặc có một tuỳ chọn 'thấp' trong tập tin cấu hình).\n\nNó có vẻ như là việc khởi chạy lại kết nối (hoàn thành một cách tự động khi kết nối bị ngắt) sẽ bị lỗi trừ khi phần mở rộng 'openvpn-down-root.so' cho OpenVPN được sử dụng.\n\nBạn có muốn sử dụng phần mở rộng?";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Tập tin cấu hình có tham khảo đến một tập tin\n\n%@\n\nmà nó không tồn tại (ngay cả trong cấu hình đang được thay thế).";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "Tập tin cấu hình tham khảo đến một tập tin\n\n%@\n\nmà nó không tồn tại trong cấu hình mới, vì thế tập tin không được bảo mật đang có đã được sử dụng.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "Tập tin cấu hình tham khảo đến một tập tin\n\n%@\n\nmà nó không tồn tại.";

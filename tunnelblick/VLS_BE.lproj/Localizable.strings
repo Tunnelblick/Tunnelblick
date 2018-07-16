@@ -420,6 +420,9 @@
 "Do not warn about this again" = "Waarschuw mij niet nog een keer";
 
 /* Checkbox name */
+"Do not warn about this for %lu days" = "Waarschuw me hiervoor gedurende %lu dagen niet meer voor";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "IPv6 inschakelen (alleen tap)";
 
 /* Checkbox name */
@@ -672,6 +675,9 @@
 "System Requirements Not Met" = "Systeemvereisten niet voldaan";
 
 /* Window title */
+"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ heeft mogelijk een update nodig";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick configuratieprobleem";
 
 /* Window title */
@@ -786,7 +792,7 @@
 "  • Secure configurations\n" = "  • Configuraties beveiligen\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is gratis software: het is mogelijk om het te herdistribueren en/of aan te passen onder de voorwaarden van de %2$@ zoals gepubliceerd door de %3$@.  \n\n%4$@ is een geregistreerd handelsmerk van OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ is vrije software, je kan het verdelen en/of wijzigen onder de gebruikersvoorwaarden van de %2$@, zoals gepubliceerd door de %3$@.\n\n%4$@ is een geregistreerd handelsmerk van OpenVPN Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Wilt u %1$@ in %2$@%3$@ installeren?\n\n";
@@ -818,11 +824,17 @@
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ is hersteld naar zijn laatste (schaduw) kopie.\n\n";
 
+/* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Opmerking: Tunnelblick draait in beheerdermodus, dus authorisatie van een computerbeheerder is niet vereist.";
+
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configuraties zijn teruggezet naar hun laatst beveiligde (schaduw) kopie.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' bestaat al op het Bureaublad.\n\nWilt u het vervangen?";
+
+/* Window text */
+"'%@' at line %u was not terminated properly" = "'%1$@' op regel %2$u werd niet correct afgesloten";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' heeft geen aanmeldgegevens (persoonlijke sleutel of gebruikersnaam en wachtwoord) in de Sleutelhanger opgeslagen.";
@@ -855,7 +867,10 @@
 "(if connected when user switched out)" = "(indien verbonden wanneer de gebruiker is uitgeschakeld)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Gebaseerd op Tunnelblick, gratis software beschikbaar op<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is een geregistreerd handelsmerk van OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Gebaseerd op Tunnelblick, vrije software beschikbaar op<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is een geregistreerd handelsmerk van OpenVPN Inc.";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Deze versie van Tunnelblick is %lu dagen oud.</p><p>Controleer a.u.b. of er een nieuwe versie beschikbaar is:</p><ul><li>Handmatig op het 'Voorkeuren' paneel van Tunnelblicks 'VPN Details' venster; of<br></li><li>Kijk voor een recente versie op<a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Een TBPreference of TBAlwaysSetPreference sleutel verwijst naar een onbekende instelling ' %1$@' in %2$@";
@@ -1006,6 +1021,12 @@
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuratie ' %@' is niet bijgewerkt, omdat het kon worden gemarkeerd als 'bijgewerkt'.\n";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Configuratie '%1$@' vereist Tunnelblick %2$@ of hoger; u gebruikt Tunnelblick %3$@.\n\nU moet Tunnelblick bijwerken om deze configuratie te kunnen installeren.";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Configuratie '%1$@' vereist Tunnelblick %2$@ of lager; u gebruikt Tunnelblick %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuratie '%1$@' zal genegeerd worden, omdat de naam karakters bevat die niet zijn toegestaan.\n\nKarakters die niet zijn toegestaan: '%2$s'\n\n";
@@ -1581,6 +1602,9 @@
 "Tunnelblick %@ is ready." = "Tunnelblick %@ is gereed.";
 
 /* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick beheermodus\n\n Sta tijdelijk wijzigingen toe die beheerdersrechten vereisen.\n\n De sessie verloopt na vijf minuten of wanneer het 'VPN Details' venster wordt gesloten.";
+
+/* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick internet gebruik:";
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
@@ -1681,6 +1705,9 @@
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick moet een beveiligde (schaduw) kopie van het configuratiebestand maken of bijwerken";
+
+/* Window text */
+"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick moet een handeling verrichten die beheerdersrechten vereist.\n";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick moet:\n";
@@ -1896,6 +1923,9 @@
 "You may not remove a configuration which is set to start when the computer starts." = "Het is niet toegestaan om een configuratie te verwijderen indien deze is ingesteld om te starten wanneer de computer start.";
 
 /* Window text */
+"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "U kunt Tunnelblick niet updaten, tenzij u een gebruikersnaam en wachtwoord van een beheerder opgeeft.\n\nWeet u zeker dat u op updates wilt controleren?";
+
+/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Uw computer kan mogelijk niet het Tunnelblick-icoon betrouwbaar naast het Spotlight-icoon weergeven.\n\nDit kan er voor zorgen dat het Tunnelblick-icoon soms VERDWIJNT uit de menu bar.\n\nWeet u zeker dat u het Tunnelblick-icoon naast het Spotlight-icoon wilt plaatsen?\n\n";
 
 /* Window text */
@@ -1997,6 +2027,15 @@
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Wanner aangevinkt</strong>, zal Tunnelblick OpenVPN instrueren om alle IPv4 verkeer door de VPN server te geleiden.</p>\n<p><strong>Wanner niet aangevinkt</strong>, per standaard zal OpenVPN enkel de VPN gebruiken voor verkeer bedoeld voor het VPN Netwerk. Al het andere verkeer zal de gewone internet verbinding gebruiken zonder door de VPN te gaan. Het standaard OpenVPN gedrag kan gewijzigd worden in de OpenVPN configuratie of de VPN server en er de oorzaak van wordt dat alle IPv4 verkeer geleid wordt door de VPN server zoals deze functie aangevinkt werd.</p>\n";
 
+/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Indien aangevinkt</strong>, zal Tunnelblick deze melding gedurende %lu dagen niet meer tonen.</p>\n<p><strong>Indien uitgevinkt</strong>, zal Tunnelblick deze melding iedere keer na opstarten tonen.</p>\n";
+
+/* HTML info for the 'Do not warn about this again' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Indien aangevinkt</strong>, zal Tunnelblick deze waarschuwing niet meer tonen.</p>\n<p><strong>Indien uitgevinkt</strong>, zal Tunnelblick deze waarschuwing weer tonen.</p>\n";
+
+/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Wanneer aangevinkt</strong> zal Tunnelblick beheerderstoegang vereisen om sleutel- en certificaatbestanden te kunnen wijzigen.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zal een standaardgebruiker in staat zijn om sleutel- en certificaatbestanden te wijzigen.</p><p><strong>Let op: Beheerderstoegang is vereist om deze instelling te wijzigen.</strong></p>";
+
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Wanneer aangevinkt</strong>, Tunnelblick zal kijken naar en reageren op veranderingen in de netwerkinstellingen (bijvoorbeeld, wijzigingen veroorzaakt door DHCP vernieuwingen of schakelende internet verbindingen) in een poging om de VPN verbinding te behouden. De standaard acties van Tunnelblick wanneer netwerkveranderingen optreden werken goed in de meeste gevallen, maar je kunt verschillende acties opgeven in de tab 'While Connected' of de 'Advanced' instelscherm.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, Tunnelblick zal netwerk wijzigingen negeren.</p>\n<p><strong>Deze keuzebox is niet beschikbaar</strong> wanneer 'Set DNS/WINS' niet is ingesteld naar 'Set nameserver' of 'Set nameserver (3.1)'.</p>";
 
@@ -2020,6 +2059,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Wanneer aangevinkt</strong>, zal, afhankelijk van andere instellingen niet automatisch worden gecontroleerd of er nieuwe versies zijn of op wijzigingen van het IP adres. Let op: voor deze acties wordt er informatie gestuurd naar de Tunnelblick website.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zal er alleen automatisch worden gecontroleerd op nieuwe versies als dit hieronder is ingesteld. Op wijzigingen van het IP adres wordt gecontroleerd als er een verbinding wordt gemaakt met een configuratie waarvoor deze optie aan staat.</p><p>Zie <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy en veiligheid</a> [tunnelblick.net] voor meer informatie..</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Wanneer aangevinkt</strong>, wordt het Tunnelblick-icoon naast het Spotlight-icoon geplaatst:</p>\n<p>%1$@</p>\n<p><strong>Wanneer uitgevinkt</strong>, wordt het Tunnelblick-icoon op de standaardpositie geplaatst:</p>\n<p>%2$@</p>\n<p><strong>Deze optie is uitgeschakeld</strong> in macOS Sierra en hoger omdat het daar overbodig is, en op systemen waarvan het bekend is dat dit problemen kan veroorzaken</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Meer info</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Wanneer aangevinkt</strong>, zal het VPN status venster worden getoond zelfs wanneer u niet verbonden bent.</p><p><strong>Deze keuzebox is niet beschikbaar</strong> wanneer 'Nooit tonen' hierboven is geselecteerd.</p>";
@@ -2197,6 +2239,9 @@
 "Greek translation" = "Griekse vertaling";
 
 /* Credit description */
+"Hebrew translation" = "Hebreeuwse vertaling";
+
+/* Credit description */
 "Hungarian translation" = "Hongaarse vertaling";
 
 /* Credit description */
@@ -2291,6 +2336,9 @@
 
 /* Notification text */
 "Updated to %@." = "Bijgewerkt naar %@.";
+
+/* Credit description */
+"Vietnamese translation" = "Vietnamese vertaling";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode hulp & OpenSSL integratie";

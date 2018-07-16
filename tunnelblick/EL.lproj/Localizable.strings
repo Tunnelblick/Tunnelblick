@@ -792,7 +792,7 @@
 "  • Secure configurations\n" = "  • Ασφάλεια παραμέτρων\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " Το %1$@ είναι ελεύθερο λογισμικό: Μπορείτε να το αναδιανέμετε και/ή να το τροποποιήσετε κάτω από τους όρους του %2$@ τα οποία δημοσιεύθηκαν από το %3$@. Το %4$@ είναι σήμα κατατεθέν της OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " Το %1$@ είναι ελεύθερο λογισμικό: μπορείτε να το αναδιανείμετε και / ή να το τροποποιήσετε σύμφωνα με τους όρους του %2$@ όπως δημοσιεύτηκε από το %3$@.\n\nΤο %4$@ είναι σήμα κατατεθέν της OpenVPN Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Θέλετε να εγκαταστήσετε το %1$@ στο %2$@%3$@;\n\n";
@@ -867,7 +867,7 @@
 "(if connected when user switched out)" = "(αν συνδεθεί όταν ο χρήστης είναι αποσυνδεδεμένος)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Βασισμένο στο Tunnelblick, ελεύθερο λογισμικό διαθέσιμο στο<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>Το OpenVPN είναι κατοχυρωμένο σήμα κατατεθέν της OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Βασισμένο στο Tunnelblick, ελεύθερο λογισμικό διαθέσιμο στο <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>. Το OpenVPN είναι κατοχυρωμένο σήμα κατατεθέν της OpenVPN Technologies, Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Αυτή η έκδοση του Tunnelblick είναι %lu ημερών παλιά. </p><p>Παρακαλώ ελέγξτε για τη νεότερη έκδοση:</p><ul><li>Χειροκίνητα στον πίνακα \"Ρυθμίσεις\" στο παράθυρο \"Λεπτομέρειες VPN\" είτε<br></li><li>Κοιτάζοντας για νεότερη έκδοση στη <a href=\"https://tunnelblick.net/downloads.html\"> σελίδα λήψεων του Tunnelblick</a>[tunnelblick.net]</li></ul>";

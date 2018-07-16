@@ -792,9 +792,6 @@
 "  • Secure configurations\n" = "  • Tunnelblick-VPN-Konfigurationen absichern\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ ist freie Software: Sie können sie gemäß den Nutzungsbedingungen der %2$@, wie von der %3$@ herausgegeben, weiterverteilen und/oder modifizieren. \n\n%4$@ ist ein eingetragenes Warenzeichen von OpenVPN Technologies, Inc.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Möchten Sie %1$@ nach %2$@%3$@ installieren?\n\n";
 
 /* Window text */
@@ -865,9 +862,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(falls beim Benutzerwechsel verbunden )";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Basierend auf Tunnelblick, kostenlos verfügbar unter<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN ist eine eingetragene Marke der OpenVPN Technologies, Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Diese Version von Tunnelblick ist %lu Tage alt.</p><p>Bitte überprüfen Sie, ob es eine neuere Version gibt.</p>-<ul>-<li>Entweder manuell im Fenster \"Einstellungen\" unter \"VPN Details\"; oder<br></li><li> auf der <a href=\"https://tunnelblick.net/downloads.html\">-Tunnelblick Downloads Seite</a> [tunnelblick.net].</li>-</ul>";

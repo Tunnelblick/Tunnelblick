@@ -777,9 +777,6 @@
 "  • Secure configurations\n" = "  • Konfigurāciju aizsardzības nodrošināšana\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ ir atvērta koda programmatūra: Jūs to varat izplatīt un/vai modificēt to saskaņā ar %2$@ kā to publicējis %3$@. \n\n%4$@ ir reģistrēta preču zīme, kas pieder OpenVPN Technologies, Inc.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Vai vēlaties instalēt %1$@ uz %2$@%3$@?\n\n";
 
 /* Window text */
@@ -844,9 +841,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(ja ir aktīvs savienojums, kad lietotājs pārslēdzas uz citu kontu)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Bāzēts uz Tunnelblick, bezmaksas programmatūra pieejama:<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN ir reģistrēta OpenVPN Technologies, Inc. preču zīme.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference vai TBAlwaysSetPreference atslēga atsaucas uz nezināmu izvēli '%1$@' iekš %2$@";

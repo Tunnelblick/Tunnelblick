@@ -771,9 +771,6 @@
 "  • Secure configurations\n" = "  Konfiqurasiyanın təhlükəsizliyini təmin etməlidir\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ pulsuz proqramdır: Siz onu %3$@-da nümayiş olunduğu kimi, %2$@ şərtlərinə uyğun olaraq paylaya və/və ya dəyişdirə bilərsiniz.\n\n%4$@ OpenVPN Technologies, Inc-in qeydə alınmış əmtəə nişanıdır.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Siz %2$@%3$@-i %1$@-ə quraşdırmaq istəyirsiniz?\n\n";
 
 /* Window text */
@@ -835,9 +832,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(əgər istifadəçi çıxanda qoşuludursa)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br> Tunnelbickə əsasən, pulsuz proqram <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br> mövcuddur<br>OpenVPN OpenVPN Technologies, Inc-in qeydə alınmış əmtəə nişanıdır.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference və ya TBAlwaysSetPreference açarları %2$@ yerləşən '%1$@' naməlum üstünlüyə istinad edirlər";

@@ -792,9 +792,6 @@
 "  • Secure configurations\n" = "  • Zaštiti konfiguracije\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ je besplatan softver: možete da deliti i/ili menjati pod uslovima %2$@ kao što je objavljeno od strane %3$@.\n\n%4$@ je registrovan trejdmark OpenVPN Technologies, Inc.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Da li želiš da instaliraš %1$@ u %2$@%3$@?\n\n";
 
 /* Window text */
@@ -865,9 +862,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(ako je povezan kada se korisnik izloguje)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Bazirano na Tunnelblick, besplatnom softveru dostupnom na <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovan zaštitni znak OpenVPN Technologies, Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Ova verzija Tunnelblicka je stara %lu dan(a).</p><p>Molim proverite da li je nova verzija dostupna:</p><ul><li>Ručno u 'Podešavanja' panelu u okviru 'VPN Detalji...' prozora; ili<br></li><li>Nalaženjem nove verzije na sajtu <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick preuzimanja</a> [tunnelblick.net].</li></ul>";

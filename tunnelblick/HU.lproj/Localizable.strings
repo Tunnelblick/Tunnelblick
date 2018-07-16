@@ -792,9 +792,6 @@
 "  • Secure configurations\n" = "  • Biztonságos konfigurációk\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ szabad szoftver: terjesztheted és/vagy módosíthatod a %2$@ feltételeinek értelmében, ahogy azt a %3$@ közzétette.\n%4$@ az OpenVPN Technologies, Inc. bejegyzett védjegye.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Telepíteni szeretné a(z) %1$@ a(z) %2$@%3$@ helyre?\n\n";
 
 /* Window text */
@@ -865,9 +862,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(ha csatlakozott és a felhasználó kijelentkezett)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>A Tunnelblickre épülő ingyenes software elérhető itt:<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>Az OpenVPN az OpenVPN Technologies, Inc. bejegyzett védjegye.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Ez a Tunnelblick verzió már %lu napos.</p><p>Kérjük, keressen egy újabb verziót:</p><ul><li>Manuálisan a Tunnelblick 'VPN részletek' ablak 'Beállítások' paneljén; vagy <br></li><li> Egy újabb verzióért a <a href=\"https://tunnelblick.net/downloads.html\"> Tunnelblick letöltő oldalon</a>[tunnelblick.net].</li></ul>";

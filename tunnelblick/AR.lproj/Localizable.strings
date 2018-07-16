@@ -792,7 +792,7 @@
 "  • Secure configurations\n" = "  • تأمين الاعدادات";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ هو برنامج مجاني: بامكانكم اعادة توزيع البرنامج او/و تغييره وفقا لاحكام %2$@ كما نشرت من طرف %3$@.\n%4$@هو علامة تجارية مسجلة لشركة اوبن في بي ان تكنولوجيز.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ هو برنامج مجاني: بامكانكم اعادة توزيع البرنامج او/و تغييره وفقا لاحكام %2$@ كما نشرت من طرف %3$@.\n%4$@ هو علامة تجارية مسجلة لشركة اوبن في بي ان تكنولوجيز.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " هل ترغب في تثبيت %1$@ على %2$@%3$@؟     \n\n";
@@ -867,7 +867,7 @@
 "(if connected when user switched out)" = "(يكون متصلا عندما يخرج المسخدم)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>مبني على تُنلـبليك، برنامج مجاني يمكن الحصول عليها من<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN علامة مسجلة لشركة OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>مبني على تُنلـبليك، برنامج مجاني يمكن الحصول عليه من خلال <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN علامة مسجلة لشركة OpenVPN Technologies, Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "يشير المفتاح TBAlways او ListPreference إلى اختيارغير معروف '%1$@' في %2$@";
@@ -1018,6 +1018,12 @@
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "التضبيط التالي '%@' غير قابل للتحديث, لأنه لا يمكن أن تكون علامة عليه على أنه 'قابل للتحديث'.\n";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "الاعدادات في '%1$@' تحتاج نسخة تُنلـبليك %2$@ او احدث؛ انت تستخدم نسخة تُنلـبليك %3$@.\n\nيجب عليك تحديث نسخة تُنلـبليك قبل ان يمكنك تنصيب هذه الاعدادات.";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "الاعدادات %1$@ تحتاج الى تُنلـبليك %2$@ او اقل؛ انت تستخدم نسخة تُنلـبليك %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "التضبيط التالي '%1$@' سيتم تجاهله لان اسمه يحتوي على حروف غير مسموح باستعمالها.\nالحروف الغير مسموح باستعمالها: '%2$s'\n\n";
@@ -1340,6 +1346,9 @@
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "لا يستجيب برنامج OpenVPN لطلب قطع الاتصال %@.\n\nسيقطع برنامج Tunnelblick الاتصال عندما يستجيب برنامج OpenVPN لطلب قطع الاتصال.\n\nهذه العملية تستغرق مدة قد تصل حتى دقيقتين.\n\nحتى انتهاء العملية سيكون استخدام هذا الاتصال غير متاح.";
 
+/* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
+"OpenVPN version %@ is not available. Using %@ as the default." = "نسخة OpenVPN %1$@ غير متوفرة. سيتم استخدام نسخة (%2$@) بشكل افتراضي.";
+
 /* Window text */
 "OpenVPN version:" = "إصدار OpenVPN:";
 
@@ -1453,6 +1462,9 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "خيار ‘namedCredentialsNames‘ يجب أن يتكون من مجموعة من الكلمات";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "ملف اعدادات OpenVPN ل \"%@\" قد تم تحديثه بعد ان تم حمايته.\nهل تريد ان تحمي الاعدادات التي تم تغييرها او هل تريد الرجوع الى اخر نسخة اعدادات محمية؟\n\n";
 
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "ملف اعدادات اتصال OpenVPN %1$@ يحتوي على الاعداد %2$@، هذا الاعداد خاص بنظام التشغيل Windows ولا يمكن استخدامه في نظام التشغيل OS X.";
@@ -2042,6 +2054,9 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>استعادة التحذيرات التي تم منعها من خلال مربع الاختيار \"عدم التحذير من هذا مرة أخرى\"</p>";
 
+/* HTML info for the 'VPN status windows' button. */
+"<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>يحدد الوقت الذي سيضهر فيه تنبلك نوافذ الفي بي ان.</p>";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p> وذاكرة التخزين المؤقت DNS يحتوي على نسخ من نظام أسماء النطاقات (نظام اسم المجال) المعلومات. </ P>\n<P> على <strong> عندما فحص </ strong>، سيتم مسح ذاكرة التخزين المؤقت DNS (مسح) بعد الاتصال أو قطع الاتصال. سيتم تنفيذ كافة عمليات البحث DNS من قبل الملقم الاسم المحدد من قبل إعداد VPN. </ P>\n<P> على <strong> عندما لم يتم التحقق </ strong>، لن يتم مسح ذاكرة التخزين المؤقت DNS. هذا يمكن أن يسبب مشاكل إذا كانت هناك صراعات الاسم بين اسم الخادم التي يحددها إعداد VPN والخادم اسم ما قبل VPN وإذا تم تخزينها مؤقتا إدخالات قبل VPN.\n</p>";
 
@@ -2249,6 +2264,9 @@
 
 /* Notification text */
 "Updated to %@." = "تم التحديث الي %@.";
+
+/* Credit description */
+"Vietnamese translation" = "الترجمه الفيتناميه";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "مساعدة Xcode وتكامل OpenSSL";

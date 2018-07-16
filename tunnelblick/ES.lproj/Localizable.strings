@@ -792,7 +792,7 @@
 "  • Secure configurations\n" = "  • Configuraciones seguras\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ es software libre: puedes redistribuirlo y/o modificarlo dentro de los términos de la licencia %2$@ publicada por la fundación %3$@.\n\n%4$@ es una marca registrada por OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ es software libre: puedes redistribuirlo y/o modificarlo dentro de los términos de la licencia %2$@ publicada por la fundación %3$@.\n\n%4$@ es una marca registrada por OpenVPN Technologies, Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Quieres instalar %1$@ a %2$@%3$@?\n\n";
@@ -867,7 +867,7 @@
 "(if connected when user switched out)" = "(si el usuario conectado sale)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Basado en Tunnelblick, el software libre está disponible en<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a>\n<br><br>OpenVPN es una marca registrada de OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Basado en Tunnelblick, el software libre está disponible en<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a>\n<br><br>OpenVPN es una marca registrada de OpenVPN Technologies, Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Esta version de Tunnelblick es de hace %lu días.</p><p>Por favor compruebe si hay una nueva versión:</p><ul><li>Manualmete en el panel de 'Preferencias' en la ventana de configuración de 'Detalles de VPN'; o <br></li><li>Buscando la versión mas reciente en <a href=\"https://tunnelblick.net/downloads.html\">la página de descargas de Tunnelblick</a>[tunnelblick.net].</li></ul>";
@@ -2425,7 +2425,7 @@
 "Email address %@ is already registered for an account" = "Su correo electrónico %@ ya se encuentra registrado bajo otra cuenta";
 
 /* Window text VPNService */
-"Email address:" = "Correo electrónico:";
+"Email address:" = "Dirección de correo electrónico:";
 
 /* Window text VPNService */
 "Invalid URL: %@" = "URL invalida: %@";

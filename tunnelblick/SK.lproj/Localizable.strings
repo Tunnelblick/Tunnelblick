@@ -792,7 +792,7 @@
 "  • Secure configurations\n" = "  • Ochrániť konfigurácie\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ je voľný software: môžete ho šíriť a/alebo modifikovať podľa podmienok %2$@ vydávanej %3$@.  \n%4$@ je ochranná známka spoločnosti OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ je slobodný softwér: môžete ho šíriť a modifikovať podľa podmienok %2$@ vydávanej %3$@.\n \n%4$@ je ochranná známka spoločnosti OpenVPN Technologies, Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Prajete si nainštalovať %1$@ do %2$@%3$@?\n\n";
@@ -867,7 +867,7 @@
 "(if connected when user switched out)" = "(ak je aktívne pri zmene aktívneho užívateľa)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Založené na Tunnelblick, voľne šíriteľnom softwari, ktorý je dostupný na<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovaná ochranná známka OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Založené na Tunnelblicku, voľne šíriteľnom softvéri, ktorý je dostupný na<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovaná ochranná známka OpenVPN Technologies, Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Táto verzia Tunnelblicku je stará %lu dní.</p><p>Prosím, skontrolujte dostupnosť novej verzie:</p><ul><li>Ručne v okne \"Detaily VPN\", v paneli Predvoľby, alebo<br></li><li>dohľadaním novšej verzie na <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick stránke Downloads</a>[tunnelblick.net].</li></ul>";

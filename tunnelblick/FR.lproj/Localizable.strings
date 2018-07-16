@@ -792,7 +792,7 @@
 "  • Secure configurations\n" = "  • Sécurise les configurations\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ est un logiciel libre : vous pouvez le redistribuer et/ou le modifier selon les termes de %2$@ tel que publié par le %3$@.\n\n%4$@ est une marque déposée de OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ est un logiciel libre : vous pouvez le redistribuer et/ou le modifier selon les termes de %2$@ tel que publié par le %3$@.\n\n%4$@ est une marque déposée de OpenVPN Technologies, Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Voulez vous installer %1$@ sur %2$@%3$@?\n\n";
@@ -867,7 +867,7 @@
 "(if connected when user switched out)" = "(si connecté lors de la permutation de comptes)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Basé sur Tunnelblick, logiciel libre disponible sur<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN est une marque déposée de OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Utilisant le code de base de Tunnelblick, logiciel libre disponible sur<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN est une marque déposée de OpenVPN Technologies, Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Cette version de Tunnelblick est vieille de %lu jours.</p><p>Vérifiez s'il en existe une version plus récente:</p><ul><li>Via l'onglet 'Préférences' de la fenêtre 'Détails VPN' ; ou<br></li><li>En cherchant une version sur la page des <a href=\"https://tunnelblick.net/downloads.html\">téléchargements de Tunnelblick</a> [tunnelblick.net].</li></ul>";

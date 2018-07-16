@@ -207,6 +207,9 @@
 "Reset Disabled Warnings" = "Ponovno prikaži onemogućena upozorenja";
 
 /* Button */
+"Reset primary interface" = "Poništi primarno sučelje";
+
+/* Button */
 "Restart connection" = "Ponovno pokreni vezu";
 
 /* Button */
@@ -468,6 +471,9 @@
 "Double-click to begin" = "Dupli klik za početak";
 
 /* Connection status */
+"ADD_ROUTES" = "Dodajem rute"; // Please translate "Adding routes"
+
+/* Connection status */
 "ASSIGN_IP" = "Dodijeljujem IP adresu"; // Please translate "Assigning IP address"
 
 /* Connection status */
@@ -514,6 +520,15 @@
 
 /* Window title */
 " (Deployed)" = " (postavljeno)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+
+/* Window title */
+" (Private)" = " (Privatno)";
+
+/* Window title */
+" (Shared)" = " (Djeljeno)"; // Indicates a shared configuration
+
+/* Window title */
+"Active connection" = "Aktivna konekcija";
 
 /* Window title */
 "Alert sounds" = "Zvukovi upozorenja";
@@ -703,6 +718,24 @@
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace one configuration\n" = "    Zamijeniti konfiguraciju\n";
+
+/* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
+"  • Complete the update\n" = "  Završi nadogradnju\n";
+
+/* Window text */
+"  • Convert OpenVPN configurations\n" = "  Konvertiraj OpenVPN konfiguracije\n";
+
+/* Window text */
+"  • Secure configurations\n" = "  Sigurne postavke\n";
+
+/* Window text */
+" Do you wish to install %@ to %@%@?\n\n" = " Želite li instalirati %1$@ na %2$@%3$@?\n\n";
+
+/* Window text */
+"%@ exists but is not a folder" = "%@ postoji ali nije mapa";
+
+/* Window text */
+"'%@' was not terminated." = "'%@' nije zatvorena.";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Logiranje je isključeno.)";

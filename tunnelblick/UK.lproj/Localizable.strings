@@ -792,9 +792,6 @@
 "  • Secure configurations\n" = "  • Безпечні конфігурації\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ є вільним програмним забезпеченням: ви можете поширювати його та/або змінювати його, відповідно до умов %2$@, як опубліковано %3$@.\n\n%4$@ є зареєстрованим товарним знаком OpenVPN Technologies, Inc.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Ви бажаєте встановити %1$@ в %2$@%3$@?\n\n";
 
 /* Window text */
@@ -865,9 +862,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(за умови підключення на момент виходу користувача)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Безкоштовні програми, побудовані на базі Tunnelblick, доступні за<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN є зареєстрованою торгівельною маркою OpenVPN Technologies, Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Ця версія Tunnelblick застаріла на %lu днів.</p><p>Будь ласка перевірте наявність нової версії:</p><ul><li>Вручну за допомогою панелі \"Налаштуваня\" вікна \"Деталі VPN\"; або<br></li><li>Завантаживши найновішу версію із сторінки <a href=\"https://tunnelblick.net/downloads.html\">Завантаження Tunnelblick</a> [tunnelblick.net].</li></ul>";

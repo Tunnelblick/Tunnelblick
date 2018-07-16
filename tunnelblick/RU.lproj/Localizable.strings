@@ -792,7 +792,7 @@
 "  • Secure configurations\n" = "  • Обеспечение безопасность конфигурации\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ — это свободное программное обеспечение с открытым исходным кодом: вы можете распространять или изменять на условиях лицензии %2$@, опубликованной по адресу %3$@.\n\n%4$@ — зарегистрированная торговая марка OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ является свободным программным обеспечением: Вы можете распространять или изменять его код в соответствии с условиями %2$@ опубликованными %3$@.\n\n%4$@ — зарегистрированная торговая марка OpenVPN Technologies Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Вы хотите установить %1$@ в %2$@%3$@?\n\n";
@@ -867,7 +867,7 @@
 "(if connected when user switched out)" = "(при подключении, когда пользователь отключён)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Основанное на Tunnelblick бесплатное программное обеспечение доступно на<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN является зарегистрированным товарным знаком OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>На основе Tunnelblick, Программа доступна бесплатно на<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN является зарегистрированным товарным знаком OpenVPN Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Этой версии Tunnelblick уже %lu дня/дней.</p><p>Пожалуйста, проверьте наличие новой версии:</p><ul><li>Вручную в панели 'Свойства' окна 'Детали VPN'; или <br></li><li>На <a href=\"https://tunnelblick.net/downloads.html\">странице загрузок Tunnelblick</a> [tunnelblick.net].</li></ul>";

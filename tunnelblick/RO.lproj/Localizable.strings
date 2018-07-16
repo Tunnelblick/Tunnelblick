@@ -792,9 +792,6 @@
 "  • Secure configurations\n" = "  • Configurări securizate\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ este un program gratuit: se poate redistribui sau modifica sub condițiile termenilor %2$@ publicate de %3$@.\n\n%4$@ este o marcă registrată a OpenVPN Technologies, s. a.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Doriți să instalați %1$@ în %2$@%3$@?\n\n";
 
 /* Window text */
@@ -865,9 +862,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(dacă acesta este conectat atunci când utilizatorul decuplează)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Bazat pe Tunnelblick, software-ul gratuit disponibil la <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN este o marcă înregistrată de OpenVPN Technologies, Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p> Această versiune de Tunnelblick este veche de %lu zile. </p> <p> Verificați dacă aveți o versiune mai nouă: </p> <ul> <li> Manual în panoul \"Preferințe\" din fereastra \"Detaliile VPN\" de la Tunnelblick; sau<br> </li> <li> Căutând o versiune mai recentă în <a href=\"https://tunnelblick.net/downloads.html\"> pagina Descărcări Tunnelblick </a> [tunnelblick.net]. </li> </ul>";

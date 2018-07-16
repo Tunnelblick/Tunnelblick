@@ -792,9 +792,6 @@
 "  • Secure configurations\n" = "  • Suojaa konfiguraatiot\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ on vapaa ohjelma: voit levittää sitä ja/tai muuttaa sitä %2$@ ehtojen mukaisesti sellaisena kuin ne on julkaissut %3$@.\n\n%4$@ on OpenVPN Technologies, Inc.:n omistama rekisteröity tavaramerkki.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Haluatko asentaa %1$@  %2$@%3$@:iin?\n\n";
 
 /* Window text */
@@ -865,9 +862,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(jos yhteys on muodostettuna, kun käyttäjä on vaihdettu)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Perustuu Tunnelblickiin, ilmainen ohjelmisto saatavissa osoitteesta <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN on OpenVPN Technologies, Inc.:n rekisteröity tavaramerkki.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Tämä versio Tunnelblickistä on %lu päivää vanha.</p><p>Tarkista uudemman version saatavuus:</p><ul><li>Manuaalisesti Tunnelblickin VPN Details-ikkunan Asetukset-paneelista; tai<br></li><li>Etsimällä uudempaa versiota <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblickin Lataukset-sivulta</a>[tunnelblick.net].</li></ul>";

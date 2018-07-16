@@ -8,7 +8,7 @@
 "Disconnect All (%@)" = "Tüm bağlantıları kes (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Bütün (%1$d) Bağlantıları Kes - görünen açık IP adresi %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Bütün (%1$d Sayıda) Bağlantıyı Kes - görünen açık IP adresi %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Tüm bağlantıları kes (%d Bağlantı)";
@@ -792,9 +792,6 @@
 "  • Secure configurations\n" = "  • Güvenli yapılandırmalar\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ bir özgür yazılımdır. %3$@ tarafından yayımlanan %2$@ de belirtilen maddelere uygun olarak, yeniden dağıtabilir ve/veya değiştirebilirsiniz.\n\n%4$@ OpenVPN Technologies, Inc'in tescilli markasıdır.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " %1$@ işlevini %2$@%3$@ içerisine yüklemek ister misiniz?\n\n";
 
 /* Window text */
@@ -865,9 +862,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(kullanıcı değiştirildiğinde bağlı ise)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Tunnelblick, özgür yazılımını şu adresten alabilirsiniz:<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN, OpenVPN Technologies, Inc.'in kayıtlı ticari markasıdır.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Tunnelblick'in bu versiyonu %lu gündür kullanımda.</p><p>Lütfen daha yeni bir versiyonu arayınız:</p><ul><li>El ile, Tunnelblick'in 'VPN Detayları' penceresinin 'Tercihler' sekmesinde; veya <br></li><li>Daha güncel bir versiyonunu <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick İndir Sayfasında</a>[tunnelblick.net]</li></ul> arayarak";

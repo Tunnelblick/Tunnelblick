@@ -792,9 +792,6 @@
 "  • Secure configurations\n" = "  • Zabezpečit konfigurace\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ je svobodný software: můžete jej distribuovat a/nebo modifikovat pod  %2$@ jak bylo bylo publikováno %3$@.\n\n%4$@ je registrovaná obchodní značka OpenVPN Technologies, Inc.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Přejete si instalovat %1$@ do %2$@%3$@?\n\n";
 
 /* Window text */
@@ -865,9 +862,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(Jestliže je navázáno spojení, když se uživatel přepne)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Založeno na Tunnelblicku, svobodném software dostupném na<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN je registrovaná obchodní značka OpenVPN Technologies, Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Tato verze Tunnelblicku je stará %lu dní.</p><p>Prosím zkontrolujte dostupnost nové verze:</p><ul><li>Ručně v okně \"Detaily VPN\", v panelu Předvolby, nebo<br></li><li>dohledáním novější verze na <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick stránce Stažení</a>[tunnelblick.net].</li></ul>";

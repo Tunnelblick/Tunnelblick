@@ -752,9 +752,6 @@
 "  • Secure configurations\n" = "  • 보안 설정\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ 은 무료 소프트웨어 입니다: %3$@ 의 %2$@ 사용건 조건 아래 배포 및 수정을 허용합니다.\n\n%4$@ 은 OpenVPN Technologies, Inc.의 등록상표입니다.";
-
-/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " %1$@를 %2$@%3$@에 설치하겠습니까?\n\n";
 
 /* Window text */
@@ -816,9 +813,6 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(사용자 전환 할 때 연결되어 있었다면)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Tunnelblick을 기반으로 제공되는 무료 소프트웨어는 다음 주소에서 배포됩니다<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN은 OpenVPN Technologies, Inc.의 등록 상표입니다.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference 또는 TBAlwaysSetPreference 키가 %2$@ 에서 알 수 없는 설정 '%1$@' 를 참조하고 있습니다.";

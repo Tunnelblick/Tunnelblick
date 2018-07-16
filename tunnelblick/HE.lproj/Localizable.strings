@@ -26,16 +26,16 @@
 "(None available)" = "(לא זמינים)";
 
 /* Button */
-"1 MB" = "1 MB";
+"1 MB" = "1 מ“ב";
 
 /* Button */
-"10 KB" = "10 KB";
+"10 KB" = "10 ק“ב";
 
 /* Button */
-"10 MB" = "10 MB";
+"10 MB" = "10 מ“ב";
 
 /* Button */
-"100 KB" = "100 KB";
+"100 KB" = "100 ק“ב";
 
 /* Button */
 "Advanced..." = "מתקדם…";
@@ -522,6 +522,12 @@
 "RECONNECTING" = "מתחבר מחדש"; // Please translate ""
 
 /* Connection status */
+"RESOLVE" = "מתרגם שמות תחום"; // Please translate ""
+
+/* Connection status */
+"SLEEP" = "ממתין לתוכנית דימון"; // Please translate "Waiting for daemon process"
+
+/* Connection status */
 "TCP_CONNECT" = "יוצר חיבור TCP"; // Please translate "Making TCP connection"
 
 /* Connection status */
@@ -537,10 +543,22 @@
 "Configurations" = "קונפיגורציות";
 
 /* Window title */
+" (Deployed)" = " (מותקן)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+
+/* Window title */
 " (Private)" = " (פרטי)";
 
 /* Window title */
 " (Shared)" = " (משותף)"; // Indicates a shared configuration
+
+/* Window title */
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ - הגדרות OpenVPN - Tunnelblick";
+
+/* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "הגדרות מתקדמות %3$@ - %1$@%2$@ מנותק";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%5$@ - %4$@ %3$@ %2$@ %1$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' התנתק בהצלחה";
@@ -565,6 +583,9 @@
 
 /* Window title */
 "Authentication failed" = "אימות נכשל";
+
+/* Window title */
+"Configuration(s) Ignored" = "התעלם מהגדרות";
 
 /* Window title */
 "Connecting & Disconnecting" = "חיבור וניתוק";
@@ -615,6 +636,12 @@
 "Name Required" = "יש להזין שם";
 
 /* Window title */
+"Name not allowed" = "שם לא תקני";
+
+/* Window title */
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "לא נמצא";
+
+/* Window title */
 "No Credentials" = "פרטי הזדהות לא קיימים";
 
 /* Window title */
@@ -646,6 +673,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "דרישות מערכת לא תואמות";
+
+/* Window title */
+"Tunnelblick %@ may need to be updated" = "%@ Tunnelblick - ישנה גרסא חדשה";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "בעייה בהגדרות Tunnelblick";
@@ -737,20 +767,134 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    הסר קונפיגורציה אחת\n";
 
+/* Window text */
+"  • Be installed in /Applications as Tunnelblick\n" = "  להיות מותקן בApplications/ בתור Tunnelblick\n";
+
+/* Window text */
+"  • Change ownership and permissions of the program to secure it\n" = "  לשנות בעלות ואישורים על מנת לאבטח את האפליקציה\n";
+
+/* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
+"  • Complete the update\n" = "  להשלים את העדכון\n";
+
+/* Window text */
+"  • Convert OpenVPN configurations\n" = "  להמיר הגדרות OpenVPN\n";
+
+/* Window text */
+"  • Install forced preferences\n" = "  התקן העדפות מאולצות\n";
+
+/* Window text */
+"  • Install or update configuration(s)\n" = "  להתקין או לעדכן הגדרות\n";
+
+/* Window text */
+"  • Move the private configurations folder\n" = "  להעביר הגדרות לתיקיה פרטית\n";
+
+/* Window text */
+"  • Secure configurations\n" = "  לאבטח הגדרות\n";
+
+/* Window text */
+" Do you wish to install %@ to %@%@?\n\n" = " האם להתקין %1$@ לתוך %2$@%3$@?\n\n";
+
+/* Window text */
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " האם להחליף\n%1$@\nמ %2$@\nעם %3$@%4$@?\n\n";
+
+/* Window text */
+" Forced preferences will also be installed or replaced.\n\n" = " העדפות מאולצות גם כן יותקנו או יוחלפו.\n\n";
+
+/* Window text */
+" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " הערה: הגדרות OpenVPN יומרו להגדרות יעודיות עבור VPN של Tunnelblick.\n\n";
+
+/* Window text */
+" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick מוכרח להיות מותקן באפליקציות.\n\n";
+
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick זקוק לקבל הרשאה כדי שהחיבור ל%@ יתחבר באופן אוטומטי כשהמחשב עולה.";
+
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick צריך הרשאות מנהל על מנת למנוע מ%@ להתחיל אוטומטית.";
+
+/* Window text */
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " אזהרה: העותק המקומי של Tunnelblick עבר שינוי לא מורשה, שעשוי להיות זדוני.\n\n";
+
+/* Window text */
+"%@ exists but is not a folder" = "%@ קיים, אך לא כתקייה";
+
+/* Window text */
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' כבר מוגדר במחשב זה.\n\nהאם תרצה להחליף אותו?";
+
+/* Window text */
+"'%@' at line %u was not terminated properly" = "הגדרה '%1$@' בשורה %2$u לא נרשמה עם סגירה תקנית";
+
+/* Window text */
+"'%@' was not terminated." = "התגית %@ קיימת ללא סיומת בקובץ.";
+
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(תיעוד ביומן כבוי.)";
+
+/* Window text */
+"(Never checked)" = "(התעלם)";
+
+/* Window text */
+"(The 'easy-rsaPath' preference is invalid.)" = "(הגדרות ה'easy-rsaPath' אינן תקינות.)";
+
+/* Window text */
+"(if connected when computer went to sleep)" = "(אם מחובר כאשר המחשב עבר למצב שינה)";
+
+/* Window text */
+"(if connected when user switched out)" = "(במידה ומחובר כאשר המשתמש התנתק)";
+
+/* Window text */
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "קונפיגורציית Tunnelblick VPN נמצאת תחת יותר מידי תיקיות ב%@";
+
+/* Window text */
+"A passphrase is required to connect to\n  %@%@" = "סיסמא נדרשת על מנת להתחבר ל\n%1$@%2$@";
+
+/* Window text */
+"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "הגדרות משותפות נמצאו תחת השם %@.\n\nהאם ברצונך להחליפן בהגדרות משותפות הנוכחיות?";
+
+/* Window text */
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "תקלה במציאת כתובת האינטרנט של המחשב הנוכחי.\n\n";
+
+/* Window text */
+"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "הגדרות משותפות נמצאו תחת השם %@.\n\nהאם ברצונך להחליפן בהגדרות פרטיות?";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "שם משתמש וסיסמא דרושים על מנת להתחבר ל%@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "שם משתמש וסיסמא דרושים על מנת להתחבר ל %1$@\n(משתמש בפרטי משתמש של %2$@)";
 
 /* Window text */
 "Add Credentials" = "הוסף פרטי זיהוי";
 
 /* Window text */
+"Added '.sh' extension to %@ so it will be secured properly" = "אנא הוסף(י) את הסיומת '.sh' ל%@ כדי שהקובץ יהיה מאובטח כהלכה";
+
+/* Window text */
+"Added a '.unknown' extension to %@ so it will be secured properly" = "הסיומת '.unknown' הוספה ל%@ על מנת שהקובץ יהיה מאובטח כהלכה";
+
+/* Window text */
 "Additional contributions by" = "תרומות נוספות על ידי";
+
+/* Window text */
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "בוטלו נסיונות למציאת כתובת האינטרנט הנוכחית לאחר %1$.1f שניות.\n\nמעתה Tunnelblick לא יבצע בדיקה אם כתובת האינטרנט התעדכנה לאחר חיבור ל%2$@.\n\n";
+
+/* Window text */
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "לאחר חיבור ל%@, DNS לא עובד כשורה.\n\nייתכן כי הגדרות הרשת פרטית מדומה (VPN) אינן נכונות. \n\n";
+
+/* Window text */
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "לאחר חיבור ל%@, לא ניתן להתחבר לאינטרנט.\n\nייתכן כי הגדרות הרשת פרטית מדומה (VPN) אינן נכונות. \n\n";
 
 /* Window text */
 "All OpenVPN processes have quit" = "כל תהליכי OpenVPN נסגרו";
 
 /* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "כל ההגדרות הוסרו. Tunnelblick חייב להיסגר.";
+
+/* Window text */
+"All configurations use %@ credentials" = "השתמש ב%@ עבור כל התצורות";
+
+/* Window text */
+"An error occurred while trying to launch %@" = "שגיעה אירעה בעת טעינת %@";
 
 /* Window text */
 "B" = "בתים";
@@ -760,6 +904,15 @@
 
 /* Window text */
 "Cancelled trying to quit all OpenVPN processes" = "בוטל ניסיון לסגור את כל תהליכי OpenVPN";
+
+/* Window text */
+"Cannot find configuration file at %@" = "לא מצליח למצוא קובץ הגדרות ב%@";
+
+/* Window text */
+"Computer sleep/wake" = "שינה\\יקיצה של המחשב";
+
+/* Window text */
+"Configuration '%@' already exists." = "הגדרות חיבור '%@' כבר קיימים במערכת.";
 
 /* Window text */
 "Configuration changes:" = "שינוי הגדרות:";
@@ -774,10 +927,37 @@
 "Converted OpenVPN configuration" = "הגדרות OpenVPN הומרו בהצלחה";
 
 /* Window text */
+"Converting %@: %@" = "ממיר %1$@:%2$@";
+
+/* Window text */
+"Copied %@" = "%@ הועתקו";
+
+/* Window text */
+"Copied %@, removing CR characters" = "%@ הועתקו, מסיר תווי CR";
+
+/* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "כל הזכויות שמורות © %@-2004 Angelo Laub ואחרים.";
+
+/* Window text */
+"Could not copy %@ to %@" = "התגלתה שגיעה במהלך העתקת %1$@ ל%2$@";
+
+/* Window text */
+"Could not create %@" = "שגיעה אירעה במהלך יצירת הקובץ %@";
+
+/* Window text */
+"Could not delete %@" = "שגיעה אירעה במהלך מחיקת הקובץ %@";
+
+/* Window text */
 "Could not find easy-rsa in Tunnelblick.app" = "לא ניתן למצוא את easy-rsa בתוך Tunnelblick.app";
 
 /* Window text */
 "Could not find easy-rsa version information in Tunnelblick.app" = "לא ניתן למצוא מידע עבור גרסת easy-rsa בתוך Tunnelblick.app";
+
+/* Window text */
+"Could not get attributes of %@" = "שגיעה אירעה במהלך קריאת הקובץ %@";
+
+/* Window text */
+"Could not resolve symbolic link at %@" = "לא ניתן למצוא את המיקום שאליו מפנה קיצור הדרך %@";
 
 /* Window text */
 "DNS servers:" = "שרתי תחום (DNS):";
@@ -789,6 +969,9 @@
 "Domain:" = "שם תחום:";
 
 /* Window text */
+"Double-quote missing in line %u" = "מרכאות כפולות חסרות בשורה מספר %u";
+
+/* Window text */
 "EB" = "אקסה-בתים";
 
 /* Window text */
@@ -798,7 +981,34 @@
 "Fast User Switching" = "החלפת משתמשים מהירה";
 
 /* Window text */
+"GB" = "גיגה בייט";
+
+/* Window text */
+"GB/s" = "גיגה בייט\\שניה";
+
+/* Window text */
+"Icon:" = "צלמית (אייקון):";
+
+/* Window text */
+"In %@:\n\nThere are no OpenVPN configurations to install." = "ב %@:\n\nלא ניתן למצוא הגדרות OpenVPN להתקנה.";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "בקובץ ההגדרות של OpenVPN של %1$@ בשורה %2$lu:%3$@";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@': %@" = "בקובץ ההגדרות של OpenVPN ב%1$@:%2$@";
+
+/* Window text */
+"In:" = "הורדה:";
+
+/* Window text */
+"Installation failed:\n\n%@" = "ההתקנה נכשלה:\n\n%@";
+
+/* Window text */
 "Installing configurations is not allowed" = "התקנת הגדרות אינה מורשית";
+
+/* Window text */
+"Invalid value '%@' for '%@' in %@" = "ערך לא תקין %1$@ ל%2$@ ב%3$@";
 
 /* Window text */
 "KB" = "קילו-בתים";
@@ -808,6 +1018,9 @@
 
 /* Window text */
 "Keyboard shortcut:" = "קיצורי מקלדת:";
+
+/* Window text */
+"Last checked: %@" = "נבדק לאחרונה ב:%@";
 
 /* Window text */
 "MB" = "מגה-בתים";
@@ -825,10 +1038,28 @@
 "Modified configuration file to remove path information" = "קובץ ההגדרות עודכן להסרת מידע על נתיב";
 
 /* Window text */
+"Names may not include any of the following characters: %s" = "שמות אינם יכולים להכיל את התווים הבאים: %s";
+
+/* Window text */
+"Names may not include any of the following characters: %s\n\n%@" = "שמות אינם יכולים להכיל את התווים הבאים: %1$s\n\n%2$@";
+
+/* Window text */
 "NetBIOS name:" = "שם NetBIOS:";
+
+/* Window text; the %@ will be replaced by a list of configuration names. */
+"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "לא ניתן לבטל גישה לרשת לאחר ניתוק של מספר או כל ההגדרות הנבחרות עקב הימצאות אפשרויות משתמש ו\\או קבוצה. הגדרות אלו יגרמו לOpenVPN לרוץ כמשתמש בסיסי במהלך ההתנתקות, ככה שלא ניתן יהיה לבטל את הגישה לרשת.\n\nההגדרות אשר מכילות משתמש ו\\או קבוצה הן:\n\n%@\n\n";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected." = "גישה לרשת בוטלה במהלך הליך ההתנתקות מהVPN.";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "גישה לרשת בוטלה במהלך הליך ההתנתקות מהVPN.\n\nהאם ברצונך לחדש את הגישה לרשת?\n\n";
 
 /* Window text */
 "Network setting" = "הגדרות רשת";
+
+/* Window text */
+"Not a .ovpn or .conf: %@" = "קובץ זה איננו ovpn. או conf. תקני: %@";
 
 /* Window text */
 "On expected disconnect:" = "בעת ניתוק צפוי:";
@@ -838,6 +1069,24 @@
 
 /* Window text */
 "OpenVPN version:" = "גרסת OpenVPN:";
+
+/* Window text */
+"Out:" = "העלאה:";
+
+/* Window text */
+"PB" = "פ\"ב";
+
+/* Window text */
+"PB/s" = "פ“ב/שנייה";
+
+/* Window text */
+"Password:" = "סיסמא:";
+
+/* Window text */
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "אנא בחר שם ולחץ המשך או ביטול.\n\n";
+
+/* Window text */
+"Please enter a new name for '%@'." = "אנא בחר שם עבור %@.";
 
 /* Window text */
 "Set DNS/WINS:" = "קבע DNS/WINS:";
@@ -865,3 +1114,207 @@
 
 /* Window text */
 "The installation or repair took too long or failed. Try again?" = "ההתקנה או התיקון לקחו זמן ממושך מידיי או נכשלו. האם לנסות שוב?";
+
+/* Window text */
+"Translation by" = "תורגם על ידי";
+
+/* Window text */
+"Updates:" = "עדכונים:";
+
+/* Window text */
+"Warnings:" = "אזהרות:";
+
+/* Window text */
+"ZB" = "ז\"ב";
+
+/* Window text */
+"ZB/s" = "ז“ב/שנייה";
+
+/* Suffix for a duplicate of a file */
+" copy %d" = " העתק %d";
+
+/* Suffix for a duplicate of a file */
+" copy" = " העתק";
+
+/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>\n Tunnelblick לא יכלה להטעין סיומת מערכת שנצרכת כדי להתחבר ל–%1$@.\n</p>\n<p>\n%2$@ פרטים %3$@ [%4$@]\n</p>";
+
+/* Credit description */
+"Afrikaans translation" = "תרגום לאפריקנס";
+
+/* Credit description */
+"Albanian translation" = "תרגום לאלבנית";
+
+/* Credit description */
+"Arabic translation" = "תרגום לערבית";
+
+/* Credit description */
+"Azerbaijani translation" = "תרגום לאזרביג'נית";
+
+/* Credit description */
+"Bulgarian translation" = "תרגום לבולגרית";
+
+/* Credit description */
+"Button images" = "תמונות לכפתורים";
+
+/* Credit description */
+"Catalan translation" = "תרגום לקטלאנית";
+
+/* Checkbox text */
+"Check for updates" = "בדוק לעדכונים";
+
+/* Credit description */
+"Chinese (simplified) translation" = "תרגום לסינית (פשוטה)";
+
+/* Credit description */
+"Chinese (traditional) translation" = "תרגום לסינית (מסורתית)";
+
+/* Credit description */
+"Croatian translation" = "תרגום לקרואטית";
+
+/* Credit description */
+"Czech translation" = "תרגום לצ'כית";
+
+/* Credit description */
+"Danish translation" = "תרגום לדנית";
+
+/* Credit description */
+"Dutch translation" = "תרגום להולנדית";
+
+/* Credit description */
+"Estonian translation" = "תרגום לאסטונית";
+
+/* Credit description */
+"Finnish translation" = "תרגום לפינית";
+
+/* Credit description */
+"Flemish translation" = "תרגום לפלמית";
+
+/* Credit description */
+"French translation" = "תרגום לצרפתית";
+
+/* Credit description */
+"German translation" = "תרגום לגרמנית";
+
+/* Credit description */
+"Greek translation" = "תרגום ליוונית";
+
+/* Credit description */
+"Hebrew translation" = "תרגום לעברית";
+
+/* Credit description */
+"Hungarian translation" = "תרגום להונגרית";
+
+/* Credit description */
+"Icelandic translation" = "תרגום לאיסלנדית";
+
+/* Credit description */
+"Indonesian translation" = "תרגום לאינדונזית";
+
+/* Credit description */
+"Italian translation" = "תרגום לאיטלקית";
+
+/* Credit description */
+"Japanese translation" = "תרגום ליפנית";
+
+/* Credit description */
+"Korean translation" = "תרגום לקוריאנית";
+
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "תרגום עברית";
+
+/* Credit description */
+"Latvian translation" = "תרגום ללטבית";
+
+/* Credit description */
+"Norwegian translation" = "תרגום לנורווגית";
+
+/* Credit description */
+"Persian translation" = "תרגום לפרסית";
+
+/* Credit description */
+"Polish translation" = "תרגום לפולנית";
+
+/* Credit description */
+"Portuguese (Brazilian) translation" = "תרגום לפורטוגזית (ברזיל)";
+
+/* Credit description */
+"Portuguese translation" = "תרגום לפורטוגזית";
+
+/* Credit description */
+"Romanian translation" = "תרגום רומנית";
+
+/* Credit description */
+"Russian translation" = "תרגום לרוסית";
+
+/* Credit description */
+"Serbian (Latin) translation" = "תרגום לסרבית (לטינית)";
+
+/* Credit description */
+"Slovak translation" = "תרגום לסלובקית";
+
+/* Credit description */
+"Spanish translation" = "תרגום לספרדית";
+
+/* Credit description */
+"Swedish translation" = "תרגום לשוודית";
+
+/* Credit description */
+"Tunnelblick icon" = "איקון של Tunnelblick";
+
+/* Credit description */
+"Turkish translation" = "תרגום לטורקית";
+
+/* Credit description */
+"Ukrainian translation" = "תרגום לאוקראינית";
+
+/* Notification text */
+"Updated to %@." = "מעודכן ל- %@.";
+
+/* Credit description */
+"Vietnamese translation" = "תרגום לויאטנמית";
+
+/* Button VPNService */
+"Accept" = "אשר";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "כניסה";
+
+/* Button VPNService */
+"Next" = "הבא";
+
+/* Button VPNService */
+"Reject" = "דחה";
+
+/* Window title  VPNService */
+"Email not verified" = "כתובת האימייל לא אומתה";
+
+/* Window title  VPNService */
+"Sorry" = "סליחה";
+
+/* Window title  VPNService */
+"Terms of Service" = "תנאי שימוש";
+
+/* Window title  VPNService */
+"Welcome!" = "ברוכים הבאים!";
+
+/* Window text VPNService */
+"Confirm password:" = "אשר סיסמה:";
+
+/* Window text VPNService */
+"Email address:" = "כתובת דוא\"ל:";
+
+/* Window text VPNService */
+"Unable to check registration for empty email address" = "לא ניתן לבדוק רישום ללא כתובת אימייל";
+
+/* Window text VPNService */
+"Unable to connect to server" = "לא ניתן להתחבר לשרת";
+
+/* Window text VPNService */
+"You have already registered but not yet confirmed your email address." = "הרישום הושלם, אך כתובת האימייל עדיין לא אומתה.";
+
+/* Window text VPNService */
+"You must enter an email address and password to login." = "כתובת אימייל וסיסמא הינם הכרחיים לביצוע רישום.";
+
+/* Window text VPNService */
+"You must enter an email address, password, and password confirmation to proceed." = "כתובת אימייל, סיסמא, ואימות סיסמא הינם הכרחיים לביצוע רישום.";
