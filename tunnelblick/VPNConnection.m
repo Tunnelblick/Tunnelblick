@@ -890,7 +890,10 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [bytecountsUpdated                release]; bytecountsUpdated                = nil;
     [argumentsUsedToStartOpenvpnstart release]; argumentsUsedToStartOpenvpnstart = nil;
     [menuItem                         release]; menuItem                         = nil;
-    
+	[dynamicChallengeUsername         release]; dynamicChallengeUsername         = nil;
+	[dynamicChallengeState            release]; dynamicChallengeState            = nil;
+	[dynamicChallengePrompt           release]; dynamicChallengePrompt           = nil;
+	[dynamicChallengeFlags            release]; dynamicChallengeFlags            = nil;
 	[statistics.lastSet               release]; statistics.lastSet               = nil;
 	
     [super dealloc];
@@ -1429,6 +1432,11 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     areConnecting = TRUE;
     pthread_mutex_unlock( &areConnectingMutex );
     
+	[self setDynamicChallengeUsername: nil];
+	[self setDynamicChallengeState:    nil];
+	[self setDynamicChallengePrompt:   nil];
+	[self setDynamicChallengeFlags:    nil];
+
 	disconnectWhenStateChanges = FALSE;
     
     NSString * oldRequestedState = requestedState;
@@ -4395,6 +4403,10 @@ TBSYNTHESIZE_OBJECT(retain,     NSMenuItem *,             menuItem,             
 TBSYNTHESIZE_OBJECT(retain,     AlertWindowController *,  slowDisconnectWindowController,   setSlowDisconnectWindowController)
 
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               ipAddressBeforeConnect,           setIpAddressBeforeConnect)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               dynamicChallengeUsername,         setDynamicChallengeUsername)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               dynamicChallengeState,            setDynamicChallengeState)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               dynamicChallengePrompt,           setDynamicChallengePrompt)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               dynamicChallengeFlags,            setDynamicChallengeFlags)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               serverIPAddress,                  setServerIPAddress)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               connectedCfgLocCodeString,        setConnectedCfgLocCodeString)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               localizedName,                    setLocalizedName)

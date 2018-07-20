@@ -97,6 +97,11 @@ struct Statistics {
     
     AlertWindowController * slowDisconnectWindowController;
     
+	NSString	  * dynamicChallengeUsername; // When nil, no dynamic challenge info is valid
+	NSString	  * dynamicChallengeState;
+	NSString	  * dynamicChallengePrompt;
+	NSString	  * dynamicChallengeFlags;
+	
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     volatile int32_t avoidHasDisconnectedDeadlock; // See note at start of 'hasDisconnected' method
@@ -285,6 +290,10 @@ TBPROPERTY(          NSDate *,                 bytecountsUpdated,               
 TBPROPERTY(          NSArray *,                argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
 TBPROPERTY(          AlertWindowController *,  slowDisconnectWindowController,   setSlowDisconnectWindowController)
 TBPROPERTY(          NSString *,               ipAddressBeforeConnect,           setIpAddressBeforeConnect)
+TBPROPERTY(          NSString *,               dynamicChallengeUsername,         setDynamicChallengeUsername)
+TBPROPERTY(          NSString *,               dynamicChallengeState,            setDynamicChallengeState)
+TBPROPERTY(          NSString *,               dynamicChallengePrompt,           setDynamicChallengePrompt)
+TBPROPERTY(          NSString *,               dynamicChallengeFlags,            setDynamicChallengeFlags)
 TBPROPERTY(          NSString *,               serverIPAddress,                  setServerIPAddress)
 TBPROPERTY(          NSString *,               connectedCfgLocCodeString,        setConnectedCfgLocCodeString)
 TBPROPERTY(          BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
