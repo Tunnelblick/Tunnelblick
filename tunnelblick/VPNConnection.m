@@ -3532,7 +3532,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     userWantsState = userWantsUndecided;
 
     BOOL echoResponse = FALSE;
-    NSString * challengeText = nil;
+    NSString * staticChallengePrompt = nil;
 
     if (   [line rangeOfString: @" SC:0,"].length
         || [line rangeOfString: @" SC:1,"].length  ) {
@@ -3543,7 +3543,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString * afterStartChallenge = [line substringFromIndex: rngStartChallenge.location + rngStartChallenge.length];
         NSString * echoResponseStr = [afterStartChallenge substringToIndex: 1]; // take "0" or "1"
         echoResponse = [echoResponseStr isEqualToString:@"1"];
-         challengeText = [afterStartChallenge substringFromIndex: 2]; // drop "0," or "1,"
+		staticChallengePrompt = [afterStartChallenge substringFromIndex: 2]; // drop "0," or "1,"
      }
 
     // Find out whether the server wants a private key or user/auth:
@@ -3600,12 +3600,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
             } else {
                 NSString * response = nil;
-                if (  challengeText  ) {
-                    response = [self getResponseFromChallenge: challengeText echoResponse: echoResponse responseRequired: YES];
+                if (  staticChallengePrompt  ) {
+                    response = [self getResponseFromChallenge: staticChallengePrompt echoResponse: echoResponse responseRequired: YES];
 					if (  response  ) {
-						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: User responded to static challenge: '%@'", challengeText]];
+						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: User responded to static challenge: '%@'", staticChallengePrompt]];
 					} else {
-						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: User cancelled when presented with static challenge: '%@'", challengeText]];
+						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: User cancelled when presented with static challenge: '%@'", staticChallengePrompt]];
 						[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
 					}
                 }
