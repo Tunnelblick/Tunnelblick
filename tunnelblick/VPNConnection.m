@@ -3165,15 +3165,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	// If responseRequired is TRUE
 	//		'challenge' is displayed with an OK button and a Cancel button in a modal window
 	//		Control is returned when the user clicks OK or Cancel
-	//		If the user clicks Cancel, nil is returned, otherwise the response is returned (it could be an empty string)
+	//		If the user clicks Cancel or an error occurs, nil is returned, otherwise the response is returned (it could be an empty string)
 	// Else
-	//		'challenge' is displayed with an OK button in a non-modal window (or ignored and logged if the challenge is nil or an empty string)
-	//		nil is returned immediately
+	//		if not nil and not an empty string, 'challenge' is displayed with an OK button in a non-modal window
+	//		an empty string is returned immediately
 	
 	if (  [challenge length] == 0  ) {
 		if (  ! responseRequired  ) {
-			NSLog(@"Empty challenge message for %@ ignored because no response is required", [self displayName]);
-			return nil;
+			[self addToLog: @"*Tunnelblick: An empty challenge message is not being shown to the user because no response is required"];
+			return @"";
 		}
 		
 		challenge = NSLocalizedString(@"This VPN requires you to respond to a question but has not provided the question.", @"Window text");
@@ -3184,7 +3184,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	if (  ! responseRequired  ) {
 		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), challenge);
-		return nil;
+		return @"";
 	}
 	
 	NSAlert * alert = [NSAlert alertWithMessageText: NSLocalizedString(@"Tunnelblick", @"Window title")
