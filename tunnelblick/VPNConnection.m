@@ -3199,13 +3199,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	[[alert window] setInitialFirstResponder: input];
 	[NSApp activateIgnoringOtherApps: YES];
 	
-	NSModalResponse button = [alert runModal];
+	NSModalResponse buttonValue = [alert runModal];
 	
-	if (  button == NSAlertDefaultReturn  ) {
+	if (  buttonValue == NSAlertDefaultReturn  ) {
 		[input validateEditing];
 		return [input stringValue];
-	} else if (  button != NSAlertAlternateReturn  ) {
-		NSLog(@"getResponseFromChallenge: Invalid input dialog button %ld for %@", (long)button, [self displayName]);
+	} else if (  buttonValue != NSAlertAlternateReturn  ) {
+		NSLog(@"getResponseFromChallenge: Invalid input dialog button return value %ld for %@", (long)buttonValue, [self displayName]);
 	}
 	
 	return nil;
