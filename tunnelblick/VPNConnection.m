@@ -3211,6 +3211,71 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	return nil;
 }
 
+-(void) parseAndSaveDynamicChallengeResponseInfo: (NSString *) line {
+	
+	NSArray * parts = [line componentsSeparatedByString: @":"];
+	if (  [parts count] > 6 ) {
+		
+		NSString * pwPart      = [parts objectAtIndex: 0]; // Must be ">PASSWORD"
+		NSString * vfPart      = [parts objectAtIndex: 1]; // Must be "Verification Failed"
+		NSString * acPart      = [parts objectAtIndex: 2]; // Must be " 'Auth' ['CRV1"
+		NSString * flags       = [parts objectAtIndex: 3];
+		NSString * state       = [parts objectAtIndex: 4];
+		
+		if (   ( ! [pwPart isEqualToString: @">PASSWORD"] )
+			|| ( ! [vfPart isEqualToString: @"Verification Failed"] )
+			|| ( ! [acPart isEqualToString: @" 'Auth' ['CRV1"] )  ) {
+			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: dynamic challange request did not start with '>PASSWORD:Verification Failed: 'Auth' ['CRV1:': '%@'", line]];
+			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+			return;
+		}
+		
+		// The username is base-64-encoded. We need to decode it and treat it as UTF-8 text.
+		NSString * usernameBase64 = [parts objectAtIndex: 5];
+		NSData * usernameAsData = base64Decode(usernameBase64);
+		if (  ! usernameAsData  ) {
+			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: in dynamic challenge/response request, could not decode base 64 string with username '%@'", usernameBase64]];
+			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+			return;
+		}
+		NSString * username  = [[[NSString alloc] initWithData: usernameAsData encoding: NSUTF8StringEncoding] autorelease];
+		if (  ! username  ) {
+			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: in dynamic challenge/response request, could not decode UTF-8 with username (Base 64 of username is '%@')", usernameBase64]];
+			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+			return;
+		}
+		
+		// Handle colons in the challenge properly. Create the prompt by concatenating the parts entries starting at the
+		// seventh one, separating them by a ":".
+		NSString * prompt = [parts objectAtIndex: 6];
+		NSUInteger i;
+		for (  i=7; i<[parts count]; i++) {
+			prompt = [prompt stringByAppendingFormat: @":%@", [parts objectAtIndex: i]];
+		}
+		
+		// Strip the trailing "']" from the challenge
+		if (  ! [prompt hasSuffix: @"']"]  ) {
+			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: dynamic challenge/response request does not end with \"']\": '%@'", line]];
+			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+			return;
+		}
+		prompt = [prompt substringToIndex: [prompt length] - 2];
+		
+		// Save the info for later use
+		[self setDynamicChallengeUsername: username];
+		[self setDynamicChallengeState:    state];
+		[self setDynamicChallengePrompt:   prompt];
+		[self setDynamicChallengeFlags:    flags];
+		
+		[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Saved dynamic challenge info for user %@ with flags '%@', state '%@', and prompt '%@'", username, flags, state, prompt]];
+	} else {
+		[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: dynamic challange request did not have at least six colons: '%@'", line]];
+		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+	}
+	
+	return;
+}
+
 - (void) processLine: (NSString*) line
 {
     if (  discardSocketInput  ) {
@@ -3261,6 +3326,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             if (   [line rangeOfString: @"Failed"].length
                 || [line rangeOfString: @"failed"].length  ) {
                 
+				if (  [line hasPrefix: @">PASSWORD:Verification Failed: 'Auth' ['CRV1:"]  ) {
+
+					// Do not process this as an actual auth failure. OpenVPN deals with the failure by restarting the connection and we
+					// will use the info saved from this request in the reconnection.
+					
+					[self parseAndSaveDynamicChallengeResponseInfo: line];
+					return;
+				}
+				
 				TBLog(@"DB-AU", @"processLine: Failed: %@", line);
                 
                 // Set the "private message" sent by the server (if there is one)
@@ -3385,41 +3459,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     [self sendStringToManagementSocket: @"needok token-insertion-request cancel\r\n" encoding: NSASCIIStringEncoding];
                 }
             }
-		} else if ([command isEqualToString:@"CRV1"]) {
-			line = [NSString stringWithFormat: @"CRV1:R:TheState:%@:TheChallenge", base64Encode([@"TheUsername" dataUsingEncoding: NSUTF8StringEncoding])];
-			[self addToLog: line];
-			NSArray * parts = [line componentsSeparatedByString: @":"];
-			if (  [parts count] > 4 ) {
-				
-				NSString * flags     = [parts objectAtIndex: 1];
-				NSString * state     = [parts objectAtIndex: 2];
-				NSString * username  = [[[NSString alloc] initWithData: base64Decode([parts objectAtIndex: 3]) encoding: NSUTF8StringEncoding] autorelease];;
-				
-				NSString * challenge = [parts objectAtIndex: 4];
-				// (Handle colons in the challenge properly)
-				NSUInteger i;
-				for (  i=5; i<[parts count]; i++) {
-					challenge = [challenge stringByAppendingFormat: @":%@", [parts objectAtIndex: i]];
-				}
-				
-				BOOL echoResponse     = [flags rangeOfString: @"E"].length != 0;
-				BOOL responseRequired = [flags rangeOfString: @"R"].length != 0;
-				NSString * response   = [self getResponseFromChallenge: challenge echoResponse: echoResponse responseRequired: responseRequired];
-
-				if (  responseRequired  ) {
-					if (  response  ) {
-						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: User responded to dynamic challenge: '%@'", challenge]];
-						NSString * responseB64 = base64Encode([response dataUsingEncoding: NSUTF8StringEncoding]);
-						[self sendStringToManagementSocket:[NSString stringWithFormat:@"Username: %@\r\n", username] encoding: NSUTF8StringEncoding];
-						[self sendStringToManagementSocket:[NSString stringWithFormat:@"Password CRV1::%@::%@r\n", state, responseB64] encoding: NSUTF8StringEncoding];
-					} else {
-						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: User cancelled when presented with dynamic challenge: '%@'", challenge]];
-						[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
-					}
-				}
-			} else {
-				NSLog(@"Ignored CRV1: because line did not have at least four colons: '%@'", line);
-			}
 		} else if ([command isEqualToString:@"INFO"]) {
 			[self addToLog: line];
 		} else {
@@ -3526,6 +3565,33 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(void) processDynamicChallengeResponse {
+	
+	// Display dynamic challenge and send user's response to management interface
+	
+	BOOL echoResponse     = [dynamicChallengeFlags rangeOfString: @"E"].length != 0;
+	BOOL responseRequired = [dynamicChallengeFlags rangeOfString: @"R"].length != 0;
+	NSString * response   = [self getResponseFromChallenge: dynamicChallengePrompt echoResponse: echoResponse responseRequired: responseRequired];
+	
+	if (  response  ) {
+		[self addToLog: (  responseRequired
+						 ? @"*Tunnelblick: User responded to dynamic challenge"
+						 : @"*Tunnelblick: Displayed dynamic challenge to user; no response is required so an empty response is being returned")];
+		NSString * msg = [NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(dynamicChallengeUsername)];
+		[self sendStringToManagementSocket: msg encoding: NSUTF8StringEncoding];
+		msg = [NSString stringWithFormat:@"password \"Auth\" \"CRV1::%@::%@\"\r\n", escaped(dynamicChallengeState), escaped(response)];
+		[self sendStringToManagementSocket: msg encoding: NSUTF8StringEncoding];
+	} else {
+		[self addToLog: @"*Tunnelblick: Disconnecting: An error occurred or the user cancelled when presented with dynamic challenge"];
+		[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
+	}
+	
+	[self setDynamicChallengeUsername: nil];
+	[self setDynamicChallengeState:    nil];
+	[self setDynamicChallengePrompt:   nil];
+	[self setDynamicChallengeFlags:    nil];
+}
+
 -(void) provideCredentials: (NSString *) parameterString line: (NSString *) line
 {
 	TBLog(@"DB-AU", @"processLine: provideCredentials: invoked");
@@ -3591,6 +3657,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		if (  ![self isConnected]  ) {
 			[self setState: @"PASSWORD_WAIT"];
 		}
+		
+		if (   [self dynamicChallengeUsername]
+			&& ( ! staticChallengePrompt )  ) {
+		
+			[self processDynamicChallengeResponse];
+			return;
+		}
+	
         [myAuthAgent setAuthMode:@"password"];
         [myAuthAgent performAuthentication];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {
