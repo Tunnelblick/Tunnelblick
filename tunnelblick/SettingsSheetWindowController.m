@@ -286,7 +286,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     }
     
     NSString * type = [connection tapOrTun];
-    if (   ([type rangeOfString: @"tun"].length != 0)
+    if (   (   ( ! type )
+			|| ([type rangeOfString: @"tun"].length != 0)  )
 		|| ( ! [self usingSmartSetNameserverScript] )  ) {
         [enableIpv6OnTapCheckbox setState: NSOffState];
         [enableIpv6OnTapCheckbox setEnabled: NO];
