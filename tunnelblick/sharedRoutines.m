@@ -213,8 +213,8 @@ BOOL needToReplaceLaunchDaemon(void) {
 			previousDaemonHash = @"yyy";
 		}
         NSString * previousPlistHash  = [[[NSString alloc] initWithData: previousPlistHashData  encoding: NSUTF8StringEncoding] autorelease];
-		if (  previousDaemonHash == nil  ) {
-			previousDaemonHash = @"zzz";
+		if (  previousPlistHash == nil  ) {
+			previousPlistHash = @"zzz";
 		}
         NSDictionary * activePlist    = [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
 		BOOL daemonHashesMatch  = [previousDaemonHash isEqual: hashForTunnelblickdProgramInApp()];
