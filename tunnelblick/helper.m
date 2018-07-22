@@ -296,6 +296,7 @@ NSAttributedString * attributedStringFromHTML(NSString * html) {
     
     NSData * htmlData = [html dataUsingEncoding: NSUTF8StringEncoding];
 	if ( htmlData == nil  ) {
+		NSLog(@"attributedStringFromHTML: cannot get dataUsingEncoding: NSUTF8StringEncoding; stack trace = %@", callStack());
 		return nil;
 	}
 	
