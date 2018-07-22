@@ -778,6 +778,10 @@ int main(int argc, char *argv[])
 		NSString * path = [L_AS_T stringByAppendingPathComponent: [name stringByAppendingString: @".mip"]];
 		NSString * contents = [name stringByAppendingString: @"\n"];
 		NSData * contentsAsData = [NSData dataWithBytes: [contents cStringUsingEncoding: NSASCIIStringEncoding] length: [contents length]];
+		if (  contentsAsData == NULL  ) {
+			appendLog(@"Unable to create .mip because can't get dataWithBytes with NSASCIIStringEncoding");
+			errorExit();
+		}
 		NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
 									 [NSNumber numberWithInt: 0], NSFileOwnerAccountID,
 									 [NSNumber numberWithInt: 0], NSFileGroupOwnerAccountID,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -23,6 +23,7 @@
 #import "InfoView.h"
 
 #import "helper.h"
+#import "sharedRoutines.h"
 
 #import "UIHelper.h"
 #import "NSTimer+TB.h"
@@ -125,6 +126,10 @@ extern TBUserDefaults * gTbDefaults;
                                    basedOnHtml,
                                    @"</div></center><body></html>"];
         NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
+		if (  ! data  ) {
+			NSLog(@"Cannot get dataUsingEncoding:NSASCIIStringEncoding for html; stack trace = %@", callStack());
+			data = [NSData data];
+		}
         NSAttributedString * description = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
         [[infoDescriptionTV textStorage] setAttributedString: description];
     } else {

@@ -639,6 +639,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 																				@"<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n"
 																				@"<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>",
 																				@"HTML info for the 'Load Tun driver' popdown list."));
+	if (  ! infoTitle  ) {
+		NSLog(@"SettingsSheetWindowController: initializeStaticContent: infoTitle = nil");
+		infoTitle = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"(An error occurred creating the help content.)", @"Window text") attributes: nil] autorelease];
+	}
 	[infoButtonForLoadTunPopUpButton setAttributedTitle: infoTitle];
 	[infoButtonForLoadTunPopUpButton setMinimumWidth: 360.0];
 	

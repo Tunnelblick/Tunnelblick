@@ -1646,6 +1646,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 																											  @" The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to"
 																											  @" (you may replace the square brackets with symbols appropriate for your language)."),
 																 [self displayName], link, @"</a>", @"tun" @"nelb" @"lick." @"net"]);
+			if (  ! msg  ) {
+				NSLog(@"connect:userKnows: msg = nil");
+				msg = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Tunnelblick could not load a kext", @"Window text") attributes: nil] autorelease];
+			}
 
 			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), msg);
 			areConnecting = FALSE;
@@ -2999,6 +3003,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 -(void) sendStringToManagementSocket: (NSString *) string encoding: (NSStringEncoding) encoding {
+	
+	if (  ! string  ) {
+		NSLog(@"sendStringToManagementSocket: invoked with string = nil; stack trace = %@", callStack());
+		return;
+	}
 	
 	NS_DURING {
 		[managementSocket writeString: string  encoding: encoding];

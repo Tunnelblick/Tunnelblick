@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2016, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -27,6 +27,8 @@
 #import "VPNService.h"
 
 #import "VPNServiceDefines.h"
+
+#import "sharedRoutines.h"
 
 #import "KeyChain.h"
 #import "MenuController.h"
@@ -539,6 +541,11 @@ extern TBUserDefaults * gTbDefaults;
     NSString * responseString = [[[NSString alloc] initWithBytes: bytes
                                                           length: strlen(bytes) encoding: NSUTF8StringEncoding]
                                  autorelease];
+	if (  ! responseString  ) {
+		NSLog(@"VPNService getResponseFrom: could not initWithBytes: url = %@; stack trace = %@", url, callStack());
+		responseString = @"";
+	}
+	
     return responseString;
 }
 
@@ -569,6 +576,10 @@ extern TBUserDefaults * gTbDefaults;
 
 -(NSString *) encode:(NSString *)s
 {
+	if (  ! s  ) {
+		NSLog(@"VPNService encode: argument is nil; stack trace = %@", callStack());
+		return @"";
+	}
     NSString *result = (NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                             (CFStringRef) s,
                                                                             NULL,

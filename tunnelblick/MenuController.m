@@ -4723,12 +4723,21 @@ static void signal_handler(int signalNumber)
 																				   @"</ul>",
 																				   @"Window text"),
 																 tbAgeInDays]);
+		if (  ! message  ) {
+			NSLog(@"warnIfOutOfDateBuild: message = nil");
+			message = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Please check for a newer version.", @"Window text") attributes: nil] autorelease];
+		}
 		
 		long daysToDeferWarningOfOldBuild = (long)[gTbDefaults unsignedIntForKey: @"daysToDeferWarningOfOldBuild" default: 30 min: 0 max: 99999];
 		NSAttributedString * checkboxInfoText = attributedStringFromHTML([NSString stringWithFormat:
 																		  NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n"
 																						   @"<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n",
 																						   @"HTML info for the 'Do not warn about this for [number of days] days' checkbox."), daysToDeferWarningOfOldBuild]);
+		if (  ! checkboxInfoText  ) {
+			NSLog(@"warnIfOutOfDateBuild: checkboxInfoText = nil");
+			message = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"(An error occurred creating the help content.)", @"Window text") attributes: nil] autorelease];
+		}
+
 		NSNumber * newExpirationTimestamp = [NSNumber numberWithLong: now + (daysToDeferWarningOfOldBuild * SECONDS_PER_DAY)];
 		TBShowAlertWindowExtended(title,
 								  message,
