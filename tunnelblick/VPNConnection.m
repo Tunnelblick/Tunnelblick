@@ -941,16 +941,13 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     // Returns information about the IP address and port used by the computer, and about the webserver from which the information was obtained
     //
     // If useIPAddress is FALSE, uses the URL in forced-preference IPCheckURL, or in Info.plist item IPCheckURL.
-    // If useIPAddress is TRUE,  uses the URL with
-    //                           the host portion of the URL replaced by serverIPAddress
-    //                           and https:// replaced by http://
-    //                               (https: can't be used with an IP address. http:// with an IP address may return a
-    //                                "404 Not Found", which is fine because it means the server was contacted,
-    //                                which is all we need to know.)
+    // If useIPAddress is TRUE,  uses the URL with the host portion of the URL replaced by serverIPAddress
+    //                                (https:// with an IP address will cause an SSL error, which means that the server
+    //                                 was contacted successfully, which means routing works but DNS doesn't.)
     //
     // Normally returns an array with three strings: client IP address, client port, server IP address
-    // If could not fetch data within timeoutInterval seconds, returns an empty array
-    // If an error occurred, returns nil, having output a message to the Console log
+    // If an SSL error occurs when using an IP address, returns an empty array
+    // If any other error occurred, returns nil, having output a message to the Console log
 
     NSString * logHeader = [NSString stringWithFormat:@"currentIPInfo(%@)", (useIPAddress ? @"Address" : @"Name")];
 
@@ -966,10 +963,6 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         if (  serverIPAddress  ) {
             NSString * urlString = [url absoluteString];
 			NSMutableString * tempMutableString = [[urlString mutableCopy] autorelease];
-            // Can't access by IP address with https: (because https: needs to verify the domain name)
-            if (  [tempMutableString hasPrefix: @"https://"]  ) {
-                [tempMutableString deleteCharactersInRange: NSMakeRange(4, 1)];	// Change https: to http:
-            }
 			NSRange rng = [tempMutableString rangeOfString: hostName];	// Just replace the first occurance of host
             [tempMutableString replaceOccurrencesOfString: hostName withString: serverIPAddress options: 0 range: rng];
             urlString = [NSString stringWithString: tempMutableString];
@@ -1005,23 +998,15 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     NSHTTPURLResponse * urlResponse = nil;
 	NSError * requestError = nil;
 	NSData * data = nil;
-	BOOL firstTimeThru = TRUE;
     uint64_t startTimeNanoseconds = nowAbsoluteNanoseconds();
     uint64_t timeoutNanoseconds = (uint64_t)((timeoutInterval + 2.0) * 1.0e9);	// (Add a couple of seconds for overhead)
     uint64_t endTimeNanoseconds = startTimeNanoseconds + timeoutNanoseconds;
 	
-	// On OS X 10.10 ("Yosemite"), the first request seems to always fail, so we retry several times, starting with a 1 second timeout for the request,
-	// and doubling the timeout each time it fails (to 2, 4, 8, etc.)
+	// On OS X 10.10 ("Yosemite"), the first request seems to always time out, so we retry several times, using a 1 second timeout for the first try
 	NSTimeInterval internalTimeOut = 1.0;
 	while (   (! data)
            && (nowAbsoluteNanoseconds() < endTimeNanoseconds)  ) {
-		if (  firstTimeThru  ) {
-			firstTimeThru = FALSE;
-		} else {
-			// Failed; sleep for one second and double the request timeout
-			sleep(1);
-			internalTimeOut *= 2.0;
-		}
+		
 		[req setTimeoutInterval: internalTimeOut];
 		data = nil;
 		requestError = nil;
@@ -1031,13 +1016,64 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 									 returningResponse: &urlResponse
 												 error: &requestError];
 		TBLog(@"DB-IC", @"%@: IP address check: error was '%@'; response was '%@'; data was %@", logHeader, requestError, urlResponse, data);
+		
+		/*
+		 
+		 Special handling for timeout errors, and for SSL errors when using the IP address instead of the domain name.
+
+		 If there was a timeout error, allow more time for the next retry.
+		 
+		 If we're using the IP address instead of the domain name, the SSL negotiation will fail. But that means that the website was reached,
+		 so routing works and the problem accessing the website was probably a DNS problem. Several different SSL-related errors have been seen
+		 in experiments, so we check for any error that seems related to SSL.
+		 
+		 from /System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLError.h on macOS 10.11.6:
+		 
+				// SSL errors
+				NSURLErrorSecureConnectionFailed = 		-1200,
+				NSURLErrorServerCertificateHasBadDate = 	-1201,
+				NSURLErrorServerCertificateUntrusted = 	-1202,
+				NSURLErrorServerCertificateHasUnknownRoot = -1203,
+				NSURLErrorServerCertificateNotYetValid = 	-1204,
+				NSURLErrorClientCertificateRejected = 	-1205,
+				NSURLErrorClientCertificateRequired =	-1206,
+				NSURLErrorCannotLoadFromNetwork = 		-2000,
+		 
+		 */
+		
+		if (  requestError  ) {
+			NSInteger errCode = [requestError code];
+			
+			if (  errCode == NSURLErrorTimedOut  ) {
+				
+				// Timeout -- try again allowing more time - the overall timeoutInterval still applies.
+				internalTimeOut += 5.0;
+				
+			} else if (   useIPAddress
+					   && (   (errCode == NSURLErrorSecureConnectionFailed)
+						   || (errCode == NSURLErrorServerCertificateHasBadDate)
+						   || (errCode == NSURLErrorServerCertificateUntrusted)
+						   || (errCode == NSURLErrorServerCertificateHasUnknownRoot)
+						   || (errCode == NSURLErrorServerCertificateNotYetValid)
+						   || (errCode == NSURLErrorClientCertificateRejected)
+						   || (errCode == NSURLErrorClientCertificateRequired)
+						   || (errCode == NSURLErrorCannotLoadFromNetwork)
+						   )
+					   ) {
+				NSLog(@"%@: Code = %ld, indicating an SSL error but that the server was reached by IP address; probably have a DNS problem", logHeader, errCode);
+				return [NSArray array];
+			}
+		}
 	}
     
     uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
     long elapsedTimeMilliseconds = (long) ((elapsedTimeNanoseconds + 500000) / 1000000);
+	
+	TBLog(@"DB-IC", "%@: error = %@", logHeader, requestError);
+	
 	if ( ! data  ) {
         NSLog(@"%@: IP address info could not be fetched within %.1f seconds; the error was '%@'; the response was '%@'", logHeader, ((double)elapsedTimeMilliseconds)/1000.0, requestError, urlResponse);
-        return [NSArray array];
+        return nil;
     } else {
         TBLog(@"DB-IC", @"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds);
 	}
@@ -1292,16 +1328,6 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         return;
     }
     
-    if (  ! ipInfo  ) {
-        NSLog(@"An error occured fetching IP address information after connecting");
-        [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
-                               withObject: @"*Tunnelblick: An error occured fetching IP address information after connecting"
-                            waitUntilDone: NO];
-        [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
-        [threadPool drain];
-        return;
-    }
-    
     if (  [ipInfo count] > 0  ) {
         TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: fetched IP address %@", [ipInfo objectAtIndex:0])
         [self performSelectorOnMainThread: @selector(checkIPAddressGoodResult:)
@@ -1312,24 +1338,10 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         return;
     }
     
-    // Timed out. If the attempt was by IP address, the Internet isn't reachable
-    if (  [self ipCheckLastHostWasIPAddress]  ) {
-        // URL was already numeric, so it isn't a DNS problem
-        TBLog(@"DB-IC", @"Timeout getting IP address using the ipInfo host's IP address")
-        [self performSelectorOnMainThread: @selector(checkIPAddressBadResultLogMessage:)
-                               withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", timeoutToUse]
-		                    waitUntilDone: NO];
-        [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
-        [threadPool drain];
-        return;
-    }
-    
-    // Timed out by name, try by IP address
-    TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: Timeout getting IP address using the ipInfo host's name; retrying by IP address")
+    // Couldn't get IP address by name, try by IP address
+    TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: Problem getting IP address using the ipInfo host's name; retrying by its IP address")
 
-    [self performSelectorOnMainThread: @selector(addToLog:)
-                           withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's name after connecting.", (double) timeoutToUse]
-                        waitUntilDone: NO];
+    [self addToLog:[NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's name after connecting.", (double) timeoutToUse]];
 
     ipInfo = [self currentIPInfoWithIPAddress: YES timeoutInterval: timeoutToUse];
     if (   [((MenuController *)[NSApp delegate]) isOnCancellingListIPCheckThread: threadID]
@@ -1350,16 +1362,16 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     }
     
     if (  [ipInfo count] == 0  ) {
-        TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: Timeout getting IP address using the ipInfo host's IP address")
-        [self performSelectorOnMainThread: @selector(checkIPAddressBadResultLogMessage:)
-                               withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", timeoutToUse]
-		                    waitUntilDone: NO];
+        TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: SSL error getting IP address using the ipInfo host's IP address")
+		[self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
+							   withObject: [NSString stringWithFormat: @"*Tunnelblick: fetched IP address information using the ipInfo host's IP address after connecting."]
+							waitUntilDone: NO];
         [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
         [threadPool drain];
         return;
     }
     
-    // Got IP address, even though DNS isn't working
+    // Got IP address, even though DNS isn't working (!)
 	NSString * address = [ipInfo objectAtIndex:0];
     TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", address)
 	[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPublicIPAddress:)
