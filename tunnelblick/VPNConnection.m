@@ -3757,7 +3757,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 // Adds a message to the log display with the current date/time
 -(void)addToLog:(NSString *)text
 {
-    [logDisplay addToLog: text];
+	if (  [NSThread isMainThread]  ) {
+		[logDisplay addToLog: text];
+	} else {
+		[logDisplay performSelectorOnMainThread: @selector(addToLog:)
+									 withObject: text
+								  waitUntilDone: NO];
+	}
 }
 
 // Clears the log
