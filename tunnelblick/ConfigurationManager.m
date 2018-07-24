@@ -739,10 +739,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(NSString *)parseConfigurationPath: (NSString *)      cfgPath
                       forConnection: (VPNConnection *) connection
-                    hasAuthUserPass: (BOOL *)          hasAuthUserPass {
+                    hasAuthUserPass: (BOOL *)          hasAuthUserPass
+				 authRetryParameter: (NSString **)	   authRetryParameter {
     
     // Parses the configuration file.
-    // Sets 'hasAuthUserPass' TRUE if configuration has a 'auth-user-pass' option with no arguments; FALSE otherwise
+    // Sets *hasAuthUserPass TRUE if configuration has a 'auth-user-pass' option with no arguments; FALSE otherwise
+	// Sets *authRetryParameter (which must be nil) to the first parameter of an 'auth-retry' option if it appears in the file
     // Gives user the option of adding the down-root plugin if appropriate
     // Returns with device type: "tun", "tap", "utun", "tunOrUtun", or nil if it can't be determined
     // Returns with string "Cancel" if user cancelled
@@ -770,8 +772,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     *hasAuthUserPass = (  authUserPassOption
                         ? ([authUserPassOption length] == 0)
                         : NO);
-                           
 
+	// Set authRetryParameter
+	NSString * theAuthRetryParameter = [ConfigurationManager parseString: cfgContents forOption: @"auth-retry" ];
+	if (  *authRetryParameter  ) {
+		NSLog(@"parseConfigurationPath: *authRetryParameter is not nil, so it is not being set to %@", theAuthRetryParameter);
+	} else {
+		*authRetryParameter = theAuthRetryParameter;
+	}
+	
     NSString * userOption  = [ConfigurationManager parseString: cfgContents forOption: @"user" ];
     if (  [userOption length] == 0  ) {
         userOption = nil;

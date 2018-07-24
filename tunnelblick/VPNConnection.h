@@ -101,6 +101,7 @@ struct Statistics {
 	NSString	  * dynamicChallengeState;
 	NSString	  * dynamicChallengePrompt;
 	NSString	  * dynamicChallengeFlags;
+	NSString      * authRetryParameter;		// Parameter from auth-retry as seen in configuration file (or nil if not seen)
 	
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
@@ -294,6 +295,7 @@ TBPROPERTY(          NSString *,               dynamicChallengeUsername,        
 TBPROPERTY(          NSString *,               dynamicChallengeState,            setDynamicChallengeState)
 TBPROPERTY(          NSString *,               dynamicChallengePrompt,           setDynamicChallengePrompt)
 TBPROPERTY(          NSString *,               dynamicChallengeFlags,            setDynamicChallengeFlags)
+TBPROPERTY(          NSString *,               authRetryParameter,               setAuthRetryParameter)
 TBPROPERTY(          NSString *,               serverIPAddress,                  setServerIPAddress)
 TBPROPERTY(          NSString *,               connectedCfgLocCodeString,        setConnectedCfgLocCodeString)
 TBPROPERTY(          BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)

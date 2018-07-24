@@ -894,6 +894,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	[dynamicChallengeState            release]; dynamicChallengeState            = nil;
 	[dynamicChallengePrompt           release]; dynamicChallengePrompt           = nil;
 	[dynamicChallengeFlags            release]; dynamicChallengeFlags            = nil;
+	[authRetryParameter				  release]; authRetryParameter               = nil;
 	[statistics.lastSet               release]; statistics.lastSet               = nil;
 	
     [super dealloc];
@@ -1740,10 +1741,17 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return NO;	// Should never get here, but...
 }
 
--(NSString *) setTunOrTapAndHasAuthUserPass {
+-(NSString *) setTunOrTapAndHasAuthUserPassAndAuthRetryParameter {
     
     if (  ! tunOrTap  ) {
-        tunOrTap = [[ConfigurationManager parseConfigurationPath: configPath forConnection: self hasAuthUserPass: &hasAuthUserPass] copy];
+		NSString * authRetryParameterTemp = nil;
+        tunOrTap = [[ConfigurationManager parseConfigurationPath: configPath
+												   forConnection: self
+												 hasAuthUserPass: &hasAuthUserPass
+											  authRetryParameter: &authRetryParameterTemp]
+					copy];
+
+		[self setAuthRetryParameter: authRetryParameterTemp];
         
         // tunOrTap == 'Cancel' means we cancel whatever we're doing
         if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
@@ -1759,13 +1767,19 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSString *) tapOrTun {
 	
 	// This is the externally-referenced 'tunOrTap'
-	return [self setTunOrTapAndHasAuthUserPass];
+	return [self setTunOrTapAndHasAuthUserPassAndAuthRetryParameter];
 }
 
 -(BOOL) hasAuthUserPass {
     
-    [self setTunOrTapAndHasAuthUserPass];
+    [self setTunOrTapAndHasAuthUserPassAndAuthRetryParameter];
     return hasAuthUserPass;
+}
+
+-(NSString *) authRetryParameter {
+	
+	[self setTunOrTapAndHasAuthUserPassAndAuthRetryParameter];
+	return [[authRetryParameter retain] autorelease];
 }
 
 -(BOOL) hasAnySavedCredentials {
@@ -2295,7 +2309,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString *portString = [NSString stringWithFormat:@"%u", thePort];
     
     // Parse configuration file to catch "user" or "group" options and get tun/tap key
-    [self setTunOrTapAndHasAuthUserPass];
+    [self setTunOrTapAndHasAuthUserPassAndAuthRetryParameter];
 	if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
 		return nil;
 	} else if (  ! tunOrTap  ) {
@@ -2640,6 +2654,19 @@ ifConnectionPreference: (NSString *)     keySuffix
 	}
 }
 
+-(BOOL) allowDynamicChallengeWithAuthRetryNoInteract {
+	
+	// If and when OpenVPN starts to allow this, test the OpenVPN version and return YES only if the OpenVPN version being used supports it
+ 
+	return [gTbDefaults boolForKey: @"allowDynamicChallengeWithAuthRetryNoInteract"];
+}
+
+-(BOOL) forceAuthRetryInteract {
+	
+	return (   ( ! [[self authRetryParameter] isEqualToString: @"nointeract"] )
+			|| ( ! [self allowDynamicChallengeWithAuthRetryNoInteract]) );
+}
+
 - (void) connectToManagementSocket
 {
     TBLog(@"DB-HU", @"['%@'] connectToManagementSocket: attempting to connect to 127.0.0.1:%lu", displayName, (unsigned long)portNumber)
@@ -2650,6 +2677,22 @@ ifConnectionPreference: (NSString *)     keySuffix
 -(void) disconnectFromManagmentSocket
 {
     if (  managementSocket  ) {
+		
+		// Restore status of auth-retry (only if we changed it in the first place)
+		if (  [self forceAuthRetryInteract]  ) {
+			if (  [self authRetryParameter]  ) {
+				
+				// Restore status of retry-auth
+				NSString * command = [NSString stringWithFormat: @"auth-retry %@\r\n", [self authRetryParameter]];
+				[managementSocket writeString: command encoding: NSUTF8StringEncoding];
+				
+			} else {
+				
+				// No auth-retry parameter, set to the default, 'none'
+				[managementSocket writeString: @"auth-retry none\r\n" encoding: NSUTF8StringEncoding];
+			}
+		}
+		
         [managementSocket close];
         [managementSocket setDelegate: nil];
         [managementSocket release];
@@ -3046,12 +3089,17 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * theMipName = mipName();
 	if (  theMipName  ) {
 		NSString * mipString = [theMipName stringByAppendingString: @"\r\n"];
+		NSString * authRetryCommand = (  [self forceAuthRetryInteract]
+									   ? @"auth-retry interact\r\n"
+									   : @"");
+		
 		NS_DURING {
-			[managementSocket writeString: mipString			encoding: NSASCIIStringEncoding];
-			[managementSocket writeString: @"pid\r\n"           encoding: NSASCIIStringEncoding];
-			[managementSocket writeString: @"state on\r\n"      encoding: NSASCIIStringEncoding];
-			[managementSocket writeString: @"state\r\n"         encoding: NSASCIIStringEncoding];
-			[managementSocket writeString: @"bytecount 1\r\n"   encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: mipString					encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"pid\r\n"					encoding: NSASCIIStringEncoding];
+		    [managementSocket writeString: authRetryCommand				encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"state on\r\n"      		encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"state\r\n"         		encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: @"bytecount 1\r\n"   		encoding: NSASCIIStringEncoding];
 		} NS_HANDLER {
 			NSLog(@"Exception caught while writing to socket: %@\n", localException);
 		}
@@ -3233,6 +3281,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 -(void) parseAndSaveDynamicChallengeResponseInfo: (NSString *) line {
+	
+	if (   [[self authRetryParameter] isEqualToString: @"nointeract"]
+		&& ( ! [self allowDynamicChallengeWithAuthRetryNoInteract] )  ) {
+		[self addToLog: @"*Tunnelblick: Error: Disconnecting because the OpenVPN server has asked for a dynamic challenge/response, but the OpenVPN configuration file contains 'auth-retry nointeract'"];
+		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+		return;
+	}
 	
 	NSArray * parts = [line componentsSeparatedByString: @":"];
 	if (  [parts count] > 6 ) {
@@ -4508,6 +4563,7 @@ TBSYNTHESIZE_OBJECT(retain,     NSString *,               dynamicChallengeUserna
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               dynamicChallengeState,            setDynamicChallengeState)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               dynamicChallengePrompt,           setDynamicChallengePrompt)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               dynamicChallengeFlags,            setDynamicChallengeFlags)
+TBSYNTHESIZE_OBJECT_SET(	    NSString *,               authRetryParameter,               setAuthRetryParameter)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               serverIPAddress,                  setServerIPAddress)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               connectedCfgLocCodeString,        setConnectedCfgLocCodeString)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               localizedName,                    setLocalizedName)
