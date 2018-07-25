@@ -3337,8 +3337,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  ! useManualChallengeResponseOnce ) {
 		if (  [[configPath pathExtension] isEqualToString: @"tblk"]) {
 			NSString * scriptFilename = (  isStatic
-										 ? @"static-challenge-response.sh"
-										 : @"dynamic-challenge-response.sh");
+										 ? @"static-challenge-response.user.sh"
+										 : @"dynamic-challenge-response.user.sh");
 			NSString * scriptPath = [[[configPath stringByAppendingPathComponent: @"Contents"]
 									  stringByAppendingPathComponent: @"Resources"]
 									 stringByAppendingPathComponent: scriptFilename];

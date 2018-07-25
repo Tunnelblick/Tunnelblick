@@ -82,8 +82,8 @@ BOOL isValidIPAdddress(NSString * ipAddress) {
 BOOL shouldRunScriptAsUserAtPath(NSString * path) {
 	
 	NSString * name = [path lastPathComponent];
-	return (  [name isEqualToString: @"static-challenge-response.sh"]
-		   || [name isEqualToString: @"dynamic-challenge-response.sh"]  );
+	return (  [name isEqualToString: @"static-challenge-response.user.sh"]
+		   || [name isEqualToString: @"dynamic-challenge-response.user.sh"]  );
 }
 
 // Returns YES if file doesn't exist, or has the specified ownership and permissions
