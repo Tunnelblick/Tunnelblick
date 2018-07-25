@@ -233,6 +233,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         serverNotClient = FALSE;
         ipCheckLastHostWasIPAddress = FALSE;
 		connectAfterDisconnect = FALSE;
+		useManualChallengeResponseOnce = FALSE;
         logFilesMayExist = ([[gTbDefaults stringForKey: @"lastConnectedDisplayName"] isEqualToString: displayName]);
 
         userWantsState   = userWantsUndecided;
@@ -305,6 +306,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	disconnectWhenStateChanges = FALSE;
     loadedOurTap     = FALSE;
     loadedOurTun     = FALSE;
+	useManualChallengeResponseOnce = FALSE;
     logFilesMayExist = FALSE;
     serverNotClient  = FALSE;
 }
@@ -1442,6 +1444,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
+	if (  doNotClearUseManualChallengeResponseOnceOnNextConnect  ) {
+		doNotClearUseManualChallengeResponseOnceOnNextConnect = FALSE;
+	} else {
+		useManualChallengeResponseOnce = FALSE;
+	}
+
     completelyDisconnected = FALSE;
     areConnecting = TRUE;
     pthread_mutex_unlock( &areConnectingMutex );
@@ -3228,18 +3236,134 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }
 
-- (NSString *) getResponseFromChallenge: (NSString *) challenge
-						   echoResponse: (BOOL)       echoResponse
-					   responseRequired: (BOOL)       responseRequired {
+-(void) processChallengeResponseErrorWithMessage: (NSDictionary *) dict {
 	
-	// If responseRequired is TRUE
-	//		'challenge' is displayed with an OK button and a Cancel button in a modal window
-	//		Control is returned when the user clicks OK or Cancel
-	//		If the user clicks Cancel or an error occurs, nil is returned, otherwise the response is returned (it could be an empty string)
-	// Else
-	//		if not nil and not an empty string, 'challenge' is displayed with an OK button in a non-modal window
-	//		an empty string is returned immediately
+	NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
 	
+	NSString * message                     = [dict objectForKey:  @"message"];
+	BOOL       showRetryWithManualResponse = [[dict objectForKey: @"showRetryWithManualResponse"] boolValue];
+	
+	NSString * alternateButton = (  showRetryWithManualResponse
+								  ? NSLocalizedString(@"Retry with manual response", @"Button text")
+								  : nil);
+	
+	int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Title text"),
+								 message,
+								 NSLocalizedString(@"Cancel", @"Button text"), // Default button
+								 alternateButton,
+								 NSLocalizedString(@"Retry",  @"Button text")); // Other button
+
+	if (   (button == NSAlertAlternateReturn)
+		|| (button == NSAlertOtherReturn)  ) {
+		
+		[self waitUntilDisconnected];
+		
+		if (  button == NSAlertAlternateReturn  ) {
+			useManualChallengeResponseOnce = TRUE;
+			doNotClearUseManualChallengeResponseOnceOnNextConnect = TRUE;
+		}
+		[self connectOnMainThreadUserKnows: [NSNumber numberWithBool: YES]];
+	}
+
+	[threadPool drain];
+}
+
+-(NSString *) responseFromChallengeResponseScriptAtPath: (NSString *) scriptPath arguments: (NSArray *) arguments {
+	
+	NSString * myStdoutString = nil;
+	NSString * myStderrString = nil;
+	
+	OSStatus status = runTool(scriptPath, arguments, &myStdoutString, &myStderrString);
+
+	NSString * response = nil;
+	
+	if (  status == 0  ) {
+
+		response = [[myStdoutString retain] autorelease];
+		
+	} else if (  status == 1  ) {
+		
+		[self startDisconnectingUserKnows: NO];
+		
+		NSString * message = [NSString stringWithFormat: NSLocalizedString(@"     From the VPN server for %@:\n\n%@", @"Window text."
+																		   @" The first %@ will be replaced by the name of a configuration."
+																		   @" The second %@ will be replaced by a message from a VPN server,"
+																		   @" such as 'Please insert your security token'."),
+							  [self localizedName], myStderrString];
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
+		
+	} else if (   (status == 2)
+			   || (status == 3)  ) {
+		
+		[self startDisconnectingUserKnows: NO];
+		
+		NSString * message = [NSString stringWithFormat: NSLocalizedString(@"     From the VPN server for %@:\n\n%@", @"Window text."
+																		   @" The first %@ will be replaced by the name of a configuration."
+																		   @" The second %@ will be replaced by a message from a VPN server,"
+																		   @" such as 'Please insert your security token'."),
+							  [self localizedName], myStderrString];
+		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+							   message, @"message",
+							   [NSNumber numberWithBool: (status == 3)], @"showRetryWithManualResponse",
+							   nil];
+		[NSThread detachNewThreadSelector: @selector(processChallengeResponseErrorWithMessage:) toTarget: self withObject: dict];
+	
+	} else {
+		NSLog(@"Challenge-response script at %@ returned a status of %d. Only 0, 1, 2, or 3 should be returned", scriptPath, status);
+	}
+	
+	return response;
+}
+
+- (NSString *) getResponseToChallenge: (NSString *) challenge
+						 echoResponse: (BOOL)       echoResponse
+					 responseRequired: (BOOL)       responseRequired
+							 isStatic: (BOOL)       isStatic {
+	
+	// Gets a response to a challenge.
+	//
+	// If a script is available and is not being temporarily overridden, invoke the script and return its output as the response
+	//
+	// Otherwise get the response from the user:
+	//		If responseRequired is TRUE
+	//			'challenge' is displayed with an OK button and a Cancel button in a modal window
+	//			Control is returned when the user clicks OK or Cancel
+	//			If the user clicks Cancel or an error occurs, nil is returned, otherwise the response is returned (it could be an empty string)
+	//		Else
+	//			if not nil and not an empty string, 'challenge' is displayed with an OK button in a non-modal window
+	//			an empty string is returned immediately
+	
+	// Use a script to get the response if one is available
+	if (  ! useManualChallengeResponseOnce ) {
+		if (  [[configPath pathExtension] isEqualToString: @"tblk"]) {
+			NSString * scriptFilename = (  isStatic
+										 ? @"static-challenge-response.sh"
+										 : @"dynamic-challenge-response.sh");
+			NSString * scriptPath = [[[configPath stringByAppendingPathComponent: @"Contents"]
+									  stringByAppendingPathComponent: @"Resources"]
+									 stringByAppendingPathComponent: scriptFilename];
+			if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
+				
+				NSArray * arguments = [NSArray arrayWithObjects: challenge,
+									   [self displayName],
+									   [self localizedName],
+									   (echoResponse ? @"echo" : @"noecho"),
+									   nil];
+				NSString * response = [self responseFromChallengeResponseScriptAtPath: scriptPath arguments: arguments];
+				if (  response  ) {
+					[self addToLog: [NSString stringWithFormat: @"Received response to challenge from %@", scriptFilename]];
+				} else {
+					[self addToLog: [NSString stringWithFormat: @"User cancelled the response to challenge from %@", scriptFilename]];
+				}
+				
+				return response;
+			}
+		}
+	} else {
+		useManualChallengeResponseOnce = FALSE;
+	}
+	
+	// Otherwise, query the user
 	if (  [challenge length] == 0  ) {
 		if (  ! responseRequired  ) {
 			[self addToLog: @"*Tunnelblick: An empty challenge message is not being shown to the user because no response is required"];
@@ -3249,8 +3373,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		challenge = NSLocalizedString(@"This VPN requires you to respond to a question but has not provided the question.", @"Window text");
 	}
 
-	// Prefix the challenge with a line containing the VPN name
-	challenge = [NSString stringWithFormat: @"%@\n\n%@", [self displayName], challenge];
+	// Prefix the challenge with a message containing the VPN name
+	challenge = [NSString stringWithFormat: NSLocalizedString(@"From the VPN server for %@:\n\n%@", @"Window text."
+																	   @" The first %@ will be replaced by the name of a configuration."
+																	   @" The second %@ will be replaced by a message from a VPN server,"
+																	   @" such as 'Please insert your security token'."),
+						  [self localizedName], challenge];
 	
 	if (  ! responseRequired  ) {
 		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), challenge);
@@ -3275,7 +3403,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		[input validateEditing];
 		return [input stringValue];
 	} else if (  buttonValue != NSAlertAlternateReturn  ) {
-		NSLog(@"getResponseFromChallenge: Invalid input dialog button return value %ld for %@", (long)buttonValue, [self displayName]);
+		NSLog(@"getResponseToChallenge: Invalid input dialog button return value %ld for %@", (long)buttonValue, [self displayName]);
 	}
 	
 	return nil;
@@ -3648,7 +3776,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	BOOL echoResponse     = [dynamicChallengeFlags rangeOfString: @"E"].length != 0;
 	BOOL responseRequired = [dynamicChallengeFlags rangeOfString: @"R"].length != 0;
-	NSString * response   = [self getResponseFromChallenge: dynamicChallengePrompt echoResponse: echoResponse responseRequired: responseRequired];
+	NSString * response   = [self getResponseToChallenge: dynamicChallengePrompt
+											  echoResponse: echoResponse
+										  responseRequired: responseRequired
+												  isStatic: NO];
 	
 	if (  response  ) {
 		[self addToLog: (  responseRequired
@@ -3760,7 +3891,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             } else {
                 NSString * response = nil;
                 if (  staticChallengePrompt  ) {
-                    response = [self getResponseFromChallenge: staticChallengePrompt echoResponse: echoResponse responseRequired: YES];
+                    response = [self getResponseToChallenge: staticChallengePrompt
+												 echoResponse: echoResponse
+											 responseRequired: YES
+													 isStatic: YES];
 					if (  response  ) {
 						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: User responded to static challenge: '%@'", staticChallengePrompt]];
 					} else {

@@ -127,6 +127,8 @@ struct Statistics {
 
     BOOL            authFailed;         // Indicates authorization failed
     BOOL            credentialsAskedFor;// Indicates whether credentials have been asked for but not provided
+	BOOL            useManualChallengeResponseOnce;
+	BOOL		    doNotClearUseManualChallengeResponseOnceOnNextConnect;
     BOOL            usedModifyNameserver;// True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
     BOOL            tryingToHookup;     // True iff this connection is trying to hook up to an instance of OpenVPN
     BOOL            initialHookupTry;   // True iff this is the initial hookup try (not as a result of a connection attempt)
