@@ -79,6 +79,13 @@ BOOL isValidIPAdddress(NSString * ipAddress) {
 	return FALSE;
 }
 
+BOOL shouldRunScriptAsUserAtPath(NSString * path) {
+	
+	NSString * name = [path lastPathComponent];
+	return (  [name isEqualToString: @"static-challenge-response.sh"]
+		   || [name isEqualToString: @"dynamic-challenge-response.sh"]  );
+}
+
 // Returns YES if file doesn't exist, or has the specified ownership and permissions
 BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t permsShouldHave)
 {
@@ -978,7 +985,8 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
 	
     // Permissions:
     mode_t folderPerms;         //  For folders
-    mode_t scriptPerms;         //  For files with .sh extensions
+    mode_t rootScriptPerms;     //  For files with .sh extensions that are run as root
+	mode_t userScriptPerms;     //  For files with .sh extensions that are run as the user -- that is, if shouldRunScriptAsUserAtPath()
     mode_t executablePerms;     //  For files with .executable extensions (only appear in a Deploy folder
     mode_t publicReadablePerms; //  For files named forced-preferences (only appear in a Deploy folder) or Info.plist
     mode_t otherPerms;          //  For all other files
@@ -993,14 +1001,16 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
         if (  isOnRemoteVolume(path)  ) {
             group = STAFF_GROUP_ID;
             folderPerms         = PERMS_PRIVATE_REMOTE_FOLDER;
-            scriptPerms         = PERMS_PRIVATE_REMOTE_SCRIPT;
+            rootScriptPerms     = PERMS_PRIVATE_REMOTE_ROOT_SCRIPT;
+			userScriptPerms     = PERMS_PRIVATE_REMOTE_USER_SCRIPT;
             executablePerms     = PERMS_PRIVATE_REMOTE_EXECUTABLE;
             publicReadablePerms = PERMS_PRIVATE_REMOTE_READABLE;
             otherPerms          = PERMS_PRIVATE_REMOTE_OTHER;
         } else {
             group = ADMIN_GROUP_ID;
             folderPerms         = PERMS_PRIVATE_FOLDER;
-            scriptPerms         = PERMS_PRIVATE_SCRIPT;
+            rootScriptPerms     = PERMS_PRIVATE_ROOT_SCRIPT;
+			userScriptPerms     = PERMS_PRIVATE_USER_SCRIPT;
             executablePerms     = PERMS_PRIVATE_EXECUTABLE;
             publicReadablePerms = PERMS_PRIVATE_READABLE;
             otherPerms          = PERMS_PRIVATE_OTHER;
@@ -1009,7 +1019,8 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
         user  = 0;          // Secured files are owned by root:wheel
         group = 0;
 		folderPerms         = PERMS_SECURED_FOLDER;
-        scriptPerms         = PERMS_SECURED_SCRIPT;
+        rootScriptPerms     = PERMS_SECURED_ROOT_SCRIPT;
+		userScriptPerms     = PERMS_SECURED_USER_SCRIPT;
         executablePerms     = PERMS_SECURED_EXECUTABLE;
         publicReadablePerms = PERMS_SECURED_READABLE;
         otherPerms          = PERMS_SECURED_OTHER;
@@ -1033,7 +1044,9 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
             result = result && checkSetPermissions(filePath, folderPerms, YES);
             
         } else if ( [ext isEqualToString: @"sh"]  ) {
-            result = result && checkSetPermissions(filePath, scriptPerms, YES);
+			result = result && checkSetPermissions(filePath,
+												   (shouldRunScriptAsUserAtPath(path) ? userScriptPerms : rootScriptPerms),
+												   YES);
             
         } else if (   [ext isEqualToString: @"strings"]
                    || [ext isEqualToString: @"png"]

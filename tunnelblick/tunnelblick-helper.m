@@ -711,7 +711,8 @@ void exitIfTblkNeedsRepair(void) {
     
     // Permissions:
     mode_t folderPerms         = PERMS_SECURED_FOLDER;
-    mode_t scriptPerms         = PERMS_SECURED_SCRIPT;
+    mode_t rootScriptPerms     = PERMS_SECURED_ROOT_SCRIPT;
+	mode_t userScriptPerms     = PERMS_SECURED_USER_SCRIPT;
     mode_t publicReadablePerms = PERMS_SECURED_READABLE;
     mode_t otherPerms          = PERMS_SECURED_OTHER;
     
@@ -733,7 +734,9 @@ void exitIfTblkNeedsRepair(void) {
             exitIfPathIsNotSecure(filePath, folderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
             
         } else if ( [ext isEqualToString:@"sh"]  ) {
-            exitIfPathIsNotSecure(filePath, scriptPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
+			exitIfPathIsNotSecure(filePath,
+								  (shouldRunScriptAsUserAtPath(file) ? userScriptPerms : rootScriptPerms),
+								  OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
             
         } else if (   [ext isEqualToString: @"strings"]
                    || [[file lastPathComponent] isEqualToString:@"Info.plist"]  ) {
@@ -1061,11 +1064,11 @@ int runScript(NSString * scriptName, int argc, char * argv[]) {
 		return 0;
 	}
 	
-    exitIfNotRootWithPermissions(scriptPath, PERMS_SECURED_SCRIPT);
+    exitIfNotRootWithPermissions(scriptPath, PERMS_SECURED_ROOT_SCRIPT);
 
     fprintf(stdout, "Executing %s in %s...\n", [[scriptPath lastPathComponent] UTF8String], [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
     
-    returnValue = runAsRoot(scriptPath, [NSArray array], PERMS_SECURED_SCRIPT);
+    returnValue = runAsRoot(scriptPath, [NSArray array], PERMS_SECURED_ROOT_SCRIPT);
     
     fprintf(stdout, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
     
@@ -2541,11 +2544,11 @@ int startVPN(NSString * configFile,
         NSString * preConnectPath   = [preConnectFolder stringByAppendingPathComponent: @"pre-connect.sh"];
         
         if (   fileExistsForRootAtPath(preConnectPath)  ) {
-            exitIfNotRootWithPermissions(preConnectPath, PERMS_SECURED_SCRIPT);
+            exitIfNotRootWithPermissions(preConnectPath, PERMS_SECURED_ROOT_SCRIPT);
             
             fprintf(stderr, "Executing pre-connect.sh in %s...\n", [preConnectFolder UTF8String]);
             
-            int result = runAsRoot(preConnectPath, [NSArray array], PERMS_SECURED_SCRIPT);
+            int result = runAsRoot(preConnectPath, [NSArray array], PERMS_SECURED_ROOT_SCRIPT);
             
             fprintf(stderr, "Status %d returned by pre-connect.sh in %s\n", result, [preConnectFolder UTF8String]);
             
@@ -2590,11 +2593,11 @@ int startVPN(NSString * configFile,
         NSString * postTunTapPath   = [postTunTapFolder stringByAppendingPathComponent: @"post-tun-tap-load.sh"];
         
         if (  fileExistsForRootAtPath(postTunTapPath)  ) {
-            exitIfNotRootWithPermissions(postTunTapPath, PERMS_SECURED_SCRIPT);
+            exitIfNotRootWithPermissions(postTunTapPath, PERMS_SECURED_ROOT_SCRIPT);
             
             fprintf(stderr, "Executing post-tun-tap-load.sh in %s...\n", [postTunTapFolder UTF8String]);
             
-            int result = runAsRoot(postTunTapPath, [NSArray array], PERMS_SECURED_SCRIPT);
+            int result = runAsRoot(postTunTapPath, [NSArray array], PERMS_SECURED_ROOT_SCRIPT);
             
             fprintf(stderr, "Status %d returned by post-tun-tap-load.sh in %s\n", result, [postTunTapFolder UTF8String]);
             

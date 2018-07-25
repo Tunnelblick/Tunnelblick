@@ -49,6 +49,8 @@ gid_t privateFolderGroup(NSString * path);
 
 BOOL isSanitizedOpenvpnVersion(NSString * s);
 
+BOOL shouldRunScriptAsUserAtPath(NSString * path);
+
 BOOL checkOwnerAndPermissions (NSString * fPath,
                                uid_t      uid,
                                gid_t      gid,

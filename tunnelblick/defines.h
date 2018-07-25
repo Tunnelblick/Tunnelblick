@@ -218,32 +218,36 @@
 //                             /Applications/XXXXX.app/Contents/Resources/Deploy/
 //                             (These folders are owned by root:wheel)
 //
-// _FOLDER     entries are for folders
-// _SCRIPT     entries are for files with the .sh extension
-// _EXECUTABLE entries are for files with the .executable extension (in Deploy folders only)
-// _READABLE   entries are for files (such as Info.plist files) that should be readable (by owner/group in private configurations, by everyone everywhere else)
-// _OTHER      entries are for all other files
+// _FOLDER      entries are for folders
+// _ROOT_SCRIPT entries are for files with the .sh extension that run as root
+// _USER_SCRIPT entries are for files with the .sh extension that run as the user -- that is, if shouldRunScriptAsUserAtPath()
+// _EXECUTABLE  entries are for files with the .executable extension (in Deploy folders only)
+// _READABLE    entries are for files (such as Info.plist files) that should be readable (by owner/group in private configurations, by everyone everywhere else)
+// _OTHER       entries are for all other files
 
 
-#define PERMS_PRIVATE_FOLDER     0750
-#define PERMS_PRIVATE_SCRIPT     0740
-#define PERMS_PRIVATE_EXECUTABLE 0740
-#define PERMS_PRIVATE_READABLE   0740
-#define PERMS_PRIVATE_OTHER      0740
+#define PERMS_PRIVATE_FOLDER      0750
+#define PERMS_PRIVATE_ROOT_SCRIPT 0740
+#define PERMS_PRIVATE_USER_SCRIPT 0740
+#define PERMS_PRIVATE_EXECUTABLE  0740
+#define PERMS_PRIVATE_READABLE    0740
+#define PERMS_PRIVATE_OTHER       0740
 
-#define PERMS_PRIVATE_REMOTE_FOLDER     0700
-#define PERMS_PRIVATE_REMOTE_SCRIPT     0700
-#define PERMS_PRIVATE_REMOTE_EXECUTABLE 0700
-#define PERMS_PRIVATE_REMOTE_READABLE   0700
-#define PERMS_PRIVATE_REMOTE_OTHER      0700
+#define PERMS_PRIVATE_REMOTE_FOLDER      0700
+#define PERMS_PRIVATE_REMOTE_ROOT_SCRIPT 0700
+#define PERMS_PRIVATE_REMOTE_USER_SCRIPT 0700
+#define PERMS_PRIVATE_REMOTE_EXECUTABLE  0700
+#define PERMS_PRIVATE_REMOTE_READABLE    0700
+#define PERMS_PRIVATE_REMOTE_OTHER       0700
 
-#define PERMS_SECURED_FOLDER     0755
-#define PERMS_SECURED_SCRIPT     0700
-#define PERMS_SECURED_EXECUTABLE 0755
-#define PERMS_SECURED_ROOT_EXEC  0744
-#define PERMS_SECURED_ROOT_RO    0400
-#define PERMS_SECURED_READABLE   0644
-#define PERMS_SECURED_OTHER      0700
+#define PERMS_SECURED_FOLDER      0755
+#define PERMS_SECURED_ROOT_SCRIPT 0700
+#define PERMS_SECURED_USER_SCRIPT 0755
+#define PERMS_SECURED_EXECUTABLE  0755
+#define PERMS_SECURED_ROOT_EXEC   0744
+#define PERMS_SECURED_ROOT_RO     0400
+#define PERMS_SECURED_READABLE    0644
+#define PERMS_SECURED_OTHER       0700
 
 
 //*************************************************************************************************

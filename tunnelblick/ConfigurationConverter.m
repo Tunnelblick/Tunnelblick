@@ -795,10 +795,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		
         mode_t perms = (  isOnRemoteVolume(outPath)
                         ? (  [[outPath pathExtension] isEqualToString: @"sh"]
-                           ? PERMS_PRIVATE_REMOTE_SCRIPT
+                           ? (  shouldRunScriptAsUserAtPath(outPath)
+							  ? PERMS_PRIVATE_REMOTE_USER_SCRIPT
+							  : PERMS_PRIVATE_REMOTE_ROOT_SCRIPT)
                            : PERMS_PRIVATE_REMOTE_OTHER)
                         : (  [[outPath pathExtension] isEqualToString: @"sh"]
-                           ? PERMS_PRIVATE_SCRIPT
+						   ? (  shouldRunScriptAsUserAtPath(outPath)
+							  ? PERMS_PRIVATE_USER_SCRIPT
+							  : PERMS_PRIVATE_ROOT_SCRIPT)
                            : PERMS_PRIVATE_OTHER)
                         );
 		if (  ! checkSetPermissions(outPath, perms, YES)  ) {

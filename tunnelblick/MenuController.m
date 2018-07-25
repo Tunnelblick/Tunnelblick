@@ -6935,7 +6935,8 @@ BOOL needToSecureFolderAtPath(NSString * path, BOOL isDeployFolder)
     // There is a SIMILAR function in sharedRoutines: secureOneFolder, that secures a folder with these permissions
     
     mode_t folderPerms;         //  For folders
-    mode_t scriptPerms;         //  For files with .sh extensions
+    mode_t rootScriptPerms;     //  For files with .sh extensions that are run as root
+	mode_t userScriptPerms;     //  For files with .sh extensions that are run as the user -- that is, if shouldRunScriptAsUserAtPath()
     mode_t executablePerms;     //  For files with .executable extensions (only appear in a Deploy folder
     mode_t publicReadablePerms; //  For files named Info.plist (and forced-preferences.plist in a Deploy folder)
     mode_t otherPerms;          //  For all other files
@@ -6944,7 +6945,8 @@ BOOL needToSecureFolderAtPath(NSString * path, BOOL isDeployFolder)
 	gid_t group = 0;
 	
     folderPerms         = PERMS_SECURED_FOLDER;
-    scriptPerms         = PERMS_SECURED_SCRIPT;
+    rootScriptPerms     = PERMS_SECURED_ROOT_SCRIPT;
+	userScriptPerms     = PERMS_SECURED_USER_SCRIPT;
     executablePerms     = PERMS_SECURED_EXECUTABLE;
     publicReadablePerms = PERMS_SECURED_READABLE;
     otherPerms          = PERMS_SECURED_OTHER;
@@ -6968,9 +6970,12 @@ BOOL needToSecureFolderAtPath(NSString * path, BOOL isDeployFolder)
             }
             
         } else if ( [ext isEqualToString:@"sh"]  ) {
-            if (  ! checkOwnerAndPermissions(filePath, user, group, scriptPerms)  ) {
-                return YES;
-            }
+			if (  ! checkOwnerAndPermissions(filePath,
+											 user,
+											 group,
+											 (shouldRunScriptAsUserAtPath(file) ? userScriptPerms : rootScriptPerms))  ) {
+				return YES;
+			}
             
         } else if (   [ext isEqualToString: @"strings"]
                    || [ext isEqualToString: @"png"]
