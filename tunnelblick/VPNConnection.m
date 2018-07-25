@@ -1171,13 +1171,14 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     NSString * msg = [NSString stringWithFormat:
                       NSLocalizedString(@"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\n"
                                         @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self localizedName], beforeConnect];
-    TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
-                            msg,
-                            nil, nil, nil,
-                            @"skipWarningThatIPAddressDidNotChangeAfterConnection",
-                            NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
-                            nil,
-							NSAlertDefaultReturn);
+	TBShowAlertWindowExtended(NSLocalizedString(@"Warning", @"Window text"),
+							  msg,
+							  @"skipWarningThatIPAddressDidNotChangeAfterConnection",
+							  nil,
+							  nil,
+							  NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
+							  nil,
+							  NO);
 }
 
 - (BOOL) okToCheckForIPAddressChange {
