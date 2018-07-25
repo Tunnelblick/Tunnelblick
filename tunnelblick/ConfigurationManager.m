@@ -2815,42 +2815,64 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             return;
         }
         if ( status != CommandOptionsNo  ) {
-            int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                                     NSLocalizedString(@"One or more VPN configurations that are being updated include programs which"
-                                                                       @" will run as root when you connect to a VPN. They are able to TAKE"
-                                                                       @" COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
-                                                                       @"YOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\n"
-                                                                       @"Do you trust the author of the configurations and wish to install them?\n\n",
-                                                                       @"Window text"),
-                                                     NSLocalizedString(@"Cancel",  @"Button"), // Default
-                                                     NSLocalizedString(@"Install", @"Button"), // Alternate
-                                                     nil,                                      // Other
-                                                     @"skipWarningAboutInstallsWithCommands",
-                                                     NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                                     nil,
-                                                     NSAlertAlternateReturn);
-            if (  userAction == NSAlertAlternateReturn  ) {
-                userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                             NSLocalizedString(@"Are you sure you wish to install configurations which can TAKE"
-                                                               @" COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
-                                                               @"Window text"),
-                                             NSLocalizedString(@"Cancel",  @"Button"), // Default
-                                             NSLocalizedString(@"Install", @"Button"), // Alternate
-                                             nil);                                     // Other
-                if (  userAction == NSAlertAlternateReturn  ) {
-                    [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
-                }
-            }
-            if (  notifyDelegate  ) {
+			if (  status == CommandOptionsUserScript  ) {
+				int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+														 NSLocalizedString(@"One or more VPN configurations that are being updated include programs which"
+																		   @" will run when you connect to a VPN. These programs are part of the configuration"
+																		   @" and are not part of the Tunnelblick application.\n\n"
+																		   @"You should install these configurations only if you trust their author.\n\n"
+																		   @"Do you trust the author of the configurations and wish to install them?\n\n",
+																		   @"Window text"),
+														 NSLocalizedString(@"Cancel",  @"Button"), // Default
+														 NSLocalizedString(@"Install", @"Button"), // Alternate
+														 nil,                                      // Other
+														 @"skipWarningAboutInstallsWithUserCommands",
+														 NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+														 nil,
+														 NSAlertAlternateReturn);
+				if (  userAction == NSAlertAlternateReturn  ) {
+					[ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
+				}
+			} else {
+				int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+														 NSLocalizedString(@"One or more VPN configurations that are being updated include programs which"
+																		   @" will run as root when you connect to a VPN. These programs are part of the configuration"
+																		   @" and are not part of the Tunnelblick application. They are able to TAKE"
+																		   @" COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
+																		   @"YOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\n"
+																		   @"Do you trust the author of the configurations and wish to install them?\n\n",
+																		   @"Window text"),
+														 NSLocalizedString(@"Cancel",  @"Button"), // Default
+														 NSLocalizedString(@"Install", @"Button"), // Alternate
+														 nil,                                      // Other
+														 @"skipWarningAboutInstallsWithCommands",
+														 NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+														 nil,
+														 NSAlertAlternateReturn);
+				if (  userAction == NSAlertAlternateReturn  ) {
+					userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+												 NSLocalizedString(@"Are you sure you wish to install configurations which can TAKE"
+																   @" COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
+																   @"Window text"),
+												 NSLocalizedString(@"Cancel",  @"Button"), // Default
+												 NSLocalizedString(@"Install", @"Button"), // Alternate
+												 nil);                                     // Other
+					if (  userAction == NSAlertAlternateReturn  ) {
+						[ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
+					}
+				}
+			}
+			
+			if (  notifyDelegate  ) {
                 [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
             }
-            
+				
             return;
         }
     }
-    
+		
     // Set up instance variables that we use
-    
+		
     BOOL isDeployed = [gFileMgr fileExistsAtPath: gDeployPath];
     [self setInstallToPrivateOK: (   (! isDeployed)
                                   || (   [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]
@@ -4708,10 +4730,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * returnDescription = (  (status == CommandOptionsError)
                                         ? @"error occurred"
                                         : (  (status == CommandOptionsYes)
-                                           ? @"unsafe option(s) found"
+                                           ? @"unsafe option(s) or run-as-root scripts found"
                                            : (  (status == CommandOptionsUnknown)
                                               ? @"unknown option(s) found"
-                                              : @"invalid status")));
+                                              : (  (status == CommandOptionsUserScript)
+											     ? @"user scripts found"
+												 : @"invalid status"))));
         NSLog(@"commandOptionsStatusForOpenvpnConfigurationAtPath:forTblk: returned '%@' for %@", returnDescription, path);
     }
     
@@ -4733,6 +4757,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
     
     BOOL haveUnknown = FALSE;
+	BOOL haveUserScript = FALSE;
     
     NSString * file;
     NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
@@ -4742,7 +4767,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         if (  [extension isEqualToString: @"sh"]  ) {
             NSLog(@"commandOptionsInOneConfigurationAtPath: '.sh' files found in %@", path);
-            return CommandOptionsYes;
+			if (  shouldRunScriptAsUserAtPath(file)  ) {
+				haveUserScript = TRUE;
+			} else {
+				return CommandOptionsYes;
+			}
         }
         
 		NSString * fullPath = [path stringByAppendingPathComponent: file];
@@ -4759,12 +4788,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
     }
     
-    return (  haveUnknown ? CommandOptionsUnknown : CommandOptionsNo  );
+    return (  haveUnknown
+			? CommandOptionsUnknown
+			: (  haveUserScript
+			   ? CommandOptionsUserScript
+			   : CommandOptionsNo  ));
 }
 
 +(CommandOptionsStatus) commandOptionsInConfigurationsAtPaths: (NSArray *) paths {
     
     BOOL haveUnknown = FALSE;
+	BOOL haveUserScript = FALSE;
     NSString * path;
     NSEnumerator * e = [paths objectEnumerator];
     while (  (path = [e nextObject])  ) {
@@ -4772,13 +4806,19 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  status != CommandOptionsNo   ) {
             if (  status == CommandOptionsUnknown  ) {
                 haveUnknown = TRUE;
-            } else {
+            } else if (  status == CommandOptionsUserScript  ){
+				haveUserScript = TRUE;
+			} else {
                 return status;
             }
         }
     }
     
-    return (  haveUnknown ? CommandOptionsUnknown : CommandOptionsNo  );
+    return (  haveUnknown
+			? CommandOptionsUnknown
+			: (  haveUserScript
+			   ? CommandOptionsUserScript
+			   : CommandOptionsNo ));
 }
 
 @end

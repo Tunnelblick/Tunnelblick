@@ -35,6 +35,7 @@ typedef enum
 {
     CommandOptionsError,     // Error occurred
     CommandOptionsNo,        // Configurations have only safe options and do not contain .sh files
+	CommandOptionsUserScript,// Configurations have only safe options and contain only .sh files that are run as the user
     CommandOptionsYes,       // Configurations have unsafe options and/or contain .sh files
     CommandOptionsUnknown    // Configurations do not contain .sh files, but have options not known to be safe or unsafe
 } CommandOptionsStatus;
