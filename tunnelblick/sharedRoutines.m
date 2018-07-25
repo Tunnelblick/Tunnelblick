@@ -1045,7 +1045,7 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
             
         } else if ( [ext isEqualToString: @"sh"]  ) {
 			result = result && checkSetPermissions(filePath,
-												   (shouldRunScriptAsUserAtPath(path) ? userScriptPerms : rootScriptPerms),
+												   (shouldRunScriptAsUserAtPath(file) ? userScriptPerms : rootScriptPerms),
 												   YES);
             
         } else if (   [ext isEqualToString: @"strings"]
