@@ -1483,6 +1483,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     // String with a list of options that are "safe" in that they do not invoke a command or script.
     
     // Option list was last updated from options.c in Openvpn 2.4.4 (2017-09-26)
+	//
+	// Added 2018-07-26:
+	//		route-ipv6-gateway (for Tunnelblick commit ed2e1d5bcdbfb8d2b0c56825021fdc5c2c7160a1)
     
     static NSString * allowedOptions =
     @"|"
@@ -1695,6 +1698,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"route-delay|"
     @"route-gateway|"
     @"route-ipv6|"
+    @"route-ipv6-gateway|"
     @"route-method|"
     @"route-metric|"
     @"route-noexec|"
