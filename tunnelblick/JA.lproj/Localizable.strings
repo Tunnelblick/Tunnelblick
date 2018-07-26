@@ -1290,15 +1290,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Tunnelblick が管理していない OpenVPN プロセスが動いています。もし Tunnelblick とは別の OpenVPN ソフトウェアを動かしているのでなければ、これは以前の Tunnelblick がプロセスをうまく停止できなかったということで、停止させる必要があります。Tunnelblick の動作と干渉するかもしれません。\n\nこれらは「Activity Monitor」アプリケーションで停止させることができます。\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "更新される設定の中にはVPNに接続する時にrootとして起動されるプログラムが含まれています。このプログラムは完全にパソコンを支配することができます。\n\nこの設定の作者を信用できなければ、絶対にインストールしないで下さい。\n\n設定の作者を信頼して、インストールしますか？\n\n";
-
-/* Window text */
-"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "インストールするVPN設定ファイルの中に、Tunnelblickが認識できないOpenVPNオプションが含まれています。それは設定ファイルのエラーまたはTunnelblickのエラー、またはVPNに接続する際にルートとして起動されるプログラムが含まれている可能性があります。そのようなプログラムは、あなたのパソコンを完全にコントロールする可能性があります。\n\n！！！信頼できる作成者でなければ、インストールするべきではありません！！！\n\n作成者を信頼し、インストールしてもよろしいですか？\n\n";
-
-/* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "インストールされる設定の中にはVPNに接続する時にrootとして起動されるプログラムが含まれています。このプログラムは完全にパソコンを支配することができます。\n\nこの設定の作者を信用できなければ、絶対にインストールしないで下さい。\n\n設定の作者を信頼して、インストールしますか？\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "VPNが接続中です。処理を続ける前に、全てのVPNを切断しTunnelblick を終了してください。";
 
 /* Window text */

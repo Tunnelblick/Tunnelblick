@@ -1323,15 +1323,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "هناك واحدة او اكثر من عمليات OpenVPN تعمل الآن ، ولكنها غير مرتبطة ب Tunnelblick. اذا كنت لا تستخدم OpenVPN دون استخدام تُنلـبليك فهذا يعنى وجود نسخة قديمة من البرنامج لم يتم اغلاقها بعد ، ويجب اغلاقها لكي تعمل النسخة الجديدة.\n\nيمكن اغلاق هذه العمليات عن طريق منظم العمليات Activity Monitor.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "هناك اعدادات VPN يتم تثبيتها تتضمن برامج لها احقية الحصول على تصريحات Root عند الاتصال، ويمكنها التحكم فى جهازك.\n\nلا يجب تثبيت تلك الاعدادات الا اذا كنت تثق تماماً فى مقدم الخدمة.\n\nهل تثق فى مقدم تلك الاعدادات وترغب فى تثبيتها ؟\n\n";
-
-/* Window text */
-"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "هناك اعدادات VPN يتم تثبيتها تتضمن اعدادات OpenVPN غير معرفة للبرنامج، ويمكن ان تسبب بعض المشاكل او تقوم بتشغيل بعض البرامج بصلاحيات متقدمة عند الاتصال.\n\nلا تقم بالتثبيت الا اذا كنت تثق فى مقدم تلك الاعدادات.\n\nهل تثق بمقدم تلك الاعدادات وتريد تثبيتها ؟\n\n";
-
-/* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "هناك اعدادات VPN يتم تثبيتها تتضمن برامج لها احقية الحصول على تصريحات Root عند الاتصال، ويمكنها التحكم فى جهازك.\n\nلا يجب تثبيت تلك الاعدادات الا اذا كنت تثق تماماً فى مقدم الخدمة.\n\nهل تثق فى مقدم تلك الاعدادات وترغب فى تثبيتها ؟\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "هناك اتصال VPN جار الآن. برجاء اغلاق جميع اتصالات VPN واغلاق البرنامج قبل المواصلة.";
 
 /* Window text */

@@ -792,6 +792,9 @@
 "  • Secure configurations\n" = "  • ایمن سازی تنظیمات\n";
 
 /* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ یک نرم افزار مجانی است: شما می توانید آن را بازنشر نمایید و یا حتی آنرا با توجه به مقررات %2$@ که در %3$@ منتشر شده تغییر دهید. \n\n%4$@ نام ثبت شده تجاری شرکت OpenVPN Inc. می باشد.";
+
+/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " آیا مایلید %1$@ را در %2$@%3$@ نصب نمایید؟\n\n";
 
 /* Window text */
@@ -862,6 +865,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(اگر متصل بود زمانی که کاربر از حساب کاربری خارج شد)";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p> این نسخه از Tunnelblick به مقدار %lu روز پیش منتشر شده.</p><p> لطفا برای چک کردن نسخه ی جدیدتر:</p><ul><li> به قسمت «تنظیمات» نرم افزار و پنجره «جزئیات VPN» رفته؛ یا <br></li><li> با رفتن به <a href=\"https://tunnelblick.net/downloads.html\"> صفحه دانلود Tunnelblick</a>[tunnelblick.net]</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "کلید TBPreference یا TBAlwaysSetPreference به تنطیمات ناشناخته %1$@ در %2$@ اشاره دارد";
@@ -1315,15 +1321,6 @@
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "یک یا چند پردازه OpenVPN که برای Tunnelblick ناشناخته هستند در حال اجرا می باشند. اگر شما OpenVPN جدا از Tunnelblick اجرا ننموده اید، این بدان معنی است که اجرای پیشتر Tunnelblick نتوانسته این پردازه ها را به طور مناسب ببندد و شما باید آنها را از کار بیندازید. اینها به احتمال زیاد باعث تداخل در عملکرد Tunnelblick خواهند شد.\n\nاین پردازه ها از طریق نرم افزار 'Activity Monitor' قابل خاتمه دادن هستند.\n\n";
-
-/* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "یک یا چند پیکربندی ویرایش شده شامل برنامه هایی هستند که در حالت مدیر هنگام اتصال وی پی ان اجرا می شوند. آنها قابلیت در اختیار گرفتن کنترل کامل رایانه شما را دارند.\n\nشما نباید این پیکربندی ها را نصب نمایید مگر اینکه به ایجاد کننده آنها اعتماد داشته باشید.\n\nآیا به ایجاد کننده این پیکربندی ها اعتماد دارید و می خواهید آنها را نصب نمایید؟\n\n";
-
-/* Window text */
-"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "یک یا چند پیکربندی که شما در حال نصب آنها هستید دارای گزینه هایی از OpenVPN هستند که توسط Tunnelblick شناسایی نشد. این می تواند به دلیل ایراد در پیکربندی و یا ایراد در Tunnelblick باشد، و یا اینکه پیکربندی ها شامل برنامه هایی هستند که در وضعیت مدیر پس از اتصال وی پی ان اجار می شوند. این گونه برنامه ها می توانند کنترل کامل رایانه شما را در دست بگیرند.\n\nاین پیکبرندی ها را در صورت عدم اعتماد به ناشر آنها نصب ننمایید.\n\nآیا به ناشر این پیکربندی ها اعتماد دارید و می خواهید آنها را نصب نمایید؟\n\n";
-
-/* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "یک یا چند پیکربندی که می خواهید نصب نمایید شامل برنامه هایی هستند که در حالت مدیر هنگام اتصال وی پی ان اجرا می شوند. آنها قابلیت در اختیار گرفتن کنترل کامل رایانه شما را دارند.\n\nشما نباید این پیکربندی ها را نصب نمایید مگر اینکه به ایجاد کننده آنها اعتماد داشته باشید.\n\nآیا به ایجاد کننده این پیکربندی ها اعتماد دارید و می خواهید آنها را نصب نمایید؟\n\n";
 
 /* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "یک یا چند وی پی ان متصل هستند. لطفا همه آنها را قطع نموده و قبل از ادامه از Tunnelblick خارج شوید.";

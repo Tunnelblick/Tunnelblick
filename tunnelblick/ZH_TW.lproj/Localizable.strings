@@ -1320,15 +1320,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "一個或多個對於 Tunnelblick 不明的 OpenVPN 進程正在運行。如果你沒有獨立於 Tunnelblick 運行 OpenVPN，這通常表示先前運行的 Tunnelblick 進程並沒有被正確的退出。它們會干擾 Tunnelblick 的運作所以你應該強制終止它們。\n\n你可以在 '活動監察器' 內強制終止它們。\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在升級的一個或多個 VPN 設定檔包含了在連接時會以 root 身份運行的程序。他們可以完全地控制你的電腦。\n\n除非你信任它們的作者，否則你不應該安裝這些設定檔。\n\n你信任這些設定檔的作者，並且願意安裝這些設定檔嗎？\n\n";
-
-/* Window text */
-"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "正在安裝的一個或多個 VPN 設定，包含了 Tunnelblick 無法辨別的 OpenVPN 選項。這可能是設定或 Tunnelblick 中的錯誤，或者是設定中包含的程式，會在連線到 VPN 時，以 root 身份執行。而這類型的程式可能會完全控制你的電腦。\n\n除非，你信任這個設定的作者，否則，你不應該安裝這個設定。\n\n你是否信任這個設定的作者，並且安裝這些設定？\n\n";
-
-/* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在安裝的一個或多個 VPN 設定檔包含了在連接時會以 root 身份運行的程序。他們可以完全地控制你的電腦。\n\n除非你信任它們的作者，否則你不應該安裝這些設定檔。\n\n你信任這些設定檔的作者，並且願意安裝這些設定檔嗎？\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "目前有一個或多個的 VPN 連線。請中斷所有連接並退出 Tunnelblick 以繼續。";
 
 /* Window text */

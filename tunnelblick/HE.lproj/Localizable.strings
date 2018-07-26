@@ -846,6 +846,9 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "קונפיגורציית Tunnelblick VPN נמצאת תחת יותר מידי תיקיות ב%@";
 
 /* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "קונפיגורציה שדורשת שימוש ב passphrase (מפתח אישי) או שם משתמש וסיסמא אינה יכולה להתחיל אוטומטית.";
+
+/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "סיסמא נדרשת על מנת להתחבר ל\n%1$@%2$@";
 
 /* Window text */
@@ -903,10 +906,16 @@
 "B/s" = "בתים לשנייה";
 
 /* Window text */
+"Backslash at end of line %u is not allowed" = "לוכסן אחורי (\\) בסוף שורה מספר %u לא תקני";
+
+/* Window text */
 "Cancelled trying to quit all OpenVPN processes" = "בוטל ניסיון לסגור את כל תהליכי OpenVPN";
 
 /* Window text */
 "Cannot find configuration file at %@" = "לא מצליח למצוא קובץ הגדרות ב%@";
+
+/* Window text */
+"Cannot install configurations to either shared or private locations" = "לא ניתן להתקין הגדרות למיקום המשותף או האישי";
 
 /* Window text */
 "Computer sleep/wake" = "שינה\\יקיצה של המחשב";

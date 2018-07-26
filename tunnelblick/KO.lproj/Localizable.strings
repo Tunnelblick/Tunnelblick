@@ -1247,15 +1247,6 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Tunnelblick이 모르는 1개 또는 이상의 OpenVPN 프로세스가 실행중입니다. Tunnelblick과 별개로 OpenVPN을 실행한 것이 아니면, 이전에 실행된 Tunnelblick이 OpenVPN 프로세스를 올바르게 내리지 못한 것입니다. 이 프로세스들을 중단해야 합니다. 이 프로세스들은 Tunnelblick 동작을 방해할 수 있습니다.\n\n'활성 상태 보기' 어플리케이션에서 프로세스를 중단할 수 있습니다.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "업데이트되는 하나 이상의 VPN 구성이 VPN에 연결할 때 루트 권한으로 실행되는 프로그램을 포함하고 있습니다. 해당 프로그램은 당신의 컴퓨터에 대한 완전한 제어 권한을 가질 수 있습니다.\n\n이 제작자를 신뢰하지 않는다면 구성을 설치하지 마십시오.\n\n구성의 제작자를 신뢰하고 설치를 계속하시겠습니까?\n\n";
-
-/* Window text */
-"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "설치하려는 하나 이상의 VPN 구성이 Tunnelblick에게 인식되지 않는 OpenVPN 옵션을 가지고 있습니다. 구성이나 Tunnelblick상에서 오류가 발생하거나, VPN에 연결할 때 루트 권한으로 실행되는 프로그램을 포함할 수 있습니다. 그런 프로그램은 당신의 컴퓨터에 대한 완전한 제어 권한을 가질 수 있습니다.\n\n이 제작자를 신뢰하지 않는다면 구성을 설치하지 마십시오.\n\n구성의 제작자를 신뢰하고 설치를 계속하시겠습니까?\n\n";
-
-/* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "설치하려는 하나 이상의 VPN 구성이 VPN에 연결할 때 루트 권한으로 실행되는 프로그램을 포함하고 있습니다. 해당 프로그램은 당신의 컴퓨터에 대한 완전한 제어 권한을 가질 수 있습니다.\n\n이 제작자를 신뢰하지 않는다면 구성을 설치하지 마십시오.\n\n구성의 제작자를 신뢰하고 설치를 계속하시겠습니까?\n\n";
-
-/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "하나 이상의 VPN이 현재 연결되어 있습니다. 처리 전에 모든 VPN의 연결을 해제하고 Tunnelblick을 종료하여 주십시오.";
 
 /* Window text */
