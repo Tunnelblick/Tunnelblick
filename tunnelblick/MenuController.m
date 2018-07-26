@@ -3934,7 +3934,7 @@ static void signal_handler(int signalNumber)
             
 		case CommandOptionsUserScript:
 			message = [NSString stringWithFormat: @"%@%@", withTunnelblickMessage,
-					   NSLocalizedString(@"One or more VPN configurations you are installing include programs which"
+					   NSLocalizedString(@"One or more VPN configurations that are being installed include programs which"
 										 @" will run when you connect to a VPN. These programs are part of the configuration"
 										 @" and are not part of the Tunnelblick application.\n\n"
 										 @"You should install these configurations only if you trust their author.\n\n"
@@ -3954,7 +3954,7 @@ static void signal_handler(int signalNumber)
 			
         case CommandOptionsYes:
             message = [NSString stringWithFormat: @"%@%@", withTunnelblickMessage,
-                       NSLocalizedString(@"One or more VPN configurations you are installing include programs which will run"
+                       NSLocalizedString(@"One or more VPN configurations that are being installed include programs which will run"
 										 @" as root when you connect to a VPN. These programs are part of the configuration"
 										 @" and are not part of the Tunnelblick application. They are able to TAKE"
                                          @" COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
@@ -3984,7 +3984,7 @@ static void signal_handler(int signalNumber)
             
         case CommandOptionsUnknown:
             message = [NSString stringWithFormat: @"%@%@", withTunnelblickMessage,
-                       NSLocalizedString(@"One or more VPN configurations you are installing include OpenVPN options that"
+                       NSLocalizedString(@"One or more VPN configurations that are being installed include OpenVPN options that"
                                          @" were not recognized by Tunnelblick. That may be an error in the configuration or"
                                          @" an error in Tunnelblick, or the configurations might include programs"
                                          @" which will run as root when you connect to a VPN. Such programs would be able to"

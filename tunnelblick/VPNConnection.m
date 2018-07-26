@@ -3374,10 +3374,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 
 	// Prefix the challenge with a message containing the VPN name
-	challenge = [NSString stringWithFormat: NSLocalizedString(@"From the VPN server for %@:\n\n%@", @"Window text."
-																	   @" The first %@ will be replaced by the name of a configuration."
-																	   @" The second %@ will be replaced by a message from a VPN server,"
-																	   @" such as 'Please insert your security token'."),
+	challenge = [NSString stringWithFormat: NSLocalizedString(@"     From the VPN server for %@:\n\n%@", @"Window text."
+															  @" The first %@ will be replaced by the name of a configuration."
+															  @" The second %@ will be replaced by a message from a VPN server,"
+															  @" such as 'Please insert your security token'."),
 						  [self localizedName], challenge];
 	
 	if (  ! responseRequired  ) {
