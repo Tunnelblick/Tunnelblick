@@ -1,0 +1,133 @@
+From 363ad7103507bcc092fde61c3b60bd3cfbf60aaa Mon Sep 17 00:00:00 2001
+From: James Bekkema <james@sparklabs.com>
+Date: Mon, 23 Jul 2018 13:21:53 +1000
+Subject: [PATCH] Restore functionality of route-gateway's dhcp parameter, and
+ expand to support routes using vpn_gateway.
+
+---
+ src/openvpn/init.c  |  1 +
+ src/openvpn/route.c | 32 ++++++++++++++++++++++++++++++--
+ src/openvpn/route.h |  3 +++
+ 3 files changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/src/openvpn/init.c b/src/openvpn/init.c
+index d28d1fd2..057dbb4b 100644
+--- a/src/openvpn/init.c
++++ b/src/openvpn/init.c
+@@ -1396,6 +1396,7 @@ do_init_route_list(const struct options *options,
+     if (init_route_list(route_list,
+                         options->routes,
+                         gw,
++                        options->route_gateway_via_dhcp,
+                         metric,
+                         link_socket_current_remote(link_socket_info),
+                         es))
+diff --git a/src/openvpn/route.c b/src/openvpn/route.c
+index ff392308..ad8ea135 100644
+--- a/src/openvpn/route.c
++++ b/src/openvpn/route.c
+@@ -295,6 +295,12 @@ is_special_addr(const char *addr_str)
+     }
+ }
+ 
++static bool
++should_use_dhcp_gateway(const char *gateway, const struct route_list *rl)
++{
++    return (rl->spec.flags & RTSA_DHCP_ENDPOINT && (!is_route_parm_defined(gateway) || !strcmp(gateway, "vpn_gateway")));
++}
++
+ static bool
+ init_route(struct route_ipv4 *r,
+            struct addrinfo **network_list,
+@@ -362,7 +368,11 @@ init_route(struct route_ipv4 *r,
+ 
+     /* gateway */
+ 
+-    if (is_route_parm_defined(ro->gateway))
++    if (should_use_dhcp_gateway(ro->gateway, rl))
++    {
++        r->flags |= RT_DHCP_GATEWAY;
++    }
++    else if (is_route_parm_defined(ro->gateway))
+     {
+         if (!get_special_addr(rl, ro->gateway, &r->gateway, &status))
+         {
+@@ -414,7 +424,10 @@ init_route(struct route_ipv4 *r,
+         r->flags |= RT_METRIC_DEFINED;
+     }
+ 
+-    r->flags |= RT_DEFINED;
++    if ((r->flags & RT_DHCP_GATEWAY) == 0)
++    {
++        r->flags |= RT_DEFINED;
++    }
+ 
+     return true;
+ 
+@@ -541,6 +554,16 @@ route_list_add_vpn_gateway(struct route_list *rl,
+     rl->spec.remote_endpoint = addr;
+     rl->spec.flags |= RTSA_REMOTE_ENDPOINT;
+     setenv_route_addr(es, "vpn_gateway", rl->spec.remote_endpoint, -1);
++
++    struct route_ipv4 *r;
++    for (r = rl->routes; r; r = r->next)
++    {
++        if (r->flags & RT_DHCP_GATEWAY)
++        {
++            r->gateway = addr;
++            r->flags |= RT_DEFINED;
++        }
++    }
+ }
+ 
+ static void
+@@ -611,6 +634,7 @@ bool
+ init_route_list(struct route_list *rl,
+                 const struct route_option_list *opt,
+                 const char *remote_endpoint,
++                bool remote_endpoint_dhcp,
+                 int default_metric,
+                 in_addr_t remote_host,
+                 struct env_set *es)
+@@ -676,6 +700,10 @@ init_route_list(struct route_list *rl,
+             ret = false;
+         }
+     }
++    else if (remote_endpoint_dhcp)
++    {
++        rl->spec.flags |= RTSA_DHCP_ENDPOINT;
++    }
+ 
+     if (rl->flags & RG_ENABLE)
+     {
+diff --git a/src/openvpn/route.h b/src/openvpn/route.h
+index 69420228..948c892e 100644
+--- a/src/openvpn/route.h
++++ b/src/openvpn/route.h
+@@ -62,6 +62,7 @@ struct route_special_addr
+ #define RTSA_REMOTE_ENDPOINT  (1<<0)
+ #define RTSA_REMOTE_HOST      (1<<1)
+ #define RTSA_DEFAULT_METRIC   (1<<2)
++#define RTSA_DHCP_ENDPOINT    (1<<3)
+     unsigned int flags;
+ 
+     in_addr_t remote_endpoint;
+@@ -112,6 +113,7 @@ struct route_ipv4 {
+ #define RT_DEFINED        (1<<0)
+ #define RT_ADDED          (1<<1)
+ #define RT_METRIC_DEFINED (1<<2)
++#define RT_DHCP_GATEWAY   (1<<3)
+     struct route_ipv4 *next;
+     unsigned int flags;
+     const struct route_option *option;
+@@ -280,6 +282,7 @@ void add_route_ipv6_to_option_list(struct route_ipv6_option_list *l,
+ bool init_route_list(struct route_list *rl,
+                      const struct route_option_list *opt,
+                      const char *remote_endpoint,
++                     bool remote_endpoint_dhcp,
+                      int default_metric,
+                      in_addr_t remote_host,
+                      struct env_set *es);
+-- 
+2.17.1
+
