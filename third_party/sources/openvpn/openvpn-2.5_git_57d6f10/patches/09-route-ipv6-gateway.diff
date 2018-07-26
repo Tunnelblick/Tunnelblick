@@ -1,0 +1,102 @@
+From 4925dea99cabdedb518be59fc14d83484b830cbe Mon Sep 17 00:00:00 2001
+From: James Bekkema <james@sparklabs.com>
+Date: Mon, 23 Jul 2018 13:28:31 +1000
+Subject: [PATCH] Adds support for setting the default IPv6 gateway for routes
+ using the route-ipv6-gateway option.
+
+---
+ doc/openvpn.8         |  8 ++++++++
+ src/openvpn/init.c    |  4 +---
+ src/openvpn/options.c | 16 +++++++++++++++-
+ src/openvpn/options.h |  1 +
+ 4 files changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/doc/openvpn.8 b/doc/openvpn.8
+index 46ea58b6..7441b443 100644
+--- a/doc/openvpn.8
++++ b/doc/openvpn.8
+@@ -6149,8 +6149,16 @@ into OpenVPN's ``tun''.  The gateway parameter is only used for
+ IPv6 routes across ``tap'' devices, and if missing, the ``ipv6remote''
+ field from
+ .B \-\-ifconfig\-ipv6
++or
++.B \-\-route\-ipv6\-gateway
+ is used.
+ .TP
++.B \-\-route\-ipv6\-gateway gw
++Specify a default gateway
++.B gw
++for use with
++.B \-\-route\-ipv6.
++.TP
+ .B \-\-server\-ipv6 ipv6addr/bits
+ convenience\-function to enable a number of IPv6 related options at
+ once, namely
+diff --git a/src/openvpn/init.c b/src/openvpn/init.c
+index 057dbb4b..d2903b87 100644
+--- a/src/openvpn/init.c
++++ b/src/openvpn/init.c
+@@ -1416,12 +1416,10 @@ do_init_route_ipv6_list(const struct options *options,
+     int metric = -1;            /* no metric set */
+ 
+     gw = options->ifconfig_ipv6_remote;         /* default GW = remote end */
+-#if 0                                   /* not yet done for IPv6 - TODO!*/
+-    if (options->route_ipv6_default_gateway)            /* override? */
++    if (options->route_ipv6_default_gateway)
+     {
+         gw = options->route_ipv6_default_gateway;
+     }
+-#endif
+ 
+     if (options->route_default_metric)
+     {
+diff --git a/src/openvpn/options.c b/src/openvpn/options.c
+index b89f4ba2..0d11e968 100644
+--- a/src/openvpn/options.c
++++ b/src/openvpn/options.c
+@@ -200,8 +200,10 @@ static const char usage_message[] =
+     "--route-ipv6 network/bits [gateway] [metric] :\n"
+     "                  Add IPv6 route to routing table after connection\n"
+     "                  is established.  Multiple routes can be specified.\n"
+-    "                  gateway default: taken from 'remote' in --ifconfig-ipv6\n"
++    "                  gateway default: taken from --route-ipv6-gateway or 'remote'\n"
++    "                  in --ifconfig-ipv6\n"
+     "--route-gateway gw|'dhcp' : Specify a default gateway for use with --route.\n"
++    "--route-ipv6-gateway gw : Specify a default gateway for use with --route-ipv6.\n"
+     "--route-metric m : Specify a default metric for use with --route.\n"
+     "--route-delay n [w] : Delay n seconds after connection initiation before\n"
+     "                  adding routes (may be 0).  If not specified, routes will\n"
+@@ -6197,6 +6199,18 @@ add_option(struct options *options,
+             }
+         }
+     }
++    else if (streq(p[0], "route-ipv6-gateway") && p[1] && !p[2])
++    {
++        if (ipv6_addr_safe(p[1]))
++        {
++            options->route_ipv6_default_gateway = p[1];
++        }
++        else
++        {
++            msg(msglevel, "route-ipv6-gateway parm '%s' must be a valid address", p[1]);
++            goto err;
++        }
++    }
+     else if (streq(p[0], "route-metric") && p[1] && !p[2])
+     {
+         VERIFY_PERMISSION(OPT_P_ROUTE);
+diff --git a/src/openvpn/options.h b/src/openvpn/options.h
+index 3a6c33f8..66d45081 100644
+--- a/src/openvpn/options.h
++++ b/src/openvpn/options.h
+@@ -329,6 +329,7 @@ struct options
+     const char *route_script;
+     const char *route_predown_script;
+     const char *route_default_gateway;
++    const char *route_ipv6_default_gateway;
+     int route_default_metric;
+     bool route_noexec;
+     int route_delay;
+-- 
+2.17.1
+
