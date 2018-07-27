@@ -2663,17 +2663,31 @@ ifConnectionPreference: (NSString *)     keySuffix
 	}
 }
 
--(BOOL) allowDynamicChallengeWithAuthRetryNoInteract {
+-(BOOL) openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting {
 	
 	// If and when OpenVPN starts to allow this, test the OpenVPN version and return YES only if the OpenVPN version being used supports it
  
-	return [gTbDefaults boolForKey: @"allowDynamicChallengeWithAuthRetryNoInteract"];
+	return [gTbDefaults boolForKey: @"openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting"];
 }
 
 -(BOOL) forceAuthRetryInteract {
 	
-	return (   ( ! [[self authRetryParameter] isEqualToString: @"nointeract"] )
-			|| ( ! [self allowDynamicChallengeWithAuthRetryNoInteract]) );
+	// We force "auth-retry interact" via the management interface if there is no 'auth-retry' in the configuration file because dynamic
+	// challenge/response does not work without "auth-retry interact" and we don't know ahead of time if a dynamic challenge will be presented.
+	//
+	// We do this because other OpenVPN GUIs (OpenVPN GUI for Windows, and iOS and Android apps) do the same thing (or do so in effect).
+	//
+	// At some point OpenVPN should be fixed so dynamic challenge/response works regardless of the "auth-retry" setting, but until that
+	// is done we do it in Tunnelblick by forcing "auth-retry interact".
+	//
+	// By doing this, Tunnelblick affects not only dynamic challenge/response, but all authentication. (That's why it should be
+	// fixed in OpenVPN: so it can be limited to only specific dynamic challenge/response interactions.)
+	//
+	// The "openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting" preference will allow use of experimental versions of OpenVPN that
+	// include a fix, before official releases of OpenVPN that Tunnelblick can check for.
+	
+	return (   ( ! [self authRetryParameter]  )
+			&& ( ! [self openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting]) );
 }
 
 - (void) connectToManagementSocket
@@ -3100,12 +3114,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		NSString * mipString = [theMipName stringByAppendingString: @"\r\n"];
 		NSString * authRetryCommand = (  [self forceAuthRetryInteract]
 									   ? @"auth-retry interact\r\n"
-									   : @"");
+									   : nil);
 		
 		NS_DURING {
 			[managementSocket writeString: mipString					encoding: NSASCIIStringEncoding];
 			[managementSocket writeString: @"pid\r\n"					encoding: NSASCIIStringEncoding];
-		    [managementSocket writeString: authRetryCommand				encoding: NSASCIIStringEncoding];
+			if (  authRetryCommand  ) {
+				[managementSocket writeString: authRetryCommand			encoding: NSASCIIStringEncoding];
+		    }
 			[managementSocket writeString: @"state on\r\n"      		encoding: NSASCIIStringEncoding];
 			[managementSocket writeString: @"state\r\n"         		encoding: NSASCIIStringEncoding];
 			[managementSocket writeString: @"bytecount 1\r\n"   		encoding: NSASCIIStringEncoding];
@@ -3411,9 +3427,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) parseAndSaveDynamicChallengeResponseInfo: (NSString *) line {
 	
-	if (   [[self authRetryParameter] isEqualToString: @"nointeract"]
-		&& ( ! [self allowDynamicChallengeWithAuthRetryNoInteract] )  ) {
-		[self addToLog: @"*Tunnelblick: Error: Disconnecting because the OpenVPN server has asked for a dynamic challenge/response, but the OpenVPN configuration file contains 'auth-retry nointeract'"];
+	if (   (   [[self authRetryParameter] isEqualToString: @"none"]
+			|| [[self authRetryParameter] isEqualToString: @"nointeract"] )
+		&& ( ! [self openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting])  ) {
+		[self addToLog: @"*Tunnelblick: Error: Disconnecting because the OpenVPN server requires a response to a dynamic challenge and the OpenVPN configuration file contains 'auth-retry none' or 'auth-retry nointeract'. The selected version of OpenVPN does not support that."];
 		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
 		return;
 	}

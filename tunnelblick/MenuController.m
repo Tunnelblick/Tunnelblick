@@ -454,6 +454,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 								@"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep",
                                 @"doNotEjectTunnelblickVolume",
 								@"doNotCheckThatOpenvpnVersionIsCompatibleWithConfiguration",
+								@"openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
