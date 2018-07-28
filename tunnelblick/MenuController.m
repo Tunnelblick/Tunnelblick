@@ -5820,21 +5820,41 @@ BOOL warnAboutNonTblks(void)
 	return NO;
 }
 
+-(void) displayAndProcessSystemFolderNotSecureDialog: (NSString *) folderPath {
+	
+	while (  TRUE  ) {
+		int result = TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
+									 [NSString stringWithFormat: NSLocalizedString(@"The %@ system folder (%@) is not secure.\n\n"
+																				   @"Tunnelblick and other programs may not work properly until this problem is fixed.\n\n"
+																				   @"The Console log has details.", @"Window text"),
+									  [gFileMgr displayNameAtPath: folderPath], folderPath],
+									 NSLocalizedString(@"Quit", @"Button"),
+									 NSLocalizedString(@"Help", @"Button"),
+									 NSLocalizedString(@"Continue", @"Button"));
+		if (  result == NSAlertDefaultReturn  ) {
+			[self terminateBecause: terminatingBecauseOfError];
+		} else if (  result == NSAlertOtherReturn) {
+			break;
+		}
+		
+		MyGotoHelpPage(@"system-folder-not-secure.html", nil);
+	}
+}
+
+-(void) warnIfFolderDoesNotExist: (NSString *) folderPath {
+	
+	if (  ! [gFileMgr fileExistsAtPath: folderPath]  ) {
+		NSLog(@"%@ does not exist.", folderPath);
+		[self displayAndProcessSystemFolderNotSecureDialog: folderPath];
+	}
+}
+
 -(void) checkSystemFolder: (NSString *) folderPath {
     
-    // Check existence, ownership, and permissions of a system folder. Complain and quit if it does not exist or is not secure.
-    
-    if (  ! [gFileMgr fileExistsAtPath: folderPath]  ) {
-        NSLog(@"%@ does not exist.", folderPath);
-        TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
-                        [NSString stringWithFormat: NSLocalizedString(@"The %@ system folder (%@) does not exist.", @"Window text"),
-                         [gFileMgr displayNameAtPath: folderPath], folderPath],
-                        NSLocalizedString(@"Quit", @"Button"), nil, nil);
-        [self terminateBecause: terminatingBecauseOfError];
-    }
-    
-    // The tests here are the same tests used in openvpnstart's "pathComponentIsNotSecure" function.
-    
+	// The tests here are the same tests used in openvpnstart's "pathComponentIsNotSecure" function.
+	
+	[self warnIfFolderDoesNotExist: folderPath];
+
     BOOL isBad = TRUE;
     
     NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: folderPath traverseLink: NO];
@@ -5865,30 +5885,51 @@ BOOL warnAboutNonTblks(void)
     }
     
     if (  isBad  ) {
-        
-        NSLog(@"%@ is not secure", folderPath);
-        
-        int result = TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
-                                     [NSString stringWithFormat: NSLocalizedString(@"The %@ system folder (%@) is not secure.\n\n"
-																				   @"Tunnelblick may not work properly unless this is fixed.\n\n"
-																				   @"Disk Utility's 'Repair Disk Permissions' function may be able to repair the problem.", @"Window text"),
-									  [gFileMgr displayNameAtPath: folderPath], folderPath],
-                                     NSLocalizedString(@"Quit", @"Button"),
-                                     NSLocalizedString(@"Help", @"Button"),
-									 NSLocalizedString(@"Continue", @"Button"));
-        if (  result == NSAlertAlternateReturn  ) {
-            MyGotoHelpPage(@"system-folder-not-secure.html", nil);
-        }
-		
-        if (  result == NSAlertDefaultReturn  ) {
-			[self terminateBecause: terminatingBecauseOfError];
-        }
+		[self displayAndProcessSystemFolderNotSecureDialog: folderPath];
     }
+}
+
+-(void) checkTemporaryFolder: (NSString *) folderPath requiredPermissions: (mode_t) requiredPermissions {
+	
+	[self warnIfFolderDoesNotExist: folderPath];
+
+	BOOL isBad = TRUE;
+	
+	NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: folderPath traverseLink: NO];
+	if (  attributes  ) {
+		if (  ([attributes fileType] == NSFileTypeSymbolicLink) == [folderPath isEqualToString: @"/tmp"]  ) {
+			unsigned long owner      = [[attributes objectForKey: NSFileOwnerAccountID     ] unsignedLongValue];
+			unsigned long groupOwner = [[attributes objectForKey: NSFileGroupOwnerAccountID] unsignedLongValue];
+			if (   (owner      == 0)
+				&& (groupOwner == 0) ) {
+				mode_t permissions = (mode_t) [[attributes objectForKey: NSFilePosixPermissions] shortValue];
+				if (  (permissions & 07777) == requiredPermissions   ) {
+					isBad = FALSE;
+				} else {
+					NSLog(@"%@ does not have the required (permissions = 0%lo; require 0%lo)", folderPath, (long) permissions, (long)requiredPermissions);
+				}
+			} else {
+				NSLog(@"%@ is owned by %lu:%lu, instead of 0:0", folderPath, (long)owner, (long)groupOwner);
+			}
+		} else {
+			NSLog(@"%@ is a symlink and is not, or is not a symlink and should be one.", folderPath);
+		}
+	} else {
+		NSLog(@"%@ does not have attributes.", folderPath);
+	}
+	
+	if (  isBad  ) {
+		[self displayAndProcessSystemFolderNotSecureDialog: folderPath];
+	}
 }
 
 -(void) checkSystemFoldersAreSecure {
     
-    // Check that the folders Tunnelblick uses exist and are secure; quit if they don't.
+	// Warn and offer to quit if the system folders Tunnelblick uses don't exist or aren't secure.
+	
+	[self checkTemporaryFolder: @"/tmp"         requiredPermissions: 00755];
+	[self checkTemporaryFolder: @"/private"     requiredPermissions: 00755];
+	[self checkTemporaryFolder: @"/private/tmp" requiredPermissions: 01777];
     
     [self checkSystemFolder: @"/Applications"];
     [self checkSystemFolder: @"/Library"];
