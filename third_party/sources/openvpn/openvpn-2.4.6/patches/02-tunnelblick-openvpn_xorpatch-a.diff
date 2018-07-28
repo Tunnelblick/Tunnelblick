@@ -1,6 +1,7 @@
---- openvpn-2.4.1/src/openvpn/forward.c	2017-03-22 11:34:21.000000000 -0400
-+++ openvpn-2.4.1_/src/openvpn/forward.c	2017-03-23 10:48:01.000000000 -0400
-@@ -730,7 +730,10 @@
+diff -u -r -x .DS_Store openvpn-2.4.6.old/src/openvpn/forward.c openvpn-2.4.6.new/src/openvpn/forward.c
+--- openvpn-2.4.6.old/src/openvpn/forward.c	2018-07-28 06:02:24.000000000 -0400
++++ openvpn-2.4.6.new/src/openvpn/forward.c	2018-07-28 06:02:24.000000000 -0400
+@@ -729,7 +729,10 @@
  
      status = link_socket_read(c->c2.link_socket,
                                &c->c2.buf,
@@ -12,7 +13,7 @@
  
      if (socket_connection_reset(c->c2.link_socket, status))
      {
-@@ -1368,7 +1371,10 @@
+@@ -1374,7 +1377,10 @@
                  /* Send packet */
                  size = link_socket_write(c->c2.link_socket,
                                           &c->c2.to_link,

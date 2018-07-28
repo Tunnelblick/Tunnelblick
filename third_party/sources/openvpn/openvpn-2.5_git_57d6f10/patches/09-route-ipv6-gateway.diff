@@ -11,11 +11,10 @@ Subject: [PATCH] Adds support for setting the default IPv6 gateway for routes
  src/openvpn/options.h |  1 +
  4 files changed, 25 insertions(+), 4 deletions(-)
 
-diff --git a/doc/openvpn.8 b/doc/openvpn.8
-index 46ea58b6..7441b443 100644
---- a/doc/openvpn.8
-+++ b/doc/openvpn.8
-@@ -6149,8 +6149,16 @@ into OpenVPN's ``tun''.  The gateway parameter is only used for
+diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/doc/openvpn.8 openvpn-2.5_git_57d6f10.new/doc/openvpn.8
+--- openvpn-2.5_git_57d6f10.old/doc/openvpn.8	2018-07-28 06:02:29.000000000 -0400
++++ openvpn-2.5_git_57d6f10.new/doc/openvpn.8	2018-07-28 06:02:29.000000000 -0400
+@@ -6152,8 +6152,16 @@
  IPv6 routes across ``tap'' devices, and if missing, the ``ipv6remote''
  field from
  .B \-\-ifconfig\-ipv6
@@ -32,11 +31,10 @@ index 46ea58b6..7441b443 100644
  .B \-\-server\-ipv6 ipv6addr/bits
  convenience\-function to enable a number of IPv6 related options at
  once, namely
-diff --git a/src/openvpn/init.c b/src/openvpn/init.c
-index 057dbb4b..d2903b87 100644
---- a/src/openvpn/init.c
-+++ b/src/openvpn/init.c
-@@ -1416,12 +1416,10 @@ do_init_route_ipv6_list(const struct options *options,
+diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/init.c openvpn-2.5_git_57d6f10.new/src/openvpn/init.c
+--- openvpn-2.5_git_57d6f10.old/src/openvpn/init.c	2018-07-28 06:02:29.000000000 -0400
++++ openvpn-2.5_git_57d6f10.new/src/openvpn/init.c	2018-07-28 06:02:29.000000000 -0400
+@@ -1415,12 +1415,10 @@
      int metric = -1;            /* no metric set */
  
      gw = options->ifconfig_ipv6_remote;         /* default GW = remote end */
@@ -50,11 +48,10 @@ index 057dbb4b..d2903b87 100644
  
      if (options->route_default_metric)
      {
-diff --git a/src/openvpn/options.c b/src/openvpn/options.c
-index b89f4ba2..0d11e968 100644
---- a/src/openvpn/options.c
-+++ b/src/openvpn/options.c
-@@ -200,8 +200,10 @@ static const char usage_message[] =
+diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/options.c openvpn-2.5_git_57d6f10.new/src/openvpn/options.c
+--- openvpn-2.5_git_57d6f10.old/src/openvpn/options.c	2018-07-28 06:02:29.000000000 -0400
++++ openvpn-2.5_git_57d6f10.new/src/openvpn/options.c	2018-07-28 06:02:29.000000000 -0400
+@@ -200,8 +200,10 @@
      "--route-ipv6 network/bits [gateway] [metric] :\n"
      "                  Add IPv6 route to routing table after connection\n"
      "                  is established.  Multiple routes can be specified.\n"
@@ -66,7 +63,7 @@ index b89f4ba2..0d11e968 100644
      "--route-metric m : Specify a default metric for use with --route.\n"
      "--route-delay n [w] : Delay n seconds after connection initiation before\n"
      "                  adding routes (may be 0).  If not specified, routes will\n"
-@@ -6197,6 +6199,18 @@ add_option(struct options *options,
+@@ -6301,6 +6303,18 @@
              }
          }
      }
@@ -85,11 +82,10 @@ index b89f4ba2..0d11e968 100644
      else if (streq(p[0], "route-metric") && p[1] && !p[2])
      {
          VERIFY_PERMISSION(OPT_P_ROUTE);
-diff --git a/src/openvpn/options.h b/src/openvpn/options.h
-index 3a6c33f8..66d45081 100644
---- a/src/openvpn/options.h
-+++ b/src/openvpn/options.h
-@@ -329,6 +329,7 @@ struct options
+diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/options.h openvpn-2.5_git_57d6f10.new/src/openvpn/options.h
+--- openvpn-2.5_git_57d6f10.old/src/openvpn/options.h	2018-07-28 06:02:29.000000000 -0400
++++ openvpn-2.5_git_57d6f10.new/src/openvpn/options.h	2018-07-28 06:02:29.000000000 -0400
+@@ -341,6 +341,7 @@
      const char *route_script;
      const char *route_predown_script;
      const char *route_default_gateway;
@@ -97,6 +93,3 @@ index 3a6c33f8..66d45081 100644
      int route_default_metric;
      bool route_noexec;
      int route_delay;
--- 
-2.17.1
-

@@ -1,7 +1,7 @@
-diff -u -r -x .DS_Store openvpn-2.3_git_ec0c1dc/src/openvpn/forward.c openvpn-2.3_git_ec0c1dc_/src/openvpn/forward.c
---- openvpn-2.3_git_ec0c1dc/src/openvpn/forward.c	2016-06-20 11:25:26.000000000 -0400
-+++ openvpn-2.3_git_ec0c1dc_/src/openvpn/forward.c	2016-06-21 11:25:22.000000000 -0400
-@@ -679,7 +679,10 @@
+diff -u -r -x .DS_Store openvpn-2.3.18.old/src/openvpn/forward.c openvpn-2.3.18.new/src/openvpn/forward.c
+--- openvpn-2.3.18.old/src/openvpn/forward.c	2018-07-28 06:02:22.000000000 -0400
++++ openvpn-2.3.18.new/src/openvpn/forward.c	2018-07-28 06:02:23.000000000 -0400
+@@ -674,7 +674,10 @@
  
    status = link_socket_read (c->c2.link_socket,
  			     &c->c2.buf,
@@ -13,7 +13,7 @@ diff -u -r -x .DS_Store openvpn-2.3_git_ec0c1dc/src/openvpn/forward.c openvpn-2.
  
    if (socket_connection_reset (c->c2.link_socket, status))
      {
-@@ -1176,7 +1179,10 @@
+@@ -1223,7 +1226,10 @@
  	    /* Send packet */
  	    size = link_socket_write (c->c2.link_socket,
  				      &c->c2.to_link,
@@ -23,5 +23,5 @@ diff -u -r -x .DS_Store openvpn-2.3_git_ec0c1dc/src/openvpn/forward.c openvpn-2.
 +				      c->options.ce.xormask,
 +				      c->options.ce.xormasklen);
  
+ #ifdef ENABLE_SOCKS
  	    /* Undo effect of prepend */
- 	    link_socket_write_post_size_adjust (&size, size_delta, &c->c2.to_link);

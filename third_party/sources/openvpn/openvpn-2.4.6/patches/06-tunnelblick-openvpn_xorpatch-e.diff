@@ -1,6 +1,7 @@
---- openvpn-2.4.1/src/openvpn/socket.h	2017-03-22 11:34:21.000000000 -0400
-+++ openvpn-2.4.1_/src/openvpn/socket.h	2017-03-23 11:23:22.000000000 -0400
-@@ -249,6 +249,10 @@
+diff -u -r -x .DS_Store openvpn-2.4.6.old/src/openvpn/socket.h openvpn-2.4.6.new/src/openvpn/socket.h
+--- openvpn-2.4.6.old/src/openvpn/socket.h	2018-07-28 06:02:25.000000000 -0400
++++ openvpn-2.4.6.new/src/openvpn/socket.h	2018-07-28 06:02:25.000000000 -0400
+@@ -248,6 +248,10 @@
  #endif
  };
  
@@ -11,7 +12,7 @@
  /*
   * Some Posix/Win32 differences.
   */
-@@ -1054,30 +1058,61 @@
+@@ -1053,30 +1057,61 @@
  static inline int
  link_socket_read(struct link_socket *sock,
                   struct buffer *buf,
@@ -77,7 +78,7 @@
  }
  
  /*
-@@ -1167,8 +1202,39 @@
+@@ -1166,8 +1201,39 @@
  static inline int
  link_socket_write(struct link_socket *sock,
                    struct buffer *buf,
