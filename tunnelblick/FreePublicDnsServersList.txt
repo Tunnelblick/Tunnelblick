@@ -4,11 +4,14 @@ Updated: 2018-02-04 11:20 from https://www.lifewire.com/free-and-public-dns-serv
 
 Added 114dns, alidns, dnspod, and baiduDNS in PR #433 (https://github.com/Tunnelblick/Tunnelblick/pull/433)
 
+2018-07-29: Added Cloudflare and APNIC
+
 Provider	Primary DNS Server	Secondary DNS Server
 114dns	114.114.114.114	114.114.115.115
 alidns	223.5.5.5	223.6.6.6
 Alternate DNS12	198.101.242.72	23.253.163.53
 baiduDNS	180.76.76.76
+Cloudflare and APNIC 1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001
 Comodo Secure DNS	8.26.56.26	8.20.247.20
 DNS.WATCH	84.200.69.80	84.200.70.40
 dnspod	119.29.29.29
