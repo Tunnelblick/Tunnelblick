@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "Pulihkan";
 
+/* Button text */
+"Retry with manual response" = "Coba lagi dengan respon manual";
+
 /* Button */
 "Retry" = "Coba lagi";
 
@@ -482,6 +485,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Atur nameserver (alternatif 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Atur nameserver (alternatif 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Atur nameserver";
 
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "Ketika Tersambung";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Dari server VPN untuk %1$@:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Memasang %lu konfigurasi\n\n";
 
@@ -792,6 +801,9 @@
 "  • Secure configurations\n" = "  • Mengamankan konfigurasi\n";
 
 /* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ adalah software bebas: Anda boleh mendistribusikan ulang dan/atau mengubahnya dengan mengikuti persyaratan %2$@ sebagaimana dipublikasikan oleh %3$@.\n\n%4$@ adalah merk terdaftar dari OpenVPN Inc.";
+
+/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Apakah Anda hendak memasang %1$@ ke %2$@%3$@?\n\n";
 
 /* Window text */
@@ -848,6 +860,9 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Preferensi 'easy-rsaPath' diabaikan; itu mesti berupa path absolut atau dimulai dengan '~'";
 
+/* Window text */
+"(An error occurred creating the help content.)" = "(Terjadi kesalahan saat membuat isi bantuan.)";
+
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Pencatatan log dimatikan.)";
 
@@ -862,6 +877,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(bila tersambung ketika pengguna berganti)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Berbasis Tunnelblick, perangkat lunak bebas yang tersedia di<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN adalah merk dagang terdaftar dari OpenVPN Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Versi Tunnelblick ini berusia %lu hari.</p><p>Harap periksa adanya versi yang lebih baru:</p><ul><li>Secara manual pada panel 'Preferensi' dari jendela 'Rincian VPN' Tunnelblick; atau<br></li><li>Dengan mencari versi yang lebih baru pada <a href=\"https://tunnelblick.net/downloads.html\">halaman Unduh Tunnelblick</a>[tunnelblick.net].</li></ul>";
@@ -1320,6 +1338,21 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Satu atau beberapa proses OpenVPN sedang berjalan, tetapi tidak dikenali oleh Tunnelblick. Jika anda tidak menjalankan OpenVPN terpisah dari Tunnelblick, ini biasanya karena peluncuran Tunnelblick yang lalu tidak terhenti dengan benar dan Anda harus menghentukannya. Proses-proses tersebut bisa mencampuri jalannya Tunnelblick.\n\nMereka bisa dihentikan melalui aplikasi \"Activity Monitor\".\n\n";
 
 /* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Satu atau beberapa konfigurasi VPN yang sedang Anda pasang mencakup opsi OpenVPN yang tidak dikenali oleh Tunnelblick. Itu mungkin karena kesalahan dalam konfigurasi atau kesalahan di Tunnelblick, atau konfigurasi tersebut mungkin mencakup program yang akan dijalankan sebagai root saat Anda tersambung ke VPN. Program semacam itu bisa MENGAMBIL ALIH KENDALI KOMPUTER ANDA SEPENUHNYA.\n\nANDA SEBAIKNYA TIDAK MEMASANG KONFIGURASI INI KECUALI ANDA MEMPERCAYAI PENULISNYA.\n\nApakah Anda mempercayai penulis konfigurasi tersebut dan mau memasangnya?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Satu atau beberapa konfigurasi VPN yang sedang dipasang mengandung program yang akan dijalankan sebagai root saat Anda tersambung ke VPN. Program-program ini adalah bagian dari konfigurasi dan bukan bagian dari aplikasi Tunnelblick. Mereka bisa MENGAMBIL ALIH KENDALI KOMPUTER ANDA SEPENUHNYA.\n\nANDA SEBAIKNYA TIDAK MEMASANG KONFIGURASI INI KECUALI ANDA MEMPERCAYAI PEMBUATNYA.\n\nApakah Anda mempercayai pembuat konfigurasi ini dan hendak memasangnya?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Satu atau lebih konfigurasi VPN yang sedang dipasang termasuk program yang akan berjalan ketika Anda menyambung ke suatu VPN. Program-program ini adalah bagian dari konfigurasi dan bukan bagian dari aplikasi Tunnelblick.\n\nAnda mesti memasang konfigurasi ini hanya bila Anda percaya pada pembuatnya.\n\nApakah Anda mempercayai pembuat konfigurasi dan hendak memasang mereka?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Satu atau beberapa konfigurasi VPN yang sedang diperbarui mengandung program yang akan dijalankan sebagai root saat Anda tersambung ke VPN. Program-program ini adalah bagian dari konfigurasi dan bukan bagian dari aplikasi Tunnelblick. Mereka bisa MENGAMBIL ALIH KENDALI KOMPUTER ANDA SEPENUHNYA.\n\nANDA SEBAIKNYA TIDAK MEMASANG KONFIGURASI INI KECUALI ANDA MEMPERCAYAI PEMBUATNYA.\n\nApakah Anda mempercayai pembuat konfigurasi ini dan hendak memasangnya?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Satu atau lebih konfigurasi VPN yang sedang diperbarui termasuk program yang akan berjalan ketika Anda menyambung ke suatu VPN. Program-program ini adalah bagian dari konfigurasi dan bukan bagian dari aplikasi Tunnelblick.\n\nAnda mesti memasang konfigurasi ini hanya bila Anda percaya pada pembuatnya.\n\nApakah Anda mempercayai pembuat konfigurasi dan hendak memasang mereka?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Satu atau lebih VPN saat ini sedang tersambung. Harap putuskan semua VPN dan keluar Tunnelblick sebelum melanjutkan.";
 
 /* Window text */
@@ -1354,6 +1387,9 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' mengandung karakter yang tidak diijinkan.\n\nKarakter yang tidak diijinkan: '%2$s'\n\n";
+
+/* Window text */
+"Please check for a newer version." = "Harap periksa adanya versi yang lebih baru.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Harap masukkan suatu nama dan klik \"OK\" atau klik \"Batal\".\n\n";
@@ -1554,6 +1590,9 @@
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%1$@' memuat opsi-opsi OpenVPN ini:\n\n%2$@\nTidak ada versi OpenVPN yang disertakan dalam versi Tunnelblick ini termasuk opsi itu.\n\nAnda mesti memutakhirkan konfigurasi sehingga itu dapat dipakai dengan versi modern OpenVPN.";
 
 /* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "VPN ini meminta Anda merespon ke suatu pertanyaan tapi belum memberikan pertanyaannya.";
+
+/* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Alamat yang terlihat sebagai IP publik komputer ini tidak berbeda setelah menyambung ke %1$@. Itu masih %2$@.\n\nIni mungkin berarti bahwa VPN Anda tidak dikonfigurasi secara benar.\n\n";
 
 /* Window text */
@@ -1630,6 +1669,9 @@
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick tidak dapat menemukan file konfigurasi atau file konfigurasi tidak dapat dibersihkan. Lihat Console Log untuk lebih detil.";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "Tunnelblick tidak bisa memuat suatu kext";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat memindahkan konfigurasi '%@'. Lihat Console Log untuk lebih detil.";

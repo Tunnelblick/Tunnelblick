@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "Gjenopprett";
 
+/* Button text */
+"Retry with manual response" = "Prøv på nytt med manuelt svar";
+
 /* Button */
 "Retry" = "Prøv igjen";
 
@@ -237,7 +240,7 @@
 "Show when connection status changes" = "Vis når en oppkoblingsstatus endres";
 
 /* Button */
-"Show while connecting and connected" = "Vis under tilkobling og tilkoblet";
+"Show while connecting and connected" = "Vis mens det tilkobles, samt når det er tilkoblet";
 
 /* Button */
 "Show while connecting" = "Vis mens det kobles opp";
@@ -481,6 +484,9 @@
 
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Sett navnetjener (alternate 1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Konfigurer navnetjener (alternativ 2)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Sett navnetjener";
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "Når oppkoblet…";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Fra VPN tjeneren for %1$@:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • installere %lu konfigurasjoner\n\n";
 
@@ -850,6 +859,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' innstilling ignorert; Det må være en absolutt bane eller starte med ' ~'";
+
+/* Window text */
+"(An error occurred creating the help content.)" = "(Det oppstod en feil under generering av hjelp).";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Loggføring av deaktivert.)";
@@ -990,7 +1002,7 @@
 "Backslash at end of line %u is not allowed" = "Bakoverskråstrek på slutten av linjen %u er ikke tillatt";
 
 /* Window text */
-"Cancelled trying to quit all OpenVPN processes" = "Avbrutt mens forsøkte å avslutte alle OpenVPN-prosesser";
+"Cancelled trying to quit all OpenVPN processes" = "Ble avbrutt under terminering av alle OpenVPN-prosesser";
 
 /* Window text */
 "Cannot find configuration file at %@" = "Finner ikke konfigurasjonsfilen på %@";
@@ -1326,6 +1338,21 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "En eller flere OpenVPN prosesser som er igang er ukjent for Tunnelblick. Hvis du ikke har noe OpenVPN separat fra Tunnelblick, betyr dette vanligvis at en tidligere startet Tunnelblick ikke kunne avslutte de skikkelig, og de burde avsluttes. De vil sannsynligvis blande seg i Tunnelblick sin virksomhet.\n\nDe kan avsluttes i 'Aktivitetsmonitor' applikasjonen.\n\n";
 
 /* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "En eller flere av VPN-konfigurasjonene du installerer inkluderer OpenVPN-opsjoner som ikke gjenkjennes av Tunnelblick. Det kan være en feil i konfigurasjonen eller en feil i Tunnelblick. Det kan også være at konfigurasjonene inneholder programmer som kjører som 'root' når du kobler til et VPN. Slike programmer vil kunne ta FULLSTENDIG KONTROLL OVER DIN DATAMASKIN.\n\nDU BURDE IKKE INSTALLERE DISSE KONFIGURASJONENE OM DU IKKE STOLER PÅ DEM.\n\nStoler du på denne konfigurasjonen eller den som har skrevet den, og ønsker du å installere den?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Én eller flere VPN-konfigurasjoner som holder på å installeres, inkluderer programmer som vil kjøre som root når man oppretter en VPN-forbindelse.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURASJONENE MED MINDRE DU STOLER PÅ DERES FORFATTER.\n\nStoler du på forfatteren av konfigurasjonene og ønsker å installere dem?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Én eller flere VPN-konfigurasjoner som holder på å installeres, inkluderer programmer som vil kjøre som root når man oppretter en VPN-forbindelse.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURASJONENE MED MINDRE DU STOLER PÅ DERES FORFATTER.\n\nStoler du på forfatteren av konfigurasjonene og ønsker å installere dem?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Én eller flere VPN-konfigurasjoner som holder på å oppdateres, inkluderer programmer som vil kjøre som root når man oppretter en VPN-forbindelse.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURASJONENE MED MINDRE DU STOLER PÅ DERES FORFATTER.\n\nStoler du på forfatteren av konfigurasjonene og ønsker å installere dem?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Én eller flere VPN-konfigurasjoner som holder på å oppdateres, inkluderer programmer som vil kjøre som root når man oppretter en VPN-forbindelse.\n\nDU BØR IKKE INSTALLERE DISSE KONFIGURASJONENE MED MINDRE DU STOLER PÅ DERES FORFATTER.\n\nStoler du på forfatteren av konfigurasjonene og ønsker å installere dem?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "En eller flere VPN-er er tilkoblet. Vennligst koble fra alle VPN-er og avslutt Tunnelblick før du fortsetter.";
 
 /* Window text */
@@ -1360,6 +1387,9 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Stien '%1$@' inneholder tegn som ikke er tillatt.\n\nTegn som ikke er tillatt: '%2$s'\n\n";
+
+/* Window text */
+"Please check for a newer version." = "Vennligst sjekk om en nyere versjon finnes.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Vennligst skriv inn et navn og klikk \"OK\" eller klikk \"Avbryt\".\n\n";
@@ -1557,7 +1587,10 @@
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Denne 'utrullede' versjonen av Tunnelblick kan ikke startes eller installeres siden den mangler Info.plist.\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Denne VPN kan tilkobling mislykkes.\n\nOpenVPN konfigurasjonsfilen for '%1$@' inneholder disse OpenVPN instillingene:\n\n%2$@\nDet er ingen versjon av OpenVPM som kommer med Tunnelblick som har instillingen(e).\n\nDu burde oppdatere konfigurasjonen så den kan bli bruk at en mer moderen fershon av OpenVPN.";
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Denne VPN-forbindelsen kan ikke tilkobles.\n\nOpenVPN konfigurasjonsfilen for '%1$@' inneholder disse OpenVPN instillingene:\n\n%2$@\nDet er ingen versjon av OpenVPN som kommer med denne versjonen av Tunnelblick som har disse innstillingen(e).\n\nDu burde oppdatere konfigurasjonen så den kan bli brukt av nyere versjoner av OpenVPN.";
+
+/* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "Denne VPN-forbindelsen krever at du svarer på et spørsmål, men har ikke sendt spørsmålet.";
 
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Denne datamaskinens offentlige IP adresse ble ikke endret etter oppkobling til %1$@. Den er fortsatt %2$@.\n\nDette kan bety at din VPN ikke er korrekt konfigurert.\n\n";
@@ -1636,6 +1669,9 @@
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick kunne ikke finne konfigurasjonsfilen, eller konfigurasjonsfilen kunne ikke renses for sensitive data. Se konsolloggen for detaljer.";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "Tunnelblick klarte ikke å laste inn en kext (operativsystemutvidelse)";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick klarte ikke å flytte '%@'-konfigurasjonen. Se konsolloggen for detaljer.";

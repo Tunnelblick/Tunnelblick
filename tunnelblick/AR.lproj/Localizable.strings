@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "إستعادة";
 
+/* Button text */
+"Retry with manual response" = "إعادة المحاولة بإستجابة يدوية";
+
 /* Button */
 "Retry" = "إعادة المحاولة";
 
@@ -471,19 +474,22 @@
 "Show when the pointer is over the Tunnelblick icon" = "إظهار في حال كان المؤشر على أيقونة البرنامج";
 
 /* PopUpButton */
-"Do not set nameserver" = "عدم ضبط ال النيمسرفير";
+"Do not set nameserver" = "عدم ضبط النيم سيرفر";
 
 /* PopUpButton */
-"Set nameserver (3.0b10)" = "حدد النيمسرفير (3.0b10)";
+"Set nameserver (3.0b10)" = "ضبط النيم سيرفر (3.0b10)";
 
 /* PopUpButton */
-"Set nameserver (3.1)" = "حدد النيمسرفير )3.1(";
+"Set nameserver (3.1)" = "ضبط النيم سيرفر (3.1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 1)" = "ضبط النيمسرفير (بديل 1)";
+"Set nameserver (alternate 1)" = "ضبط النيم سيرفر (بديل 1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "ضبط النيم سيرفر (بديل 2)";
 
 /* PopUpButton *//* System profile item */
-"Set nameserver" = "اعداد النيمسرفير";
+"Set nameserver" = "اعداد النيم سيرفر";
 
 /* Text on disk image */
 "Double-click to begin" = "نقر مزدوج للبدء";
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "في حين متصل";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     من الخادم %1$@ لـ %2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     تم تحميل %lu الاعدادات";
 
@@ -851,6 +860,9 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "تم تجاهل االاختيار'easy-rsaPath'; يجب ان يكون المسار مطلقا او يبدا ب '~'";
 
+/* Window text */
+"(An error occurred creating the help content.)" = "(حدث خطأ في إنشاء محتوى المساعده)";
+
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(التسجيل معطل.)";
 
@@ -868,6 +880,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>مبني على تُنلـبليك، برنامج مجاني يمكن الحصول عليه من خلال <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN علامة مسجلة لشركة OpenVPN Technologies, Inc.";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>هذا الإصدار من Tunnelblick يرجع لـ%lu يوم.</p>\n<p>الرجاء إستخدام إصدار أحدث:</p>\n<ul><li>يدوياً من خلال الذهاب لقائمة 'الإعدادات' في Tunnelblick ثم 'تفاصيل شبكات VPN'؛ أو <br></li><li> من خلال تحميل آخر إصدار من الموقع <a href=\"https://tunnelblick.net/downloads.html\"> تحميل Tunnelblick\n</a>[tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "يشير المفتاح TBAlways او ListPreference إلى اختيارغير معروف '%1$@' في %2$@";
@@ -1251,7 +1266,7 @@
 "Modified configuration file to remove path information" = "تم تعديل ملف الاعدادات لإلغاء بيانات المسار";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "يمكن انشاء اتصالات متعددة (%1$d باستخدام ‘Set nameserver‘، %2$d بدون استخدام ’اعداد النيمسرفير’).";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "يمكن انشاء اتصالات متعددة (%1$d باستخدام ‘Set nameserver‘، %2$d بدون استخدام ’اعداد النيم سيرفر’).";
 
 /* Window text */
 "Named Credentials" = "الوثائق الثبوتية المستخدمة";
@@ -1323,6 +1338,9 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "هناك واحدة او اكثر من عمليات OpenVPN تعمل الآن ، ولكنها غير مرتبطة ب Tunnelblick. اذا كنت لا تستخدم OpenVPN دون استخدام تُنلـبليك فهذا يعنى وجود نسخة قديمة من البرنامج لم يتم اغلاقها بعد ، ويجب اغلاقها لكي تعمل النسخة الجديدة.\n\nيمكن اغلاق هذه العمليات عن طريق منظم العمليات Activity Monitor.\n\n";
 
 /* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "هناك واحد أو أكثر من إعدادات الـVPN التي يتم تثبيتها تتضمن إعدادات OpenVPN غير معرفة للبرنامج، ويمكن ان تسبب بعض المشاكل او تقوم بتشغيل بعض البرامج بصلاحيات متقدمة عند الاتصال.\n\nلا تقم بالتثبيت الا اذا كنت تثق فى مقدم تلك الاعدادات.\n\nهل تثق بمقدم تلك الاعدادات وتريد تثبيتها ؟\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "هناك اتصال VPN جار الآن. برجاء اغلاق جميع اتصالات VPN واغلاق البرنامج قبل المواصلة.";
 
 /* Window text */
@@ -1357,6 +1375,9 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "عنوان الدليل ‘%1$@‘ يحتوي على رموز غير مسموحة.\n\nالرموز غير المسموحة هي: ‘%2$s‘\n\n";
+
+/* Window text */
+"Please check for a newer version." = "الرجاء التحديث لإصدار أحدث.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "الرجاء أدخل الإسم المطلوب ثم إضغط \"موافق\" ،أو إضغط \"إلغاء\".\n\n";
@@ -1473,7 +1494,7 @@
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "تم الغاء محاولة الاتصال بـ %1$@: برنامج runOnConnect اصدر الحالة الاستثنائية: %2$ld.";
 
 /* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "اعدادات الاتصال في الملف ‘%@‘ تستخدم الاعداد ‘المستخدم‘ أو الاعداد ‘مجموعة‘ مع سكريبت انهاء للاتصال (الحالة: اعداد ‘عدم ضبط الـ النيمسرفير‘ غير مفعل أو وجود اجراءات خاصة عند ‘انهاء الاتصال‘ في ملف الاعدادات).\n\nفي مثل هذه الحالة اعادة انشاء الاتصال (تلقائيا عند فقد الاتصال) سوف يفشل مالم يستخدم البرنامج المساعد ‘openvpn-down-root.so‘ مع الـ OpenVPN.\n\nهل تود استخدام البرنامج المساعد؟";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "اعدادات الاتصال في الملف ‘%@‘ تستخدم ‘المستخدم‘ و/أو ‘مجموعة‘ مع سكريبت انهاء للاتصال (الحالة: اعداد ‘عدم ضبط الـ النيم سيرفر‘ غير مفعل أو وجود اجراءات خاصة عند ‘انهاء الاتصال‘ في ملف الاعدادات).\n\nفي مثل هذه الحالة اعادة انشاء الاتصال (تلقائيا عند فقد الاتصال) سوف يفشل مالم يستخدم البرنامج المساعد ‘openvpn-down-root.so‘ مع الـ OpenVPN.\n\nهل تود استخدام البرنامج المساعد؟";
 
 /* Window text */
 "The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "ملف اعدادات الاتصال ‘%@‘ لا يحتوي على أحد الخيارات التالية: ‘جهاز تون‘، ‘جهاز يوتون‘، ‘جهاز تاب‘. هذه الخيارات اساسية لعمل برنامج تُنلـبليك. راجع وثائق OpenVPN وادارة شبكتك المحلية لاختيار الخيار المناسب.";
@@ -1553,6 +1574,12 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "نسخة تُنلـبليك المستخدمة لا يمكن اقلاعها أو تثبيتها لأنها تفتقد ملف Info.plist.\n\n";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "هذه الشبكة الخاصة غير قادرة على الإتصال.\n\nملف إعدادات OpenVPN لهذه الشبكة '%1$@' يحتوي على الإعدادات التالية:\n%2$@\nهذا الإصدار من Tunnelblick لا يدعم الإعدادات المتضمنه في ملف الـOpenVPN.\nيرجى، تحديث إعدادات الـOpenVPN حتى تتمكن من إستخدامه مع الإصدارات الحديثة لـOpenVPN.";
+
+/* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "هذه الشبكة الخاصة تتطلب الإجابه على سؤال، ولكن لم تتم الإجابه عليه.";
+
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "عنوان جهاز الكمبيوتر الظاهر (public IP) لم يتغير بعد الاتصال بـ %1$@. لا يزال العنوان %2$@.\n\nهذه الحالة قد تنجم عن خطأ في اعدادات اتصال VPN.\n\n";
 
@@ -1591,6 +1618,9 @@
 
 /* Window text */
 "Tunnelblick Internet Use:" = "استخدام برنامج تُنلـبليك للانترنت:";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check for updates when it is launched and periodically while it is running.\n\n" = "Tunnelblick قادر على تحديث %@ عند بدأ التشغيله و بشكل دوري أثناء العمل.";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "تعذر اعداد الاقلاع التلقائي لبرنامج تُنلـبليك عند تسجيل دخول المستخدم.";

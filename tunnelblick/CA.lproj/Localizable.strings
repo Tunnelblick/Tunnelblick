@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "Restablir";
 
+/* Button text */
+"Retry with manual response" = "Torneu a provar amb resposta manual";
+
 /* Button */
 "Retry" = "Reintentar";
 
@@ -482,6 +485,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Configura el servidor de noms (alt. 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Configura el servidor de noms (alternatiu 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Configurar el servidor de noms";
 
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "Mentre estigui connectat";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Des del servidor VPN per a %1$@:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • S'han instal·lat %lu configuracions\n\n";
 
@@ -850,6 +859,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "La preferència 'easy-rsaPath' no s'ha tingut en compte; ha de ser un camí absolut o començar amb '~'";
+
+/* Window text */
+"(An error occurred creating the help content.)" = "(S'ha produït un error en crear el contingut de l'ajuda.)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Registre de missatges deshabilitat.)";
@@ -1326,6 +1338,21 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Un o més processos OpenVPN estan funcionant però són desconeguts per Tunnelblick. Si, per la teva part, no estàs utilitzant OpenVPN, això significa que una execució prèvia de Tunnelblick no ha tancat bé totes les connexions i ara les hauria de matar. Aquestes poden interferir amb el bon funcionament de Tunnelblick.\n\nEs poden aturar mitjançat el 'Monitor d'Activitat'.\n\n";
 
 /* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més de les configuracions VPN que està instal·lant inclouen opcions d'OpenVPN que no són reconegudes per Tunnelblick. Es pot tractar d'un error en la configuració o d'un error a Tunnelblick, o la configuració pot incloure programes que s'executaran com a root quan es connecti la VPN. Aquests programes poden PRENDRE CONTROL TOTAL DE LA SEVA MÀQUINA.\n\nNO HAURIA D'INSTAL·LAR AQUESTES CONFIGURACIONS A MENYS QUE CONFIÏ EN ELS AUTORS.\n\nConfia en els autors i desitja instal·lar aquestes configuracions?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més configuracions VPN que s'estan instal·lant inclouen programes que s'exectaran com a root quan es connecti a una VPN. Aquests programes formen part de la configuració i no formen part de l'aplicació Tunnelblick. Aquests són capaços de PRENDRE EL CONTROL COMPLET DEL SEU ORDINADOR.\n\nNO HAURIA D'INSTAL·LAR AQUESTES CONFIGURACIONS A NO SER QUE CONFIÏ EN L'AUTOR DE LES MATEIXES.\n\nConfia en l'autor de les configuracions i desitja instal·lar-les?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més configuracions VPN que s'estan instal·lant inclouen programes que s'exectaran quan es connecti a una VPN. Aquests programes formen part de la configuració i no formen part de l'aplicació Tunnelblick.\n\nNomés ha d'instal·lar aquestes configuracions si confia en el seu autor.\n\nConfia en l'autor de les configuracions i desitja instal·lar-les?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més configuracions VPN que s'estan actualitzant inclouen programes que s'exectaran com a root quan es connecti a una VPN. Aquests programes formen part de la configuració i no formen part de l'aplicació Tunnelblick. Aquests són capaços de PRENDRE EL CONTROL COMPLET DEL SEU ORDINADOR.\n\nNO HAURIA D'INSTAL·LAR AQUESTES CONFIGURACIONS A NO SER QUE CONFIÏ EN EL SEU AUTOR.\n\nConfia en l'autor de les configuracions i desitja instal·lar-les?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més configuracions VPN que s'estan actualitzant inclouen programes que s'exectaran quan es connecti a una VPN. Aquests programes formen part de la configuració i no formen part de l'aplicació Tunnelblick.\n\nNomés ha d'instal·lar aquestes configuracions si confia en el seu autor.\n\nConfia en l'autor de les configuracions i desitja instal·lar-les?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Una o més VPNs estan actualment connectades. Si us plau, desconnecta totes les VPNs i surt de Tunnelblick abans de continuar.";
 
 /* Window text */
@@ -1360,6 +1387,9 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "El camí '%1$@' conté caràcters que no estan permesos.\n\nCaràcters no permesos: '%2$s'\n\n";
+
+/* Window text */
+"Please check for a newer version." = "Per favor, comprovi si hi ha una versió més nova.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Entra un nom i fes click a \"OK\" or a \"Cancel\", si us plau.\n\n";
@@ -1560,6 +1590,9 @@
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Aquesta VPN no es pot connectar.\n\nEl fitxer de configuració OpenVPN per a '%1$@' conté aquestes opcions OpenVPN:\n\n%2$@\nCap de les versions d'OpenVPN incloses en aquesta versió de Tunnelblick inclouen estes opcions.\n\nHeu d'actualitzar la configuració perquè pugui utilitzar-se amb versions modernes d'OpenVPN.";
 
 /* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "Aquesta VPN requereix que respongui a una pregunta, però no ha proporcionat la pregunta.";
+
+/* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "L'adreça IP aparent d'aquesta màquina no ha canviat després de connectar a %1$@. Segueix sent %2$@.\n\nAixò pot indicar que la teva configuració VPN és incorrecta.\n\n";
 
 /* Window text */
@@ -1636,6 +1669,9 @@
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick no ha pogut trobar l'arxiu de configuració o l'arxiu de configuració no s'ha pogut preparar. Vegeu el registre per a més detalls.";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "Tunnelblick no ha pogut carregar un kext";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick no ha pogut moure la configuració '%@'. Consulta la Consola de missatges per més informació.";

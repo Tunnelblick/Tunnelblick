@@ -215,11 +215,20 @@
 /* Button */
 "Restore" = "Obnovi";
 
+/* Button text */
+"Retry with manual response" = "Ponovi sa ručnim postavkama";
+
 /* Button */
 "Retry" = "Ponovi";
 
 /* Button */
+"Revert to the Last Secured Copy" = "Vrati zadnju snimljenu kopiju";
+
+/* Button */
 "Revert" = "Vrati";
+
+/* Button */
+"Secure the Configuration" = "Snimi postavke";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Prikaži na zadanom zaslonu (%1$u x %2$u)";
@@ -229,6 +238,9 @@
 
 /* Button */
 "Show when connection status changes" = "Prikaži kada se stanje veze promijeni";
+
+/* Button */
+"Show while connecting and connected" = "Prikaži tokom povezivanja i kad je VPN povezan";
 
 /* Button */
 "Show while connecting" = "Prikaži dok se spaja";
@@ -322,6 +334,12 @@
 
 /* Menu Item */
 "OpenVPN level 3 - normal output" = "OpenVPN razina 3 - normalan ispis";
+
+/* Menu Item */
+"OpenVPN level 4 - values for all options" = "OpenVPN nivo 4 - vrijednosti svih opcija";
+
+/* Menu Item */
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN nivo 5 - \"R\" ili \"W\" za svaki paket";
 
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPN razina 6 - jako opširn ispis";
@@ -452,6 +470,9 @@
 /* Checkbox name */
 "Show when disconnected" = "Prikaži kad odspojen";
 
+/* Checkbox name */
+"Show when the pointer is over the Tunnelblick icon" = "Prikaži kada je pokazivač iznad Tunnelblick simbola";
+
 /* PopUpButton */
 "Do not set nameserver" = "Ne postavi imenski poslužitelj";
 
@@ -463,6 +484,9 @@
 
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Postavi imenski poslužitelj (alternativa 1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Postavi domenski poslužitelj (dodatni)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Postavi imenski poslužitelj";
@@ -504,6 +528,9 @@
 "RECONNECTING" = "Ponovno povezivanje"; // Please translate ""
 
 /* Connection status */
+"SLEEP" = "Čekanje procesa u pozadini"; // Please translate "Waiting for daemon process"
+
+/* Connection status */
 "TCP_CONNECT" = "Ostvarivanje TCP konekcije"; // Please translate "Making TCP connection"
 
 /* Connection status */
@@ -528,7 +555,19 @@
 " (Shared)" = " (Djeljeno)"; // Indicates a shared configuration
 
 /* Window title */
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN konfiguracija - Tunnelblick";
+
+/* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@Odspojeno - Napredne Postavke%3$@";
+
+/* Window title */
+"'%@' has been disconnected" = "'%@' je odspojen";
+
+/* Window title */
 "Active connection" = "Aktivna konekcija";
+
+/* Window title */
+"Add a Configuration" = "Dodaj konfiguraciju";
 
 /* Window title */
 "Alert sounds" = "Zvukovi upozorenja";
@@ -742,6 +781,18 @@
 
 /* Window text */
 "(Never checked)" = "(Nikad ne provjeravaj)";
+
+/* Window text */
+"Add Credentials" = "Dodaj vjerodajnice";
+
+/* Window text */
+"All OpenVPN processes have quit" = "Svi OpenVPN procesi su završeni";
+
+/* Window text */
+"All configuration files have been removed. Tunnelblick must quit." = "Sve konfiguracijske datoteke su uklonjene. Tunnelblick će se ugasiti.";
+
+/* Window text */
+"All configurations use %@ credentials" = "Sve konfiguracije koriste %@ akreditacije";
 
 /* Window text */
 "B/s" = "B/s";

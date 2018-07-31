@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "Palauta";
 
+/* Button text */
+"Retry with manual response" = "Yritä uudelleen manuaalilla vastauksella";
+
 /* Button */
 "Retry" = "Yritä uudelleen";
 
@@ -315,7 +318,7 @@
 "Make Configuration Shared..." = "Jaa asetukset…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "Ei OpenVPN tai Tunnelblick VPN lokikirjoitusta";
+"No OpenVPN or Tunnelblick VPN logging" = "Ei OpenVPN- tai Tunnelblick VPN-lokikirjoitusta";
 
 /* Menu item */
 "No VPN Configurations Available" = "Ei VPN-asetuksia saatavilla";
@@ -481,6 +484,9 @@
 
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Aseta nimipalvelin (vaihtoehto 1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Aseta nimipalvelin (vaihtoehto 2)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Aseta nimipalvelin";
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "Kun yhteys muodostettuna";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     VPN-palvelimelta, joka toimii %1$@:n kanssa:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Asennettu %lu konfiguraatiota\n\n";
 
@@ -847,6 +856,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath'-asetus jätetty huomiotta; sen täytyy olla absoluuttinen polku tai alkaa merkillä '~'";
+
+/* Window text */
+"(An error occurred creating the help content.)" = "(Apusisällön luonnissa tapahtui virhe.)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Lokikirjoitus on poissa käytöstä.)";
@@ -1552,6 +1564,9 @@
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Tätä VPN yhteyttä ei voida muodostaa.\n\nOpenVPN konfiguraatiotiedosto '%1$@' sisältää nämä OpenVPN asetukset:\n\n%2$@\nMikään tämän Tunnelblickin sisältämistä OpenVPN versioista ei tue näitä asetuksia.\n\nSinun tulee muokata konfiguraatiota, jotta se tukee tuoreimpia OpenVPN versioita.";
+
+/* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "Tämä VPN vaatii vastauksen kysymykseen muttei ole antanut kysymystä.";
 
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Tämän tietokoneen julkinen IP-osoite ei muuttunut, kun yhteys muodostettin kohteeseen %1$@. Se on edelleen %2$@.\n\nTämä voi tarkoittaa, että VPN:si ei ole oikein konfiguroitu.\n\n";

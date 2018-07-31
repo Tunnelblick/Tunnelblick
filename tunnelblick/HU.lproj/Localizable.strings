@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "Visszaállítás";
 
+/* Button text */
+"Retry with manual response" = "Manuális válasszal újrapróbálkozni";
+
 /* Button */
 "Retry" = "Próbáld újra";
 
@@ -481,6 +484,9 @@
 
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Névszerver beállítása (alternate 1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Névszerver beállítása (2-es alternatíva)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Névszerver beállítása";
@@ -1351,6 +1357,9 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Elérési út \"%1$@' nem engedélyezett karaktereket tartalmaz.  Nem megengedett karakterek: \"%2$s\"  \n\n";
+
+/* Window text */
+"Please check for a newer version." = "Kérjük, keressen egy új verziót.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Kérem adjon meg egy nevet és kattintson az \"OK\" gombra vagy kattintson a \"Mégse\" gombra.\n\n";

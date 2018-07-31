@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "Khôi phục lại";
 
+/* Button text */
+"Retry with manual response" = "Thử lại với phản hồi thủ công";
+
 /* Button */
 "Retry" = "Thử lại";
 
@@ -482,6 +485,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Đặt tên máy chủ (cách 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Thiết lập nameserver (cách 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Đặt tên máy chủ";
 
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "Trong khi đã kết nối";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Từ máy chủ VPN cho %1$@:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "• Cài đặt %lu cấu hình\n\n";
 
@@ -850,6 +859,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Cài đặt 'easy-rsaPath' đã bị bỏ qua; nó phải là một đường dẫn tuyệt đối hoặc bắt đầu với '~'";
+
+/* Window text */
+"(An error occurred creating the help content.)" = "(Một lỗi đã xuất hiện khi tạo nội dung trợ giúp.)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Nhật ký đã bị vô hiệu hóa.)";
@@ -1326,6 +1338,9 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Một hoặc nhiều tiến trình OpenVPN đang chạy không được Tunnelblick biết đến. Nếu bạn không đang chạy OpenVPN riêng biệt với Tunnelblick, thì điều này có nghĩa là lần chạy trước của Tunnelblick đã không thể ngừng chúng hoàn toàn và bạn nên ngừng chúng. Chúng có vẻ đang can thiệp đến các tác vụ của Tunnelblick.\n\nChúng có thể bị kết thúc trong chương trình 'Activity Monitor'.\n\n";
 
 /* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Một hoặc nhiều cấu hình VPN mà đang được cài đặt bao gồm các tuỳ chọn mà không được nhận ra bởi Tunnelblick. Đó có thể là một lỗi trong cấu hình hoặc là lỗi trong Tunnelblick, hoặc các cấu hình có bao gồm những chương trình sẽ chạy dưới quyền root khi bạn kết nối đến một mạng riêng ảo. Những chương trình như vậy sẽ có khả năng CHIẾM TOÀN QUYỀN ĐIỀU KHIỂN MÁY TÍNH CỦA BẠN.\n\nBẠN KHÔNG NÊN CÀI ĐẶT NHỮNG CẤU HÌNH NÀY TRỪ KHI BẠN TIN TƯỞNG CÁC TÁC GIẢ CỦA\n CHÚNG.\n\nBạn có tin tưởng tác giả của những cấu hình này và muốn cài đặt chúng?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Một hoặc nhiều mạng VPN đang được kết nối. Vui lòng ngắt kết nối tất cả các mạng VPN và thoát Tunnelblick trước khi tiến hành.";
 
 /* Window text */
@@ -1360,6 +1375,9 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Đường dẫn '%1$@' có chứa những ký tự không hợp lệ.\n\nCác ký tự không hợp lệ: '%2$s'\n\n";
+
+/* Window text */
+"Please check for a newer version." = "Vui lòng kiểm tra cho một phiên bản mới hơn.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Vui lòng nhập một tên và nhấn \"OK\" hay nhấn \"Cancel\".\n\n";
@@ -1486,3 +1504,24 @@
 
 /* Window text */
 "The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "Tập tin cấu hình tham khảo đến một tập tin\n\n%@\n\nmà nó không tồn tại.";
+
+/* Window text */
+"The file %@ is empty" = "Tập tin %@ rỗng";
+
+/* Window text */
+"The file %@ is missing" = "Tập tin %@ bị thiếu";
+
+/* Window text */
+"The installation or repair took too long or failed. Try again?" = "Việc cài đặt hay sửa chữa đã quá lâu hoặc bị lỗi. Thử lại?";
+
+/* Window text */
+"The passphrase was not accepted." = "Đoạn văn bản không được chấp nhận.";
+
+/* Window text */
+"There was a problem:\n\n%@" = "Đã có một lỗi:\n\n%@";
+
+/* Window text */
+"Translation by" = "Bản dịch bởi";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ đã sẵn sàng.";

@@ -44,10 +44,10 @@
 "All Users" = "تمامی کاربران";
 
 /* Button */
-"Always load Tap driver" = "همیشه درایور Tap را بارگذاری نما";
+"Always load Tap driver" = "همیشه درایور Tap را بارگذاری کن";
 
 /* Button */
-"Always load Tun driver" = "همیشه درایور Tun را بارگذاری نما";
+"Always load Tun driver" = "همیشه درایور Tun را بارگذاری کن";
 
 /* Button */
 "Always use the plugin" = "همیشه از افزونه استفاده کن";
@@ -74,10 +74,10 @@
 "Convert Configurations" = "تبدیل تنظیمات";
 
 /* Button */
-"Copy Console Log to Clipboard" = "ایجاد رونوشن از گزارش میزفرمان";
+"Copy Console Log to Clipboard" = "کپی کردن لاگ";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "ایجاد رونوشت از اطلاعات عیب‌یابی به کلیپبورد";
+"Copy Diagnostic Info to Clipboard" = "کپی اطلاعات عیب‌یابی به کلیپبورد";
 
 /* Button */
 "Create sample configuration and edit it" = "ایجاد نمونه ای از تنظیمات و تغییر دادن آن";
@@ -89,7 +89,7 @@
 "Delete Credentials" = "پاک کردن اعتبارنامه";
 
 /* Button */
-"Delete saved passphrase and try again" = "پاک کردن رمز ذخیره شده و تلاش مجدد";
+"Delete saved passphrase and try again" = "پاک کردن گذرواژه ذخیره شده و تلاش مجدد";
 
 /* Button */
 "Delete saved password and try again" = "پاک کردن گذرواژه ذخیره شده و تلاش مجدد";
@@ -134,10 +134,10 @@
 "Latest (%@)" = "آخرین (%@)";
 
 /* Button */
-"Load Tap driver automatically" = "بارگذاری درایور Tap بصورت خودکار";
+"Load Tap driver automatically" = "درایور Tap را بصورت خودکار بارگذاری کن";
 
 /* Button */
-"Load Tun driver automatically" = "بارگذاری درایور Tun بصورت خودکار";
+"Load Tun driver automatically" = "درایور Tun را بصورت خودکار بارگذاری کن";
 
 /* Button */
 "Manually" = "غیرخودکار";
@@ -152,10 +152,10 @@
 "More Info" = "اطلاعات بیشتر";
 
 /* Button */
-"Never load Tap driver" = "هرگز راه انداز Tap را بارگذاری نکن";
+"Never load Tap driver" = "هرگز درایور Tap را بارگذاری نکن";
 
 /* Button */
-"Never load Tun driver" = "هرگز راه انداز Tun را بارگذاری نکن";
+"Never load Tun driver" = "هرگز درایور Tun را بارگذاری نکن";
 
 /* Button */
 "Never show" = "هیچوقت نشان نده";
@@ -214,6 +214,9 @@
 
 /* Button */
 "Restore" = "بازیابی";
+
+/* Button text */
+"Retry with manual response" = "مجددا تلاش کنید اما اینبار response را بطور دستی وارد کنید";
 
 /* Button */
 "Retry" = "تلاش دوباره";
@@ -482,6 +485,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "مشخص کردن نام سرویس‌دهنده (جایگزین 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "مشخص کردن نام سرویس‌دهنده (جایگزین 1)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "مشخص کردن نام سرویس‌دهنده";
 
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "در حین اتصال";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     از سرور VPN برای%1$@:\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • پیکربندی %lu نصب شد\n\n";
 
@@ -851,6 +860,9 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "تنظیمات 'easy-rsaPath' رد شده است; این باید یه مسیر مطلق باشد و یا با '~' شروع شود";
 
+/* Window text */
+"(An error occurred creating the help content.)" = "(یک خطا هنگام ایجاد محتوی کمکی رخ داد.)";
+
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(گزارش دهی غیر فعال است)";
 
@@ -865,6 +877,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(اگر متصل بود زمانی که کاربر از حساب کاربری خارج شد)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>بر اساس Tunnelblick, نرم افزار رایگان از طریق <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a> در دسترس است<br><br>\nOpenVPN یه علامت تجاری ثبت شده .OpenVPN Inc می باشد.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p> این نسخه از Tunnelblick به مقدار %lu روز پیش منتشر شده.</p><p> لطفا برای چک کردن نسخه ی جدیدتر:</p><ul><li> به قسمت «تنظیمات» نرم افزار و پنجره «جزئیات VPN» رفته؛ یا <br></li><li> با رفتن به <a href=\"https://tunnelblick.net/downloads.html\"> صفحه دانلود Tunnelblick</a>[tunnelblick.net]</li></ul>";
@@ -1323,6 +1338,21 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "یک یا چند پردازه OpenVPN که برای Tunnelblick ناشناخته هستند در حال اجرا می باشند. اگر شما OpenVPN جدا از Tunnelblick اجرا ننموده اید، این بدان معنی است که اجرای پیشتر Tunnelblick نتوانسته این پردازه ها را به طور مناسب ببندد و شما باید آنها را از کار بیندازید. اینها به احتمال زیاد باعث تداخل در عملکرد Tunnelblick خواهند شد.\n\nاین پردازه ها از طریق نرم افزار 'Activity Monitor' قابل خاتمه دادن هستند.\n\n";
 
 /* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "یکی یا بیشتر از یکی از تنظیمات VPN که در حال نصب شدن است دارای گزینه هایی از OpenVPN هستند که توسط Tunnelblick شناسایی نشده اند. می تواند به دلیل ایراد در تنظیمات و یا ایراد در Tunnelblick باشند، و یا اینکه تنظیمات شامل برنامه هایی هستند که در وضعیت root پس از اتصال VPN اجرا می شوند. این گونه برنامه ها می توانند کنترل کامل رایانه شما را در دست بگیرند.\n\nشما نباید این تنظیمات را انجام دهید و برنامه ها را نصب کنید مگر اینکه به ناشر آنها اعتماد داشته باشید.\n\nآیا به ناشر این تنظیمات و برنامه ها اعتماد دارید و می خواهید آنها را نصب نمایید؟\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "یکی یا بیشتر از یکی از تنظیمات VPN که در حال نصب شدن است شامل برنامه هایی هستند که در وضعیت root پس از اتصال VPN اجرا می شوند. با اینکه این برنامه ها بخشی از تنظیمات پیکربندی هستند اما جزئی از نرم‌افزار Tunnelblick نیستند. این گونه برنامه ها می توانند کنترل کامل رایانه شما را در دست بگیرند.\n\nشما نباید این تنظیمات را انجام دهید و برنامه ها را نصب کنید مگر اینکه به ناشر آنها اعتماد داشته باشید.\n\nآیا به ناشر این تنظیمات و برنامه ها اعتماد دارید و می خواهید آنها را نصب نمایید؟\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "یکی یا بیشتر از یکی از تنظیمات VPN که در حال نصب شدن است شامل برنامه هایی هستند که در زمان اتصال VPN اجرا می شوند. با اینکه این برنامه ها بخشی از تنظیمات پیکربندی هستند اما جزئی از نرم‌افزار Tunnelblick نیستند.\n\nشما نباید این تنظیمات را انجام دهید و برنامه ها را نصب کنید مگر اینکه به ناشر آنها اعتماد داشته باشید.\n\nآیا به ناشر این تنظیمات و برنامه ها اعتماد دارید و می خواهید آنها را نصب نمایید؟\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "یکی یا بیشتر از یکی از تنظیمات VPN که در حال بروزرسانی شدن هستند شامل برنامه هایی اند که در وضعیت root پس از اتصال VPN اجرا می شوند. با اینکه این برنامه ها بخشی از تنظیمات پیکربندی هستند اما جزئی از نرم‌افزار Tunnelblick نیستند. این گونه برنامه ها می توانند کنترل کامل رایانه شما را در دست بگیرند.\n\nشما نباید این تنظیمات را انجام دهید و برنامه ها را نصب کنید مگر اینکه به ناشر آنها اعتماد داشته باشید.\n\nآیا به ناشر این تنظیمات و برنامه ها اعتماد دارید و می خواهید آنها را نصب نمایید؟\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "یکی یا بیشتر از یکی از تنظیمات VPN که در حال بروزرسانی شدن هستند شامل برنامه هایی اند که در زمان اتصال VPN اجرا می شوند. با اینکه این برنامه ها بخشی از تنظیمات پیکربندی هستند اما جزئی از نرم‌افزار Tunnelblick نیستند.\n\nشما نباید این تنظیمات را انجام دهید و برنامه ها را نصب کنید مگر اینکه به ناشر آنها اعتماد داشته باشید.\n\nآیا به ناشر این تنظیمات و برنامه ها اعتماد دارید و می خواهید آنها را نصب نمایید؟\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "یک یا چند وی پی ان متصل هستند. لطفا همه آنها را قطع نموده و قبل از ادامه از Tunnelblick خارج شوید.";
 
 /* Window text */
@@ -1633,6 +1663,9 @@
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick فایل پیکربندی و یا فایلی عاری از اطلاعات شخصی را پیدا نکرد. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "نرم‌افزار Tunnelblick نتوانست kext را بارگذاری کند.";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick نتوانست پیکربندی '%@' را جابجا نماید. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";

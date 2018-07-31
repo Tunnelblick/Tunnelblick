@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "恢复";
 
+/* Button text */
+"Retry with manual response" = "通过手动回答来重试";
+
 /* Button */
 "Retry" = "重试";
 
@@ -482,6 +485,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "选择域名服务器 (选择 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "选择域名服务器 (选择 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "选择域名服务器";
 
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "已连接时";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     来自 %1$@ VPN 的信息:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • 安装了 %lu 个配置\n\n";
 
@@ -792,6 +801,9 @@
 "  • Secure configurations\n" = "  • 保护配置\n";
 
 /* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ 是免费软件: 你可以在 %3$@ 发布的 %2$@ 的条例下重新分发和/或修改它\n\n%4$@ 是 OpenVPN 有限责任公司的注册商标.";
+
+/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " 你希望把 %1$@ 安装到 %2$@%3$@ 吗?\n\n";
 
 /* Window text */
@@ -848,6 +860,9 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' 被忽略，它的值必须是一个绝对路径，或者以 '~' 开头";
 
+/* Window text */
+"(An error occurred creating the help content.)" = "(创建帮助内容时发生错误.)";
+
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(日志功能已禁用)";
 
@@ -862,6 +877,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(用户转出时, 如果有连接)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>基于 Tunnelblick, 可在 <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a> 下载到的自由软件. <br><br>OpenVPN 是 OpenVPN 有限责任公司的注册商标.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>此版本的Tunnelblick已发布%lu天。</p><p>请检查新版本：</p><ul><li>手动检查：在Tunnelblick中VPN详情窗口的偏好面板，或者：<br></li><li>查看<a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick下载页面</a> [tunnelblick.net].</li></ul>";
@@ -1320,6 +1338,21 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "一个或多个不受 Tunnelblick 控制的 OpenVPN 进程已经在运行. 如果你没有在 Tunnelblick 之外运行 OpenVPN, 那么这通常是因为以前启动的 Tunnelblick 没有正常地退出, 你应该终止这些进程. 这些进程有可能干扰 Tunnelblick 的运行.\n\n你可以使用 '活动监视器' 去强制终止它们的运行 .\n\n";
 
 /* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "正在安装的一个或多个配置文件内包括Tunnelblick 不能识别的OpenVPN 选项。请检查配置文件是否存在错误。请特别注意，配置文件是否包含特权程序的行。这些程序将在你连接成功后以管理员的身份执行，并完全控制你的计算机。\n\n除非您绝对信任这些配置的发行者，否则您不应安装它。\n\n你是否信任配置文件发行者，并希望继续安装这些配置文件？\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在安装的一个或多个 VPN 配置包含了一些当你连接到 VPN 时必须由 root 运行的程序。这些程序是属于 VPN 配置的一部分，而不是 Tunnelblick 的一部分。他们可以完全地控制你的电脑。\n\n除非你信任它们的作者，否则你不应该安装这些配置文件。\n\n你信任这些配置文件的作者，并且愿意安装这些配置文件吗？\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在安装的一个或多个 VPN 配置包含了一些当你连接到 VPN 时会运行的一些程序。这些程序是属于 VPN 配置的一部分，而不是 Tunnelblick 的一部分。\n\n除非你信任它们的作者，否则你不应该安装这些配置文件。\n\n你信任这些配置文件的作者，并且愿意安装这些配置文件吗？\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在更新的一个或多个 VPN 配置包含了一些当你连接到 VPN 时必须由 root 运行的程序。这些程序是属于 VPN 配置的一部分，而不是 Tunnelblick 的一部分。他们可以完全地控制你的电脑。\n\n除非你信任它们的作者，否则你不应该安装这些配置文件。\n\n你信任这些配置文件的作者，并且愿意安装这些配置文件吗？\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在更新的一个或多个 VPN 配置包含了一些当你连接到 VPN 时会运行的一些程序。这些程序是属于 VPN 配置的一部分，而不是 Tunnelblick 的一部分。\n\n除非你信任它们的作者，否则你不应该安装这些配置文件。\n\n你信任这些配置文件的作者，并且愿意安装这些配置文件吗？\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "当前存在一个或多个VPN 连接, 请断开所有连接并退出Tunnelblick 以继续.";
 
 /* Window text */
@@ -1354,6 +1387,9 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "路径 '%1$@' 包含非法的字符。\n\n非法字符为：'%2$s'\n\n";
+
+/* Window text */
+"Please check for a newer version." = "请检查是否有更新的版本";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "请输入一个名字, 然后点击\"确定\" 或者点击\"取消\".\n\n";
@@ -1554,6 +1590,9 @@
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "这个 VPN 无法连接。\n\n'%1$@' 的 OpenVPN 配置文件里有以下 OpenVPN 选项：\n\n%2$@\n这个 Tunnelblick 版本包含的任何 OpenVPN 版本都不接受以上选项。\n\n你应该要修改配置以保证 OpenVPN 的先进版本能够采用。";
 
 /* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "该 VPN 需要你回答一个问题但尚未提供问题。";
+
+/* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "这个计算机的对外显示 IP 在连接到 %1$@ 后并没有改变. 仍然是 %2$@.\n\n这个说明了你的 VPN 可能没有配置正确.\n\n";
 
 /* Window text */
@@ -1630,6 +1669,9 @@
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick 找不到配置文件，或者配置文件不能被净化 (移除掉隐私信息). 详情请看控制台日志.";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "Tunnelblick 无法加载内核扩展";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick 未能移动配置 '%@'. 详情请查看控制台日志.";

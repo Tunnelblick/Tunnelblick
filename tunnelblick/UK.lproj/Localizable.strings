@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "Відновити";
 
+/* Button text */
+"Retry with manual response" = "Спробувати ще раз з ручною відповіддю";
+
 /* Button */
 "Retry" = "Повторити спробу";
 
@@ -482,6 +485,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Встановити сервер імен (варіант 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Задати сервер імен (альтернатива 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Встановити сервер імен";
 
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "Під час з'єднання";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Від серверу VPN для %1$@:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Встановлено %lu конфігурацій\n\n";
 
@@ -792,6 +801,9 @@
 "  • Secure configurations\n" = "  • Безпечні конфігурації\n";
 
 /* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ - вільне програмне забезпечення: Ви можете розповсюджувати або змінювати його код у відповідності до умов %2$@, що були опубліковані %3$@.\n\n%4$@ — зареєстрована торгівельна марка OpenVPN Technologies Inc.";
+
+/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Ви бажаєте встановити %1$@ в %2$@%3$@?\n\n";
 
 /* Window text */
@@ -848,6 +860,9 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "параметр 'easy-rsaPath' був проігнорований - значення має вказувати на абсолютний шлях, або починатися з '~'";
 
+/* Window text */
+"(An error occurred creating the help content.)" = "(При створенні контенту допомоги виникла помилка.)";
+
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Звітність відключено.)";
 
@@ -862,6 +877,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(за умови підключення на момент виходу користувача)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Безкоштовне програмне забезпечення на основі Tunnelblick доступне за адресою<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN є зареєстрованим товарним знаком OpenVPN Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Ця версія Tunnelblick застаріла на %lu днів.</p><p>Будь ласка перевірте наявність нової версії:</p><ul><li>Вручну за допомогою панелі \"Налаштуваня\" вікна \"Деталі VPN\"; або<br></li><li>Завантаживши найновішу версію із сторінки <a href=\"https://tunnelblick.net/downloads.html\">Завантаження Tunnelblick</a> [tunnelblick.net].</li></ul>";
@@ -1356,6 +1374,9 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Шлях ' %1$@' містить неприпустимі символи. \n\nСимволи, які не допускаються: '%2$s'\n\n";
 
 /* Window text */
+"Please check for a newer version." = "Будь ласка, перевірте доступність новішої версії.";
+
+/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Введіть ім'я та натисніть \"ОК\" або натисніть \"Скасувати\".\n\n";
 
 /* Window text */
@@ -1554,6 +1575,9 @@
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "З'єднання із VPN не можливе.\n\nФайл конфігураціі OpenVPN для '%1$@' містить такі опції:\n\n%2$@\nЖодна з версій OpenVPN, що входить до складу цієї версії Tunnelblick ці опції не підтримує.\n\nПотрібне оновлення конфігурації для сумісності із сучасними версіями OpenVPN.";
 
 /* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "Цей VPN очікує від Вас відповіді, але жодного питання не було запропоновано.";
+
+/* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Публічна IP-адреса цього компьютера не змінилася після підключення до %1$@. Вона все ще %2$@.\n\nЦе може значити що ваш VPN налашован не корректно.\n\n";
 
 /* Window text */
@@ -1630,6 +1654,9 @@
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick не вдалося знайти файл конфігурації або файл конфігурації не може бути очищений від приватної інформації. Перегляньте журнал консолі для отримання додаткової інформації.";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "Tunnelblick не вдалося завантажити kext";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick не вдалося перемістити конфігурацію '%@'. Перегляньте журнал консолі для отримання додаткової інформації.";

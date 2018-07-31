@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "Obnoviť";
 
+/* Button text */
+"Retry with manual response" = "Opakujte s manuálnou odpoveďou";
+
 /* Button */
 "Retry" = "Skúsiť znova";
 
@@ -482,6 +485,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Nastaviť nameserver (alternate 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Zadajte doménový server (alternatíva 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Nastaviť nameserver";
 
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "Počas spojenia";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Z VPN servera pre %1$@: \n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Počet inštalovaných konfigurácií: %lu ";
 
@@ -850,6 +859,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "\"easy-rsaPath\" preferencie bola ignorovaná; musí byť defnovaná absolútna cesta alebo cesta začínať s \"~\"";
+
+/* Window text */
+"(An error occurred creating the help content.)" = "(Vyskytla sa chyba pri vytváraní kontextu nápovedy.)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Logovanie je zakázané)";
