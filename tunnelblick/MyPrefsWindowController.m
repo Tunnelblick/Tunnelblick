@@ -1228,6 +1228,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[configurationsPrefsView loggingLevelPopUpButton]          setEnabled: NO];
         
 		[[configurationsPrefsView uponDisconnectPopUpButton]        setEnabled: NO];
+		[[configurationsPrefsView uponUnexpectedDisconnectPopUpButton]          setEnabled: NO];
 
         [[configurationsPrefsView monitorNetworkForChangesCheckbox]             setEnabled: NO];
         [[configurationsPrefsView routeAllTrafficThroughVpnCheckbox]            setEnabled: NO];
