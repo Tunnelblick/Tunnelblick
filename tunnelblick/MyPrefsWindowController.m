@@ -1865,7 +1865,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 	[self indicateWaitingForDiagnosticInfoToClipboard];
 	
 	[ConfigurationManager putDiagnosticInfoOnClipboardInNewThreadForDisplayName: [[self selectedConnection] displayName]];
-	
 }
 
 
