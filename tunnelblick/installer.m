@@ -116,14 +116,6 @@ uid_t           gRealUserID;                  // User ID & Group ID for the real
 gid_t           gRealGroupID;
 NSAutoreleasePool * pool;
 
-BOOL moveContents(NSString * fromPath, NSString * toPath);
-NSString * firstPartOfPath(NSString * path);
-NSString * lastPartOfPath(NSString * path);
-void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy);
-BOOL deleteThingAtPath(NSString * path);
-BOOL convertAllPrivateOvpnAndConfToTblk(void);
-BOOL tunnelblickTestPrivateOnlyHasTblks(void);
-
 //**************************************************************************************************************************
 
 void errorExit(void);
@@ -619,12 +611,349 @@ void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
     }
 }
 
+void createFolder(NSString * path) {
+	
+	errorExitIfAnySymlinkInPath(path);
+	
+	if (  [gFileMgr fileExistsAtPath: path]  ) {
+		return;
+	}
+	
+	NSString * enclosingFolder = [path stringByDeletingLastPathComponent];
+	if (  ! [gFileMgr fileExistsAtPath: enclosingFolder]  ) {
+		createFolder(enclosingFolder);
+	}
+	
+	// Create the folder with the ownership and permissions of the folder that encloses it, but with the current date/time
+	NSDictionary * enclosingFolderAttributes = [gFileMgr tbFileAttributesAtPath: enclosingFolder traverseLink: NO];
+	NSDate * now = [NSDate date];
+	NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+								 now,                                                                   NSFileCreationDate,
+								 now,                                                                   NSFileModificationDate,
+								 [enclosingFolderAttributes objectForKey: NSFileGroupOwnerAccountID],   NSFileGroupOwnerAccountID,
+								 [enclosingFolderAttributes objectForKey: NSFileGroupOwnerAccountName], NSFileGroupOwnerAccountName,
+								 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountID],        NSFileOwnerAccountID,
+								 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountName],      NSFileOwnerAccountName,
+								 [enclosingFolderAttributes objectForKey: NSFilePosixPermissions],      NSFilePosixPermissions,
+								 nil];
+	[gFileMgr tbCreateDirectoryAtPath: path attributes: attributes];
+	appendLog([NSString stringWithFormat: @"Created %@", path]);
+}
+
+//**************************************************************************************************************************
+BOOL deleteThingAtPath(NSString * path)
+{
+	errorExitIfAnySymlinkInPath(path);
+	makeUnlockedAtPath(path);
+	if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
+		appendLog([NSString stringWithFormat: @"Failed to delete %@", path]);
+		return FALSE;
+	} else {
+		appendLog([NSString stringWithFormat: @"Deleted %@", path]);
+	}
+	
+	return TRUE;
+}
+
+
+//**************************************************************************************************************************
+void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy)
+{
+	// Copies or moves a folder, but unlocks everything in the copy (or target, if it is a move)
+	
+	// Copy the file or package to a ".temp" file/folder first, then rename it
+	// This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
+	// see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
+	NSString * dotTempPath = [toPath stringByAppendingPathExtension: @"temp"];
+	errorExitIfAnySymlinkInPath(dotTempPath);
+	if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
+		[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
+	}
+	
+	createFolder([dotTempPath stringByDeletingLastPathComponent]);
+	
+	if (  ! [gFileMgr tbCopyPath: fromPath toPath: dotTempPath handler: nil]  ) {
+		appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", fromPath, dotTempPath]);
+		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
+			[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
+		}
+		errorExit();
+	}
+	appendLog([NSString stringWithFormat: @"Copied %@\n    to %@", fromPath, dotTempPath]);
+	
+	// Make sure everything in the copy is unlocked
+	makeUnlockedAtPath(dotTempPath);
+	NSString * file;
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: dotTempPath];
+	while (  (file = [dirEnum nextObject])  ) {
+		makeUnlockedAtPath([dotTempPath stringByAppendingPathComponent: file]);
+	}
+	
+	// Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
+	// about duplicate configuration names.
+	if (  moveNotCopy  ) {
+		errorExitIfAnySymlinkInPath(fromPath);
+		if (  [gFileMgr fileExistsAtPath: fromPath]  ) {
+			makeUnlockedAtPath(fromPath);
+			if (  ! deleteThingAtPath(fromPath)  ) {
+				errorExit();
+			}
+		}
+	}
+	
+	errorExitIfAnySymlinkInPath(toPath);
+	if ( [gFileMgr fileExistsAtPath:toPath]  ) {
+		makeUnlockedAtPath(toPath);
+		[gFileMgr tbRemoveFileAtPath:toPath handler: nil];
+	}
+	int status = rename([dotTempPath fileSystemRepresentation], [toPath fileSystemRepresentation]);
+	if (  status != 0 ) {
+		appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@; error was %d: '%s'", dotTempPath, toPath, errno, strerror(errno)]);
+		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
+			[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
+		}
+		errorExit();
+	}
+	
+	appendLog([NSString stringWithFormat: @"Renamed %@\n     to %@", dotTempPath, toPath]);
+}
+
+//**************************************************************************************************************************
+BOOL moveContents(NSString * fromPath, NSString * toPath)
+{
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: fromPath];
+	NSString * file;
+	while (  (file = [dirEnum nextObject])  ) {
+		[dirEnum skipDescendents];
+		if (  ! [file hasPrefix: @"."]  ) {
+			NSString * fullFromPath = [fromPath stringByAppendingPathComponent: file];
+			NSString * fullToPath   = [toPath   stringByAppendingPathComponent: file];
+			if (  [gFileMgr fileExistsAtPath: fullToPath]  ) {
+				appendLog([NSString stringWithFormat: @"Unable to move %@ to %@ because the destination already exists", fullFromPath, fullToPath]);
+				return NO;
+			} else {
+				if (  ! [gFileMgr tbMovePath: fullFromPath toPath: fullToPath handler: nil]  ) {
+					appendLog([NSString stringWithFormat: @"Unable to move %@ to %@", fullFromPath, fullToPath]);
+					return NO;
+				}
+			}
+		}
+	}
+	
+	return YES;
+}
+
+void errorExitIfAnySymlinkInPath(NSString * path)
+{
+	NSString * curPath = path;
+	while (   ([curPath length] != 0)
+		   && ! [curPath isEqualToString: @"/"]  ) {
+		if (  [gFileMgr fileExistsAtPath: curPath]  ) {
+			NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
+			if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+				appendLog([NSString stringWithFormat: @"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path]);
+				errorExit();
+			}
+		}
+		
+		curPath = [curPath stringByDeletingLastPathComponent];
+	}
+}
+
+NSString * firstPartOfPath(NSString * path)
+{
+	NSArray * paths = [NSArray arrayWithObjects:
+					   gPrivatePath,
+					   gDeployPath,
+					   L_AS_T_SHARED, nil];
+	NSEnumerator * arrayEnum = [paths objectEnumerator];
+	NSString * configFolder;
+	while (  (configFolder = [arrayEnum nextObject])  ) {
+		if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
+			return configFolder;
+		}
+	}
+	return nil;
+}
+
+NSString * lastPartOfPath(NSString * path)
+{
+	NSArray * paths = [NSArray arrayWithObjects:
+					   gPrivatePath,
+					   gDeployPath,
+					   L_AS_T_SHARED, nil];
+	NSEnumerator * arrayEnum = [paths objectEnumerator];
+	NSString * configFolder;
+	while (  (configFolder = [arrayEnum nextObject])  ) {
+		if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
+			if (  [path length] > [configFolder length]  ) {
+				return [path substringFromIndex: [configFolder length]+1];
+			} else {
+				appendLog([NSString stringWithFormat: @"No display name in path '%@'", path]);
+				return @"X";
+			}
+		}
+	}
+	return nil;
+}
+
+BOOL tunnelblickTestPrivateOnlyHasTblks(void)
+{
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
+	NSString * file;
+	while (  (file = [dirEnum nextObject])  ) {
+		if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
+			[dirEnum skipDescendents];
+		} else {
+			if (   [[file pathExtension] isEqualToString: @"ovpn"]
+				|| [[file pathExtension] isEqualToString: @"conf"]  ) {
+				return NO;
+			}
+		}
+	}
+	
+	return YES;
+}
+
+BOOL copyTblksToNewFolder(NSString * newFolder)
+{
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
+	NSString * file;
+	
+	while (  (file = [dirEnum nextObject])  ) {
+		NSString * inPath = [gPrivatePath stringByAppendingPathComponent: file];
+		if (  itemIsVisible(inPath)  ) {
+			if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
+				NSString * outPath = [newFolder stringByAppendingPathComponent: file];
+				NSString * outPathFolder = [outPath stringByDeletingLastPathComponent];
+				if (  ! createDirWithPermissionAndOwnership(outPathFolder, privateFolderPermissions(outPathFolder), gRealUserID, privateFolderGroup(outPathFolder))  ) {
+					appendLog([NSString stringWithFormat: @"Unable to create %@", outPathFolder]);
+					return FALSE;
+				}
+				if (  ! [gFileMgr tbCopyPath: inPath toPath: outPath handler: nil]  ) {
+					appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", inPath, outPath]);
+					return FALSE;
+				} else {
+					appendLog([NSString stringWithFormat: @"Copied %@", file]);
+				}
+				
+				[dirEnum skipDescendents];
+			}
+		}
+	}
+	
+	return TRUE;
+}
+
+BOOL convertAllPrivateOvpnAndConfToTblk(void)
+{
+	NSString * newFolder = [[gPrivatePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"NewConfigurations"];
+	if ( [gFileMgr fileExistsAtPath: newFolder]  ) {
+		[gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
+	}
+	
+	BOOL haveDoneConversion = FALSE;
+	
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
+	NSString * file;
+	while (  (file = [dirEnum nextObject])  ) {
+		NSString * inPath = [gPrivatePath stringByAppendingPathComponent: file];
+		NSString * ext = [file pathExtension];
+		if (  itemIsVisible(inPath)  ) {
+			if (  [ext isEqualToString: @"tblk"]  ) {
+				[dirEnum skipDescendents];
+			} else if (   [ext isEqualToString: @"ovpn"]
+					   ||  [ext isEqualToString: @"conf"]  ) {
+				NSString * fileWithoutExtension = [file stringByDeletingPathExtension];
+				NSString * outTblkPath = [newFolder stringByAppendingPathComponent:
+										  [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
+				NSString * outTblkPathButInExistingConfigurationsFolder = [gPrivatePath stringByAppendingPathComponent:
+																		   [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
+				if (   [gFileMgr fileExistsAtPath: outTblkPath]
+					|| [gFileMgr fileExistsAtPath: outTblkPathButInExistingConfigurationsFolder]  ) {
+					fileWithoutExtension = [[fileWithoutExtension stringByAppendingString: @" from "]
+											stringByAppendingString: ext];
+					outTblkPath = [newFolder stringByAppendingPathComponent:
+								   [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
+					outTblkPathButInExistingConfigurationsFolder = [gPrivatePath stringByAppendingPathComponent:
+																	[fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
+					if (   [gFileMgr fileExistsAtPath: outTblkPath]
+						|| [gFileMgr fileExistsAtPath: outTblkPathButInExistingConfigurationsFolder]  ) {
+						appendLog([NSString stringWithFormat: @"Unable to construct name for a .tblk for %@", file]);
+						return FALSE;
+					}
+				}
+				NSString * inConfPath = [gPrivatePath stringByAppendingPathComponent: file];
+				
+				if (  ! createDirWithPermissionAndOwnership(newFolder, privateFolderPermissions(newFolder), gRealUserID, privateFolderGroup(newFolder))  ) {
+					appendLog([NSString stringWithFormat: @"Unable to create %@", newFolder]);
+					return FALSE;
+				};
+				
+				ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
+				NSString * conversionResults = [converter convertConfigPath: inConfPath
+																 outputPath: outTblkPath
+														  replacingTblkPath: nil
+																displayName: nil
+													   nameForErrorMessages: inConfPath
+														   useExistingFiles: nil
+																	logFile: gLogFile
+																   fromTblk: NO];
+				[converter release];
+				
+				if (  conversionResults  ) {
+					appendLog([NSString stringWithFormat: @"Unable to convert %@ to a Tunnelblick private Configuration: %@", inConfPath, conversionResults]);
+					return FALSE;
+				}
+				
+				haveDoneConversion = TRUE;
+			}
+		}
+	}
+	
+	if (  haveDoneConversion  ) {
+		if ( ! copyTblksToNewFolder(newFolder)  ) {
+			appendLog(@"Unable to copy existing private .tblk configurations");
+			return FALSE;
+		}
+		
+		NSDateFormatter * f = [[[NSDateFormatter alloc] init] autorelease];
+		[f setFormatterBehavior: NSDateFormatterBehavior10_4];
+		[f setDateFormat: @"yyyy-MM-dd hh.mm.ss"];
+		NSString * dateTimeString = [f stringFromDate: [NSDate date]];
+		
+		NSString * oldFolder = [[newFolder stringByDeletingLastPathComponent]
+								stringByAppendingPathComponent:
+								[NSString stringWithFormat: @"Configurations before conversion %@", dateTimeString]];
+		if (  [gFileMgr tbMovePath: gPrivatePath toPath: oldFolder handler: nil]  ) {
+			if  (  [gFileMgr tbMovePath: newFolder toPath: gPrivatePath handler: nil]  ) {
+				return TRUE;
+			} else {
+				[gFileMgr tbMovePath: oldFolder toPath: gPrivatePath handler: nil]; // Try to restore original setup
+				appendLog([NSString stringWithFormat: @"Unable to rename %@ to %@", newFolder, gPrivatePath]);
+				return FALSE;
+			}
+		} else {
+			appendLog([NSString stringWithFormat: @"Unable to rename %@ to %@", gPrivatePath, oldFolder]);
+			return FALSE;
+		}
+	} else {
+		appendLog(@"No private .ovpn or .conf configurations to be converted");
+		[gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
+	}
+	
+	return TRUE;
+}
+
+//**************************************************************************************************************************
+//**************************************************************************************************************************
+
 int main(int argc, char *argv[])
 {
 	pool = [NSAutoreleasePool new];
-    
+	
     gFileMgr = [NSFileManager defaultManager];
-    
+	
     if (  (argc < 2)  || (argc > 4)  ) {
 		openLog(FALSE);
         appendLog([NSString stringWithFormat: @"Wrong number of arguments -- expected 1 to 3, given %d", argc-1]);
@@ -632,7 +961,7 @@ int main(int argc, char *argv[])
 	}
 
     unsigned arg1 = (unsigned) strtol(argv[1], NULL, 10);
-    
+	
 	BOOL clearLog         = (arg1 & INSTALLER_CLEAR_LOG) != 0;
 	
     BOOL copyApp          = (arg1 & INSTALLER_COPY_APP) != 0;
@@ -641,14 +970,14 @@ int main(int argc, char *argv[])
     BOOL secureTblks      = copyApp || ( (arg1 & INSTALLER_SECURE_TBLKS) != 0 );		// secureTblks will also be set if any private .ovpn or .conf configurations were converted to .tblks
 	BOOL convertNonTblks  = (arg1 & INSTALLER_CONVERT_NON_TBLKS) != 0;
 	BOOL moveLibOpenvpn   = (arg1 & INSTALLER_MOVE_LIBRARY_OPENVPN) != 0;
-    
+	
     BOOL installPlist     = (arg1 & INSTALLER_INSTALL_FORCED_PREFERENCES) != 0;
 
     BOOL moveNotCopy      = (arg1 & INSTALLER_MOVE_NOT_COPY) != 0;
     BOOL deleteConfig     = (arg1 & INSTALLER_DELETE) != 0;
 	
     BOOL forceLoadLaunchDaemon = (arg1 & INSTALLER_REPLACE_DAEMON) != 0;
-    
+	
 	openLog(  clearLog  );
 	
 	NSBundle * ourBundle = [NSBundle mainBundle];
@@ -1480,339 +1809,4 @@ int main(int argc, char *argv[])
     
     [pool release];
     exit(EXIT_SUCCESS);
-}
-
-void createFolder(NSString * path) {
-    
-    errorExitIfAnySymlinkInPath(path);
-
-    if (  [gFileMgr fileExistsAtPath: path]  ) {
-        return;
-    }
-    
-    NSString * enclosingFolder = [path stringByDeletingLastPathComponent];
-    if (  ! [gFileMgr fileExistsAtPath: enclosingFolder]  ) {
-        createFolder(enclosingFolder);
-    }
-    
-    // Create the folder with the ownership and permissions of the folder that encloses it, but with the current date/time
-    NSDictionary * enclosingFolderAttributes = [gFileMgr tbFileAttributesAtPath: enclosingFolder traverseLink: NO];
-    NSDate * now = [NSDate date];
-    NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 now,                                                                   NSFileCreationDate,
-                                 now,                                                                   NSFileModificationDate,
-                                 [enclosingFolderAttributes objectForKey: NSFileGroupOwnerAccountID],   NSFileGroupOwnerAccountID,
-                                 [enclosingFolderAttributes objectForKey: NSFileGroupOwnerAccountName], NSFileGroupOwnerAccountName,
-                                 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountID],        NSFileOwnerAccountID,
-                                 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountName],      NSFileOwnerAccountName,
-                                 [enclosingFolderAttributes objectForKey: NSFilePosixPermissions],      NSFilePosixPermissions,
-                                 nil];
-    [gFileMgr tbCreateDirectoryAtPath: path attributes: attributes];
-    appendLog([NSString stringWithFormat: @"Created %@", path]);
-}
-
-//**************************************************************************************************************************
-void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy)
-{
-	// Copies or moves a folder, but unlocks everything in the copy (or target, if it is a move)
-	
-    // Copy the file or package to a ".temp" file/folder first, then rename it
-    // This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
-    // see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
-    NSString * dotTempPath = [toPath stringByAppendingPathExtension: @"temp"];
-    errorExitIfAnySymlinkInPath(dotTempPath);
-	if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
-		[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
-    }
-    
-    createFolder([dotTempPath stringByDeletingLastPathComponent]);
-    
-	if (  ! [gFileMgr tbCopyPath: fromPath toPath: dotTempPath handler: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", fromPath, dotTempPath]);
-		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
-			[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
-        }
-		errorExit();
-	}
-	appendLog([NSString stringWithFormat: @"Copied %@\n    to %@", fromPath, dotTempPath]);
-    
-    // Make sure everything in the copy is unlocked
-    makeUnlockedAtPath(dotTempPath);
-    NSString * file;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: dotTempPath];
-    while (  (file = [dirEnum nextObject])  ) {
-        makeUnlockedAtPath([dotTempPath stringByAppendingPathComponent: file]);
-    }
-    
-    // Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
-    // about duplicate configuration names.
-    if (  moveNotCopy  ) {
-        errorExitIfAnySymlinkInPath(fromPath);
-        if (  [gFileMgr fileExistsAtPath: fromPath]  ) {
-			makeUnlockedAtPath(fromPath);
-			if (  ! deleteThingAtPath(fromPath)  ) {
-				errorExit();
-			}
-		}
-    }
-    
-    errorExitIfAnySymlinkInPath(toPath);
-	if ( [gFileMgr fileExistsAtPath:toPath]  ) {
-		makeUnlockedAtPath(toPath);
-		[gFileMgr tbRemoveFileAtPath:toPath handler: nil];
-	}
-    int status = rename([dotTempPath fileSystemRepresentation], [toPath fileSystemRepresentation]);
-    if (  status != 0 ) {
-        appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@; error was %d: '%s'", dotTempPath, toPath, errno, strerror(errno)]);
-		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
-			[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
-        }
-		errorExit();
-    }
-    
-    appendLog([NSString stringWithFormat: @"Renamed %@\n     to %@", dotTempPath, toPath]);
-}
-
-//**************************************************************************************************************************
-BOOL deleteThingAtPath(NSString * path)
-{
-    errorExitIfAnySymlinkInPath(path);
-	makeUnlockedAtPath(path);
-    if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Failed to delete %@", path]);
-        return FALSE;
-    } else {
-        appendLog([NSString stringWithFormat: @"Deleted %@", path]);
-    }
-    
-    return TRUE;
-}
-
-
-//**************************************************************************************************************************
-BOOL moveContents(NSString * fromPath, NSString * toPath)
-{
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: fromPath];
-    NSString * file;
-    while (  (file = [dirEnum nextObject])  ) {
-        [dirEnum skipDescendents];
-        if (  ! [file hasPrefix: @"."]  ) {
-            NSString * fullFromPath = [fromPath stringByAppendingPathComponent: file];
-            NSString * fullToPath   = [toPath   stringByAppendingPathComponent: file];
-            if (  [gFileMgr fileExistsAtPath: fullToPath]  ) {
-                appendLog([NSString stringWithFormat: @"Unable to move %@ to %@ because the destination already exists", fullFromPath, fullToPath]);
-                return NO;
-            } else {
-                if (  ! [gFileMgr tbMovePath: fullFromPath toPath: fullToPath handler: nil]  ) {
-                    appendLog([NSString stringWithFormat: @"Unable to move %@ to %@", fullFromPath, fullToPath]);
-                    return NO;
-                }
-            }
-        }
-    }
-    
-    return YES;
-}
-
-//**************************************************************************************************************************
-void errorExitIfAnySymlinkInPath(NSString * path)
-{
-    NSString * curPath = path;
-    while (   ([curPath length] != 0)
-           && ! [curPath isEqualToString: @"/"]  ) {
-        if (  [gFileMgr fileExistsAtPath: curPath]  ) {
-            NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
-            if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                appendLog([NSString stringWithFormat: @"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path]);
-                errorExit();
-            }
-        }
-        
-        curPath = [curPath stringByDeletingLastPathComponent];
-    }
-}
-
-NSString * firstPartOfPath(NSString * path)
-{
-    NSArray * paths = [NSArray arrayWithObjects:
-                       gPrivatePath,
-                       gDeployPath,
-                       L_AS_T_SHARED, nil];
-    NSEnumerator * arrayEnum = [paths objectEnumerator];
-    NSString * configFolder;
-    while (  (configFolder = [arrayEnum nextObject])  ) {
-        if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
-            return configFolder;
-        }
-    }
-    return nil;
-}
-
-NSString * lastPartOfPath(NSString * path)
-{
-    NSArray * paths = [NSArray arrayWithObjects:
-                       gPrivatePath,
-                       gDeployPath,
-                       L_AS_T_SHARED, nil];
-    NSEnumerator * arrayEnum = [paths objectEnumerator];
-    NSString * configFolder;
-    while (  (configFolder = [arrayEnum nextObject])  ) {
-        if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
-            if (  [path length] > [configFolder length]  ) {
-                return [path substringFromIndex: [configFolder length]+1];
-            } else {
-                appendLog([NSString stringWithFormat: @"No display name in path '%@'", path]);
-                return @"X";
-            }
-        }
-    }
-    return nil;
-}
-
-BOOL tunnelblickTestPrivateOnlyHasTblks(void)
-{
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
-	NSString * file;
-	while (  (file = [dirEnum nextObject])  ) {
-		if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
-			[dirEnum skipDescendents];
-		} else {
-			if (   [[file pathExtension] isEqualToString: @"ovpn"]
-				|| [[file pathExtension] isEqualToString: @"conf"]  ) {
-				return NO;
-			}
-		}
-	}
-	
-	return YES;
-}
-
-BOOL copyTblksToNewFolder(NSString * newFolder)
-{
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
-    NSString * file;
-    
-    while (  (file = [dirEnum nextObject])  ) {
-        NSString * inPath = [gPrivatePath stringByAppendingPathComponent: file];
-        if (  itemIsVisible(inPath)  ) {
-            if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
-                NSString * outPath = [newFolder stringByAppendingPathComponent: file];
-				NSString * outPathFolder = [outPath stringByDeletingLastPathComponent];
-				if (  ! createDirWithPermissionAndOwnership(outPathFolder, privateFolderPermissions(outPathFolder), gRealUserID, privateFolderGroup(outPathFolder))  ) {
-                    appendLog([NSString stringWithFormat: @"Unable to create %@", outPathFolder]);
-                    return FALSE;
-				}
-                if (  ! [gFileMgr tbCopyPath: inPath toPath: outPath handler: nil]  ) {
-                    appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", inPath, outPath]);
-                    return FALSE;
-                } else {
-                    appendLog([NSString stringWithFormat: @"Copied %@", file]);
-				}
-                
-                [dirEnum skipDescendents];
-            }
-        }
-    }
-    
-    return TRUE;
-}
-
-BOOL convertAllPrivateOvpnAndConfToTblk(void)
-{
-    NSString * newFolder = [[gPrivatePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"NewConfigurations"];
-    if ( [gFileMgr fileExistsAtPath: newFolder]  ) {
-		[gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
-    }
-	
-	BOOL haveDoneConversion = FALSE;
-	
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
-    NSString * file;
-    while (  (file = [dirEnum nextObject])  ) {
-        NSString * inPath = [gPrivatePath stringByAppendingPathComponent: file];
-		NSString * ext = [file pathExtension];
-        if (  itemIsVisible(inPath)  ) {
-            if (  [ext isEqualToString: @"tblk"]  ) {
-                [dirEnum skipDescendents];
-            } else if (   [ext isEqualToString: @"ovpn"]
-                       ||  [ext isEqualToString: @"conf"]  ) {
-                NSString * fileWithoutExtension = [file stringByDeletingPathExtension];
-                NSString * outTblkPath = [newFolder stringByAppendingPathComponent:
-										  [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
-                NSString * outTblkPathButInExistingConfigurationsFolder = [gPrivatePath stringByAppendingPathComponent:
-										  [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
-                if (   [gFileMgr fileExistsAtPath: outTblkPath]
-					|| [gFileMgr fileExistsAtPath: outTblkPathButInExistingConfigurationsFolder]  ) {
-					fileWithoutExtension = [[fileWithoutExtension stringByAppendingString: @" from "]
-											stringByAppendingString: ext];
-					outTblkPath = [newFolder stringByAppendingPathComponent:
-								   [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
-					outTblkPathButInExistingConfigurationsFolder = [gPrivatePath stringByAppendingPathComponent:
-																	[fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
-					if (   [gFileMgr fileExistsAtPath: outTblkPath]
-						|| [gFileMgr fileExistsAtPath: outTblkPathButInExistingConfigurationsFolder]  ) {
-						appendLog([NSString stringWithFormat: @"Unable to construct name for a .tblk for %@", file]);
-						return FALSE;
-					}
-				}
-				NSString * inConfPath = [gPrivatePath stringByAppendingPathComponent: file];
-                
-				if (  ! createDirWithPermissionAndOwnership(newFolder, privateFolderPermissions(newFolder), gRealUserID, privateFolderGroup(newFolder))  ) {
-                    appendLog([NSString stringWithFormat: @"Unable to create %@", newFolder]);
-                    return FALSE;
-                };
-                
-                ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
-				NSString * conversionResults = [converter convertConfigPath: inConfPath
-																 outputPath: outTblkPath
-                                                          replacingTblkPath: nil
-                                                                displayName: nil
-													   nameForErrorMessages: inConfPath
-                                                           useExistingFiles: nil
-																	logFile: gLogFile
-																   fromTblk: NO];
-                [converter release];
-                
-                if (  conversionResults  ) {
-                    appendLog([NSString stringWithFormat: @"Unable to convert %@ to a Tunnelblick private Configuration: %@", inConfPath, conversionResults]);
-                    return FALSE;
-                }
-				
-				haveDoneConversion = TRUE;
-            }
-        }
-    }
-	
-	if (  haveDoneConversion  ) {
-		if ( ! copyTblksToNewFolder(newFolder)  ) {
-            appendLog(@"Unable to copy existing private .tblk configurations");
-            return FALSE;
-		}
-		
-		NSDateFormatter * f = [[[NSDateFormatter alloc] init] autorelease];
-		[f setFormatterBehavior: NSDateFormatterBehavior10_4];
-		[f setDateFormat: @"yyyy-MM-dd hh.mm.ss"];
-		NSString * dateTimeString = [f stringFromDate: [NSDate date]];
-		
-		NSString * oldFolder = [[newFolder stringByDeletingLastPathComponent]
-								stringByAppendingPathComponent:
-								[NSString stringWithFormat: @"Configurations before conversion %@", dateTimeString]];
-		if (  [gFileMgr tbMovePath: gPrivatePath toPath: oldFolder handler: nil]  ) {
-			if  (  [gFileMgr tbMovePath: newFolder toPath: gPrivatePath handler: nil]  ) {
-                return TRUE;
-			} else {
-				[gFileMgr tbMovePath: oldFolder toPath: gPrivatePath handler: nil]; // Try to restore original setup
-				appendLog([NSString stringWithFormat: @"Unable to rename %@ to %@", newFolder, gPrivatePath]);
-                return FALSE;
-			}
-		} else {
-			appendLog([NSString stringWithFormat: @"Unable to rename %@ to %@", gPrivatePath, oldFolder]);
-			return FALSE;
-		}
-	} else {
-        appendLog(@"No private .ovpn or .conf configurations to be converted");
-		[gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
-    }
-    
-    return TRUE;
 }
