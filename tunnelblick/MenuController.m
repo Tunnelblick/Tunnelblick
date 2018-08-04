@@ -6687,12 +6687,17 @@ BOOL warnAboutNonTblks(void)
     NSMutableString * msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
     if (    installFlags & INSTALLER_COPY_APP                   ) { [msg appendString: NSLocalizedString(@"  • Be installed in /Applications as Tunnelblick\n", @"Window text")]; appended = TRUE; }
     if (    installFlags & INSTALLER_SECURE_APP                 ) { [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")]; appended = TRUE; }
+	if (    installFlags & INSTALLER_SECURE_TBLKS               ) { [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")]; appended = TRUE; }
+	if (    installFlags & INSTALLER_CONVERT_NON_TBLKS          ) { [msg appendString: NSLocalizedString(@"  • Convert OpenVPN configurations\n", @"Window text")]; appended = TRUE; }
     if (    installFlags & INSTALLER_MOVE_LIBRARY_OPENVPN       ) { [msg appendString: NSLocalizedString(@"  • Move the private configurations folder\n", @"Window text")]; appended = TRUE; }
-    if (    tblksToInstall                                 ) { [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")]; appended = TRUE; }
-    if (    installFlags & INSTALLER_CONVERT_NON_TBLKS          ) { [msg appendString: NSLocalizedString(@"  • Convert OpenVPN configurations\n", @"Window text")]; appended = TRUE; }
-    if (    installFlags & INSTALLER_SECURE_TBLKS               ) { [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")]; appended = TRUE; }
-    if (    installFlags & INSTALLER_INSTALL_FORCED_PREFERENCES ) { [msg appendString: NSLocalizedString(@"  • Install forced preferences\n", @"Window text")]; appended = TRUE; }
-    
+    if (    tblksToInstall                                      ) { [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")]; appended = TRUE; }
+	
+	NSUInteger operation = installFlags | INSTALLER_OPERATION_MASK;
+    if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES     ) { [msg appendString: NSLocalizedString(@"  • Install forced preferences\n", @"Window text")]; appended = TRUE; }
+	if (  operation == INSTALLER_DELETE                         ) { [msg appendString: NSLocalizedString(@"  • Remove a configuration\n", @"Window text")]; appended = TRUE; }
+	if (  operation == INSTALLER_MOVE                           ) { [msg appendString: NSLocalizedString(@"  • Move a configuration\n", @"Window text")]; appended = TRUE; }
+	if (  operation == INSTALLER_COPY                           ) { [msg appendString: NSLocalizedString(@"  • Copy a configuration\n", @"Window text")]; appended = TRUE; }
+	
     if (   ( ! appended)
         && ( ! tblksToInstall)  ) {
         if (  installFlags & INSTALLER_REPLACE_DAEMON           ) { [msg appendString: NSLocalizedString(@"  • Complete the update\n", @"Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
@@ -6762,9 +6767,9 @@ BOOL warnAboutNonTblks(void)
 
 -(NSInteger) runInstaller: (unsigned)           installFlags
 		   extraArguments: (NSArray *)          extraArguments
-                 usingSystemAuth: (SystemAuth *)       auth
-                    installTblks: (NSArray *)          tblksToInstall {
-    
+		  usingSystemAuth: (SystemAuth *)       auth
+			 installTblks: (NSArray *)          tblksToInstall {
+	
     // Returns 1 if the user cancelled the installation
 	//         0 if installer ran successfully and does not need to be run again
 	//        -1 if an error occurred
