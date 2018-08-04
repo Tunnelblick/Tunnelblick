@@ -300,7 +300,7 @@ extern TBUserDefaults * gTbDefaults;
     
     // Run "ps -A" to get info on all processess
     NSString * stdoutString = nil;
-    NSArray  * arguments = [NSArray arrayWithObjects: @"-A", nil];
+    NSArray  * arguments = [NSArray arrayWithObject: @"-A"];
     OSStatus status = runTool(TOOL_PATH_FOR_PS, arguments, &stdoutString, nil);
     if (  status != 0  ) {
         NSLog(@"Assuming none of our OpenVPN processes are running because '%@ -Gn' returned status %ld", TOOL_PATH_FOR_PS, (long)status);

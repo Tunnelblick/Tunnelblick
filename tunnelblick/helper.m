@@ -937,7 +937,7 @@ BOOL isUserAnAdmin(void)
 {
     // Run "id -Gn" to get a list of names of the groups the user is a member of
 	NSString * stdoutString = nil;
-	NSArray  * arguments = [NSArray arrayWithObjects: @"-Gn", nil];
+	NSArray  * arguments = [NSArray arrayWithObject: @"-Gn"];
 	OSStatus status = runTool(TOOL_PATH_FOR_ID, arguments, &stdoutString, nil);
 	if (  status != 0  ) {
 		NSLog(@"Assuming user is not an administrator because '%@ -Gn' returned status %ld", TOOL_PATH_FOR_ID, (long)status);

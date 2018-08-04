@@ -932,7 +932,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
     }
     
-    NSArray * arguments = [NSArray arrayWithObjects: targetPath, nil];
+    NSArray * arguments = [NSArray arrayWithObject: targetPath];
     
     NSInteger result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
                                                            extraArguments: arguments
@@ -967,7 +967,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * containerPath;
         NSEnumerator * e = [stubTblkPaths objectEnumerator];
         while (  (containerPath = [e nextObject])) {
-            arguments = [NSArray arrayWithObjects: containerPath, nil];
+            arguments = [NSArray arrayWithObject: containerPath];
             result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
                                                          extraArguments: arguments
                                                         usingSystemAuth: auth
