@@ -2227,8 +2227,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	}
     
     NSString * displayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-    NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
-    
+	
     if (   noAdmin
         && ( ! moveInstead)
         && okToUpdateConfigurationsWithoutAdminApproval()
@@ -2260,6 +2259,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         NSLog(@"Could not do 'safeUpdate' of configuration file %@ to %@", sourcePath, targetPath);
         if (  warn  ) {
+			NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
             NSString * title = NSLocalizedString(@"Could Not Replace Configuration", @"Window title");
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not replace the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
             TBShowAlertWindow(title, msg);
@@ -2292,6 +2292,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  ! moveInstead  ) {
         NSLog(@"Could not copy configuration file %@ to %@", sourcePath, targetPath);
         if (  warn  ) {
+			NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
             NSString * title = NSLocalizedString(@"Could Not Copy Configuration", @"Window title");
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
             TBShowAlertWindow(title, msg);
@@ -2302,6 +2303,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     } else {
         NSLog(@"Could not move configuration file %@ to %@", sourcePath, targetPath);
         if (  warn  ) {
+			NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
             NSString * title = NSLocalizedString(@"Could Not Move Configuration", @"Window title");
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not move the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
             TBShowAlertWindow(title, msg);
