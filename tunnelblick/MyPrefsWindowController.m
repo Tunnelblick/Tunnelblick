@@ -1101,6 +1101,21 @@ static BOOL firstTimeShowingWindow = TRUE;
     [[utilitiesPrefsView consoleLogToClipboardButton] setEnabled: YES];
 }
 
+-(void) indicateWaitingForUtilitiesExportTunnelblickSetup
+{
+	[[utilitiesPrefsView utilitiesExportTunnelblickSetupProgressIndicator] startAnimation: self];
+	[[utilitiesPrefsView utilitiesExportTunnelblickSetupProgressIndicator] setHidden: NO];
+	[[utilitiesPrefsView utilitiesExportTunnelblickSetupButton] setEnabled: NO];
+}
+
+
+-(void) indicateNotWaitingForUtilitiesExportTunnelblickSetup
+{
+	[[utilitiesPrefsView utilitiesExportTunnelblickSetupProgressIndicator] stopAnimation: self];
+	[[utilitiesPrefsView utilitiesExportTunnelblickSetupProgressIndicator] setHidden: YES];
+	[[utilitiesPrefsView utilitiesExportTunnelblickSetupButton] setEnabled: YES];
+}
+
 -(void) indicateWaitingForLogDisplay: (VPNConnection *) theConnection
 {
     if (  theConnection == [self selectedConnection]  ) {
@@ -3419,6 +3434,15 @@ static BOOL firstTimeShowingWindow = TRUE;
 	[self indicateWaitingForConsoleLogToClipboard];
 	
 	[ConfigurationManager putConsoleLogOnClipboardInNewThread];
+}
+
+-(IBAction) utilitiesExportTunnelblickSetupButtonWasClicked: (id) sender
+{
+	(void) sender;
+	
+	[self indicateWaitingForUtilitiesExportTunnelblickSetup];
+
+	[ConfigurationManager exportTunnelblickSetupInNewThread];
 }
 
 -(IBAction) utilitiesHelpButtonWasClicked: (id) sender

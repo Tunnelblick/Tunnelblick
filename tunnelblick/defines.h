@@ -137,6 +137,7 @@
 #define TOOL_PATH_FOR_PLUTIL     @"/usr/bin/plutil"
 #define TOOL_PATH_FOR_PS         @"/bin/ps"
 #define TOOL_PATH_FOR_SCUTIL     @"/usr/sbin/scutil"
+#define TOOL_PATH_FOR_TAR        @"/usr/bin/tar"
 
 // The number of characters in each line of output from "ps -A" that are before the process' command line
 #define PS_CHARACTERS_BEFORE_COMMAND  25
@@ -352,20 +353,72 @@
 //*************************************************************************************************
 // Bit masks for bitMask parameter of installer
 
+//********************************************
+// Bit masks for optional operations which will be
+// performed before the primary operation (if any)
+
+// Set to clear the installer log before
+// doing anything else
 #define INSTALLER_CLEAR_LOG				     0x0001u
 
+// Set to copy this app to /Applications
+// (any existing app will be moved to
+// the Trash)
 #define INSTALLER_COPY_APP                   0x0002u
 
+// Set to secure Tunnelblick.app and all of
+// its contents (forced TRUE if
+// INSTALLER_COPY_APP is set)
 #define INSTALLER_SECURE_APP                 0x0004u
-//                                           0x0008u  UNUSED, was "INSTALLER_HELPER_IS_TO_BE_SUID"
+
+// UNUSED
+// WAS INSTALLER_HELPER_IS_TO_BE_SUID        0x0008u
+
+// Set to secure all .tblk packages in
+// Configurations, Shared, and the
+// alternate configuration path
 #define INSTALLER_SECURE_TBLKS               0x0010u
+
+// Set to convert all .ovpn and .conf files
+// (and their associated keys, scripts,
+// etc.) to .tblk packages
 #define INSTALLER_CONVERT_NON_TBLKS          0x0020u
+
+// Set to move ~/Library/openvpn to
+// ~/Library/Application Support/Tunnelblick
 #define INSTALLER_MOVE_LIBRARY_OPENVPN       0x0040u
-#define INSTALLER_INSTALL_FORCED_PREFERENCES 0x0080u
+
+// UNUSED
+// WAS INSTALLER_INSTALL_FORCED_PREFERENCES  0x0008u
+
+// Set to replace tunnelblickd
 #define INSTALLER_REPLACE_DAEMON             0x0100u
 
-#define INSTALLER_MOVE_NOT_COPY              0x1000u
+//********************************************
+// PRIMARY OPERATION CODES
+// Each primary operation also requires one
+// or two additional arguments
+
+#define INSTALLER_OPERATION_MASK			 0xF000u
+
+// Copy one configuration
+#define INSTALLER_COPY						 0x0000u
+
+// Move one configuration
+#define INSTALLER_MOVE						 0x1000u
+
+// Delete one configuration
 #define INSTALLER_DELETE                     0x2000u
+
+// Copy one file to
+// L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+#define INSTALLER_INSTALL_FORCED_PREFERENCES 0x3000u
+
+// Export the Tunnelblick setup for all
+// users (configurations and preferences but
+// not Keychain items) to a .tblkSetup, then
+// compress that to a .tar.gz on the Desktop
+#define INSTALLER_EXPORT_ALL                 0x4000u
 
 
 //*************************************************************************************************

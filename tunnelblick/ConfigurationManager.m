@@ -2273,8 +2273,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
     
     unsigned firstArg = (moveInstead
-                         ? INSTALLER_MOVE_NOT_COPY
-                         : 0);
+                         ? INSTALLER_MOVE
+                         : INSTALLER_COPY);
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
     
     NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: firstArg
@@ -2652,7 +2652,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                   stringByAppendingPathComponent: targetLast];
         
 		NSArray * arguments = [NSArray arrayWithObjects: target, source, nil];
-		NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: 0
+		NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_COPY
                                                                         extraArguments: arguments
                                                                        usingSystemAuth: auth
                                                                           installTblks: nil];
@@ -4158,6 +4158,73 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	[pb setString: output forType: NSStringPboardType];
 }
 
++(BOOL) exportTunnelblickSetup {
+	
+	NSString * message = NSLocalizedString(@"Tunnelblick needs to read Tunnelblick data belonging to other users of this computer"
+										   @" so it can export all Tunnelblick data.\n\n"
+										   @"Please note:\n\n"
+										   @"     1. Credentials saved in the Keychain will NOT be exported.\n\n"
+										   @"     2. The export can take a long time – tens of seconds.\n\n", @"Window text");
+	SystemAuth * auth = [[SystemAuth newAuthWithPrompt: message] autorelease];
+	if (  auth  ) {
+		
+		// Construct a name for the output file: "Tunnelblick Setup 2018-08-01 01:15:35". (The .tblkSetup extension will be added by the installer)
+		NSDateFormatter * f = [[[NSDateFormatter alloc] init] autorelease];
+		[f setDateFormat: @"yyyy-MM-dd hh.mm.ss"];
+		NSString * dateTimeString = [f stringFromDate: [NSDate date]];
+		NSString * filename = [NSString stringWithFormat:
+							   NSLocalizedString(@"Tunnelblick Setup %@",
+												 @"This is the name of a file created by the 'Export Tunnelblick Setup' button."
+												 @" The %@ will be replaced by a date/time such as '2018-07-28 16:22:18'"),
+							   dateTimeString];
+		
+		// Put the output file on the user's Desktop
+		NSString * targetPath = [[[@"/Users"
+								   stringByAppendingPathComponent: NSUserName()]
+								  stringByAppendingPathComponent: @"Desktop"]
+								 stringByAppendingPathComponent: filename];
+		
+		NSInteger result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_EXPORT_ALL
+															   extraArguments: [NSArray arrayWithObject: targetPath]
+															  usingSystemAuth: auth
+																 installTblks: nil];
+		if (  result != 0  ) {
+			NSLog(@"Error while exporting to %@", targetPath);
+		}
+		
+		return result;
+	}
+	
+	return NO;
+}
+
++(BOOL) importTunnelblickSetup: (NSArray *) files {
+	
+	if (   ([files count] != 1)
+		|| [[[files firstObject] pathExtension] isNotEqualTo: @"tblkSetup"]
+		|| ( ! [gFileMgr fileExistsAtPath: [files firstObject]] )  ) {
+		NSLog(@"Error: ConfigurationManager/importTunnelblickSetup not invoked with only one .tblkSetup file which exists");
+		return NO;
+	}
+	
+	NSString * message = NSLocalizedString(@"Tunnelblick needs to secure the Tunnelblick data being imported.", @"Window text");
+	SystemAuth * auth = [[SystemAuth newAuthWithPrompt: message] autorelease];
+	if (  auth  ) {
+		NSInteger result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_IMPORT
+															   extraArguments: files
+															  usingSystemAuth: auth
+																 installTblks: nil];
+		if (  result != 0  ) {
+			NSLog(@"Error while importing %@", [files firstObject]);
+		}
+		
+		return result;
+	}
+	
+	return NO;
+}
+
+
 // ************************************************************************
 // PRIVATE CLASS METHODS THAT MUST BE INVOKED ON NEW THREADS
 //
@@ -4479,6 +4546,24 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [pool drain];
 }
 
++(void) exportTunnelblickSetupOperation {
+	
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	[ConfigurationManager exportTunnelblickSetup];
+	
+	[TBOperationQueue removeDisableList];
+	
+	[[((MenuController *)[NSApp delegate]) logScreen]
+	 performSelectorOnMainThread: @selector(indicateNotWaitingForUtilitiesExportTunnelblickSetup)
+				      withObject: nil
+	               waitUntilDone: NO];
+	
+	[TBOperationQueue operationIsComplete];
+	
+	[pool drain];
+}
+
 +(void) installConfigurationsShowMessagesDoNotNotifyDelegateOperation: (NSArray *) filePaths {
 	
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -4689,6 +4774,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                   target: [ConfigurationManager class]
                                   object: nil
                              disableList: [NSArray array]];
+}
+
++(void) exportTunnelblickSetupInNewThread {
+	
+	// We are exporting everything, so disable ALL configurations
+	NSArray * disableList = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] allKeys];
+	
+	[TBOperationQueue addToQueueSelector: @selector(exportTunnelblickSetupOperation)
+								  target: [ConfigurationManager class]
+								  object: nil
+							 disableList: disableList];
 }
 
 +(void) installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: (NSArray *)  paths {

@@ -33,6 +33,9 @@
     IBOutlet TBButton            * consoleLogToClipboardButton;
 	IBOutlet NSProgressIndicator * consoleLogToClipboardProgressIndicator;
 
+	IBOutlet TBButton            * utilitiesExportTunnelblickSetupButton;
+	IBOutlet NSProgressIndicator * utilitiesExportTunnelblickSetupProgressIndicator;
+	
     IBOutlet TBButton           * utilitiesOpenUninstallInstructionsButton;
 	
     IBOutlet TBButton           * utilitiesRunEasyRsaButton;
@@ -53,6 +56,9 @@ TBPROPERTY_READONLY(NSTextField *,		   utilitiesQuitAllOpenVpnStatusTF)
 
 TBPROPERTY_READONLY(TBButton *,            consoleLogToClipboardButton)
 TBPROPERTY_READONLY(NSProgressIndicator *, consoleLogToClipboardProgressIndicator)
+
+TBPROPERTY_READONLY(TBButton *,            utilitiesExportTunnelblickSetupButton)
+TBPROPERTY_READONLY(NSProgressIndicator *, utilitiesExportTunnelblickSetupProgressIndicator)
 
 TBPROPERTY_READONLY(TBButton *,        utilitiesOpenUninstallInstructionsButton)
 

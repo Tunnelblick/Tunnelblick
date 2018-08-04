@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G19009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G22010" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
@@ -653,7 +654,7 @@
                 <outlet property="workOnConfigurationArrayController" destination="653" id="657"/>
                 <outlet property="workOnConfigurationPopUpButton" destination="585" id="621"/>
             </connections>
-            <point key="canvasLocation" x="283" y="240"/>
+            <point key="canvasLocation" x="774" y="295"/>
         </customView>
         <viewController id="1068" userLabel="LeftNavViewController" customClass="LeftNavViewController">
             <connections>
@@ -1264,11 +1265,29 @@
                         <outlet property="nextKeyView" destination="861" id="VKE-N8-2uf"/>
                     </connections>
                 </textField>
+                <button verticalHuggingPriority="750" id="JUC-iF-ElE" customClass="TBButton">
+                    <rect key="frame" x="301" y="71" width="290" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Export Tunnelblick Setup" bezelStyle="rounded" alignment="left" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kTs-jx-Ivd">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="utilitiesExportTunnelblickSetupButtonWasClicked:" target="-2" id="09x-6J-8Wr"/>
+                        <outlet property="nextKeyView" destination="1009" id="I6f-rk-3Ep"/>
+                    </connections>
+                </button>
+                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="jie-fd-46h">
+                    <rect key="frame" x="314" y="80" width="16" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </progressIndicator>
             </subviews>
             <connections>
                 <outlet property="consoleLogToClipboardButton" destination="1085" id="1291"/>
                 <outlet property="consoleLogToClipboardProgressIndicator" destination="1288" id="1289"/>
                 <outlet property="utilitiesEasyRsaPathTFC" destination="1024" id="1025"/>
+                <outlet property="utilitiesExportTunnelblickSetupButton" destination="JUC-iF-ElE" id="FBY-gt-kgS"/>
+                <outlet property="utilitiesExportTunnelblickSetupProgressIndicator" destination="jie-fd-46h" id="LsF-Ft-Rlg"/>
                 <outlet property="utilitiesHelpButton" destination="861" id="996"/>
                 <outlet property="utilitiesOpenUninstallInstructionsButton" destination="1137" id="1152"/>
                 <outlet property="utilitiesQuitAllOpenVpnButton" destination="981" id="997"/>
@@ -1276,7 +1295,7 @@
                 <outlet property="utilitiesQuitAllOpenVpnStatusTFC" destination="gPh-eo-Riq" id="rPe-jJ-Jnc"/>
                 <outlet property="utilitiesRunEasyRsaButton" destination="1009" id="1016"/>
             </connections>
-            <point key="canvasLocation" x="283" y="683"/>
+            <point key="canvasLocation" x="872" y="756"/>
         </customView>
         <customView id="117" userLabel="Info" customClass="InfoView">
             <rect key="frame" x="0.0" y="0.0" width="920" height="390"/>

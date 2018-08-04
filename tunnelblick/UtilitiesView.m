@@ -105,6 +105,14 @@ extern TBUserDefaults * gTbDefaults;
 														   @" and detailed error messages that are too long to present to the user in a normal dialog window.</p>",
 														   @"HTML info for the 'Copy Console Log to Clipboard' button."))];
 	
+	[utilitiesExportTunnelblickSetupButton
+	  setTitle: NSLocalizedString(@"Export Tunnelblick Setup", @"Button")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Exports the Tunnelblick setup, including all configurations and settings"
+														   @" for all users of this computer, to a compressed file on the Desktop.</p>"
+														   @"<ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li>"
+														   @"<li>The export may take a long time.</li></ul>",
+														   @"HTML info for the 'Export Tunnelblick Setup' button."))];
+	
 	[utilitiesOpenUninstallInstructionsButton
 	  setTitle: NSLocalizedString(@"Open Uninstall Instructions in Browser", @"Button")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>",
@@ -171,6 +179,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,		   utilitiesQuitAllOpenVpnStatus
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            consoleLogToClipboardButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, consoleLogToClipboardProgressIndicator)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            utilitiesExportTunnelblickSetupButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, utilitiesExportTunnelblickSetupProgressIndicator)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesOpenUninstallInstructionsButton)
 

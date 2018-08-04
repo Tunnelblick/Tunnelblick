@@ -94,6 +94,7 @@
 
 -(void) indicateWaitingForLogDisplay:                         (VPNConnection *) theConnection;
 -(void) indicateNotWaitingForConsoleLogToClipboard;
+-(void) indicateNotWaitingForUtilitiesExportTunnelblickSetup;
 -(void) indicateNotWaitingForDiagnosticInfoToClipboard;
 -(void) indicateNotWaitingForLogDisplay:                      (VPNConnection *) theConnection;
 -(void) hookedUpOrStartedConnection:                          (VPNConnection *) theConnection;
@@ -186,6 +187,8 @@
 -(IBAction) utilitiesRunEasyRsaButtonWasClicked:          (id) sender;
 
 -(IBAction) consoleLogToClipboardButtonWasClicked:        (id) sender;
+
+-(IBAction) utilitiesExportTunnelblickSetupButtonWasClicked: (id) sender;
 
 -(IBAction) utilitiesHelpButtonWasClicked:                (id) sender;
 

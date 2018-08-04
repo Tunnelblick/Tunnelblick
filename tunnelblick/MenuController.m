@@ -6919,15 +6919,16 @@ BOOL needToCreateMip(void) {
 // Checks whether the installer needs to be run
 // Sets bits in a flag for use by the runInstaller:extraArguments... method, and, ultimately, by the installer program
 //
-// DOES NOT SET INSTALLER_COPY_APP (or INSTALLER_MOVE_NOT_COPY, or INSTALLER_DELETE)
+// Returns an unsigned containing INSTALLER_... bits set appropriately for runInstaller:, and, ultimately, by the installer program
 //
-// Returns an unsigned containing INSTALLER_... bits set appropriately
+// DOES NOT SET INSTALLER_COPY_APP or any operation code
+
 unsigned needToRunInstaller(BOOL inApplications)
 {
     unsigned flags = 0;
     
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
-	if (  ( needToCreateMip() )									 ) flags = flags | INSTALLER_SECURE_APP;
+	if (  ( needToCreateMip() )									 ) flags = flags | INSTALLER_SECURE_APP; // .mip will be created by any use of installer
     if (  needToReplaceLaunchDaemon()                            ) flags = flags | INSTALLER_REPLACE_DAEMON;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;

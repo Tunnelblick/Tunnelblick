@@ -131,6 +131,8 @@ typedef enum
 
 +(void) putConsoleLogOnClipboardInNewThread;
 
++(void) exportTunnelblickSetupInNewThread;
+
 +(void) addConfigurationGuideInNewThread;
 
 +(void) haveNoConfigurationsGuideInNewThread;
