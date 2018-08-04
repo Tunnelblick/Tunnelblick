@@ -6917,7 +6917,6 @@ BOOL needToCreateMip(void) {
 }
 
 // Checks whether the installer needs to be run
-// Sets bits in a flag for use by the runInstaller:extraArguments... method, and, ultimately, by the installer program
 //
 // Returns an unsigned containing INSTALLER_... bits set appropriately for runInstaller:, and, ultimately, by the installer program
 //
