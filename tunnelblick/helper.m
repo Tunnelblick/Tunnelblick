@@ -1197,7 +1197,6 @@ NSMutableString * encodeSlashesAndPeriods(NSString * s)
 
 NSString * copyrightNotice()
 {
-	[NSDateFormatter setDefaultFormatterBehavior: NSDateFormatterBehavior10_4];
     NSDateFormatter * dateFormat = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormat setDateFormat:@"YYYY"];
     NSString * year = [dateFormat stringFromDate: [NSDate date]];
