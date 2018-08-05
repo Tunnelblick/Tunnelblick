@@ -229,7 +229,8 @@ void appendLog(NSString * errMsg);
 	
     int status = rename([sourcePath fileSystemRepresentation], [targetPath fileSystemRepresentation]);
     if (  status != 0  ) {
-        NSLog(@"rename(%@,%@) failed; status = %ld; errno = %ld; error was '%s'; stack trace: %@", sourcePath, targetPath, (long)status, (long)errno, strerror(errno), fmCallStack());
+        NSString * errMsg = [NSString stringWithFormat: @"rename(%@,%@) failed; status = %ld; errno = %ld; error was '%s'; stack trace: %@", sourcePath, targetPath, (long)status, (long)errno, strerror(errno), fmCallStack()];
+		appendLog(errMsg);
         return NO;
     }
     
