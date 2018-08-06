@@ -1617,13 +1617,6 @@ void createExportFolder(NSString * path) {
 	}
 }
 
-void copyIfSourceExists(NSString * source, NSString * target) {
-	
-	if (  [gFileMgr fileExistsAtPath: source]  ) {
-		safeCopyOrMovePathToPath(source, target, NO);
-	}
-}
-
 void exportOneUser(NSString * username, NSString * targetUsersPath) {
 	
 	// Get path to this user's folder in Users, but don't create it unless we need to
