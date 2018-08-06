@@ -664,6 +664,11 @@ void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL
 	appendLog([NSString stringWithFormat: @"Renamed %@\n     to %@", dotTempPath, targetPath]);
 }
 
+void safeCopyPathToPath(NSString * sourcePath, NSString * targetPath) {
+	
+	safeCopyOrMovePathToPath(sourcePath, targetPath, NO);
+}
+
 BOOL moveContents(NSString * fromPath, NSString * toPath) {
 	
 	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: fromPath];
@@ -1494,7 +1499,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 			createDirWithPermissionAndOwnership(enclosingFolder, PERMS_SECURED_FOLDER, 0, 0);
 		}
 		
-		safeCopyOrMovePathToPath(targetPath, shadowTargetPath, FALSE);	// Copy the target because the source may have _moved_ to the target
+		safeCopyPathToPath(targetPath, shadowTargetPath);	// Copy the target because the source may have _moved_ to the target
 		
 		secureOneFolder(shadowTargetPath, NO, 0);
 		
@@ -1632,7 +1637,7 @@ void exportOneUser(NSString * username, NSString * targetUsersPath) {
 	if (  [gFileMgr fileExistsAtPath: sourcePreferencesPath]  ) {
 		createExportFolder(targetThisUserPath);
 		createdTargetThisUserPath = TRUE;
-		safeCopyOrMovePathToPath(sourcePreferencesPath, targetPreferencesPath, NO);
+		safeCopyPathToPath(sourcePreferencesPath, targetPreferencesPath);
 	}
 	
 	NSString * userL_AS_T = [[[homeFolder
@@ -1648,7 +1653,7 @@ void exportOneUser(NSString * username, NSString * targetUsersPath) {
 			createExportFolder(targetThisUserPath);
 			createdTargetThisUserPath = TRUE;
 		}
-		safeCopyOrMovePathToPath(sourceConfigurationsPath, targetConfigurationsPath, NO);
+		safeCopyPathToPath(sourceConfigurationsPath, targetConfigurationsPath);
 	}
 	
 	// Copy easy-rsa only if it exists
@@ -1658,7 +1663,7 @@ void exportOneUser(NSString * username, NSString * targetUsersPath) {
 		if (  ! createdTargetThisUserPath  ) {
 			createExportFolder(targetThisUserPath);
 		}
-		safeCopyOrMovePathToPath(sourceEasyrsaPath, targetEasyrsaPath, NO);
+		safeCopyPathToPath(sourceEasyrsaPath, targetEasyrsaPath);
 	}
 }
 
@@ -1740,18 +1745,18 @@ void exportToPath(NSString * exportPath) {
 	// Copy forced-preferences.plist to Global
 	NSString * sourceForcedPreferencesPath = [L_AS_T stringByAppendingPathComponent: @"forced-preferences.plist"];
 	NSString * targetForcedPreferencesPath = [targetSetupGlobalPath stringByAppendingPathComponent: @"forced-preferences.plist"];
-	safeCopyOrMovePathToPath(sourceForcedPreferencesPath, targetForcedPreferencesPath, NO);
+	safeCopyPathToPath(sourceForcedPreferencesPath, targetForcedPreferencesPath);
 	
 	// Copy Shared to Global
 	NSString * sourceSharedPath            = L_AS_T_SHARED;
 	NSString * targetSharedPath            = [targetSetupGlobalPath stringByAppendingPathComponent: @"Shared"];
-	safeCopyOrMovePathToPath(sourceSharedPath, targetSharedPath, NO);
+	safeCopyPathToPath(sourceSharedPath, targetSharedPath);
 	pruneFolderAtPath(targetSharedPath);
 	
 	// Copy Users to Global
 	NSString * sourceUsersPath             = L_AS_T_USERS;
 	NSString * targetUsersPath             = [targetSetupGlobalPath stringByAppendingPathComponent: @"Users"];
-	safeCopyOrMovePathToPath(sourceUsersPath, targetUsersPath, NO);
+	safeCopyPathToPath(sourceUsersPath, targetUsersPath);
 	pruneFolderAtPath(targetUsersPath);
 	
 	// Create TBInfo.plist
