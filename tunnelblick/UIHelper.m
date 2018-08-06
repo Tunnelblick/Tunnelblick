@@ -198,6 +198,109 @@ extern TBUserDefaults * gTbDefaults;
     [theControl setFrame:newFrame];
 }
 
++(void) performOnMainThreadDictionary: (NSDictionary *) dict {
+	
+	SEL selector = NSSelectorFromString([dict objectForKey: @"selectorName"]);
+	id  target   = [dict objectForKey: @"target"];
+	id  object   = [dict objectForKey: @"object"];
+	[target performSelectorOnMainThread: selector withObject: object waitUntilDone: NO];
+}
+
++(void) performSelectorName: (NSString *) selectorName
+					 target: (id)         target
+				 withObject: (NSObject *) object
+	 onMainThreadAfterDelay: (NSTimeInterval) delay {
+	
+	if (   ( ! selectorName )
+		|| ( ! target )  ) {
+		NSLog(@"Error: performSelectorName: %@ target: %@ withObject: %@ onMainThreadAfterDelay %f",
+			  selectorName, target, object, delay);
+		[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		return;
+	}
+	
+	if (  ! object  ) {
+		object = [NSNull null];
+	}
+	
+	NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+						   selectorName, @"selectorName",
+						   target,		 @"target",
+						   object,       @"object",
+						   nil];
+	
+	[self performSelector: @selector(performOnMainThreadDictionary:) withObject: dict afterDelay: delay];
+}
+
++(BOOL) canAcceptFileTypesInPasteboard: (NSPasteboard *) pboard {
+	
+	// Accept a single .tblkSetup or multiple configurations but don't allow a mix or multiple .tblkSetups
+	
+	NSArray * configExtensions = [NSArray arrayWithObjects: @"ovpn", @"conf", @"tblk", nil];
+	
+	NSString * type = [pboard availableTypeFromArray: [NSArray arrayWithObject: NSFilenamesPboardType]];
+	if (  ! [type isEqualToString: NSFilenamesPboardType]  ) {
+		TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: returning NO because no 'NSFilenamesPboardType' entries are available in the pasteboard.");
+		return NO;
+	}
+	
+	NSArray * paths = [pboard propertyListForType: NSFilenamesPboardType];
+	NSUInteger i;
+	BOOL haveSetup         = FALSE;
+	BOOL haveConfiguration = FALSE;
+	for (  i=0; i<[paths count]; i++  ) {
+		NSString * path = [paths objectAtIndex:i];
+		if (  [configExtensions containsObject: [path pathExtension]]  ) {
+			haveConfiguration = TRUE;
+			TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: acceptable: '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
+		} else {
+			TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: unknown extension, so returning NO for '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
+			return NO;
+		}
+	}
+	
+	TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: returning 'YES'");
+	return YES;
+}
+
++(NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
+	
+	NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
+	NSPasteboard * pboard = [sender draggingPasteboard];
+	
+	if (  [[pboard types] containsObject: NSFilenamesPboardType]  ) {
+		if (  [self canAcceptFileTypesInPasteboard: pboard]  ) {
+			if (  sourceDragMask & NSDragOperationCopy  ) {
+				TBLog(@"DB-SI", @"draggingEntered: returning YES");
+				return NSDragOperationCopy;
+			} else {
+				TBLog(@"DB-SI", @"draggingEntered: returning NO because source does not allow copy operation");
+			}
+		}
+	}
+	
+	TBLog(@"DB-SI", @"draggingEntered: returning NO");
+	return NSDragOperationNone;
+}
+
++(BOOL) performDragOperation:(id <NSDraggingInfo>)sender {
+	
+	NSPasteboard *pboard = [sender draggingPasteboard];
+	
+	if ( [[pboard types] containsObject: NSFilenamesPboardType] ) {
+		NSArray * files = [pboard propertyListForType:NSFilenamesPboardType];
+			
+			[self performSelectorName:@"openFiles:" target: [NSApp delegate] withObject: files onMainThreadAfterDelay: 0.5];
+		
+		
+		TBLog(@"DB-SI", @"performDragOperation: returning YES");
+		return YES;
+	}
+	
+	TBLog(@"DB-SI", @"performDragOperation: returning NO because pasteboard does not contain 'NSFilenamesPboardType'");
+	return NO;
+}
+
 +(void) showAlertWindow: (NSDictionary *) dict {
     
     // This method is invoked on the main thread by TBShowAlertWindow() when it is called but is not running on the main thread

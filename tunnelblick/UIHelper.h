@@ -50,6 +50,10 @@
 				  narrow: (BOOL)       narrow
 				  enable: (BOOL)       enabled;
 
++(BOOL)			   canAcceptFileTypesInPasteboard: (NSPasteboard *) pboard;
++(NSDragOperation) draggingEntered:(id <NSDraggingInfo>)sender;
++(BOOL)			   performDragOperation:(id <NSDraggingInfo>)sender;
+
 +(void)         shakeWindow: (NSWindow *) w;
 
 +(void)         shiftControl: (id) theControl by: (CGFloat) amount reverse: (BOOL) reverse;
