@@ -166,13 +166,17 @@ void appendLog(NSString * entry);
 
 -(unsigned) unsignedIntValue {
     
-    int i = [self intValue];
+    long long i = [self longLongValue];
     if (  i < 0  ) {
         appendLog([NSString stringWithFormat: @"unsignedIntValue: Negative value %lld is invalid in this context", i]);
         return UINT_MAX;
     }
+	if (  i > UINT_MAX  ) {
+		appendLog([NSString stringWithFormat: @"unsignedIntValue: Value %lld is too large to fit in an unsigned int", i]);
+		return UINT_MAX;
+	}
     
-    return (unsigned) i;
+    return (unsigned int) i;
 }
 
 @end
