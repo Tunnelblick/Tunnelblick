@@ -603,14 +603,14 @@ BOOL deleteThingAtPath(NSString * path) {
 	return TRUE;
 }
 
-void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy)
-{
+void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy) {
+	
 	// Copies or moves a folder, but unlocks everything in the copy (or target, if it is a move)
 	
 	// Copy the file or package to a ".temp" file/folder first, then rename it
 	// This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
 	// see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
-	NSString * dotTempPath = [toPath stringByAppendingPathExtension: @"temp"];
+	NSString * dotTempPath = [targetPath stringByAppendingPathExtension: @"temp"];
 	errorExitIfAnySymlinkInPath(dotTempPath);
 	if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
 		[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
@@ -618,14 +618,14 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
 	
 	createFolder([dotTempPath stringByDeletingLastPathComponent]);
 	
-	if (  ! [gFileMgr tbCopyPath: fromPath toPath: dotTempPath handler: nil]  ) {
-		appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", fromPath, dotTempPath]);
+	if (  ! [gFileMgr tbCopyPath: sourcePath toPath: dotTempPath handler: nil]  ) {
+		appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", sourcePath, dotTempPath]);
 		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
 			[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
 		}
 		errorExit();
 	}
-	appendLog([NSString stringWithFormat: @"Copied %@\n    to %@", fromPath, dotTempPath]);
+	appendLog([NSString stringWithFormat: @"Copied %@\n    to %@", sourcePath, dotTempPath]);
 	
 	// Make sure everything in the copy is unlocked
 	makeUnlockedAtPath(dotTempPath);
@@ -638,30 +638,30 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
 	// Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
 	// about duplicate configuration names.
 	if (  moveNotCopy  ) {
-		errorExitIfAnySymlinkInPath(fromPath);
-		if (  [gFileMgr fileExistsAtPath: fromPath]  ) {
-			makeUnlockedAtPath(fromPath);
-			if (  ! deleteThingAtPath(fromPath)  ) {
+		errorExitIfAnySymlinkInPath(sourcePath);
+		if (  [gFileMgr fileExistsAtPath: sourcePath]  ) {
+			makeUnlockedAtPath(sourcePath);
+			if (  ! deleteThingAtPath(sourcePath)  ) {
 				errorExit();
 			}
 		}
 	}
 	
-	errorExitIfAnySymlinkInPath(toPath);
-	if ( [gFileMgr fileExistsAtPath:toPath]  ) {
-		makeUnlockedAtPath(toPath);
-		[gFileMgr tbRemoveFileAtPath:toPath handler: nil];
+	errorExitIfAnySymlinkInPath(targetPath);
+	if ( [gFileMgr fileExistsAtPath:targetPath]  ) {
+		makeUnlockedAtPath(targetPath);
+		[gFileMgr tbRemoveFileAtPath:targetPath handler: nil];
 	}
-	int status = rename([dotTempPath fileSystemRepresentation], [toPath fileSystemRepresentation]);
+	int status = rename([dotTempPath fileSystemRepresentation], [targetPath fileSystemRepresentation]);
 	if (  status != 0 ) {
-		appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@; error was %d: '%s'", dotTempPath, toPath, errno, strerror(errno)]);
+		appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@; error was %d: '%s'", dotTempPath, targetPath, errno, strerror(errno)]);
 		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
 			[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
 		}
 		errorExit();
 	}
 	
-	appendLog([NSString stringWithFormat: @"Renamed %@\n     to %@", dotTempPath, toPath]);
+	appendLog([NSString stringWithFormat: @"Renamed %@\n     to %@", dotTempPath, targetPath]);
 }
 
 BOOL moveContents(NSString * fromPath, NSString * toPath) {
