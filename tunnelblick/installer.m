@@ -43,14 +43,16 @@
 //
 // Usage:
 //
-//     installer bitMask
+//     installer bitmask
 //     installer bitmask targetPath   [sourcePath]
 //
 // where
-//   bitMask DETERMINES WHAT THE INSTALLER WILL DO (see defines.h for bit assignments)
 //
-// targetPath is the path to a configuration (.ovpn or .conf file, or .tblk package) to be secured (or forced-preferences.plist)
-// sourcePath is the path to be copied or moved to targetPath before securing targetPath
+//	   bitMask DETERMINES WHAT THE INSTALLER WILL DO (see defines.h for bit assignments)
+//
+//     targetPath is the path to a configuration (.ovpn or .conf file, or .tblk package) to be secured (or forced-preferences.plist)
+//
+//     sourcePath is the path to be copied or moved to targetPath before securing targetPath
 //
 // This program does the following, in this order:
 //
@@ -105,11 +107,12 @@ gid_t           gRealGroupID;
 NSAutoreleasePool * pool;
 
 // The following variable may be modified by routines to affect later behavior of the program
-BOOL            gSecureTblks;				  // Set if all .tblks need to be secured.
+BOOL            gSecureTblks;				  // Set initially if all .tblks need to be secured.
 
 //**************************************************************************************************************************
 
 void errorExit(void);
+
 void errorExitIfAnySymlinkInPath(NSString * path);
 
 void debugLog(NSString * string) {
@@ -586,9 +589,8 @@ void createFolder(NSString * path) {
 	appendLog([NSString stringWithFormat: @"Created %@", path]);
 }
 
-//**************************************************************************************************************************
-BOOL deleteThingAtPath(NSString * path)
-{
+BOOL deleteThingAtPath(NSString * path) {
+	
 	errorExitIfAnySymlinkInPath(path);
 	makeUnlockedAtPath(path);
 	if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
@@ -601,8 +603,6 @@ BOOL deleteThingAtPath(NSString * path)
 	return TRUE;
 }
 
-
-//**************************************************************************************************************************
 void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy)
 {
 	// Copies or moves a folder, but unlocks everything in the copy (or target, if it is a move)
@@ -664,9 +664,8 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
 	appendLog([NSString stringWithFormat: @"Renamed %@\n     to %@", dotTempPath, toPath]);
 }
 
-//**************************************************************************************************************************
-BOOL moveContents(NSString * fromPath, NSString * toPath)
-{
+BOOL moveContents(NSString * fromPath, NSString * toPath) {
+	
 	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: fromPath];
 	NSString * file;
 	while (  (file = [dirEnum nextObject])  ) {
@@ -689,8 +688,8 @@ BOOL moveContents(NSString * fromPath, NSString * toPath)
 	return YES;
 }
 
-void errorExitIfAnySymlinkInPath(NSString * path)
-{
+void errorExitIfAnySymlinkInPath(NSString * path) {
+	
 	NSString * curPath = path;
 	while (   ([curPath length] != 0)
 		   && ! [curPath isEqualToString: @"/"]  ) {
@@ -706,8 +705,8 @@ void errorExitIfAnySymlinkInPath(NSString * path)
 	}
 }
 
-NSString * firstPartOfPath(NSString * path)
-{
+NSString * firstPartOfPath(NSString * path) {
+	
 	NSArray * paths = [NSArray arrayWithObjects:
 					   gPrivatePath,
 					   gDeployPath,
@@ -722,8 +721,8 @@ NSString * firstPartOfPath(NSString * path)
 	return nil;
 }
 
-NSString * lastPartOfPath(NSString * path)
-{
+NSString * lastPartOfPath(NSString * path) {
+	
 	NSArray * paths = [NSArray arrayWithObjects:
 					   gPrivatePath,
 					   gDeployPath,
@@ -743,8 +742,8 @@ NSString * lastPartOfPath(NSString * path)
 	return nil;
 }
 
-BOOL tunnelblickTestPrivateOnlyHasTblks(void)
-{
+BOOL tunnelblickTestPrivateOnlyHasTblks(void) {
+	
 	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
 	NSString * file;
 	while (  (file = [dirEnum nextObject])  ) {
@@ -761,8 +760,8 @@ BOOL tunnelblickTestPrivateOnlyHasTblks(void)
 	return YES;
 }
 
-BOOL copyTblksToNewFolder(NSString * newFolder)
-{
+BOOL copyTblksToNewFolder(NSString * newFolder) {
+	
 	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
 	NSString * file;
 	
@@ -791,8 +790,8 @@ BOOL copyTblksToNewFolder(NSString * newFolder)
 	return TRUE;
 }
 
-BOOL convertAllPrivateOvpnAndConfToTblk(void)
-{
+BOOL convertAllPrivateOvpnAndConfToTblk(void) {
+	
 	NSString * newFolder = [[gPrivatePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"NewConfigurations"];
 	if ( [gFileMgr fileExistsAtPath: newFolder]  ) {
 		[gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
@@ -1608,7 +1607,6 @@ void setupDaemon(void) {
 //**************************************************************************************************************************
 // EXPORT SETUP
 
-
 void createExportFolder(NSString * path) {
 	
 	if (  ! createDirWithPermissionAndOwnership(path, privateFolderPermissions(path), 0, 0)  ) {
@@ -1798,6 +1796,7 @@ void exportToPath(NSString * exportPath) {
 	}
 }
 
+//**************************************************************************************************************************
 //**************************************************************************************************************************
 //**************************************************************************************************************************
 
