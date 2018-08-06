@@ -23,6 +23,7 @@
 
 #import "NSString+TB.h"
 
+void appendLog(NSString * entry);
 
 @implementation NSString(TB)
 
@@ -90,7 +91,7 @@
 	
 	if (   ([selfParts  count] > 2)
 		|| ([otherParts count] > 2)  ) {
-		NSLog(@"One or more version numbers has 'beta' more than once: '%@' and '%@'", self, other);
+		appendLog([NSString stringWithFormat: @"One or more version numbers has 'beta' more than once: '%@' and '%@'", self, other]);
 	}
 	
 	// Everything before 'beta' (if it is present) is the same
@@ -134,12 +135,12 @@
     NSString * edition = [self substringFromIndex: rng.location + 1];
     
     if (  ! [edition containsOnlyCharactersInString: @"0123456789"]  ) {
-        NSLog(@"Invalid edition (illegal characters) in '%@'", self);
+        appendLog([NSString stringWithFormat: @"Invalid edition (illegal characters) in '%@'", self]);
         return nil;
     }
     
     if (  [edition length] == 0  ) {
-        NSLog(@"Invalid edition (empty string)");
+        appendLog(@"Invalid edition (empty string)");
         return nil;
     }
     
@@ -167,7 +168,7 @@
     
     int i = [self intValue];
     if (  i < 0  ) {
-        NSLog(@"unsignedIntValue: Negative value %d is invalid in this context", i);
+        appendLog([NSString stringWithFormat: @"unsignedIntValue: Negative value %lld is invalid in this context", i]);
         return UINT_MAX;
     }
     
