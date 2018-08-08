@@ -178,7 +178,29 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay redColorForHighlighting]    range: lineRange];
     }
     
+	if (  ! warnedAboutUserGroupAlready  ) {
+		issueRange = [line rangeOfString: @"must be root to alter routing table" options: NSCaseInsensitiveSearch];
+		if (  issueRange.length != 0  ) {
+			[self performSelectorOnMainThread: @selector(warnAboutUserGroup) withObject: nil waitUntilDone: NO];
+			warnedAboutUserGroupAlready = TRUE;
+		}
+	}
+	
     return string;
+}
+
+-(void) warnAboutUserGroup {
+	
+	TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+					  attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p>"
+																							 @"<p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p>"
+																							 @"<p>To restore the network setup, you should restart your computer.</p>"
+																							 @"<p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your"
+																							 @" OpenVPN configuration file.</p>"
+																							 @"<p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN"
+																							 @" Options</a> [tunnelblick.net] for more information.</p></font>\n\n",
+																							 @"Window text. The %@ is the name of a VPN configuration."),
+												[connection localizedName]]));
 }
 
 -(void) popupAWarningForProblemSeenInLogLine: (NSString *) line {
@@ -360,6 +382,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     if (  gShuttingDownWorkspace  ) {
         return;
     }
+	
+	warnedAboutUserGroupAlready = FALSE;
     
     if (  ! [NSThread isMainThread]  ) {
         [self performSelectorOnMainThread: @selector(clear) withObject: nil waitUntilDone: NO];

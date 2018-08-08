@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -65,6 +65,8 @@
     long            secondWeLastQueuedAChange;      // Seconds since 1/1/2001 that we last queued a request to process a change to a log file
     unsigned        numberOfRequestsInThatSecond;   // Number of requests we've queued in that second
     NSTimer       * watchdogTimer;                  // Timer to queue a request to process a change to a log file
+	
+	BOOL			warnedAboutUserGroupAlready;	// Used to warn about this only once per connection/disconnection.
 }
 
 -(LogDisplay *)     initWithConfigurationPath:      (NSString *) inConfigPath;
