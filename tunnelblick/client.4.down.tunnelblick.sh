@@ -58,57 +58,57 @@ flushDNSCache()
         set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
         readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
         set -e # We instruct bash that it CAN again fail on errors
-			if [ -f /usr/bin/dscacheutil ] ; then
-				set +e # we will catch errors from dscacheutil
-				/usr/bin/dscacheutil -flushcache
+		if [ -f /usr/bin/dscacheutil ] ; then
+			set +e # we will catch errors from dscacheutil
+			/usr/bin/dscacheutil -flushcache
+			if [ $? != 0 ] ; then
+				logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
+			else
+				logMessage "Flushed the DNS cache via dscacheutil"
+			fi
+			set -e # bash should again fail on errors
+		else
+			logMessage "WARNING: /usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
+		fi
+
+		if [ -f /usr/sbin/discoveryutil ] ; then
+			set +e # we will catch errors from discoveryutil
+			/usr/sbin/discoveryutil udnsflushcaches
+			if [ $? != 0 ] ; then
+				logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
+			else
+				logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
+			fi
+			/usr/sbin/discoveryutil mdnsflushcache
+			if [ $? != 0 ] ; then
+				logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
+			else
+				logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
+			fi
+			set -e # bash should again fail on errors
+		else
+			logMessage "/usr/sbin/discoveryutil not present. Not flushing the DNS cache via discoveryutil"
+		fi
+
+		set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
+		hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
+		set -e # We instruct bash that it CAN again fail on errors
+		if [ "${hands_off_ps}" = "" ] ; then
+			if [ -f /usr/bin/killall ] ; then
+				set +e # ignore errors if mDNSResponder isn't currently running
+				/usr/bin/killall -HUP mDNSResponder
 				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
+					logMessage "mDNSResponder not running. Not notifying it that the DNS cache was flushed"
 				else
-					logMessage "Flushed the DNS cache via dscacheutil"
+					logMessage "Notified mDNSResponder that the DNS cache was flushed"
 				fi
 				set -e # bash should again fail on errors
 			else
-				logMessage "WARNING: /usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
+				logMessage "WARNING: /usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
 			fi
-
-			if [ -f /usr/sbin/discoveryutil ] ; then
-				set +e # we will catch errors from discoveryutil
-				/usr/sbin/discoveryutil udnsflushcaches
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
-				else
-					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
-				fi
-				/usr/sbin/discoveryutil mdnsflushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
-				else
-					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
-				fi
-				set -e # bash should again fail on errors
-			else
-				logMessage "/usr/sbin/discoveryutil not present. Not flushing the DNS cache via discoveryutil"
-			fi
-
-			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-			hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
-			set -e # We instruct bash that it CAN again fail on errors
-			if [ "${hands_off_ps}" = "" ] ; then
-				if [ -f /usr/bin/killall ] ; then
-					set +e # ignore errors if mDNSResponder isn't currently running
-					/usr/bin/killall -HUP mDNSResponder
-					if [ $? != 0 ] ; then
-						logMessage "mDNSResponder not running. Not notifying it that the DNS cache was flushed"
-					else
-						logMessage "Notified mDNSResponder that the DNS cache was flushed"
-					fi
-					set -e # bash should again fail on errors
-				else
-					logMessage "WARNING: /usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
-				fi
-			else
-				logMessage "WARNING: Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
-			fi
+		else
+			logMessage "WARNING: Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
+		fi
     fi
 }
 
@@ -147,10 +147,10 @@ EOF
 
     if [ "${PINTERFACE}" != "" ] ; then
 	    if [ "${PINTERFACE}" == "${WIFI_INTERFACE}" -a -f /usr/sbin/networksetup ] ; then
-				logMessage "Resetting primary interface '${PINTERFACE}' via networksetup -setairportpower ${PINTERFACE} off/on..."
-				/usr/sbin/networksetup -setairportpower "${PINTERFACE}" off
-				sleep 2
-				/usr/sbin/networksetup -setairportpower "${PINTERFACE}" on
+			logMessage "Resetting primary interface '${PINTERFACE}' via networksetup -setairportpower ${PINTERFACE} off/on..."
+			/usr/sbin/networksetup -setairportpower "${PINTERFACE}" off
+			sleep 2
+			/usr/sbin/networksetup -setairportpower "${PINTERFACE}" on
 		else
 		    if [ -f /sbin/ifconfig ] ; then
 			    logMessage "Resetting primary interface '${PINTERFACE}' via ifconfig ${PINTERFACE} down/up..."
