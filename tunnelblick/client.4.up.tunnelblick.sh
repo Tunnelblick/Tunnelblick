@@ -1491,9 +1491,6 @@ if ${ARG_TAP} ; then
 			bRouteGatewayIsDhcp="true"
 		fi
 	fi
-	
-	
-	
 
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
 		logDebugMessage "DEBUG: bRouteGatewayIsDhcp is TRUE"
