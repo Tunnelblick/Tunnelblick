@@ -58,23 +58,6 @@ flushDNSCache()
         set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
         readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
         set -e # We instruct bash that it CAN again fail on errors
-	    if [ "${OSVER}" = "10.4" ] ; then
-
-			if [ -f /usr/sbin/lookupd ] ; then
-				set +e # we will catch errors from lookupd
-				/usr/sbin/lookupd -flushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via lookupd"
-				else
-					logMessage "Flushed the DNS cache via lookupd"
-				fi
-				set -e # bash should again fail on errors
-			else
-				logMessage "WARNING: /usr/sbin/lookupd not present. Not flushing the DNS cache"
-			fi
-
-		else
-
 			if [ -f /usr/bin/dscacheutil ] ; then
 				set +e # we will catch errors from dscacheutil
 				/usr/bin/dscacheutil -flushcache
@@ -126,8 +109,6 @@ flushDNSCache()
 			else
 				logMessage "WARNING: Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
 			fi
-
-		fi
     fi
 }
 
@@ -165,18 +146,11 @@ EOF
     set -e # resume abort on error
 
     if [ "${PINTERFACE}" != "" ] ; then
-	    if [ "${PINTERFACE}" == "${WIFI_INTERFACE}" -a "${OSVER}" != "10.4" -a -f /usr/sbin/networksetup ] ; then
-		    if [ "${OSVER}" == "10.5" ] ; then
-			    logMessage "Resetting primary interface '${PINTERFACE}' via networksetup -setairportpower off/on..."
-				/usr/sbin/networksetup -setairportpower off
-				sleep 2
-				/usr/sbin/networksetup -setairportpower on
-			else
+	    if [ "${PINTERFACE}" == "${WIFI_INTERFACE}" -a -f /usr/sbin/networksetup ] ; then
 				logMessage "Resetting primary interface '${PINTERFACE}' via networksetup -setairportpower ${PINTERFACE} off/on..."
 				/usr/sbin/networksetup -setairportpower "${PINTERFACE}" off
 				sleep 2
 				/usr/sbin/networksetup -setairportpower "${PINTERFACE}" on
-			fi
 		else
 		    if [ -f /sbin/ifconfig ] ; then
 			    logMessage "Resetting primary interface '${PINTERFACE}' via ifconfig ${PINTERFACE} down/up..."

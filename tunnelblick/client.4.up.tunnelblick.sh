@@ -67,12 +67,6 @@ disable_ipv6() {
 # The 'restore_ipv6' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
 #
 # NOTE: Done only for enabled services because some versions of OS X enable the service if this IPv6 setting is changed.
-#
-# This only works for OS X 10.5 and higher (10.4 does not implement IPv6.)
-
-    if [ "$OSVER" = "10.4" ] ; then
-        exit
-    fi
 
     # Get list of services and remove the first line which contains a heading
     dipv6_services="$( networksetup  -listallnetworkservices | sed -e '1,1d')"
@@ -338,85 +332,37 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		readonly FIN_SMB_WG="${CUR_SMB_WG}"
 	fi
 
-	# DNS ServerAddresses (FIN_DNS_SA) are aggregated for 10.4 and 10.5
 	if [ ${#vDNS[*]} -eq 0 ] ; then
 		readonly FIN_DNS_SA="${CUR_DNS_SA}"
 	else
 		if [ "${MAN_DNS_SA}" != "" ] ; then
 			if ${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS} ; then
 				logMessage "Will allow changes to manually-set ServerAddresses '${MAN_DNS_SA}'"
-				# (Don't include 10.4 or 10.5 code since we now support only 10.7 and higher)
 				readonly FIN_DNS_SA="${DYN_DNS_SA}"
 			else
 				logMessage "WARNING: Ignoring ServerAddresses '$DYN_DNS_SA' because ServerAddresses was set manually and '-allowChangesToManuallySetNetworkSettings' was not specified"
 				readonly FIN_DNS_SA="${CUR_DNS_SA}"
 			fi
 		else
-			case "${OSVER}" in
-				10.4 | 10.5 )
-					# We need to remove duplicate DNS entries, so that our reference list matches MacOSX's
-					SDNS="$( echo "${DYN_DNS_SA}" | tr ' ' '\n' )"
-					(( i=0 ))
-					for n in "${vDNS[@]}" ; do
-						if echo "${SDNS}" | grep -q "${n}" ; then
-							unset vDNS[${i}]
-						fi
-						(( i++ ))
-					done
-					if [ ${#vDNS[*]} -gt 0 ] ; then
-						readonly FIN_DNS_SA="$( trim "${DYN_DNS_SA}" "${vDNS[*]}" )"
-					else
-						readonly FIN_DNS_SA="${DYN_DNS_SA}"
-					fi
-					logMessage "Aggregating ServerAddresses because running on OS X 10.4 or 10.5"
-					;;
-				* )
-					# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
 					readonly FIN_DNS_SA="${DYN_DNS_SA}"
-					logMessage "Not aggregating ServerAddresses because running on OS X 10.6 or higher"
-					;;
-			esac
+					logMessage "Not aggregating ServerAddresses"
 		fi
 	fi
 
-	# SMB WINSAddresses (FIN_SMB_WA) are aggregated for 10.4 and 10.5
 	if [ ${#vSMB[*]} -eq 0 ] ; then
 		readonly FIN_SMB_WA="${CUR_SMB_WA}"
 	else
 		if [ "${MAN_SMB_WA}" != "" ] ; then
 			if ${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS} ; then
 				logMessage "Will allow changes to manually-set WINSAddresses '${MAN_SMB_WA}'"
-				# (Don't include 10.4 or 10.5 code since we now support only 10.7 and higher)
 				readonly FIN_SMB_WA="${DYN_SMB_WA}"
 			else
 				logMessage "WARNING: Ignoring WINSAddresses '$DYN_SMB_WA' because WINSAddresses was set manually and '-allowChangesToManuallySetNetworkSettings' was not specified"
 				readonly FIN_SMB_WA="${MAN_SMB_WA}"
 			fi
 		else
-		case "${OSVER}" in
-			10.4 | 10.5 )
-				# We need to remove duplicate SMB entries, so that our reference list matches MacOSX's
-				SSMB="$( echo "${DYN_SMB_WA}" | tr ' ' '\n' )"
-				(( i=0 ))
-				for n in "${vSMB[@]}" ; do
-					if echo "${SSMB}" | grep -q "${n}" ; then
-						unset vSMB[${i}]
-					fi
-					(( i++ ))
-				done
-				if [ ${#vSMB[*]} -gt 0 ] ; then
-					readonly FIN_SMB_WA="$( trim "${DYN_SMB_WA}" "${vSMB[*]}" )"
-				else
-					readonly FIN_SMB_WA="${DYN_SMB_WA}"
-				fi
-				logMessage "Aggregating WINSAddresses because running on OS X 10.4 or 10.5"
-				;;
-			* )
-				# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
 				readonly FIN_SMB_WA="${DYN_SMB_WA}"
-				logMessage "Not aggregating WINSAddresses because running on OS X 10.6 or higher"
-				;;
-		esac
+				logMessage "Not aggregating WINSAddresses"
 		fi
 	fi
 
@@ -425,9 +371,8 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	# OLD BEHAVIOR:
 	#     if SearchDomains was not set manually, we set SearchDomains to the DomainName
 	#     else
-	#          In OS X 10.4-10.5, we add the DomainName to the end of any manual SearchDomains (unless it is already there)
-	#          In OS X 10.6+, if SearchDomains was entered manually, we ignore the DomainName
-	#                         else we set SearchDomains to the DomainName
+	#         if SearchDomains was entered manually, we ignore the DomainName
+	#         else we set SearchDomains to the DomainName
 	#
 	# NEW BEHAVIOR (done if ARG_PREPEND_DOMAIN_NAME is "true"):
 	#
@@ -492,26 +437,13 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 			fi
 		else
             if [ "${FIN_DNS_DN}" != "" -a "${FIN_DNS_DN}" != "localdomain" ] ; then
-                case "${OSVER}" in
-                    10.4 | 10.5 )
-                        if ! echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
-                            logMessage "Appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under OS X 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
-                            readonly FIN_DNS_SD="$( trim "${MAN_DNS_SD}" "${FIN_DNS_DN}" )"
-                        else
-                            logMessage "Not appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
-                            readonly FIN_DNS_SD="${CUR_DNS_SD}"
-                        fi
-                        ;;
-                    * )
                         if [ "${MAN_DNS_SD}" = "" -o "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
-                            logMessage "Setting search domains to '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was not selected"
+                            logMessage "Setting search domains to '${FIN_DNS_DN}' because the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was not selected"
                             readonly FIN_DNS_SD="${FIN_DNS_DN}"
                         else
                             logMessage "Not replacing search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because the search domains were set manually, '-allowChangesToManuallySetNetworkSettings' was not selected, and 'Prepend domain name to search domains' was not selected"
                             readonly FIN_DNS_SD="${CUR_DNS_SD}"
                         fi
-                        ;;
-                esac
             else
                 readonly FIN_DNS_SD="${CUR_DNS_SD}"
             fi
@@ -599,11 +531,6 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	# we pass a flag indicating whether we've done that to the other scripts in 'bAlsoUsingSetupKeys'
 
 	case "${OSVER}" in
-		10.4 | 10.5 | 10.6 )
-			logDebugMessage "DEBUG: OS X 10.4-10.6, so will modify settings using only State:"
-			readonly SKP_SETUP_DNS="#"
-			readonly bAlsoUsingSetupKeys="false"
-			;;
 		10.7 )
 			if [ "${MAN_DNS_SA}" = "" -a  "${MAN_DNS_SD}" = "" ] ; then
 				logDebugMessage "DEBUG: OS X 10.7 and neither ServerAddresses nor SearchDomains were set manually, so will modify DNS settings using only State:"
@@ -1127,23 +1054,6 @@ configureOpenVpnDns()
 flushDNSCache()
 {
     if ${ARG_FLUSH_DNS_CACHE} ; then
-	    if [ "${OSVER}" = "10.4" ] ; then
-
-			if [ -f /usr/sbin/lookupd ] ; then
-				set +e # we will catch errors from lookupd
-				/usr/sbin/lookupd -flushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via lookupd"
-				else
-					logMessage "Flushed the DNS cache via lookupd"
-				fi
-				set -e # bash should again fail on errors
-			else
-				logMessage "WARNING: /usr/sbin/lookupd not present. Not flushing the DNS cache"
-			fi
-
-		else
-
 			if [ -f /usr/bin/dscacheutil ] ; then
 				set +e # we will catch errors from dscacheutil
 				/usr/bin/dscacheutil -flushcache
@@ -1195,8 +1105,6 @@ flushDNSCache()
 			else
 				logMessage "WARNING: Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
 			fi
-
-		fi
     fi
 }
 
