@@ -57,6 +57,21 @@ trim()
 }
 
 ##########################################################################################
+get_scutil_item() {
+
+# $1 is the name of the item whose value is to be retreived
+
+	scutil <<-EOF |
+open
+show $1
+quit
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+
+	return
+}
+
+##########################################################################################
 disable_ipv6() {
 
 # Disables IPv6 on each enabled (active) network service on which it is set to the OS X default "IPv6 Automatic".
@@ -125,36 +140,10 @@ grep PrimaryService | sed -e 's/.*PrimaryService : //'
 
 	set -e # resume abort on error
 
-	MAN_DNS_CONFIG="$( scutil <<-EOF |
-		open
-		show Setup:/Network/Service/${PSID}/DNS
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-
-	MAN_SMB_CONFIG="$( scutil <<-EOF |
-		open
-		show Setup:/Network/Service/${PSID}/SMB
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	CUR_DNS_CONFIG="$( scutil <<-EOF |
-		open
-		show State:/Network/Global/DNS
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-
-	CUR_SMB_CONFIG="$( scutil <<-EOF |
-		open
-		show State:/Network/Global/SMB
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
+	MAN_DNS_CONFIG="$( get_scutil_item Setup:/Network/Service/${PSID}/DNS )"
+	MAN_SMB_CONFIG="$( get_scutil_item Setup:/Network/Service/${PSID}/SMB )"
+	CUR_DNS_CONFIG="$( get_scutil_item State:/Network/Global/DNS )"
+	CUR_SMB_CONFIG="$( get_scutil_item State:/Network/Global/SMB )"
 
 # Set up the DYN_... variables to contain what is asked for (dynamically, by a 'push' directive, for example)
 
@@ -681,62 +670,15 @@ EOF
 		quit
 EOF
 
-	readonly NEW_DNS_SETUP_CONFIG="$( scutil <<-EOF |
-		open
-		show Setup:/Network/Service/${PSID}/DNS
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly NEW_SMB_SETUP_CONFIG="$( scutil <<-EOF |
-		open
-		show Setup:/Network/Service/${PSID}/SMB
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly NEW_DNS_STATE_CONFIG="$( scutil <<-EOF |
-		open
-		show State:/Network/Service/${PSID}/DNS
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly NEW_SMB_STATE_CONFIG="$( scutil <<-EOF |
-		open
-		show State:/Network/Service/${PSID}/SMB
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly NEW_DNS_GLOBAL_CONFIG="$( scutil <<-EOF |
-		open
-		show State:/Network/Global/DNS
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly NEW_SMB_GLOBAL_CONFIG="$( scutil <<-EOF |
-		open
-		show State:/Network/Global/SMB
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly EXPECTED_NEW_DNS_GLOBAL_CONFIG="$( scutil <<-EOF |
-		open
-		show State:/Network/OpenVPN/DNS
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly EXPECTED_NEW_SMB_GLOBAL_CONFIG="$( scutil <<-EOF |
-		open
-		show State:/Network/OpenVPN/SMB
-		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
+	readonly NEW_DNS_SETUP_CONFIG="$(           get_scutil_item Setup:/Network/Service/${PSID}/DNS )"
+	readonly NEW_SMB_SETUP_CONFIG="$(           get_scutil_item Setup:/Network/Service/${PSID}/SMB )"
+	readonly NEW_DNS_STATE_CONFIG="$(           get_scutil_item State:/Network/Service/${PSID}/DNS )"
+	readonly NEW_SMB_STATE_CONFIG="$(           get_scutil_item State:/Network/Service/${PSID}/SMB )"
+	readonly NEW_DNS_GLOBAL_CONFIG="$(          get_scutil_item State:/Network/Global/DNS )"
+	readonly NEW_SMB_GLOBAL_CONFIG="$(          get_scutil_item State:/Network/Global/SMB )"
+	readonly EXPECTED_NEW_DNS_GLOBAL_CONFIG="$( get_scutil_item State:/Network/OpenVPN/DNS )"
+	readonly EXPECTED_NEW_SMB_GLOBAL_CONFIG="$( get_scutil_item State:/Network/OpenVPN/SMB )"
+
 
 
 	logDebugMessage "DEBUG:"
@@ -1178,21 +1120,8 @@ EOF
 grep PrimaryService | sed -e 's/.*PrimaryService : //'
 )"
 
-    readonly LOGDNSINFO_MAN_DNS_CONFIG="$( scutil <<-EOF |
-        open
-        show Setup:/Network/Service/${PSID}/DNS
-        quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-
-    readonly LOGDNSINFO_CUR_DNS_CONFIG="$( scutil <<-EOF |
-        open
-        show State:/Network/Global/DNS
-        quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
+    readonly LOGDNSINFO_MAN_DNS_CONFIG="$( get_scutil_item Setup:/Network/Service/${PSID}/DNS )"
+    readonly LOGDNSINFO_CUR_DNS_CONFIG="$( get_scutil_item State:/Network/Global/DNS )"
 
 	if echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
 		readonly LOGDNSINFO_MAN_DNS_SA="$( trim "$( echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
