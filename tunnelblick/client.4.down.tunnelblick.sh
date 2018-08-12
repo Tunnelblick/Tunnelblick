@@ -237,23 +237,19 @@ TUNNELBLICK_CONFIG="$( scutil <<-EOF
 EOF
 )"
 
-ARG_MONITOR_NETWORK_CONFIGURATION="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*MonitorNetwork :' | sed -e 's/^.*: //g')"
-LEASEWATCHER_PLIST_PATH="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :' | sed -e 's/^.*: //g')"
-REMOVE_LEASEWATCHER_PLIST="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RemoveLeaseWatcherPlist :' | sed -e 's/^.*: //g')"
-PSID="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*Service :' | sed -e 's/^.*: //g')"
-# Don't need: SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLogFile :' | sed -e 's/^.*: //g')"
-# Don't need: ARG_RESTORE_ON_DNS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnDNSReset :' | sed -e 's/^.*: //g')"
-# Don't need: ARG_RESTORE_ON_WINS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnWINSReset :' | sed -e 's/^.*: //g')"
-# Don't need: PROCESS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*PID :' | sed -e 's/^.*: //g')"
-# Don't need: ARG_IGNORE_OPTION_FLAGS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IgnoreOptionFlags :' | sed -e 's/^.*: //g')"
-ARG_TAP="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :' | sed -e 's/^.*: //g')"
-bRouteGatewayIsDhcp="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :' | sed -e 's/^.*: //g')"
-bTapDeviceHasBeenSetNone="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :' | sed -e 's/^.*: //g')"
-bAlsoUsingSetupKeys="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :' | sed -e 's/^.*: //g')"
-sTunnelDevice="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TunnelDevice :' | sed -e 's/^.*: //g')"
+ARG_MONITOR_NETWORK_CONFIGURATION="$(       echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*MonitorNetwork :'                       | sed -e 's/^.*: //g')"
+LEASEWATCHER_PLIST_PATH="$(                 echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :'                | sed -e 's/^.*: //g')"
+REMOVE_LEASEWATCHER_PLIST="$(               echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RemoveLeaseWatcherPlist :'              | sed -e 's/^.*: //g')"
+PSID="$(                                    echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*Service :'                              | sed -e 's/^.*: //g')"
+ARG_TAP="$(                                 echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :'                       | sed -e 's/^.*: //g')"
+bRouteGatewayIsDhcp="$(                     echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :'                   | sed -e 's/^.*: //g')"
+bTapDeviceHasBeenSetNone="$(                echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :'              | sed -e 's/^.*: //g')"
+bAlsoUsingSetupKeys="$(                     echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :'                  | sed -e 's/^.*: //g')"
+sTunnelDevice="$(                           echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TunnelDevice :'                         | sed -e 's/^.*: //g')"
 
-# Note: '\n' was translated into '\t', so we translate it back (it was done because grep and sed only work with single lines)
-sRestoreIpv6Services="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreIpv6Services :' | sed -e 's/^.*: //g' | tr '\t' '\n')"
+# In the following entries may have multiple lines, so every '\n' was translated into '\t' by the up script because grep and sed only
+# work with single lines, they are translated back here. A \n is appended to each entry to make sure all lines are processed.
+sRestoreIpv6Services="$(                    echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreIpv6Services :'                  | sed -e 's/^.*: //g' | tr '\t' '\n' )$LF"
 
 # Remove leasewatcher
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
