@@ -629,7 +629,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		original_resolver_contents="(unavailable)"
 	fi
     logDebugMessage "DEBUG:"
-    logDebugMessage "DEBUG: /etc/resolve = ${original_resolver_contents}"
+    logDebugMessage "DEBUG: /etc/resolv.conf = ${original_resolver_contents}"
     logDebugMessage "DEBUG:"
 
 	set +e # scutil --dns will return error status in case dns is already down, so don't fail if no dns found
@@ -829,7 +829,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		new_resolver_contents="(unavailable)"
 	fi
     logDebugMessage "DEBUG:"
-    logDebugMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
+    logDebugMessage "DEBUG: /etc/resolv.conf = ${new_resolver_contents}"
     logDebugMessage "DEBUG:"
 
 	set +e # scutil --dns will return error status in case dns is already down, so don't fail if no dns found
