@@ -599,7 +599,6 @@ BOOL deleteThingAtPath(NSString * path) {
 	errorExitIfAnySymlinkInPath(path);
 	makeUnlockedAtPath(path);
 	if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
-		appendLog([NSString stringWithFormat: @"Failed to delete %@", path]);
 		return FALSE;
 	} else {
 		appendLog([NSString stringWithFormat: @"Deleted %@", path]);
