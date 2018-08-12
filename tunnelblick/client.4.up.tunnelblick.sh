@@ -1029,7 +1029,7 @@ flushDNSCache()
 		fi
 
 		set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-		hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
+			reaonly local hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
 		set -e # We instruct bash that it CAN again fail on errors
 		if [ "${hands_off_ps}" = "" ] ; then
 			if [ -f /usr/bin/killall ] ; then
@@ -1057,8 +1057,8 @@ flushDNSCache()
 # @param String New DNS_SA
 logDnsInfo() {
 
-	log_dns_info_manual_dns_sa="$1"
-	log_dns_info_new_dns_sa="$2"
+	readonly local log_dns_info_manual_dns_sa="$1"
+	readonly local log_dns_info_new_dns_sa="$2"
 
 	if [ "${log_dns_info_manual_dns_sa}" != "" -a "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "false"  ] ; then
         logMessage "DNS servers '${log_dns_info_manual_dns_sa}' were set manually"
@@ -1073,17 +1073,17 @@ logDnsInfo() {
 			logMessage "NOTE: DNS server 127.0.0.1 often is used inside virtual machines (e.g., 'VirtualBox', 'Parallels', or 'VMWare'). The actual VPN server may be specified by the host machine. This DNS server setting may cause DNS queries to fail or be intercepted or falsified. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
 		else
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-			serversContainLoopback="$( echo "${log_dns_info_new_dns_sa}" | grep "127.0.0.1" )"
+				readonly local serversContainLoopback="$( echo "${log_dns_info_new_dns_sa}" | grep "127.0.0.1" )"
 			set -e # We instruct bash that it CAN again fail on errors
 			if [ "${serversContainLoopback}" != "" ] ; then
 				logMessage "NOTE: DNS server 127.0.0.1 often is used inside virtual machines (e.g., 'VirtualBox', 'Parallels', or 'VMWare'). The actual VPN server may be specified by the host machine. If used, 127.0.0.1 may cause DNS queries to fail or be intercepted or falsified. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
 			else
-				readonly knownPublicDnsServers="$( cat "${FREE_PUBLIC_DNS_SERVERS_LIST_PATH}" )"
+				readonly local knownPublicDnsServers="$( cat "${FREE_PUBLIC_DNS_SERVERS_LIST_PATH}" )"
 				knownDnsServerNotFound="true"
 				unknownDnsServerFound="false"
 				for server in ${log_dns_info_new_dns_sa} ; do
 					set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-					serverIsKnown="$( echo "${knownPublicDnsServers}" | grep "${server}" )"
+						serverIsKnown="$( echo "${knownPublicDnsServers}" | grep "${server}" )"
 					set -e # We instruct bash that it CAN again fail on errors
 					if [ "${serverIsKnown}" != "" ] ; then
 						knownDnsServerNotFound="false"
@@ -1120,8 +1120,8 @@ EOF
 grep PrimaryService | sed -e 's/.*PrimaryService : //'
 )"
 
-    readonly LOGDNSINFO_MAN_DNS_CONFIG="$( get_scutil_item Setup:/Network/Service/${PSID}/DNS )"
-    readonly LOGDNSINFO_CUR_DNS_CONFIG="$( get_scutil_item State:/Network/Global/DNS )"
+    readonly local LOGDNSINFO_MAN_DNS_CONFIG="$( get_scutil_item Setup:/Network/Service/${PSID}/DNS )"
+    readonly local LOGDNSINFO_CUR_DNS_CONFIG="$( get_scutil_item State:/Network/Global/DNS )"
 
 	if echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
 		readonly LOGDNSINFO_MAN_DNS_SA="$( trim "$( echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
@@ -1130,9 +1130,9 @@ grep PrimaryService | sed -e 's/.*PrimaryService : //'
 	fi
 
 	if echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
-		readonly LOGDNSINFO_CUR_DNS_SA="$( trim "$( echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
+		readonly local LOGDNSINFO_CUR_DNS_SA="$( trim "$( echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
 	else
-		readonly LOGDNSINFO_CUR_DNS_SA="";
+		readonly local LOGDNSINFO_CUR_DNS_SA="";
 	fi
 
     set -e # resume abort on error

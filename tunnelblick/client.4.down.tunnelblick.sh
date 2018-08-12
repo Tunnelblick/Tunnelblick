@@ -88,7 +88,7 @@ flushDNSCache()
 		fi
 
 		set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-		hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
+		readonly local hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
 		set -e # We instruct bash that it CAN again fail on errors
 		if [ "${hands_off_ps}" = "" ] ; then
 			if [ -f /usr/bin/killall ] ; then
@@ -119,9 +119,9 @@ resetPrimaryInterface()
 
 	if [ -e "$expected_path" ] ; then
 		rm -f "$expected_path"
-		should_reset="$1"
+		readonly local should_reset="$1"
 	else
-		should_reset="$2"
+		readonly local should_reset="$2"
 	fi
 
 	if [ "$should_reset" != "true" ] ; then
@@ -129,11 +129,11 @@ resetPrimaryInterface()
 	fi
 
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-		WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
+		readonly local WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
 		if [ "${WIFI_INTERFACE}" == "" ] ; then
 			WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
 		fi
-		PINTERFACE="$( scutil <<-EOF |
+		readonly local PINTERFACE="$( scutil <<-EOF |
 			open
 			show State:/Network/Global/IPv4
 			quit
