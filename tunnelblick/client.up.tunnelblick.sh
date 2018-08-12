@@ -67,29 +67,23 @@ disable_ipv6() {
 # The 'restore_ipv6' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
 #
 # NOTE: Done only for enabled services because some versions of OS X enable the service if this IPv6 setting is changed.
-#
-# This only works for OS X 10.5 and higher (10.4 does not implement IPv6.)
-
-    if [ "$OSVER" = "10.4" ] ; then
-        exit
-    fi
 
     # Get list of services and remove the first line which contains a heading
-    dipv6_services="$( networksetup  -listallnetworkservices | sed -e '1,1d')"
+    local dipv6_services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d')"
 
     # Go through the list disabling IPv6 for enabled services, and outputting lines with the names of the services
-    printf %s "$dipv6_services
-" | \
-    while IFS= read -r dipv6_service ; do
+    printf %s "$dipv6_services$LF"  |   while IFS= read -r dipv6_service ; do
+		if [ -n "$ripv6_service" ] ; then
 
-        # If first character of a line is an asterisk, the service is disabled, so we skip it
-        if [ "${dipv6_service:0:1}" != "*" ] ; then
-            dipv6_ipv6_status="$( networksetup -getinfo "$dipv6_service" | grep 'IPv6: ' | sed -e 's/IPv6: //')"
-            if [ "$dipv6_ipv6_status" = "Automatic" ] ; then
-                networksetup -setv6off "$dipv6_service"
-                echo "$dipv6_service"
-            fi
-        fi
+			# If first character of a line is an asterisk, the service is disabled, so we skip it
+			if [ "${dipv6_service:0:1}" != "*" ] ; then
+				dipv6_ipv6_status="$( /usr/sbin/networksetup -getinfo "$dipv6_service" | grep 'IPv6: ' | sed -e 's/IPv6: //')"
+				if [ "$dipv6_ipv6_status" = "Automatic" ] ; then
+					/usr/sbin/networksetup -setv6off "$dipv6_service"
+					echo "$dipv6_service"
+				fi
+			fi
+		fi
 
     done
 }

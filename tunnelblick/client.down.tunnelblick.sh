@@ -43,11 +43,11 @@ restore_ipv6() {
         return
     fi
 
-    printf %s "$1
-" | \
-    while IFS= read -r ripv6_service ; do
-        networksetup -setv6automatic "$ripv6_service"
-        logMessage "Re-enabled IPv6 (automatic) for '$ripv6_service'"
+    printf %s "$1$LF"  |   while IFS= read -r ripv6_service ; do
+		if [ -n "$ripv6_service" ] ; then
+			/usr/sbin/networksetup -setv6automatic "$ripv6_service"
+			logMessage "Re-enabled IPv6 (automatic) for '$ripv6_service'"
+		fi
     done
 }
 

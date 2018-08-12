@@ -43,11 +43,11 @@ restore_ipv6() {
         return
     fi
 
-    printf %s "$1
-" | \
-    while IFS= read -r ripv6_service ; do
-        networksetup -setv6automatic "$ripv6_service"
-        logMessage "Re-enabled IPv6 (automatic) for '$ripv6_service'"
+    printf %s "$1$LF"  |   while IFS= read -r ripv6_service ; do
+		if [ -n "$ripv6_service" ] ; then
+			/usr/sbin/networksetup -setv6automatic "$ripv6_service"
+			logMessage "Re-enabled IPv6 (automatic) for '$ripv6_service'"
+		fi
     done
 }
 
@@ -132,9 +132,9 @@ resetPrimaryInterface()
 	fi
 
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-		WIFI_INTERFACE="$(networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
+		WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
 		if [ "${WIFI_INTERFACE}" == "" ] ; then
-			WIFI_INTERFACE="$(networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
+			WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
 		fi
 		PINTERFACE="$( scutil <<-EOF |
 			open
@@ -172,6 +172,8 @@ trap "" HUP
 trap "" INT
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
+readonly LF="
+"
 readonly OUR_NAME=$(basename "${0}")
 
 logMessage "**********************************************"
