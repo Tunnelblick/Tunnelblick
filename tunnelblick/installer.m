@@ -585,8 +585,13 @@ void createFolder(NSString * path) {
 								 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountName],      NSFileOwnerAccountName,
 								 [enclosingFolderAttributes objectForKey: NSFilePosixPermissions],      NSFilePosixPermissions,
 								 nil];
-	[gFileMgr tbCreateDirectoryAtPath: path attributes: attributes];
-	appendLog([NSString stringWithFormat: @"Created %@", path]);
+	if ( ! [gFileMgr tbCreateDirectoryAtPath: path attributes: attributes]  ) {
+		errorExit();
+	}
+	
+	appendLog([NSString stringWithFormat: @"Created %@ with owner %@:%@ (%@:%@) and permissions 0%lo", path,
+			   [attributes fileOwnerAccountName], [attributes fileGroupOwnerAccountName],
+			   [attributes fileOwnerAccountID],   [attributes fileGroupOwnerAccountID],   [attributes filePosixPermissions]]);
 }
 
 BOOL deleteThingAtPath(NSString * path) {
