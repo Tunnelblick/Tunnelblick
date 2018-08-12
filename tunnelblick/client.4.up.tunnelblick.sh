@@ -998,12 +998,12 @@ flushDNSCache()
     if ${ARG_FLUSH_DNS_CACHE} ; then
 		if [ -f /usr/bin/dscacheutil ] ; then
 			set +e # we will catch errors from dscacheutil
-			/usr/bin/dscacheutil -flushcache
-			if [ $? != 0 ] ; then
-				logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
-			else
-				logMessage "Flushed the DNS cache via dscacheutil"
-			fi
+				/usr/bin/dscacheutil -flushcache
+				if [ $? != 0 ] ; then
+					logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
+				else
+					logMessage "Flushed the DNS cache via dscacheutil"
+				fi
 			set -e # bash should again fail on errors
 		else
 			logMessage "WARNING: /usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
@@ -1011,18 +1011,18 @@ flushDNSCache()
 
 		if [ -f /usr/sbin/discoveryutil ] ; then
 			set +e # we will catch errors from discoveryutil
-			/usr/sbin/discoveryutil udnsflushcaches
-			if [ $? != 0 ] ; then
-				logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
-			else
-				logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
-			fi
-			/usr/sbin/discoveryutil mdnsflushcache
-			if [ $? != 0 ] ; then
-				logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
-			else
-				logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
-			fi
+				/usr/sbin/discoveryutil udnsflushcaches
+				if [ $? != 0 ] ; then
+					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
+				else
+					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
+				fi
+				/usr/sbin/discoveryutil mdnsflushcache
+				if [ $? != 0 ] ; then
+					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
+				else
+					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
+				fi
 			set -e # bash should again fail on errors
 		else
 			logMessage "/usr/sbin/discoveryutil not present. Not flushing the DNS cache via discoveryutil"
@@ -1034,12 +1034,12 @@ flushDNSCache()
 		if [ "${hands_off_ps}" = "" ] ; then
 			if [ -f /usr/bin/killall ] ; then
 				set +e # ignore errors if mDNSResponder isn't currently running
-				/usr/bin/killall -HUP mDNSResponder
-				if [ $? != 0 ] ; then
-					logMessage "mDNSResponder not running. Not notifying it that the DNS cache was flushed"
-				else
-					logMessage "Notified mDNSResponder that the DNS cache was flushed"
-				fi
+					/usr/bin/killall -HUP mDNSResponder
+					if [ $? != 0 ] ; then
+						logMessage "mDNSResponder not running. Not notifying it that the DNS cache was flushed"
+					else
+						logMessage "Notified mDNSResponder that the DNS cache was flushed"
+					fi
 				set -e # bash should again fail on errors
 			else
 				logMessage "WARNING: /usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
