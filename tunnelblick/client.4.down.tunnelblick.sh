@@ -29,6 +29,63 @@ trim()
 echo ${@}
 }
 
+##########################################################################################
+restore_networksetup_setting() {
+
+# Restore the networksetup setting named $1 using data in $2.
+#
+# $1 must be either "dnsservers" or "searchdomains". (Those are the only two settings
+#    that can be modified by "networksetup".)
+#
+# $2 is a string containing the information needed to restore the settings for each active
+# network service. The "up" script that corresponds to this "down" script stores the string
+# in the scutil data item "NetworkSetupRestore$1Info". For a description of the format for $2,
+# see the get_networksetup_setting() routine in the "up" script.
+#
+# This routine outputs log messages describing its activities.
+
+	if [ "$1" != "dnsservers" ] && [ "$1" != "searchdomains" ] ; then
+		logMessage "restore_networksetup_setting: Unknown setting name '$1'"
+		exit 1
+	fi
+
+	if [ -z "$2" ] ; then
+		logMessage "restore_networksetup_setting: Second argument = ''. Not restoring $1."
+		return
+	fi
+
+	if [ ! -f "/usr/sbin/networksetup" ] ; then
+		logMessage "restore_networksetup_setting: Cannot restore setting for $1: /usr/sbin/networksetup does not exist"
+		exit 1
+	fi
+
+	# Process each line separately. Add \n to end of input to make sure partial lines are processed.
+
+	local saved_IFS="$IFS"
+
+	printf %s "$2$LF"  |  while IFS= read -r line ; do
+
+		if [ -n "$line" ] ; then
+
+			# "setting" is everything BEFORE the first space in the line
+			# "service" is everything AFTER  the first space in the line
+			#              because "setting" can't contain spaces, but "service" can
+			setting="$( echo "$line"  |  sed -e 's/ .*//' )"
+            service="$( echo "$line"  |  sed -e 's/[^ ]* \(.*\)/\1/' )"
+
+			# Translate commas in "setting" to spaces for networksetup
+            /usr/sbin/networksetup -set$1 "$service" ${setting//,/ }
+
+			logMessage "Used networksetup to restore $service $1 to $setting"
+
+        fi
+
+	done
+
+	IFS="$saved_IFS"
+}
+
+##########################################################################################
 # @param String list - list of network service names, output from disable_ipv6()
 restore_ipv6() {
 
@@ -246,6 +303,8 @@ readonly sTunnelDevice="$(                           echo "${TUNNELBLICK_CONFIG}
 
 # The following entries may have multiple lines, so every '\n' was translated into '\t' by the up script because grep and sed only
 # work with single lines, they are translated back here. A \n is appended to each entry to make sure all lines are processed.
+readonly network_setup_restore_dnsservers_info="$(   echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*NetworkSetupRestorednsserversInfo :'    | sed -e 's/^.*: //g' | tr '\t' '\n' )$LF"
+readonly network_setup_restore_searchdomains_info="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*NetworkSetupRestoresearchdomainsInfo :' | sed -e 's/^.*: //g' | tr '\t' '\n' )$LF"
 readonly sRestoreIpv6Services="$(                    echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreIpv6Services :'                  | sed -e 's/^.*: //g' | tr '\t' '\n' )$LF"
 
 # Remove leasewatcher
@@ -375,6 +434,9 @@ EOF
 fi
 
 logMessage "Restored the DNS and SMB configurations"
+
+restore_networksetup_setting dnsservers    "$network_setup_restore_dnsservers_info"
+restore_networksetup_setting searchdomains "$network_setup_restore_searchdomains_info"
 
 if [ -e /etc/resolv.conf ] ; then
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
