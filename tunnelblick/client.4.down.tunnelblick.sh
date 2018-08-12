@@ -55,9 +55,6 @@ restore_ipv6() {
 flushDNSCache()
 {
     if ${ARG_FLUSH_DNS_CACHE} ; then
-        set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-        readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
-        set -e # We instruct bash that it CAN again fail on errors
 		if [ -f /usr/bin/dscacheutil ] ; then
 			set +e # we will catch errors from dscacheutil
 			/usr/bin/dscacheutil -flushcache
