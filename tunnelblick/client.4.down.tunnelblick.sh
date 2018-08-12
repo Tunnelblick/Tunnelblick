@@ -210,7 +210,7 @@ while [ {$#} ] ; do
     shift                                       # Shift arguments to examine the next option (if there is one)
 done
 
-readonly ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING_UNEXPECTED ARG_FLUSH_DNS_CACHE
+readonly ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED ARG_FLUSH_DNS_CACHE
 
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
@@ -234,19 +234,19 @@ TUNNELBLICK_CONFIG="$( scutil <<-EOF
 EOF
 )"
 
-ARG_MONITOR_NETWORK_CONFIGURATION="$(       echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*MonitorNetwork :'                       | sed -e 's/^.*: //g')"
-LEASEWATCHER_PLIST_PATH="$(                 echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :'                | sed -e 's/^.*: //g')"
-REMOVE_LEASEWATCHER_PLIST="$(               echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RemoveLeaseWatcherPlist :'              | sed -e 's/^.*: //g')"
-PSID="$(                                    echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*Service :'                              | sed -e 's/^.*: //g')"
-ARG_TAP="$(                                 echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :'                       | sed -e 's/^.*: //g')"
-bRouteGatewayIsDhcp="$(                     echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :'                   | sed -e 's/^.*: //g')"
-bTapDeviceHasBeenSetNone="$(                echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :'              | sed -e 's/^.*: //g')"
-bAlsoUsingSetupKeys="$(                     echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :'                  | sed -e 's/^.*: //g')"
-sTunnelDevice="$(                           echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TunnelDevice :'                         | sed -e 's/^.*: //g')"
+readonly ARG_MONITOR_NETWORK_CONFIGURATION="$(       echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*MonitorNetwork :'                       | sed -e 's/^.*: //g')"
+readonly LEASEWATCHER_PLIST_PATH="$(                 echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :'                | sed -e 's/^.*: //g')"
+readonly REMOVE_LEASEWATCHER_PLIST="$(               echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RemoveLeaseWatcherPlist :'              | sed -e 's/^.*: //g')"
+readonly PSID="$(                                    echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*Service :'                              | sed -e 's/^.*: //g')"
+readonly ARG_TAP="$(                                 echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :'                       | sed -e 's/^.*: //g')"
+readonly bRouteGatewayIsDhcp="$(                     echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :'                   | sed -e 's/^.*: //g')"
+readonly bTapDeviceHasBeenSetNone="$(                echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :'              | sed -e 's/^.*: //g')"
+readonly bAlsoUsingSetupKeys="$(                     echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :'                  | sed -e 's/^.*: //g')"
+readonly sTunnelDevice="$(                           echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TunnelDevice :'                         | sed -e 's/^.*: //g')"
 
-# In the following entries may have multiple lines, so every '\n' was translated into '\t' by the up script because grep and sed only
+# The following entries may have multiple lines, so every '\n' was translated into '\t' by the up script because grep and sed only
 # work with single lines, they are translated back here. A \n is appended to each entry to make sure all lines are processed.
-sRestoreIpv6Services="$(                    echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreIpv6Services :'                  | sed -e 's/^.*: //g' | tr '\t' '\n' )$LF"
+readonly sRestoreIpv6Services="$(                    echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreIpv6Services :'                  | sed -e 's/^.*: //g' | tr '\t' '\n' )$LF"
 
 # Remove leasewatcher
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
