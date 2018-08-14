@@ -234,8 +234,6 @@ extern TBUserDefaults * gTbDefaults;
 
 +(BOOL) canAcceptFileTypesInPasteboard: (NSPasteboard *) pboard {
 	
-	// Accept a single .tblkSetup or multiple configurations but don't allow a mix or multiple .tblkSetups
-	
 	NSArray * configExtensions = [NSArray arrayWithObjects: @"ovpn", @"conf", @"tblk", nil];
 	
 	NSString * type = [pboard availableTypeFromArray: [NSArray arrayWithObject: NSFilenamesPboardType]];
@@ -246,12 +244,9 @@ extern TBUserDefaults * gTbDefaults;
 	
 	NSArray * paths = [pboard propertyListForType: NSFilenamesPboardType];
 	NSUInteger i;
-	BOOL haveSetup         = FALSE;
-	BOOL haveConfiguration = FALSE;
 	for (  i=0; i<[paths count]; i++  ) {
 		NSString * path = [paths objectAtIndex:i];
 		if (  [configExtensions containsObject: [path pathExtension]]  ) {
-			haveConfiguration = TRUE;
 			TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: acceptable: '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
 		} else {
 			TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: unknown extension, so returning NO for '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);

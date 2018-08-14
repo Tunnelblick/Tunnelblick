@@ -4198,33 +4198,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	return NO;
 }
 
-+(BOOL) importTunnelblickSetup: (NSArray *) files {
-	
-	if (   ([files count] != 1)
-		|| [[[files firstObject] pathExtension] isNotEqualTo: @"tblkSetup"]
-		|| ( ! [gFileMgr fileExistsAtPath: [files firstObject]] )  ) {
-		NSLog(@"Error: ConfigurationManager/importTunnelblickSetup not invoked with only one .tblkSetup file which exists");
-		return NO;
-	}
-	
-	NSString * message = NSLocalizedString(@"Tunnelblick needs to secure the Tunnelblick data being imported.", @"Window text");
-	SystemAuth * auth = [[SystemAuth newAuthWithPrompt: message] autorelease];
-	if (  auth  ) {
-		NSInteger result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_IMPORT
-															   extraArguments: files
-															  usingSystemAuth: auth
-																 installTblks: nil];
-		if (  result != 0  ) {
-			NSLog(@"Error while importing %@", [files firstObject]);
-		}
-		
-		return result;
-	}
-	
-	return NO;
-}
-
-
 // ************************************************************************
 // PRIVATE CLASS METHODS THAT MUST BE INVOKED ON NEW THREADS
 //
