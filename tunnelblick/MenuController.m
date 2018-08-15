@@ -411,58 +411,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 		if (  [gFileMgr fileExistsAtPath: tbLinkPath]  ) {
 			[gFileMgr tbRemoveFileAtPath: tbLinkPath handler: nil];
         }
-		
-        // If this is the first time we are using the new CFBundleIdentifier
-        //    Rename the old preferences so we can access them with the new CFBundleIdentifier
-        //    And create a link to the new preferences from the old preferences (make the link read-only)
-        if (  [[[NSBundle mainBundle] bundleIdentifier] isEqualToString: @"net.tunnelblick.tunnelblick"]  ) {
-            NSString * oldPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/com.openvpn.tunnelblick.plist"];
-            NSString * newPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/net.tunnelblick.tunnelblick.plist"];
-            if (  ! [gFileMgr fileExistsAtPath: newPreferencesPath]  ) {
-                if (  [gFileMgr fileExistsAtPath: oldPreferencesPath]  ) {
-                    if (  [gFileMgr tbMovePath: oldPreferencesPath toPath: newPreferencesPath handler: nil]  ) {
-                        NSLog(@"Renamed existing preferences from %@ to %@", [oldPreferencesPath lastPathComponent], [newPreferencesPath lastPathComponent]);
-                        if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldPreferencesPath
-                                                       pathContent: newPreferencesPath]  ) {
-                            NSLog(@"Created a symbolic link from old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
-							if (  lchmod([oldPreferencesPath fileSystemRepresentation], S_IRUSR+S_IRGRP+S_IROTH) == EXIT_SUCCESS  ) {
-								NSLog(@"Made the symbolic link read-only at %@", oldPreferencesPath);
-							} else {
-								NSLog(@"Warning: Unable to make the symbolic link read-only at %@", oldPreferencesPath);
-							}
-                        } else {
-                            NSLog(@"Warning: Unable to create a symbolic link from the old preferences at %@ to the new preferences %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
-                        }
-                    } else {
-                        NSLog(@"Warning: Unable to rename old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
-                    }
-                }
-            }
-        }
-        
-        // Check that the preferences are OK or don't exist
-        [self checkPlist: @"/Library/Preferences/net.tunnelblick.tunnelblick.plist" renameIfBad: NO];
-        [self checkPlist: [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Preferences/net.tunnelblick.tunnelblick.plist"] renameIfBad: YES];
-		
-        // Set up to override user preferences with preferences from L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH and Deploy/forced-permissions.plist
-        NSDictionary * primaryForcedPreferencesDict = nil;
-        NSDictionary * deployedForcedPreferencesDict = nil;
-        if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
-            primaryForcedPreferencesDict  = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
-            if (  ! primaryForcedPreferencesDict  ) {
-                NSLog(@".plist is being ignored because it is corrupt or unreadable: %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-            }
-        }
-        NSString * deployedForcedPreferencesPath = [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"];
-        if (  [gFileMgr fileExistsAtPath: deployedForcedPreferencesPath]  ) {
-            deployedForcedPreferencesDict  = [NSDictionary dictionaryWithContentsOfFile: deployedForcedPreferencesPath];
-            if (  ! deployedForcedPreferencesPath  ) {
-                NSLog(@".plist is being ignored because it is corrupt or unreadable: %@", deployedForcedPreferencesPath);
-            }
-        }
-        gTbDefaults = [[TBUserDefaults alloc] initWithPrimaryDictionary: primaryForcedPreferencesDict
-                                                  andDeployedDictionary: deployedForcedPreferencesDict];
-        if (  ! gTbDefaults  ) {
+
+        if (  ! [self setUpUserDefaults]  ) {
             return nil; // An error was already logged
         }
         
@@ -481,126 +431,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         TBLog(@"DB-SU", @"init: 002")
         
         TBLog(@"DB-SU", @"init: 003")
-		// Set the new per-configuration "*-openvpnVersion" preference from the old global "openvpnVersion" preference to
-		NSString * version = [gTbDefaults stringForKey: @"openvpnVersion"];
-		if (  version  ) {
-			if (  ! [[gTbDefaults stringForKey: @"*-openvpnVersion"] isEqualToString: version]  ) {
-				[gTbDefaults setObject: version forKey: @"*-openvpnVersion"];
-				NSLog(@"Set the new '*-openvpnVersion' preference from the 'openvpnVersion' preference");
-			}
-		}
-        
-        TBLog(@"DB-SU", @"init: 004")
-        TBLog(@"DB-SU", @"init: 005")
-		// Set the new per-configuration "*-notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference from the old global "notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference to
-		id obj = [gTbDefaults objectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-		if (  obj  ) {
-            if (  [obj respondsToSelector: @selector(boolValue)]  ) {
-				if (  [obj boolValue] != [gTbDefaults boolForKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
-					[gTbDefaults setBool: [obj boolValue] forKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-					NSLog(@"Set the new '*-notOKToCheckThatIPAddressDidNotChangeAfterConnection' preference from the 'notOKToCheckThatIPAddressDidNotChangeAfterConnection' preference");
-				}
-            } else {
-                NSLog(@"Preference 'notOKToCheckThatIPAddressDidNotChangeAfterConnection' is not a boolean; it is being removed");
-				[gTbDefaults removeObjectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-            }
-        }
-        
-        // Set up for the rest
-        NSString * bundleId = [[NSBundle mainBundle] bundleIdentifier];
-        NSString * prefsPath = [[[[NSHomeDirectory()
-                                   stringByAppendingPathComponent:@"Library"]
-                                  stringByAppendingPathComponent:@"Preferences"]
-                                 stringByAppendingPathComponent: bundleId]
-                                stringByAppendingPathExtension: @"plist"];
-        NSDictionary * userDefaultsDict = [NSDictionary dictionaryWithContentsOfFile: prefsPath];
-        
-        TBLog(@"DB-SU", @"init: 006")
-        // Convert the old "-loadTunKext", "-doNotLoadTunKext", "-loadTapKext", and "-doNotLoadTapKext"  to the new '-loadTun' and 'loadTap' equivalents
-        // That is, if NOTLOAD set to NEVER
-        //          else if LOAD, set to ALWAYS
-        // (Default is automatic, indicated by no preference)
-        if (  ! [gTbDefaults preferenceExistsForKey: @"haveDealtWithOldTunTapPreferences"]) {
-
-			NSMutableArray * loadTunConfigNames      = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
-            NSMutableArray * loadTapConfigNames      = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
-            NSMutableArray * doNotLoadTunConfigNames = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
-            NSMutableArray * doNotLoadTapConfigNames = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
-            
-            NSString * key;
-            NSEnumerator * e = [userDefaultsDict keyEnumerator];
-            while (  (key = [e nextObject])  ) {
-                NSRange r = [key rangeOfString: @"-" options: NSBackwardsSearch];
-                if (  r.length != 0  ) {
-                    NSString * configName = [key substringWithRange: NSMakeRange(0, r.location)];
-                    if      (  [key hasSuffix: @"-loadTunKext"]      ) { [loadTunConfigNames      addObject: configName]; }
-                    else if (  [key hasSuffix: @"-loadTapKext"]      ) { [loadTapConfigNames      addObject: configName]; }
-                    else if (  [key hasSuffix: @"-doNotLoadTunKext"] ) { [doNotLoadTunConfigNames addObject: configName]; }
-                    else if (  [key hasSuffix: @"-doNotLoadTapKext"] ) { [doNotLoadTapConfigNames addObject: configName]; }
-                }
-            }
-            
-            NSString * configName;
-            e = [loadTunConfigNames objectEnumerator];
-            while (  (configName = [e nextObject])  ) {
-                if (  ! [doNotLoadTunConfigNames containsObject: configName]  ) {
-                    [gTbDefaults setObject: @"always" forKey: [configName stringByAppendingString: @"-loadTun"]];
-                }
-            }
-            
-            e = [loadTapConfigNames objectEnumerator];
-            while (  (configName = [e nextObject])  ) {
-                if (  ! [doNotLoadTapConfigNames containsObject: configName]  ) {
-                    [gTbDefaults setObject: @"always" forKey: [configName stringByAppendingString: @"-loadTap"]];
-                }
-            }
-            
-            e = [doNotLoadTunConfigNames objectEnumerator];
-            while (  (configName = [e nextObject])  ) {
-                [gTbDefaults setObject: @"never" forKey: [configName stringByAppendingString: @"-loadTun"]];
-            }
-            
-            e = [doNotLoadTapConfigNames objectEnumerator];
-            while (  (configName = [e nextObject])  ) {
-                [gTbDefaults setObject: @"never" forKey: [configName stringByAppendingString: @"-loadTap"]];
-            }
-            
-            [gTbDefaults setBool: TRUE forKey: @"haveDealtWithOldTunTapPreferences"];
-        }
-        
-		TBLog(@"DB-SU", @"init: 006.1")
-		if (  ! [gTbDefaults boolForKey: @"haveDealtWithAfterDisconnect"]  ) {
-
-			// Copy any -resetPrimaryInterfaceAfterDisconnect preferences that are TRUE to -resetPrimaryInterfaceAfterUnexpectedDisconnect
-
-			NSLog(@"Propagating '-resetPrimaryInterfaceAfterDisconnect' preferences that are TRUE to '-resetPrimaryInterfaceAfterUnexpectedDisconnect'");
-			NSString * key;
-			NSEnumerator * e = [userDefaultsDict keyEnumerator];
-			while (  (key = [e nextObject])  ) {
-				NSRange r = [key rangeOfString: @"-" options: NSBackwardsSearch];
-				if (  r.length != 0  ) {
-					if (  [key hasSuffix: @"-resetPrimaryInterfaceAfterDisconnect"]  ) {
-						id value = [userDefaultsDict objectForKey: key];
-						if (   [value respondsToSelector: @selector(boolValue)]
-							&& [value boolValue]  ) {
-							NSString * configName = [key substringWithRange: NSMakeRange(0, r.location)];
-							NSString * newKey = [configName stringByAppendingString: @"-resetPrimaryInterfaceAfterUnexpectedDisconnect"];
-							[gTbDefaults setBool: TRUE forKey: newKey];
-							NSLog(@"Set preference TRUE: %@", newKey);
-						}
-					}
-				}
-			}
-			
-			[gTbDefaults setBool: TRUE forKey: @"haveDealtWithAfterDisconnect"];
-		}
-		
 		TBLog(@"DB-SU", @"init: 007")
-		// Scan for unknown preferences
-        [gTbDefaults scanForUnknownPreferencesInDictionary: primaryForcedPreferencesDict  displayName: @"Primary forced preferences"];
-        [gTbDefaults scanForUnknownPreferencesInDictionary: deployedForcedPreferencesDict displayName: @"Deployed forced preferences"];
-        [gTbDefaults scanForUnknownPreferencesInDictionary: userDefaultsDict              displayName: @"preferences"];
-        
         TBLog(@"DB-SU", @"init: 008")
         // Check any symbolic link to the private configurations folder, after having run the installer (which may have moved the
         // configuration folder contents to the new place)
@@ -854,6 +685,188 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
     }
     
     return self;
+}
+
+-(BOOL) setUpUserDefaults {
+	
+	// If this is the first time we are using the new CFBundleIdentifier
+	//    Rename the old preferences so we can access them with the new CFBundleIdentifier
+	//    And create a link to the new preferences from the old preferences (make the link read-only)
+	if (  [[[NSBundle mainBundle] bundleIdentifier] isEqualToString: @"net.tunnelblick.tunnelblick"]  ) {
+		NSString * oldPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/com.openvpn.tunnelblick.plist"];
+		NSString * newPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/net.tunnelblick.tunnelblick.plist"];
+		if (  ! [gFileMgr fileExistsAtPath: newPreferencesPath]  ) {
+			if (  [gFileMgr fileExistsAtPath: oldPreferencesPath]  ) {
+				if (  [gFileMgr tbMovePath: oldPreferencesPath toPath: newPreferencesPath handler: nil]  ) {
+					NSLog(@"Renamed existing preferences from %@ to %@", [oldPreferencesPath lastPathComponent], [newPreferencesPath lastPathComponent]);
+					if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldPreferencesPath
+												   pathContent: newPreferencesPath]  ) {
+						NSLog(@"Created a symbolic link from old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
+						if (  lchmod([oldPreferencesPath fileSystemRepresentation], S_IRUSR+S_IRGRP+S_IROTH) == EXIT_SUCCESS  ) {
+							NSLog(@"Made the symbolic link read-only at %@", oldPreferencesPath);
+						} else {
+							NSLog(@"Warning: Unable to make the symbolic link read-only at %@", oldPreferencesPath);
+						}
+					} else {
+						NSLog(@"Warning: Unable to create a symbolic link from the old preferences at %@ to the new preferences %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
+					}
+				} else {
+					NSLog(@"Warning: Unable to rename old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
+				}
+			}
+		}
+	}
+	
+	// Check that the preferences are OK or don't exist
+	[self checkPlist: @"/Library/Preferences/net.tunnelblick.tunnelblick.plist" renameIfBad: NO];
+	[self checkPlist: [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Preferences/net.tunnelblick.tunnelblick.plist"] renameIfBad: YES];
+	
+	// Set up to override user preferences with preferences from L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH and Deploy/forced-permissions.plist
+	NSDictionary * primaryForcedPreferencesDict = nil;
+	NSDictionary * deployedForcedPreferencesDict = nil;
+	if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
+		primaryForcedPreferencesDict  = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+		if (  ! primaryForcedPreferencesDict  ) {
+			NSLog(@".plist is being ignored because it is corrupt or unreadable: %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+		}
+	}
+	NSString * deployedForcedPreferencesPath = [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"];
+	if (  [gFileMgr fileExistsAtPath: deployedForcedPreferencesPath]  ) {
+		deployedForcedPreferencesDict  = [NSDictionary dictionaryWithContentsOfFile: deployedForcedPreferencesPath];
+		if (  ! deployedForcedPreferencesPath  ) {
+			NSLog(@".plist is being ignored because it is corrupt or unreadable: %@", deployedForcedPreferencesPath);
+		}
+	}
+	
+	gTbDefaults = [[TBUserDefaults alloc] initWithPrimaryDictionary: primaryForcedPreferencesDict
+									   andDeployedDictionary: deployedForcedPreferencesDict];
+	if (  ! gTbDefaults  ) {
+		return NO;
+	}
+	
+	// *************************************************************
+	// From this point on, we use gTbDefaults to access the defaults
+	// *************************************************************
+	
+	// Set the new per-configuration "*-openvpnVersion" preference from the old global "openvpnVersion" preference to
+	NSString * version = [gTbDefaults stringForKey: @"openvpnVersion"];
+	if (  version  ) {
+		if (  ! [[gTbDefaults stringForKey: @"*-openvpnVersion"] isEqualToString: version]  ) {
+			[gTbDefaults setObject: version forKey: @"*-openvpnVersion"];
+			NSLog(@"Set the new '*-openvpnVersion' preference from the 'openvpnVersion' preference");
+		}
+	}
+	
+	TBLog(@"DB-SU", @"init: 004")
+	TBLog(@"DB-SU", @"init: 005")
+	// Set the new per-configuration "*-notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference from the old global "notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference to
+	id obj = [gTbDefaults objectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+	if (  obj  ) {
+		if (  [obj respondsToSelector: @selector(boolValue)]  ) {
+			if (  [obj boolValue] != [gTbDefaults boolForKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
+				[gTbDefaults setBool: [obj boolValue] forKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+				NSLog(@"Set the new '*-notOKToCheckThatIPAddressDidNotChangeAfterConnection' preference from the 'notOKToCheckThatIPAddressDidNotChangeAfterConnection' preference");
+			}
+		} else {
+			NSLog(@"Preference 'notOKToCheckThatIPAddressDidNotChangeAfterConnection' is not a boolean; it is being removed");
+			[gTbDefaults removeObjectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+		}
+	}
+	
+	// Get a copy of our user dictionary. It may not be fully up-to-date, but we use it only to see what keys exist
+	NSString * prefsPath = [[[[NSHomeDirectory()
+							   stringByAppendingPathComponent:@"Library"]
+							  stringByAppendingPathComponent:@"Preferences"]
+							 stringByAppendingPathComponent: [[NSBundle mainBundle] bundleIdentifier]]
+							stringByAppendingPathExtension: @"plist"];
+	NSDictionary * userDefaultsDict = [NSDictionary dictionaryWithContentsOfFile: prefsPath];
+	
+	TBLog(@"DB-SU", @"init: 006")
+	// Convert the old "-loadTunKext", "-doNotLoadTunKext", "-loadTapKext", and "-doNotLoadTapKext"  to the new '-loadTun' and 'loadTap' equivalents
+	// That is, if NOTLOAD set to NEVER
+	//          else if LOAD, set to ALWAYS
+	// (Default is automatic, indicated by no preference)
+	if (  ! [gTbDefaults preferenceExistsForKey: @"haveDealtWithOldTunTapPreferences"]) {
+		
+		NSMutableArray * loadTunConfigNames      = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
+		NSMutableArray * loadTapConfigNames      = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
+		NSMutableArray * doNotLoadTunConfigNames = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
+		NSMutableArray * doNotLoadTapConfigNames = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
+		
+		NSString * key;
+		NSEnumerator * e = [userDefaultsDict keyEnumerator];
+		while (  (key = [e nextObject])  ) {
+			NSRange r = [key rangeOfString: @"-" options: NSBackwardsSearch];
+			if (  r.length != 0  ) {
+				NSString * configName = [key substringWithRange: NSMakeRange(0, r.location)];
+				if      (  [key hasSuffix: @"-loadTunKext"]      ) { [loadTunConfigNames      addObject: configName]; }
+				else if (  [key hasSuffix: @"-loadTapKext"]      ) { [loadTapConfigNames      addObject: configName]; }
+				else if (  [key hasSuffix: @"-doNotLoadTunKext"] ) { [doNotLoadTunConfigNames addObject: configName]; }
+				else if (  [key hasSuffix: @"-doNotLoadTapKext"] ) { [doNotLoadTapConfigNames addObject: configName]; }
+			}
+		}
+		
+		NSString * configName;
+		e = [loadTunConfigNames objectEnumerator];
+		while (  (configName = [e nextObject])  ) {
+			if (  ! [doNotLoadTunConfigNames containsObject: configName]  ) {
+				[gTbDefaults setObject: @"always" forKey: [configName stringByAppendingString: @"-loadTun"]];
+			}
+		}
+		
+		e = [loadTapConfigNames objectEnumerator];
+		while (  (configName = [e nextObject])  ) {
+			if (  ! [doNotLoadTapConfigNames containsObject: configName]  ) {
+				[gTbDefaults setObject: @"always" forKey: [configName stringByAppendingString: @"-loadTap"]];
+			}
+		}
+		
+		e = [doNotLoadTunConfigNames objectEnumerator];
+		while (  (configName = [e nextObject])  ) {
+			[gTbDefaults setObject: @"never" forKey: [configName stringByAppendingString: @"-loadTun"]];
+		}
+		
+		e = [doNotLoadTapConfigNames objectEnumerator];
+		while (  (configName = [e nextObject])  ) {
+			[gTbDefaults setObject: @"never" forKey: [configName stringByAppendingString: @"-loadTap"]];
+		}
+		
+		[gTbDefaults setBool: TRUE forKey: @"haveDealtWithOldTunTapPreferences"];
+	}
+	
+	TBLog(@"DB-SU", @"init: 006.1")
+	if (  ! [gTbDefaults boolForKey: @"haveDealtWithAfterDisconnect"]  ) {
+		
+		// Copy any -resetPrimaryInterfaceAfterDisconnect preferences that are TRUE to -resetPrimaryInterfaceAfterUnexpectedDisconnect
+		
+		NSLog(@"Propagating '-resetPrimaryInterfaceAfterDisconnect' preferences that are TRUE to '-resetPrimaryInterfaceAfterUnexpectedDisconnect'");
+		NSString * key;
+		NSEnumerator * e = [userDefaultsDict keyEnumerator];
+		while (  (key = [e nextObject])  ) {
+			NSRange r = [key rangeOfString: @"-" options: NSBackwardsSearch];
+			if (  r.length != 0  ) {
+				if (  [key hasSuffix: @"-resetPrimaryInterfaceAfterDisconnect"]  ) {
+					id value = [userDefaultsDict objectForKey: key];
+					if (   [value respondsToSelector: @selector(boolValue)]
+						&& [value boolValue]  ) {
+						NSString * configName = [key substringWithRange: NSMakeRange(0, r.location)];
+						NSString * newKey = [configName stringByAppendingString: @"-resetPrimaryInterfaceAfterUnexpectedDisconnect"];
+						[gTbDefaults setBool: TRUE forKey: newKey];
+						NSLog(@"Set preference TRUE: %@", newKey);
+					}
+				}
+			}
+		}
+		
+		[gTbDefaults setBool: TRUE forKey: @"haveDealtWithAfterDisconnect"];
+	}
+	
+	// Scan for unknown preferences
+	[gTbDefaults scanForUnknownPreferencesInDictionary: primaryForcedPreferencesDict  displayName: @"Primary forced preferences"];
+	[gTbDefaults scanForUnknownPreferencesInDictionary: deployedForcedPreferencesDict displayName: @"Deployed forced preferences"];
+	[gTbDefaults scanForUnknownPreferencesInDictionary: userDefaultsDict              displayName: @"preferences"];
+	
+	return TRUE;
 }
 
 -(void) reactivateTunnelblick {
