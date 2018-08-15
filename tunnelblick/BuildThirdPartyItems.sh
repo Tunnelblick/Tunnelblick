@@ -39,6 +39,13 @@ if [ ${XCODE_VERSION_ACTUAL} -lt 0731 ] ; then
   exit 1
 fi
 
+# Make sure there are no spaces in the path to this folder
+path_to_build_folder="$( pwd )"
+if [ "$path_to_build_folder" != "${path_to_build_folder/ /}" ] ; then
+	echo "error: There should not be any spaces in the path to the 'tunnelblick' and 'third_party' folders"
+	exit -1
+fi
+
 cd ../third_party/
 
 # The following line is needed so make openssl build without error
