@@ -40,8 +40,8 @@ LZ4_TARGET_ARCHS = x86_64
 
 # IMPORTANT: When an SSL version changes, change the name of any corresponding folder in patches/ssl
 
-OPENSSL_1_0_NAME = openssl-1.0.2o
-OPENSSL_1_1_NAME = openssl-1.1.0h
+OPENSSL_1_0_NAME = openssl-1.0.2p
+OPENSSL_1_1_NAME = openssl-1.1.0i
 LIBRESSL_NAME	 = libressl-2.7.1
 
 PKCS11_NAME      = pkcs11-helper-1.22
