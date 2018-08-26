@@ -3785,6 +3785,14 @@ static void signal_handler(int signalNumber)
     
     return [self application: nil openFiles: filePaths];
 }
+
+-(BOOL) openSetup: (NSArray * ) filePaths {
+
+	// Invoked from MainIconView to implement files dropped on the icon for installation.
+	
+	return [ConfigurationManager importTunnelblickSetup: filePaths];
+}
+
 -(void) setupUpdaterAutomaticChecks {
     
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
