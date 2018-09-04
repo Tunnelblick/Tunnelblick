@@ -362,9 +362,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 		
 		iconTrackingRectTag = 0;
         
-        gProgramPreferences = NON_CONFIGURATIONS_PREFERENCES_NSARRAY;
+        gProgramPreferences = [NON_CONFIGURATIONS_PREFERENCES_NSARRAY retain];
         
-        gConfigurationPreferences = CONFIGURATIONS_PREFERENCES_NSARRAY;
+        gConfigurationPreferences = [CONFIGURATIONS_PREFERENCES_NSARRAY retain];
         
         connectionsToRestoreOnWakeup = [[NSMutableArray alloc] initWithCapacity: 5];
         
@@ -747,6 +747,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	// *************************************************************
 	// From this point on, we use gTbDefaults to access the defaults
 	// *************************************************************
+	
+	[self mergeNewUserDefaultsFromTblkSetup];
 	
 	// Set the new per-configuration "*-openvpnVersion" preference from the old global "openvpnVersion" preference to
 	NSString * version = [gTbDefaults stringForKey: @"openvpnVersion"];
