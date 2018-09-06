@@ -47,6 +47,7 @@
 	<key>NSHighResolutionCapable</key>				<true/>
 	<key>NSMainNibFile</key>						<string>MainMenu</string>
 	<key>NSPrincipalClass</key>						<string>NSApplication</string>
+	<key>NSRequiresAquaSystemAppearance</key>		<false/>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>	<true/>
 	<key>NSUIElement</key>							<string>1</string>
 	<key>OSAScriptingDefinition</key>				<string>tunnelblick.sdef</string>
