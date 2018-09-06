@@ -5,6 +5,8 @@
 //  Copyright 2007 Magic Aubergine.
 //
 //  Note: Special permission to use this in Tunnelblick was granted by Matt Gemmell on 2016-07-02.
+//
+//  Modifications Copyright 2018 Jonathan K. Bullard.
 
 /*  This file is part of Tunnelblick.
  *
@@ -26,8 +28,8 @@
 
 #import "MAAttachedWindow.h"
 
-#define MAATTACHEDWINDOW_DEFAULT_BACKGROUND_COLOR [NSColor colorWithCalibratedWhite:0.1 alpha:0.75]
-#define MAATTACHEDWINDOW_DEFAULT_BORDER_COLOR [NSColor whiteColor]
+#define MAATTACHEDWINDOW_DEFAULT_BACKGROUND_COLOR [NSColor textBackgroundColor]
+#define MAATTACHEDWINDOW_DEFAULT_BORDER_COLOR [NSColor textBackgroundColor]
 #define MAATTACHEDWINDOW_SCALE_FACTOR [[NSScreen mainScreen] userSpaceScaleFactor]
 
 @interface MAAttachedWindow (MAPrivateMethods)

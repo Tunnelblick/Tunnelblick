@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, 2017 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2015, 2017, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -67,7 +67,11 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
 	[UIHelper setTitle: label ofControl: self frameHolder: self shift: rtl narrow: YES enable: YES];
 	
-	[self setAttributedTitle: infoTitle];
+	NSMutableAttributedString * infoTitleAS = [[infoTitle mutableCopy] autorelease];
+	[infoTitleAS addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: NSMakeRange(0, [infoTitleAS length])];
+	[infoTitleAS addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [infoTitleAS length])];
+	
+	[self setAttributedTitle: infoTitleAS];
 	[self setMinimumWidth: 360.0];
 	[self setEnabled: ! disabled];
 }
