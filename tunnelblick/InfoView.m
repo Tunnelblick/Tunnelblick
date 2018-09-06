@@ -130,7 +130,9 @@ extern TBUserDefaults * gTbDefaults;
 			NSLog(@"Cannot get dataUsingEncoding:NSASCIIStringEncoding for html; stack trace = %@", callStack());
 			data = [NSData data];
 		}
-        NSAttributedString * description = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
+        NSMutableAttributedString * description = [[[NSMutableAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
+		[description addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: NSMakeRange(0, [description length])];
+		[description addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [description length])];
         [[infoDescriptionTV textStorage] setAttributedString: description];
     } else {
         
@@ -175,6 +177,8 @@ extern TBUserDefaults * gTbDefaults;
 			[descriptionString deleteCharactersInRange: NSMakeRange(0, 1)];	// Remove leading space
         }
 		
+		[descriptionString addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: NSMakeRange(0, [descriptionString length])];
+		[descriptionString addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [descriptionString length])];
         NSDictionary * attributes = [NSDictionary dictionaryWithObject: NSRTFTextDocumentType forKey: NSDocumentTypeDocumentAttribute];
         [infoDescriptionTV replaceCharactersInRange: NSMakeRange( 0, [[infoDescriptionTV string] length] )
                                             withRTF: [descriptionString RTFFromRange: NSMakeRange( 0, [descriptionString length] ) documentAttributes: attributes]];
@@ -535,7 +539,10 @@ extern TBUserDefaults * gTbDefaults;
 		}
     }
     
-    // Convert the NSMutableAttributedString to RTF
+	[creditsString addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: NSMakeRange(0, [creditsString length])];
+	[creditsString addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [creditsString length])];
+
+	// Convert the NSMutableAttributedString to RTF
     NSDictionary * attributes = [NSDictionary dictionaryWithObject: NSRTFTextDocumentType forKey: NSDocumentTypeDocumentAttribute];
     NSData * rtfData = [creditsString RTFFromRange: NSMakeRange(0, [creditsString length])
                                 documentAttributes: attributes];
