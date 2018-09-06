@@ -157,6 +157,9 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     NSMutableAttributedString * string = [[[NSMutableAttributedString alloc] initWithString: line] autorelease];
     
     NSRange lineRange = NSMakeRange(0, [line length]);
+
+	[string addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: lineRange];
+	[string addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: lineRange];
 	
     NSRange issueRange = [line rangeOfString: @"NOTE:" options: NSCaseInsensitiveSearch];
     if (  issueRange.length != 0  ) {
