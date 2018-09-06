@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -46,9 +46,13 @@
 	
 	[[self window] setTitle: heading];
 	
+	NSMutableAttributedString * textAS = [[[NSMutableAttributedString alloc] initWithString: text] autorelease];
+	[textAS addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: NSMakeRange(0, [textAS length])];
+	[textAS addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [textAS length])];
+	
 	NSTextStorage * ts = [listingView textStorage];
 	[ts beginEditing];
-	[ts appendAttributedString: [[[NSAttributedString alloc] initWithString: text] autorelease]];
+	[ts appendAttributedString: textAS];
 	[ts endEditing];
 	[ts setAlignment: NSLeftTextAlignment range: NSMakeRange(0, [text length])]; // Force left alignment even if an RTL language because this is a configuration file listing
 }
