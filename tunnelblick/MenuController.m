@@ -748,8 +748,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	// From this point on, we use gTbDefaults to access the defaults
 	// *************************************************************
 	
-	[self mergeNewUserDefaultsFromTblkSetup];
-	
 	// Set the new per-configuration "*-openvpnVersion" preference from the old global "openvpnVersion" preference to
 	NSString * version = [gTbDefaults stringForKey: @"openvpnVersion"];
 	if (  version  ) {
