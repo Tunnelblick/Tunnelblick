@@ -1833,12 +1833,18 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	// Dictionary with info about deprecated and removed options:
 	//		OpenVPN version the option(s) were deprecated in,
-	//		OpenVPN version the option(s) were removed in,
+	//		OpenVPN version the option(s) were removed in (if has a '?' suffix, the removal version has not been decided)
 	//		Option name...
+	//
+	// These entries are based on the 2018-08-23 version of https://community.openvpn.net/openvpn/wiki/DeprecatedOptions
+	
 	NSArray * removedOptions = [NSArray arrayWithObjects:
-								[NSArray arrayWithObjects: @"2.3", @"2.4", @"remote-ip-hint", @"tls-remote", nil],
-								[NSArray arrayWithObjects: @"2.4", @"2.5", @"client-cert-not-required", @"comp-lzo", @"compat-names", @"ifconfig-pool-linear", @"key-method", @"no-iv", @"no-name-remapping", @"no-replay", @"ns-cert-type", nil],
-								[NSArray arrayWithObjects: @"2.5", @"2.6", @"keysize", nil],
+								[NSArray arrayWithObjects: @"2.1", @"2.5",  @"ifconfig-pool-linear", nil],
+								[NSArray arrayWithObjects: @"2.3", @"2.4",  @"remote-ip-hint", @"tls-remote", nil],
+								[NSArray arrayWithObjects: @"2.3", @"2.5",  @"compat-names", @"no-name-remapping", nil],
+								[NSArray arrayWithObjects: @"2.4", @"2.5",  @"client-cert-not-required", @"key-method", @"no-iv", @"no-replay", @"ns-cert-type", nil],
+								[NSArray arrayWithObjects: @"2.4", @"2.5?", @"comp-lzo", @"max-routes", @"dhcp-release", nil],
+								[NSArray arrayWithObjects: @"2.4", @"2.6",  @"keysize", nil],
 								nil];
 	
 	NSString * lowestRemovedInOpenvpnVersion    = nil;
@@ -1855,13 +1861,20 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		for (  ix=2; ix<[removedList count]; ix++  ) {
 			NSString * option = [removedList objectAtIndex: ix];
 			if (  [ConfigurationManager parseString: configString forOption: option]  ) {
-				[optionsThatAreProblematic appendFormat: NSLocalizedString(@"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n",
-																		   @"The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5'"),
-				 option, deprecatedInOpenvpnVersion, removedInOpenvpnVersion];
-				if (   ( ! lowestRemovedInOpenvpnVersion)
-					|| [lowestRemovedInOpenvpnVersion compare: removedInOpenvpnVersion] == NSOrderedDescending  ) {
-					lowestRemovedInOpenvpnVersion  = removedInOpenvpnVersion;
+				if (  [removedInOpenvpnVersion hasSuffix: @"?"]  ) {
+					[optionsThatAreProblematic appendFormat: NSLocalizedString(@" • '%@' was deprecated in OpenVPN %@ and will be removed in a future version of OpenVPN\n\n",
+																			   @"The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5'"),
+					 option, deprecatedInOpenvpnVersion];
+				} else {
+					[optionsThatAreProblematic appendFormat: NSLocalizedString(@" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n",
+																			   @"The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5'"),
+					 option, deprecatedInOpenvpnVersion, removedInOpenvpnVersion];
+					if (   ( ! lowestRemovedInOpenvpnVersion)
+						|| [lowestRemovedInOpenvpnVersion compare: removedInOpenvpnVersion] == NSOrderedDescending  ) {
+						lowestRemovedInOpenvpnVersion  = removedInOpenvpnVersion;
+					}
 				}
+				
 				if (   ( ! lowestDeprecatedInOpenvpnVersion)
 					|| [lowestDeprecatedInOpenvpnVersion compare: deprecatedInOpenvpnVersion] == NSOrderedDescending  ) {
 					lowestDeprecatedInOpenvpnVersion = deprecatedInOpenvpnVersion;
