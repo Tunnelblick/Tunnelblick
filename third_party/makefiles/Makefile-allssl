@@ -18,10 +18,8 @@
 #  along with this program (see the file COPYING included with this
 #  distribution); if not, write to the Free Software Foundation, Inc.,
 
-export openssl_CONFIG_ARGS= no-shared zlib no-zlib-dynamic no-asm no-krb5
 export openssl_BUILD_ARCH= $(OPENSSL_TARGET_ARCHS)
 
-export libressl_CONFIG_ARGS= --disable-shared --disable-asm
 export libressl_BUILD_ARCH= $(TARGET_ARCHS)
 
 built-allssl-prepare:
@@ -57,7 +55,6 @@ built-allssl: built-allssl-prepare
 	for ssldir in $(shell find -xsE $(BUILD_DIR) -depth 1 -type d -iregex ".*/(libre|open){1}ssl-.*" ); do \
 		sslversion=$${ssldir##*/}; \
 		sslvariant=$${sslversion%-*}; \
-		CONFIGARGS=$${sslvariant}_CONFIG_ARGS; \
 		BUILDARCH=$${sslvariant}_BUILD_ARCH; \
 		for a in $${!BUILDARCH}; do \
 			cd $${ssldir}; \
@@ -67,17 +64,15 @@ built-allssl: built-allssl-prepare
 			$(MAKE) clean; \
 			echo "Make $${sslversion} for $$a" ; \
 			echo "PREFIX: $(STAGING_DIR)/$${sslversion}/$${a}"; \
-			echo "CONFIGARGS: $${!CONFIGARGS}"; \
-			echo "BUILDARCH: $${!BUILDARCH}"; \
 			echo "CC: $(CC)"; \
 			echo "CFLAGS: $(CFLAGS)"; \
 			if [ "$${sslversion}" = "$(OPENSSL_1_0_NAME)" ] ; then \
-				CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+				CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure no-shared zlib no-zlib-dynamic no-asm no-krb5 --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
 				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
 				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
 				$(MAKE) install_sw; \
 			elif [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] ; then \
-				CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" --openssldir="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+				CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure no-shared zlib no-asm --openssldir="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
 				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
 				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
 				$(MAKE) DESTDIR="$(STAGING_DIR)/$${sslversion}/$$a" install_sw; \
@@ -86,7 +81,7 @@ built-allssl: built-allssl-prepare
 				mv "$(STAGING_DIR)/$${sslversion}/$$a/usr/local/include" "$(STAGING_DIR)/$${sslversion}/$$a/include" ; \
 				rm -f -r "$(STAGING_DIR)/$${sslversion}/$$a/usr" ; \
 			elif [ "$${sslversion}" = "$(LIBRESSL_NAME)" ] ; then \
-				CC=$(CC) CFLAGS="$(CFLAGS)" ./configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+				CC=$(CC) CFLAGS="$(CFLAGS)" ./configure --disable-shared --disable-asm --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
 				$(MAKE) check; \
 				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
 				$(MAKE) install; \
@@ -96,7 +91,11 @@ built-allssl: built-allssl-prepare
 			cd .. ; \
 		done ; \
 		if [ -e "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" ] ; then \
+			echo "JKB: Will move darwin folder from $(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc to $(STAGING_DIR)/$${sslversion}/x86_6" ; \
 			mv "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" "$(STAGING_DIR)/$${sslversion}/x86_64" ; \
+			echo "JKB: Did  move darwin folder" ; \
+		else \
+			echo "JKB: No darwin folder at $(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" ; \
 		fi ; \
 		mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
 		if [ "$${sslversion}" = "$(OPENSSL_1_0_NAME)" ] ; then \
