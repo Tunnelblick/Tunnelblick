@@ -167,6 +167,7 @@
 		63C504291178E21100340D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
+		63D893F821258FAE000E20E5 /* ImportWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F621258FAE000E20E5 /* ImportWindowController.m */; };
 		63D893F921258FAE000E20E5 /* ImportWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D893F721258FAE000E20E5 /* ImportWindow.xib */; };
 		63D92582135DAEE1001FF627 /* client.3.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */; };
 		63D92583135DAEE1001FF627 /* client.3.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */; };
@@ -537,6 +538,8 @@
 		63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUIUpdater.h.m; sourceTree = "<group>"; };
 		63D39B4614F9860E002D1297 /* UtilitiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilitiesView.h; sourceTree = "<group>"; };
 		63D39B4714F9860E002D1297 /* UtilitiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilitiesView.m; sourceTree = "<group>"; };
+		63D893F521258FAE000E20E5 /* ImportWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportWindowController.h; sourceTree = "<group>"; };
+		63D893F621258FAE000E20E5 /* ImportWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportWindowController.m; sourceTree = "<group>"; };
 		63D893F721258FAE000E20E5 /* ImportWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImportWindow.xib; sourceTree = "<group>"; };
 		63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.3.down.tunnelblick.sh; sourceTree = "<group>"; };
 		63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.3.up.tunnelblick.sh; sourceTree = "<group>"; };
@@ -928,6 +931,7 @@
 				63C374521D281EBD004758A3 /* InfoButton */,
 				B840788A170CE6A20002B941 /* Main Icon */,
 				632BB9E5194F2CD5006CD7DA /* Alert Window */,
+				63D893F421258F4F000E20E5 /* Import Window */,
 				B840788B170CE6B60002B941 /* Splash Window */,
 				B840788C170CE6C90002B941 /* Login Window */,
 				B840788D170CE6DB0002B941 /* Passphrase Window */,
@@ -959,6 +963,15 @@
 				63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */,
 			);
 			name = "UI Updater";
+			sourceTree = "<group>";
+		};
+		63D893F421258F4F000E20E5 /* Import Window */ = {
+			isa = PBXGroup;
+			children = (
+				63D893F521258FAE000E20E5 /* ImportWindowController.h */,
+				63D893F621258FAE000E20E5 /* ImportWindowController.m */,
+			);
+			name = "Import Window";
 			sourceTree = "<group>";
 		};
 		63E56EB71384813C007E39AB /* VPNService xibs */ = {
@@ -1797,6 +1810,7 @@
 				633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */,
 				639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */,
 				63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */,
+				63D893F821258FAE000E20E5 /* ImportWindowController.m in Sources */,
 				6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */,
 				635ECCF51378885600F67F8D /* DBPrefsWindowController.m in Sources */,
 				635ECCFA137888A800F67F8D /* MyPrefsWindowController.m in Sources */,
