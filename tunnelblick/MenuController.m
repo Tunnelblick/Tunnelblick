@@ -748,6 +748,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	// From this point on, we use gTbDefaults to access the defaults
 	// *************************************************************
 	
+	[self mergeNewUserDefaultsFromTblkSetup];
+	
 	// Set the new per-configuration "*-openvpnVersion" preference from the old global "openvpnVersion" preference to
 	NSString * version = [gTbDefaults stringForKey: @"openvpnVersion"];
 	if (  version  ) {
@@ -867,6 +869,56 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	[gTbDefaults scanForUnknownPreferencesInDictionary: userDefaultsDict              displayName: @"preferences"];
 	
 	return TRUE;
+}
+
+-(void) mergeNewUserDefaultsFromTblkSetup {
+	
+	// Merges new user defaults from ~/L_AS_T/to-be-imported.plist, replacing any existing ones, then removes the file.
+	//
+	// This is done to implement the preferences part of Tunnelblick's "import a .tblkSetup" functionality.
+	
+	NSString * path = [[[[NSHomeDirectory()
+						  stringByAppendingPathComponent: @"Library"]
+						 stringByAppendingPathComponent: @"Application Support"]
+						stringByAppendingPathComponent: @"Tunnelblick"]
+					   stringByAppendingPathComponent: @"to-be-imported.plist"];
+	
+	if ( [gFileMgr fileExistsAtPath: path]  ) {
+
+		BOOL problemDetected = FALSE;
+		
+		NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: path];
+		if (  dict  ) {
+			
+			NSString * key;
+			NSEnumerator * e = [dict keyEnumerator];
+			while (  (key = [e nextObject])  ) {
+				if (  [gTbDefaults canChangeValueForKey: key]  ) {
+					id oldValue = [gTbDefaults objectForKey: key];
+					id newValue = [dict objectForKey: key];
+					[gTbDefaults setObject: newValue forKey: key];
+					NSLog(@"Set imported preference '%@' to '%@' (old value was '%@')", key, newValue, oldValue);
+				} else {
+					NSLog(@"Cannot merge imported preference '%@' because that preference cannot be modified", key);
+					problemDetected = TRUE;
+				}
+			}
+			
+			if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
+				problemDetected = TRUE;
+			}
+			
+		} else {
+			NSLog(@"Could not load preferences to be imported from %@", path);
+			problemDetected = TRUE;
+		}
+		
+		if (  problemDetected  ) {
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							  NSLocalizedString( @"There were problems importing Tunnelblick settings.\n\n"
+												@"See the Console log for details.", @"Window text"));
+		}
+	}
 }
 
 -(void) reactivateTunnelblick {
