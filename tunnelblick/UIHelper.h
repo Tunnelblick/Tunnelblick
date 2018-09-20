@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2015, 2016, 2018 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -36,6 +36,11 @@
 								shift: (BOOL)      shift;
 
 +(BOOL)         languageAtLaunchWasRTL;
+
++(void) performSelectorName: (NSString *) selectorName
+					 target: (id)         target
+				 withObject: (NSObject *) object
+	 onMainThreadAfterDelay: (NSTimeInterval) delay;
 
 +(CGFloat)      setTitle: (NSString *) newTitle
 			   ofControl: (id)         theControl
