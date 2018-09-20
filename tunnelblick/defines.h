@@ -55,6 +55,9 @@
 // Maximum hotKey index
 #define MAX_HOTKEY_IX 12
 
+// Limited because we create a popup button which lists all of them
+#define MAX_NUMBER_OF_TARGET_USERNAMES_FOR_IMPORT_WINDOW 64
+
 // Minimum, maximum, and default log size (bytes)
 #define MIN_LOG_SIZE_BYTES 10000
 #define MAX_LOG_SIZE_BYTES 100000000
@@ -419,6 +422,9 @@
 // not Keychain items) to a .tblkSetup, then
 // compress that to a .tar.gz on the Desktop
 #define INSTALLER_EXPORT_ALL                 0x4000u
+
+// Import from a .tblkSetup using a string that defines username mapping
+#define INSTALLER_IMPORT                     0x5000u
 
 
 //*************************************************************************************************
