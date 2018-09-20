@@ -14,6 +14,14 @@
 			<key>NSPersistentStoreTypeKey</key>		<string>Binary</string>
 		</dict>
 		<dict>
+			<key>CFBundleTypeExtensions</key>		<array><string>tblkSetup</string></array>
+			<key>CFBundleTypeIconFile</key>			<string>tunnelblick_package.icns</string>
+			<key>CFBundleTypeName</key>				<string>Tunnelblick Setup</string>
+			<key>CFBundleTypeRole</key>				<string>Editor</string>
+			<key>LSTypeIsPackage</key>				<true/>
+			<key>NSPersistentStoreTypeKey</key>		<string>Binary</string>
+		</dict>
+		<dict>
 			<key>CFBundleTypeExtensions</key>		<array><string>ovpn</string></array>
 			<key>CFBundleTypeIconFile</key>			<string>tunnelblick_package.icns</string>
 			<key>CFBundleTypeName</key>				<string>OpenVPN Configuration</string>

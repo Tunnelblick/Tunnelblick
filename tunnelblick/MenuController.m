@@ -48,6 +48,7 @@
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 #import "NSTimer+TB.h"
+#import "SetupImporter.h"
 #import "Sparkle/SUUpdater.h"
 #import "SplashWindowController.h"
 #import "SystemAuth.h"
@@ -186,6 +187,7 @@ TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, launchFinished)
 TBSYNTHESIZE_NONOBJECT_GET(BOOL         , languageAtLaunchWasRTL)
 
 TBSYNTHESIZE_NONOBJECT(BOOL         , doingSetupOfUI, setDoingSetupOfUI)
+TBSYNTHESIZE_NONOBJECT(BOOL         , showingImportSetupWindow, setShowingImportSetupWindow)
 
 TBSYNTHESIZE_OBJECT_GET(retain, MyPrefsWindowController *,   logScreen)
 TBSYNTHESIZE_OBJECT_GET(retain, NSString *,                  customRunOnConnectPath)
@@ -3811,31 +3813,79 @@ static void signal_handler(int signalNumber)
     }
 }
 
-// Invoked when the user double-clicks on one or more .tblk packages or .ovpn or .conf files,
-//                  or drags and drops one or more .of them on the Tunnelblick application or the icon in the status bar
 - (BOOL)application: (NSApplication * )theApplication
-          openFiles: (NSArray * )filePaths
-{
+          openFiles: (NSArray * )filePaths {
+
+	// Invoked when the user double-clicks on one or more .tblkSetup or .tblk packages or .ovpn or .conf files,
+	//              or drags and drops one or more of them on the Tunnelblick application or the icon in the status bar
+
 	(void) theApplication;
 	
-    // If we have finished launching Tunnelblick, we open the file(s) now
-    // otherwise the file(s) opening launched us, but we have not initialized completely,
-    // so we store the paths and open the file(s) later, in applicationDidFinishLaunching.
+    // If we have'nt finished launching Tunnelblick, the file(s) opening launched us, but we have not completely
+	// initialized, so we store the paths and open the file(s) later, in applicationDidFinishLaunching.
     
-    if (  launchFinished  ) {
-        [self notifyDelegateAfterInstallingConfigurationsInPaths: filePaths];
-    } else {
+    if (  ! launchFinished  ) {
         [dotTblkFileList addObjectsFromArray: filePaths];
+		return YES;
     }
-    
-    return TRUE;
+
+	return [self notifyDelegateAfterOpeningFiles: filePaths];
+}
+
+- (BOOL) notifyDelegateAfterOpeningFiles: (NSArray * ) filePaths {
+	
+	BOOL ok = [self openFiles: filePaths];
+	
+	[NSApp replyToOpenOrPrint: (  ok
+								? NSApplicationDelegateReplySuccess
+								: NSApplicationDelegateReplyFailure)];
+	return ok;
 }
 
 - (BOOL) openFiles: (NSArray * ) filePaths {
-    
-    // Invoked from MainIconView to implement files dropped on the icon for installation.
-    
-    return [self application: nil openFiles: filePaths];
+	
+	if (   ([filePaths count] == 1)
+		&& [[[filePaths firstObject] pathExtension] isEqualToString: @"tblkSetup"]  ) {
+		
+		[UIHelper performSelectorName: @"openSetup:"
+							   target: self
+						   withObject: filePaths
+			   onMainThreadAfterDelay: 0.5];
+		return YES;
+		
+	} else if ( [self noTblkSetupsInArrayOfPaths: filePaths]  ) {
+		
+		[UIHelper performSelectorName: @"notifyDelegateAfterInstallingConfigurationsInPaths:"
+							   target: self
+						   withObject: filePaths
+			   onMainThreadAfterDelay: 0.5];
+		return YES;
+		
+	} else {
+		
+		NSLog(@"Cannot open a mix of configuration files and .tblkSetup files");
+		return  NO;
+	}
+}
+
+-(BOOL) noTblkSetupsInArrayOfPaths: (NSArray *) paths {
+	
+	NSString * path;
+	NSEnumerator * e = [paths objectEnumerator];
+	while (  (path = [e nextObject])  ) {
+		if (  [[path pathExtension] isEqualToString: @"tblkSetup"]  ) {
+			return NO;
+		}
+	}
+	
+	return YES;
+}
+
+-(BOOL) openSetup: (NSArray * ) filePaths {
+
+	SetupImporter * importer = [[[SetupImporter alloc] initWithTblkSetupFiles: filePaths] autorelease];
+
+	return ( [importer import] );
 }
 
 -(void) setupUpdaterAutomaticChecks {
@@ -4921,7 +4971,7 @@ static void signal_handler(int signalNumber)
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 019")
     // Start installing any configurations that were double-clicked before we were finished launching
     if (  [dotTblkFileList count] != 0  ) {
-        [self notifyDelegateAfterInstallingConfigurationsInPaths: dotTblkFileList];
+        [self notifyDelegateAfterOpeningFiles: dotTblkFileList];
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 020")

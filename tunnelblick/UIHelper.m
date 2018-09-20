@@ -234,6 +234,8 @@ extern TBUserDefaults * gTbDefaults;
 
 +(BOOL) canAcceptFileTypesInPasteboard: (NSPasteboard *) pboard {
 	
+	// Accept a single .tblkSetup or multiple configurations but don't accept a mix or multiple .tblkSetups
+	
 	NSArray * configExtensions = [NSArray arrayWithObjects: @"ovpn", @"conf", @"tblk", nil];
 	
 	NSString * type = [pboard availableTypeFromArray: [NSArray arrayWithObject: NSFilenamesPboardType]];
@@ -244,9 +246,31 @@ extern TBUserDefaults * gTbDefaults;
 	
 	NSArray * paths = [pboard propertyListForType: NSFilenamesPboardType];
 	NSUInteger i;
+	BOOL haveSetup         = FALSE;
+	BOOL haveConfiguration = FALSE;
 	for (  i=0; i<[paths count]; i++  ) {
 		NSString * path = [paths objectAtIndex:i];
 		if (  [configExtensions containsObject: [path pathExtension]]  ) {
+			if (  haveSetup  ) {
+				TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: have seen a .tblkSetup, so returning NO for '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
+				return NO;
+			}
+			haveConfiguration = TRUE;
+			TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: acceptable: '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
+		} else if (  [[path pathExtension] isEqualToString: @"tblkSetup"]  ) {
+			if (  haveConfiguration  ) {
+				TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: have seen a configuration, so returning NO for '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
+				return NO;
+			}
+			if (  [(MenuController *)[NSApp delegate] showingImportSetupWindow]  ) {
+				TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: already importing a .tblksetup, so returning NO for '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
+				return NO;
+			}
+			if (  haveSetup  ) {
+				TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: have seen a .tblkSetup, so returning NO for '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
+				return NO;
+			}
+			haveSetup = TRUE;
 			TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: acceptable: '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
 		} else {
 			TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: unknown extension, so returning NO for '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
@@ -286,7 +310,6 @@ extern TBUserDefaults * gTbDefaults;
 		NSArray * files = [pboard propertyListForType:NSFilenamesPboardType];
 			
 			[self performSelectorName:@"openFiles:" target: [NSApp delegate] withObject: files onMainThreadAfterDelay: 0.5];
-		
 		
 		TBLog(@"DB-SI", @"performDragOperation: returning YES");
 		return YES;

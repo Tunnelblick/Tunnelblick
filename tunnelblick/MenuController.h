@@ -192,6 +192,8 @@ enum StatusIconPosition {
 
 	BOOL					  quittingAfterAnInstall;		// Used to control cleanup: after an install
 	
+	BOOL					  showingImportSetupWindow;				// True iff we are actively importing a .tblksetup
+	
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
     
@@ -367,5 +369,6 @@ TBPROPERTY(NSBundle       *, deployLocalizationBundle, setDeployLocalizationBund
 TBPROPERTY(NSString       *, languageAtLaunch,        setLanguageAtLaunch)
 TBPROPERTY(NSString       *, publicIPAddress,         setPublicIPAddress)
 TBPROPERTY(NSString       *, tunnelblickVersionString, setTunnelblickVersionString)
+TBPROPERTY(BOOL            , showingImportSetupWindow, setShowingImportSetupWindow)
 
 @end
