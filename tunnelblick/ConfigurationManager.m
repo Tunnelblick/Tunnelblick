@@ -4160,11 +4160,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(BOOL) exportTunnelblickSetup {
 	
-	NSString * message = NSLocalizedString(@"Tunnelblick needs to read Tunnelblick data belonging to other users of this computer"
+	NSString * message = NSLocalizedString(@"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer"
 										   @" so it can export all Tunnelblick data.\n\n"
 										   @"Please note:\n\n"
 										   @"     1. Credentials saved in the Keychain will NOT be exported.\n\n"
-										   @"     2. The export can take a long time – tens of seconds.\n\n", @"Window text");
+										   @"     2. The export may take a long time.\n\n", @"Window text");
 	SystemAuth * auth = [[SystemAuth newAuthWithPrompt: message] autorelease];
 	if (  auth  ) {
 		
