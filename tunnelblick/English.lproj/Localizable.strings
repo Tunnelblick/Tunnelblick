@@ -113,6 +113,9 @@
 "Download" = "Download";
 
 /* Button */
+"Export Tunnelblick Setup" = "Export Tunnelblick Setup";
+
+/* Button */
 "Help" = "Help";
 
 /* Button */
@@ -618,6 +621,9 @@
 "File not found" = "File not found";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Import a Tunnelblick Setup";
+
+/* Window title */
 "Info" = "Info";
 
 /* Window title */
@@ -785,14 +791,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Convert OpenVPN configurations\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Copy a configuration\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • Install forced preferences\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Install or update configuration(s)\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Move a configuration\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Move the private configurations folder\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Remove a configuration\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Secure configurations\n";
@@ -877,6 +892,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc.";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>";
@@ -1188,6 +1206,9 @@
 "File is too large: %@" = "File is too large: %@";
 
 /* Window text */
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings.";
+
+/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1457,11 +1478,8 @@
 /* Window text */
 "That name is being used.\n\n" = "That name is being used.\n\n";
 
-/* Window text */
-"The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "The %1$@ system folder (%2$@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option.";
@@ -1576,6 +1594,9 @@
 
 /* Window text */
 "There was a problem:\n\n%@" = "There was a problem:\n\n%@";
+
+/* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "There were problems importing Tunnelblick settings.\n\nSee the Console log for details.";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
@@ -1713,6 +1734,9 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick needs authorization to make the '%@' configuration shared.";
 
 /* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n";
+
+/* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
 
 /* Window text */
@@ -1720,6 +1744,9 @@
 
 /* Window text */
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick needs authorization to secure the imported data.";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick needs to change a setting that may only be changed by a computer administrator.";
@@ -1997,6 +2024,12 @@
 /* Suffix for a duplicate of a file */
 " copy" = " copy";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be be removed in a later version\n\n" = " • '%1$@' was deprecated in OpenVPN %2$@ and has been or will be be removed in a later version\n\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' was deprecated in OpenVPN %2$@ and removed in OpenVPN %3$@\n\n";
+
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
@@ -2006,11 +2039,14 @@
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' was added in OpenVPN %2$@\n";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' was deprecated in OpenVPN %2$@ and removed in OpenVPN %3$@\n";
+/* Popup button menu item */
+"(Do not import)" = "(Do not import)";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit enabling and testing";
+
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>";
@@ -2122,6 +2158,9 @@
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>";
@@ -2343,6 +2382,9 @@
 /* Credit description */
 "Swedish translation" = "Swedish translation";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Tunnelblick Setup %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick icon";
 
@@ -2360,6 +2402,12 @@
 
 /* Notification text */
 "Updated to %@." = "Updated to %@.";
+
+/* Column heading in a table */
+"Username in setup data" = "Username in setup data";
+
+/* Column heading in a table */
+"Username on this computer" = "Username on this computer";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamese translation";
