@@ -109,6 +109,35 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t per
     return NO;
 }
 
+unsigned int uidOrGidFromName(NSString * name, BOOL shouldGetGid) {
+	
+	NSString * stdoutString = nil;
+	NSArray  * arguments = [NSArray arrayWithObjects: (shouldGetGid ? @"-g" : @"-u"), name, nil];
+	OSStatus status = runTool(TOOL_PATH_FOR_ID, arguments, &stdoutString, nil);
+	if (  status != 0  ) {
+		appendLog([NSString stringWithFormat: @"Could not get %@ for %@", (shouldGetGid ? @"uid" : @"gid"), name]);
+		return 0;
+	}
+	
+	unsigned int value = [stdoutString unsignedIntValue];
+	if (  value == UINT_MAX  ) {
+		appendLog([NSString stringWithFormat: @"Could not get %@ for %@ (was UINT_MAX)", (shouldGetGid ? @"uid" : @"gid"), name]);
+		return 0;
+	}
+	
+	return value;
+}
+
+uid_t getUidFromName(NSString * username) {
+	
+	return (uid_t)uidOrGidFromName(username, FALSE);
+}
+
+gid_t getGidFromName(NSString * username) {
+	
+	return (gid_t)uidOrGidFromName(username, TRUE);
+}
+
 NSDictionary * tunnelblickdPlistDictionaryToUse(void) {
     
     NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
