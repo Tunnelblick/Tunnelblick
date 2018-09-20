@@ -45,6 +45,7 @@
 //
 //     installer bitmask
 //     installer bitmask targetPath   [sourcePath]
+//	   installer bitmask sourcePath   usernameMappingString
 //
 // where
 //
@@ -53,6 +54,16 @@
 //     targetPath is the path to a configuration (.ovpn or .conf file, or .tblk package) to be secured (or forced-preferences.plist)
 //
 //     sourcePath is the path to be copied or moved to targetPath before securing targetPath
+//
+//     usernamMappingString is a string that contains a set of username mapping rules to use when importing a .tblkSetup. It consists
+//							of zero or more separated-by-slashes pairs of username:username. The first username is the username in the
+//							.tblkSetup (from the computer the .tblkSetup was created on). The second is the username on this computer
+//							(the computer the import is being done on).
+//
+//							Each username should be the "short" username (e.g. "abcuthbert"), not the "long" username ("A. B. Cuthbert")
+//
+//							Example: "abc:def/ghi:jkl" maps user "abc" in the .tblkSetup to computer user "def" and
+//									 user "ghi" in the .tblkSetup to computer user "jkl"
 //
 // This program does the following, in this order:
 //
@@ -1806,6 +1817,368 @@ void exportToPath(NSString * exportPath) {
 }
 
 //**************************************************************************************************************************
+//	IMPORT SETUP
+
+void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * path) {
+	
+	if (   [gFileMgr fileExistsAtPath: path]
+		&& [gFileMgr isReadableFileAtPath: path]  ) {
+		errorExitIfAnySymlinkInPath(path);
+		return;
+	}
+	
+	appendLog([NSString stringWithFormat: @"File does not exist or is not readable: %@", path]);
+	errorExit();
+}
+
+NSString * formattedUserGroup(uid_t uid, gid_t gid) {
+	
+	// Returns a string with uid:gid padded on the left with spaces to a width of 11
+	
+	const char * ugC = [[NSString stringWithFormat: @"%d:%d", uid, gid] UTF8String];
+	return [NSString stringWithFormat: @"%11s", ugC];
+}
+
+void safeCopyPathToPathAndSetUidAndGid(NSString * sourcePath, NSString * targetPath, uid_t newUid, gid_t newGid) {
+	
+	NSString * verb = (  [gFileMgr fileExistsAtPath: targetPath]
+					   ? @"Overwrote"
+					   : @"Copied to");
+	safeCopyPathToPath(sourcePath, targetPath);
+	checkSetOwnership(targetPath, YES, newUid, newGid);
+	appendLog([NSString stringWithFormat: @"%@ and set ownership to %@: %@", verb, formattedUserGroup(newUid, newGid), targetPath]);
+}
+
+NSInteger getUidOrGid(NSString * name, BOOL shouldGetGid) {
+
+	// Returns the UID or GID of a named user (but fails for user "root")
+	
+	NSString * stdoutString = nil;
+	NSArray  * arguments = [NSArray arrayWithObjects: (shouldGetGid ? @"-g" : @"-u"), name, nil];
+	OSStatus status = runTool(TOOL_PATH_FOR_ID, arguments, &stdoutString, nil);
+	if (  status != 0  ) {
+		appendLog([NSString stringWithFormat: @"Could not get %@ for %@", (shouldGetGid ? @"uid" : @"gid"), name]);
+		errorExit();
+	}
+	
+	unsigned int value = [stdoutString unsignedIntValue];
+	if (   (value == UINT_MAX)
+		|| (value == 0)  ) {
+		appendLog([NSString stringWithFormat: @"Could not get uid or gid for %@ (was UINT_MAX)", name]);
+		errorExit();
+	}
+	
+	return (  shouldGetGid
+			? (gid_t)value
+			: (uid_t)value);
+}
+
+void mergeConfigurations(NSString * sourcePath, NSString * targetPath, uid_t uid, gid_t gid, BOOL mergeIconSets) {
+	
+	// Adds folders in the source folder to the target folder, replacing existing folders in the target folder if they exist, and
+	// setting the ownership to uid:gid. If enclosing folders need to be created, set their permissions to permissions.
+	//
+	// If "mergeIconSets" is TRUE, handles folders named "IconSets" similarly (that is, adding the subfolders of "IconSets",
+	// not replacing the entire "IconSets" folder).
+	//
+	// This routine is used to merge both
+	//		.tblkSettings/Global/Users         (with "mergeIconSets" TRUE) and
+	//		.tblkSettings/Users/Configurations (with "mergeIconSets" FALSE).
+	
+	NSString * name;
+	NSDirectoryEnumerator * e = [gFileMgr enumeratorAtPath: sourcePath];
+	while (  (name = [e nextObject])  ) {
+		[e skipDescendants];
+		
+		if (  ! [name hasPrefix: @"."]  ) {
+			
+			if (   mergeIconSets
+				&& [name isEqualToString: @"IconSets"]  ) {
+
+				// Handle IconSets folder similarly, that is, copy each icon set individually (note use of recursion)
+				NSString * sourceIconSetFolderPath = [sourcePath stringByAppendingPathComponent: @"IconSets"];
+				NSString * targetIconSetFolderPath = [targetPath stringByAppendingPathComponent: @"IconSets"];
+				mergeConfigurations(sourceIconSetFolderPath, targetIconSetFolderPath, uid, gid, NO);
+
+			} else {
+
+				// Create enclosing folder(s) if necessary
+				if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
+					createFolder(targetPath);
+				}
+				
+				NSString * sourceFullPath = [sourcePath stringByAppendingPathComponent: name];
+				NSString * targetFullPath = [targetPath stringByAppendingPathComponent: name];
+				safeCopyPathToPathAndSetUidAndGid(sourceFullPath, targetFullPath, uid, gid);
+			}
+		}
+	}
+}
+
+void mergeGlobalUsersFolder(NSString * tblkSetupPath, NSDictionary * nameMap) {
+	
+	// Merges the .tblkSetup/Global/Users into /Library/Application Support/Tunnelblick/Users.
+	//
+	// nameMap contains mappings of name-in-.tblksetup => name-on-this-computer
+	//
+	// L_AS_T/Users is a folder with a subfolder for each user on the computer that has secured a Tunnelblick "Private" configuration.
+	// In each user's subfolder, there is a secured copy (owned by root with appropriate permissions) of each private configuration.
+	//
+	// To merge .tblkSetup/Global/Users, we add or replace the secured copies of configurations, mapping usernames as instructed.
+	
+	NSString * inFolder  = [[tblkSetupPath
+							 stringByAppendingPathComponent: @"Global"]
+							stringByAppendingString: @"Users"];
+	NSString * outFolder = L_AS_T_USERS;
+	
+	// Create enclosing folder(s) if necessary
+	if (  ! [gFileMgr fileExistsAtPath: outFolder]  ) {
+					createFolder(outFolder);
+	}
+	
+	// Do mapping only if necessary
+	BOOL useUsernameFromSetupData = ( 0 != [nameMap count] );
+	
+	NSString * name;
+	NSDirectoryEnumerator * e = [gFileMgr enumeratorAtPath: inFolder];
+	while (  (name = [e nextObject])  ) {
+		[e skipDescendants];
+		if (  ! [name hasPrefix: @"."]  ) {
+			NSString * newName = (  useUsernameFromSetupData
+								  ? [nameMap objectForKey: name]
+								  : name);
+			if (  ! newName) {
+				appendLog([NSString stringWithFormat: @"Expected username %@ in .tblkSetup to be mapped to a user on this computer but it isn't", name]);
+				errorExit();
+			}
+			
+			NSString * sourcePath = [inFolder  stringByAppendingPathComponent: name];
+			NSString * targetPath = [outFolder stringByAppendingPathComponent: newName];
+			mergeConfigurations(sourcePath, targetPath, 0, 0, NO);
+		}
+	}
+}
+
+void mergeSetupDataForOneUser(NSString * sourcePath, NSString * newUsername) {
+	
+	uid_t newUid = getUidOrGid(newUsername, NO);
+	gid_t newGid = getUidOrGid(newUsername, YES);
+	
+	NSString * userHomeFolder = [@"/Users" stringByAppendingPathComponent: newUsername];
+	
+	NSString * userL_AS_TPath = [[[userHomeFolder
+								   stringByAppendingPathComponent: @"Library"]
+								  stringByAppendingPathComponent: @"Application Support"]
+								 stringByAppendingPathComponent: @"Tunnelblick"];
+	
+	// Create ~/L_AS_T/to-be-imported.plist, which contains all of the preferences to be imported.
+	// The user's preferences will be merged the next time the user launches Tunnelblick.
+	NSString * sourcePreferencesPath = [sourcePath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.plist"];
+	NSString * targetPreferencesPath = [[[[userHomeFolder
+										   stringByAppendingPathComponent: @"Library"]
+										  stringByAppendingPathComponent: @"Application Support"]
+										 stringByAppendingPathComponent: @"Tunnelblick"]
+										stringByAppendingPathComponent: @"to-be-imported.plist"];
+	safeCopyPathToPathAndSetUidAndGid(sourcePreferencesPath, targetPreferencesPath, newUid, newGid);
+	
+	// Copy easy-rsa
+	safeCopyPathToPathAndSetUidAndGid([sourcePath     stringByAppendingPathComponent: @"easy-rsa"],
+									  [userL_AS_TPath stringByAppendingPathComponent: @"easy-rsa"],
+									  newUid, newGid);
+	
+	// Copy the user's "Private" configurations
+	NSString * sourceConfigurationsFolderPath = [sourcePath     stringByAppendingPathComponent: @"Configurations"];
+	NSString * targetConfigurationsFolderPath = [userL_AS_TPath stringByAppendingPathComponent: @"Configurations"];
+	mergeConfigurations(sourceConfigurationsFolderPath, targetConfigurationsFolderPath, newUid, newGid, NO);
+}
+
+void errorExitIfTblkSetupIsNotValid(NSString * tblkSetupPath) {
+	
+	NSString * tbinfoPlistPath  = [tblkSetupPath stringByAppendingPathComponent: @"TBInfo.plist"             ];
+	NSString * globalPath       = [tblkSetupPath stringByAppendingPathComponent: @"Global"                   ];
+	NSString * usersPath        = [tblkSetupPath stringByAppendingPathComponent: @"Users"                    ];
+	NSString * globalSharedPath = [globalPath    stringByAppendingPathComponent: @"Shared"                   ];
+	NSString * globalUsersPath  = [globalPath    stringByAppendingPathComponent: @"Users"                    ];
+	NSString * globalForcedPath = [globalPath    stringByAppendingPathComponent: @"forced-preferences.plist" ];
+	
+	errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath( tblkSetupPath    );
+	errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath( tbinfoPlistPath  );
+	errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath( globalPath       );
+	errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath( usersPath        );
+	errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath( globalSharedPath );
+	errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath( globalUsersPath  );
+	
+	if (  [gFileMgr fileExistsAtPath: globalForcedPath]  ) {
+		errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath( globalForcedPath );
+	}
+	
+	// Check that the setup data's TBInfo.plist is valid
+	NSDictionary * tbInfoPlist = [NSDictionary dictionaryWithContentsOfFile: tbinfoPlistPath];
+	if (   ( ! tbInfoPlist)
+		|| ( ! [[tbInfoPlist objectForKey: @"TBExportVersion"] isEqualToString: @"1"] )
+		|| ( ! [tbInfoPlist objectForKey:  @"TBBundleVersion"] )
+		|| ( ! [tbInfoPlist objectForKey:  @"TBBundleShortVersionString"] )
+		|| ( ! [tbInfoPlist objectForKey:  @"TBDateCreated"] )  ) {
+		appendLog([NSString stringWithFormat: @"TBInfo.plist is damaged at %@", tblkSetupPath]);
+		errorExit();
+	}
+}
+
+NSDictionary * nameMapFromString(NSString * usernameMap, NSString * tblkSetupPath) {
+	
+	// Returns a dictionary mapping usernames in the .tblkSetup to usernames on this computer.
+	//
+	// usernameMap: a string with separated-by-slashes pairs of username:username
+	// The first username is the .tblkSetup, the second is the username on this computer
+	
+	NSMutableDictionary * dict = [[[NSMutableDictionary alloc] initWithCapacity: 20] autorelease];
+	NSArray * namePairs = [usernameMap componentsSeparatedByString: @"\n"];
+	NSString * namePair;
+	NSEnumerator * e = [namePairs objectEnumerator];
+	while (  (namePair = [e nextObject])  ) {
+		if (  [namePair length] == 0  ) {
+			continue;
+		}
+		NSArray * names = [namePair componentsSeparatedByString: @":"];
+		if (  [names count] != 2  ) {
+			appendLog([NSString stringWithFormat: @"Format error in name-pair %@", namePair]);
+			errorExit();
+		}
+		NSString * sourceName = [names firstObject];
+		NSString * targetName = [names lastObject];
+		NSString * sourcePath = [[tblkSetupPath
+								  stringByAppendingPathComponent: @"Users"]
+								 stringByAppendingPathComponent: sourceName];
+		NSString * targetPath = [@"/Users" stringByAppendingPathComponent: targetName];
+		if (  ! [gFileMgr fileExistsAtPath: sourcePath]  ) {
+			appendLog([NSString stringWithFormat: @"No data for username %@ exists in this .tblkSetup", targetName]);
+			errorExit();
+		}
+		if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
+			appendLog([NSString stringWithFormat: @"No username %@ on this computer", targetName]);
+			errorExit();
+		}
+		
+		[dict setObject: targetName forKey: sourceName];
+	}
+	
+	return [NSDictionary dictionaryWithDictionary: dict];
+}
+
+void createImportInfoFile(NSString * tblkSetupPath) {
+	
+	// Put info about this import into a file in L_AS_T (if the file doesn't exist)
+	NSString * importInfoFilename = [NSString stringWithFormat: @"Data imported from %@",
+									 [[tblkSetupPath lastPathComponent] stringByDeletingPathExtension]];
+	NSString * importInfoFilePath = [L_AS_T stringByAppendingPathComponent: importInfoFilename];
+	if (  ! [gFileMgr fileExistsAtPath: importInfoFilePath]  ) {
+		if (  [gFileMgr createFileAtPath: importInfoFilePath contents: nil attributes: nil]  ) {
+			checkSetOwnership(importInfoFilePath, NO, 0, 0);
+			appendLog([NSString stringWithFormat: @"Created and set ownership to   %@: %@", formattedUserGroup(0, 0), importInfoFilePath]);
+		} else {
+			appendLog([NSString stringWithFormat: @"Could not create %@", importInfoFilePath]);
+			errorExit();
+		}
+	} else {
+		appendLog([NSString stringWithFormat: @"File already exists:               %@", importInfoFilePath]);
+	}
+}
+
+void mergeForcedPreferences(NSString * sourcePath) {
+	
+	// Merge forced preferences from the .tblkSetup into this computer's forced preferences, overwriting
+	// existing values with new values from the .tblkSetup.
+	
+	NSString * targetPath = L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH;
+	
+	if (  [gFileMgr fileExistsAtPath: sourcePath]  ) {
+		NSMutableDictionary * existingPreferences = (  [gFileMgr fileExistsAtPath: targetPath]
+									   ? [[[NSDictionary dictionaryWithContentsOfFile: targetPath] mutableCopy] autorelease]
+									   : [NSMutableDictionary dictionaryWithCapacity: 100]  );
+		if (  ! existingPreferences  ) {
+			appendLog([NSString stringWithFormat: @"Error: could not read %@ (or create NSDictionary)", targetPath]);
+			errorExit();
+		}
+		
+		NSDictionary * preferencesToMerge = [NSDictionary dictionaryWithContentsOfFile: sourcePath];
+		if (  ! preferencesToMerge  ) {
+			appendLog([NSString stringWithFormat: @"Error: could not read %@  ", sourcePath]);
+			errorExit();
+		}
+
+		BOOL modifiedExistingPreferences = FALSE;
+		NSString * key;
+		NSEnumerator * e = [preferencesToMerge keyEnumerator];
+		while (  (key = [e nextObject])  ) {
+			id newValue = [preferencesToMerge objectForKey: key];
+			id oldValue = ( [existingPreferences objectForKey: key]);
+			if (  oldValue  ) {
+				if (  [newValue isNotEqualTo: oldValue]) {
+					[existingPreferences setObject: newValue forKey: key];
+					modifiedExistingPreferences = TRUE;
+					appendLog([NSString stringWithFormat: @"Changed forced preference %@ = %@ (was %@)", key, newValue, oldValue]);
+				}
+			} else {
+				[existingPreferences setObject: newValue forKey: key];
+				modifiedExistingPreferences = TRUE;
+				appendLog([NSString stringWithFormat: @"Added   forced preference %@ = %@", key, newValue]);
+			}
+		}
+		
+		if (  modifiedExistingPreferences  ) {
+			if (  ! [gFileMgr tbRemovePathIfItExists: targetPath]  ) {
+				errorExit();
+			}
+			if (  ! [existingPreferences writeToFile: targetPath atomically: YES]  ) {
+				appendLog([NSString stringWithFormat: @"Error: could not write %@  ", sourcePath]);
+				errorExit();
+			}
+			appendLog([NSString stringWithFormat: @"JKB: mergeForcedPreferences: Created %@ with contents:\n%@", targetPath, existingPreferences]);
+			
+		} else {
+			appendLog([NSString stringWithFormat: @"Do not need to create or modify             %@  ", targetPath]);
+		}
+	}
+}
+
+void importSetup(NSString * tblkSetupPath, NSString * usernameMap) {
+	
+	// Verify that input data is valid
+	errorExitIfTblkSetupIsNotValid(tblkSetupPath);
+	
+	NSDictionary * nameMap = nameMapFromString(usernameMap, tblkSetupPath);
+	
+	NSString * globalPath    = [tblkSetupPath stringByAppendingPathComponent: @"Global"];
+	NSString * usersPath     = [tblkSetupPath stringByAppendingPathComponent: @"Users"];
+	
+	NSString * globalSharedPath = [globalPath stringByAppendingPathComponent: @"Shared"];
+	NSString * globalForcedPath = [globalPath stringByAppendingPathComponent: @"forced-preferences.plist"];
+	
+	createImportInfoFile(tblkSetupPath);
+	
+	// Merge the forced preferences, overwriting old ones individually
+	mergeForcedPreferences(globalForcedPath);
+	
+	// Merge Shared configurations, overwriting old ones individually
+	mergeConfigurations(globalSharedPath, [L_AS_T stringByAppendingPathComponent: @"Shared"], 0, 0, YES);
+	
+	// Merge into L_AS_T/Users, user-by-user, overwriting old configurations individually
+	mergeGlobalUsersFolder(tblkSetupPath, nameMap);
+	
+	// Copy the per-user info user-by-user, overwriting old configurations individually
+	NSString * name;
+	NSDirectoryEnumerator * e = [gFileMgr enumeratorAtPath: usersPath];
+	while (  (name = [e nextObject])  ) {
+		[e skipDescendants];
+		if (  ! [name hasPrefix: @"."]  ) {
+			NSString * newName = [nameMap objectForKey: name];
+			if (  newName  ) {
+				mergeSetupDataForOneUser([usersPath stringByAppendingPathComponent: name], newName);
+			}
+		}
+	}
+}
+
 //**************************************************************************************************************************
 //**************************************************************************************************************************
 
@@ -2018,6 +2391,16 @@ int main(int argc, char *argv[])
 		&& ( ! secondPath   )
 		&& (  operation == INSTALLER_EXPORT_ALL)  ) {
 		exportToPath(firstPath);
+	}
+	
+	//**************************************************************************************************************************
+	// (13) If requested, import settings from the .tblkSetup at firstPath using username mapping in the string in "secondPath"
+	//
+	//		NOTE: "secondPath" is not actually a path. It is a string that specifies the username mapping to use when importing.
+	if (   (operation == INSTALLER_IMPORT)
+		&& firstPath
+		&& secondPath  ) {
+		importSetup(firstPath, secondPath);
 	}
 	
     //**************************************************************************************************************************
