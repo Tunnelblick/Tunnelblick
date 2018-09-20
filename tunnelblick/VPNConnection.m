@@ -1862,7 +1862,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			NSString * option = [removedList objectAtIndex: ix];
 			if (  [ConfigurationManager parseString: configString forOption: option]  ) {
 				if (  [removedInOpenvpnVersion hasSuffix: @"?"]  ) {
-					[optionsThatAreProblematic appendFormat: NSLocalizedString(@" • '%@' was deprecated in OpenVPN %@ and will be removed in a future version of OpenVPN\n\n",
+					[optionsThatAreProblematic appendFormat: NSLocalizedString(@" • '%@' was deprecated in OpenVPN %@ and has been or will be be removed in a later version\n\n",
 																			   @"The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5'"),
 					 option, deprecatedInOpenvpnVersion];
 				} else {
