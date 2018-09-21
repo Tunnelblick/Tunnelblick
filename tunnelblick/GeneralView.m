@@ -78,7 +78,7 @@ extern TBUserDefaults * gTbDefaults;
     [keyboardShortcutArrayController setContent: kbsContent];
 	[keyboardShortcutButton
 	 setTitle: nil
-	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Specifies the keys to press to invoke Tunneblick's main menu.</p>",
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>",
 														   @"HTML info for the 'Keyboard shortcut' button."))];
     [UIHelper setTitle: nil ofControl: keyboardShortcutButton shift: rtl narrow: YES enable: YES];
     
