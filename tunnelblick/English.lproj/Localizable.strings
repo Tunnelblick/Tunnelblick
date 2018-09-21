@@ -2025,7 +2025,7 @@
 " copy" = " copy";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be be removed in a later version\n\n" = " • '%1$@' was deprecated in OpenVPN %2$@ and has been or will be be removed in a later version\n\n";
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' was deprecated in OpenVPN %2$@ and has been or will be removed in a later version\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' was deprecated in OpenVPN %2$@ and removed in OpenVPN %3$@\n\n";
