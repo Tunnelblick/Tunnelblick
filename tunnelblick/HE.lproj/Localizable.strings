@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "שחזר";
 
+/* Button text */
+"Retry with manual response" = "נסה שנית עם תגובה ידנית";
+
 /* Button */
 "Retry" = "נסה שוב";
 
@@ -731,6 +734,9 @@
 /* Window title */
 "While Connected" = "בזמן חיבור פעיל";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     משרת הDNS עבור %1$@:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     %lu קונפיגורציות הותקנו בהצלחה\n\n";
 
@@ -792,6 +798,9 @@
 "  • Secure configurations\n" = "  לאבטח הגדרות\n";
 
 /* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ הינה תוכנה חינמית: ניתן להפיץ ולשנות את התוכנה תחת תנאי ה%2$@ כפי שפורסם על ידי %3$@. \n\n%4$@ הינו סימן רשום של OpenVPN Inc.";
+
+/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " האם להתקין %1$@ לתוך %2$@%3$@?\n\n";
 
 /* Window text */
@@ -818,6 +827,9 @@
 /* Window text */
 "%@ exists but is not a folder" = "%@ קיים, אך לא כתקייה";
 
+/* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\nשים לב: Tunnelblick נמצא במצב ניהול ולכן לא נדרש אישור ידני.";
+
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' כבר מוגדר במחשב זה.\n\nהאם תרצה להחליף אותו?";
 
@@ -826,6 +838,9 @@
 
 /* Window text */
 "'%@' was not terminated." = "התגית %@ קיימת ללא סיומת בקובץ.";
+
+/* Window text */
+"(An error occurred creating the help content.)" = "(אירעה שגיאה במהלך הכנת תוכן העזרה)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(תיעוד ביומן כבוי.)";
@@ -975,6 +990,12 @@
 "Did not need to modify configuration file; no path information to remove" = "לא נמצא צורך לעדכן את קובץ ההגדרות; אין הגדרות נתיב להסרה";
 
 /* Window text */
+"Do you wish to delete the %@ credentials?" = "האם ברצונך למחוק את שם המשתמש וסיסמה עבור %@?";
+
+/* Window text */
+"Do you wish to replace the '%@' configuration?\n\n" = "האם ברצונך להחליף את ההגדרות עבור %@?\n\n";
+
+/* Window text */
 "Domain:" = "שם תחום:";
 
 /* Window text */
@@ -987,7 +1008,19 @@
 "EB/s" = "אקסה-בתים לשנייה";
 
 /* Window text */
+"Failed to create folder at %@" = "אירעה שגיעה במהלך יצירת התיקיה ב%@";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "נכשלה יצירת קיצורי הדרך\nל %1$@\nב %2$@";
+
+/* Window text */
+"Failed to set permissions on %@\n" = "נכשלה הגדרת ההרשאות של %@\n";
+
+/* Window text */
 "Fast User Switching" = "החלפת משתמשים מהירה";
+
+/* Window text */
+"File is too large: %@" = "קובץ גדול מידי: %@";
 
 /* Window text */
 "GB" = "גיגה בייט";
@@ -1014,7 +1047,16 @@
 "Installation failed:\n\n%@" = "ההתקנה נכשלה:\n\n%@";
 
 /* Window text */
+"Installation finished successfully." = "התקנה הסתיימה בהצלחה.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "מתקין ומאבטח את Tunnelblick %@…";
+
+/* Window text */
 "Installing configurations is not allowed" = "התקנת הגדרות אינה מורשית";
+
+/* Window text */
+"Internal error: commentOutLines: line %lu does not exist" = "אירעה שגיאה: commentOutLines: שורה מספר %lu אינה קיימת";
 
 /* Window text */
 "Invalid value '%@' for '%@' in %@" = "ערך לא תקין %1$@ ל%2$@ ב%3$@";
@@ -1047,6 +1089,9 @@
 "Modified configuration file to remove path information" = "קובץ ההגדרות עודכן להסרת מידע על נתיב";
 
 /* Window text */
+"Named Credentials" = "פרטי הזדהות";
+
+/* Window text */
 "Names may not include any of the following characters: %s" = "שמות אינם יכולים להכיל את התווים הבאים: %s";
 
 /* Window text */
@@ -1066,6 +1111,9 @@
 
 /* Window text */
 "Network setting" = "הגדרות רשת";
+
+/* Window text */
+"No 'TBPackageVersion' in %@" = "TBPackageVersion לא נמצא ב%@";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "קובץ זה איננו ovpn. או conf. תקני: %@";
@@ -1092,10 +1140,22 @@
 "Password:" = "סיסמא:";
 
 /* Window text */
+"Please check for a newer version." = "אנא חפש\\י גרסה חדשה.";
+
+/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "אנא בחר שם ולחץ המשך או ביטול.\n\n";
 
 /* Window text */
 "Please enter a new name for '%@'." = "אנא בחר שם עבור %@.";
+
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "אנא הכנס\\י אסימון %@, והקש המשך";
+
+/* Window text */
+"Received fatal signal %d." = "התקבל סימון קטלני %d.";
+
+/* Window text */
+"Rename failed; see the Console Log for details." = "שינוי שם נכשל; אנא התייחס ללוג על מנת לקבל יותר מידע.";
 
 /* Window text */
 "Set DNS/WINS:" = "קבע DNS/WINS:";
@@ -1122,7 +1182,16 @@
 "That name is being used.\n\n" = "שם זה נמצא בשימוש.\n\n";
 
 /* Window text */
+"The file %@ is empty" = "הקובץ %@ ריק מתוכן";
+
+/* Window text */
+"The file %@ is missing" = "הקובץ %@ אינו קיים";
+
+/* Window text */
 "The installation or repair took too long or failed. Try again?" = "ההתקנה או התיקון לקחו זמן ממושך מידיי או נכשלו. האם לנסות שוב?";
+
+/* Window text */
+"There was a problem:\n\n%@" = "אירעה שגיאה:\n\n%@";
 
 /* Window text */
 "Translation by" = "תורגם על ידי";

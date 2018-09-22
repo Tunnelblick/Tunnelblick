@@ -215,6 +215,9 @@
 /* Button */
 "Restore" = "Restaurar";
 
+/* Button text */
+"Retry with manual response" = "Tente novamente com uma resposta manual";
+
 /* Button */
 "Retry" = "Tentar novamente";
 
@@ -482,6 +485,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Definir nameserver (alternativa 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Definir servidor dns (alternativa 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Definir nameserver";
 
@@ -731,6 +737,9 @@
 /* Window title */
 "While Connected" = "Enquanto Conectado";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Do servidor VPN para %1$@:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Instaladas %lu configurações\n\n";
 
@@ -792,6 +801,9 @@
 "  • Secure configurations\n" = "  • Configurações seguras\n";
 
 /* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ é um software livre: você pode redistribuí-lo e/ou modificá-lo sob os termos do %2$@ como publicado pela %3$@.\n\n%4$@ é uma marca registrada da OpenVPN Inc.";
+
+/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Deseja instalar %1$@ para %2$@%3$@?\n\n";
 
 /* Window text */
@@ -848,6 +860,9 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Preferência 'easy-rsaPath' ignorada; precisa de uma localização absoluta ou deve começar com o carater '~'";
 
+/* Window text */
+"(An error occurred creating the help content.)" = "(Ocorreu um erro ao criar o conteúdo de ajuda.)";
+
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Registro desativado.)";
 
@@ -862,6 +877,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(se conectado quando o utilizador finalizar sessão)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Baseado no Tunnelblick, software livre disponível em <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN é marca registrada da OpenVPN Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Esta versão do Tunnelblick tem %lu dias.</p><p>Por favor verifique se existe uma versão mais recente:</p><ul><li>Manualmente no painel 'Preferências' na janela 'Detalhes da VPN'; ou<br></li><li>Procurando uma versão mais recente na <a href=\"https://tunnelblick.net/downloads.html\">página de Downloads do TunnelBlick</a> [tunnelblick.net].</li></ul>";
@@ -1320,6 +1338,21 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Um ou mais processos OpenVPN estão a ser executados mas são desconhecidos pelo Tunnelblick. Se OpenVPN não estiver a ser executado separadamente do Tunnelblick, normalmente isto significa que uma sessão anterior do Tunnelblick não pôde terminálos corretamente e devem ser terminados manualmente. Provavelmente eles vão interferir com as operações do Tunnelblick.\n\nEles podem ser terminados na aplicação ‘Monitor de Atividade'.\n\n";
 
 /* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Uma ou mais configurações VPN que estão a instalar incluem opções OpenVPN que não são reconhecidas pelo Tunnelblick. Isso pode ser um erro na configuração ou um erro no Tunnelblick, ou as configurações podem incluir programas que serão executados com privilégios administrativos quando você se conectar a uma VPN. Tais programas serão capazes de ASSUMIR O CONTROLE TOTAL DO SEU COMPUTADOR.\n\nVOCÊ NÃO DEVE INSTALAR ESTAS CONFIGURAÇÕES SE NÃO CONFIAR NO AUTOR.\n\nVocê confia no autor das configurações e deseja instalá-las?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Uma ou mais configurações VPN que estão a instalar incluem um programa que seria executado com privilégios administrativos quando você se conectar a uma VPN. Estes programas são parte da configuração e não fazem parte do aplicativo Tunnelblick. Elas são capazes de ASSUMIR O CONTROLE TOTAL DO SEU COMPUTADOR.\n\nVOCÊ NÃO DEVE INSTALAR ESTAS CONFIGURAÇÕES SE NÃO CONFIAR NO AUTOR.\n\nConfia no autor destas configurações e deseja instalá-las?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Uma ou mais configurações VPN que estão a instalar incluem programas os quais serão executados quando você conectar a uma VPN. Estes programas são parte da configuração e não parte do aplicativo Tunnelblick.\n\nVocê deve instalar estas configurações somente se confiar no seu autor.\n\nConfia no autor das configurações e deseja instalá-las?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Uma ou mais configurações de VPN que estão a atualizar incluem um programa que seria executado com privilégios administrativos quando você se conectar a uma VPN. Estes programas são parte da configuração e não fazem parte do aplicativo Tunnelblick. Elas são capazes de ASSUMIR O CONTROLE TOTAL DO SEU COMPUTADOR.\n\nVOCÊ NÃO DEVE INSTALAR ESTAS CONFIGURAÇÕES SE NÃO CONFIAR NO AUTOR.\n\nConfia no autor destas configurações e deseja instalá-las?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Uma ou mais configurações de VPN que estão a atualizar incluem programas os quais serão executados quando você conectar a uma VPN. Estes programas são parte da configuração e não parte do aplicativo Tunnelblick.\n\nVocê deve instalar estas configurações somente se confiar no seu autor.\n\nConfia no autor das configurações e deseja instalá-las?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Uma ou mais VPNs estão atualmente conectadas. Por favor desconecte todas VPNs e encerre o Tunnelblick antes de continuar.";
 
 /* Window text */
@@ -1354,6 +1387,9 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "A localização '%1$@' contém carateres não permitidos.\n\nCarateres que não são permitidos: '%2$s'\n\n";
+
+/* Window text */
+"Please check for a newer version." = "Por favor verifique uma versão mais atual.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Por favor digite um nome e clique \"OK\" ou clique \"Cancelar\".\n\n";
@@ -1423,12 +1459,6 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Esse nome está a ser utilizado.\n\n";
-
-/* Window text */
-"The %@ system folder (%@) does not exist." = "A pasta de sistema %1$@ (%2$@) não existe.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "A pasta de sistema %1$@ (%2$@) não é segura.\n\nO Tunnelblick pode não funcionar corretamente se esta não for corrigida.\n\nA função 'Reparar Permissões do Disco' do Utilitário do disco pode corrigir o problema.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "A opção '%@' do OpenVPN não está disponível para OS X. É uma opção apenas disponível para o sistema Windows.";
@@ -1554,6 +1584,9 @@
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Esta VPN não pode ser conectada.\n\nO ficheiro de configuração OpenVPN para '%1$@' contém as seguintes opções OpenVPN:\n\n%2$@\nNenhuma das versões do OpenVPN incluídas nesta versão do TunnelBlick incluem a(s) opção(ões).\n\nDeverá atualizar a configuração de forma a que possa ser utilizada por versões modernas do OpenVPN.";
 
 /* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "Esta VPN precisa de uma resposta mas não oferece a questão.";
+
+/* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "O endereço IP público aparente não mudou depois de conectar a %1$@. Continua conectado a %2$@.\n\nIsto pode significar que o VPN não está configurado corretamente.\n\n";
 
 /* Window text */
@@ -1630,6 +1663,9 @@
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "O Tunnelblick não conseguiu encontrar o ficheiro de configuração ou não foi possível a sua validação. Veja o Registo da Consola para mais detalhes.";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "O Tunnelblick não conseguiu carregar um kext";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "O Tunnelblick não conseguiu mover a configuração '%@'. Veja o Registo da Consola para mais detalhes.";
@@ -1966,9 +2002,6 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' foi adicionada ao OpenVPN %2$@\n";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' foi descontinuada no OpenVPN %2$@ e removida no OpenVPN %3$@\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "Testes e ativação 64-bit";
@@ -2323,7 +2356,7 @@
 "Updated to %@." = "Atualizado para %@.";
 
 /* Credit description */
-"Vietnamese translation" = "Tradução Vietnamita";
+"Vietnamese translation" = "Tradução para Vietnamita";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Ajuda para o Xcode e integração OpenSSL";

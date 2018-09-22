@@ -1356,12 +1356,6 @@
 "That name is being used.\n\n" = "Bu ad istifadə olunur.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "%1$@ sistem qovluğu (%2$@) mövcud deyil.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "%1$@ sistem qovluğu (%2$@) təhlükədədir.\n\nƏgər bu problem həll olunmasa Tunnelblick lazımınca işləməyəcək.\n\nDisk Alətlərin 'Disk İcazələrinin Bərpası' funksiyası bəlkədə bu problemi aradan qaldıra biləcək.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "%@ OpenVPN seçimi OS X-də istifadə oluna bilməz. Bu yalnız 'Windows'-da istifadə olunan seçimdir.";
 
 /* Window text */

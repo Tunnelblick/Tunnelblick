@@ -1461,12 +1461,6 @@
 "That name is being used.\n\n" = "Это имя используется.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "Системная директория %1$@ (%2$@) не существует.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Системная папка %1$@ (%2$@) не безопасна.\n\nTunnelblick не сможет работать правильно, пока это не будет исправлено.\n\nФункция \"Исправить права доступа\", в Дисковой утилите, может быть сможет устранить эту проблему.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Опция OpenVPN '%@' недопустима в OS X. Эта опция только для Windows.";
 
 /* Window text */
@@ -2008,9 +2002,6 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' была добавлена в OpenVPN версии %2$@\n";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' вышла из использования в OpenVPN версии %2$@ и удалена в OpenVPN версии %3$@\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-битный функционал и тестирование";

@@ -116,6 +116,9 @@
 "Download" = "Ladda ner";
 
 /* Button */
+"Export Tunnelblick Setup" = "Exportera Tunnelblick-inställningar";
+
+/* Button */
 "Help" = "Hjälp";
 
 /* Button */
@@ -621,6 +624,9 @@
 "File not found" = "Filen kan inte hittas";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Importera en Tunnelblick-inställning";
+
+/* Window title */
 "Info" = "Information";
 
 /* Window title */
@@ -788,14 +794,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Konvertera OpenVPN-konfigurationer\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Kopiera en konfiguration\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  Installera tvingande inställningar\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Installera eller uppdatera inställningar\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Flytta en konfiguration\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Flytta mappen med privata inställningar\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Ta bort en konfiguration\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Säkra konfigurationer\n";
@@ -1191,6 +1206,9 @@
 "File is too large: %@" = "Filen är för stor: %@";
 
 /* Window text */
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "För varje användare vars konfigurationer och inställningar du vill importera, ska du välja den användare av den här datorn som ska motta konfigurationerna och inställningarna.";
+
+/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1460,11 +1478,8 @@
 /* Window text */
 "That name is being used.\n\n" = "Namnet används redan.\n\n";
 
-/* Window text */
-"The %@ system folder (%@) does not exist." = "Systemmappen %1$@ (%2$@) finns inte.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Systemmappen %1$@ (%2$@) är inte säker.\n\nTunnelblick kan vara ostabilt om inte problemet åtgärdas.\n\nFunktionen \"Reparera skivbehörigheter\" i Skivverktyget kan eventuellt åtgärda problemet.";
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Systemmappen %1$@ (%2$@) är inte säker.\n\nTunnelblick och andra program kan vara ostabila om inte problemet åtgärdas.\n\nKonsolloggen har mer information.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Alternativet \"%@\" i OpenVPN är inte tillåtet på OS X. Det kan endast användas i Windows-miljö.";
@@ -1579,6 +1594,9 @@
 
 /* Window text */
 "There was a problem:\n\n%@" = "Ett problem har uppståt:\n\n%@";
+
+/* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Det var problem att importera Tunnelblicks inställningar.\n\nSe konsolloggen för mer information.";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Denna 'Distribuerade' version av Tunnelblick kan inte startas eller installeras eftersom den inte har blivit ommärkt, eller updateFeedURL eller SUFeedURL saknas eller att båda innehåller 'tunnelblick.net', eller CFBundleIdentifier saknas eller innehåller 'net.tunnelblick'.\n\n";
@@ -1716,6 +1734,9 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick behöver tillåtelse att göra konfigurationen '%@' delad.";
 
 /* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick behöver tillåtelse att läsa Tunnelblick-data som hör till andra användare av den  här datorn, så att all Tunnelblick-data kan exporteras.\n\nObservera:\n\n     1. Användaruppgifter som har sparats i Nyckelhanteraren kommer INTE att exporteras. \n\n     2. Exporten kan ta lång tid.\n\n";
+
+/* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick behöver tillåtelse att ta bort %ld konfigurationer.";
 
 /* Window text */
@@ -1723,6 +1744,9 @@
 
 /* Window text */
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick behöver tillåtelse att döpa om konfigurationen \"%1$@\" till \"%2$@\".";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick behöver tillåtelse för att säkra den importerade datan.";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick behöver ändra en inställning som bara kan ändras av en administratör.";
@@ -2009,8 +2033,8 @@
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' lades till i OpenVPN %2$@\n";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' fasades ur i OpenVPN %2$@ och togs bort i OpenVPN %3$@\n";
+/* Popup button menu item */
+"(Do not import)" = "(Importera inte)";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bitsutveckling och testning";
@@ -2346,6 +2370,9 @@
 /* Credit description */
 "Swedish translation" = "Svensk översättning";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Tunnelblick-inställning %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblickikon";
 
@@ -2363,6 +2390,12 @@
 
 /* Notification text */
 "Updated to %@." = "Uppdaterad till %@.";
+
+/* Column heading in a table */
+"Username in setup data" = "Användarnamn i inställningsdata";
+
+/* Column heading in a table */
+"Username on this computer" = "Användarnamn på den här datorn";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamesisk översättning";

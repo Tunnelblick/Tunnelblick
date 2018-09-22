@@ -89,7 +89,7 @@
 "Delete Credentials" = "Видалити облікові дані";
 
 /* Button */
-"Delete saved passphrase and try again" = "Видалити збережену фразу-ключ і спробувати знову";
+"Delete saved passphrase and try again" = "Видалити збережену фразу-пароль та спробувати знову";
 
 /* Button */
 "Delete saved password and try again" = "Видалити збережений пароль і спробувати ще раз";
@@ -267,7 +267,7 @@
 "This configuration uses %@ credentials" = "Дана конфигурація використовує %@ повноваження";
 
 /* Button */
-"Try again with saved passphrase" = "Спробувати ще раз з використанням збереженої фрази-ключа";
+"Try again with saved passphrase" = "Спробувати ще раз із використанням збереженої фрази-паролю";
 
 /* Button */
 "Try again with saved username and password" = "Спробувати ще раз, використовуючи збережені ім'я користувача і пароль";
@@ -411,7 +411,7 @@
 "Do not ask again, always convert" = "Не запитувати знову, завжди Конвертувати";
 
 /* Checkbox name */
-"Do not show this type of warning again" = "Більше не показувати це застереження";
+"Do not show this type of warning again" = "Більше не показувати цей тип застереження";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "Не попереджати про це для будь-якої конфігурації";
@@ -486,7 +486,7 @@
 "Set nameserver (alternate 1)" = "Встановити сервер імен (варіант 1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 2)" = "Задати сервер імен (альтернатива 2)";
+"Set nameserver (alternate 2)" = "Встановити сервер імен (варіант 2)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Встановити сервер імен";
@@ -852,7 +852,7 @@
 "'%@' was not terminated." = "Не закритий тег '%@'.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' буде під'єднано з використанням OpenVPN %2$@ замість запрошеної версії (OpenVPN %3$@).";
+"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "Конфігурацію '%1$@' буде під'єднано із використанням OpenVPN %2$@ замість запрошеної версії (OpenVPN %3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "параметр 'easy-rsaPath' був проігнорований - вказане значення не вказує на папку";
@@ -1338,6 +1338,21 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Один чи кілька OpenVPN процессів вже працюють, але вони невідомі Tunnelblick. Якщо ви не запускаете OpenVPN якимось іншим чином, це може значити що попередній Tunnelblick процесс працював, та не завершив своеї роботи. Вірогідно це заважатиме поточному Tunnelblick працювати. \n\n\nВи можете завершити їх використовуючи \"Моніторинг системи\".\n\n";
 
 /* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Щонайменше одна конфігурація VPN, яку ви встановлюєте, включає параметри OpenVPN, що не були розпізнані Tunnelblick. Причиною може бути помилка в конфігурації, помилка Tunnelblick або ці конфігурації можуть включати програми, що будуть виконуватись з правами root при підключенні до VPN. Такі програми зможуть ОТРИМАТИ ПОВНИЙ КОНТРОЛЬ НАД ВАШИМ КОМП'ЮТЕРОМ.\n\nВИ НЕ ПОВИННІ ВСТАНОВЛЮВАТИ ЦІ КОНФІГУРАЦІЇ, ЗА ВИНЯТКОМ, ЯКЩО ВИ ДОВІРЯЄТЕ ЇХ АВТОРУ.\n\nВи довіряєте автору цих конфігурацій та бажаєте їх встановити?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Одна чи декілька конфігурацій, що встановлюютья, включають програми, які будуть виконуватись з правами 'root', після під'єднання до VPN. Вони взмозі ОТРИМАТИ ПОВНИЙ КОНТРОЛЬ НАД ВАШИМ КОМП'ЮТЕРОМ.\n\nВСТАНОВЛЮЙТЕ ЦІ КОНФІГУРАЦІЇ ТІЛЬКИ У ВИПАДКУ, ЯКЩО ВИ ДОВІРЯЄТЕ ЇХ АВТОРУ.\n\nВи довіряєте автору цих конфигурацій та бажаєте їх встановити?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Одна чи декілька конфігурацій, що встановлюютья, включають програми, які будуть виконуватись, після під'єднання до VPN. Такі програми є частиною конфігурацій і не входять до складу Tunnelblick\n\nВстановлюйте ці конфігурації тільки у випадку, якщо Ви довіряєте їх автору.\n\nВи довіряєте автору цих конфигурацій та бажаєте їх встановити?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Одна чи декілька конфігурацій, що оновлюються, включають програми, які будуть виконуватись з правами 'root', після під'єднання до VPN. Вони взмозі ОТРИМАТИ ПОВНИЙ КОНТРОЛЬ НАД ВАШИМ КОМП'ЮТЕРОМ.\n\nВИ НЕ ПОВИННІ ВСТАНОВЛЮВАТИ ЦІ КОНФІГУРАЦІЇ, ЗА ВИНЯТКОМ, ЯКЩО ВИ ДОВІРЯЄТЕ ЇХ АВТОРУ.\n\nВи довіряєте автору цих конфигурацій та бажаєте їх встановити?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Одна чи декілька конфігурацій, що оновлюються, включають програми, які будуть виконуватись, після під'єднання до VPN. Такі програми є частиною конфігурацій і не входять до складу Tunnelblick.\n\nВстановлюйте ці конфігурації тільки у випадку, якщо Ви довіряєте їх автору.\n\nВи довіряєте автору цих конфигурацій та бажаєте їх встановити?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Одне чи декілька з'єднань VPN є активними. Будь-ласка, закрийте всі з'єднання VPN та програму Tunnelblick перед тим як продовжити.";
 
 /* Window text */
@@ -1444,12 +1459,6 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Це ім'я вже використовується.\n\n";
-
-/* Window text */
-"The %@ system folder (%@) does not exist." = "Системна папка %1$@ (%2$@) не існує.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Системна папка %1$@ (%2$@) не є безпечною.\n\nTunnelblick не може працювати належним чином, якщо це не виправлено.\n\nФункція дискової утіліти 'Відновлення Дискових Дозволів' може допомогти усунути проблеми.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "OpenVPN опція '%@' не дозволена в OS X. Це опція тільки для Windows.";
@@ -1993,9 +2002,6 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' додано до OpenVPN %2$@\n";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' застаріла в OpenVPN %2$@ і видалена в OpenVPN %3$@\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-розрядна версія та тестування";

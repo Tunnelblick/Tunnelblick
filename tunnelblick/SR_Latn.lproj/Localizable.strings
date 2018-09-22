@@ -116,6 +116,9 @@
 "Download" = "Preuzmi";
 
 /* Button */
+"Export Tunnelblick Setup" = "Izvezi Tunnelblick podešavanja";
+
+/* Button */
 "Help" = "Pomoć";
 
 /* Button */
@@ -214,6 +217,9 @@
 
 /* Button */
 "Restore" = "Vrati";
+
+/* Button text */
+"Retry with manual response" = "Pokušaj iznova sa ručnim odgovorom";
 
 /* Button */
 "Retry" = "Pokušaj ponovo";
@@ -482,6 +488,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Podesi nameserver (alternativa 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Podesi nameserver (alternativa 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Podesi nameserver";
 
@@ -615,6 +624,9 @@
 "File not found" = "Fajl nije pronađen";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Uvezi Tunnelblick podešavanja";
+
+/* Window title */
 "Info" = "Informacije";
 
 /* Window title */
@@ -731,6 +743,9 @@
 /* Window title */
 "While Connected" = "Dok je uspostavljena veza";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Od VPN servera za %1$@:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Instalirano %lu konfiguracija\n\n";
 
@@ -779,17 +794,29 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Konvertuj OpenVPN konfiguracije\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Kopiraj konfiguraciju\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • Instaliraj forsirana podešavanja\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Instaliraj ili osveži konfiguraciju/e\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Prebaci konfiguraciju\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Premesti folder sa privatnim konfiguracijama\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Ukloni konfiguraciju\n";
+
 /* Window text */
 "  • Secure configurations\n" = "  • Zaštiti konfiguracije\n";
+
+/* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ je slobodan softver: možete ga deliti i menjati pod uslovima %2$@ objavljenim od strane %3$@.\n\n%4$@ je registrovana marka OpenVPN Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Da li želiš da instaliraš %1$@ u %2$@%3$@?\n\n";
@@ -848,6 +875,9 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' podešavanje zanemareno; putanja mora biti apsolutna ili početi sa '~'";
 
+/* Window text */
+"(An error occurred creating the help content.)" = "(Nastala je greška prilikom kreiranja uputstva.)";
+
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Logiranje je onemogućeno.)";
 
@@ -862,6 +892,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(ako je povezan kada se korisnik izloguje)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Bazirano na Tunnelblick-u, slobodnom softveru dostupnom na <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovana marka OpenVPN Inc.";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Ova verzija Tunnelblicka je stara %lu dan(a).</p><p>Molim proverite da li je nova verzija dostupna:</p><ul><li>Ručno u 'Podešavanja' panelu u okviru 'VPN Detalji...' prozora; ili<br></li><li>Nalaženjem nove verzije na sajtu <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick preuzimanja</a> [tunnelblick.net].</li></ul>";
@@ -1356,6 +1389,9 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Putanja '%1$@' sadrži nedozvoljene znake.\n\nZnaci koji nisu dozvoljeni: '%2$s'\n\n";
 
 /* Window text */
+"Please check for a newer version." = "Molim proverite ažurnost softvera.";
+
+/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Molim unesite ime i kliknite \"OK\" ili \"Otkaži\".\n\n";
 
 /* Window text */
@@ -1423,12 +1459,6 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Ime je već u upotrebi.\n\n";
-
-/* Window text */
-"The %@ system folder (%@) does not exist." = "Sistemski folder %1$@ (%2$@) ne postoji.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Sistemski folder %1$@ (%2$@) nije bezbedan.\n\nTunnelblick možda neće raditi ispravno dok se ovo ne razreši.\n\n'Popravi dozvole na disku' opcija u okviru Disk Utility alata možda može da reši problem.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "'%@' OpenVPN opcija nije dozvoljena na OS X operativnom sistemu. Opcija je namenjena samo Windows OS-u.";
@@ -1630,6 +1660,9 @@
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick nije uspeo da nađe konfiguracioni fajl ili da ga sanitizuje. Pogledajte log konzole za detalje.";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "Tunnelblick nije mogao da učita kext";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick nije mogao da premesti '%@' konfiguraciju. Pogledajte log konzole za detalje.";
@@ -1967,8 +2000,8 @@
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' je dodato u OpenVPN %2$@\n";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "%1$@ je zastarelo u verziji OpenVPN %2$@ i uklonjeno u OpenVPN %3$@\n";
+/* Popup button menu item */
+"(Do not import)" = "(Ne uvozi)";
 
 /* Credit description */
 "64-bit enabling and testing" = "omogućavanje i testiranje 64-bit verzije";
@@ -2304,6 +2337,9 @@
 /* Credit description */
 "Swedish translation" = "Švedski prevod";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Tunnelblick Podešavanja %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick ikonica";
 
@@ -2321,6 +2357,12 @@
 
 /* Notification text */
 "Updated to %@." = "Ažurirano na %@.";
+
+/* Column heading in a table */
+"Username in setup data" = "Korisničko ime u podešavanjima";
+
+/* Column heading in a table */
+"Username on this computer" = "Korisničko ime na ovom računaru";
 
 /* Credit description */
 "Vietnamese translation" = "Vijetnamski prevod";

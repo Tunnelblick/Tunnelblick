@@ -1461,12 +1461,6 @@
 "That name is being used.\n\n" = "Navnet er allerede i brug.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "%1$@ systemmappe (%2$@) eksisterer ikke.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "%1$@ systemmappe (%2$@) er ikke sikker.\n\nTunnelblick fungerer muligvis ikke korrekt, med mindre dette er bliver rettet.\n\nDiskværktøjet's 'Reparer disktilladelser' funktion kan være i stand til at rette problemet.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "OpenVPN muligheden '%@' er kun egnet til Windows.";
 
 /* Window text */
@@ -2008,9 +2002,6 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' blev tilføjet i OpenVPN %2$@\n";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' blev overflødiggjort i OpenVPN %2$@ og er fjernet i OpenVPN %3$@\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit aktivering og test";

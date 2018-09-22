@@ -116,6 +116,9 @@
 "Download" = "Unduh";
 
 /* Button */
+"Export Tunnelblick Setup" = "Ekspor Setup Tunnelblick";
+
+/* Button */
 "Help" = "Bantuan";
 
 /* Button */
@@ -621,6 +624,9 @@
 "File not found" = "File tidak dapat ditemukan";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Impor Setup Tunnelblick";
+
+/* Window title */
 "Info" = "Info";
 
 /* Window title */
@@ -788,14 +794,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Konversikan konfigurasi OpenVPN\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  Salin sebuah konfigurasi\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • Pasang preferensi yang dipaksa\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Pasang atau mutakhirkan konfigurasi\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Pindahkan suatu konfigurasi\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Pindahkan folder konfigurasi privat\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Hapus suatu konfigurasi\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Mengamankan konfigurasi\n";
@@ -880,6 +895,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Berbasis Tunnelblick, perangkat lunak bebas yang tersedia di<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN adalah merk dagang terdaftar dari OpenVPN Inc.";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Setup jaringan tidak dipulihkan secara benar setelah putus dari %@.</p><p>Masalah ini biasanya disebabkan oleh penggunaan opsi OpenVPN 'user nobody' dan/atau 'group nobody'.</p><p>Untuk memulihkan setup jaringan, Anda mesti memulai ulang komputer Anda.</p><p>Untuk mencegah kesalahan ini di masa mendatang, hapus baris-baris 'user nobody' dan 'group nobody' dari berkas konfigurasi OpenVPN Anda.</p><p>Lihat <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Opsi OpenVPN Pengguna dan Grup</a> [tunnelblick.net] untuk informasi lebih lanjut.</p></font>\n\n";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Versi Tunnelblick ini berusia %lu hari.</p><p>Harap periksa adanya versi yang lebih baru:</p><ul><li>Secara manual pada panel 'Preferensi' dari jendela 'Rincian VPN' Tunnelblick; atau<br></li><li>Dengan mencari versi yang lebih baru pada <a href=\"https://tunnelblick.net/downloads.html\">halaman Unduh Tunnelblick</a>[tunnelblick.net].</li></ul>";
@@ -1191,6 +1209,9 @@
 "File is too large: %@" = "File terlalu besar: %@";
 
 /* Window text */
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Untuk setiap pengguna yang konfigurasi dan pengaturannya hendak Anda impor, pilih pengguna itu pada komputer ini yang mesti menerima konfigurasi dan pengaturan.";
+
+/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1460,11 +1481,8 @@
 /* Window text */
 "That name is being used.\n\n" = "Nama tersebut sedang digunakan.\n\n";
 
-/* Window text */
-"The %@ system folder (%@) does not exist." = "Folder sistem %1$@ (%2$@) tidak ditemukan.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Folder sistem %1$@ (%2$@) tidak aman.\n\nTunnelblick mungkin tidak bisa berjalan dengan benar kecuali masalah ini diperbaiki.\n\nFungsi \"Repair Disk Permissions\" pada Disk Utility mungkin bisa memperbaiki masalah ini.";
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Folder sistem %1$@ (%2$@) tidak aman.\n\nTunnelblick dan program-program lain mungkin tidak bekerja dengan benar sampai masalah ini diperbaiki.\n\nLog Konsol menyimpan rinciannya.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Opsi '%@' di OpenVPN tidak diperbolehkan untuk OS X. Opsi ini hanya untuk Windows.";
@@ -1579,6 +1597,9 @@
 
 /* Window text */
 "There was a problem:\n\n%@" = "Ada masalah:\n\n%@";
+
+/* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Ada masalah saat mengimpor pengaturan Tunnelblick.\n\nLihat log Konsol untuk rinciannya.";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Versi Tunnelblick yang 'Disebarkan' ini tidak dapat diluncurkan atau dipasang karena belum diubah merknya, atau kurang updateFeedURL atau SUFeedURL atau memuat 'tunnelblick.net', atau kurang CFBundleIdentifier atau memuat 'net.tunnelblick'.\n\n";
@@ -1716,6 +1737,9 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick perlu otorisasi untuk membuat konfigurasi '%@' dipakai bersama.";
 
 /* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick memerlukan otorisasi untuk membaca data Tunnelblink milik pengguna lain dari komputer ini sehingga itu dapat mengekspor semua data Tunnelblick.\n\nHarap perhatikan:\n\n     1. Kredensial yang disimpan dalam Keychain TIDAK akan diekspor.\n\n     2. Ekspor mungkin makan waktu lama.\n\n";
+
+/* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick perlu otorisasi untuk menghapus %ld konfigurasi.";
 
 /* Window text */
@@ -1723,6 +1747,9 @@
 
 /* Window text */
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick perlu otorisasi untuk mengubah nama konfigurasi '%1$@' menjadi '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick memerlukan otorisasi untuk mengamankan data yang diimpor.";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick perlu mengubah suatu pengaturan yang hanya dapat diubah oleh administrator komputer.";
@@ -2000,6 +2027,12 @@
 /* Suffix for a duplicate of a file */
 " copy" = " salinan";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be be removed in a later version\n\n" = " • '%1$@' kedaluwarsa dalam OpenVPN %2$@ dan telah atau akan dihapus dalam versi selanjutnya\n\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' sudah kedaluwarsa dalam OpenVPN %2$@ dan dihapus dalam OpenVPN %3$@\n\n";
+
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
@@ -2009,11 +2042,14 @@
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' ditambahkan dalam OpenVPN %2$@\n";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' sudah tidak dipakai lagi dalam OpenVPN %2$@ dan dihapus dalam OpenVPN %3$@\n";
+/* Popup button menu item */
+"(Do not import)" = "(Jangan impor)";
 
 /* Credit description */
 "64-bit enabling and testing" = "pemfungsian dan pengujian 64 bit";
+
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Untuk mengimpor sebuah setup Tunnelblick pada suatu komputer yang memiliki lebih dari %u akun pengguna, Anda mesti membuat sebuah berkas teks yang menyatakan data yang akan diimpor.</p>\n<p>Untuk informasi lebih lanjut, lihat <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a></p></font>";
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Menyatakan versi perangkat lunak SSL dan OpenVPN yang mesti dipakai untuk menyambungkan VPN.</strong><ul><li><strong>Pengaturan \"Baku\"</strong> akan memakai versi OpenVPN baku dengan OpenSSL yang disertakan dalam versi Tunnelblick ini. Nilai baku mungkin berbeda dalam versi lain dari Tunnelblick.<br></li><li><strong>Pengaturan \"Terbaru\"</strong> akan memakai versi OpenVPN terbaru dengan LibreSSL yang disertakan dalam versi Tunnelblick ini. Nilai terbaru mungkin berbeda dalam versi lain dari Tunnelblick.<br></li><li><strong>Sebarang setelan lain</strong> akan memakai versi perangkat lunak SSL dan OpenVPN yang dinyatakan bila mereka tersedia dalam versi Tunnelblick ini. Bila tidak tersedia, kecocokan paling dekat akan dipakai.<br></li></ul>";
@@ -2125,6 +2161,9 @@
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Menyalin bagian terakhir dari Log Konsol ke Papan Klip sehingga dapat ditempelkan ke dalam suatu surel atau dokumen lain.</p><p>Log memuat rincian operasi OpenVPN dan Tunnelblick. Itu termasuk pesan status dan pesan kesalahan terrinci yang terlalu panjang untuk disajikan ke pengguna dalam suatu jendela dialog normal.</p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Ekspor setup Tunnelblick, termasuk semua konfigurasi dan pengaturan bagi semua pengguna pada komputer ini, ke sebuah berkas terkompresi pada Desktop.</p><ul><li>Kredensial yang disimpan dalam Keychain <strong>tidak</strong> diekspor.</li><li>Ekspor mungkin makan waktu lama.</li></ul>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Membuka suatu jendela peramban yang memuat informasi pada situs web Tunnelblick tentang membongkar Tunnelblick.</p>";
@@ -2346,6 +2385,9 @@
 /* Credit description */
 "Swedish translation" = "Terjemahan bahasa Swedia";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Setup Tunnelblick %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Ikon Tunnelblick";
 
@@ -2363,6 +2405,12 @@
 
 /* Notification text */
 "Updated to %@." = "Dimutakhirkan ke %@.";
+
+/* Column heading in a table */
+"Username in setup data" = "Nama pengguna dalam data setup";
+
+/* Column heading in a table */
+"Username on this computer" = "Nama pengguna pada komputer ini";
 
 /* Credit description */
 "Vietnamese translation" = "Terjemahan bahasa Vietnam";

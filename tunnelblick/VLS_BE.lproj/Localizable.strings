@@ -116,6 +116,9 @@
 "Download" = "Downloaden";
 
 /* Button */
+"Export Tunnelblick Setup" = "Tunnelblick Setup exporteren";
+
+/* Button */
 "Help" = "Help";
 
 /* Button */
@@ -214,6 +217,9 @@
 
 /* Button */
 "Restore" = "Herstel";
+
+/* Button text */
+"Retry with manual response" = "Probeer opnieuw met handmatig antwoord";
 
 /* Button */
 "Retry" = "Probeer opnieuw";
@@ -482,6 +488,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Nameserver bepalen (alternatief 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Stel naamserver in (alternatief 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Nameserver configureren";
 
@@ -615,6 +624,9 @@
 "File not found" = "Bestand niet gevonden";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Tunnelblick Setup importeren";
+
+/* Window title */
 "Info" = "Info";
 
 /* Window title */
@@ -731,6 +743,9 @@
 /* Window title */
 "While Connected" = "Tijdens Een Verbinding";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Van de VPN-server voor %1$@:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu configuraties geïnstalleerd\n\n";
 
@@ -779,14 +794,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Converteer OpenVPN configuraties\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Configuratie kopiëren\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • Installeer geforceerde voorkeuren\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Installeer of update configuratie(s)\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Configuratie verplaatsen\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Verplaats de map met privé-configuraties\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Configuratie verwijderen\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Configuraties beveiligen\n";
@@ -850,6 +874,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' instelling genegeerd; het moet een absoluut pad zijn om beginnen met een '~'";
+
+/* Window text */
+"(An error occurred creating the help content.)" = "(Er is een fout opgetreden bij het maken van de helptekst.)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Logging is uitgeschakeld.)";
@@ -1362,6 +1389,9 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Pad ' %1$@ \"bevat tekens die niet zijn toegestaan.  \n\nDe tekens die niet worden toegestaan zijn: '%2$s'\n\n";
 
 /* Window text */
+"Please check for a newer version." = "Controleer a.u.b. op een nieuwere versie.";
+
+/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Voer a.u.b. een naam in en druk op \"OK\" of \"Annuleren\".\n\n";
 
 /* Window text */
@@ -1429,12 +1459,6 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Die naam is in gebruik.\n\n";
-
-/* Window text */
-"The %@ system folder (%@) does not exist." = "De %1$@ systeemmap (%2$@) bestaat niet.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "De %1$@ systeemmap (%2$@) is niet veilig.\n\nTunnelblick werkt mogelijk niet goed totdat dit probleem wordt opgelost.\n\nDe functie 'Repareren schijf permissies' met behulp van het programma schijfhulpprogramma kan mogelijk het probleem oplossen.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "De ' %@' OpenVPN optie is niet toegestaan op macOS. Dit is een optie alleen voor 'Windows'.";
@@ -1973,8 +1997,8 @@
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' is toegevoegd in OpenVPN %2$@\n";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' is verouderd sinds OpenVPN %2$@ en verwijderd sinds OpenVPN %3$@\n";
+/* Popup button menu item */
+"(Do not import)" = "(Niet importeren)";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit mogelijk maken en testen";
@@ -2310,6 +2334,9 @@
 /* Credit description */
 "Swedish translation" = "Zweedse vertaling";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Tunnelblick Setup %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick pictogram";
 
@@ -2327,6 +2354,12 @@
 
 /* Notification text */
 "Updated to %@." = "Bijgewerkt naar %@.";
+
+/* Column heading in a table */
+"Username in setup data" = "Gebruikersnaam in setup data";
+
+/* Column heading in a table */
+"Username on this computer" = "Gebruikersnaam op deze computer";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamese vertaling";

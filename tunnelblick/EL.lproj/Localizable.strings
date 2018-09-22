@@ -222,7 +222,7 @@
 "Retry" = "Δοκιμάστε ξανά";
 
 /* Button */
-"Revert to the Last Secured Copy" = "Επιστροφή στο τελευταίο ασφαλές αντίγραφο";
+"Revert to the Last Secured Copy" = "Επαναφορά στο τελευταίο ασφαλές αντίγραφο";
 
 /* Button */
 "Revert" = "Επιστροφή";
@@ -342,7 +342,7 @@
 "OpenVPN level 5 - \"R\" or \"W\" for each packet" = "Επίπεδο OpenVPN 5 - \"R\" ή \"W\" για κάθε πακέτο";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "Επίπεδο OpenVPN 11 - εξαιρετικά λεπτομερή καταγραφή";
+"OpenVPN level 6 - very verbose output" = "Επίπεδο OpenVPN 6 - πολύ λεπτομερή καταγραφή";
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Το επίπεδο καταγραφής του OpenVPN είναι καθορισμένο στις ρυθμίσεις";
@@ -411,7 +411,7 @@
 "Do not ask again, always convert" = "Μην ερωτηθώ πάλι, πάντα μετατροπή";
 
 /* Checkbox name */
-"Do not show this type of warning again" = "Να μη μου ξαναεμφανιστεί αυτή η προειδοποίηση";
+"Do not show this type of warning again" = "Να μην εμφανιστεί αυτή η προειδοποίηση ξανά";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "Να μην ειδοποιηθώ ξανά για οποιαδήποτε παράμετρο";
@@ -423,7 +423,7 @@
 "Do not warn about this again" = "Μην ειδοποιηθώ για αυτό ξανά";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Απενεργοποίηση ειδοποιήσεων για %lu μέρες";
+"Do not warn about this for %lu days" = "Να μην ειδοποιούμαι για αυτό για %lu μέρες";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "Ενεργοποίηση IPv6 (μόνο tap)";
@@ -621,6 +621,9 @@
 "File not found" = "Δεν βρέθηκε αρχείο";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Εισαγωγή ρυθμίσεων Tunnelblick";
+
+/* Window title */
 "Info" = "Πληροφορίες";
 
 /* Window title */
@@ -787,6 +790,9 @@
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Μετατροπή των OpenVPN Παραμέτρων\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  Αντιγραφή διαμόρφωσης\n";
 
 /* Window text */
 "  • Install forced preferences\n" = "  Εγκατάσταση αναγκαστικών προτιμήσεων\n";
@@ -1461,12 +1467,6 @@
 "That name is being used.\n\n" = "Αυτό το όνομα χρησιμοποιείτε.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "Ο φάκελος %1$@ του συστήματος (%2$@) δεν υπάρχει.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Ο φάκελος %1$@ του συστήματος (%2$@) δεν είναι ασφαλείς.\n\nΤο Tunnelblick μπορεί να μην δουλεύει σωστά, εκτός αν επιδιορθωθεί.\n\nΗ 'Επιδιόρθωση Δικαιωμάτων Δίσκων' στο 'Βοηθήματα Δίσκων' ίσος μπορεί να επισκευάσει το πρόβλημα.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Η επιλογή '%@' του OpenVPN δεν επιτρέπεται στο OS X. Πρόκειται για μια επιλογή για «Windows μόνο».";
 
 /* Window text */
@@ -2009,8 +2009,8 @@
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' προστέθηκε στο OpenVPN %2$@\n";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "Το '%1$@' καταργήθηκε στο OpenVPN %2$@ και αφαιρέθηκε στο OpenVPN %3$@\n";
+/* Popup button menu item */
+"(Do not import)" = "(Να μη γίνει εισαγωγή)";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit ενεργοποιημένο και δοκιμασμένο";
@@ -2346,6 +2346,9 @@
 /* Credit description */
 "Swedish translation" = "Σουϊδική μετάφραση";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Εγκατάσταση Tunnelblick %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Εικονίδιο Tunnelblick";
 
@@ -2363,6 +2366,12 @@
 
 /* Notification text */
 "Updated to %@." = "Ενημερώθηκε σε %@.";
+
+/* Column heading in a table */
+"Username in setup data" = "Όνομα χρήστη στις πληροφορίες εγκατάστασης";
+
+/* Column heading in a table */
+"Username on this computer" = "Όνομα χρήστη σε αυτόν τον υπολογιστή";
 
 /* Credit description */
 "Vietnamese translation" = "Βιετναμέζικη μετάφραση";

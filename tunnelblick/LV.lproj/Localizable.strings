@@ -1392,12 +1392,6 @@
 "That name is being used.\n\n" = "Šāds nosaukums jau eksistē.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "Sistēmas mape %1$@(%2$@) nav pieejama.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Sistēmas mape %1$@ (%2$@) nav droša.\n\nTunnelblick var nekorekti strādāt līdz tas tiks salabots.\n\nIespējams, Disku Rīka funkcija 'Salabot pieejas tiesības\" var novērst šo problēmu.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "'%@' OpenVPN opcija nav atļauta OS X. Tā ir tikai Windows opcija.";
 
 /* Window text */
@@ -1900,9 +1894,6 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' opcija tika pievienota OpenVPN versijā %2$@\n";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' opcija tika atzīmēta kā novecojusi OpenVPN %2$@ un ir izņemta OpenVPN %3$@\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit pievienošana un testēšana";

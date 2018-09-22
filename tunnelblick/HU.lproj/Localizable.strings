@@ -116,6 +116,9 @@
 "Download" = "Letöltés";
 
 /* Button */
+"Export Tunnelblick Setup" = "Tunnelblick Setup exportálása";
+
+/* Button */
 "Help" = "Súgó";
 
 /* Button */
@@ -621,6 +624,9 @@
 "File not found" = "Fájl nem található";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Tunnelblick setup importálása";
+
+/* Window title */
 "Info" = "Információ";
 
 /* Window title */
@@ -785,14 +791,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • OpenVPN konfigurációs fájlok konvertálása\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Konfiguráció másolása\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  Kényszerített beállítások telepítése\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Telepítés vagy konfigurációs fájlok frissítése\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Konfiguráció mozgatása\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Privát konfigurációs könyvtár mozgatása\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Konfiguráció törlése\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Biztonságos konfigurációk\n";
@@ -1431,12 +1446,6 @@
 "That name is being used.\n\n" = "A megadott név már használatban van.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "A %1$@ rendszermappa (%2$@) nem létezik.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "A(z) %1$@ rendszer könyvtár (%2$@) nem biztonságos.\n\nElképzelhető, hogy a Tunnelblick nem fog tökéletesen működni.\n\nA Lemezkezelő alkalmazás 'Lemezengedélyek javítása' parancsa segíthet a probléma megoldásában.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "A(z) ' %@' OpenVPN opció nem engedélyezett OS X-en. Ez egy Windows-os opció.";
 
 /* Window text */
@@ -1964,8 +1973,8 @@
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "A(z) '%1$@' opció az OpenVPN %2$@ verziójánál került hozzáadásra\n";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "A(z) '%1$@' nem javasolt az OpenVPN %2$@ verzió óta, és eltávoították az OpenVPN %3$@ verzióban\n";
+/* Popup button menu item */
+"(Do not import)" = "(Ne importálja)";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bites engedélyezés és tesztelés";
@@ -2289,6 +2298,9 @@
 /* Credit description */
 "Swedish translation" = "Svéd fordítás";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Tunnelblick Setup %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick ikon";
 
@@ -2306,6 +2318,12 @@
 
 /* Notification text */
 "Updated to %@." = "Frissítve %@-ra.";
+
+/* Column heading in a table */
+"Username in setup data" = "Felhasználónév a beállítások adataiban";
+
+/* Column heading in a table */
+"Username on this computer" = "Felhasználónév ezen a számítógépen";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnámi fordítás";

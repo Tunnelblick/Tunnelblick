@@ -116,6 +116,9 @@
 "Download" = "Preuzmi";
 
 /* Button */
+"Export Tunnelblick Setup" = "Izvoz Tunnelblick konfiguracije";
+
+/* Button */
 "Help" = "Pomoć";
 
 /* Button */
@@ -528,6 +531,9 @@
 "RECONNECTING" = "Ponovno povezivanje"; // Please translate ""
 
 /* Connection status */
+"RESOLVE" = "Rješavanje naziva domene"; // Please translate ""
+
+/* Connection status */
 "SLEEP" = "Čekanje procesa u pozadini"; // Please translate "Waiting for daemon process"
 
 /* Connection status */
@@ -615,6 +621,9 @@
 "File not found" = "Datoteka nije pronađena";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Uvoz Tunnelblick postavki";
+
+/* Window title */
 "Info" = "Informacije";
 
 /* Window title */
@@ -675,6 +684,9 @@
 "System Requirements Not Met" = "Sistemski zahtjevi nisu ispunjeni";
 
 /* Window title */
+"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ će trebati ažurirati";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Problem Tunnelblick konfiguracije";
 
 /* Window title */
@@ -728,6 +740,9 @@
 /* Window title */
 "While Connected" = "Konekcija";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Iz VPN poslužitelja za %1$@:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     Instalirana %lu konfiguracija\n\n";
 
@@ -758,11 +773,29 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace one configuration\n" = "    Zamijeniti konfiguraciju\n";
 
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall %lu configurations\n\n" = "    Deinstaliraj %lu konfiguracije\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall one configuration\n" = "    Deinstaliraj ovu konfiguraciju\n";
+
+/* Window text */
+"  • Be installed in /Applications as Tunnelblick\n" = "  • Instalirana u /Applications kao Tunnelblick\n";
+
+/* Window text */
+"  • Change ownership and permissions of the program to secure it\n" = "  • Promijeniti vlasništvo i dozvole aplikacije kako bi ju učinio sigurnom\n";
+
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  Završi nadogradnju\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  Konvertiraj OpenVPN konfiguracije\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Kopirati konfiguraciju\n";
+
+/* Window text */
+"  • Install forced preferences\n" = "  • Instaliraj prisilne preference\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  Sigurne postavke\n";
@@ -786,6 +819,9 @@
 "Add Credentials" = "Dodaj vjerodajnice";
 
 /* Window text */
+"Additional contributions by" = "Dodatna podrška";
+
+/* Window text */
 "All OpenVPN processes have quit" = "Svi OpenVPN procesi su završeni";
 
 /* Window text */
@@ -799,6 +835,9 @@
 
 /* Window text */
 "Configuration changes:" = "Promjene konfiguracije:";
+
+/* Window text */
+"DNS servers:" = "DNS serveri:";
 
 /* Window text */
 "In:" = "Ulazno:";

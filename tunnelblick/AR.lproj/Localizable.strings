@@ -1449,12 +1449,6 @@
 "That name is being used.\n\n" = "استخدم الإسم من قبل.";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "إن %1$@ ملف النظام (%2$@) غير متوفر.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "إن %1$@ ملف النظام (%2$@) غير آمن.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "خاصية '%@' لـOpenVPN غير مسموحة في نظام OS X. هذه الخاصة متوفرة في Windows فقط.";
 
 /* Window text */

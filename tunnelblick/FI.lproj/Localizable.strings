@@ -116,6 +116,9 @@
 "Download" = "Lataa";
 
 /* Button */
+"Export Tunnelblick Setup" = "Vie Tunnelblickin asetukset";
+
+/* Button */
 "Help" = "Ohje";
 
 /* Button */
@@ -621,6 +624,9 @@
 "File not found" = "Tiedostoa ei löydy";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Tuo Tunnelblickin asetukset";
+
+/* Window title */
 "Info" = "Tietoja";
 
 /* Window title */
@@ -788,17 +794,29 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Muunna OpenVPN-konfiguraatiot\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  Kopioi konfiguraatio\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • Asenna pakolliset asetukset\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Asenna tai päivitä konfiguraatio(t)\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  Siirrä konfiguraatio\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Siirrä yksityisten konfiguraatioiden kansio\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  Poista konfiguraatio\n";
+
 /* Window text */
 "  • Secure configurations\n" = "  • Suojaa konfiguraatiot\n";
+
+/* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ on ilmainen ohjelma: voit jakaa ja/tai muokata sitä %3$@: n julkaiseman %2$@: n ehtojen mukaisesti.\n\n%4$@ on OpenVPN Inc: n omistama rekisteröity tavaramerkki.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Haluatko asentaa %1$@  %2$@%3$@:iin?\n\n";
@@ -1437,12 +1455,6 @@
 "That name is being used.\n\n" = "Tätä nimeä käytetään.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "%1$@ järjestelmäkansiota (%2$@) ei ole olemassa.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "%1$@ järjestelmäkansio (%2$@) ei ole suojattu.\n\nTunnelblick ei ehkä toimi oikein, ennen kuin tämä on korjattu.\n\nLevytyökalun 'Korjaa levyn oikeudet' -toiminto voi pystyä korjaamaan ongelman.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "OpenVPN-optio '%@' ei ole sallittu OS X:ssä. Se on vain Windowsia koskeva optio.";
 
 /* Window text */
@@ -1981,9 +1993,6 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' lisättiin OpenVPN versioon %2$@\n";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' tuki on vanhentunut OpenVPN versiossa %2$@ ja poistettu OpenVPN versiossa %3$@\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit tuki ja testaus";

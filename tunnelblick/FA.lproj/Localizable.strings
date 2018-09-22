@@ -1458,12 +1458,6 @@
 "That name is being used.\n\n" = "این نام استفاده شده است.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "پوشه سامانه ای %1$@(%2$@) وجود ندارد.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "پوشه سامانه ای %1$@(%2$@) امن نیست.\n\nدر صورت عدم رفع این ایراد Tunnelblick شاید درست کار ننماید.\n\nابزار دیسک 'تعمیر دسترسی های دیسک' می توانند برای ترمیم این مشکل در دسترس باشند.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "گزینه '%@' OpenVPN بر روی OS X مجاز نیست. این یک گزینه فقط ویندوزی می باشد.";
 
 /* Window text */
@@ -2002,9 +1996,6 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' به OpenVPN %2$@ اضافه شد\n";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' در نسخه %2$@ از OpenVPN منسوخ و در نسخه %3$@ حذف شده است\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "فعال سازی و تست ۶۴ بیتی";

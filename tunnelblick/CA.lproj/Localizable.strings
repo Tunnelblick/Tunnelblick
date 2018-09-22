@@ -116,6 +116,9 @@
 "Download" = "Descarregar";
 
 /* Button */
+"Export Tunnelblick Setup" = "Exportar la configuració de Tunnelblick";
+
+/* Button */
 "Help" = "Ajuda";
 
 /* Button */
@@ -621,6 +624,9 @@
 "File not found" = "No s'ha trobat l'arxiu";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Importar la configuració de Tunnelblick";
+
+/* Window title */
 "Info" = "Informació";
 
 /* Window title */
@@ -788,14 +794,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Convertir configuracions OpenVPN\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Copiar una configuració\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • Instal·lar preferències obligatòries\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Instal·lar o actualitzar configuracions\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Moure una configuració\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Moure la carpeta de configuracions privades\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Eliminar una configuració\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Fer les configuracions segures\n";
@@ -1461,12 +1476,6 @@
 "That name is being used.\n\n" = "Aquest nom ja s'està utilitzant.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "La carpeta de sistema %1$@ (%2$@) no existeix.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "La carpeta de sistema %1$@ (%2$@) no és segura.\n\nTunnelblick pot funcionar malament si això no es soluciona.\n\nL'opció 'Reparar permisos del disc' de la Utilitat de Discos pot ser capaç d'arreglar aquest problema.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "L'opció '%@' d'OpenVPN no està permesa a OS X. És només una opció de 'Windows'.";
 
 /* Window text */
@@ -2008,9 +2017,6 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' es va afegir en la versió %2$@ d'OpenVPN\n";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' s'ha deprecta en la versió %2$@ d'OpenVPN i eliminat en la versió %3$@ d'OpenVPN\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "Adaptació i tests a 64-bits";

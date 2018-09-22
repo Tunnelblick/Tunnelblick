@@ -1461,12 +1461,6 @@
 "That name is being used.\n\n" = "Toto jméno je již použito.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "Systémová složka %1$@ (%2$@) neexistuje.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Systémová složka %1$@ (%2$@) není bezpečná.\n\nTunnelblick nemusí pracovat korektně, dokud nebude napraveno.\n\nFunkce 'Opravit práva disku' z Diskové Utility by měla problém opravit.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Volba '%@' OpenVPN není na OS X povolena. Tato volba je jen pro 'Windows'.";
 
 /* Window text */
@@ -2008,9 +2002,6 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' byl přidán do OpenVPN %2$@\n";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' je v OpenVPN %2$@ zastaralé a ostraněno v OpenVPN %3$@\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "Povolení 64-bit a testování";

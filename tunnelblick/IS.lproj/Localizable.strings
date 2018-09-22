@@ -1161,9 +1161,6 @@
 "That name is being used.\n\n" = "Þetta nafn er nú þegar í notkun.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "Kerfismappan %1$@ (%2$@) er ekki til.";
-
-/* Window text */
 "The file %@ is empty" = "Skráin %@ er tóm";
 
 /* Window text */

@@ -1449,12 +1449,6 @@
 "That name is being used.\n\n" = "Tên này đã được sử dụng.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "Thư mục hệ thống %1$@ (%2$@) không tồn tại.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Thư mục hệ thống %1$@ (%2$@) không an toàn.\n\nTunnelblick có thể không hoạt động đúng trừ khi vấn đề này được sửa.\n\nTính răng 'Sửa quyền truy cập đĩa' của Disk Utility có thể sửa được vấn đề này.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Tuỳ chọn '%@' của OpenVPN không hợp lệ trên OS X. Đây là tuỳ chọn 'chỉ cho Windows'.";
 
 /* Window text */

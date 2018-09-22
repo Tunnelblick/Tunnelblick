@@ -98,13 +98,13 @@
 "Delete" = "删除";
 
 /* Button */
-"Disable network access" = "停止网络访问";
+"Disable network access" = "禁用网络访问";
 
 /* Button */
 "Disconnect" = "断开连接";
 
 /* Button */
-"Do Not Re-enable Network Access" = "不要重新打开网络访问";
+"Do Not Re-enable Network Access" = "请勿重新启用网络访问";
 
 /* Button */
 "Do not use the plugin" = "不使用此插件";
@@ -114,6 +114,9 @@
 
 /* Button */
 "Download" = "下载";
+
+/* Button */
+"Export Tunnelblick Setup" = "导出 Tunnelblick 设置";
 
 /* Button */
 "Help" = "帮助";
@@ -192,7 +195,7 @@
 
 /* Button
    Menu item */
-"Re-enable Network Access" = "重新打开网络访问";
+"Re-enable Network Access" = "重新启用网络访问";
 
 /* Button */
 "Reinstall" = "重新安装";
@@ -216,13 +219,13 @@
 "Restore" = "恢复";
 
 /* Button text */
-"Retry with manual response" = "通过手动回答来重试";
+"Retry with manual response" = "使用手动回应重试";
 
 /* Button */
 "Retry" = "重试";
 
 /* Button */
-"Revert to the Last Secured Copy" = "撤回到最后的加密副本";
+"Revert to the Last Secured Copy" = "撤回至最后的加密副本";
 
 /* Button */
 "Revert" = "重置";
@@ -369,7 +372,7 @@
 "VPN Details..." = "VPN 详情…";
 
 /* Checkbox name */
-"Allow changes to manually-set network settings" = "允许对网络设置的手动变更";
+"Allow changes to manually-set network settings" = "允许变更手动设置的网络";
 
 /* Checkbox name */
 "Apply to all" = "应用于全部";
@@ -621,6 +624,9 @@
 "File not found" = "找不到文件";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "导入一个 Tunnelblick 设置";
+
+/* Window title */
 "Info" = "信息";
 
 /* Window title */
@@ -788,14 +794,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • 转换 OpenVPN 配置 \n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  复制一个配置文件\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • 安装系统内置的固定偏好设置\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • 安装或更新配置 \n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  移动一个配置文件\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • 移动私人配置文件目录 \n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  删除一个配置文件\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • 保护配置\n";
@@ -880,6 +895,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>基于 Tunnelblick, 可在 <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a> 下载到的自由软件. <br><br>OpenVPN 是 OpenVPN 有限责任公司的注册商标.";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>断开 %@ 的连接后，网络设置并未正确恢复。</p><p>这个问题通常是由使用 'user nobody' 和/或 'group nobody' 的 OpenVPN 配置引起的。</p><p>要恢复网络设置，你需要重启计算机。</p><p>避免以后再出现此错误，请从 OpenVPN 配置文件中删除 “user nobody” 和 “group nobody” 行。</p><p>详情请参看<a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">OpenVPN 配置：User 和 Group</a>[tunnelblick.net]\n\n";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>此版本的Tunnelblick已发布%lu天。</p><p>请检查新版本：</p><ul><li>手动检查：在Tunnelblick中VPN详情窗口的偏好面板，或者：<br></li><li>查看<a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick下载页面</a> [tunnelblick.net].</li></ul>";
@@ -1191,6 +1209,9 @@
 "File is too large: %@" = "文件 %@ 太大了";
 
 /* Window text */
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "对于要导入其配置和设置的每个用户，请在此计算机上选择应接收配置和设置的用户。";
+
+/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1460,11 +1481,8 @@
 /* Window text */
 "That name is being used.\n\n" = "那个名字已被使用.\n\n";
 
-/* Window text */
-"The %@ system folder (%@) does not exist." = "%1$@ 系统文件夹 (%2$@) 不存在。";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "%1$@ 系统文件夹 (%2$@) 是不安全的。\n\n除非修复这个问题，否则 Tunnelblick 可能不能正常工作。\n\n磁盘工具的 '修复磁盘权限' 的功能可能可以修复此问题。";
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "这个 %1$@ 系统文件夹 (%2$@) 是不安全的。\n\n在解决这个问题之前，Tunnelblick 和其他程序可能无法正常工作。\n\n控制台日志里有更详细的信息。";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "OpenVPN 的选项 '%@' 在 OS X 中不可用，它是一个仅用于 Windows 的选项.";
@@ -1579,6 +1597,9 @@
 
 /* Window text */
 "There was a problem:\n\n%@" = "有一个问题:\n\n%@";
+
+/* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "导入 Tunnelblick 设置时出现问题。";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "这个 ‘部署版’ 的 Tunnelblick 不能启动或安装是因为它还没有被重塑, 或者 updateFeedURL / SUFeedURL 为空或含有 ‘tunnelblick.net’ 的字眼, 或者 CFBundleIdentifier 为空或含有 ‘net.tunnelblick’ 的字眼 .\n\n";
@@ -1716,6 +1737,9 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick 需要验证身份以将名为'%@' 的配置设置成共享.";
 
 /* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick 需要授权才能读取属于该计算机其他用户的 Tunnelblick 数据，以便导出所有 Tunnelblick 数据。\n\n请注意：\n\n     1. 保存在钥匙串中的用户验证信息将不会导出。\n\n     2. 导出过程可能需要很长时间。\n\n";
+
+/* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick 需要验证身份以删除名为%ld 的配置.\n\n该删除是永久性操作且不可逆. 所有和这个配置相关的设置也将被永久删除.";
 
 /* Window text */
@@ -1723,6 +1747,9 @@
 
 /* Window text */
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick 需要验证身份以重命名配置'%1$@' 为'%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick 需要授权才能保护导入的数据。";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick 将要改变的设置需要管理员权限.";
@@ -2000,6 +2027,12 @@
 /* Suffix for a duplicate of a file */
 " copy" = " 复制";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be be removed in a later version\n\n" = " • '%1$@' 这个选项在 OpenVPN %2$@ 版本的配置中是过时的，已经或将会在未来的版本中移除。\n\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' 这个选项在 OpenVPN %2$@ 版本的配置中是过时的，已经在 OpenVPN %3$@ 版本中移除。\n\n";
+
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
@@ -2009,11 +2042,14 @@
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' 选项在 OpenVPN %2$@ 版本添加\n";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' 选项是在 OpenVPN %2$@ 版本已不推荐使用以及在 OpenVPN %3$@ 版本完全去除了\n";
+/* Popup button menu item */
+"(Do not import)" = "(不要导入)";
 
 /* Credit description */
 "64-bit enabling and testing" = "64位程序的实现和测试";
+
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>要在具有超过 %u 个用户帐户的计算机上导入 Tunnelblick 设置，你必须创建一个文本文件，用于指定要导入的数据。</p><p>详情请参看<a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>指定连接 VPN 应该使用的 OpenVPN 和 SSL 软件版本。</strong><ul><li><strong>“默认”选项</strong>将使用这个 Tunnelblick 版本包含的默认 OpenVPN 与 OpenSSL 版本。不同的 Tunnelblick 版本的默认可能不一样。<br></li><li><strong>“最新”选项</strong>将使用这个 Tunnelblick 版本包含的最新 OpenVPN 与 LibreSSL 版本。不同的 Tunnelblick 版本的最新版本可能不一样。<br></li><li><strong>任何其他的选项</strong>将使用指定的 OpenVPN 与 SSL 软件，只要这个 Tunnelblick 版本有包含。如果没有包含的话，最接近的搭配将被使用。<br></li></ul>";
@@ -2125,6 +2161,9 @@
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>复制控制台日志的最后一部分，以用于粘贴到邮件或者其他的文档中。</p><p>日志中包含Tunnelblick和OpenVPN的详细操作信息。其中包含一般状态信息和详细错误描述信息，因为太长而不适合展示在一般的窗口中。</p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>将 Tunnelblick 设置（包括此计算机的所有用户的所有配置和设置）导出到桌面上的一个压缩文件。</p><ul><li>保存在钥匙串中的用户验证信息（用户名/密码，或密钥等）<strong>不会</strong>导出。</li><li>这个导出过程可能需要很长时间。</li></ul>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>打开浏览器查看Tunnelblick网站上关于卸载Tunnelblick的信息。</p>";
@@ -2346,6 +2385,9 @@
 /* Credit description */
 "Swedish translation" = "瑞典语翻译";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Tunnelblick 设置文件 %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick 图标";
 
@@ -2363,6 +2405,12 @@
 
 /* Notification text */
 "Updated to %@." = "已升级到 %@.";
+
+/* Column heading in a table */
+"Username in setup data" = "设置数据中的用户名";
+
+/* Column heading in a table */
+"Username on this computer" = "此计算机上的用户名";
 
 /* Credit description */
 "Vietnamese translation" = "越南语翻译";

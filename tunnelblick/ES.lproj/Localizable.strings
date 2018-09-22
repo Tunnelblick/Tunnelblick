@@ -98,7 +98,7 @@
 "Delete" = "Eliminar";
 
 /* Button */
-"Disable network access" = "Deshabiltar acceso de red";
+"Disable network access" = "Deshabilitar el acceso a la red";
 
 /* Button */
 "Disconnect" = "Desconectar";
@@ -788,14 +788,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Convertir configuraciones de OpenVPN\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  Copiar una configuración\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • Instalar preferencias forzadas\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Instalar o actualizar configuracion(es)\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  Mover una configuración\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Mover el directorio de configuraciones privadas\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  Remover configuración\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Configuraciones seguras\n";
@@ -1461,12 +1470,6 @@
 "That name is being used.\n\n" = "Ese nombre está siedo usado.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "La carpeta de sistema %1$@ (%2$@) no existe.";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "La carpeta de sistema %1$@ (%2$@) no es segura.\n\nPuede que Tunnelblick no funcione correctamente hasta que se corrija.\n\nLa función 'Reparar Permisos en Disco' en la Utilidad de Discos podría solucionar el problema.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "La opción '%@' en OpenVPN no está permitida en OS X. Es una opción para 'Windows solamente'.";
 
 /* Window text */
@@ -2009,8 +2012,8 @@
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' fue agregada en OpenVPN %2$@\n";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' fue declarada obsoleta en OpenVPN %2$@ y removida en OpenVPN %3$@\n";
+/* Popup button menu item */
+"(Do not import)" = "(No importar)";
 
 /* Credit description */
 "64-bit enabling and testing" = "Habilitación y pruebas para 64-bit";
@@ -2363,6 +2366,9 @@
 
 /* Notification text */
 "Updated to %@." = "Actualizado a %@.";
+
+/* Column heading in a table */
+"Username on this computer" = "Nombre de usuario en esta computadora";
 
 /* Credit description */
 "Vietnamese translation" = "Traducción al Vietnamita";

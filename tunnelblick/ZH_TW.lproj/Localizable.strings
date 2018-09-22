@@ -1425,12 +1425,6 @@
 "That name is being used.\n\n" = "此名稱已被使用。\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "%1$@ 系統檔案夾 (%2$@) 不存在。";
-
-/* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "%1$@ 系統檔案夾 (%2$@) 不安全。\n\n除非修正這個問題，Tunnelblick 可能不會正常運作。\n\n磁碟工具程式中 '修復權限' 的功能也許可以修復這個問題。";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "「%@」OpenVPN 選項在 OS X 上不被允許。這是一個「僅適用於 Windows」的選項。";
 
 /* Window text */
@@ -1966,9 +1960,6 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' 在 OpenVPN %2$@ 時被加入\n";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-"'%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n" = "'%1$@' 選項是在 OpenVPN %2$@ 版本已不推薦使用以及在 OpenVPN %3$@ 版本完全去除了\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "64位元測試與支援";
