@@ -139,6 +139,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, configUpdaters)
 
 -(void) startAllUpdateCheckingWithUI: (BOOL) withUI {
     
+	if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
+		NSLog(@"Not checking for configuration updates because inhibitOutboundTunneblickTraffic is true");
+		return;
+	}
+	
     ConfigurationUpdater * configUpdater;
     NSEnumerator * e = [[self configUpdaters] objectEnumerator];
     while (  (configUpdater = [e nextObject])  ) {

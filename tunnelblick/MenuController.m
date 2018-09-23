@@ -4635,10 +4635,14 @@ static void signal_handler(int signalNumber)
     if (   [gTbDefaults boolWithDefaultYesForKey: @"updateCheckAutomatically"]  ) {
         if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
             if (  [self feedURLToUse]  ) {
-                [updater checkForUpdatesInBackground];
-            } else {
-                NSLog(@"Not checking for updates because no FeedURL has been set");
-            }
+				if (  ! [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
+					[updater checkForUpdatesInBackground];
+				} else {
+					NSLog(@"Not checking for updates because inhibitOutboundTunneblickTraffic is true");
+				}
+			} else {
+					NSLog(@"Not checking for updates because no FeedURL has been set");
+			}
         } else {
             NSLog(@"Cannot check for updates because Sparkle Updater does not respond to checkForUpdatesInBackground");
         }
