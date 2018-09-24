@@ -1829,6 +1829,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	//		"deprecatedInOpenvpnVersion" the lowest OpenVPN version that deprecated any options that are contained in the configuration; and
 	//		"problematicOptions"         a localized string listing the problematic options and in which OpenVPN version each was deprecated and/or removed.
 	//
+	// If there are no deprecated options, "deprecatedInOpenvpnVersion" will not be present in the dictionary.
+	// If there are no removed    options, "removedInOpenvpnVersion"    will not be present in the dictionary.
+	//
 	// If there are no deprecated or removed options in the configuration file, returns nil.
 
 	// Dictionary with info about deprecated and removed options:
@@ -1888,11 +1891,16 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		return nil;
 	}
 	
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			NSNullIfNil(lowestRemovedInOpenvpnVersion),    @"removedInOpenvpnVersion",      // One or more options is removed in this version of OpenVPN
-			NSNullIfNil(lowestDeprecatedInOpenvpnVersion), @"deprecatedInOpenvpnVersion",	// One or more options is deprecated in this version of OpenVPN
-			optionsThatAreProblematic,					   @"problematicOptions",
-			nil];
+	NSMutableDictionary * dict = [[[NSMutableDictionary alloc] initWithCapacity: 3] autorelease];
+	[dict setObject: optionsThatAreProblematic forKey: @"problematicOptions"];
+	if (  lowestRemovedInOpenvpnVersion  ) {
+		[dict setObject: lowestRemovedInOpenvpnVersion forKey:@"removedInOpenvpnVersion"];
+	}
+	if (  lowestDeprecatedInOpenvpnVersion  ) {
+		[dict setObject: lowestDeprecatedInOpenvpnVersion forKey:@"deprecatedInOpenvpnVersion"];
+	}
+	
+	return [NSDictionary dictionaryWithDictionary: dict];
 }
 
 -(NSDictionary *) addedOptionsInfoForConfigurationFile: (NSString *) configString {
@@ -2100,8 +2108,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	// Deal with removed options in this configuration file
 	NSDictionary * removedAndDeprecatedOptionsInfo = [self removedAndDeprecatedOptionsInfoForConfigurationFile: configString];
-	if (  removedAndDeprecatedOptionsInfo  ) {
-		NSString * removedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"removedInOpenvpnVersion"];
+	NSString * removedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"removedInOpenvpnVersion"];
+
+	if (  removedInMajorMinor  ) {
 
 		while (  [[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending  ) {
 			
@@ -2160,9 +2169,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	// Deal with added options in this configuration file
 	NSDictionary * addedOptionsInfo = [self addedOptionsInfoForConfigurationFile: configString];
-	if (  addedOptionsInfo  ) {
+	NSString * addedInMajorMinor = [addedOptionsInfo objectForKey: @"addedInOpenvpnVersion"];
+
+	if (  addedInMajorMinor  ) {
 		
-		NSString * addedInMajorMinor = [addedOptionsInfo objectForKey: @"addedInOpenvpnVersion"];
 
 		while (  [[versionToTry substringToIndex: 3] compare: addedInMajorMinor] == NSOrderedAscending  ) {
 			
@@ -2223,8 +2233,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	NSString * warningMessage1 = @"";
 
-	if (  removedAndDeprecatedOptionsInfo  ) {
-		NSString * deprecatedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"deprecatedInOpenvpnVersion"];
+	NSString * deprecatedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"deprecatedInOpenvpnVersion"];
+
+	if (  deprecatedInMajorMinor  ) {
 		if (  [[versionToTry substringToIndex: 3] compare: deprecatedInMajorMinor] != NSOrderedAscending) {
 			if (  connecting  )  {
 				TBLog(@"DB-CD", @"Connecting %@ using OpenVPN %@ which has deprecated options",
