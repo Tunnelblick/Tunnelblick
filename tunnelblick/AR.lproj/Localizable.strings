@@ -116,6 +116,9 @@
 "Download" = "تنزيل";
 
 /* Button */
+"Export Tunnelblick Setup" = "تصدير إعداد TunnelBlick";
+
+/* Button */
 "Help" = "المساعدة";
 
 /* Button */
@@ -621,6 +624,9 @@
 "File not found" = "الملف غير موجود";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "إستيراد إعداد Tunnelblick";
+
+/* Window title */
 "Info" = "المعلومات";
 
 /* Window title */
@@ -788,14 +794,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • غير إعدادات ال OpenVPN\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • نسخ تكوين";
+
 /* Window text */
 "  • Install forced preferences\n" = "  ثبت الاختيارات الاجبارية\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  تحميل او تحديث الاعدادات";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • نقل تكوين";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "• نقل المجلد الاعدادات الخاصة";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • حذف تكوين";
 
 /* Window text */
 "  • Secure configurations\n" = "  • تأمين الاعدادات";
@@ -1563,6 +1578,9 @@
 "There was a problem:\n\n%@" = "حدث خطا:\n\n%@";
 
 /* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "هناك مشاكل في إستيراد إعدادات Tunnelblick.\n\n تفقد تفاصيل سجل وحدة التحكم.";
+
+/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "النسخة ‘المستخدمة‘ من تُنلـبليك لا يمكن تحميلها أو تثبيتها لأنها نسخة لم يتم اعادة تصنيفها، أو أحد هذه الاعدادات: updateFeedURL أو SUFeedURL أو CFBundleIdentifier مفقود. أو احد الاعدادات السابقة يحوي القيمة ‘tunnelblick.net‘.\n\n";
 
 /* Window text */
@@ -1973,6 +1991,9 @@
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d يوم %2$d:%3$02d:%4$02d";
 
+/* Popup button menu item */
+"(Do not import)" = "(لا للإستيراد)";
+
 /* Credit description */
 "64-bit enabling and testing" = "دعم 64‎-bit واختباره";
 
@@ -2068,6 +2089,9 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>استعادة التحذيرات التي تم منعها من خلال مربع الاختيار \"عدم التحذير من هذا مرة أخرى\"</p>";
+
+/* HTML info for the button for selecting which screen to show status windows. */
+"<p>Specifies the screen on which Tunnelblick should display VPN status windows.</p>" = "<p>المرجو تحديد الشاشة لتمكين TunnelBlick من إظهار شاشات وضعيات p/>.VPN>";
 
 /* HTML info for the 'VPN status windows' button. */
 "<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>يحدد الوقت الذي سيضهر فيه تنبلك نوافذ الفي بي ان.</p>";
@@ -2262,6 +2286,9 @@
 /* Credit description */
 "Swedish translation" = "الترجمة السويدية";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "إعداد Tunnelblick %@";
+
 /* Credit description */
 "Tunnelblick icon" = "ايقونة تُنلـبليك";
 
@@ -2279,6 +2306,12 @@
 
 /* Notification text */
 "Updated to %@." = "تم التحديث الي %@.";
+
+/* Column heading in a table */
+"Username in setup data" = "المستعمل في معطيات الإعداد";
+
+/* Column heading in a table */
+"Username on this computer" = "مستعمل الحاسوب";
 
 /* Credit description */
 "Vietnamese translation" = "الترجمه الفيتناميه";

@@ -795,7 +795,7 @@
 "  • Convert OpenVPN configurations\n" = "  • Endre OpenVPN konfigurasjoner\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Copy a configuration\n" = "  • Kopiere et oppsett\n";
+"  • Copy a configuration\n" = "  • Kopier et oppsett\n";
 
 /* Window text */
 "  • Install forced preferences\n" = "  • Installer tvungne preferanser\n";
@@ -804,13 +804,13 @@
 "  • Install or update configuration(s)\n" = "  • Installer eller oppdater konfigurasjon(er)\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Move a configuration\n" = "  • Flytte et oppsett\n";
+"  • Move a configuration\n" = "  • Flytt et oppsett\n";
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Flytt til privat konfigurasjonsmappe\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Remove a configuration\n" = "  • Fjerne et oppsett\n";
+"  • Remove a configuration\n" = "  • Fjern et oppsett\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Sikre konfigurasjonene\n";

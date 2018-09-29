@@ -116,7 +116,7 @@
 "Download" = "İndir";
 
 /* Button */
-"Export Tunnelblick Setup" = "Tunnelblick Kurulumunu Kaydet";
+"Export Tunnelblick Setup" = "Tunnelblick Kurulumunu Dışa Aktar";
 
 /* Button */
 "Help" = "Yardım";
@@ -297,7 +297,7 @@
 "Delete Configuration's Credentials in Keychain..." = "Yapılandırmanın Kimlik Bilgilerini Anahtar Zincirinden sil...";
 
 /* Menu item tooltip */
-"Disabled because this setting is being forced" = "Etkin değil çünkü bu ayar değiştirilemez";
+"Disabled because this setting is being forced" = "Etkin değil çünkü bu ayar zorla uygulanıyor";
 
 /* Menu item */
 "Disconnect %@%@" = "Bağlantıyı kes: %@%@";
@@ -465,7 +465,7 @@
 "Run MTU maximum size test after connecting" = "Bağlantı sonrası MTU maksimum boyut testini çalıştır";
 
 /* Checkbox name */
-"Save in Keychain" = "Anahtar Zincirine kaydet";
+"Save in Keychain" = "Anahtar Zinciri'ne Kaydet";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Rotalar ayarlandıktan sonra DNS'i ayarla";
@@ -861,7 +861,7 @@
 "'%@' at line %u was not terminated properly" = "%2$u satırında bulunan %1$@ değişkeni düzgün bir şekilde sonlandırılmadı";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' Anahtar Zincirinde saklanan herhangi bir kimlik bilgisine (özel anahtar ve şifreye) sahip değil.";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' Anahtar Zinciri'nde saklanan herhangi bir kimlik bilgisine (özel anahtar ve şifreye) sahip değil.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' sonlandırılmamış.";
@@ -895,6 +895,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Tunnelblick, <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a> adresinde sunulan ücretsiz bir yazılımdır<br><br>OpenVPN OpenVPN Inc tescilli markasıdır.";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Bağlantı kesildikten sonra %@'dan ağ ayaları düzgün bir şekilde geri yüklenemedi.</p><p>OpenVPN ayarları göre, bu problem genellikle 'kullanıcı nobody' ve/veya 'grup nobody' kaynaklanıyor.</p><p>Ağ ayarlarını geri yüklemek için bilgisayarınızı yeniden başlatmalısınız.</p><p>OpenVPN yapılandırma dosyasından ileride aynı hata almayı önlemek için, 'kullanıcı nobody' ve 'grup nobody' satırları silmelisiniz.</p><p>Daha fazla bilgi için <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Kullanıcı ve Grup OpenVPN Ayarlarına</a> [tunnelblick.net] bakınız.</p></font>\n\n";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Tunnelblick'in bu versiyonu %lu gündür kullanımda.</p><p>Lütfen daha yeni bir sürüm arayınız:</p><ul><li>El ile, Tunnelblick'in 'VPN Detayları' penceresinin 'Tercihler' sekmesinde; veya <br></li><li>Daha güncel bir sürümü <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick İndir Sayfasında</a>[tunnelblick.net]</li></ul> arayarak";
@@ -993,10 +996,10 @@
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Keychain içerisinde saklanan %ld yapılandırmaları için kimlik bilgilerini (özel anahtar ve/veya kullanıcı adı ve parola) silmek istediğinize emin misiniz?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Keychain içerisinde saklanan '%@' için kimlik bilgilerini (özel anahtar ve/veya kullanıcı adı ve parola) silmek istediğinize emin misiniz?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Anahtar Zinciri içerisinde saklanan '%@' için kimlik bilgilerini (özel anahtar ve/veya kullanıcı adı ve parola) silmek istediğinize emin misiniz?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Keychain içerisinde saklanan '%@' kimlik bilgileri için kimlik bilgilerini (özel anahtar ve/veya kullanıcı adı ve parola) silmek istediğinize emin misiniz?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Anahtar Zinciri içerisinde saklanan '%@' kimlik bilgileri için kimlik bilgilerini (özel anahtar ve/veya kullanıcı adı ve parola) silmek istediğinize emin misiniz?";
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "BİLGİSAYARINIZIN TÜM KONTROLÜNÜ ALACAK olan yapılandırmayı yüklemek istediğinize emin misiniz?\n\n";
@@ -1332,7 +1335,7 @@
 "Non-string value for an item in '%@' in %@" = "%2$@ içindeki '%1$@' değeri metin değil";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Seçilen %ld yapılandırmalarının hiçbiri bir Keychain'de saklı kimlik (özel anahtar veya kullanıcı ve parola) içermiyor.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Seçilen %ld yapılandırmalarının hiçbiri bir Anahtar Zinciri'nde saklı kimlik (özel anahtar veya kullanıcı ve parola) içermiyor.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "ovpn ve ya .conf dosyası değil: %@";
@@ -1477,6 +1480,9 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Bu isim kullanılıyor.\n\n";
+
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Bu %1$@ sistem klasörü (%2$@) güvenli değildir.\n\nTunnelblick ve diğer programlar problem düzelene kadar düzgün bir şekilde çalışmayabilir.\n\nKonsol kayıtlarının ayrıntıları vardır.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "'%@' OpenVPN seçeneği OS X üzerinde kullanılamıyor. Bu seçenek sadece Windows 'da kullanılabiliyor.";
@@ -1731,6 +1737,9 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick '%@' yapılandırmasını paylaşımlı yapmak için yetkilendirilmeye ihtiyaç duyuyor.";
 
 /* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick, bu bilgisayarın diğer kullanıcılarına ait Tunnelblick verilerini okumak için yetkilendirilmeye ihtiyaç duyuyor, böylece tüm Tunnelblick verilerini dışa aktarabilir.\n\nLütfen dikkat:\n\n     1. Anahtar Zinciri'nde kayıtlı olan kimlik bilgileri dışa AKTARILMAYACAKTIR.\n\n     2. Dışa aktarma uzun bir zaman alabilir.\n\n";
+
+/* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick %ld yapılandırmalarını kaldırmak için yetkilendirilmeye ihtiyaç duyuyor.\n\n Yapılandırılmasıların kaldırılması kalıcıdır ve geri alınamaz. Yapılandırmalardaki tüm ayarlar, ayrıca kalıcı olarak kaldırılacak.";
 
 /* Window text */
@@ -1738,6 +1747,9 @@
 
 /* Window text */
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick '%1$@' yapılandırasının adını '%2$@' olarak değiştirmek için yetkilendirmeye ihtiyaç duyuyor.";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick'in içe aktarılan verileri güvenceye almak için yetkilendirilmesi gerekiyor.";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick'in sadece bilgisayarın yöneticisi tarafından değiştirilebilen bir ayarı değiştirmesi gerekiyor.";
@@ -2036,6 +2048,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit etkinleştirme ve test etme";
 
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\">%u 'dan daha fazla kullanıcı hesabı olan bilgisayara Tunnelblick ayarı aktarmak için, hangi verinin aktarılacağını belirten metin dosyası oluşturmalısınız.</p><p>Daha fazla bilgi için<a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>VPN'e bağlanmak için kullanılacak olan OpenVPN ve SSL yazılımı sürümünü belirler.</strong><ul><li>\n<strong>\"Varsayılan\"ayar</strong> Tunnelblick'in bu versiyonuyla gelen, varsayılan OpenVPN ve OpenSSL sürümünü kullanacaktır. Varsayılan sürüm, Tunnelblick'in farklı versiyonlarında farklılık gösterebilir.<br></li><li><strong>\"En Son\" ayar</strong> OpenVPN'in en son sürümünde bulunan ve Tunnelblick'in bu versiyonuyla gelen LibreSSL'i kullanacaktır. En son sürüm, Tunnelblick'in değişik versiyonlarında farklılık gösterebilir.<br></li><li><strong>Herhangi başka bir ayar</strong>, eğer Tunnelblick'in mevcut sürümünde var ise, OpenVPN ve SSL yazılımlarının seçili versiyonlarını kullanacaktır. Eğer yok ise, en yakın seçeneği kullanacaktır.<br></li></ul>";
 
@@ -2146,6 +2161,9 @@
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Bir başka belgeye veya epostaya yapıştırılabilmesi için Konsol Kaydının son kısmını Yapıştırma Panosuna kopyalar.</p><p>Bu kayıt Tunnelblick'in ve OpenVPN'in eylemleriyle ilgili detayları içerir. Normal bir diyalog penceresinde kullanıcıya sunmak için çok uzun olan normal durum mesajlarını ve detaylı hata mesajlarını içerir.</p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Tunnelblick, bu bilgisayarın tüm kullanıcıları için yapılandırma ve ayarlar dahil masaüstüne sıkıştırılmış bir dosya halinde dışa aktarır.</p><ul><li>Anahtar Zinciri'nde kayıtlı olan kimlik bilgileri dışa <strong>aktarılmayacaktır</strong>.</li><li>Dışa aktarma işlemi uzun bir zaman alabilir.</li></ul>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Tunnelblick'in kaldırılmasıyla ilgili bilgilerin yeraldığı bir tarayıcı penceresi açar.</p>";
