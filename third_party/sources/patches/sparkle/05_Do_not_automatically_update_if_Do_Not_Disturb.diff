@@ -1,0 +1,20 @@
+--- sparkle/Sparkle/SUUpdater.m	2018-09-29 07:48:06.000000000 -0400
++++ sparkle_patched/Sparkle/SuUpdater.m	2018-09-29 08:07:25.000000000 -0400
+@@ -273,6 +273,16 @@
+
+ - (void)checkForUpdatesInBackground
+ {
++	if (  [NSUserDefaults instancesRespondToSelector:@selector(initWithSuiteName:)]  ) {
++        NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.notificationcenterui"];
++        BOOL dnd = [defaults boolForKey:@"doNotDisturb"];
++        if (dnd) {
++            NSLog(@"(Sparkle:) Delayed update because Do Not Disturb is on");
++            [self updateLastUpdateCheckDate];
++            [self scheduleNextUpdateCheck];
++            return;
++        }
++    }
+     // Do not use reachability for a preflight check. This can be deceptive and a bad idea. Apple does not recommend doing it.
+     SUUpdateDriver *theUpdateDriver = [[([self automaticallyDownloadsUpdates] ? [SUAutomaticUpdateDriver class] : [SUScheduledUpdateDriver class])alloc] initWithUpdater:self];
+
+
