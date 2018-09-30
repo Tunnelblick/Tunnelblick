@@ -228,6 +228,7 @@ export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
 readonly LF="
 "
+
 readonly OUR_NAME=$(basename "${0}")
 
 logMessage "**********************************************"

@@ -73,7 +73,7 @@ disable_ipv6() {
 
     # Go through the list disabling IPv6 for enabled services, and outputting lines with the names of the services
     printf %s "$dipv6_services$LF"  |   while IFS= read -r dipv6_service ; do
-		if [ -n "$ripv6_service" ] ; then
+		if [ -n "$dipv6_service" ] ; then
 
 			# If first character of a line is an asterisk, the service is disabled, so we skip it
 			if [ "${dipv6_service:0:1}" != "*" ] ; then
@@ -1307,6 +1307,9 @@ trap "" TSTP
 trap "" HUP
 trap "" INT
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
+
+readonly LF="
+"
 
 readonly OUR_NAME="$( basename "${0}" )"
 
