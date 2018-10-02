@@ -31,6 +31,7 @@ typedef enum {
 
 @class VPNConnection;
 @class TBButton;
+@class TBPopUpButton;
 
 
 @interface SettingsSheetWindowController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate>
@@ -68,12 +69,12 @@ typedef enum {
     IBOutlet TBButton        * enableIpv6OnTapCheckbox;
 	IBOutlet TBButton        * keepConnectedCheckbox;
 	
-	IBOutlet NSPopUpButton	     * loadTunPopUpButton;
+	IBOutlet TBPopUpButton	     * loadTunPopUpButton;
 	IBOutlet NSMenuItem          * loadTunAutomaticallyMenuItem;
 	IBOutlet NSMenuItem          * loadTunAlwaysMenuItem;
 	IBOutlet NSMenuItem          * loadTunNeverMenuItem;
 	
-	IBOutlet NSPopUpButton       * loadTapPopUpButton;
+	IBOutlet TBPopUpButton       * loadTapPopUpButton;
 	IBOutlet NSMenuItem          * loadTapAutomaticallyMenuItem;
 	IBOutlet NSMenuItem          * loadTapAlwaysMenuItem;
 	IBOutlet NSMenuItem          * loadTapNeverMenuItem;
@@ -83,9 +84,6 @@ typedef enum {
 	
 	IBOutlet TBButton        * disconnectWhenUserSwitchesOutCheckbox;
 	IBOutlet TBButton        * reconnectWhenUserSwitchesInCheckbox;
-	
-	IBOutlet TBButton        * infoButtonForLoadTunPopUpButton;
-	IBOutlet TBButton        * infoButtonForLoadTapPopUpButton;
 	
     IBOutlet NSButton            * connectingHelpButton;
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1510" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G22010" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
@@ -39,8 +39,6 @@
                 <outlet property="ifConnectedWhenComputerWentToSleepTFC" destination="1037" id="1044"/>
                 <outlet property="ifConnectedWhenUserSwitchedOutTF" destination="365" id="751"/>
                 <outlet property="ifConnectedWhenUserSwitchedOutTFC" destination="370" id="452"/>
-                <outlet property="infoButtonForLoadTapPopUpButton" destination="OP1-wa-Cag" id="C0a-aN-OsC"/>
-                <outlet property="infoButtonForLoadTunPopUpButton" destination="FsW-vp-E9y" id="Km0-ll-4Fp"/>
                 <outlet property="keepConnectedCheckbox" destination="1029" id="1031"/>
                 <outlet property="loadTapAlwaysMenuItem" destination="720" id="760"/>
                 <outlet property="loadTapAutomaticallyMenuItem" destination="719" id="761"/>
@@ -217,7 +215,7 @@
                                                 <action selector="connectingHelpButtonWasClicked:" target="-2" id="570"/>
                                             </connections>
                                         </button>
-                                        <popUpButton verticalHuggingPriority="750" id="715">
+                                        <popUpButton verticalHuggingPriority="750" id="715" customClass="TBPopUpButton">
                                             <rect key="frame" x="6" y="261" width="313" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Load Tun automatically$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="726" id="722">
@@ -247,7 +245,7 @@
                                                 <outlet property="nextKeyView" destination="53" id="735"/>
                                             </connections>
                                         </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" id="716">
+                                        <popUpButton verticalHuggingPriority="750" id="716" customClass="TBPopUpButton">
                                             <rect key="frame" x="6" y="230" width="313" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Load Tap automatically$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="719" id="717">
@@ -287,22 +285,6 @@
                                             <connections>
                                                 <action selector="enableIpv6OnTapCheckboxWasClicked:" target="-2" id="1049"/>
                                             </connections>
-                                        </button>
-                                        <button id="FsW-vp-E9y" customClass="TBButton">
-                                            <rect key="frame" x="325" y="266" width="16" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="NSInfo" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="xvy-Q5-chg">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
-                                        <button id="OP1-wa-Cag" customClass="TBButton">
-                                            <rect key="frame" x="325" y="236" width="16" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="NSInfo" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="4NB-kL-vSv">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
                                         </button>
                                         <box autoresizesSubviews="NO" title="Sleep-Wake$" borderType="line" id="1033">
                                             <rect key="frame" x="6" y="125" width="771" height="89"/>
@@ -1075,7 +1057,4 @@
             </declaredKeys>
         </arrayController>
     </objects>
-    <resources>
-        <image name="NSInfo" width="32" height="32"/>
-    </resources>
 </document>

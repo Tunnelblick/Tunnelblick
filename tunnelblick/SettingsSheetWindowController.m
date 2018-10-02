@@ -31,6 +31,7 @@
 #import "MyPrefsWindowController.h"
 #import "TBButton.h"
 #import "TBOperationQueue.h"
+#import "TBPopUpButton.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 #import "VPNConnection.h"
@@ -347,7 +348,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                inverted: NO];
 }
 
-- (void) setupTunOrTapButton: (NSPopUpButton *) button key: (NSString *) rawPreferenceKey {
+- (void) setupTunOrTapButton: (TBPopUpButton *) button key: (NSString *) rawPreferenceKey {
 	
     if (  ! connection  ) {
         return;
@@ -612,10 +613,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 														   @"<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n",
 														   @"HTML info for the 'Keep connected' checkbox."))];
 	
-	// Set both the tun and tap buttons to the width of the wider one
-	NSRect oldTuntap = [loadTapPopUpButton frame];
-	
-	
 	[loadTunAutomaticallyMenuItem setTitle: NSLocalizedString(@"Load Tun driver automatically", @"Button")];
 	[loadTunAlwaysMenuItem        setTitle: NSLocalizedString(@"Always load Tun driver",        @"Button")];
 	[loadTunNeverMenuItem         setTitle: NSLocalizedString(@"Never load Tun driver",         @"Button")];
@@ -624,12 +621,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	[loadTapAlwaysMenuItem        setTitle: NSLocalizedString(@"Always load Tap driver",        @"Button")];
 	[loadTapNeverMenuItem         setTitle: NSLocalizedString(@"Never load Tap driver",         @"Button")];
 	
-	[UIHelper setTitle: nil
-			 ofControl: loadTunPopUpButton
-				 shift: [UIHelper languageAtLaunchWasRTL]
-				narrow: YES
-				enable: YES];
-	NSAttributedString * infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used,"
+	[loadTunPopUpButton setTitle: nil
+					   infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used,"
 																				@" but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n"
 																				@"<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n"
 																				@"<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n"
@@ -638,44 +631,27 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 																				@"<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n"
 																				@"<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n"
 																				@"<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>",
-																				@"HTML info for the 'Load Tun driver' popdown list."));
-	if (  ! infoTitle  ) {
-		NSLog(@"SettingsSheetWindowController: initializeStaticContent: infoTitle = nil");
-		infoTitle = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"(An error occurred creating the help content.)", @"Window text") attributes: nil] autorelease];
-	}
-	[infoButtonForLoadTunPopUpButton setAttributedTitle: infoTitle];
-	[infoButtonForLoadTunPopUpButton setMinimumWidth: 360.0];
-	
+																				@"HTML info for the 'Load Tun driver' popdown list."))];
+	[UIHelper setTitle: nil
+			 ofControl: loadTunPopUpButton
+				 shift: [UIHelper languageAtLaunchWasRTL]
+				narrow: YES
+				enable: YES];
+
+	[loadTapPopUpButton setTitle: nil
+					   infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one."
+																			 @" If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p>"
+																			 @"<p>You can choose if and when Tunnelblick loads its driver:</p>\n"
+																			 @"<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n"
+																			 @"<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n"
+																			 @"<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n"
+																			 @"<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>",
+																			 @"HTML info for the 'Load Tap driver' popdown list."))];
 	[UIHelper setTitle: nil
 			 ofControl: loadTapPopUpButton
 				 shift: [UIHelper languageAtLaunchWasRTL]
 				narrow: YES
 				enable: YES];
-	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one."
-														   @" If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p>"
-														   @"<p>You can choose if and when Tunnelblick loads its driver:</p>\n"
-														   @"<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n"
-														   @"<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n"
-														   @"<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n"
-														   @"<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>",
-														   @"HTML info for the 'Load Tap driver' popdown list."));
-	[infoButtonForLoadTapPopUpButton setAttributedTitle: infoTitle];
-	[infoButtonForLoadTapPopUpButton setMinimumWidth: 360.0];
-	
-	NSRect newTun = [loadTunPopUpButton frame];
-	NSRect newTap = [loadTapPopUpButton frame];
-	CGFloat change;
-	if (  newTun.size.width > newTap.size.width  ) {
-		change = newTun.size.width - oldTuntap.size.width;
-		newTap.size.width = newTun.size.width;
-	} else {
-		change = newTap.size.width - oldTuntap.size.width;
-		newTun.size.width = newTap.size.width;
-	}
-	[UIHelper shiftControl: infoButtonForLoadTapPopUpButton by: change reverse: ! rtl];
-	[UIHelper shiftControl: infoButtonForLoadTunPopUpButton by: change reverse: ! rtl];
-	[loadTunPopUpButton setFrame: newTun];
-	[loadTapPopUpButton setFrame: newTap];
 	
 	[sleepWakeBox setTitle: NSLocalizedString(@"Computer sleep/wake",                        @"Window text")];
 	[ifConnectedWhenComputerWentToSleepTFC setTitle: NSLocalizedString(@"(if connected when computer went to sleep)", @"Window text")];
