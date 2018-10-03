@@ -188,7 +188,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Copies information to the Clipboard to help diagnose problems.</p>"
 														   @"<p>The information includes software versions and settings, the OpenVPN configuration file,"
 														   @" network settings and more.</p>"
-														   @"<p>Sensitive certificate information is not included, but data such as IP addreses and URLs"
+														   @"<p>Sensitive certificate information is not included, but data such as IP addresses and URLs"
 														   @" which <em>may</em> be confidential are included. You should examine the information and"
 														   @" remove anything you want kept secret before sending it in an email or posting it publicly.</p>",
 														   @"HTML info for the 'Copy Diagnostic Info to Clipboard' button."))];
