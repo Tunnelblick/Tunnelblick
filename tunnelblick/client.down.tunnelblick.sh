@@ -29,6 +29,46 @@ trim()
 echo ${@}
 }
 
+##########################################################################################
+run_prefix_or_suffix()
+{
+# @param String 'down-prefix.sh' or 'down-suffix.sh'
+#
+# Execute the specified script (if it exists) in a subshell with the arguments with which this script was called.
+#
+# Tunnelblick starts OpenVPN with --set-env TUNNELBLICK_CONFIG_FOLDER <PATH>
+# where <PATH> is the path to the folder containing the OpenVPN configuration file.
+# That folder is where the script will be (if it exists).
+
+	if [  -z "$TUNNELBLICK_CONFIG_FOLDER" ] ; then
+		logMessage "The 'TUNNELBLICK_CONFIG_FOLDER' environment variable is missing or empty"
+		exit 1
+	fi
+
+	if [ "$1" != "down-prefix.sh" -a "$1" != "down-suffix.sh" ] ; then
+		logMessage "run_prefix_or_suffix not called with 'down-prefix.sh' or 'down-suffix.sh'"
+		exit 1
+	fi
+
+	if [ -e "$TUNNELBLICK_CONFIG_FOLDER/$1" ] ; then
+		logMessage "---------- Start of output from $1"
+
+		set +e
+			(  "$TUNNELBLICK_CONFIG_FOLDER/$1" ${SCRIPT_ARGS[*]}  )
+			local status=$?
+		set -e
+
+		logMessage "---------- End of output from $1"
+
+		if [ $status -ne 0 ] ; then
+			logMessage "ERROR: $1 exited with error status $status"
+			exit $status
+		fi
+	else
+		logMessage "JKB: No $1 exists"
+	fi
+}
+
 # @param String list - list of network service names, output from disable_ipv6()
 restore_ipv6() {
 
@@ -237,10 +277,25 @@ while [ {$#} ] ; do
 		ARG_FLUSH_DNS_CACHE="true"
     fi
 
-    shift                                       # Shift arguments to examine the next option (if there is one)
+	if [ "${1:0:1}" = "-" ] ; then				# Shift out Tunnelblick arguments (they start with "-") that we don't understand
+		shift									# so the rest of the script sees only the OpenVPN arguments
+	else
+		break
+	fi
 done
 
-readonly ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING_UNEXPECTED ARG_FLUSH_DNS_CACHE
+# Remember the OpenVPN arguments this script was started with so that run_prefix_or_suffix can pass them on to 'up-prefix.sh' and 'up-suffix.sh'
+declare -a SCRIPT_ARGS
+SCRIPT_ARGS_COUNT=$#
+for ((SCRIPT_ARGS_INDEX=0; SCRIPT_ARGS_INDEX<SCRIPT_ARGS_COUNT; ++SCRIPT_ARGS_INDEX)) ; do
+	SCRIPT_ARG="$(printf "%q" "$1")"
+	SCRIPT_ARGS[$SCRIPT_ARGS_INDEX]="$(printf "%q" "$SCRIPT_ARG")"
+	shift
+done
+
+readonly ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING_UNEXPECTED ARG_FLUSH_DNS_CACHE SCRIPT_ARGS
+
+run_prefix_or_suffix 'down-prefix.sh'
 
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
@@ -253,6 +308,9 @@ if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 
     logMessage "End of output from ${OUR_NAME}"
     logMessage "**********************************************"
+
+	un_prefix_or_suffix 'down-suffix.sh'
+
 	exit 0
 fi
 
@@ -444,6 +502,8 @@ scutil <<-EOF
 EOF
 
 resetPrimaryInterface $ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT $ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED
+
+run_prefix_or_suffix 'down-suffix.sh'
 
 logMessage "End of output from ${OUR_NAME}"
 logMessage "**********************************************"

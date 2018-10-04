@@ -57,6 +57,46 @@ trim()
 }
 
 ##########################################################################################
+run_prefix_or_suffix()
+{
+# @param String 'up-prefix.sh' or 'up-suffix.sh'
+#
+# Execute the specified script (if it exists) in a subshell with the arguments with which this script was called.
+#
+# Tunnelblick starts OpenVPN with --set-env TUNNELBLICK_CONFIG_FOLDER <PATH>
+# where <PATH> is the path to the folder containing the OpenVPN configuration file.
+# That folder is where the script will be (if it exists).
+
+	if [  -z "$TUNNELBLICK_CONFIG_FOLDER" ] ; then
+		logMessage "The 'TUNNELBLICK_CONFIG_FOLDER' environment variable is missing or empty"
+		exit 1
+	fi
+
+	if [ "$1" != "up-prefix.sh" -a "$1" != "up-suffix.sh" ] ; then
+		logMessage "run_prefix_or_suffix not called with 'up-prefix.sh' or 'up-suffix.sh'"
+		exit 1
+	fi
+
+	if [ -e "$TUNNELBLICK_CONFIG_FOLDER/$1" ] ; then
+		logMessage "---------- Start of output from $1"
+
+		set +e
+			(  "$TUNNELBLICK_CONFIG_FOLDER/$1" ${SCRIPT_ARGS[*]}  )
+			local status=$?
+		set -e
+
+		logMessage "---------- End of output from $1"
+
+		if [ $status -ne 0 ] ; then
+			logMessage "ERROR: $1 exited with error status $status"
+			exit $status
+		fi
+	else
+		logMessage "JKB: No $1 exists"
+	fi
+}
+
+##########################################################################################
 disable_ipv6() {
 
 # Disables IPv6 on each enabled (active) network service on which it is set to the OS X default "IPv6 Automatic".
@@ -1396,7 +1436,19 @@ while [ {$#} ] ; do
 	fi
 done
 
-readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_PREPEND_DOMAIN_NAME ARG_FLUSH_DNS_CACHE ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT ARG_IGNORE_OPTION_FLAGS
+# Remember the OpenVPN arguments this script was started with so that run_prefix_or_suffix can pass them on to 'up-prefix.sh' and 'up-suffix.sh'
+declare -a SCRIPT_ARGS
+SCRIPT_ARGS_COUNT=$#
+for ((SCRIPT_ARGS_INDEX=0; SCRIPT_ARGS_INDEX<SCRIPT_ARGS_COUNT; ++SCRIPT_ARGS_INDEX)) ; do
+	SCRIPT_ARG="$(printf "%q" "$1")"
+	SCRIPT_ARGS[$SCRIPT_ARGS_INDEX]="$(printf "%q" "$SCRIPT_ARG")"
+	shift
+done
+
+readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_PREPEND_DOMAIN_NAME ARG_FLUSH_DNS_CACHE ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT ARG_IGNORE_OPTION_FLAGS SCRIPT_ARGS
+
+run_prefix_or_suffix 'up-prefix.sh'
+
 
 # Note: The script log path name is constructed from the path of the regular config file, not the shadow copy
 # if the config is shadow copy, e.g. /Library/Application Support/Tunnelblick/Users/Jonathan/Folder/Subfolder/config.ovpn
@@ -1497,6 +1549,7 @@ if ${ARG_TAP} ; then
 		if [ -z "$dev" ]; then
 			logMessage "ERROR: Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
             # We don't create the "/tmp/tunnelblick-downscript-needs-to-be-run.txt" file, because the down script does NOT need to be run since we didn't do anything
+			run_prefix_or_suffix 'up-suffix.sh'
             logMessage "End of output from ${OUR_NAME}"
             logMessage "**********************************************"
 			exit 1
@@ -1571,6 +1624,8 @@ else
 fi
 
 touch "/tmp/tunnelblick-downscript-needs-to-be-run.txt"
+
+run_prefix_or_suffix 'up-suffix.sh'
 
 logMessage "End of output from ${OUR_NAME}"
 logMessage "**********************************************"
