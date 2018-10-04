@@ -2185,6 +2185,11 @@ int startVPN(NSString * configFile,
     [arguments addObject: @"--config"];
     [arguments addObject: gConfigPath];
     
+	// Set the TUNNELBLICK_CONFIG_FOLDER environment variable to the path of the folder containing the configuration file
+	[arguments addObject: @"--setenv"];
+	[arguments addObject: @"TUNNELBLICK_CONFIG_FOLDER"];
+	[arguments addObject: [gConfigPath stringByDeletingLastPathComponent]];
+	
     // Optionally specify verb level after the configuration file, so we override it
     if (  verbString  ) {
         [arguments addObject: @"--verb"];
