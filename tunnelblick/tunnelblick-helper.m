@@ -2661,11 +2661,17 @@ int startVPN(NSString * configFile,
     
     status = runAsRoot(openvpnPath, arguments, 0755);
     
-    NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@\n", openvpnPath];
+    NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@", openvpnPath];
     unsigned i;
     for (i=0; i<[arguments count]; i++) {
-        [displayCmdLine appendString: [NSString stringWithFormat: @"     %@\n", [arguments objectAtIndex: i]]];
-    }
+		NSString * arg = [arguments objectAtIndex: i];
+		if (  [arg hasPrefix: @"--"]  ) {
+			[displayCmdLine appendString: [NSString stringWithFormat: @"\n     %@", arg]];
+		} else {
+			[displayCmdLine appendString: [NSString stringWithFormat: @" %@", arg]];
+		}
+	}
+	[displayCmdLine appendString: @"\n"];
     
     if (  status != 0  ) {
         NSString * logContents = @"";
