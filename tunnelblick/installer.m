@@ -2133,7 +2133,6 @@ void mergeForcedPreferences(NSString * sourcePath) {
 				appendLog([NSString stringWithFormat: @"Error: could not write %@  ", sourcePath]);
 				errorExit();
 			}
-			appendLog([NSString stringWithFormat: @"JKB: mergeForcedPreferences: Created %@ with contents:\n%@", targetPath, existingPreferences]);
 			
 		} else {
 			appendLog([NSString stringWithFormat: @"Do not need to create or modify             %@  ", targetPath]);

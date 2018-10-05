@@ -91,8 +91,6 @@ run_prefix_or_suffix()
 			logMessage "ERROR: $1 exited with error status $status"
 			exit $status
 		fi
-	else
-		logMessage "JKB: No $1 exists"
 	fi
 }
 
