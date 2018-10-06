@@ -26,6 +26,8 @@ NSString * sha256HexStringForData (NSData * data);
 
 NSString * mipName(void);
 
+BOOL connectedToNetwork(void);
+
 BOOL isValidIPAdddress(NSString * ipAddress);
 
 NSDictionary * tunnelblickdPlistDictionaryToUse(void);

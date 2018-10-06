@@ -28,6 +28,8 @@
 
 #import "sharedRoutines.h"
 
+//#import <arpa/inet.h>
+//#import <netdb.h>
 #import <netinet/in.h>
 #import <sys/mount.h>
 #import <sys/socket.h>
@@ -35,6 +37,7 @@
 #import <sys/types.h>
 #import <sys/un.h>
 #import <CommonCrypto/CommonDigest.h>
+#import <SystemConfiguration/SCNetworkReachability.h>
 
 #import "defines.h"
 
@@ -60,6 +63,40 @@ NSString * mipName(void) {
 	}
 
 	return [fileName stringByDeletingPathExtension];
+}
+
+BOOL connectedToNetwork(void) {
+	
+	// This routine is from http://www.chrisdanielson.com/tag/scnetworkreachability/.
+	// Changes: converted from a method to a function and added logging of errors
+	
+	// Create zero addy
+	struct sockaddr_in zeroAddress;
+	bzero(&zeroAddress, sizeof(zeroAddress));
+	zeroAddress.sin_len = sizeof(zeroAddress);
+	zeroAddress.sin_family = AF_INET;
+ 
+	// Recover reachability flags
+	SCNetworkReachabilityRef defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
+	if (  defaultRouteReachability == NULL  ) {
+		appendLog(@"SCNetworkReachabilityCreateWithAddress failed");
+		return NO;
+	}
+	SCNetworkReachabilityFlags flags;
+ 
+	BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+	
+	CFRelease(defaultRouteReachability);
+ 
+	if (!didRetrieveFlags)
+	{
+		appendLog(@"SCNetworkReachabilityGetFlags returned NO");
+		return NO;
+	}
+ 
+	BOOL isReachable = flags & kSCNetworkFlagsReachable;
+	BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
+	return (isReachable && !needsConnection);
 }
 
 BOOL isValidIPAdddress(NSString * ipAddress) {

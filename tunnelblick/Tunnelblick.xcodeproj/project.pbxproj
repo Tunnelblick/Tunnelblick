@@ -132,6 +132,9 @@
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
 		639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639A10EA132AC74B00754C2A /* StatusWindow.xib */; };
 		639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639A10FE132AC9D800754C2A /* StatusWindowController.m */; };
+		639A47B72168BA530019FBFD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */; };
+		639A47B82168BAB60019FBFD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */; };
+		639A47B92168BAD90019FBFD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */; };
 		639B6119205BE7FD00BC2FF5 /* HE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 639B6118205BE7FD00BC2FF5 /* HE.lproj */; };
 		639BCE5B1D07894C00A9111D /* RO.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 639BCE5A1D07894C00A9111D /* RO.lproj */; };
 		639C2F0E1D84812800DA3386 /* AuthIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 639C2F0D1D84812800DA3386 /* AuthIcon.png */; };
@@ -653,6 +656,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				639A47B72168BA530019FBFD /* SystemConfiguration.framework in Frameworks */,
 				61BC4CE10E2FA02800F24255 /* Foundation.framework in Frameworks */,
 				63432577140D7F6F00015CE0 /* CoreServices.framework in Frameworks */,
 			);
@@ -662,6 +666,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				639A47B92168BAD90019FBFD /* SystemConfiguration.framework in Frameworks */,
 				63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */,
 				61BC4DA00E2FA31F00F24255 /* Foundation.framework in Frameworks */,
 				635CA9A812F9DD3000287298 /* AppKit.framework in Frameworks */,
@@ -672,6 +677,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				639A47B82168BAB60019FBFD /* SystemConfiguration.framework in Frameworks */,
 				634EE8391191F89800DF4E43 /* Security.framework in Frameworks */,
 				6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */,
 			);
