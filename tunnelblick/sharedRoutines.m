@@ -65,38 +65,70 @@ NSString * mipName(void) {
 	return [fileName stringByDeletingPathExtension];
 }
 
-BOOL connectedToNetwork(void) {
+BOOL networkIsReachable(void) {
 	
-	// This routine is from http://www.chrisdanielson.com/tag/scnetworkreachability/.
-	// Changes: converted from a method to a function and added logging of errors
-	
-	// Create zero addy
-	struct sockaddr_in zeroAddress;
-	bzero(&zeroAddress, sizeof(zeroAddress));
-	zeroAddress.sin_len = sizeof(zeroAddress);
-	zeroAddress.sin_family = AF_INET;
+	// This routine a heavily modified version of a method at https://github.com/arashpayan/appirater/blob/master/Appirater.m,
+	// which was apparently based on http://www.chrisdanielson.com/tag/scnetworkreachability/
+
+	// Make a socket IP address of 0.0.0.0
+	struct sockaddr_in zeroIPAddress;
+	bzero(&zeroIPAddress, sizeof(zeroIPAddress));
+	zeroIPAddress.sin_len = sizeof(zeroIPAddress);
+	zeroIPAddress.sin_family = AF_INET;
  
 	// Recover reachability flags
-	SCNetworkReachabilityRef defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
-	if (  defaultRouteReachability == NULL  ) {
+	SCNetworkReachabilityRef reachabilityRef = SCNetworkReachabilityCreateWithAddress(NULL, (const struct sockaddr *)(&zeroIPAddress));
+	if (  reachabilityRef == NULL  ) {
 		appendLog(@"SCNetworkReachabilityCreateWithAddress failed");
 		return NO;
 	}
+	
 	SCNetworkReachabilityFlags flags;
  
-	BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+	Boolean haveFlags = SCNetworkReachabilityGetFlags(reachabilityRef, &flags);
 	
-	CFRelease(defaultRouteReachability);
+	CFRelease(reachabilityRef);
  
-	if (!didRetrieveFlags)
-	{
-		appendLog(@"SCNetworkReachabilityGetFlags returned NO");
+	if (  ! haveFlags  ) {
+		appendLog(@"Error: Could not get network reachability flags");
 		return NO;
 	}
  
 	BOOL isReachable = flags & kSCNetworkFlagsReachable;
-	BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
-	return (isReachable && !needsConnection);
+	
+	return isReachable;
+	
+/* IF WANT TO CHECK THAT THE INTERNET (A SPECIFIC URL, ACTUALLY) IS REACHABLE:
+
+	REPLACE THE above "return isReachable;" WITH THE FOLLOWING:
+ 
+	if (  ! isReachable  ) {
+		return NO;
+	}
+ 
+	NSURL *testURL = [NSURL URLWithString:@"http://www.apple.com/"];
+	
+	NSTimeInterval timeoutInterval = 20.0;
+	
+	NSURLRequest * testRequest = [NSURLRequest requestWithURL: testURL
+											   	  cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
+											  timeoutInterval: timeoutInterval];
+	NSURLConnection * testConnection = [[NSURLConnection alloc] initWithRequest: testRequest delegate: nil];
+	return ( testConnection ? YES : NO);
+	
+	WHEN WE SUPPORT ONLY 10.9 AND HIGHER, REPLACE THE ABOVE FIVE NON-EMPTY LINES WITH THE FOLLOWING (runningOnMavericksOrNewer()):
+ 
+	NSURLSessionConfiguration * sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+	sessionConfiguration.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+	sessionConfiguration.timeoutIntervalForRequest = timeoutInterval;
+	
+	NSURLSession * session = [NSURLSession sessionWithConfiguration: sessionConfiguration];
+	
+	NSURLSessionTask * task = [session dataTaskWithURL: testURL];
+	[task resume];
+	
+	return (  task.state != NSURLSessionTaskStateSuspended  );
+ */
 }
 
 BOOL isValidIPAdddress(NSString * ipAddress) {

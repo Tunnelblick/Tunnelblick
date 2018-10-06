@@ -84,7 +84,7 @@ int main(int argc, char * argv[]) {
     
 
 	// Wait until the Internet is reachable
-	while (  ! connectedToNetwork()  ) {
+	while (  ! networkIsReachable()  ) {
 		fprintf(stderr, "Waiting for a network connection to be available.");
 		sleep(1);
 	}
