@@ -23,16 +23,22 @@ if [ "${launch_at_login_preference}" = "1" ] ; then
   exit
 fi
 
-processes="$(ps -ef)"
+processes="$( ps -f -u 0 )"
 
-openvpn_is_running="$( echo "${processes}" | grep -w /openvpn | grep -v grep )"
+openvpn_is_running="$( echo "${processes}" | grep 'setenv TUNNELBLICK_CONFIG_FOLDER' | grep -v grep )"
 if [ "${openvpn_is_running}" != "" ] ; then
   open /Applications/Tunnelblick.app
   exit
 fi
 
-helper_is_running="$( echo "${processes}" | grep -w /tunnelblick-helper | grep -v grep )"
+helper_is_running="$( echo "${processes}" | grep /tunnelblick-helper | grep -v grep )"
 if [ "${helper_is_running}" != "" ] ; then
   open /Applications/Tunnelblick.app
   exit
+fi
+
+openvpnstart_is_running="$( echo "${processes}" | grep /openvpnstart | grep -v grep )"
+if [ "${openvpnstart_is_running}" != "" ] ; then
+open /Applications/Tunnelblick.app
+exit
 fi
