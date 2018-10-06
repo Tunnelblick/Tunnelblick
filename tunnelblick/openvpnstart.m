@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 by Jonathan K. Bullard. All rights reserved.
+ * Copyright 2014, 2018 by Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -82,6 +82,13 @@ int main(int argc, char * argv[]) {
     
     [command appendString: @"\n"];
     
+
+	// Wait until the Internet is reachable
+	while (  ! connectedToNetwork()  ) {
+		fprintf(stderr, "Waiting for a network connection to be available.");
+		sleep(1);
+	}
+	
     // Send the command to tunnelblickd and return the results
     
     OSStatus status = -1;
