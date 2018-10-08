@@ -1710,7 +1710,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) addMessageToDisplayIfConnectionFails: (NSString *) message {
 	
-	[messagesIfConnectionFails addObject: message];
+	if (  ! [messagesIfConnectionFails containsObject: message]  ) {
+		[messagesIfConnectionFails addObject: message];
+		NSLog(@"%@", message);
+	}
 }
 
 -(BOOL) shadowCopyIsIdentical
@@ -3079,6 +3082,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         return;  // DO NOT set "completelyDisconnected"
     } else {
         [self addToLog: @"*Tunnelblick: Expected disconnection occurred."];
+	}
+	
+	if (  [messagesIfConnectionFails count] != 0  ) {
+		NSEnumerator * e = [messagesIfConnectionFails objectEnumerator];
+		NSString * message;
+		while (  (message = [e nextObject])  ) {
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
+		}
+		[messagesIfConnectionFails removeAllObjects];
 	}
 	
 	if (  connectAfterDisconnect  ) {

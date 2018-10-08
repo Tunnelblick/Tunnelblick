@@ -1497,6 +1497,7 @@ NSString * messageIfProblemInLogLine(NSString * line) {
 									 @"WARNING: Your certificate has expired!",
 									 @"Unrecognized option or missing parameter(s)",
 									 @"Unrecognized option or missing or extra parameter(s)",
+									 @"error=certificate has expired:",
 									 nil];
 	
 	NSArray * correspondingInfo = [NSArray arrayWithObjects:
@@ -1526,6 +1527,13 @@ NSString * messageIfProblemInLogLine(NSString * line) {
 													 @" that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use"
 													 @" with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's"
 													 @" \"VPN Details\" window.\n\n"
+													 @"See the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's"
+													 @" \"VPN Details\" window for details.",
+													 
+													 @"Window text"),
+								   /* The line containging 'One or more' in the following message should not be changed without changing the copy of it in LogDisplay.m */
+								   NSLocalizedString(@"\n\n"
+													 @"One or more of the certificates used to secure this configuration have expired.\n\n"
 													 @"See the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's"
 													 @" \"VPN Details\" window for details.",
 													 
