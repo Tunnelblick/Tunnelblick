@@ -35,12 +35,15 @@ void appendLog(NSString * msg);
       withAccountName:(NSString *)aName
 {
 	if (  (sName == nil)
-        | (aName == nil)  )
+		| (aName == nil)  ) {
         return nil;
+	}
+	
     if (  (self = [super init])  ) {
         serviceName = [sName retain];
         accountName = [aName retain];
     }
+	
     return self;
 }
 
