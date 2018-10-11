@@ -4453,10 +4453,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  showingStatusWindow  ) {
 
-        if (   (   [newState isEqualToString: @"EXITING"]
-                && [gTbDefaults boolForKey: @"doNotShowDisconnectedNotificationWindows"]
-                )
-
+		if (   [newState isEqualToString: @"EXITING"]
             || (   [newState isEqualToString: @"CONNECTED"]
                 && (  ! [statusPref isEqualToString: @"showWhenConnectingAndConnected"] )
                )
