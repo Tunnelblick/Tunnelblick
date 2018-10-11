@@ -417,8 +417,6 @@ int main(void) {
         int  filedesc;
 		int nbytes;
 
-#define SOCKET_BUF_SIZE 1024
-
 		char buffer[SOCKET_BUF_SIZE];
 		
         // Get the next event from the kernel event queue.

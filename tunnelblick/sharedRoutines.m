@@ -1561,7 +1561,6 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     const char * requestToServer = [[NSString stringWithFormat: @"%s%@", TUNNELBLICKD_OPENVPNSTART_HEADER_C, command] UTF8String];
     const char * socketPath = [TUNNELBLICKD_SOCKET_PATH UTF8String];
     
-#define SOCKET_BUF_SIZE 1024
 	char buffer[SOCKET_BUF_SIZE];
     
     struct sockaddr_un socket_data;
