@@ -1,7 +1,7 @@
 /*
  * Copyright 2004 Angelo Laub
  * Fixes by Dirk Theisen <dirk@objectpark.org> 
-* Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2016. All rights reserved.
+* Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2016, 2018. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -27,9 +27,24 @@
 #import <Security/Security.h>
 
 #import "helper.h"
-void appendLog(NSString * msg);
 
 @implementation KeyChain
+
+-(void) logNonstatusMessage: (NSString *) message {
+	
+	appendLog([NSString stringWithFormat: @"%@: service = '%@'; account = '%@'",
+			   message, serviceName, accountName]);
+}
+
+-(void) logStatus: (OSStatus) status message: (NSString *) message {
+	
+	CFStringRef cfS = SecCopyErrorMessageString(status, NULL);
+	NSString * statusString = [[(__bridge NSString *)cfS copy] autorelease];
+	CFRelease(cfS);
+	
+	appendLog([NSString stringWithFormat: @"%@: service = '%@'; account = '%@'; status was %d: '%@'",
+			   message, serviceName, accountName, status, statusString]);
+}
 
 -(id) initWithService:(NSString *)sName
       withAccountName:(NSString *)aName
@@ -69,9 +84,9 @@ void appendLog(NSString * msg);
 
 - (NSString*) password 
 {
-	// Returns a password if it exists.
-	// Returns an empty string if the Keychain can be accessed but the password is empty or does not exist
-	// Returns nil if the Keychain can't be accessed (user cancelled)
+	// Returns nil if the user cancelled (if asked for authorization to access the Keychain),
+	// Returns an empty string if the Keychain cannot be accessed or the password is empty or does not exist,
+	// Otherwise, returns the password.
 	
 	char *passData;
     UInt32 passLength = 0;
@@ -87,37 +102,26 @@ void appendLog(NSString * msg);
                                                      (void**)&passData, // address of password data as void **
                                                      NULL               // we need no item reference
                                                      );
-    if (  status == noErr  ) {
+    if (  status == errSecSuccess  ) {
         if (  passLength != 0) {
             NSString *returnPassword = [[[NSString alloc] initWithBytes:passData length:passLength encoding:NSUTF8StringEncoding] autorelease];
             SecKeychainItemFreeContent(NULL,passData);
 			if (  returnPassword == nil  ) {
-				appendLog([NSString stringWithFormat: @"Non-UTF-8 Keychain item retrieved for service = '%@' account = '%@'", serviceName, accountName]);
+				[self logNonstatusMessage:@"Keychain item was not UTF-8; returning an empty password"];
 				return @"";
 			}
-            appendLog([NSString stringWithFormat: @"Keychain item retrieved successfully for service = '%@' account = '%@'", serviceName, accountName]);
-            return returnPassword;            
+            return returnPassword;
         } else {
             SecKeychainItemFreeContent(NULL,passData);
-            appendLog([NSString stringWithFormat: @"Zero-length Keychain item retrieved for service = '%@' account = '%@'", serviceName, accountName]);
+            [self logNonstatusMessage:@"Empty Keychain item retrieved successfully"];
 			return @"";
         }
     } else {
-        if (  status == errKCItemNotFound  ) {
-            appendLog([NSString stringWithFormat: @"Can't retrieve Keychain item for service = '%@' account = '%@' because it does not exist", serviceName, accountName]);
-			return @"";
-        } else if (   (status == errSecAuthFailed)  // -128 found by user experimentation -- not in Keychain Services Reference or CSSM references,
-                   || (status == -128)  ) {         // but it is 'userCanceledErr' in OS 9 and earlier (!)
-            appendLog([NSString stringWithFormat: @"Can't retrieve Keychain item for service = '%@' account = '%@' because access to the Keychain was cancelled by the user", serviceName, accountName]);
+        if (  status == errSecUserCanceled  ) {
+            [self logStatus: status message: @"Access to the Keychain was cancelled by the user"];
 			return nil;
         } else {
-            // Apple docs are inconsistent; Xcode says SecCopyErrorMessageString is available on 10.5+, Keychain Services Reference says 10.3+, so we play it safe
-            CFStringRef errMsg = SecCopyErrorMessageString(status, NULL);
-            appendLog([NSString stringWithFormat: @"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld; error was '%@'", serviceName, accountName, (long) status, (NSString *)errMsg]);
-            if (  errMsg  ) {
-                CFRelease(errMsg);
-            }
-            
+            [self logStatus: status message:@"Can't retrieve Keychain item"];
 			return @"";
         }
     }
@@ -126,13 +130,13 @@ void appendLog(NSString * msg);
 - (int)setPassword:(NSString *)password
 {
     if (  ! password  ) {
-        appendLog([NSString stringWithFormat: @"Attempt to add nil Keychain item for service = '%@' account = '%@'", serviceName, accountName]);
+        [self logNonstatusMessage: @"Can't add nil Keychain item"];
         return -1;
     }
     
-    const char *cPassword = [password UTF8String];
-    const char* service   = [serviceName UTF8String];
-    const char* account   = [accountName UTF8String];
+    const char * cPassword = [password UTF8String];
+    const char * service   = [serviceName UTF8String];
+    const char * account   = [accountName UTF8String];
     
     OSStatus status = SecKeychainAddGenericPassword(NULL,              // default keychain
                                                     strlen(service),   // length of service name
@@ -143,12 +147,13 @@ void appendLog(NSString * msg);
                                                     cPassword,         // pointer to password data
                                                     NULL);             // we need no item reference
     
-    if (  status != noErr  ) {
-        appendLog([NSString stringWithFormat: @"Can't add Keychain item for service = '%@' account = '%@'; status was %ld; error was %ld:\n'%s'", serviceName, accountName, (long) status, (long) errno, strerror(errno)]);
+    if (  status != errSecSuccess  ) {
+        [self logStatus: status message: @"Can't add Keychain item"];
     }
     
     return(status);
 }
+
 -(void)deletePassword
 {
 	SecKeychainItemRef itemRef;
@@ -164,17 +169,13 @@ void appendLog(NSString * msg);
                                                       NULL,            // address of password data as void **
                                                       &itemRef               
                                                       );
-	if (  status == noErr  ) {
+	if (  status == errSecSuccess  ) {
         status = SecKeychainItemDelete(itemRef);
-        if (  status != noErr  ) {
-            appendLog([NSString stringWithFormat: @"Can't delete Keychain item for service = '%@' account = '%@' after finding it; status was %ld; error was %ld:\n'%s'", serviceName, accountName, (long) status, (long) errno, strerror(errno)]);
+        if (  status != errSecSuccess  ) {
+            [self logStatus: status message: @"Can't delete Keychain item"];
         }
     } else {
-        if (  status == errKCItemNotFound  ) {
-            appendLog([NSString stringWithFormat: @"Can't find Keychain item to delete for service = '%@' account = '%@' because it does not exist", serviceName, accountName]);
-        } else {
-            appendLog([NSString stringWithFormat: @"Can't find Keychain item to delete for service = '%@' account = '%@'; status was %ld; error was %ld:\n'%s'", serviceName, accountName, (long) status, (long) errno, strerror(errno)]);
-        }
+		[self logStatus: status message: @"Can't find Keychain item to delete"];
     }
 }
 @end
