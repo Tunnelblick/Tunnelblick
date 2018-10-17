@@ -307,7 +307,7 @@ if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
     logMessage "End of output from ${OUR_NAME}"
     logMessage "**********************************************"
 
-	un_prefix_or_suffix 'down-suffix.sh'
+	run_prefix_or_suffix 'down-suffix.sh'
 
 	exit 0
 fi
