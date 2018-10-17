@@ -2,14 +2,14 @@
 # Note: must be bash; uses bash-specific tricks
 #
 # ******************************************************************************************************************
-# This Tunnelblick script does everything! It handles TUN and TAP interfaces, 
+# This Tunnelblick script does everything! It handles TUN and TAP interfaces,
 # pushed configurations and DHCP leases. :)
-# 
-# This is the "Down" version of the script, executed after the connection is 
+#
+# This is the "Down" version of the script, executed after the connection is
 # closed.
 #
 # Created by: Nick Williams (using original code and parts of old Tblk scripts)
-# 
+#
 # ******************************************************************************************************************
 
 # @param String message - The message to log
@@ -125,7 +125,7 @@ flushDNSCache()
 			else
 				logMessage "WARNING: /usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
 			fi
-		
+
 			if [ -f /usr/sbin/discoveryutil ] ; then
 				set +e # we will catch errors from discoveryutil
 				/usr/sbin/discoveryutil udnsflushcaches
@@ -144,7 +144,7 @@ flushDNSCache()
 			else
 				logMessage "/usr/sbin/discoveryutil not present. Not flushing the DNS cache via discoveryutil"
 			fi
-			
+
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 			hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
 			set -e # We instruct bash that it CAN again fail on errors
@@ -164,7 +164,7 @@ flushDNSCache()
 			else
 				logMessage "WARNING: Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
 			fi
-		
+
 		fi
     fi
 }
@@ -299,9 +299,9 @@ run_prefix_or_suffix 'down-prefix.sh'
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	# Configuration isn't there
     logMessage "WARNING: Not restoring DNS settings because no saved Tunnelblick DNS information was found."
-	
+
 	flushDNSCache
-    
+
 	resetPrimaryInterface $ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT $ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED
 
     logMessage "End of output from ${OUR_NAME}"
