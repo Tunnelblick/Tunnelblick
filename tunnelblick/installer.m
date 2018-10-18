@@ -1759,8 +1759,10 @@ void exportToPath(NSString * exportPath) {
 	
 	// Copy forced-preferences.plist to Global
 	NSString * sourceForcedPreferencesPath = [L_AS_T stringByAppendingPathComponent: @"forced-preferences.plist"];
-	NSString * targetForcedPreferencesPath = [targetSetupGlobalPath stringByAppendingPathComponent: @"forced-preferences.plist"];
-	safeCopyPathToPath(sourceForcedPreferencesPath, targetForcedPreferencesPath);
+	if (  [gFileMgr fileExistsAtPath: sourceForcedPreferencesPath]  ) {
+		NSString * targetForcedPreferencesPath = [targetSetupGlobalPath stringByAppendingPathComponent: @"forced-preferences.plist"];
+		safeCopyPathToPath(sourceForcedPreferencesPath, targetForcedPreferencesPath);
+	}
 	
 	// Copy Shared to Global
 	NSString * sourceSharedPath            = L_AS_T_SHARED;
