@@ -468,8 +468,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     if (   [ext isEqualToString: @"ovpn"]
         || [ext isEqualToString: @"conf"]  ) {
 		if (  [NSString stringWithUTF8String: (const char *)chars] == NULL  ) {
-			return [self logMessage: [NSString stringWithFormat: @"File '%@' is not a plain text or UTF-8 file.", path]
-						  localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' is not a plain text or UTF-8 file.", @"Window text"), [path lastPathComponent]]];
+			return [self logMessage: [NSString stringWithFormat: @"'%@' is not a plain text or UTF-8 file.", path]
+						  localized: [NSString stringWithFormat: NSLocalizedString(@"'%@' is not a plain text or UTF-8 file.", @"Window text. %@ is the name of a file."), [path lastPathComponent]]];
 		}
         return nil;
     }
