@@ -854,11 +854,17 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files";
+
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' at line %2$u was not terminated properly";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@' is not a plain text or UTF-8 file.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' was not terminated.";
@@ -1179,10 +1185,7 @@
 "Fast User Switching" = "Fast User Switching";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
-
-/* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files.";
 
 /* Window text */
 "File '%@' contains one or more NUL characters." = "File '%@' contains one or more NUL characters.";
@@ -1195,9 +1198,6 @@
 
 /* Window text */
 "File '%@' is missing" = "File '%@' is missing";
-
-/* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
