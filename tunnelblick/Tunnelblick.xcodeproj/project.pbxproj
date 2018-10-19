@@ -169,6 +169,7 @@
 		63C3757D1A45116200D51E81 /* tunnelblick-helper in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 63C374391A4510AA00D51E81 /* tunnelblick-helper */; };
 		63C504291178E21100340D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */; };
+		63CDA282217A2A110083589C /* SL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63CDA281217A2A110083589C /* SL.lproj */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
 		63D893F32124E5FE000E20E5 /* SetupImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F22124E5FE000E20E5 /* SetupImporter.m */; };
 		63D893F821258FAE000E20E5 /* ImportWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F621258FAE000E20E5 /* ImportWindowController.m */; };
@@ -540,6 +541,7 @@
 		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		63CC72F71928C5CB00F81220 /* TBUIUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUIUpdater.h; sourceTree = "<group>"; };
 		63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUIUpdater.h.m; sourceTree = "<group>"; };
+		63CDA281217A2A110083589C /* SL.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SL.lproj; path = ../../TB/tunnelblick/SL.lproj; sourceTree = "<group>"; };
 		63D39B4614F9860E002D1297 /* UtilitiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilitiesView.h; sourceTree = "<group>"; };
 		63D39B4714F9860E002D1297 /* UtilitiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilitiesView.m; sourceTree = "<group>"; };
 		63D893F12124E5F1000E20E5 /* SetupImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupImporter.h; sourceTree = "<group>"; };
@@ -1104,6 +1106,7 @@
 				639BCE5A1D07894C00A9111D /* RO.lproj */,
 				63611FCD13CE2A8B000240F0 /* RU.lproj */,
 				B8051F4C1754DA630024841C /* SK.lproj */,
+				63CDA281217A2A110083589C /* SL.lproj */,
 				635497FE1FABD9E10009E149 /* SQ.lproj */,
 				63E5276920C2DA7E00963456 /* SR_Latn.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
@@ -1568,6 +1571,7 @@
 				61F294A60ED389520097DE94 /* openvpn.conf in Resources */,
 				615F748A0ED3A4C2007F6F0A /* English.lproj in Resources */,
 				634E02051CAD9764008637FF /* AF.lproj in Resources */,
+				63CDA282217A2A110083589C /* SL.lproj in Resources */,
 				63E5276A20C2DA7E00963456 /* SR_Latn.lproj in Resources */,
 				6364DB8B1E3F5CB40089962B /* VI.lproj in Resources */,
 				63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */,
