@@ -1124,12 +1124,6 @@
 "Fast User Switching" = "빠른 사용자 전환";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "파일 '%@' 은 UTF-16로 인코딩되어 있습니다. OpenVPN 연관 파일은 반드시 '플레인 텍스트' 또는 'UTF-8' 파일이어야 합니다.";
-
-/* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' 파일은 '{' 문자로 시작하기 때문에 '리치 텍스트' 인 것 같습니다. 모든 OpenVPN 관련 파일들은 '일반 텍스트' 또는 'UTF-8' 파일이어야합니다.";
-
-/* Window text */
 "File '%@' contains one or more NUL characters." = "파일 '%@'에 한 개나 이상의 널 문자가 있습니다.";
 
 /* Window text */
@@ -1140,9 +1134,6 @@
 
 /* Window text */
 "File '%@' is missing" = "'%@' 파일이 없습니다";
-
-/* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "파일 '%@'은 일반 텍스트나 UTF-8 파일이 아닙니다.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "파일 '%1$@' 은 너무 짧습니다 (%2$lu 바이트)";
@@ -1403,9 +1394,6 @@
 "That name is being used.\n\n" = "사용 중인 이름입니다.\n\n";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "'%@' OpenVPN 옵션은 OS X에서 허용되지 않습니다. 그것은 'Windows 전용' 옵션입니다.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN 옵션 '%@' 은 Tunnelblick에서 허용되지 않습니다.";
 
 /* Window text */
@@ -1422,9 +1410,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' 설정 값은 문자열의 배열이어야 합니다.";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "%1$@ 에 있는 OpenVPN 설정 파일은 Windows에서만 사용할 수 있는 '%2$@' 옵션을 포함하고 있습니다. 이것은 OS X에서는 사용할 수 없습니다.";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "OpenVPN 로그가 아직 없거나 삭제되었습니다.";
@@ -2008,17 +1993,11 @@
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>추가 설정을 위한 창을 엽니다.</p><p>변동사항은 'VPN 상세' 창에 선택된 모든 구성에 적용됩니다.</p>";
 
-/* HTML info for the 'Quit All OpenVPN Processes' button. */
-"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Tunnelblick에 의해 시작한 것이 아닌 것을 포함한 모든 OpenVPN 프로세스를 종료합니다. 당신은 Tunnelblick의 '연결 해제' 또는 '모든 연결 해제' 버튼과 메뉴 명령을 통해 Tunnelblick을 이용한 구성을 연결 해제해야 합니다. </p><p>이 버튼을 누르는 것은 'SIGTERM' 신호를 'openvpn'이라 명명된 모든 프로세스에 전송합니다. 보통 이 행동은 OpenVPN이 모든 연결을 닫고 종료하게 만듭니다. 만약 이 버튼이 모든 OpenVPN 프로세스를 종료시키지 않는다면, OS X 활동 모니터를 이용해 프로세스를 '강제 종료'할 필요가 있습니다.</p>";
-
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>'이 경고를 다시 하지 않음' 체크상자에 의해 억제된 경고를 복원합니다.</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 캐시는 DNS 정보의 복사본을 포함하고 있습니다.</p>\n<p><strong>체크되었을 때</strong>, 연결하거나 연결 해제한 후 DNS 캐시가 삭제됩니다. DNS 검색은 VPN 설정에서 지정한 이름 서버에 의해 수행됩니다.</p>\n<p><strong>체크되지 않았을 때</strong>, DNS 캐시는 삭제되지 않습니다. VPN 설정에서 지정한 이름 서버와 캐시된 이전 VPN 항목 간에 이름이 중복 될 경우, 문제가 발생할 수 있습니다.</p>";
-
-/* HTML info for the 'Open easy-rsa in Terminal' button. */
-"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick은 사용자화 버전의 'easy-rsa'를 포함합니다. 'easy-rsa'란 자격 증명과 키를 만들고 유지하기 위해 OpenVPN 개발자에 의해 작성된 커맨드 라인 스크립트 세트입니다.</p><p>이 버튼을 누르면 스크립트를 포함하는 폴더에 대한 작업 디렉토리 세트와 함께 OS X 터미널 어플리케이션이 실행됩니다.</p><p>스크립트는 일반적으로 ~/Library/Application Support/Tunnelblick/easy-rsa에 위치하고 있습니다. 'easy-rsaPath' 설정은 Tunnelblick이 대신 사용할 폴더에 대한 경로를 포함할 수 있습니다. 'easy-rsaPath'는 반드시 절대 경로 또는 '~'로 시작하며 상위 폴더가 존재하는 경로를 포함해야 합니다. 만약 폴더가 경로에 존재한다면, 사용될 것입니다; 만약 폴더가 존재하지 않는다면, 폴더가 생성될 것이고 easy-rsa 스크립트가 Tunnelblick이 실행될 때 설치될 것입니다.</p><p>easy-rsa를 사용하는 정보에 대해선, <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a>를 확인하십시오.[openvpn.net]</p><p>Tunnelblick의 easy-rsa 사용자화에 대한 자세한 사항은 폴더에 있는 README 파일을 참고하십시오.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick이 %1$@에 연결하기 위해 필요한 시스템 확장자를 불러올 수 없습니다.</p>\n<p>%2$@더 많은 정보%3$@[%4$@]</p>";

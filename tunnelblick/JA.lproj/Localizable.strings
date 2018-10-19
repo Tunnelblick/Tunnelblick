@@ -1179,12 +1179,6 @@
 "Fast User Switching" = "ファストユーザスイッチ";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "%@はUTF−16で符号化されていそうです。OpenVPNに関する全てのファイルの符号化方式は「プレーンテキスト」又は「UTF−8」じゃなければなりません。";
-
-/* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "ファイル '%@' はリッチテキストフォーマットと思われます。OpenVPNで使用するファイルはプレーンテキスト(ASCIIもしくはUTF-8)である必要があります。";
-
-/* Window text */
 "File '%@' contains one or more NUL characters." = "'%@'のファイルの中身でNULLカラクターがあります";
 
 /* Window text */
@@ -1195,9 +1189,6 @@
 
 /* Window text */
 "File '%@' is missing" = "ファイルが存在しません: %@";
-
-/* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "'%@'のファイルはプラインテクストかUTF-8でわない";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "ファイル '%1$@' は小さすぎます(%2$lu バイト)";
@@ -1476,9 +1467,6 @@
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "システムフォルダー %1$@ (%2$@) は安全ではありません。\n\nこの問題が解決されるまで、Tunnelblickやその他のプログラムは、正常に動作しない可能性があります。\n\nコンソールログに詳細があります。";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "OS XではOpenVPNのオプション '%@' を使えません、それはWindowsのみ使えるオプションです。";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "%@ というオプションは Tunnelblick では使えません";
 
 /* Window text */
@@ -1495,9 +1483,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "設定項目「namedCredentialsNames」は文字列の配列でないといけません";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "%1$@ に含まれるOpenVPN設定 '%2$@' はWIndows専用のオプションです。OS Xでは使用できません。";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Open Vpn ログは以下のメッセージを含んでいました。\n\n\"%1$@\".%2$@";
@@ -2051,14 +2036,8 @@
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>追加設定の画面を新しいウィンドウで開く。</p><p>'VPN Details windowで'なされた変更は全て反映されます。</p>";
 
-/* HTML info for the 'Quit All OpenVPN Processes' button. */
-"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Tunnelblickにより実行されていないプロセスも含め、全てのOpenVPNプロセスを終了します。 Tunnelblickの '切断'または '全て切断' ボタンとメニューコマンドを使用して、Tunnelblickを使用して接続されたVPN通信を終了する必要があります。</p><p>このボタンを押すことによって、'SIGTERM' 信号が全ての 'openvpn' と名付けられたプロセスに送信されます。 通常、この処理はVPN接続を切断し、OpenVPNを終了させます。 この処理が全てのOpenVPNプロセスを終了できなかった場合、macOSのアクティビティーモニターを使用してプロセスを強制終了する必要があります。</p>";
-
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNSキャッシュはDNS (名前解決システム) 情報のコピーを含みます。</p>\n<p><strong>チェックを入れた場合</strong>、DNSキャッシュは接続・切断時に削除されます。 全ての名前解決はVPNのセットアップに指定されたネームサーバーより実行されます。</p>\n<p><strong>チェックを入れなかった場合</strong>、DNSキャッシュは削除されません。VPN割り当てのネームサーバーがVPNに接続される前に、ドメイン名がネームサーバーキャッシュと競合すると、問題が発生することがあります。</p>";
-
-/* HTML info for the 'Open easy-rsa in Terminal' button. */
-"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblickは証明書と鍵を発行し維持するためにOpenVPNの開発者によって書かれたコマンドラインスクリプトである 'easy-rss'をカスタマイズしたバージョンを使用しています。</p><p>このボタンをクリックすることで、スクリプトを保存しているフォルダーを含むワーキングディレクトリを含んだ状態でOS Xのターミナルアプリが起動します。</p><p>スクリプトは通常、t ~/Library/Application Support/Tunnelblick/easy-rsaに保管されています。 'easy-rsaPath' を設定することによって代わりにTunnelblickのために使うパスを変更できます。 'easy-rsaPath'はabsolute pathであるか、'~'から始まら無ければならず, かつ親フォルダが存在していなければいけません。もし、フォルダがパス上に存在すればそれが使われます。もし存在しなければ、自動で作られ'easy-rsa'スクリプトはTunnelblickが起動された時にインストールされます。</p><p>'easy-rsa'の使い方については以下のリンクをご参照下さい。 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">自分自身の認証局（Certificate Authority）をセットアップし、証明書と鍵をOpenVPNのサーバーや複数のクライアントに発行する方法について。</a> [openvpn.net].</p><p>Tunnelblickのカスタマイズに付いてもっと知りたいときはフォルダに格納されているREADMEをお読み下さい。</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblickは%1$@に接続するために必要なシステム拡張を読み込むことができませんでした。</p><p>%2$@詳細な情報は%3$@ [%4$@]</p>";

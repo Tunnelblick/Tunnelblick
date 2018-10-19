@@ -896,6 +896,9 @@
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>مبني على تُنلـبليك، برنامج مجاني يمكن الحصول عليه من خلال <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN علامة مسجلة لشركة OpenVPN Technologies, Inc.";
 
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>لم تتم إستعادة إعدادات الشبكة بشكل صحيح بعد قطع الاتصال ب %@.</p><p>تحدث هذه المشكلة عادةً عند استخدام خيارات OpenVPN 'user nobody' و / أو 'group nobody'.</p><p>لإعادة إعدادات الشبكة, يجب عليك إعادة تشغيل الكمبيوتر.</p><p>لمنع هذا الخطأ في المستقبل, قم بحذف أسطر 'user nobody' و 'group nobody' من ملف إعدادات OpenVPN.</p>\n<p>أنظر<a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">مستخدم و مجموعة خيارات OpenVPN</a>[tunnelblick.net] للمزيد من المعلومات.</p></font>\n\n";
+
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>هذا الإصدار من Tunnelblick يرجع لـ%lu يوم.</p>\n<p>الرجاء إستخدام إصدار أحدث:</p>\n<ul><li>يدوياً من خلال الذهاب لقائمة 'الإعدادات' في Tunnelblick ثم 'تفاصيل شبكات VPN'؛ أو <br></li><li> من خلال تحميل آخر إصدار من الموقع <a href=\"https://tunnelblick.net/downloads.html\"> تحميل Tunnelblick\n</a>[tunnelblick.net].</li></ul>";
 
@@ -1179,12 +1182,6 @@
 "Fast User Switching" = "تبديل مستخدم بسرعة";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "الملف %@ يبدو تحت ترميز UTF-16. جميع ملفات OpenVPN لابد وان تكون تحت ترميز UTF-8 او ملفات نصوص عادية.";
-
-/* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "الملف %@ يبدو في صيغة 'rich text' ";
-
-/* Window text */
 "File '%@' contains one or more NUL characters." = "الملف '%@' يحتوي على رمز NUL واحد أو أكثر.";
 
 /* Window text */
@@ -1197,13 +1194,13 @@
 "File '%@' is missing" = "الملف \"%@\"مفقود";
 
 /* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "الملف '%@' ليس نصاً صرفاً و ليس ملفاً من نوع UTF-8.";
-
-/* Window text */
 "File '%@' is too short (%lu bytes)" = "الملف \"%1$@\" قصير جدا (%2$lu بايت)";
 
 /* Window text */
 "File is too large: %@" = "الملف جداً كبير :%@";
+
+/* Window text */
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "لكل من المستخدمين اللذين تريد استيراد إعداداتهم, اختر المستخدم في هذا الكمبيوتر اللذي سوف يستقبل هذه الإعدادات والخصائص.";
 
 /* Window text */
 "GB" = "قيقابايت";
@@ -1356,6 +1353,12 @@
 "One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "هناك واحد أو أكثر من إعدادات الـVPN التي يتم تثبيتها تتضمن إعدادات OpenVPN غير معرفة للبرنامج، ويمكن ان تسبب بعض المشاكل او تقوم بتشغيل بعض البرامج بصلاحيات متقدمة عند الاتصال.\n\nلا تقم بالتثبيت الا اذا كنت تثق فى مقدم تلك الاعدادات.\n\nهل تثق بمقدم تلك الاعدادات وتريد تثبيتها ؟\n\n";
 
 /* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "واحد أو أكثر من إعدادات VPN التي بتم تثبيتها تتضمن برامج لها صلاحية Root عندما تتصل إلى VPN. هذه البرامج هي جزء من الإعدادات وليست جزء من برنامج تُنلـبليك. لديهم الإستطاعة على السيطرة الكاملة على جهاز الكمبيوتر الخاص بك.\n\nيجب عليك أن لا تقم بتنصيب هذه الإعدادات إلا إذا كنت تثق بمن قام بكتابتها.\n\nهل تثق بمن قام بكتابة هذه الإعدادات اللتي تريد تنصيبها؟\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "واحد أو أكثر من إعدادات VPN التي بتم تثبيتها تتضمن برامج سوف يتم تشغيلها عندما تتصل إلى VPN. هذه البرامج هي جزء من الإعدادات وليست جزء من برنامج تُنلـبليك.\n\nيجب عليك تنصيب هذه الإعدادات فقط إذا كنت تثق بمن قام بكتابتها.\n\nهل تثق بمن قام بكتابة هذه الإعدادات اللتي تريد تنصيبها؟\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "هناك اتصال VPN جار الآن. برجاء اغلاق جميع اتصالات VPN واغلاق البرنامج قبل المواصلة.";
 
 /* Window text */
@@ -1464,9 +1467,6 @@
 "That name is being used.\n\n" = "استخدم الإسم من قبل.";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "خاصية '%@' لـOpenVPN غير مسموحة في نظام OS X. هذه الخاصة متوفرة في Windows فقط.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "خاصية '%@' لـOpenVPN غير مسموحة خلال استعمال تُنلـبليك.";
 
 /* Window text */
@@ -1486,9 +1486,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "ملف اعدادات OpenVPN ل \"%@\" قد تم تحديثه بعد ان تم حمايته.\nهل تريد ان تحمي الاعدادات التي تم تغييرها او هل تريد الرجوع الى اخر نسخة اعدادات محمية؟\n\n";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "ملف اعدادات اتصال OpenVPN %1$@ يحتوي على الاعداد %2$@، هذا الاعداد خاص بنظام التشغيل Windows ولا يمكن استخدامه في نظام التشغيل OS X.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "يحتوي سجل OpenVPN على الرسالة التالية:\n\n%1$@.%2$@";
@@ -2021,6 +2018,9 @@
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "في حالة التحقق من <p><strong> فان Tunnelblick سوف ترسل تعليمات الى OpenVPN لنقل كل IPv4 ترافيك خلال شبكة ال VPN.</p>\n";
 
+/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>عند إختيارها</strong>, تُنلـبليك سيحتاج إذن مسؤول جهاز الكمبيوتر لإجراء تغييرات على ملفات المفتاح و الشهادة.</p>\n<p><strong>عند عدم إختيارها</strong>, سوف يسمح لأي مستخدم عادي بإجراء تغيرات على ملفات المفتاح والشهادة</p><p><strong>ملاحظة: إذن مدير جهاز الكمبيوتر مطلوب هنا من أجل تغير الإعدادات.</strong></p>";
+
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<P> على <strong> عندما فحص </ قوي>، Tunnelblick سوف يراقب عن والاستجابة للتغيرات في إعدادات الشبكة (على سبيل المثال، والتغيرات الناجمة عن تجديد DHCP أو تبديل وصلات الانترنت) في محاولة للحفاظ على VPN اتصال. الإجراءات الافتراضية Tunnelblick عند تغيير إعدادات الشبكة عادة تعمل بشكل جيد، ولكن يمكنك تحديد إجراءات مختلفة على علامة التبويب \"أثناء الاتصال\" من \"خيارات متقدمة\" نافذة الإعدادات. </ P>\n<P> على <strong> عندما لم يتم التحقق </ قوي>، سوف Tunnelblick تجاهل التغييرات الشبكة. </ P>\n<P> <strong> يتم تعطيل </ strong> عند \"تعيين DNS / WINS\" لم يتم تعيين خانة الاختيار هذه إلى 'خادم الأسماء تعيين' أو 'تعيين خادم الأسماء (3.1). </ P>";
 
@@ -2044,6 +2044,9 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>إذا انتقي هذا الخيار</strong>، لن يكون بالإمكان التحقق من التحديثات أو من العناوين IP مهما كانت الإعدادات الأخرى. ملحوظة: هذان الإجراءان يستوجبان الإتصال بموقع Tunnelblick.</p>\n<p><strong>إذا لم يكن مُؤَشّر عليْهِا</strong>، سيكون بالإمكان التحقق من التحديثات إذا كانت مُؤَشّر عليْهِا أسفله و التحقق من تغير العنوان IP ستفعل إذا احتاجت إعدادات الإتصال لذلك.</p><p>أنظر <a href=\"https://tunnelblick.net/cPrivacy.html\">الخصوصية والسلامة</a> [tunnelblick.net] للتفاصيل.</p><p>&nbsp;</p>u";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>عند إختيارها</strong>, يتم وضع أيقونة تُنلـبليك بالقرب من أيقونة Spotlight::</p>\n<p>%1$@</p>\n<p><strong>عند عدم إختيارها</strong>, يتم وضع أيقونة تُنلـبليك بشكل طبيعي:</p>\n<p>%2$@</p>\n<p><strong>مربع الاختيار هذا معطل</strong> على نظام التشغيل macOS Sierra و أعلى لأنه غير مطلوب, وعلى الأنظمة التي من المعروف أنها تسبب مشاكل.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">مزيد من المعلومات</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>عند الإختيار</strong>، سوف تظهر نافذة حال الإتصال بشبكات ال-VPN حتى في حل عدم الإتصال.</p><p><strong> علبة الإختيار غير مفعلة</strong> عند إختيار 'عدم الإظهار' سابقاً. </p>";
@@ -2078,17 +2081,26 @@
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>يقوم بنسخ الجزء الأخير من سجل شاشة التحكم إلى الحافظة لتتمكن من إلصاقه في رسالة إلكترونية أو في ملف آخر.</p><p>يحول السجل على تفاصيل عمليات Tunnelblick و OpenVPN. ويتضمن تقارير الحالة الطبيعية و تقارير الأخطاء مفصلة التي تحول كثرة معلوماتها من إظهارها للمستخدم في نافذة حوال تقليدية.</p>";
 
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>قم بتصدير إعدادات تُنلـبليك ، بما في ذلك كافة التكوينات والإعدادات لجميع مستخدمي هذا الكمبيوتر ، إلى ملف مضغوط على سطح المكتب.</p><ul><li>بيانات الاعتماد المحفوظة في Keychain <strong>لا</strong> يتم تصديرها.</li><li>قد يستغرق التصدير وقتًا طويلاً.</li></ul>";
+
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>يقوم بفتح صفحة موقع برنامج Tunnelblick في متصفح الانترنت تحتوي على معلومات عن طريقة إلغاء تثبيت البرنامج.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>يقوم هذا الزر بفتح نافذة تحوي إعدادات إضافية.</p><p>أي تغييرات هنا سيتم تطبيقها على كل الإعدادات التي تم اختيارها في نافذة \"تفاصيل ال VPN \".</p>";
 
-/* HTML info for the 'Quit All OpenVPN Processes' button. */
-"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p>يقوم بإنهاء جميع عمليات OpenVPN الفعالة، بما فيها الاتصالات التي لم يقم Tunnelblick بتشغيلها. عليك استخدام زر \"قطع الاتصال\" أو زر \"قطع جميع الاتصالات\" من برنامج Tunnelblick وأوامر القائمة لإيقاف الاعدادات المتصلة باستخدام البرنامج.</p><p>إن الضغط على هذا الزر يقوم بإرسال إشارة \"SIGTERM\" إلى كل العمليات التي تحمل اسم \"openvpn\". عادة يؤدي هذا الأمر إلى إيقاف جميع اتصالات OpenVPN وإغلاقه. إذا لم يقم هذا الزر بإنهاء جميع اتصالات OpenVPN المشغلة، قد يتوجب عليك استخدام برنامج Activity Monitor الخاص بنظام الماك لإجبار البرنامج على التوقف.</p>";
-
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>استعادة التحذيرات التي تم منعها من خلال مربع الاختيار \"عدم التحذير من هذا مرة أخرى\"</p>";
+
+/* HTML info for the 'VPN log level' button. */
+"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>يقوم بتحديد مقدار التسجيل الذي يتم بواسطة تُنلـبليك و OpenVPN.</p>";
+
+/* HTML info for the 'Icon' button. */
+"<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>يقوم بتحديد الأيقونة التي يجب أن يعرضها تُنلـبليك في شريط القوائم.\n</p>";
+
+/* HTML info for the 'Maximum log display size' button. */
+"<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>يقوم بتحديد الكميّة القصوى لمقدار التخزين المطلوب استخدامه لعرض سجل VPN.\n</p>";
 
 /* HTML info for the button for selecting which screen to show status windows. */
 "<p>Specifies the screen on which Tunnelblick should display VPN status windows.</p>" = "<p>المرجو تحديد الشاشة لتمكين TunnelBlick من إظهار شاشات وضعيات p/>.VPN>";
@@ -2098,9 +2110,6 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p> وذاكرة التخزين المؤقت DNS يحتوي على نسخ من نظام أسماء النطاقات (نظام اسم المجال) المعلومات. </ P>\n<P> على <strong> عندما فحص </ strong>، سيتم مسح ذاكرة التخزين المؤقت DNS (مسح) بعد الاتصال أو قطع الاتصال. سيتم تنفيذ كافة عمليات البحث DNS من قبل الملقم الاسم المحدد من قبل إعداد VPN. </ P>\n<P> على <strong> عندما لم يتم التحقق </ strong>، لن يتم مسح ذاكرة التخزين المؤقت DNS. هذا يمكن أن يسبب مشاكل إذا كانت هناك صراعات الاسم بين اسم الخادم التي يحددها إعداد VPN والخادم اسم ما قبل VPN وإذا تم تخزينها مؤقتا إدخالات قبل VPN.\n</p>";
-
-/* HTML info for the 'Open easy-rsa in Terminal' button. */
-"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>	 Tunnelblick يتضمن إصداراً حسب الطلب ل 'easy-rsa' و التي هي مجموعة من الرموز على واجهة سطر الأوامر مكتوبة من مجموعة من مطوري OpenVPN، والتي تمكن من إنشاء وصيانة الشواهد والمفاتيح.</p><p>انقر على هذا الزر و شغل macOS Terminal واضبط الملف الجاري على الملف الذي يحتوي على الرموز.</p><p>الرموز موجودة عادة داخل الملف ~/Library/Application Support/Tunnelblick/easy-rsa. من الممكن أن تحتوي الإعدادات المفضلة 'easy-rsaPath' الطريق نحو ملف يستعمله Tunnelblick عوض الملف المفترض. 'easy-rsaPath' يجب أن يكون طريقاً مطلقا أو يبدأ ب '~'، والملف الأم للطريق يجب أن يكون موجوداً. إذا كان هناك ملف في الطريق المعين فسوف يستعمل، وإذا لا يكون موجوداً فسيخلق و ستثبت فيه رموز easy-rsa عندما يشغل Tunnelblick.</p><p> للمزيد من المعلومات حول easy-rsa، أنظر <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">أعدّ (Certificate Authority (CA خاصتك و اِستحدث الشواهد والمفاتيح لخادم OpenVPN و عملاء متعددون.</a> [openvpn.net].</p><p>لمزيد من المعلومات حول تكييف easy-rsa ل Tunnelblick، أنظر ملف README المتواجد داخل ملف التطبيق.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p> تعذر على تُنلـبليك تحميل إضافة نظام مطلوبة للاتصال ب%1$@.</p><p>%2$@مزيد من المعلومات %3$@ [%4$@]</p>";

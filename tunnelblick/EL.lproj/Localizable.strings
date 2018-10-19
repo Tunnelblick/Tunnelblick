@@ -1170,12 +1170,6 @@
 "Fast User Switching" = "Γρήγορη αλλαγή χρηστών";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Το αρχείο '%@' φαίνεται να είναι κωδικοποιημένο σε UTF-16. Όλα τα αρχεία που συσχετίζονται με το OpenVPN πρέπει να ειναι 'απλό κείμενο' ή αρχεία 'UTF-8'.";
-
-/* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Το αρχείο '%@' φαίνεται να είναι σε μορφή \"εμπλουτισμένου κειμένου\" επειδή ξεκινά με τον χαρακτήρα \"{\". Όλα τα αρχεία που σχετίζονται με OpenVPN πρέπει να είναι σε \"απλό κείμενο\" ή αρχεία \"UTF-8\".";
-
-/* Window text */
 "File '%@' contains one or more NUL characters." = "Το αρχείο '%@' περιέχει ένα ή περισσότερους NULL χαρακτήρες.";
 
 /* Window text */
@@ -1186,9 +1180,6 @@
 
 /* Window text */
 "File '%@' is missing" = "Το αρχείο '%@' λείπει";
-
-/* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "Το αρχείο '%@' δεν είναι απλό αρχείο κειμένου ούτε αρχείο UTF-8.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "Το αρχείο '%1$@' είναι πολύ μικρό (%2$lu bytes)";
@@ -1467,9 +1458,6 @@
 "That name is being used.\n\n" = "Αυτό το όνομα χρησιμοποιείτε.\n\n";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Η επιλογή '%@' του OpenVPN δεν επιτρέπεται στο OS X. Πρόκειται για μια επιλογή για «Windows μόνο».";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Η επιλογή '%@' του OpenVPN δεν επιτρέπεται κατά τη χρήση του Tunnelblick.";
 
 /* Window text */
@@ -1489,9 +1477,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Το αρχείο παραμετροποίησης OpenVPN για '%@' τροποποιήθηκε αφού είχε ασφαλιστεί.\n\nΕπιθυμείτε να ασφαλίσετε την τροποποιημένη παραμετροποίηση ή να επαναφέρετε την τελευταία ασφαλή παραμετροποίηση;\n\n";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "Το αρχείο παραμέτρων %1$@ του OpenVPN περιέχει την επιλογή '%2$@', η οποία είναι για Windows-μόνο. Δεν μπορεί να χρησιμοποιηθεί στο OS X.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Η καταγραφή συμβάντων OpenVPN περιλαμβάνει το ακόλουθω μήνυμα: \n\n\"%1$@\".%2$@";
@@ -2120,9 +2105,6 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p> Έλεγχοι για ενημερώσεις στην εφαρμογή Tunnelblick. </p> <p> Πρόσβαση στον ιστότοπο Tunnelblick. για περισσότερες λεπτομέρειες, ανατρέξτε στο <a href=\"https://tunnelblick.net/cPrivacy.html\"> Απόρρητο και Ασφάλεια </a> [tunnelblick.net]. </p> <p> Επίσης, ελέγχεται για ενημερώσεις σε διαμορφώσεις, εάν ο πάροχος υπηρεσιών VPN υλοποιεί τη συγκεκριμένη λειτουργία. </p>";
 
-/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
-"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addreses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p> Αντιγράφει πληροφορίες στο Πρόχειρο για να βοηθήσει στη διάγνωση προβλημάτων. </p> <p> Οι πληροφορίες περιλαμβάνουν τις εκδόσεις λογισμικού και τις ρυθμίσεις, το αρχείο ρυθμίσεων OpenVPN, τις ρυθμίσεις δικτύου και άλλα. </p> <p> αλλά συμπεριλαμβάνονται δεδομένα όπως οι διευθύνσεις IP και οι διευθύνσεις URL τις οποίες <em> μπορεί να </em> να είναι εμπιστευτικές. Θα πρέπει να εξετάσετε τις πληροφορίες και να αφαιρέσετε οτιδήποτε θέλετε να φυλάσσεται μυστικό, πριν να το στείλετε σε ένα ηλεκτρονικό ταχυδρομείο ή να το δημοσιεύσετε δημοσίως. </p>";
-
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p> Αντιγράφει το τελευταίο τμήμα του αρχείου καταγραφής κονσόλας στο Πρόχειρο, ώστε να μπορεί να επικολληθεί σε ένα μήνυμα ηλεκτρονικού ταχυδρομείου ή σε άλλο έγγραφο. </p> <p> Το αρχείο καταγραφής περιέχει λεπτομέρειες για τις λειτουργίες του Tunnelblick και του OpenVPN. Περιλαμβάνει κανονικά μηνύματα κατάστασης και λεπτομερή μηνύματα λάθους που είναι πολύ μεγάλα για να παρουσιαστούν στο χρήστη σε ένα κανονικό παράθυρο διαλόγου. </p>";
 
@@ -2132,9 +2114,6 @@
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p> Ανοίγει ένα παράθυρο με πρόσθετες ρυθμίσεις. </p> <p> Οποιεσδήποτε αλλαγές θα εφαρμοστούν σε όλες τις διαμορφώσεις που έχουν επιλεγεί στο παράθυρο \"Λεπτομέρειες VPN\". </p>";
 
-/* HTML info for the 'Quit All OpenVPN Processes' button. */
-"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p> Κλείνει όλες τις διαδικασίες OpenVPN, συμπεριλαμβανομένων αυτών που δεν ξεκίνησαν από το Tunnelblick. Θα πρέπει να χρησιμοποιήσετε τα κουμπιά \"Αποσύνδεση\" ή \"Αποσύνδεση όλων\" του Tunnelblick και τις εντολές μενού για να αποσυνδέσετε τις διαμορφώσεις που είχαν συνδεθεί χρησιμοποιώντας το Tunnelblick. </p> <p> Κάνοντας κλικ σε αυτό το κουμπί αποστέλλεται ένα σήμα SIGTERM σε όλες τις διαδικασίες που ονομάζονται \"openvpn\". Κανονικά, αυτό θα έχει ως αποτέλεσμα το OpenVPN να κλείνει όλες τις συνδέσεις και να κλείνει. Αν αυτό το κουμπί δεν τερματίσει όλες τις διαδικασίες OpenVPN, μπορεί να χρειαστεί να χρησιμοποιήσετε την εφαρμογή Παρακολούθηση δραστηριότητας OS X σε 'Force Quit' της διαδικασίας. </p>";
-
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Επαναφέρει τις προειδοποιήσεις που έχουν ανασταλεί από το πλαίσιο ελέγχου \"Μην προειδοποιείτε για αυτό ξανά\".</p>";
 
@@ -2143,9 +2122,6 @@
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Καθορίζει το εικονίδιο το οποίο το Tunnelblick θα εμφανίζει στη γραμμή μενού.</p>";
-
-/* HTML info for the 'Keyboard shortcut' button. */
-"<p>Specifies the keys to press to invoke Tunneblick's main menu.</p>" = "<p>Καθορίζει τα πλήκτρα που πρέπει να πατήσετε για να καλέσετε το κύριο μενού του Tunneblick.</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Καθορίζει τη μέγιστη ποσότητα αποθηκευτικού χώρου που θα χρησιμοποιηθεί για την εμφάνιση του αρχείου καταγραφής VPN.</p>";
@@ -2158,9 +2134,6 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Η προσωρινή μνήμη DNS περιέχει αντίγραφα πληροφοριών DNS (Σύστημα Ονομάτων Τομέων).</p>\n<p><strong>Όταν είναι ενεργή η επιλογή</strong>, η προσωρινή μνήμη DNS θα εκκαθαρίζεται μετά από κάθε σύνδεση ή αποσύνδεση. Όλες οι επιλύσεις διευθύνσεων DNS θα εκτελούνται από τον εξυπηρετητή ονομάτων που έχει δηλωθεί στις ρυθμίσεις του VPN.</p>\n<p><strong>Όταν είναι ανενεργή η επιλογή</strong>, η προσωρινή μνήμη DNS δεν θα εκκαθαρίζεται. Αυτό μπορεί να δημιουργήσει προβλήματα αν υπάρχουν διενέξεις ονομάτων μεταξύ του εξυπηρετητή ονομάτων που έχει δηλωθεί στις ρυθμίσεις του προ-VPN και του εξυπηρετητή ονοματών και αν οι προ-VPN καταχωρήσεις ονομάτων έχουν αποθηκευτεί στην προσωρινή μνήμη.</p>";
-
-/* HTML info for the 'Open easy-rsa in Terminal' button. */
-"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Το Tunnelblick περιλαμβάνει μια προσαρμοσμένη έκδοση του 'easy-rsa', το οποίο είναι ένα σύνολο μακροεντολών γραμμής εντολών γραμμένο από τους προγραμματιστές του OpenVPN για τη δημιουργία και τη διατήρηση πιστοποιητικών και κλειδιών.</p>\n<p>Κάνοντας κλικ σε αυτό το κουμπί ξεκινά η εφαρμογή τερματικού OS X με τον κατάλογο εργασίας που έχει οριστεί στο φάκελο που περιέχει τον κώδικα.</p><p>Ο κώδικας βρίσκεται κανονικά στο φάκελο της εφαρμογής ~/Library/Application Support/Tunnelblick/easy-rsa. Μια προτίμηση \"easy-rsaPath\" μπορεί να περιέχει τη διαδρομή σε ένα φάκελο που θα χρησιμοποιήσει το Tunnelblick. Το 'easy-rsaPath' πρέπει να είναι μια απόλυτη διαδρομή ή να ξεκινά με ένα '~', και ο γονικός φάκελος της διαδρομής πρέπει να υπάρχει. Εάν υπάρχει ένας φάκελος στη διαδρομή, θα χρησιμοποιηθεί. αν δεν υπάρχει, θα δημιουργηθεί και μακροεντολή easy-rsa θα εγκατασταθεί σε αυτό όταν ξεκινήσει το Tunnelblick.</p><p>Για πληροφορίες σχετικά με τη χρήση του easy-rsa, δείτε <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\"> Για δημιουργία δικών σας Certificate Authority (CA) και δημιουργία πιστοποιητικών και κλειδιών για διακομιστή OpenVPN και πολλαπλούς πελάτες</a>[openvpn.net]</p><p>Για λεπτομέρειες σχετικά με τις προσαρμογές του Tunnelblick του easy-rsa, ανατρέξτε στο αρχείο README που βρίσκεται στο φάκελο.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Το Tunnelblick δεν μπόρεσε να φορτώσει μια επέκταση συστήματος που απαιτείται για να συνδεθεί με το %1$@.</p>\n<p>%2$@Περισσότερες πληροφορίες%3$@ [%4$@]</p>";

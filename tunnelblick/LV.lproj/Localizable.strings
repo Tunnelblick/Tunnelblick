@@ -1116,12 +1116,6 @@
 "Fast User Switching" = "Ātrā lietotāju pārslēgšanās";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Šķiet, ka datne '%@' ir UTF-16 kodējumā. Visām OpenVPN datnēm ir jābūt neformatēta teksta (Plain Text) formātā vai UTF-8 kodējumā.";
-
-/* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Šķiet, fails '%@' ir RTF formātā (Rich Text Format), jo tā sākas ar rakstzīmi '{'. Visiem OpenVPN failiem ir jābūt neformatēta teksta (Plain Text) formātā vai UTF-8 kodējumā.";
-
-/* Window text */
 "File '%@' contains one or more NUL characters." = "Fails '%@' satur vienu vai vairākus NUL simbolus.";
 
 /* Window text */
@@ -1132,9 +1126,6 @@
 
 /* Window text */
 "File '%@' is missing" = "Datne '%@' nav atrodama";
-
-/* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "Fails '%@' nav kā teksta vai UTF-8 kodējuma fails.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "Datne '%1$@' ir pārāk maza (%2$lu baiti)";
@@ -1392,9 +1383,6 @@
 "That name is being used.\n\n" = "Šāds nosaukums jau eksistē.\n\n";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "'%@' OpenVPN opcija nav atļauta OS X. Tā ir tikai Windows opcija.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "'%@' OpenVPN opcija nav atļauta, kad tiek izmantots Tunnelblick.";
 
 /* Window text */
@@ -1411,9 +1399,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' izvēlei ir jābūt virkņu masīvam";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "OpenVPN konfigurācijas datne %1$@ satur tikai Windows platformai paredzētu iestatījumu '%2$@'. Tā nevar tikt izmantota OS X.";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "OpenVPN žurnāls vēl neeksistē vai ir dzēsts.";

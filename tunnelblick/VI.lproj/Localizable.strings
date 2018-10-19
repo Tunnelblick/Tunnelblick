@@ -1164,12 +1164,6 @@
 "Fast User Switching" = "Chuyển Đổi Nhanh Người Dùng";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Tập tin '%@' đang được định dạng bằng UTF-16. Tất cả các tập tin liên quan đến OpenVPN phải ở dạng văn bản thuần tuý hoặc định dạng bằng UTF-8.";
-
-/* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Tập tin '%@' đang được định dạng là 'văn bản đa dạng' bởi vì nó bắt đầu bằng một ký tự '{'. Mọi tập tin liên quan đến OpenVPN phải ở dạng 'văn bản thuần tuý' hay định dạng bằng 'UTF-8'.";
-
-/* Window text */
 "File '%@' contains one or more NUL characters." = "Tập tin '%@' có chứa một hay nhiều ký tự NUL.";
 
 /* Window text */
@@ -1180,9 +1174,6 @@
 
 /* Window text */
 "File '%@' is missing" = "Tập tin '%@' bị thiếu";
-
-/* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "Tập tin '%@' không phải là một văn bản thuần tuý hoặc được định dạng bằng UTF-8.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "Tập tin '%1$@' quá ngắn (%2$lu bytes)";
@@ -1449,9 +1440,6 @@
 "That name is being used.\n\n" = "Tên này đã được sử dụng.\n\n";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Tuỳ chọn '%@' của OpenVPN không hợp lệ trên OS X. Đây là tuỳ chọn 'chỉ cho Windows'.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Tuỳ chọn '%@' của OpenVPN không hợp lệ khi sử dụng Tunnelblick.";
 
 /* Window text */
@@ -1471,9 +1459,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Tập tin cấu hình OpenVPN cho '%@' đã bị chỉnh sửa sau lần cuối nó mà nó được bảo mật.\n\nBạn có muốn bảo mật cấu hình đã bị chỉnh sửa hay đảo ngược về cấu hình lần cuối được bảo mật?\n\n";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "Tập tin cấu hình OpenVPN trong %1$@ có chứa một tuỳ chọn '%2$@', là một tuỳ chọn chỉ dành cho Windows. Nó không thể sử dụng được trên OS X.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Nhật ký của OpenVPN có chứa thông điệp sau: \n\n\"%1$@\".%2$@";

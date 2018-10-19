@@ -1182,12 +1182,6 @@
 "Fast User Switching" = "快速用户转换";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "文件'%@' 以 UTF-16 编码。 所有 OpenVPN 相关的文件都必须是纯文本或 UTF-8 编码格式。";
-
-/* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "文件 '%@' 的开始字符是' {'，看起来是富文本格式。所有OpenVPN的相关文件必须是纯文本或 utf-8 文件。";
-
-/* Window text */
 "File '%@' contains one or more NUL characters." = "文件 ‘%@’ 包含空字符。";
 
 /* Window text */
@@ -1198,9 +1192,6 @@
 
 /* Window text */
 "File '%@' is missing" = "文件 '%@' 不存在";
-
-/* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "文件 ‘%@’ 不是纯文本或 UTF-8 编码文件。";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "文件 '%1$@' 长度太短 (%2$lu 字节)";
@@ -1485,9 +1476,6 @@
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "%1$@ 系统文件夹 (%2$@) 不安全。\n\n在解决这个问题之前，Tunnelblick 和其他程序可能无法正常工作。\n\n控制台日志里有更详细的信息。";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "OpenVPN 的选项 '%@' 在 OS X 中不可用，它是一个仅用于 Windows 的选项.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Tunnelblick 禁用 OpenVPN 选项 '%@'";
 
 /* Window text */
@@ -1507,9 +1495,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "'%@' 的配置文件在上次锁定后被修改。\n\n您想锁定被修改的配置还是归回上次锁定的配置？\n\n";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "在OpenVPN 配置文件 %1$@ 中包含 ' %2$@' 选项。它是一个仅限于Windows 使用的选项，不能用在 OS X 上。";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN 日志包括以下信息：\n\n\"%1$@\".%2$@";
@@ -2027,9 +2012,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " 复制";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be be removed in a later version\n\n" = " • '%1$@' 这个选项在 OpenVPN %2$@ 版本的配置中是过时的，已经或将会在未来的版本中移除。\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' 这个选项在 OpenVPN %2$@ 版本的配置中是过时的，已经在 OpenVPN %3$@ 版本中移除。\n\n";
 
@@ -2156,9 +2138,6 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>检查Tunnelblick程序的更新。</p><p>详情请参考Tunnelblick网站中的<a href=\"https://tunnelblick.net/cPrivacy.html\">隐私和安全</a> [tunnelblick.net]。</p><p>如果你的VPN服务商实现了这个特性也请检查配置的更新。</p>";
 
-/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
-"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addreses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>复制有助诊断问题的信息到剪贴板。</p><p>该信息包括软件版本与选项，OpenVPN 配置文件，网络选项，等等。</p><p>保密的认证信息不会包括，但是会包括<em>也许</em>秘密的信息，如 IP 地址和网址。在发电子邮件或公开发帖前，你应该检查这个信息，去除要保密的部分。</p>";
-
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>复制控制台日志的最后一部分，以用于粘贴到邮件或者其他的文档中。</p><p>日志中包含Tunnelblick和OpenVPN的详细操作信息。其中包含一般状态信息和详细错误描述信息，因为太长而不适合展示在一般的窗口中。</p>";
 
@@ -2171,9 +2150,6 @@
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>打开更多设置的窗口。</p><p>任何设置都会对‘VPN详情’ 窗口中选中的配置生效。</p>";
 
-/* HTML info for the 'Quit All OpenVPN Processes' button. */
-"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p>退出所有OpenVPN 进程，包括没有被Tunnelblick 打开的。对于Tunnelblick已经链接的配置，你应该使用使用‘断开’ 或者‘断开所有’ 按钮 和菜单命令来断开链接。</p><p>点击此按钮将给所有命名为'openvpn'的进程发送一个 'SIGTERM' 信号。一般情况下这会关闭所有链接并退出OpenVPN。如果此按钮没有退出所有OpenVPN进程，你需要使用OS X的活动监视器来‘强制退出’ 没有退出的进程。</p>";
-
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>重置被‘不再显示这个警告’ 复选框阻挡了的警告。</p>";
 
@@ -2182,9 +2158,6 @@
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>指定 Tunnelblick 在菜单行要显示的图标。</p>";
-
-/* HTML info for the 'Keyboard shortcut' button. */
-"<p>Specifies the keys to press to invoke Tunneblick's main menu.</p>" = "<p>指定调用 Tunnelblick 的主要菜单要按的按键。</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>指定显示 VPN 日记的最大储存量。</p>";
@@ -2197,9 +2170,6 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 缓存包含了 DNS （域名系统）的信息的副本。</p>\n<p><strong>当勾选时</strong>，在连接时或者断开连接时，DNS 缓存将会被刷新（清除）。将会使用 VPN 设置中的域名服务器去执行所有的 DNS 查询。</p>\n<p><strong>当没有被勾选时</strong>，DNS 缓存不会被刷新。这样会造成一些问题，如果由 VPN 设置的域名服务器与拨通 VPN 之前的域名服务器查询出来的结果不一样，而之前的结果被缓存起来了。</p>";
-
-/* HTML info for the 'Open easy-rsa in Terminal' button. */
-"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick包含了一个自定义版本的'easy-rsa'，它是一组OpenVPN开发者编写的用来创建和维护证书和秘钥的命令行脚本。</p><p>点击此按钮将启动OS X的命令行程序并将包含这些脚本的目录设置为工作目录。</p><p>这组脚本一般放置在 ~/Library/Application Support/Tunnelblick/easy-rsa 文件夹中。如果有'easy-rsaPath' 设置，Tunnelblick会使用这个设置中的目录查找这些脚本。'easy-rsaPath' 设置必须是绝对路径或者以 '~' 开头的路径， 并且此文件夹的父级必须存在。Tunnelblick启动的时候如果设置包含的路径中的文件夹已经存在，它会被直接使用，如果不存在，它会被创建并将 easy-rsa 脚本安装到其中。</p><p>关于easy-rsa 的详细信息请参见 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">设置你的身份认证机构 (CA) 并给OpenVPN服务器和客户端生成证书和秘钥</a> [openvpn.net]。</p><p>关于Tunnelblick 的自定义easy-rsa信息请参见文件夹中的README文件。</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>连接到 %1$@ 需要加载一个系统扩展，但当前 Tunnelblick 无法加载该系统扩展</p><p>%2$@更多信息%3$@[%4$@]</p>";

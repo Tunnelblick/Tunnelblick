@@ -1101,9 +1101,6 @@
 "Fast User Switching" = "Sürətli İstifadəçi Dəyişməsi";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "%@ faylı UTF-16 kodlaşmasını keçib. Bütün OpenVPN ilə bağlı faylları ancaq adi mətn və ya UTF-8 faylları ola bilərlər.";
-
-/* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "%@ faylı \"/\" işarəsi ilə bitir, bu icazəli deyil.";
 
 /* Window text */
@@ -1111,9 +1108,6 @@
 
 /* Window text */
 "File '%@' is missing" = "%@ faylı tapılmır";
-
-/* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "Fayl '%@' mətn faylı və ya UTF-8 faylı deyil.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "%1$@ faylı çox qısadır (%2$lu bayt)";
@@ -1356,9 +1350,6 @@
 "That name is being used.\n\n" = "Bu ad istifadə olunur.\n\n";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "%@ OpenVPN seçimi OS X-də istifadə oluna bilməz. Bu yalnız 'Windows'-da istifadə olunan seçimdir.";
-
-/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "%@ OpenVPN seçimi Tunnelblicki istifadə etdikdə icazəli deyil.";
 
 /* Window text */
@@ -1375,9 +1366,6 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' üstünlüyü çox şərtli siralardan ibarət olmalıdır";
-
-/* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "%1$@ yerləşən OpenVPN konfiqurasiya faylın içində %2$@ seçimi vardır, hansı ki, yalnız Windows-a aid seçimdir. O OS X-də istifadə oluna bilməz.";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "OpenVPN loqu mövcud deyil və ya silinib.";

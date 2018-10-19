@@ -1011,9 +1011,6 @@
 "Fast User Switching" = "Skipt um notanda";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Skráin „%@“ virðist vera kóðuð í UTF-16. Allar OpenVPN-tengdar skrár verða að vera venjulegur texti eða kóðaðar í UTF-8.";
-
-/* Window text */
 "File '%@' contains one or more NUL characters." = "Skráin „%@“ inniheldur einn eða fleiri NUL-stafi.";
 
 /* Window text */
@@ -1024,9 +1021,6 @@
 
 /* Window text */
 "File '%@' is missing" = "Skrána „%@“ vantar";
-
-/* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "Skráin „%@“ er ekki venjuleg textaskrá eða UTF-8-skrá.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "Skráin „%1$@“ er of stutt (%2$lu bitar)";
@@ -1297,9 +1291,6 @@
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Tilgreinir hvaða táknmynd Tunnelblick á að birta í valmyndastikunni.</p>";
-
-/* HTML info for the 'Keyboard shortcut' button. */
-"<p>Specifies the keys to press to invoke Tunneblick's main menu.</p>" = "<p>Tilgreinir á hvaða hnappa á að ýta til að opna aðalvalmynd Tunnelblick.</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Tilgreinir hámarksgeymsluplássið sem nota má til að geyma VPN-atburðskrána.</p>";

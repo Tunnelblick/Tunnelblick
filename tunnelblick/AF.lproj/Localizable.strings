@@ -420,6 +420,9 @@
 "Do not warn about this again" = "Moenie weer waarsku nie";
 
 /* Checkbox name */
+"Do not warn about this for %lu days" = "Moenie vir %lu dae hieroor waarsku nie";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Skakel IPv6 aan (tap alleenlik)";
 
 /* Checkbox name */
