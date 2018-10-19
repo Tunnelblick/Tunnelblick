@@ -35,7 +35,7 @@
 # Make sure we have a recent version of Xcode
 if [ ${XCODE_VERSION_ACTUAL} -lt 0731 ] ; then
   outer_dir="${PWD%/*}"
-  echo "error: Tunnelblick must be built with Xcode 6.3 or higher. This version of Tunnelblick.xcodeproj is for Xcode 7.3.1 or higher on OS X 10.10.3 or higher. See ${outer_dir}/README.txt"
+  echo "error: Tunnelblick must be built with Xcode 6.3 or higher. This version of Tunnelblick.xcodeproj is for Xcode 7.3.1 or higher on macOS 10.10.3 or higher. See ${outer_dir}/README.txt"
   exit 1
 fi
 

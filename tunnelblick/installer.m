@@ -519,7 +519,7 @@ void  loadLaunchDaemonUsingSMJobSubmit(NSDictionary * newPlistContents) {
 void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
 	
 	// 'runningOnSnowLeopardOrNewer' is not in sharedRoutines, so we don't use it -- we load the launch daemon the old way, with 'launchctl load'
-	// Left the new code in to make it easy to implement the new way -- with 'SMJobSubmit()' on 10.6.8 and higher -- in case a later version of OS X messes with 'launchctl load'
+	// Left the new code in to make it easy to implement the new way -- with 'SMJobSubmit()' on 10.6.8 and higher -- in case a later version of macOS messes with 'launchctl load'
 	// To implement the new way, too, move 'runningOnSnowLeopardOrNewer' to sharedRoutines and un-comment the code below to use 'loadLaunchDaemonUsingSMJobSubmit'.
     //
     // UPDATE 2016-07-03: By now (when we are removing 10.4 and 10.5 code), SMJobSubmit is deprecated (thanks, Apple!), so we aren't bothering to use it,

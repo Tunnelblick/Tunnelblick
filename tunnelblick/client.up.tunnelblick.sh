@@ -97,14 +97,14 @@ run_prefix_or_suffix()
 ##########################################################################################
 disable_ipv6() {
 
-# Disables IPv6 on each enabled (active) network service on which it is set to the OS X default "IPv6 Automatic".
+# Disables IPv6 on each enabled (active) network service on which it is set to the macOS default "IPv6 Automatic".
 #
 # For each such service, outputs a line with the name of the service.
 # (A separate line is output for each name because a name may include spaces.)
 #
 # The 'restore_ipv6' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
 #
-# NOTE: Done only for enabled services because some versions of OS X enable the service if this IPv6 setting is changed.
+# NOTE: Done only for enabled services because some versions of macOS enable the service if this IPv6 setting is changed.
 
     # Get list of services and remove the first line which contains a heading
     local dipv6_services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d')"
@@ -135,7 +135,7 @@ disable_ipv6() {
 # Throughout this routine:
 #            MAN_ is a prefix for manually set parameters
 #            DYN_ is a prefix for dynamically set parameters (by a "push", config file, or command line option)
-#            CUR_ is a prefix for the current parameters (as arbitrated by OS X between manual and DHCP data)
+#            CUR_ is a prefix for the current parameters (as arbitrated by macOS between manual and DHCP data)
 #            FIN_ is a prefix for the parameters we want to end up with
 #            SKP_ is a prefix for an empty string or a "#" used to control execution of statements that set parameters in scutil
 #
@@ -277,7 +277,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	logDebugMessage "DEBUG: MAN_DNS_DN = ${MAN_DNS_DN}; MAN_DNS_SA = ${MAN_DNS_SA}; MAN_DNS_SD = ${MAN_DNS_SD}"
 	logDebugMessage "DEBUG: MAN_SMB_NN = ${MAN_SMB_NN}; MAN_SMB_WG = ${MAN_SMB_WG}; MAN_SMB_WA = ${MAN_SMB_WA}"
 
-# Set up the CUR_... variables to contain the current network settings (from manual or DHCP, as arbitrated by OS X
+# Set up the CUR_... variables to contain the current network settings (from manual or DHCP, as arbitrated by macOS
 
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 
@@ -400,12 +400,12 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 					else
 						readonly FIN_DNS_SA="${DYN_DNS_SA}"
 					fi
-					logMessage "Aggregating ServerAddresses because running on OS X 10.4 or 10.5"
+					logMessage "Aggregating ServerAddresses because running on macOS 10.4 or 10.5"
 					;;
 				* )
 					# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
 					readonly FIN_DNS_SA="${DYN_DNS_SA}"
-					logMessage "Not aggregating ServerAddresses because running on OS X 10.6 or higher"
+					logMessage "Not aggregating ServerAddresses because running on macOS 10.6 or higher"
 					;;
 			esac
 		fi
@@ -441,12 +441,12 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 				else
 					readonly FIN_SMB_WA="${DYN_SMB_WA}"
 				fi
-				logMessage "Aggregating WINSAddresses because running on OS X 10.4 or 10.5"
+				logMessage "Aggregating WINSAddresses because running on macOS 10.4 or 10.5"
 				;;
 			* )
 				# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
 				readonly FIN_SMB_WA="${DYN_SMB_WA}"
-				logMessage "Not aggregating WINSAddresses because running on OS X 10.6 or higher"
+				logMessage "Not aggregating WINSAddresses because running on macOS 10.6 or higher"
 				;;
 		esac
 		fi
@@ -457,8 +457,8 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	# OLD BEHAVIOR:
 	#     if SearchDomains was not set manually, we set SearchDomains to the DomainName
 	#     else
-	#          In OS X 10.4-10.5, we add the DomainName to the end of any manual SearchDomains (unless it is already there)
-	#          In OS X 10.6+, if SearchDomains was entered manually, we ignore the DomainName
+	#          In macOS 10.4-10.5, we add the DomainName to the end of any manual SearchDomains (unless it is already there)
+	#          In macOS 10.6+, if SearchDomains was entered manually, we ignore the DomainName
 	#                         else we set SearchDomains to the DomainName
 	#
 	# NEW BEHAVIOR (done if ARG_PREPEND_DOMAIN_NAME is "true"):
@@ -527,7 +527,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
                 case "${OSVER}" in
                     10.4 | 10.5 )
                         if ! echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
-                            logMessage "Appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under OS X 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
+                            logMessage "Appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under macOS 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
                             readonly FIN_DNS_SD="$( trim "${MAN_DNS_SD}" "${FIN_DNS_DN}" )"
                         else
                             logMessage "Not appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
@@ -536,7 +536,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
                         ;;
                     * )
                         if [ "${MAN_DNS_SD}" = "" -o "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
-                            logMessage "Setting search domains to '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was not selected"
+                            logMessage "Setting search domains to '${FIN_DNS_DN}' because running under macOS 10.6 or higher and the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was not selected"
                             readonly FIN_DNS_SD="${FIN_DNS_DN}"
                         else
                             logMessage "Not replacing search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because the search domains were set manually, '-allowChangesToManuallySetNetworkSettings' was not selected, and 'Prepend domain name to search domains' was not selected"
@@ -632,23 +632,23 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	case "${OSVER}" in
 		10.4 | 10.5 | 10.6 )
-			logDebugMessage "DEBUG: OS X 10.4-10.6, so will modify settings using only State:"
+			logDebugMessage "DEBUG: macOS 10.4-10.6, so will modify settings using only State:"
 			readonly SKP_SETUP_DNS="#"
 			readonly bAlsoUsingSetupKeys="false"
 			;;
 		10.7 )
 			if [ "${MAN_DNS_SA}" = "" -a  "${MAN_DNS_SD}" = "" ] ; then
-				logDebugMessage "DEBUG: OS X 10.7 and neither ServerAddresses nor SearchDomains were set manually, so will modify DNS settings using only State:"
+				logDebugMessage "DEBUG: macOS 10.7 and neither ServerAddresses nor SearchDomains were set manually, so will modify DNS settings using only State:"
 				readonly SKP_SETUP_DNS="#"
 				readonly bAlsoUsingSetupKeys="false"
 			else
-				logDebugMessage "DEBUG: OS X 10.7 and ServerAddresses or SearchDomains were set manually, so will modify DNS settings using Setup: in addition to State:"
+				logDebugMessage "DEBUG: macOS 10.7 and ServerAddresses or SearchDomains were set manually, so will modify DNS settings using Setup: in addition to State:"
 				readonly SKP_SETUP_DNS=""
 				readonly bAlsoUsingSetupKeys="true"
 			fi
 			;;
 		* )
-			logDebugMessage "DEBUG: OS X 10.8 or higher, so will modify DNS settings using Setup: in addition to State:"
+			logDebugMessage "DEBUG: macOS 10.8 or higher, so will modify DNS settings using Setup: in addition to State:"
 			readonly SKP_SETUP_DNS=""
 			readonly bAlsoUsingSetupKeys="true"
 			;;
@@ -908,7 +908,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 configureDhcpDns()
 {
 	# whilst ipconfig will have created the neccessary Network Service keys, the DNS
-	# settings won't actually be used by OS X unless the SupplementalMatchDomains key
+	# settings won't actually be used by macOS unless the SupplementalMatchDomains key
 	# is added
 	# ref. <http://lists.apple.com/archives/Macnetworkprog/2005/Jun/msg00011.html>
 	# - is there a way to extract the domains from the SC dictionary and re-insert
@@ -1516,7 +1516,7 @@ fi
 
 bRouteGatewayIsDhcp="false"
 
-# We sleep to allow time for OS X to process network settings
+# We sleep to allow time for macOS to process network settings
 sleep 2
 
 EXIT_CODE=0

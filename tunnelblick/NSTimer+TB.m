@@ -21,7 +21,7 @@
 
 //*************************************************************************************************
 //
-// The NSTimer setTolerance: method was introduced in OS X 10.9 ("Mavericks")
+// The NSTimer setTolerance: method was introduced in macOS 10.9 ("Mavericks")
 
 #import "NSTimer+TB.h"
 

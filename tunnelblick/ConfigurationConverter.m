@@ -1288,8 +1288,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 			}
             
             if (  [optionsThatAreNotAllowedOnOSX containsObject: [firstToken stringValue]]  ) {
-				return [self logMessage: [NSString stringWithFormat: @"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option.", [firstToken stringValue]]
-                              localized: [NSString stringWithFormat: NSLocalizedString(@"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option.", @"Window text"), [firstToken stringValue]]];
+				return [self logMessage: [NSString stringWithFormat: @"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option.", [firstToken stringValue]]
+                              localized: [NSString stringWithFormat: NSLocalizedString(@"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option.", @"Window text"), [firstToken stringValue]]];
 			}
             
             if (  [optionsWithPath containsObject: [firstToken stringValue]]  ) {

@@ -34,9 +34,9 @@
 <p class="p2"><br></p>
 <p class="p3">Several settings in this tab are controlled by a checkbox:</p>
 <ul class="ul1">
-  <li class="li3"><b>Flush DNS cache after connecting or disconnecting</b>: When checked, Tunnelblick will flush the system's DNS cache after connecting and after disconnecting. This allows the system to use the appropriate DNS settings while the VPN connection is active and after it is disconnected. (Due to limitations in the security program Hands Off!, flushing the DNS cache is skipped on OS X 10.7 ("Lion") and higher if Hands Off! is running.)</li><br>
+  <li class="li3"><b>Flush DNS cache after connecting or disconnecting</b>: When checked, Tunnelblick will flush the system's DNS cache after connecting and after disconnecting. This allows the system to use the appropriate DNS settings while the VPN connection is active and after it is disconnected. (Due to limitations in the security program Hands Off!, flushing the DNS cache is skipped on macOS 10.7 ("Lion") and higher if Hands Off! is running.)</li><br>
 
-  <li class="li3"><b>Prepend domain name to search domains</b>: <em>This checkbox is only available when the default DNS/WINS setting of 'Set nameserver' is selected.</em> When checked, Tunnelblick will add the domain name to the <u>start</u> of the search domain list if the list has not been specified manually. If the search domain list has been specified manually, then nothing is done. When not checked on OS X 10.4 and 10.5, the domain name is added to the <u>end</u> of the search domains list. When not checked on OS X 10.6 and higher, the domain name replaces the search domains list unless search domains were entered manually, in which case nothing is done.</li><br>
+  <li class="li3"><b>Prepend domain name to search domains</b>: <em>This checkbox is only available when the default DNS/WINS setting of 'Set nameserver' is selected.</em> When checked, Tunnelblick will add the domain name to the <u>start</u> of the search domain list if the list has not been specified manually. If the search domain list has been specified manually, then nothing is done. When not checked on macOS 10.4 and 10.5, the domain name is added to the <u>end</u> of the search domains list. When not checked on macOS 10.6 and higher, the domain name replaces the search domains list unless search domains were entered manually, in which case nothing is done.</li><br>
 
   <li class="li3"><b>Set DNS after routes are set instead of before routes are set</b>: When checked, Tunnelblick will run the standard "up" script using the OpenVPN --route-up option instead of the --up option.</li><br>
 
@@ -47,7 +47,7 @@
 <p class="p2"><br></p>
 <p class="p3">Two popup menus control what whether Tunnelblick loads the tun and/or tap kexts (device drivers). Tunnelblick always unloads kexts when they are no longer needed.</p>
 <p class="p2"><br></p>
-<p class="p3">Note that on OS X 10.6.8 and higher, recent versions of OpenVPN may use the system's 'utun' driver. The "Load Tun driver automatically" setting is aware of this behavior and loads the tun driver only if it is needed.</p>
+<p class="p3">Note that on macOS 10.6.8 and higher, recent versions of OpenVPN may use the system's 'utun' driver. The "Load Tun driver automatically" setting is aware of this behavior and loads the tun driver only if it is needed.</p>
 <ul class="ul1">
   <li class="li3"><b>Load Tun driver automatically</b>. When selected, Tunnelblick will load the tun kext only if it is needed.</li>
   <li class="li3"><b>Always load Tun driver</b>. When selected, Tunnelblick will always load the tun kext when connecting the selected configuration(s).</li>

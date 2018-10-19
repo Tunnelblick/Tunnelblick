@@ -846,9 +846,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     while (  (option = [e nextObject])  ) {
         NSString * optionValue = [ConfigurationManager parseString: cfgContents forOption: option];
         if (  optionValue  ) {
-            NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", [connection displayName], option);
+            NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS.", [connection displayName], option);
             NSString * msg = [NSString stringWithFormat:
-                              NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", @"Window text"),
+                              NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS.", @"Window text"),
                               [connection localizedName], option];
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
                               msg);
@@ -885,11 +885,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSLog(@"The configuration file for '%@' contains a 'dev-type' option, but the argument is not 'tun' or 'tap'. It has been ignored", [connection displayName]);
     }
     
-    // If there is a "dev" entry, return that device type for 'tap' or 'utun' but for 'tun', return 'tunOrUtun' so that will be decided when connecting (depends on OS X version and OpenVPN version)
+    // If there is a "dev" entry, return that device type for 'tap' or 'utun' but for 'tun', return 'tunOrUtun' so that will be decided when connecting (depends on macOS version and OpenVPN version)
     NSString * devOption = [ConfigurationManager parseString: cfgContents forOption: @"dev"];
     if (  devOption  ) {
 		if (  [devOption hasPrefix: @"tun"]  ) {
-			return @"tunOrUtun";                    // Uses utun if available (OS X 10.6.8+ and OpenVPN 2.3.3+)
+			return @"tunOrUtun";                    // Uses utun if available (macOS 10.6.8+ and OpenVPN 2.3.3+)
 		}
 		if (  [devOption hasPrefix: @"utun"]  ) {
 			return @"utun";

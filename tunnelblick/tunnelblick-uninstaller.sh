@@ -776,7 +776,7 @@ fi
 
 if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
   echo ""
-  echo ">>>>>>You need to manually delete Tunnelblick's keychain items for each user using the OS X 10.4 'Keychain Access' utility."
+  echo ">>>>>>You need to manually delete Tunnelblick's keychain items for each user using the macOS 10.4 'Keychain Access' utility."
 fi
 
 if [ "$remove_login_items" != "" ] ; then

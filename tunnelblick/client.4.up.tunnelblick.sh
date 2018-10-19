@@ -231,14 +231,14 @@ set_networksetup_setting() {
 ##########################################################################################
 disable_ipv6() {
 
-# Disables IPv6 on each enabled (active) network service on which it is set to the OS X default "IPv6 Automatic".
+# Disables IPv6 on each enabled (active) network service on which it is set to the macOS default "IPv6 Automatic".
 #
 # For each such service, outputs a line with the name of the service.
 # (A separate line is output for each name because a name may include spaces.)
 #
 # The 'restore_ipv6' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
 #
-# NOTE: Done only for enabled services because some versions of OS X enable the service if this IPv6 setting is changed.
+# NOTE: Done only for enabled services because some versions of macOS enable the service if this IPv6 setting is changed.
 
     # Get list of services and remove the first line which contains a heading
     local dipv6_services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d')"
@@ -269,7 +269,7 @@ disable_ipv6() {
 # Throughout this routine:
 #            MAN_ is a prefix for manually set parameters
 #            DYN_ is a prefix for dynamically set parameters (by a "push", config file, or command line option)
-#            CUR_ is a prefix for the current parameters (as arbitrated by OS X between manual and DHCP data)
+#            CUR_ is a prefix for the current parameters (as arbitrated by macOS between manual and DHCP data)
 #            FIN_ is a prefix for the parameters we want to end up with
 #            SKP_ is a prefix for an empty string or a "#" used to control execution of statements that set parameters in scutil
 #
@@ -385,7 +385,7 @@ grep PrimaryService | sed -e 's/.*PrimaryService : //'
 	logDebugMessage "DEBUG: MAN_DNS_DN = ${MAN_DNS_DN}; MAN_DNS_SA = ${MAN_DNS_SA}; MAN_DNS_SD = ${MAN_DNS_SD}"
 	logDebugMessage "DEBUG: MAN_SMB_NN = ${MAN_SMB_NN}; MAN_SMB_WG = ${MAN_SMB_WG}; MAN_SMB_WA = ${MAN_SMB_WA}"
 
-# Set up the CUR_... variables to contain the current network settings (from manual or DHCP, as arbitrated by OS X
+# Set up the CUR_... variables to contain the current network settings (from manual or DHCP, as arbitrated by macOS
 
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 
@@ -679,17 +679,17 @@ grep PrimaryService | sed -e 's/.*PrimaryService : //'
 	case "${OSVER}" in
 		10.7 )
 			if [ "${MAN_DNS_SA}" = "" -a  "${MAN_DNS_SD}" = "" ] ; then
-				logDebugMessage "DEBUG: OS X 10.7 and neither ServerAddresses nor SearchDomains were set manually, so will modify DNS settings using only State:"
+				logDebugMessage "DEBUG: macOS 10.7 and neither ServerAddresses nor SearchDomains were set manually, so will modify DNS settings using only State:"
 				readonly SKP_SETUP_DNS="#"
 				readonly bAlsoUsingSetupKeys="false"
 			else
-				logDebugMessage "DEBUG: OS X 10.7 and ServerAddresses or SearchDomains were set manually, so will modify DNS settings using Setup: in addition to State:"
+				logDebugMessage "DEBUG: macOS 10.7 and ServerAddresses or SearchDomains were set manually, so will modify DNS settings using Setup: in addition to State:"
 				readonly SKP_SETUP_DNS=""
 				readonly bAlsoUsingSetupKeys="true"
 			fi
 			;;
 		* )
-			logDebugMessage "DEBUG: OS X 10.8 or higher, so will modify DNS settings using Setup: in addition to State:"
+			logDebugMessage "DEBUG: macOS 10.8 or higher, so will modify DNS settings using Setup: in addition to State:"
 			readonly SKP_SETUP_DNS=""
 			readonly bAlsoUsingSetupKeys="true"
 			;;
@@ -952,7 +952,7 @@ EOF
 configureDhcpDns()
 {
 	# whilst ipconfig will have created the neccessary Network Service keys, the DNS
-	# settings won't actually be used by OS X unless the SupplementalMatchDomains key
+	# settings won't actually be used by macOS unless the SupplementalMatchDomains key
 	# is added
 	# ref. <http://lists.apple.com/archives/Macnetworkprog/2005/Jun/msg00011.html>
 	# - is there a way to extract the domains from the SC dictionary and re-insert
@@ -1523,7 +1523,7 @@ fi
 
 bRouteGatewayIsDhcp="false"
 
-# We sleep to allow time for OS X to process network settings
+# We sleep to allow time for macOS to process network settings
 sleep 2
 
 EXIT_CODE=0

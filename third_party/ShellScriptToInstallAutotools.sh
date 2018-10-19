@@ -5,7 +5,7 @@
 # command line tools that are obsolete in Xcode 3 and are missing from Xcode 4 and higher.
 #
 # It installs the tools to /usr/local/bin. It uses sudo to install because /usr/local/bin
-# is a protected folder. So it must be run from an OS X account with administrator
+# is a protected folder. So it must be run from an macOS account with administrator
 # privileges. (Sudo will ask for the user's password once.)
 
 

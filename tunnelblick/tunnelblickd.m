@@ -19,7 +19,7 @@
  *  or see http://www.gnu.org/licenses/.
  
  
- NOTE: THIS PROGRAM MUST BE RUN AS ROOT. IT IS AN OS X LAUNCHDAEMON
+ NOTE: THIS PROGRAM MUST BE RUN AS ROOT. IT IS AN macOS LAUNCHDAEMON
  
  This daemon is used by the Tunnelblick GUI to start and stop OpenVPN instances and perform other activities that require root access.
  
@@ -284,7 +284,7 @@ int main(void) {
 	aslclient       asl           = NULL;
 	aslmsg          log_msg       = NULL;
     int             retval        = EXIT_FAILURE;
-	struct timespec timeout       = {  30, 0  };	// TimeOut value (OS X supplies a 30 second value if there is no TimeOut entry in the launchd .plist)
+	struct timespec timeout       = {  30, 0  };	// TimeOut value (macOS supplies a 30 second value if there is no TimeOut entry in the launchd .plist)
     struct kevent   kev_init;
     struct kevent   kev_listener;
     launch_data_t   sockets_dict,
@@ -345,7 +345,7 @@ int main(void) {
         goto done;
     }
 	
-	// If the .plist and OS X did not specify a TimeOut, default to 30 seconds
+	// If the .plist and macOS did not specify a TimeOut, default to 30 seconds
 	launch_data_t timeoutValue = launch_data_dict_lookup(checkin_response, LAUNCH_JOBKEY_TIMEOUT);
 	if (  timeoutValue != NULL) {
 		timeout.tv_sec = launch_data_get_integer(timeoutValue);

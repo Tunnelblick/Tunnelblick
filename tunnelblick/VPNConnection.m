@@ -1005,7 +1005,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     uint64_t timeoutNanoseconds = (uint64_t)((timeoutInterval + 2.0) * 1.0e9);	// (Add a couple of seconds for overhead)
     uint64_t endTimeNanoseconds = startTimeNanoseconds + timeoutNanoseconds;
 	
-	// On OS X 10.10 ("Yosemite"), the first request seems to always time out, so we retry several times, using a 1 second timeout for the first try
+	// On macOS 10.10 ("Yosemite"), the first request seems to always time out, so we retry several times, using a 1 second timeout for the first try
 	NSTimeInterval internalTimeOut = 1.0;
 	while (   (! data)
            && (nowAbsoluteNanoseconds() < endTimeNanoseconds)  ) {

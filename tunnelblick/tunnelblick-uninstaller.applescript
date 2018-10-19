@@ -279,7 +279,7 @@ on IdentifierToUninstall(fullPath, TBName) -- (String, String) as String
 
 is damaged (it does not have a 'CFBundleIdentifier') or not present.
 
-Do you wish to continue, and try to uninstall items associated with '%s' and OS X identifier 'net.tunnelblick.tunnelblick'?", {fullPath, TBName}) Â
+Do you wish to continue, and try to uninstall items associated with '%s' and macOS identifier 'net.tunnelblick.tunnelblick'?", {fullPath, TBName}) Â
 				as critical Â
 				buttons {localized string of "Continue", localized string of "Cancel"}
 			if alertResult = {button returned:localized string of "Cancel"} then
@@ -393,7 +393,7 @@ on UserConfirmation(fullPath, TBName, TBIdentifier) -- (String, String, String) 
 	if FileOrFolderExists(fullPath) then
 		set alertResult to display alert (localized string of "Tunnelblick Uninstaller") Â
 			message (LocalizedFormattedString("'%s'
-	with OS X identifier '%s'
+	with macOS identifier '%s'
 	at '%s'
 
 	and all its configuration data, passwords, and " & Â
@@ -416,7 +416,7 @@ on UserConfirmation(fullPath, TBName, TBIdentifier) -- (String, String, String) 
 	else
 		set alertResult to display alert (localized string of "Tunnelblick Uninstaller") Â
 			message (LocalizedFormattedString("'%s'
-	with OS X identifier '%s'
+	with macOS identifier '%s'
 
 	and all its configuration data, passwords, and " & Â
 			"preferences for all users of this computer will be removed.

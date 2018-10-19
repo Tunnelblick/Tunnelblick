@@ -187,7 +187,7 @@
 #define OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK [NSArray arrayWithObjects: @"log", @"log-append", @"syslog", nil]
 
 //*************************************************************************************************
-// OpenVPN options that are not allowed on OS X
+// OpenVPN options that are not allowed on macOS
 #define OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY [NSArray arrayWithObjects: @"allow-nonadmin", @"cryptoapicert", @"dhcp-release", @"dhcp-renew", @"pause-exit", @"register-dns", @"service", @"show-adapters", @"show-net", @"show-net-up", @"show-valid-subnets", @"tap-sleep", @"win-sys", nil]
 
 //*************************************************************************************************

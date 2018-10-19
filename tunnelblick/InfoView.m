@@ -112,7 +112,7 @@ extern TBUserDefaults * gTbDefaults;
     }
     
     // If Resources has an "about.html", use that as the base for the license description
-    // Using [[NSBundle mainBundle] pathForResource: @"about" ofType: @"html"] doesn't always work -- it is apparently cached by OS X.
+    // Using [[NSBundle mainBundle] pathForResource: @"about" ofType: @"html"] doesn't always work -- it is apparently cached by macOS.
     // If it is used immediately after the installer creates and populates Resources/Deploy, nil is returned instead of the path
     // Using [[NSBundle mainBundle] resourcePath: ALSO seems to not work (don't know why, maybe the same reason)
     // The workaround is to create the path "by hand" and use that.

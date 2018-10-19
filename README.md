@@ -8,7 +8,7 @@ The official Tunnelblick source code respository is at https://github.com/Tunnel
 What is Tunnelblick?
 ----------------
 
-Tunnelblick is a free, open source graphic user interface for [OpenVPN](https://openvpn.net/index.php/open-source.html) on OS X. It provides easy control of OpenVPN client and/or server connections.
+Tunnelblick is a free, open source graphic user interface for [OpenVPN](https://openvpn.net/index.php/open-source.html) on macOS. It provides easy control of OpenVPN client and/or server connections.
 
 License
 -------

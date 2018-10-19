@@ -93,7 +93,7 @@ extern TBUserDefaults * gTbDefaults;
 														   @" started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect"
 														   @" configurations which were connected using Tunnelblick.</p>"
 														   @"<p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all"
-														   @" connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor"
+														   @" connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor"
 														   @" application to 'Force Quit' the process.</p>",
 														   @"HTML info for the 'Quit All OpenVPN Processes' button."))
 	 disabled: ! ALLOW_OPENVPNSTART_KILLALL];
@@ -121,7 +121,7 @@ extern TBUserDefaults * gTbDefaults;
 	[utilitiesRunEasyRsaButton
 	  setTitle: NSLocalizedString(@"Open easy-rsa in Terminal", @"Button")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p>"
-														   @"<p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p>"
+														   @"<p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p>"
 														   @"<p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead."
 														   @" 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used;"
 														   @" if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p>"

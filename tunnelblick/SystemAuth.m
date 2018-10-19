@@ -162,7 +162,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     //       1. The reactivation creates a system thread to do the work.
     //       2. The user cancels the installation, which terminates this instance of Tunnelblick.
     //       3. The reactivation thread reactivates Tunnelblick by creating a new instance of Tunnelblick.
-    //          (On some versions of OS X, this just causes a failure in the reactivation thread and logs messages about that.)
+    //          (On some versions of macOS, this just causes a failure in the reactivation thread and logs messages about that.)
     
     if (   interactionAllowed
         && reactivationAllowed  ) {

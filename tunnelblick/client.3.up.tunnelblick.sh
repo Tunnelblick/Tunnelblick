@@ -108,7 +108,7 @@ unset vDNS
 unset vWINS
 unset vOptions
 
-# We sleep here to allow time for OS X to process DHCP, DNS, and WINS settings
+# We sleep here to allow time for macOS to process DHCP, DNS, and WINS settings
 sleep 2
 
 while vForOptions=foreign_option_$nOptionIndex; [ -n "${!vForOptions}" ]; do

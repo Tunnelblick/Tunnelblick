@@ -536,8 +536,8 @@ BOOL pathComponentIsNotSecure(NSString * path, mode_t permissionsIfNot002) {
         }
     } else {
         if (   (perms != permissionsIfNot002)
-			&& (   (permissionsIfNot002 != 0755) // On OS X 10.4, kextload/kextunload permissions are 0555 instead of 0755
-				|| (perms != 0555)               // On OS X 10.7 & lower, killall permissions are 0555 instead of 0755
+			&& (   (permissionsIfNot002 != 0755) // On macOS 10.4, kextload/kextunload permissions are 0555 instead of 0755
+				|| (perms != 0555)               // On macOS 10.7 & lower, killall permissions are 0555 instead of 0755
 				|| (   ( ! [[path lastPathComponent] isEqualToString: @"kextload"  ] )
 					&& ( ! [[path lastPathComponent] isEqualToString: @"kextunload"] )
 					&& ( ! [[path lastPathComponent] isEqualToString: @"killall"   ] )

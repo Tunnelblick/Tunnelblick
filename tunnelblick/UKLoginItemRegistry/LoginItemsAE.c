@@ -185,7 +185,7 @@ static OSStatus SendAppleEvent(const AEDesc *event, AEDesc *reply)
     // 
     // o It use the "AEMach.h" routine AESendMessage because that allows 
     //   us to do an RPC without having to field UI events while waiting 
-    //   for the reply.  Yay for Mac OS X!
+    //   for the reply.  Yay for Mac macOS!
     //
     // o It automatically extracts the error from the reply.
     //

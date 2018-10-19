@@ -378,7 +378,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         NSString * osVersionString = (  getSystemVersion(&major, &minor, &bugFix) == EXIT_SUCCESS
                                       ? [NSString stringWithFormat:@"%d.%d.%d", major, minor, bugFix]
                                       : @"version is unknown");
-        NSLog(@"Tunnelblick: OS X %@; %@", osVersionString, tunnelblickVersion([NSBundle mainBundle]));
+        NSLog(@"Tunnelblick: macOS %@; %@", osVersionString, tunnelblickVersion([NSBundle mainBundle]));
         
 		// Create private configurations folder if necessary
         gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
@@ -925,7 +925,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 
 -(void) reactivateTunnelblick {
 	
-	// When Tunnelblick gets an AuthorizationRef, OS X does that by activating Finder to display
+	// When Tunnelblick gets an AuthorizationRef, macOS does that by activating Finder to display
 	// a dialog asking for the username/password of an admin user. When the user dismisses the
 	// dialog, Finder is left activated, not Tunnelblick, and Finder windows that overlap Tunnelblick
 	// windows will obsure them.
@@ -1205,7 +1205,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
     }
     
-/* Removed but left in for when the deprecated 'setView:' method of NSStatusItem is removed from OS X
+/* Removed but left in for when the deprecated 'setView:' method of NSStatusItem is removed from macOS
      if (   [statusItem respondsToSelector: @selector(button)]  ) {
         
         [self setStatusItemButton: [statusItem performSelector: @selector(button) withObject: nil]];
@@ -2770,7 +2770,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                                      ? [NSString stringWithFormat: @"; prior version %@", [versionHistory objectAtIndex: 1]]
                                      : @"");
 
-    return ([NSString stringWithFormat:@"*Tunnelblick: OS X %@; %@%@", currentVersionString, tunnelblickVersion([NSBundle mainBundle]), priorVersionString]);
+    return ([NSString stringWithFormat:@"*Tunnelblick: macOS %@; %@%@", currentVersionString, tunnelblickVersion([NSBundle mainBundle]), priorVersionString]);
 }
 
 - (void) checkForUpdates: (id) sender
@@ -2889,7 +2889,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 			while (  (connection = [e nextObject])  ) {
 				
 				if (  gShuttingDownOrRestartingComputer  ) {
-					NSLog(@"waitForDisconnection: Computer is shutting down or restarting; OS X will wait for OpenVPN instances to terminate");
+					NSLog(@"waitForDisconnection: Computer is shutting down or restarting; macOS will wait for OpenVPN instances to terminate");
 					[listNotModifiedInInnerLoop release];
 					return;
 				}
@@ -2971,7 +2971,7 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
     if (  gShuttingDownOrRestartingComputer  ) {
-        NSLog(@"Computer is shutting down or restarting; OS X will kill OpenVPN instances");
+        NSLog(@"Computer is shutting down or restarting; macOS will kill OpenVPN instances");
         return;
     }
     
@@ -3017,7 +3017,7 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
     if (  gShuttingDownOrRestartingComputer  ) {
-        TBLog(@"DB-SD", @"doDisconnectionsForBecameInactiveUser: Computer is shutting down or restarting; OS X will kill OpenVPN instances")
+        TBLog(@"DB-SD", @"doDisconnectionsForBecameInactiveUser: Computer is shutting down or restarting; macOS will kill OpenVPN instances")
         return nil;
     }
     
@@ -4017,7 +4017,7 @@ static void signal_handler(int signalNumber)
     BOOL sawIdent    = FALSE;
     BOOL sawTeam     = (  runningOnMavericksOrNewer()
                         ? FALSE
-                        : TRUE);    // codesign on some OS X 10.8 and lower does not output this field
+                        : TRUE);    // codesign on some macOS 10.8 and lower does not output this field
     
     NSArray * lines = [codesignDvvOutput componentsSeparatedByString: @"\n"];
     NSString * line;
@@ -4606,11 +4606,11 @@ static void signal_handler(int signalNumber)
     [self installSignalHandler];
 	[self updateScreenList];
     
-    // gMainThread is used on OS X 10.4 because [NSThread isMainThread] is not available.
+    // gMainThread is used on macOS 10.4 because [NSThread isMainThread] is not available.
     // This use of gMainThread assumes that
     //      (1) applicationDidFinishLaunching is launched on the main thread; and
     //      (2) the main thread does not change in the course of the program's execution.
-    // Both of these assumptions appear true based on testing on OS X 10.4
+    // Both of these assumptions appear true based on testing on macOS 10.4
     if (  gMainThread  ) {
         NSLog(@"Ignoring extra invocation of applicationDidFinishLaunching:");
         return;
@@ -5031,7 +5031,7 @@ static void signal_handler(int signalNumber)
 	//		-(BOOL) userNotificationCenter: (NSUserNotificationCenter *) center
 	//			 shouldPresentNotification: (NSUserNotification *)       notification {
 	// in a way that builds on Xcode 3.2.2, which does not include NSUserNotification or NSUserNotificationCenter
-	// because they were introduced in OS X 10.8
+	// because they were introduced in macOS 10.8
 	
     (void) center;
     (void) notification;

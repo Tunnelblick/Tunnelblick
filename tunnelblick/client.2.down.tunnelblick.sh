@@ -41,10 +41,10 @@
 #     until *after* this script returns; this makes sense: this script could fail in which
 #     case the connection is invalid
 #     - this means the DHCP acquisition can't complete until after this script exits
-#     - that's not directly a problem as the OS X DHCP client should do everything we need
+#     - that's not directly a problem as the macOS DHCP client should do everything we need
 #       to make the interface functional, all by itself - *except* for one small thing: as of
-#       OS X 10.4.7 the DHCP-acquired DNS information is not "merged" into the System
-#       Configuration (OS X bug?)
+#       macOS 10.4.7 the DHCP-acquired DNS information is not "merged" into the System
+#       Configuration (macOS bug?)
 #       - thus we have a chicken-and-egg situation: we need to manually fixup the DNS config,
 #         but can't until we get the DHCP lease; we won't get the lease until we this script exits
 #       - the solution is to spawn a little "helper" that waits until the lease is acquired,
@@ -55,7 +55,7 @@
 #   of OpenVPN 2.0 there's no "pre-disconnect" script option; note that both 'down' and
 #   'down-pre' are called only after the connection to the server is closed ('down-pre' before
 #   closing the tun/tap device, 'down' after)
-#   - OS X automatically cleans up the System Config keys created from ipconfig, but we need to
+#   - macOS automatically cleans up the System Config keys created from ipconfig, but we need to
 #     manually remove the DNS fixup
 #
 # ******************************************************************************************************************

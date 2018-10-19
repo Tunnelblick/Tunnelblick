@@ -29,8 +29,8 @@ PREREQUISITES
 
 Building certain versions of some of the third party programs require that "recent"
 versions of the GNU autotools be installed. The "autotools" programs consist of the GNU
-"autoconf", "automake", and "libtool" programs. OS X 10.6.8 with Xcode 3 includes older
-versions of the autotools programs, and OS X 10.8.5 with Xcode 4 and higher does not
+"autoconf", "automake", and "libtool" programs. macOS 10.6.8 with Xcode 3 includes older
+versions of the autotools programs, and macOS 10.8.5 with Xcode 4 and higher does not
 include the autotools programs at all.
 
 The "third+party/ShellScriptToInstallAutotools.sh" script will download recent (possibly not the most
@@ -64,7 +64,7 @@ Each copy is created with the Tunnelblick OpenVPN Xor Patch (see
 https://tunnelblick.net/cOpenvpn_xorpatch.html).
 
 There are several different versions of the tun and tap kexts created for use with different
-versions of OS X.
+versions of macOS.
 
 Two programs are used slightly differently:
 
@@ -270,7 +270,7 @@ To add a new version of tuntap:
     4. Modify third_party/Makefile-tuntap to create the newer version. This will involve changes in
        several places.
     5. Other changes may be needed in the Tunnelblick source code to use the new version
-       (for example, if it is only for specific versions of OS X).
+       (for example, if it is only for specific versions of macOS).
 
 To replace Sparkle:
 
