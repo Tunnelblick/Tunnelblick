@@ -486,16 +486,14 @@ The error message from 'bless --info --getboot' was '" & errorMessage & "'.
 	
 	if testFlag then
 
-		display dialog LocalizedFormattedString("Although the next window will ask for authorization from a computer administrator and say \"Tunnelblick Uninstaller wants to make changes\",
+		set dialogContents to LocalizedFormattedString("Although a window will ask for authorization from a computer administrator and say \"%s Uninstaller wants to make changes\", NO CHANGES WILL BE MADE.
 
-NO CHANGES WILL BE MADE.
-
-The uninstaller needs administrator authorization so it can read the %s preferences of other users.", {theName})
+The uninstaller needs administrator authorization so it can read the %s preferences of other users.", { theName, theName })
 
 	else
 		if secureEraseOption = "-s" then
 
-			display dialog LocalizedFormattedString("The next window will ask for authorization from a computer administrator.
+			set dialogContents to LocalizedFormattedString("A window will ask for authorization from a computer administrator.
 
 The uninstaller needs the authorization so it can make the changes required to uninstall %s.
 
@@ -504,13 +502,39 @@ Uninstalling may take SEVERAL MINUTES because files will be overwritten before b
 While the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", {theName})
 
 		else
-			display dialog LocalizedFormattedString("The next window will ask for authorization from a computer administrator.
+			set dialogContents to LocalizedFormattedString("A window will ask for authorization from a computer administrator.
 		
 The uninstaller needs the authorization so it can make the changes required to uninstall %s.
 
 While the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", {theName})
 		
 		end if
+	end if
+	
+	set osMajor to system attribute "sys1"
+	if osMajor ­ 10 then
+		display alert "Not OS version 10."
+	end if
+	set osMinor to system attribute "sys2"
+	if osMinor > 13 then
+		set mojaveMessage to LocalizedFormattedString("
+		
+		macOS Mojave will pop up three warning boxes, saying that the uninstaller wants access to control Finder and System Events and to access your contacts. Although it does control Finder and System Events to remove files and folders related to %s, the warning box about contacts is incorrect: THE UNINSTALLER DOES NOT ACCESS YOUR CONTACTS. For more information see https://tunnelblick.net/cUninstall.html#uninstalling-on-macos-mojave.", { theName })
+	else
+		set mojaveMessage to ""
+	end if
+
+	try
+		set alertResult to display dialog dialogContents & mojaveMessage
+	on error  errorMessage number errorNumber
+		set alertResult to "Cancelled"
+		if errorNumber ­ -128 then
+			display dialog "DoProcessing(): Error #" & errorNumber & " occurred: " & errorMessage
+		end if
+	end try
+
+	if alertResult = "Cancelled" then
+		return
 	end if
 	
 	-- Start the uninstaller script, using the -t or -u option as directed by the user
@@ -525,8 +549,10 @@ While the uninstall is being done there will be no indication that anything is h
 
 	try
 		set scriptOutput to do shell script (quoted form of myScriptPath) & argumentString with administrator privileges
-	on error
-		display alert "Error in shell script: " & (quoted form of myScriptPath) & argumentString & "with administrator privileges.\n\nPlease email developers@tunnelblick.net for help."
+	on error errorMessage number errorNumber
+		if errorNumber ­ -128 then
+			display alert "Error in shell script: " & (quoted form of myScriptPath) & argumentString & "with administrator privileges.\n\nPlease email developers@tunnelblick.net for help."
+		end if
 		return
 	end try
 
