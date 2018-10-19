@@ -460,8 +460,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 
 	// Check for RTF files
     if (   chars[0] == '{'  ) {
-        return [self logMessage: [NSString stringWithFormat: @"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", path]
-                      localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", @"Window text"), [path lastPathComponent]]];
+        return [self logMessage: [NSString stringWithFormat: @"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files.", path]
+                      localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files.", @"Window text"), [path lastPathComponent]]];
     }
     
     // OpenVPN configuration files must be UTF-8
