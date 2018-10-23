@@ -133,22 +133,22 @@ flushDNSCache()
 				set +e # ignore errors if mDNSResponder isn't currently running
 					/usr/bin/killall -HUP mDNSResponder > /dev/null 2>&1
 					if [ $? != 0 ] ; then
-						logMessage "mDNSResponder not running. Not notifying it that the DNS cache was flushed"
+						logMessage "Not notifying mDNSResponder that the DNS cache was flushed because it is not running"
 					else
 						logMessage "Notified mDNSResponder that the DNS cache was flushed"
 					fi
 					/usr/bin/killall -HUP mDNSResponderHelper > /dev/null 2>&1
 					if [ $? != 0 ] ; then
-						logMessage "mDNSResponderHelper not running. Not notifying it that the DNS cache was flushed"
+						logMessage "Not notifying mDNSResponderHelper that the DNS cache was flushed because it is not running"
 					else
 						logMessage "Notified mDNSResponderHelper that the DNS cache was flushed"
 					fi
 				set -e # bash should again fail on errors
 			else
-				logMessage "WARNING: /usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
+				logMessage "WARNING: /usr/bin/killall not present. Not notifying mDNSResponder or mDNSResponderHelper that the DNS cache was flushed"
 			fi
 		else
-			logMessage "WARNING: Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
+			logMessage "WARNING: Hands Off is running.  Not notifying mDNSResponder or mDNSResponderHelper that the DNS cache was flushed"
 		fi
     fi
 }
