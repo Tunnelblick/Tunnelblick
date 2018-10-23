@@ -383,30 +383,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 				readonly FIN_DNS_SA="${CUR_DNS_SA}"
 			fi
 		else
-			case "${OSVER}" in
-				10.4 | 10.5 )
-					# We need to remove duplicate DNS entries, so that our reference list matches MacOSX's
-					SDNS="$( echo "${DYN_DNS_SA}" | tr ' ' '\n' )"
-					(( i=0 ))
-					for n in "${vDNS[@]}" ; do
-						if echo "${SDNS}" | grep -q "${n}" ; then
-							unset vDNS[${i}]
-						fi
-						(( i++ ))
-					done
-					if [ ${#vDNS[*]} -gt 0 ] ; then
-						readonly FIN_DNS_SA="$( trim "${DYN_DNS_SA}" "${vDNS[*]}" )"
-					else
-						readonly FIN_DNS_SA="${DYN_DNS_SA}"
-					fi
-					logMessage "Aggregating ServerAddresses because running on macOS 10.4 or 10.5"
-					;;
-				* )
 					# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
 					readonly FIN_DNS_SA="${DYN_DNS_SA}"
 					logMessage "Not aggregating ServerAddresses because running on macOS 10.6 or higher"
-					;;
-			esac
 		fi
 	fi
 
@@ -424,30 +403,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 				readonly FIN_SMB_WA="${MAN_SMB_WA}"
 			fi
 		else
-		case "${OSVER}" in
-			10.4 | 10.5 )
-				# We need to remove duplicate SMB entries, so that our reference list matches MacOSX's
-				SSMB="$( echo "${DYN_SMB_WA}" | tr ' ' '\n' )"
-				(( i=0 ))
-				for n in "${vSMB[@]}" ; do
-					if echo "${SSMB}" | grep -q "${n}" ; then
-						unset vSMB[${i}]
-					fi
-					(( i++ ))
-				done
-				if [ ${#vSMB[*]} -gt 0 ] ; then
-					readonly FIN_SMB_WA="$( trim "${DYN_SMB_WA}" "${vSMB[*]}" )"
-				else
-					readonly FIN_SMB_WA="${DYN_SMB_WA}"
-				fi
-				logMessage "Aggregating WINSAddresses because running on macOS 10.4 or 10.5"
-				;;
-			* )
 				# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
 				readonly FIN_SMB_WA="${DYN_SMB_WA}"
 				logMessage "Not aggregating WINSAddresses because running on macOS 10.6 or higher"
-				;;
-		esac
 		fi
 	fi
 
@@ -523,26 +481,13 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 			fi
 		else
             if [ "${FIN_DNS_DN}" != "" ] && [ "${FIN_DNS_DN}" != "localdomain" ] ; then
-                case "${OSVER}" in
-                    10.4 | 10.5 )
-                        if ! echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
-                            logMessage "Appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under macOS 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
-                            readonly FIN_DNS_SD="$( trim "${MAN_DNS_SD}" "${FIN_DNS_DN}" )"
-                        else
-                            logMessage "Not appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
-                            readonly FIN_DNS_SD="${CUR_DNS_SD}"
-                        fi
-                        ;;
-                    * )
                         if [ "${MAN_DNS_SD}" = "" -o "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
-                            logMessage "Setting search domains to '${FIN_DNS_DN}' because running under macOS 10.6 or higher and the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was not selected"
+                            logMessage "Setting search domains to '${FIN_DNS_DN}' because the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was not selected"
                             readonly FIN_DNS_SD="${FIN_DNS_DN}"
                         else
                             logMessage "Not replacing search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because the search domains were set manually, '-allowChangesToManuallySetNetworkSettings' was not selected, and 'Prepend domain name to search domains' was not selected"
                             readonly FIN_DNS_SD="${CUR_DNS_SD}"
                         fi
-                        ;;
-                esac
             else
                 readonly FIN_DNS_SD="${CUR_DNS_SD}"
             fi
@@ -630,11 +575,6 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	# we pass a flag indicating whether we've done that to the other scripts in 'bAlsoUsingSetupKeys'
 
 	case "${OSVER}" in
-		10.4 | 10.5 | 10.6 )
-			logDebugMessage "DEBUG: macOS 10.4-10.6, so will modify settings using only State:"
-			readonly SKP_SETUP_DNS="#"
-			readonly bAlsoUsingSetupKeys="false"
-			;;
 		10.7 )
 			if [ "${MAN_DNS_SA}" = "" ] && [  "${MAN_DNS_SD}" = "" ] ; then
 				logDebugMessage "DEBUG: macOS 10.7 and neither ServerAddresses nor SearchDomains were set manually, so will modify DNS settings using only State:"
@@ -1158,23 +1098,6 @@ configureOpenVpnDns()
 flushDNSCache()
 {
     if ${ARG_FLUSH_DNS_CACHE} ; then
-	    if [ "${OSVER}" = "10.4" ] ; then
-
-			if [ -f /usr/sbin/lookupd ] ; then
-				set +e # we will catch errors from lookupd
-					/usr/sbin/lookupd -flushcache
-					if [ $? != 0 ] ; then
-						logMessage "WARNING: Unable to flush the DNS cache via lookupd"
-					else
-						logMessage "Flushed the DNS cache via lookupd"
-					fi
-				set -e # bash should again fail on errors
-			else
-				logMessage "WARNING: /usr/sbin/lookupd not present. Not flushing the DNS cache"
-			fi
-
-		else
-
 			if [ -f /usr/bin/dscacheutil ] ; then
 				set +e # we will catch errors from dscacheutil
 					/usr/bin/dscacheutil -flushcache
@@ -1226,8 +1149,6 @@ flushDNSCache()
 			else
 				logMessage "WARNING: Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
 			fi
-
-		fi
     fi
 }
 
