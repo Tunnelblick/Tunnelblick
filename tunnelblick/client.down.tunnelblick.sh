@@ -45,7 +45,7 @@ run_prefix_or_suffix()
 		exit 1
 	fi
 
-	if [ "$1" != "down-prefix.sh" -a "$1" != "down-suffix.sh" ] ; then
+	if [ "$1" != "down-prefix.sh" ] && [ "$1" != "down-suffix.sh" ] ; then
 		logMessage "run_prefix_or_suffix not called with 'down-prefix.sh' or 'down-suffix.sh'"
 		exit 1
 	fi
@@ -94,18 +94,18 @@ flushDNSCache()
 {
     if ${ARG_FLUSH_DNS_CACHE} ; then
         set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-        readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
+			readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
         set -e # We instruct bash that it CAN again fail on errors
 	    if [ "${OSVER}" = "10.4" ] ; then
 
 			if [ -f /usr/sbin/lookupd ] ; then
 				set +e # we will catch errors from lookupd
-				/usr/sbin/lookupd -flushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via lookupd"
-				else
-					logMessage "Flushed the DNS cache via lookupd"
-				fi
+					/usr/sbin/lookupd -flushcache
+					if [ $? != 0 ] ; then
+						logMessage "WARNING: Unable to flush the DNS cache via lookupd"
+					else
+						logMessage "Flushed the DNS cache via lookupd"
+					fi
 				set -e # bash should again fail on errors
 			else
 				logMessage "WARNING: /usr/sbin/lookupd not present. Not flushing the DNS cache"
@@ -115,12 +115,12 @@ flushDNSCache()
 
 			if [ -f /usr/bin/dscacheutil ] ; then
 				set +e # we will catch errors from dscacheutil
-				/usr/bin/dscacheutil -flushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
-				else
-					logMessage "Flushed the DNS cache via dscacheutil"
-				fi
+					/usr/bin/dscacheutil -flushcache
+					if [ $? != 0 ] ; then
+						logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
+					else
+						logMessage "Flushed the DNS cache via dscacheutil"
+					fi
 				set -e # bash should again fail on errors
 			else
 				logMessage "WARNING: /usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
@@ -128,35 +128,35 @@ flushDNSCache()
 
 			if [ -f /usr/sbin/discoveryutil ] ; then
 				set +e # we will catch errors from discoveryutil
-				/usr/sbin/discoveryutil udnsflushcaches
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
-				else
-					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
-				fi
-				/usr/sbin/discoveryutil mdnsflushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
-				else
-					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
-				fi
+					/usr/sbin/discoveryutil udnsflushcaches
+					if [ $? != 0 ] ; then
+						logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
+					else
+						logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
+					fi
+					/usr/sbin/discoveryutil mdnsflushcache
+					if [ $? != 0 ] ; then
+						logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
+					else
+						logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
+					fi
 				set -e # bash should again fail on errors
 			else
 				logMessage "/usr/sbin/discoveryutil not present. Not flushing the DNS cache via discoveryutil"
 			fi
 
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-			hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
+				hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
 			set -e # We instruct bash that it CAN again fail on errors
 			if [ "${hands_off_ps}" = "" ] ; then
 				if [ -f /usr/bin/killall ] ; then
 					set +e # ignore errors if mDNSResponder isn't currently running
-					/usr/bin/killall -HUP mDNSResponder
-					if [ $? != 0 ] ; then
-						logMessage "mDNSResponder not running. Not notifying it that the DNS cache was flushed"
-					else
-						logMessage "Notified mDNSResponder that the DNS cache was flushed"
-					fi
+						/usr/bin/killall -HUP mDNSResponder
+						if [ $? != 0 ] ; then
+							logMessage "mDNSResponder not running. Not notifying it that the DNS cache was flushed"
+						else
+							logMessage "Notified mDNSResponder that the DNS cache was flushed"
+						fi
 					set -e # bash should again fail on errors
 				else
 					logMessage "WARNING: /usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
@@ -203,7 +203,7 @@ EOF
     set -e # resume abort on error
 
     if [ "${PINTERFACE}" != "" ] ; then
-	    if [ "${PINTERFACE}" == "${WIFI_INTERFACE}" -a "${OSVER}" != "10.4" -a -f /usr/sbin/networksetup ] ; then
+	    if [ "${PINTERFACE}" == "${WIFI_INTERFACE}" ] && [ "${OSVER}" != "10.4" ] && [ -f /usr/sbin/networksetup ] ; then
 		    if [ "${OSVER}" == "10.5" ] ; then
 			    logMessage "Resetting primary interface '${PINTERFACE}' via networksetup -setairportpower off/on..."
 				/usr/sbin/networksetup -setairportpower off
@@ -364,7 +364,7 @@ if ${ARG_TAP} ; then
                 fi
             else
                 set +e
-                ipconfig set "$dev" NONE 2>/dev/null
+					ipconfig set "$dev" NONE 2>/dev/null
                 set -e
                 logMessage "Released the DHCP lease via ipconfig set $dev NONE."
             fi
@@ -374,10 +374,10 @@ fi
 
 # Issue warning if the primary service ID has changed
 set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-PSID_CURRENT="$( scutil <<-EOF |
-	open
-	show State:/Network/Global/IPv4
-	quit
+	PSID_CURRENT="$( scutil <<-EOF |
+		open
+		show State:/Network/Global/IPv4
+		quit
 EOF
 grep 'Service : ' | sed -e 's/.*Service : //'
 )"
@@ -468,7 +468,7 @@ logMessage "Restored the DNS and SMB configurations"
 
 if [ -e /etc/resolv.conf ] ; then
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-	new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
+		new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
 	set -e # resume abort on error
 else
 	new_resolver_contents="(unavailable)"
@@ -477,7 +477,7 @@ logDebugMessage "DEBUG:"
 logDebugMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
 
 set +e # scutil --dns will return error status in case dns is already down, so don't fail if no dns found
-scutil_dns="$( scutil --dns)"
+	scutil_dns="$( scutil --dns)"
 set -e # resume abort on error
 logDebugMessage "DEBUG:"
 logDebugMessage "DEBUG: scutil --dns = ${scutil_dns}"

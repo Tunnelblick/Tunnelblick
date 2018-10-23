@@ -36,7 +36,7 @@ run_prefix_or_suffix()
 		exit 1
 	fi
 
-	if [ "$1" != "route-pre-down-prefix.sh" -a "$1" != "route-pre-down-suffix.sh" ] ; then
+	if [ "$1" != "route-pre-down-prefix.sh" ] && [ "$1" != "route-pre-down-suffix.sh" ] ; then
 		logMessage "run_prefix_or_suffix not called with 'route-pre-down-prefix.sh' or 'route-pre-down-suffix.sh'"
 		exit 1
 	fi
@@ -241,7 +241,7 @@ EOF
             if [ -n "${sTunnelDevice}" ]; then
                 logMessage "ERROR: \$dev not defined; using TunnelDevice: ${sTunnelDevice}"
                 set +e
-                ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
+					ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
                 set -e
                 logMessage "Released the DHCP lease via ipconfig set \"${sTunnelDevice}\" NONE."
             else
@@ -249,7 +249,7 @@ EOF
             fi
         else
             set +e
-            ipconfig set "$dev" NONE 2>/dev/null
+				ipconfig set "$dev" NONE 2>/dev/null
             set -e
             logMessage "Released the DHCP lease via ipconfig set \"$dev\" NONE."
         fi

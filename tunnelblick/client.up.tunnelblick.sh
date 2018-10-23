@@ -152,11 +152,10 @@ disable_ipv6() {
 setDnsServersAndDomainName()
 {
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-
-	PSID="$( scutil <<-EOF |
-		open
-		show State:/Network/Global/IPv4
-		quit
+		PSID="$( scutil <<-EOF |
+			open
+			show State:/Network/Global/IPv4
+			quit
 EOF
 grep PrimaryService | sed -e 's/.*PrimaryService : //'
 )"
@@ -240,36 +239,36 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 
-	if echo "${MAN_DNS_CONFIG}" | grep -q "DomainName" ; then
-		readonly MAN_DNS_DN="$( trim "$( echo "${MAN_DNS_CONFIG}" | sed -e 's/^.*DomainName[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
-	else
-		readonly MAN_DNS_DN="";
-	fi
-	if echo "${MAN_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
-		readonly MAN_DNS_SA="$( trim "$( echo "${MAN_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
-	else
-		readonly MAN_DNS_SA="";
-	fi
-	if echo "${MAN_DNS_CONFIG}" | grep -q "SearchDomains" ; then
-		readonly MAN_DNS_SD="$( trim "$( echo "${MAN_DNS_CONFIG}" | sed -e 's/^.*SearchDomains[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
-	else
-		readonly MAN_DNS_SD="";
-	fi
-    if echo "${MAN_SMB_CONFIG}" | grep -q "NetBIOSName" ; then
-        readonly MAN_SMB_NN="$( trim "$( echo "${MAN_SMB_CONFIG}" | sed -e 's/^.*NetBIOSName : \([^[:space:]]*\).*$/\1/g' )" )"
-	else
-		readonly MAN_SMB_NN="";
-    fi
-    if echo "${MAN_SMB_CONFIG}" | grep -q "Workgroup" ; then
-        readonly MAN_SMB_WG="$( trim "$( echo "${MAN_SMB_CONFIG}" | sed -e 's/^.*Workgroup : \([^[:space:]]*\).*$/\1/g' )" )"
-	else
-		readonly MAN_SMB_WG="";
-    fi
-    if echo "${MAN_SMB_CONFIG}" | grep -q "WINSAddresses" ; then
-        readonly MAN_SMB_WA="$( trim "$( echo "${MAN_SMB_CONFIG}" | sed -e 's/^.*WINSAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
-	else
-		readonly MAN_SMB_WA="";
-    fi
+		if echo "${MAN_DNS_CONFIG}" | grep -q "DomainName" ; then
+			readonly MAN_DNS_DN="$( trim "$( echo "${MAN_DNS_CONFIG}" | sed -e 's/^.*DomainName[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
+		else
+			readonly MAN_DNS_DN="";
+		fi
+		if echo "${MAN_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
+			readonly MAN_DNS_SA="$( trim "$( echo "${MAN_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
+		else
+			readonly MAN_DNS_SA="";
+		fi
+		if echo "${MAN_DNS_CONFIG}" | grep -q "SearchDomains" ; then
+			readonly MAN_DNS_SD="$( trim "$( echo "${MAN_DNS_CONFIG}" | sed -e 's/^.*SearchDomains[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
+		else
+			readonly MAN_DNS_SD="";
+		fi
+		if echo "${MAN_SMB_CONFIG}" | grep -q "NetBIOSName" ; then
+			readonly MAN_SMB_NN="$( trim "$( echo "${MAN_SMB_CONFIG}" | sed -e 's/^.*NetBIOSName : \([^[:space:]]*\).*$/\1/g' )" )"
+		else
+			readonly MAN_SMB_NN="";
+		fi
+		if echo "${MAN_SMB_CONFIG}" | grep -q "Workgroup" ; then
+			readonly MAN_SMB_WG="$( trim "$( echo "${MAN_SMB_CONFIG}" | sed -e 's/^.*Workgroup : \([^[:space:]]*\).*$/\1/g' )" )"
+		else
+			readonly MAN_SMB_WG="";
+		fi
+		if echo "${MAN_SMB_CONFIG}" | grep -q "WINSAddresses" ; then
+			readonly MAN_SMB_WA="$( trim "$( echo "${MAN_SMB_CONFIG}" | sed -e 's/^.*WINSAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
+		else
+			readonly MAN_SMB_WA="";
+		fi
 
 	set -e # resume abort on error
 
@@ -281,36 +280,36 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 
-	if echo "${CUR_DNS_CONFIG}" | grep -q "DomainName" ; then
-		readonly CUR_DNS_DN="$(trim "$( echo "${CUR_DNS_CONFIG}" | sed -e 's/^.*DomainName : \([^[:space:]]*\).*$/\1/g' )")"
-	else
-		readonly CUR_DNS_DN="";
-	fi
-	if echo "${CUR_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
-		readonly CUR_DNS_SA="$(trim "$( echo "${CUR_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )")"
-	else
-		readonly CUR_DNS_SA="";
-	fi
-	if echo "${CUR_DNS_CONFIG}" | grep -q "SearchDomains" ; then
-		readonly CUR_DNS_SD="$(trim "$( echo "${CUR_DNS_CONFIG}" | sed -e 's/^.*SearchDomains[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )")"
-	else
-		readonly CUR_DNS_SD="";
-	fi
-    if echo "${CUR_SMB_CONFIG}" | grep -q "NetBIOSName" ; then
-        readonly CUR_SMB_NN="$(trim "$( echo "${CUR_SMB_CONFIG}" | sed -e 's/^.*NetBIOSName : \([^[:space:]]*\).*$/\1/g' )")"
-	else
-		readonly CUR_SMB_NN="";
-    fi
-    if echo "${CUR_SMB_CONFIG}" | grep -q "Workgroup" ; then
-        readonly CUR_SMB_WG="$(trim "$( echo "${CUR_SMB_CONFIG}" | sed -e 's/^.*Workgroup : \([^[:space:]]*\).*$/\1/g' )")"
-	else
-		readonly CUR_SMB_WG="";
-    fi
-    if echo "${CUR_SMB_CONFIG}" | grep -q "WINSAddresses" ; then
-        readonly CUR_SMB_WA="$(trim "$( echo "${CUR_SMB_CONFIG}" | sed -e 's/^.*WINSAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )")"
-	else
-		readonly CUR_SMB_WA="";
-    fi
+		if echo "${CUR_DNS_CONFIG}" | grep -q "DomainName" ; then
+			readonly CUR_DNS_DN="$(trim "$( echo "${CUR_DNS_CONFIG}" | sed -e 's/^.*DomainName : \([^[:space:]]*\).*$/\1/g' )")"
+		else
+			readonly CUR_DNS_DN="";
+		fi
+		if echo "${CUR_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
+			readonly CUR_DNS_SA="$(trim "$( echo "${CUR_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )")"
+		else
+			readonly CUR_DNS_SA="";
+		fi
+		if echo "${CUR_DNS_CONFIG}" | grep -q "SearchDomains" ; then
+			readonly CUR_DNS_SD="$(trim "$( echo "${CUR_DNS_CONFIG}" | sed -e 's/^.*SearchDomains[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )")"
+		else
+			readonly CUR_DNS_SD="";
+		fi
+		if echo "${CUR_SMB_CONFIG}" | grep -q "NetBIOSName" ; then
+			readonly CUR_SMB_NN="$(trim "$( echo "${CUR_SMB_CONFIG}" | sed -e 's/^.*NetBIOSName : \([^[:space:]]*\).*$/\1/g' )")"
+		else
+			readonly CUR_SMB_NN="";
+		fi
+		if echo "${CUR_SMB_CONFIG}" | grep -q "Workgroup" ; then
+			readonly CUR_SMB_WG="$(trim "$( echo "${CUR_SMB_CONFIG}" | sed -e 's/^.*Workgroup : \([^[:space:]]*\).*$/\1/g' )")"
+		else
+			readonly CUR_SMB_WG="";
+		fi
+		if echo "${CUR_SMB_CONFIG}" | grep -q "WINSAddresses" ; then
+			readonly CUR_SMB_WA="$(trim "$( echo "${CUR_SMB_CONFIG}" | sed -e 's/^.*WINSAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )")"
+		else
+			readonly CUR_SMB_WA="";
+		fi
 
 	set -e # resume abort on error
 
@@ -490,7 +489,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
             else
 				readonly TMP_DNS_SD="${CUR_DNS_SD}"
 			fi
-			if [ "${FIN_DNS_DN}" != "" -a  "${FIN_DNS_DN}" != "localdomain" ] ; then
+			if [ "${FIN_DNS_DN}" != "" ] && [ "${FIN_DNS_DN}" != "localdomain" ] ; then
                 if ! echo "${TMP_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
                     logMessage "Prepending '${FIN_DNS_DN}' to search domains '${TMP_DNS_SD}' because the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was selected"
                     readonly FIN_DNS_SD="$( trim "${FIN_DNS_DN}" "${TMP_DNS_SD}" )"
@@ -523,7 +522,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
                 readonly FIN_DNS_SD="${CUR_DNS_SD}"
 			fi
 		else
-            if [ "${FIN_DNS_DN}" != "" -a "${FIN_DNS_DN}" != "localdomain" ] ; then
+            if [ "${FIN_DNS_DN}" != "" ] && [ "${FIN_DNS_DN}" != "localdomain" ] ; then
                 case "${OSVER}" in
                     10.4 | 10.5 )
                         if ! echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
@@ -637,7 +636,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 			readonly bAlsoUsingSetupKeys="false"
 			;;
 		10.7 )
-			if [ "${MAN_DNS_SA}" = "" -a  "${MAN_DNS_SD}" = "" ] ; then
+			if [ "${MAN_DNS_SA}" = "" ] && [  "${MAN_DNS_SD}" = "" ] ; then
 				logDebugMessage "DEBUG: macOS 10.7 and neither ServerAddresses nor SearchDomains were set manually, so will modify DNS settings using only State:"
 				readonly SKP_SETUP_DNS="#"
 				readonly bAlsoUsingSetupKeys="false"
@@ -661,7 +660,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	if [ -e /etc/resolv.conf ] ; then
 		set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-		original_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
+			original_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
 		set -e # resume abort on error
 	else
 		original_resolver_contents="(unavailable)"
@@ -671,7 +670,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
     logDebugMessage "DEBUG:"
 
 	set +e # scutil --dns will return error status in case dns is already down, so don't fail if no dns found
-	scutil_dns="$( scutil --dns)"
+		scutil_dns="$( scutil --dns)"
 	set -e # resume abort on error
 	logDebugMessage "DEBUG:"
 	logDebugMessage "DEBUG: scutil --dns BEFORE CHANGES = ${scutil_dns}"
@@ -861,7 +860,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	if [ -e /etc/resolv.conf ] ; then
 		set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-		new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
+			new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
 		set -e # resume abort on error
 	else
 		new_resolver_contents="(unavailable)"
@@ -871,7 +870,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
     logDebugMessage "DEBUG:"
 
 	set +e # scutil --dns will return error status in case dns is already down, so don't fail if no dns found
-	scutil_dns="$( scutil --dns )"
+		scutil_dns="$( scutil --dns )"
 	set -e # resume abort on error
 	logDebugMessage "DEBUG:"
 	logDebugMessage "DEBUG: scutil --dns AFTER CHANGES = ${scutil_dns}"
@@ -925,29 +924,29 @@ configureDhcpDns()
 
 	set +e # We instruct bash NOT to exit on individual command errors, because if we need to wait longer these commands will fail
 
-	# usually takes at least a few seconds to get a DHCP lease
-	sleep 3
-	n=0
-	while [ -z "$test_domain_name" -a -z "$test_name_server" -a $n -lt 5 ]
-	do
-		logMessage "Sleeping for $n seconds to wait for DHCP to finish setup."
-		sleep $n
-		n="$( expr $n + 1 )"
+		# usually takes at least a few seconds to get a DHCP lease
+		sleep 3
+		n=0
+		while [ -z "$test_domain_name" ] && [ -z "$test_name_server" ] && [ $n -lt 5 ]
+		do
+			logMessage "Sleeping for $n seconds to wait for DHCP to finish setup."
+			sleep $n
+			n="$( expr $n + 1 )"
 
-		if [ -z "$test_domain_name" ]; then
-			test_domain_name="$( ipconfig getoption "$dev" domain_name 2>/dev/null )"
-		fi
+			if [ -z "$test_domain_name" ]; then
+				test_domain_name="$( ipconfig getoption "$dev" domain_name 2>/dev/null )"
+			fi
 
-		if [ -z "$test_name_server" ]; then
-			test_name_server="$( ipconfig getoption "$dev" domain_name_server 2>/dev/null )"
-		fi
-	done
+			if [ -z "$test_name_server" ]; then
+				test_name_server="$( ipconfig getoption "$dev" domain_name_server 2>/dev/null )"
+			fi
+		done
 
-    logDebugMessage "DEBUG: Finished waiting for DHCP lease: test_domain_name = '$test_domain_name', test_name_server = '$test_name_server'"
+		logDebugMessage "DEBUG: Finished waiting for DHCP lease: test_domain_name = '$test_domain_name', test_name_server = '$test_name_server'"
 
-    logDebugMessage "DEBUG: About to 'ipconfig getpacket $dev'"
-	sGetPacketOutput="$( ipconfig getpacket "$dev" )"
-    logDebugMessage "DEBUG: Completed 'ipconfig getpacket $dev'; sGetPacketOutput = $sGetPacketOutput"
+		logDebugMessage "DEBUG: About to 'ipconfig getpacket $dev'"
+		sGetPacketOutput="$( ipconfig getpacket "$dev" )"
+		logDebugMessage "DEBUG: Completed 'ipconfig getpacket $dev'; sGetPacketOutput = $sGetPacketOutput"
 
 	set -e # We instruct bash that it CAN again fail on individual errors
 
@@ -966,36 +965,36 @@ configureDhcpDns()
 		if [ "$sGetPacketOutput_FirstLine" == "op = BOOTREPLY" ]; then
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 
-			for tNameServer in $( echo "$sGetPacketOutput" | grep "domain_name_server" | grep -Eo "\{([0-9\.]+)(, [0-9\.]+)*\}" | grep -Eo "([0-9\.]+)" ); do
-				aNameServers[nNameServerIndex-1]="$( trim "$tNameServer" )"
-				let nNameServerIndex++
-			done
+				for tNameServer in $( echo "$sGetPacketOutput" | grep "domain_name_server" | grep -Eo "\{([0-9\.]+)(, [0-9\.]+)*\}" | grep -Eo "([0-9\.]+)" ); do
+					aNameServers[nNameServerIndex-1]="$( trim "$tNameServer" )"
+					let nNameServerIndex++
+				done
 
-			for tWINSServer in $( echo "$sGetPacketOutput" | grep "nb_over_tcpip_name_server" | grep -Eo "\{([0-9\.]+)(, [0-9\.]+)*\}" | grep -Eo "([0-9\.]+)" ); do
-				aWinsServers[nWinsServerIndex-1]="$( trim "$tWINSServer" )"
-				let nWinsServerIndex++
-			done
+				for tWINSServer in $( echo "$sGetPacketOutput" | grep "nb_over_tcpip_name_server" | grep -Eo "\{([0-9\.]+)(, [0-9\.]+)*\}" | grep -Eo "([0-9\.]+)" ); do
+					aWinsServers[nWinsServerIndex-1]="$( trim "$tWINSServer" )"
+					let nWinsServerIndex++
+				done
 
-			for tSearchDomain in $( echo "$sGetPacketOutput" | grep "search_domain" | grep -Eo "\{([-A-Za-z0-9\-\.]+)(, [-A-Za-z0-9\-\.]+)*\}" | grep -Eo "([-A-Za-z0-9\-\.]+)" ); do
-				aSearchDomains[nSearchDomainIndex-1]="$( trim "$tSearchDomain" )"
-				let nSearchDomainIndex++
-			done
+				for tSearchDomain in $( echo "$sGetPacketOutput" | grep "search_domain" | grep -Eo "\{([-A-Za-z0-9\-\.]+)(, [-A-Za-z0-9\-\.]+)*\}" | grep -Eo "([-A-Za-z0-9\-\.]+)" ); do
+					aSearchDomains[nSearchDomainIndex-1]="$( trim "$tSearchDomain" )"
+					let nSearchDomainIndex++
+				done
 
-			sDomainName="$( echo "$sGetPacketOutput" | grep "domain_name " | grep -Eo ": [-A-Za-z0-9\-\.]+" | grep -Eo "[-A-Za-z0-9\-\.]+" )"
-			sDomainName="$( trim "$sDomainName" )"
+				sDomainName="$( echo "$sGetPacketOutput" | grep "domain_name " | grep -Eo ": [-A-Za-z0-9\-\.]+" | grep -Eo "[-A-Za-z0-9\-\.]+" )"
+				sDomainName="$( trim "$sDomainName" )"
 
-			if [ ${#aNameServers[*]} -gt 0 -a "$sDomainName" ]; then
-				logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [ ${aNameServers[@]} ], domain name [ $sDomainName ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ]"
-				setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
-				return 0
-			elif [ ${#aNameServers[*]} -gt 0 ]; then
-				logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [ ${aNameServers[@]} ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
-				setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
-				return 0
-			else
-				# Should we return 1 here and indicate an error, or attempt the old method?
-				logMessage "No useful information extracted from DHCP/BOOTP packet. Attempting legacy configuration."
-			fi
+				if [ ${#aNameServers[*]} -gt 0 ] && [ "$sDomainName" ]; then
+					logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [ ${aNameServers[@]} ], domain name [ $sDomainName ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ]"
+					setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
+					return 0
+				elif [ ${#aNameServers[*]} -gt 0 ]; then
+					logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [ ${aNameServers[@]} ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
+					setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
+					return 0
+				else
+					# Should we return 1 here and indicate an error, or attempt the old method?
+					logMessage "No useful information extracted from DHCP/BOOTP packet. Attempting legacy configuration."
+				fi
 
 			set -e # We instruct bash that it CAN again fail on errors
 		else
@@ -1010,12 +1009,12 @@ configureDhcpDns()
 
     set +e # We instruct bash NOT to exit on individual command errors, because if we need to wait longer these commands will fail
 
-	logDebugMessage "DEBUG: About to 'ipconfig getoption $dev domain_name'"
-	sDomainName="$( ipconfig getoption "$dev" domain_name 2>/dev/null )"
-	logDebugMessage "DEBUG: Completed 'ipconfig getoption $dev domain_name'"
-	logDebugMessage "DEBUG: About to 'ipconfig getoption $dev domain_name_server'"
-	sNameServer="$( ipconfig getoption "$dev" domain_name_server 2>/dev/null )"
-	logDebugMessage "DEBUG: Completed 'ipconfig getoption $dev domain_name_server'"
+		logDebugMessage "DEBUG: About to 'ipconfig getoption $dev domain_name'"
+		sDomainName="$( ipconfig getoption "$dev" domain_name 2>/dev/null )"
+		logDebugMessage "DEBUG: Completed 'ipconfig getoption $dev domain_name'"
+		logDebugMessage "DEBUG: About to 'ipconfig getoption $dev domain_name_server'"
+		sNameServer="$( ipconfig getoption "$dev" domain_name_server 2>/dev/null )"
+		logDebugMessage "DEBUG: Completed 'ipconfig getoption $dev domain_name_server'"
 
 	set -e # We instruct bash that it CAN again fail on individual errors
 
@@ -1025,7 +1024,7 @@ configureDhcpDns()
 	declare -a aWinsServers=( )   # Declare empty WINSServers   array to avoid any useless error messages
 	declare -a aSearchDomains=( ) # Declare empty SearchDomains array to avoid any useless error messages
 
-	if [ "$sDomainName" -a "$sNameServer" ]; then
+	if [ "$sDomainName" ] && [ "$sNameServer" ]; then
 		aNameServers[0]=$sNameServer
 		logMessage "Retrieved OpenVPN (DHCP): name server [ $sNameServer ], domain name [ $sDomainName ], and no SMB servers or search domains"
 		setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
@@ -1137,7 +1136,7 @@ configureOpenVpnDns()
 		let nOptionIndex++
 	done
 
-	if [ ${#aNameServers[*]} -gt 0 -a "$sDomainName" ]; then
+	if [ ${#aNameServers[*]} -gt 0 ] && [ "$sDomainName" ]; then
 		logMessage "Retrieved from OpenVPN: name server(s) [ ${aNameServers[@]} ], domain name [ $sDomainName ], search domain(s) [ ${aSearchDomains[@]} ], and SMB server(s) [ ${aWinsServers[@]} ]"
 		setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
 	elif [ ${#aNameServers[*]} -gt 0 ]; then
@@ -1163,12 +1162,12 @@ flushDNSCache()
 
 			if [ -f /usr/sbin/lookupd ] ; then
 				set +e # we will catch errors from lookupd
-				/usr/sbin/lookupd -flushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via lookupd"
-				else
-					logMessage "Flushed the DNS cache via lookupd"
-				fi
+					/usr/sbin/lookupd -flushcache
+					if [ $? != 0 ] ; then
+						logMessage "WARNING: Unable to flush the DNS cache via lookupd"
+					else
+						logMessage "Flushed the DNS cache via lookupd"
+					fi
 				set -e # bash should again fail on errors
 			else
 				logMessage "WARNING: /usr/sbin/lookupd not present. Not flushing the DNS cache"
@@ -1178,12 +1177,12 @@ flushDNSCache()
 
 			if [ -f /usr/bin/dscacheutil ] ; then
 				set +e # we will catch errors from dscacheutil
-				/usr/bin/dscacheutil -flushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
-				else
-					logMessage "Flushed the DNS cache via dscacheutil"
-				fi
+					/usr/bin/dscacheutil -flushcache
+					if [ $? != 0 ] ; then
+						logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
+					else
+						logMessage "Flushed the DNS cache via dscacheutil"
+					fi
 				set -e # bash should again fail on errors
 			else
 				logMessage "WARNING: /usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
@@ -1191,25 +1190,25 @@ flushDNSCache()
 
 			if [ -f /usr/sbin/discoveryutil ] ; then
 				set +e # we will catch errors from discoveryutil
-				/usr/sbin/discoveryutil udnsflushcaches
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
-				else
-					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
-				fi
-				/usr/sbin/discoveryutil mdnsflushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
-				else
-					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
-				fi
+					/usr/sbin/discoveryutil udnsflushcaches
+					if [ $? != 0 ] ; then
+						logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
+					else
+						logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
+					fi
+					/usr/sbin/discoveryutil mdnsflushcache
+					if [ $? != 0 ] ; then
+						logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
+					else
+						logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
+					fi
 				set -e # bash should again fail on errors
 			else
 				logMessage "/usr/sbin/discoveryutil not present. Not flushing the DNS cache via discoveryutil"
 			fi
 
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-			hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
+				hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
 			set -e # We instruct bash that it CAN again fail on errors
 			if [ "${hands_off_ps}" = "" ] ; then
 				if [ -f /usr/bin/killall ] ; then
@@ -1242,7 +1241,7 @@ logDnsInfo() {
 	log_dns_info_manual_dns_sa="$1"
 	log_dns_info_new_dns_sa="$2"
 
-	if [ "${log_dns_info_manual_dns_sa}" != "" -a "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "false"  ] ; then
+	if [ "${log_dns_info_manual_dns_sa}" != "" ] && [ "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "false"  ] ; then
         logMessage "DNS servers '${log_dns_info_manual_dns_sa}' were set manually"
         if [ "${log_dns_info_manual_dns_sa}" != "${log_dns_info_new_dns_sa}" ] ; then
             logMessage "WARNING: that setting is being ignored; '${log_dns_info_new_dns_sa}' is being used."
@@ -1255,7 +1254,7 @@ logDnsInfo() {
 			logMessage "NOTE: DNS server 127.0.0.1 often is used inside virtual machines (e.g., 'VirtualBox', 'Parallels', or 'VMWare'). The actual VPN server may be specified by the host machine. This DNS server setting may cause DNS queries to fail or be intercepted or falsified. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
 		else
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-			serversContainLoopback="$( echo "${log_dns_info_new_dns_sa}" | grep "127.0.0.1" )"
+				serversContainLoopback="$( echo "${log_dns_info_new_dns_sa}" | grep "127.0.0.1" )"
 			set -e # We instruct bash that it CAN again fail on errors
 			if [ "${serversContainLoopback}" != "" ] ; then
 				logMessage "NOTE: DNS server 127.0.0.1 often is used inside virtual machines (e.g., 'VirtualBox', 'Parallels', or 'VMWare'). The actual VPN server may be specified by the host machine. If used, 127.0.0.1 may cause DNS queries to fail or be intercepted or falsified. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
@@ -1265,7 +1264,7 @@ logDnsInfo() {
 				unknownDnsServerFound="false"
 				for server in ${log_dns_info_new_dns_sa} ; do
 					set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-					serverIsKnown="$( echo "${knownPublicDnsServers}" | grep "${server}" )"
+						serverIsKnown="$( echo "${knownPublicDnsServers}" | grep "${server}" )"
 					set -e # We instruct bash that it CAN again fail on errors
 					if [ "${serverIsKnown}" != "" ] ; then
 						knownDnsServerNotFound="false"
@@ -1294,41 +1293,41 @@ logDnsInfoNoChanges() {
 
     set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 
-    PSID="$( scutil <<-EOF |
-        open
-        show State:/Network/Global/IPv4
-        quit
+		PSID="$( scutil <<-EOF |
+			open
+			show State:/Network/Global/IPv4
+			quit
 EOF
 grep PrimaryService | sed -e 's/.*PrimaryService : //'
 )"
 
-    readonly LOGDNSINFO_MAN_DNS_CONFIG="$( scutil <<-EOF |
-        open
-        show Setup:/Network/Service/${PSID}/DNS
-        quit
+		readonly LOGDNSINFO_MAN_DNS_CONFIG="$( scutil <<-EOF |
+			open
+			show Setup:/Network/Service/${PSID}/DNS
+			quit
 EOF
 sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 )"
 
-    readonly LOGDNSINFO_CUR_DNS_CONFIG="$( scutil <<-EOF |
-        open
-        show State:/Network/Global/DNS
-        quit
+		readonly LOGDNSINFO_CUR_DNS_CONFIG="$( scutil <<-EOF |
+			open
+			show State:/Network/Global/DNS
+			quit
 EOF
 sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 )"
 
-	if echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
-		readonly LOGDNSINFO_MAN_DNS_SA="$( trim "$( echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
-	else
-		readonly LOGDNSINFO_MAN_DNS_SA="";
-	fi
+		if echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
+			readonly LOGDNSINFO_MAN_DNS_SA="$( trim "$( echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
+		else
+			readonly LOGDNSINFO_MAN_DNS_SA="";
+		fi
 
-	if echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
-		readonly LOGDNSINFO_CUR_DNS_SA="$( trim "$( echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
-	else
-		readonly LOGDNSINFO_CUR_DNS_SA="";
-	fi
+		if echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
+			readonly LOGDNSINFO_CUR_DNS_SA="$( trim "$( echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
+		else
+			readonly LOGDNSINFO_CUR_DNS_SA="";
+		fi
 
     set -e # resume abort on error
 
@@ -1505,7 +1504,7 @@ else
 fi
 
 set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-readonly OSVER="$( sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*' )"
+	readonly OSVER="$( sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*' )"
 set -e # We instruct bash that it CAN again fail on errors
 
 if ${ARG_DO_NO_USE_DEFAULT_DOMAIN} ; then
