@@ -137,6 +137,12 @@ flushDNSCache()
 					else
 						logMessage "Notified mDNSResponder that the DNS cache was flushed"
 					fi
+					/usr/bin/killall -HUP mDNSResponderHelper
+					if [ $? != 0 ] ; then
+						logMessage "mDNSResponderHelper not running. Not notifying it that the DNS cache was flushed"
+					else
+						logMessage "Notified mDNSResponderHelper that the DNS cache was flushed"
+					fi
 				set -e # bash should again fail on errors
 			else
 				logMessage "WARNING: /usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
