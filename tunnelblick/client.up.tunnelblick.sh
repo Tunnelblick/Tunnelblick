@@ -1136,13 +1136,13 @@ flushDNSCache()
 		if [ "${hands_off_ps}" = "" ] ; then
 			if [ -f /usr/bin/killall ] ; then
 				set +e # ignore errors if mDNSResponder isn't currently running
-					/usr/bin/killall -HUP mDNSResponder
+					/usr/bin/killall -HUP mDNSResponder > /dev/null 2>&1
 					if [ $? != 0 ] ; then
 						logMessage "mDNSResponder not running. Not notifying it that the DNS cache was flushed"
 					else
 						logMessage "Notified mDNSResponder that the DNS cache was flushed"
 					fi
-					/usr/bin/killall -HUP mDNSResponderHelper
+					/usr/bin/killall -HUP mDNSResponderHelper > /dev/null 2>&1
 					if [ $? != 0 ] ; then
 						logMessage "mDNSResponderHelper not running. Not notifying it that the DNS cache was flushed"
 					else
