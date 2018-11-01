@@ -187,6 +187,22 @@ float heightForStringDrawing(NSString *myString,
 		msgAS = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Program error, please see the Console log.", @"Window text")] autorelease];
 		NSLog(@"AlertWindowController: no message or messageAS; stack trace: %@", callStack());
 	}
+	
+	// To work with Mojave dark and light modes properly, use standard text and background colors.
+	// To get the correct background for the entire last line, make the text end in a single newline.
+	NSMutableAttributedString * mAS = [[msgAS mutableCopy] autorelease];
+	while (  [[mAS string] hasSuffix: @"\n"]  ) {
+		[mAS deleteCharactersInRange: NSMakeRange([[mAS string] length], [[mAS string] length])];
+	}
+	[mAS appendAttributedString: [[[NSAttributedString alloc] initWithString: @"\n" attributes: nil] autorelease]];
+	NSDictionary * attributesDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										   [NSColor textColor],			  NSForegroundColorAttributeName,
+										   [NSColor textBackgroundColor], NSBackgroundColorAttributeName,
+										   nil];
+	NSRange rng = NSMakeRange(0, [[mAS string] length]);
+	[mAS setAttributes: attributesDictionary range: rng];
+	msgAS = [mAS attributedSubstringFromRange: rng];
+
 	[[tv textStorage] setAttributedString: msgAS];
 	
 	// Make the cursor disappear
