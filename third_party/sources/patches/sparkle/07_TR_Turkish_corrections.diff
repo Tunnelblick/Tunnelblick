@@ -165,3 +165,178 @@
              </view>
              <connections>
                  <outlet property="delegate" destination="-2" id="50"/>
+--- sparkle_a/Sparkle/tr.lproj/SUAutomaticUpdateAlert.xib	2016-07-26 05:39:44.000000000 -0400
++++ sparkle_b/Sparkle/tr.lproj/SUAutomaticUpdateAlert.xib	2018-11-02 18:32:30.000000000 -0400
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9046" systemVersion="15C27e" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
++<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G22010" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+     <dependencies>
+-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9046"/>
++        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+     </dependencies>
+     <objects>
+         <customObject id="-2" userLabel="File's Owner" customClass="SUAutomaticUpdateAlert">
+@@ -24,7 +24,6 @@
+                     <imageView id="7">
+                         <rect key="frame" x="23" y="73" width="64" height="64"/>
+                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+-                        <animations/>
+                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="38"/>
+                         <connections>
+                             <binding destination="-2" name="value" keyPath="applicationIcon" id="10"/>
+@@ -33,7 +32,6 @@
+                     <textField verticalHuggingPriority="750" id="8">
+                         <rect key="frame" x="105" y="120" width="497" height="17"/>
+                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+-                        <animations/>
+                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="39">
+                             <font key="font" metaFont="systemBold"/>
+                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+@@ -46,7 +44,6 @@
+                     <textField verticalHuggingPriority="750" id="9">
+                         <rect key="frame" x="105" y="81" width="497" height="31"/>
+                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+-                        <animations/>
+                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="40">
+                             <font key="font" metaFont="smallSystem"/>
+                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+@@ -59,7 +56,6 @@
+                     <button verticalHuggingPriority="750" id="15">
+                         <rect key="frame" x="435" y="12" width="167" height="32"/>
+                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+-                        <animations/>
+                         <buttonCell key="cell" type="push" title="Kur ve yeniden başlat" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="41">
+                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                             <font key="font" metaFont="system"/>
+@@ -74,7 +70,6 @@
+                     <button verticalHuggingPriority="750" id="16">
+                         <rect key="frame" x="306" y="12" width="129" height="32"/>
+                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+-                        <animations/>
+                         <buttonCell key="cell" type="push" title="Kapatırken kur" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="42">
+                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                             <font key="font" metaFont="system"/>
+@@ -87,9 +82,8 @@
+                         </connections>
+                     </button>
+                     <button verticalHuggingPriority="750" id="30">
+-                        <rect key="frame" x="102" y="12" width="116" height="32"/>
++                        <rect key="frame" x="102" y="12" width="149" height="32"/>
+                         <autoresizingMask key="autoresizingMask"/>
+-                        <animations/>
+                         <buttonCell key="cell" type="push" title="Güncellemeyi kurma" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="44">
+                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                             <font key="font" metaFont="system"/>
+@@ -101,7 +95,6 @@
+                     <button id="17">
+                         <rect key="frame" x="105" y="58" width="619" height="18"/>
+                         <autoresizingMask key="autoresizingMask"/>
+-                        <animations/>
+                         <buttonCell key="cell" type="check" title="Bundan sonra güncellemeleri kendiliğinden indir ve kur" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="43">
+                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                             <font key="font" metaFont="smallSystem"/>
+@@ -111,7 +104,6 @@
+                         </connections>
+                     </button>
+                 </subviews>
+-                <animations/>
+             </view>
+         </window>
+         <userDefaultsController representsSharedInstance="YES" id="18" userLabel="Shared Defaults"/>
+--- sparkle_a/Sparkle/tr.lproj/Sparkle.strings	2016-07-26 05:39:44.000000000 -0400
++++ sparkle_b/Sparkle/tr.lproj/Sparkle.strings	2018-10-23 05:52:57.000000000 -0400
+@@ -1,10 +1,10 @@
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+-"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ indirildi ve kullanıma hazır! Şimdi yüklemek istiyor musunuz? Uygulama yeniden başlatılacaktır.";
++"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "%1$@ %2$@ indirildi ve kullanıma hazır! Şimdi yüklemek ve %1$@ uygulamasını yeniden başlatmak istiyor musunuz?";
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+-"%1$@ can't be updated when it's running from a read-only volume like a disk image or an optical drive. Move %1$@ to your Applications folder, relaunch it from there, and try again." = "%1$@ uygulaması disk kalıbı içerisindeyken güncellenemez. Lütfen %1$@ uygulamasını Uygulamalar dizinine kopyalayıp yeniden başlatınız.";
++"%1$@ can't be updated when it's running from a read-only volume like a disk image or an optical drive. Move %1$@ to your Applications folder, relaunch it from there, and try again." = "%1$@ uygulaması salt-okunur ortamlarda güncellenemez. %1$@ uygulamasını Uygulamalar dizinine kopyalayıp yeniden başlatınız.";
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+@@ -16,7 +16,7 @@
+ "%@ %@ is now available--you have %@. Would you like to download it now?" = "%1$@ %2$@ çıktı (Kullandığınız Sürüm: %3$@). Şimdi yeni sürümü indirmek ister misiniz?";
+
+ /* Description text for SUUpdateAlert when the update informational with no download. */
+-"%@ %@ is now available--you have %@. Would you like to learn more about this update on the web?" = "%1$@ %2$@ is now available--you have %3$@. Would you like to learn more about this update on the web?";
++"%@ %@ is now available--you have %@. Would you like to learn more about this update on the web?" = "%1$@ %2$@ çıktı (Kullandığınız Sürüm: %3$@). Bu güncelleme hakkında daha fazla bilgi almak ister misiniz?";
+
+ "%@ downloaded" = "%@ indirildi";
+
+@@ -30,7 +30,7 @@
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+-"A new version of %@ is ready to install!" = "%@ uygulamasının yeni bir sürümü yüklemeye hazır!";
++"A new version of %@ is ready to install!" = "%@ uygulamasının yeni bir sürümü kurulmaya hazır!";
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+@@ -46,15 +46,15 @@
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+-"An error occurred while installing the update. Please try again later." = "Güncellemeyi yüklerken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.";
++"An error occurred while installing the update. Please try again later." = "Güncellemeyi kurarken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.";
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+-"An error occurred while parsing the update feed." = "Güncelleme kaynağını incelerken bir hata oluştu.";
++"An error occurred while parsing the update feed." = "Güncelleme kaynağını işlerken bir hata oluştu.";
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+-"An error occurred while parsing the update feed: %@" = "Güncelleme kaynağını incelerken bir hata oluştu: %@";
++"An error occurred while parsing the update feed: %@" = "Güncelleme kaynağını işlerken bir hata oluştu: %@";
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+@@ -70,7 +70,7 @@
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+-"Cancel Update" = "Güncellemeyi iptal et";
++"Cancel Update" = "İptal et";
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+@@ -82,7 +82,7 @@
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+-"Extracting update..." = "Güncelleme ayıklanıyor...";
++"Extracting update..." = "Güncelleme açılıyor...";
+
+ /* de_DE v0.1 - the unit for gigabytes */
+
+@@ -90,7 +90,7 @@
+
+ /* de_DE v0.1 - No comment provided by engineer. */
+
+-"Install and Relaunch" = "Kur ve yeniden başlat";
++"Install and Relaunch" = "Kur ve Yeniden Başlat";
+
+
+ "Installing update..." = "Güncelleme kuruluyor...";
+@@ -107,13 +107,13 @@
+ "OK" = "Tamam";
+
+
+-"Ready to Install" = "Kuruluma hazır";
++"Ready to Install" = "Kuruluma Hazır";
+
+
+-"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "%1$@ uygulaması için güncellemeler otomatik olarak aransın mı? Güncelleme işlemini el ile uygulama menüsünden de başlatabilirsiniz.";
++"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "%1$@ uygulaması için güncellemeler otomatik olarak aransın mı? Güncelleme işlemini uygulama menüsünden de başlatabilirsiniz.";
+
+
+-"Update Error!" = "Güncelleme hatası.";
++"Update Error!" = "Güncelleme hatası!";
+
+
+ "Updating %@" = "%@ güncelleniyor";
