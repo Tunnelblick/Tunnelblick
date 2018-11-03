@@ -1432,6 +1432,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 	
+	if (  ! networkIsReachable()  ) {
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  NSLocalizedString(@"No network connection is available.\n\n"
+											@"Please turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\n"
+											@"See the Network panel in macOS System Preferences for more information.", @"Window text"));
+		return;
+	}
+	
 	if (  ! [(MenuController *)[NSApp delegate] askAndMaybeReenableNetworkAccessAllowCancel: YES]  ) {
 		NSLog(@"connect: cancelled when asked to re-enabling network access");
 		return;
