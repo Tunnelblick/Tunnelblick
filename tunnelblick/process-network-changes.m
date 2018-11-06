@@ -434,7 +434,7 @@ NSString * getScKey(NSString * key)
     
     NSTask* task = [[[NSTask alloc] init] autorelease];
     
-    [task setLaunchPath: @"/usr/sbin/scutil"];
+    [task setLaunchPath: TOOL_PATH_FOR_SCUTIL];
     
     NSPipe * errPipe = [[NSPipe alloc] init];
     [task setStandardError: errPipe];
