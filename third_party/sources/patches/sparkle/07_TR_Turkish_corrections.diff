@@ -222,7 +222,7 @@
                      </button>
                      <button verticalHuggingPriority="750" id="30">
 -                        <rect key="frame" x="102" y="12" width="116" height="32"/>
-+                        <rect key="frame" x="102" y="12" width="149" height="32"/>
++                        <rect key="frame" x="102" y="12" width="163" height="32"/>
                          <autoresizingMask key="autoresizingMask"/>
 -                        <animations/>
                          <buttonCell key="cell" type="push" title="Güncellemeyi kurma" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="44">
