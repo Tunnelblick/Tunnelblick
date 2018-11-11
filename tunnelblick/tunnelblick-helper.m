@@ -126,10 +126,10 @@ void printUsageMessageAndExitOpenvpnstart(void) {
 			"./openvpnstart re-enable-network-services\n"
 			"               to run Tunnelblick's re-enable-network-services.sh script\n\n"
 			
-            "./openvpnstart route-pre-down\n"
+            "./openvpnstart route-pre-down  configName  cfgLocCode\n"
             "               to run Tunnelblick's client.route-pre-down.tunnelblick script\n\n"
             
-			"./openvpnstart route-pre-down-k\n"
+			"./openvpnstart route-pre-down-k  configName  cfgLocCode\n"
 			"               to run Tunnelblick's client.route-pre-down.tunnelblick script with the '-k' option\n\n"
 			
             "./openvpnstart checkSignature\n"
@@ -150,7 +150,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart secureUpdate name\n"
             "               to secure the specified update folder in /Library/Application Support/Tunnelblick/Tblks.\n\n"
             
-            "./openvpnstart down scriptNumber\n"
+            "./openvpnstart down  configName  cfgLocCode  scriptNumber\n"
             "               to run Tunnelblick's scriptNumber down script\n\n"
             
             "./openvpnstart compareShadowCopy      displayName\n"
@@ -887,8 +887,12 @@ NSString * newTemporaryDirectoryPathInTunnelblickHelper(void) {
 
 //**************************************************************************************************************************
 
-int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
+int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode) {
 	// Runs a program as root
+	//
+	// If a configuration name and location code are given, set the TUNNELBLICK_CONFIG_FOLDER environment variable
+	// to point to the folder containing the .ovpn configuration file
+	//
 	// Returns program's termination status
 	
     exitIfPathShouldNotBeRunAsRoot(thePath);
@@ -948,7 +952,7 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
     
     [task setCurrentDirectoryPath: @"/private/tmp"];
     
-    [task setEnvironment: getSafeEnvironment()];
+    [task setEnvironment: getSafeEnvironment(configName, configLocCode)];
     
 	becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
     
@@ -994,6 +998,12 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
 	}
 	
     return [task terminationStatus];
+}
+
+//**************************************************************************************************************************
+
+int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
+	return runAsRootWithConfigNameAndLocCode(thePath, theArguments, permissions, nil, 0);
 }
 
 //**************************************************************************************************************************
@@ -1076,7 +1086,7 @@ int runScript(NSString * scriptName, int argc, char * argv[]) {
 }
 
 //**************************************************************************************************************************
-int runDownScript(unsigned scriptNumber) {
+int runDownScript(unsigned scriptNumber, NSString * configName, unsigned cfgLocCode) {
     
     int returnValue = 0;
     
@@ -1094,7 +1104,7 @@ int runDownScript(unsigned scriptNumber) {
         exitIfNotRootWithPermissions(scriptPath, 0744);
         
         fprintf(stdout, "Executing %s in %s...\n", [[scriptPath lastPathComponent] UTF8String], [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
-        returnValue = runAsRoot(scriptPath, [NSArray array], 0744);
+        returnValue = runAsRootWithConfigNameAndLocCode(scriptPath, [NSArray array], 0744, configName, cfgLocCode);
         fprintf(stdout, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
 	
     } else {
@@ -1137,7 +1147,7 @@ int runReenableNetworkServices(void) {
 }
 
 //**************************************************************************************************************************
-int runRoutePreDownScript(BOOL kOption) {
+int runRoutePreDownScript(BOOL kOption, NSString * configName, unsigned cfgLocCode) {
     
 	// Runs the route-pre-down script; includes a "-k" argument to disable network access if kOption is true.
 	
@@ -1157,7 +1167,7 @@ int runRoutePreDownScript(BOOL kOption) {
 		NSArray * arguments = (  kOption
 							   ? [NSArray arrayWithObject: @"-k"]
 							   : [NSArray array]);
-        returnValue = runAsRoot(scriptPath, arguments, 0744);
+        returnValue = runAsRootWithConfigNameAndLocCode(scriptPath, arguments, 0744, configName, cfgLocCode);
         fprintf(stdout, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
         
     } else {
@@ -3032,14 +3042,28 @@ int main(int argc, char * argv[]) {
 			}
             
         } else if (  strcmp(command, "route-pre-down") == 0  ) {
-            if (  argc == 2  ) {
-				runRoutePreDownScript(false);
+			if (  argc == 4  ) {
+				NSString* configName = [NSString stringWithUTF8String:argv[2]];
+				unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
+				validateConfigName(configName);
+				if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
+					cfgLocCode = CFG_LOC_ALTERNATE;
+				}
+				validateCfgLocCode(cfgLocCode);
+				runRoutePreDownScript(false, configName, cfgLocCode);
 				syntaxError = FALSE;
 			}
             
 		} else if (  strcmp(command, "route-pre-down-k") == 0  ) {
-			if (  argc == 2  ) {
-				runRoutePreDownScript(true);
+			if (  argc == 4  ) {
+				NSString* configName = [NSString stringWithUTF8String:argv[2]];
+				unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
+				validateConfigName(configName);
+				if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
+					cfgLocCode = CFG_LOC_ALTERNATE;
+				}
+				validateCfgLocCode(cfgLocCode);
+				runRoutePreDownScript(true, configName, cfgLocCode);
 				syntaxError = FALSE;
 			}
 			
@@ -3109,9 +3133,17 @@ int main(int argc, char * argv[]) {
 			}
             
         } else if (  strcmp(command, "down") == 0  ) {
-            if (  argc == 3  ) {
+			if (  argc == 5  ) {
+				NSString* configName = [NSString stringWithUTF8String:argv[3]];
+				unsigned cfgLocCode = cvt_atou(argv[4], @"cfgLocCode");
+				validateConfigName(configName);
+				if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
+					cfgLocCode = CFG_LOC_ALTERNATE;
+				}
+				validateCfgLocCode(cfgLocCode);
+				runRoutePreDownScript(false, configName, cfgLocCode);
                 unsigned scriptNumber = atoi(argv[2]);
-				runDownScript(scriptNumber);
+				runDownScript(scriptNumber, configName, cfgLocCode);
 				syntaxError = FALSE;
 			}
             

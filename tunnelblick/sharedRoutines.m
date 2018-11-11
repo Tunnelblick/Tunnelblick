@@ -1198,12 +1198,44 @@ NSData * availableDataOrError(NSFileHandle * file) {
 	}
 }
 
-NSDictionary * getSafeEnvironment(void) {
+NSString * configFolderPathFromConfigNameAndLocCode(NSString * configName, unsigned configLocCode) {
+	
+	NSString * prefix = nil;
+	switch (  configLocCode  ) {
+		
+		case CFG_LOC_PRIVATE:
+		case CFG_LOC_ALTERNATE:
+			prefix = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
+			break;
+			
+		case CFG_LOC_DEPLOY:
+			prefix = gDeployPath;
+			break;
+			
+		case CFG_LOC_SHARED:
+			prefix = L_AS_T_SHARED;
+			break;
+			
+		default:
+			appendLog([NSString stringWithFormat: @"Invalid configLocCode %u; stack trace = %@", configLocCode, callStack()]);
+			return nil;
+			break;
+	}
+	
+	NSString * path = [[[prefix stringByAppendingPathComponent: configName]
+						stringByAppendingPathComponent: @"Contents"]
+					   stringByAppendingPathComponent: @"Resources"];
+	return path;
+}
+
+NSDictionary * getSafeEnvironment(NSString * configName, unsigned configLocCode) {
     
     // Create our own environment to guard against Shell Shock (BashDoor) and similar vulnerabilities in bash
     // (Even if bash is not being launched directly, whatever is being launched could invoke bash;
 	//  for example, openvpnstart launches openvpn which can invoke bash for scripts)
     //
+	// If configName is provided, the TUNNELBLICK_CONFIG_FOLDER variable is set to the path of the folder that contains the configuration file.
+	//
     // This environment consists of several standard shell variables
 	// A modified version of this routine is in process-network-changes
     // A modified version of this routine is in tunnelblickd
@@ -1218,7 +1250,16 @@ NSDictionary * getSafeEnvironment(void) {
                                  @"unix2003",            @"COMMAND_MODE",
                                  nil];
     
-    return [NSDictionary dictionaryWithDictionary: env];
+	if (  configName  ) {
+		NSString * path = configFolderPathFromConfigNameAndLocCode(configName, configLocCode);
+		if (  path ) {
+			[env setObject: path forKey: @"TUNNELBLICK_CONFIG_FOLDER"];
+appendLog([NSString stringWithFormat: @"JKB: set TUNNELBLICK_CONFIG_FOLDER to %@", path]);
+		}
+	}
+	
+	return [NSDictionary dictionaryWithDictionary: env];
+
 }
 
 NSString * newTemporaryDirectoryPath(void)
@@ -1314,7 +1355,7 @@ OSStatus runTool(NSString * launchPath,
     [task setCurrentDirectoryPath: @"/private/tmp"];
     [task setStandardOutput: outFile];
     [task setStandardError:  errFile];
-    [task setEnvironment: getSafeEnvironment()];
+    [task setEnvironment: getSafeEnvironment(nil, 0)];
     
     [task launch];
     
@@ -1369,7 +1410,7 @@ void startTool(NSString * launchPath,
     [task setLaunchPath: launchPath];
     [task setArguments:  arguments];
     [task setCurrentDirectoryPath: @"/private/tmp"];
-    [task setEnvironment: getSafeEnvironment()];
+    [task setEnvironment: getSafeEnvironment(nil, 0)];
     
     [task launch];
 }

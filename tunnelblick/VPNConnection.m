@@ -4394,19 +4394,18 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         // So OpenVPN did not, and will not, run the down script, so we run the down script here.
         
         if (  (connectedUseScripts & OPENVPNSTART_USE_SCRIPTS_RUN_SCRIPTS) != 0  ) {        //
-            if (  [gFileMgr fileExistsAtPath: DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH]  ) {
+			if (  [gFileMgr fileExistsAtPath: DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH]  ) {
                 NSString * scriptNumberString = [NSString stringWithFormat: @"%d",
                                                  (connectedUseScripts & OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK) >> OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT];
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: OpenVPN appears to have crashed -- the OpenVPN process has terminated without running a 'down' script, even though it ran an 'up' script. Tunnelblick will run the 'down' script #%@ to attempt to clean up network settings.", scriptNumberString]];
                 if (  [scriptNumberString isEqualToString: @"0"]  ) {
                     [self addToLog: @"*Tunnelblick: Running the 'route-pre-down' script first."];
-					if (  [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-disableNetworkAccessAfterDisconnect"]]  ) {
-						runOpenvpnstart([NSArray arrayWithObject: @"route-pre-down-k"], nil, nil);
-					} else {
-						runOpenvpnstart([NSArray arrayWithObject: @"route-pre-down"], nil, nil);
-					}
+					NSString * command = ( [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-disableNetworkAccessAfterDisconnect"]]
+										  ? @"route-pre-down-k"
+										  : @"route-pre-down");
+					runOpenvpnstart([NSArray arrayWithObjects: command, displayName, connectedCfgLocCodeString, nil], nil, nil);
                 }
-                runOpenvpnstart([NSArray arrayWithObjects: @"down", scriptNumberString, nil], nil, nil);
+                runOpenvpnstart([NSArray arrayWithObjects: @"down", scriptNumberString, displayName, connectedCfgLocCodeString, nil], nil, nil);
             }
         }
         
