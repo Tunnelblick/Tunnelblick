@@ -192,7 +192,7 @@ float heightForStringDrawing(NSString *myString,
 	// To get the correct background for the entire last line, make the text end in a single newline.
 	NSMutableAttributedString * mAS = [[msgAS mutableCopy] autorelease];
 	while (  [[mAS string] hasSuffix: @"\n"]  ) {
-		[mAS deleteCharactersInRange: NSMakeRange([[mAS string] length], [[mAS string] length])];
+		[mAS deleteCharactersInRange: NSMakeRange([[mAS string] length] - 1, 1)];
 	}
 	[mAS appendAttributedString: [[[NSAttributedString alloc] initWithString: @"\n" attributes: nil] autorelease]];
 	NSDictionary * attributesDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
