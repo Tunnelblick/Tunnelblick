@@ -3292,37 +3292,45 @@ BOOL anyNonTblkConfigs(void)
 
 -(BOOL) askAndMaybeReenableNetworkAccessAllowCancel: (BOOL) allowCancel {
 	
-	// Returns NO if the user cancelled
+	// Returns NO if the network is not reachable and the user cancelled re-enabling it or it can't be re-enabled.
 	
-	if (   [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]
-		&& ( ! gShuttingDownWorkspace)
-		&& ( ! gShuttingDownOrRestartingComputer)
-		&& ( ! quittingAfterAnInstall)  ) {
-		
-		// Wrap in "not shutting down Tunnelblick" so TBRunAlertPanel doesn't abort
-		BOOL saved = gShuttingDownTunnelblick;
-		gShuttingDownTunnelblick = FALSE;
-		NSString * cancelButton = (  allowCancel
-								   ? NSLocalizedString(@"Cancel", @"Button")
-								   : nil);
-		int result = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-											 NSLocalizedString(@"Network access was disabled when a VPN disconnected.\n\n"
-															   @"Do you wish to re-enable network access?\n\n", @"Window text"),
-											 NSLocalizedString(@"Re-enable Network Access", @"Button"),
-											 NSLocalizedString(@"Do Not Re-enable Network Access", @"Button"),
-											 cancelButton,
-											 @"skipWarningAboutReenablingInternetAccessAtExit",
-											 NSLocalizedString(@"Do not warn about this again, never re-enable", @"Checkbox text"),
-											 nil,
-											 NSAlertAlternateReturn);
-		gShuttingDownTunnelblick = saved;
-		
-		if (  result == NSAlertDefaultReturn  ) {
-			[self reEnableInternetAccess: self];
-			return YES;
+	if (   [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]  ) {
+		if  (   ( ! gShuttingDownWorkspace)
+			 && ( ! gShuttingDownOrRestartingComputer)
+			 && ( ! quittingAfterAnInstall)  ) {
+			
+			// Wrap in "not shutting down Tunnelblick" so TBRunAlertPanel doesn't abort
+			BOOL saved = gShuttingDownTunnelblick;
+			gShuttingDownTunnelblick = FALSE;
+			NSString * alternateButton = (  allowCancel
+										  ? NSLocalizedString(@"Cancel", @"Button")
+										  : NSLocalizedString(@"Do Not Re-enable Network Access", @"Button"));
+			int result = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+												 NSLocalizedString(@"Network access was disabled when a VPN disconnected.\n\n"
+																   @"Do you wish to re-enable network access?\n\n", @"Window text"),
+												 NSLocalizedString(@"Re-enable Network Access", @"Button"),
+												 alternateButton,
+												 nil,
+												 @"skipWarningAboutReenablingInternetAccessAtExit",
+												 NSLocalizedString(@"Do not warn about this again, never re-enable", @"Checkbox text"),
+												 nil,
+												 NSAlertAlternateReturn);
+			gShuttingDownTunnelblick = saved;
+			
+			if (  result == NSAlertDefaultReturn  ) {
+				[self reEnableInternetAccess: self];
+				return YES;
+			}
+			
+			return NO;
 		}
-		
-		return (  result != NSAlertOtherReturn  );
+	} else if ( ! networkIsReachable()  ) {
+		// We can't re-enable because we didn't disable, so we don't know exactly what to re-enable
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  NSLocalizedString(@"No network connection is available.\n\n"
+											@"Please turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\n"
+											@"See the Network panel in macOS System Preferences for more information.", @"Window text"));
+		return NO;
 	}
 
 	return YES;
