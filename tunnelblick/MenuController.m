@@ -5798,7 +5798,7 @@ BOOL warnAboutNonTblks(void)
 							NSLocalizedString(@"This 'Deployed' version of Tunnelblick cannot be launched or installed because it"
 											  @" does not have an Info.plist.\n\n", @"Window text"),
 							nil,nil,nil);
-			[self terminateBecause: terminatingBecauseOfQuit];
+			[self terminateBecause: terminatingBecauseOfError];
 		}
 		
 		NSString * ourBundleIdentifier = [bundleInfoDict objectForKey: @"CFBundleIdentifier"];
@@ -5834,7 +5834,7 @@ BOOL warnAboutNonTblks(void)
 											  @" has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tu" @"nnelbli" @"ck.net',"
 											  @" or CFBundleIdentifier is missing or contains 'net.tunnelbl" @"ick'.\n\n", @"Window text"),
 							nil,nil,nil);
-			[self terminateBecause: terminatingBecauseOfQuit];
+			[self terminateBecause: terminatingBecauseOfError];
 		}
         
         NSURL * ourUpdateFeedURL = [NSURL URLWithString: ourUpdateFeedURLString];
@@ -5843,7 +5843,7 @@ BOOL warnAboutNonTblks(void)
                             NSLocalizedString(@"This version of Tunnelblick cannot be launched or installed because"
                                               @" it has an invalid update URL.\n\n", @"Window text"),
                             nil,nil,nil);
-			[self terminateBecause: terminatingBecauseOfQuit];
+			[self terminateBecause: terminatingBecauseOfError];
         }
 	} else if (  tunnelblickTestHasDeployBackups()  ) {
 		
@@ -5852,7 +5852,7 @@ BOOL warnAboutNonTblks(void)
 										  @" it is not a 'Deployed' version, and one or more 'Deployed' versions"
 										  @" of Tunnelblick were previously installed.\n\n", @"Window text"),
 						nil,nil,nil);
-		[self terminateBecause: terminatingBecauseOfQuit];
+		[self terminateBecause: terminatingBecauseOfError];
 	}
 #endif
 	
@@ -6660,7 +6660,7 @@ BOOL warnAboutNonTblks(void)
 				NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
 				
 				[installerLog release];
-                [self terminateBecause: terminatingBecauseOfQuit];
+                [self terminateBecause: terminatingBecauseOfError];
 				return -1;
 			}
 			
