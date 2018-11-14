@@ -1254,7 +1254,6 @@ NSDictionary * getSafeEnvironment(NSString * configName, unsigned configLocCode)
 		NSString * path = configFolderPathFromConfigNameAndLocCode(configName, configLocCode);
 		if (  path ) {
 			[env setObject: path forKey: @"TUNNELBLICK_CONFIG_FOLDER"];
-appendLog([NSString stringWithFormat: @"JKB: set TUNNELBLICK_CONFIG_FOLDER to %@", path]);
 		}
 	}
 	

@@ -91,11 +91,7 @@ built-allssl: built-allssl-prepare
 			cd .. ; \
 		done ; \
 		if [ -e "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" ] ; then \
-			echo "JKB: Will move darwin folder from $(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc to $(STAGING_DIR)/$${sslversion}/x86_6" ; \
 			mv "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" "$(STAGING_DIR)/$${sslversion}/x86_64" ; \
-			echo "JKB: Did  move darwin folder" ; \
-		else \
-			echo "JKB: No darwin folder at $(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" ; \
 		fi ; \
 		mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
 		if [ "$${sslversion}" = "$(OPENSSL_1_0_NAME)" ] ; then \
