@@ -1466,9 +1466,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         requestedState = @"CONNECTED";
     }
     
-	if (  [gFileMgr fileExistsAtPath: L_AS_T_EXPECT_DISCONNECT_PATH]  ) {
-		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"0", nil], nil, nil);
-		appendLog(@"Cleared 'expect disconnect' flag");
+    NSString * encodedPath = encodeSlashesAndPeriods([[self configPath] stringByAppendingPathComponent: @"Contents/Resources"]);
+	if (  [gFileMgr fileExistsAtPath: [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: encodedPath]]  ) {
+		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"0", encodedPath, nil], nil, nil);
+		appendLog([NSString stringWithFormat: @"Cleared 'expect disconnect 0 %@'", encodedPath ]);
 	}
 
     if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
@@ -2814,10 +2815,11 @@ ifConnectionPreference: (NSString *)     keySuffix
 }
 
 -(void) expectDisconnect: (NSNumber *) userKnows {
+	NSString * encodedPath = encodeSlashesAndPeriods([[self configPath] stringByAppendingPathComponent: @"Contents/Resources"]);
 	if (   [userKnows boolValue]
-		&& ( ! [gFileMgr fileExistsAtPath: L_AS_T_EXPECT_DISCONNECT_PATH] )  ) {
-		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", nil], nil, nil);
-		appendLog(@"Set 'expect disconnect' flag");
+		&& ( ! [gFileMgr fileExistsAtPath: [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: encodedPath]] )  ) {
+		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", encodedPath, nil], nil, nil);
+		appendLog([NSString stringWithFormat: @"Set 'expect disconnect 1 %@'", encodedPath]);
 	}
 }
 

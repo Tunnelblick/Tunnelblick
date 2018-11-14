@@ -82,7 +82,7 @@ const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 void exitOpenvpnstart(OSStatus returnValue) {
 	
-	// returnValue: have used 164-246, plus the values in define.h (247-254)
+	// returnValue: have used 162-246, plus the values in define.h (247-254)
 
 	if (  gTemporaryDirectory  ) {
 		[[NSFileManager defaultManager] tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
@@ -137,8 +137,8 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart deleteLogs\n"
             "               to delete all log files that have the OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS bit set in the bitmask encoded in their filenames.\n\n"
             
-			"./openvpnstart expectDisconnect flag\n"
-			"               creates (flag = 1) or removes (flag = 0) the file /Library/Application Support/Tunnelblick/expect-disconnect.txt\n\n"
+			"./openvpnstart expectDisconnect flag filename\n"
+			"               creates (flag = 1) or removes (flag = 0) file at /Library/Application Support/Tunnelblick/expect-disconnect/FILENAME\n\n"
 			
             "./openvpnstart loadKexts     [bitMask]\n"
             "               to load .tun and .tap kexts\n\n"
@@ -1634,16 +1634,17 @@ void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode) {
 	stopBeingRoot();
 }
 
-void expectDisconnect(unsigned int flag) {
+void expectDisconnect(unsigned int flag, NSString * filename) {
 	
+	NSString * path = [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: filename];
 	if (  flag == 0  ) {
-		becomeRoot(@"Delete expect-disconnect.txt");
-		[[NSFileManager defaultManager] tbRemovePathIfItExists: L_AS_T_EXPECT_DISCONNECT_PATH];
+		becomeRoot([NSString stringWithFormat: @"Delete %@", path]);
+		[[NSFileManager defaultManager] tbRemovePathIfItExists: path];
 		stopBeingRoot();
 	} else if (  flag == 1  ) {
-		becomeRoot(@"Create expect-disconnect.txt");
-		if (  ! [[NSFileManager defaultManager] fileExistsAtPath:L_AS_T_EXPECT_DISCONNECT_PATH]  ) {
-			[[NSFileManager defaultManager] createFileAtPath: L_AS_T_EXPECT_DISCONNECT_PATH contents: nil attributes: nil];
+		becomeRoot([NSString stringWithFormat: @"Create %@", path]);
+		if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+			[[NSFileManager defaultManager] createFileAtPath: path contents: nil attributes: nil];
 		}
 
 		stopBeingRoot();
@@ -2927,6 +2928,39 @@ NSString * validateEnvironment(void) {
 }
 
 //**************************************************************************************************************************
+void validateFilename(NSString * name) {
+	
+	if (  [name length] == 0  ) {
+		fprintf(stderr, "Filename is empty\n");
+		exitOpenvpnstart(162);
+	}
+	
+	BOOL haveBadChar = FALSE;
+	unsigned i;
+	for (  i=0; i<[name length]; i++  ) {
+		unichar c = [name characterAtIndex: i];
+		if (   (c < 0x0020)
+			|| (c == 0x007F)
+			|| (c == 0x00FF)  ) {
+			haveBadChar = TRUE;
+			break;
+		}
+	}
+	
+	const char * nameC          = [name UTF8String];
+	const char   badCharsC[]    = PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING;
+	
+	if (   haveBadChar
+		|| ( [name hasPrefix: @"."] )
+		|| ( [name rangeOfString: @".."].length != 0)
+		|| ( NULL != strpbrk(nameC, badCharsC) )
+		) {
+		fprintf(stderr, "Filename has one or more prohibited characters or character sequences\n");
+		exitOpenvpnstart(163);
+	}
+}
+
+//**************************************************************************************************************************
 int main(int argc, char * argv[]) {
     pool = [[NSAutoreleasePool alloc] init];
 	
@@ -3076,11 +3110,13 @@ int main(int argc, char * argv[]) {
             }
             
 		} else if (  strcmp(command, "expectDisconnect") == 0  ) {
-			if (  argc == 3  ) {
+			if (  argc == 4  ) {
 				unsigned int flag = cvt_atou(argv[2], @"flag");
 				if (   (flag == 0)
 					|| (flag == 1)  ) {
-					expectDisconnect(flag);
+					NSString * filename = [NSString stringWithUTF8String:argv[3]];
+					validateFilename(filename);
+					expectDisconnect(flag, filename);
 					syntaxError = FALSE;
 				}
 			}

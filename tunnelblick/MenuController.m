@@ -2953,12 +2953,36 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
     
+	// Set up expectDisconnect flag files as needed
+	if (   disconnectingAll
+		|| (reasonForTermination == terminatingBecauseOfRestart)
+		|| (reasonForTermination == terminatingBecauseOfShutdown)  ) {
+		
+		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", @"ALL", nil], nil, nil);
+		TBLog(@"DB-SD", @"Set 'expect disconnect 1 ALL'");
+		
+	} else if (  (reasonForTermination == terminatingBecauseOfQuit)
+			   || (reasonForTermination == terminatingBecauseOfLogout)  ) {
+		NSEnumerator * e = [disconnectList objectEnumerator];
+		VPNConnection * connection;
+		while (  (connection = [e nextObject])  ) {
+			NSString * encodedPath = encodeSlashesAndPeriods([[connection configPath] stringByDeletingLastPathComponent]);
+			runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", encodedPath, nil], nil, nil);
+			TBLog(@"DB-SD", @"Set 'expect disconnect 1 %@'", encodedPath);
+		}
+	}
+	
     NSMutableArray * connectionsToWaitFor = [self startDisconnecting: disconnectList
                                                     disconnectingAll: disconnectingAll
                                                  quittingTunnelblick: YES
                                                           logMessage: @"Disconnecting because quitting Tunnelblick"];
     [self waitForDisconnection: connectionsToWaitFor];
     
+	if (  [gFileMgr fileExistsAtPath: [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: @"ALL"]]  ) {
+		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"0", @"ALL", nil], nil, nil);
+		NSLog(@"Set 'expect disconnect 0 ALL'");
+	}
+	
     status = pthread_mutex_unlock( &doDisconnectionsMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"doDisconnectionsForQuittingTunnelblick: pthread_mutex_unlock( &doDisconnectionsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
@@ -3052,6 +3076,22 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
     
+	// Set up expectDisconnect flag files as needed
+	if (   disconnectingAll  ) {
+		
+		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", @"ALL", nil], nil, nil);
+		TBLog(@"DB-SD", @"Set 'expect disconnect 1 ALL'");
+		
+	} else {
+		NSEnumerator * e = [disconnectList objectEnumerator];
+		VPNConnection * connection;
+		while (  (connection = [e nextObject])  ) {
+			NSString * encodedPath = encodeSlashesAndPeriods([[connection configPath] stringByDeletingLastPathComponent]);
+			runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", encodedPath, nil], nil, nil);
+			TBLog(@"DB-SD", @"Set 'expect disconnect 1 %@'", encodedPath);
+		}
+	}
+	
     NSMutableArray * connectionsToWaitFor = [self startDisconnecting: disconnectList
                                                     disconnectingAll: disconnectingAll
                                                  quittingTunnelblick: NO
@@ -4701,11 +4741,6 @@ static void signal_handler(int signalNumber)
     
 	TBLog(@"DB-SU", @"applicationDidFinishLaunching: 06.2")
 	
-	if (  [gFileMgr fileExistsAtPath: L_AS_T_EXPECT_DISCONNECT_PATH]  ) {
-		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"0", nil], nil, nil);
-		NSLog(@"Removed file: %@", L_AS_T_EXPECT_DISCONNECT_PATH);
-	}
-
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 007")
     [self hookupToRunningOpenVPNs];
     [self setupHookupWatchdogTimer];
@@ -7448,6 +7483,15 @@ void terminateBecauseOfBadConfiguration(void)
     // Done here so it is correct immediately when computer wakes
     [self performSelectorOnMainThread: @selector(clearAllHaveConnectedSince) withObject: nil waitUntilDone: YES];
     
+	// Set up expectDisconnect flag files as needed
+		NSEnumerator * e = [[self connectionsToWaitForDisconnectOnWakeup] objectEnumerator];
+		VPNConnection * connection;
+		while (  (connection = [e nextObject])  ) {
+			NSString * encodedPath = encodeSlashesAndPeriods([[connection configPath] stringByDeletingLastPathComponent]);
+			runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", encodedPath, nil], nil, nil);
+			TBLog(@"DB-SD", @"Set 'expect disconnect 1 %@'", encodedPath);
+		}
+	
     if (  [[self connectionsToWaitForDisconnectOnWakeup] count] == 0  ) {
 		TBLog(@"DB-SW", @"willGoToSleepHandler: no configurations to disconnect before sleep")
     } else {

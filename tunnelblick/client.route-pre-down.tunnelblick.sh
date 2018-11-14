@@ -59,8 +59,8 @@ run_prefix_or_suffix()
 }
 
 ##########################################################################################
-# @param Bool TRUE if should reset if disconnect was expected
-# @param Bool TRUE if should reset if disconnect was not expected
+# @param String "true" if should disable network access if disconnect was expected
+# @param String "true" if should disable network access if disconnect was not expected
 disableNetworkAccess()
 {
 
@@ -69,13 +69,15 @@ disableNetworkAccess()
 	# Appends list of services that were disabled (including Wi-Fi) to a file which is used by
 	# re-enable-network-services.sh to re-enable network services that were disabled by this script.
 
-	expected_path="/Library/Application Support/Tunnelblick/expect-disconnect.txt"
-
-	if [ -e "$expected_path" ] ; then
-		# Don't remove the file here; the down script will remove the file after testing it
+	should_disable="$2"
+	expected_folder_path="/Library/Application Support/Tunnelblick/expect-disconnect"
+	if [ -e "$expected_folder_path/ALL" ] ; then
 		should_disable="$1"
 	else
-		should_disable="$2"
+		filename="$( echo "${TUNNELBLICK_CONFIG_FOLDER}" | sed -e 's/-/--/g' | sed -e 's/\./-D/g' | sed -e 's/\//-S/g' )"
+		if [ -e "$expected_folder_path/$filename" ]; then
+			should_disable="$1"
+		fi
 	fi
 
 	if [ "$should_disable" != "true" ] ; then

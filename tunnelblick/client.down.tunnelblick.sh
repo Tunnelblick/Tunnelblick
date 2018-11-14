@@ -159,13 +159,18 @@ flushDNSCache()
 
 resetPrimaryInterface()
 {
-	expected_path="/Library/Application Support/Tunnelblick/expect-disconnect.txt"
 
-	if [ -e "$expected_path" ] ; then
-		rm -f "$expected_path"
+	should_reset="$2"
+	expected_folder_path="/Library/Application Support/Tunnelblick/expect-disconnect"
+	if [ -e "$expected_folder_path/ALL" ] ; then
 		should_reset="$1"
 	else
-		should_reset="$2"
+		logMessage "$expected_folder_path/ALL does not exist"
+		filename="$( echo "${TUNNELBLICK_CONFIG_FOLDER}" | sed -e 's/-/--/g' | sed -e 's/\./-D/g' | sed -e 's/\//-S/g' )"
+		if [ -e "$expected_folder_path/$filename" ]; then
+			rm -f "$expected_folder_path/$filename"
+			should_reset="$1"
+		fi
 	fi
 
 	if [ "$should_reset" != "true" ] ; then
