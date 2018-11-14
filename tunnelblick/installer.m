@@ -936,6 +936,11 @@ void doInitialWork(void) {
 		errorExit();
 	}
 	
+	if (  ! createDirWithPermissionAndOwnership(L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH,
+												PERMS_SECURED_FOLDER, 0, 0)  ) {
+		errorExit();
+	}
+	
 	if (  ! createDirWithPermissionAndOwnership(L_AS_T_USERS,
 												PERMS_SECURED_FOLDER, 0, 0)  ) {
 		errorExit();

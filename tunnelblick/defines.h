@@ -104,7 +104,7 @@
 
 // NOTE: some scripts refer to the following two paths without using this header file
 #define L_AS_T_DISABLED_NETWORK_SERVICES_PATH         @"/Library/Application Support/Tunnelblick/disabled-network-services.txt"
-#define L_AS_T_EXPECT_DISCONNECT_PATH                 @"/Library/Application Support/Tunnelblick/expect-disconnect.txt"
+#define L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH          @"/Library/Application Support/Tunnelblick/expect-disconnect"
 
 // NOTE: some scripts refer to the following path without using this header file
 #define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"

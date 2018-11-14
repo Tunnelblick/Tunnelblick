@@ -4391,11 +4391,20 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                                  (connectedUseScripts & OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK) >> OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT];
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: OpenVPN appears to have crashed -- the OpenVPN process has terminated without running a 'down' script, even though it ran an 'up' script. Tunnelblick will run the 'down' script #%@ to attempt to clean up network settings.", scriptNumberString]];
                 if (  [scriptNumberString isEqualToString: @"0"]  ) {
-                    [self addToLog: @"*Tunnelblick: Running the 'route-pre-down' script first."];
-					NSString * command = ( [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-disableNetworkAccessAfterDisconnect"]]
-										  ? @"route-pre-down-k"
-										  : @"route-pre-down");
-					runOpenvpnstart([NSArray arrayWithObjects: command, displayName, connectedCfgLocCodeString, nil], nil, nil);
+					NSString * flagString = @"0";
+					BOOL expected   = [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-disableNetworkAccessAfterDisconnect"]];
+					BOOL unexpected = [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-disableNetworkAccessAfterUnexpectedDisconnect"]];
+					if (  expected  ) {
+						if (  unexpected  ) {
+							flagString = @"3";
+						} else {
+							flagString = @"1";
+						}
+					} else if (  unexpected  ) {
+						flagString = @"2";
+					}
+					[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Running 'route-pre-down %@' script first.", flagString]];
+					runOpenvpnstart([NSArray arrayWithObjects: @"route-pre-down", flagString, displayName, connectedCfgLocCodeString, nil], nil, nil);
                 }
                 runOpenvpnstart([NSArray arrayWithObjects: @"down", scriptNumberString, displayName, connectedCfgLocCodeString, nil], nil, nil);
             }

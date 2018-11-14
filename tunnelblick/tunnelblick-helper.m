@@ -126,11 +126,10 @@ void printUsageMessageAndExitOpenvpnstart(void) {
 			"./openvpnstart re-enable-network-services\n"
 			"               to run Tunnelblick's re-enable-network-services.sh script\n\n"
 			
-            "./openvpnstart route-pre-down  configName  cfgLocCode\n"
-            "               to run Tunnelblick's client.route-pre-down.tunnelblick script\n\n"
-            
-			"./openvpnstart route-pre-down-k  configName  cfgLocCode\n"
-			"               to run Tunnelblick's client.route-pre-down.tunnelblick script with the '-k' option\n\n"
+            "./openvpnstart route-pre-down  flags configName  cfgLocCode\n"
+            "               to run Tunnelblick's client.route-pre-down.tunnelblick script.\n\n"
+			"               If bit 0 of flags is 1, the '-k'  option is used to disable the network for expected disconnections.\n\n"
+			"               If bit 1 of flags is 1, the '-ku' option is used to disable the network for expected disconnections.\n\n"
 			
             "./openvpnstart checkSignature\n"
             "               to verify the application's signature using codesign\n\n"
@@ -1147,9 +1146,10 @@ int runReenableNetworkServices(void) {
 }
 
 //**************************************************************************************************************************
-int runRoutePreDownScript(BOOL kOption, NSString * configName, unsigned cfgLocCode) {
+int runRoutePreDownScript(BOOL kOption, BOOL kuOption, NSString * configName, unsigned cfgLocCode) {
     
-	// Runs the route-pre-down script; includes a "-k" argument to disable network access if kOption is true.
+	// Runs the route-pre-down script.
+	// Includes a "-k" argument to disable network access if kOption is true and includes a "-ku" option if kuOption is true.
 	
     int returnValue = 0;
     
@@ -1165,8 +1165,12 @@ int runRoutePreDownScript(BOOL kOption, NSString * configName, unsigned cfgLocCo
         
         fprintf(stdout, "Executing %s%s in %s...\n", [[scriptPath lastPathComponent] UTF8String], (kOption ? " -k" : ""), [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
 		NSArray * arguments = (  kOption
-							   ? [NSArray arrayWithObject: @"-k"]
-							   : [NSArray array]);
+							   ? (  kuOption
+								  ? [NSArray arrayWithObjects: @"-k", @"-ku", nil]
+								  : [NSArray arrayWithObject:  @"-k"])
+							   : (  kuOption
+								  ? [NSArray arrayWithObject:  @"-ku"]
+								  : [NSArray array]));
         returnValue = runAsRootWithConfigNameAndLocCode(scriptPath, arguments, 0744, configName, cfgLocCode);
         fprintf(stdout, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
         
@@ -3042,31 +3046,23 @@ int main(int argc, char * argv[]) {
 			}
             
         } else if (  strcmp(command, "route-pre-down") == 0  ) {
-			if (  argc == 4  ) {
-				NSString* configName = [NSString stringWithUTF8String:argv[2]];
-				unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
-				validateConfigName(configName);
-				if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
-					cfgLocCode = CFG_LOC_ALTERNATE;
+			if (  argc == 5 ) {
+				unsigned flags = cvt_atou(argv[2], @"flags");
+				if (  flags < 4  ) {
+					BOOL kOption  = (flags & 1) != 0;
+					BOOL kuOption = (flags & 2) != 0;
+					NSString* configName = [NSString stringWithUTF8String:argv[3]];
+					unsigned cfgLocCode = cvt_atou(argv[4], @"cfgLocCode");
+					validateConfigName(configName);
+					if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
+						cfgLocCode = CFG_LOC_ALTERNATE;
+					}
+					validateCfgLocCode(cfgLocCode);
+					runRoutePreDownScript(kOption, kuOption, configName, cfgLocCode);
+					syntaxError = FALSE;
 				}
-				validateCfgLocCode(cfgLocCode);
-				runRoutePreDownScript(false, configName, cfgLocCode);
-				syntaxError = FALSE;
 			}
             
-		} else if (  strcmp(command, "route-pre-down-k") == 0  ) {
-			if (  argc == 4  ) {
-				NSString* configName = [NSString stringWithUTF8String:argv[2]];
-				unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
-				validateConfigName(configName);
-				if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
-					cfgLocCode = CFG_LOC_ALTERNATE;
-				}
-				validateCfgLocCode(cfgLocCode);
-				runRoutePreDownScript(true, configName, cfgLocCode);
-				syntaxError = FALSE;
-			}
-			
         } else if (  strcmp(command, "checkSignature") == 0  ) {
             if (  argc == 2  ) {
 				checkSignature();
@@ -3141,7 +3137,6 @@ int main(int argc, char * argv[]) {
 					cfgLocCode = CFG_LOC_ALTERNATE;
 				}
 				validateCfgLocCode(cfgLocCode);
-				runRoutePreDownScript(false, configName, cfgLocCode);
                 unsigned scriptNumber = atoi(argv[2]);
 				runDownScript(scriptNumber, configName, cfgLocCode);
 				syntaxError = FALSE;
