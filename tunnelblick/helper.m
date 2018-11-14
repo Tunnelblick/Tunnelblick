@@ -1284,11 +1284,17 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
         }
     }
     
-    if (  status != EXIT_SUCCESS ) {
-        NSString * header = [NSString stringWithFormat: @"tunnelblickd status from %@: %ld\n", subcommand, (long) status];
-        [logMsg insertString: header atIndex: 0];
-        NSLog(@"%@", logMsg);
-    }
+#ifdef TBDebug
+	NSString * header = [NSString stringWithFormat: @"tunnelblickd status from %@: %ld\n", subcommand, (long) status];
+	[logMsg insertString: header atIndex: 0];
+	NSLog(@"%@", logMsg);
+#else
+	if (  status != EXIT_SUCCESS ) {
+		NSString * header = [NSString stringWithFormat: @"tunnelblickd status from %@: %ld\n", subcommand, (long) status];
+		[logMsg insertString: header atIndex: 0];
+		NSLog(@"%@", logMsg);
+	}
+#endif
 	
     return status;
 }
