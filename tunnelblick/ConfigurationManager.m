@@ -3907,6 +3907,53 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return gitMessage;
 }
 
++(NSString *) networkServicesInfo {
+
+	NSString * listOfServices = @""; // stdout (ignore stderr)
+	OSStatus status = runTool(TOOL_PATH_FOR_NETWORKSETUP,
+							  [NSArray arrayWithObject: @"-listallnetworkservices"],
+							  &listOfServices,
+							  nil);
+	if (  status != EXIT_SUCCESS  ) {
+		return [NSString stringWithFormat: @"An error occurred while trying to execute '%@ -listallnetworkservices'; output was '%@'", TOOL_PATH_FOR_NETWORKSETUP, listOfServices];
+	}
+	
+	NSString * wifiInterfaceName = @""; // stdout (ignore stderr)
+	runTool(TOOL_PATH_FOR_BASH,
+			[NSArray arrayWithObjects:
+			 @"-c",
+			 [TOOL_PATH_FOR_NETWORKSETUP stringByAppendingString: @" -listallhardwareports | awk '$3==\"Wi-Fi\" {getline; print $2}' | tr -d '\\n'"],
+			 nil],
+			&wifiInterfaceName,
+			nil);
+	if (  [wifiInterfaceName length] == 0  ) {
+		runTool(TOOL_PATH_FOR_BASH,
+				[NSArray arrayWithObjects:
+				 @"-c",
+				 [TOOL_PATH_FOR_NETWORKSETUP stringByAppendingString: @" -listallhardwareports | awk '$3==\"AirPort\" {getline; print $2}' | tr -d '\\n'"],
+				 nil],
+				&wifiInterfaceName,
+				nil);
+	}
+
+	NSString * wifiPowerStatus = @""; // stdout (ignore stderr)
+	if (  [wifiInterfaceName length] == 0  ) {
+		wifiPowerStatus = @"There are no network services named 'Wi-Fi' or 'AirPort'";
+	} else {
+		status = runTool(TOOL_PATH_FOR_NETWORKSETUP,
+						 [NSArray arrayWithObjects: @"-getairportpower", wifiInterfaceName, nil],
+						 &wifiPowerStatus,
+						 nil);
+		
+		if (  status != EXIT_SUCCESS  ) {
+			return [NSString stringWithFormat: @"An error occurred while trying to execute '%@ -getairportpower %@'; output was '%@'", TOOL_PATH_FOR_NETWORKSETUP, wifiInterfaceName, wifiPowerStatus];
+		}
+		
+	}
+	
+	return [listOfServices stringByAppendingFormat: @"\n%@", wifiPowerStatus];
+}
+
 +(void) putDiagnosticInfoOnClipboardWithDisplayName: (NSString *) displayName {
 	
 	NSPasteboard * pb = [NSPasteboard generalPasteboard];
@@ -3947,6 +3994,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSTextStorage * store = [[[[((MenuController *)[NSApp delegate]) logScreen] configurationsPrefsView] logView] textStorage];
         NSString * logContents = [store string];
         
+		
+		// Get list of network services and status of Wi-Fi
+		NSString * networkServicesContents = [ConfigurationManager networkServicesInfo];
+		
         // Get output of "ifconfig"
         NSString * ifconfigOutput = [self stringWithIfconfigOutput];
         
@@ -3968,6 +4019,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              @"Program preferences:\n\n%@\n%@"
                              @"Tunnelblick Log:\n\n%@\n%@"
 							 @"\"Sanitized\" full configuration file\n\n%@\n\n%@"
+							 @"Network services:\n\n%@\n%@"
                              @"ifconfig output:\n\n%@\n%@"
                              @"Console Log:\n\n%@\n",
                              versionContents, gitInfo,
@@ -3979,6 +4031,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              programPreferencesContents, separatorString,
                              logContents, separatorString,
 							 configFileContents, separatorString,
+							 networkServicesContents, separatorString,
                              ifconfigOutput, separatorString,
                              consoleContents];
         
