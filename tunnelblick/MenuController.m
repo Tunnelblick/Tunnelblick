@@ -2586,6 +2586,9 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
         return;
     }
+	
+	[self setCachedMenuItems: nil];
+	
     status = pthread_mutex_unlock( &configModifyMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
@@ -2663,6 +2666,9 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
         return;
     }
+	
+	[self setCachedMenuItems: nil];
+	
     status = pthread_mutex_unlock( &configModifyMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
