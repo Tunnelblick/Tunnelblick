@@ -116,6 +116,9 @@
 "Download" = "Stáhnout";
 
 /* Button */
+"Export Tunnelblick Setup" = "Exportovat Tunnelblick nastavení";
+
+/* Button */
 "Help" = "Nápověda";
 
 /* Button */
@@ -621,6 +624,9 @@
 "File not found" = "Soubor nenalezen";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Importovat nastavení Tunnelblick";
+
+/* Window title */
 "Info" = "Informace";
 
 /* Window title */
@@ -788,14 +794,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Zkonvertovat konfigurace OpenVPN\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  Kopírovat konfiguraci\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • Instalovat vynucené nastavení \n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Instalovat nebo aktualizovat konfiguraci(ce)\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  posunout konfiguraci\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Přesunout složku s privátními konfiguracemi\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  odstranit konfiguraci\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Zabezpečit konfigurace\n";
@@ -842,11 +857,17 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' již existuje na Ploše.\n\nOpravdu jej chcete přepsat?";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "Vypadá to, že soubor '%@' je zakódován pomocí UTF-16. Všechny soubory pro OpenVPN musí být čistý text, nebo UTF-8";
+
 /* Window text */
 "'%@' at line %u was not terminated properly" = "\"%1$@\" na řádku \"%2$u\" nebyl správně ukončen";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' nemá přístupové údaje (privátní klíč nebo uživatelské jméno a heslo) uloženy v Klíčence.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "\"%@\" není soubor prostého textu nebo UTF-8.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' nebylo ukončeno.";
@@ -1164,6 +1185,9 @@
 "Fast User Switching" = "Rychlé přepnutí uživatele";
 
 /* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Vypadá to, že soubor \"%@\" je ve formátu. rtf, protože začíná znakem '{'. Všechny OpenVPN soubory musí být v prostém textu nebo UTF-8.";
+
+/* Window text */
 "File '%@' contains one or more NUL characters." = "Soubor \"%@\" obsahuje jeden či více NUL znaků.";
 
 /* Window text */
@@ -1180,6 +1204,9 @@
 
 /* Window text */
 "File is too large: %@" = "Soubor %@ je příliš veliký";
+
+/* Window text */
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Pro každého uživatele, u nějž si přejete importovat konfigurace a nastavení, zvolte uživatele tohoto počítače jenž má získat dané konfigurace a nastavení.";
 
 /* Window text */
 "GB" = "GB";
@@ -1451,6 +1478,12 @@
 /* Window text */
 "That name is being used.\n\n" = "Toto jméno je již použito.\n\n";
 
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Systémový adresář %1$@ (%2$@) není bezpečný.\n\nAž do vyřešení tohoto problému nemusí Tunnelblick a jiné programy fungovat správně.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "Volba \"%@\" OpenVPN není na macOS povolena. Je to volba jen pro Windows.";
+
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Volba '%@' OpenVPN není povolena, když je používán Tunnelblick.";
 
@@ -1471,6 +1504,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "OpenVPN konfigurační soubor pro \"%@\" byl od posledního zabezpečení změněn.\n\nPřejete si změněnou konfiguraci zabezpečit nebo se vrátíte k poslední zabezpečené konfiguraci?\n\n";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "Konfigurační soubor OpenVPN v %1$@ obsahuje volbu \"%2$@\", která je pouze pro Windows. Na macOS ji nelze použít.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN log obsahuje následující zprávu:\n\n\"%1$@\".%2$@";
@@ -1558,6 +1594,9 @@
 
 /* Window text */
 "There was a problem:\n\n%@" = "Vyskytl se problém:\n\n%@";
+
+/* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Objevil se problém při importu nastavení Tunnelblicku.\n\nProhlédněte si detaily v logu Konzole.";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Tuto 'Deployed' verzi Tunnelblicku není možné spustit ani instalovat, protože nebyla rebrandována, updateFeedURL, nebo SUFeedURL chybí nebo obsahuje 'tunnelblick.net', nebo chybí CFBundleIdentifier nebo obsahuje 'net.tunnelblick'.\n\n";
@@ -1702,6 +1741,9 @@
 
 /* Window text */
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Přejmenování konfigurace '%1$@' na '%2$@' vyžaduje Tunnelblick autorizaci.";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Pro zajištění importovaných dat potřebuje Tunnelblick administrátorská práva.";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick potřebuje změnit nastavení, které může být změněno pouze administrátorem počítače.";
@@ -1979,6 +2021,12 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopie";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " %1$@ přestal být podporován v OpenVPN %2$@ a byl, nebo bude, odstraněn v pozdější verzi\n\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " \"%1$@\" je v OpenVPN %2$@ zastaralé a odstraněno v OpenVPN %3$@\n\n";
+
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
@@ -1987,6 +2035,9 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' byl přidán do OpenVPN %2$@\n";
+
+/* Popup button menu item */
+"(Do not import)" = "(neimporovat)";
 
 /* Credit description */
 "64-bit enabling and testing" = "Povolení 64-bit a testování";
@@ -2096,6 +2147,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Zkotroluje aktualizace pro aplikaci Tunnelblick.</p><p>Navštíví web Tunnelblick; pro detailní informace viz <a href=\"https://tunnelblick.net/cPrivacy.html\">Soukromí a bezpečnost</a>[tunnelblick.net]</p><p>Také zkontroluje aktualizace konfigurací v případě, že poskytovatel služby VPN tuto funkci podporuje.</p>";
 
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Zkopíruje informace do Schránky pro pomoc s diagnóznou potíží.</p><p>Informace zahrnují verzi software a nastavení, OpenVPN konfigurační soubor, nastavení sítě a další.</p><p>Citlivé informace o certifikátu nejsou zahrnuty, ale jiná data, např. IP adresy a URL, jež <em>mohou</em> být tajná, zahrnuta jsou. Předtím, než informace pošlete emailem, nebo je jinak zveřejníte, je podrobně projděte a odstraňte vše, co si přejete uchovat v tajnosti.</p>";
+
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Zkopíruje poslední část Logu konzole do schránky, aby ji bylo možné vložit do emailu nebo jiného dokumentu.</p><p>Log obsahuje detaily operací Tunnelblicku a OpenVPN. Zahrnuje běžné stavové zprávy a detailní chybová hlášení, jež jsou příliš dlouhá pro prezentování uživateli skrz běžné dialogové okno.</p>";
 
@@ -2105,6 +2159,9 @@
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Otevře okno s dalšími nastaveními.</p><p>Jakékoliv změny budou provedeny u všech konfigurací zvolených v okně 'Detaily VPN'.</p>";
 
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Ukončí všechny OpenVPN procesy, včetně těch, jež nebyly spuštěny Tunnelblickem. Pro ukončení konfigurací, připojených Tunnelblickem, použijte Tunnelblick tlačítka 'Odpojit' nebo 'Odpojit vše' a příkazy menu.</p><p>Kliknutím na toto tlačítko se vyšle signál 'SIGTERM' všem procesům s názvem 'openvpn'. Běžným důsledkem bude zavření všech spojení a ukončení OpenVPN. V případě, kdy tlačítko neukončí všechny OpenVPN procesy, může být potřeba využít macOS aplikaci Monitor aktivity a vynutit ukončení procesu.</p>";
+
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Obnoví varovná hlášení, která byla zakázána zatržítky 'Toto upozornění příště nezobrazovat'</p>";
 
@@ -2113,6 +2170,9 @@
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Upřesňuje ikonu, kterou má Tunnelblick zobrazovat v panelu nabídek.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Upřesňuje klávesy, které vyvolají hlavní menu Tunnelblicku.</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Specifikuje maximální objem úložiště, použitého pro zobrazení VPN logu.</p>";
@@ -2125,6 +2185,9 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Keš DNS obsahuje kopie záznamů DNS (Domain Name System) information.</p>\n<p><strong>Když zaškrtnuto</strong>, DNS keš bude vyprázdněna (vyčištěna) po připojení nebo odpojení. Všechny dotazy DNS budou vykonána názvovým serverem určeným v nastavení VPN.</p>\n<p><strong>Když není zaškrtnuto</strong>, DNS keš nebude vyprázdněna. To může způsobit problémy v případě konfliktu mezi názvovým serverem určeným v konfiguraci VPN a názvovým serverem z konfigurace před VPN - v případě kešování položek serveru před spuštěním VPN.</p>";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick obsahuje upravenou verzi 'easy-rsa', která je sadou skriptů příkazové řádky, napsaných vývojáři OpenVPN pro vytvoření a údržbu certifikátů a klíčů.</p><p>Klikem na toto tlačítko se spustí macOS Terminál s přednastavenou složkou, obsahující tyto skripty.</p><p>Skripty jsou běžně umístěny ve složce ~/Knihovna/Application Support/Tunnelblick/easy-rsa. Předvolba 'easy-rsaPath' může obsahovat cestu ke složce, kterou bude Tunnelblick používat namísto výchozí. Cesta 'easy-rsaPath' musí být úplný odkaz nebo cesta začínající '~', a nadřazená složka takové cesty musí existovat. Když u dané cesty existuje složka, bude použita; když neexistuje, bude vytvořena a easy-rsa skripty do ní budou nainstalovány při spuštění Tunnelblicku.</p><p>Pro informace o užívání easy-rsa viz <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Nastavení vlastního Certifikátu autority (CA) a generování certifikátů a klíčů pro OpenVPN server a vícero klientů</a> [openvpn.net].</p><p>Informace o přizpůsobení easy-rsa v Tunnelblick najdete v README souboru umístěném ve složce.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblicku se nepodařilo nahrát systémovou příponu, jež je vyžadována pro připojení k %1$@.</p><p>%2$@Více informací%3$@[%4$@]</p>";
@@ -2310,6 +2373,9 @@
 /* Credit description */
 "Swedish translation" = "Švédský překlad";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Tunnelblick nastavení %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Ikona Tunnelblick";
 
@@ -2327,6 +2393,12 @@
 
 /* Notification text */
 "Updated to %@." = "Aktualizováno na %@.";
+
+/* Column heading in a table */
+"Username in setup data" = "Uživatelské jméno v datech nastavení";
+
+/* Column heading in a table */
+"Username on this computer" = "Uživatelské jméno na tomto počítači";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamský překlad";

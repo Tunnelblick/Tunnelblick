@@ -149,7 +149,7 @@
 "Monochrome icon" = "Svartvit ikon";
 
 /* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
-"More Info [%@]" = "Mor Info [%@]";
+"More Info [%@]" = "Mer Information [%@]";
 
 /* Button */
 "More Info" = "Mer information";
@@ -789,7 +789,7 @@
 "  • Change ownership and permissions of the program to secure it\n" = "  • Ändra ägarrättigheter och tillstånd för programmet för att säkra det\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  Färdigställa uppdateringen\n";
+"  • Complete the update\n" = "  Slutför uppdateringen\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Konvertera OpenVPN-konfigurationer\n";
@@ -816,7 +816,7 @@
 "  • Secure configurations\n" = "  • Säkra konfigurationer\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ är fri mjukvara. Du kan distribuera den och/eller modifiera den i enlighet med %2$@ som publiceras av %3$@.\n\n%4$@ är ett registrerat varumärke av OpenVPN Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ är gratis programvara. Du kan distribuera den och/eller modifiera den i enlighet med %2$@ som publiceras av %3$@.\n\n%4$@ är ett registrerat varumärke av OpenVPN Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Vill du installera %1$@ i %2$@%3$@?\n\n";
@@ -857,11 +857,17 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' existerar redan på skrivbordet.\n\nVill du ersätta den?";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' verkar vara formaterad enligt formatet UTF-16. Alla OpenVPN-relaterade filer måste antingen vara i klartext eller i UTF-8 format";
+
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' på rad %2$u avslutades inte korrekt";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' har inte några användaruppgifter (privat nyckel eller användarnamn och lösenord) lagrade i Nyckelhanteraren.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@' är inte i klartext eller i UTF-8 format.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' är inte avslutad.";
@@ -1179,6 +1185,9 @@
 "Fast User Switching" = "Snabbt användarbyte";
 
 /* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Filen '%@' verkar vara i \"rich text\" format eftersom den börjar med ett '{' tecken. Alla OpenVPN-relaterade filer måste vara i klartext eller UTF-8 filer.";
+
+/* Window text */
 "File '%@' contains one or more NUL characters." = "Filen '%@' innehåller en eller fler NUL-tecken.";
 
 /* Window text */
@@ -1332,10 +1341,10 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Ersätter inte en existerande konfiguration, så konfigurationen '%@' kan inte använda 'TBKeepExistingFilesList'";
 
 /* Window text */
-"On expected disconnect:" = "Om förväntad frånkoppling:";
+"On expected disconnect:" = "Vid normal frånkoppling:";
 
 /* Window text */
-"On unexpected disconnect:" = "Om oväntad frånkoppling:";
+"On unexpected disconnect:" = "Vid avbrott i uppkopplingen:";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "En eller fler OpenVPN processer körs men är okända för Tunnelblick. Om du inte kör OpenVPN separat från Tunnelblick, betyder detta oftast att Tunneblick fortfarande körs och Tunnelblick kunde inte avsluta processerna korrekt, du bör avsluta dem. De kommer troligtvis att störa Tunnelblick. Vill du avsluta alla OpenVPN processer?";
@@ -1413,7 +1422,7 @@
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Privata konfigurationer kan inte ansluta när datorn startas.\n\nGör först konfigurationen delad, ändra sedan den här inställningen.";
 
 /* Window text */
-"Program error, please see the Console log." = "Programfel, vänligen kontrollera loggen.";
+"Program error, please see the Console log." = "Programfel, vänligen kontrollera konsol-loggen.";
 
 /* Window text */
 "Received fatal signal %d." = "Mottog en avslutningssignal %d.";
@@ -1473,6 +1482,9 @@
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Systemmappen %1$@ (%2$@) är inte säker.\n\nTunnelblick och andra program kan vara ostabila om inte problemet åtgärdas.\n\nKonsolloggen har mer information.";
 
 /* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "Alternativet \"%@\" i OpenVPN är inte tillåtet på macOS. Det kan endast användas i Windows-miljö.";
+
+/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN alternativet \"%@\" är inte tillåtet i Tunnelblick.";
 
 /* Window text */
@@ -1492,6 +1504,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "OpenVPN konfigurationsfilen för '%@' har ändrats efter att den senast säkrades.\n\nVill du säkra den modifierade konfigurationen eller återgå till den senast säkrade konfigurationen?\n\n";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN konfigurationen i %1$@ innehåller en \"%2$@\" inställning som endast kan användas i Windows. Inställningen kan inte användas på macOS.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN loggen innehåller följande meddelande:\n\n\"%1$@\".%2$@";
@@ -1560,7 +1575,7 @@
 "There are no OpenVPN configurations to install." = "Det finns inga OpenVPN konfigurationer att installera.";
 
 /* Window text */
-"There are no OpenVPN processes running" = "Det finns inga körande OpenVPN-processer";
+"There are no OpenVPN processes running" = "Inga OpenVPN-processer körs för närvarande";
 
 /* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Det finns inga VPN-konfigurationer installerade.\n\nTunnelblick behöver en eller flera installerade konfigurationer för att ansluta till en VPN. Konfigurationer installeras från filer som vanligtvis tillhandahålls av den nätverksadministratör eller VPN-operatör. Filerna måste installeras för att kunna användas.\n\nKonfigurationsfiler har filändelsernaf .tblk, .ovpn, eller .conf.\n\n(Andra filer med andra filländelsen kan vara associerade med konfigurationen. Ignorera dem tills vidare.)\n\nHar du några konfigurationsfiler?\n";
@@ -1617,7 +1632,7 @@
 "Too many duplicate configurations already exist." = "För många duplicerade konfigurationer finns redan.";
 
 /* Window text */
-"Translation by" = "Översättningar av";
+"Translation by" = "Översatt av";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Försöker att avsluta alla OpenVPN processer…";
@@ -1986,7 +2001,10 @@
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\nVARNING: Denna version av Tunnelblick utsätter din dator för säkerhetsluckor. Den skall uteslutande användas för felsökning.\n";
 
 /* Window text */
-"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nOBS: En eller flera konfigurationer är för tillfället uppkopplade. Dessa kommer att kopplas ner under tiden ändringar genomförs för att sedan kopplas upp igen, förutsatt att de inte avinstallerats.\n\n";
+"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nOBS: En eller flera konfigurationer är för tillfället uppkopplade. Dessa kommer att kopplas ifrån under tiden ändringar genomförs för att sedan anslutas igen, förutsatt att de inte avinstallerats.\n\n";
+
+/* Window text */
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "Ett eller flera certifikat som används för att säkra upp den här konfigurationen har gått ut.\n\nKolla i VPN-loggen under \"Logg\" fliken i konfigurationspanelen för VPN detaljer för ytliggare information.";
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nDetta fel innebär att en inställning som finns i konfigurationsfilen för OpenVPN eller som var skickad från OpenVPN-servern:\n\n     • innehåller ett stavfel,\n\n     • saknas eller har extra argument,\n\n     • eller stöds ej av den version av OpenVPN som används för den här konfigurationen. Det kan gälla ett ny inställning som inte är implementerad i en äldre version av OpenVPN, eller en äldre inställning som har blivit bortplockat i en ny version av OpenVPN. Du kan välja vilken version av OpenVPN du vill använda för den här konfigurationen. Det gör du under tabben \"Inställningar\" som finns i panelen \"Konfigurationer\" i fönstret \"VPN-Inställningar\".\n\nFör mer detaljer kan du läsa VPN-loggfilen under tabben \"Logg\" som finns i panelen \"Konfigurationer\" i fönstret \"VPN-Inställningar\".";
@@ -2008,6 +2026,9 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " kopiera";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' fasades ur i OpenVPN %2$@ och togs bort i OpenVPN %3$@\n\n";
 
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
@@ -2129,6 +2150,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Sök efter uppdateringar till Tunnelblick-applikationen.</p><p>Ansluter till Tunnelblicks hemsida; för mer information se <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Söker också efter uppdateringar till konfigurationer om din VPN-leverantör erbjuder denna tjänst.</p>";
 
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopierar information till Utklippshanteraren för att underlätta felsökning av problem.</p><p>Informationen inkluderar versioner av mjukvara, inställningar, konfigurationsfilen för OpenVPN, nätverksinställningar och annat.</p><p>Känslig information om certifikat inkluderas inte, men data som IP-adresser och URL: er som <em>kan</em> vara konfidentiella inkluderas. Du bör gå igenom informationen och ta bort allt som du vill hålla hemligt innan du skickar den per e-post eller postar den offentligt.</p>";
+
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Kopierar den sista delen av konsol-loggen till Urklipp så att den kan klistras in i ett e-mail eller ett annat dokument.</p><p>Loggen innehåller detaljer om hur Tunnelblick och OpenVPN arbetar. Den innehåller normala statusmeddelanden och detaljerade felmeddelanden som är för långa för att visa för en användare i en vanlig dialogruta.</p>";
 
@@ -2138,6 +2162,9 @@
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Öppnar ett fönster med ytterligare inställningar.</p><p>Alla ändringar görs på alla konfigurationer som är valda i fönstret 'VPN-detaljer'.</p>";
 
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Avslutar alla OpenVPN processer, även dom som inte startades av Tunneblick. Du bör använda Tunnelblicks knappar eller menyer för 'Koppla ner' eller 'Koppla ner alla' för att koppla ner konfigurationer som anslöts med Tunnelblick..</p><p>Att klicka på den här knappen sänder en 'SIGTERM' signal till alla processer som heter 'openvpn'. Normalt får det OpenVPN att stänga alla förbindelser och avsluta. Om den här knappen inte avslutar alla OpenVPN processer, så kan du behöva använda 'Tvångsavsluta' i macOS aktivitetshanterare för att avsluta processen.</p>";
+
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Återställer varningar som har hindrats av en 'Varna inte om detta igen' kryssruta.</p>";
 
@@ -2146,6 +2173,9 @@
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Anger vilken ikon som Tunnelblick ska visa på menyraden.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Anger vilka tangenter som visar Tunnelblicks huvudmeny.</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Anger maximalt lagringsutrymme som ska användas för att visa VPN-loggen.</p>";
@@ -2193,7 +2223,7 @@
 "Catalan translation" = "Katalansk översättning";
 
 /* Checkbox text */
-"Check for IP address changes" = "Kontrollera förändringar av IP-adressen";
+"Check for IP address changes" = "Kontrollera efter förändringar av IP-adressen";
 
 /* Checkbox text */
 "Check for updates" = "Sök efter uppdateringar";
@@ -2232,7 +2262,7 @@
 "Do not show this again" = "Visa inte detta igen";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Varna aldrig om det här igen, återaktivera aldrig";
+"Do not warn about this again, never re-enable" = "Visa aldrig den här varningen igen";
 
 /* Credit description */
 "Dutch translation" = "Holländsk översättning";
@@ -2464,7 +2494,7 @@
 "Invalid URL: %@" = "Ogiltig URL: %@";
 
 /* Window text VPNService */
-"No valid session token." = "Inget giltigt sessionsID.";
+"No valid session token." = "Inget giltigt sessions-ID.";
 
 /* Window text VPNService */
 "Please read our Terms of Service and indicate your acceptance or rejection of them." = "Var god läs våra användarvillkor oct acceptera eller avböj dem.";

@@ -369,7 +369,7 @@
 "Suggestion or Bug Report..." = "Forslag eller send feilrapport…";
 
 /* Menu item */
-"VPN Details..." = "VPN Detaljer…";
+"VPN Details..." = "VPN-detaljer…";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Tillat endringer for nettverksinnstillinger som har blitt angitt manuelt";
@@ -857,11 +857,17 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' eksisterer allerede på Skrivebordet.\n\nVil du erstatte den?";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "Filen '%@' virker å være enkodet i UTF-16. Alle OpenVPN-relaterte filer må være klartekst- eller UTF-8-filer";
+
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' på linje %2$u ble ikke avsluttet korrekt";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' ønsker ikke å brukeropplysninger (privat nøkkel, brukernavn og passord) lagret i Nøkkelringen.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "Filen '%@' er ikke i klartekst- eller UTF-8-format.";
 
 /* Window text */
 "'%@' was not terminated." = "\"%@' ble ikke avsluttet.";
@@ -894,7 +900,7 @@
 "(if connected when user switched out)" = "(hvis oppkoblet når bruker bytter)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Basert på Tunnelblick, gratis programvare som er tilgjengelig fra <br><a href=\"https://tunnelblick.net\"> https://tunnelblick.net</a> <br><br>OpenVPN er et registrert varemerke for OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Basert på Tunnelblick, gratis programvare som er tilgjengelig fra <br><a href=\"https://tunnelblick.net\"> https://tunnelblick.net</a> <br><br>OpenVPN er et registrert varemerke for OpenVPN Inc.";
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Nettverksoppsettet ble ikke gjenopprettet ordentlig etter nedkobling fra %@.</p><p>Dette problemet forårsakes vanligvis ved bruk av 'user nobody' og/eller 'group nobody' i OpenVPN-konfigurasjonen.</p><p>For å gjenopprette nettverksoppsettet bør du starte datamaskinen på nytt.</p><p>For å unngå denne feilen igjen, kan du fjerne linjer med 'user nobody' og 'group nobody' fra din OpenVPN-konfigurasjonsfil.</p><p>Se <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for mer informasjon.</p></font>\n\n";
@@ -1180,6 +1186,9 @@
 
 /* Window text */
 "Fast User Switching" = "Raskt brukerbytte";
+
+/* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Filen '%@' ser ut til å være i formatet 'rik tekst', siden den starter med tegnet '{'. Alle OpenVPN-relaterte filer må være i 'klartekst'- eller 'UTF-8'-format.";
 
 /* Window text */
 "File '%@' contains one or more NUL characters." = "Filen '%@' inneholder én eller flere NUL-tegn.";
@@ -1476,6 +1485,9 @@
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "%1$@ systemmappen (%2$@) er ikke sikker.\n\nDet kan hende at Tunnelblick og andre programmer ikke fungerer skikkelig før dette problemet er løst.\n\nKonsolloggen har flere detaljer.";
 
 /* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "OpenVPN-opsjonen '%@' er ikke tillatt i OS X. Det er en opsjon forbeholdt Windows.";
+
+/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN-opsjonen '%@' er ikke tillatt når du bruker Tunnelblick.";
 
 /* Window text */
@@ -1495,6 +1507,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "OpenVPN-konfigurasjonsfilen for '%@' ble endret etter at den var sikret sist.\n\nØnsker du å sikre den endrede konfigurasjonen eller gå tilbake til den siste sikrede konfigurasjonen?\n\n";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN-konfigurasjonsfilen i %1$@ inneholder en '%2$@'-opsjon som kun fungerer i Windows. Den kan ikke brukes i OS X.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN-loggen inneholder følgende melding: \n\n\"%1$@\".%2$@";
@@ -1992,6 +2007,9 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nMERK: En eller flere av konfigurasjonene er for øyeblikket tilkoblet. Disse vil bli frakoblet, installasjoner/erstatninger/avinstallasjoner vil utføres, og konfigurasjonene vil bli gjenoppkoblet, med mindre de har blitt avinstallert.\n\n";
 
 /* Window text */
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nEtt eller flere av sertifikatene som benyttes til å sikre denne konfigurasjonen har utløpt.\n\nSe i VPN-loggen under fanearket \"Logg\" fra konfigurasjonspanelet til Tunnelblicks \"VPN Detaljer\"-vindu for detaljer.";
+
+/* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nEn innstilling i konfigurasjonsfilen, eller en instilling overført fra OpenVPN serveren:\n\n     • har blitt stavet feil,\n\n     • har ekstra eller manglende argumenter, eller\n\n     • er ikke implementert av den versjonen av OpenVPN som blir benyttet for denne konfigurasjonen. Det kan være en ny innstilling som ikke er støttet av gamle OpenVPN versjoner, eller en gammel innstilling som har blitt fjernet av nyere OpenVPN versjoner.  Du kan velge hvilken versjon av OpenVPN du vil bruke med denne konfigurasjonen i \"Innstillinger\" valget i \"Konfigurasjoner\" i Tunnelblicks \"VPN Detaljer\" vindu.\n\nSe på VPN loggen i \"Log\" valget i \"Konfigurasjoner\" i menyen for Tunnelblicks \"VPN Detaljer\" for mer informasjon.";
 
 /* Window text */
@@ -2011,6 +2029,9 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " kopi";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' ble foreldet i OpenVPN %2$@ og har blitt eller vil bli fjernet i en senere versjon\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' ble foreldet i OpenVPN %2$@ og fjernet i OpenVPN %3$@\n\n";
@@ -2138,6 +2159,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Sjekk for oppdateringer av Tunnelblick-applikasjonen.</p><p>Besøk nettsidene til Tunnelblick; for mer informasjon, se <a href=\"https://tunnelblick.net/cPrivacy.html\">Personvern og sikkerhet</a> [tunnelblick.net].</p><p>Sjekk også for konfigurasjonsoppdateringer hvis din VPN-serviceleverandør har implementert denne funksjonaliteten.</p>";
 
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopierer informasjon til utklippstavlen for å hjelpe å diagnostisere problemer.</p><p>Informasjonen inkluderer programvareversjoner og innstillinger, OpenVPN-konfigurasjonsfilen, nettverksinnstillingene og mer.</p><p>Sensitiv sertifikatinformasjon er ikke inkludert, men data som IP-adresser og nettadresser som <em>kan</em> være konfidensielle, er inkludert. Du bør undersøke informasjonen og fjerne alt du vil holde hemmelig før du sender den i en e-post eller legger den ut offentlig.</p>";
+
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Kopierer den siste delen av konsoll-loggen til utklippstavlen slik at den kan bli limt inn i en epost eller andre dokument.</p><p>Loggen inneholder detaljer om operasjonene til Tunnelblick og OpenVPN. Den inkluderer normale statusmeldinger og detaljerte feilmeldinger som er for lange til å bli presentert til brukeren i et normalt dialogvindu.</p>";
 
@@ -2150,6 +2174,9 @@
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Åpner et vindu med flere innstillinger.</p><p>Eventuelle endringer vil bli tillagt alle konfigurasjoner som er valgt i 'VPN Detaljer' vinduet.</p>";
 
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Avslutter alle OpenVPN-prosesser, inkludert de som ikke ble startet av Tunnelblick. Du bør bruke Tunnelblicks 'Koble av'- eller 'Koble av alle'-knapper og menykommandoer for å koble av konfigurasjoner som ble koblet på ved hjelp av Tunnelblick.</p><p>Hvis du klikker på denne knappen sendes det et 'SIGTERM'-signal til alle prosesser som heter 'openvpn'. Normalt vil dette føre til at OpenVPN lukker alle tilkoblinger og avslutter. Hvis denne knappen ikke avslutter alle OpenVPN-prosesser, må du antageligvis bruke OS X-programmet Aktivitetsmonitor for å tvinge gjennom avslutning av prosessen.</p>";
+
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Gjenoppretter advarsler som har blitt tilbakeholdt av en \"Ikke varsle om dette igjen\" avkrysningsboks.</p>";
 
@@ -2158,6 +2185,9 @@
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Angir ikonet som Tunnelblick skal vise i menylinjen.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Angir tastekombinasjonen som skal brukes for å aktivere Tunneblicks hovedmeny.</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Angir maksimal mengde lagringsplass som skal brukes til å vise VPN-loggen.</p>";
@@ -2170,6 +2200,9 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS cache inneholder kopier av DNS (Domain Name System) informasjon.</p>\n<p><strong>Når avkrysset</strong>, vil DNS-mellomlager tømmes (fjernes) etter til- eller frakobling. Alle DNS-oppslag vil bli utført av navnetjeneren angitt i VPN-oppsettet.</p>\n<p><strong>Når ikke avkrysset</strong>, vil DNS-mellomlager ikke tømmes. Dette kan føre til problemer hvis det finnes navnekonflikter mellom navnetjeneren angitt i VPN-oppsettet og pre-VPN navnetjeneren dersom pre-VPN-oppføringer har blitt mellomlagret.</p>";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick har en tilpasset versjon av 'easy-rsa', som består av et sett med kommandolinjeskript skrevet av OpenVPN-utviklere for å opprette og vedlikeholde sertifikater og nøkler.</p><p>Hvis du klikker på denne knappen, startes Terminal-programmet i MacOS og hvor arbeidskatalogen blir satt til mappen som inneholder skriptene.</p><p>Skriptene er vanligvis plassert i mappen under følgende sti: ~/Library/Application Support/Tunnelblick/easy-rsa. Innstillingen 'easy-rsaPath' kan inneholde stien til en mappe som Tunnelblick vil bruke i stedet. 'easy-rsaPath' må være en absolutt sti eller starte med en '~', og den overordnede mappen av stien må eksistere. Hvis en mappe finnes på denne stien, vil den bli brukt; hvis den ikke eksisterer, vil den bli opprettet og easy-rsa-skriptene vil bli installert i den mappen når Tunnelblick startes</p><p>For informasjon om bruk av easy-rsa, se <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Oppsett av din egen Certificate Authority (CA) og generering av sertifikater og nøkler for en OpenVPN-server og andre klienter</a> [openvpn.net].</p><p>For detaljer om Tunnelblicks tilpasninger av easy-rsa, se README-filen i mappen.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick var ikke i stand til å laste et systemtillegg som er nødvendig for å kunne koble til %1$@.</p><p>%2$@Mer informasjon%3$@ [%4$@]</p>";

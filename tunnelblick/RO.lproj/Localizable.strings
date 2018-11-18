@@ -857,11 +857,17 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' deja există pe Desktop.\n\nDoriți să înlocuiți?";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' pare a fi un fișier în formatul UTF-16. Toate fișierele OpenVPN trebuie să fie de tip text sau în format UTF-8";
+
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' la linia %2$u nu a fost terminată corect";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' nu are nici un fel de credențiale (cheie privată sau utilizator și parolă) salvată în Keychain.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@' nu este de tip text sau în format UTF-8.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' nu a fost terminat.";
@@ -1182,6 +1188,9 @@
 "Fast User Switching" = "Comutarea rapidă între utilizatori";
 
 /* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Fișierul '%@' pare să fie în format 'rich text', pentru că începe cu un caracter '{'. Toate fișierele OpenVPN trebuie să fie de tip text sau în format UTF-8.";
+
+/* Window text */
 "File '%@' contains one or more NUL characters." = "Fișierul '%@' conține una sau mai multe caractere nule.";
 
 /* Window text */
@@ -1306,6 +1315,9 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "'TBPackageVersion' lipsește în %@";
+
+/* Window text */
+"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Nici o conexiune rețea nu e disponibilă.\n\nActivați Wi-Fi și conectați-vă la o rețea fără fir, conectați un cablu Ethernet, sau conectați-vă la o rețea în orice alt mod.\n\nConsultați panoul Rețea în Preferințele Sistem macOS pentru informații suplimentare.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Nici o cale la easy-rsa. Cea mai probabilă cauză este o problemă cu preferințele 'easy-rsaPath'";
@@ -1476,6 +1488,9 @@
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Folder-ul sistem %1$@ (%2$@) nu e securizat.\n\nTunnelblick și alte programe nu pot funcționa în mod corespunzător până când această problemă nu e rezolvată.\n\nConsultați Console Log pentru detalii.";
 
 /* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "Opțiunea OpenVPN '%@' nu este permisă pe macOS. Este o opțiune specifică pentru Windows.";
+
+/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Opțiunea OpenVPN %@ nu este permisă atunci când se utilizează Tunnelblick.";
 
 /* Window text */
@@ -1495,6 +1510,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Fișierul de configurare OpenVPN pentru %@ a fost modificat după ce a fost securizat ultima dată.\n\nDoriți să securizați configurația modificată sau reveniți la ultima configurație securizată?\n\n";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "Fișierul de configurare OpenVPN %1$@ conține o opțiune '%2$@', care este o opțiune specifică pentru Windows. Nu poate fi utilizată pe macOS.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Jurnalele OpenVPN conțin următorul mesaj:\n\n%1$@.%2$@";
@@ -1992,7 +2010,10 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nNOTĂ: Una sau mai multe dintre configuratii sunt în prezent conectate. Ele vor fi deconectate, instalări / înlocuiri / dezinstalări vor fi efectuate, iar configurațiile vor fi reconectate cu excepția cazului în care acestea au fost dezinstalate.\n\n";
 
 /* Window text */
-"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nAceastă eroare înseamnă că o opțiune care este conținută în fișierul de configurare OpenVPN sau a fost \"împinsă\" de serverul OpenVPN:\n\n      • a fost incorect scrisă,\n\n      • are argumente suplimentare sau lipsă, sau\n\n      • nu este implementată de versiunea OpenVPN care este utilizată pentru această configurație. Poate fi o opțiune nouă care nu este implementată într-o versiune veche a OpenVPN sau o opțiune veche care a fost eliminată într-o nouă versiune OpenVPN. Puteți alege ce versiune de OpenVPN să utilizați cu această configurație în panoul \"Setări\" din panoul \"Configurări\" din fereastra \"Detaliile VPN\" al Tunnelblick.\n\nVedeți jurnalul VPN în fila \"Jurnal\" din panoul \"Configurări\" din fereastra \"Detalii VPN\" a Tunnelblick pentru mai multe detalii.";
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nUnul sau mai multe certificate folosite pentru a securiza această configurație au expirat.\n\nConsultați jurnalul VPN în fila \"Jurnal\" din panoul \"Configurări\" din fereastra \"Detalii VPN\" a Tunnelblick pentru mai multe detalii.";
+
+/* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nAceastă eroare înseamnă că o opțiune care este conținută în fișierul de configurare OpenVPN sau a fost \"împinsă\" de serverul OpenVPN:\n\n      • a fost incorect scrisă,\n\n      • are argumente suplimentare sau lipsă, sau\n\n      • nu este implementată de versiunea OpenVPN care este utilizată pentru această configurație. Poate fi o opțiune nouă care nu este implementată într-o versiune veche a OpenVPN sau o opțiune veche care a fost eliminată într-o nouă versiune OpenVPN. Puteți alege ce versiune de OpenVPN să utilizați cu această configurație în panoul \"Setări\" din panoul \"Configurări\" din fereastra \"Detaliile VPN\" al Tunnelblick.\n\nConsultați jurnalul VPN în fila \"Jurnal\" din panoul \"Configurări\" din fereastra \"Detalii VPN\" a Tunnelblick pentru mai multe detalii.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nși instalați %ld configurații Tunnelblick VPN";
@@ -2011,6 +2032,9 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " copie";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' a fost depreciat în OpenVPN %2$@ și a fost sau va fi eliminat într-o versiune ulterioară\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' a fost depreciat în OpenVPN %2$@ și eliminat în OpenVPN %3$@\n\n";
@@ -2138,6 +2162,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Caută versiuni actualizate a aplicației Tunnelblick.</p><p>Se conectează la site-ul Tunnelblick; pentru mai multe detalii vizitați <a href=\"https://tunnelblick.net/cPrivacy.html\">Securitate și Intimitate</a> [tunnelblick.net].</p><p>De asemenea caută actualizări a configurațiilor, dacă furnizorul de servicii VPN suportă această funcționalitate.</p>";
 
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Copiază informația în Clipboard pentru a facilita diagnosticarea problemelor.</p><p>Informația include versiunile și setările software-ului, fișierul de configurație pentru OpenVPN, parametrii de rețea și altele.</p><p>Informații confidențiale despre certificat nu sunt incluse, dar informații ca adresa IP și adresele URL care <em>pot</em> fi confidențiale sunt incluse. Ar trebui să analizați informația și să ștergeți tot ce vreți să păstrați confidențial înainte de a o trimite prin email sau de a o posta în mod public.</p>";
+
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Copiază în clipboard ultima parte din consola cu jurnalul de mesaje, pentru a putea fi pusă într-un email sau alt document.</p><p>Jurnalul conține detaliile operațiilor Tunnelblick și OpenVPN atât cu mesaje normale și mesajele de eroare detaliate, prea lungi pentru a fi afișate într-un dialog normal.</p>";
 
@@ -2150,6 +2177,9 @@
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Deschide o fereastră nouă cu setări suplimentare.</p><p>Modificările vor fi aplicate tuturor configurațiilor selectate în fereastra 'Detalii VPN'.</p>";
 
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Oprește toate procesele OpenVPN, inclusiv pe cele care nu au fost pornite de Tunnelblick. Pentru a opri conexiunile pornite de Tunnelblick vă recomandăm să folosiți opțiunile 'Deconectați' sau 'Deconectați tot' din meniu.</p><p>\nApăsând pe acest buton veți trimite un semnal 'SIGTERM' tututor proceselor numite 'openvpn'. Acest lucru va închide procesul OpenVPN și toate conexiunile sale. Dacă nici acest buton nu închide toate procesele OpenVPN, folosiți aplicația macOS Activity Monitor pentru a închide procesele.</p>";
+
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Restaurează toate atenționările care au fost oprite folosind opțiunea 'Nu avertiza despre asta din nou'.</p>";
 
@@ -2158,6 +2188,9 @@
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Specifică iconița pe care Tunnelblick trebuie să o afișeze în bara de meniu.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Specifică tastele ce trebuiesc apăsate pentru a ajunge la meniul principal Tunnelblick.</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Specifică cantitatea maximă de stocare care va fi folosită pentru afișarea log-ului VPN.</p>";
@@ -2170,6 +2203,9 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p> Memoria cache DNS conține copii ale informațiilor DNS (Domain Name System). </p>\n<p> <strong> Când e bifată </strong>, cache-ul DNS va fi eliminat (șters) după conectare sau deconectare. Toate căutarile în DNS vor fi efectuate după numele de server specificat de configurarea VPN. </p>\n<p> <strong> Atunci când nu a fost bifat </strong>, cache-ul DNS nu va fi eliminat. Acest lucru poate cauza probleme în cazul în care există un conflict de nume între serverul de nume specificat de configurarea VPN și serverul de nume de pre-VPN și dacă intrările de pre-VPN au fost memorate în cache. </p>";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick include o versiune personalizată a librăriei 'easy-rsa', care este un set de script-uri din linia de comandă scrise de dezvoltatorii OpenVPN pentru a creea și menține certificate și chei.</p><p>Apăsând acest buton lansează aplicația macOS Terminal cu directorul curent configurat în locația acestor script-uri.</p><p>Acestea sunt în mod normal găsite în ~/Library/Application Support/Tunnelblick/easy-rsa. Opțiunea 'easy-rsaPath' poate conține calea către un director pe care Tunnelblick să îl folosească alternativ. 'easy-rsaPath' trebuie să fie o cale absolută sau să înceapă cu '~', iar directorul părinte trebuie să existe. Dacă un director există în locația specificată, va fi folosit; dacă nu există va fi creeat, iar script-urile easy-rsa vor fi instalate în acea locație când Tunnelblick pornește.</p><p>Pentru mai multe informații despre utilizarea easy-rsa, vizitați <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Configurarea propriei Autorități de Certificare (CA) și generarea de certificate și chei pentru server-ul OpenVPN și mai mulți clienți</a> [openvpn.net].</p><p>Pentru detalii despre personalizările Tunnelblick's a easy-rsa, citiți fișierul README găsit în acel director.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick nu a putut încărca o extensie de sistem necesară conectării la %1$@.</p><p>%2$@Informații suplimentare%3$@ [%4$@]</p>";

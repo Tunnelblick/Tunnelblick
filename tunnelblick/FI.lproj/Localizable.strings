@@ -863,6 +863,9 @@
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@':lla ei ole käyttäjätunnuksia (yksityinen avain tai käyttäjätunnus ja salasana) tallennettuna Avainnippuun.";
 
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "Tiedosto '%@' ei ole teksti tai UTF-8 tiedosto.";
+
 /* Window text */
 "'%@' was not terminated." = "'%@' ei katkaistu.";
 
@@ -1306,6 +1309,9 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Ei 'TBPackageVersion' kohteessa %@";
+
+/* Window text */
+"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Verkkoyhteyttä ei ole.\n\nKytke Wi-Fi-yhteys ja muodosta yhteys langattomaan verkkoon, kytke Ethernet-kaapeli tai muodosta yhteys verkkoon jollakin muulla tavalla.\n\nLisätietoa löytyy Macos-järjestelmän asetuksista verkko kohdasta.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Ei polkua easy-rsa:han. Todennäköisin syy on ongelma 'easy-rsaPath'-asetuksessa";
@@ -1992,6 +1998,9 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nHUOM: Yksi tai useampi konfiguraatio on yhdistetty. Yhteydet katkaistaan, asennus/korvaus/poisto operaatoita tehdään ja konfiguraatiot yhdistetään uudellen tämän jälkeen, mikäli niitä ei poistettu.\n\n";
 
 /* Window text */
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nYksi tai useampi kokoonpanon turvaamiseen käytetyistä sertifikaateista on vanhentunut.\n\nKatso lisätietoa VPN-lokista Tunnelblickin \"VPN-tiedot\" näkymän \"Kokoonpano\" valikon \"Loki\" välilehdestä.";
+
+/* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nTämä virhe tarkoittaa että asetus joka on määritetty OpenVPN konfiguraatiossa tiedostossa tai on \"pakotettu\" OpenVPN palvelimen toimesta:\n\n     • sisältää kirjoitusvirheitä,\n\n     • puutteellisia tai ylimääräisiä muuttujia, tai\n\n     • ei sisälly käytettävään OpenVPN version tukemiin asetuksiin. Tämä voi olla uusi asetus joka ei sisälly vanhaan versioon, tai asetus joka on poistettu uudesta OpenVPN versiosta. \nVoit valita tämän konfiguraation kanssa käytettävän OpenVPN version Tunnelblickin \"VPN-yksityiskohdat\" ikkunan \"Asetukset\" välilehdeltä \"Konfiguraatiot\" paneelista.\n\nKatso VPN logit \"VPN-yksityiskohdat\" ikkunan \"Konfiguraatiot\" paneelin \"Logit\" välilehdeltä lisätietoja varten.";
 
 /* Window text */
@@ -2011,6 +2020,9 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " kopio";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' on vanhentunut OpenVPN versiossa %2$@ ja on poistettu tai tullaan poistamaan myöhemmässä versiossa\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' on vanhentunut OpenVPN %2$@ ja poistetaan OpenVPN %3$@ versiossa\n\n";
@@ -2158,6 +2170,9 @@
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Määrittelee valikossa Tunnelblickin käyttämän ikonin.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Määrittelee näppäin Tunnelblickin päävalikon avaamiseen.</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Määrittälee VPN logien tallenukseen käytettävän tilan enimmäismäärän.</p>";

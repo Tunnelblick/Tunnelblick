@@ -675,6 +675,9 @@
 "System Requirements Not Met" = "Stelselvereistes nie bereik";
 
 /* Window title */
+"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ moet dalk opgedateer word";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick opset probleem";
 
 /* Window title */
@@ -776,14 +779,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Skakel OpenVPN konfigurasies\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Kopieër 'n konfigurasie\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  Installeer gedwing voorkeure\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Installeer of opdateer konfigurasie(s)\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Skuif 'n konfigurasie\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Skuif die privaat konfigurasies gids\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Verwyder 'n konfigurasie\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Verseker konfigurasies\n";

@@ -857,11 +857,17 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "%@ sudah ada di Desktop.\n\nApakah anda mau menggantikannya?";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' tampaknya adalah sebuah berkas dengan enkoding UTF-16. Semua berkas terkait OpenVPN harus berupa teks polos atau UTF-8";
+
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' pada baris %2$u tidak diakhiri dengan benar";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' tidak punya kredensial (kunci privat atau nama pengguna dan sandi) yang tersimpan di dalam Ring kunci.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@' bukan berkas UTF-8 atau teks polos.";
 
 /* Window text */
 "'%@' was not terminated." = "%@ belum diakhiri.";
@@ -1182,6 +1188,9 @@
 "Fast User Switching" = "Penggantian User Cepat";
 
 /* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Berkas '%@' tampaknya berformat 'rich text' karena dimulai dengan karakter '{'. Semua berkas terkait OpenVPN mesti berupa berkas UTF-8 atau teks polos.";
+
+/* Window text */
 "File '%@' contains one or more NUL characters." = "Berkas '%@' memuat satu atau lebih karakter NUL.";
 
 /* Window text */
@@ -1476,6 +1485,9 @@
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Folder sistem %1$@ (%2$@) tidak aman.\n\nTunnelblick dan program-program lain mungkin tidak bekerja dengan benar sampai masalah ini diperbaiki.\n\nLog Konsol menyimpan rinciannya.";
 
 /* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "Opsi '%@' OpenVPN tidak diperbolehkan untuk macOS. Opsi ini hanya untuk Windows.";
+
+/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Opsi OpenVPN '%@' tidak diperbolehkan saat menggunakan Tunnelblick.";
 
 /* Window text */
@@ -1495,6 +1507,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Berkas konfigurasi OpenVPN bagi '%@' berubah setelah terakhir kali diamankan.\n\nApakah Anda hendak mengamankan konfigurasi yang diubah atau mengembalikan ke konfigurasi yang terakhir diamankan?\n\n";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "Berkas konfigurasi OpenVPN dalam %1$@ memuat suatu opsi '%2$@', yang merupakan opsi khusus Windows. Itu tidak bisa dipakai pada macOS.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Log OpenVPN mengandung pesan berikut: \n\n\"%1$@\".%2$@";
@@ -1992,6 +2007,9 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nCATATAN: Satu atau lebih konfigurasi saat ini sedang tersambung. Mereka akan diputus, instalasi/penggantian/pembongkaran akan dilaksanakan, dan konfigurasi akan disambung ulang kecuali mereka dibongkar.\n\n";
 
 /* Window text */
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nSatu sertifikat atau lebih yang dipakai untuk mengamankan konfigurasi ini telah kedaluwarsa.\n\nLihat log VPN dalam tab \"Log\" dari panel \"Konfigurasi\" dari jendela \"Rincian VPN\" Tunnelblick untuk rinciannya.";
+
+/* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nKesalahan ini berarti bahwa suatu opsi yang dimuat dalam berkas konfigurasi OpenVPN atau \"didorong\" oleh server OpenVPN:\n\n     • salah eja,\n\n     • kurang atau kelebihan argumen, atau\n\n     • tidak diimplementasikan oleh versi OpenVPN yang sedang dipakai untuk konfigurasi ini. Ini mungkin suatu opsi baru yang tidak diimplementasikan dalam versi lama OpenVPN, atau opsi lama yang telah dihapus dalam versi baru OpenVPN. Anda dapat memilih versi OpenVPN mana yang dipakai dengan konfigurasi ini dalam tab \"Pengaturan\" dari panel \"Konfigurasi\" dari jendela Tunnelblick \"Rincian VPN\".\n\nLihat log VPN dalam tab \"Log\" dari panel \"Konfigurasi\" dari jendela Tunnelblick \"Rincian VPN\" untuk rinciannya.";
 
 /* Window text */
@@ -2011,6 +2029,9 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " salinan";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' kedaluwarsa dalam OpenVPN %2$@ dan telah atau akan dihapus dalam versi selanjutnya\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' sudah kedaluwarsa dalam OpenVPN %2$@ dan dihapus dalam OpenVPN %3$@\n\n";
@@ -2138,6 +2159,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Memeriksa pemutakhiran atas aplikasi Tunnelblick.</p><p>Mengakses situs web Tunnelblick; untuk rincian lebih lanjut lihat <a href=\"https://tunnelblick.net/cPrivacy.html\">Privasi dan Keamanan</a>[tunnelblick.net].</p><p>Juga memeriksa pemutakhiran ke konfigurasi bila penyedia layanan VPN Anda mengimplementasikan fitur itu.</p>";
 
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Menyalin informasi ke Papan Klip untuk membantu diagnosa masalah.</p><p>Informasi termasuk versi perangkat lunak dan pengaturan, berkas konfigurasi OpenVPN, pengaturan jaringan, dan lainnya.</p><p>Informasi sertifikat yang sensitif tidak disertakan, tapi data seperti alamat IP dan URL yang <em>mungkin</em> konfidensial disertakan. Anda mesti memeriksa informasi dan menghapus apapun yang ingin tetap Anda rahasiakan sebelum mengirimnya dalam suatu surel atau mengeposkannya secara publik.</p>";
+
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Menyalin bagian terakhir dari Log Konsol ke Papan Klip sehingga dapat ditempelkan ke dalam suatu surel atau dokumen lain.</p><p>Log memuat rincian operasi OpenVPN dan Tunnelblick. Itu termasuk pesan status dan pesan kesalahan terrinci yang terlalu panjang untuk disajikan ke pengguna dalam suatu jendela dialog normal.</p>";
 
@@ -2150,6 +2174,9 @@
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Membuka suat jendela dengan pengaturan tambahan.</p><p>Sebarang perubahan akan diterapkan pada semua konfigurasi yang dipilih dalam jendela 'Rincian VPN'.</p>";
 
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Keluar dari semua proses OpenVPn, termasuk yang tidak dijalankan oleh Tunnelblick. Anda mesti memakai tombol Tunnelblick 'Putuskan' atau 'Putuskan Semua' dan perintah menu untuk memutus konfigurasi yang disambung memakai Tunnelblick.</p><p>Mengklik tombol ini akan mengirim sinyal 'SIGTERM' ke semua proses yang bernama 'openvpn'. Biasanya ini akan menyebabkan OpenVPN menutup semua koneksi dan keluar. Bila tombol ini tidak menyebabkan keluarnya semua proses OpenVPN, Anda mungkin perlu memakai aplikasi Pemantau Aktivitas macOS untuk 'Paksa Keluar' proses.</p>";
+
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Memulihkan peringatan yang telah dicegah oleh kotak centang 'Jangan ingatkan tentang hal ini lagi'.</p>";
 
@@ -2158,6 +2185,9 @@
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Menyatakan ikon yang mesti ditampilkan oleh Tunnelblick dalam bilah menu.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Menyatakan tombol yang mesti ditekan untuk memunculkan menu utama Tunnelblick.</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Menyatakan banyaknya penyimpanan maksimum yang dipakai untuk menampilkan log VPN.</p>";
@@ -2170,6 +2200,9 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Singgahan DNS memuat salinan informasi DNS (Domain Name System).</p>\n<p><strong>Ketika dicentang</strong>, singgahan DNS akan digelontor (dibersihkan) setelah menyambung atau memutus. Semua pencarian DNS akan dilaksanakan oleh server nama yang dinyatakan oleh penyiapan VPN.</p>\n<p><strong>Ketika tidak dicentang</strong>, singgahan DNS tidak akan digelontor. Ini bisa menyebabkan masalah bila ada konflik nama antara server nama yang dinyatakan oleh penyiapan VPN dan nama server pra VPN dan bila entri pra VPN telah disinggahkan.</p>";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick termasuk suatu versi ubahan dari 'easy-rsa', yang merupakan suatu kumpulan skrip baris perintah yang ditulis oleh para pengembang OpenVPN untuk membuat dan memelihara sertifikat dan kunci.</p><p>Mengklik tombol ini meluncurkan aplikasi Terminal macOS dengan direktori kerja ditata ke folder yang memuat skrip.</p><p>Skrip biasanya terletak dalam folder ~/Library/Application Support/Tunnelblick/easy-rsa. Suatu preferensi 'easy-rsaPath' mesti merupakan suatu path absolut atau diawali dengan '~', dan folder induk dari path mesti ada. Bila suatu folder ada pada path, itu akan dipakai; bila tidak ada, itu akan dibuat dan skrip easy-rsa akan dipasang ke dalamnya ketika Tunnelblick diluncurkan.</p><p>Untuk informasi tentang memakai easy-rsa, lihat <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Menyiapkan Certificate Authority (CA) Anda sendiri dan membuat sertifikan dan kunci bagi suatu server OpenVPN dan banyak klien.</a>[openvpn.net].</p><p>Untuk rincian dari pengubahan Tunnelblick atas easy-rsa, lihat berkas README yang terletak dalam folder.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick tidak bisa memuat suatu ekstensi sistem yang diperlukan untuk menyambung ke %1$@.</p><p>%2$@Informasi lebih lanjut%3$@ [%4$@]</p>";
