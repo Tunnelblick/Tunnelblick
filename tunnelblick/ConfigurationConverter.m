@@ -284,7 +284,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 								@"<pkcs12>",
 								@"<secret>",
 								@"<tls-auth>",
-								@"<tls-crypt>"];
+								@"<tls-crypt>",
+								@"<tls-crypt-v2>"
+								];
 	
 	NSMutableArray * arr = [NSMutableArray arrayWithCapacity: 300];
 	
@@ -1197,6 +1199,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 								 @"secret",                        // Optional 'direction' argument
 								 @"tls-auth",                      // Optional 'direction' argument
 								 @"tls-crypt",
+								 @"tls-crypt-v2",
 								 nil];
     
     // List of OpenVPN options that take a command
@@ -1230,6 +1233,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                                  @"<secret>",
                                  @"<tls-auth>",
                                  @"<tls-crypt>",
+                                 @"<tls-crypt-v2>",
                                  nil];
     
     NSArray * endInlineKeys = [NSArray arrayWithObjects:
@@ -1242,6 +1246,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                                @"</secret>",
                                @"</tls-auth>",
                                @"</tls-crypt>",
+							   @"</tls-crypt-v2>",
                                nil];
     
     // List of OpenVPN options that cannot appear in a Tunnelblick VPN Configuration unless the file they reference has an absolute path
@@ -1749,6 +1754,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"tls-cipher|"
     @"tls-client|"
     @"tls-crypt|"
+	@"tls-crypt-v2|"
     @"tls-exit|"
     @"tls-export-cert|"
     @"tls-remote|"

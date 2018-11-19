@@ -1927,7 +1927,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								 @"verify-client-cert",
 								 nil],
 								[NSArray arrayWithObjects:
-								 @"2.5", @"tls-cert-profile",
+								 @"2.5", @"tls-cert-profile", @"tls-crypt-v2",
 								 nil],
 								nil];
 	
