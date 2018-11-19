@@ -219,7 +219,7 @@ on GetMyScriptPath() -- As POSIX path
 	end if
 	
 	display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
-		message LocalizedFormattedString("There is a problem. The uninstaller shell script does not exist at %s.\n\nPlease email developers@tunnelblick.net for help.",
+		message LocalizedFormattedString("There is a problem. The uninstaller shell script does not exist at %s.\n\nPlease email developers@tunnelblick.net for help.", Â
 										 {myScriptPath}) Â
 		as critical
 	return ""
@@ -242,7 +242,7 @@ on NameToUninstall(fullPath) -- (String) as String
 				set TBName to GetLastPathComponentWithoutDotApp(fullPath)
 			end if
 			set alertResult to display alert (localized string of "Tunnelblick Uninstaller") Â
-				message LocalizedFormattedString("%s\n\nis damaged (it does not include 'openvpnstart') or is not a Tunnelblick-based application.\n\nDo you wish to continue, and try to uninstall items associated with '%s'?",
+				message LocalizedFormattedString("%s\n\nis damaged (it does not include 'openvpnstart') or is not a Tunnelblick-based application.\n\nDo you wish to continue, and try to uninstall items associated with '%s'?", Â
 												 {fullPath, TBName}) Â
 				as critical Â
 				buttons {localized string of "Continue", localized string of "Cancel"}
@@ -272,7 +272,7 @@ on IdentifierToUninstall(fullPath, TBName) -- (String, String) as String
 		set TBIdentifier to GetIdentifier(fullPath)
 		if (TBIdentifier = "") then
 			set alertResult to display alert (localized string of "Tunnelblick Uninstaller") Â
-				message LocalizedFormattedString("%s\n\nis damaged (it does not have a 'CFBundleIdentifier') or not present.\n\nDo you wish to continue, and try to uninstall items associated with '%s' and macOS identifier 'net.tunnelblick.tunnelblick'?",
+				message LocalizedFormattedString("%s\n\nis damaged (it does not have a 'CFBundleIdentifier') or not present.\n\nDo you wish to continue, and try to uninstall items associated with '%s' and macOS identifier 'net.tunnelblick.tunnelblick'?", Â
 												 {fullPath, TBName}) Â
 				as critical Â
 				buttons {localized string of "Continue", localized string of "Cancel"}
@@ -446,17 +446,17 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 	
 	if testFlag then
 		
-		display dialog LocalizedFormattedString("Although the next window will ask for authorization from a computer administrator and say \"Tunnelblick Uninstaller wants to make changes\",\n\nNO CHANGES WILL BE MADE.\n\nThe uninstaller needs administrator authorization so it can read the %s preferences of other users.",
+		display dialog LocalizedFormattedString("Although the next window will ask for authorization from a computer administrator and say \"Tunnelblick Uninstaller wants to make changes\",\n\nNO CHANGES WILL BE MADE.\n\nThe uninstaller needs administrator authorization so it can read the %s preferences of other users.", Â
 												{theName})
 		
 	else
 		if secureEraseOption = "-s" then
 			
-			display dialog LocalizedFormattedString("The next window will ask for authorization from a computer administrator.\n\nThe uninstaller needs the authorization so it can make the changes required to uninstall %s.\n\nUninstalling may take SEVERAL MINUTES because files will be overwritten before being deleted.\n\nWhile the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.",
+			display dialog LocalizedFormattedString("The next window will ask for authorization from a computer administrator.\n\nThe uninstaller needs the authorization so it can make the changes required to uninstall %s.\n\nUninstalling may take SEVERAL MINUTES because files will be overwritten before being deleted.\n\nWhile the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", Â
 													{theName})
 			
 		else
-			display dialog LocalizedFormattedString("The next window will ask for authorization from a computer administrator.\n\nThe uninstaller needs the authorization so it can make the changes required to uninstall %s.\n\nWhile the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.",
+			display dialog LocalizedFormattedString("The next window will ask for authorization from a computer administrator.\n\nThe uninstaller needs the authorization so it can make the changes required to uninstall %s.\n\nWhile the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", Â
 													{theName})
 			
 		end if
