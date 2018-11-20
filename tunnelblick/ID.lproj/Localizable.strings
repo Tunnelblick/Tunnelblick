@@ -2,7 +2,7 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Putuskan Semua (%1$@) - $d Koneksi) - alamat IP publik yang muncul %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Putuskan Semua (%1$@) - alamat IP publik yang muncul %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Putuskan Semua (%@)";
@@ -17,7 +17,7 @@
 "No Active Connections" = "Koneksi Tidak Aktif";
 
 /* Textbox name */
-"Username:" = "Username:";
+"Username:" = "Nama Pengguna:";
 
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
@@ -131,7 +131,7 @@
 "Ignore" = "Abaikan";
 
 /* Button */
-"Install" = "Instal";
+"Install" = "Pasang";
 
 /* Button */
 "Latest (%@)" = "Terbaru (%@)";
@@ -198,10 +198,10 @@
 "Re-enable Network Access" = "Hidupkan Lagi Akses Jaringan";
 
 /* Button */
-"Reinstall" = "Install ulang";
+"Reinstall" = "Pasang Ulang";
 
 /* Button */
-"Remove Credentials" = "Hapus Data";
+"Remove Credentials" = "Hapus Kredensial";
 
 /* Button */
 "Replace" = "Ganti";
@@ -213,7 +213,7 @@
 "Reset primary interface" = "Reset antar muka primer";
 
 /* Button */
-"Restart connection" = "Menghubungi Ulang";
+"Restart connection" = "Start ulang koneksi";
 
 /* Button */
 "Restore" = "Pulihkan";
@@ -246,7 +246,7 @@
 "Show while connecting and connected" = "Tampilkan ketika sedang menyambung dan tersambung";
 
 /* Button */
-"Show while connecting" = "Tampilkan saat Menghubungkan";
+"Show while connecting" = "Tampilkan saat menghubungkan";
 
 /* Button */
 "Skip" = "Lewati";
@@ -285,7 +285,7 @@
 "When Tunnelblick launches" = "Ketika Tunnelblick meluncur";
 
 /* Button */
-"When computer starts" = "Ketika komputer diawali";
+"When computer starts" = "Ketika komputer mulai menyala";
 
 /* Menu item */
 "Add a VPN..." = "Tambah sebuah VPN…";
@@ -303,7 +303,7 @@
 "Disconnect %@%@" = "Putuskan %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Jangan Tampilkan Menu Tunnelblick";
+"Do Not Show on Tunnelblick Menu" = "Jangan Tampilkan pada Menu Tunnelblick";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Duplikasi Konfigurasi…";
@@ -1315,6 +1315,9 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Tidak ada 'TBPackageVersion' dalam %@";
+
+/* Window text */
+"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Tidak tersedia koneksi jaringan.\n\nHarap nyalakan Wi-Fi dan menyambung ke suatu jaringan nirkabel, tancapkan kabel Ethernet, atau menyambung ke jaringan dengan suatu cara.\n\nLihat panel Jaringan dalam Preferensi Sistem macOS untuk informasi lebih lanjut.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Tidak ada path ke easy-rsa. Penyebab paling mungkin adalah masalah dengan preferensi 'easy-rsaPath'";

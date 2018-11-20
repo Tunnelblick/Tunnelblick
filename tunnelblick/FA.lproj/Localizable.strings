@@ -788,14 +788,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • تبدیل تنظیمات OpenVPN\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "• کپی کردن تنظیمات\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • نصب تنظیمات پیش فرض اجباری\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • نصب یا به روز رسانی پیکربندی ها\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "• انتقال تنظیمات";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • جابجایی پوشه تنظیمات خصوصی\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "• حذف تنظیمات";
 
 /* Window text */
 "  • Secure configurations\n" = "  • ایمن سازی تنظیمات\n";

@@ -857,11 +857,17 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "「%@」はデスクトップに既に存在します。\n\n置き換えてもよいですか？";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "%@はUTF−16で符号化されていそうです。OpenVPNに関する全てのファイルの符号化方式は「プレーンテキスト」又は「UTF−8」である必要があります。";
+
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' の %2$u 行目は完了しませんでした";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "「%@」に対応する認証情報(秘密鍵、またはユーザー名とパスワード)がありません。";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@'のファイルはプレインテキストまたはUTF-8ではありません。";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' が正しく終端されていません。";
@@ -895,6 +901,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Tunnelblickに基づき、フリーのソフトウェアは<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>でご利用になれます。<br><br>OpenVPNは OpenVPN Technologies, Inc. の登録商標です。";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>%@から切断後のネットワーク設定が復旧できていないようです。</p><p>この問題は'user nobody'もしくは'group nobody'をOpenVPNのオプションで指定しているためです。</p><p>設定を復旧させるには、コンピュータを再起動する必要があります。</p><p>今後このエラーを防ぐためには、上記のオプションをOpenVPNの設定から削除する必要があります。</p><p>詳しくは <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net]をご覧ください。</p></font>\n\n";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>現在のバージョンのTunnelblickは %lu 日前のものです。</p><p>最新のバージョンを入手する</p><ul><li>「環境設定」画面の「VPNの詳細」か、<br></li><li><a href=\"https://tunnelblick.net/downloads.html\">Tunnelblickのウェブサイトからダウンロード</a>[tunnelblick.net]することができます。</li></ul>";
@@ -1179,6 +1188,9 @@
 "Fast User Switching" = "ファストユーザスイッチ";
 
 /* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "ファイル '%@' はリッチテキストフォーマットと思われます。OpenVPNで使用するファイルはASCIIもしくはUTF-8で保存されたプレーンテキストである必要があります。";
+
+/* Window text */
 "File '%@' contains one or more NUL characters." = "'%@'のファイルの中身でNULLカラクターがあります";
 
 /* Window text */
@@ -1297,6 +1309,9 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "%@ にTBPackageVersionが見つかりませんでした";
+
+/* Window text */
+"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "ネットワーク接続がありません。\nWi-Fiに接続するか、有線LANに接続するか、もしくは他の方法でネットワークに接続してください。\nネットワークパネルをmacOS設定から開くことで詳細が確認できます。";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "easy-rsa のパス名がありません。よくある原因として、設定項目「easy-rsaPath」がおかしくなっていることがあります。";
@@ -1467,6 +1482,9 @@
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "システムフォルダー %1$@ (%2$@) は安全ではありません。\n\nこの問題が解決されるまで、Tunnelblickやその他のプログラムは、正常に動作しない可能性があります。\n\nコンソールログに詳細があります。";
 
 /* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "'%@'のOpenVPNオプションはmacOSでは利用できません。その設定はWindowsのみ利用可能です。";
+
+/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "%@ というオプションは Tunnelblick では使えません";
 
 /* Window text */
@@ -1483,6 +1501,12 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "設定項目「namedCredentialsNames」は文字列の配列でないといけません";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "最後に暗号化された時からOpenVPNの設定'%@'は変更されています。\n変更を暗号化するか、以前暗号化された設定に戻しますか?\n\n";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "%1$@ に含まれるOpenVPN設定 '%2$@' はWIndows専用のオプションです。macOSでは使用できません。";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Open Vpn ログは以下のメッセージを含んでいました。\n\n\"%1$@\".%2$@";
@@ -1572,6 +1596,9 @@
 "There was a problem:\n\n%@" = "問題があります:\n\n%@";
 
 /* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Tunnelblickの設定をインポートした際にいくつか問題が発生しました。\n\n詳細はコンソールログをご確認ください。";
+
+/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "この「配付用」Tunnelblick は起動したりインストールしたりできません。リブランドされていない、updateFeedURL または SUFeedURL がないまたは「tunnelblick.net」が含まれている、CFBundleIdentifier がないまたは「net.tunnelblick」が含まれている、ことが原因です。\n\n";
 
 /* Window text */
@@ -1624,6 +1651,9 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check for updates when it is launched and periodically while it is running.\n\n" = "Tunnelblickは起動時から定期的に%@にアップデートを確認します。\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblickは外部IPの変更をVPNの接続ごとに確認するため、 %@ にアクセスすることがあります。\n\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblickをログイン後自動起動させられなかった";
@@ -1974,6 +2004,9 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\n注意: いくつかの接続先へ接続中です。これらの接続先が切断された後、インストール/上書き/アンインストールが実行されます。接続先へはアンインストールされない限り再接続されます。\n\n";
 
 /* Window text */
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nこの設定を暗号化するための証明書が失効しました。\n詳しいVPNのログはVPNの詳細内、設定パネルにある「ログ」タブから確認できます。";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nまた、%ld 個の Tunnelblick VPN 設定ファイルをインストールしますか？";
 
 /* Window text */
@@ -1990,6 +2023,12 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " コピー";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " '%1$@'はOpenVPN %2$@ では非推奨のオプションとなり、以降のバージョンでは廃止される場合があります。\n\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' はOpenVPN %2$@では非推奨のオプションとなり、OpenVPN %3$@で廃止されました。\n\n";
 
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
@@ -2035,6 +2074,9 @@
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>追加設定の画面を新しいウィンドウで開く。</p><p>'VPN Details windowで'なされた変更は全て反映されます。</p>";
+
+/* HTML info for the 'Reset Disabled Warnings' button. */
+"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>「次回からこの警告を表示しない」 のチェックを解除すると警告が再び表示されます。</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNSキャッシュはDNS (名前解決システム) 情報のコピーを含みます。</p>\n<p><strong>チェックを入れた場合</strong>、DNSキャッシュは接続・切断時に削除されます。 全ての名前解決はVPNのセットアップに指定されたネームサーバーより実行されます。</p>\n<p><strong>チェックを入れなかった場合</strong>、DNSキャッシュは削除されません。VPN割り当てのネームサーバーがVPNに接続される前に、ドメイン名がネームサーバーキャッシュと競合すると、問題が発生することがあります。</p>";

@@ -1632,7 +1632,7 @@
 "Too many duplicate configurations already exist." = "För många duplicerade konfigurationer finns redan.";
 
 /* Window text */
-"Translation by" = "Översatt av";
+"Translation by" = "Översättningar av";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Försöker att avsluta alla OpenVPN processer…";

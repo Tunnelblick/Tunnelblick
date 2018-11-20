@@ -116,6 +116,9 @@
 "Download" = "下載";
 
 /* Button */
+"Export Tunnelblick Setup" = "匯出 Tunnelblick 的設置";
+
+/* Button */
 "Help" = "說明";
 
 /* Button */
@@ -214,6 +217,9 @@
 
 /* Button */
 "Restore" = "回復";
+
+/* Button text */
+"Retry with manual response" = "用人工輸入的結果重試";
 
 /* Button */
 "Retry" = "重試";
@@ -482,6 +488,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "設定域名解析伺服器 (替代選擇 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "設定域名解析伺服器（替代選擇 2）";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "設定域名解析器";
 
@@ -615,6 +624,9 @@
 "File not found" = "找不到檔案";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "匯入 Tunnelblick 的設置";
+
+/* Window title */
 "Info" = "資訊";
 
 /* Window title */
@@ -731,6 +743,9 @@
 /* Window title */
 "While Connected" = "已連接時";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     從 VPN 伺服器傳來 %1$@：\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • 已安裝 %lu 個設定檔\n\n";
 
@@ -779,14 +794,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • 轉換 OpenVPN 設定\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • 複製設定檔\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  • 安裝強迫選項\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • 安裝或更新設定檔\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • 移動設定檔\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  • 移動私密設定檔案夾\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • 移除設定檔\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • 保護設定檔\n";
@@ -835,6 +859,9 @@
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "「%@」 並沒有任何認證資訊 (私人密匙，用戶名稱及密碼) 存取於鑰匙圈內。";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "「%@」不是純文字或 UTF-8 檔。";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' 沒有結束。";
@@ -1347,6 +1374,9 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "路徑「%1$@」包含不被允許的字元。\n\n不被允許的字元：「%2$s」\n\n";
 
 /* Window text */
+"Please check for a newer version." = "請檢查是否有更新的版本。";
+
+/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "請輸入一個名稱，然後點擊 \"確認\" 或 \"取消\" 。\n\n";
 
 /* Window text */
@@ -1416,6 +1446,9 @@
 "That name is being used.\n\n" = "此名稱已被使用。\n\n";
 
 /* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "OpenVPN「%@」 選項是一個僅適用於 Windows的選項，在 macOS上是不允許。";
+
+/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "當使用 Tunnelblick 時，「%@」OpenVPN 選項不被允許。";
 
 /* Window text */
@@ -1435,6 +1468,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "'%@' 的配置檔案在上次鎖定後被修改。\n\n你想鎖定被修改的配置還是歸回上次鎖定的配置？\n\n";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "在 「%1$@」 OpenVPN 設定檔中含有選項 「%2$@」。它是一個僅限於 Windows 作業系統使用的選項，並不能使用在 macOS 上。";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN 記錄包含下列訊息：\n\n\"%1$@\".%2$@";
@@ -1524,6 +1560,9 @@
 "There was a problem:\n\n%@" = "有一個問題：\n\n%@";
 
 /* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "匯入Tunnelblick設定時發生問題。\n\n請參閱控制台日誌以獲取詳情。";
+
+/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "由於它並沒有被重新命名，或 updateFeedURL 或 SUFeedURL 為空白或包含 'tunnelblick.net'，或 CFBundleIdentifier 為空白或包含 'tunnelblick.net'，這個已佈置版本的 Tunnelblick 不可以被啟動或被安裝。\n\n";
 
 /* Window text */
@@ -1611,6 +1650,9 @@
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick 無法尋找設置文件，或者設置文件內的私人資料無法被移除。詳情請參見控制台日誌。";
 
 /* Window text */
+"Tunnelblick could not load a kext" = "Tunnelblick 無法載入核心外掛";
+
+/* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法移動 '%@' 設定檔。詳情請參見控制台日誌。";
 
 /* Window text */
@@ -1660,6 +1702,9 @@
 
 /* Window text */
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick 需要認證來把「%1$@」設定檔重新命名為「%2$@」。";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick 需要授權才能保護匯入的資料。";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick 將要改變的設置需要管理員權限。";
@@ -1945,6 +1990,9 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' 在 OpenVPN %2$@ 時被加入\n";
+
+/* Popup button menu item */
+"(Do not import)" = "（不要匯入）";
 
 /* Credit description */
 "64-bit enabling and testing" = "64位元測試與支援";
@@ -2268,6 +2316,9 @@
 /* Credit description */
 "Swedish translation" = "瑞典語翻譯";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Tunnelblick 設定 %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick 圖示";
 
@@ -2285,6 +2336,12 @@
 
 /* Notification text */
 "Updated to %@." = "已更新到 %@";
+
+/* Column heading in a table */
+"Username in setup data" = "設定檔裡頭的使用者名稱";
+
+/* Column heading in a table */
+"Username on this computer" = "這臺電腦的使用者名稱";
 
 /* Credit description */
 "Vietnamese translation" = "越南文翻譯";

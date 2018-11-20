@@ -902,6 +902,9 @@
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Založeno na Tunnelblicku, svobodném software dostupném na<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovaná obchodní známka OpenVPN Inc.";
 
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Nastavení sítě se po odpojení od %@ nepodařilo správně obnovit.</p><p>Tento problém je obvykle způsoben použitím parametru 'user nobody' a/nebo 'group nobody' OpenVPN.</p><p>Pro obnovení správneho nastavení sítě se doporučuje provést restart počítače.</p><p>Odstraněním parametru 'user nobody' a 'group nobody' z konfiguračního souboru OpenVPN zabráníte opakování této chyby v budoucnosti.</p><p>Více informací získáte na <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net].</p></font>\n\n";
+
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Tato verze Tunnelblicku je stará %lu dní.</p><p>Prosím zkontrolujte dostupnost nové verze:</p><ul><li>Ručně v okně \"Detaily VPN\", v panelu Předvolby, nebo<br></li><li>dohledáním novější verze na <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick stránce Stažení</a>[tunnelblick.net].</li></ul>";
 
@@ -1312,6 +1315,9 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Žádná 'TBPackageVersion' v %@";
+
+/* Window text */
+"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Není dostupné žádné síťové spojení.\n\nZačněte prosím Wi-Fi a připojte se k bezdrátové síti, zapojte ethernetový kabel, nebo připojte jiným způsobem k síti.\n\nVíce informaci naleznete v systémových předvolbách macOS v síťovém panelu.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Není cesta k easy-rsa. Většinou to je způsobeno špatným nastavením 'easy-rsaPath'";
@@ -1734,6 +1740,9 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Pro změnu konfigurace '%@' na sdílenou vyžaduje Tunnelblick autorizaci.";
 
 /* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Aby mohl Tunnelblick vyexportovat všechna data, potřebuje pro přístup k datům jiných uživatelů tohoto počítače vyžaduje autorizaci.\n\nPoznámka:\n\n     1. Informace uložené v klíčence NEBUDOU exportovány.\n\n     2. Export může trvat delší dobu.\n\n";
+
+/* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Pro smazání %ld konfigurací vyžaduje Tunnelblick autorizaci.\n\nOdstanění konfigurací je trvalé a konfigurace poté nemohou být obnoveny. Vščechna nastavení pro konfigurace budou také trvale smazán.";
 
 /* Window text */
@@ -2001,6 +2010,9 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nPOZNÁMKA: Jedna nebo více konfigurací je právě aktivních. Tyto konfigurace budou odpojeny, vykonají se instalace/náhrady/odinstalace a konfigurace sa opět připojí - pokud nebyly odinstalované.\n\n";
 
 /* Window text */
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nJednomu nebo více certifikátů sloužícím k zabezpečení této konfigurace skončila platnost.\n\nVíce detailů naleznete v záložce \"Log\" na panelu \"Konfigurace\" v okně \"Detaily VPN\".";
+
+/* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nTato chyba znamená, že volba, jež je v konfiguračním souboru OpenVPN, nebo byla \"odeslána\" serverem OpenVPN:\n\n      • byla nesprávně napsána,\n\n      • má chybějící či nadbytečné argumenty, nebo\n\n      • není implementována verzí OpenVPN, kterou pro tuto konfiguraci používáte. Může to být nová volba, jež není implementovaná v starší verzi OpenVPN, nebo stará volba, která byla odstraněná v nové verzi OpenVPN. Výběr verze OpenVPN pro tuto konfiguraci můžete vybrat na záložce \"Nastavení\" v panelu \"Konfigurace\" v Tunnelblick okně \"Detaily VPN\".\n\nVíce informací najdete v logu VPN na záložce \"Log\" na panelu \"Konfigurace\" v okně \"Detaily VPN\".";
 
 /* Window text */
@@ -2041,6 +2053,9 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "Povolení 64-bit a testování";
+
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Musíte vytvořit textový soubor s popisem importovaných dat, pokud chcete importovat nastavení Tunnelblicku na počítači, který má více než %u uživatelských účtů.</p>\n<p>Více informací na <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Specifikuje verzi OpenVPN a SSL software, který by měl být použit pro VPN spojení.</strong><ul><li><strong>Nastavení Default</strong> použije defaultní verzi OpenVPN a OpenSSL, které jsou obsaženy v této verzi Tunnelblicku. Default se mezi verzemi Tunnelblicku může lišit.<br></li><li><strong>Nastavení Poslední</strong> bude používat poslední verzi OpenVPN s LibreSSL, které je obsaženo v této verzi Tunnelblicku. Poslední verze se mezi různými verzemi Tunnelblicku může lišit.<br></li><li><strong>Jiné nastavení</strong> bude použita specifikovaná verze OpenVPN a SSL, pokud jsou dostupné v této verzi Tunnelblicku. Pokud dostupné nejsou, tak je použita nejbližší verze.<br></li></ul>";
@@ -2152,6 +2167,9 @@
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Zkopíruje poslední část Logu konzole do schránky, aby ji bylo možné vložit do emailu nebo jiného dokumentu.</p><p>Log obsahuje detaily operací Tunnelblicku a OpenVPN. Zahrnuje běžné stavové zprávy a detailní chybová hlášení, jež jsou příliš dlouhá pro prezentování uživateli skrz běžné dialogové okno.</p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exportuje nastavení Tunnelblicku do komprimovaného souboru na plochu včetně všech konfigurací a nastavení všech uživatelů tohoto počítače.</p><ul><li>Údaje uložené v klíčence <strong>nebudou</strong> exportovány.</li><li>Exportování může trvat delší dobu.</li></ul>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Otevře okno prohlížeče, obsahující informace z Tunnelblick webové stránky ohledně odinstalování Tunnelblicku.</p>";

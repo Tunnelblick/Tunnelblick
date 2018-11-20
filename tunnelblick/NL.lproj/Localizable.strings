@@ -426,7 +426,7 @@
 "Do not warn about this again" = "Waarschuw mij niet nog een keer";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Gedurende %lu dagen niet meer hierover waarschuwen";
+"Do not warn about this for %lu days" = "Waarschuw niet meer gedurende %lu dagen";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "IPv6 inschakelen (alleen tap)";
@@ -477,7 +477,7 @@
 "Show when the pointer is over the Tunnelblick icon" = "Laat zien wanneer de aanwijzer over het Tunnelblick pictogram beweegt";
 
 /* PopUpButton */
-"Do not set nameserver" = "Nameserver niet configureren";
+"Do not set nameserver" = "Nameserver niet instellen";
 
 /* PopUpButton */
 "Set nameserver (3.0b10)" = "Nameserver configureren (3.0b10)";

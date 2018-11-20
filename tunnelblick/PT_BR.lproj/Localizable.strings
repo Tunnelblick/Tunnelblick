@@ -1317,6 +1317,9 @@
 "No 'TBPackageVersion' in %@" = "Não há 'TBPackageVersion' em %@";
 
 /* Window text */
+"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Nenhuma conexão de rede está disponível.\n\nPor favor ligue o Wi-Fi e se conecte a uma rede sem fio, conecte um cabo Ethernet ou conecte a uma rede de alguma outra forma.\n\nVeja o painel de Rede nas Preferências de Sistema do macOS para obter mais informações.";
+
+/* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Nenhum caminho para easy-rsa. A causa mais provável é um problema com a preferência 'easy-rsaPath'";
 
 /* Window text */

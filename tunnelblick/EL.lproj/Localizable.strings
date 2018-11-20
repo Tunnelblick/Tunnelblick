@@ -1209,6 +1209,9 @@
 "File is too large: %@" = "Το αρχείο είναι πολύ μεγάλο: %@";
 
 /* Window text */
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Για κάθε χρήστη του οποίου διαμορφώσεις και ρυθμίσεις θέλετε να εισάγετε, επιλέξτε το χρήστη σε αυτόν τον υπολογιστή που θέλετε να λάβει ρυθμίσεις και διαμορφώσεις.";
+
+/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1312,6 +1315,9 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Όχι 'TBPackageVersion' στο %@";
+
+/* Window text */
+"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Δεν υπάρχει σύνδεση δικτύου.\n\nΕνεργοποιήστε το Wi-Fi και συνδεθείτε σε ένα ασύρματο δίκτυο, συνδέστε ένα καλώδιο Ethernet ή συνδεθείτε με κάποιο άλλο δίκτυο.\n\nΑνατρέξτε στην ενότητα δικτύου στις ρυθμίσεις συστήματος macOS για περισσότερες πληροφορίες.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Δεν υπάρχει διαδρομή για easy-rsa. Η πιθανότερη αιτία του προβλήματος είναι στης προτιμήσεις το 'easy-rsaPath'";
