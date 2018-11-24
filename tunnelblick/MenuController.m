@@ -4069,9 +4069,9 @@ static void signal_handler(int signalNumber)
     BOOL sawDevApple = FALSE;
     BOOL sawDevUs    = FALSE;
     BOOL sawIdent    = FALSE;
-    BOOL sawTeam     = (  runningOnMavericksOrNewer()
+    BOOL sawTeam     = (  runningOnYosemiteOrNewer()
                         ? FALSE
-                        : TRUE);    // codesign on some macOS 10.8 and lower does not output this field
+                        : TRUE);    // codesign on some macOS 10.9 (Mavericks) and lower does not output this field
     
     NSArray * lines = [codesignDvvOutput componentsSeparatedByString: @"\n"];
     NSString * line;
