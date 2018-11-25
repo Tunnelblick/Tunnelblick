@@ -784,6 +784,26 @@ NSString * fileIsReasonableSize(NSString * path) {
     return nil;
 }
 
+BOOL isAGoogleDriveIconFile(NSString * path) {
+	
+	NSString * name = [path lastPathComponent];
+	if (  [name hasPrefix: @"Icon"]
+		&& (  [name length] == 5)  ) {
+		NSDictionary * attributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
+		if (  ! attributes  ) {
+			NSLog(@"No attributes for %@; treating it as a Google Drive Icon File", path);
+			return YES;
+		}
+		if ( [attributes fileSize] == 0 ) {
+			return YES;
+		}
+		NSLog(@"File not zero size at %@; not treating it as a Google Drive Icon File", path);
+		return NO;
+	}
+	
+	return NO;
+}
+
 NSString * fileIsReasonableAt(NSString * path) {
     
     // Returns nil or a localized error message
@@ -794,6 +814,10 @@ NSString * fileIsReasonableAt(NSString * path) {
         appendLog(errMsg);
         return errMsg;
     }
+	
+	if (  isAGoogleDriveIconFile(path)  ) {
+		return nil;
+	}
     
 	if (  invalidConfigurationName(path, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
 		NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"Path '%@' contains characters that are not allowed.\n\n"

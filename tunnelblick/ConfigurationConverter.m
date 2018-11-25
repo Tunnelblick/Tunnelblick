@@ -895,6 +895,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 				}
 				
 			} else if (   itemIsVisible(fullPath)
+					   && ( ! isAGoogleDriveIconFile(fullPath) )
 					   && ( ! [extensionsToIgnore containsObject: ext] )
 					   && [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
 					   && ( ! isDir )  ) {

@@ -78,6 +78,8 @@ BOOL createDirWithPermissionAndOwnership(NSString * dirPath,
 										 uid_t      owner,
 										 gid_t      group);
 
+BOOL isAGoogleDriveIconFile(NSString * path);
+
 NSString * fileIsReasonableSize(NSString * path);
 
 NSString * allFilesAreReasonableIn(NSString * path);
