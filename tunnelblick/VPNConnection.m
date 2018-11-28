@@ -848,6 +848,21 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     return [[configPath retain] autorelease];
 }
 
+-(NSString *) secureDotTblkPath {
+	
+	// Returns the path of the secure .tblk for this configuration:
+	//      * The path of a "Shared" configuration or a "Deployed" configuration; or
+	//	    * The path of the shadow copy of a "Private" configuration.
+	
+	NSString * path = [self configPath];
+	if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+		path = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
+				stringByAppendingPathComponent: lastPartOfPath(path)];
+	}
+
+	return path;
+}
+
 // Also used as the prefix for preference and Keychain keys
 -(NSString *) displayName
 {
@@ -1466,7 +1481,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         requestedState = @"CONNECTED";
     }
     
-    NSString * encodedPath = encodeSlashesAndPeriods([[self configPath] stringByAppendingPathComponent: @"Contents/Resources"]);
+    NSString * encodedPath = encodeSlashesAndPeriods([[self secureDotTblkPath] stringByAppendingPathComponent: @"Contents/Resources"]);
 	if (  [gFileMgr fileExistsAtPath: [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: encodedPath]]  ) {
 		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"0", encodedPath, nil], nil, nil);
 		appendLog([NSString stringWithFormat: @"Cleared 'expect disconnect 0 %@'", encodedPath ]);
@@ -2815,7 +2830,7 @@ ifConnectionPreference: (NSString *)     keySuffix
 }
 
 -(void) expectDisconnect: (NSNumber *) userKnows {
-	NSString * encodedPath = encodeSlashesAndPeriods([[self configPath] stringByAppendingPathComponent: @"Contents/Resources"]);
+	NSString * encodedPath = encodeSlashesAndPeriods([[self secureDotTblkPath] stringByAppendingPathComponent: @"Contents/Resources"]);
 	if (   [userKnows boolValue]
 		&& ( ! [gFileMgr fileExistsAtPath: [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: encodedPath]] )  ) {
 		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", encodedPath, nil], nil, nil);
