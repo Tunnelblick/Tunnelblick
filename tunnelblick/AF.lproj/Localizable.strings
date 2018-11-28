@@ -482,6 +482,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Stel naamebediener (alternatiewe 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Stel naamebediener (alternatiewe 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Stel naambediener";
 

@@ -902,6 +902,9 @@
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Baserat på Tunnelblick, gratis mjukvara som finns på<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN är ett registrerat varumärke av OpenVPN Technologies, Inc.";
 
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Nätverksinställningen kunde inte återställas korrekt efter frånkopplingen från %@.</p><p>Det här problemet orsakas vanligtvis vid användande av \"ingen användare\" och/eller \"ingen grupp\" OpenVPN alternativen.</p><p>För att återställa nätverksinställningen måste du starta om din dator.</p><p>För att förhindra det här felet i framtiden kan du ta bort \"ingen användare\" och \"ingen grupp\" linjerna från din OpenVPN konfigurationsfil.</p><p>Se <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Användare och grupp OpenVPN alternativ</a> [tunnelblick.net] för mer information.</p></font>\n\n";
+
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Denna version av Tunnelblick är %lu dagar gammal.</p><p>Vänligen leta efter en nyare version:</p><ul><li>Manuellt under 'Inställningar' i Tunnelblicks fönster för 'VPN Detaljer' - eller<br></li><li>Genom att leta efter en nyare version på <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblicks nerladdningssida</a>[tunnelblick.net].</li></ul>";
 
@@ -1312,6 +1315,9 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Ingen \"TBPackageVersion\" i %@";
+
+/* Window text */
+"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Ingen närverksförbindelse är tillgänglig.\n\nAktivera Wi-Fi och anslut till ett trådlöst nätverk, koppla in en kabel till Ethernet, eller anslut till ett nätverk på något annat sätt.\n\nSe nätverkspanelen under macOS Systeminställningar för mer information.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Ingen sökväg till easy-rsa. Den troligaste orsaken för detta är problem med \"easy-rsaPath\" inställningen";
@@ -2027,6 +2033,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopiera";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' fasades ur i OpenVPN %2$@ och har eller kommer att tas bort i en senare version\n\n";
+
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' fasades ur i OpenVPN %2$@ och togs bort i OpenVPN %3$@\n\n";
 
@@ -2044,6 +2053,9 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bitsutveckling och testning";
+
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>För att importera en Tunnelblick-inställning på en dator som har fler än %u användarkonton måste du skapa n textfil som specificerar den data som ska importeras.</p>\n<p>För mer information, se <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Anger vilken version av OpenVPN och SSL-programvaran som ska användas för att ansluta VPN.</strong><ul><li><strong>Inställningen \"Standard\"</strong> använder standardversionen av OpenVPN med OpenSSL som ingår i denna version av Tunnelblick. Denna version kan skilja sig mellan olika versioner av Tunnelblick.<br></li><li><strong>Inställningen \"Senaste\"</strong> använder den senaste versionen av OpenVPN med LibreSSL som ingår i denna version av Tunnelblick. Den senaste versionen kan skilja sig mellan olika versioner av Tunnelblick.<br></li><li><strong>Alla andra inställningar</strong> använder den angivna versionen av OpenVPN och SSL-programvaran om de är tillgängliga i den här versionen av Tunnelblick. Om inte, kommer den närmaste versionen att användas.<br></li></ul>";
@@ -2155,6 +2167,9 @@
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Kopierar den sista delen av konsol-loggen till Urklipp så att den kan klistras in i ett e-mail eller ett annat dokument.</p><p>Loggen innehåller detaljer om hur Tunnelblick och OpenVPN arbetar. Den innehåller normala statusmeddelanden och detaljerade felmeddelanden som är för långa för att visa för en användare i en vanlig dialogruta.</p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exporterar Tunnelblick-inställningen, inklusive alla konfigurationer och inställningar för samtliga användare av den här datorn, till en komprimerad fil på skrivbordet.</p><ul><li>Användaruppgifter som har sparats i nyckelhanteraren har <strong>not</strong> exporterats.</li><li>Exporten kan ta lång tid.</li></ul>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Öppnar ett webbläsarfönster med information från Tunnelblicks hemsida om avinstallation av Tunnelblick.</p>";

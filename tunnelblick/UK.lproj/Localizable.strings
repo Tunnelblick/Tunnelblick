@@ -294,7 +294,7 @@
 "Connect %@%@" = "З'єднати %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Видалити облікові дані конфігурації зі зв'язки ключів…";
+"Delete Configuration's Credentials in Keychain..." = "Видалити облікові дані конфігурації з Ключаря…";
 
 /* Menu item tooltip */
 "Disabled because this setting is being forced" = "Відключено в зв'язку з примусовим налаштуванням";
@@ -465,7 +465,7 @@
 "Run MTU maximum size test after connecting" = "Перевіряти максимальний розмір MTU після з’єднання";
 
 /* Checkbox name */
-"Save in Keychain" = "Зберегти в ключах";
+"Save in Keychain" = "Зберегти в Ключарі";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Налаштувати DNS після налаштування маршрутів";
@@ -864,7 +864,7 @@
 "'%@' at line %u was not terminated properly" = "'%1$@' в рядку %2$u не був зупинений належним чином";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "' %@' не містить будь-яких облікових даних (приватний ключ або ім'я користувача та пароль), що зберігаються в зв'язці ключів (Keychain).";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "' %@' не містить жодних облікових даних (приватний ключ або ім'я користувача та пароль), що зберігаються в Ключарі.";
 
 /* Window text. %@ is the name of a file. */
 "'%@' is not a plain text or UTF-8 file." = "'%@' не в форматі звичайного тексту або чи UTF-8.";
@@ -999,13 +999,13 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Ви впевнені, що не потрібно перетворити конфігурації OpenVPN в конфігурації Tunnelblick VPN?  КОНФІГУРАЦІЇ НЕ БУДУТЬ ДОСТУПНІ, ЯКЩО ВИ НЕ ПЕРЕТВОРИТЕ ЇХ!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Ви дійсно хочете видалити облікові дані (приватний ключ і/чи ім'я користувача та пароль) для конфігурацій %ld, збережені у в'язці ключів?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Ви дійсно бажаєте видалити збережені у Ключарі облікові дані (приватний ключ та/або ім'я користувача та пароль) для %ld конфігурацій?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Ви впевнені, що бажаєте видалити облікові дані для '%@' (приватний ключ і/чи ім'я користувача та пароль), які зберігаються у в'язці ключів?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Ви впевнені, що бажаєте видалити облікові дані (приватний ключ та/або ім'я користувача та пароль) для '%@', які збережені у Ключарі?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Ви впевнені, що бажаєте видалити облікові дані (приватний ключ і/чи ім'я користувача та пароль), які зберігаються у в'язці ключів для облікових даних '%@'?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Ви впевнені, що бажаєте видалити облікові дані (приватний ключ та/або ім'я користувача та пароль), які зберігаються у Ключарі для групи облікових даних '%@'?";
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Ви впевнені, що хочете встановити конфігурації, які ЗМОЖУТЬ ОТРИМАТИ ПОВНИЙ КОНТРОЛЬ НАД ВАШИМ КОМП'ЮТЕРОМ?\n\n";
@@ -1209,7 +1209,7 @@
 "File is too large: %@" = "Файл занадто великий: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Задайте кінцевого користувача для кожного з користувачів імпортуємих конфігурацій та налаштувань.";
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Задайте кінцевого користувача для кожного з користувачів в конфігураціях та налаштуваннях, що імпортуються.";
 
 /* Window text */
 "GB" = "ГБ";
@@ -1338,7 +1338,7 @@
 "Non-string value for an item in '%@' in %@" = "Не строкове значення для елемента '%1$@ ' в %2$@";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Жодна з %ld обраних конфігурацій не має збережених облікових даних (приватний ключ чи ім'я користувача та пароль) у зв'язці ключів.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Жодна з %ld вибраних конфігурацій не має збережених у Ключарі необхідних облікових даних (приватний ключ чи ім'я користувача та пароль).";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Це не .ovpn або .conf: %@";
@@ -1740,7 +1740,7 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick вимагає авторизації, щоб зробити конфігурацію '%@' загальнодоступною.";
 
 /* Window text */
-"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick потребує авторизаціі на зчитування даних Tunnelblick інших користувачів комп'ютера, щоб екпортувати повні дані Tunnelblick.\n\nЗауважте:\n\n     1. Облікові дані із Зв'язки Ключів НЕ будуть експортовані.\n\n     2. Експортування може зайняти істотний час.\n\n";
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick потребує авторизаціі на зчитування даних Tunnelblick що належать іншим користувачам комп'ютера, для того щоб екпортувати повні дані Tunnelblick.\n\nЗауважте:\n\n     1. Облікові дані із Ключара НЕ будуть експортовані.\n\n     2. Експортування може зайняти істотний час.\n\n";
 
 /* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick вимагає авторизації, щоб видалити конфігурації %ld.\n\n Видалення конфігурацій незворотнє. Всі налаштування до них теж буде втрачено назавжди.";
@@ -2169,7 +2169,7 @@
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Копіює останню частину журналу подій в буфер обміну для вставки до електронного листа чи іншого документу.</p><p>Журнал містить детальну інформацію про роботу Tunnelblick та OpenVPN. Журнал також містить звичайні статусні повідомлення і детальні повідомлення про помилки, що зазвичай не відображаються в діалогових вікнах через їхню довжину.</p>";
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
-"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Екпортує налаштування Tunnelblick, включно із конфігураціями та налаштуваннями для всіх користувачів цього комп'ютера, в запакований файл на Робочий стіл.</p><ul><li>Облікові данні, які зберігаються в Зв'язці ключів <strong>не</strong> експортуються.</li><li>Експортування може зайняти істотний час.</li></ul>";
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Екпортує налаштування Tunnelblick, включно із конфігураціями та налаштуваннями для всіх користувачів цього комп'ютера, в запакований файл на Робочий стіл.</p><ul><li>Облікові данні, які зберігаються в Ключарі <strong>не</strong> експортуються.</li><li>Експортування може зайняти істотний час.</li></ul>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Відкриває вікно браузера на сайті Tunnelblick з інформацією про видалення програми.</p>";

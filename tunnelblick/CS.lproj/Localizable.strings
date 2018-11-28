@@ -489,7 +489,7 @@
 "Set nameserver (alternate 1)" = "Nastavit nameserver (alternativa 1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 2)" = "Nastavit server názvů (alternativa 2)";
+"Set nameserver (alternate 2)" = "Nastavit nameserver (alternativa 2)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Nastavit nameserver";
