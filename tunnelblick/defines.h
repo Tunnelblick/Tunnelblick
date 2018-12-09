@@ -626,7 +626,6 @@ name = newValue;                                    \
 @"onlyAdminsCanUnprotectConfigurationFiles",	\
 @"standardApplicationPath",	\
 @"doNotCreateLaunchTunnelblickLinkinConfigurations",	\
-@"useShadowConfigurationFiles",	\
 @"menuIconSet",	\
 @"easy-rsaPath",	\
 @"IPAddressCheckURL",	\
@@ -757,6 +756,7 @@ name = newValue;                                    \
 @"updateSendProfileInfo",	\
 @"updateSigned",	\
 @"updateUnsigned"	\
+@"useShadowConfigurationFiles",	\
 ]
 
 #define CONFIGURATIONS_PREFERENCES_NSARRAY @[ \
