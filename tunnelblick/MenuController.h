@@ -236,7 +236,7 @@ enum StatusIconPosition {
 -(void)             setBooleanPreferenceForSelectedConnectionsWithKey: (NSString *)	key
 																   to: (BOOL)       newValue
 															 inverted: (BOOL)		inverted;
--(BOOL)				askAndMaybeReenableNetworkAccessAllowCancel:	(BOOL) allowCancel;
+-(BOOL)				askAndMaybeReenableNetworkAccessTryingToConnect;
 -(void)             showConfirmIconNearSpotlightIconDialog;
 -(void)             recreateMainMenuClearCache:				(BOOL)				clearCache;
 -(void)             changedDisplayConnectionTimersSettings;

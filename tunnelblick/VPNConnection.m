@@ -1447,7 +1447,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 	
-	if (  ! [(MenuController *)[NSApp delegate] askAndMaybeReenableNetworkAccessAllowCancel: YES]  ) {
+	if (  ! [(MenuController *)[NSApp delegate] askAndMaybeReenableNetworkAccessTryingToConnect]  ) {
 		NSLog(@"connect: cancelled when asked to re-enabling network access");
 		return;
 	}

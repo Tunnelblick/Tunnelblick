@@ -3336,29 +3336,29 @@ BOOL anyNonTblkConfigs(void)
 	[self recreateMenu];
 }
 
--(BOOL) askAndMaybeReenableNetworkAccessAllowCancel: (BOOL) allowCancel {
+-(BOOL) askAndMaybeReenableNetworkAccessTryingToConnect {
 	
-	// Returns NO if the network is not reachable and the user cancelled re-enabling it or it can't be re-enabled.
+	// Returns NO if the network access is disabled and the user cancelled re-enabling it and we are not shutting down Tunnelblick
+	// Otherwise returns YES
 	
-	if (   [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]  ) {
-		if  (   ( ! gShuttingDownWorkspace)
-			 && ( ! gShuttingDownOrRestartingComputer)
-			 && ( ! quittingAfterAnInstall)  ) {
-			
+	if  (   ( ! gShuttingDownWorkspace)
+		 && ( ! gShuttingDownOrRestartingComputer)
+		 && ( ! quittingAfterAnInstall)  ) {
+
+		if (   [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]  ) {
+		
 			// Wrap in "not shutting down Tunnelblick" so TBRunAlertPanel doesn't abort
 			BOOL saved = gShuttingDownTunnelblick;
 			gShuttingDownTunnelblick = FALSE;
-			NSString * alternateButton = (  allowCancel
-										  ? NSLocalizedString(@"Cancel", @"Button")
-										  : NSLocalizedString(@"Do Not Re-enable Network Access", @"Button"));
+			
 			int result = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
 												 NSLocalizedString(@"Network access was disabled when a VPN disconnected.\n\n"
 																   @"Do you wish to re-enable network access?\n\n", @"Window text"),
 												 NSLocalizedString(@"Re-enable Network Access", @"Button"),
-												 alternateButton,
+												 NSLocalizedString(@"Cancel", @"Button"),
 												 nil,
-												 @"skipWarningAboutReenablingInternetAccessAtExit",
-												 NSLocalizedString(@"Do not warn about this again, never re-enable", @"Checkbox text"),
+												 @"skipWarningAboutReenablingInternetAccessOnConnect",
+												 NSLocalizedString(@"Do not warn about this again;\nnever re-enable when connecting", @"Checkbox text"),
 												 nil,
 												 NSAlertAlternateReturn);
 			gShuttingDownTunnelblick = saved;
@@ -3369,18 +3369,54 @@ BOOL anyNonTblkConfigs(void)
 			}
 			
 			return NO;
+		} else {
+			return YES;
 		}
-	} else if ( ! networkIsReachable()  ) {
-		// We can't re-enable because we didn't disable, so we don't know exactly what to re-enable
-		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-						  NSLocalizedString(@"No network connection is available.\n\n"
-											@"Please turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\n"
-											@"See the Network panel in macOS System Preferences for more information.", @"Window text"));
-		return NO;
 	}
-
+	
+	// Shutting down, so pretend there is a network available
 	return YES;
 }
+
+-(void) askAndMaybeReenableNetworkAccessAtLaunch: (BOOL) startup {
+	
+	if  (   ( ! gShuttingDownWorkspace)
+		 && ( ! gShuttingDownOrRestartingComputer)
+		 && ( ! quittingAfterAnInstall)  ) {
+		
+		if (   [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]  ) {
+			
+			NSString * checkboxPref = (  startup
+									   ? @"skipWarningAboutReenablingInternetAccessOnLaunch"
+									   : @"skipWarningAboutReenablingInternetAccessOnQuit");
+			
+			NSString * checkboxText = (  startup
+									   ? NSLocalizedString(@"Do not warn about this again; never re-enable when starting Tunnelblick", @"Checkbox text")
+									   : NSLocalizedString(@"Do not warn about this again; never re-enable when quitting Tunnelblick", @"Checkbox text"));
+			
+			// Wrap in "not shutting down Tunnelblick" so TBRunAlertPanel doesn't abort
+			BOOL saved = gShuttingDownTunnelblick;
+			gShuttingDownTunnelblick = FALSE;
+
+			int result = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+												 NSLocalizedString(@"Network access was disabled when a VPN disconnected.\n\n"
+																   @"Do you wish to re-enable network access?\n\n", @"Window text"),
+												 NSLocalizedString(@"Re-enable Network Access", @"Button"),
+												 NSLocalizedString(@"Do Not Re-enable Network Access", @"Button"),
+												 nil,
+												 checkboxPref,
+												 checkboxText,
+												 nil,
+												 NSAlertAlternateReturn);
+			gShuttingDownTunnelblick = saved;
+			
+			if (  result == NSAlertDefaultReturn  ) {
+				[self reEnableInternetAccess: self];
+			}
+		}
+	}
+}
+
 static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // Returns TRUE if cleaned up, or FALSE if a cleanup is already taking place
@@ -3413,7 +3449,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 		return TRUE;
 	}
 	
-	[self askAndMaybeReenableNetworkAccessAllowCancel: NO];
+	[self askAndMaybeReenableNetworkAccessAtLaunch: NO];
 	
     TBCloseAllAlertPanels();
     
@@ -3509,7 +3545,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
                 break;
             }
         } else {
-            NSLog(@"Internal program error: invalid requestedState = %@", reqState);
+            NSLog(@"Internal program error: invalid requestedState = %@ for '%@'", reqState, [connection displayName]);
         }
     }
     
@@ -5061,8 +5097,6 @@ static void signal_handler(int signalNumber)
         [self showConfirmIconNearSpotlightIconDialog];
     }
     
-	[self askAndMaybeReenableNetworkAccessAllowCancel: NO];
-	
 	[self warnIfOutOfDateBuild];
 	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021")
@@ -5070,6 +5104,9 @@ static void signal_handler(int signalNumber)
 	[splashScreen setMessage: text];
     [splashScreen fadeOutAndClose];
  
+	TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021.1")
+	[self askAndMaybeReenableNetworkAccessAtLaunch: YES];
+	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 022 -- LAST")
 }
 
