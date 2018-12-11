@@ -1405,6 +1405,7 @@ void localizableStrings(void)
 	NSLocalizedString(@"PASSWORD_WAIT",    @"Connection status");
 	NSLocalizedString(@"PRIVATE_KEY_WAIT", @"Connection status");
     NSLocalizedString(@"DISCONNECTING",    @"Connection status");
+	NSLocalizedString(@"NETWORK_ACCESS",   @"Connection status");
 }
 
 BOOL itemHasValidSignature(NSString * path, BOOL deepCheck) {

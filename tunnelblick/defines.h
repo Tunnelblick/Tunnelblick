@@ -598,7 +598,9 @@ name = newValue;                                    \
 @"skipWarningAboutInstallsWithCommands",	\
 @"skipWarningAboutPreAuthorizedActivity",	\
 @"skipWarningAboutPlacingIconNearTheSpotlightIcon",	\
-@"skipWarningAboutReenablingInternetAccessAtExit",	\
+@"skipWarningAboutReenablingInternetAccessOnConnect", \
+@"skipWarningAboutReenablingInternetAccessOnLaunch", \
+@"skipWarningAboutReenablingInternetAccessOnQuit", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\
@@ -614,12 +616,14 @@ name = newValue;                                    \
 @"delayBeforeIPAddressCheckAfterConnection",	\
 @"delayBeforeSlowDisconnectDialog",	\
 @"delayBeforePopupHelp",	\
+@"delayBeforeConnectingAfterReenablingNetworkServices", \
 @"hookupTimeout",	\
 @"displayUpdateInterval",	\
 \
 @"inhibitOutboundTunneblickTraffic",	\
 @"placeIconInStandardPositionInStatusBar",	\
 @"doNotMonitorConfigurationFolder",	\
+@"doNotCheckForNetworkReachabilityWhenConnecting", \
 @"doNotIgnoreSignal13",	\
 @"doNotLaunchOnLogin", /* DISABLE the ability to launch on login provided by launchAtNextLogin */	\
 @"launchAtNextLogin",	\
@@ -750,6 +754,7 @@ name = newValue;                                    \
 @"skipWarningAboutUsingOpenvpnNonTxpVersion",	\
 @"skipWarningAboutNoOpenvpnTxpVersion",	\
 @"skipWarningAboutOnlyOpenvpnTxpVersion",	\
+@"skipWarningAboutReenablingInternetAccessAtExit",	\
 @"tunnelblickdHash",	\
 @"tunnelblickdPlistHash",	\
 @"updateAutomatically",	\

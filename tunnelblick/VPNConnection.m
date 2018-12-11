@@ -215,6 +215,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 		pid = 0;
         avoidHasDisconnectedDeadlock = 0;
         
+		waitingForNetworkAvailability = FALSE;
+		wereWaitingForNetworkAvailability = FALSE;
+		stopWaitForNetworkAvailabilityThread = FALSE;
         tryingToHookup = FALSE;
         initialHookupTry = TRUE;
         completelyDisconnected = TRUE;
@@ -1399,6 +1402,224 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 //******************************************************************************************************************
 
+-(void) skipFinishMakingConnection: (NSDictionary *) dict {
+	
+	TBLog(@"DB-CD", @"skipFinishMakingConnection: %@", dict)
+	
+	pthread_mutex_lock( &areConnectingMutex );
+	areConnecting = FALSE;
+	pthread_mutex_unlock( &areConnectingMutex );
+	
+	[self setRequestedState: [dict objectForKey: @"requestedState"]];
+	completelyDisconnected = TRUE;
+	
+	[self hasDisconnected];
+}
+
+-(void) finishMakingConnection: (NSDictionary *) dict {
+
+	
+	TBLog(@"DB-CD", @"finishMakingConnection: %@", dict)
+	
+	BOOL userKnows   = [[dict objectForKey: @"userKnows"]   boolValue];
+	NSString * oldRequestedState = [dict objectForKey: @"requestedState"];
+	
+	[self startCheckingIPAddressBeforeConnected];
+	
+	// Process runOnConnect item
+	NSString * path = [((MenuController *)[NSApp delegate]) customRunOnConnectPath];
+	if (  path  ) {
+		
+		NSMutableArray * arguments = [NSMutableArray arrayWithCapacity: [argumentsUsedToStartOpenvpnstart count] + 1];
+		
+		// First argument to the runOnConnect program is the language code IFF there is a Localization.bundle in Deploy
+		if (  [gFileMgr fileExistsAtPath: [gDeployPath stringByAppendingPathComponent: @"Localization.bundle"]]  ) {
+			[arguments addObject: [((MenuController *)[NSApp delegate]) languageAtLaunch]];
+		}
+		
+		[arguments addObjectsFromArray: argumentsUsedToStartOpenvpnstart];
+		
+		if (  [[[path stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
+			OSStatus status = runTool(path, arguments, nil, nil);
+			if (  status != 0  ) {
+				NSLog(@"Tunnelblick runOnConnect item %@ returned %ld; The attempt to connect %@ has been cancelled", path, (long)status, [self displayName]);
+				if (  userKnows  ) {
+					TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+									  [NSString
+									   stringWithFormat: NSLocalizedString(@"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld.", @"Window text"),
+									   [self localizedName], (long)status]);
+					[self setRequestedState: oldRequestedState];
+				}
+				areConnecting = FALSE;
+				completelyDisconnected = TRUE;
+				return;
+			}
+		} else {
+			startTool(path, arguments);
+		}
+	}
+	
+	[gTbDefaults setBool: NO forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
+	
+	NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
+						  [self displayName],
+						  (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"1"]
+						   ? @" using shadow copy"
+						   : (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"]
+							  ? @" from Deploy"
+							  : @""  )  ),
+						  [argumentsUsedToStartOpenvpnstart objectAtIndex: 3],
+						  (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 6] isEqualToString:@"1"]
+						   ? @"; not monitoring connection"
+						   : @"; monitoring connection" )
+						  ];
+	[self addToLog: logText];
+	
+	NSMutableArray * escapedArguments = [NSMutableArray arrayWithCapacity:[argumentsUsedToStartOpenvpnstart count]];
+	unsigned i;
+	for (i=0; i<[argumentsUsedToStartOpenvpnstart count]; i++) {
+		[escapedArguments addObject: [[[argumentsUsedToStartOpenvpnstart objectAtIndex: i] componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "]];
+	}
+	
+	[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: openvpnstart %@",
+					 [escapedArguments componentsJoinedByString: @" "]]];
+	
+	unsigned bitMask = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 7] unsignedIntValue];
+	if (  (loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT)  ) {
+		[((MenuController *)[NSApp delegate]) incrementTapCount];
+	}
+	
+	if (  (loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT) ) {
+		[((MenuController *)[NSApp delegate]) incrementTunCount];
+	}
+	
+	[self setConnectedSinceDate: [NSDate date]];
+	[self clearStatisticsIncludeTotals: NO];
+	
+	NSString * errOut;
+	
+	BOOL isDeployedConfiguration = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"];
+	
+	OSStatus status = runOpenvpnstart(argumentsUsedToStartOpenvpnstart, nil, &errOut);
+	
+	NSString * openvpnstartOutput;
+	if (  status != EXIT_SUCCESS  ) {
+		
+		pthread_mutex_lock( &areConnectingMutex );
+		areConnecting = FALSE;
+		pthread_mutex_unlock( &areConnectingMutex );
+		
+		[self setRequestedState: oldRequestedState];
+		completelyDisconnected = TRUE;
+		
+		if (  status == OPENVPNSTART_RETURN_SYNTAX_ERROR  ) {
+			openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
+		} else {
+			openvpnstartOutput = stringForLog(errOut, @"*Tunnelblick: openvpnstart log:\n");
+		}
+		
+		[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: \n\n"
+						 "Could not start OpenVPN (openvpnstart returned with status #%ld)\n\n"
+						 "Contents of the openvpnstart log:\n"
+						 "%@",
+						 (long)status, openvpnstartOutput]];
+		
+		if (  status == OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR) {
+			NSString * message = (  isDeployedConfiguration
+								  ? [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not secure. Please reinstall Tunnelblick.", @"Window text"), [self localizedName]]
+								  : [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not secure. It should be reinstalled.", @"Window text"), [self localizedName]]);
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							  message);
+			areConnecting = FALSE;
+			completelyDisconnected = TRUE;
+			return;
+		} else if (  status == OPENVPNSTART_COULD_NOT_LOAD_KEXT  ) {
+			
+			NSString * link = (  runningOnHighSierraOrNewer()
+							   ? @"<a href=\"https://tunnelblick.net/cKextLoadErrorHighSierra.html\">"
+							   : @"<a href=\"https://tunnelblick.net/cKextLoadError.html\">");
+			
+			NSAttributedString * msg = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>"
+																											  @"<p>%@More information%@ [%@]</p>",
+																											  
+																											  @"HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags"
+																											  @" that link to tunnelblick.net -- translators should ignore them but keep them in their translation."
+																											  @" The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to"
+																											  @" (you may replace the square brackets with symbols appropriate for your language)."),
+																 [self displayName], link, @"</a>", @"tun" @"nelb" @"lick." @"net"]);
+			if (  ! msg  ) {
+				NSLog(@"connect:userKnows: msg = nil");
+				msg = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Tunnelblick could not load a kext", @"Window text") attributes: nil] autorelease];
+			}
+			
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), msg);
+			areConnecting = FALSE;
+			completelyDisconnected = TRUE;
+			return;
+		}
+		
+		if (  userKnows  ) {
+			if (  [messagesIfConnectionFails count] != 0  ) {
+				NSEnumerator * e = [messagesIfConnectionFails objectEnumerator];
+				NSString * message;
+				while (  (message = [e nextObject])  ) {
+					TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
+				}
+				[messagesIfConnectionFails removeAllObjects];
+			} else {
+				TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+								  [NSString stringWithFormat:
+								   NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
+								   [self localizedName]]);
+			}
+		}
+		
+	} else {
+		openvpnstartOutput = stringForLog(errOut, @"*Tunnelblick: openvpnstart log:\n");
+		if (  openvpnstartOutput  ) {
+			if (  [openvpnstartOutput length] != 0  ) {
+				[self addToLog: openvpnstartOutput];
+			}
+		}
+		[self setState: @"SLEEP"];
+		[((MenuController *)[NSApp delegate]) addNonconnection: self];
+		[self connectToManagementSocket];
+	}
+}
+
+-(void) waitForNetworkAvailabilityThread: (NSDictionary *) dict {
+	
+	// Secondary thread. Waits for the network to become available, then finishes connect sequence in the main thread
+	
+	NSAutoreleasePool * pool = [NSAutoreleasePool new];
+	
+	TBLog(@"DB-CD", @"waitForNetworkAvailabilityThread: %@", dict)
+	
+	while (  ! networkIsReachable()  ) {
+		if (  stopWaitForNetworkAvailabilityThread  ) {
+			break;
+		}
+		usleep(100000);
+	}
+	
+	TBLog(@"DB-CD", @"waitForNetworkAvailabilityThread: broke out of loop; stopWaitForNetworkAvailabilityThread = %s", CSTRING_FROM_BOOL(stopWaitForNetworkAvailabilityThread))
+	
+	wereWaitingForNetworkAvailability = TRUE;
+	waitingForNetworkAvailability = FALSE;
+	
+	if (  stopWaitForNetworkAvailabilityThread) {
+		[self performSelectorOnMainThread: @selector(skipFinishMakingConnection:) withObject: dict waitUntilDone: NO];
+	} else {
+		// Although there is a network available, it isn't fully "up" for a while. This results in immedate error
+		// returns from network access requests. So we wait for a few seconds.
+		uint waitSeconds = [gTbDefaults unsignedIntForKey: @"delayBeforeConnectingAfterReenablingNetworkServices" default: 3 min: 0 max: 3600];
+		sleep(waitSeconds);
+		[self performSelectorOnMainThread: @selector(finishMakingConnection:) withObject: dict waitUntilDone: NO];
+	}
+	
+	[pool drain];
+}
+
 -(void) connectOnMainThreadUserKnows: (NSNumber *) userKnowsNumber {
 	
 	[self performSelectorOnMainThread: @selector(connectUserKnows:) withObject: userKnowsNumber waitUntilDone: YES];
@@ -1554,168 +1775,28 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 		
     [self showStatusWindowForce: YES]; // Force the VPN status window open (even if the user closed it earlier) because the user clicked "connect"
-    
-    [self startCheckingIPAddressBeforeConnected];
-    
-    // Process runOnConnect item
-    NSString * path = [((MenuController *)[NSApp delegate]) customRunOnConnectPath];
-    if (  path  ) {
-		
-		NSMutableArray * arguments = [NSMutableArray arrayWithCapacity: [argumentsUsedToStartOpenvpnstart count] + 1];
-        
-        // First argument to the runOnConnect program is the language code IFF there is a Localization.bundle in Deploy
-        if (  [gFileMgr fileExistsAtPath: [gDeployPath stringByAppendingPathComponent: @"Localization.bundle"]]  ) {
-            [arguments addObject: [((MenuController *)[NSApp delegate]) languageAtLaunch]];
-        }
-        
-		[arguments addObjectsFromArray: argumentsUsedToStartOpenvpnstart];
-		
-		if (  [[[path stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
-			OSStatus status = runTool(path, arguments, nil, nil);
-			if (  status != 0  ) {
-                NSLog(@"Tunnelblick runOnConnect item %@ returned %ld; The attempt to connect %@ has been cancelled", path, (long)status, [self displayName]);
-                if (  userKnows  ) {
-                    TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
-									  [NSString
-									   stringWithFormat: NSLocalizedString(@"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld.", @"Window text"),
-									   [self localizedName], (long)status]);
-                    requestedState = oldRequestedState;
-                }
-                areConnecting = FALSE;
-                completelyDisconnected = TRUE;
-				return;
-			}
-		} else {
-			startTool(path, arguments);
-		}
-    }
-    
-    [gTbDefaults setBool: NO forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
-    
-    NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
-                          [self displayName],
-                          (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"1"]
-                           ? @" using shadow copy"
-                           : (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"]
-                              ? @" from Deploy"
-                              : @""  )  ),
-                          [argumentsUsedToStartOpenvpnstart objectAtIndex: 3],
-                          (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 6] isEqualToString:@"1"]
-                           ? @"; not monitoring connection"
-                           : @"; monitoring connection" )
-                          ];
-    [self addToLog: logText];
 
-    NSMutableArray * escapedArguments = [NSMutableArray arrayWithCapacity:[argumentsUsedToStartOpenvpnstart count]];
-    unsigned i;
-    for (i=0; i<[argumentsUsedToStartOpenvpnstart count]; i++) {
-        [escapedArguments addObject: [[[argumentsUsedToStartOpenvpnstart objectAtIndex: i] componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "]];
-    }
-    
-    [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: openvpnstart %@",
-                     [escapedArguments componentsJoinedByString: @" "]]];
-    
-    unsigned bitMask = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 7] unsignedIntValue];
-    if (  (loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT)  ) {
-        [((MenuController *)[NSApp delegate]) incrementTapCount];
-    }
-    
-    if (  (loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT) ) {
-        [((MenuController *)[NSApp delegate]) incrementTunCount];
-    }
-    
-	[self setConnectedSinceDate: [NSDate date]];
-	[self clearStatisticsIncludeTotals: NO];
+	wereWaitingForNetworkAvailability = FALSE;
 
-    NSString * errOut;
-    
-    BOOL isDeployedConfiguration = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"];
-
-    OSStatus status = runOpenvpnstart(argumentsUsedToStartOpenvpnstart, nil, &errOut);
+	waitingForNetworkAvailability = (   ( ! [gTbDefaults boolForKey: @"doNotCheckForNetworkReachabilityWhenConnecting"])
+									 && ( ! networkIsReachable() ));
 	
-    NSString * openvpnstartOutput;
-    if (  status != EXIT_SUCCESS  ) {
-		
-		pthread_mutex_lock( &areConnectingMutex );
-		areConnecting = FALSE;
-		pthread_mutex_unlock( &areConnectingMutex );
-		
-		requestedState =  oldRequestedState;
-		completelyDisconnected = TRUE;
-
-        if (  status == OPENVPNSTART_RETURN_SYNTAX_ERROR  ) {
-            openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
-        } else {
-            openvpnstartOutput = stringForLog(errOut, @"*Tunnelblick: openvpnstart log:\n");
-        }
-        
-        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: \n\n"
-                         "Could not start OpenVPN (openvpnstart returned with status #%ld)\n\n"
-                         "Contents of the openvpnstart log:\n"
-                         "%@",
-                         (long)status, openvpnstartOutput]];
-		
-		if (  status == OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR) {
-			NSString * message = (  isDeployedConfiguration
-								  ? [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not secure. Please reinstall Tunnelblick.", @"Window text"), [self localizedName]]
-								  : [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not secure. It should be reinstalled.", @"Window text"), [self localizedName]]);
-			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							  message);
-			areConnecting = FALSE;
-			completelyDisconnected = TRUE;
-			return;
-		} else if (  status == OPENVPNSTART_COULD_NOT_LOAD_KEXT  ) {
-			
-			NSString * link = (  runningOnHighSierraOrNewer()
-							   ? @"<a href=\"https://tunnelblick.net/cKextLoadErrorHighSierra.html\">"
-							   : @"<a href=\"https://tunnelblick.net/cKextLoadError.html\">");
-			
-			NSAttributedString * msg = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>"
-																											  @"<p>%@More information%@ [%@]</p>",
-																											  
-																											  @"HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags"
-																											  @" that link to tunnelblick.net -- translators should ignore them but keep them in their translation."
-																											  @" The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to"
-																											  @" (you may replace the square brackets with symbols appropriate for your language)."),
-																 [self displayName], link, @"</a>", @"tun" @"nelb" @"lick." @"net"]);
-			if (  ! msg  ) {
-				NSLog(@"connect:userKnows: msg = nil");
-				msg = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Tunnelblick could not load a kext", @"Window text") attributes: nil] autorelease];
-			}
-
-			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), msg);
-			areConnecting = FALSE;
-			completelyDisconnected = TRUE;
-			return;
-		}
-        
-		if (  userKnows  ) {
-			if (  [messagesIfConnectionFails count] != 0  ) {
-				NSEnumerator * e = [messagesIfConnectionFails objectEnumerator];
-				NSString * message;
-				while (  (message = [e nextObject])  ) {
-					TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
-				}
-				[messagesIfConnectionFails removeAllObjects];
-			} else {
-				TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
-								  [NSString stringWithFormat:
-								   NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
-								   [self localizedName]]);
-			}
-        }
-
-    } else {
-        openvpnstartOutput = stringForLog(errOut, @"*Tunnelblick: openvpnstart log:\n");
-        if (  openvpnstartOutput  ) {
-             if (  [openvpnstartOutput length] != 0  ) {
-                [self addToLog: openvpnstartOutput];
-            }
-        }
-        [self setState: @"SLEEP"];
+	NSDictionary * dict = @{@"userKnows":      [NSNumber numberWithBool: userKnows],
+							@"requestedState": [self requestedState]};
+	
+	if (  waitingForNetworkAvailability  ) {
+		[self addToLog: @"*Tunnelblick: Waiting for network to become available "];
+		[self setConnectedSinceDate: [NSDate date]];
+		[self clearStatisticsIncludeTotals: NO];
+		[self setState: @"NETWORK_ACCESS"];
+		stopWaitForNetworkAvailabilityThread = FALSE;
 		[((MenuController *)[NSApp delegate]) addNonconnection: self];
-        [self connectToManagementSocket];
-    }
+		TBLog(@"DB-CD", @"connect:userKnows: Will wait for network availability in new thread")
+		[NSThread detachNewThreadSelector: @selector(waitForNetworkAvailabilityThread:) toTarget: self withObject: dict];
+		return;
+	}
+	
+	[self finishMakingConnection: dict];
 }
 
 -(void) addMessageToDisplayIfConnectionFails: (NSString *) message {
@@ -2862,6 +2943,13 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     areDisconnecting = TRUE;
     pthread_mutex_unlock( &areDisconnectingMutex );
     
+	// If we are waiting for a network to become available, all we do is indicate we should stop doing that
+	if (  waitingForNetworkAvailability  ) {
+		[self expectDisconnect: userKnows];
+		stopWaitForNetworkAvailabilityThread = TRUE;
+		return YES;
+	}
+	
 	if (  [[self state] isEqualToString: @"RECONNECTING"]  ) {
 		if (  ! disconnectWhenStateChanges  ) {
 			disconnectWhenStateChanges = TRUE;
@@ -3034,7 +3122,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
 	NSNumber * oldPidAsNumber = [NSNumber numberWithLong: (long) pid];
 	
-    [self disconnectFromManagmentSocket];
+	if (  ! wereWaitingForNetworkAvailability  ) {
+		[self disconnectFromManagmentSocket];
+	}
     portNumber       = 0;
     pid              = 0;
     areDisconnecting = FALSE;
@@ -3056,8 +3146,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     [((MenuController *)[NSApp delegate]) unloadKexts];
     
-    // Run the post-disconnect script, if any
-    [self runScriptNamed: @"post-disconnect" openvpnstartCommand: @"postDisconnect"];
+	if (  ! wereWaitingForNetworkAvailability  ) {
+		// Run the post-disconnect script, if any
+		[self runScriptNamed: @"post-disconnect" openvpnstartCommand: @"postDisconnect"];
+	}
     
 	if (  ! gShuttingDownTunnelblick  ) {
 		[((MenuController *)[NSApp delegate]) updateUI];
@@ -3071,6 +3163,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         && ( gSleepWakeState == noSleepState)
         && ( gActiveInactiveState == active)
 		&& [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-keepConnected"]]
+		&& ( ! wereWaitingForNetworkAvailability )
 		) {
         NSTimeInterval interval = (NSTimeInterval)[gTbDefaults unsignedIntForKey: @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting"
                                                                          default: 5
@@ -3089,7 +3182,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                            orAfterTimeout: interval
                                 testEvery: 0.2];
         return;  // DO NOT set "completelyDisconnected"
-    } else {
+    } else if (  ! wereWaitingForNetworkAvailability  ) {
         [self addToLog: @"*Tunnelblick: Expected disconnection occurred."];
 	}
 	
@@ -3101,6 +3194,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 		[messagesIfConnectionFails removeAllObjects];
 	}
+	
+	wereWaitingForNetworkAvailability = FALSE;
 	
 	if (  connectAfterDisconnect  ) {
         BOOL userKnows = connectAfterDisconnectUserKnows;
@@ -4419,13 +4514,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         }
         
-		[logDisplay outputLogFiles];
-    }
-    
-    if (  newState != lastState  ) {
+		if (  ! wereWaitingForNetworkAvailability  ) {
+			[logDisplay outputLogFiles];
+		}
     }
     
     [self setLastState: newState];
+	
     // The 'pre-connect.sh' and 'post-tun-tap-load.sh' scripts are run by openvpnstart
     // The 'connected.sh' and 'reconnecting.sh' scripts are run here
     // The 'disconnect.sh' script is run by this class's hasDisconnected method

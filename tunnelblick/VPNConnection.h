@@ -120,6 +120,10 @@ struct Statistics {
     NSDate        * bytecountsUpdated;  // Time variables were last updated
     NSArray       * argumentsUsedToStartOpenvpnstart;   // The arguments that were last used to run openvpnstart
     
+	BOOL            waitingForNetworkAvailability;
+	BOOL            wereWaitingForNetworkAvailability;
+	BOOL            stopWaitForNetworkAvailabilityThread;
+	
     pthread_mutex_t bytecountMutex;     // Used to avoid race conditions when accessing the above
 
     BOOL            bytecountMutexOK;   // Flag that the mutex is set up. (If not, we don't do statistics)

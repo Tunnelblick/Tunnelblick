@@ -3358,9 +3358,9 @@ BOOL anyNonTblkConfigs(void)
 												 NSLocalizedString(@"Cancel", @"Button"),
 												 nil,
 												 @"skipWarningAboutReenablingInternetAccessOnConnect",
-												 NSLocalizedString(@"Do not warn about this again;\nnever re-enable when connecting", @"Checkbox text"),
+												 NSLocalizedString(@"Do not warn about this again;\nalways re-enable when connecting", @"Checkbox text"),
 												 nil,
-												 NSAlertAlternateReturn);
+												 NSAlertDefaultReturn);
 			gShuttingDownTunnelblick = saved;
 			
 			if (  result == NSAlertDefaultReturn  ) {
@@ -3391,8 +3391,11 @@ BOOL anyNonTblkConfigs(void)
 									   : @"skipWarningAboutReenablingInternetAccessOnQuit");
 			
 			NSString * checkboxText = (  startup
-									   ? NSLocalizedString(@"Do not warn about this again; never re-enable when starting Tunnelblick", @"Checkbox text")
-									   : NSLocalizedString(@"Do not warn about this again; never re-enable when quitting Tunnelblick", @"Checkbox text"));
+									   ? NSLocalizedString(@"Do not warn about this again;\nnever re-enable when starting Tunnelblick", @"Checkbox text")
+									   : NSLocalizedString(@"Do not warn about this again;\nalways re-enable when quitting Tunnelblick", @"Checkbox text"));
+			int resultIfSkipped = (  startup
+								   ? NSAlertAlternateReturn
+								   : NSAlertDefaultReturn);
 			
 			// Wrap in "not shutting down Tunnelblick" so TBRunAlertPanel doesn't abort
 			BOOL saved = gShuttingDownTunnelblick;
@@ -3407,7 +3410,7 @@ BOOL anyNonTblkConfigs(void)
 												 checkboxPref,
 												 checkboxText,
 												 nil,
-												 NSAlertAlternateReturn);
+												 resultIfSkipped);
 			gShuttingDownTunnelblick = saved;
 			
 			if (  result == NSAlertDefaultReturn  ) {
