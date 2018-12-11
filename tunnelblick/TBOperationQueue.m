@@ -30,6 +30,8 @@
 #import "StatusWindowController.h"
 #import "VPNConnection.h"
 
+extern BOOL gShuttingDownTunnelblick;
+
 static NSMutableArray  * queue = nil; // List of operations waiting to be executed
 
 static NSMutableArray  * disableLists = nil; // List of lists of displayNames for which the UI should be disabled
@@ -73,7 +75,11 @@ void validateDetailsAndStatusWindows(void) {
     // Schedule main thread to enable or disable UI controls
     //    * In the 'VPN Details' window (which also does that for controls in the "Advanced" window)
     //    * In any and all status (notification) windows
-    
+	
+	if (  gShuttingDownTunnelblick  ) {
+		return;
+	}
+	
     id vpnDetails = [((MenuController *)[NSApp delegate]) logScreen];
     if (  vpnDetails  ) {
         [vpnDetails performSelectorOnMainThread: @selector(validateDetailsWindowControls) withObject: nil waitUntilDone: NO];

@@ -3059,11 +3059,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     // Run the post-disconnect script, if any
     [self runScriptNamed: @"post-disconnect" openvpnstartCommand: @"postDisconnect"];
     
-    [((MenuController *)[NSApp delegate]) updateUI];
-	
-	[((MenuController *)[NSApp delegate]) updateIconImage];
-	
-	[[((MenuController *)[NSApp delegate]) logScreen] validateDetailsWindowControls];
+	if (  ! gShuttingDownTunnelblick  ) {
+		[((MenuController *)[NSApp delegate]) updateUI];
+		[((MenuController *)[NSApp delegate]) updateIconImage];
+		[[((MenuController *)[NSApp delegate]) logScreen] validateDetailsWindowControls];
+	}
 	
     if (   ( ! [requestedState isEqualToString: @"EXITING"])
         && [self haveConnectedSince]
