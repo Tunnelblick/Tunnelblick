@@ -172,8 +172,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         [logDisplay setConnection: self];
 		[logDisplay clear];
 		
-        lastState = @"EXITING";
-        requestedState = @"EXITING";
+		[self setLastState:      @"EXITING"];
+		[self setRequestedState: @"EXITING"];
 		[self initializeAuthAgent];
 		
         // Set preferences that haven't been defined yet or that should always be set
@@ -292,9 +292,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [self clearStatisticsIncludeTotals: NO];
     [self initializeAuthAgent];
     // Don't change logDisplay -- we want to keep it
-    [lastState          release]; lastState = @"EXITING";
-    [requestedState     release]; requestedState = @"EXITING";
-    [tunOrTap           release]; tunOrTap = nil;
+	[self setLastState:      @"EXITING"];
+    [self setRequestedState: @"EXITING"];
+	[self setTunOrTap:       nil];
 	[messagesIfConnectionFails removeAllObjects];
     portNumber       = 0;
     pid              = 0;
@@ -403,7 +403,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [self setPreferencesFromOpenvnpstartArgString: inStartArgs];
 
     tryingToHookup = TRUE;
-    requestedState = @"CONNECTED";
+	[self setRequestedState: @"CONNECTED"];
     [self connectToManagementSocket];
 }
 
@@ -565,7 +565,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
         if ( ! isHookedup  ) {
             [self setPort: 0];
-            requestedState = @"EXITING";
+			[self setRequestedState: @"EXITING"];
             
             NSLog(@"Stopped trying to establish communications with an existing OpenVPN process for '%@' after %d seconds", [self localizedName], gHookupTimeout);
             NSString * msg = [NSString stringWithFormat:
@@ -869,11 +869,6 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     return [[displayName retain] autorelease];
 }
 
--(NSString *) requestedState
-{
-    return requestedState;
-}
-
 - (void) setManagementSocket: (NetSocket*) socket
 {
     [socket retain];
@@ -919,8 +914,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(void) invalidateConfigurationParse
 {
-    [tunOrTap release];
-    tunOrTap = nil;
+	[self setTunOrTap: nil];
 }
 
 -(void) showStatusWindowForce: (BOOL) force
@@ -944,7 +938,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                     [statusScreen restore];
                 }
                 
-                [statusScreen setStatus: lastState forName: displayName connectedSince: [self timeString]];
+                [statusScreen setStatus: [self lastState] forName: displayName connectedSince: [self timeString]];
                 [statusScreen fadeIn];
                 showingStatusWindow = TRUE;
             }
@@ -1476,9 +1470,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	disconnectWhenStateChanges = FALSE;
     
-    NSString * oldRequestedState = requestedState;
+    NSString * oldRequestedState = [self requestedState];
     if (  userKnows  ) {
-        requestedState = @"CONNECTED";
+		[self setRequestedState: @"CONNECTED"];
     }
     
     NSString * encodedPath = encodeSlashesAndPeriods([[self secureDotTblkPath] stringByAppendingPathComponent: @"Contents/Resources"]);
@@ -1517,7 +1511,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 												 NSAlertDefaultReturn);
             if (  button != NSAlertDefaultReturn  ) {
                 if (  userKnows  ) {
-                    requestedState = oldRequestedState;
+					[self setRequestedState: oldRequestedState];
                 }
                 areConnecting = FALSE;
                 completelyDisconnected = TRUE;
@@ -1547,7 +1541,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  [argumentsUsedToStartOpenvpnstart count] == 0  ) {
         if (  userKnows  ) {
-            requestedState = oldRequestedState; // User cancelled
+			[self setRequestedState: oldRequestedState]; // User cancelled
         }
         areConnecting = FALSE;
         completelyDisconnected = TRUE;
@@ -1773,23 +1767,21 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  ! tunOrTap  ) {
 		NSString * authRetryParameterTemp = nil;
-        tunOrTap = [[ConfigurationManager parseConfigurationPath: configPath
-												   forConnection: self
-												 hasAuthUserPass: &hasAuthUserPass
-											  authRetryParameter: &authRetryParameterTemp]
-					copy];
+		[self setTunOrTap: [ConfigurationManager parseConfigurationPath: configPath
+														  forConnection: self
+														hasAuthUserPass: &hasAuthUserPass
+													 authRetryParameter: &authRetryParameterTemp]];
 
 		[self setAuthRetryParameter: authRetryParameterTemp];
         
         // tunOrTap == 'Cancel' means we cancel whatever we're doing
         if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
-            [tunOrTap release];
-            tunOrTap = nil;
+			[self setTunOrTap: nil];
 			return @"Cancel";
         }
     }
     
-    return tunOrTap;
+    return [self tunOrTap];
 }
 
 -(NSString *) tapOrTun {
@@ -2861,7 +2853,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
     
     if (  [userKnows boolValue]  ) {
-        requestedState = @"EXITING";
+		[self setRequestedState: @"EXITING"];
     }
 	
 	[self setState: @"DISCONNECTING"];
@@ -4364,7 +4356,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (NSString*) state
 {
-    return lastState;
+    return [self lastState];
 }
 
 -(BOOL) isConnected
@@ -4431,11 +4423,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  newState != lastState  ) {
-        [newState retain];
-        [lastState release];
-        lastState = newState;
     }
     
+    [self setLastState: newState];
     // The 'pre-connect.sh' and 'post-tun-tap-load.sh' scripts are run by openvpnstart
     // The 'connected.sh' and 'reconnecting.sh' scripts are run here
     // The 'disconnect.sh' script is run by this class's hasDisconnected method
@@ -4777,6 +4767,9 @@ TBSYNTHESIZE_OBJECT_SET(	    NSString *,               authRetryParameter,      
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               serverIPAddress,                  setServerIPAddress)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               connectedCfgLocCodeString,        setConnectedCfgLocCodeString)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               localizedName,                    setLocalizedName)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               requestedState,                   setRequestedState)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               lastState,                        setLastState)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               tunOrTap,                         setTunOrTap)
 
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     haveConnectedSince,               setHaveConnectedSince)
