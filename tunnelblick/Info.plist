@@ -28,7 +28,7 @@
 			<key>CFBundleTypeRole</key>				<string>Editor</string>
 			<key>LSTypeIsPackage</key>				<false/>
 			<key>NSPersistentStoreTypeKey</key>		<string>Binary</string>
-			<key>LSHandlerRank<key>					<string>Alternate</string>
+			<key>LSHandlerRank</key>				<string>Alternate</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>		<array><string>conf</string></array>
@@ -37,7 +37,7 @@
 			<key>CFBundleTypeRole</key>				<string>Editor</string>
 			<key>LSTypeIsPackage</key>				<false/>
 			<key>NSPersistentStoreTypeKey</key>		<string>Binary</string>
-			<key>LSHandlerRank<key>					<string>Alternate</string>
+			<key>LSHandlerRank</key>				<string>Alternate</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>					<string>Tunnelblick</string>
