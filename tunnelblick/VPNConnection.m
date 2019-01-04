@@ -3660,9 +3660,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 
     // "Real time" output from OpenVPN.
-	if (  [line isEqualToString: @">FATAL:Error: private key password verification failed"]  ) {
+	if (   [line isEqualToString: @">FATAL:Error: private key password verification failed"]
+		|| [line rangeOfString: @"RECONNECTING,private-key-password-failure"].length) {
 		// Private key verification failed. Rewrite the message to be similar to the regular password failed message so we can use the same code
 		line = @">PASSPHRASE:Verification Failed";
+		TBLog(@"Rewriting private key password verification failed to '>PASSPHRASE:Verification Failed'");
 	}
 	
 	if (  [line hasPrefix: @">HOLD:Waiting for hold release"]  ) {
