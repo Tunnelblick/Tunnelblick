@@ -3664,7 +3664,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		|| [line rangeOfString: @"RECONNECTING,private-key-password-failure"].length) {
 		// Private key verification failed. Rewrite the message to be similar to the regular password failed message so we can use the same code
 		line = @">PASSPHRASE:Verification Failed";
-		TBLog(@"Rewriting private key password verification failed to '>PASSPHRASE:Verification Failed'");
+		TBLog(@"DB-AU", @"Rewriting private key password verification failed message to be '>PASSPHRASE:Verification Failed' for '%@'", [self localizedName]);
 	}
 	
 	if (  [line hasPrefix: @">HOLD:Waiting for hold release"]  ) {
