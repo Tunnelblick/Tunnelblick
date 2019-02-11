@@ -204,7 +204,21 @@ EOF
                 sleep 2
 			    /sbin/ifconfig "${PINTERFACE}" up
 			else
-				logMessage "WARNING: Not resetting primary interface because /sbin/ifconfig does not exist."
+				logMessage "WARNING: Not resetting primary interface via ipconfig because /sbin/ifconfig does not exist."
+			fi
+
+			if [ -f /usr/sbin/networksetup ] ; then
+				local service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${PINTERFACE}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
+				if [ "$service" != "" ] ; then
+					logMessage "Resetting primary service '$service' via networksetup -setnetworkserviceenabled '$service' on/off..."
+					/usr/sbin/networksetup -setnetworkserviceenabled "$service" off
+					sleep 2
+					/usr/sbin/networksetup -setnetworkserviceenabled "$service" on
+				else
+					logMessage "WARNING: Not resetting primary service via networksetup because could not find primary service."
+				fi
+			else
+				logMessage "WARNING: Not resetting primary service '$service' via networksetup because /usr/sbin/networksetup does not exist."
 			fi
 		fi
     else
