@@ -519,7 +519,7 @@
 "GET_CONFIG" = "Getting configuration";   // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "NETWORK_ACCESS";
+"NETWORK_ACCESS" = "Waiting for network access";	// Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Waiting for password";   // Please translate "Waiting for password"
