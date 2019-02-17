@@ -185,7 +185,7 @@
 
 //*************************************************************************************************
 // OpenVPN options that are not allowed because they conflict with the operation of Tunnelblick
-#define OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK [NSArray arrayWithObjects: @"log", @"log-append", @"syslog", nil]
+#define OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK [NSArray arrayWithObjects: @"log", @"log-append", @"syslog", @"config", nil]
 
 //*************************************************************************************************
 // OpenVPN options that are not allowed on macOS
