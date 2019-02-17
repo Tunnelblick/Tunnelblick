@@ -8019,6 +8019,14 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return mouseIsInStatusWindow || mouseIsInMainIcon;
 }
 
+-(void)openvpnConfigurationFileChangedForDisplayName: (NSString *) displayName {
+	
+	VPNConnection * conn = [myVPNConnectionDictionary objectForKey: displayName];
+	[conn invalidateConfigurationParse];
+	[logScreen update];
+	
+}
+
 //*********************************************************************************************************
 // IPCheckThread methods:
 

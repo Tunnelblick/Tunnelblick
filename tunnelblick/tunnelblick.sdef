@@ -70,5 +70,16 @@
 			<result type="integer" description="Returns 0."/>
 		</command>
 		
+		<command name="changed openvpn configuration file for" code="TBLKCovc" description="Notify Tunnelblick that an OpenVPN configuration file has been changed">
+			<cocoa class="ApplescriptHaveChangedOpenvpnConfigurationFileFor"/>
+			<direct-parameter description="Name of configuration whose OpenVPN configuration file was changed" type="text"/>
+			<result type="boolean" description="Returns 0."/>
+		</command>
+		
+		<command name="added or removed configurations" code="TBLKARCo" description="Notify Tunnelblick that one or more VPN configurations have been added and/or removed.">
+			<cocoa class="ApplescriptHaveAddedAndOrRemovedOneOrMoreConfigurations"/>
+			<result type="boolean" description="Returns 0."/>
+		</command>
+		
 	</suite>
 </dictionary>

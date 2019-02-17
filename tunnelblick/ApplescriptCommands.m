@@ -142,6 +142,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 @end
 
+
 @implementation ApplescriptQuit
 
 - (id)performDefaultImplementation
@@ -150,5 +151,28 @@ extern TBUserDefaults  * gTbDefaults;
     return [NSNumber numberWithInt: 0];
 }
 
+@end
+
+
+@implementation ApplescriptHaveChangedOpenvpnConfigurationFileFor
+
+- (id)performDefaultImplementation {
+	
+	NSString * displayName = [self directParameter];
+	
+	[(MenuController *)[NSApp delegate] openvpnConfigurationFileChangedForDisplayName: displayName];
+	return [NSNumber numberWithInt: 0];
+}
+
+@end
+
+
+@implementation ApplescriptHaveAddedAndOrRemovedOneOrMoreConfigurations
+
+- (id)performDefaultImplementation {
+	
+	[(MenuController *)[NSApp delegate] updateMenuAndDetailsWindow];
+	return [NSNumber numberWithInt: 0];
+}
 
 @end

@@ -49,7 +49,20 @@
 - (id)performDefaultImplementation;
 @end
 
+
 @interface ApplescriptQuit : NSScriptCommand {
+}
+- (id)performDefaultImplementation;
+@end
+
+
+@interface ApplescriptHaveChangedOpenvpnConfigurationFileFor : NSScriptCommand {
+}
+- (id)performDefaultImplementation;
+@end
+
+
+@interface ApplescriptHaveAddedAndOrRemovedOneOrMoreConfigurations : NSScriptCommand {
 }
 - (id)performDefaultImplementation;
 @end

@@ -271,6 +271,7 @@ enum StatusIconPosition {
 -(void)             mouseExitedStatusWindow:                (id)                windowController
                                       event:                (NSEvent *)         theEvent;
 -(BOOL)             mouseIsInsideAnyView;
+-(void)             openvpnConfigurationFileChangedForDisplayName: (NSString *) displayName;
 -(NSString *)       openVPNLogHeader;
 -(NSString *)		openvpnVersionToUseInsteadOfVersion: (NSString *) prefVersion;
 -(void)             reactivateTunnelblick;
@@ -288,6 +289,7 @@ enum StatusIconPosition {
 -(NSArray *)        sortedSounds;
 -(unsigned)         statusScreenIndex;
 -(void)             unloadKexts;
+-(void)				updateMenuAndDetailsWindow;
 -(BOOL)             userIsAnAdmin;
 -(void)             startCheckingForConfigurationUpdates;
 -(void)             statusWindowController:                 (id)                ctl
