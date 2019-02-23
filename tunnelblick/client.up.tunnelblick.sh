@@ -1302,7 +1302,7 @@ ARG_TB_PATH="/Applications/Tunnelblick.app"
 ARG_RESTORE_ON_WINS_RESET="false"
 
 # Handle the arguments we know about by setting ARG_ script variables to their values, then shift them out
-while [ {$#} ] ; do
+while [ $# -ne 0 ] ; do
     if [ "$1" = "-6" ] ; then                       # -6 = ARG_ENABLE_IPV6_ON_TAP (for TAP connections only)
         ARG_ENABLE_IPV6_ON_TAP="true"
         shift

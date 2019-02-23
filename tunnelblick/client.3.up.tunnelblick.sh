@@ -18,7 +18,7 @@ ARG_RESTORE_ON_WINS_RESET="false"
 ARG_TAP="false"
 ARG_TB_PATH="/Applications/Tunnelblick.app"
 
-while [ {$#} ] ; do
+while [ $# -ne 0 ] ; do
     if [  "$1" = "-m" ] ; then                              # Handle the arguments we know about
         ARG_MONITOR_NETWORK_CONFIGURATION="true"            # by setting ARG_ script variables to their values
         shift                                               # Then shift them out

@@ -255,7 +255,7 @@ fi
 ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
 ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED="false"
 ARG_FLUSH_DNS_CACHE="false"
-while [ {$#} ] ; do
+while [ $# -ne 0 ] ; do
 
 	if [ "${1:0:1}" != "-" ] ; then				# Tunnelblick arguments start with "-" and come first
         break                                   # so if this one doesn't start with "-" we are done processing Tunnelblick arguments

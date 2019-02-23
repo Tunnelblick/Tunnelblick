@@ -134,7 +134,7 @@ logMessage "Start of output from ${OUR_NAME}"
 # So we get the value from the Tunnelblick options passed to this script by OpenVPN.
 ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING="false"
 ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING_UNEXPECTED="false"
-while [ {$#} ] ; do
+while [ $# -ne 0 ] ; do
 
 	if [ "${1:0:1}" != "-" ] ; then				# Tunnelblick arguments start with "-" and come first
 		break                                   # so if this one doesn't start with "-" we are done processing Tunnelblick arguments
