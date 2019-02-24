@@ -83,8 +83,15 @@ restore_ipv6() {
 
     printf %s "$1$LF"  |   while IFS= read -r ripv6_service ; do
 		if [ -n "$ripv6_service" ] ; then
-			/usr/sbin/networksetup -setv6automatic "$ripv6_service"
-			logMessage "Re-enabled IPv6 (automatic) for '$ripv6_service'"
+			set +e
+				/usr/sbin/networksetup -setv6automatic "$ripv6_service"
+				local status=$?
+				if [ $status -eq 0 ] ; then
+					logMessage "Re-enabled IPv6 (automatic) for \"$ripv6_service\""
+				else
+					logMessage "WARNING: Error $status trying to re-enable IPv6 (automatic) via /usr/sbin/networksetup -setv6automatic \"$ripv6_service\""
+				fi
+			set -e
 		fi
     done
 }
@@ -96,10 +103,11 @@ flushDNSCache()
 		if [ -f /usr/bin/dscacheutil ] ; then
 			set +e # we will catch errors from dscacheutil
 				/usr/bin/dscacheutil -flushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
+				local status=$?
+				if [ $status -ne 0 ] ; then
+					logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/bin/dscacheutil -flushcache"
 				else
-					logMessage "Flushed the DNS cache via dscacheutil"
+					logMessage "Flushed the DNS cache via /usr/bin/dscacheutil -flushcache"
 				fi
 			set -e # bash should again fail on errors
 		else
@@ -109,14 +117,16 @@ flushDNSCache()
 		if [ -f /usr/sbin/discoveryutil ] ; then
 			set +e # we will catch errors from discoveryutil
 				/usr/sbin/discoveryutil udnsflushcaches
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
+				local status=$?
+				if [ $status -ne 0 ] ; then
+					logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/sbin/discoveryutil udnsflushcaches"
 				else
-					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
+					logMessage "Flushed the DNS cache via /usr/sbin/discoveryutil udnsflushcaches"
 				fi
 				/usr/sbin/discoveryutil mdnsflushcache
-				if [ $? != 0 ] ; then
-					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
+				local status=$?
+				if [ $status -ne 0 ] ; then
+					logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/sbin/discoveryutil mdnsflushcache"
 				else
 					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
 				fi
@@ -174,10 +184,10 @@ resetPrimaryInterface()
 		return
 	fi
 
-	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-		WIFI_INTERFACE="$(networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
+	set +e # "awk" may return error status if no matches are found, so don't fail on individual errors
+		WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
 		if [ "${WIFI_INTERFACE}" == "" ] ; then
-			WIFI_INTERFACE="$(networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
+			WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
 		fi
 		PINTERFACE="$( scutil <<-EOF |
 			open
@@ -190,27 +200,78 @@ EOF
 
     if [ "${PINTERFACE}" != "" ] ; then
 	    if [ "${PINTERFACE}" == "${WIFI_INTERFACE}" ] && [ -f /usr/sbin/networksetup ] ; then
-			logMessage "Resetting primary interface '${PINTERFACE}' via networksetup -setairportpower ${PINTERFACE} off/on..."
-			/usr/sbin/networksetup -setairportpower "${PINTERFACE}" off
+			set +e
+				/usr/sbin/networksetup -setairportpower "${PINTERFACE}" off
+				local status=$?
+				if [ $status -eq 0 ] ; then
+					logMessage "Turned off primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" off"
+				else
+					logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" off"
+				fi
+			set -e
 			sleep 2
-			/usr/sbin/networksetup -setairportpower "${PINTERFACE}" on
+			set +e
+				/usr/sbin/networksetup -setairportpower "${PINTERFACE}" on
+				local status=$?
+				if [ $status -eq 0 ] ; then
+					logMessage "Turned on primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" on"
+				else
+					logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" on"
+				fi
+			set -e
 		else
 		    if [ -f /sbin/ifconfig ] ; then
-			    logMessage "Resetting primary interface '${PINTERFACE}' via ifconfig ${PINTERFACE} down/up..."
-                /sbin/ifconfig "${PINTERFACE}" down
+				set +e
+					/sbin/ifconfig "${PINTERFACE}" down
+					local status=$?
+					if [ $status -eq 0 ] ; then
+						logMessage "Turned off primary interface via /sbin/ifconfig \"${PINTERFACE}\" down"
+					else
+						logMessage "WARNING: Error $status trying to turn off primary interface via /sbin/ifconfig \"${PINTERFACE}\" down"
+					fi
+				set -e
                 sleep 2
-			    /sbin/ifconfig "${PINTERFACE}" up
+				set +e
+					/sbin/ifconfig "${PINTERFACE}" up
+					local status=$?
+					if [ $status -eq 0 ] ; then
+						logMessage "Turned on primary interface via /sbin/ifconfig \"${PINTERFACE}\" up"
+					else
+						logMessage "WARNING: Error $status trying to turn on primary interface via /sbin/ifconfig \"${PINTERFACE}\" up"
+					fi
+				set -e
 			else
-				logMessage "WARNING: Not resetting primary interface via ipconfig because /sbin/ifconfig does not exist."
+				logMessage "WARNING: Not resetting primary interface via ifconfig because /sbin/ifconfig does not exist."
 			fi
 
 			if [ -f /usr/sbin/networksetup ] ; then
-				local service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${PINTERFACE}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
+				set +e
+					local service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${PINTERFACE}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
+					local status=$?
+					if [ $status -ne 0 ] ; then
+						logMessage "WARNING: Error status $status trying to get name of primary service for \"Device: ${PINTERFACE}\""
+					fi
+				set -e
 				if [ "$service" != "" ] ; then
-					logMessage "Resetting primary service '$service' via networksetup -setnetworkserviceenabled '$service' on/off..."
-					/usr/sbin/networksetup -setnetworkserviceenabled "$service" off
+					set +e
+						/usr/sbin/networksetup -setnetworkserviceenabled "$service" off
+						local status=$?
+						if [ $status -eq 0 ] ; then
+							logMessage "Turned off primary interface '${PINTERFACE}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
+						else
+							logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
+						fi
+					set -e
 					sleep 2
-					/usr/sbin/networksetup -setnetworkserviceenabled "$service" on
+					set +e
+						/usr/sbin/networksetup -setnetworkserviceenabled "$service" on
+						local status=$?
+						if [ $status -eq 0 ] ; then
+							logMessage "Turned on primary interface '${PINTERFACE}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
+						else
+							logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
+						fi
+					set -e
 				else
 					logMessage "WARNING: Not resetting primary service via networksetup because could not find primary service."
 				fi
@@ -349,17 +410,27 @@ if ${ARG_TAP} ; then
                 if [ -n "${sTunnelDevice}" ]; then
                     logMessage "WARNING: \$dev not defined; using TunnelDevice: ${sTunnelDevice}"
                     set +e
-                    ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
+						/usr/sbin/ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
+						status=$?
+						if [  $status -eq 0 ] ; then
+							logMessage "Released the DHCP lease via /usr/sbin/ipconfig set \"${sTunnelDevice}\" NONE"
+						else
+							logMessage "WARNING: Error $status from /usr/sbin/ipconfig set \"${sTunnelDevice}\" NONE"
+						fi
                     set -e
-                    logMessage "Released the DHCP lease via ipconfig set ${sTunnelDevice} NONE."
                 else
                     logMessage "WARNING: Cannot configure TAP interface to NONE without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
                 fi
             else
                 set +e
-					ipconfig set "$dev" NONE 2>/dev/null
+					/usr/sbin/ipconfig set "$dev" NONE 2>/dev/null
+					status=$?
+					if [  $status -eq 0 ] ; then
+						logMessage "Released the DHCP lease via /usr/sbin/ipconfig set \"$dev\" NONE"
+					else
+						logMessage "WARNING: Error $status from /usr/sbin/ipconfig set \"$dev\" NONE"
+					fi
                 set -e
-                logMessage "Released the DHCP lease via ipconfig set $dev NONE."
             fi
         fi
     fi
