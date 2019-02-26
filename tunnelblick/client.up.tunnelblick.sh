@@ -1336,10 +1336,7 @@ flushDNSCache()
 			logMessage "/usr/sbin/discoveryutil not present. Not flushing the DNS cache via discoveryutil"
 		fi
 
-		set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-			hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
-		set -e # We instruct bash that it CAN again fail on errors
-		if [ "${hands_off_ps}" = "" ] ; then
+		if [ "$( pgrep HandsOffDaemon )" = "" ] ; then
 			if [ -f /usr/bin/killall ] ; then
 				set +e # ignore errors if mDNSResponder isn't currently running
 					/usr/bin/killall -HUP mDNSResponder > /dev/null 2>&1
