@@ -214,6 +214,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         portNumber = 0;
 		pid = 0;
         avoidHasDisconnectedDeadlock = 0;
+		timeLastWarnedAboutOpenVPNVersion = 0;
         
 		waitingForNetworkAvailability = FALSE;
 		wereWaitingForNetworkAvailability = FALSE;
@@ -2323,6 +2324,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	// We have a version of OpenVPN that can be used. Warn if the configuration includes any deprecated options
 	
+	NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatNotUsingSpecifiedOpenVPN"];
+
 	NSString * warningMessage1 = @"";
 
 	NSString * deprecatedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"deprecatedInOpenvpnVersion"];
@@ -2333,30 +2336,26 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				TBLog(@"DB-CD", @"Connecting %@ using OpenVPN %@ which has deprecated options",
 					  [self displayName], displayNameForOpenvpnName(versionToTry));
 			}
-			NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatMayNotConnectInFutureBecauseOfOpenVPNOptions"];
-			if (  ! [gTbDefaults boolForKey: key]  ) {
-				[gTbDefaults setBool: TRUE forKey: key];
-				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
-				warningMessage1 = [NSString stringWithFormat:
-								   NSLocalizedString(@"Warning: This VPN may not connect in the future.\n\n"
-													 
-													 @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
-													 
-													 @"%@\n"
-													 
-													 @"You should update the configuration so it can be used with modern versions of OpenVPN.\n\n"
-													 
-													 @"Tunnelblick will use OpenVPN %@ to connect this configuration.\n\n"
-													 
-													 @"However, you will not be able to connect to this VPN with future versions of"
-													 @" Tunnelblick that do not include a version of OpenVPN that accepts the options.",
-													 
-													 @"Window text."
-													 @" The first '%@' will be replaced by the name of a configuration."
-													 @" The third '%@' will be replaced by a list of names of OpenVPN options, one on each line."
-													 @" The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
-								   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry)];
-			}
+			NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
+			warningMessage1 = [NSString stringWithFormat:
+							   NSLocalizedString(@"Warning: This VPN may not connect in the future.\n\n"
+												 
+												 @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
+												 
+												 @"%@\n"
+												 
+												 @"You should update the configuration so it can be used with modern versions of OpenVPN.\n\n"
+												 
+												 @"Tunnelblick will use OpenVPN %@ to connect this configuration.\n\n"
+												 
+												 @"However, you will not be able to connect to this VPN with future versions of"
+												 @" Tunnelblick that do not include a version of OpenVPN that accepts the options.",
+												 
+												 @"Window text."
+												 @" The first '%@' will be replaced by the name of a configuration."
+												 @" The third '%@' will be replaced by a list of names of OpenVPN options, one on each line."
+												 @" The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
+							   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry)];
 		}
 	}
 
@@ -2369,28 +2368,38 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			TBLog(@"DB-CD", @"Connecting %@ using OpenVPN %@ instead of %@",
 				  [self displayName], displayNameForOpenvpnName(versionToTry), displayNameForOpenvpnName(versionWanted));
 		}
-		NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatNotUsingSpecifiedOpenVPN"];
-		if (  ! [gTbDefaults boolForKey: key]  ) {
-			warningMessage2 = [NSString stringWithFormat:
+		warningMessage2 = [NSString stringWithFormat:
 							   NSLocalizedString(@"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@).",
 												 
 												 @"Window text."
 												 @" The first '%@' will be replaced by the name of a configuration."
 												 @" The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n"),
 							   [self displayName], displayNameForOpenvpnName(versionToTry), displayNameForOpenvpnName(versionWanted)];
-		}
 	}
 	
-	if (  [warningMessage2 length] != 0  ) {
-		if (  [warningMessage1 length] != 0  ) {
-			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							  [NSString stringWithFormat: @"%@\n\n%@", warningMessage2, warningMessage1]);
-		} else {
-			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), warningMessage2);
-		}
-	} else {
-		if (  [warningMessage1 length] != 0  ) {
-			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), warningMessage1);
+	NSString * warningMessage = (  ([warningMessage2 length] != 0)
+								 ? (  ([warningMessage1 length] != 0)
+									? [NSString stringWithFormat: @"%@\n\n%@", warningMessage2, warningMessage1]
+									: warningMessage2)
+								 : (  ([warningMessage1 length] != 0)
+									? warningMessage1
+									: nil)
+								 );
+ 
+	if (  warningMessage  ) {
+		// Warn about this at most once per minute for this configuration.
+		// This avoids the problem that this method may be called several times before the user has a chance to respond to the warning.
+		time_t now = time(NULL);
+		if (  (now - timeLastWarnedAboutOpenVPNVersion) > 60  ) {
+			timeLastWarnedAboutOpenVPNVersion = now;
+			TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+									  warningMessage,
+									  key,
+									  nil,
+									  nil,
+									  nil,
+									  nil,
+									  NO);
 		}
 	}
 	

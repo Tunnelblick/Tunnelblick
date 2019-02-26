@@ -769,7 +769,6 @@ name = newValue;                                    \
 @"-skipWarningAboutNoTunOrTap",	\
 @"-skipWarningUnableToToEstablishOpenVPNLink",	\
 @"-skipWarningThatCannotConnectBecauseOfOpenVPNOptions",	\
-@"-skipWarningThatMayNotConnectInFutureBecauseOfOpenVPNOptions",	\
 @"-skipWarningThatNotUsingSpecifiedOpenVPN",	\
 @"-skipWarningThatCannotConnectBecauseOfOpenVPNOptionConflicts",	\
 @"autoConnect",	\
@@ -840,6 +839,7 @@ name = newValue;                                    \
 \
 /* No longer used */	\
 @"-authUsername",	\
+@"-skipWarningThatMayNotConnectInFutureBecauseOfOpenVPNOptions",	\
 @"-usernameIsSet"	\
 ]
 //*************************************************************************************************
