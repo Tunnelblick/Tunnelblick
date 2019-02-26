@@ -57,6 +57,164 @@ trim()
 }
 
 ##########################################################################################
+get_networksetup_setting() {
+
+	# Outputs a string with the networksetup setting named $1 for each active network service.
+	#
+	# This routine is designed to have its output captured by the bash $() construct, but it
+	# outputs error and warning messages to stderr.
+	#
+	# $1 must be either "dnsservers" or "searchdomains". (Those are the only two settings
+	#    that can be modified by "networksetup".)
+	#
+	# The output from this function consists of a line for each active network service.
+	# Each entry consists of the following:
+	#
+	#       <setting> <service name>
+	#
+	# where <setting> is a comma-separated list of either namserver IP addresses or
+	# search domains, with NO SPACES. An empty setting is specified or shown as 'empty'.
+	#
+	# Note: We do not allow tab characters (HT, ASCII 0x09) in service names or settings
+	#		because we replace line-feed characters (LF, ASCII 0x0D) with tabs when
+	#		storing the output of this routine in the System Configuration Database.
+	#
+	#		We also do not allow spaces in settings because we parse the output of
+	#		this routine very simply: the first space in a line separates the setting
+	#		from the service name.
+	#
+	# Examples:
+	#       get_networksetup_setting   dnsservers
+	#       get_networksetup_setting   searchdomains
+
+	if [ "$1" != "dnsservers" ] && [ "$1" != "searchdomains" ] ; then
+		echo "restore_networksetup_setting: Unknown setting name '$1'" 1>&2
+		exit 1
+	fi
+
+	if [ ! -f "/usr/sbin/networksetup" ] ; then
+		echo "get_networksetup_setting: networksetup is not in /usr/sbin" 1>&2
+		return;
+	fi
+
+	# Get list of services and remove the first line which contains a heading
+	local services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d' )"
+
+	# Go through the list for enabled services
+
+	local saved_IFS="$IFS"
+
+	printf %s "$services$LF" | \
+	while IFS= read -r service ; do
+
+		if [ -n "$service" ] ; then
+
+			# If first character of a line is a *, the service is disabled, so we skip it
+			if [ "${service:0:1}" != "*" ] ; then
+
+				# Make sure there are no tabs in the service name
+				if [ "$service" != "${service/$HT/}" ] ; then
+					echo "get_networksetup_setting: service name '$service' contains one or more tab characters" 1>&2
+					exit 1
+				fi
+
+				# Get the setting for the service
+				local setting="$(  /usr/sbin/networksetup -get$1    "$service" )"
+
+
+				if [ "${setting/There aren/}" = "$setting" ] ; then
+
+					# The setting is returned by networksetup as separate lines, each with one setting (IP address or domain name).
+
+					# Change newlines into commas to get a comma-separated list of settings.
+					setting="${setting/$LF/,}"
+
+					# Make sure there are no tabs or spaces in the setting
+					if [ "$setting" != "${setting/$HT/}" ] || [ "$setting" != "${setting/ /}" ] ; then
+						echo "get_networksetup_setting: setting '$setting' for service '$service' contains spaces or tabs" 1>&2
+						exit 1
+					fi
+				else
+
+					# The output contains "There aren't any..." (settings), so set it to 'empty'
+					setting='empty'
+				fi
+
+				# Output a line containing the setting and service separated by a single space.
+				echo "$setting $service"
+			fi
+		fi
+
+	done
+
+	IFS="$saved_IFS"
+}
+
+##########################################################################################
+set_networksetup_setting() {
+
+	# Sets the networksetup setting named $1 to $2 for each active network service.
+	#
+	# $1 must be either "dnsservers" or "searchdomains". (Those are the only two settings
+	#    that can be modified by "networksetup".)
+	#
+	# $2 is is a comma-separated list to set the setting to. To remove a setting, use 'empty'.
+	#
+	# Examples:
+	#       set_networksetup_setting   dnsservers   8.8.8.8
+	#       set_networksetup_setting   dnsservers   8.8.8.8,8.8.4.4
+	#       set_networksetup_setting   dnsservers   empty
+	#       set_networksetup_setting   searchdomains example.com,example.net,example.org
+	#
+	# This routine outputs log messages describing its activities.
+
+	if [ "$1" != "dnsservers" ]	&& [ "$1" != "searchdomains" ] ; then
+		echo "restore_networksetup_setting: Unknown setting name '$1'"
+		exit 1
+	fi
+
+	# $2 must be present and must not have any spaces or tabs
+	if [ -z "$2" ] || [ "${2/ /}" != "$2" ] || [ "${2/$HT/}" != "$2" ]; then
+		echo "set_networksetup_setting: second argument must be present and cannot contain spaces or tabs: '$2'"
+		exit 1
+	fi
+
+	if [ ! -f "/usr/sbin/networksetup" ] ; then
+		echo "set_networksetup_setting: Cannot change setting for $1: /usr/sbin/networksetup does not exist"
+		exit 1
+	fi
+
+	# Get list of services and remove the first line which contains a heading
+	local services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d' )"
+
+	# Go through the list for enabled services
+
+	local saved_IFS="$IFS"
+
+	printf %s "$services$LF" | \
+	while IFS= read -r service ; do
+
+		if [ -n "$service" ] ; then
+
+			# If first character of a line is a *, the service is disabled, so we skip it
+			if [ "${service:0:1}" != "*" ] ; then
+
+				# Make sure there are no tabs in the service name
+				if [ "$service" != "${service/$HT/}" ] ; then
+					echo "set_networksetup_setting: service name '$service' contains one or more tab characters"
+					exit 1
+				fi
+
+				# Translate commas in $2 to spaces for networksetup -- DO NOT QUOTE ${2//,/ } !!!
+				/usr/sbin/networksetup -set$1 "$service" ${2//,/ }
+			fi
+		fi
+	done
+
+	IFS="$saved_IFS"
+}
+
+##########################################################################################
 run_prefix_or_suffix()
 {
 # @param String 'up-prefix.sh' or 'up-suffix.sh'
@@ -635,6 +793,28 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	# PPID is a script variable (defined by bash itself) that contains the process ID of the parent of the process running the script (i.e., OpenVPN's process ID)
 	# config is an environmental variable set to the configuration path by OpenVPN prior to running this up script
 
+	# Use 'networksetup' to save DNS servers and search domains for all active network services.
+	#	* Append LF because bash $() removes trailing LF.)
+	#   * Translate \n to \t so stored string is all on one line to make extracting the string easier
+
+	if [ "${FIN_DNS_SA}" != "" ] ; then
+		network_setup_restore_dns_info="$( get_networksetup_setting dnsservers )$LF"
+		logMessage "Saved existing DNS servers from networksetup"
+		logDebugMessage "$network_setup_restore_dns_info"
+		readonly network_setup_restore_dns_info="$(  echo -n "$network_setup_restore_dns_info" | tr '\n' '\t')"
+	else
+		logMessage "Not saving the DNS servers from networksetup"
+	fi
+
+	if [ "${FIN_DNS_SD}" != "" ] ; then
+		network_setup_restore_searchdomains_info="$( get_networksetup_setting searchdomains )$LF"
+		logMessage "Saved existing search domains from networksetup"
+		logDebugMessage "$network_setup_restore_searchdomains_info"
+		readonly network_setup_restore_searchdomains_info="$(  echo -n "$network_setup_restore_searchdomains_info" | tr '\n' '\t')"
+	else
+		logMessage "Not saving the search domains from networksetup"
+	fi
+
 	scutil <<-EOF > /dev/null
 		open
 
@@ -658,6 +838,8 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
         d.add TapDeviceHasBeenSetNone "false"
         d.add TunnelDevice          "$dev"
         d.add RestoreIpv6Services   "$ipv6_disabled_services_encoded"
+		d.add NetworkSetupRestorednsserversInfo    "$network_setup_restore_dns_info"
+		d.add NetworkSetupRestoresearchdomainsInfo "$network_setup_restore_searchdomains_info"
 		set State:/Network/OpenVPN
 
 		# Back up the device's current DNS and SMB configurations,
@@ -707,6 +889,23 @@ EOF
 	logDebugMessage "DEBUG:"
 	logDebugMessage "DEBUG: Pause for configuration changes to be propagated to State:/Network/Global/DNS and .../SMB"
 	sleep 1
+
+	# The "$FIN_..." variables have fields separated by spaces, but networksetup
+	# uses fields separated by commas.
+
+	if [ "${FIN_DNS_SA}" != "" ] ; then
+		set_networksetup_setting dnsservers                "${FIN_DNS_SA// /,}"
+		logMessage "Used networksetup to set DNS servers to ${FIN_DNS_SA// /,}"
+	else
+		logMessage "No DNS servers to set, so not using networksetup to set DNS servers"
+	fi
+
+	if [ "${FIN_DNS_SD}" != "" ] ; then
+		set_networksetup_setting searchdomains                "${FIN_DNS_SD// /,}"
+		logMessage "Used networksetup to set search domains to ${FIN_DNS_SD// /,}"
+	else
+		logMessage "No search domains to set, so not using networksetup to set search domains"
+	fi
 
 	scutil <<-EOF > /dev/null
 		open
@@ -782,6 +981,8 @@ EOF
 sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 )"
 
+	networksetup_dnsservers="$(    get_networksetup_setting dnsservers )"
+	networksetup_searchdomains="$( get_networksetup_setting searchdomains )"
 
 	logDebugMessage "DEBUG:"
 	logDebugMessage "DEBUG: Configurations as read back after changes:"
@@ -797,6 +998,11 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	logDebugMessage "DEBUG: Expected by process-network-changes:"
     logDebugMessage "DEBUG: State:/Network/OpenVPN/DNS = ${EXPECTED_NEW_DNS_GLOBAL_CONFIG}"
     logDebugMessage "DEBUG: State:/Network/OpenVPN/SMB = ${EXPECTED_NEW_SMB_GLOBAL_CONFIG}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: networksetup dnsservers = $LF$networksetup_dnsservers"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: networksetup searchdomains = $LF$networksetup_searchdomains"
+	logDebugMessage "DEBUG:"
 
 	if [ -e /etc/resolv.conf ] ; then
 		set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
@@ -1274,6 +1480,7 @@ export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
 readonly LF="
 "
+readonly HT="$( printf '\t' )"
 
 readonly OUR_NAME="$( basename "${0}" )"
 
@@ -1300,6 +1507,9 @@ ARG_PREPEND_DOMAIN_NAME="false"
 ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
 ARG_TB_PATH="/Applications/Tunnelblick.app"
 ARG_RESTORE_ON_WINS_RESET="false"
+
+# Do extra logging until this script is mainstreamed
+ARG_EXTRA_LOGGING="true"
 
 # Handle the arguments we know about by setting ARG_ script variables to their values, then shift them out
 while [ $# -ne 0 ] ; do
