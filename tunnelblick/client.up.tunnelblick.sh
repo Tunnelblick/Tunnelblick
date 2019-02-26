@@ -230,7 +230,7 @@ run_prefix_or_suffix()
 		exit 1
 	fi
 
-	if [ "$1" != "up-prefix.sh" -a "$1" != "up-suffix.sh" ] ; then
+	if [ "$1" != "up-prefix.sh" ] && [ "$1" != "up-suffix.sh" ] ; then
 		logMessage "run_prefix_or_suffix not called with 'up-prefix.sh' or 'up-suffix.sh'"
 		exit 1
 	fi
@@ -590,7 +590,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	#     This behavior is meant to behave like Linux with Network Manager and Windows
 
 	if "${ARG_PREPEND_DOMAIN_NAME}" ; then
-		if [ "${MAN_DNS_SD}" = "" -o "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
+		if [ "${MAN_DNS_SD}" = "" ] || [ "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
 			if [ "${MAN_DNS_SD}" != "" ] ; then
 				logMessage "Will allow changes to manually-set search domains '${MAN_DNS_SD}'"
 			fi
@@ -627,7 +627,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		fi
 	else
 		if [ "${DYN_DNS_SD}" != "" ] ; then
-			if [ "${MAN_DNS_SD}" = "" -o "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
+			if [ "${MAN_DNS_SD}" = "" ] || [ "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
 				if [ "${MAN_DNS_SD}" != "" ] ; then
 					logMessage "Will allow changes to manually-set search domains '${MAN_DNS_SD}'"
 				fi
@@ -639,7 +639,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 			fi
 		else
             if [ "${FIN_DNS_DN}" != "" ] && [ "${FIN_DNS_DN}" != "localdomain" ] ; then
-				if [ "${MAN_DNS_SD}" = "" -o "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
+				if [ "${MAN_DNS_SD}" = "" ] || [ "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
 					logMessage "Setting search domains to '${FIN_DNS_DN}' because the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was not selected"
 					readonly FIN_DNS_SD="${FIN_DNS_DN}"
 				else
@@ -659,32 +659,32 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 # Set up SKP_... variables to inhibit scutil from making some changes
 
 	# SKP_DNS_... and SKP_SMB_... are used to comment out individual items that are not being set
-	if [ "${FIN_DNS_DN}" = "" -o "${FIN_DNS_DN}" = "${CUR_DNS_DN}" ] ; then
+	if [ "${FIN_DNS_DN}" = "" ] || [ "${FIN_DNS_DN}" = "${CUR_DNS_DN}" ] ; then
 		SKP_DNS_DN="#"
 	else
 		SKP_DNS_DN=""
 	fi
-	if [ "${FIN_DNS_SA}" = "" -o "${FIN_DNS_SA}" = "${CUR_DNS_SA}" ] ; then
+	if [ "${FIN_DNS_SA}" = "" ] || [ "${FIN_DNS_SA}" = "${CUR_DNS_SA}" ] ; then
 		SKP_DNS_SA="#"
 	else
 		SKP_DNS_SA=""
 	fi
-	if [ "${FIN_DNS_SD}" = "" -o "${FIN_DNS_SD}" = "${CUR_DNS_SD}" ] ; then
+	if [ "${FIN_DNS_SD}" = "" ] || [ "${FIN_DNS_SD}" = "${CUR_DNS_SD}" ] ; then
 		SKP_DNS_SD="#"
 	else
 		SKP_DNS_SD=""
 	fi
-	if [ "${FIN_SMB_NN}" = "" -o "${FIN_SMB_NN}" = "${CUR_SMB_NN}" ] ; then
+	if [ "${FIN_SMB_NN}" = "" ] || [ "${FIN_SMB_NN}" = "${CUR_SMB_NN}" ] ; then
 		SKP_SMB_NN="#"
 	else
 		SKP_SMB_NN=""
 	fi
-	if [ "${FIN_SMB_WG}" = "" -o "${FIN_SMB_WG}" = "${CUR_SMB_WG}" ] ; then
+	if [ "${FIN_SMB_WG}" = "" ] || [ "${FIN_SMB_WG}" = "${CUR_SMB_WG}" ] ; then
 		SKP_SMB_WG="#"
 	else
 		SKP_SMB_WG=""
 	fi
-	if [ "${FIN_SMB_WA}" = "" -o "${FIN_SMB_WA}" = "${CUR_SMB_WA}" ] ; then
+	if [ "${FIN_SMB_WA}" = "" ] || [ "${FIN_SMB_WA}" = "${CUR_SMB_WA}" ] ; then
 		SKP_SMB_WA="#"
 	else
 		SKP_SMB_WA=""
@@ -1665,7 +1665,7 @@ if ${ARG_TAP} ; then
 
 	# Still need to do: Look for route-gateway dhcp (TAP isn't always DHCP)
 	bRouteGatewayIsDhcp="false"
-	if [ -z "${route_vpn_gateway}" -o "$route_vpn_gateway" == "dhcp" -o "$route_vpn_gateway" == "DHCP" ]; then
+	if [ -z "${route_vpn_gateway}" ] || [ "$route_vpn_gateway" == "dhcp" ] || [ "$route_vpn_gateway" == "DHCP" ]; then
 		# Check if $dev already has an ip configuration
 		hasIp="$(ifconfig "$dev" | grep inet | cut -d ' ' -f 2)"
 		if [ "${hasIp}" ]; then
