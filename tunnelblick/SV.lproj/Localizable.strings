@@ -522,6 +522,9 @@
 "GET_CONFIG" = "Hämtar konfiguration"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Väntar på tillgång till nätverket";
+
+/* Connection status */
 "PASSWORD_WAIT" = "Väntar på lösenord"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Ingen \"TBPackageVersion\" i %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Ingen närverksförbindelse är tillgänglig.\n\nAktivera Wi-Fi och anslut till ett trådlöst nätverk, koppla in en kabel till Ethernet, eller anslut till ett nätverk på något annat sätt.\n\nSe nätverkspanelen under macOS Systeminställningar för mer information.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Ingen sökväg till easy-rsa. Den troligaste orsaken för detta är problem med \"easy-rsaPath\" inställningen";
@@ -2204,6 +2204,9 @@
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS cache innehåller kopior av svar från DNS (Domain Name System) servrar.</p>\n<p><strong>Om markerad</strong>, kommer DNS cache att rensas vid anslutning och nedkoppling. Alla DNS förfrågningar sker med den server som anges av VPN-konfigurationen..</p>\n<p><strong>Om ej markerad</strong> rensas INTE cache vid anslutning och nerkoppling. Detta kan orsaka problem om det finns namnkonflikter mellan olika DNS servrar, när ett svar från den ena servern finns i cache. Om du normalt använder publika DNS servrar både när du är och inte är ansluten till VPN orsakar detta oftast inga problem, och undviker att göra onödiga uppslagningar för namn som redan finns i cache.</p>";
 
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p> Tunnelblick innehåller en anpassad version av \"easy-rsa\", som är en uppsättning kommandoradsskript skrivna av OpenVPN-utvecklarna för att skapa och behålla certifikat och nycklar. </p>\n<p> Genom att klicka på den här knappen startas OS X Terminal-applikationen med den mappen som innehåller skripten som aktuell katalog. </p>\n<p> Skripten finns normalt i mappen ~ /Library/Application Support/ Tunnelblick/easy-rsa. En \"easy-rsaPath\" -inställning kan innehålla sökvägen till en mapp som Tunnelblick ska använda istället. 'Easy-rsaPath' måste vara en absolut sökväg eller börja med '~', och den överordnade mappen på sökvägen måste existera. Om en mapp finns i sökvägen kommer den att användas; Om den inte existerar kommer den att skapas och Easy-RSA-skript installeras i den när Tunnelblick startas. </p>\n<p> För information om hur du använder easy-rsa, se \n<a href=\"https://openvpn.net/index.php/opensource/documentation/howto.html#pki\">Sätt upp din egen certifikatutfärdare(CA) och generera certifikat och nycklar för en OpenVPN-server och flera klienter </a> [openvpn.net]. </p>\n<p> För detaljer om Tunnelblick anpassningar av easy-rsa, se README-filen i mappen. </p>";
+
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick kunde inte ladda ett systemtillägg som är nödvändigt för att skapa en förbindelse till %1$@.</p><p>%2$@Mer Information%3$@ [%4$@]</p>";
 
@@ -2277,7 +2280,13 @@
 "Do not show this again" = "Visa inte detta igen";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Visa aldrig den här varningen igen";
+"Do not warn about this again;\nalways re-enable when connecting" = "Varna inte för detta igen;\nåter-aktivera alltid när du ansluter";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Varna inte för detta igen;\nåter-aktivera alltid när du avslutar Tunnelblick";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Varna inte för detta igen;\nåter-aktivera aldrig när startar Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "Holländsk översättning";

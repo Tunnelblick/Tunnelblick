@@ -1,0 +1,123 @@
+/* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
+/* See https://tunnelblick.net/cLocalizeTranslate.html.           */
+
+
+/* Textbox name */
+"Username:" = "பயனர்பெயர்:";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"Cancel" = "ரத்து செய்";
+
+/* Button */
+"Connect" = "இணை";
+
+/* Button */
+"Continue" = "தொடர்க";
+
+/* Button */
+"Delete" = "நீக்குக";
+
+/* Button */
+"Download" = "பதிவிறக்க";
+
+/* Button */
+"Help" = "உதவி";
+
+/* Button */
+"Ignore" = "புறக்கணிக்க";
+
+/* Button */
+"Install" = "நிறுவுக";
+
+/* Button */
+"More Info" = "கூடுதல் தகவல்";
+
+/* Button */
+"Restore" = "மீட்டிடுக";
+
+/* Button */
+"Try again" = "மீண்டும் முயற்சி செய்க";
+
+/* Connection status */
+"CONNECTED" = "இணைக்கப்பட்டது"; // Please translate "Connected"
+
+/* Connection status */
+"CONNECTING" = "இணைக்கப்படுகிறது"; // Please translate "Connecting"
+
+/* Connection status */
+"DISCONNECTING" = "இணை துண்டிக்கப்படுகிறது"; // Please translate "Disconnecting"
+
+/* Connection status */
+"EXITING" = "இணை துண்டிக்கப்பட்டது"; // Please translate "Disconnected"
+
+/* Connection status */
+"RECONNECTING" = "மீண்டும் இணைக்கப்படுகிறது"; // Please translate ""
+
+/* Window title */
+"Alert" = "கவனம்";
+
+/* Window title */
+"Authentication failed" = "அத்தாட்சிப்படுத்தல் தோல்வியுற்றது";
+
+/* Window title */
+"Info" = "தகவல்";
+
+/* Window text */
+"B" = "B";
+
+/* Window text */
+"B/s" = "B/s";
+
+/* Window text */
+"EB" = "EB";
+
+/* Window text */
+"EB/s" = "EB/s";
+
+/* Window text */
+"GB" = "GB";
+
+/* Window text */
+"GB/s" = "GB/s";
+
+/* Window text */
+"KB" = "KB";
+
+/* Window text */
+"KB/s" = "KB/s";
+
+/* Window text */
+"MB" = "MB";
+
+/* Window text */
+"MB/s" = "MB/s";
+
+/* Window text */
+"PB" = "PB";
+
+/* Window text */
+"PB/s" = "PB/s";
+
+/* Window text */
+"TB" = "TB";
+
+/* Window text */
+"TB/s" = "TB/s";
+
+/* Window text */
+"ZB" = "ZB";
+
+/* Window text */
+"ZB/s" = "ZB/s";

@@ -522,6 +522,9 @@
 "GET_CONFIG" = "Získat předvolby"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Čekání na přístup k síti";
+
+/* Connection status */
 "PASSWORD_WAIT" = "Čekám na heslo"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -804,13 +807,13 @@
 "  • Install or update configuration(s)\n" = "  • Instalovat nebo aktualizovat konfiguraci(ce)\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Move a configuration\n" = "  posunout konfiguraci\n";
+"  • Move a configuration\n" = "  přesunout konfiguraci\n";
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Přesunout složku s privátními konfiguracemi\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Remove a configuration\n" = "  odstranit konfiguraci\n";
+"  • Remove a configuration\n" = "  přesunout konfiguraci\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Zabezpečit konfigurace\n";
@@ -867,7 +870,7 @@
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' nemá přístupové údaje (privátní klíč nebo uživatelské jméno a heslo) uloženy v Klíčence.";
 
 /* Window text. %@ is the name of a file. */
-"'%@' is not a plain text or UTF-8 file." = "\"%@\" není soubor prostého textu nebo UTF-8.";
+"'%@' is not a plain text or UTF-8 file." = "Soubor \"%@\" není prostý text nebo UTF-8.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' nebylo ukončeno.";
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Žádná 'TBPackageVersion' v %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Není dostupné žádné síťové spojení.\n\nZačněte prosím Wi-Fi a připojte se k bezdrátové síti, zapojte ethernetový kabel, nebo připojte jiným způsobem k síti.\n\nVíce informaci naleznete v systémových předvolbách macOS v síťovém panelu.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Není cesta k easy-rsa. Většinou to je způsobeno špatným nastavením 'easy-rsaPath'";
@@ -2280,7 +2280,13 @@
 "Do not show this again" = "Znovu nezobrazovat";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Znovu neupozorňovat, nikdy neobnovovat";
+"Do not warn about this again;\nalways re-enable when connecting" = "Toto varování již nezobrazovat;\npři připojování vždy obnovit";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Toto varování již nezobrazovat;\npři vypínání Tunnelblicku vždy obnovit";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Toto varování již nezobrazovat;\npři spouštění Tunnelblicku nikdy neobnovovat";
 
 /* Credit description */
 "Dutch translation" = "Nizozemský překlad";

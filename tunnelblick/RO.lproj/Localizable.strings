@@ -522,6 +522,9 @@
 "GET_CONFIG" = "Încarc configurările"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Se așteaptă conexiunea la rețea";
+
+/* Connection status */
 "PASSWORD_WAIT" = "Aștept parola"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "'TBPackageVersion' lipsește în %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Nici o conexiune rețea nu e disponibilă.\n\nActivați Wi-Fi și conectați-vă la o rețea fără fir, conectați un cablu Ethernet, sau conectați-vă la o rețea în orice alt mod.\n\nConsultați panoul Rețea în Preferințele Sistem macOS pentru informații suplimentare.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Nici o cale la easy-rsa. Cea mai probabilă cauză este o problemă cu preferințele 'easy-rsaPath'";
@@ -2280,7 +2280,13 @@
 "Do not show this again" = "Nu mai afişa asta";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Nu avertiza despre asta din nou, nu re-activați niciodată";
+"Do not warn about this again;\nalways re-enable when connecting" = "Nu avertiza despre asta din nou;\nîntotdeauna re-activează accesul la conexiune";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Nu avertiza despre asta din nou;\nîntotdeauna re-activează când se închide Tunnelblick";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Nu avertiza despre asta din nou;\nnu re-activa niciodată când pornește Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "Traducere în limba Olandeză";

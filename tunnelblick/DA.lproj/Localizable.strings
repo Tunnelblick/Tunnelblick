@@ -522,6 +522,9 @@
 "GET_CONFIG" = "Henter konfiguration"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Venter på netværks adgang";
+
+/* Connection status */
 "PASSWORD_WAIT" = "Venter på kodeord"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Ingen 'TBPackageVersion' i %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Ingen netværksforbindelse er tilgængelig.\n\nTænd venligst Wi-Fi og opret forbindelse til et trådløst netværk, tilslut et Ethernet-kabel, eller opret forbindelse til et netværk på en anden måde.\n\nSe Netværkspanelet i MacOS Systemindstillinger for at få flere oplysninger.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Ingen sti til easy-rsa. Den mest sandsynlige årsag er et problem med 'easy-rsaPath' præferencen";
@@ -2280,7 +2280,13 @@
 "Do not show this again" = "Vis ikke dette igen";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Advar ikke om dette igen, genaktiver aldrig";
+"Do not warn about this again;\nalways re-enable when connecting" = "Advar ikke om dette igen;\nAktiver altid igen, når du tilslutter";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Advar ikke om dette igen;\nAktiver altid igen, når Tunnelblick afsluttes";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Advar ikke om dette igen;\nGenaktiver aldrig, når Tunnelblick startes";
 
 /* Credit description */
 "Dutch translation" = "Hollandsk oversættelse";

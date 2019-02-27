@@ -1311,9 +1311,6 @@
 "No 'TBPackageVersion' in %@" = "%@ にTBPackageVersionが見つかりませんでした";
 
 /* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "ネットワーク接続がありません。\nWi-Fiに接続するか、有線LANに接続するか、もしくは他の方法でネットワークに接続してください。\nネットワークパネルをmacOS設定から開くことで詳細が確認できます。";
-
-/* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "easy-rsa のパス名がありません。よくある原因として、設定項目「easy-rsaPath」がおかしくなっていることがあります。";
 
 /* Window text */
@@ -2152,9 +2149,6 @@
 
 /* Checkbox */
 "Do not show this again" = "次回から表示しない";
-
-/* Checkbox text */
-"Do not warn about this again, never re-enable" = "再び警告しない";
 
 /* Credit description */
 "Dutch translation" = "オランダ語翻訳";

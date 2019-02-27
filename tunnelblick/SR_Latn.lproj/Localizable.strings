@@ -2,19 +2,19 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Prekini sve veze (%1$@) - vidljiva javna IP adresa %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Prekini sve konekcije (%1$@) - vidljiva javna IP adresa %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Prekini sve (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Prekini sve (%1$d veze) - vidljiva javna IP adresa %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Prekini sve (%1$d konekcije) - vidljiva javna IP adresa %2$@";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Prekini sve (%d veza)";
+"Disconnect All (%d Connections)" = "Prekini sve (%d konekcije)";
 
 /* Status message */
-"No Active Connections" = "Nema aktivnih veza";
+"No Active Connections" = "Nema aktivnih konekcija";
 
 /* Textbox name */
 "Username:" = "Korisničko ime:";
@@ -38,10 +38,10 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Napredno…";
+"Advanced..." = "Napredne opcije…";
 
 /* Button */
-"All Users" = "Svi korisnici";
+"All Users" = "Za sve korisnike";
 
 /* Button */
 "Always load Tap driver" = "Uvek učitaj Tap drajver";
@@ -59,55 +59,55 @@
 "Cancel" = "Otkaži";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Proveri dostupnost nove verzije";
+"Check For Updates Now" = "Ažuriraj";
 
 /* Button */
-"Check Now" = "Proveri sada";
+"Check Now" = "Izvrši proveru";
 
 /* Button */
 "Connect" = "Poveži";
 
 /* Button */
-"Continue" = "Nastavi";
+"Continue" = "Nastavak";
 
 /* Button */
-"Convert Configurations" = "Preradi konfiguracije";
+"Convert Configurations" = "Konvertuj konfiguracije";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Kopiraj log konzole u klipbord";
+"Copy Console Log to Clipboard" = "Iskopiraj log konzole u Clipboard";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Kopiraj dijagnostičke informacije u klipbord";
+"Copy Diagnostic Info to Clipboard" = "Kopiraj dijagnostičke informacije u Clipboard";
 
 /* Button */
-"Create sample configuration and edit it" = "Kreiraj primer konfiguracije i edituj ga";
+"Create sample configuration and edit it" = "Kreiraj primer konfiguracije i izmeni je";
 
 /* Button */
 "Default (%@)" = "Podrazumevano (%@)";
 
 /* Button */
-"Delete Credentials" = "Ukloni kredencijale";
+"Delete Credentials" = "Obriši kredencijale";
 
 /* Button */
-"Delete saved passphrase and try again" = "Obriši sačuvanu tajnu sekvencu i pokušaj iznova";
+"Delete saved passphrase and try again" = "Obriši sačuvanu lozinku i pokušaj ponovo";
 
 /* Button */
-"Delete saved password and try again" = "Obriši sačuvanu lozinki i pokušaj iznova";
+"Delete saved password and try again" = "Obriši sačuvanu lozinku i pokušaj ponovo";
 
 /* Button */
 "Delete" = "Obriši";
 
 /* Button */
-"Disable network access" = "Onemogući mrežni pristup";
+"Disable network access" = "Onemogući pristup mreži";
 
 /* Button */
-"Disconnect" = "Prekini vezu";
+"Disconnect" = "Prekini konekciju";
 
 /* Button */
-"Do Not Re-enable Network Access" = "Ne uključuj iznova mrežni pristup";
+"Do Not Re-enable Network Access" = "Nemoj ponovo omogućiti pristup mreži";
 
 /* Button */
-"Do not use the plugin" = "Ne koristi dodatak";
+"Do not use the plugin" = "Nemoj koristiti dodatak";
 
 /* Button */
 "Do nothing" = "Ne radi ništa";
@@ -122,13 +122,13 @@
 "Help" = "Pomoć";
 
 /* Button */
-"I DO NOT have configuration files" = "NEMAM konfiguracijske fajlove";
+"I DO NOT have configuration files" = "NE POSEDUJEM konfiguracione fajlove";
 
 /* Button */
-"I have configuration files" = "Imam konfiguracijske fajlove";
+"I have configuration files" = "Posedujem konfiguracione fajlove";
 
 /* Button */
-"Ignore" = "Zanemari";
+"Ignore" = "Ignoriši";
 
 /* Button */
 "Install" = "Instaliraj";
@@ -176,16 +176,16 @@
 "Only Me" = "Samo za mene";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Otvori uputstvo za deinstalaciju u veb-pregledaču";
+"Open Uninstall Instructions in Browser" = "Otvori uputstvo za uklanjanje u veb pregledaču";
 
 /* Button */
 "Open easy-rsa in Terminal" = "Otvori easy-rsa alat u konzoli";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Postavi ikonicu blizu Spotlight ikonice";
+"Place Icon Near the Spotlight Icon" = "Pored Spotlight ikonice";
 
 /* Button */
-"Place Icon Normally" = "Postavi ikonicu uobičajeno";
+"Place Icon Normally" = "Uobičajeno mesto";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Prekini sve OpenVPN procese";
@@ -195,7 +195,7 @@
 
 /* Button
    Menu item */
-"Re-enable Network Access" = "Iznova omogući mrežni pristup";
+"Re-enable Network Access" = "Ponovo omogući mrežni pristup";
 
 /* Button */
 "Reinstall" = "Reinstaliraj";
@@ -207,19 +207,19 @@
 "Replace" = "Zameni";
 
 /* Button */
-"Reset Disabled Warnings" = "Resetuj ukinuta upozorenja";
+"Reset Disabled Warnings" = "Ukloni ukinuta upozorenja";
 
 /* Button */
 "Reset primary interface" = "Resetuj primarni interfejs";
 
 /* Button */
-"Restart connection" = "Restartuj vezu";
+"Restart connection" = "Restartuj konekciju";
 
 /* Button */
-"Restore" = "Vrati";
+"Restore" = "Vrati na prethodno";
 
 /* Button text */
-"Retry with manual response" = "Pokušaj iznova sa ručnim odgovorom";
+"Retry with manual response" = "Pokušaj iznova sa ručnim unosom";
 
 /* Button */
 "Retry" = "Pokušaj ponovo";
@@ -240,7 +240,7 @@
 "Show on screen %u (%u x %u)" = "Prikaži na ekranu %1$u (%2$u x %3$u)";
 
 /* Button */
-"Show when connection status changes" = "Prikaži kada se promeni status veze";
+"Show when connection status changes" = "Prikaži kada se promeni status konekcije";
 
 /* Button */
 "Show while connecting and connected" = "Prikaži dok se povezuje i dok je povezan";
@@ -264,13 +264,13 @@
 "Terminate" = "Prekini";
 
 /* Button */
-"This configuration has its own separate credentials" = "Ova konfiguracija ima svoje zasebne kredencijale";
+"This configuration has its own separate credentials" = "Ova konfiguracija poseduje svoje zasebne kredencijale";
 
 /* Button */
 "This configuration uses %@ credentials" = "Ova konfiguracija koristi %@ kredencijale";
 
 /* Button */
-"Try again with saved passphrase" = "Pokušaj ponovo sa sačuvanom tajnom sekvencom";
+"Try again with saved passphrase" = "Pokušaj ponovo sa sačuvanom lozinkom";
 
 /* Button */
 "Try again with saved username and password" = "Pokušaj ponovo sa sačuvanim korisničkim imenom i lozinkom";
@@ -294,7 +294,7 @@
 "Connect %@%@" = "Poveži %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Obriši kredencijale iz konfiguracije u Keychain-u…";
+"Delete Configuration's Credentials in Keychain..." = "Obriši kredencijale konfiguracije iz Keychain servisa…";
 
 /* Menu item tooltip */
 "Disabled because this setting is being forced" = "Onemogućeno jer je ovo podešavanje forsirano";
@@ -303,7 +303,7 @@
 "Disconnect %@%@" = "Prekini %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Ne prikazuj u Tunnelblick meniju";
+"Do Not Show on Tunnelblick Menu" = "Nemoj prikazati u Tunnelblick meniju";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Dupliraj konfiguraciju…";
@@ -312,46 +312,46 @@
 "Edit OpenVPN Configuration File..." = "Izmeni OpenVPN konfiguraciju...";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "Pregledaj OpenVPN konfiguraciju...";
+"Examine OpenVPN Configuration File..." = "Proveri OpenVPN konfiguracioni fajl…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Postavi konfiguraciju kao privatnu...";
+"Make Configuration Private..." = "Označi konfiguraciju kao privatnu…";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Postavi konfiguraciju kao deljenu…";
+"Make Configuration Shared..." = "Označi konfiguraciju kao deljenu…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "Bez logova za OpenVPN i Tunnelblick";
+"No OpenVPN or Tunnelblick VPN logging" = "Isključi OpenVPN i Tunnelblick logove";
 
 /* Menu item */
 "No VPN Configurations Available" = "Nema dostupnih VPN konfiguracija";
 
 /* Menu Item */
-"OpenVPN level %lu" = "OpenVPN level %lu";
+"OpenVPN level %lu" = "OpenVPN nivo %lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPN level 0 - bez ispisa sem u slučaju fatalnih grešaka";
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN nivo 0 - bez ispisa sem u slučaju fatalnih grešaka";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN level 11 - ekstremno detaljan ispis";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN nivo 11 - izuzetno detaljan ispis";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPN level 3 - standardni ispis";
+"OpenVPN level 3 - normal output" = "OpenVPN nivo 3 - standardni ispis";
 
 /* Menu Item */
-"OpenVPN level 4 - values for all options" = "OpenVPN nivo 4 - dodatno ispisuje vrednosti svih opcija";
+"OpenVPN level 4 - values for all options" = "OpenVPN nivo 4 - dodatni ispis vrednosti svih opcija";
 
 /* Menu Item */
 "OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN nivo 5 - dodatno ispisuje \"R\" ili \"W\" za svaki paket";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN level 6 - vrlo detaljan ispis";
+"OpenVPN level 6 - very verbose output" = "OpenVPN nivo 6 - vrlo detaljan ispis";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "OpenVPN nivo ispisivanja logova podešen u konfiguraciji";
+"OpenVPN logging level set by the configuration" = "OpenVPN nivo ispisivanja logova definisan u konfiguraciji";
 
 /* Menu item */
-"Quit Tunnelblick" = "Izlaz";
+"Quit Tunnelblick" = "Ugasi Tunnelblick";
 
 /* Menu Item */
 "Rename Configuration..." = "Preimenuj konfiguraciju…";
@@ -366,22 +366,22 @@
 "Show on Tunnelblick Menu" = "Prikaži u Tunnelblick meniju";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "Predlog ili prijava bug-a…";
+"Suggestion or Bug Report..." = "Prijavi bag ili pošalji predlog…";
 
 /* Menu item */
-"VPN Details..." = "VPN detalji…";
+"VPN Details..." = "Detalji o VPN-u…";
 
 /* Checkbox name */
-"Allow changes to manually-set network settings" = "Dozvoli promene na ručno podešenim mrežnim podešavanjima";
+"Allow changes to manually-set network settings" = "Dozvoli promene na ručno definisanim mrežnim podešavanjima";
 
 /* Checkbox name */
 "Apply to all" = "Primeni na sve";
 
 /* Checkbox name */
-"Check for updates automatically" = "Proveravaj za nove verzije automatski";
+"Check for updates automatically" = "Automatski vrši proveru novih verzija";
 
 /* Checkbox name */
-"Check for updates to beta versions" = "Proveravaj za nove beta verzije";
+"Check for updates to beta versions" = "Automatski vrši proveru novih beta verzija";
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Proveravaj da li se vidljiva javna IP adresa promenila nakon povezivanja";
@@ -390,10 +390,10 @@
 "Disable IPv6 (tun only)" = "Onemogući IPv6 (samo za tun)";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Prekini vezu kada je računar u hibernaciji";
+"Disconnect when computer goes to sleep" = "Prekini konekciju kada je računar u hibernaciji";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "Prekini vezu kada se korisnik izloguje";
+"Disconnect when user switches out" = "Prekini konekciju kada se korisnik odjavi";
 
 /* Checkbox name */
 "Display connection submenus" = "Prikaži podmenije konekcije";
@@ -402,43 +402,43 @@
 "Display connection timers" = "Prikaži vreme konekcije";
 
 /* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Prikaži prozor tok se Tunnelblick pokreće";
+"Display window while Tunnelblick is starting up" = "Prikaži prozor dok se Tunnelblick pokreće";
 
 /* Checkbox name */
-"Do not ask again, always 'Ignore'" = "Ne pitaj me ponovo, uvek \"Zanemari\"";
+"Do not ask again, always 'Ignore'" = "Ne pitaj me ponovo, uvek \"Ignoriši\"";
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Ne pitaj me ponovo, uvek \"Nastavi\"";
 
 /* Checkbox name */
-"Do not ask again, always convert" = "Ne pitaj me ponovo, uvek izmeni";
+"Do not ask again, always convert" = "Ne pitaj me ponovo, uvek konvertuj";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Ne prikazuj ponovo ovaj tip upozorenja";
 
 /* Checkbox name */
-"Do not warn about this again for any configuration" = "Ne prikazuj ponovo za bilo koju konfiguraciju";
+"Do not warn about this again for any configuration" = "Ne prikazuj ovo upozorenje ponovo za bilo koju konfiguraciju";
 
 /* Checkbox name */
-"Do not warn about this again for this configuration" = "Ne upozoravaj ponovo na ovo za ovu konfiguraciju";
+"Do not warn about this again for this configuration" = "Ne prikazuj ovo upozorenje ponovo za ovu konfiguraciju";
 
 /* Checkbox name */
-"Do not warn about this again" = "Ne upozoravaj opet na ovo";
+"Do not warn about this again" = "Ne prikazuj više ovo upozorenje";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Ne upozoravaj o ovome %lu dan(a)";
+"Do not warn about this for %lu days" = "Ne prikazuj ovo upozorenje ponovo u narednih %lu dana";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "Omogući IPv6 (samo tap)";
 
 /* Checkbox name */
-"Flush DNS cache after connecting or disconnecting" = "Obriši DNS keš nakog povezivanja ili prekida veze";
+"Flush DNS cache after connecting or disconnecting" = "Obriši DNS keš nakog povezivanja ili prekida konekcije";
 
 /* Checkbox name */
-"Inhibit automatic update checking and IP Address checking" = "Spreči automatske provere za nove verzije i IP adresu";
+"Inhibit automatic update checking and IP Address checking" = "Spreči automatske provere za nove verzije i proveru IP adrese";
 
 /* Checkbox name */
-"Keep connected" = "Održavaj vezu";
+"Keep connected" = "Održavaj konekciju";
 
 /* Checkbox name */
 "Monitor network settings" = "Prati mrežna podešavanja";
@@ -447,22 +447,22 @@
 "Place near Spotlight icon" = "Postavi blizu Spotlight ikonice";
 
 /* Checkbox name */
-"Prepend domain name to search domains" = "Umetni ime domena među domene za pretragu";
+"Prepend domain name to search domains" = "Dodaj ime domena među domene za pretragu";
 
 /* Checkbox name */
 "Reconnect when computer wakes up" = "Ponovo se poveži nakon povratka iz hibernacije";
 
 /* Checkbox name */
-"Reconnect when user switches in" = "Ponovo se poveži nakon što se korisnik loguje";
+"Reconnect when user switches in" = "Ponovo se poveži nakon što se korisnik prijavi";
 
 /* Checkbox name */
 "Require administrator authorization for key and certificate changes" = "Zahtevaj odobrenje administratora za promene ključeva i sertifikata";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Rutiraj sav IPv4 saobraćaj kroz VPN";
+"Route all IPv4 traffic through the VPN" = "Preusmeri sav IPv4 saobraćaj kroz VPN";
 
 /* Checkbox name */
-"Run MTU maximum size test after connecting" = "Pokreni testiranje maksimalnog MTU nakon povezivanja";
+"Run MTU maximum size test after connecting" = "Nakon povezivanja testiraj maksimalnu veličinu za MTU";
 
 /* Checkbox name */
 "Save in Keychain" = "Sačuvaj u Keychain";
@@ -471,10 +471,10 @@
 "Set DNS after routes are set" = "Postavi DNS nakon što su rute postavljene";
 
 /* Checkbox name */
-"Show when disconnected" = "Prikaži nakon prekida veze";
+"Show when disconnected" = "Prikaži nakon prekida konekcije";
 
 /* Checkbox name */
-"Show when the pointer is over the Tunnelblick icon" = "Prikaži kada je pokazivač iznad Tunnelblick ikonice";
+"Show when the pointer is over the Tunnelblick icon" = "Prikaži kada je kursor iznad Tunnelblick ikonice";
 
 /* PopUpButton */
 "Do not set nameserver" = "Ne podešavaj nameserver";
@@ -513,13 +513,16 @@
 "CONNECTING" = "Povezivanje"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Prekidanje veze"; // Please translate "Disconnecting"
+"DISCONNECTING" = "Prekidanje konekcije"; // Please translate "Disconnecting"
 
 /* Connection status */
-"EXITING" = "Prekinuta veza"; // Please translate "Disconnected"
+"EXITING" = "Prekinuta konekcija"; // Please translate "Disconnected"
 
 /* Connection status */
 "GET_CONFIG" = "Preuzimanje konfiguracije"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Čekanje na mrežu";
 
 /* Connection status */
 "PASSWORD_WAIT" = "Čekam na lozinku"; // Please translate "Waiting for password"
@@ -528,7 +531,7 @@
 "PRIVATE_KEY_WAIT" = "Čekam na tajnu sekvencu"; // Please translate "Waiting for password"
 
 /* Connection status */
-"RECONNECTING" = "Obnova veze"; // Please translate ""
+"RECONNECTING" = "Obnova konekcije"; // Please translate ""
 
 /* Connection status */
 "RESOLVE" = "Razlučivanje imena domena"; // Please translate ""
@@ -540,7 +543,7 @@
 "TCP_CONNECT" = "Uspostavljanje TCP veze"; // Please translate "Making TCP connection"
 
 /* Connection status */
-"UDP_CONNECT" = "Uspostavljanje UDP veze"; // Please translate "Making UDP connection"
+"UDP_CONNECT" = "Uspostavljanje UDP konekcije"; // Please translate "Making UDP connection"
 
 /* Connection status */
 "WAIT" = "Čekanje na odgovor servera"; // Please translate "Waiting for Server Response"
@@ -552,19 +555,19 @@
 "Configurations" = "Konfiguracije";
 
 /* Window title */
-" (Deployed)" = " (Primenjena)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (Primenjeno)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
 
 /* Window title */
-" (Private)" = " (Privatna)";
+" (Private)" = " (Privatno)";
 
 /* Window title */
-" (Shared)" = " (Deljena)"; // Indicates a shared configuration
+" (Shared)" = " (Deljeno)"; // Indicates a shared configuration
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN konfiguracija - Tunnelblick";
 
 /* Window title */
-"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Prekinuta veza - Napredna podešavanja%3$@";
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Prekinuta konekcija - Napredna podešavanja%3$@";
 
 /* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
 "%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
@@ -573,7 +576,7 @@
 "'%@' has been disconnected" = "'%@' je prekinuta";
 
 /* Window title */
-"Active connection" = "Aktivna veza";
+"Active connection" = "Aktivna konekcija";
 
 /* Window title */
 "Add a Configuration" = "Dodaj konfiguraciju";
@@ -594,10 +597,10 @@
 "Authentication failed" = "Prijava neuspešna";
 
 /* Window title */
-"Configuration(s) Ignored" = "Konfiguracij(a/e) zanemarena/e";
+"Configuration(s) Ignored" = "Zanemarene konfiguracije";
 
 /* Window title */
-"Connecting & Disconnecting" = "Povezivanje";
+"Connecting & Disconnecting" = "Ostvarivanje i prekidanje konekcije";
 
 /* Window title */
 "Could Not Copy Configuration" = "Neuspešno kopiranje konfiguracije";
@@ -618,10 +621,10 @@
 "Details - Tunnelblick" = "Detalji - Tunnelblick";
 
 /* Window title */
-"Do you wish to connect?" = "Da li želiš da se povežeš?";
+"Do you wish to connect?" = "Da li želite da se povežete?";
 
 /* Window title */
-"File not found" = "Fajl nije pronađen";
+"File not found" = "Datoteka nije pronađena";
 
 /* Window title */
 "Import a Tunnelblick Setup" = "Uvezi Tunnelblick podešavanja";
@@ -633,13 +636,13 @@
 "Install Configuration For All Users?" = "Instaliraj konfiguraciju za sve korisnike?";
 
 /* Window title */
-"Installation failed" = "Neuspešna instalacija";
+"Installation failed" = "Instalacija nije uspela";
 
 /* Window title */
-"Installation or Repair Failed" = "Instalacija ili popravka neuspešna";
+"Installation or Repair Failed" = "Instalacija ili popravka nije uspela";
 
 /* Window title */
-"Installation succeeded" = "Instalacija uspešna";
+"Installation succeeded" = "Instalacija je uspela";
 
 /* Window title */
 "Log" = "Logovi";
@@ -651,19 +654,19 @@
 "Name not allowed" = "Ime nije dozvoljeno";
 
 /* Window title */
-"No 'dev tun', 'dev utun', or 'dev tap' found" = "Nije nađen 'dev tun', 'dev utun', ili 'dev tap'";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "'dev tun', 'dev utun', ili 'dev tap' nisu pronađeni";
 
 /* Window title */
 "No Credentials" = "Nema kredencijala";
 
 /* Window title */
-"Only computer administrators should update Tunnelblick" = "Samo administratori računara bi trebalo da osvežavaju verziju Tunnelblicka";
+"Only computer administrators should update Tunnelblick" = "Samo administratori računara bi trebalo da ažuriraju Tunnelblick";
 
 /* Window title */
-"OpenVPN is Not Responding" = "OpenVPN ne reaguje";
+"OpenVPN is Not Responding" = "OpenVPN ne odgovara";
 
 /* Window title */
-"Please insert token" = "Molim ubacite token";
+"Please insert token" = "Molimo ubacite token";
 
 /* Window title */
 "Preferences" = "Podešavanja";
@@ -675,19 +678,19 @@
 "Replace VPN Configuration?" = "Zameni VPN konfiguraciju?";
 
 /* Window title */
-"Sample Configuration Created" = "Primer konfiguracije kreiran";
+"Sample Configuration Created" = "Primer konfiguracije je kreiran";
 
 /* Window title */
 "Settings" = "Podešavanja";
 
 /* Window title */
-"Sounds" = "Zvukovi";
+"Sounds" = "Zvuci";
 
 /* Window title */
-"System Requirements Not Met" = "Ne zadovoljava sistemske zahteve";
+"System Requirements Not Met" = "Sistemski zahtevi nisu ispunjeni";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ bi trebalo osvežiti novom verzijom";
+"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ bi trebalo ažurirati";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Problem sa Tunnelblick konfiguracijom";
@@ -699,19 +702,19 @@
 "Tunnelblick" = "Tunnelblick";
 
 /* Window title */
-"Tunnelblick: Login Required" = "Tunnelblick: Neophodno logovanje";
+"Tunnelblick: Login Required" = "Tunnelblick: neophodna prijava";
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: neophodna tajna sekvenca";
 
 /* Window title */
-"Unable to launch Tunnelblick" = "Neuspešno pokretanje Tunnelblicka";
+"Unable to launch Tunnelblick" = "Tunnelblick se nije uspešno pokrenuo";
 
 /* Window title */
 "Unavailable" = "Nedostupno";
 
 /* Window title */
-"Use 'down-root' plugin for OpenVPN?" = "Korišćenje 'down-root' dodatka za OpenVPN?";
+"Use 'down-root' plugin for OpenVPN?" = "Koristi 'down-root' dodatka za OpenVPN?";
 
 /* Window title */
 "Utilities" = "Alati";
@@ -732,7 +735,7 @@
 "Warning" = "Upozorenje";
 
 /* Window title */
-"Warning: Unknown OpenVPN processes" = "Upozorenje: Nepoznat OpenVPN proces";
+"Warning: Unknown OpenVPN processes" = "Upozorenje: nepoznati OpenVPN procesi";
 
 /* Window title */
 "Welcome to Tunnelblick" = "Dobrodošli u Tunnelblick";
@@ -741,7 +744,7 @@
 "Welcome" = "Dobrodošli";
 
 /* Window title */
-"While Connected" = "Dok je uspostavljena veza";
+"While Connected" = "Tokom uspostavljene konekcije";
 
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Od VPN servera za %1$@:\n\n%2$@";
@@ -783,16 +786,16 @@
 "    • Uninstall one configuration\n" = "    • Deinstaliraj jednu konfiguraciju\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Biće instaliran pod /Applications kao Tunnelblick\n";
+"  • Be installed in /Applications as Tunnelblick\n" = "  • Biće instaliran u /Applications kao Tunnelblick\n";
 
 /* Window text */
-"  • Change ownership and permissions of the program to secure it\n" = "  • Promeni vlasnika i dozvole na aplikaciji da bi je obezbedio\n";
+"  • Change ownership and permissions of the program to secure it\n" = "  • Izvrši promenu vlasništva i dozvola na aplikaciji kako bi je obezbedio\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Završi ažuriranje\n";
 
 /* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Konvertuj OpenVPN konfiguracije\n";
+"  • Convert OpenVPN configurations\n" = "  • Konvertovao OpenVPN konfiguracije\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • Kopiraj konfiguraciju\n";
@@ -801,22 +804,22 @@
 "  • Install forced preferences\n" = "  • Instaliraj forsirana podešavanja\n";
 
 /* Window text */
-"  • Install or update configuration(s)\n" = "  • Instaliraj ili osveži konfiguraciju/e\n";
+"  • Install or update configuration(s)\n" = "  • Instaliraj ili ažuriraj konfiguraciju/e\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • Prebaci konfiguraciju\n";
 
 /* Window text */
-"  • Move the private configurations folder\n" = "  • Premesti folder sa privatnim konfiguracijama\n";
+"  • Move the private configurations folder\n" = "  • Premesti direktorijum sa privatnim konfiguracijama\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • Ukloni konfiguraciju\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Zaštiti konfiguracije\n";
+"  • Secure configurations\n" = "  • Obezbedi konfiguracije\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ je slobodan softver: možete ga deliti i menjati pod uslovima %2$@ objavljenim od strane %3$@.\n\n%4$@ je registrovana marka OpenVPN Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ je besplatan softver: možete ga deliti i menjati pod uslovima %2$@ licence objavljenim od strane %3$@.\n\n%4$@ je registrovana marka OpenVPN Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Da li želiš da instaliraš %1$@ u %2$@%3$@?\n\n";
@@ -831,58 +834,64 @@
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Napomena: OpenVPN konfiguracije će biti konvertovane u Tunnelblick VPN konfiguracije.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick mora biti instaliran u okviru Applications foldera.\n\n";
+" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick mora biti instaliran u okviru Applications direktorijuma.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunneblick zahteva administratorsku autorizaciju kako bi mogao da se automatski poveže na '%@' kada se računar pokrene.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunneblick zahteva autorizaciju od strane administratora kako bi mogao da se automatski poveže na '%@' prilikom pokretanja računara.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunneblick zahteva administratorsku autorizaciju kako bi mogao da isključi automatsko povezivanje na '%@' kada se računar pokreće.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunneblick zahteva autorizaciju od strane administratora kako bi mogao da prekine automatsko povezivanje na '%@' prilikom pokretanja računara.";
 
 /* Window text */
-" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UPOZORENJE: Ova kopija Tunnelblicka je menjana.\n\n";
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UPOZORENJE: Ova kopija Tunnelblick-a je izmenjena.\n\n";
 
 /* Window text */
-"%@ exists but is not a folder" = "%@ postoji ali nije folder";
+"%@ exists but is not a folder" = "%@ postoji ali nije direktorijum";
 
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ je vraćen na poslednju bezbednu (shadow) kopiju.\n\n";
 
 /* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
-"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\nNapomena: Tunnelblick je u režimu administratora, autorizacija administratora računara nije potrebna.";
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\nNapomena: Tunnelblick je u Admin modu, pa autorizacija administratora računara nije potrebna.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfiguracija je vraćeno na poslednju bezbednu (shadow) verziju.\n\n";
 
 /* Window text */
-"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' već postoji na desktopu.\n\nDa li želite da je prepišete?";
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' već postoji na Desktop-u.\n\nDa li želite da je prepišete?";
+
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "Datoteka '%@' je kodirana u UTF-16 formatu. Sve datoteke vezane za OpenVPN moraju biti u plain text ili UTF-8 formatu";
 
 /* Window text */
-"'%@' at line %u was not terminated properly" = "'%1$@' na liniji %2$u nije pravilno zaključen";
+"'%@' at line %u was not terminated properly" = "'%1$@' na liniji %2$u nije pravilno zatvoren";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' ne sadrži nikakve kredencijale (privatni ključ, korisničko ime i lozinku) sačuvane u Keychainu.";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' ne sadrži nikakve kredencijale (privatni ključ ili korisničko ime i lozinku) sačuvane u Keychain servisu.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "Datoteka '%@' nije u plain text ili UTF-8 formatu.";
 
 /* Window text */
-"'%@' was not terminated." = "'%@' nije prekinut.";
+"'%@' was not terminated." = "'%@' nije zatvoren.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
 "'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' želi da se poveže pomoću OpenVPN %2$@ umesto tražene verzije (OpenVPN %3$@).";
 
 /* Window text */
-"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' podešavanje zanemareno; nije naznačen folder";
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' podešavanje je ignorisano; direktorijum nije naznačen";
 
 /* Window text */
-"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' podešavanje zanemareno; putanja mora biti apsolutna ili početi sa '~'";
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' podešavanje je ignorisano; putanja mora biti apsolutna ili početi sa '~'";
 
 /* Window text */
 "(An error occurred creating the help content.)" = "(Nastala je greška prilikom kreiranja uputstva.)";
 
 /* Window text -- appears in log display when logging is disabled\n */
-"(Logging is disabled.)" = "(Logiranje je onemogućeno.)";
+"(Logging is disabled.)" = "(Logovanje je onemogućeno.)";
 
 /* Window text */
-"(Never checked)" = "(Nikad čekirano)";
+"(Never checked)" = "(Nije proveravano do sada)";
 
 /* Window text */
 "(The 'easy-rsaPath' preference is invalid.)" = "('easy-rsaPath' podešavanje je neispravno.)";
@@ -891,16 +900,19 @@
 "(if connected when computer went to sleep)" = "(ako je povezan kada računar ode u hibernaciju)";
 
 /* Window text */
-"(if connected when user switched out)" = "(ako je povezan kada se korisnik izloguje)";
+"(if connected when user switched out)" = "(ako je povezan kada se korisnik odjavi)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Bazirano na Tunnelblick-u, slobodnom softveru dostupnom na <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovana marka OpenVPN Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Bazirano na Tunnelblick-u, besplatnom softveru dostupnom na adresi <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovana marka OpenVPN Inc.";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Mrežna podešavanja nisu uredno vraćena na prethodno stanje nakon prekida konekcije sa %@.</p><p>Ovaj problem se obično javlja ukoliko se koristi korisnik 'nobody' i/ili grupa 'nobody' u OpenVPN opcijama. </p><p>Za povraćaj prethodne konfiguracije mrežne potrebno je da restartujete računar.</p><p>Ukoliko želite da sprečite pojavu ovog problema u budućnosti, uklonite 'user nobody' i 'group nobody' linije iz vaše OpenVPN konfiguracije .</p><p>Za više informacija posetite stranu <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">korisnici i grupe u OpenVPN opcijama</a> [tunnelblick.net].</p></font>\n\n";
 
 /* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Ova verzija Tunnelblicka je stara %lu dan(a).</p><p>Molim proverite da li je nova verzija dostupna:</p><ul><li>Ručno u 'Podešavanja' panelu u okviru 'VPN Detalji...' prozora; ili<br></li><li>Nalaženjem nove verzije na sajtu <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick preuzimanja</a> [tunnelblick.net].</li></ul>";
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Ova verzija Tunnelblicka je stara %lu dan(a).</p><p>Molimo vas da proverite da li je nova verzija dostupna:</p><ul><li>Ručno u 'Podešavanja' panelu u okviru 'VPN Detalji...' prozora; ili<br></li><li>Nalaženjem nove verzije na sajtu <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick preuzimanja</a> [tunnelblick.net].</li></ul>";
 
 /* Window text */
-"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference ili TBAlwaysSetPreference ključ referira na nepoznato podešavanje '%1$@' u %2$@";
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference ili TBAlwaysSetPreference ključ ukazuje na nepoznato podešavanje '%1$@' u %2$@";
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN konfiguracija je suviše ugnežđena u '%@'";
@@ -915,7 +927,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Privatna konfiguracija pod imenom '%@' već postoji.\n\nDa li želite da je zamenite deljenom konfiguracijom?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Nastao je problem rpilikom provere vidljive javne IP adrese računara.\n\nPogledajte log konzole za detalje.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Nastao je problem prilikom provere vidljive javne IP adrese računara.\n\nPogledajte log konzole za detalje.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Deljena konfiguracija pod imenom '%@' već postoji.\n\nDa li želite da je zamenite privatnom konfiguracijom?";
@@ -942,10 +954,10 @@
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "Nakon %1$.1f sekundi, odustao od dobavljanja informacija o IP adresi.\n\nTunnelblick neće proveravati promene na IP adresi dok je %2$@ povezan.\n\n";
 
 /* Window text */
-"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Nakon povezivanja na %@, DNS deluje kao da ne radi.\n\nOvo može da znači da VPN nije ispravno podešen.\n\n";
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Nakon povezivanja na %@, DNS deluje kao da ne radi.\n\nOvo može da se dogodi ukoliko VPN nije ispravno podešen.\n\n";
 
 /* Window text */
-"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Nakon povezivanja na %@, internet se čini nedostupnim.\n\nOvo može da znači da VPN nije ispravno podešen.\n\n";
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Nakon povezivanja na %@, internet se čini nedostupnim.\n\nOvo može da se dogodi ukoliko VPN nije ispravno podešen.\n\n";
 
 /* Window text */
 "All OpenVPN processes have quit" = "Svi OpenVPN procesi su prekinuti";
@@ -957,46 +969,46 @@
 "All configurations use %@ credentials" = "Sve konfiguracije koriste %@ kredencijale";
 
 /* Window text */
-"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Greška (status %1$ld) je nastala tokom provere bezbednosti %2$@ konfiguracije.\n\nMolim zatvorite i ponovo pokrenite Tunnelblick. Ako problem ostane, reinstalirajte Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Greška (status %1$ld) je nastala tokom bezbednosne provere %2$@ konfiguracije.\n\nMolimo vas da ugasite i ponovo pokrenete Tunnelblick. Ako se problem nastavi, reinstalirajte Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Došlo je do greške tokom pokretanja %@";
 
 /* Window text */
-"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Došlo je do greške prilikom pokušaja vraćanja bezbedne kopije. Pogledajte log konzole za detalje.\n\n";
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Došlo je do greške prilikom pokušaja vraćanja bezbedne kopije. Pogledajte Log konzole za detalje.\n\n";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Došlo je do greške. Pogledajte log konzole za detalje.";
+"An error occurred. See the Console Log for details." = "Došlo je do greške. Pogledajte Log konzole za detalje.";
 
 /* Window text */
-"An internal Tunnelblick error occurred%@%@" = "Došlo je do interne greške u Tunnelblicku %1$@%2$@";
+"An internal Tunnelblick error occurred%@%@" = "Došlo je do interne greške u Tunnelblick-u %1$@%2$@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Došlo je do interne greške u Tunnelblicku: fileIsReasonableSize: Cannot get attributes: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Došlo je do interne greške u Tunnelblick-u: fileIsReasonableSize: Cannot get attributes: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Došlo je do interne greške u Tunnelblicku: fileIsReasonableSize: Cannot get size: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Došlo je do interne greške u Tunnelblick-u: fileIsReasonableSize: Cannot get size: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Došlo je do interne greške u Tunnelblicku: fileIsReasonableSize: Cannot get type: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Došlo je do interne greške u Tunnelblick-u: fileIsReasonableSize: Cannot get type: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Došlo je do interne greške u Tunnelblicku: fileIsReasonableSize: invalid file type: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Došlo je do interne greške u Tunnelblick-u: fileIsReasonableSize: invalid file type: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Došlo je do interne greške u Tunnelblicku: fileIsReasonableSize: path is nil";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Došlo je do interne greške u Tunnelblick-u: fileIsReasonableSize: path is nil";
 
 /* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Da li ste sigurni da želite da konvertujete OpenVPN konfiguracije u Tunnelblick VPN konfiguracije?\n\nKONFIGURACIJE NEĆE BITI DOSTUPNE AKO IH NE KONVERTUJETE!\n\n";
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Da li ste sigurni da želite da konvertujete OpenVPN konfiguracije u Tunnelblick VPN konfiguracije?\n\nKONFIGURACIJE NEĆE BITI DOSTUPNE UKOLIKO IH NE KONVERTUJETE!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Da li ste sigurni da želite da obrišete kredencijale (privatni ključ i/ili korisničko ime i šifru) za %ld konfiguracije koje su sačuvane u Keychainu?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Da li ste sigurni da želite da obrišete kredencijale (privatni ključ i/ili korisničko ime i lozinku) za %ld konfiguracije koje su sačuvane u Keychain servisu?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Da li ste sigurni da želite da obrišete kredencijale (privatni ključ i/ili korisničko ime i šifru) za '%@' konfiguraciju koja je sačuvana u Keychainu?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Da li ste sigurni da želite da obrišete kredencijale (privatni ključ i/ili korisničko ime i lozinku) za '%@' konfiguraciju koja je sačuvana u Keychain servisu?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Da li ste sigurni da želite da obrišete kredencijale (privatni ključ i/ili korisničko ime i šifru) sačuvane u Keychainu za '%@' kredencijale?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Da li ste sigurni da želite da obrišete kredencijale (privatni ključ i/ili korisničko ime i lozinku) sačuvane u Keychain servisu za '%@' kredencijale?";
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Da li ste sigurni da želite da instalirate konfiguracije koje mogu da PREUZMU POTPUNU KONTROLU NAD VAŠIM RAČUNAROM?\n\n";
@@ -1005,7 +1017,7 @@
 "Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Da li ste sigurni da želite da instalirate konfiguracije koje bi možda mogle da PREUZMU POTPUNU KONTROLU NAD VAŠIM RAČUNAROM?\n\n";
 
 /* Window text */
-"At line %lu of the OpenVPN configuration file: %@" = "Na liniji %1$lu OpenVPN konfiguracijskog fajla: %2$@";
+"At line %lu of the OpenVPN configuration file: %@" = "Na liniji %1$lu OpenVPN konfiguracionog fajla: %2$@";
 
 /* Window text */
 "B" = "B";
@@ -1017,10 +1029,10 @@
 "Backslash at end of line %u is not allowed" = "Kosa crta ulevo na kraju linije %u nije dozvoljena";
 
 /* Window text */
-"Cancelled trying to quit all OpenVPN processes" = "Otkazani pokušaji da se prekinu svi OpenVPN procesi";
+"Cancelled trying to quit all OpenVPN processes" = "Svi pokušaji prekida svih OpenVPN procesa su prekinuti";
 
 /* Window text */
-"Cannot find configuration file at %@" = "Ne mogu da nađem konfiguracijski fajl na %@";
+"Cannot find configuration file at %@" = "Ne mogu da pronađem konfiguracioni fajl na %@";
 
 /* Window text */
 "Cannot install configurations to either shared or private locations" = "Ne mogu da instaliram konfiguracije na deljenim ili privatnim lokacijama";
@@ -1029,10 +1041,10 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Ne mogu da deinstaliram konfiguraciju '%@' jer nije instalirana.";
 
 /* Window text */
-"Computer sleep/wake" = "Kompjuter ulazi/izlazi iz hibernacije";
+"Computer sleep/wake" = "Kompjuter radi/u sleep modu";
 
 /* Window text */
-"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguracija '%1$@' ('%2$@') će biti zanemarena jer njeno ime sadrži nedozvoljene znake.\n\nNedozvoljeni znaci: '%3$s'\n\n";
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguracija '%1$@' ('%2$@') će biti ignorisana jer njeno ime sadrži nedozvoljene karaktere.\n\nNedozvoljeni karakteri: '%3$s'\n\n";
 
 /* Window text */
 "Configuration '%@' already exists." = "Konfiguracija '%@' već postoji.";
@@ -1041,37 +1053,37 @@
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfiguracija '%@' sadrži jednu ili više skripti koje mogu da naprave probleme ako zamenite ili uklonite konfiguraciju dok je veza uspostavljena.\n\nDa li želite da zamenite konfiguraciju?";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Konfiguracija '%@' nije obezbeđena. Trebalo bi je reinstalirati.";
+"Configuration '%@' is not secure. It should be reinstalled." = "Konfiguracija '%@' nije bezbedna. Trebalo bi je reinstalirati.";
 
 /* Window text */
-"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfiguracija '%@' nije obezbeđena. Molim reinstalirajte Tunnelblick.";
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfiguracija '%@' nije obezbeđena. Molimo reinstalirajte Tunnelblick.";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguracija '%@' se ne može ažurirati jer je nemoguće označiti je kao \"omogućenu za ažuriranje\".\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguracija '%@' ne može biti ažurirana jer je nemoguće označiti je kao \"omogućenu za ažuriranje\".\n";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfiguracija '%1$@' zahteva Tunnelblick %2$@ ili višu; koristite Tunnelblick %3$@.\n\nMorate ažurirati Tunnelblick da biste instalirali ovu konfiguraciju.";
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfiguracija '%1$@' zahteva Tunnelblick verziju %2$@ ili višu; vi koristite Tunnelblick %3$@.\n\nMorate ažurirati Tunnelblick da biste instalirali ovu konfiguraciju.";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfiguracija '%1$@' zahteva Tunnelblick %2$@ ili nižu; koristite Tunnelblick %3$@.";
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfiguracija '%1$@' zahteva Tunnelblick verzije %2$@ ili nižu; vi koristite Tunnelblick %3$@.";
 
 /* Window text */
-"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguracija '%1$@' će biti zanemarena jer ime sadrži nedozvoljene znake.\n\nNedozvoljeni znaci: '%2$s'\n\n";
+"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguracija '%1$@' će biti ignorisana jer ime sadrži nedozvoljene karaktere.\n\nNedozvoljeni karakteri: '%2$s'\n\n";
 
 /* Window text */
 "Configuration changes:" = "Izmene u konfiguraciji:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfiguracije su instalirane iz fajlova koji su vam dostavljeni od strane vašeg mrežnog administratora ili dobavljača VPN usluga.\n\nKonfiguracioni fajlovi imaju ekstenzije .tblk, .ovpn, ili .conf.\n\n(Može biti i drugih fajlova vezanih za konfiguraciju sa drugim ekstenzijama; zanemarite ih.)\n\nDa bi instalirali konfiguracioni fajl, postavite ga na Tunnelblick ikonicu na traci menija ili u listu konfiguracija u okviru 'Konfiguracije' taba u 'VPN detalji' prozoru.\n\nDa bi instalirali više konfiguracija odjednom, odaberite sve fajlove i zajedno ih prebacite.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfiguracije su instalirane iz fajlova koji su vam dostavljeni od strane vašeg mrežnog administratora ili dobavljača VPN usluga.\n\nKonfiguracioni fajlovi imaju ekstenzije .tblk, .ovpn, ili .conf.\n\n(Može biti i drugih fajlova vezanih za konfiguraciju sa drugačijim ekstenzijama - zanemarite ih.)\n\nDa bi instalirali konfiguracioni fajl, prevucite ga na Tunnelblick ikonicu ili u listu konfiguracija u okviru 'Konfiguracije' taba u 'VPN detalji' prozoru.\n\nDa bi instalirali više konfiguracija odjednom, odaberite sve fajlove i zajedno ih prevucite.";
 
 /* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfiguracije koje nisu deo Tunnelblicka su podešene da se instaliraju nakon što instalirate Tunnelblick.\n\n";
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfiguracije koje nisu deo Tunnelblick-a su podešene da se instaliraju nakon što instalirate Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Poveži:";
 
 /* Window text */
-"Connection:" = "Veza upostavljena:";
+"Connection:" = "Konekcija:";
 
 /* Window text */
 "Converted OpenVPN configuration" = "Konvertovane OpenVPN konfiguracije";
@@ -1086,7 +1098,7 @@
 "Copied %@" = "Kopirao %@";
 
 /* Window text */
-"Copied %@, removing CR characters" = "Kopirao %@, uklonio CR znakove";
+"Copied %@, removing CR characters" = "Kopirao %@, uklonio CR karaktere";
 
 /* Window text */
 "Copyright © 2004-%@ Angelo Laub and others." = "Autorska prava © 2004-%@ Angelo Laub i drugi.";
@@ -1122,34 +1134,34 @@
 "DNS servers:" = "DNS serveri:";
 
 /* Window text */
-"Did not need to modify configuration file; no path information to remove" = "Nema potrebe za ažuriranjem konfiguracijskog fajla; nema informacije o putanji koju bi trebalo ukloniti";
+"Did not need to modify configuration file; no path information to remove" = "Nema potrebe za ažuriranjem konfiguracionog fajla; nema informacije o putanji koju bi trebalo ukloniti";
 
 /* Window text */
-"Do you wish to delete the %@ credentials?" = "Da li želiš da obrišeš %@ kredencijale?";
+"Do you wish to delete the %@ credentials?" = "Da li želite da obrišete %@ kredencijale?";
 
 /* Window text */
-"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Da li želiš da instaliraš '%@' konfiguraciju kako bi svi korisnici mogli da je koriste ili kako bi samo ti mogao da je koristiš?\n\n";
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Da li želite da instalirate '%@' konfiguraciju kako bi svi korisnici mogli da je koriste ili kako bi samo vi mogli da je koristite?\n\n";
 
 /* Window text */
-"Do you wish to reinstall '%@' version %@?" = "Da li želiš da reinstaliraš '%1$@' verziju %2$@?";
+"Do you wish to reinstall '%@' version %@?" = "Da li želite da reinstalirate '%1$@' verziju %2$@?";
 
 /* Window text */
-"Do you wish to replace '%@' version %@ with version %@?" = "Da li želiš da zameniš '%1$@' verziju %2$@ verzijom %3$@?";
+"Do you wish to replace '%@' version %@ with version %@?" = "Da li želite da zamenite '%1$@' verziju %2$@ verzijom %3$@?";
 
 /* Window text */
-"Do you wish to replace the '%@' configuration?\n\n" = "Da li želiš da zameniš '%@' konfiguraciju?\n\n";
+"Do you wish to replace the '%@' configuration?\n\n" = "Da li želite da zamenite '%@' konfiguraciju?\n\n";
 
 /* Window text */
-"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Da li želiš da vratiš %ld konfiguracije na njihovu poslednju bezbednu kopiju?\n\n";
+"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Da li želite da vratite %ld konfiguracije na njihovu poslednju bezbednu kopiju?\n\n";
 
 /* Window text */
-"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Da li želiš da vratiš '%@' konfiguraciju na njenu poslednju bezbednu kopiju?\n\n";
+"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Da li želite da vratite '%@' konfiguraciju na njenu poslednju bezbednu kopiju?\n\n";
 
 /* Window text */
 "Domain:" = "Domen:";
 
 /* Window text */
-"Double-quote missing in line %u" = "Dupli navodnici nedostaju u liniji %u";
+"Double-quote missing in line %u" = "Dupli navodnici nedostaju na liniji %u";
 
 /* Window text */
 "EB" = "EB";
@@ -1167,7 +1179,7 @@
 "Failed to copy %@ to %@" = "Neuspešno kopiranje %1$@ u %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Neuspešno kreiranje foldera na %@";
+"Failed to create folder at %@" = "Neuspešno kreiranje direktorijuma na %@";
 
 /* Window text */
 "Failed to create symlink\n  to %@\n  at %@" = "Neuspešno kreiranje simboličkog linka\n na %1$@\n u %2$@";
@@ -1179,22 +1191,28 @@
 "Fast User Switching" = "Brza promena korisnika";
 
 /* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Datoteka '%@' deluje kao da je u 'rich text' formatu jer počinje znakom '{'. Sve datoteke koji se tiču OpenVPN-a moraju biti u 'plain text' ili 'UTF-8' formatu.";
+
+/* Window text */
 "File '%@' contains one or more NUL characters." = "Datoteka '%@' zahteva jedan ili više NUL karaktera.";
 
 /* Window text */
-"File '%@' ends with a backslash, which is not allowed." = "Fajl '%@' se završava '\' znakom, što nije dozvoljeno.";
+"File '%@' ends with a backslash, which is not allowed." = "Datoteka '%@' se završava '\' znakom, što nije dozvoljeno.";
 
 /* Window text */
-"File '%@' has an extension which is not known to Tunnelblick." = "Fajl '%@' ima ekstenziju koja nije poznata Tunnelblicku.";
+"File '%@' has an extension which is not known to Tunnelblick." = "Datoteka '%@' ima ekstenziju koja nije poznata Tunnelblick-u.";
 
 /* Window text */
-"File '%@' is missing" = "Fajl '%@' ne postoji";
+"File '%@' is missing" = "Datoteka '%@' ne postoji";
 
 /* Window text */
-"File '%@' is too short (%lu bytes)" = "Fajl '%1$@' je prekratak (%2$lu bajtova)";
+"File '%@' is too short (%lu bytes)" = "Datoteka '%1$@' je prekratak (%2$lu bajtova)";
 
 /* Window text */
-"File is too large: %@" = "Fajl je prevelik: %@";
+"File is too large: %@" = "Datoteka je prevelik: %@";
+
+/* Window text */
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Ukoliko želite da uvezete konfiguraciju i podešavanja za jednog ili više korisnika, molimo vas da odaberete korisnike koji su dostupni na ovom računaru.";
 
 /* Window text */
 "GB" = "GB";
@@ -1209,10 +1227,10 @@
 "In %@:\n\nThere are no OpenVPN configurations to install." = "U %@:\n\nNema OpenVPN konfiguracija za instalaciju.";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@' at line %lu: %@" = "U OpenVPN konfiguracijskom fajlu za '%1$@' na liniji %2$lu: %3$@";
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "U OpenVPN konfiguracionom fajlu za '%1$@' na liniji %2$lu: %3$@";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@': %@" = "U OpenVPN konfiguracijskom fajlu za '%1$@': %2$@";
+"In the OpenVPN configuration file for '%@': %@" = "U OpenVPN konfiguracionom fajlu za '%1$@': %2$@";
 
 /* Window text */
 "In:" = "U:";
@@ -1224,7 +1242,7 @@
 "Installation finished successfully." = "Instalacija uspešno završena.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Instaliranje i obezbeđivanje Tunnelblick %@…";
+"Installing and securing Tunnelblick %@..." = "Instaliranje i obezbeđivanje Tunnelblick-a %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Instaliranje konfiguracija nije dozvoljeno";
@@ -1248,7 +1266,7 @@
 "Last checked: %@" = "Poslednji put provereno: %@";
 
 /* Window text */
-"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Linija %1$d fajla '%2$@' sadrži znakove koje je nemoguće prikazati (0x%3$X) a koji nisu dozvoljeni.\n\n";
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Linija %1$d datoteke '%2$@' sadrži karaktere koje je nemoguće prikazati (0x%3$X), a koji nisu dozvoljeni.\n\n";
 
 /* Window text */
 "MB" = "MB";
@@ -1257,19 +1275,19 @@
 "MB/s" = "MB/s";
 
 /* Window text */
-"Maximum log display size:" = "Najveća veličina logova:";
+"Maximum log display size:" = "Najveća dozvoljena veličina logova:";
 
 /* Window text */
 "Menu:" = "Meni:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Nedostaje CFBundleIdentifier ili CFBundleVersion u Info.plist za\n\n%@\n\nOva VPN konfiguracija je prikazana u okviru šire VPN konfiguracije tako da mora sadržati sopstveni CFBundleIdentifier ili CFBundleVersion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "CFBundleIdentifier ili CFBundleVersion nedostaju u Info.plist za\n\n%@\n\nOva VPN konfiguracija je prikazana u okviru šire VPN konfiguracije tako da mora sadržati sopstveni CFBundleIdentifier i CFBundleVersion.";
 
 /* Window text */
 "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Nedostaje Info.plist za \n\n%@\n\nOva VPN konfiguracija je sadržana u okviru šire VPN konfiguracije tako da mora da sadrži Info.plist.";
 
 /* Window text */
-"Modified configuration file to remove path information" = "Modifikovao sam konfiguracioni fajl da uklonim informacije o putanji";
+"Modified configuration file to remove path information" = "Konfiguracioni fajl je modifikovan zarad uklanjanja informacije o putanji";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Više paralelnih konekcija će biti kreirano (%1$d sa 'Podesi namesever', %2$d bez 'Podesi nameserver').";
@@ -1278,10 +1296,10 @@
 "Named Credentials" = "Pripadajući kredencijali";
 
 /* Window text */
-"Names may not include any of the following characters: %s" = "Imena ne smeju sadržati sledeće znakove: %s";
+"Names may not include any of the following characters: %s" = "Imena ne smeju sadržati sledeće karaktere: %s";
 
 /* Window text */
-"Names may not include any of the following characters: %s\n\n%@" = "Imena ne smeju sadržati sledeće znakove: %1$s\n\n%2$@";
+"Names may not include any of the following characters: %s\n\n%@" = "Imena ne smeju sadržati sledeće karaktere: %1$s\n\n%2$@";
 
 /* Window text */
 "NetBIOS name:" = "NetBIOS ime:";
@@ -1290,7 +1308,7 @@
 "Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "Mrežni pristup ne može biti onemogućen nakon prekida veze za neke ili sve odabrane konfiguracije jer sadrže \"user\" i/ili \"group\" opcije. Ove opcije čine da se OpenVPN ne pokreće kao root korisnik tokom prekida veze, tako da neće moći da onemogući mrežni pristup.\n\nKonfiguracije koje sadrže \"user\" i/ili \"group\" opcije su:\n\n%@\n\n";
 
 /* Window text */
-"Network access was disabled when a VPN disconnected." = "Pristup mreži je onemogućen kada je VPN veza prekinuta.";
+"Network access was disabled when a VPN disconnected." = "Pristup mreži je onemogućen kada je VPN konekcija prekinuta.";
 
 /* Window text */
 "Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "Pristup mreži je onemogućen kada je VPN veza prekinuta.\n\nDa li želite ponovo omogućiti pristup mreži?\n\n";
@@ -1320,28 +1338,43 @@
 "Non-string value for an item in '%@' in %@" = "Vrednost za '%1$@' u %2$@ nije niz znakova";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Ni jedna od %ld odabranih konfiguracija ne sadrži nikakve kredencijale (privatni ključ, korisničko ime i lozinku) sačuvane u Keychainu.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Ni jedna od %ld odabranih konfiguracija ne sadrži nikakve kredencijale (privatni ključ, korisničko ime i lozinku) sačuvane u Keychain servisu.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Nije .ovpn ili .conf: %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nije zamena postojeće konfiguracije, tako da konfiguracija '%@' ne može da koristi 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nije zamena za postojeću konfiguraciju, tako da konfiguracija '%@' ne može da koristi 'TBKeepExistingFilesList'";
 
 /* Window text */
-"On expected disconnect:" = "Očekivani prekid veze:";
+"On expected disconnect:" = "Prilikom očekivanog prekida konekcije:";
 
 /* Window text */
-"On unexpected disconnect:" = "Neočekivani prekid veze:";
+"On unexpected disconnect:" = "Prilikom neočekivanog prekida konekcije:";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Jedan ili više OpenVPN procesa je pokrenuto ali ih Tunnelback ne prepoznaje. Ako ne koristite OpenVPN nezavisno od Tunnelblicka, ovo obično znači da ranije pokrenuti Tunnelblick nije uspeo da ih ugasi i trebalo bi da ih ubijete. Verovatno će smetati Tunnelblickovom radu. Da li želite da ubijete sve OpenVPN procese?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Jedan ili više OpenVPN procesa je pokrenuto ali ih Tunnelback ne prepoznaje. Ako ne koristite OpenVPN nezavisno od Tunnelblick-a, ovo obično znači da ranije pokrenuti Tunnelblick nije uspeo da ih ugasi i trebalo bi da ih prekinete. Postoji mogućnost da će smetati u toku Tunnelblick-ovog rada. Da li želite da prekinete sve OpenVPN procese?";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Jedan ili više OpenVPN procesa je pokrenuto ali ih Tunnelback ne prepoznaje. Ako ne koristite OpenVPN nezavisno od Tunnelblicka, ovo obično znači da ranije pokrenuti Tunnelblick nije uspeo da ih ugasi i trebalo bi da ih ubijete. Verovatno će smetati Tunnelblickovom radu. Da li želite da ih ubijete?";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Jedan ili više OpenVPN procesa je pokrenuto ali ih Tunnelback ne prepoznaje. Ako ne koristite OpenVPN nezavisno od Tunnelblicka, ovo obično znači da ranije pokrenuti Tunnelblick nije uspeo da ih ugasi i trebalo bi da ih ubijete. Verovatno će smetati Tunnelblickovom radu. \n\nMožete ih ubiti kroz 'Activity Monitor' aplikaciju.\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna ili više VPN konfiguracija koje instalirate sadrže OpenVPN opcije koje nisu prepoznate od strane Tunnelblick-a. Razlog za to može biti do greške u konfiguraciji, greške u Tunnelblick-u ili takve konfiguracije sadrže programe koji će biti pokrenuti pod root nalogom kada se povežete na VPN. Takvi programi bi onda mogli PREUZETI POTPUNU KONTROLU NAD VAŠIM RAČUNAROM.\n\nOVAKVE KONFIGURACIJE NEMOJTE INSTALIRATI SEM AKO NE VERUJETE NJENIM AUTORIMA.\n\nDa li verujete autoru ovih konfiguracija i želite da ih instalirate?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna ili više VPN konfiguracija koje instalirate sadrže OpenVPN opcije koje nisu prepoznate od strane Tunnelblick-a. Ovi programi su deo konfiguracije i nisu deo Tunnelblick-a. Takvi programi bi onda mogli PREUZETI POTPUNU KONTROLU NAD VAŠIM RAČUNAROM.\n\nOVAKVE KONFIGURACIJE NEMOJTE INSTALIRATI SEM AKO NE VERUJETE NJENIM AUTORIMA.\n\nDa li verujete autoru ovih konfiguracija i želite da ih instalirate?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna ili više VPN konfiguracija koje instalirate sadrže programe koji će biti pokrenuti pod root nalogom kada se povežete na VPN. Ovi programi su deo same konfiguracije i nisu deo Tunnelblick-a. \n\nOve konfiguracije možete instalirati samo ako zaista verujete njihovom autoru. \n\nDa li verujete autoru ovih konfiguracija i želite da ih instalirate?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna ili više VPN konfiguracija koje ažurirate sadrže OpenVPN opcije koje nisu prepoznate od strane Tunnelblick-a. Ovi programi su deo konfiguracije i nisu deo Tunnelblick-a. Takvi programi bi onda mogli PREUZETI POTPUNU KONTROLU NAD VAŠIM RAČUNAROM.\n\nOVAKVE KONFIGURACIJE NEMOJTE INSTALIRATI SEM AKO NE VERUJETE NJENIM AUTORIMA.\n\nDa li verujete autoru ovih konfiguracija i želite da ih instalirate?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna ili više VPN konfiguracija koje ažurirate sadrže OpenVPN uključuju programe koji će se pokrenuti nakon što ostvarite konekciju sa VPN-om. Ovi programi su deo konfiguracije i nisu deo Tunnelblick-a.\n\nOvakve konfiguracije možete instalirati samo ako verujete njihovim autorima.\n\nDa li verujete autoru ovih konfiguracija i želite da ih instalirate?\n\n";
 
 /* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Jedan ili više VPNova je trenutno povezano. Molim prekinite veze ka svim VPNovima i ugasite Tunnelblick pre nego nastavite.";
@@ -1359,7 +1392,7 @@
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN ne reaguje na zahteve za prekid veze %@.\n\nTunnelblick će prekinuti vezu čim OpenVPN počne da reaguje na zahteve za prekid veze.\n\nOVO MOŽE POTRAJATI DO DVA MINUTA u određenim neobičnim okolnostima.\n\nVeza će biti nedostupna do prekida iste.";
 
 /* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
-"OpenVPN version %@ is not available. Using %@ as the default." = "OpenVPN verzija %1$@ nije dostupna. Koristi %2$@ kao podrazumevanu.";
+"OpenVPN version %@ is not available. Using %@ as the default." = "OpenVPN verzija %1$@ nije dostupna. Koristim %2$@ kao podrazumevanu.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN verzija:";
@@ -1377,19 +1410,19 @@
 "Password:" = "Lozinka:";
 
 /* Window text */
-"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Putanja '%1$@' sadrži nedozvoljene znake.\n\nZnaci koji nisu dozvoljeni: '%2$s'\n\n";
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Putanja '%1$@' sadrži nedozvoljene karaktere.\n\nKarakteri koji nisu dozvoljeni: '%2$s'\n\n";
 
 /* Window text */
-"Please check for a newer version." = "Molim proverite ažurnost softvera.";
+"Please check for a newer version." = "Molimo proverite ažurnost softvera.";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Molim unesite ime i kliknite \"OK\" ili \"Otkaži\".\n\n";
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Molimo unesite ime i kliknite \"OK\" ili \"Otkaži\".\n\n";
 
 /* Window text */
-"Please enter a new name for '%@'." = "Molim unesite novo ime za '%@'.";
+"Please enter a new name for '%@'." = "Molimo unesite novo ime za '%@'.";
 
 /* Window text */
-"Please insert token \"%@\", then click \"OK\"" = "Molim unesite token \"%@\", a zatim kliknite \"OK\"";
+"Please insert token \"%@\", then click \"OK\"" = "Molimo unesite token \"%@\", a zatim kliknite \"OK\"";
 
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Privatne konfiguracije se ne mogu povezati prilikom pokretanja računara.\n\nPrvo podesite konfiguraciju kao deljenu, a zatim promenite ovo podešavanje.";
@@ -1419,7 +1452,7 @@
 "Single-quote missing in line %u" = "Nedostaje apostrof na liniji %u";
 
 /* Window text */
-"Skipped copying %@ because a file with that name and contents has already been copied." = "Preskočeno kopiranje %@ jer je fajl sa tim imenom i sadržajem već kopiran.";
+"Skipped copying %@ because a file with that name and contents has already been copied." = "Preskočeno kopiranje %@ jer je datoteka sa tim imenom i sadržajem već kopirana.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Starting Tunnelblick %@..." = "Tunnelblick %@ se pokreće…";
@@ -1428,7 +1461,7 @@
 "Startup window:" = "Prozor tokom pokretanja:";
 
 /* Window text */
-"Symbolic links nested too deeply. Gave up at %@" = "Simbolički linkovi preduboko ugnežđeni. Predao se kod %@";
+"Symbolic links nested too deeply. Gave up at %@" = "Simbolički linkovi su preduboko ugnežđeni. Odustao kod %@";
 
 /* Window text */
 "TB" = "TB";
@@ -1446,13 +1479,19 @@
 "Thank you very much for your donation to the TunnelblickProject." = "Puno vam hvala na donaciji Tunnelblick projektu.";
 
 /* Window text */
-"Thanks for your Tunnelblick donation" = "Hvala za donaciju Tunnelblicku";
+"Thanks for your Tunnelblick donation" = "Hvala za donaciju Tunnelblick-u";
 
 /* Window text */
 "That name is being used.\n\n" = "Ime je već u upotrebi.\n\n";
 
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Sistemski direktorijum %1$@ (%2$@) nije bezbedan.\n\nTunnelblick i drugi programi mogu prestati sa funkcionisanjem ukoliko se ovaj problem ne reši.\n\nZa više informacija posetite Konzolu.";
+
 /* Window text */
-"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "'%@' OpenVPN opcija nije dozvoljena prilikom korišćenja Tunnelblicka.";
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "OpenVPN opcija %@ nije dozovljena na macOS već isključivo na Windows operativnom sistemu.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "'%@' OpenVPN opcija nije dozvoljena prilikom korišćenja Tunnelblick-a.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "'%@' kredencijali ne mogu biti dodati jer je forsirana lista imenovanih kredencijala.";
@@ -1472,6 +1511,9 @@
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Konfiguraciona datoteka OpenVPN za '%@' se promenila nakon što je sačuvana.\n\nDa li želite da sačuvate izmenjenu konfiguraciju ili da se vratite na poslednju sačuvanu verziju konfiguracije?\n\n";
 
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN konfiguracioni fajl %1$@ sadrži opciju '%2$@', koja je dostupna samo na Windows operativnom sistemu i ne može se koristiti na macOS sistemu.";
+
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN log javlja sledeće:\n\n\"%1$@\".%2$@";
 
@@ -1485,10 +1527,10 @@
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "Pokušaj povezivanja na %1$@ je otkazan: runOnConnect skripta je vratila status: %2$ld.";
 
 /* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Konfiguracioni fajl za '%@' deluje kao da koristi 'user' i/ili 'group' podešavanja i koristi 'down' skriptu ('Ne setuj nameserver' nije odabran, ili ima 'down' opcije u konfiguracionom fajlu).\n\nNajverovatnije će restartovanje konekcije (koje se dešava automatski kada se konekcija izgubi) biti neuspešno sem ako se koristi 'openvpn-down-root.so' dodatak za OpenVPN.\n\nDa li želite da koristite ovaj dodatak?";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Konfiguracioni fajl za '%@' deluje kao da koristi 'user' i/ili 'group' podešavanja i koristi 'down' skriptu ('Ne setuj nameserver' nije odabran, ili ima 'down' opcije u konfiguracionom fajlu).\n\nRestartovanje konekcije će biti neuspešno (koje se dešava automatski kada se konekcija izgubi) sem ako se koristi 'openvpn-down-root.so' dodatak za OpenVPN.\n\nDa li želite da koristite ovaj dodatak?";
 
 /* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Konfiguracijski fajl za '%@' deluje kao da ne koristi 'dev tun', 'dev utun' ili 'dev tap' opcije. Ove opcije su verovatno potrebne za ispravno funkcionisanje Tunnelblicka. Posavetujte se sa mrežnim administratorom ili OpenVPN dokumentacijom.";
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Konfiguracioni fajl za '%@' deluje kao da ne koristi 'dev tun', 'dev utun' ili 'dev tap' opcije. Ove opcije su verovatno potrebne za ispravno funkcionisanje Tunnelblicka. Posavetujte se sa mrežnim administratorom ili OpenVPN dokumentacijom.";
 
 /* Window text */
 "The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Konfiguracioni fajl pokazuje na fajl\n\n%@\n\nkoji ne postoji (ni u zamenjenoj konfiguraciji).";
@@ -1530,7 +1572,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Privatna konfiguracija nikad nije bila obezbeđena, pa se ne možete vratiti na bezbednu kopiju.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "Folder sa primerom konfiguracije je kreiran na vašem desktopu i OpenVPN konfiguracioni fajl je otvoren u TextEdit aplikaciji kako bi mogli da je izmenite u skladu za vašim VPN podešavanjima.\n\nKada završite sa izmenama i sačuvate ih, molim vas da:\n\n1. Prebacite ili kopirate bilo kakve ključeve ili sertifikate koji su u vezi sa konfiguracijom unutar 'Sample Tunnelblick VPN Configuration' foldera na desktopu.\n\n(Ovaj folder vam je otvoren u okviru Finder prozora kako bi mogli da prevučete fajlove u njega.)\n\n2. Promenite ime konfiguracionog fajla u neko po vašem izboru (ne menjajte ekstenziju fajla). Ovo ime će Tunnelblick koristiti za konfiguraciju.\n\n3. Da bi instalirali konfiguraciju, prevucite konfiguracioni fajl preko Tunnelblick ikonicu u traci menija ili preko liste konfiguracija u 'Konfiguracije' tabu 'VPN detalji' prozora.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "Direktorijum sa primerom konfiguracije je kreiran na vašem desktopu i OpenVPN konfiguracioni fajl je otvoren u TextEdit aplikaciji kako bi mogli da je izmenite u skladu za vašim VPN podešavanjima.\n\nKada završite sa izmenama i sačuvate ih, molimo vas da:\n\n1. Prebacite ili kopirate bilo kakve ključeve ili sertifikate koji su u vezi sa konfiguracijom unutar 'Sample Tunnelblick VPN Configuration' direktorijuma na desktopu.\n\n(Ovaj direktorijum vam je otvoren u okviru Finder prozora kako bi mogli da prevučete datoteke u njega.)\n\n2. Promenite ime konfiguracione datotetke u neko po vašem izboru (ne menjajte ekstenziju datoteke). Ovo ime će Tunnelblick koristiti za konfiguraciju.\n\n3. Da bi instalirali konfiguraciju, prevucite konfiguracionu datoteku na Tunnelblick ikonicu u gornjem meniju ili preko liste konfiguracija u 'Konfiguracije' tabu 'VPN detalji' prozora.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Korisničko ime i lozinka nisu prihvaćeni od strane udaljenog VPN servera.";
@@ -1542,10 +1584,10 @@
 "There are no OpenVPN processes running" = "Nema aktivnih OpenVPN procesa";
 
 /* Window text */
-"There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Nema instaliranih VPN konfiguracija.\n\nTunnelblick zahteva jednu ili više instaliranih konfiguracija kako bi se povezao na VPN. Konfiguracije se instaliraju iz fajlova koje vam obično dostavi vaš mrežni administrator ili dobavljač VPN usluge. Fajlovi se moraju instalirati da bi se koristili.\n\nKonfiguracioni fajlovi imaju ekstenziju .tblk, .ovpn ili .conf.\n\n(Može biti i drugih fajlova u vezi sa konfiguracijom sa drugačijim ekstenzijama ali ih za sada ignorišite.)\n\nDa li imate neke konfiguracione fajlove?\n";
+"There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Nema instaliranih VPN konfiguracija.\n\nTunnelblick zahteva jednu ili više instaliranih konfiguracija kako bi se povezao na VPN. Konfiguracije se instaliraju iz datoteka koje vam obično dostavi vaš mrežni administrator ili dobavljač VPN usluge. Datoteke se moraju instalirati da bi se koristile.\n\nKonfiguracione datoteke imaju ekstenziju .tblk, .ovpn ili .conf.\n\n(Može biti i drugih datoteka u vezi sa konfiguracijom sa drugačijim ekstenzijama ali ih za sada ignorišite.)\n\nDa li posedujete neke konfiguracione datoteke?\n";
 
 /* Window text */
-"There is not an OpenVPN configuration file in '%@'" = "Nema OpenVPN konfiguracijskog fajla u '%@'";
+"There is not an OpenVPN configuration file in '%@'" = "Nema OpenVPN konfiguracionog fajla u '%@'";
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Nastala je greška prilikom brisanja jedne ili više konfiguracija. Pogledajte log konzole za detalje.";
@@ -1560,6 +1602,9 @@
 "There was a problem:\n\n%@" = "Nastao je problem:\n\n%@";
 
 /* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Prilikom uvoženja Tunnelblick podešavanja dogodio se neočekivani problem.\n\nZa više detalja posetite Konzolu.";
+
+/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Ova 'Primenjena' verzija Tunnelblicka ne može se pokrenuti ili instalirati jer nije rebrendirana ili nedostaju updateFeedURL ili SUFeedURL, ili sadrže 'tunnelblick.net', ili CFBundleIdentifier nedostaje ili sadrži 'net.tunnelblick'.\n\n";
 
 /* Window text */
@@ -1569,31 +1614,34 @@
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Ovaj VPN se ne može povezati.\n\nOpenVPN konfiguracioni fajl za %1$@ sadrži sledeće OpenVPN opcije:\n\n%2$@\nNema verzije OpenVPN-a uključene u ovoj verziji Tunnelblicka koja podržava te opcije.\n\nPotrebno je da izmenite konfiguraciju kako bi mogla da se koristi uz nove verzije OpenVPN-a.";
 
 /* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "Ova VPN konekcija zahteva od vas da odgovorite na pitanje, ali pitanje nije postavljeno.";
+
+/* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Vidljiva javna IP adresa ovog računara se nije promenila nakon povezivanja na %1$@. Još uvek je %2$@.\n\nOvo može da znači da VPN nije ispravno podešen.\n\n";
 
 /* Window text */
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Ova kopija Tunnelblicka je modifikovana (digitalni potpis nije validan).\n\nMolim proverite sa dobavljačem ove kopije Tunnelblicka pre nego je koristite.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Ova kopija Tunnelblicka nije digitalno potpisana.\n\nNe postoji način da proverimo da nije modifikovana.\n\n Proverite sa dobavljačem ove kopije Tunnelblicka pre nego je koristite.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Ova kopija Tunnelblicka nije digitalno potpisana.\n\nNe postoji način da proverimo da li je nelegalno modifikovana.\n\n Proverite sa dobavljačem ove kopije Tunnelblick-a pre nego je koristite.\n\n";
 
 /* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Ova verzija Tunnelblicka se ne može pokrenuti ili instalirati jer sadrži neispravan URL za osvežavanje.\n\n";
+"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Ova verzija Tunnelblick-a se ne može pokrenuti ili instalirati jer sadrži neispravan URL za ažuriranje.\n\n";
 
 /* Window text */
-"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Ova verzija Tunnelblicka se ne može pokrenuti ili instalirati jer nije \"Primenjena\" verzija, a jedna ili više \"Primenjenih\" verzija Tunnelblicka je prethodno instalirano.\n\n";
+"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Ova verzija Tunnelblicka se ne može pokrenuti ili instalirati jer nije \"Primenjena\" verzija, a jedna ili više \"Primenjenih\" verzija Tunnelblick-a je prethodno instalirano.\n\n";
 
 /* Window text */
-"Too many configuration files in '%@'" = "Previše konfiguracionih fajlova u '%@'";
+"Too many configuration files in '%@'" = "Previše konfiguracionih datoteka u '%@'";
 
 /* Window text */
 "Too many duplicate configurations already exist." = "Previše duplih konfiguracija već postoji.";
 
 /* Window text */
-"Translation by" = "Prevod:";
+"Translation by" = "Preveo";
 
 /* Window text */
-"Trying to quit all OpenVPN processes..." = "Pokušavamo da prekinemo sve OpenVPN procese…";
+"Trying to quit all OpenVPN processes..." = "Pokušavam da prekinem sve OpenVPN procese…";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
 "Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ je uspešno obezbeđen.";
@@ -1602,7 +1650,7 @@
 "Tunnelblick %@ is ready." = "Tunnelblick %@ je spreman.";
 
 /* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick režim administratora\n\nPrivremeno dozvoli izmene koje zahtevaju lozinku administratora.\n\nSesija ističe nakon 5 minuta ili nakon što se zatvori 'VPN detalji' prozor.";
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin mod\n\nPrivremeno dozvoli izmene koje zahtevaju autorizaciju od strane administratora.\n\nSesija ističe nakon 5 minuta ili nakon što se zatvori 'VPN detalji' prozor.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick korišćenje interneta:";
@@ -1614,7 +1662,7 @@
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick može pristupiti %@ kako bi proverio da li se javna IP adresa vašeg računara menja svaki put kada se povežete sa VPN.\n\n";
 
 /* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Neuspešno podešavanja Tunnelblicka za automatsko pokretanje nakon logovanja.\n\nPogledajte log konzole za detalje.";
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Neuspešno podešavanja Tunnelblicka za automatsko pokretanje nakon prijave.\n\nPogledajte log konzole za detalje.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nije mogao biti pokrenut zbog problema sa konfiguracijom. Pogledajte log konzole za detalje.";
@@ -1626,7 +1674,7 @@
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick nije uspeo da iskopira '%@' konfiguraciju. Pogledajte log konzole za detalje.";
 
 /* Window text */
-"Tunnelblick could not create the empty configuration folder" = "Tunnelblick nije uspeo da kreira prazan konfiguracijski folder";
+"Tunnelblick could not create the empty configuration folder" = "Tunnelblick nije uspeo da kreira prazan konfiguracioni direktorijum";
 
 /* Window text */
 "Tunnelblick could not create the sample configuration" = "Tunnelblick ne može da kreira primer konfiguracije";
@@ -1692,6 +1740,9 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick je potrebna autorizacija da postavi '%@' konfiguraciju kao deljenu.";
 
 /* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick zahteva dozvolu za čitanje podataka koji pripadaju drugim korisnicima ovog računara, a kako bi mogao da se završi proces izvoza svih Tunnelblick podataka.\n\nNapomena:\n1. Kredencijali koji su sačuvani u Keychain servicu NEĆE biti izveženi.\n2. Izvoz podataka može dugo da potraje.\n\n";
+
+/* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblicku je potrebna autorizacija da ukloni %ld konfiguracije.\n\n Uklanjanje konfiguracija je trajno i ne može biti opovrgnuto. Sva podešavanja vezana za konfiguraciju će takođe trajno biti uklonjena.";
 
 /* Window text */
@@ -1701,13 +1752,16 @@
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblicku je potrebna autorizacija da preimenuje '%1$@' konfiguraciju u '%2$@'.";
 
 /* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick zahteva autorizaciju kako bi mogao da obezbedi uvežene podatke.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick mora da promeni podešavanje za koje je poteban administratorski status.";
 
 /* Window text */
 "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick mora da konvertuje OpenVPN konfiguraciju u Tunnelblick VPN konfiguraciju.";
 
 /* Window text */
-"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick mora da kreira ili ažurira bezbednu kopiju konfiguracijskog fajla.";
+"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick mora da kreira ili ažurira bezbednu kopiju konfiguracionog fajla.";
 
 /* Window text */
 "Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick mora da izvrši akciju koja zahteva autorizaciju administratora.\n";
@@ -1794,10 +1848,10 @@
 "Unable to uninstall the '%@' configuration\n" = "Neuspešna deinstalacija '%@' konfiguracije\n";
 
 /* Window text */
-"Unable to write to configuration file for modification" = "Neuspešno pisanje po konfiguracionom fajlu";
+"Unable to write to configuration file for modification" = "Neuspešno pisanje po konfiguracionoj datoteci";
 
 /* Window text */
-"Unexpected disconnection:" = "Neočekivani prekid veze:";
+"Unexpected disconnection:" = "Neočekivani prekid konekcije:";
 
 /* Window text */
 "Unknown extension '%@' for %@" = "Nepoznata ekstenzija '%1$@' za %2$@";
@@ -1809,7 +1863,7 @@
 "Unknown value '%@' for '%@' in %@" = "Nepoznata vrednost '%1$@' za '%2$@' u %3$@";
 
 /* Window text */
-"Unreadable file at %@\n\nSee the Console log for details." = "Nečitljiv fajl na %@\n\nPogledajte log konzole za detalje.";
+"Unreadable file at %@\n\nSee the Console log for details." = "Nečitljiva datoteka na %@\n\nPogledajte log konzole za detalje.";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer 'Contents' u stub.tblk nije moguće kreirati\n";
@@ -1824,7 +1878,7 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Konfiguracija koju je moguće osvežiti %@ nije sačuvana kao takva jer Info.plist nije imao 'SUPublicDSAKey' unos ili njegov 'SUFeedURL' unos nije precizirao upotrebu https:\n";
 
 /* Window text */
-"Updates:" = "Nove verzije:";
+"Updates:" = "Ažuriranje:";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN konfiguracija %@ NEĆE biti instalirana jer ima niži broj verzije.";
@@ -1833,7 +1887,7 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN konfiguracija %@ NEĆE biti instalirana jer konfiguracija već postoji i ne treba je zameniti.";
 
 /* Window text */
-"VPN log level:" = "VPN nivo logiranja:";
+"VPN log level:" = "VPN nivo logovanja:";
 
 /* Window text */
 "VPN status windows:" = "VPN status prozor:";
@@ -1893,22 +1947,22 @@
 "You cannot rename a configuration which is set to start when the computer starts." = "Ne možete preimenovati konfiguraciju koja je podešena za pokretanje prilikom pokretanja sistema.";
 
 /* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Imate OpenVPN konfiguracije ali nemate ni jednu Tunnelblick VPN konfiguraciju.\n\nOpenVPN konfiguracije se moraju konvertovati u Tunnelblick VPN konfiguracije ako želite da ih koristite.\n\n";
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Postoje OpenVPN konfiguracije ali nijedna nije Tunnelblick VPN konfiguracija.\n\nOpenVPN konfiguracije se moraju konvertovati u Tunnelblick VPN konfiguracije ako želite da ih koristite.\n\n";
 
 /* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Imate OpenVPN konfiguracije ali nemate ni jednu Tunnelblick VPN konfiguraciju.\n\nOpenVPN konfiguracije se moraju konvertovati u Tunnelblick VPN konfiguracije ako želite da ih koristite.\n\nMeđutim, Tunnelblick ne uspeva da ih konvertuje jer postoji problem:\n\n%@";
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Postoje OpenVPN konfiguracije ali nijedna nije Tunnelblick VPN konfiguracija.\n\nOpenVPN konfiguracije se moraju konvertovati u Tunnelblick VPN konfiguracije ako želite da ih koristite.\n\nMeđutim, Tunnelblick ne uspeva da ih konvertuje jer postoji problem:\n\n%@";
 
 /* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Imate OpenVPN konfiguracije ali nemate ni jednu Tunnelblick VPN konfiguraciju.\n\nOpenVPN konfiguracije se moraju konvertovati u Tunnelblick VPN konfiguracije ako želite da ih koristite.\n\nMeđutim, Tunnelblick ne uspeva da ih konvertuje jer postoji problem:\n\n%@\n\nAko odaberete 'Zanemari' ove konfiguracije neće biti dostupne!\n\n";
+"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Postoje OpenVPN konfiguracije ali nijedna nije Tunnelblick VPN konfiguracija.\n\nOpenVPN konfiguracije se moraju konvertovati u Tunnelblick VPN konfiguracije ako želite da ih koristite.\n\nMeđutim, Tunnelblick ne uspeva da ih konvertuje jer postoji problem:\n\n%@\n\nAko odaberete 'Ignoriši' ove konfiguracije neće biti dostupne!\n\n";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Imate jednu ili više OpenVPN konfiguracija koje neće biti dostupne uz ovu verziju Tunnelblicka. Možete:\n\n  • Dozvoliti Tunnelblicku da ih konvertuje iz OpenVPN u Tunnelblick format ili\n  • Ugasite ovu i instalirate drugu verziju Tunnelblicka ili\n  • Zanemarite ovo i nastavite bez konvertovanja.\n\nAko odaberete 'Zanemari' ove konfiguracije neće biti dostupne!\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Imate jednu ili više OpenVPN konfiguracija koje neće biti dostupne uz ovu verziju Tunnelblicka. Možete:\n\n  • Dozvoliti Tunnelblicku da ih konvertuje iz OpenVPN u Tunnelblick format ili\n  • Ugasite ovu i instalirate drugu verziju Tunnelblicka ili\n  • Zanemarite ovo i nastavite bez konvertovanja.\n\nAko odaberete 'Ignoriši' ove konfiguracije neće biti dostupne!\n\n";
 
 /* Window text */
-"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Pokušali ste da instalirate konfiguraciju koja je primer. Konfiguracija mora biti izmenjena da bi se povezala na VPN. Takođe vam mogu biti potrebni i drugi fajlovi kao što su sertifikati ili ključevi da bi se povezali na VPN.\n\nKonsultujte vašeg mrežnog administratora ili dobavljača VPN usluga kako bi dobili konfigracijske i ostale fajlove ili informacije kako da izmenite primer konfiguracije.\n\nKonfiguracijski fajl se nalazi na\n%@\n\n";
+"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Pokušali ste da instalirate konfiguraciju koja je primer. Konfiguracija mora biti izmenjena da bi se povezala na VPN. Takođe vam mogu biti potrebni i drugi fajlovi kao što su sertifikati ili ključevi da bi se povezali na VPN.\n\nKonsultujte vašeg mrežnog administratora ili dobavljača VPN usluga kako bi dobili konfiguracione i ostale fajlove ili informacije kako da izmenite primer konfiguracije.\n\nKonfiguracioni fajl se nalazi na\n%@\n\n";
 
 /* Window text */
-"You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "Ne možete se povezati na ovu konfiguraciju.\n\nAko je konvertujete u 'Tunnelblick VPN konekciju'.(tblk), moći ćete se povezati.";
+"You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "Ne možete se povezati korišćenjem ove konfiguracije.\n\nAko je konvertujete u 'Tunnelblick VPN konekciju'.(tblk), moći ćete se povezati.";
 
 /* Window text */
 "You may not duplicate a Deployed configuration." = "Ne možete duplirati Primenjenu konfiguraciju.";
@@ -1926,10 +1980,10 @@
 "You may not remove a configuration which is set to start when the computer starts." = "Ne možete ukloniti konfiguraciju koja je podešena da se pokreće prilikom pokretanja računara.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Ažuriranje Tunnelblick nije moguće bez autorizacije administratora.\n\nDa li ste sigurni da želite da proverite ažuriranja?";
+"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Ažuriranje Tunnelblick nije moguće bez autorizacije administratora.\n\nDa li ste sigurni da želite da proverite dostupna ažuriranja?";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Vaš računar možda ne uspe da pouzdano prikaže Tunnelblick ikonicu blizu Spotlight ikonice.\n\nOvo može da dovede do povremenom NESTANKA Tunnelblick ikonice sa linije menija.\n\nDa li ste sigurni da želite da postavite Tunnelblick ikonicu blizu Spotlight ikonice?\n\n";
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Vaš računar možda neće uspeti da prikaže Tunnelblick ikonicu blizu Spotlight ikonice.\n\nOvo može da dovede do povremenog NESTANKA Tunnelblick ikonice sa linije menija.\n\nDa li ste sigurni da želite da postavite Tunnelblick ikonicu blizu Spotlight ikonice?\n\n";
 
 /* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Vaš sistemski sat možda nije ispravno podešen.\n\nNeke ili sve konfiguracije možda ne budu mogle da se povežu sve dok sistemski sat ne prikazuje tačan datum i vreme.\n\n";
@@ -1956,7 +2010,10 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nOBAVEŠTENJE: Jedna ili više konfiguracija je trenutno povezano. Biće prekinute, instalacije/izmene/deinstalacije će se izvršiti i nakon toga će se konfiguracije iznova povezati sem ukoliko nisu deinstalirane.\n\n";
 
 /* Window text */
-"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nOva greška znači da je opcija koju sadrži OpenVPN konfiguracioni fajl ili koja je \"gurnuta\" od strane OpenVPN servera:\n\n     • pogrešno napisana,\n\n     • ima nedostajuće argumente ili višak argumenata, ili\n\n     • nije implementirana u verziji OpenVPNa koju ova konfiguracija koristi. Može biti da je to nova opcija koja ne postoji u starijoj verziji OpenVPN-a ili stara opcija koja je uklonjena u novijoj verziji. Možete odabrati koju verziju OpenVPNa će se koristiti sa ovom konfiguracijom u \"Podešavanja\" tabu \"Konfiguracije\" panela Tunelblick-ovog \"VPN Detalji\" prozora.";
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nJedan ili više sertifikata koji su korišćeni za obezbeđivanje ove konfiguracije su istekli.\n\nZa više informacija proverite VPN log dostupan u \"Log\" tabu koji se nalazi u sekciji \"VPN detalji\" - \"Konfiguracije\".";
+
+/* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nOva greška znači da je opcija koju sadrži OpenVPN konfiguracioni fajl ili koja je \"prosleđena\" od strane OpenVPN servera:\n\n     • pogrešno napisana,\n\n     • ima nedostajuće argumente ili višak argumenata, ili\n\n     • nije implementirana u verziji OpenVPN-a koju ova konfiguracija koristi. Može biti da je to nova opcija koja ne postoji u starijoj verziji OpenVPN-a ili stara opcija koja je uklonjena u novijoj verziji. Možete odabrati koju verziju OpenVPN-a će se koristiti sa ovom konfiguracijom u \"Podešavanja\" tabu \"Konfiguracije\" panela Tunelblick-ovog \"VPN Detalji\" prozora.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ni instaliraj %ld Tunnelblick VPN konfiguracije";
@@ -1965,7 +2022,7 @@
 "\nusing %@ credentials." = "\nkoristeći %@ kredencijale.";
 
 /* Window text */
-"easy-rsa installation failed: %@" = "easy-rsa instalacija neuspešna: %@";
+"easy-rsa installation failed: %@" = "easy-rsa instalacija je neuspešna: %@";
 
 /* Window text */
 "targetPathToReplaceForDisplayName: %@ was found to replace the configuration with CFBundleIdentifer %@, but earlier, %@ was found to replace it." = "targetPathToReplaceForDisplayName: %1$@ je identifikovan da menja konfiguraciju sa CFBundleIdentifer %2$@, ali ranije, %3$@ je identifikovana da menja istu.";
@@ -1975,6 +2032,12 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " kopija";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • Opcija '%1$@' je označena kao zastarela u OpenVPN %2$@ i biće uklonjena u narednim verzijama\n\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • Opcija '%1$@' je označena kao zastarela u OpenVPN %2$@ i uklonjena je u OpenVPN %3$@\n\n";
 
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
@@ -1986,31 +2049,34 @@
 "'%@' was added in OpenVPN %@\n" = "'%1$@' je dodato u OpenVPN %2$@\n";
 
 /* Popup button menu item */
-"(Do not import)" = "(Ne uvozi)";
+"(Do not import)" = "(Nemoj uvesti)";
 
 /* Credit description */
 "64-bit enabling and testing" = "omogućavanje i testiranje 64-bit verzije";
 
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Ukoliko želite da uvezete Tunnelblick konfiguraciju na računaru koji poseduje više od %u korisnička naloga, prvo je potrebno da kreirate datoteku sa specifikacijom podataka koji treba da budu uveženi. </p>\n<p>Za više informacija posetite <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+
 /* HTML info for the 'OpenVPN version' button. */
-"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Precizira verziju OpenVPN-a i SSL softvera koje će se koristiti prilikom povezivanja na VPN.</strong><ul><li><strong>\"Podrazumevano\" podešavanje</strong> će koristiti podrazumevanu verziju OpenVPN-a sa OpenSSL-om koji su uključeni u ovu verziju Tunnelblicka. Podrazumevana verzija se može razlikovati između verzija Tunnelblicka. <br></li><li><strong>\"Najnovija\" podešavanje</strong> će koristiti najnoviju verziju OpenVPN-a sa LibreSSL-om koja je uključena u ovoj verziji Tunnelblicka. Najnovija verzija se može razlikovati između verzija Tunnelblicka.<br></li><li><strong>Bilo koje drugo podešavanje </strong> će koristiti odabranu verziju OpenVPN-a i SSL softvera ukoliko su dostupne u ovoj verziji Tunnelblicka. Ukoliko nisu, odabraće se najsličnija.<br></li></ul>";
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Precizira verziju OpenVPN-a i SSL softvera koji će se koristiti prilikom povezivanja na VPN.</strong><ul><li><strong>\"Podrazumevano\" podešavanje</strong> će koristiti podrazumevanu verziju OpenVPN-a sa OpenSSL-om koji su uključeni u ovu verziju Tunnelblick-a. Podrazumevana verzija se može razlikovati između verzija Tunnelblick-a. <br></li><li><strong>\"Najnovije\" podešavanje</strong> će koristiti najnoviju verziju OpenVPN-a sa LibreSSL-om koja je uključena u ovoj verziji Tunnelblick-a. Najnovija verzija se može razlikovati između verzija Tunnelblick-a.<br></li><li><strong>Bilo koje drugo podešavanje </strong> će koristiti odabranu verziju OpenVPN-a i SSL softvera ukoliko su dostupne u ovoj verziji Tunnelblicka. Ukoliko nisu, odabraće se najsličnije.<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Definišta šta (ako išta) Tunnelblick čini na promeni DNS podešavanja dok je VPN povezan.</strong> Mogućnosti su:<ul><li><strong>Ne podešava DNS servere</strong>: Ne čini ništa.<br></li><li><strong>Podešava DNS servere</strong>: Tunnelblick koristi svoje standardne skripte da upravlja DNS i WINS podešavanjima. Ovo je najčešće najbolja opcija. DNS i WINS podešavanja menjaju se u skladu sa instrukcijama koje dostavlja OpenVPN. Ručna podešavanja DNS i WINS servera neće biti menjana sem u slučaju da je uključena opcija \"Dozvoli promene ručnih podešavanja mreže\" u okviru \"Napredno\" prozora.<br></li><li><strong>Podešava DNS servere (3.1)</strong>: Tunnelblick koristi skripte iz Tunnelblick verzije 3.1 da upravlja DNS i WINS podešavanjima.<br></li><li><strong>Podešava DNS servere (3.0b10)</strong>: Tunnelblick koristi skripte iz Tunnelblick verzije 3.0b10 da upravlja DNS i WINS podešavanjima.<br></li><li><strong>Podešava DNS servere (alternativa 1)</strong>: Tunnelblick koristi alternativne skripte da upravlja DNS i WINS podešavanjima<br></li></ul>";
 
 /* HTML info for the 'On unexpected disconnect' button. */
-"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Definiše šta Tunnelblick čini ukoliko se VPN veza <em>neočekivano</em> prekine</strong> (na primer, ako OpenVPN pukne ili izgubi vezu do VPN-a i podešen je da stane sa radom u tom slučaju). Mogućnosti su:</p><ul><li><strong>Ne čini ništa</strong><br></li><li><strong>Ponovo pokreni primarni mrežni priključak</strong>: Tunnelblick iznova pokreće primarni mrežni priključak slanjem 'ipconfig down; ipconfig up' komandi priključku. Ovo može biti korisno kada konfiguracija ne uspeva da povrati mrežne parametre nakon prekida veze. <br></li><li><strong>Onemogući mrežni pristup (\"Kill Switch\")</strong>: Tunnelblick prekida sav mrežni saobraćaj (lokalni i internet) isključivanjem bežične mreže i onemogućavanjem svih mrežnih servisa. Ovo može osigurati da ništa sa računara ne procuri u mrežu mimo VPN-a. Ukoliko je Tunnelblick onemogućio mrežni pristup, komanda za omogućavanje pristupa će biti dostupna kroz Tunnelblick ikonicu u meni baru. Takođe bežičnu mrežu možete direktno omogućiti i omogućiti ostale mrežne servise kroz Sistemska podešavanja: Mreža. <strong>Ovo podešavanje možda ne radi dobro u slučaju da je više od jednog VPN-a povezano odjednom. </strong></li></ul>";
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Definiše šta će Tunnelblick da uradi ukoliko se VPN konekcija <em>neočekivano</em> prekine</strong> (na primer, ako OpenVPN pukne ili izgubi vezu do VPN-a i podešen je da stane sa radom u tom slučaju). Mogućnosti su:</p><ul><li><strong>Ne čini ništa</strong><br></li><li><strong>Ponovo pokreni primarni mrežni priključak</strong>: Tunnelblick iznova pokreće primarni mrežni priključak slanjem 'ipconfig down; ipconfig up' komandi priključku. Ovo može biti korisno kada konfiguracija ne uspeva da povrati mrežne parametre nakon prekida veze. <br></li><li><strong>Onemogući mrežni pristup (\"Kill Switch\")</strong>: Tunnelblick prekida sav mrežni saobraćaj (lokalni i internet) isključivanjem bežične mreže i onemogućavanjem svih mrežnih servisa. Ovo može osigurati da ništa sa računara ne procuri u mrežu mimo VPN-a. Ukoliko je Tunnelblick onemogućio mrežni pristup, komanda za omogućavanje pristupa će biti dostupna kroz Tunnelblick ikonicu u meni baru. Takođe bežičnu mrežu možete direktno omogućiti i omogućiti ostale mrežne servise kroz Sistemska podešavanja: Mreža. <strong>Ovo podešavanje možda ne radi dobro u slučaju da je više od jednog VPN-a povezano odjednom. </strong></li></ul>";
 
 /* HTML info for the 'On expected disconnect' button. */
-"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Definiše šta Tunnelblick čini ukoliko se VPN veza <em>očekivano</em> prekine</strong> (na primer, putem opcije \"Prekini vezu\"). Mogućnosti su:</p><ul><li><strong>Ne čini ništa</strong><br></li><li><strong>Ponovo pokreni primarni mrežni priključak</strong>: Tunnelblick iznova pokreće primarni mrežni priključak slanjem 'ipconfig down; ipconfig up' komandi priključku. Ovo može biti korisno kada konfiguracija ne uspeva da povrati mrežne parametre nakon prekida veze. <br></li><li><strong>Onemogući mrežni pristup (\"Kill Switch\")</strong>: Tunnelblick prekida sav mrežni saobraćaj (lokalni i internet) isključivanjem bežične mreže i onemogućavanjem svih mrežnih servisa. Ovo može osigurati da ništa sa računara ne procuri u mrežu mimo VPN-a. Ukoliko je Tunnelblick onemogućio mrežni pristup, komanda za omogućavanje pristupa će biti dostupna kroz Tunnelblick ikonicu u meni baru. Takođe bežičnu mrežu možete direktno omogućiti i omogućiti ostale mrežne servise kroz Sistemska podešavanja: Mreža. <strong>Ovo podešavanje možda ne radi dobro u slučaju da je više od jednog VPN-a povezano odjednom. </strong></li></ul>";
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Definiše šta će Tunnelblick da uradi ukoliko se VPN veza <em>očekivano</em> prekine</strong> (na primer, putem opcije \"Prekini vezu\"). Mogućnosti su:</p><ul><li><strong>Ne čini ništa</strong><br></li><li><strong>Ponovo pokreni primarni mrežni priključak</strong>: Tunnelblick iznova pokreće primarni mrežni priključak slanjem 'ipconfig down; ipconfig up' komandi priključku. Ovo može biti korisno kada konfiguracija ne uspeva da povrati mrežne parametre nakon prekida veze. <br></li><li><strong>Onemogući mrežni pristup (\"Kill Switch\")</strong>: Tunnelblick prekida sav mrežni saobraćaj (lokalni i internet) isključivanjem bežične mreže i onemogućavanjem svih mrežnih servisa. Ovo može osigurati da ništa sa računara ne procuri u mrežu mimo VPN-a. Ukoliko je Tunnelblick onemogućio mrežni pristup, komanda za omogućavanje pristupa će biti dostupna kroz Tunnelblick ikonicu u meni baru. Takođe bežičnu mrežu možete direktno omogućiti i omogućiti ostale mrežne servise kroz Sistemska podešavanja: Mreža. <strong>Ovo podešavanje možda ne radi dobro u slučaju da je više od jednog VPN-a povezano odjednom. </strong></li></ul>";
 
 /* HTML info for the 'Connect' button. */
-"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Definiše kada se Tunnelblick treba povezati na VPN.</strong></p><p>\"Prilikom pokretanja računara\" se može koristiti samo uz \"Deljene\" konfiguracije.</p>";
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Definiše kada će se Tunnelblick povezati na VPN.</strong></p><p>\"Prilikom pokretanja računara\" se može koristiti samo uz \"Deljene\" konfiguracije.</p>";
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Ako je čekirano</strong>, IPv6 će biti onemogućen.</p>\n<p>Onemogućavanje IPv6 je često preporučeno jer mnoge VPN konfiguracije ne štite od curenja informacija usled korišćenja IPv6. Većina internet pristupa radi bez problema i bez IPv6.</p>\n<p><strong>Ako nije čekirano</strong>, IPv6 neće biti onemogućen.</p>\n<p><strong>Ova opcija je zasivljena</strong> kada se koristi 'tap' veza jer se ne može forsisari na 'tap' vezi.</p>";
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Ako je označeno</strong>, IPv6 će biti onemogućen.</p>\n<p>Onemogućavanje IPv6 je često preporučeno jer mnoge VPN konfiguracije ne štite od curenja informacija usled korišćenja IPv6. Većina internet pristupa radi bez problema i bez IPv6.</p>\n<p><strong>Ako nije označeno</strong>, IPv6 neće biti onemogućen.</p>\n<p><strong>Ova opcija je zasivljena</strong> kada se koristi 'tap' veza jer se ne može forsisari na 'tap' vezi.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Ako je čekirano</strong>, IPv6 će biti omogućen.</p>\n<p><strong>Ako nije čekirano</strong>, IPv6 neće biti omogućen.</p>\n<p>Onemogućavanje IPv6 je često preporučeno jer mnoge VPN konfiguracije ne štite od curenja informacija usled korišćenja IPv6. Većina internet pristupa radi bez problema i bez IPv6.</p>\n<p><strong>Ova opcija je zasivljena</strong> za Tun konfiguracije.</p>";
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Ako je označeno</strong>, IPv6 će biti omogućen.</p>\n<p><strong>Ako nije označeno</strong>, IPv6 neće biti omogućen.</p>\n<p>Onemogućavanje IPv6 je često preporučeno jer mnoge VPN konfiguracije ne štite od curenja informacija usled korišćenja IPv6. Većina internet pristupa radi bez problema i bez IPv6.</p>\n<p><strong>Ova opcija je zasivljena</strong> za Tun konfiguracije.</p>";
 
 /* HTML info for the 'Set DNS after routes are set' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Kada je čekirano</strong>, OpenVPN će izmeniti DNS i druga podešavanja nakon što podesi rutiranje za VPN umesto pre nego podesi rutiranje.</p>\n<p><strong>Kada nije čekirano</strong>, OpenVPN će izmeniti DNS i druga podešavanja pre nego podesi rutiranje za VPN umesto nakon što podesi rutiranje. Ovo može dovesti do neuspešnih ili sporih DNS razlučenja ukoliko je rutama potrebno dugo vremena da se podese -- npr, ima mnogo ruta za podešavanje.</p>\n";
@@ -2070,19 +2136,19 @@
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Kada je uključeno</strong>, VPN statusni prozor je prikazan čak i kad je veza prekinuta.</p><p><strong>Ova opcija je onemogućena</strong> kada je \"Nikad ne prikazuj\" odabrano iznad.</p>";
 
 /* HTML info for the 'Disconnect when user switches out' checkbox. */
-"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>Ako je čekirano</strong>, VPN će prekinuti vezu ako dođe do promene korisnika.</p>\n<p><strong>Ako nije čekirano</strong>, VPN neće prekinuti vezu ako dođe do promene korisnika.</p>";
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>Ako je označeno</strong>, VPN će prekinuti vezu ako dođe do promene korisnika.</p>\n<p><strong>Ako nije označeno</strong>, VPN neće prekinuti vezu ako dođe do promene korisnika.</p>";
 
 /* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
-"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>Ako je čekirano</strong>, VPN će prekinuti vezu kada računar ode u hibernaciju.</p>\n<p><strong>Ako nije čekirano</strong>, VPN neće prekinuti vezu kada računar ode u hibernaciju.</p>";
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>Ako je označeno</strong>, VPN će prekinuti vezu kada računar ode u hibernaciju.</p>\n<p><strong>Ako nije označeno</strong>, VPN neće prekinuti vezu kada računar ode u hibernaciju.</p>";
 
 /* HTML info for the 'Reconnect when user switches in' checkbox. */
-"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>Ako je čekirano</strong>, VPN će se ponovo povezati kada se vrati na starog korisnika ako je bio prekinut kada je došlo do promene korisnika.</p>\n<p><strong>Ako nije čekirano</strong>, VPN neće ponovo pokrenuti vezu kad se vrati na starog korisnika.</p>";
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>Ako je označeno</strong>, VPN će se ponovo povezati kada se vrati na starog korisnika ako je bio prekinut kada je došlo do promene korisnika.</p>\n<p><strong>Ako nije označeno</strong>, VPN neće ponovo pokrenuti vezu kad se vrati na starog korisnika.</p>";
 
 /* HTML info for the 'Reconnect when computer wakes up' checkbox. */
-"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>Ako je čekirano</strong>, VPN će ponovo uspostaviti vezu kada se računar probudi iz hibernacije</p>\n<p><strong>Ako nije čekirano</strong>, VPN neće ponovo uspostaviti vezu kada se računar probudi iz hibernacije.</p>";
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>Ako je označeno</strong>, VPN će ponovo uspostaviti vezu kada se računar probudi iz hibernacije</p>\n<p><strong>Ako nije označeno</strong>, VPN neće ponovo uspostaviti vezu kada se računar probudi iz hibernacije.</p>";
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
-"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Ako je čekirano</strong>, domen specificiran u VPN-u će biti dodat na početak liste domena za pretragu.</p>\n<p><strong>Ako nije čekirano</strong>, lista domena za pretragu će biti zamenjena domenom specificiranom u VPN-u.</p>";
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Ako je označeno</strong>, domen specificiran u VPN-u će biti dodat na početak liste domena za pretragu.</p>\n<p><strong>Ako nije označeno</strong>, lista domena za pretragu će biti zamenjena domenom specificiranom u VPN-u.</p>";
 
 /* HTML info for the 'Display connection timers' checkbox. */
 "<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Kada je uključeno</strong>, vreme trajanja konekcije je prikazano u Tunnelblick meniju i u naslvu VPN Detalji prozora.</p>";
@@ -2094,25 +2160,37 @@
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>'tun' drajver je neophodan za Tun konekcije. Najčešće se koristi sistemski Tun drajver, ali i Tunnelblick poseduje sopstveni Tun drajver. Ako ste instalirali drugi Tun drajver, Tunnelblick možda neće biti u mogućnosti da učita svoj drajver.</p>\n<p>OpenVPN će koristiti sistemski drajver sem ukoliko OpenVPN konfiguracija ne sadrži 'dev-type tun' opciju.</p>\n<p>Možete odabrati da li i kada će Tunnelblick učitavati svoj drajver:</p>\n<p><strong>Učitaj Tun drajver automatski</strong>: Tunnelblick učitava svoj drajver po potrebi i uklanja ga kada više nije potreban. (Tunnelblick će učititati svoj drajver samo ako OpenVPN konfiguracija sadrži 'dev-type tun' opciju.)</p>\n<p><strong>Uvek učitaj Tun drajver</strong>: Tunnelblick učitava svoj drajver kada se povezuje ova konfiguracija i uklanja kada više nije potreban.</p>\n<p><strong>Nikad ne učitavaj Tun drajver</strong>: Tunnelblick nikad ne učitava svoj drajver.</p>\n<p><strong>Opcija je onemogućena</strong> za Tap konfiguracije.</p>";
 
 /* HTML info for the 'Check Now' button. */
-"<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Proverava za nove verzije Tunnelblick programa.</p><p>Pristupa Tunnelblick veb sajtu; za više detalja pogledajte <a href=\"https://tunnelblick.net/cPrivacy.html\">Privatnost i bezbednost</a> [tunnelblick.net].</p><p>Takođe provereva za osveženja konfiguracija ukoliko vaš VPN servis omogućava tu opciju.</p>";
+"<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Proverava postojanje novije verzije Tunnelblick programa.</p><p>Pristupa Tunnelblick veb sajtu; za više detalja pogledajte <a href=\"https://tunnelblick.net/cPrivacy.html\">Privatnost i bezbednost</a> [tunnelblick.net].</p><p>Takođe provereva za osveženja konfiguracija ukoliko vaš VPN servis omogućava tu opciju.</p>";
+
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Vrši kopiranje informacija u Clipboard zarad dijagnostike problema.</p><p>Informacije ukuljučuju verziju softvera i konfiguraciju, OpenVPN konfiguracioni fajl, podešavanja mreže i drugo.</p><p>Poverljive informacije o sertifikactu neće biti uključene, ali podaci poput IP adrese i adrese koje <em>mogu</em> biti od poverljive prirode će biti uključene. Pre nego što pošaljete e-mail ili omogućite javni pristup, potrebno je da izvršite proveru kopiranih informacija i uklonite ono što ne želite da podelite.</p>";
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
-"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Kopira poslednji deo loga konzole u klipbord kako bi mogao biti nalepljen u mejl ili drugi dokument.</p><p>Log sadrži detalje u vezi rada Tunnelblicka i OpenVPN-a. Sadrži obične statusne poruke kao i detaljne poruke o greškama koje su predugačke da bi se korisniku prikazale u normalnom prozoru.</p>";
+"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Kopira poslednji deo loga konzole u klipbord kako bi mogao biti prebačen u mejl ili drugi dokument.</p><p>Log sadrži detalje u vezi rada Tunnelblick-a i OpenVPN-a. Sadrži obične statusne poruke kao i detaljne poruke o greškama koje su predugačke da bi se korisniku prikazale u normalnom prozoru.</p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Vrši izvoz Tunnelblick podešavanja u vidu kompresovane datoteke na vašem Desktop-u, i uključuje sve konfiguracije i podešavanja za sve korisnike ovog računara.</p><ul><li>Kredencijali koji se nalaze u Keychain servisu <strong>neće</strong> biti izveženi.</li><li>Izvoz podataka može dugo da potraje.</li></ul>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Otvara veb-pregledač koji sadrži informacije na Tunnelblickovom sajtu oko deinstalacije Tunnelblicka.</p>";
+"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Otvara veb-pregledač koji sadrži informacije na Tunnelblick-ovom sajtu oko deinstalacije Tunnelblick-a.</p>";
 
 /* HTML info for the 'Advanced...' button. */
-"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Otvara prozor sa dodatnih podešavanjima.</p><p>Bilo koje promene će se primeniti na sve konfiguracije koje su odabrane u \"VPN Detalji\" prozoru.</p>";
+"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Otvara prozor sa dodatnim podešavanjima.</p><p>Bilo koje promene će se primeniti na sve konfiguracije koje su odabrane u \"VPN Detalji\" prozoru.</p>";
+
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Prekida sve OpenVPN procese, uključujući i one koji nisu startovani od strane Tunnelblick-a. Za prekid konekcija koje su ostvarene putem Tunnelblick-a koristite 'Disconnect' ili 'Disconnect All' dugme.</p><p>Klikom na ovo dugme šalje se 'SIGTERM' signal svim procesima sa nazivom 'openvpn', što će dovesti do toga da OpenVPN prekine sve konekcije i prekine sa radom. Ukoliko se to ne dogodi, pokrenite Activity Monitor macOS aplikaciju kako biste ugasili proces korišćenjem opcije 'Force Quit'.</p>";
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Vraća upozorenja koja su bila ukinuta \"Ne upozoravaj me o ovome opet\" opcijom.</p>";
 
 /* HTML info for the 'VPN log level' button. */
-"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Definiše detaljnost logovanja Tunnelblicka i OpenVPNa.</p>";
+"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Definiše detaljnost logovanja Tunnelblick-a i OpenVPN-a.</p>";
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Definiše ikonicu koji će Tunnelblick prikazivati u status baru.</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Definiše kombinaciju tastera koju treba da pritisnete za pozivanje glavnog menija Tunnelblick-a.</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Definiše maksimalni prostor koji će se koristiti za prikaz VPN logova.</p>";
@@ -2124,13 +2202,16 @@
 "<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>Definiše kada bi Tunnelblick trebalo da prikaže VPN statusni prozor.</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
-"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS kešira kopije DNS (Domain Name System) informacija.</p>\n<p><strong>Kada je čekirano</strong>, DNS keš će biti obrisan nakon povezivanja i prekida veze. Svi DNS upiti će biti izvršeni od strane nameservera naznačenih u VPN podešavanju.</p>\n<p><strong>Kada nije čekirano</strong>, DNS keš neće biti brisan. Ovo može dovesti do problema ako postoji konflikti u imenima između nameservera naznačenih u okviru VPN-a i pređašnjih a ako su pre-VPN vredosti keširane. </p>";
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS kešira kopije DNS (Domain Name System) informacija.</p>\n<p><strong>Kada je označeno</strong>, DNS keš će biti obrisan nakon povezivanja i prekida veze. Svi DNS upiti će biti izvršeni od strane nameservera naznačenih u VPN podešavanju.</p>\n<p><strong>Kada nije označeno</strong>, DNS keš neće biti brisan. Ovo može dovesti do problema ako postoji konflikti u imenima između nameservera naznačenih u okviru VPN-a i pređašnjih a ako su pre-VPN vredosti keširane. </p>";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick uključuje prilagođenu verziju 'easy-rsa', koji predstavlja set skripti napisanih od strane OpenVPN programera i služi za kreiranje i održavanje sertifikata i ključeva.</p><p>Klikom na ovo dugme pokrenuće se macOS Terminal aplikacija sa radnim direktorijumom koji će biti ekvivalentant onom u kojem se nalaze skripte.</p><p>Ove skripte se uobičajeno nalaze na putanji ~/Library/Application Support/Tunnelblick/easy-rsa. 'easy-rsaPath' može sadržati putanju ka direktorijumu koji će Tunnelblick da koristi umesto predefinisane putanje. 'easy-rsaPath' mora biti apsolutna putanja ili da počinje sa '~', a naddirektorijum mora postojati. Ukoliko direktorijum na putanji već postoji, biće iskorišćen, u protivnom biće napravljen i easy-rsa skripte će biti iskopiranje u njega prilikom pokretanja Tunnelblick-a.</p><p>Za više informacija o korišćenju easy-rsa, posetite <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Podešavanje vašeg Certificate Authority (CA) i generisanje sertifikata i ključeva za OpenVPN server i više klijenata</a> [openvpn.net].</p><p>Za detalje o izmenama easy-rsa od strane Tunnelblick programera, pročitajte README koji se nalazi u samom direktorijumu.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick nije mogao da učita sistemsku ekstenziju potrebnu za povezivanje sa %1$@.</p><p>%2$@Više informacija%3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "Admin režim još %@";
+"Admin mode %@ remaining" = "Admin režim traje još %@";
 
 /* Credit description */
 "Afrikaans translation" = "Afrikans prevod";
@@ -2160,10 +2241,10 @@
 "Catalan translation" = "Katalanski prevod";
 
 /* Checkbox text */
-"Check for IP address changes" = "Proverite izmene IP adrese";
+"Check for IP address changes" = "Proveri promenu IP adrese";
 
 /* Checkbox text */
-"Check for updates" = "Proveri ažuriranja";
+"Check for updates" = "Proveri postojanje novije verzije";
 
 /* Credit description */
 "Chinese (simplified) translation" = "Kineski (pojednostavljeni) prevod";
@@ -2199,7 +2280,13 @@
 "Do not show this again" = "Ne prikazuj ovo opet";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Ne upozoravaj me ponovo o ovome, nikad ne omogući iznova";
+"Do not warn about this again;\nalways re-enable when connecting" = "Nemoj me više upozoravati na ovo;\nUvek uključi prilikom konektovanja";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Ne upozoravaj me više o ovome;\nUvek uključi prilikom starta Tunnelblick-a";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Ne upozoravaj me više o ovome;\nNemoj uključiti prilikom starta Tunnelblick-a";
 
 /* Credit description */
 "Dutch translation" = "Holandski prevod";
@@ -2257,7 +2344,7 @@
 "LANGUAGE_TRANSLATION" = "Srpski (latinica)";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Dušan Marjanović";
+"LEAD_TRANSLATORS" = "Dušan Marjanović i Igor Hrček";
 
 /* Credit description */
 "Latvian translation" = "Letonski prevod";
@@ -2266,7 +2353,7 @@
 "Localization code tweaks" = "Dorade lokalizacijskog koda";
 
 /* Credit description */
-"Multiple configuration folders" = "Više konfiguracijskih foldera";
+"Multiple configuration folders" = "Više konfiguracionih direktorijuma";
 
 /* Credit description */
 "Norwegian translation" = "Norveški prevod";
@@ -2278,7 +2365,7 @@
 "PKCS#11 support" = "Podrška za PKCS#11";
 
 /* Credit description */
-"Persian translation" = "Persijski jezik";
+"Persian translation" = "Persijski prevod";
 
 /* Credit description */
 "Polish translation" = "Poljski prevod";
@@ -2311,7 +2398,7 @@
 "Swedish translation" = "Švedski prevod";
 
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
-"Tunnelblick Setup %@" = "Tunnelblick Podešavanja %@";
+"Tunnelblick Setup %@" = "Tunnelblick podešavanja %@";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick ikonica";
@@ -2326,7 +2413,7 @@
 "Ukrainian translation" = "Ukrajinski prevod";
 
 /* Credit description */
-"Up and Down scripts" = "Skripte za uspostavljanje i prekid veze";
+"Up and Down scripts" = "Skripte za uspostavljanje i prekid konekcije";
 
 /* Notification text */
 "Updated to %@." = "Ažurirano na %@.";
@@ -2350,7 +2437,7 @@
 "Create a Free Account" = "Napravi besplatan nalog";
 
 /* Button VPNService */
-"Get Different Image" = "Dopremi drugi imidž";
+"Get Different Image" = "Preuzmi drugu sliku";
 
 /* Button VPNService *//* Window title VPNService */
 "Login" = "Prijava";
@@ -2365,7 +2452,7 @@
 "Register for Tunnelblick..." = "Registruj se za Tunnelblick…";
 
 /* Window title  VPNService */
-"Cannot obtain image" = "Neuspešno dobavljanje imidža";
+"Cannot obtain image" = "Neuspešno dobavljanje slike";
 
 /* Window title  VPNService */
 "Cannot register" = "Neuspešna registracija";
@@ -2383,7 +2470,7 @@
 "No configuration available" = "Nema dostupne konfiguracije";
 
 /* Window title  VPNService */
-"Password entries must match" = "Unosi lozinki moraju da se poklapaju";
+"Password entries must match" = "Unete lozinke moraju se poklapati";
 
 /* Window title  VPNService */
 "Prove You are Human" = "Dokaži da nisi robot";
@@ -2404,19 +2491,19 @@
 "Welcome!" = "Dobrodošli!";
 
 /* Window title  VPNService */
-"You Must Type the Characters" = "Morate uneti znake";
+"You Must Type the Characters" = "Morate uneti karaktere";
 
 /* Window text VPNService */
 "Confirm password:" = "Potvrdi lozinku:";
 
 /* Window text VPNService */
-"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Čestitamo! Vaš nalog je napravljen. Trebalo bi da dobijete e-mail od Tunnelblicka uskoro. Pratite uputstva iz e-maila da potvrdite vašu e-mail adresu i zatim kliknite 'Sledeće'.";
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Čestitamo! Vaš nalog je napravljen. Uskoro ćete dobiti e-mail od strane Tunnelblick-a. Pratite uputstva kako bi potvrdili vašu e-mail adresu i zatim kliknite 'Sledeće'.";
 
 /* Window text VPNService */
 "Could not check registration" = "Neuspešna provera registracije";
 
 /* Window text VPNService */
-"Could not get a captcha image" = "Neuspešno dopremanje captcha slike";
+"Could not get a captcha image" = "Neuspešno dopremanje CAPTCHA slike";
 
 /* Window text VPNService */
 "Could not get a session token" = "Neuspešno dopremanje sesijskog tokena";
@@ -2437,13 +2524,13 @@
 "Please read our Terms of Service and indicate your acceptance or rejection of them." = "Molim vas pročitajte naše uslove korišćenja i naznačite da li ih prihvatate ili odbijate.";
 
 /* Window text VPNService */
-"Please type the characters in the image and click next." = "Molim unesite znakove sa slike i kliknite Dalje.";
+"Please type the characters in the image and click next." = "Molim unesite karaktere sa slike i kliknite Dalje.";
 
 /* Window text VPNService */
-"Session token requires encoding" = "Token sesije zahteva šifrovanje";
+"Session token requires encoding" = "Token sesije zahteva enkodiranje";
 
 /* Window text VPNService */
-"Session token too long" = "Token sesije je predug";
+"Session token too long" = "Token sesije je predugačak";
 
 /* Window text VPNService */
 "Sorry, but your request for an account could not be processed:\n     %@" = "Oprosite, ali vaš zahtev za nalog ne može biti procesiran:\n     %@";
@@ -2461,22 +2548,22 @@
 "The email address you entered was not a valid email address." = "E-mail adresa koju ste uneli nije ispravna.";
 
 /* Window text VPNService */
-"The password entries must match to proceed." = "Unosi lozinke moraju da se poklope za nastavak.";
+"The password entries must match to proceed." = "Unete lozinke moraju biti iste za nastavak.";
 
 /* Window text VPNService */
-"The text you entered did not match the text in the Captcha image." = "Tekst koji ste uneli ne odgovara onom na captcha slici.";
+"The text you entered did not match the text in the Captcha image." = "Tekst koji ste uneli ne odgovara onom na CAPTCHA slici.";
 
 /* Window text VPNService */
-"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Nema konfiguracije sa imenom '%@' među instaliranim.\n\nProbajte da reinstalirate Tunnelblick iznova.";
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Konfiguracija '%@' ne postoji među instaliranim.\n\nProbajte da ponovo reinstalirate Tunnelblick.";
 
 /* Window text VPNService */
-"To create your free Tunnelblick account we need your email address and a password of your choosing." = "Da bi kreirali vaš besplatan Tunnelblick nalog potrebna nam je vaša e-mail adresa i lozinka koju odaberete.";
+"To create your free Tunnelblick account we need your email address and a password of your choosing." = "Da bi ste kreirali vaš besplatan Tunnelblick nalog potrebni su nam vaša e-mail adresa i lozinka.";
 
 /* Window text VPNService */
 "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick vam omogućava da slobodno krstarite internetom bez ograničenja dok vam istovremeno obezbeđuje internet vezu.";
 
 /* Window text VPNService */
-"Type the characters above:" = "Unesite iznad naznačene znakove:";
+"Type the characters above:" = "Unesite iznad naznačene karaktere:";
 
 /* Window text VPNService */
 "Unable to check account status:\n     %@" = "Neuspešna provera statusa naloga:\n     %@";
@@ -2488,19 +2575,19 @@
 "Unable to connect to server" = "Neuspešno povezivanje na server";
 
 /* Window text VPNService */
-"You have already registered but not yet confirmed your email address." = "Već si se registrovao ali nisi potvrdio svoju e-mail adresu.";
+"You have already registered but not yet confirmed your email address." = "Ve' ste registrovali nalog, ali niste potvrdili e-mail adresu.";
 
 /* Window text VPNService */
-"You have already registered." = "Već si registrovan.";
+"You have already registered." = "Već ste registrovani.";
 
 /* Window text VPNService */
-"You must enter an email address and password to login." = "Moraš uneti e-mail adresu i lozinku za logovanje.";
+"You must enter an email address and password to login." = "Morate uneti e-mail adresu i lozinku za logovanje.";
 
 /* Window text VPNService */
-"You must enter an email address, password, and password confirmation to proceed." = "Moraš uneti e-mail adresu, lozinku i potvrdu lozinke da bi nastavio.";
+"You must enter an email address, password, and password confirmation to proceed." = "Morate uneti e-mail adresu, lozinku i potvrdu lozinke da bi nastavio.";
 
 /* Window text VPNService */
-"You must type the characters in the image to proceed." = "Moraš uneti znakove sa slike da bi nastavio.";
+"You must type the characters in the image to proceed." = "Morate uneti karaktere sa slike da bi nastavili dalje.";
 
 /* Window text VPNService */
-"Your account status could not be verified:\n     %@." = "Tvoj nalog ne može biti verifikovan:\n     %@.";
+"Your account status could not be verified:\n     %@." = "Vaš nalog ne može biti verifikovan:\n     %@.";

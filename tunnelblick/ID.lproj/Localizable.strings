@@ -1317,9 +1317,6 @@
 "No 'TBPackageVersion' in %@" = "Tidak ada 'TBPackageVersion' dalam %@";
 
 /* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Tidak tersedia koneksi jaringan.\n\nHarap nyalakan Wi-Fi dan menyambung ke suatu jaringan nirkabel, tancapkan kabel Ethernet, atau menyambung ke jaringan dengan suatu cara.\n\nLihat panel Jaringan dalam Preferensi Sistem macOS untuk informasi lebih lanjut.";
-
-/* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Tidak ada path ke easy-rsa. Penyebab paling mungkin adalah masalah dengan preferensi 'easy-rsaPath'";
 
 /* Window text */
@@ -2278,9 +2275,6 @@
 
 /* Checkbox */
 "Do not show this again" = "Jangan tampilkan ini lagi";
-
-/* Checkbox text */
-"Do not warn about this again, never re-enable" = "Jangan peringatkan tentang ini lagi, jangan pernah fungsikan ulang";
 
 /* Credit description */
 "Dutch translation" = "Terjemahan bahasa Belanda";

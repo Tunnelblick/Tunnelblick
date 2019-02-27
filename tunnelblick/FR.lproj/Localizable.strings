@@ -522,6 +522,9 @@
 "GET_CONFIG" = "Obtention de la configuration"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Attente du réseau";
+
+/* Connection status */
 "PASSWORD_WAIT" = "Attente du mot de passe"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -942,7 +945,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Ajouté l'extension '.sh' à %@ pour qu'il soit sécurisé correctement";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Ajouté l'extension '.unknown' à %@ pour qu'il soit sécurisé correctement";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "L'extension '.unknown' a été ajoutée à %@ pour qu'il soit correctement sécurisé";
 
 /* Window text */
 "Additional contributions by" = "Avec de contributions supplémentaires de";
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Pas de 'TBPackageVersion' dans %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Aucune connexion réseau disponible. \n\nVeuillez activer le Wi-Fi et vous connecter à un réseau sans fil, ou brancher un cable Ethernet, ou vous connecter à un réseau d'une manière quelconque. \n\nVous pouvez consulter la catégorie «&nbsp; Réseau@nbsp;» dans les préférences système de macOS pour plus d'information.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Pas de chemin vers easy-rsa. Il s’agit probablement d’un problème avec la préférence 'easy-rsaPath'";
@@ -2280,7 +2280,13 @@
 "Do not show this again" = "Ne plus afficher";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Ne plus avertir pour ceci, ne jamais réactiver l'avertissement";
+"Do not warn about this again;\nalways re-enable when connecting" = "Ne vous occupez plus de ça à nouveau;\ntoujours réactiver à la connexion";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Ne vous occupez plus de ça à nouveau;\ntoujours réactiver à la fermeture de Tunnelblick";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Ne vous occupez plus de ça à nouveau;\njamais réactiver à l'ouverture de Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "Traduction néerlandaise";

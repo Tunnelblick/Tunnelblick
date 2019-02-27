@@ -1317,9 +1317,6 @@
 "No 'TBPackageVersion' in %@" = "Няма 'TBPackageVersion' в %@";
 
 /* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Няма връзка с мрежата.\n\nВключете Wi-Fi и се свържете с безжична мрежа, включете мрежови кабел, или се свържете с мрежа по друг начин.\n\nВижте мрежовите настройки на macOS в Системните настройки за повече информация.";
-
-/* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Няма път до easy-rsa. Най-вероятната причина е проблем с 'easy-rsaPath' свойството";
 
 /* Window text */
@@ -2280,7 +2277,13 @@
 "Do not show this again" = "Не показвай повече това";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Не предупреждавай за това отново, никога не активирай отново";
+"Do not warn about this again;\nalways re-enable when connecting" = "Не предупреждавай повече;\nвинаги включвай при свързване";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Не предупреждавай повече;\nвинаги включвай при спиране на Tunnelblick";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Не предупреждавай повече;\nникога не включвай при стартиране на Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "Холандска локализация";

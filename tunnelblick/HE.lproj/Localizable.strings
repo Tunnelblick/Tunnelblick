@@ -44,10 +44,10 @@
 "All Users" = "כל המשתמשים";
 
 /* Button */
-"Always load Tap driver" = "טען TAP תמיד";
+"Always load Tap driver" = "טען מנהל התקן Tap תמיד";
 
 /* Button */
-"Always load Tun driver" = "טען TUN תמיד";
+"Always load Tun driver" = "טען מנהל התקן Tun תמיד";
 
 /* Button */
 "Always use the plugin" = "השתמש תמיד בתוסף";
@@ -89,7 +89,7 @@
 "Delete Credentials" = "מחק פרטי הזדהות";
 
 /* Button */
-"Delete saved passphrase and try again" = "מחק משפט סיסמא שמור ונסה שנית";
+"Delete saved passphrase and try again" = "מחק ביטוי סיסמא שמורה ונסה שנית";
 
 /* Button */
 "Delete saved password and try again" = "מחק סיסמא שמורה ונסה שנית";
@@ -110,10 +110,13 @@
 "Do not use the plugin" = "אל תשתמש בתוסף";
 
 /* Button */
-"Do nothing" = "אל תעשה דבר";
+"Do nothing" = "אל תעשה כלום";
 
 /* Button */
 "Download" = "הורד";
+
+/* Button */
+"Export Tunnelblick Setup" = "ייצוא הגדרות Tunnelblick";
 
 /* Button */
 "Help" = "עזרה";
@@ -134,10 +137,10 @@
 "Latest (%@)" = "האחרון (%@)";
 
 /* Button */
-"Load Tap driver automatically" = "טען TAP אוטומטית";
+"Load Tap driver automatically" = "טען מנהל התקן Tap אוטומטית";
 
 /* Button */
-"Load Tun driver automatically" = "טען TUN אוטומטית";
+"Load Tun driver automatically" = "טען מנהל התקן Tun אוטומטית";
 
 /* Button */
 "Manually" = "באופן ידני";
@@ -152,13 +155,13 @@
 "More Info" = "מידע נוסף";
 
 /* Button */
-"Never load Tap driver" = "אל תטען TAP";
+"Never load Tap driver" = "אל תטען מנהל התקן Tap";
 
 /* Button */
-"Never load Tun driver" = "אל תטען TUN";
+"Never load Tun driver" = "אל תטען מנהל התקן Tun";
 
 /* Button */
-"Never show" = "אל תציג";
+"Never show" = "לעולם אל תציג";
 
 /* Button */
 "No keyboard shortcut" = "ללא קיצורי מקלדת";
@@ -179,10 +182,10 @@
 "Open easy-rsa in Terminal" = "פתח את easy-rsa במסוף";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "מקם את האיקון ליד Spotlight";
+"Place Icon Near the Spotlight Icon" = "מקם את הסמל ליד Spotlight";
 
 /* Button */
-"Place Icon Normally" = "מקם את האייקון כרגיל";
+"Place Icon Normally" = "מקם את הסמל כרגיל";
 
 /* Button */
 "Quit All OpenVPN Processes" = "צא מכל תהליכי OpenVPN";
@@ -243,7 +246,7 @@
 "Show while connecting and connected" = "הצג בזמן ההתחברות וכשמחובר";
 
 /* Button */
-"Show while connecting" = "הצג בזמן החיבור";
+"Show while connecting" = "הצג בזמן ההתחברות";
 
 /* Button */
 "Skip" = "דלג";
@@ -261,22 +264,22 @@
 "Terminate" = "סיים";
 
 /* Button */
-"This configuration has its own separate credentials" = "לתצורה הזאת יש פרטי משתמש נפרדים";
+"This configuration has its own separate credentials" = "לתצורה הזאת יש פרטי הזדהות נפרדים";
 
 /* Button */
-"This configuration uses %@ credentials" = "התצורה הזאת משתמשת בפרטי משתמש %@";
+"This configuration uses %@ credentials" = "התצורה הזאת משתמשת בפרטי הזדהות %@";
 
 /* Button */
 "Try again with saved passphrase" = "נסה שוב עם סיסמא שמורה";
 
 /* Button */
-"Try again with saved username and password" = "נסה שוב עם פרטי משתמש שמורים";
+"Try again with saved username and password" = "נסה שוב עם פרטי הזדהות שמורים";
 
 /* Button */
 "Try again" = "נסה שוב";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "איקון של Tunnelblick 3.3";
+"Tunnelblick 3.3 icon" = "אייקון של Tunnelblick 3.3";
 
 /* Button */
 "When Tunnelblick launches" = "כאשר Tunnelblick מופעל";
@@ -288,16 +291,16 @@
 "Add a VPN..." = "הוסף VPN…";
 
 /* Menu item */
-"Connect %@%@" = "התחבר אל %@%@";
+"Connect %@%@" = "התחבר %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "מחק את פרטי המשתמש להגדרות ממחזיק המפתחות…";
+"Delete Configuration's Credentials in Keychain..." = "מחק את פרטי הזדהות להגדרות צרור המפתחות…";
 
 /* Menu item tooltip */
 "Disabled because this setting is being forced" = "מושבתת מכיוון שהגדרה זו נכפית";
 
 /* Menu item */
-"Disconnect %@%@" = "התנתק מ%@%@";
+"Disconnect %@%@" = "התנתק %@%@";
 
 /* Menu Item */
 "Do Not Show on Tunnelblick Menu" = "אל תציג בתפריט Tunnelblick";
@@ -330,7 +333,7 @@
 "OpenVPN level 0 - no output except fatal errors" = "OpenVPN רמה 0 - ללא פלט פרט לשגיאות חמורות";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN רמה 11 - פלט מאוד מפורט";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN רמה 11 - פלט מילולי";
 
 /* Menu Item */
 "OpenVPN level 3 - normal output" = "OpenVPN רמה 3 - פלט רגיל";
@@ -342,13 +345,13 @@
 "OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN רמה 5 - ״R\" או ״W״ לכל חבילה";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN רמה 6 - פלט ֿֿמפורט";
+"OpenVPN level 6 - very verbose output" = "OpenVPN רמה 6 - פלט מעוד מילולי";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "רמת הרישום של OpenVPN תקבע ע״י התצורה";
+"OpenVPN logging level set by the configuration" = "רמת הרישום של OpenVPN תקבע על ידי התצורה";
 
 /* Menu item */
-"Quit Tunnelblick" = "צא מTunnelblick";
+"Quit Tunnelblick" = "צא מ Tunnelblick";
 
 /* Menu Item */
 "Rename Configuration..." = "שנה שם תצורה…";
@@ -429,10 +432,10 @@
 "Enable IPv6 (tap only)" = "אפשר IPv6 (tap בלבד(";
 
 /* Checkbox name */
-"Flush DNS cache after connecting or disconnecting" = "נקה זכרון מטמון של DNS לאחר התחברות או התנתקות";
+"Flush DNS cache after connecting or disconnecting" = "נקה מטמון של DNS לאחר התחברות או התנתקות";
 
 /* Checkbox name */
-"Inhibit automatic update checking and IP Address checking" = "עצור בדיקת עדכונים אוטומאטית ובדיקת כתובת IP";
+"Inhibit automatic update checking and IP Address checking" = "עצור בדיקת עדכונים אוטומטית ובדיקת כתובת IP";
 
 /* Checkbox name */
 "Keep connected" = "השאר מחובר";
@@ -441,7 +444,7 @@
 "Monitor network settings" = "נטר הגדרות רשת";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "מקם ליד האיקון של Spotlight";
+"Place near Spotlight icon" = "מקם ליד האייקון של Spotlight";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "צרף את שם המתחם לשמות מתחם חיפוש";
@@ -485,6 +488,9 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "קבע שרת שמות תחום (אלטרנטיבי 1)";
 
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "קבע שרת שמות תחום (אלטרנטיבי 2)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "קבע שרת שמות תחום";
 
@@ -514,6 +520,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "מייבא הגדרות"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "מחקה לרשת";
 
 /* Connection status */
 "PASSWORD_WAIT" = "ממתין לסיסמה"; // Please translate "Waiting for password"
@@ -616,6 +625,9 @@
 
 /* Window title */
 "File not found" = "קובץ לא נמצא";
+
+/* Window title */
+"Import a Tunnelblick Setup" = "ייבא הגדרות";
 
 /* Window title */
 "Info" = "אודות";
@@ -785,14 +797,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  להמיר הגדרות OpenVPN\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • העתק תצורה\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "  התקן העדפות מאולצות\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  להתקין או לעדכן הגדרות\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • העבר תצורה\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "  להעביר הגדרות לתיקיה פרטית\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • הסר תצורה\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  לאבטח הגדרות\n";
@@ -827,17 +848,41 @@
 /* Window text */
 "%@ exists but is not a folder" = "%@ קיים, אך לא כתקייה";
 
+/* Window text */
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ הוחזר לעותק הבטוח האחרון.\n\n";
+
 /* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
 "%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\nשים לב: Tunnelblick נמצא במצב ניהול ולכן לא נדרש אישור ידני.";
 
 /* Window text */
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld תצורות הוחזרו לעותק הבטוח האחרון.\n\n";
+
+/* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' כבר מוגדר במחשב זה.\n\nהאם תרצה להחליף אותו?";
+
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "נראה ש-'%@' מקודד כ-UTF-16. כל הקבצים הקשורים ל-OpenVPN צריכים להיות טקסט רגיל או UTF-8";
 
 /* Window text */
 "'%@' at line %u was not terminated properly" = "הגדרה '%1$@' בשורה %2$u לא נרשמה עם סגירה תקנית";
 
 /* Window text */
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "ל-'%@' אין אישורים (מפתח פרטי או שם משתמש וסיסמה) שמורים ב-Keychain.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@' הוא לא קובץ טקסט רגיל או UTF-8.";
+
+/* Window text */
 "'%@' was not terminated." = "התגית %@ קיימת ללא סיומת בקובץ.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' יתחבר באמצעות OpenVPN גרסה %2$@, במקום הגרסה המבוקשת (OpenVPN %3$@).";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "המאפיין 'easy-rsaPath' יתעלם; לא צויינה תיקייה";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "המאפיין 'easy-rsaPath' יתעלם; הוא צריך להיות נתיב מוחלט או להתחיל עם '~'";
 
 /* Window text */
 "(An error occurred creating the help content.)" = "(אירעה שגיאה במהלך הכנת תוכן העזרה)";
@@ -856,6 +901,18 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(במידה ומחובר כאשר המשתמש התנתק)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>מבוסס על Tunnelblick, תוכנה חופשית אשר זמינה ב-<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN הוא סימן מסחר של OpenVPN Inc.";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>תצורת הרשת לא שוחזרה כראוי לאחר ההתנתקות מ-%@.</p><p>בעיה זו נגרמת בדרך כלל בעקבות שימוש בהגדרות 'user nobody' ו/או 'group nobody'.</p><p>כדי לשחזר את הגדרות הרשת, עליך לאתחל מחדש את המחשב.</p><p>על מנת למנוע שגיאה זו בעתיד, מחק את השורות 'user nobody' ו-'group nobody' מקובץ הקונפיגורציה.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">הגדרות משתמש וקבוצות OpenVPN</a> [tunnelblick.net] למידע נוסף.</p></font>";
+
+/* Window text */
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>גרסת Tunnelblick זו היא בת %lu ימים.</p><p>אנא בדוק אם ישנה גרסה חדשה זמינה:</p><ul><li>באופן ידני בפאנל 'העדפות' של חלון 'נתוני VPN'; או <br></li><li>או בדוק אם ישנה גרסה עדכנית יותר ב<a href=\"https://tunnelblick.net/downloads.html\">עמוד ההורדות של Tunnelblick</a> [tunnelblick.net].</li></ul>";
+
+/* Window text */
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "מפתח TBPreference או TBAlwaysSetPreference מתייחס להעדפה לא ידועה '%1$@' ב-%2$@";
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "קונפיגורציית Tunnelblick VPN נמצאת תחת יותר מידי תיקיות ב%@";
@@ -912,7 +969,34 @@
 "All configurations use %@ credentials" = "השתמש ב%@ עבור כל התצורות";
 
 /* Window text */
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "שגיאה (סטטוס %1$ld) אירעה כאשר בוצע ניסיון בדיקת אבטחה של קונפיגורציית %2$@.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "שגיעה אירעה בעת טעינת %@";
+
+/* Window text */
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "שגיאה אירעה בעת ניסיון שחזור לעותק הבטוח. בדוק את ה-Console Logs למידע נוסף.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "אירעה שגיאה. בדוק את ה-Console Logs למידע נוסף.";
+
+/* Window text */
+"An internal Tunnelblick error occurred%@%@" = "שגיאה פנימית התרחשה%1$@%2$@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "שגיאה פנימית התרחשה: קובץ בסדר גודל הגיוני: אין אפשרות לקבל ערך: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "שגיאה פנימית התרחשה: קובץ בסדר גודל הגיוני: אין אפשרות לקבל גודל: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "שגיאה פנימית התרחשה: קובץ בסדר גודל הגיוני: אין אפשרות לקבל סוג: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "שגיאה פנימית התרחשה: קובץ בסדר גודל הגיוני: סוג קובץ לא תקין: %@";
+
+/* Window text */
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "האם את/ה בטוח/ה שאין ברצונך להמיר הגדרות OpenVPN להגדרות Tunnelblick VPN?\n\nההגדרות לא יהיו זמינות אם לא תמיר/י אותן!\n\n";
 
 /* Window text */
 "B" = "בתים";

@@ -522,6 +522,9 @@
 "GET_CONFIG" = "正在獲取設定"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "網路存取";
+
+/* Connection status */
 "PASSWORD_WAIT" = "正在等候密碼"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -1572,6 +1575,9 @@
 "This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "這個 VPN 無法連接。\n\n'%1$@' 的 OpenVPN 配置檔案里有以下 OpenVPN 選項：\n\n%2$@\n這個 Tunnelblick 版本包含的任何 OpenVPN 版本都不接受以上選項。\n\n你應該要修改配置以保證 OpenVPN 的先進版本能夠採用。";
 
 /* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "這個 VPN 需要你先回答設定問題，但對方還沒有提供該問題為何。";
+
+/* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "這台電腦的對外 IP 位址並未因為連接到 %1$@ 而改變。它仍然是 %2$@。\n\n這可能代表您的 VPN 並未設定正確。\n\n";
 
 /* Window text */
@@ -2205,7 +2211,13 @@
 "Do not show this again" = "不要再顯示";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "永遠不要提醒這個，永遠不重啟";
+"Do not warn about this again;\nalways re-enable when connecting" = "不要再顯示這個警告；\n永遠在連線時重新啟用";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "不要再顯示這個警告；\n永遠在離開 Tunnelblick 的時候重新啟用";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "不要再顯示這個警告；\n永遠不要在重啟 Tunnelblick 的時候重新啟用";
 
 /* Credit description */
 "Dutch translation" = "荷蘭語翻譯";

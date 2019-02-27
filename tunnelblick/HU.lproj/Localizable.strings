@@ -522,6 +522,9 @@
 "GET_CONFIG" = "Konfiguráció betöltése"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Hálózati hozzáférésre vár";
+
+/* Connection status */
 "PASSWORD_WAIT" = "Jelszóra várakozás"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -743,6 +746,9 @@
 /* Window title */
 "While Connected" = "A kapcsolat ideje alatt";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     A VPN szerver üzenete a %1$@-tól:\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu konfiguráció telepítve\n\n";
 
@@ -813,6 +819,9 @@
 "  • Secure configurations\n" = "  • Biztonságos konfigurációk\n";
 
 /* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ egy ingyenes software: terjesztheti és/vagy módosítjatja a %2$@ feltételei szerint, amely alapján a %3$@ publikálta.\n\n%4$@ egy bejegyzett védjegye az OpenVPN Inc.-nek.";
+
+/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Telepíteni szeretné a(z) %1$@ a(z) %2$@%3$@ helyre?\n\n";
 
 /* Window text */
@@ -851,11 +860,17 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' már megtalálható az Íróasztalon.\n\nSzeretné lecserélni?";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "A '%@' fájl UTF-16 kódolásúnak tűnik. Minden OpenVPN-hez kapcsolódó fájlnak UTF-8-nak, vagy egyszerű szövegnek kell lennie";
+
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' a %2$u számú sornál nem megfelelően fejeződik be";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' Nem található hitelesítőadat (privát kulcs vagy felhasználónév és jelszó) a kulcstartón.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "A(z) '%@' fájl nem szövegfájl vagy UTF-8 fájl.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' nem lett befejezve.";
@@ -868,6 +883,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' beállítás figyelmen kívül hagyva; abszolút elérési útvonalat kell megadni vagy ezzel kezdeni \"~\"";
+
+/* Window text */
+"(An error occurred creating the help content.)" = "(Hiba történt a súgótartalom létrehozásakor.)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Naplózás kikapcsolva.)";
@@ -1167,6 +1185,9 @@
 "Fast User Switching" = "Gyors felhasználó váltás";
 
 /* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "A(z) '%@' fájl úgy tűnik, hogy rich text formátumú, mert egy '{' karakterrel kezdődik.\nMinden OpenVPN-hez tartozó állománynak egyszerű szöveges vagy UTF-8 fájlnak kell lennie.";
+
+/* Window text */
 "File '%@' contains one or more NUL characters." = "A(z) '%@' fájl egy vagy több NUL karaktert tartalmaz.";
 
 /* Window text */
@@ -1437,6 +1458,9 @@
 "That name is being used.\n\n" = "A megadott név már használatban van.\n\n";
 
 /* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "A(z) ' %@' OpenVPN opció nem engedélyezett macOS-en. Ez egy Windows-os opció.";
+
+/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "A(z) '%@' OpenVPN opció nem engedélyezett a Tunnelblickben.";
 
 /* Window text */
@@ -1456,6 +1480,9 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "A '%@'-hez tartozó OpenVPN konfigurációs fájl az utolsó biztosítás óta módosításra került.\n\nSzeretné biztosítani a módosított konfigurációt, vagy visszatér az utolsó biztosított konfigurációhoz?\n\n";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "A(z) %1$@ konfigurációs fájl egy olyan OpenVPN paramétert ('%2$@') tartalmaz ami csak Windows rendszereken használható, macOS-en nem.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Az OpenVPN napló az alábbi üzenetet tartalmazza:\n\n\"%1$@\".%2$@";
@@ -1949,6 +1976,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " másolat";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • A(z) '%1$@' nem javasolt az OpenVPN %2$@ verzió óta, és eltávolították az OpenVPN %3$@ verzióban\n\n";
+
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
@@ -2081,6 +2111,9 @@
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Meghatározza, hogy a Tunnelblick mely ikont jelenítse meg a felső menüsorban.</p>";
 
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Meghatározza a billentyűket, amikkel a Tunnelblick főmenűje előhívható.</p>";
+
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Meghatározza a maximális tárhely méretét, ami a VPN napló megjelenítéséhez szükséges.</p>";
 
@@ -2169,7 +2202,13 @@
 "Do not show this again" = "Ne mutassa ismét";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Ne figyelmeztessen újra, soha ne kapcsolja vissza";
+"Do not warn about this again;\nalways re-enable when connecting" = "Többet ne figyelmeztessen;\nmindig kapcsolja vissza kapcsolódáskor";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Többet ne figyelmeztessen;\nmindig kapcsolja vissza a Tunnelblickből való kilépéskor";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Többet ne figyelmeztessen;\nsoha ne kapcsolja vissza a Tunnelblick indításakor";
 
 /* Credit description */
 "Dutch translation" = "Holland fordítás";

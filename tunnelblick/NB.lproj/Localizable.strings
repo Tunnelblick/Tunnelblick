@@ -522,6 +522,9 @@
 "GET_CONFIG" = "Henter konfigurasjon"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Venter på nettverkstilgang";
+
+/* Connection status */
 "PASSWORD_WAIT" = "Venter på passord"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -795,7 +798,7 @@
 "  • Convert OpenVPN configurations\n" = "  • Endre OpenVPN konfigurasjoner\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Copy a configuration\n" = "  • Kopier et oppsett\n";
+"  • Copy a configuration\n" = "  • Kopiere et oppsett\n";
 
 /* Window text */
 "  • Install forced preferences\n" = "  • Installer tvungne preferanser\n";
@@ -804,13 +807,13 @@
 "  • Install or update configuration(s)\n" = "  • Installer eller oppdater konfigurasjon(er)\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Move a configuration\n" = "  • Flytt et oppsett\n";
+"  • Move a configuration\n" = "  • Flytte et oppsett\n";
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Flytt til privat konfigurasjonsmappe\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Remove a configuration\n" = "  • Fjern et oppsett\n";
+"  • Remove a configuration\n" = "  • Fjerne et oppsett\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Sikre konfigurasjonene\n";
@@ -861,7 +864,7 @@
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "Filen '%@' virker å være enkodet i UTF-16. Alle OpenVPN-relaterte filer må være klartekst- eller UTF-8-filer";
 
 /* Window text */
-"'%@' at line %u was not terminated properly" = "'%1$@' på linje %2$u ble ikke avsluttet korrekt";
+"'%@' at line %u was not terminated properly" = "'%1$@' på linje %2$u ble ikke korrekt avsluttet";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' ønsker ikke å brukeropplysninger (privat nøkkel, brukernavn og passord) lagret i Nøkkelringen.";
@@ -882,7 +885,7 @@
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' innstilling ignorert; Det må være en absolutt bane eller starte med ' ~'";
 
 /* Window text */
-"(An error occurred creating the help content.)" = "(Det oppstod en feil under generering av hjelp).";
+"(An error occurred creating the help content.)" = "(Det oppstod en feil under generering av hjelpeteksten.)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Loggføring av deaktivert.)";
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Ingen \"TBPackageVersion\" i %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Ingen nettverksforbindelse er tilgjengelig.\n\nVennligst skru på Wi-Fi og koble til et trådløst nettverk, plugg inn en nettverkskabel eller koble til et nettverk på annet vis.\n\nSe Nettverk-panelet i macOS Systemvalg for mer informasjon.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Ingen filbane til easy-rsa. Sannsynlig grunn er problemer med 'easy-rsaPath' innstillingene";
@@ -2280,7 +2280,13 @@
 "Do not show this again" = "Ikke vis denne igjen";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Advar ikke om dette igjen, slå aldri på nytt";
+"Do not warn about this again;\nalways re-enable when connecting" = "Advar ikke om dette igjen;\nreaktiver alltid ved tilkobling";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Advar ikke om dette igjen;\nreaktiver alltid ved avslutning av Tunnelblick";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Advar ikke om dette igjen;\nreaktiver alltid ved oppstart av Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "Nederlandsk oversettelse";

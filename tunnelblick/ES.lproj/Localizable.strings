@@ -489,7 +489,7 @@
 "Set nameserver (alternate 1)" = "Asignar servidores de nombre (alternativa 1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 2)" = "Asignar servidor de nombres (alterno 2)";
+"Set nameserver (alternate 2)" = "Asignar servidor de nombres (alternativo 2)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Usar DNS";
@@ -520,6 +520,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Cargando configuración"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Esperando acceso de red";
 
 /* Connection status */
 "PASSWORD_WAIT" = "Esperando contraseña"; // Please translate "Waiting for password"
@@ -624,7 +627,7 @@
 "File not found" = "Archivo no encontrado";
 
 /* Window title */
-"Import a Tunnelblick Setup" = "Importar una Configuración de Tunnelblick";
+"Import a Tunnelblick Setup" = "Importar una configuración de Tunnelblick";
 
 /* Window title */
 "Info" = "Información";
@@ -810,13 +813,13 @@
 "  • Move the private configurations folder\n" = "  • Mover el directorio de configuraciones privadas\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Remove a configuration\n" = "  Remover configuración\n";
+"  • Remove a configuration\n" = "  Elimine una configuración\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Configuraciones seguras\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ es software libre: puedes redistribuirlo y/o modificarlo dentro de los términos de la licencia %2$@ publicada por la fundación %3$@.\n\n%4$@ es una marca registrada por OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ es software libre: usted puede redistribuirlo y/o modificarlo de acuerdo a los términos de la licencia %2$@ publicada por la %3$@.\n\n%4$@ es una marca registrada de OpenVPN Technologies, Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Quieres instalar %1$@ a %2$@%3$@?\n\n";
@@ -834,10 +837,10 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick debe estar instalado en el directorio Aplicaciones.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick necesita autorización del administrador para conectarse a '%@' automáticamente cuando el equipo arranque.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick necesita autorización del administrador para conectar '%@' automáticamente cuando el equipo parta.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick necesita autorización del administrador para detener '%@' automáticamente cuando el equipo arranque.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick necesita autorización del administrador para detener la conexión '%@' automáticamente cuando el equipo parte.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ALERTA: Esta copia de Tunnelblick ha sido manipulada.\n\n";
@@ -852,13 +855,13 @@
 "%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Nota: Tunnelblick esta en modo administrador, por lo tanto no es necesaria la autorización del administrador.";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configuraciones han sido revertidas a la última copia (shadow) guardada.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configuraciones han sido revertidas a la última copia (shadow) almacenada.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' ya existe en el escritorio.\n\n¿Le gustaría reemplazarlo?";
 
 /* Window text. %@ is the name of a file. */
-"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "El archivo '%@' parece estar codificado con UTF-16. Todos los archivos relacionados con OpenVPN deben consistir de texto plano o bien codificados en UTF-8";
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "El archivo '%@' parece estar codificado con UTF-16. Todos los archivos relacionados con OpenVPN deben consistir de texto plano o bien estar codificados en UTF-8";
 
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' en la línea %2$u no ha terminado correctamente";
@@ -894,7 +897,7 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(La configuración 'easy-rsaPath' es inválida.)";
 
 /* Window text */
-"(if connected when computer went to sleep)" = "(en caso de seguir conectado cuando el equipo hiberne)";
+"(if connected when computer went to sleep)" = "(en caso de seguir conectado cuando el equipo pase al modo reposo)";
 
 /* Window text */
 "(if connected when user switched out)" = "(si el usuario conectado sale)";
@@ -1239,7 +1242,7 @@
 "Installation finished successfully." = "La instalación terminó exitosamente.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Instalando y securizando Tunnelblick %@…";
+"Installing and securing Tunnelblick %@..." = "Instalando y asegurando Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "No está permitido instalar configuraciones";
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "No existe 'TBPackageVersion' en %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Sin Conexion a la red.\n\nPor favor encienda el Wi-Fi y conectese a una red inalámbrica, enchufe un cable Ethernet o conectese a una red de alguna otra forma.\n\nVea el panel de Red en las Preferencias del Sistema de macOS para mayor información.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "No hay ruta para easy-rsa. Es probable que haya un problema con la preferencia 'easy-rsaPath’";
@@ -2280,7 +2280,13 @@
 "Do not show this again" = "No mostrar nuevamente";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "No advertir sobre esto nuevamente, nunca rehabilitar";
+"Do not warn about this again;\nalways re-enable when connecting" = "No avisar de nuevo sobre esto;\nsiempre habilitar nuevamente cuando se conecta";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "No avisar de nuevo sobre esto;\nsiempre habilitar nuevamente al iniciar Tunnelblick";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "No avisar de nuevo sobre esto;\nnunca habilitar nuevamente al iniciar Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "Traducción al Holandés";

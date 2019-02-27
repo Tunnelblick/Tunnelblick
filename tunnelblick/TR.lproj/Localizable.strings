@@ -522,6 +522,9 @@
 "GET_CONFIG" = "Yapılandırma alınıyor"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Ağ bağlantısı bekleniyor";
+
+/* Connection status */
 "PASSWORD_WAIT" = "Şifre bekleniyor"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "%@ içinde 'TBPackageVersion' yok";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Ağ bağlantısı bulunamadı.\n\nLütfen kablosuz ağ bağlantısını etkinleştirin, ağ bağlantı kablosunu takın, veya başka bir şekilde ağ bağlantısını gerçekleştirin.\n\nDaha fazla bilgi için macOS Sistem Seçeneklerinden Ağ panelini seçin.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "easy-rsa yolu bulunamadı. 'easy-rsaPath' seçeneği ile bir sorun oluşturabilir";
@@ -2278,9 +2278,6 @@
 
 /* Checkbox */
 "Do not show this again" = "Bunu bir daha gösterme";
-
-/* Checkbox text */
-"Do not warn about this again, never re-enable" = "Bu konuda tekrar uyarma, tekrar etkinleştirme";
 
 /* Credit description */
 "Dutch translation" = "Flemenkçe çeviri";

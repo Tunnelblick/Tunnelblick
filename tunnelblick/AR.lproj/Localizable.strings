@@ -522,6 +522,9 @@
 "GET_CONFIG" = "جار الحصول على الاعدادات"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "إنتظار الولوج إلى الشبكة";
+
+/* Connection status */
 "PASSWORD_WAIT" = "بانتظار كلمة المرور"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "لا يوجد معرف TBPackageVersion فى %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "لا يوجد اتصال شبكة متاحة.\n\nيرجى تشغيل Wi-Fi والاتصال بشبكة لاسلكية أو توصيل كابل Ethernet أو الاتصال بشبكة بطريقة أخرى.\n\nانظر لوحة الشبكة في MacOS System Preferences لمزيد من المعلومات.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "لا يوجد مسار لـ easy-rsa. فى الغالب السبب هو مشكلة فى اعداد easy-rsaPath";
@@ -2280,7 +2280,13 @@
 "Do not show this again" = " عدم إظهار هذا مرة أخرى";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "لا تظهر هذه الرسالة مرةً أخرى، عدم التفعيل مجدداً";
+"Do not warn about this again;\nalways re-enable when connecting" = "المرجو عدم التنبيه لهذا مجددا, عند ربط الإتصال، أعد التفعيل";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "المرجو عدم التنبيه لهذا مجددا, عند الخروج من Tunnelblick، أعد التفعيل";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "المرجو عدم التنبيه لهذا مجددا, عدم التفعيل عند فتح Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "الترجمة الهولندية";

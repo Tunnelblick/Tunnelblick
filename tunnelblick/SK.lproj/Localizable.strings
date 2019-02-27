@@ -210,7 +210,7 @@
 "Reset Disabled Warnings" = "Obnoviť vypnuté upozornenia";
 
 /* Button */
-"Reset primary interface" = "Resetovať primárne sieťové rozhranie";
+"Reset primary interface" = "Resetovať primárne rozhranie";
 
 /* Button */
 "Restart connection" = "Reštartovať spojenie";
@@ -225,7 +225,7 @@
 "Retry" = "Skúsiť znova";
 
 /* Button */
-"Revert to the Last Secured Copy" = "Obnoviť poslednú zabezpečenú kópiu";
+"Revert to the Last Secured Copy" = "Vrátiť na poslednú zabezpečenú kópiu";
 
 /* Button */
 "Revert" = "Vrátiť";
@@ -426,7 +426,7 @@
 "Do not warn about this again" = "Viac na toto neupozorňovať";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Neupozorňovať na toto %lu dní";
+"Do not warn about this for %lu days" = "Neupozorňovať o tomto %lu dní";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "Povoliť IPv6 (len zariadenie tap)";
@@ -520,6 +520,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Získavanie konfigurácie"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Čakanie na prístup k sieti";
 
 /* Connection status */
 "PASSWORD_WAIT" = "Čakám na heslo"; // Please translate "Waiting for password"
@@ -687,7 +690,7 @@
 "System Requirements Not Met" = "Systémové požiadavky programu neboli naplnené";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Program Tunnelblick %@ možno vyžaduje aktualizáciu";
+"Tunnelblick %@ may need to be updated" = "Možno bude potrebné aktualizovať program Tunnelblick %@";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Chyba konfigurácie Tunnelblick";
@@ -795,7 +798,7 @@
 "  • Convert OpenVPN configurations\n" = "  • Previesť konfigurácie z formátu OpenVNP\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Copy a configuration\n" = "  • kopírovať konfiguráciu\n";
+"  • Copy a configuration\n" = "  • Kopírovať konfiguráciu\n";
 
 /* Window text */
 "  • Install forced preferences\n" = "  • Inštalovať vynútené nastavenia\n";
@@ -804,19 +807,19 @@
 "  • Install or update configuration(s)\n" = "  • Nainštalovať alebo aktualizovať konfigurácie\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Move a configuration\n" = "  • presunúť konfiguráciu\n";
+"  • Move a configuration\n" = "  • Presunúť konfiguráciu\n";
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Premiestnite priečinok osobných nastavení konfigurácie\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Remove a configuration\n" = "  • odstrániť konfiguráciu\n";
+"  • Remove a configuration\n" = "  • Odstrániť konfiguráciu\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Ochrániť konfigurácie\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ je slobodný softwér: môžete ho šíriť a modifikovať podľa podmienok %2$@ vydávanej %3$@.\n \n%4$@ je ochranná známka spoločnosti OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ je voľne šíriteľný softvér: môžete ho šíriť a upravovať podľa podmienok %2$@ vydávanej %3$@.\n \n%4$@ je ochranná známka spoločnosti OpenVPN Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Prajete si nainštalovať %1$@ do %2$@%3$@?\n\n";
@@ -834,10 +837,10 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick musí byť nainštalovný do priečinku Aplikácie.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick vyžaduje autorizáciu správcu počítača, aby bolo možné automaticky pripojiť '%@' pri štarte.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick vyžaduje autorizáciu správcu počítača, aby bolo možné automaticky pripojiť '%@' pri štarte počítača.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick vyžaduje autorizáciu správcu počítača, aby bolo možné automaticky odpojiť '%@' pri štarte.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick vyžaduje autorizáciu správcu počítača, aby bolo možné automaticky odpojiť '%@' pri štarte počítača.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UPOZORNENIE: Došlo k neodbornej úprave tejto kópie Tunnelblick.\n\n";
@@ -849,10 +852,10 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ bolo obnovené na poslednú známu bezpečnostnú kópiu.\n\n";
 
 /* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
-"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Poznámka: Tunnelblick je v administračnom móde, takže autorizácia správcu počítača nie je potrebná.";
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Poznámka: Tunnelblick je v móde správcu, takže autorizácia správcu počítača nie je potrebná.";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigurácie boli obnovené z poslednej zabezpečenej (tieňovej) kópie.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigurácie boli obnovené z poslednej bezpečnej (tieňovej) kópie.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' sa už nachádza na Ploche.\n\nPrajete si nahradiť ju?";
@@ -900,10 +903,10 @@
 "(if connected when user switched out)" = "(ak je aktívne pri zmene aktívneho užívateľa)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Založené na Tunnelblicku, voľne šíriteľnom softvéri, ktorý je dostupný na<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovaná ochranná známka OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Založené na Tunnelblicku, voľne šíriteľnom softvéri, ktorý je dostupný na<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovaná ochranná známka OpenVPN Inc.";
 
 /* Window text. The %@ is the name of a VPN configuration. */
-"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Nastavenia siete sa nepodarilo správne obnovit po odpojené od %@.</p><p>Tento problém je zvýčajne spôsobený použitím parametra 'user nobody' a/alebo 'group nobody' OpenVPN.</p><p>Na obnovenie správneho nastavenia siete sa odporúča reštartovať počítač.</p><p>Aby sa predišlo v budúcnosti tejto chybe, je potrebné odstránit parametre 'user nobody' a 'group nobody' z konfiguračného súboru OpenVPN.</p><p>Viacej informácií na <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n";
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Nastavenia siete sa nepodarilo správne obnovit po odpojení od %@.</p><p>Tento problém je zvyčajne spôsobený použitím parametra 'user nobody' a/alebo 'group nobody' v OpenVPN konfigurácii.</p><p>Na obnovenie nastavenia siete sa odporúča reštartovať počítač.</p><p>Aby sa predišlo v budúcnosti tejto chybe, je potrebné odstránit parametre 'user nobody' a 'group nobody' z konfiguračného súboru OpenVPN.</p><p>Viac informácií nájdete na <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net].</p></font>\n\n";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Táto verzia Tunnelblicku je stará %lu dní.</p><p>Prosím, skontrolujte dostupnosť novej verzie:</p><ul><li>Ručne v okne \"Detaily VPN\", v paneli Predvoľby, alebo<br></li><li>dohľadaním novšej verzie na <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick stránke Downloads</a>[tunnelblick.net].</li></ul>";
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Žiadna \"TBPackageVersion\" v %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Nie je k dispozícii žiadne sieťové pripojenie.\n\nProsím zapnite Wi-Fi a pripojte sa k bezdrôtovej sieti, pripojte ethernetový kábel alebo sa pripojte k sieti iným spôsobom.\n\nĎalšie informácie nájdete v paneli Sieť v predvoľbách systému MacOS.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Nepodarilo sa najsť easy-rsa. Pravdepodobnou príčinou je nesprávne nastavenie cesty v položke 'easy-rsaPath'";
@@ -2280,7 +2280,13 @@
 "Do not show this again" = "Už nezobrazovať";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Neupozorňovať znovu, nikdy neobnovovať";
+"Do not warn about this again;\nalways re-enable when connecting" = "Toto varovanie už nezobrazovať;\npri pripájaní vždy obnoviť";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Toto varovanie už nezobrazovať;\npri vypínaní Tunnelblicku vždy obnoviť";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Toto varovanie už nezobrazovať;\npri spúšťaní Tunnelblicku nikdy neobnovovať";
 
 /* Credit description */
 "Dutch translation" = "Holandský preklad";

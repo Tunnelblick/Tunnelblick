@@ -522,6 +522,9 @@
 "GET_CONFIG" = "Λήψη παραμέτρων"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Αναμονή για πρόσβαση στο δίκτυο";
+
+/* Connection status */
 "PASSWORD_WAIT" = "Αναμονή κωδικού"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Όχι 'TBPackageVersion' στο %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Δεν υπάρχει σύνδεση δικτύου.\n\nΕνεργοποιήστε το Wi-Fi και συνδεθείτε σε ένα ασύρματο δίκτυο, συνδέστε ένα καλώδιο Ethernet ή συνδεθείτε με κάποιο άλλο δίκτυο.\n\nΑνατρέξτε στην ενότητα δικτύου στις ρυθμίσεις συστήματος macOS για περισσότερες πληροφορίες.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Δεν υπάρχει διαδρομή για easy-rsa. Η πιθανότερη αιτία του προβλήματος είναι στης προτιμήσεις το 'easy-rsaPath'";
@@ -2280,7 +2280,13 @@
 "Do not show this again" = "Μην εμφανιστεί ξανά";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Να μην ειδοποιηθώ ξανά για αυτό, να μην γίνει ποτέ επανα-ενεργοποίηση";
+"Do not warn about this again;\nalways re-enable when connecting" = "Να μη προειδοποιηθώ ξανά;\nνα επανενεργοποιείτε πάντα κατά την σύνδεση";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Να μη προειδοποιηθώ ξανά;\nνα επανενεργοποιείτε πάντα όταν κλείνει το Tunnelblick";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Να μη προειδοποιηθώ ξανά;\nνα μην επανενεργοποιείτε κατά την έναρξη του Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "Ολλανδική μετάφραση";

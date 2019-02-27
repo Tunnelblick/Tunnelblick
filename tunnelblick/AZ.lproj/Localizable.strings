@@ -104,6 +104,9 @@
 "Disconnect" = "Bağlantını bitir";
 
 /* Button */
+"Do Not Re-enable Network Access" = "Şəbəkəyə girişini yenidən aktivləşdirmə";
+
+/* Button */
 "Do not use the plugin" = "Plugini istifadə etmə";
 
 /* Button */
@@ -324,6 +327,9 @@
 "OpenVPN level 4 - values for all options" = "OpenVPN səviyyə 4 - bütün seçimlər üçün dəyərlər";
 
 /* Menu Item */
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN səviyyə 5 - hər paket üçün \"R\" və ya \"W\"";
+
+/* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPN səviyyə 6 - çox güclü çıxış";
 
 /* Menu Item */
@@ -493,6 +499,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Konfiqurasiya alınır"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Şəbəkəyə giriş gözlənilir";
 
 /* Connection status */
 "PASSWORD_WAIT" = "Şifrə gözlənilir"; // Please translate "Waiting for password"

@@ -116,7 +116,7 @@
 "Download" = "Download";
 
 /* Button */
-"Export Tunnelblick Setup" = "Tunnelblick-Setup exportieren";
+"Export Tunnelblick Setup" = "Tunnelblick Konfiguration exportieren";
 
 /* Button */
 "Help" = "Hilfe";
@@ -522,6 +522,9 @@
 "GET_CONFIG" = "Lade Konfiguration"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Warten auf Netzwerkzugriff";
+
+/* Connection status */
 "PASSWORD_WAIT" = "Warten auf Kennwort"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -624,7 +627,7 @@
 "File not found" = "Datei nicht gefunden";
 
 /* Window title */
-"Import a Tunnelblick Setup" = "Tunnelblick-Setup importieren";
+"Import a Tunnelblick Setup" = "Tunnelblick-Konfiguration importieren";
 
 /* Window title */
 "Info" = "Info";
@@ -795,7 +798,7 @@
 "  • Convert OpenVPN configurations\n" = "  • OpenVPN-Konfigurationen umwandeln\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Copy a configuration\n" = "  Konfiguration kopieren\n";
+"  • Copy a configuration\n" = "  • Eine Konfiguration kopieren\n";
 
 /* Window text */
 "  • Install forced preferences\n" = "  Erzwungene Einstellungen installieren\n";
@@ -804,13 +807,13 @@
 "  • Install or update configuration(s)\n" = "  • Konfiguration(en) installieren oder aktualisieren\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Move a configuration\n" = "  Eine Konfiguration bewegen\n";
+"  • Move a configuration\n" = "  • Eine Konfiguration bewegen\n";
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Den privaten Konfigurationsordner verschieben\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Remove a configuration\n" = "  Eine Konfiguration löschen\n";
+"  • Remove a configuration\n" = "  • Eine Konfiguration löschen\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Tunnelblick-VPN-Konfigurationen absichern\n";
@@ -858,7 +861,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "Es existiert bereits eine Datei „%@“ auf dem Schreibtisch.\n\nMöchten Sie sie ersetzen?";
 
 /* Window text. %@ is the name of a file. */
-"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' scheint eine UTF-16 codierte Datei zu sein. Alle Dateien mit Bezug zu OpenVPN müssen \"plain text\" oder \"UTF-8\" Dateien sein";
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' scheint eine UTF-16 codierte Datei zu sein. Alle Dateien mit Bezug zu OpenVPN müssen Klartext oder UTF-8 Dateien sein";
 
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' in Zeile %2$u wurde nicht richtig beendet";
@@ -867,7 +870,7 @@
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' hat keine Zugangsdaten (privater Schlüssel oder Benutzername/Kennwort) im Schlüsselbund gespeichert.";
 
 /* Window text. %@ is the name of a file. */
-"'%@' is not a plain text or UTF-8 file." = "'%@' ist keine \"plain text\" oder UTF-8 Datei.";
+"'%@' is not a plain text or UTF-8 file." = "'%@' ist keine Klartext oder UTF-8 Datei.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' wurde nicht beendet.";
@@ -906,7 +909,7 @@
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Die Netzwerkeinstellungen konnten nach der Trennung von %@ nicht richtig wiederhergestellt werden.</p><p>Dieses Problem tritt meistens bei der Benutzung der OpenVPN-Option 'user nobody' und/oder 'group nobody' auf.</p><p>Um die Netzwerkeinstellungen wiederherzustellen, starten Sie ihren Computer neu.</p><p>Um diesen Fehler in Zukunft zu vermeiden, entfernen Sie die Zeilen 'user nobody' and 'group nobody' aus ihrer OpenVPN Konfigurationsdatei.</p><p>Siehe <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Benutzer und Gruppen OpenVPN Optionen</a> [tunnelblick.net] für mehr Informationen.</p></font>\n\n";
 
 /* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Diese Version von Tunnelblick ist %lu Tage alt.</p><p>Bitte überprüfen Sie, ob es eine neuere Version gibt.</p>-<ul>-<li>Entweder manuell im Fenster \"Einstellungen\" unter \"VPN Details\"; oder<br></li><li> auf der <a href=\"https://tunnelblick.net/downloads.html\">-Tunnelblick Downloads Seite</a> [tunnelblick.net].</li>-</ul>";
+"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Diese Version von Tunnelblick ist %lu Tage alt.</p><p>Bitte überprüfen Sie, ob es eine neuere Version gibt.</p>-<ul>-<li>Entweder manuell im Fenster \"Einstellungen\" unter \"VPN Details\"; oder<br></li><li> auf der <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads Seite</a> [tunnelblick.net].</li>-</ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Ein TBPreference oder TBAlwaysSetPreference Schlüssel zeigt auf unbekannte Einstellung '%1$@' in %2$@";
@@ -1059,10 +1062,10 @@
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Die Konfiguration '%@' ist nicht updatebar, da sie nicht als 'updatebar' gekennzeichnet werden konnte.\n";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Die Konfiguration '%1$@' benötigt Tunnelblick %2$@ or höher; sie nutzen Tunnelblick %3$@.";
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Die Konfiguration '%1$@' benötigt Tunnelblick %2$@ oder höher; Sie nutzen Tunnelblick %3$@.\n\nSie müssen Tunnelblick aktualisieren, um diese Konfiguration installieren zu können.";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfiguration '%1$@' benötigt Tunnelblick %2$@ oder niedriger; Sie benutzen Tunnelblick %3$@.";
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Die Konfiguration '%1$@' benötigt Tunnelblick %2$@ oder niedriger; Sie nutzen Tunnelblick %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Die Konfiguration '%1$@' kann wegen unzulässiger Zeichen im Namen nicht verwendet werden.\n\nNicht zulässige Zeichen sind: '%2$s'\n\n";
@@ -1188,7 +1191,7 @@
 "Fast User Switching" = "Schneller Benutzerwechsel";
 
 /* Window text */
-"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Die Datei '%@' scheint im \"rich text\" Format zu sein, denn sie beginnt mit einem \"{\" Zeichen. Alle Dateien mit Bezug zu OpenVPN müssen \"plain text\" oder \"UTF-8\" sein.";
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Die Datei '%@' scheint im Rich Text Format zu sein, denn sie beginnt mit einem \"{\" Zeichen. Alle Dateien mit Bezug zu OpenVPN müssen Klartext oder UTF-8 sein.";
 
 /* Window text */
 "File '%@' contains one or more NUL characters." = "Die Datei '%@' enthält ein oder mehr NUL-Zeichen.";
@@ -1315,9 +1318,6 @@
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "Keine 'TBPackageVersion' in %@";
-
-/* Window text */
-"No network connection is available.\n\nPlease turn on Wi-Fi and connect to a wireless network, plug in an Ethernet cable, or connect to a network in some other way.\n\nSee the Network panel in macOS System Preferences for more information." = "Es ist keine Netzwerkverbindung verfügbar.\n\nBitte schalten Sie das WLAN an und verbinden Sie sich mit einem drahtloses Netzwerk, stecken Sie ein Ethernet-Kabel ein oder verbinden Sie sich auf einem anderen Weg mit einem Netzwerk.\n\nWeitere Informationen finden Sie im Netzwerk Fenster der macOS Systemteinstellungen.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Kein Pfad zu „easy-rsa“ gefunden. Meistens handelt es sich hier um einen Fehler in der Einstellung „easy-rsaPath“";
@@ -2010,7 +2010,7 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nACHTUNG: Eine oder mehrere der Konfigurationen sind gerade verbunden. Sie werden getrennt, Installationen/Ersetzungen/Deinstallationen werden durchgeführt und die Konfigurationen werden erneut verbunden, außer sie wurden deinstalliert.\n\n";
 
 /* Window text */
-"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nEines oder mehrerer der Zertifikate, die zur Absicherung dieser Verbindung genutzt werden, ist abgelaufen.\n\nWeitere Details finden Sie im VPN Log unter dem Reiter \"Log\" im Fenster \"Konfigurationen\" des Tunnelblick Fensters \"VPN-Details\".";
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nEines oder mehrere der Zertifikate, die zur Absicherung dieser Konfiguration genutzt werden, ist/sind abgelaufen.\n\nWeitere Details finden Sie im VPN Log unter dem Reiter \"Log\" im Fenster \"Konfigurationen\" des Tunnelblick Fensters \"VPN-Details\".";
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nDiese Fehlermeldung bedeutet, dass eine Option, die in der OpenVPN Konfigurationsdatei enthalten ist oder vom OpenVPN-Server \"gepushed\" wurde:\n\n     • falsch geschrieben wurde\n\n     • fehlende oder zusätzliche Argumente beinhaltet, oder\n\n     • in der Version von OpenVPN, die für diese Konfiguration verwendet wird, nicht implementiert ist. Dies kann eine neue Option sein, die nicht in einer alten Version von OpenVPN implementiert ist, oder eine alte Option, die in einer neuen Version von OpenVPN entfernt wurde. Sie können in dem Reiter \"Einstellungen\" des Fensters \"Konfigurationen\" im Fenster \"VPN Details\" von Tunnelblick wählen, welche Version von OpenVPN mit dieser Konfiguration verwendet werden soll.\n\nWeitere Details finden Sie im VPN Log unter dem Reiter \"Log\" im Fenster \"Konfigurationen\" des Tunnelblick Fensters \"VPN-Details\".";
@@ -2034,10 +2034,10 @@
 " copy" = " Kopie";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' gilt seit OpenVPN %2$@ als abgekündigt und wurde oder wird in einer späteren Version entfernt\n\n";
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' gilt seit OpenVPN %2$@ als veraltet und wurde oder wird in einer späteren Version entfernt\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' gilt seit OpenVPN %2$@ als abgekündigt und wurde in OpenVPN %3$@ entfernt\n\n";
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' gilt seit OpenVPN %2$@ als veraltet und wurde in OpenVPN %3$@ entfernt\n\n";
 
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
@@ -2130,7 +2130,7 @@
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Falls ausgewählt</strong>, wird, unabhängig von anderen Einstellungen, keine automatische Überprüfung auf Updates oder Änderungen der IP-Adresse durchgeführt. Achtung: Beide dieser Aktivitäten greifen auf die Tunnelblick Webseite zu.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird automatisch auf Updates geprüft, falls dies unten ausgewählt ist, und die IP-Adresse auf Änderungen überprüft, falls eine Verbindung aufgebaut wird und dies in den Einstellungen dieser Konfiguration aktiviert ist.</p><p>Besuchen Sie <a href=\"https://tunnelblick.net/cPrivacy.html\">Privatsphäre und Sicherheit</a> [tunnelblick.net] für Details.</p><p>&nbsp;</p>";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Falls ausgewählt</strong>, wird das Tunnelblick-Icon in der Nähe des Spotlight-Icons positioniert:</p>\n<p>%1$@</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird das Tunnelblick-Icon normal positioniert:</p>\n<p>%2$@</p>\n<p><strong>Diese Auswahl</strong> ist unter macOS Sierra oder höher, wo sie nicht benötigt wird, und unter Systemen, auf denen sie bekanntermaßen Probleme verursacht, deaktiviert.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Falls ausgewählt</strong>, wird das Tunnelblick-Icon in der Nähe des Spotlight-Icons positioniert:</p>\n<p>%1$@</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird das Tunnelblick-Icon normal positioniert:</p>\n<p>%2$@</p>\n<p><strong>Diese Auswahl ist deaktiviert</strong> unter macOS Sierra oder höher, wo sie nicht benötigt wird, und unter Systemen, auf denen sie bekanntermaßen Probleme verursacht.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Falls ausgewählt</strong>, wird das VPN Status Fenster angezeigt, selbst wenn die Konfiguration getrennt ist.</p><p><strong>Diese Checkbox ist deaktiviert</strong> wenn \"Niemals anzeigen\" darüber ausgewählt ist.</p>";
@@ -2178,7 +2178,7 @@
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Öffnet ein Fenster mit weiteren Einstellungen.</p><p>Alle Änderungen werden auf alle Konfigurationen angewendet, die im \"VPN-Details\" Fenster ausgewählt sind.</p>";
 
 /* HTML info for the 'Quit All OpenVPN Processes' button. */
-"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p> Beendet alle OpenVPN Prozesse, auch die, die nicht von Tunnelblick gestartet wurden. Verwenden Sie die Schaltfläche Tunnelblick \"Verbindung trennen\" oder \"alle Verbindungen trennen\" und die Menübefehle, um die mit Tunnelblick verbundenen Konfigurationen zu trennen. </p> <p> Durch Klicken auf diese Schaltfläche wird ein \"SIGTERM\" Befehl an alle Prozesse mit dem Namen \"openvpn\" gesendet. Normalerweise werden dadurch alle OpenVPN Verbindungen geschlossen und beendet. Wenn diese Schaltfläche nicht alle OpenVPN Prozesse beendet, versuchen Sie mit Hilfe der macOS Aktivitätsanzeige und der Funktion \"Sofort beenden\" die OpenVPN Prozesse zu beenden. </p>";
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Beendet alle OpenVPN Prozesse, auch die, die nicht von Tunnelblick gestartet wurden. Verwenden Sie die Schaltfläche Tunnelblick \"Verbindung trennen\" oder \"alle Verbindungen trennen\" und die Menübefehle, um die mit Tunnelblick verbundenen Konfigurationen zu trennen.</p><p>Durch Klicken auf diese Schaltfläche wird ein \"SIGTERM\" Befehl an alle Prozesse mit dem Namen \"openvpn\" gesendet. Normalerweise werden dadurch alle OpenVPN Verbindungen geschlossen und beendet. Wenn diese Schaltfläche nicht alle OpenVPN Prozesse beendet, versuchen Sie mit Hilfe der macOS Aktivitätsanzeige und der Funktion \"Sofort beenden\" die OpenVPN Prozesse zu beenden.</p>";
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Setzt Warnungen zurück, die durch eine \"Nicht mehr darauf hinweisen\" Checkbox verhindert wurden.</p>";
@@ -2190,7 +2190,7 @@
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Legt das Icon fest, welches Tunnelblick in der Menüleiste anzeigen soll.</p>";
 
 /* HTML info for the 'Keyboard shortcut' button. */
-"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Legt die Tasten fest, mit denen Tunneblicks Hauptmenü geöffnet wird.</p>";
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Legt die Tasten fest, mit denen das Hauptmenü von Tunneblick geöffnet wird.</p>";
 
 /* HTML info for the 'Maximum log display size' button. */
 "<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Legt den maximalen Speicherverbrauch für die Anzeige des VPN Logs fest.</p>";
@@ -2205,7 +2205,7 @@
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Der DNS-Cache enthält Kopien der DNS (Domain Name System) Informationen.</p>\n<p><strong>Falls ausgewählt</strong>, wird der DNS-Cache nach dem Verbinden oder Trennen zurückgesetzt (geleert). Alle DNS-Anfragen werden an den Nameserver gerichtet, welcher im VPN Setup eingetragen ist.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird der DNS-Cache nicht zurückgesetzt. Dies kann zu Problemen führen falls Namenskonflikte zwischen dem im Setup aktuell eingetragenem und dem vorherigen eingetragenem Nameserver bestehen und die vorherigen Einträge gecached wurden.</p>";
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
-"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick beinhaltet eine angepasste Version von \"easy-rsa\", welche eine Sammlung von Kommandozeilenskripts ist, die von den OpenVPN Entwicklern für die Erstellung und Wartung von Zertifikaten und Schlüsseln geschrieben wurden.</p><p>Ein Klick auf diese Schaltfläche öffnet das macOS Terminal Programm, mit dem Pfad passend zu dem Ordner, der diese Skripte enthält.</p><p>Die Skripte befinden sich üblicherweise im Ordner ~/Library/Application Support/Tunnelblick/easy-rsa. Eine \"easy-rsaPath\" Einstellung kann den Pfad zu einem Ordner enthalten, den Tunnelblick stattdessen benutzt. \"easy-rsaPath\" muss ein absoluter Pfad sein oder mit \"~\" beginnen, und der übergeordneter Ordner des Pfades muss existieren. Falls in dem Pfad ein Ordner existiert, wird dieser genutzt; falls keiner existiert, wird einer erstellt und die easy-rsa Skripte werden darin installiert, sobald Tunnelblick gestartet wird.</p><p>Für mehr Informationen zur Verwendung von easy-rsa, folgen Sie bitte <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>Für Details zu Tunnelblicks Anpassung von easy-rsa, lesen Sie bitte die README Datei in diesem Ordner.</p>";
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick beinhaltet eine angepasste Version von \"easy-rsa\", welche eine Sammlung von Kommandozeilenskripts ist, die von den OpenVPN Entwicklern für die Erstellung und Wartung von Zertifikaten und Schlüsseln geschrieben wurden.</p><p>Ein Klick auf diese Schaltfläche öffnet das macOS Terminal Programm, mit dem Pfad passend zu dem Ordner, der diese Skripte enthält.</p><p>Die Skripte befinden sich üblicherweise im Ordner ~/Library/Application Support/Tunnelblick/easy-rsa. Eine \"easy-rsaPath\" Einstellung kann den Pfad zu einem Ordner enthalten, den Tunnelblick stattdessen benutzt. \"easy-rsaPath\" muss ein absoluter Pfad sein oder mit \"~\" beginnen, und der übergeordneter Ordner des Pfades muss existieren. Falls der Pfad auf einen existierenden Ordner zeigt, wird dieser genutzt; falls keiner existiert, wird einer erstellt und die easy-rsa Skripte werden darin installiert, sobald Tunnelblick gestartet wird.</p><p>Für mehr Informationen zur Verwendung von easy-rsa, folgen Sie bitte <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>Für Details zu Tunnelblicks Anpassung von easy-rsa, lesen Sie bitte die README Datei in diesem Ordner.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick konnte eine Systemerweiterung nicht laden, die benötigt wird um zu %1$@ zu verbinden.</p><p>%2$@Weitere Informationen%3$@ [%4$@]</p>";
@@ -2280,7 +2280,13 @@
 "Do not show this again" = "Nicht erneut anzeigen";
 
 /* Checkbox text */
-"Do not warn about this again, never re-enable" = "Nicht mehr darauf hinweisen, niemals reaktivieren";
+"Do not warn about this again;\nalways re-enable when connecting" = "Nicht mehr darauf hinweisen;\nbeim Verbinden immer wieder aktivieren";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Nicht mehr darauf hinweisen;\nbeim Beenden von Tunnelblick immer wieder aktivieren";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Nicht mehr darauf hinweisen;\nbeim Start von Tunnelblick nicht wieder aktivieren";
 
 /* Credit description */
 "Dutch translation" = "Niederländische Übersetzung";
@@ -2392,7 +2398,7 @@
 "Swedish translation" = "Schwedische Übersetzung";
 
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
-"Tunnelblick Setup %@" = "Tunnelblick Setup %@";
+"Tunnelblick Setup %@" = "Tunnelblick Konfiguration %@";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick Icon";
@@ -2413,7 +2419,7 @@
 "Updated to %@." = "Aktualisiert auf %@.";
 
 /* Column heading in a table */
-"Username in setup data" = "Benutzername in Setup-Daten";
+"Username in setup data" = "Benutzername in Konfigurationsdaten";
 
 /* Column heading in a table */
 "Username on this computer" = "Benutzername auf diesem Computer";
