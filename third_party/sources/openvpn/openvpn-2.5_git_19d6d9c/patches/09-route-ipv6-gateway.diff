@@ -11,10 +11,10 @@ Subject: [PATCH] Adds support for setting the default IPv6 gateway for routes
  src/openvpn/options.h |  1 +
  4 files changed, 25 insertions(+), 4 deletions(-)
 
-diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/doc/openvpn.8 openvpn-2.5_git_57d6f10.new/doc/openvpn.8
---- openvpn-2.5_git_57d6f10.old/doc/openvpn.8	2018-07-28 06:02:29.000000000 -0400
-+++ openvpn-2.5_git_57d6f10.new/doc/openvpn.8	2018-07-28 06:02:29.000000000 -0400
-@@ -6152,8 +6152,16 @@
+diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/doc/openvpn.8 openvpn-2.5_git_19d6d9c.new/doc/openvpn.8
+--- openvpn-2.5_git_19d6d9c.old/doc/openvpn.8	2019-02-27 07:06:15.000000000 -0500
++++ openvpn-2.5_git_19d6d9c.new/doc/openvpn.8	2019-02-27 07:06:15.000000000 -0500
+@@ -6253,8 +6253,16 @@
  IPv6 routes across ``tap'' devices, and if missing, the ``ipv6remote''
  field from
  .B \-\-ifconfig\-ipv6
@@ -31,10 +31,10 @@ diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/doc/openvpn.8 openvpn-2.5_gi
  .B \-\-server\-ipv6 ipv6addr/bits
  convenience\-function to enable a number of IPv6 related options at
  once, namely
-diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/init.c openvpn-2.5_git_57d6f10.new/src/openvpn/init.c
---- openvpn-2.5_git_57d6f10.old/src/openvpn/init.c	2018-07-28 06:02:29.000000000 -0400
-+++ openvpn-2.5_git_57d6f10.new/src/openvpn/init.c	2018-07-28 06:02:29.000000000 -0400
-@@ -1415,12 +1415,10 @@
+diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/init.c openvpn-2.5_git_19d6d9c.new/src/openvpn/init.c
+--- openvpn-2.5_git_19d6d9c.old/src/openvpn/init.c	2019-02-27 07:06:15.000000000 -0500
++++ openvpn-2.5_git_19d6d9c.new/src/openvpn/init.c	2019-02-27 07:06:15.000000000 -0500
+@@ -1466,12 +1466,10 @@
      int metric = -1;            /* no metric set */
  
      gw = options->ifconfig_ipv6_remote;         /* default GW = remote end */
@@ -48,9 +48,9 @@ diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/init.c openvpn-2
  
      if (options->route_default_metric)
      {
-diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/options.c openvpn-2.5_git_57d6f10.new/src/openvpn/options.c
---- openvpn-2.5_git_57d6f10.old/src/openvpn/options.c	2018-07-28 06:02:29.000000000 -0400
-+++ openvpn-2.5_git_57d6f10.new/src/openvpn/options.c	2018-07-28 06:02:29.000000000 -0400
+diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/options.c openvpn-2.5_git_19d6d9c.new/src/openvpn/options.c
+--- openvpn-2.5_git_19d6d9c.old/src/openvpn/options.c	2019-02-27 07:06:15.000000000 -0500
++++ openvpn-2.5_git_19d6d9c.new/src/openvpn/options.c	2019-02-27 07:06:15.000000000 -0500
 @@ -200,8 +200,10 @@
      "--route-ipv6 network/bits [gateway] [metric] :\n"
      "                  Add IPv6 route to routing table after connection\n"
@@ -63,7 +63,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/options.c openvp
      "--route-metric m : Specify a default metric for use with --route.\n"
      "--route-delay n [w] : Delay n seconds after connection initiation before\n"
      "                  adding routes (may be 0).  If not specified, routes will\n"
-@@ -6301,6 +6303,18 @@
+@@ -6277,6 +6279,18 @@
              }
          }
      }
@@ -82,10 +82,10 @@ diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/options.c openvp
      else if (streq(p[0], "route-metric") && p[1] && !p[2])
      {
          VERIFY_PERMISSION(OPT_P_ROUTE);
-diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/options.h openvpn-2.5_git_57d6f10.new/src/openvpn/options.h
---- openvpn-2.5_git_57d6f10.old/src/openvpn/options.h	2018-07-28 06:02:29.000000000 -0400
-+++ openvpn-2.5_git_57d6f10.new/src/openvpn/options.h	2018-07-28 06:02:29.000000000 -0400
-@@ -341,6 +341,7 @@
+diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/options.h openvpn-2.5_git_19d6d9c.new/src/openvpn/options.h
+--- openvpn-2.5_git_19d6d9c.old/src/openvpn/options.h	2019-02-27 07:06:15.000000000 -0500
++++ openvpn-2.5_git_19d6d9c.new/src/openvpn/options.h	2019-02-27 07:06:15.000000000 -0500
+@@ -346,6 +346,7 @@
      const char *route_script;
      const char *route_predown_script;
      const char *route_default_gateway;

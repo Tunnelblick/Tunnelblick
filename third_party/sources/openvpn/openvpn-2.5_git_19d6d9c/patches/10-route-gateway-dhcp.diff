@@ -10,11 +10,10 @@ Subject: [PATCH] Restore functionality of route-gateway's dhcp parameter, and
  src/openvpn/route.h |  3 +++
  3 files changed, 34 insertions(+), 2 deletions(-)
 
-diff --git a/src/openvpn/init.c b/src/openvpn/init.c
-index d28d1fd2..057dbb4b 100644
---- a/src/openvpn/init.c
-+++ b/src/openvpn/init.c
-@@ -1396,6 +1396,7 @@ do_init_route_list(const struct options *options,
+diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/init.c openvpn-2.5_git_19d6d9c.new/src/openvpn/init.c
+--- openvpn-2.5_git_19d6d9c.old/src/openvpn/init.c	2019-02-27 07:06:15.000000000 -0500
++++ openvpn-2.5_git_19d6d9c.new/src/openvpn/init.c	2019-02-27 07:06:15.000000000 -0500
+@@ -1447,6 +1447,7 @@
      if (init_route_list(route_list,
                          options->routes,
                          gw,
@@ -22,24 +21,23 @@ index d28d1fd2..057dbb4b 100644
                          metric,
                          link_socket_current_remote(link_socket_info),
                          es))
-diff --git a/src/openvpn/route.c b/src/openvpn/route.c
-index ff392308..ad8ea135 100644
---- a/src/openvpn/route.c
-+++ b/src/openvpn/route.c
-@@ -295,6 +295,12 @@ is_special_addr(const char *addr_str)
-     }
+diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/route.c openvpn-2.5_git_19d6d9c.new/src/openvpn/route.c
+--- openvpn-2.5_git_19d6d9c.old/src/openvpn/route.c	2019-02-27 07:06:15.000000000 -0500
++++ openvpn-2.5_git_19d6d9c.new/src/openvpn/route.c	2019-02-27 07:06:15.000000000 -0500
+@@ -296,6 +296,12 @@
  }
  
-+static bool
+ static bool
 +should_use_dhcp_gateway(const char *gateway, const struct route_list *rl)
 +{
 +    return (rl->spec.flags & RTSA_DHCP_ENDPOINT && (!is_route_parm_defined(gateway) || !strcmp(gateway, "vpn_gateway")));
 +}
 +
- static bool
++static bool
  init_route(struct route_ipv4 *r,
             struct addrinfo **network_list,
-@@ -362,7 +368,11 @@ init_route(struct route_ipv4 *r,
+            const struct route_option *ro,
+@@ -362,7 +368,11 @@
  
      /* gateway */
  
@@ -52,7 +50,7 @@ index ff392308..ad8ea135 100644
      {
          if (!get_special_addr(rl, ro->gateway, &r->gateway, &status))
          {
-@@ -414,7 +424,10 @@ init_route(struct route_ipv4 *r,
+@@ -414,7 +424,10 @@
          r->flags |= RT_METRIC_DEFINED;
      }
  
@@ -64,7 +62,7 @@ index ff392308..ad8ea135 100644
  
      return true;
  
-@@ -541,6 +554,16 @@ route_list_add_vpn_gateway(struct route_list *rl,
+@@ -541,6 +554,16 @@
      rl->spec.remote_endpoint = addr;
      rl->spec.flags |= RTSA_REMOTE_ENDPOINT;
      setenv_route_addr(es, "vpn_gateway", rl->spec.remote_endpoint, -1);
@@ -81,7 +79,7 @@ index ff392308..ad8ea135 100644
  }
  
  static void
-@@ -611,6 +634,7 @@ bool
+@@ -611,6 +634,7 @@
  init_route_list(struct route_list *rl,
                  const struct route_option_list *opt,
                  const char *remote_endpoint,
@@ -89,7 +87,7 @@ index ff392308..ad8ea135 100644
                  int default_metric,
                  in_addr_t remote_host,
                  struct env_set *es)
-@@ -676,6 +700,10 @@ init_route_list(struct route_list *rl,
+@@ -676,6 +700,10 @@
              ret = false;
          }
      }
@@ -100,11 +98,10 @@ index ff392308..ad8ea135 100644
  
      if (rl->flags & RG_ENABLE)
      {
-diff --git a/src/openvpn/route.h b/src/openvpn/route.h
-index 69420228..948c892e 100644
---- a/src/openvpn/route.h
-+++ b/src/openvpn/route.h
-@@ -62,6 +62,7 @@ struct route_special_addr
+diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/route.h openvpn-2.5_git_19d6d9c.new/src/openvpn/route.h
+--- openvpn-2.5_git_19d6d9c.old/src/openvpn/route.h	2019-02-27 07:06:15.000000000 -0500
++++ openvpn-2.5_git_19d6d9c.new/src/openvpn/route.h	2019-02-27 07:06:15.000000000 -0500
+@@ -62,6 +62,7 @@
  #define RTSA_REMOTE_ENDPOINT  (1<<0)
  #define RTSA_REMOTE_HOST      (1<<1)
  #define RTSA_DEFAULT_METRIC   (1<<2)
@@ -112,7 +109,7 @@ index 69420228..948c892e 100644
      unsigned int flags;
  
      in_addr_t remote_endpoint;
-@@ -112,6 +113,7 @@ struct route_ipv4 {
+@@ -112,6 +113,7 @@
  #define RT_DEFINED        (1<<0)
  #define RT_ADDED          (1<<1)
  #define RT_METRIC_DEFINED (1<<2)
@@ -120,7 +117,7 @@ index 69420228..948c892e 100644
      struct route_ipv4 *next;
      unsigned int flags;
      const struct route_option *option;
-@@ -280,6 +282,7 @@ void add_route_ipv6_to_option_list(struct route_ipv6_option_list *l,
+@@ -280,6 +282,7 @@
  bool init_route_list(struct route_list *rl,
                       const struct route_option_list *opt,
                       const char *remote_endpoint,
@@ -128,6 +125,3 @@ index 69420228..948c892e 100644
                       int default_metric,
                       in_addr_t remote_host,
                       struct env_set *es);
--- 
-2.17.1
-

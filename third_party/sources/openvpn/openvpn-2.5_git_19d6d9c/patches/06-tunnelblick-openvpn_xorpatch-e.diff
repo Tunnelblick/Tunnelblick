@@ -1,7 +1,8 @@
 Only in openvpn-2.5_git_57d6f10.old/src/openvpn: socket.c.orig
-diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/socket.h openvpn-2.5_git_57d6f10.new/src/openvpn/socket.h
---- openvpn-2.5_git_57d6f10.old/src/openvpn/socket.h	2018-07-28 06:02:28.000000000 -0400
-+++ openvpn-2.5_git_57d6f10.new/src/openvpn/socket.h	2018-07-28 06:02:28.000000000 -0400
+Only in openvpn-2.5_git_19d6d9c.old/src/openvpn: socket.c.orig
+diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/socket.h openvpn-2.5_git_19d6d9c.new/src/openvpn/socket.h
+--- openvpn-2.5_git_19d6d9c.old/src/openvpn/socket.h	2019-02-27 07:06:14.000000000 -0500
++++ openvpn-2.5_git_19d6d9c.new/src/openvpn/socket.h	2019-02-27 07:06:14.000000000 -0500
 @@ -248,6 +248,10 @@
  #endif
  };
@@ -13,7 +14,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/socket.h openvpn
  /*
   * Some Posix/Win32 differences.
   */
-@@ -1038,30 +1042,56 @@
+@@ -1050,30 +1054,56 @@
  static inline int
  link_socket_read(struct link_socket *sock,
                   struct buffer *buf,
@@ -74,7 +75,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_57d6f10.old/src/openvpn/socket.h openvpn
  }
  
  /*
-@@ -1151,8 +1181,34 @@
+@@ -1164,8 +1194,34 @@
  static inline int
  link_socket_write(struct link_socket *sock,
                    struct buffer *buf,
