@@ -38,6 +38,7 @@
 		630365D81C02D65600259FD8 /* SettingsSheet-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */; };
 		63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */; };
+		6308EEE9222701E8003D974C /* TA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6308EEE8222701E8003D974C /* TA.lproj */; };
 		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
 		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
 		63118D0D1EA77A6900F20EC1 /* VLS_BE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63118D0C1EA77A6900F20EC1 /* VLS_BE.lproj */; };
@@ -399,6 +400,7 @@
 		630210121465CBBC00283B78 /* CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CS.lproj; sourceTree = "<group>"; };
 		630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "SettingsSheet-RTL.xib"; sourceTree = "<group>"; };
 		6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.LaunchAtLogin.plist; sourceTree = "<group>"; };
+		6308EEE8222701E8003D974C /* TA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TA.lproj; sourceTree = "<group>"; };
 		6311305F11041B89003435F1 /* LoginItemsAE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LoginItemsAE.c; sourceTree = "<group>"; };
 		6311306011041B89003435F1 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
 		6311306111041B89003435F1 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
@@ -1110,6 +1112,7 @@
 				635497FE1FABD9E10009E149 /* SQ.lproj */,
 				63E5276920C2DA7E00963456 /* SR_Latn.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
+				6308EEE8222701E8003D974C /* TA.lproj */,
 				6389ADBC1AE4265100E2FAD8 /* TR.lproj */,
 				B87C59DA17982F3900FFE540 /* UK.lproj */,
 				6364DB8A1E3F5CB40089962B /* VI.lproj */,
@@ -1576,6 +1579,7 @@
 				6364DB8B1E3F5CB40089962B /* VI.lproj in Resources */,
 				63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */,
 				630210131465CBBC00283B78 /* CS.lproj in Resources */,
+				6308EEE9222701E8003D974C /* TA.lproj in Resources */,
 				6356C51D2036244800A7792A /* KY.lproj in Resources */,
 				6341C39713D6DE6200B9CE2B /* DA.lproj in Resources */,
 				615F74990ED3A4FA007F6F0A /* DE.lproj in Resources */,
