@@ -10,9 +10,9 @@ Subject: [PATCH] Restore functionality of route-gateway's dhcp parameter, and
  src/openvpn/route.h |  3 +++
  3 files changed, 34 insertions(+), 2 deletions(-)
 
-diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/init.c openvpn-2.5_git_19d6d9c.new/src/openvpn/init.c
---- openvpn-2.5_git_19d6d9c.old/src/openvpn/init.c	2019-02-27 07:06:15.000000000 -0500
-+++ openvpn-2.5_git_19d6d9c.new/src/openvpn/init.c	2019-02-27 07:06:15.000000000 -0500
+diff -u -r -x .DS_Store openvpn-2.5_git_ccb636c.old/src/openvpn/init.c openvpn-2.5_git_ccb636c.new/src/openvpn/init.c
+--- openvpn-2.5_git_ccb636c.old/src/openvpn/init.c	2019-02-27 08:14:00.000000000 -0500
++++ openvpn-2.5_git_ccb636c.new/src/openvpn/init.c	2019-02-27 08:14:00.000000000 -0500
 @@ -1447,6 +1447,7 @@
      if (init_route_list(route_list,
                          options->routes,
@@ -21,9 +21,9 @@ diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/init.c openvpn-2
                          metric,
                          link_socket_current_remote(link_socket_info),
                          es))
-diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/route.c openvpn-2.5_git_19d6d9c.new/src/openvpn/route.c
---- openvpn-2.5_git_19d6d9c.old/src/openvpn/route.c	2019-02-27 07:06:15.000000000 -0500
-+++ openvpn-2.5_git_19d6d9c.new/src/openvpn/route.c	2019-02-27 07:06:15.000000000 -0500
+diff -u -r -x .DS_Store openvpn-2.5_git_ccb636c.old/src/openvpn/route.c openvpn-2.5_git_ccb636c.new/src/openvpn/route.c
+--- openvpn-2.5_git_ccb636c.old/src/openvpn/route.c	2019-02-27 08:14:00.000000000 -0500
++++ openvpn-2.5_git_ccb636c.new/src/openvpn/route.c	2019-02-27 08:14:00.000000000 -0500
 @@ -296,6 +296,12 @@
  }
  
@@ -62,7 +62,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/route.c openvpn-
  
      return true;
  
-@@ -541,6 +554,16 @@
+@@ -536,6 +549,16 @@
      rl->spec.remote_endpoint = addr;
      rl->spec.flags |= RTSA_REMOTE_ENDPOINT;
      setenv_route_addr(es, "vpn_gateway", rl->spec.remote_endpoint, -1);
@@ -79,7 +79,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/route.c openvpn-
  }
  
  static void
-@@ -611,6 +634,7 @@
+@@ -606,6 +629,7 @@
  init_route_list(struct route_list *rl,
                  const struct route_option_list *opt,
                  const char *remote_endpoint,
@@ -87,7 +87,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/route.c openvpn-
                  int default_metric,
                  in_addr_t remote_host,
                  struct env_set *es)
-@@ -676,6 +700,10 @@
+@@ -671,6 +695,10 @@
              ret = false;
          }
      }
@@ -98,9 +98,9 @@ diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/route.c openvpn-
  
      if (rl->flags & RG_ENABLE)
      {
-diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/route.h openvpn-2.5_git_19d6d9c.new/src/openvpn/route.h
---- openvpn-2.5_git_19d6d9c.old/src/openvpn/route.h	2019-02-27 07:06:15.000000000 -0500
-+++ openvpn-2.5_git_19d6d9c.new/src/openvpn/route.h	2019-02-27 07:06:15.000000000 -0500
+diff -u -r -x .DS_Store openvpn-2.5_git_ccb636c.old/src/openvpn/route.h openvpn-2.5_git_ccb636c.new/src/openvpn/route.h
+--- openvpn-2.5_git_ccb636c.old/src/openvpn/route.h	2019-02-27 08:14:00.000000000 -0500
++++ openvpn-2.5_git_ccb636c.new/src/openvpn/route.h	2019-02-27 08:14:00.000000000 -0500
 @@ -62,6 +62,7 @@
  #define RTSA_REMOTE_ENDPOINT  (1<<0)
  #define RTSA_REMOTE_HOST      (1<<1)
@@ -125,3 +125,4 @@ diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/route.h openvpn-
                       int default_metric,
                       in_addr_t remote_host,
                       struct env_set *es);
+Only in openvpn-2.5_git_ccb636c.old/src/openvpn: socket.c.orig

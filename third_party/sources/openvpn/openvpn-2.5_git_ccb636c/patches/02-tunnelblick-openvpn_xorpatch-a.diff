@@ -1,7 +1,7 @@
-diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/forward.c openvpn-2.5_git_19d6d9c.new/src/openvpn/forward.c
---- openvpn-2.5_git_19d6d9c.old/src/openvpn/forward.c	2019-02-27 07:06:12.000000000 -0500
-+++ openvpn-2.5_git_19d6d9c.new/src/openvpn/forward.c	2019-02-27 07:06:12.000000000 -0500
-@@ -947,7 +947,10 @@
+diff -u -r -x .DS_Store openvpn-2.5_git_ccb636c.old/src/openvpn/forward.c openvpn-2.5_git_ccb636c.new/src/openvpn/forward.c
+--- openvpn-2.5_git_ccb636c.old/src/openvpn/forward.c	2019-02-27 08:13:58.000000000 -0500
++++ openvpn-2.5_git_ccb636c.new/src/openvpn/forward.c	2019-02-27 08:13:58.000000000 -0500
+@@ -950,7 +950,10 @@
  
      status = link_socket_read(c->c2.link_socket,
                                &c->c2.buf,
@@ -13,7 +13,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_19d6d9c.old/src/openvpn/forward.c openvp
  
      if (socket_connection_reset(c->c2.link_socket, status))
      {
-@@ -1588,7 +1591,10 @@
+@@ -1746,7 +1749,10 @@
                  /* Send packet */
                  size = link_socket_write(c->c2.link_socket,
                                           &c->c2.to_link,
