@@ -3283,7 +3283,204 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }
 
--(void) setPIDFromLine:(NSString *)line 
+-(NSArray *) dnsServers {
+	
+	// Returns the list of DNS servers currently in use (from scutil).
+	//
+	// Returns nil if there was an error (after logging the error).
+	
+	NSString * stdOut = @"";
+	NSString * stdErr = @"";
+	
+	OSStatus status = runTool(TOOL_PATH_FOR_BASH, [NSArray arrayWithObjects:
+												   @"-c",
+												   @"scutil --dns | grep 'server' | sed -e 's/.* : //' | sort -u", nil], &stdOut, &stdErr);
+	if (  status != 0  ) {
+		NSLog(@"Error: dnsServers: status = %d; stdout = '%@'\nstderr = '%@'", status, stdOut, stdErr);
+		return nil;
+	}
+	
+	NSMutableArray * servers = [[[stdOut componentsSeparatedByString: @"\n"] mutableCopy] autorelease];
+	
+	// The last entry will be an empty string because:
+	//     * If there are no servers, componentsSeparatedByString returns an array with one empty string
+	//	   * If there are servers, the output from scutil ends in a LF, causing an empty string as the last entry in the array
+	// So we remove it.
+	if (   ([servers count] > 0)
+		&& [[servers lastObject] isEqualToString: @""]  ) {
+		[servers removeObjectAtIndex: [servers count] - 1];
+	}
+	
+	return [[servers copy] autorelease];
+}
+
+-(BOOL) isRoutedThroughVpn: (NSString *) address type: (NSString *) type {
+	
+	// Returns TRUE if an IP address is routed through the VPN.
+	//
+	// Returns FALSE if there was an error (after logging the error).
+	//
+	// Uses the "route get" command to get the interface used to send to the address, then returns indicating if it was the correct
+	// "tap", "tun", or "utun" interface, depending on the connection type.
+	//
+	// address is the string representation of an IP address (e.g. 1.2.3.4 or 4:44::27)
+	// type    indicates the type of VPN connection; it must start with either "tap" or "tun".
+	
+	NSString * stdOut;
+	NSString * stdErr;
+	
+	OSStatus status = runTool(TOOL_PATH_FOR_BASH,
+							  [NSArray arrayWithObjects:
+							   @"-c",
+							   [NSString stringWithFormat: @"route -n get %@ | grep '  interface: ' | sed -e 's/  interface: //'", address],
+							   nil],
+							  &stdOut, &stdErr);
+	if (  status != 0  ) {
+		NSLog(@"isRoutedThroughVpn: Error status %d; stdout = '%@'\nstderr = '%@'", status, stdOut, stdErr);
+		return FALSE;
+	}
+	
+	if (  [type hasPrefix: @"tun"]  ) {
+		return (   [stdOut hasPrefix: @"tun"]
+				|| [stdOut hasPrefix: @"utun"] );
+	}
+	
+	if (  [type hasPrefix: @"tap"]  ) {
+		return [stdOut hasPrefix: @"tap"];
+	}
+	
+	NSLog(@"isRoutedThroughVpn: Called with type = '%@'; type must start with 'tun' or 'tap'", type);
+	return FALSE;
+}
+
+-(BOOL) isPrivateAddress: (NSString *) address {
+	
+	// Returns TRUE if an IP address is either localhost or a private IP address
+	//
+	// Returns FALSE if there was an error (after logging the error).
+	//
+	// Note: The address must be a valid IPv4 or IPv6 address.
+	
+	if (   [address hasPrefix: @"10."]				// 10.*.*.* are private
+		|| [address hasPrefix: @"127."]				// 127.*.*.* are IPv4 localhost
+		|| [address hasPrefix: @"192.168"]			// 192.168.*.* are private
+		|| [address isEqualToString: @"::1"]  ) {	// IPv6 localhost
+		return TRUE;
+	}
+	
+	if (  [address hasPrefix: @"172."]  ) {
+		NSArray * quads = [address componentsSeparatedByString: @"."];
+		if (  [quads count] == 4) {
+			NSString * quad2 = [quads objectAtIndex: 1];
+			return (   ([@"15" compare: quad2] == NSOrderedAscending)		// 172.16.*.* - 172.31.*.* are private
+					&& ([quad2 compare: @"32"] == NSOrderedAscending) );
+		} else {
+			NSLog(@"isPrivateAddress: Error: address %@ is not a dotted-quad address", address);
+			return FALSE;
+		}
+	}
+	
+	NSString * addressLowCase = [address lowercaseString];
+	
+	if (   [addressLowCase hasPrefix: @"fc"]
+		|| [addressLowCase hasPrefix: @"fd"]  ) {
+		return TRUE;
+	}
+	
+	return FALSE;
+}
+
+-(void) checkDnsAddresses {
+	
+	NSArray * addresses = [self dnsServers];
+	if (  ! addresses  ) {
+		[self addToLog: @"*Tunnelblick: Warning: An error occurred while trying to get a list of the DNS servers"];
+		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								  NSLocalizedString(@"An error occurred while trying to get a list of the DNS servers.", @"Window text"),
+								  @"skipWarningAboutErrorGettingDnsServers",
+								  nil,
+								  nil,
+								  NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
+								  nil,
+								  NO);
+		return;
+	}
+	
+	if (  [addresses count] == 0  ) {
+		[self addToLog: @"*Tunnelblick: Warning: There are no DNS servers set up"];
+		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								  NSLocalizedString(@"There are no DNS servers.", @"Window text"),
+								  @"skipWarningAboutNoDnsServers",
+								  nil,
+								  nil,
+								  NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
+								  nil,
+								  NO);
+		return;
+	}
+	
+	NSArray * knownPublicDnsServers = [(MenuController *)[NSApp delegate] knownPublicDnsServerAddresses];
+	if (  ! knownPublicDnsServers  ) {
+		[self addToLog: @"*Tunnelblick: Warning: An error occurred while trying to get the list of known public DNS servers"];
+		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								  NSLocalizedString(@"An error occurred while trying to get the list of known public DNS servers.", @"Window text"),
+								  @"skipWarningAboutErrorGettingKnownPublicDnsServers",
+								  nil,
+								  nil,
+								  NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
+								  nil,
+								  NO);
+		return;
+	}
+	
+	NSString * type = [self tapOrTun];
+	if (  [type isEqualToString: @"Cancel"]  ) {
+		return;
+	}
+	
+	NSMutableString * message = [[NSMutableString alloc] initWithCapacity: 500];
+	
+	NSString * address;
+	NSEnumerator * e = [addresses objectEnumerator];
+	while (  (address = [e nextObject])  ) {
+		
+		if (  [self isRoutedThroughVpn: address type: type]  ) {
+			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: DNS address %@ is being routed through the VPN", address]];
+		} else {
+			if (  [self isPrivateAddress: address]  ) {
+				[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Warning: DNS server address %@ is a private address but is not being routed through the VPN", address]];
+				[message appendString: [NSString stringWithFormat:
+										NSLocalizedString(@"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n", @"Window text"), address]];
+			} else {
+				if (  [knownPublicDnsServers containsObject: address]  ) {
+					[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Warning: DNS server Address %@ is a known public DNS server but is not being routed through the VPN", address]];
+					[message appendString: [NSString stringWithFormat:
+											   NSLocalizedString(@"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n", @"Window text"), address]];
+				} else {
+					[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Warning: DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN", address]];
+					[message appendString: [NSString stringWithFormat:
+											NSLocalizedString(@"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n", @"Window text"), address]];
+				}
+			}
+		}
+	}
+	
+	if (  [message length] != 0  ) {
+		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								  [NSString stringWithFormat:
+								   NSLocalizedString(@"One or more possible problems with DNS were found: \n\n%@", @"Window text"), message],
+								  @"skipWarningAboutDnsProblems",
+								  nil,
+								  nil,
+								  NSLocalizedString(@"Do not warn about DNS problems again for any configuration", @"Checkbox name"),
+								  nil,
+								  NO);
+	}
+	
+	[message release];
+}
+
+-(void) setPIDFromLine:(NSString *)line
 {
 	if([line rangeOfString: @"SUCCESS: pid="].length) {
 		@try {
@@ -3343,6 +3540,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [self clearStatisticsIncludeTotals: NO];
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
            haveConnectedSince = YES;
+			[self checkDnsAddresses];
         }
         
         [self setState: newState];
