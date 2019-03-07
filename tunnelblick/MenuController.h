@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen, Jens Ohlig, Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -126,6 +126,8 @@ enum StatusIconPosition {
     
     SplashWindowController * splashScreen;                 // Splash window (used for install also)
     
+	NSArray					* knownPublicDnsServerAddresses; // Strings of IPv4 or IPv6 addresses, parsed from Resources/FreePublicDnsServersList.txt
+	
     NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
     
     NSDictionary            * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file or .tblk package
@@ -348,6 +350,7 @@ TBPROPERTY_READONLY(NSMenu *,		myVPNMenu)
 TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
 TBPROPERTY_READONLY(ConfigurationMultiUpdater *, myConfigMultiUpdater)
+TBPROPERTY_READONLY(NSArray *, knownPublicDnsServerAddresses)
 
 TBPROPERTY(SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
 TBPROPERTY(NSArray      *, cachedMenuItems,			  setCachedMenuItems)

@@ -3,7 +3,7 @@
  * Contributions by Dirk Theisen <dirk@objectpark.org>,
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -8025,6 +8025,60 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 	[conn invalidateConfigurationParse];
 	[logScreen update];
 	
+}
+
+-(NSMutableArray *) knownPublicDnsServerAddresses {
+	
+	// Returns an array of strings containing known public DNS servers (IPv4 and IPv6) from /Resources/FreePublicDnsServersList.txt.
+	//
+	// Returns nil if the file cannot be parsed, after having logged the error.
+	//
+	// Logs and ignores lines that are not formatted properly
+	
+	if (  ! knownPublicDnsServerAddresses  ) {
+		
+		NSString * path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"FreePublicDnsServersList.txt"];
+		
+		NSString * contents = [NSString stringWithContentsOfFile: path encoding: NSUTF8StringEncoding error: nil];
+		
+		if (  ! contents  ) {
+			NSLog(@"Error: knownPublicDnsServerAddresses: Could not parse as UTF-8: %@", path);
+			return nil;
+		}
+		
+		NSMutableArray * addresses = [[NSMutableArray alloc] initWithCapacity: 100];
+		
+		NSArray * lines = [contents componentsSeparatedByString: @"\n"];
+		NSString * line;
+		NSUInteger lineNumber = 0;
+		NSEnumerator * e = [lines objectEnumerator];
+		while (  (line = [e nextObject])  ) {
+			lineNumber++;
+			if (   ( [line length] != 0)
+				&& ( ! [line hasPrefix: @"#"])
+				&& ( ! [line hasPrefix: @";"])  ) {
+				
+				NSArray * fields = [line componentsSeparatedByString: @"\t"];
+				if (   [fields count] < 2  ) {
+					NSLog(@"Error: knownPublicDnsServerAddresses: FreePublicDnsServersList.txt line %lu has no tab characters: '%@'", (unsigned long)lineNumber, line);
+					continue;
+				}
+				
+				NSUInteger i;
+				for (  i=1; i<[fields count]; i++  ) {
+					NSString * address = [fields objectAtIndex: i];
+					if (  [address length] != 0  ) {
+						[addresses addObject: address];
+					}
+				}
+			}
+		}
+		
+		knownPublicDnsServerAddresses = [addresses copy];
+		[addresses release];
+	}
+	
+	return [[knownPublicDnsServerAddresses copy] autorelease];
 }
 
 //*********************************************************************************************************
