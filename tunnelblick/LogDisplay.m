@@ -635,23 +635,23 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         }
         
         if (  tLine  ) {
-            if (  [tLine length] > 19  ) {
+            if (  [tLine length] > TB_LOG_DATE_TIME_WIDTH  ) {
                 if (  ! [tLine hasPrefix: @" "]  ) {
-                    tLineDateTime = [tLine substringToIndex: 19];
+                    tLineDateTime = [tLine substringToIndex: TB_LOG_DATE_TIME_WIDTH];
                 }
             }            
         }
         if (  oLine  ) {
-            if (  [oLine length] > 19  ) {
+            if (  [oLine length] > TB_LOG_DATE_TIME_WIDTH  ) {
                 if (  ! [oLine hasPrefix: @" "]  ) {
-                    oLineDateTime = [oLine substringToIndex: 19];
+                    oLineDateTime = [oLine substringToIndex: TB_LOG_DATE_TIME_WIDTH];
                 }
             }
         }
         if (  sLine  ) {
-            if (  [sLine length] > 19  ) {
+            if (  [sLine length] > TB_LOG_DATE_TIME_WIDTH  ) {
                 if (  ! [sLine hasPrefix: @" "]  ) {
-                    sLineDateTime = [sLine substringToIndex: 19];
+                    sLineDateTime = [sLine substringToIndex: TB_LOG_DATE_TIME_WIDTH];
                 }
             }
             
@@ -895,10 +895,10 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     }
     
     NSMutableString * newValue = [[[self convertDate: line] mutableCopy] autorelease];
-    if (  [newValue length] > 19  ) {
-        if (  [[newValue substringWithRange: NSMakeRange(18, 1)] isEqualToString: @" "]  ) {        // (Last digit of seconds)
-            if (  ! [[newValue substringWithRange: NSMakeRange(20, 1)] isEqualToString: @"*"]  ) {
-                [newValue insertString: @"*" atIndex: 20]; 
+    if (  [newValue length] > TB_LOG_DATE_TIME_WIDTH  ) {
+        if (  [[newValue substringWithRange: NSMakeRange(TB_LOG_DATE_TIME_WIDTH - 1, 1)] isEqualToString: @" "]  ) {        // (Last digit of seconds)
+            if (  ! [[newValue substringWithRange: NSMakeRange(TB_LOG_DATE_TIME_WIDTH + 1, 1)] isEqualToString: @"*"]  ) {
+                [newValue insertString: @"*" atIndex: TB_LOG_DATE_TIME_WIDTH + 1];
             }
         }
     }
@@ -935,12 +935,12 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
             
             if (  firstLine) {
                 if (  hasDateTime  ) {
-                    dateTimeToAccept = [line substringWithRange: NSMakeRange(0, 19)];
+                    dateTimeToAccept = [line substringWithRange: NSMakeRange(0, TB_LOG_DATE_TIME_WIDTH)];
                 }
                 
             } else {
                 if (  dateTimeToAccept  ) {
-                    if (  ! [dateTimeToAccept isEqualToString: [line substringWithRange: NSMakeRange(0, 19)]]  ) {
+                    if (  ! [dateTimeToAccept isEqualToString: [line substringWithRange: NSMakeRange(0, TB_LOG_DATE_TIME_WIDTH)]]  ) {
                         break;
                     }
                 } else {
@@ -1039,12 +1039,12 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         }        
     }
     
-    if (  [line length] > 18 ) {
+    if (  [line length] > TB_LOG_DATE_TIME_WIDTH - 1  ) {
         if (  ! [[line substringWithRange: NSMakeRange(0, 1)] isEqualToString: @"\n"]  ) {
             if (  isFromOpenvpnLog  ) {
-                [self setLastOpenvpnEntryTime: [line substringWithRange: NSMakeRange(0, 19)]];
+                [self setLastOpenvpnEntryTime: [line substringWithRange: NSMakeRange(0, TB_LOG_DATE_TIME_WIDTH)]];
             } else {
-                [self setLastScriptEntryTime:  [line substringWithRange: NSMakeRange(0, 19)]];
+                [self setLastScriptEntryTime:  [line substringWithRange: NSMakeRange(0, TB_LOG_DATE_TIME_WIDTH)]];
             }
         }
     }
@@ -1274,7 +1274,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
         NSString * text = [logStore string];
         
         NSString * lineTime;
-        if (   [line length] < 19
+        if (   [line length] < TB_LOG_DATE_TIME_WIDTH
             || [[line substringWithRange: NSMakeRange(0, 1)] isEqualToString: @" "]  ) {
             if (  isFromOpenVPNLog  ) {
                 lineTime = [self lastOpenvpnEntryTime];
@@ -1282,7 +1282,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
                 lineTime = [self lastScriptEntryTime];
             }
         } else {
-            lineTime = [line substringWithRange: NSMakeRange(0, 19)];
+            lineTime = [line substringWithRange: NSMakeRange(0, TB_LOG_DATE_TIME_WIDTH)];
             if (  isFromOpenVPNLog  ) {
                 [self setLastOpenvpnEntryTime: lineTime];
             } else {
@@ -1325,9 +1325,9 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
         unsigned numberOfLinesSkippedBackward = 0;
         
         while (  currentLineRng.length != 0  ) {
-            NSComparisonResult result = (  [text length] < (currentLineRng.location + 19)
+            NSComparisonResult result = (  [text length] < (currentLineRng.location + TB_LOG_DATE_TIME_WIDTH)
                                          ? NSOrderedAscending
-                                         : [lineTime compare: [text substringWithRange: NSMakeRange(currentLineRng.location, 19)]]);
+                                         : [lineTime compare: [text substringWithRange: NSMakeRange(currentLineRng.location, TB_LOG_DATE_TIME_WIDTH)]]);
             
             if (  result == NSOrderedDescending  ) {
                 
@@ -1341,8 +1341,8 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
             if (   (result == NSOrderedSame)
                 && ( ! (beforeTunnelblickEntries && beforeOpenVPNEntries) )  ) {
                 BOOL currentFromOpenVPN = TRUE;
-                if ( currentLineRng.length > 20  ) {
-                    currentFromOpenVPN = ! [[text substringWithRange: NSMakeRange(currentLineRng.location+20, 1)] isEqualToString: @"*"];
+                if ( currentLineRng.length > TB_LOG_DATE_TIME_WIDTH + 1  ) {
+                    currentFromOpenVPN = ! [[text substringWithRange: NSMakeRange(currentLineRng.location + TB_LOG_DATE_TIME_WIDTH + 1, 1)] isEqualToString: @"*"];
                 }
                 if (  ! (beforeTunnelblickEntries ^ currentFromOpenVPN)  ) {
                     if (  numberOfLinesSkippedBackward == 0  ) {
