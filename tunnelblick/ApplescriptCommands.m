@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2019 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -61,7 +61,7 @@ extern TBUserDefaults  * gTbDefaults;
     
     if (  connection  ) {
         if (  ! [connection isDisconnected]  ) {
-            [connection addToLog: @"*Tunnelblick: Disconnecting; AppleScript 'disconnect' invoked"];
+            [connection addToLog: @"Disconnecting; AppleScript 'disconnect' invoked"];
             [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
             return [NSNumber numberWithBool: TRUE];
         }
@@ -104,7 +104,7 @@ extern TBUserDefaults  * gTbDefaults;
     int nDisconnecting = 0;
     while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection isDisconnected]  ) {
-            [connection addToLog: @"*Tunnelblick: Disconnecting; AppleScript 'disconnect all' invoked"];
+            [connection addToLog: @"Disconnecting; AppleScript 'disconnect all' invoked"];
             [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
             nDisconnecting++;
         }
@@ -130,7 +130,7 @@ extern TBUserDefaults  * gTbDefaults;
             NSString* systemStartkey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
             if (  ! (   [gTbDefaults boolForKey: autoConnectkey]
                      && [gTbDefaults boolForKey: systemStartkey] )  ) {
-                [connection addToLog:@"*Tunnelblick: Disconnecting; AppleScript 'disconnect all except when computer starts' invoked"];
+                [connection addToLog:@"Disconnecting; AppleScript 'disconnect all except when computer starts' invoked"];
                 [connection startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
                 nDisconnecting++;
             }

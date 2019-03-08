@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -599,7 +599,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     } else {
         TBLog(@"DB-HU", @"['%@'] didHookup invoked; VPN Details window does not exist", displayName)
     }
-    [self addToLog: @"*Tunnelblick: Established communication with OpenVPN"];
+    [self addToLog: @"Established communication with OpenVPN"];
 }
 
 -(BOOL) shouldDisconnectWhenBecomeInactiveUser
@@ -1233,7 +1233,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         [((MenuController *)[NSApp delegate]) addActiveIPCheckThread: threadID];
         [NSThread detachNewThreadSelector:@selector(checkIPAddressAfterConnectedThread:) toTarget: self withObject: threadID];
     } else {
-        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Could not determine this computer's apparent public IP address before the connection was completed"]];
+        [self addToLog: [NSString stringWithFormat: @"Could not determine this computer's apparent public IP address before the connection was completed"]];
         [self ipInfoNotFetchedBeforeConnectedDialog];
     }
 }
@@ -1241,11 +1241,11 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 -(BOOL) checkForChangedIPAddress: (NSString *) beforeConnect andIPAddress: (NSString *) afterConnect
 {
 	if (  [beforeConnect isEqualToString: afterConnect]  ) {
-		[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: This computer's apparent public IP address (%@) was unchanged after the connection was made", beforeConnect]];
+		[self addToLog: [NSString stringWithFormat: @"This computer's apparent public IP address (%@) was unchanged after the connection was made", beforeConnect]];
 		[self ipInfoNoChangeDialogBefore: beforeConnect];
 		return FALSE;
 	} else {
-		[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: This computer's apparent public IP address changed from %@ before connection to %@ after connection", beforeConnect, afterConnect]];
+		[self addToLog: [NSString stringWithFormat: @"This computer's apparent public IP address changed from %@ before connection to %@ after connection", beforeConnect, afterConnect]];
 		return TRUE;
 	}
 }	
@@ -1358,7 +1358,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     // Couldn't get IP address by name, try by IP address
     TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: Problem getting IP address using the ipInfo host's name; retrying by its IP address")
 
-    [self addToLog:[NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's name after connecting.", (double) timeoutToUse]];
+    [self addToLog:[NSString stringWithFormat: @"After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's name after connecting.", (double) timeoutToUse]];
 
     ipInfo = [self currentIPInfoWithIPAddress: YES timeoutInterval: timeoutToUse];
     if (   [((MenuController *)[NSApp delegate]) isOnCancellingListIPCheckThread: threadID]
@@ -1371,7 +1371,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     if (  ! ipInfo  ) {
         NSLog(@"An error occured fetching IP address information after connecting");
         [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
-                               withObject: @"*Tunnelblick: An error occured fetching IP address information using the ipInfo host's IP address after connecting"
+                               withObject: @"An error occured fetching IP address information using the ipInfo host's IP address after connecting"
                             waitUntilDone: NO];
         [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
         [threadPool drain];
@@ -1381,7 +1381,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     if (  [ipInfo count] == 0  ) {
         TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: SSL error getting IP address using the ipInfo host's IP address")
 		[self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
-							   withObject: [NSString stringWithFormat: @"*Tunnelblick: fetched IP address information using the ipInfo host's IP address after connecting."]
+							   withObject: [NSString stringWithFormat: @"fetched IP address information using the ipInfo host's IP address after connecting."]
 							waitUntilDone: NO];
         [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
         [threadPool drain];
@@ -1395,7 +1395,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                                                            withObject: address
                                                         waitUntilDone: NO];
     [self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
-                           withObject: [NSString stringWithFormat: @"*Tunnelblick: fetched IP address information using the ipInfo host's IP address after connecting."]
+                           withObject: [NSString stringWithFormat: @"fetched IP address information using the ipInfo host's IP address after connecting."]
                         waitUntilDone: NO];
     [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
     [threadPool drain];
@@ -1462,7 +1462,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	
 	[gTbDefaults setBool: NO forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
 	
-	NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
+	NSString * logText = [NSString stringWithFormat:@"Attempting connection with %@%@; Set nameserver = %@%@",
 						  [self displayName],
 						  (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"1"]
 						   ? @" using shadow copy"
@@ -1482,7 +1482,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 		[escapedArguments addObject: [[[argumentsUsedToStartOpenvpnstart objectAtIndex: i] componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "]];
 	}
 	
-	[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: openvpnstart %@",
+	[self addToLog: [NSString stringWithFormat: @"openvpnstart %@",
 					 [escapedArguments componentsJoinedByString: @" "]]];
 	
 	unsigned bitMask = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 7] unsignedIntValue];
@@ -1516,10 +1516,10 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 		if (  status == OPENVPNSTART_RETURN_SYNTAX_ERROR  ) {
 			openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
 		} else {
-			openvpnstartOutput = stringForLog(errOut, @"*Tunnelblick: openvpnstart log:\n");
+			openvpnstartOutput = stringForLog(errOut, @"openvpnstart log:\n");
 		}
 		
-		[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: \n\n"
+		[self addToLog: [NSString stringWithFormat: @"\n\n"
 						 "Could not start OpenVPN (openvpnstart returned with status #%ld)\n\n"
 						 "Contents of the openvpnstart log:\n"
 						 "%@",
@@ -1576,11 +1576,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 		}
 		
 	} else {
-		openvpnstartOutput = stringForLog(errOut, @"*Tunnelblick: openvpnstart log:\n");
-		if (  openvpnstartOutput  ) {
-			if (  [openvpnstartOutput length] != 0  ) {
-				[self addToLog: openvpnstartOutput];
-			}
+		openvpnstartOutput = stringForLog(errOut, @"openvpnstart log:\n");
+		if (  [openvpnstartOutput length] != 0  ) {
+			[self addToLog: openvpnstartOutput];
 		}
 		[self setState: @"SLEEP"];
 		[((MenuController *)[NSApp delegate]) addNonconnection: self];
@@ -1786,7 +1784,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 							@"requestedState": [self requestedState]};
 	
 	if (  waitingForNetworkAvailability  ) {
-		[self addToLog: @"*Tunnelblick: Waiting for network to become available "];
+		[self addToLog: @"Waiting for network to become available "];
 		[self setConnectedSinceDate: [NSDate date]];
 		[self clearStatisticsIncludeTotals: NO];
 		[self setState: @"NETWORK_ACCESS"];
@@ -2515,7 +2513,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
         }
     } else if (  ! [preference isEqualToString: @"never"]  ) {
-        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Cannot recognize the %@ preference value of '%@', so Tunnelblick will load the tap kext", preferenceKey, preference]];
+        [self addToLog: [NSString stringWithFormat: @"Cannot recognize the %@ preference value of '%@', so Tunnelblick will load the tap kext", preferenceKey, preference]];
         bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
     }
     
@@ -2530,7 +2528,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
         }
     } else if (  ! [preference isEqualToString: @"never"]  ) {
-        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Cannot recognize the %@ preference value of '%@', so Tunnelblick will not load the tun kext", preferenceKey, preference]];
+        [self addToLog: [NSString stringWithFormat: @"Cannot recognize the %@ preference value of '%@', so Tunnelblick will not load the tun kext", preferenceKey, preference]];
     }
     
     NSString * runMtuTestKey = [displayName stringByAppendingString: @"-runMtuTest"];
@@ -2776,14 +2774,14 @@ ifConnectionPreference: (NSString *)     keySuffix
 - (IBAction) toggle: (id) sender
 {
 	if (![self isDisconnected]) {
-        [self addToLog: @"*Tunnelblick: Disconnecting; 'Disconnect' (toggle) menu command invoked"];
+        [self addToLog: @"Disconnecting; 'Disconnect' (toggle) menu command invoked"];
 		NSString * oldRequestedState = [self requestedState];
 		[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
 		if (  [oldRequestedState isEqualToString: @"EXITING"]  ) {
 			[self displaySlowDisconnectionDialogLater];
 		}
 	} else {
-        [self addToLog: @"*Tunnelblick: Disconnecting; 'Connect' (toggle) menu command invoked"];
+        [self addToLog: @"Disconnecting; 'Connect' (toggle) menu command invoked"];
 		[self connect: sender userKnows: YES];
 	}
 }
@@ -2977,7 +2975,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                                                  && [gTbDefaults boolForKey: autoConnectKey              ]);
     if (   ALLOW_OPENVPNSTART_KILL
 		&& (thePid > 0)  ) {
-		[self addToLog: @"*Tunnelblick: Disconnecting using 'kill'"];
+		[self addToLog: @"Disconnecting using 'kill'"];
         TBLog(@"DB-CD", @"Disconnecting '%@' using 'kill'", [self displayName]);
 		[self expectDisconnect: userKnows];
         [self killProcess];
@@ -2985,13 +2983,13 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                && (  [(connectedList = [((MenuController *)[NSApp delegate]) connectionsNotDisconnected]) count] == 1  )
                && (  [connectedList objectAtIndex: 0] == self  )
                && notConnectWhenComputerStarts  ) {
-		[self addToLog: @"*Tunnelblick: Disconnecting using 'killall'"];
+		[self addToLog: @"Disconnecting using 'killall'"];
         TBLog(@"DB-CD", @"Disconnecting '%@' using 'killall'", [self displayName]);
 		[self expectDisconnect: userKnows];
 		[ConfigurationManager terminateAllOpenVPNInNewThread];
         TBLog(@"DB-CD", @"Using 'killall' to disconnect %@", [self displayName])
     } else if (  [managementSocket isConnected]  ) {
-		[self addToLog: @"*Tunnelblick: Disconnecting using management interface"];
+		[self addToLog: @"Disconnecting using management interface"];
         TBLog(@"DB-CD", @"Disconnecting '%@' using management interface", [self displayName]);
 		[self expectDisconnect: userKnows];
 		[ConfigurationManager terminateOpenVPNWithManagmentSocketInNewThread: self];
@@ -3178,7 +3176,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                                                          default: 5
                                                                              min: 0
                                                                              max: 60];
-        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Unexpected disconnection. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
+        [self addToLog: [NSString stringWithFormat: @"Unexpected disconnection. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
                          requestedState, interval, oldPidAsNumber]];
 		TBLog(@"DB-CD", @"Unexpected disconnection of %@. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
 			  [self displayName], requestedState, interval, oldPidAsNumber)
@@ -3192,7 +3190,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                 testEvery: 0.2];
         return;  // DO NOT set "completelyDisconnected"
     } else if (  ! wereWaitingForNetworkAvailability  ) {
-        [self addToLog: @"*Tunnelblick: Expected disconnection occurred."];
+        [self addToLog: @"Expected disconnection occurred."];
 	}
 	
 	if (  [messagesIfConnectionFails count] != 0  ) {
@@ -3394,7 +3392,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	NSArray * addresses = [self dnsServers];
 	if (  ! addresses  ) {
-		[self addToLog: @"*Tunnelblick: Warning: An error occurred while trying to get a list of the DNS servers"];
+		[self addToLog: @"Warning: An error occurred while trying to get a list of the DNS servers"];
 		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								  NSLocalizedString(@"An error occurred while trying to get a list of the DNS servers.", @"Window text"),
 								  @"skipWarningAboutErrorGettingDnsServers",
@@ -3407,7 +3405,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 	
 	if (  [addresses count] == 0  ) {
-		[self addToLog: @"*Tunnelblick: Warning: There are no DNS servers set up"];
+		[self addToLog: @"Warning: There are no DNS servers set up"];
 		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								  NSLocalizedString(@"There are no DNS servers.", @"Window text"),
 								  @"skipWarningAboutNoDnsServers",
@@ -3421,7 +3419,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	NSArray * knownPublicDnsServers = [(MenuController *)[NSApp delegate] knownPublicDnsServerAddresses];
 	if (  ! knownPublicDnsServers  ) {
-		[self addToLog: @"*Tunnelblick: Warning: An error occurred while trying to get the list of known public DNS servers"];
+		[self addToLog: @"Warning: An error occurred while trying to get the list of known public DNS servers"];
 		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								  NSLocalizedString(@"An error occurred while trying to get the list of known public DNS servers.", @"Window text"),
 								  @"skipWarningAboutErrorGettingKnownPublicDnsServers",
@@ -3445,19 +3443,19 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	while (  (address = [e nextObject])  ) {
 		
 		if (  [self isRoutedThroughVpn: address type: type]  ) {
-			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: DNS address %@ is being routed through the VPN", address]];
+			[self addToLog: [NSString stringWithFormat: @"DNS address %@ is being routed through the VPN", address]];
 		} else {
 			if (  [self isPrivateAddress: address]  ) {
-				[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Warning: DNS server address %@ is a private address but is not being routed through the VPN", address]];
+				[self addToLog: [NSString stringWithFormat: @"Warning: DNS server address %@ is a private address but is not being routed through the VPN", address]];
 				[message appendString: [NSString stringWithFormat:
 										NSLocalizedString(@"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n", @"Window text"), address]];
 			} else {
 				if (  [knownPublicDnsServers containsObject: address]  ) {
-					[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Warning: DNS server Address %@ is a known public DNS server but is not being routed through the VPN", address]];
+					[self addToLog: [NSString stringWithFormat: @"Warning: DNS server Address %@ is a known public DNS server but is not being routed through the VPN", address]];
 					[message appendString: [NSString stringWithFormat:
 											   NSLocalizedString(@"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n", @"Window text"), address]];
 				} else {
-					[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Warning: DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN", address]];
+					[self addToLog: [NSString stringWithFormat: @"Warning: DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN", address]];
 					[message appendString: [NSString stringWithFormat:
 											NSLocalizedString(@"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n", @"Window text"), address]];
 				}
@@ -3729,7 +3727,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	// Otherwise, query the user
 	if (  [challenge length] == 0  ) {
 		if (  ! responseRequired  ) {
-			[self addToLog: @"*Tunnelblick: An empty challenge message is not being shown to the user because no response is required"];
+			[self addToLog: @"An empty challenge message is not being shown to the user because no response is required"];
 			return @"";
 		}
 		
@@ -3777,7 +3775,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (   (   [[self authRetryParameter] isEqualToString: @"none"]
 			|| [[self authRetryParameter] isEqualToString: @"nointeract"] )
 		&& ( ! [self openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting])  ) {
-		[self addToLog: @"*Tunnelblick: Error: Disconnecting because the OpenVPN server requires a response to a dynamic challenge and the OpenVPN configuration file contains 'auth-retry none' or 'auth-retry nointeract'. The selected version of OpenVPN does not support that."];
+		[self addToLog: @"Error: Disconnecting because the OpenVPN server requires a response to a dynamic challenge and the OpenVPN configuration file contains 'auth-retry none' or 'auth-retry nointeract'. The selected version of OpenVPN does not support that."];
 		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
 		return;
 	}
@@ -3794,7 +3792,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		if (   ( ! [pwPart isEqualToString: @">PASSWORD"] )
 			|| ( ! [vfPart isEqualToString: @"Verification Failed"] )
 			|| ( ! [acPart isEqualToString: @" 'Auth' ['CRV1"] )  ) {
-			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: dynamic challange request did not start with '>PASSWORD:Verification Failed: 'Auth' ['CRV1:': '%@'", line]];
+			[self addToLog: [NSString stringWithFormat: @"Disconnecting: dynamic challange request did not start with '>PASSWORD:Verification Failed: 'Auth' ['CRV1:': '%@'", line]];
 			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
 			return;
 		}
@@ -3803,13 +3801,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		NSString * usernameBase64 = [parts objectAtIndex: 5];
 		NSData * usernameAsData = base64Decode(usernameBase64);
 		if (  ! usernameAsData  ) {
-			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: in dynamic challenge/response request, could not decode base 64 string with username '%@'", usernameBase64]];
+			[self addToLog: [NSString stringWithFormat: @"Disconnecting: in dynamic challenge/response request, could not decode base 64 string with username '%@'", usernameBase64]];
 			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
 			return;
 		}
 		NSString * username  = [[[NSString alloc] initWithData: usernameAsData encoding: NSUTF8StringEncoding] autorelease];
 		if (  ! username  ) {
-			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: in dynamic challenge/response request, could not decode UTF-8 with username (Base 64 of username is '%@')", usernameBase64]];
+			[self addToLog: [NSString stringWithFormat: @"Disconnecting: in dynamic challenge/response request, could not decode UTF-8 with username (Base 64 of username is '%@')", usernameBase64]];
 			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
 			return;
 		}
@@ -3824,7 +3822,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		
 		// Strip the trailing "']" from the challenge
 		if (  ! [prompt hasSuffix: @"']"]  ) {
-			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: dynamic challenge/response request does not end with \"']\": '%@'", line]];
+			[self addToLog: [NSString stringWithFormat: @"Disconnecting: dynamic challenge/response request does not end with \"']\": '%@'", line]];
 			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
 			return;
 		}
@@ -3836,9 +3834,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		[self setDynamicChallengePrompt:   prompt];
 		[self setDynamicChallengeFlags:    flags];
 		
-		[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Saved dynamic challenge info for user %@ with flags '%@', state '%@', and prompt '%@'", username, flags, state, prompt]];
+		[self addToLog: [NSString stringWithFormat: @"Saved dynamic challenge info for user %@ with flags '%@', state '%@', and prompt '%@'", username, flags, state, prompt]];
 	} else {
-		[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: dynamic challange request did not have at least six colons: '%@'", line]];
+		[self addToLog: [NSString stringWithFormat: @"Disconnecting: dynamic challange request did not have at least six colons: '%@'", line]];
 		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
 	}
 	
@@ -3967,7 +3965,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     userWantsState = userWantsRetry;
                 } else {
                     userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
-                    [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
+                    [self addToLog: @"Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
                     [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
                 }
                 
@@ -4149,14 +4147,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	if (  response  ) {
 		[self addToLog: (  responseRequired
-						 ? @"*Tunnelblick: User responded to dynamic challenge"
-						 : @"*Tunnelblick: Displayed dynamic challenge to user; no response is required so an empty response is being returned")];
+						 ? @"User responded to dynamic challenge"
+						 : @"Displayed dynamic challenge to user; no response is required so an empty response is being returned")];
 		NSString * msg = [NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(dynamicChallengeUsername)];
 		[self sendStringToManagementSocket: msg encoding: NSUTF8StringEncoding];
 		msg = [NSString stringWithFormat:@"password \"Auth\" \"CRV1::%@::%@\"\r\n", escaped(dynamicChallengeState), escaped(response)];
 		[self sendStringToManagementSocket: msg encoding: NSUTF8StringEncoding];
 	} else {
-		[self addToLog: @"*Tunnelblick: Disconnecting: An error occurred or the user cancelled when presented with dynamic challenge"];
+		[self addToLog: @"Disconnecting: An error occurred or the user cancelled when presented with dynamic challenge"];
 		[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
 	}
 	
@@ -4171,7 +4169,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	TBLog(@"DB-AU", @"processLine: provideCredentials: invoked");
 	
 	if (  areDisconnecting  ) {
-		[self addToLog: @"*Tunnelblick: Ignoring credentials request because the VPN is disconnecting"];
+		[self addToLog: @"Ignoring credentials request because the VPN is disconnecting"];
 		return;
 	}
 	
@@ -4205,7 +4203,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [myAuthAgent setAuthMode:@"privateKey"];
         [myAuthAgent performAuthentication];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {
-            [self addToLog: @"*Tunnelblick: Obtained passphrase from the Keychain"];
+            [self addToLog: @"Obtained passphrase from the Keychain"];
         }
         NSString *myPassphrase = [myAuthAgent passphrase];
         NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
@@ -4216,13 +4214,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             const char * passphraseC = [escaped(myPassphrase) UTF8String];
              if (  ( strlen(tokenNameC)  > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )
                 || ( strlen(passphraseC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )  ) {
-                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting; token name is %ld bytes long; passphrase is %ld bytes long; each is limited to %ld bytes", (long)strlen(tokenNameC), (long)strlen(passphraseC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
+                [self addToLog: [NSString stringWithFormat: @"Disconnecting; token name is %ld bytes long; passphrase is %ld bytes long; each is limited to %ld bytes", (long)strlen(tokenNameC), (long)strlen(passphraseC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
                 [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
             } else {
                 [self sendStringToManagementSocket: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", escaped(tokenName), escaped(myPassphrase)] encoding:NSUTF8StringEncoding];
             }
         } else {
-            [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
+            [self addToLog: @"Disconnecting; user cancelled authorization"];
             [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
         }
         
@@ -4242,7 +4240,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [myAuthAgent setAuthMode:@"password"];
         [myAuthAgent performAuthentication];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {
-            [self addToLog: @"*Tunnelblick: Obtained VPN username and password from the Keychain"];
+            [self addToLog: @"Obtained VPN username and password from the Keychain"];
         }
         NSString *myPassword = [myAuthAgent password];
         NSString *myUsername = [myAuthAgent username];
@@ -4252,7 +4250,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             const char * passwordC  = [escaped(myPassword) UTF8String];
             if (   ( strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )
                 || ( strlen(passwordC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )  ) {
-                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting; username is %ld bytes long; password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
+                [self addToLog: [NSString stringWithFormat: @"Disconnecting; username is %ld bytes long; password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
                 [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
             } else {
                 NSString * response = nil;
@@ -4262,9 +4260,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 											 responseRequired: YES
 													 isStatic: YES];
 					if (  response  ) {
-						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: User responded to static challenge: '%@'", staticChallengePrompt]];
+						[self addToLog: [NSString stringWithFormat: @"User responded to static challenge: '%@'", staticChallengePrompt]];
 					} else {
-						[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting: User cancelled when presented with static challenge: '%@'", staticChallengePrompt]];
+						[self addToLog: [NSString stringWithFormat: @"Disconnecting: User cancelled when presented with static challenge: '%@'", staticChallengePrompt]];
 						[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
 					}
                 }
@@ -4279,7 +4277,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 }
             }
         } else {
-            [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
+            [self addToLog: @"Disconnecting; user cancelled authorization"];
             [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
         }
         
@@ -4326,7 +4324,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void)addToLog:(NSString *)text
 {
 	if (  [NSThread isMainThread]  ) {
-		[logDisplay addToLog: text];
+		[logDisplay addToLog: [TB_LOG_PREFIX stringByAppendingString: text]];
 	} else {
 		[logDisplay performSelectorOnMainThread: @selector(addToLog:)
 									 withObject: text
@@ -4702,7 +4700,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			if (  [gFileMgr fileExistsAtPath: DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH]  ) {
                 NSString * scriptNumberString = [NSString stringWithFormat: @"%d",
                                                  (connectedUseScripts & OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK) >> OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT];
-                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: OpenVPN appears to have crashed -- the OpenVPN process has terminated without running a 'down' script, even though it ran an 'up' script. Tunnelblick will run the 'down' script #%@ to attempt to clean up network settings.", scriptNumberString]];
+                [self addToLog: [NSString stringWithFormat: @"OpenVPN appears to have crashed -- the OpenVPN process has terminated without running a 'down' script, even though it ran an 'up' script. Tunnelblick will run the 'down' script #%@ to attempt to clean up network settings.", scriptNumberString]];
                 if (  [scriptNumberString isEqualToString: @"0"]  ) {
 					NSString * flagString = @"0";
 					BOOL expected   = [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-disableNetworkAccessAfterDisconnect"]];
@@ -4716,7 +4714,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 					} else if (  unexpected  ) {
 						flagString = @"2";
 					}
-					[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Running 'route-pre-down %@' script first.", flagString]];
+					[self addToLog: [NSString stringWithFormat: @"Running 'route-pre-down %@' script first.", flagString]];
 					runOpenvpnstart([NSArray arrayWithObjects: @"route-pre-down", flagString, displayName, connectedCfgLocCodeString, nil], nil, nil);
                 }
                 runOpenvpnstart([NSArray arrayWithObjects: @"down", scriptNumberString, displayName, connectedCfgLocCodeString, nil], nil, nil);
@@ -4827,7 +4825,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         
 		if (   (status == EXIT_SUCCESS)
 			&& [stdOutString hasPrefix: @"No such script exists: "]  ) {
-			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: No '%@.sh' script to execute", scriptName]];
+			[self addToLog: [NSString stringWithFormat: @"No '%@.sh' script to execute", scriptName]];
 			return;
 		}
 		
@@ -4840,9 +4838,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		
 		NSMutableString * msg = [NSMutableString stringWithCapacity: 1000];
 		if (  status == EXIT_SUCCESS  ) {
-			[msg appendString: [NSString stringWithFormat: @"*Tunnelblick: The '%@.sh' script succeeded\n", scriptName]];
+			[msg appendString: [NSString stringWithFormat: @"The '%@.sh' script succeeded\n", scriptName]];
 		} else {
-			[msg appendString: [NSString stringWithFormat: @"*Tunnelblick: The '%@.sh' script failed; 'openvpnstart %@' returned error %ld\n",
+			[msg appendString: [NSString stringWithFormat: @"The '%@.sh' script failed; 'openvpnstart %@' returned error %ld\n",
 								scriptName, command, (long) status]];
 		}
 		
@@ -4859,7 +4857,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  status != EXIT_SUCCESS  ) {
             if (   ( ! [scriptName isEqualToString: @"post-disconnect"])
 				&& ( ! [scriptName isEqualToString: @"pre-disconnect"])  ) {
-                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting because the '%@.sh' script failed", scriptName]];
+                [self addToLog: [NSString stringWithFormat: @"Disconnecting because the '%@.sh' script failed", scriptName]];
 				[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
             }
         }

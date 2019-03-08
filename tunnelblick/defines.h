@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -51,6 +51,9 @@
 #define TUNNELBLICK_DOT_NET_IPINFO_RESPONSE_MAX_LENGTH 90
 
 #define SECONDS_PER_DAY ( 24 * 60 * 60 )
+
+// Prefix log entries from Tunnelblick itself (as opposed to OpenVPN) with this string.
+#define TB_LOG_PREFIX @"*Tunnelblick: "
 
 // Maximum hotKey index
 #define MAX_HOTKEY_IX 12

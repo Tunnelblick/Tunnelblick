@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Angelo Laub
  * Contributions by Dirk Theisen
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2019. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -1527,7 +1527,7 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode) {
     NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0666] forKey: NSFilePosixPermissions];
 
     NSCalendarDate * date = [NSCalendarDate date];
-    NSString * dateCmdLine = [NSString stringWithFormat:@"%@ *Tunnelblick: openvpnstart starting OpenVPN\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"]];
+    NSString * dateCmdLine = [NSString stringWithFormat:@"%@ %@openvpnstart starting OpenVPN\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], TB_LOG_PREFIX];
     const char * bytes = [dateCmdLine UTF8String];
     NSData * dateCmdLineAsData = [NSData dataWithBytes: bytes length: strlen(bytes)];
     

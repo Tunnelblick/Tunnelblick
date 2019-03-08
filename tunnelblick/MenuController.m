@@ -2725,7 +2725,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
     if (   myConnection
 		&& ( ! [[myConnection state] isEqualTo: @"EXITING"] )  ) {
-        [myConnection addToLog: @"*Tunnelblick: Disconnecting; user asked to delete the configuration"];
+        [myConnection addToLog: @"Disconnecting; user asked to delete the configuration"];
         [myConnection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
         [myConnection waitUntilDisconnected];
         
@@ -2899,7 +2899,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                                      ? [NSString stringWithFormat: @"; prior version %@", [versionHistory objectAtIndex: 1]]
                                      : @"");
 
-    return ([NSString stringWithFormat:@"*Tunnelblick: macOS %@; %@%@", currentVersionString, tunnelblickVersion([NSBundle mainBundle]), priorVersionString]);
+    return ([NSString stringWithFormat:@"macOS %@; %@%@", currentVersionString, tunnelblickVersion([NSBundle mainBundle]), priorVersionString]);
 }
 
 - (void) checkForUpdates: (id) sender
@@ -2968,7 +2968,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                 if (   ( ! gShuttingDownWorkspace)
                     && ( ! gShuttingDownOrRestartingComputer)
                     && ( ! quittingTunnelblick)  ) {
-                    [connection addToLog: [NSString stringWithFormat: @"*Tunnelblick: %@", logMessage]];
+                    [connection addToLog: [NSString stringWithFormat: @"%@", logMessage]];
                 }
                 
                 // Console-log the kill/disconnect and start the disconnect if not using killall
@@ -3404,7 +3404,7 @@ BOOL anyNonTblkConfigs(void)
     VPNConnection * connection;
     while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection isDisconnected]  ) {
-            [connection addToLog: @"*Tunnelblick: Disconnecting; 'Disconnect all' menu command invoked"];
+            [connection addToLog: @"Disconnecting; 'Disconnect all' menu command invoked"];
             [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
         }
     }
@@ -7625,11 +7625,11 @@ void terminateBecauseOfBadConfiguration(void)
         NSString * key  = [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
         if (  ! [gTbDefaults boolForKey: key]  ) {
 			TBLog(@"DB-SW", @"finishWakingUpFromSleep: Attempting to connect %@", name)
-            [connection addToLog: @"*Tunnelblick: Woke up from sleep. Attempting to re-establish connection..."];
+            [connection addToLog: @"Woke up from sleep. Attempting to re-establish connection..."];
             [connection connect:self userKnows: YES];
         } else {
             TBLog(@"DB-SW", @"finishWakingUpFromSleep: Not restoring connection %@ because of '-doNotReconnectOnWakeFromSleep' preference", name)
-            [connection addToLog: @"*Tunnelblick: Woke up from sleep. Not attempting to re-establish connection..."];
+            [connection addToLog: @"Woke up from sleep. Not attempting to re-establish connection..."];
         }
 	}
     
@@ -7764,7 +7764,7 @@ void terminateBecauseOfBadConfiguration(void)
 	while (  (connection = [e nextObject])  ) {
         if (   [connection shouldDisconnectWhenBecomeInactiveUser]
             && ( ! [connection isDisconnected])  ) {
-            [connection addToLog: @"*Tunnelblick: Disconnecting; user became inactive"];
+            [connection addToLog: @"Disconnecting; user became inactive"];
             [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
             [disconnectionsWeAreWaitingFor addObject: connection];
             NSString * key = [[connection displayName] stringByAppendingString: @"-doNotReconnectOnFastUserSwitch"];
@@ -7775,7 +7775,7 @@ void terminateBecauseOfBadConfiguration(void)
 				TBLog(@"DB-SW", "didBecomeInactiveUser: started disconnecting %@; will not reconnect when become active user", [connection displayName]);
 			}
         } else {
-            [connection addToLog: @"*Tunnelblick: Stopping communication with OpenVPN because user became inactive"];
+            [connection addToLog: @"Stopping communication with OpenVPN because user became inactive"];
             [connection reInitialize];
 			if (  ! [connection isDisconnected]  ) {
 				TBLog(@"DB-SW", "didBecomeInactiveUser: stopping communication with OpenVPN for %@ because user became inactive", [connection displayName]);
@@ -7849,7 +7849,7 @@ void terminateBecauseOfBadConfiguration(void)
 		while (  (connection = [e nextObject])  ) {
 			if (  ! [connection isHookedup]  ) {
 				[connection stopTryingToHookup];
-				[connection addToLog: @"*Tunnelblick: Attempting to reconnect because user became active"];
+				[connection addToLog: @"Attempting to reconnect because user became active"];
 				[connection connect: self userKnows: YES];
 				TBLog(@"DB-SW", "reconnectAfterBecomeActiveUser: Attempting to reconnect '%@' because user became active", [connection displayName]);
 			}
@@ -8314,14 +8314,14 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: theName];
     if (  connection  ) {
         if (  choice == statusWindowControllerDisconnectChoice  ) {
-            [connection addToLog: @"*Tunnelblick: Disconnecting; notification window disconnect button pressed"];
+            [connection addToLog: @"Disconnecting; notification window disconnect button pressed"];
 			NSString * oldRequestedState = [connection requestedState];
 			[connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
 			if (  [oldRequestedState isEqualToString: @"EXITING"]  ) {
 				[connection displaySlowDisconnectionDialogLater];
 			}
         } else if (  choice == statusWindowControllerConnectChoice  ) {
-            [connection addToLog: @"*Tunnelblick: Connecting; notification window connect button pressed"];
+            [connection addToLog: @"Connecting; notification window connect button pressed"];
             [connection connect: self userKnows: YES];
         } else {
             NSLog(@"Invalid choice -- statusWindowController:finishedWithChoice: %d forDisplayName: %@", choice, theName);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -1637,7 +1637,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     VPNConnection * connection = [self selectedConnection];
     if (  connection  ) {
-        [connection addToLog: @"*Tunnelblick: Disconnecting; VPN Details… window connect button pressed"];
+        [connection addToLog: @"Disconnecting; VPN Details… window connect button pressed"];
         [connection connect: sender userKnows: YES];
     } else {
         NSLog(@"connectButtonWasClicked but no configuration selected");
@@ -1651,7 +1651,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
     VPNConnection * connection = [self selectedConnection];
     if (  connection  ) {
-        [connection addToLog: @"*Tunnelblick: Disconnecting; VPN Details… window disconnect button pressed"];
+        [connection addToLog: @"Disconnecting; VPN Details… window disconnect button pressed"];
 		NSString * oldRequestedState = [connection requestedState];
         [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
         if (  [oldRequestedState isEqualToString: @"EXITING"]  ) {

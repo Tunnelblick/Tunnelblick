@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -366,7 +366,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     NSCalendarDate * date = [NSCalendarDate date];
     NSString * dateText = [NSString stringWithFormat:@"%@ %@\n",[date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"], text];
     
-    BOOL fromTunnelblick = [text hasPrefix: @"*Tunnelblick: "];
+    BOOL fromTunnelblick = [text hasPrefix: TB_LOG_PREFIX];
     
     if (   [self logStorage]
         && [self monitorQueue]  ) {
@@ -1103,7 +1103,9 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
             if (  end != NSNotFound  ) {
                 if (  start < end  ) {
                     NSRange rangeToDelete = NSMakeRange(start, end - start);
-                    NSString * replacementLine = [NSString stringWithFormat: @"\n                    *Tunnelblick: Some entries have been removed because the log is too long\n\n"];
+                    NSString * replacementLine = [NSString stringWithFormat: @"\n%@ %@Some entries have been removed because the log is too long\n\n",
+												  [@"" stringByPaddingToLength: TB_LOG_DATE_TIME_WIDTH withString: @" " startingAtIndex: 0],
+												  TB_LOG_PREFIX];
                     [logStore replaceCharactersInRange: rangeToDelete withString: replacementLine];
                 }
             }
