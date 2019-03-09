@@ -39,6 +39,10 @@
 		63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */; };
 		6308EEE9222701E8003D974C /* TA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6308EEE8222701E8003D974C /* TA.lproj */; };
+		63097CDF22323E2B005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
+		63097CE022340EA8005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
+		63097CE122340EC4005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
+		63097CE222340EF8005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
 		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
 		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
 		63118D0D1EA77A6900F20EC1 /* VLS_BE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63118D0C1EA77A6900F20EC1 /* VLS_BE.lproj */; };
@@ -401,6 +405,8 @@
 		630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "SettingsSheet-RTL.xib"; sourceTree = "<group>"; };
 		6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.LaunchAtLogin.plist; sourceTree = "<group>"; };
 		6308EEE8222701E8003D974C /* TA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TA.lproj; sourceTree = "<group>"; };
+		63097CDD22323E2B005F94CF /* NSDate+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TB.m"; sourceTree = "<group>"; };
+		63097CDE22323E2B005F94CF /* NSDate+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TB.h"; sourceTree = "<group>"; };
 		6311305F11041B89003435F1 /* LoginItemsAE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LoginItemsAE.c; sourceTree = "<group>"; };
 		6311306011041B89003435F1 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
 		6311306111041B89003435F1 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
@@ -1195,6 +1201,8 @@
 				61BC4B700E2F9EBC00F24255 /* NSApplication+LoginItem.m */,
 				61BC4B730E2F9EBC00F24255 /* NSArray+cArray.h */,
 				61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */,
+				63097CDE22323E2B005F94CF /* NSDate+TB.h */,
+				63097CDD22323E2B005F94CF /* NSDate+TB.m */,
 				63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */,
 				63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */,
 				63DEC28E13B890F70063CE11 /* NSString+TB.h */,
@@ -1741,6 +1749,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63097CE222340EF8005F94CF /* NSDate+TB.m in Sources */,
 				61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */,
 				63F2AD9D12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */,
@@ -1772,6 +1781,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63097CE122340EC4005F94CF /* NSDate+TB.m in Sources */,
 				63AA8E5F1492C77700C791C9 /* process-network-changes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1780,6 +1790,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63097CE022340EA8005F94CF /* NSDate+TB.m in Sources */,
 				63C375791A4510F600D51E81 /* tunnelblick-helper.m in Sources */,
 				63C3757A1A45111700D51E81 /* NSFileManager+TB.m in Sources */,
 				63C3757B1A45112500D51E81 /* NSString+TB.m in Sources */,
@@ -1849,6 +1860,7 @@
 				635971421C06736B0055FBC5 /* UIHelper.m in Sources */,
 				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,
 				637A871913B74B81003C1871 /* SplashWindowController.m in Sources */,
+				63097CDF22323E2B005F94CF /* NSDate+TB.m in Sources */,
 				63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */,
 				63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */,
 				63F0A8B11507D13700526AF9 /* MainIconView.m in Sources */,

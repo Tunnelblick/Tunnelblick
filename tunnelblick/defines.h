@@ -53,7 +53,10 @@
 #define SECONDS_PER_DAY ( 24 * 60 * 60 )
 
 // Number of characters/columns taken up by the date & time in the Tunnelblick log
-#define TB_LOG_DATE_TIME_WIDTH 19
+//    If == 19, microseconds are not included (e.g., "2019-03-08 09:30:15")
+//    If == 26, microseconds are included     (e.g., "2019-03-08 09:30:15.123456")
+//              OTHER VALUES WILL CAUSE PROBLEMS
+#define TB_LOG_DATE_TIME_WIDTH 26
 
 // Prefix log entries from Tunnelblick itself (as opposed to OpenVPN) with this string.
 #define TB_LOG_PREFIX @"*Tunnelblick: "
