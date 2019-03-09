@@ -39,6 +39,7 @@
 #import "NetSocket.h"
 #import "NetSocket+Text.h"
 #import "NSApplication+LoginItem.h"
+#import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 #import "NSTimer+TB.h"
@@ -3528,12 +3529,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
 		
         if ([newState isEqualToString: @"CONNECTED"]) {
-            NSDate *date; 
-            if (  dateTime) {
-                date = [NSCalendarDate dateWithTimeIntervalSince1970: (float) [dateTime intValue]];
-            } else {
-                date = [[[NSDate alloc] init] autorelease];
-            }
+			NSDate * date = (  dateTime
+							 ? [NSDate dateWithOpenvpnMachineReadableLogRepresentation: dateTime]
+							 : [NSDate date]);
             [self setConnectedSinceDate: date];
             [self clearStatisticsIncludeTotals: NO];
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2016, 2019 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,6 +24,7 @@
 #import <signal.h>
 
 #import "defines.h"
+#import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 
 NSAutoreleasePool * gPool;
@@ -221,8 +222,8 @@ int main (int argc, const char * argv[])
 
 void appendLog(NSString * msg)
 {
-    NSCalendarDate * date = [NSCalendarDate date];
-    NSString * fullMsg = [NSString stringWithFormat:@"%@ *Tunnelblick process-network-changes: %@\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], msg];
+    NSString * fullMsg = [NSString stringWithFormat:@"%@ %@ process-network-changes: %@\n",
+						  [[NSDate date] openvpnMachineReadableLogRepresentation], TB_LOG_PREFIX, msg];
     NSFileHandle * handle = [NSFileHandle fileHandleForWritingAtPath: gLogPath];
     [handle seekToEndOfFile];
     const char * bytes = [fullMsg UTF8String];

@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -32,6 +32,7 @@
 #import "sharedRoutines.h"
 
 #import "ConfigurationConverter.h"
+#import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 
@@ -882,9 +883,7 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void) {
 			return FALSE;
 		}
 		
-		NSDateFormatter * f = [[[NSDateFormatter alloc] init] autorelease];
-		[f setDateFormat: @"yyyy-MM-dd hh.mm.ss"];
-		NSString * dateTimeString = [f stringFromDate: [NSDate date]];
+		NSString * dateTimeString = [[NSDate date] tunnelblickFilenameRepresentation];
 		
 		NSString * oldFolder = [[newFolder stringByDeletingLastPathComponent]
 								stringByAppendingPathComponent:
@@ -2246,8 +2245,7 @@ int main(int argc, char *argv[])
 	for (  i=2; i<argc; i++  ) {
 		[argString appendFormat: @"\n     %@", [NSString stringWithUTF8String: argv[i]]];
 	}
-	NSCalendarDate * date = [NSCalendarDate date];
-	NSString * dateMsg = [date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"];
+	NSString * dateMsg = [[NSDate date] tunnelblickUserLogRepresentation];
 	
 	appendLog([NSString stringWithFormat: @"Tunnelblick installer started %@. %d arguments:%@", dateMsg, argc - 1, argString]);
 	

@@ -34,6 +34,7 @@
 #import "defines.h"
 #import "sharedRoutines.h"
 
+#import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 
@@ -1526,8 +1527,8 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode) {
     NSString * logPath = constructScriptLogPath(configurationFile, cfgLocCode);
     NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0666] forKey: NSFilePosixPermissions];
 
-    NSCalendarDate * date = [NSCalendarDate date];
-    NSString * dateCmdLine = [NSString stringWithFormat:@"%@ %@openvpnstart starting OpenVPN\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], TB_LOG_PREFIX];
+    NSString * dateCmdLine = [NSString stringWithFormat:@"%@ %@openvpnstart starting OpenVPN\n",
+							  [[NSDate date] openvpnMachineReadableLogRepresentation], TB_LOG_PREFIX];
     const char * bytes = [dateCmdLine UTF8String];
     NSData * dateCmdLineAsData = [NSData dataWithBytes: bytes length: strlen(bytes)];
     
@@ -2168,10 +2169,12 @@ int startVPN(NSString * configFile,
     // Specify daemon and log path first, so the config file cannot override them, and specify the working directory for the config
 	NSMutableArray* arguments = [NSMutableArray arrayWithObjects:
 								 
-                                 // Specify daemon and log path first, so the config file cannot override them, and specify the working directory for the config
+                                 // Specify daemon and log path first, so the config file cannot override them,
+								 // and specify the working directory for the config and the machine-readable log format
                                  @"--daemon",
                                  @"--log",        logPath,
 								 @"--cd",         cdFolderPath,
+								 @"--machine-readable-output",
                                  nil];
     
 	// Set IV_GUI_VER using the "--setenv" option

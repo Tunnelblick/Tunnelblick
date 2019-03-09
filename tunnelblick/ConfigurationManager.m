@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -37,6 +37,7 @@
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
 #import "NSApplication+LoginItem.h"
+#import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 #import "SettingsSheetWindowController.h"
@@ -3693,15 +3694,24 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Returns a string with a console log entry, terminated with a LF
     
     NSString * timestampS = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_TIME]];
+	NSString * nSecondsS  = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_TIME_NSEC]];
     NSString * senderS    = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_SENDER]];
     NSString * pidS       = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_PID]];
     NSString * msgS       = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_MSG]];
     
-    NSDate * dateTime = [NSDate dateWithTimeIntervalSince1970: (NSTimeInterval) [timestampS doubleValue]];
-    NSDateFormatter * formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
+	if (  [nSecondsS length] > 9  ) {
+		NSLog(@"ASL_KEY_TIME_NSEC is longer than 9 characters!!!");
+		[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		return @"";
+	}
 	
-    NSString * timeString = [formatter stringFromDate: dateTime];
+	NSString * timeWithNs = [NSString stringWithFormat: @"%@.%@%@",
+							 timestampS,
+							 [@"000000000" substringFromIndex: [nSecondsS length]],
+							 nSecondsS];
+    NSDate * dateTime = [NSDate dateWithTimeIntervalSince1970: (NSTimeInterval) [timeWithNs doubleValue]];
+	NSString * timeString = [dateTime tunnelblickUserLogRepresentation];
+
     NSString * senderString = [NSString stringWithFormat: @"%@[%@]", senderS, pidS];
     
 	// Set up to indent continuation lines by converting newlines to \n (i.e., "backslash n")
@@ -4221,10 +4231,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	SystemAuth * auth = [[SystemAuth newAuthWithPrompt: message] autorelease];
 	if (  auth  ) {
 		
-		// Construct a name for the output file: "Tunnelblick Setup 2018-08-01 01:15:35". (The .tblkSetup extension will be added by the installer)
-		NSDateFormatter * f = [[[NSDateFormatter alloc] init] autorelease];
-		[f setDateFormat: @"yyyy-MM-dd hh.mm.ss"];
-		NSString * dateTimeString = [f stringFromDate: [NSDate date]];
+		// Construct a name for the output file: "Tunnelblick Setup 2018-08-01 01.15.35". (The .tblkSetup extension will be added by the installer)
+		NSString * dateTimeString = [[NSDate date] tunnelblickFilenameRepresentation];
 		NSString * filename = [NSString stringWithFormat:
 							   NSLocalizedString(@"Tunnelblick Setup %@",
 												 @"This is the name of a file created by the 'Export Tunnelblick Setup' button."

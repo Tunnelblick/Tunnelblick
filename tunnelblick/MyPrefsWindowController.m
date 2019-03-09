@@ -37,6 +37,7 @@
 #import "LeftNavViewController.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
+#import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 #import "SettingsSheetWindowController.h"
@@ -2744,7 +2745,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     NSDate * lastCheckedDate = [gTbDefaults dateForKey: @"SULastCheckTime"];
     NSString * lastChecked = (  lastCheckedDate
-                              ? [lastCheckedDate descriptionWithCalendarFormat: @"%Y-%m-%d %H:%M" timeZone: nil locale: [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]]
+                              ? [lastCheckedDate tunnelblickUserLogRepresentationWithoutMicroseconds]
                               : NSLocalizedString(@"(Never checked)", @"Window text"));
     [[generalPrefsView updatesLastCheckedTFC] setTitle: [NSString stringWithFormat:
                                                          NSLocalizedString(@"Last checked: %@", @"Window text"),

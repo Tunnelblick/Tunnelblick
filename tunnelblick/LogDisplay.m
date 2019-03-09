@@ -29,7 +29,9 @@
 #import "ConfigurationsView.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
+#import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
+#import "NSString+TB.h"
 #import "NSTimer+TB.h"
 #import "TBUserDefaults.h"
 #import "UKKQueue/UKKQueue.h"
@@ -60,7 +62,8 @@ extern unsigned               gMaximumLogSize;
 -(NSString *)   contentsOfPath:         (NSString *)            logPath
                    usePosition:         (unsigned long long *)  logPosition;
 
--(NSString *)   convertDate:            (NSString *)            line;
+-(NSString *)   convertDateInLine:      (NSString *)            line
+			      messageFlagsPtr:      (NSUInteger *)			messageFlagsPtr;
 
 -(NSString *)   constructOpenvpnLogPath;
 -(NSString *)   constructScriptLogPath;
@@ -356,15 +359,14 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
 }
 
 // Inserts the current date/time, a message, and a \n to the log display.
--(void)addToLog: (NSString *) text
+-(void) addToLog: (NSString *) text
 {
     if (   gShuttingDownWorkspace
         || [self loggingIsDisabled]  ) {
         return;
     }
     
-    NSCalendarDate * date = [NSCalendarDate date];
-    NSString * dateText = [NSString stringWithFormat:@"%@ %@\n",[date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"], text];
+    NSString * dateText = [NSString stringWithFormat:@"%@ %@\n",[[NSDate date] tunnelblickUserLogRepresentation], text];
     
     BOOL fromTunnelblick = [text hasPrefix: TB_LOG_PREFIX];
     
@@ -397,6 +399,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
                           ? NSLocalizedString(@"(Logging is disabled.)", @"Window text -- appears in log display when logging is disabled\n")
                           : [[((MenuController *)[NSApp delegate]) openVPNLogHeader] stringByAppendingString: @"\n"]);
 
+	message = [NSString stringWithFormat: @"%@ %@", [[NSDate date] tunnelblickUserLogRepresentation], message];
+	
     // Clear the log in the display if it is being shown
     OSStatus status = pthread_mutex_lock( &logStorageMutex );
     if (  status != EXIT_SUCCESS  ) {
@@ -870,7 +874,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
 }
 
 // Returns the next line from the string of a script log
-// The date/time in the line (if any) is converted to "YYYY-MM-DD HH:MM:SS" form
+// The date/time in the line (if any) is converted to tunnelblickUserLogRepresentation
 // A \n is appended to the line if it doesn't end in one
 // If the line is not from the OpenVPN log, and the 1st character after the date/time is not a "*", one is inserted
 // If the at the end of the string, nil is returned
@@ -894,7 +898,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         *positionPtr += lineRng.length;
     }
     
-    NSMutableString * newValue = [[[self convertDate: line] mutableCopy] autorelease];
+    NSMutableString * newValue = [[[self convertDateInLine: line messageFlagsPtr: nil] mutableCopy] autorelease];
     if (  [newValue length] > TB_LOG_DATE_TIME_WIDTH  ) {
         if (  [[newValue substringWithRange: NSMakeRange(TB_LOG_DATE_TIME_WIDTH - 1, 1)] isEqualToString: @" "]  ) {        // (Last digit of seconds)
             if (  ! [[newValue substringWithRange: NSMakeRange(TB_LOG_DATE_TIME_WIDTH + 1, 1)] isEqualToString: @"*"]  ) {
@@ -907,7 +911,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
 }
 
 // Returns the next lines from the string of an OpenVPN log that all have the same date/time
-// The date/time in the line (if any) is converted to "YYYY-MM-DD HH:MM:SS" form
+// The date/time in the line (if any) is converted to tunnelblickUserLogRepresentation
 // A \n is appended to the lines if it doesn't end in one
 // If at the end of the string, nil is returned
 -(NSString *) nextLinesInOpenVPNString: (NSString * *) stringPtr fromPosition: (unsigned *) positionPtr
@@ -930,7 +934,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
             substringRng.length--;
         } else {
             originalLine = [*stringPtr substringWithRange: NSMakeRange(substringRng.location, lfRng.location - substringRng.location + 1)];
-            line = [self convertDate: originalLine];                // Not the length of this new, converted line
+			NSUInteger messageFlags = 0;
+            line = [self convertDateInLine: originalLine messageFlagsPtr: &messageFlags];
             BOOL hasDateTime = ! [[line substringWithRange: NSMakeRange(0, 1)] isEqualToString: @" "];
             
             if (  firstLine) {
@@ -972,30 +977,120 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     return linesToReturn;
 }
 
-// If a line starts with the date/time as "Day dd Mon HH:MM:SS YYYY", converts it to start with "YYYY-MM-DD HH:MM:SS "
-// Otherwise the line is indented
--(NSString *) convertDate: (NSString *) line
-{
-    NSString * lineToReturn;
-    // Convert date/time to YYYY-MM-DD HH:MM:SS
-    const char * cLogLine;
-    const char * cRestOfLogLine;
-    struct tm cTime;
-    char cDateTimeStringBuffer[] = "1234567890123456789012345678901";
-    cLogLine = [line UTF8String];
-    cRestOfLogLine = strptime(cLogLine, "%c", &cTime);
-    if (  cRestOfLogLine  ) {
-        size_t timeLen = strftime(cDateTimeStringBuffer, 30, "%Y-%m-%d %H:%M:%S", &cTime);
-        if (  timeLen  ) {
-            lineToReturn = [NSString stringWithFormat: @"%s%s", cDateTimeStringBuffer, cRestOfLogLine];
-        } else {
-            lineToReturn = [NSString stringWithFormat: @"                                        %@", line];
-        }
-    } else {
-        lineToReturn = [NSString stringWithFormat: @"                                        %@", line];
-    }
-    
-    return lineToReturn;
+-(NSUInteger) logDateTimeLength: (NSString *) line {
+	
+	// Examines the start of line for a date/time and returns the length of the date/time as follows:
+	//
+	//		 0 if the start of the line is not a date/time
+	//		17 if the date/time is of the form "iiiiiiiiii.ffffff " (seconds.microseconds since 1/1/1970)
+	//		23 if the date/time is of the form "Sat Mar  9 08:10:08 2019 "
+	//		24 if the date/time is of the form "Sat Mar 19 08:10:08 2019 "
+	//                                          0123456789012345678901234
+	if (  [line length] > 17  ) {
+		NSString * dateTimeWithSeconds = [line substringWithRange: NSMakeRange(0, 10)];
+		if ( [dateTimeWithSeconds containsOnlyCharactersInString: @"0123456789"]  ) {
+			NSString * microseconds = [line substringWithRange: NSMakeRange(11, 6)];
+			if ( [microseconds containsOnlyCharactersInString: @"0123456789"]  ) {
+				if (  [[line substringWithRange: NSMakeRange(10, 1)] isEqualToString: @"."]  ) {
+					if (  [[line substringWithRange: NSMakeRange(17, 1)] isEqualToString: @" "]  ) {
+						return 17;
+					}
+				}
+			}
+		}
+		
+		if (  [line length] > 23  ) {
+			if (   [[line substringWithRange: NSMakeRange(3,  1)] isEqualToString: @" "]
+				&& [[line substringWithRange: NSMakeRange(7,  1)] isEqualToString: @" "]
+				&& [[line substringWithRange: NSMakeRange(9,  1)] isEqualToString: @" "]
+				&& [[line substringWithRange: NSMakeRange(12, 1)] isEqualToString: @":"]
+				&& [[line substringWithRange: NSMakeRange(15, 1)] isEqualToString: @":"]
+				&& [[line substringWithRange: NSMakeRange(18, 1)] isEqualToString: @" "]
+				&& [[line substringWithRange: NSMakeRange(23, 1)] isEqualToString: @" "]
+				)  {
+				return 23;
+			}
+			
+			if (  [line length] > 24  ) {
+				if (   [[line substringWithRange: NSMakeRange(3,  1)] isEqualToString: @" "]
+					&& [[line substringWithRange: NSMakeRange(7,  1)] isEqualToString: @" "]
+					&& [[line substringWithRange: NSMakeRange(10, 1)] isEqualToString: @" "]
+					&& [[line substringWithRange: NSMakeRange(13, 1)] isEqualToString: @":"]
+					&& [[line substringWithRange: NSMakeRange(16, 1)] isEqualToString: @":"]
+					&& [[line substringWithRange: NSMakeRange(19, 1)] isEqualToString: @" "]
+					&& [[line substringWithRange: NSMakeRange(24, 1)] isEqualToString: @" "]
+					) {
+					return 24;
+				}
+			}
+		}
+	}
+	
+	return 0;
+}
+
+-(NSString *) convertDateInLine: (NSString *)   line
+			    messageFlagsPtr: (NSUInteger *) messageFlagsPtr {
+	
+	// If line starts with the date/time , returns the line starting with the tunnelblickUserLogRepresentation of the date/time
+	// else returns the line indented by TB_LOG_DATE_TIME_WIDTH + 1 spaces
+	
+	NSUInteger dateLength = [self logDateTimeLength: line];
+	
+	NSString * oldDate    = [line substringWithRange: NSMakeRange(0, dateLength)];
+	NSString * restOfLine = [line substringFromIndex: dateLength];
+	
+	NSString * newDate;
+	
+	switch (dateLength) {
+			
+		case 0:
+			
+			// Line doesn't start with a date/time; indent it
+			newDate = [@"" stringByPaddingToLength: TB_LOG_DATE_TIME_WIDTH withString: @" " startingAtIndex: 0];
+			break;
+			
+		case 17:
+			
+			newDate = [[NSDate dateWithOpenvpnMachineReadableLogRepresentation: oldDate] tunnelblickUserLogRepresentation];
+			
+			// Extract message flags and remove them from the message
+			if (  messageFlagsPtr) {
+				if (  [restOfLine length] > 2  ) {
+					restOfLine = [restOfLine substringFromIndex: 1];	// Skip space
+					*messageFlagsPtr = [restOfLine unsignedIntValue];
+					NSUInteger secondSpaceIx = [restOfLine rangeOfString: @" "].location;
+					if (  secondSpaceIx != NSNotFound  ) {
+						restOfLine = [restOfLine substringFromIndex: secondSpaceIx];
+					}
+				}
+			}
+			
+			break;
+			
+		case 24:
+			
+			{
+				NSDateFormatter * dateFormat = [[[NSDateFormatter alloc] init] autorelease];
+				[dateFormat setDateFormat:@"EEE MMM dd HH:mm:ss yyyy"];
+				NSDate * newDateD = [dateFormat dateFromString: oldDate];
+				if (  newDateD  ) {
+					newDate = [newDateD tunnelblickUserLogRepresentation];
+				} else {
+					NSLog(@"convertDateInLine: Invalid date:\n'%@'; expected format\n'%@'; line was:\n%@", oldDate, [dateFormat dateFormat], line);
+					newDate = [[oldDate copy] autorelease];
+				}
+			}
+			
+			break;
+			
+  default:
+			NSLog(@"convertDateInLine: Error: invalid dateLength %lu in line '%@'", (unsigned long)dateLength, line);
+			newDate = [[oldDate copy] autorelease];
+	}
+	
+	NSString * result = [NSString stringWithFormat: @"%@%@", newDate, restOfLine];
+	return result;
 }
 
 // Appends a line to the log display
