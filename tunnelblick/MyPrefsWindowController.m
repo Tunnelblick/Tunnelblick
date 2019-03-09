@@ -1562,6 +1562,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 															 && [TBOperationQueue shouldUIBeEnabledForDisplayName: displayName])];
     [[configurationsPrefsView disconnectButton] setEnabled: (   ( ! disconnected )
 															 && ( ! [gTbDefaults boolForKey: disableDisconnectButtonKey] )  )];
+	
+	[self updateConnectionStatusAndTime];
 }
 
 -(unsigned) firstDifferentComponent: (NSArray *) a and: (NSArray *) b
