@@ -1206,6 +1206,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     // List of OpenVPN options that take a command
 	NSArray * optionsWithCommand = [NSArray arrayWithObjects:
 									@"tls-verify",
+									@"tls-crypt-v2-verify",
 									@"auth-user-pass-verify",
 									@"client-connect",
 									@"client-disconnect",
