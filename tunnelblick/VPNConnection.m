@@ -356,7 +356,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(BOOL) userOrGroupOptionExistsInConfiguration {
 	
-	NSString * cfgContents = [self sanitizedConfigurationFileContents];
+	NSString * cfgContents = [self condensedSanitizedConfigurationFileContents];
 	if (  cfgContents  ) {
 		if (   [ConfigurationManager parseString: cfgContents forOption: @"user"]
 			|| [ConfigurationManager parseString: cfgContents forOption: @"group"]  ) {
@@ -810,6 +810,17 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	return [NSString stringWithFormat:@"VPN Connection %@", displayName];
 }
 
+-(NSString *) condensedSanitizedConfigurationFileContents {
+	
+	if (  condensedSanitizedConfigurationFileContents  ) {
+		return [[condensedSanitizedConfigurationFileContents retain] autorelease];
+	}
+	
+	NSString * condensedContents = [ConfigurationManager condensedConfigFileContentsFromString: [self sanitizedConfigurationFileContents]];
+	[self setCondensedSanitizedConfigurationFileContents: condensedContents];
+	return condensedContents;
+}
+
 -(NSString *) sanitizedConfigurationFileContents {
     
 	if (  sanitizedConfigurationFileContents  ) {
@@ -823,7 +834,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     NSArray  * arguments = [NSArray arrayWithObjects: @"printSanitizedConfigurationFile", lastPartOfPath([self configPath]), configLocString, nil];
     OSStatus status = runOpenvpnstart(arguments, &stdOutString, &stdErrString);
     
-    if (  status != EXIT_SUCCESS) {
+    if (  status != EXIT_SUCCESS  ) {
         NSLog(@"Error status %d returned from 'openvpnstart printSanitizedConfigurationFile %@ %@'",
               (int) status, [self displayName], configLocString);
     }
@@ -835,10 +846,16 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     
     NSString * configFileContents = nil;
     if (   stdOutString
-        && ([stdOutString length] != 0)  ) {
+        && ([stdOutString length] != 0)
+		&& (status == EXIT_SUCCESS)  ) {
         configFileContents = [NSString stringWithString: stdOutString];
     }
     
+	if ( ! configFileContents  ) {
+		TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+						  NSLocalizedString(@"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details.", @"Window text"));
+	}
+	
 	[self setSanitizedConfigurationFileContents: configFileContents];
 	 
     return configFileContents;
@@ -927,6 +944,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 {
 	[self setTunOrTap: nil];
 	[self setSanitizedConfigurationFileContents: nil];
+	[self setCondensedSanitizedConfigurationFileContents: nil];
 }
 
 -(void) showStatusWindowForce: (BOOL) force
@@ -2201,7 +2219,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	// We have a version to try. Make sure the configuration can be used with that version.
 
-	NSString * configString = [self sanitizedConfigurationFileContents];
+	NSString * configString = [self condensedSanitizedConfigurationFileContents];
 	NSString * originalVersionToTry = [[versionToTry retain] autorelease];
 	
 	// Deal with removed options in this configuration file
@@ -5051,6 +5069,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 TBSYNTHESIZE_OBJECT_GET(retain, StatusWindowController *, statusScreen)
 
 TBSYNTHESIZE_OBJECT_SET(		NSString *,				  sanitizedConfigurationFileContents, setSanitizedConfigurationFileContents)
+TBSYNTHESIZE_OBJECT_SET(        NSString *,               condensedSanitizedConfigurationFileContents,                         setCondensedSanitizedConfigurationFileContents)
 
 TBSYNTHESIZE_OBJECT_SET(        NSSound *,                tunnelUpSound,                    setTunnelUpSound)
 

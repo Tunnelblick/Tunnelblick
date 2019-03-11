@@ -587,6 +587,29 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return NO;
 }
 
++(NSString *) condensedConfigFileContentsFromString: (NSString *) fullString {
+	
+	// Returns a string from an OpenVPN configuration file with empty lines and comments removed
+	
+	NSArray * lines = [fullString componentsSeparatedByString: @"\n"];
+	
+	NSMutableString * outString = [[[NSMutableString alloc] initWithCapacity: [fullString length]] autorelease];
+	NSString * line;
+	NSEnumerator * e = [lines objectEnumerator];
+	while (  (line = [e nextObject])  ) {
+		line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		if (  [line length] != 0  ) {
+			NSString * firstChar = [line substringToIndex: 1];
+			if (   ( ! [firstChar isEqualToString: @";"] )
+				&& ( ! [firstChar isEqualToString: @"#"] )  ) {
+				[outString appendFormat: @"%@\n", line];
+			}
+		}
+	}
+	
+	return [NSString stringWithString: outString];
+}
+
 -(void) examineConfigFileForConnection: (VPNConnection *) connection {
     
     // Display the sanitized contents of the configuration file in a window
@@ -601,9 +624,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         listingWindow = [[ListingWindowController alloc] initWithHeading: heading
                                                                     text: configFileContents];
         [listingWindow showWindow: self];
-    } else {
-        TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                          NSLocalizedString(@"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details.", @"Window text"));
     }
 }
 
@@ -754,7 +774,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return nil;
     }
     
-    NSString * cfgContents = condensedConfigFileContentsFromString([connection sanitizedConfigurationFileContents]);
+    NSString * cfgContents = [connection condensedSanitizedConfigurationFileContents];
+	if (  ! cfgContents  ) {
+		return nil;
+	}
     
     // Set hasAuthUserPass TRUE if auth-user-pass appears and has no parameters
     NSString * authUserPassOption = [ConfigurationManager parseString: cfgContents forOption: @"auth-user-pass" ];
@@ -3971,12 +3994,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * gitInfo = [self gitInfo];
 		
 		// Get contents of configuration file
-        NSString * configFileContents = [connection sanitizedConfigurationFileContents ];
-        if (  ! configFileContents  ) {
-            configFileContents = @"(No configuration file found or configuration file could not be sanitized. See the Console Log for details.)";
-        }
-		
-		NSString * condensedConfigFileContents = condensedConfigFileContentsFromString(configFileContents);
+        NSString * condensedConfigFileContents = [connection condensedSanitizedConfigurationFileContents ];
+		if (  ! condensedConfigFileContents  ) {
+			condensedConfigFileContents = @"(No configuration file found or configuration file could not be sanitized. See the Console Log for details.)";
+		}
 		
         // Get list of files in .tblk or message explaining why cannot get list
         NSString * tblkFileList = [ConfigurationManager listOfFilesInTblkForConnection: connection];

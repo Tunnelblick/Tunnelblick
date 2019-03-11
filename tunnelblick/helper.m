@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -267,29 +267,6 @@ BOOL shouldPlaceIconInStandardPositionInStatusBar(void) {
     }
     
     return NO;
-}
-
-NSString *condensedConfigFileContentsFromString(NSString * fullString) {
-	
-	// Returns a string from an OpenVPN configuration file with empty lines and comments removed
-	
-	NSArray * lines = [fullString componentsSeparatedByString: @"\n"];
-	
-	NSMutableString * outString = [[[NSMutableString alloc] initWithCapacity: [fullString length]] autorelease];
-	NSString * line;
-	NSEnumerator * e = [lines objectEnumerator];
-	while (  (line = [e nextObject])  ) {
-        line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		if (  [line length] != 0  ) {
-			NSString * firstChar = [line substringToIndex: 1];
-			if (   ( ! [firstChar isEqualToString: @";"] )
-				&& ( ! [firstChar isEqualToString: @"#"] )  ) {
-				[outString appendFormat: @"%@\n", line];
-			}
-		}
-	}
-	
-	return [NSString stringWithString: outString];
 }
 
 NSAttributedString * attributedStringFromHTML(NSString * html) {
