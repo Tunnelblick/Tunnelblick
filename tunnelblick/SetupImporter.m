@@ -28,7 +28,7 @@
 #import "SetupImporter.h"
 
 #import "helper.h"
-#import "SharedRoutines.h"
+#import "sharedRoutines.h"
 
 #import "ImportWindowController.h"
 #import "MenuController.h"

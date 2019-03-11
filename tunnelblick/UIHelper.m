@@ -215,7 +215,7 @@ extern TBUserDefaults * gTbDefaults;
 		|| ( ! target )  ) {
 		NSLog(@"Error: performSelectorName: %@ target: %@ withObject: %@ onMainThreadAfterDelay %f",
 			  selectorName, target, object, delay);
-		[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
 		return;
 	}
 	

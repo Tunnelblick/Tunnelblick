@@ -3642,7 +3642,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		
 	} else if (  status == 1  ) {
 		
-		[self startDisconnectingUserKnows: NO];
+		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
 		
 		NSString * message = [NSString stringWithFormat: NSLocalizedString(@"     From the VPN server for %@:\n\n%@", @"Window text."
 																		   @" The first %@ will be replaced by the name of a configuration."
@@ -3654,7 +3654,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	} else if (   (status == 2)
 			   || (status == 3)  ) {
 		
-		[self startDisconnectingUserKnows: NO];
+		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
 		
 		NSString * message = [NSString stringWithFormat: NSLocalizedString(@"     From the VPN server for %@:\n\n%@", @"Window text."
 																		   @" The first %@ will be replaced by the name of a configuration."
