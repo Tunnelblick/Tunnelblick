@@ -4015,19 +4015,18 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              @"Wildcard preferences:\n\n%@\n%@"
                              @"Program preferences:\n\n%@\n%@"
                              @"Tunnelblick Log:\n\n%@\n%@"
-							 @"\"Sanitized\" full configuration file\n\n%@\n\n%@"
 							 @"Network services:\n\n%@\n%@"
                              @"ifconfig output:\n\n%@\n%@"
 							 @"Non-Apple kexts that are loaded:\n\n%@\n%@"
 							 @"Console Log:\n\n%@\n",
                              versionContents, gitInfo,
-                             [connection localizedName], [connection configPath], condensedConfigFileContents, separatorString,
+                             [connection localizedName],
+							 [connection configPath], condensedConfigFileContents, separatorString,
                              tblkFileList, separatorString,
                              configurationPreferencesContents, separatorString,
                              wildcardPreferencesContents, separatorString,
                              programPreferencesContents, separatorString,
                              logContents, separatorString,
-							 configFileContents, separatorString,
 							 networkServicesContents, separatorString,
                              ifconfigOutput, separatorString,
 							 kextContents, separatorString,
