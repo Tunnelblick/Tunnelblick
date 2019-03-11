@@ -4010,7 +4010,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							 @"%@\n%@\n\n"  // Version info
                              @"Configuration %@\n\n"
                              @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
-                             @"Non-Apple kexts that are loaded:\n\n%@\n%@"
                              @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
                              @"Configuration preferences:\n\n%@\n%@"
                              @"Wildcard preferences:\n\n%@\n%@"
@@ -4019,10 +4018,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							 @"\"Sanitized\" full configuration file\n\n%@\n\n%@"
 							 @"Network services:\n\n%@\n%@"
                              @"ifconfig output:\n\n%@\n%@"
-                             @"Console Log:\n\n%@\n",
+							 @"Non-Apple kexts that are loaded:\n\n%@\n%@"
+							 @"Console Log:\n\n%@\n",
                              versionContents, gitInfo,
                              [connection localizedName], [connection configPath], condensedConfigFileContents, separatorString,
-                             kextContents, separatorString,
                              tblkFileList, separatorString,
                              configurationPreferencesContents, separatorString,
                              wildcardPreferencesContents, separatorString,
@@ -4031,6 +4030,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							 configFileContents, separatorString,
 							 networkServicesContents, separatorString,
                              ifconfigOutput, separatorString,
+							 kextContents, separatorString,
                              consoleContents];
         
         pb = [NSPasteboard generalPasteboard];
