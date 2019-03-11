@@ -97,6 +97,8 @@ struct Statistics {
     
     AlertWindowController * slowDisconnectWindowController;
     
+	NSString      * sanitizedConfigurationFileContents;
+	
 	NSString	  * dynamicChallengeUsername; // When nil, no dynamic challenge info is valid
 	NSString	  * dynamicChallengeState;
 	NSString	  * dynamicChallengePrompt;

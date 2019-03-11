@@ -812,6 +812,10 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(NSString *) sanitizedConfigurationFileContents {
     
+	if (  sanitizedConfigurationFileContents  ) {
+		return [[sanitizedConfigurationFileContents retain] autorelease];
+	}
+	
     NSString * configLocString = configLocCodeStringForPath([self configPath]);
     
     NSString * stdOutString = nil;
@@ -835,6 +839,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         configFileContents = [NSString stringWithString: stdOutString];
     }
     
+	[self setSanitizedConfigurationFileContents: configFileContents];
+	 
     return configFileContents;
 }
 
@@ -920,6 +926,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 -(void) invalidateConfigurationParse
 {
 	[self setTunOrTap: nil];
+	[self setSanitizedConfigurationFileContents: nil];
 }
 
 -(void) showStatusWindowForce: (BOOL) force
@@ -5043,6 +5050,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 TBSYNTHESIZE_OBJECT_GET(retain, StatusWindowController *, statusScreen)
+
+TBSYNTHESIZE_OBJECT_SET(		NSString *,				  sanitizedConfigurationFileContents, setSanitizedConfigurationFileContents)
 
 TBSYNTHESIZE_OBJECT_SET(        NSSound *,                tunnelUpSound,                    setTunnelUpSound)
 
