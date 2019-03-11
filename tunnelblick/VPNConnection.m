@@ -3419,21 +3419,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  ! addresses  ) {
 		[self addToLog: @"Warning: An error occurred while trying to get a list of the DNS servers"];
 		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								  NSLocalizedString(@"An error occurred while trying to get a list of the DNS servers.", @"Window text"),
+								  NSLocalizedString(@"There was a problem getting the list of the DNS servers.", @"Window text"),
 								  @"skipWarningAboutErrorGettingDnsServers",
-								  nil,
-								  nil,
-								  NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
-								  nil,
-								  NO);
-		return;
-	}
-	
-	if (  [addresses count] == 0  ) {
-		[self addToLog: @"Warning: There are no DNS servers set up"];
-		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								  NSLocalizedString(@"There are no DNS servers.", @"Window text"),
-								  @"skipWarningAboutNoDnsServers",
 								  nil,
 								  nil,
 								  NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
@@ -3446,7 +3433,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  ! knownPublicDnsServers  ) {
 		[self addToLog: @"Warning: An error occurred while trying to get the list of known public DNS servers"];
 		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								  NSLocalizedString(@"An error occurred while trying to get the list of known public DNS servers.", @"Window text"),
+								  NSLocalizedString(@"There was a problem getting the list of known public DNS servers.", @"Window text"),
 								  @"skipWarningAboutErrorGettingKnownPublicDnsServers",
 								  nil,
 								  nil,
@@ -3456,33 +3443,39 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		return;
 	}
 	
-	NSString * type = [self tapOrTun];
-	if (  [type isEqualToString: @"Cancel"]  ) {
-		return;
-	}
+	NSMutableString * message = [[NSMutableString alloc] initWithCapacity: 1000];
 	
-	NSMutableString * message = [[NSMutableString alloc] initWithCapacity: 500];
-	
-	NSString * address;
-	NSEnumerator * e = [addresses objectEnumerator];
-	while (  (address = [e nextObject])  ) {
+	if (  [addresses count] == 0  ) {
+		[self addToLog: @"Warning: No DNS servers have been specified."];
+		[message appendString: NSLocalizedString(@"     • No DNS servers have been specified.\n\n", @"Window text")];
+	} else {
 		
-		if (  [self isRoutedThroughVpn: address type: type]  ) {
-			[self addToLog: [NSString stringWithFormat: @"DNS address %@ is being routed through the VPN", address]];
-		} else {
-			if (  [self isPrivateAddress: address]  ) {
-				[self addToLog: [NSString stringWithFormat: @"Warning: DNS server address %@ is a private address but is not being routed through the VPN", address]];
-				[message appendString: [NSString stringWithFormat:
-										NSLocalizedString(@"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n", @"Window text"), address]];
-			} else {
-				if (  [knownPublicDnsServers containsObject: address]  ) {
-					[self addToLog: [NSString stringWithFormat: @"Warning: DNS server Address %@ is a known public DNS server but is not being routed through the VPN", address]];
-					[message appendString: [NSString stringWithFormat:
-											   NSLocalizedString(@"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n", @"Window text"), address]];
+		NSString * type = [self tapOrTun];
+		
+		if (   ( ! [type isEqualToString: @"Cancel"])
+			&& ( [message length] == 0)  ) {
+			NSString * address;
+			NSEnumerator * e = [addresses objectEnumerator];
+			while (  (address = [e nextObject])  ) {
+				
+				if (  [self isRoutedThroughVpn: address type: type]  ) {
+					[self addToLog: [NSString stringWithFormat: @"DNS address %@ is being routed through the VPN", address]];
 				} else {
-					[self addToLog: [NSString stringWithFormat: @"Warning: DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN", address]];
-					[message appendString: [NSString stringWithFormat:
-											NSLocalizedString(@"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n", @"Window text"), address]];
+					if (  [self isPrivateAddress: address]  ) {
+						[self addToLog: [NSString stringWithFormat: @"Warning: DNS server address %@ is a private address but is not being routed through the VPN.\n\n", address]];
+						[message appendString: [NSString stringWithFormat:
+												NSLocalizedString(@"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n", @"Window text"), address]];
+					} else {
+						if (  [knownPublicDnsServers containsObject: address]  ) {
+							[self addToLog: [NSString stringWithFormat: @"Warning: DNS server Address %@ is a known public DNS server but is not being routed through the VPN", address]];
+							[message appendString: [NSString stringWithFormat:
+													NSLocalizedString(@"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n", @"Window text"), address]];
+						} else {
+							[self addToLog: [NSString stringWithFormat: @"Warning: DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN", address]];
+							[message appendString: [NSString stringWithFormat:
+													NSLocalizedString(@"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n", @"Window text"), address]];
+						}
+					}
 				}
 			}
 		}
