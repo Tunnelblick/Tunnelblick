@@ -3014,16 +3014,7 @@ int main(int argc, char * argv[]) {
     }
 	gDeployPath = [[gResourcesPath stringByAppendingPathComponent: @"Deploy"] copy];
 	
-#ifdef TBDebug
-	NSMutableString * args = [NSMutableString stringWithCapacity: 1000];
-	if (  argc > 0  ) {
-		int ix;
-		for (  ix=1; ix<argc; ix++  ) {
-			[args appendFormat: @" %s", argv[ix]];
-		}
-	}
-    fprintf(stderr, "WARNING: This is an insecure copy of tunnelblick-helper to be used for debugging only!\nopenvpnstart arguments: %s\n", [args UTF8String]);
-#else
+#ifndef TBDebug
     if (   ([execComponents count] != 5)
         || [[execComponents objectAtIndex: 0] isNotEqualTo: @"/"]
         || [[execComponents objectAtIndex: 1] isNotEqualTo: @"Applications"]
