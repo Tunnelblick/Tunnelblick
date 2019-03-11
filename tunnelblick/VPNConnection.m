@@ -299,7 +299,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     // Don't change logDisplay -- we want to keep it
 	[self setLastState:      @"EXITING"];
     [self setRequestedState: @"EXITING"];
-	[self setTunOrTap:       nil];
+	[self invalidateConfigurationParse];
 	[messagesIfConnectionFails removeAllObjects];
     portNumber       = 0;
     pid              = 0;
@@ -1857,7 +1857,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         
         // tunOrTap == 'Cancel' means we cancel whatever we're doing
         if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
-			[self setTunOrTap: nil];
+			[self invalidateConfigurationParse];
 			return @"Cancel";
         }
     }
