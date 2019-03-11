@@ -1836,8 +1836,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     } else {
         NSLog(@"editOpenVPNConfigurationFileMenuItemWasClicked but no configuration selected");
     }
-    
-    [connection invalidateConfigurationParse];
 }
 
 
