@@ -738,11 +738,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return nil;
 }
 
-+(NSString *)parseConfigurationPath: (NSString *)      cfgPath
-                      forConnection: (VPNConnection *) connection
-                    hasAuthUserPass: (BOOL *)          hasAuthUserPass
-				 authRetryParameter: (NSString **)	   authRetryParameter {
-    
++(NSString *)parseConfigurationForConnection: (VPNConnection *) connection
+							 hasAuthUserPass: (BOOL *)          hasAuthUserPass
+						  authRetryParameter: (NSString **)	    authRetryParameter {
+	
     // Parses the configuration file.
     // Sets *hasAuthUserPass TRUE if configuration has a 'auth-user-pass' option with no arguments; FALSE otherwise
 	// Sets *authRetryParameter (which must be nil) to the first parameter of an 'auth-retry' option if it appears in the file
@@ -755,18 +754,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return nil;
     }
     
-    NSString * cfgFile = lastPartOfPath(cfgPath);
-    NSString * configLocString = configLocCodeStringForPath(cfgPath);
-    NSArray * arguments = [NSArray arrayWithObjects: @"printSanitizedConfigurationFile", cfgFile, configLocString, nil];
-    NSString * stdOut = nil;
-    NSString * stdErrOut = nil;
-    OSStatus status = runOpenvpnstart(arguments, &stdOut, &stdErrOut);
-    if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"Internal failure (%lu) of openvpnstart printSanitizedConfigurationFile %@ %@", (unsigned long)status, cfgFile, configLocString);
-        return nil;
-    }
-    
-    NSString * cfgContents = condensedConfigFileContentsFromString(stdOut);
+    NSString * cfgContents = condensedConfigFileContentsFromString([connection sanitizedConfigurationFileContents]);
     
     // Set hasAuthUserPass TRUE if auth-user-pass appears and has no parameters
     NSString * authUserPassOption = [ConfigurationManager parseString: cfgContents forOption: @"auth-user-pass" ];
@@ -777,7 +765,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	// Set authRetryParameter
 	NSString * theAuthRetryParameter = [ConfigurationManager parseString: cfgContents forOption: @"auth-retry" ];
 	if (  *authRetryParameter  ) {
-		NSLog(@"parseConfigurationPath: *authRetryParameter is not nil, so it is not being set to %@", theAuthRetryParameter);
+		NSLog(@"parseConfigurationForConnection: *authRetryParameter is not nil, so it is not being set to %@", theAuthRetryParameter);
 	} else {
 		*authRetryParameter = theAuthRetryParameter;
 	}

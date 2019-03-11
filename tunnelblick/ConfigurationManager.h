@@ -84,10 +84,9 @@ typedef enum
 +(NSString *) parseString: (NSString *) cfgContents
 				forOption: (NSString *) option;
 
-+(NSString *)               parseConfigurationPath:     (NSString *)        cfgPath
-                                     forConnection:     (VPNConnection *)   connection
-                                   hasAuthUserPass:     (BOOL *)            hasAuthUserPass
-								authRetryParameter:     (NSString **)		authRetryParameter;
++(NSString *) parseConfigurationForConnection: (VPNConnection *) connection
+							  hasAuthUserPass: (BOOL *)          hasAuthUserPass
+						   authRetryParameter: (NSString **)	 authRetryParameter;
 
 +(BOOL)                     userCanEditConfiguration:   (NSString *)        filePath;
 

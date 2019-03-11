@@ -1855,10 +1855,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  ! tunOrTap  ) {
 		NSString * authRetryParameterTemp = nil;
-		[self setTunOrTap: [ConfigurationManager parseConfigurationPath: configPath
-														  forConnection: self
-														hasAuthUserPass: &hasAuthUserPass
-													 authRetryParameter: &authRetryParameterTemp]];
+		[self setTunOrTap: [ConfigurationManager parseConfigurationForConnection: self
+																 hasAuthUserPass: &hasAuthUserPass
+															  authRetryParameter: &authRetryParameterTemp]];
 
 		[self setAuthRetryParameter: authRetryParameterTemp];
         
