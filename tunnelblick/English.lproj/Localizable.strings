@@ -414,6 +414,9 @@
 "Do not show this type of warning again" = "Do not show this type of warning again";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Do not warn about DNS problems again for any configuration";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Do not warn about this again for any configuration";
 
 /* Checkbox name */
@@ -746,11 +749,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     From the VPN server for %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installed %lu configurations\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • No DNS servers have been specified.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Replaced %lu configurations\n\n";
@@ -1380,6 +1395,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "One or more configurations are being ignored. See the Console Log for details.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "One or more possible problems with DNS were found: \n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "One or more problems were detected:\n\n%@";
 
 /* Window text */
@@ -1588,6 +1606,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "There was a problem deleting one or more configurations. See the Console Log for details.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "There was a problem getting the list of known public DNS servers.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "There was a problem getting the list of the DNS servers.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "There was a problem with the OpenVPN configuration. See the Console Log for details.";
