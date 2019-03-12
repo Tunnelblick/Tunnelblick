@@ -610,6 +610,9 @@ name = newValue;                                    \
 @"skipWarningAboutReenablingInternetAccessOnConnect", \
 @"skipWarningAboutReenablingInternetAccessOnLaunch", \
 @"skipWarningAboutReenablingInternetAccessOnQuit", \
+@"skipWarningAboutErrorGettingDnsServers", \
+@"skipWarningAboutErrorGettingKnownPublicDnsServers", \
+@"skipWarningAboutDnsProblems", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\
