@@ -1360,6 +1360,7 @@ export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
 readonly LF="
 "
+readonly HT="$( printf '\t' )"
 
 readonly OUR_NAME="$( basename "${0}" )"
 
