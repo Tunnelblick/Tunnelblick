@@ -1236,7 +1236,7 @@ flushDNSCache()
 		fi
 
 		set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-			reaonly local hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
+			readonly local hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
 		set -e # We instruct bash that it CAN again fail on errors
 		if [ "${hands_off_ps}" = "" ] ; then
 			if [ -f /usr/bin/killall ] ; then
