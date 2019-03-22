@@ -522,9 +522,6 @@
 "GET_CONFIG" = "Henter konfiguration"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Venter på netværks adgang";
-
-/* Connection status */
 "PASSWORD_WAIT" = "Venter på kodeord"; // Please translate "Waiting for password"
 
 /* Connection status */

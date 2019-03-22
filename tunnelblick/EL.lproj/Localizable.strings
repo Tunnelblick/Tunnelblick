@@ -522,9 +522,6 @@
 "GET_CONFIG" = "Λήψη παραμέτρων"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Αναμονή για πρόσβαση στο δίκτυο";
-
-/* Connection status */
 "PASSWORD_WAIT" = "Αναμονή κωδικού"; // Please translate "Waiting for password"
 
 /* Connection status */

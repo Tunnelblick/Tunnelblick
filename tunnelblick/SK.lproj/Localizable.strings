@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Tieto varovania už viac nezobrazovať";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Nevarovať ohľadom DNS problémov pre akúkoľvek konfiguráciu";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Nezobrazovať znovu toto varovanie pre akúkoľvek konfiguráciu";
 
 /* Checkbox name */
@@ -522,7 +525,7 @@
 "GET_CONFIG" = "Získavanie konfigurácie"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Čakanie na prístup k sieti";
+"NETWORK_ACCESS" = "Čakanie na prístup k sieti"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Čakám na heslo"; // Please translate "Waiting for password"
@@ -749,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Z VPN servera pre %1$@: \n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     Adresa DNS servera %@ je privátna adresa, ale nie je smerovaná cez VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     Adresa DNS servera %@ je verejná adresa známa pre Tunnelblick, ale nie je smerovaná cez VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     Adresa DNS servera %@ nie je verejná adresa známa pre Tunnelblick a nie je smerovaná cez VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Počet inštalovaných konfigurácií: %lu ";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Inštalovaná jeden konfigurácia";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     Neboli špecifikované žiadne DNS servery.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "      • Počet nahradených konfigurácií: %lu";
@@ -1383,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Jedna alebo viacero konfigurácií je ignorovaných. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Bolo nájdených jeden alebo viac problémov s DNS:\n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Boli zistené  jednen alebo viaceré problémy: %@";
 
 /* Window text */
@@ -1591,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Vyskytol sa problém požas vymazávania jednej alebo viacerých konfigurácií. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Vyskytol sa problém pri získavaní zoznamu známych verejných DNS serverov.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Vyskytol sa problém pri získavaní zoznamu DNS serverov.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Vyskytol sa problém s konfiguráciou OpenVPN. Pre viac informácií si, prosím, prezrite Záznam konzoly.";

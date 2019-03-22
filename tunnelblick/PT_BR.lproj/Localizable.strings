@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Não exibir este tipo de aviso novamente";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Não avisar sobre problemas de DNS novamente para qualquer configuração";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Não avisar novamente para qualquer configuração";
 
 /* Checkbox name */
@@ -522,7 +525,7 @@
 "GET_CONFIG" = "Obtendo configuração"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Aguardando pelo acesso à rede";
+"NETWORK_ACCESS" = "Aguardando acesso à rede"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Aguardando a senha"; // Please translate "Waiting for password"
@@ -749,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Do servidor VPN para %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • Servidor DNS com endereço %@ é um endereço privado, mas não está sendo roteado através da VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Servidor DNS com endereço %@ é um servidor DNS público conhecido pelo Tunnelblick, mas não está sendo roteado através da VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Servidor DNS com endereço %@ não é um servidor DNS público conhecido pelo Tunnelblick e não está sendo roteado através da VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Instalou %lu configurações\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Instalada uma configuração\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Nenhum servidor DNS foi especificado.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Substituída(s) %lu configurações\n\n";
@@ -1212,7 +1227,7 @@
 "File is too large: %@" = "O arquivo é muito grande: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Para cada usuário de quem você deseja importar configurações e ajustes, selecione o usuário neste computador que deverá receber as configurações e ajustes.";
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Para cada usuário de quem desejar importar configurações e ajustes, selecione o usuário neste computador que deverá receber as configurações e ajustes.";
 
 /* Window text */
 "GB" = "GB";
@@ -1381,6 +1396,9 @@
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Uma ou mais configurações estão sendo ignoradas. Veja os logs da Console para mais detalhes.";
+
+/* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Um ou mais possíveis problemas de DNS foram encontrados: \n\n%@";
 
 /* Window text */
 "One or more problems were detected:\n\n%@" = "Um ou mais problemas foram detetados:\n\n%@";
@@ -1591,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Houve um problema ao remover uma ou mais configurações. Consulte o Registro da Consola para mais detalhes.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Houve um problema obtendo lista de servidores DNS públicos conhecidos.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Houve um problema obtendo lista de servidores DNS.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Houve um problema com a configuração do OpenVPN. Consulte o Registro da Consola para mais detalhes.";

@@ -522,9 +522,6 @@
 "GET_CONFIG" = "正在获取设定"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "等待网络连接";
-
-/* Connection status */
 "PASSWORD_WAIT" = "正等待输入密码"; // Please translate "Waiting for password"
 
 /* Connection status */

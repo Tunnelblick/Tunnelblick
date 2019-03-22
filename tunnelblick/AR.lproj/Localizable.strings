@@ -522,9 +522,6 @@
 "GET_CONFIG" = "جار الحصول على الاعدادات"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "إنتظار الولوج إلى الشبكة";
-
-/* Connection status */
 "PASSWORD_WAIT" = "بانتظار كلمة المرور"; // Please translate "Waiting for password"
 
 /* Connection status */

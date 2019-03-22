@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Visa inte den här typen av varning igen";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Varna inte om DNS-problem igen för någon konfiguration";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Varna inte om detta igen för någon konfiguration";
 
 /* Checkbox name */
@@ -522,7 +525,7 @@
 "GET_CONFIG" = "Hämtar konfiguration"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Väntar på tillgång till nätverket";
+"NETWORK_ACCESS" = "Väntar på nätverksåtkomst"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Väntar på lösenord"; // Please translate "Waiting for password"
@@ -749,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Från VPN-servern konfigurerad i %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     DNS-adressen %@ är privat, men skickas inte via VPN:en.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     DNS-adressen %@ är publik och känd för Tunnelblick, men skickas inte via VPN:en.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     DNS-adressen %@ är inte en publik DNS-server som Tunnelblick känner till och den skicka inte via VPN:en.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installerade %lu konfigurationer\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Installerade en konfiguration\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     Ingen DNS-server har specificerats.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Ersatte %lu konfigurationer\n\n";
@@ -1383,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "En eller flera konfigurationer ignoreras. Se konsolloggen för detaljer.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Ett eller flera möjliga problem med DNS:en har hittats:\n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Ett eller flera problem identifierades:\n\n%@";
 
 /* Window text */
@@ -1591,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "En eller flera konfigurationer kunde inte tas bort. Se Konsol-loggen för fler detaljer.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Det uppstod ett problem med att hämta listan av kända publika DNS-servrar.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Det uppstod ett problem med att hämta listan över DNS-servrar.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Ett problem uppstod med OpenVPN-konfigurationen. Se Konsol-loggen för detaljer.";

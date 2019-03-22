@@ -522,9 +522,6 @@
 "GET_CONFIG" = "Hakee asetuksia"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Odotetaan verkkoyhteyttä";
-
-/* Connection status */
 "PASSWORD_WAIT" = "Odottaa salasanaa"; // Please translate "Waiting for password"
 
 /* Connection status */

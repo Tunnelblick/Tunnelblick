@@ -522,9 +522,6 @@
 "GET_CONFIG" = "Preuzimanje konfiguracije"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Čekanje na mrežu";
-
-/* Connection status */
 "PASSWORD_WAIT" = "Čekam na lozinku"; // Please translate "Waiting for password"
 
 /* Connection status */

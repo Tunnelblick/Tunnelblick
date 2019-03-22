@@ -522,9 +522,6 @@
 "GET_CONFIG" = "Získat předvolby"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Čekání na přístup k síti";
-
-/* Connection status */
 "PASSWORD_WAIT" = "Čekám na heslo"; // Please translate "Waiting for password"
 
 /* Connection status */

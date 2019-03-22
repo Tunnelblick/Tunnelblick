@@ -116,6 +116,9 @@
 "Download" = "Laai Af";
 
 /* Button */
+"Export Tunnelblick Setup" = "Uitvoer Tunnelblick Opstel";
+
+/* Button */
 "Help" = "Hulp";
 
 /* Button */
@@ -214,6 +217,9 @@
 
 /* Button */
 "Restore" = "Herstel";
+
+/* Button text */
+"Retry with manual response" = "Probeer weer met handleiding";
 
 /* Button */
 "Retry" = "Probeer Weer";
@@ -618,6 +624,9 @@
 "File not found" = "Lêer nie gevind nie";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "Voer 'n Tunnelblick-installeer in";
+
+/* Window title */
 "Info" = "Inligting";
 
 /* Window title */
@@ -734,6 +743,9 @@
 /* Window title */
 "While Connected" = "Terwyl Verbind";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Van die VPN bediener vir %1$@\n\n%2$@";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu konfigurasies geinstalleer\n\n";
 
@@ -804,6 +816,9 @@
 "  • Secure configurations\n" = "  • Verseker konfigurasies\n";
 
 /* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ is gratis sagteware: jy kan dit herverdeel en / of verander onder die voorwaardes van die %2$@ soos gepubliseer deur die %3$@.\n\n%4$@ is 'n geregistreerde handelsmerk van OpenVPN Inc.";
+
+/* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Wil u %1$@ installeer na %2$@%3$@?\n\n";
 
 /* Window text */
@@ -833,23 +848,41 @@
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ is teruggekeer na sy laaste verseker (skaduwee) kopie.\n\n";
 
+/* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Let wel: Tunnelblick is in administrateur modus, dus is 'n rekenaaradministrateur se magtiging nie vereis.";
+
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigurasies is teruggekeer na hul laaste verseker (skaduwee) kopie.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' bestaan reeds op die lessenaar.\n\nWil jy dit vervang?";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' blyk te wees 'n lêer met UTF-16 geënkodeer. Alle OpenVPN-verwante lêers moet gewone teks of UTF-8 lêers wees";
+
+/* Window text */
+"'%@' at line %u was not terminated properly" = "'%1$@' op lyn %2$u is nie behoorlik beëindig nie";
+
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' het nie getuigskrifte (privaat sleutel of gebruikersnaam en paswoord) gebere in die Keychain.";
 
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@' is nie 'n gewone teks of UTF-8 lêer nie.";
+
 /* Window text */
 "'%@' was not terminated." = "'%@' is nie beëindig.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' sal met OpenVPN %2$@ verbind word in plaas van die vereiste weergawe (OpenVPN %3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' keuse geignoreer; dit spesifiseer nie 'n gids nie";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' keuse geignoreer; dit moet 'n absolute lokasie wees of met '-' begin";
+
+/* Window text */
+"(An error occurred creating the help content.)" = "('N Fout het voorgekom met die skep van die hulpinhoud.)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Melding is afgeskakel.)";
@@ -913,6 +946,9 @@
 
 /* Window text */
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Na verbinding mee %@, die Internet lyk nie bereikbaar nie.\n\nDit is moontlik dat jou VPN nie ordentlik ingestel is nie.\n\n";
+
+/* Window text */
+"All OpenVPN processes have quit" = "Alle OpenVPN prosesse het opgehou";
 
 /* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "Alle opstel lêers is verwyder. Tunnelblick moet afsluit.";

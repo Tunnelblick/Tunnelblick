@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Більше не показувати цей тип застереження";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Не попереджати про проблеми з DNS для будь-якої конфігурації";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Не попереджати про це для будь-якої конфігурації";
 
 /* Checkbox name */
@@ -522,7 +525,7 @@
 "GET_CONFIG" = "Отримування конфігурації"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Очікування доступу до мережі";
+"NETWORK_ACCESS" = "Очікування підключення до мережі"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Очікування на ввод паролю"; // Please translate "Waiting for password"
@@ -749,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Від серверу VPN для %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • Адреса сервера DNS %@ є приватною, проте не була перенаправлена через VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Адреса сервера DNS %@ є публічною та відомою Tunnelblick, проте не була перенаправлена через VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Адреса сервера DNS %@ не є публічною та відомою Tunnelblick, та не була перенаправлена через VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Встановлено %lu конфігурацій\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Встановлена одна конфігурація\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • DNS сервери не вказані.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Замінено %lu конфігурацій\n\n";
@@ -1383,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Одна або кілька конфігурацій ігноруються. Перегляньте журнал консолі для отримання додаткової інформації.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Знайдено одну або більше проблем з DNS: \n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Одна або кілька проблем були виявлені: %@";
 
 /* Window text */
@@ -1591,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Виникла проблема з видаленням однієї чи кількох конфігурацій. Детальніше в звіті Консолі.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Виникла проблема з отриманням переліку відомих публічних DNS серверів.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Виникла проблема з отриманням переліку DNS серверів.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Виникла проблема з конфігурацією OpenVPN. Детальніше в звіті Консолі.";

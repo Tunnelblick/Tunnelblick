@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Bu tip uyarıları artık gösterme";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Hiçbir yapılandırma için DNS sorunları hakkında tekrar uyarma";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Hiçbir konfigürasyon için tekrar uyarma";
 
 /* Checkbox name */
@@ -522,7 +525,7 @@
 "GET_CONFIG" = "Yapılandırma alınıyor"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Ağ bağlantısı bekleniyor";
+"NETWORK_ACCESS" = "Ağ bağlantısı bekleniyor"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Şifre bekleniyor"; // Please translate "Waiting for password"
@@ -749,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     %1$@ için VPN sunucusundan:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS sunucu adresi %@ özel bir adres fakat VPN üzerinden yönlendirilmiyor.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS sunucu adresi %@ Tunnelblick tarafından tanınan genel bir DNS sunucusu fakat VPN üzerinden yönlendirilmiyor.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS sunucu adresi %@ Tunnelblick tarafından tanınan genel bir DNS sunucusu değil ve VPN üzerinden yönlendirilmiyor.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu yapılandırma kuruldu\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Bir yapılandırma kuruldu\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • DNS sunucusu belirtilmedi.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • %lu yapılandırma değiştirildi\n\n";
@@ -1383,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Bir veya daha fazla konfigürasyon yoksayıldı. Daha fazla detay için Konsol Kayıtlarına bakın.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Bir veya daha fazla DNS sorunu bulundu:\n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Bir veya daha fazla problem tesbit edildi:\n\n%@";
 
 /* Window text */
@@ -1591,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Bir veya daha fazla yapılandırmanın silinmesinde hata oluştur. Detaylar için Konsol Kayıtlarına bakın.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Bilinen genel DNS sunucularının güncellenmesinde bir sorun var.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "DNS sunucu listesinin güncellenmesinde bir sorun var.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "OpenVPN yapılandırmasında bir sorun var. Detaylar için Konsol Kayıtlarına bakın.";
@@ -2278,6 +2302,15 @@
 
 /* Checkbox */
 "Do not show this again" = "Bunu bir daha gösterme";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when connecting" = "Bu konuda tekrar uyarma;\nher zaman bağlanırken yeniden etkinleştir";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Bu konuda tekrar uyarma;\nher zaman Tunnelblick'i kapatırken yeniden etkinleştir";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Bu konuda tekrar uyarma;\nhiçbir zaman Tunnelblick'i kapatırken yeniden etkinleştirme";
 
 /* Credit description */
 "Dutch translation" = "Flemenkçe çeviri";

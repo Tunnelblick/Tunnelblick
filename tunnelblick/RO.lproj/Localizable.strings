@@ -522,9 +522,6 @@
 "GET_CONFIG" = "Încarc configurările"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Se așteaptă conexiunea la rețea";
-
-/* Connection status */
 "PASSWORD_WAIT" = "Aștept parola"; // Please translate "Waiting for password"
 
 /* Connection status */

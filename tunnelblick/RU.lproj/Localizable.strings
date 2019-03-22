@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Больше не показывать подобные предупреждения";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Больше не предупреждать о проблемах DNS для любой конфигурации";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Больше не предупреждать об этом для всех конфигураций";
 
 /* Checkbox name */
@@ -522,7 +525,7 @@
 "GET_CONFIG" = "Получение конфигурации"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Ожидание доступа к сети";
+"NETWORK_ACCESS" = "Ожидание доступа к сети"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Ввод пароля"; // Please translate "Waiting for password"
@@ -749,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     От VPN сервера для %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     Адрес DNS сервера %@ является частным адресом, но он не был перенаправлен через VPN.\n\n.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     Адрес DNS сервера %@ - публичный DNS сервер, известный приложению Tunnelblick, но он не будет перенаправлен через VPN.\n\n.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     Адрес DNS сервера %@ не является публичным DNS сервером, известным Tunnelblick, и не будет перенаправлен через VPN.\n\n.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Установлено %lu конфигураций\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Установлена одна конфигурация\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     Не определен ни один DNS сервер.\n\n.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Заменено %lu конфигураций\n\n";
@@ -960,7 +975,7 @@
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Похоже, что интернет стал недоступен после подключения к %@.\n\nЭто может означать, что ваше VPN соединение настроенно некорректно.\n\n";
 
 /* Window text */
-"All OpenVPN processes have quit" = "Все процессы OpenVPN были закрыты";
+"All OpenVPN processes have quit" = "Все процессы OpenVPN завершены";
 
 /* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "Все конфигурационные файлы были удалены. Tunnelblick должен быть закрыт.";
@@ -1383,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Одна или более конфигураций были проигнорированы. Обратитесь к Журналу Событий для более подробной информации.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Одна или более возможных проблем с DNS были обнаруженны:\n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Были выявлены некоторые проблемы:\n\n%@";
 
 /* Window text */
@@ -1591,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "При удалении одной или нескольких конфигураций возникли проблемы. Детали могут быть найдены в журнале Консоли.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Возникла проблема при получении списка известных публичных DNS серверов.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Возникла проблема при получении списка DNS серверов.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "С конфигурацией OpenVPN возникла проблема. Детали могут быть найдены в журнале Консоли.";

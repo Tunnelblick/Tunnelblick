@@ -522,9 +522,6 @@
 "GET_CONFIG" = "Konfiguráció betöltése"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Hálózati hozzáférésre vár";
-
-/* Connection status */
 "PASSWORD_WAIT" = "Jelszóra várakozás"; // Please translate "Waiting for password"
 
 /* Connection status */

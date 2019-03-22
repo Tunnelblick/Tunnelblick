@@ -522,7 +522,7 @@
 "GET_CONFIG" = "正在獲取設定"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "網路存取";
+"NETWORK_ACCESS" = "等待網路存取能力"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "正在等候密碼"; // Please translate "Waiting for password"
@@ -1699,6 +1699,9 @@
 
 /* Window text */
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick 需要認證來把「%@」設定檔設為私密。";
+
+/* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick 需要授權才能讀取並會出這臺電腦所有別的使用者所存的 Tunnelblick 資料。\n\n請留意：\n\n1. 存在 Keychain 當中的憑證「不會」被匯出。\n\n2. 匯出可能需要花很長一段時間。\n\n";
 
 /* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick 需要認證來移除 %ld 個設定檔。";

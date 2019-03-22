@@ -501,9 +501,6 @@
 "GET_CONFIG" = "Konfiqurasiya alınır"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Şəbəkəyə giriş gözlənilir";
-
-/* Connection status */
 "PASSWORD_WAIT" = "Şifrə gözlənilir"; // Please translate "Waiting for password"
 
 /* Connection status */

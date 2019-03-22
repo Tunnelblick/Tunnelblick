@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Ikke vis denne typen adversel igjen";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Ikke advar igjen om DNS-problemer for hvilken som helst konfigurasjon";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Ikke advar meg igjen om dette for hvilken som helst konfigurasjon";
 
 /* Checkbox name */
@@ -522,7 +525,7 @@
 "GET_CONFIG" = "Henter konfigurasjon"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Venter på nettverkstilgang";
+"NETWORK_ACCESS" = "Venter på nettverkstilgang"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Venter på passord"; // Please translate "Waiting for password"
@@ -749,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Fra VPN tjeneren for %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS-tjeneraddressen %@ er en privat adresse, men blir ikke rutet gjennom VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS-tjeneraddressen %@ er en offentlig DNS-tjener som er kjent for Tunnelblick, men den blir ikke rutet gjennom VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS-tjeneraddressen %@ er ikke en offentlig DNS-tjener som er kjent for Tunnelblick, og den blir ikke rutet gjennom VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • installere %lu konfigurasjoner\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • installere én konfigurasjon\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Ingen DNS-tjenere har blitt spesifisert.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • erstatte %lu konfigurasjoner\n\n";
@@ -1383,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "En eller flere konfigurasjoner ble ignorert. Se konsolloggen for detaljer.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Ett eller flere mulige problemer med DNS ble funnet:\n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "En eller flere problemer ble funnet:\n\n%@";
 
 /* Window text */
@@ -1591,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Det oppstod et problem ved sletting av en eller flere konfigurasjoner. Se konsolloggen for detaljer.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Det oppstod et problem ved henting av liste over kjente, offentlige DNS-tjenere.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Det oppstod et problem ved henting av listen over DNS-tjenere.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Det oppstod et problem med OpenVPN-konfigurasjonen. Se konsolloggen for detaljer.";

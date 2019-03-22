@@ -522,9 +522,6 @@
 "GET_CONFIG" = "מייבא הגדרות"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "מחקה לרשת";
-
-/* Connection status */
 "PASSWORD_WAIT" = "ממתין לסיסמה"; // Please translate "Waiting for password"
 
 /* Connection status */

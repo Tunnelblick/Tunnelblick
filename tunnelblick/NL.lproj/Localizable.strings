@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Laat dit type waarschuwing niet meer zien";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Waarschuw mij bij geen enkele configuratie meer over DNS-problemen";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Waarschuw mij hiervoor niet nog een keer in elke configuratie";
 
 /* Checkbox name */
@@ -522,7 +525,7 @@
 "GET_CONFIG" = "Configuratie ophalen"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Wachten op netwerk toegang";
+"NETWORK_ACCESS" = "Wachten op netwerktoegang"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Wachten op wachtwoord"; // Please translate "Waiting for password"
@@ -749,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Van de VPN-server voor %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is een prive-adres maar wordt niet via de VPN gerouteerd.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is a openbare DNS-server die bekend is bij Tunnelblick, maar wordt niet via de VPN gerouteerd.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is een openbare DNS-server die niet bekend is bij Tunnelbkick en wordt niet via de VPN gerouteerd.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu configuraties geïnstalleerd\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • één configuratie geïnstalleerd\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     Geen DNS-servers gespecificeerd.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • %lu configuraties vervangen\n\n";
@@ -1383,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Een of meer configuraties worden momenteel genegeerd. Zie het console log voor details.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Er zijn een of meer mogelijke DNS-problemen gevonden: \n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Er zijn één of meer problemen geconstateerd: \n\n%@";
 
 /* Window text */
@@ -1591,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Er was een probleem tijdens het verwijderen van één of meer configuraties. Zie de console-log voor details.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Er is een probleem opgetreden bij het ophalen van de lijst met bekende openbare DNS-servers.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Er is een probleem opgetreden bij het ophalen van de lijst DNS-servers.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Er was een probleem met de OpenVPN configuratie. Bekijk de console log voor meer details.";
@@ -2283,10 +2307,10 @@
 "Do not warn about this again;\nalways re-enable when connecting" = "Waarschuw hier niet meer over;\nschakel altijd opnieuw in bij verbinding maken";
 
 /* Checkbox text */
-"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Waarschuw hier niet meer over;\nschakel altijd opnieuw in bij afsluiten Tunnelblick";
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Waarschuw hier niet meer over;\nschakel altijd opnieuw in bij afsluiten van Tunnelblick";
 
 /* Checkbox text */
-"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Waarschuw hier niet meer over;\nschakel nooit opnieuw in bij opstarten Tunnelblick";
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Waarschuw hier niet meer over;\nschakel nooit opnieuw in bij opstarten van Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "Nederlandse vertaling";
@@ -2344,7 +2368,7 @@
 "LANGUAGE_TRANSLATION" = "Nederlandse vertaling";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Emma Segev, Tjalling Soldaat, Ricardo Guijt, WalterB en Robbert Hamburg";
+"LEAD_TRANSLATORS" = "Emma Segev, Tjalling Soldaat, Ricardo Guijt, Robbert Hamburg, WalterB, en Laurens de Knijff";
 
 /* Credit description */
 "Latvian translation" = "Letse vertaling";

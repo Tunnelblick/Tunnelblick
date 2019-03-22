@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Não mostrar este tipo de aviso novamente";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Não receber notificações sobre problemas de DNS, novamente, para qualquer configuração";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Não avisar de novo para qualquer configuração";
 
 /* Checkbox name */
@@ -520,6 +523,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "A obter configuração"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "A aguardar que a ligação à rede seja estabelecida"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "A espera da palavra-passe"; // Please translate "Waiting for password"
@@ -746,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Do servidor VPN para %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • O servidor de DNS com endereço %@ pertence a uma sub-rede privada mas não tem uma rota configurada por via da VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • O servidor de DNS com endereço %@ é publico e conhecido pelo Tunnelblick mas não tem uma rota configurada por via da VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • O servidor de DNS com endereço %@ não é um servidor publico conhecido pelo Tunnelblick e não tem uma rota configurada por via da VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Instaladas %lu configurações\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Instalada uma configuração\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Não foram definidos quaisquer servidores de DNS.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Substituídas %lu configurações\n\n";
@@ -1188,7 +1206,7 @@
 "Fast User Switching" = "Troca Rápida de Utilizador";
 
 /* Window text */
-"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "O ficheiro '%@' aparenta ser texto formatado, uma vez que começa por '{'. Todos os ficheiros de configuração OpenVPN têm de ser apenas texto simples ou UTF-8.";
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "O ficheiro '%@' aparenta ter um formato de \"texto rico\", uma vez que começa por '{'. Todos os ficheiros de configuração OpenVPN tem de ser apenas texto ou codificação UTF-8.";
 
 /* Window text */
 "File '%@' contains one or more NUL characters." = "O ficheiro '%@' contém um ou mais carateres NUL.";
@@ -1209,7 +1227,7 @@
 "File is too large: %@" = "O ficheiro é demasiado grande: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Por cada utilizador do qual deseja importar configurações e definições, seleccione o utilizador que deve receber essas configurações e definições neste computador.";
+"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Por cada utilizador do qual deseja importar configurações e definições, selecione o utilizador que deve receber essas configurações e definições neste computador.";
 
 /* Window text */
 "GB" = "GB";
@@ -1380,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Uma ou mais configurações estão a ser ignoradas. Veja o Registo do Consola para mais detalhes.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Um ou mais problemas relacionados com DNS identificados: \n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Foram detetados um ou mais problemas:\n\n%@";
 
 /* Window text */
@@ -1410,7 +1431,7 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "A localização '%1$@' contém carateres não permitidos.\n\nCarateres que não são permitidos: '%2$s'\n\n";
 
 /* Window text */
-"Please check for a newer version." = "Por favor verifique uma versão mais atual.";
+"Please check for a newer version." = "Por favor verifique se existe uma versão mais recente.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Por favor digite um nome e clique \"OK\" ou clique \"Cancelar\".\n\n";
@@ -1482,7 +1503,7 @@
 "That name is being used.\n\n" = "Esse nome está a ser utilizado.\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "O directório (%1$@) de sistema para %2$@ não é seguro.\nO Tunnelblick bem como outros programas podem não funcionar normalmente até que este problema seja resolvido.\n\nO registo da Consola fornece detalhes.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "O caminho (%1$@) de sistema para %2$@ não é seguro.\nO Tunnelblick bem como outros programas pode não funcionar normalmente até que este problema seja resolvido.\n\nPode ver mais detalhes no \"log\" através da aplicação Consola.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "O opção '%@' (OpenVPN) não é permitida no macOS. É uma opção apenas válida para Windows.";
@@ -1588,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Houve um problema ao apagar uma ou mais configurações. Veja o Registo da Consola para mais detalhes.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Ocorreu um problema ou obter a lista de servidores de DNS públicos conhecidos.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Ocorreu um problema a receber a lista de servidores de DNS.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Houve um problema com a configuração de OpenVPN. Veja o Registo da Consola para mais detalhes.";

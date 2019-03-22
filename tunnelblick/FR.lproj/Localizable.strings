@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Ne plus montrer ce types d'alertes";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Ne plus avertir des problèmes de DNS pour aucune configuration";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Ne plus avertir pour aucune configuration";
 
 /* Checkbox name */
@@ -522,7 +525,7 @@
 "GET_CONFIG" = "Obtention de la configuration"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Attente du réseau";
+"NETWORK_ACCESS" = "Attente d'un accès réseau"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Attente du mot de passe"; // Please translate "Waiting for password"
@@ -749,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Du serveur VPN pour %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • L'adresse de DNS %@ est une adresse privée mais n'est pas routée à travers le VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • L'adresse de DNS %@ est l'adresse d'un DNS public connu de Tunnelblick mais n'est pas routée à travers le VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • L'adresse de DNS %@ n'est pas l'adresse d'un DNS public connu de Tunnelblick et n'est pas routée à travers le VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installé %lu configurations\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Installé une configuration\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Aucun serveur DNS n'a été spécifié.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Remplacé %lu configurations\n\n";
@@ -1383,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Une ou plusieurs configurations ne sont pas utilisées. Voyez les messages de la console pour les détails.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Un ou plusieurs problèmes de DNS ont été trouvés: \n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Un ou plusieurs problèmes ont été détectés :\n\n%@";
 
 /* Window text */
@@ -1591,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Un problème a été rencontré lors de la suppression d'une ou plusieurs configurations. Voyez les messages de la console pour les détails.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Un problème est survenu en obtenant la liste des DNS publics connus.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Un problème est survenu en obtenant la liste des serveurs DNS.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "La configuration OpenVPN présente un problème. Voyez les messages de la console pour les détails.";
