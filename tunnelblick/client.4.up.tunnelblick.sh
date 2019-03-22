@@ -142,7 +142,7 @@ get_networksetup_setting() {
 					# The setting is returned by networksetup as separate lines, each with one setting (IP address or domain name).
 
 					# Change newlines into commas to get a comma-separated list of settings.
-					setting="${setting/$LF/,}"
+					setting="${setting//$LF/,}"
 
 					# Make sure there are no tabs or spaces in the setting
 					if [ "$setting" != "${setting/$HT/}" ] || [ "$setting" != "${setting/ /}" ] ; then
