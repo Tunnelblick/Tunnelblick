@@ -419,7 +419,7 @@ BOOL fileExistsForRootAtPath(NSString * path) {
     stopBeingRootToAccessPath(path);
     if (   exists
         && isDir  ) {
-        fprintf(stderr, "Must not be a directory: %s", [path UTF8String]);
+        fprintf(stderr, "Must not be a directory: %s\n", [path UTF8String]);
         exitOpenvpnstart(198);
     }
     return exists;
@@ -432,7 +432,7 @@ BOOL folderExistsForRootAtPath(NSString * path) {
     stopBeingRootToAccessPath(path);
     if (   exists
         && ( ! isDir)  ) {
-        fprintf(stderr, "Must be a directory: %s", [path UTF8String]);
+        fprintf(stderr, "Must be a directory: %s\n", [path UTF8String]);
         exitOpenvpnstart(190);
     }
     return exists;
@@ -441,7 +441,7 @@ BOOL folderExistsForRootAtPath(NSString * path) {
 const char * fileSystemRepresentation(NSString * path) {
     
     if (  ! path  ) {
-        fprintf(stderr, "Called fileSystemRepresentation with a nil argument");
+        fprintf(stderr, "Called fileSystemRepresentation with a nil argument\n");
         exitOpenvpnstart(180);
     }
     
@@ -668,7 +668,7 @@ void exitIfNotRootWithPermissions(NSString * fPath, mode_t permsShouldHave) {
     }
 
     if (  ! fileExistsForRootAtPath(fPath)  ) {
-        fprintf(stderr, "File does not exist: %s", [fPath UTF8String]);
+        fprintf(stderr, "File does not exist: %s\n", [fPath UTF8String]);
         exitOpenvpnstart(200);
     }
     
@@ -705,7 +705,7 @@ void exitIfTblkNeedsRepair(void) {
     
     // If it isn't an existing folder, then it can't be secured!
     if (  ! folderExistsForRootAtPath(gConfigPath)  ) {
-        fprintf(stderr, "Configuration file does not exist: %s", [gConfigPath UTF8String]);
+        fprintf(stderr, "Configuration file does not exist: %s\n", [gConfigPath UTF8String]);
         exitOpenvpnstart(202);
     }
     
@@ -753,7 +753,7 @@ void exitIfTblkNeedsRepair(void) {
 void exitIfOvpnNeedsRepair(void) {
     // If it isn't an existing file, then it can't be secured!
     if (  ! fileExistsForRootAtPath(gConfigPath)  ) {
-        fprintf(stderr, "Configuration file does not exist: %s", [gConfigPath UTF8String]);
+        fprintf(stderr, "Configuration file does not exist: %s\n", [gConfigPath UTF8String]);
         exitOpenvpnstart(203);
     }
     
@@ -906,23 +906,23 @@ int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments
     // Send stdout and stderr to temporary files, and read the files after the task completes
     NSString * dirPath = newTemporaryDirectoryPathInTunnelblickHelper();
     if (  ! dirPath  ) {
-        fprintf(stderr, "runAsRoot: Failed to create temporary directory");
+        fprintf(stderr, "runAsRoot: Failed to create temporary directory\n");
         return -1;
     }
     NSString * stdPath = [dirPath stringByAppendingPathComponent: @"runAsRootStdOut"];
     if (  [[NSFileManager defaultManager] fileExistsAtPath: stdPath]  ) {
-        fprintf(stderr, "runAsRoot: File exists at %s", [stdPath UTF8String]);
+        fprintf(stderr, "runAsRoot: File exists at %s\n", [stdPath UTF8String]);
         [dirPath release];
         return -1;
     }
     if (  ! [[NSFileManager defaultManager] createFileAtPath: stdPath contents: nil attributes: nil]  ) {
-        fprintf(stderr, "runAsRoot: Unable to create %s", [stdPath UTF8String]);
+        fprintf(stderr, "runAsRoot: Unable to create %s\n", [stdPath UTF8String]);
         [dirPath release];
         return -1;
     }
     NSFileHandle * stdFileHandle = [[NSFileHandle fileHandleForWritingAtPath: stdPath] retain];
     if (  ! stdFileHandle  ) {
-        fprintf(stderr, "runAsRoot: Unable to get NSFileHandle for %s", [stdPath UTF8String]);
+        fprintf(stderr, "runAsRoot: Unable to get NSFileHandle for %s\n", [stdPath UTF8String]);
         [dirPath release];
         return -1;
     }
@@ -930,20 +930,20 @@ int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments
 
     NSString * errPath = [dirPath stringByAppendingPathComponent: @"runAsRootErrOut"];
     if (  [[NSFileManager defaultManager] fileExistsAtPath: errPath]  ) {
-        fprintf(stderr, "runAsRoot: File exists at %s", [errPath UTF8String]);
+        fprintf(stderr, "runAsRoot: File exists at %s\n", [errPath UTF8String]);
         [dirPath release];
 		[stdFileHandle release];
         return -1;
     }
     if (  ! [[NSFileManager defaultManager] createFileAtPath: errPath contents: nil attributes: nil]  ) {
-        fprintf(stderr, "runAsRoot: Unable to create %s", [errPath UTF8String]);
+        fprintf(stderr, "runAsRoot: Unable to create %s\n", [errPath UTF8String]);
         [dirPath release];
 		[stdFileHandle release];
         return -1;
     }
     NSFileHandle * errFileHandle = [[NSFileHandle fileHandleForWritingAtPath: errPath] retain];
     if (  ! errFileHandle  ) {
-        fprintf(stderr, "runAsRoot: Unable to get NSFileHandle for %s", [errPath UTF8String]);
+        fprintf(stderr, "runAsRoot: Unable to get NSFileHandle for %s\n", [errPath UTF8String]);
         [dirPath release];
 		[stdFileHandle release];
         return -1;
@@ -973,7 +973,7 @@ int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments
     [file closeFile];
 	
     if (  ! [[NSFileManager defaultManager] tbRemoveFileAtPath: dirPath handler: nil]  ) {
-        fprintf(stderr, "Unable to remove temporary folder at %s", [dirPath UTF8String]);
+        fprintf(stderr, "Unable to remove temporary folder at %s\n", [dirPath UTF8String]);
     }
     [dirPath release];
 
@@ -1189,7 +1189,7 @@ int runRoutePreDownScript(BOOL kOption, BOOL kuOption, NSString * configName, un
 int checkSignature(void) {
     
     if (  ! [[NSFileManager defaultManager] fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
-        fprintf(stdout, "Assuming digital signature invalid because '%s' does not exist", [TOOL_PATH_FOR_CODESIGN UTF8String]);
+        fprintf(stdout, "Assuming digital signature invalid because '%s' does not exist\n", [TOOL_PATH_FOR_CODESIGN UTF8String]);
         exitOpenvpnstart(183);
     }
     
@@ -1299,7 +1299,7 @@ NSString * TunTapSuffixToUse(void) {
             suffixToReturn = @"-signed.kext";
         }
     } else {
-        fprintf(stderr, "Unable to determine OS version; using signed Tuntap kexts. Error status returned = %ld", (long) err);
+        fprintf(stderr, "Unable to determine OS version; using signed Tuntap kexts. Error status returned = %ld\n", (long) err);
         suffixToReturn = @"-signed.kext";
     }
     
@@ -1404,7 +1404,7 @@ void killOneOpenvpn(pid_t pid) {
         fprintf(stderr, "killOneOpenvpn(%lu): Process does not exist\n", (unsigned long) pid);
         exitOpenvpnstart(OPENVPNSTART_NO_SUCH_OPENVPN_PROCESS);
     } else {
-        fprintf(stderr, "killOneOpenvpn(%lu): Unable to get process information via getProcesses()", (unsigned long) pid);
+        fprintf(stderr, "killOneOpenvpn(%lu): Unable to get process information via getProcesses()\n", (unsigned long) pid);
         exitOpenvpnstart(219);
     }
 }
@@ -1680,10 +1680,10 @@ void compareShadowCopy (NSString * fileName) {
                 exitOpenvpnstart(OPENVPNSTART_COMPARE_CONFIG_SAME);
             }
 		} else {
-			fprintf(stderr, "Shadow configuration does not exist: %s", [shadowPath UTF8String]);
+			fprintf(stderr, "Shadow configuration does not exist: %s\n", [shadowPath UTF8String]);
 		}
 	} else {
-		fprintf(stderr, "Private configuration does not exist: %s", [privatePath UTF8String]);
+		fprintf(stderr, "Private configuration does not exist: %s\n", [privatePath UTF8String]);
 	}
 	
 	exitOpenvpnstart(OPENVPNSTART_COMPARE_CONFIG_DIFFERENT);
@@ -2071,12 +2071,12 @@ int startVPN(NSString * configFile,
     // Do not disable logging if starting when computer starts
     if (  (bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS) == 0  ) {
         bitMask = bitMask & ( ~ OPENVPNSTART_DISABLE_LOGGING );
-        fprintf(stderr, "Warning: The bitMask setting to disable OpenVPN logging is being ignored because the configuration is starting when the computer starts");
+        fprintf(stderr, "Warning: The bitMask setting to disable OpenVPN logging is being ignored because the configuration is starting when the computer starts\n");
     }
     // Determine path to the configuration file and the --cd folder
     switch (cfgLocCode) {
         case CFG_LOC_PRIVATE:
-            fprintf(stderr, "Private configurations may no longer be connected directly. Use a secure (shadow) copy of a private configuration.");   // Shouldn't get this far!
+            fprintf(stderr, "Private configurations may no longer be connected directly. Use a secure (shadow) copy of a private configuration.\n");   // Shouldn't get this far!
             exitOpenvpnstart(227);
             break;
             
@@ -2516,7 +2516,7 @@ int startVPN(NSString * configFile,
                 && (  ! openvpnHasRoutePreDown )  ) {
                 fprintf(stderr, "Your 'Tunnelblick VPN Configuration' or 'Deployed' configuration includes a 'route-pre-down.tunnelblick.sh' file,"
                         " which requires OpenVPN's '--route-pre-down' option. That option is not available in OpenVPN version %s, it is only available"
-                        " in OpenVPN version 2.3alpha1 and higher.", [versionToUse UTF8String]);
+                        " in OpenVPN version 2.3alpha1 and higher.\n", [versionToUse UTF8String]);
                 exitOpenvpnstart(231);
             }
             
@@ -2524,20 +2524,20 @@ int startVPN(NSString * configFile,
                 if (  (useScripts & OPENVPNSTART_USE_SCRIPTS_USE_DOWN_ROOT) != 0  ) {
                     if (  customRoutePreDownScript  ) {
                         fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the custom route-pre-down script will not"
-                                " be executed as root unless the 'user' and 'group' options are removed from the OpenVPN configuration file.");
+                                " be executed as root unless the 'user' and 'group' options are removed from the OpenVPN configuration file.\n");
                     } else {
 						if (   ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0)
 							|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED) != 0)  ) {
 							fprintf(stderr, "Error: Tunnelblick is using 'openvpn-down-root.so', so 'Disable network access after disconnecting'"
 									" will not work because the 'route-pre-down script' will not be executed as root. Remove the 'user' and 'group' options"
-									" from the OpenVPN configuration file to allow 'Disable network access after disconnecting' to work.");
+									" from the OpenVPN configuration file to allow 'Disable network access after disconnecting' to work.\n");
 							exitOpenvpnstart(170);
 						} else {
 							fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the route-pre-down script will not be used."
 									" You can override this by providing a custom route-pre-down script (which may be a copy of Tunnelblick's standard"
 									" route-pre-down script) in a Tunnelblick VPN Configuration. However, that script will not be executed as root"
 									" unless the 'user' and 'group' options are removed from the OpenVPN configuration file. If the 'user' and 'group'"
-									" options are removed, then you don't need to use a custom route-pre-down script.");
+									" options are removed, then you don't need to use a custom route-pre-down script.\n");
 						}
 					}
                 } else {
@@ -2993,13 +2993,13 @@ int main(int argc, char * argv[]) {
     } else if (  originalEuid == 0  ) {
         gUidOfUser = originalUid;  // User's uid
     } else {
-        fprintf(stderr, "uid is not 0 and euid is not 0 --Tunnelblick has probably not been secured. Secure it by launching Tunnelblick.");
+        fprintf(stderr, "uid is not 0 and euid is not 0 --Tunnelblick has probably not been secured. Secure it by launching Tunnelblick.\n");
         exitOpenvpnstart(174);
     }
 
     gPendingRootCounter = 1;    // Set up as root initially
     if (  setuid(0) != 0  ) {
-        fprintf(stderr, "setuid(0) failed; Tunnelblick has probably not been secured. Secure it by launching Tunnelblick.");
+        fprintf(stderr, "setuid(0) failed; Tunnelblick has probably not been secured. Secure it by launching Tunnelblick.\n");
     }
 
     
@@ -3009,7 +3009,7 @@ int main(int argc, char * argv[]) {
     gResourcesPath  = [[ourBundle bundlePath] copy];
     NSArray  * execComponents = [gResourcesPath pathComponents];
     if (  [execComponents count] < 3  ) {
-        fprintf(stderr, "Too few execComponents; gResourcesPath = %s", [gResourcesPath UTF8String]);
+        fprintf(stderr, "Too few execComponents; gResourcesPath = %s\n", [gResourcesPath UTF8String]);
         exitOpenvpnstart(242);
     }
 	gDeployPath = [[gResourcesPath stringByAppendingPathComponent: @"Deploy"] copy];
