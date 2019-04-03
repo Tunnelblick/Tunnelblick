@@ -849,9 +849,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         NSMutableArray * cbResults = [[NSMutableArray alloc] initWithCapacity:8];
         NSUInteger i;
 		for (  i=0; (  (i<[checkboxLabels count]) && (i < 8)  ); i++  ) {
-			[cbResults addObject: (  ((response & CFUserNotificationCheckBoxChecked(i)) != 0)
-								   ? [NSNumber numberWithBool: TRUE]
-								   : [NSNumber numberWithBool: FALSE])];
+			[cbResults addObject: [NSNumber numberWithBool: ((response & CFUserNotificationCheckBoxChecked(i)) != 0)]];
         }
 		*checkboxResults = [[cbResults copy] autorelease];
     }
