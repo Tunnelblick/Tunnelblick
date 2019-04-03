@@ -674,7 +674,7 @@ int TBRunAlertPanelExtended(NSString * title,
 // If the preference can be changed by the user, and the checkboxResults pointer is not nil, the panel will include checkboxes with the specified labels.
 // If the preference can be changed by the user, the preference is set if the user checks the box and the button that is clicked corresponds to the notShownReturnValue.
 // If the checkboxResults pointer is not nil, the initial value of the checkbox(es) will be set from it, and the values of the checkboxes is returned to it.
-// Every 0.2 seconds while the panel is being shown, this routine invokes [shouldCancelTarget performSelector: shouldCancelSelector] and cancels the dialog if it returns [NSNumber numberWithBool: TRUE].
+// Every 0.2 seconds while the panel is being shown, this routine invokes [shouldCancelTarget performSelector: shouldCancelSelector] and cancels the dialog if it returns @YES.
 
 int TBRunAlertPanelExtendedPlus (NSString * title,
                                  NSString * msg,

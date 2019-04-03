@@ -218,8 +218,8 @@ NSDictionary * tunnelblickdPlistDictionaryToUse(void) {
 #else
     NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
     NSMutableDictionary * plistContentsM = [[plistContents mutableCopy] autorelease];
-    [plistContentsM setObject: daemonPath                     forKey: @"Program"];
-    [plistContentsM setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
+    [plistContentsM setObject: daemonPath forKey: @"Program"];
+    [plistContentsM setObject: @YES       forKey: @"Debug"];
     return [NSDictionary dictionaryWithDictionary: plistContentsM];
 #endif
 }

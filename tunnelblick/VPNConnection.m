@@ -795,11 +795,11 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     }
     
     *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-             daemonLabel,                    @"Label",
-             *openvpnstartArgs,              @"ProgramArguments",
-             workingDirectory,               @"WorkingDirectory",
-             daemonDescription,              @"ServiceDescription",
-             [NSNumber numberWithBool: YES], @"RunAtLoad",
+             daemonLabel,       @"Label",
+             *openvpnstartArgs, @"ProgramArguments",
+             workingDirectory,  @"WorkingDirectory",
+             daemonDescription, @"ServiceDescription",
+             @YES,              @"RunAtLoad",
              nil];
     
     return YES;
@@ -907,7 +907,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 - (void) dealloc
 {
-    [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+    [self startDisconnectingUserKnows: @NO];
     [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
     
     [configPath                       release]; configPath                       = nil;
@@ -2801,7 +2801,7 @@ ifConnectionPreference: (NSString *)     keySuffix
 	if (![self isDisconnected]) {
         [self addToLog: @"Disconnecting; 'Disconnect' (toggle) menu command invoked"];
 		NSString * oldRequestedState = [self requestedState];
-		[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+		[self startDisconnectingUserKnows: @YES];
 		if (  [oldRequestedState isEqualToString: @"EXITING"]  ) {
 			[self displaySlowDisconnectionDialogLater];
 		}
@@ -3542,7 +3542,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         
         if (  disconnectWhenStateChanges  ) {
             TBLog(@"DB-CD", @"Requesting disconnect of '%@' because disconnectWhenStateChanges is TRUE", [self displayName]);
-            [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+            [self startDisconnectingUserKnows: @YES];
         }
 		
         if ([newState isEqualToString: @"CONNECTED"]) {
@@ -3638,7 +3638,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			useManualChallengeResponseOnce = TRUE;
 			doNotClearUseManualChallengeResponseOnceOnNextConnect = TRUE;
 		}
-		[self connectOnMainThreadUserKnows: [NSNumber numberWithBool: YES]];
+		[self connectOnMainThreadUserKnows: @YES];
 	}
 
 	[threadPool drain];
@@ -3659,7 +3659,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		
 	} else if (  status == 1  ) {
 		
-		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+		[self startDisconnectingUserKnows: @NO];
 		
 		NSString * message = [NSString stringWithFormat: NSLocalizedString(@"     From the VPN server for %@:\n\n%@", @"Window text."
 																		   @" The first %@ will be replaced by the name of a configuration."
@@ -3671,7 +3671,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	} else if (   (status == 2)
 			   || (status == 3)  ) {
 		
-		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+		[self startDisconnectingUserKnows: @NO];
 		
 		NSString * message = [NSString stringWithFormat: NSLocalizedString(@"     From the VPN server for %@:\n\n%@", @"Window text."
 																		   @" The first %@ will be replaced by the name of a configuration."
@@ -3791,7 +3791,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			|| [[self authRetryParameter] isEqualToString: @"nointeract"] )
 		&& ( ! [self openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting])  ) {
 		[self addToLog: @"Error: Disconnecting because the OpenVPN server requires a response to a dynamic challenge and the OpenVPN configuration file contains 'auth-retry none' or 'auth-retry nointeract'. The selected version of OpenVPN does not support that."];
-		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+		[self startDisconnectingUserKnows: @NO];
 		return;
 	}
 	
@@ -3808,7 +3808,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			|| ( ! [vfPart isEqualToString: @"Verification Failed"] )
 			|| ( ! [acPart isEqualToString: @" 'Auth' ['CRV1"] )  ) {
 			[self addToLog: [NSString stringWithFormat: @"Disconnecting: dynamic challange request did not start with '>PASSWORD:Verification Failed: 'Auth' ['CRV1:': '%@'", line]];
-			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+			[self startDisconnectingUserKnows: @NO];
 			return;
 		}
 		
@@ -3817,13 +3817,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		NSData * usernameAsData = base64Decode(usernameBase64);
 		if (  ! usernameAsData  ) {
 			[self addToLog: [NSString stringWithFormat: @"Disconnecting: in dynamic challenge/response request, could not decode base 64 string with username '%@'", usernameBase64]];
-			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+			[self startDisconnectingUserKnows: @NO];
 			return;
 		}
 		NSString * username  = [[[NSString alloc] initWithData: usernameAsData encoding: NSUTF8StringEncoding] autorelease];
 		if (  ! username  ) {
 			[self addToLog: [NSString stringWithFormat: @"Disconnecting: in dynamic challenge/response request, could not decode UTF-8 with username (Base 64 of username is '%@')", usernameBase64]];
-			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+			[self startDisconnectingUserKnows: @NO];
 			return;
 		}
 		
@@ -3838,7 +3838,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		// Strip the trailing "']" from the challenge
 		if (  ! [prompt hasSuffix: @"']"]  ) {
 			[self addToLog: [NSString stringWithFormat: @"Disconnecting: dynamic challenge/response request does not end with \"']\": '%@'", line]];
-			[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+			[self startDisconnectingUserKnows: @NO];
 			return;
 		}
 		prompt = [prompt substringToIndex: [prompt length] - 2];
@@ -3852,7 +3852,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		[self addToLog: [NSString stringWithFormat: @"Saved dynamic challenge info for user %@ with flags '%@', state '%@', and prompt '%@'", username, flags, state, prompt]];
 	} else {
 		[self addToLog: [NSString stringWithFormat: @"Disconnecting: dynamic challange request did not have at least six colons: '%@'", line]];
-		[self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+		[self startDisconnectingUserKnows: @NO];
 	}
 	
 	return;
@@ -3981,7 +3981,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 } else {
                     userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
                     [self addToLog: @"Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
-                    [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
+                    [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
                 }
                 
 				TBLog(@"DB-AU", @"processLine: queuing afterFailureHandler: for execution in 0.5 seconds");
@@ -4170,7 +4170,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		[self sendStringToManagementSocket: msg encoding: NSUTF8StringEncoding];
 	} else {
 		[self addToLog: @"Disconnecting: An error occurred or the user cancelled when presented with dynamic challenge"];
-		[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
+		[self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
 	}
 	
 	[self setDynamicChallengeUsername: nil];
@@ -4230,13 +4230,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
              if (  ( strlen(tokenNameC)  > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )
                 || ( strlen(passphraseC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )  ) {
                 [self addToLog: [NSString stringWithFormat: @"Disconnecting; token name is %ld bytes long; passphrase is %ld bytes long; each is limited to %ld bytes", (long)strlen(tokenNameC), (long)strlen(passphraseC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
-                [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+                [self startDisconnectingUserKnows: @NO];
             } else {
                 [self sendStringToManagementSocket: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", escaped(tokenName), escaped(myPassphrase)] encoding:NSUTF8StringEncoding];
             }
         } else {
             [self addToLog: @"Disconnecting; user cancelled authorization"];
-            [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
+            [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
         }
         
     } else if ([line rangeOfString: @"Auth"].length) {
@@ -4266,7 +4266,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             if (   ( strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )
                 || ( strlen(passwordC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )  ) {
                 [self addToLog: [NSString stringWithFormat: @"Disconnecting; username is %ld bytes long; password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
-                [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+                [self startDisconnectingUserKnows: @NO];
             } else {
                 NSString * response = nil;
                 if (  staticChallengePrompt  ) {
@@ -4278,7 +4278,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 						[self addToLog: [NSString stringWithFormat: @"User responded to static challenge: '%@'", staticChallengePrompt]];
 					} else {
 						[self addToLog: [NSString stringWithFormat: @"Disconnecting: User cancelled when presented with static challenge: '%@'", staticChallengePrompt]];
-						[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
+						[self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
 					}
                 }
                 [self sendStringToManagementSocket:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUTF8StringEncoding];
@@ -4293,7 +4293,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         } else {
             [self addToLog: @"Disconnecting; user cancelled authorization"];
-            [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
+            [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
         }
         
     } else {
@@ -4873,7 +4873,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             if (   ( ! [scriptName isEqualToString: @"post-disconnect"])
 				&& ( ! [scriptName isEqualToString: @"pre-disconnect"])  ) {
                 [self addToLog: [NSString stringWithFormat: @"Disconnecting because the '%@.sh' script failed", scriptName]];
-				[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+				[self startDisconnectingUserKnows: @YES];
             }
         }
     }

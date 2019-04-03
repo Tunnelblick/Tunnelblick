@@ -2726,7 +2726,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     if (   myConnection
 		&& ( ! [[myConnection state] isEqualTo: @"EXITING"] )  ) {
         [myConnection addToLog: @"Disconnecting; user asked to delete the configuration"];
-        [myConnection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+        [myConnection startDisconnectingUserKnows: @YES];
         [myConnection waitUntilDisconnected];
         
 		NSString * localName = [myConnection localizedName];
@@ -2976,7 +2976,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                     TBLog(@"DB-SD", @"startDisconnecting:disconnectingAll:logMessage: will use killall to disconnect %@", [connection displayName])
                 } else {
                     TBLog(@"DB-SD", @"startDisconnecting:disconnectingAll:logMessage: starting disconnect of %@", [connection displayName])
-                    [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+                    [connection startDisconnectingUserKnows: @YES];
                 }
             }
         }
@@ -3405,7 +3405,7 @@ BOOL anyNonTblkConfigs(void)
     while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection isDisconnected]  ) {
             [connection addToLog: @"Disconnecting; 'Disconnect all' menu command invoked"];
-            [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+            [connection startDisconnectingUserKnows: @YES];
         }
     }
 }
@@ -6045,7 +6045,7 @@ BOOL warnAboutNonTblks(void)
 		 updateChecksHost];
 	} else if (  ! updateChecksForcedOnOrOff  ) {
 		[checkboxLabels  addObject: NSLocalizedString(@"Check for updates", @"Checkbox text")];
-		[checkboxResults addObject: [NSNumber numberWithBool: YES]];
+		[checkboxResults addObject: @YES];
 		updateChecksCheckboxIx = [checkboxResults count] - 1;
 		[message appendFormat: NSLocalizedString(@"Tunnelblick can access %@ to check for updates when it is launched"
 												 @" and periodically while it is running.\n\n",
@@ -6061,7 +6061,7 @@ BOOL warnAboutNonTblks(void)
 		 ipAddressCheckHost];
 	} else if (  ! ipAddressChecksForcedOnOrOff  ) {
 		[checkboxLabels  addObject: NSLocalizedString(@"Check for IP address changes", @"Checkbox text")];
-		[checkboxResults addObject: [NSNumber numberWithBool: YES]];
+		[checkboxResults addObject: @YES];
 		ipAddressChecksCheckboxIx = [checkboxResults count] - 1;
 		[message appendFormat: NSLocalizedString(@"Tunnelblick can access %@ to check that your computer's apparent public"
 												 @" IP address changes each time you connect to a VPN.\n\n",
@@ -7765,7 +7765,7 @@ void terminateBecauseOfBadConfiguration(void)
         if (   [connection shouldDisconnectWhenBecomeInactiveUser]
             && ( ! [connection isDisconnected])  ) {
             [connection addToLog: @"Disconnecting; user became inactive"];
-            [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+            [connection startDisconnectingUserKnows: @YES];
             [disconnectionsWeAreWaitingFor addObject: connection];
             NSString * key = [[connection displayName] stringByAppendingString: @"-doNotReconnectOnFastUserSwitch"];
             if (  ! [gTbDefaults boolForKey: key]  ) {
@@ -8316,7 +8316,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  choice == statusWindowControllerDisconnectChoice  ) {
             [connection addToLog: @"Disconnecting; notification window disconnect button pressed"];
 			NSString * oldRequestedState = [connection requestedState];
-			[connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+			[connection startDisconnectingUserKnows: @YES];
 			if (  [oldRequestedState isEqualToString: @"EXITING"]  ) {
 				[connection displaySlowDisconnectionDialogLater];
 			}

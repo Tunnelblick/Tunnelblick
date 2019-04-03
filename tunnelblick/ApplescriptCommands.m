@@ -41,11 +41,11 @@ extern TBUserDefaults  * gTbDefaults;
     if (  connection  ) {
         if (  ! [connection isConnected] ) {
             [connection connect: self userKnows: YES];
-            return [NSNumber numberWithBool: TRUE];
+            return @YES;
         }
     }
     
-    return [NSNumber numberWithBool: FALSE];
+    return @NO;
 }
 @end
 
@@ -62,12 +62,12 @@ extern TBUserDefaults  * gTbDefaults;
     if (  connection  ) {
         if (  ! [connection isDisconnected]  ) {
             [connection addToLog: @"Disconnecting; AppleScript 'disconnect' invoked"];
-            [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
-            return [NSNumber numberWithBool: TRUE];
+            [connection startDisconnectingUserKnows: @YES];
+            return @YES;
         }
     }
     
-    return [NSNumber numberWithBool: FALSE];
+    return @NO;
 }
 
 @end
@@ -105,7 +105,7 @@ extern TBUserDefaults  * gTbDefaults;
     while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection isDisconnected]  ) {
             [connection addToLog: @"Disconnecting; AppleScript 'disconnect all' invoked"];
-            [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+            [connection startDisconnectingUserKnows: @YES];
             nDisconnecting++;
         }
     }
@@ -131,7 +131,7 @@ extern TBUserDefaults  * gTbDefaults;
             if (  ! (   [gTbDefaults boolForKey: autoConnectkey]
                      && [gTbDefaults boolForKey: systemStartkey] )  ) {
                 [connection addToLog:@"Disconnecting; AppleScript 'disconnect all except when computer starts' invoked"];
-                [connection startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+                [connection startDisconnectingUserKnows: @NO];
                 nDisconnecting++;
             }
         }

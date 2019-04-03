@@ -46,8 +46,8 @@
 //        NSLog(@"DEBUG: TBPerformer: test: condition satisfied; performing");
         [self performSelectorOnMainThread: doSelector
                                withObject: [NSDictionary dictionaryWithObjectsAndKeys:
-                                            doArgument,                     @"doArgument",
-                                            [NSNumber numberWithBool: YES], @"satisfied",
+                                            doArgument, @"doArgument",
+                                            @YES,       @"satisfied",
                                             nil]
                             waitUntilDone: NO];
     } else {
@@ -63,8 +63,8 @@
 //            NSLog(@"DEBUG: TBPerformer: test: condition not satisfied but have timed out; performing");
             [self performSelectorOnMainThread: doSelector
                                    withObject: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                doArgument,                    @"doArgument",
-                                                [NSNumber numberWithBool: NO], @"satisfied",
+                                                doArgument, @"doArgument",
+                                                @NO,        @"satisfied",
                                                 nil]
                                 waitUntilDone: NO];
             
@@ -128,8 +128,8 @@
 //        NSLog(@"DEBUG: TBPerformer: condition immediately satisfied; performing");
         [self performSelectorOnMainThread: doSelector
                                withObject: [NSDictionary dictionaryWithObjectsAndKeys:
-                                            doArgument,                     @"doArgument",
-                                            [NSNumber numberWithBool: YES], @"satisfied",
+                                            doArgument, @"doArgument",
+                                            @YES,       @"satisfied",
                                             nil]
                             waitUntilDone: NO];
         return;

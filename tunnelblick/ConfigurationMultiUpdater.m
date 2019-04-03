@@ -177,7 +177,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, configUpdaters)
     ConfigurationUpdater * configUpdater = [[[ConfigurationUpdater alloc] initWithPath: path] autorelease];
     if (  configUpdater  ) {
         [[self configUpdaters] addObject: configUpdater];
-	    [configUpdater performSelector: @selector(startUpdateCheckingWithUI:) withObject: [NSNumber numberWithBool: NO] afterDelay: 5.0];
+	    [configUpdater performSelector: @selector(startUpdateCheckingWithUI:) withObject: @NO afterDelay: 5.0];
         NSString * bundleIdAndEdition = [[path stringByDeletingLastPathComponent] lastPathComponent];
         NSString * bundleId           = [bundleIdAndEdition stringByDeletingPathEdition];
         NSString * edition            = [bundleIdAndEdition pathEdition];

@@ -1656,7 +1656,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  connection  ) {
         [connection addToLog: @"Disconnecting; VPN Details… window disconnect button pressed"];
 		NSString * oldRequestedState = [connection requestedState];
-        [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+        [connection startDisconnectingUserKnows: @YES];
         if (  [oldRequestedState isEqualToString: @"EXITING"]  ) {
 			[connection displaySlowDisconnectionDialogLater];
         }

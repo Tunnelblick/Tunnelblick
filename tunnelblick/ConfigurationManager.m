@@ -2365,7 +2365,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  connection  ) {
             if (  ! [[connection state] isEqualToString: @"EXITING"]  ) {
                 NSLog(@"Starting disconnection of '%@'", [connection displayName]);
-                [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+                [connection startDisconnectingUserKnows: @YES];
             }
         } else {
             NSLog(@"No entry for '%@' in myVPNConnectionDictionary = '%@'", [connection displayName], dict);
@@ -2390,7 +2390,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: name];
         if (  connection  ) {
             NSLog(@"Starting reconnection of '%@'", name);
-            [connection performSelector: @selector(connectOnMainThreadUserKnows:) withObject: [NSNumber numberWithBool: YES] afterDelay: 1.0];
+            [connection performSelector: @selector(connectOnMainThreadUserKnows:) withObject: @YES afterDelay: 1.0];
         } else {
             NSLog(@"Skipping reconnection of '%@' because it has been uninstalled", name);
         }

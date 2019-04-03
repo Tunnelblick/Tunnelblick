@@ -162,11 +162,11 @@ void setStart(NSString * plistPath, NSString * daemonDescription, NSString * dae
     NSString * workingDirectory = getWorkingDirectory(argc, argv);
     
     NSDictionary * plistDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                daemonLabel,                    @"Label",
-                                arguments,                      @"ProgramArguments",
-                                workingDirectory,               @"WorkingDirectory",
-                                daemonDescription,              @"ServiceDescription",
-                                [NSNumber numberWithBool: YES], @"RunAtLoad",
+                                daemonLabel,	   @"Label",
+                                arguments,         @"ProgramArguments",
+                                workingDirectory,  @"WorkingDirectory",
+                                daemonDescription, @"ServiceDescription",
+                                @YES,			   @"RunAtLoad",
                                 nil];
     
     NSFileManager * fm = [NSFileManager defaultManager];
