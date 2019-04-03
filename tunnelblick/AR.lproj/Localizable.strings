@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "الرجاء عدم اظهارهذا التحذير مجددا";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "لا حاجة للإنذار مرة أخرى حول مشاكل DNS أيا كان الإعداد";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "لا تحذر مرة أخرى حول هذا لاي اعدادت اخري";
 
 /* Checkbox name */
@@ -520,6 +523,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "جار الحصول على الاعدادات"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "إنتظار الولوج إلى الشبكة"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "بانتظار كلمة المرور"; // Please translate "Waiting for password"
@@ -746,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     من الخادم %1$@ لـ %2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • عنوان خادم DNS %@ هو عنوان خاص ولكن لا يتم توجيهه عبر ال VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • عنوان خادم DNS %@ هو خادم DNS عام معروف ل Tunnelblick لكن لا يتم توجيهه عبر ال VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • عنوان خادم DNS %@ ليس خادم DNS عام معروف ل Tunnelblick ولا يتم توجيهه عبر ال VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     تم تحميل %lu الاعدادات";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     تم تحميل الاعداد الاول";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • لم يتم تحديد خوادم DNS.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     •استبدل %lu الإعدادات\n\n";
@@ -1380,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "بعض الإعدادات تم تجاهلها، راجع شاشة التحكم لمزيد من التفصيل.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "تم وجود مشكل أو عدة مشاكل في DNS\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "تم اكتشاف بعض الأخطاء:\n\n%@";
 
 /* Window text */
@@ -1588,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "حصل خطأ في عملية حذف احد اعدادات الاتصال. راجع السجل للتفاصيل.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "كانت هناك مشكلة في الحصول على قائمة خوادم DNS العامة المعروفة.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "كانت هناك مشكلة في الحصول على قائمة خوادم DNS.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "حدث خطأ في اعدادات اتصال OpenVPN. راجع السجل للتفاصيل.";

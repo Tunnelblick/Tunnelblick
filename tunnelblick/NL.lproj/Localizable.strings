@@ -756,10 +756,10 @@
 "     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is een prive-adres maar wordt niet via de VPN gerouteerd.\n\n";
 
 /* Window text */
-"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is a openbare DNS-server die bekend is bij Tunnelblick, maar wordt niet via de VPN gerouteerd.\n\n";
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is een openbare DNS-server die bekend is bij Tunnelblick, maar wordt niet via de VPN gerouteerd.\n\n";
 
 /* Window text */
-"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is een openbare DNS-server die niet bekend is bij Tunnelbkick en wordt niet via de VPN gerouteerd.\n\n";
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is niet een openbare DNS-server die niet bekend is bij Tunnelbkick en wordt niet via de VPN gerouteerd.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu configuraties geïnstalleerd\n\n";
@@ -768,7 +768,7 @@
 "     • Installed one configuration\n\n" = "     • één configuratie geïnstalleerd\n\n";
 
 /* Window text */
-"     • No DNS servers have been specified.\n\n" = "     Geen DNS-servers gespecificeerd.\n\n";
+"     • No DNS servers have been specified.\n\n" = "     • Geen DNS-servers gespecificeerd.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • %lu configuraties vervangen\n\n";
@@ -2307,7 +2307,7 @@
 "Do not warn about this again;\nalways re-enable when connecting" = "Waarschuw hier niet meer over;\nschakel altijd opnieuw in bij verbinding maken";
 
 /* Checkbox text */
-"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Waarschuw hier niet meer over;\nschakel altijd opnieuw in bij afsluiten van Tunnelblick";
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Waarschuw hier niet meer over;\naltijd opnieuw inschakelen bij afsluiten van Tunnelblick";
 
 /* Checkbox text */
 "Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Waarschuw hier niet meer over;\nschakel nooit opnieuw in bij opstarten van Tunnelblick";

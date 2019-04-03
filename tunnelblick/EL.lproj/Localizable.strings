@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Να μην εμφανιστεί αυτή η προειδοποίηση ξανά";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Να μην ειδοποιηθώ ξανά για προβλήματα DNS για κανένα σετ ρυθμίσεων";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Να μην ειδοποιηθώ ξανά για οποιαδήποτε παράμετρο";
 
 /* Checkbox name */
@@ -520,6 +523,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Λήψη παραμέτρων"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Αναμονή για πρόσβαση στο δίκτυο"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Αναμονή κωδικού"; // Please translate "Waiting for password"
@@ -746,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Από τον διακομιστή VPN για %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • H διεύθυνση διακομιστή DNS %@ είναι μια ιδιωτική διεύθυνση, αλλά δεν δρομολογείται μέσω του VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • H διεύθυνση διακομιστή DNS %@ είναι μια γνωστή δημόσια διεύθυνση, αλλά δεν δρομολογείται μέσω του VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • H διεύθυνση διακομιστή DNS %@ δεν είναι μια γνωστή δημόσια διεύθυνση, και δεν δρομολογείται μέσω του VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Εγκαταστάθηκε %lu παράμετρος\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Εγκαταστάθηκε μια παράμετρος\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Δεν έχουν επιλεχθεί διακομιστές DNS.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Αντικαταστάθηκε η παράμετρος %lu\n\n";
@@ -1380,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Μια ή περισσότερες παράμετροι έχουν αγνοηθεί. Δείτε στην καταγραφή της Κονσόλας για λεπτομέρειες.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Προέκυψαν σφάλματα σχετικά με το DNS:\n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Ένα ή περισσότερα προβλήματα εντοπίστηκαν: \n\n%@";
 
 /* Window text */
@@ -1588,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Υπήρξε ένα πρόβλημα κατα την διαγραφή μιας ή περισσοτέρων ρυθμίσεων. Δες την Καταγραφή Κονσόλας για περισσότερες λεπτομέρειες.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Παρουσιάστηκε σφάλμα κατά την ανάκτηση των γνωστών δημοσίων διακομιστών DNS.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Παρουσιάστηκε σφάλμα κατά την ανάκτηση των διακομιστών DNS.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Υπήρξε ένα πρόβλημα με την ρύθμιση OpenVPN. Δείτε τις καταγραφές της κονσόλας για περισσότερες λεπτομέρειες.";

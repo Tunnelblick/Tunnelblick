@@ -116,6 +116,9 @@
 "Download" = "Tải về";
 
 /* Button */
+"Export Tunnelblick Setup" = "Xuất cài đặt Tunnelblick";
+
+/* Button */
 "Help" = "Hỗ trợ";
 
 /* Button */
@@ -414,6 +417,9 @@
 "Do not show this type of warning again" = "Không hiển thị lại cảnh báo này nữa";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Bạn có muốn cảnh báo các vấn đề về DNS cho bất kỳ cấu hình nào không";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Không hiển thị cảnh báo này cho bất kỳ cấu hình";
 
 /* Checkbox name */
@@ -519,6 +525,9 @@
 "GET_CONFIG" = "Bắt đầu cấu hình"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "Đang chờ truy cập mạng"; // Please translate "Waiting for network access"
+
+/* Connection status */
 "PASSWORD_WAIT" = "Chờ nhập mật khẩu"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -619,6 +628,9 @@
 
 /* Window title */
 "File not found" = "Không tìm thấy tập tin";
+
+/* Window title */
+"Import a Tunnelblick Setup" = "Nhập 1 cài đặt Tunnelblick";
 
 /* Window title */
 "Info" = "Thông tin";
@@ -739,6 +751,9 @@
 
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Từ máy chủ VPN cho %1$@:\n\n%2$@";
+
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     Địa chỉ máy chủ DNS %@ là 1 địa chỉ riêng nhưng nó không chuyển kết nối thông qua VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "• Cài đặt %lu cấu hình\n\n";

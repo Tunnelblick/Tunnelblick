@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Ascunde acest tip de notificare";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Nu avertizați din nou despre probleme DNS pentru nicio configurare";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Nu avertizați din nou pentru nicio configurare";
 
 /* Checkbox name */
@@ -520,6 +523,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Încarc configurările"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Așteptând conexiunea la rețea"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Aștept parola"; // Please translate "Waiting for password"
@@ -746,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     De la serverul VPN pentru %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • Adresa serverului DNS %@ este o adresă privată dar nu este transmisă prin rețeaua VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Adresa serverului DNS %@ este un server DNS public cunoscut de Tunnelblick dar nu este transmisă prin rețeaua VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Adresa serverului DNS %@ nu este un server DNS public cunoscut de Tunnelblick și nu este transmisă prin rețeaua VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     %lu configurări instalate\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     O configurare instalată\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Nici un server DNS nu a fost ales.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Configurările %lu înlocuite\n\n";
@@ -1380,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Una sau mai multe configurații sunt ignorate. Consultați Console Log pentru detalii.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Au fost identificate una sau mai multe probleme cu serverul DNS: \n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Au fost detectate una sau mai multe probleme:\n\n%@";
 
 /* Window text */
@@ -1588,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "A apărut o problemă la ștergerea uneia sau a mai multor configurații. Consultați Console Log pentru detalii.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "A fost o problemă cu obținerea listei de servere DNS publice cunoscute.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "A fost o problemă cu obținerea listei de servere DNS.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "A apărut o problemă cu o configurație OpenVPN. Consultați Console Log pentru detalii.";

@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "不再显示此类警告信息";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "对任何DNS问题都不再发出警告";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "对任何配置都不再发出此警告";
 
 /* Checkbox name */
@@ -520,6 +523,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "正在获取设定"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "等待网络连接"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "正等待输入密码"; // Please translate "Waiting for password"
@@ -746,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     来自 %1$@ VPN 的信息:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS服务器%@是私有地址，不通过VPN路由\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS服务器%@是 Tunnelblick 已知的公开服务器，不通过VPN路由\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS服务器%@不是 Tunnelblick 已知的公开服务器，不通过VPN路由\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • 安装了 %lu 个配置\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • 安装了 一个配置\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     没有设置DNS服务器\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • 替换了%lu 个配置\n";
@@ -1380,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "一个或多个配置已被忽略. 详情请查看控制台日志.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "发现了一些DNS问题：\n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "检测到一个或多个问题： %@";
 
 /* Window text */
@@ -1588,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "删除一个或多个配置的过程中遇到问题, 详情请查看控制台日志。";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "获取公开DNS服务器列表时出现问题。";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "获取DNS服务器列表时出现问题。";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "OpenVPN 配置中存在问题, 详情请查看控制台日志。";

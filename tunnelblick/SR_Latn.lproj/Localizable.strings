@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Ne prikazuj ponovo ovaj tip upozorenja";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Ne prikazuj ovo upozorenje za bilo koju konfiguraciju";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Ne prikazuj ovo upozorenje ponovo za bilo koju konfiguraciju";
 
 /* Checkbox name */
@@ -520,6 +523,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Preuzimanje konfiguracije"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Čekam na dostupnost mreže"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Čekam na lozinku"; // Please translate "Waiting for password"
@@ -746,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Od VPN servera za %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     Adresa DNS servera %@ je privatna ali saobraćaj nije rutiran kroz VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     Adresa DNS servera %@ je javna i poznata Tunnelblick-u ali saobraćaj nije rutiran kroz VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     Adresa DNS servera %@ nije poznata Tunnelblick-u i saobraćaj nije rutiran kroz VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Instalirano %lu konfiguracija\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Instalirana jedna konfiguracija\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     Nijedan DNS server nije naveden.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Zamenjeno %lu konfiguracija\n\n";
@@ -1380,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Jedna ili više konfiguracija je zanemareno. Pogledajte log konzole za detalje.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Jedan ili više problema sa DNS serverima je pronađeno:\n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Jedan ili više problema je detektovano:\n\n%@";
 
 /* Window text */
@@ -1588,6 +1609,12 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Nastala je greška prilikom brisanja jedne ili više konfiguracija. Pogledajte log konzole za detalje.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Prilikom preuzimanja liste poznatih javnih DNS servera dogodio se problem.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Prilikom preuzimanja liste DNS servera dogodio se problem.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Nastao je problem sa OpenVPN konfiguracijom. Pogledajte log konzole za detalje.";

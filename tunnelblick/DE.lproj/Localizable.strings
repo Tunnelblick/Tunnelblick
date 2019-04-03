@@ -525,7 +525,7 @@
 "GET_CONFIG" = "Lade Konfiguration"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Warte auf Netzverbindung"; // Please translate "Waiting for network access"
+"NETWORK_ACCESS" = "Warten auf Netzverbindung"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Warten auf Kennwort"; // Please translate "Waiting for password"
