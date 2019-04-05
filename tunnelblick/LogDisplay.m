@@ -1047,7 +1047,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
 		case 0:
 			
 			// Line doesn't start with a date/time; indent it
-			newDate = [@"" stringByPaddingToLength: TB_LOG_DATE_TIME_WIDTH withString: @" " startingAtIndex: 0];
+			newDate = [@"" stringByPaddingToLength: TB_LOG_DATE_TIME_WIDTH + 1 withString: @" " startingAtIndex: 0];
 			break;
 			
 		case 17:
