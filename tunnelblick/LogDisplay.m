@@ -899,8 +899,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     }
     
     NSMutableString * newValue = [[[self convertDateInLine: line messageFlagsPtr: nil] mutableCopy] autorelease];
-    if (  [newValue length] > TB_LOG_DATE_TIME_WIDTH  ) {
-        if (  [[newValue substringWithRange: NSMakeRange(TB_LOG_DATE_TIME_WIDTH - 1, 1)] isEqualToString: @" "]  ) {        // (Last digit of seconds)
+    if (  [newValue length] > TB_LOG_DATE_TIME_WIDTH + 1  ) {
+        if (  [[newValue substringWithRange: NSMakeRange(TB_LOG_DATE_TIME_WIDTH - 1, 1)] isEqualToString: @" "]  ) {  // (Last digit of microseconds)
             if (  ! [[newValue substringWithRange: NSMakeRange(TB_LOG_DATE_TIME_WIDTH + 1, 1)] isEqualToString: @"*"]  ) {
                 [newValue insertString: @"*" atIndex: TB_LOG_DATE_TIME_WIDTH + 1];
             }
