@@ -337,7 +337,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     
     // MUST call with logStorageMutex locked
     //
-    // Appends a line to the end of the log. If this log is currently being displayed, do it on the main thread.
+    // Inserts a line into the log. If this log is currently being displayed, do it on the main thread.
     
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
                            line,                               @"line",
