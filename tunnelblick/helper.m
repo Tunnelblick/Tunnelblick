@@ -1189,7 +1189,7 @@ NSString * stringForLog(NSString * outputString, NSString * header)
 	outputString = [header stringByAppendingString: outputString];
     NSMutableString * tempMutableString = [[outputString mutableCopy] autorelease];
     [tempMutableString replaceOccurrencesOfString: @"\n" withString: @"\n     " options: 0 range: NSMakeRange(0, [tempMutableString length])];
-	return [NSString stringWithFormat: @"%@\n", tempMutableString];
+	return [[tempMutableString copy] autorelease];
 }
 
 NSString * configLocCodeStringForPath(NSString * configPath) {

@@ -2689,7 +2689,6 @@ int startVPN(NSString * configFile,
 			[displayCmdLine appendString: [NSString stringWithFormat: @" %@", arg]];
 		}
 	}
-	[displayCmdLine appendString: @"\n"];
     
     if (  status != 0  ) {
         NSString * logContents = @"";
@@ -2715,7 +2714,7 @@ int startVPN(NSString * configFile,
         
         fprintf(stderr, "OpenVPN returned with status %d, errno = %ld:\n"
                 "     %s\n\n"
-                "Command used to start OpenVPN (one argument per displayed line):\n\n"
+                "Command used to start OpenVPN (one argument per displayed line):\n"
                 "%s\n"
                 "Contents of the OpenVPN log:\n"
                 "%s\n"
@@ -2725,8 +2724,7 @@ int startVPN(NSString * configFile,
         return OPENVPNSTART_COULD_NOT_START_OPENVPN;
     
     } else {
-        fprintf(stderr, "OpenVPN started successfully. Command used to start OpenVPN (one argument per displayed line):\n\n"
-                "%s\n",
+        fprintf(stderr, "OpenVPN started successfully.\nCommand used to start OpenVPN (one argument per displayed line):\n%s",
                 [displayCmdLine UTF8String]);
     }
     
