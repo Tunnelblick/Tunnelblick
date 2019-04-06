@@ -1640,7 +1640,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     VPNConnection * connection = [self selectedConnection];
     if (  connection  ) {
-        [connection addToLog: @"Disconnecting; VPN Details… window connect button pressed"];
         [connection connect: sender userKnows: YES];
     } else {
         NSLog(@"connectButtonWasClicked but no configuration selected");
