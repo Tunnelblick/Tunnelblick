@@ -222,7 +222,7 @@ int main (int argc, const char * argv[])
 
 void appendLog(NSString * msg)
 {
-    NSString * fullMsg = [NSString stringWithFormat:@"%@ %@ process-network-changes: %@\n",
+    NSString * fullMsg = [NSString stringWithFormat:@"%@ %@process-network-changes: %@\n",
 						  [[NSDate date] openvpnMachineReadableLogRepresentation], TB_LOG_PREFIX, msg];
     NSFileHandle * handle = [NSFileHandle fileHandleForWritingAtPath: gLogPath];
     [handle seekToEndOfFile];
