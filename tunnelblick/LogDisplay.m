@@ -1552,7 +1552,8 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
         // More than one line in log
         currentLineRng = NSMakeRange(LfRng.location + 1, justPastEnd - LfRng.location - 1);
         lineStartIndex = currentLineRng.location;
-    } while (  [[text substringWithRange: NSMakeRange(currentLineRng.location, 1)] isEqualToString: @" "]  );
+    } while (   (currentLineRng.length == 1)
+			 || [[text substringWithRange: NSMakeRange(currentLineRng.location, 1)] isEqualToString: @" "]  );
     
     return currentLineRng;
 }
