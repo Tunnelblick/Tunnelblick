@@ -1524,16 +1524,8 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
             numberOfLinesSkippedBackward++;
         }
         
-        if (  [logStore length] == 0  ) {
-            [self insertLogEntry: line atIndex: textRng.length];
-            pthread_mutex_unlock( &logStorageMutex );
-            
-            [self setLastEntryTime: lineTime];
-        } else {
-            [self insertLogEntry: line atIndex: 0];
-            pthread_mutex_unlock( &logStorageMutex );
-            
-        }
+        [self insertLogEntry: line atIndex: currentLineRng.location];
+		pthread_mutex_unlock( &logStorageMutex );
     }
     
     [self didAddLineToLogDisplay];
@@ -1544,7 +1536,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
 -(NSRange) rangeOfLineBeforeLineThatStartsAt: (unsigned long) lineStartIndex inString: (NSString *) text after: (unsigned long) start
 {
     if (  lineStartIndex <= start  ) {
-        return NSMakeRange(NSNotFound, 0);
+        return NSMakeRange(start, 0);
     }
     
     unsigned long justPastEnd = lineStartIndex;
