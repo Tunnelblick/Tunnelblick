@@ -154,8 +154,14 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
 	return [NSColor colorWithCalibratedRed: 0.0 green: 1.0 blue: 1.0 alpha: 0.2];
 }
 
-// Highlights errors with red, warnings with yellow, notes with blue
--(NSMutableAttributedString *) attributedStringFromLine: (NSString *) line {
++(NSColor *) darkBlueColorForFont {
+	
+	return [NSColor colorWithCalibratedRed: 0.0 green: 0.0 blue: 1.0 alpha: 1.0];
+}
+
+// Highlights errors with red, warnings with yellow, and notes with blue
+// Renders Tunnelblick log entries in blue text and OpenVPN entries in black text
+-(NSMutableAttributedString *) attributedStringFromLine: (NSString *) line fromTunnelblick: (BOOL) fromTunnelblick {
     
     NSMutableAttributedString * string = [[[NSMutableAttributedString alloc] initWithString: line] autorelease];
     
@@ -184,6 +190,10 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay redColorForHighlighting]    range: lineRange];
     }
     
+	if (  fromTunnelblick  ) {
+		[string addAttribute: NSForegroundColorAttributeName value: [LogDisplay darkBlueColorForFont]       range: lineRange];
+	}
+	
 	if (  ! warnedAboutUserGroupAlready  ) {
 		issueRange = [line rangeOfString: @"must be root to alter routing table" options: NSCaseInsensitiveSearch];
 		if (  issueRange.length != 0  ) {
@@ -274,12 +284,14 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         lineCount--;
     }
     
+	BOOL fromTunnelblick = ([line rangeOfString: TB_LOG_PREFIX].length != 0);
+
     NSUInteger i;
     for (  i=0; i < lineCount; i++) {
         NSString * singleLine = [[lines objectAtIndex: i] stringByAppendingString: @"\n"];
         [ts beginEditing];
 		[self popupAWarningForProblemSeenInLogLine: singleLine];
-		NSMutableAttributedString * string = [self attributedStringFromLine: singleLine];
+		NSMutableAttributedString * string = [self attributedStringFromLine: singleLine fromTunnelblick: fromTunnelblick];
 		[ts insertAttributedString: string atIndex: ix];
         [ts endEditing];
         ix = ix + [singleLine length];
@@ -1116,11 +1128,13 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
             lineCount--;
         }
         
+		BOOL fromTunnelblick = ([line rangeOfString: TB_LOG_PREFIX].length != 0);
+		
         NSUInteger i;
         for (  i=0; i < lineCount; i++) {
             NSString * singleLine = [[lines objectAtIndex: i] stringByAppendingString: @"\n"];
 			[self popupAWarningForProblemSeenInLogLine: singleLine];
-            NSMutableAttributedString * string = [self attributedStringFromLine: singleLine];
+            NSMutableAttributedString * string = [self attributedStringFromLine: singleLine fromTunnelblick: fromTunnelblick];
             [logStore appendAttributedString: string];
         }
         
