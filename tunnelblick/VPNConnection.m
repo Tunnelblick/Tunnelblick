@@ -2806,7 +2806,7 @@ ifConnectionPreference: (NSString *)     keySuffix
 			[self displaySlowDisconnectionDialogLater];
 		}
 	} else {
-        [self addToLog: @"Disconnecting; 'Connect' (toggle) menu command invoked"];
+        [self addToLog: @"Connecting; 'Connect' (toggle) menu command invoked"];
 		[self connect: sender userKnows: YES];
 	}
 }
