@@ -117,10 +117,39 @@ TBSYNTHESIZE_OBJECT(retain, NSString *,             openvpnLogPath,         setO
 TBSYNTHESIZE_OBJECT(retain, NSString *,             scriptLogPath,          setScriptLogPath)
 TBSYNTHESIZE_OBJECT(retain, VPNConnection *,        connection,             setConnection)
 TBSYNTHESIZE_OBJECT(retain, UKKQueue *,             monitorQueue,           setMonitorQueue)
-TBSYNTHESIZE_OBJECT(retain, NSString *,             lastOpenvpnEntryTime,   setLastOpenvpnEntryTime)
-TBSYNTHESIZE_OBJECT(retain, NSString *,             lastScriptEntryTime,    setLastScriptEntryTime)
-TBSYNTHESIZE_OBJECT(retain, NSString *,             lastEntryTime,          setLastEntryTime)
 TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setWatchdogTimer)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastOpenvpnEntryTime)
+TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastScriptEntryTime)
+TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
+
+
+-(void) setLastOpenvpnEntryTime: (NSString *) newTime {
+	
+	if (  [lastOpenvpnEntryTime compare: newTime] == NSOrderedAscending  ) {
+		[newTime retain];
+		[lastOpenvpnEntryTime release];
+		lastOpenvpnEntryTime = newTime;
+	}
+}
+
+-(void) setLastScriptEntryTime: (NSString *) newTime {
+	
+	if (  [lastScriptEntryTime compare: newTime] == NSOrderedAscending  ) {
+		[newTime retain];
+		[lastScriptEntryTime release];
+		lastScriptEntryTime = newTime;
+	}
+}
+
+-(void) setLastEntryTime: (NSString *) newTime {
+	
+	if (  [lastEntryTime compare: newTime] == NSOrderedAscending  ) {
+		[newTime retain];
+		[lastEntryTime release];
+		lastEntryTime = newTime;
+	}
+}
 
 // Returns the NSLogStorage object for the NSTextView that contains the log
 // BUT only if it is the log for this configuration. (If not, returns nil.)
@@ -407,6 +436,10 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         return;
     }
     
+	lastEntryTime        = @"0000-00-00 00:00:00";
+	lastOpenvpnEntryTime = @"0000-00-00 00:00:00";
+	lastScriptEntryTime  = @"0000-00-00 00:00:00";
+	
     NSString * message = (  [self loggingIsDisabled]
                           ? NSLocalizedString(@"(Logging is disabled.)", @"Window text -- appears in log display when logging is disabled\n")
                           : [[((MenuController *)[NSApp delegate]) openVPNLogHeader] stringByAppendingString: @"\n"]);
