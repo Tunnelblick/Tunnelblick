@@ -15,13 +15,13 @@
 # @param String message - The message to log
 logMessage()
 {
-	echo "${@}"
+	echo "*Tunnelblick: ${@}"
 }
 
 # @param String message - The message to log
 logDebugMessage()
 {
-	echo "${@}" > /dev/null
+	echo "*Tunnelblick: ${@}" > /dev/null
 }
 
 trim()

@@ -18,7 +18,7 @@
 # @param String message - The message to log
 logMessage()
 {
-	echo "${@}"
+	echo "*Tunnelblick: ${@}"
 }
 
 ##########################################################################################
@@ -26,7 +26,7 @@ logMessage()
 logDebugMessage()
 {
     if ${ARG_EXTRA_LOGGING} ; then
-        echo "${@}"
+        echo "*Tunnelblick: ${@}"
     fi
 }
 
