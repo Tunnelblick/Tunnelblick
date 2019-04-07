@@ -512,6 +512,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	// If user has previously checked "Do not warn about this again", don't do anything and return nil
 	if (  preferenceToSetTrue  ) {
 		if (  [gTbDefaults boolForKey: preferenceToSetTrue]  ) {
+			NSLog(@"Preference '%@' is TRUE, so not displaying the warning dialog.", preferenceToSetTrue);
 			return nil;
 		}
 	}
