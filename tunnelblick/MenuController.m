@@ -472,6 +472,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 		
 		menuIsOpen = FALSE;
         
+		didFinishLaunching = FALSE;
+        
         iconPosition = iconNotShown;
         
         dotTblkFileList = [[NSMutableArray arrayWithCapacity: 10] retain];
@@ -3559,6 +3561,11 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         return FALSE;
     }
     
+	if (  ! didFinishLaunching  ) {
+		NSLog(@"cleanup aborted because Tunnelblick did not finish launching");
+		return TRUE;
+	}
+	
     // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
     
     if (  startupInstallAuth  ) {
@@ -5234,6 +5241,8 @@ static void signal_handler(int signalNumber)
 	[self askAndMaybeReenableNetworkAccessAtLaunch: YES];
 	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 022 -- LAST")
+	
+	didFinishLaunching = TRUE;
 }
 
 -(BOOL) userNotificationCenter: (id) center
