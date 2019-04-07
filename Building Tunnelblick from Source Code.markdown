@@ -24,13 +24,11 @@ Using a virtual machine to build Tunnelblick is fine – Tunnelblick releases ar
 
 **1. Supported Versions of macOS and Xcode**
 
-Tunnelblick should be built using Xcode 7.3.1 on macOS 10.11.6.
+The current version of Tunnelblick should be built using Xcode 7.3.1 on macOS 10.11.6. It can also be built using Xcode 10.1 on macOS 10.13.6 but Xcode will display many warnings and errors (which can be ignored).
 
 Older versions (such as the "3.5" branch of the source code) should be built using Xcode 3.2.2 on macOS 10.6.8 -- do not use Xcode 3.2.3.
 
 Other versions of Xcode and macOS may create Tunnelblick binaries that crash or have other unpredictable behavior.
-
-Tunnelblick can also be built -- FOR TESTING PURPOSES ONLY -- using Xcode 9.4.1 and higher on macOS 10.13.4.
 
 Which platform you build on determines what platforms can run the Tunnelblick application you build:
 
@@ -82,7 +80,7 @@ Double-click …TunnelblickSource/tunnelblick/Tunnelblick.xcodeproj to open the 
 
 After a few moments, recent versions of Xcode will begin indexing files, indicated in the progress bar at the top of the Xcode window. Allow the indexing to complete, which usually takes a minute or two. Xcode does indexing at various times, and if you click a button while Xcode is indexing it will often crash. (This is an Xcode problem, not a Tunnelblick problem.) The safest way to proceed if Xcode crashes is to download the source code again, because Xcode creates caches which can be corrupted when Xcode crashes and cause even more crashes.
 
-To build Tunnelblick using Xcode 7.3.1 or higher, Xcode needs to be set up to use "legacy" locations for build products:
+To build Tunnelblick using Xcode 7.3.1, Xcode needs to be set up to use "legacy" locations for build products:
 
  1. Launch Xcode
  2. Click "File" > "Project Settings..."
@@ -90,16 +88,16 @@ To build Tunnelblick using Xcode 7.3.1 or higher, Xcode needs to be set up to us
  4. Click on the "Legacy" radio button (for "Build Location")
  5. Click the "Done" button
 
-Xcode 7.3.1 and higher also need to have the command line tools installed. You can do that in Terminal with the following command: ```xcode-select&nbsp;--install```
+Xcode 7.3.1 also needs to have the command line tools installed. You can do that in Terminal with the following command: ```xcode-select&nbsp;--install```
 
-To build Tunnelblick using Xcode 10 beta or higher, Xcode also needs to be set up to use the "legacy" build system:
+To build Tunnelblick using Xcode 10.1, Xcode also needs to be set up to use the "legacy" build system:
 
  1. Launch Xcode
  2. Click "File" > "Project Settings..."
  3. Set both "Shared Project Settings" and "Per-User Project Settings" to "Legacy Build System"
  7. Click the "Done" button to close the "Project Settings" window
 
-Xcode 10 beta also needs to use the command line tools associated with it. Consult Apple's Xcode documentation for details.
+Xcode 10.1 also needs to use the command line tools associated with it. They may be installed automatically; consult Apple's Xcode documentation for details.
 
 **5. Selecting  the Type of Build You Want to Create**
 
@@ -107,7 +105,7 @@ There are two different types of builds. Unfortunately Xcode defaults to using t
 
 To select the type of build in Xcode 3.2.2, change it in the drop-down list to "Unsigned Release".
 
-To select the type of build in Xcode 7.3.1:
+To select the type of build in Xcode 7.3.1 or 10.1:
  1. Click Product > Scheme > Edit Scheme…
  2. Select "Run Tunnelblick" in the list on the left of the window that appears
  3. Select "Info" at the top of the window
@@ -124,8 +122,9 @@ The first time a build is done, it may take several minutes, even on a relativel
 
 When the build is complete, "Build succeeded" will appear at the bottom of the Build Results window. In some situations it may take another 30-60 seconds to finish creating the .dmg file after "Build succeeded" appears.
 
-There should not be any errors, but the first time you build Tunnelblick there may be many warnings. Building OpenVPN 2.3.6 generates dozens of warnings, primarily about signed/unsigned conflicts. Other versions of OpenVPN may or may not generate errors.
+There should not be any errors, but the first time you build Tunnelblick there may be many warnings, which can be ignored. Building some old versions of OpenVPN that are included in Tunnelblick generates dozens of warnings, primarily about signed/unsigned conflicts.
 
+If building with Xcode 10.1 there may be many warnings and errors, which can be ignored. (The source code and project setup have not yet been modified to avoid these warnings and errors.)
 
 At this point, you might want to make a copy of your current Tunnelblick.app in case the new one doesn't work for you.
 
