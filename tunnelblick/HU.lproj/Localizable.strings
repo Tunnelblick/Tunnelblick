@@ -417,6 +417,9 @@
 "Do not show this type of warning again" = "Ne mutassa ezt a figyelmeztetést újra";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Ne figyelmeztessen többször DNS-problémák esetén bármilyen konfigurációnál";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Ne figyelmeztessen többször bármilyen konfigurációnál";
 
 /* Checkbox name */
@@ -520,6 +523,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Konfiguráció betöltése"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Hálózati hozzáférésre várakozás"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Jelszóra várakozás"; // Please translate "Waiting for password"
@@ -746,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     A VPN szerver üzenete a %1$@-tól:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • A %@ DNS szerver cím egy privát cím, de nem kerül a VPN-en keresztül átroutolásra.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • A %@ DNS szerver cím egy Tunnelblick által ismert nyilvános cím, de nem kerül a VPN-en keresztül átroutolásra.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • A %@ DNS szerver cím egy Tunnelblick által nem ismert nyilvános cím, és nem kerül a VPN-en keresztül átroutolásra.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu konfiguráció telepítve\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Egy konfiguráció telepítve\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Nincs DNS szerver megadva.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Cserélt konfigurációk: %lu\n\n";
@@ -1651,6 +1669,9 @@
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick nem találta meg a konfigurációs fájlt vagy a konfigurációs fájlt nem lehet megtisztítani. Lásd a Konzol alkalmazást, részletekért.";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "A Tunnelblick nem tud betölteni egy kext-et (rendszerkiegészítést)";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "A Tunnelblick nem tudta átmozgatni a(z) '%@' konfigurációt. Részletek a Konzol log-ban.";

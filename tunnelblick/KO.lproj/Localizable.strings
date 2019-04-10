@@ -380,6 +380,9 @@
 "Do not show this type of warning again" = "이 종류의 경고들을 다시 보지 않기";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "어떠한 설정 구성에도 DNS 문제를 다시 표지하지 않음";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "어떠한 설정 구성에도 이 경고를 다시 표지하지 않음";
 
 /* Checkbox name */
@@ -1295,6 +1298,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "1개 또는 이상의 설정이 무시되었습니다. 자세한 것은 콘솔 로그를 보십시오.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "DNS에 대하여 발생할 수 있는 하나 이상의 문제를 찾았습니다:\n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "하나 이상의 문제가 발견 되었습니다:\n\n%@";
 
 /* Window text */
@@ -1393,6 +1399,9 @@
 /* Window text */
 "That name is being used.\n\n" = "사용 중인 이름입니다.\n\n";
 
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "시스템 폴더 %1$@ (%2$@) 는 안전하지 않습니다.\n\n이 문제가 해결될 때까지 Tunnelblick과 다른 프로그램이 정상적으로 동작하지 않을 수 있습니다.\n\n자세한 사항은 콘솔 로그를 참고하십시오.";
+
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN 옵션 '%@' 은 Tunnelblick에서 허용되지 않습니다.";
 
@@ -1487,6 +1496,12 @@
 "There was a problem deleting one or more configurations. See the Console Log for details." = "하나 이상의 구성을 삭제하는 데 문제가 발생했습니다. 자세한 내용은 콘솔 로그를 확인하십시오.";
 
 /* Window text */
+"There was a problem getting the list of known public DNS servers." = "공개 DNS 서버 목록을 받는 도중 문제가 생겼습니다.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "DNS 서버 목록을 받는 도중 문제가 생겼습니다.";
+
+/* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "OpenVPN 구성에 문제가 발생했습니다. 자세한 내용은 콘솔 로그를 확인하십시오.";
 
 /* Window text */
@@ -1494,6 +1509,9 @@
 
 /* Window text */
 "There was a problem:\n\n%@" = "문제가 발생 했습니다: %@";
+
+/* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Tunnelblick 설정을 불러오는 중 문제가 발생했습니다.\n\n자세한 사항은 콘솔 로그를 참고하십시오.";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "이 '배포된' Tunnelblick 버전은 실행하거나 설치할 수 없습니다. 다시 만들어지지 않았거나 updateFeedURL 또는 SUFeedURL이 없거나 'tunnelblick.net'을 가지고 있기때문입니다. 또는 CFBundleIdentifier가 없거나 'net.tunnelblick'을 가지고 있기때문입니다.\n\n";
