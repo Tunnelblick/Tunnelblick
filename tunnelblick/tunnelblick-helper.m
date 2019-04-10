@@ -71,6 +71,13 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
+BOOL isOpenVPN_2_3(NSString *openvpnPath) {
+	
+	NSString * enclosingFolderName = [[openvpnPath stringByDeletingLastPathComponent] // Remove "/openvpn" to get name of enclosing folder
+									  lastPathComponent];
+	return [enclosingFolderName hasPrefix: @"openvpn-2.3"];
+}
+
 const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 	// Returns the fileSystemRepresentation of an NSString.
@@ -2174,9 +2181,12 @@ int startVPN(NSString * configFile,
                                  @"--daemon",
                                  @"--log",        logPath,
 								 @"--cd",         cdFolderPath,
-								 @"--machine-readable-output",
                                  nil];
     
+	if (  ! isOpenVPN_2_3(openvpnPath)  ) {
+		[arguments addObject: @"--machine-readable-output"];
+	}
+	
 	// Set IV_GUI_VER using the "--setenv" option
 	// We get the Info.plist contents as follows because NSBundle's objectForInfoDictionaryKey: method returns the object as it was at
 	// compile time, before the TBBUILDNUMBER is replaced by the actual build number (which is done in the final run-script that builds Tunnelblick)
