@@ -22,6 +22,10 @@
 
 @class AlertWindowController;
 
+NSString * rgbValues(BOOL foreground);
+
+NSAttributedString * attributedLightDarkStringFromHTML(NSString * html);
+
 NSAttributedString * attributedStringFromHTML(NSString * html);
 
 void           appendLog				 (NSString * msg);
@@ -147,6 +151,7 @@ BOOL           runningOnYosemiteOrNewer(void);
 BOOL           runningOnElCapitanOrNewer(void);
 BOOL           runningOnSierraOrNewer(void);
 BOOL           runningOnHighSierraOrNewer(void);
+BOOL           runningOnTen_Fourteen_FiveOrNewer(void);
 
 BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
 BOOL           tunnelblickTestAppInApplications(void);

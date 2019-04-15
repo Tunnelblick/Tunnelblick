@@ -237,15 +237,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 -(void) warnAboutUserGroup {
 	
 	TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-					  attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p>"
-																							 @"<p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p>"
-																							 @"<p>To restore the network setup, you should restart your computer.</p>"
-																							 @"<p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your"
-																							 @" OpenVPN configuration file.</p>"
-																							 @"<p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN"
-																							 @" Options</a> [tunnelblick.net] for more information.</p></font>\n\n",
-																							 @"Window text. The %@ is the name of a VPN configuration."),
-												[connection localizedName]]));
+					  attributedLightDarkStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p>"
+																									  @"<p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p>"
+																									  @"<p>To restore the network setup, you should restart your computer.</p>"
+																									  @"<p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your"
+																									  @" OpenVPN configuration file.</p>"
+																									  @"<p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN"
+																									  @" Options</a> [tunnelblick.net] for more information.</p></font>\n\n",
+																									  @"Window text. The %@ is the name of a VPN configuration."),
+														 [connection localizedName]]));
 }
 
 -(void) popupAWarningForProblemSeenInLogLine: (NSString *) line {

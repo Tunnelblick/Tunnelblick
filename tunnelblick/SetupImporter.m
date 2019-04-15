@@ -102,14 +102,14 @@ extern NSFileManager * gFileMgr;
 		} else {
 			
 			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							  attributedStringFromHTML([NSString stringWithFormat:
-														NSLocalizedString(@"<font face=\"Helvetica,Arial,sans-serif\">"
-																		  @"<p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create"
-																		  @" a text file that specifies the data to be imported.</p>\n"
-																		  @"<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p>"
-																		  @"</font>",
-																		  @"HTML error message. The  '%u' will be replaced a number such as '32'."),
-														MAX_NUMBER_OF_TARGET_USERNAMES_FOR_IMPORT_WINDOW]));
+							  attributedLightDarkStringFromHTML([NSString stringWithFormat:
+																 NSLocalizedString(@"<font face=\"Helvetica,Arial,sans-serif\">"
+																				   @"<p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create"
+																				   @" a text file that specifies the data to be imported.</p>\n"
+																				   @"<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p>"
+																				   @"</font>",
+																				   @"HTML error message. The  '%u' will be replaced a number such as '32'."),
+																 MAX_NUMBER_OF_TARGET_USERNAMES_FOR_IMPORT_WINDOW]));
 			return  NO;
 		}
 	}

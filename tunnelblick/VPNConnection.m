@@ -1563,17 +1563,21 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 		} else if (  status == OPENVPNSTART_COULD_NOT_LOAD_KEXT  ) {
 			
 			NSString * link = (  runningOnHighSierraOrNewer()
-							   ? @"<a href=\"https://tunnelblick.net/cKextLoadErrorHighSierra.html\">"
-							   : @"<a href=\"https://tunnelblick.net/cKextLoadError.html\">");
+							   ? (  runningOnTen_Fourteen_FiveOrNewer()
+								  ? @"https://tunnelblick.net/cKextNotarization.html"
+								  : @"https://tunnelblick.net/cKextLoadErrorHighSierra.html")
+							   : @"https://tunnelblick.net/cKextLoadError.html");
+			NSString * linkMsg = [NSString stringWithFormat: NSLocalizedString(@"<a href=\"%@\">More information</a> [tunn" @"elblick.n" @"et]",
+																			   @"Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html"),
+								  link];
 			
-			NSAttributedString * msg = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>"
-																											  @"<p>%@More information%@ [%@]</p>",
-																											  
-																											  @"HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags"
-																											  @" that link to tunnelblick.net -- translators should ignore them but keep them in their translation."
-																											  @" The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to"
-																											  @" (you may replace the square brackets with symbols appropriate for your language)."),
-																 [self displayName], link, @"</a>", @"tun" @"nelb" @"lick." @"net"]);
+			NSString * htmlString = [NSString stringWithFormat:
+									 NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>"
+													   @"<p>%@</p>",
+													   
+													   @"HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated."),
+									 [self displayName], linkMsg];
+			NSAttributedString * msg = attributedLightDarkStringFromHTML(htmlString);
 			if (  ! msg  ) {
 				NSLog(@"connect:userKnows: msg = nil");
 				msg = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Tunnelblick could not load a kext", @"Window text") attributes: nil] autorelease];

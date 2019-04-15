@@ -166,7 +166,11 @@ BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
         return FALSE;
     }
     
-    return ( (major > majorVersion) || (minor > minorVersion) );
+    return (   (major > majorVersion)
+			|| (   (major == majorVersion)
+				&& (minor >  minorVersion)
+				)
+			);
 }
 
 
@@ -198,6 +202,34 @@ BOOL runningOnSierraOrNewer(void)
 BOOL runningOnHighSierraOrNewer(void)
 {
 	return runningOnNewerThan(10, 12);
+}
+
+BOOL runningOnNewerThanWithBugFix(unsigned majorVersion, unsigned minorVersion, unsigned bugfixVersion)
+{
+	unsigned major, minor, bugFix;
+	OSStatus status = getSystemVersion(&major, &minor, &bugFix);
+	if (  status != 0) {
+		NSLog(@"getSystemVersion() failed");
+		[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+		return FALSE;
+	}
+	
+	return (   (major >  majorVersion)
+			|| (   (major == majorVersion)
+				&& (   (minor >  minorVersion)
+					|| (   (minor == minorVersion
+							&& (bugFix > bugfixVersion)
+							)
+						)
+					)
+				)
+			);
+}
+
+BOOL runningOnTen_Fourteen_FiveOrNewer(void)
+{
+	BOOL result = runningOnNewerThanWithBugFix(10, 14, 4);
+	return result;
 }
 
 BOOL okToUpdateConfigurationsWithoutAdminApproval(void) {
@@ -269,6 +301,24 @@ BOOL shouldPlaceIconInStandardPositionInStatusBar(void) {
     return NO;
 }
 
+NSString * rgbValues(BOOL foreground) {
+	
+	NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+	BOOL darkMode = (   [osxMode isEqualToString: @"dark"]
+					 || [osxMode isEqualToString: @"Dark"]  );
+	NSString * result = (  foreground
+						 ? (  darkMode
+							? @"rgb(224,224,224)"
+							: @"rgb(36,36,36)")
+						 : (  darkMode
+							? @"rgb(48,50,52)"
+							: @"rgb(236,236,236)"
+							)
+						 );
+	
+	return result;
+}
+
 NSAttributedString * attributedStringFromHTML(NSString * html) {
     
     NSData * htmlData = [html dataUsingEncoding: NSUTF8StringEncoding];
@@ -283,6 +333,15 @@ NSAttributedString * attributedStringFromHTML(NSString * html) {
 		return nil;
 	}
     return as;
+}
+
+NSAttributedString * attributedLightDarkStringFromHTML(NSString * html) {
+	
+	NSString * withSpan = [NSString stringWithFormat: @"<span style=\"color:%@;background-color:%@\">%@</span>",
+							rgbValues(YES), rgbValues(NO), html];
+	
+	NSAttributedString * result = attributedStringFromHTML(withSpan);
+	return result;
 }
 
 // Returns an escaped version of a string so it can be sent over the management interface

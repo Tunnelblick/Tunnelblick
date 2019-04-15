@@ -4783,8 +4783,8 @@ static void signal_handler(int signalNumber)
 		NSString * title = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick %@ may need to be updated", @"Window title"), tbVersion];
 
 		long tbAgeInDays = (now - buildTimestamp) / SECONDS_PER_DAY;
-		NSAttributedString * message = attributedStringFromHTML([NSString stringWithFormat:
-																 NSLocalizedString(@"<p>This version of Tunnelblick is %lu days old.</p>"
+		NSAttributedString * message = attributedLightDarkStringFromHTML([NSString stringWithFormat:
+																		  NSLocalizedString(@"<p>This version of Tunnelblick is %lu days old.</p>"
 																				   
 																				   @"<p>Please check for a newer version:</p>"
 																				   
@@ -4794,7 +4794,7 @@ static void signal_handler(int signalNumber)
 																				   @"Tunnelblick Downloads page</a> [tunnelblick.net].</li>"
 																				   @"</ul>",
 																				   @"Window text"),
-																 tbAgeInDays]);
+																		  tbAgeInDays]);
 		if (  ! message  ) {
 			NSLog(@"warnIfOutOfDateBuild: message = nil");
 			message = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Please check for a newer version.", @"Window text") attributes: nil] autorelease];
