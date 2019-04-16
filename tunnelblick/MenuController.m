@@ -45,6 +45,7 @@
 #import "MainIconView.h"
 #import "MyPrefsWindowController.h"
 #import "NSApplication+LoginItem.h"
+#import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 #import "NSTimer+TB.h"
@@ -3816,21 +3817,50 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
 	[NSApp terminate: self];
 }
 
-int runUnrecoverableErrorPanel(NSString * msg)
+int runUnrecoverableErrorPanel(BOOL attachFile)
 {
-	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
-                                 [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@", @"Window text"),
-                                  msg],
-                                 NSLocalizedString(@"Download", @"Button"),
-                                 NSLocalizedString(@"Quit", @"Button"),
-                                 nil);
-	if( result == NSAlertDefaultReturn ) {
-		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.tunnelblick.net/"]];
-	}
-    
-    // Quit if "Quit" or error
-    
-    exit(2);
+	NSString * startMsg = NSLocalizedString(@"Tunnelblick encountered a fatal error.\n\n"
+											@"Please email developers@tunnelblick.net for help, describing what Tunnelblick was doing"
+											@" when the error occurred.\n\n", @"Window text");
+	
+	NSString * attachMsg = NSLocalizedString(@"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email."
+											 @" It contains information about the error. You can double-click the file to see"
+											 @" the information.\n\n", @"Window text");
+	
+	NSString * endMsg = NSLocalizedString(@"Your help in this will benefit all users of Tunnelblick.\n\n"
+										  @"If possible, please do not click \"Quit\" until you have sent the email.", @"Window text");
+	
+	NSString * msg = [NSString stringWithFormat: @"%@%@%@",
+					  startMsg,
+					  (  attachFile ? attachMsg : @""),
+					  endMsg];
+	
+	TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
+					msg,
+					NSLocalizedString(@"Quit", @"Button"),
+					nil,
+					nil);
+	exit(2);
+}
+
+NSString * fatalErrorData(const char * siglist, int signalNumber, NSString * stackInfo) {
+	
+	NSString * dateMsg = [[NSDate date] tunnelblickUserLogRepresentation];
+
+	unsigned major, minor, bugFix;
+	NSString * osVersionString = (  getSystemVersion(&major, &minor, &bugFix) == EXIT_SUCCESS
+								  ? [NSString stringWithFormat:@"%d.%d.%d", major, minor, bugFix]
+								  : @"version is unknown");
+
+	NSString * msg = [NSString stringWithFormat: @"%@:\n\n"
+					  @"macOS %@; %@\n\n"
+					  @"Received fatal signal %s (%d)\n\n"
+					  @"stack trace: %@",
+					  dateMsg,
+					  osVersionString, tunnelblickVersion([NSBundle mainBundle]),
+					  siglist, signalNumber,
+					  stackInfo];
+	return msg;
 }
 
 static void signal_handler(int signalNumber)
@@ -3859,13 +3889,35 @@ static void signal_handler(int signalNumber)
                             ? sys_siglist[signalNumber]
                             : "");
     
-    NSLog(@"Received fatal signal %s (%d); stack trace: %@", siglist, signalNumber, callStack());
-    
+	NSString * msg = fatalErrorData(siglist, signalNumber, callStack());
+	NSLog(@"%@", msg);
+	
     if ( reasonForTermination == terminatingBecauseOfFatalError ) {
         NSLog(@"signal_handler: Error while handling signal.");
     } else {
-        runUnrecoverableErrorPanel([NSString stringWithFormat: NSLocalizedString(@"Received fatal signal %d.", @"Window text"), signalNumber]);
-        reasonForTermination = terminatingBecauseOfFatalError;
+		
+		reasonForTermination = terminatingBecauseOfFatalError;
+
+		// Put file on user's Desktop with crash data
+		NSString * dumpPath = [@"~/Desktop/Tunnelblick Error Data.txt" stringByExpandingTildeInPath];
+		
+		if (  [gFileMgr fileExistsAtPath: dumpPath]  ) {
+			if (  [gFileMgr tbRemoveFileAtPath: dumpPath handler: nil]  ) {
+				NSLog(@"Removed old crash data at %@", dumpPath);
+			} else {
+				NSLog(@"Failed to remove old crash data at %@", dumpPath);
+			}
+		}
+		
+		BOOL wroteFile = [msg writeToFile: dumpPath atomically: NO encoding: NSUTF8StringEncoding error: nil];
+		
+		if ( wroteFile  ) {
+			NSLog(@"Wrote crash data to %@", dumpPath);
+		} else {
+			NSLog(@"Failed to write crash data to %@", dumpPath);
+		}
+		
+        runUnrecoverableErrorPanel(wroteFile);
         gShuttingDownTunnelblick = TRUE;
         NSLog(@"signal_handler: Starting cleanup.");
         if (  [((MenuController *)[NSApp delegate]) cleanup]  ) {
