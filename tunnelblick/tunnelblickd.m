@@ -113,7 +113,7 @@ NSString * newTemporaryDirectoryPath(aslclient  asl,
     
     char * dirPath = mkdtemp(tempDirectoryNameCString);
     if (  ! dirPath  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not  create a temporary directory");
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not create a temporary directory");
         exit(-1);
     }
     
