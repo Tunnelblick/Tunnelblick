@@ -113,9 +113,6 @@
 "Do nothing" = "אל תעשה כלום";
 
 /* Button */
-"Download" = "הורד";
-
-/* Button */
 "Export Tunnelblick Setup" = "ייצוא הגדרות Tunnelblick";
 
 /* Button */
@@ -1233,9 +1230,6 @@
 "Please insert token \"%@\", then click \"OK\"" = "אנא הכנס\\י אסימון %@, והקש המשך";
 
 /* Window text */
-"Received fatal signal %d." = "התקבל סימון קטלני %d.";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "שינוי שם נכשל; אנא התייחס ללוג על מנת לקבל יותר מידע.";
 
 /* Window text */
@@ -1294,9 +1288,6 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " העתק";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>\n Tunnelblick לא יכלה להטעין סיומת מערכת שנצרכת כדי להתחבר ל–%1$@.\n</p>\n<p>\n%2$@ פרטים %3$@ [%4$@]\n</p>";
 
 /* Credit description */
 "Afrikaans translation" = "תרגום לאפריקנס";

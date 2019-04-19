@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Aftengjast öllu (%1$@) – sýnileg opinber IP-tala %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Aftengja allt (%1$@) – sýnileg opinber IP-tala %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Aftengja allt (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Aftengjast öllu (%1$d tengingar) – sýnileg opinber IP-tala %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Aftengja allt (%1$d tengingar) – sýnileg opinber IP-tala %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Aftengja allt (%d tengingar)";
@@ -111,9 +111,6 @@
 
 /* Button */
 "Do nothing" = "Gera ekki neitt";
-
-/* Button */
-"Download" = "Hlaða niður";
 
 /* Button */
 "Export Tunnelblick Setup" = "Flytja út Tunnelblick-uppsetningu";
@@ -514,6 +511,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Sækir samskipan"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Bíður eftir nettengingu"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Bíður eftir lykilorði"; // Please translate "Waiting for password"

@@ -113,9 +113,6 @@
 "Do nothing" = "عدم إجراء شيء";
 
 /* Button */
-"Download" = "تنزيل";
-
-/* Button */
 "Export Tunnelblick Setup" = "تصدير إعداد TunnelBlick";
 
 /* Button */
@@ -1449,9 +1446,6 @@
 "Program error, please see the Console log." = "حدث خطأ في البرنامج، يرجى الاطلاع على سجل المراقبة.";
 
 /* Window text */
-"Received fatal signal %d." = "حصل خطأ حرج رقمه %d.";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "فشل عملية اعادة التسمية؛ راجع شاشة التحكم للتفاصيل.";
 
 /* Window text */
@@ -1729,9 +1723,6 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "تعذر ازالة تثبيت اعدادات الاتصال ‘%@‘. راجع السجل للتفاصيل.";
-
-/* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "حصل خطأ فادح اثناء عمل تُنلـبليك.\n\nالرجاء التواصل مع مطور البرنامج على البريد الالكتروني developers@tunnelblick.net للمساعدة.\n\nالمشكلة هي:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "واجه تُنلـبليك اخطاء في اعدادات اتصال %1$lu:\n\n%2$@%3$@%4$@%5$@";
@@ -2230,9 +2221,6 @@
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>	 Tunnelblick يتضمن نسخة مخصصة من 'easy-rsa' و التي هي مجموعة من الرموز على واجهة سطر الأوامر مكتوبة من مجموعة من مطوري OpenVPN، والتي تمكن من إنشاء وصيانة الشهادات والمفاتيح.</p><p>النقر على هذا الزر يشغل برنامج ال macOS Terminal مع ملف الدليل العامل المضبوط الذي يحتوي على الرموز.</p><p>الرموز موجودة عادة داخل الملف ~/Library/Application Support/Tunnelblick/easy-rsa. من الممكن أن تحتوي إعدادات 'easy-rsaPath' الطريق نحو ملف يستعمله تُنلـبليك عوضا عن الملف المفترض. 'easy-rsaPath' يجب أن يكون طريقاً مطلقا أو يبدأ ب '~'، والملف الأم للطريق يجب أن يكون موجوداً. إذا كان هناك ملف في الطريق المعين فسوف يستعمل، وإذا لا يكون موجوداً, سيتم إنشاؤه و ستثبت فيه رموز easy-rsa عندما يشغل Tunnelblick.</p><p> للمزيد من المعلومات حول easy-rsa، أنظر <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">أعدّ (Certificate Authority (CA خاصتك و اِستحدث شهادات والمفاتيح لخادم OpenVPN و عملاء متعددون.</a> [openvpn.net].</p><p>لمزيد من المعلومات حول تخصيص easy-rsa ل Tunnelblick، أنظر ملف README المتواجد داخل ملف التطبيق.</p>";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p> تعذر على تُنلـبليك تحميل إضافة نظام مطلوبة للاتصال ب%1$@.</p><p>%2$@مزيد من المعلومات %3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "وضع المدير: باقي من الزمن %@";

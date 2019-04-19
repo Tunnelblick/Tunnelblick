@@ -113,9 +113,6 @@
 "Do nothing" = "Neveikt nekādas darbības";
 
 /* Button */
-"Download" = "Lejuplādēt";
-
-/* Button */
 "Help" = "Palīdzība";
 
 /* Button */
@@ -1329,9 +1326,6 @@
 "Program error, please see the Console log." = "Programmas kļūda. Vairāk informācijas notikumu žurnālā.";
 
 /* Window text */
-"Received fatal signal %d." = "Saņemts fatāls signāls %d.";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Pārdēvēšana neizdevās. Vairāk informācijas notikumu žurnālā.";
 
 /* Window text */
@@ -1567,9 +1561,6 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick neizdevās atinstalēt konfigurāciju '%@'. Vairāk informācijas notikumu žurnālā.";
-
-/* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick radās fatāla kļūda.\n\nLai gūtu palīdzību, lūdzu, sazinieties ar izstrādātājiem pa epastu: developers@tunnelblick.net.\n\nProblēma:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick radās kļūdas ar %1$lu konfigurācijām:\n\n%2$@%3$@%4$@%5$@";
@@ -1936,9 +1927,6 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS kešatmiņa satur DNS (Domain Name System) informācijas kopijas.</p>\n<p><strong>Kad atzīmēta</strong>, DNS kešatmiņa tiks dzēsta pēc savienojuma vai atvienojuma. Visi DNS meklējumi tiks veikti caur DNS serveri, kurš norādīt VPN konfigurācijā.</p>\n<p><strong>Kad neatzīmēta</strong>, DNS kešatmiņa netiks dzēsta. Tas var izraisīt problēmas, ja ir vārdu konflikts VPN konfigurācijā norādītajā DNS serverī un DNS serverī, kas tika izmantots pirms pieslēgšanās VPN.</p>";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick neizdevās ielādēt sistēmas paplašinājumu, kurš nepieciešams, lai pieslēgtos %1$@.</p><p>%2$@Vairāk informācijas%3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Adminstratora režīms beigsies pēc %@";

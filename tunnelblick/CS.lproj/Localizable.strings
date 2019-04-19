@@ -113,9 +113,6 @@
 "Do nothing" = "Nedělat nic";
 
 /* Button */
-"Download" = "Stáhnout";
-
-/* Button */
 "Export Tunnelblick Setup" = "Exportovat Tunnelblick nastavení";
 
 /* Button */
@@ -1449,9 +1446,6 @@
 "Program error, please see the Console log." = "Chyba programu, prohlédněte si záznam Konzole prosím.";
 
 /* Window text */
-"Received fatal signal %d." = "Přijat fatální signál %d.";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Přejmenování selhalo. Detaily jsou v logu konzoly.";
 
 /* Window text */
@@ -1729,9 +1723,6 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick nemůže odinstalovat konfiguraci '%@'. Detaily v logu konzole.";
-
-/* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick narazil na fatálni chybu.\n\nProsím kontaktujte vývojáře na developers@tunnelblick.net s prosbou o pomoc.\n\nProblém byl::\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick nalezl chyby v %1$lu konfiguracích:\n\n%2$@%3$@%4$@%5$@";
@@ -2230,9 +2221,6 @@
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick obsahuje upravenou verzi 'easy-rsa', která je sadou skriptů příkazové řádky, napsaných vývojáři OpenVPN pro vytvoření a údržbu certifikátů a klíčů.</p><p>Klikem na toto tlačítko se spustí macOS Terminál s přednastavenou složkou, obsahující tyto skripty.</p><p>Skripty jsou běžně umístěny ve složce ~/Knihovna/Application Support/Tunnelblick/easy-rsa. Předvolba 'easy-rsaPath' může obsahovat cestu ke složce, kterou bude Tunnelblick používat namísto výchozí. Cesta 'easy-rsaPath' musí být úplný odkaz nebo cesta začínající '~', a nadřazená složka takové cesty musí existovat. Když u dané cesty existuje složka, bude použita; když neexistuje, bude vytvořena a easy-rsa skripty do ní budou nainstalovány při spuštění Tunnelblicku.</p><p>Pro informace o užívání easy-rsa viz <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Nastavení vlastního Certifikátu autority (CA) a generování certifikátů a klíčů pro OpenVPN server a vícero klientů</a> [openvpn.net].</p><p>Informace o přizpůsobení easy-rsa v Tunnelblick najdete v README souboru umístěném ve složce.</p>";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblicku se nepodařilo nahrát systémovou příponu, jež je vyžadována pro připojení k %1$@.</p><p>%2$@Více informací%3$@[%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Zbývá %@ administračního režimu";

@@ -113,9 +113,6 @@
 "Do nothing" = "无操作";
 
 /* Button */
-"Download" = "下载";
-
-/* Button */
 "Export Tunnelblick Setup" = "导出 Tunnelblick 设置";
 
 /* Button */
@@ -1449,9 +1446,6 @@
 "Program error, please see the Console log." = "程序错误，请查看控制台日志。";
 
 /* Window text */
-"Received fatal signal %d." = "收到致命的信号 %d.";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "重命名失败，详情请查看控制台日志。";
 
 /* Window text */
@@ -1729,9 +1723,6 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick 未能卸载配置 '%@'. 详情请查看控制台日志.";
-
-/* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick 遇到致命错误.\n\n请通过developers@tunnelblick.net 联系开发者.\n\n问题如下:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick 在配置文件 %1$lu 中遇到错误:\n\n%2$@%3$@%4$@%5$@";
@@ -2230,9 +2221,6 @@
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick包含一个经过定制的“easy-rsa”，它是一系列由OpenVPN的开发者们编写的用于创建和维护证书和私钥的命令行脚本。</p><p>点击这个按钮启动MacOS终端并将工作目录指定在包含这些脚本的目录中。</p><p>这些脚本通常位于 ~/Library/Application Support/Tunnelblick/easy-rsa。“easy-rsaPath” 偏好可以设置 Tunnelblick 使用的替代目录位置。“easy-rsaPath”必须是绝对路径或以 “~” 开始，并且其父目录必须存在。如果对应路径目录存在，将会被使用，否则将会在Tunnelblick启动的时候创建并将easy-rsa脚本安装到其中。</p><p>欲了解更多使用easy-rsa的信息，请参见 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">创建您自己的证书颁发机构 (CA) 并生成用于OpenVPN服务器以及客户端的证书和私钥</a> [openvpn.net].</p><p>欲了解更多关于 Tunnelblick 对 easy-rsa 的定制，请参见目录中的 README 文件。</p>";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>连接到 %1$@ 需要加载一个系统扩展，但当前 Tunnelblick 无法加载该系统扩展</p><p>%2$@更多信息%3$@[%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "管理模式 %@ 继续";

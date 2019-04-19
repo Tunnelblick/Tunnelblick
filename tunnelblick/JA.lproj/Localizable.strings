@@ -113,9 +113,6 @@
 "Do nothing" = "何もしない";
 
 /* Button */
-"Download" = "ダウンロード";
-
-/* Button */
 "Export Tunnelblick Setup" = "Tunnelblick設定をエクスポート";
 
 /* Button */
@@ -1422,9 +1419,6 @@
 "Program error, please see the Console log." = "プログラムにエラーがあります。コンソールログを確認してください。";
 
 /* Window text */
-"Received fatal signal %d." = "致命的なシグナル %d を受け取りました。";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "名称変更に失敗しました; 詳細はコンソールログを参照してください。";
 
 /* Window text */
@@ -1696,9 +1690,6 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "接続先「%@」をアンインストールすることができません。詳細はコンソールログを参照してください。";
-
-/* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblickで致命的なエラーが発生しました。\n\nヘルプが必要な場合は、開発者 developers@tunnelblick.net へご連絡ください。\n\n発生したエラーは:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "%1$luつのエラーが発生しました:\n\n%2$@%3$@%4$@%5$@";
@@ -2077,9 +2068,6 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNSキャッシュはDNS (名前解決システム) 情報のコピーを含みます。</p>\n<p><strong>チェックを入れた場合</strong>、DNSキャッシュは接続・切断時に削除されます。 全ての名前解決はVPNのセットアップに指定されたネームサーバーより実行されます。</p>\n<p><strong>チェックを入れなかった場合</strong>、DNSキャッシュは削除されません。VPN割り当てのネームサーバーがVPNに接続される前に、ドメイン名がネームサーバーキャッシュと競合すると、問題が発生することがあります。</p>";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblickは%1$@に接続するために必要なシステム拡張を読み込むことができませんでした。</p><p>%2$@詳細な情報は%3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "管理者モードはあと %@ です";

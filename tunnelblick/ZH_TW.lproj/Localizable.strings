@@ -113,9 +113,6 @@
 "Do nothing" = "不執行任何動作";
 
 /* Button */
-"Download" = "下載";
-
-/* Button */
 "Export Tunnelblick Setup" = "匯出 Tunnelblick 的設置";
 
 /* Button */
@@ -1395,9 +1392,6 @@
 "Program error, please see the Console log." = "程式發生錯誤，詳請參見終端記錄。";
 
 /* Window text */
-"Received fatal signal %d." = "收到致命訊息 %d 。";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "重新命名失敗，詳情請查看控制台日誌。";
 
 /* Window text */
@@ -1666,9 +1660,6 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法移除 '%@' 設定檔。詳情請參見控制台日誌。";
-
-/* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick 遇到致命錯誤。\n\n請通過 developers@tunnelblick.net 聯繫開發人員。\n\n問題如下:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick 在 %1$lu 設置中遇到錯誤：\n\n%2$@%3$@%4$@%5$@";
@@ -2140,9 +2131,6 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 快取包含 DNS (網域名稱系統) 副本的資訊。</p>\n<p><strong>當勾選</strong>，DNS 快取將會在連線或中斷連線時清除。所有的 DNS 查詢將使用以 VPN 設定中指定的名稱伺服器。</p>\n<p><strong>當未勾選</strong>，DNS 快取將不會被清除。如果有網域名稱在 VPN 指定的名稱伺服器與 VPN 連線前的名稱伺服器快取衝突，這會造成一些問題。</p>";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick 無法讀取連線至 %1$@ 所需的系統擴充元件</p><p>%2$@更多資訊%3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "管理模式剩餘 %@";

@@ -113,9 +113,6 @@
 "Do nothing" = "Ne rien faire";
 
 /* Button */
-"Download" = "Télécharger";
-
-/* Button */
 "Export Tunnelblick Setup" = "Exporter la configuration de Tunnelblick";
 
 /* Button */
@@ -525,7 +522,7 @@
 "GET_CONFIG" = "Obtention de la configuration"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Attente d'un accès réseau"; // Please translate "Waiting for network access"
+"NETWORK_ACCESS" = "En attente d'un accès réseau"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Attente du mot de passe"; // Please translate "Waiting for password"
@@ -917,6 +914,9 @@
 /* Window text */
 "(if connected when user switched out)" = "(si connecté lors de la permutation de comptes)";
 
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Plus d'information</a> [tunnelblick.net]";
+
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Utilisant le code de base de Tunnelblick, logiciel libre disponible sur<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN est une marque déposée de OpenVPN Technologies, Inc.";
 
@@ -982,6 +982,9 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "Toutes les configurations utilisent l’authentification %@";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Merci de joindre également à votre e-mail le fichier 'Tunnelblick Error Data.txt' qui se trouve sur votre bureau. Il contient des informations à propos de l'erreur. Vous pouvez double-cliquer le fichier pour voir l'information.\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Une erreur (statut %1$ld) est survenue lors de la vérification de la sécurité de la configuration %2$@.\n\nMerci de quitter et de relancer Tunnelblick. Si le problème persiste, merci de réinstaller Tunnelblick.";
@@ -1449,9 +1452,6 @@
 "Program error, please see the Console log." = "Erreur du programme, veuillez vérifier le journal de la console.";
 
 /* Window text */
-"Received fatal signal %d." = "Reçu le signal fatal %d.";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Le renommage a échoué; voyez les messages de la console pour les détails.";
 
 /* Window text */
@@ -1731,7 +1731,7 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick n’a pas pu désinstaller la configuration « %@ ». Veuillez voir les Messages Console pour les détails.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick a rencontré une erreur fatale.\n\nMerci de contacter les développeurs à l'e-mail developers@tunnelblick.net pour de l'aide.\n\nLe problème était :\n\n%@";
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick a rencontré une erreur fatale. \n\nVeuillez envoyer un e-mail à developers@tunnelblick.net pour obtenir de l'aide, en décrivant ce que Tunnelblick était en train de faire au moment de l'erreur.\n\n";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick a rencontré des erreurs avec %1$lu configurations :\n\n%2$@%3$@%4$@%5$@";
@@ -2010,6 +2010,9 @@
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Votre ordinateur pourrait ne pas être capable d'afficher correctement l'icône de Tunnelblick à côté de l'icône de Spotlight. \n\nCeci pourraît entraîner une DISPARITION occasionnelle de l'icône de Tunnelblick dans la barre de menu. \n\nÊtes-vous certain de vouloir placer l'icône de Tunnelblick près de l'icône de Spotlight&nbsp;?\n\n";
 
 /* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Votre aide sur ce problème bénéficiera à tous les utilisateurs de Tunnelblick. \n\nSi possible, merci de ne pas cliquer \"Quitter\" avant d'avoir envoyé l'e-mail.";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "L'horloge de votre système semble ne pas être réglée correctement.\n\nToutes ou une partie de vos configurations ne pourront pas se connecter, à moins que l'horloge système soit à la bonne date et l'heure.\n\n";
 
 /* Window text */
@@ -2231,8 +2234,8 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick inclut une version customisée de 'easy-rsa' qui est un ensemble de scripts en ligne de commande écrits par les développeurs OpenVPN permettant de créer et maintenir les certificats et les clefs.</p><p>Cliquer ce bouton lance le Terminal de macOS et règle le répertoire courant sur le répertoire contenant les scripts.</p><p>Les scripts sont normalement situés dans le dossier ~/Library/Application Support/Tunnelblick/easy-rsa. Une préférence 'easy-rsaPath' peut contenir le chemin vers un dossier que Tunnelblick utilisera au lieu du chemin par défaut. 'easy-rsaPath' doit être un chemin absolu ou commencer par '~', et le dossier parent du chemin doit exister. Si un dossier existe dans le chemin spécifié, il sera utilisé; s'il n'existe pas, il sera créé et les scripts easy-rsa seront installés dedans lorsque Tunnelblick démarrera.</p><p> Pour plus d'information sur l'utilisation de easy-rsa, voir <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>Pour des détails sur la customisation de easy-rsa pour Tunnelblick, voir le fichier README situé dans le dossier de l'application.</p>";
 
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick n'a pas pu charger une extension système qui est nécessaire pour accéder à %1$@.</p><p>%2$@Plus d'information%3$@ [%4$@]</p>";
+/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick n'a pas pu charger une extension système nécessaire pour se connecter à %1$@.</p><p>%2$@</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Mode admin, temps restant %@";

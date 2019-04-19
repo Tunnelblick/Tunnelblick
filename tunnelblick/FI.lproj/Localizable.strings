@@ -113,9 +113,6 @@
 "Do nothing" = "Älä tee mitään";
 
 /* Button */
-"Download" = "Lataa";
-
-/* Button */
 "Export Tunnelblick Setup" = "Vie Tunnelblickin asetukset";
 
 /* Button */
@@ -417,6 +414,9 @@
 "Do not show this type of warning again" = "Älä näytä tätä varoitusta uudelleen";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Älä enää varoita minkään konfiguraation DNS-ongelmista";
+
+/* Checkbox name */
 "Do not warn about this again for any configuration" = "Älä varoita tästä enää uudelleen millekään konfiguraatiolle";
 
 /* Checkbox name */
@@ -520,6 +520,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Hakee asetuksia"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Odotetaan pääsyä verkkoon"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Odottaa salasanaa"; // Please translate "Waiting for password"
@@ -751,6 +754,9 @@
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Asennettu yksi konfiguraatio\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • DNS-palvelimia ei ole määritelty.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Korvattu %lu konfiguraatiota\n\n";
@@ -1428,9 +1434,6 @@
 "Program error, please see the Console log." = "Ohjelmavirhe, tarkista konsolin loki.";
 
 /* Window text */
-"Received fatal signal %d." = "Vastaanotettiin kohtalokas signaali %d.";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Uudelleennimeäminen epäonnistui; katso lisätietoja lokista.";
 
 /* Window text */
@@ -1702,9 +1705,6 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt poistamaan konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
-
-/* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick kohtasi vakavan virheen. \n\nOta yhteys kehittäjiin osoitteessa developers@tunnelblick.net avun saamiseksi.\n\nOngelma oli: \n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick kohtasi virheitä %1$lu konfiguraatioissa:\n\n%2$@%3$@%4$@%5$@";
@@ -2203,9 +2203,6 @@
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick sisältää muutetun version 'easy-rsa':sta, joka on joukko OpenVPN kehittäjien tekemiä komentoja avaintiedostojen luontiin ja hallinnointiin.</p><p>Tämä painike käynnistää macOS:n Pääte-ohjelman työkansioon, jossa komennot sijaitsevat.</p><p>Komennot ovat tavallisesti kansiossa ~/Library/Application Support/Tunnelblick/easy-rsa. 'easy-rsaPath' asetus voi sisältää polun kansioon, jota Tunnelblick käyttää oletuksen sijaan. 'easy-rsaPath' polku pitää ollaa riippumaton '~', ja kotikansion polku pitää olla olemassa. Jos kansio sijaitsee polulla, sitä käytetään; Jos sitä ei ole, Se luodaan Tunnelblickin käynnistyksen yhteydessä ja easy-rsa komennot asennetaan sinne.</p><p>Katso lisätietoja easy-rsa:n käyttämisestä <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>Saadaksesi lisätietoja Tunnelblickin tekemistä muutoksista easy-rsa:han, lue kansiossa oleva README tiedosto.</p>";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick ei pystynyt lataamaan järjestelmän lisäosaa joka tarvitaan kohteeseen %1$@ yhdistämiseen.</p><p>%2$@Lisätietoja%3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Pääkäyttäjän tilaa %@ jäljellä";

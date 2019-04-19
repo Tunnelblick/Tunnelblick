@@ -113,9 +113,6 @@
 "Do nothing" = "Jangan lakukan apa pun";
 
 /* Button */
-"Download" = "Unduh";
-
-/* Button */
 "Export Tunnelblick Setup" = "Ekspor Setup Tunnelblick";
 
 /* Button */
@@ -1428,9 +1425,6 @@
 "Program error, please see the Console log." = "Kesalahan program, harap lihat log Konsol.";
 
 /* Window text */
-"Received fatal signal %d." = "Menerima sinyal %d fatal.";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Ubah nama gagal; lihat Log Konsol untuk rincian.";
 
 /* Window text */
@@ -1702,9 +1696,6 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat menghapus konfigurasi '%@'. Lihat Console Log untuk lebih detil.";
-
-/* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick terkendala masalah yang fatal.\n\nSilakan hubungi pengembang melalui developers@tunnelblick.net untuk bantuan.\n\nMasalah tersebut adalah:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick terkendala masalah dengan konfigurasi %1$lu:\n\n%2$@%3$@%4$@%5$@";
@@ -2203,9 +2194,6 @@
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick termasuk suatu versi ubahan dari 'easy-rsa', yang merupakan suatu kumpulan skrip baris perintah yang ditulis oleh para pengembang OpenVPN untuk membuat dan memelihara sertifikat dan kunci.</p><p>Mengklik tombol ini meluncurkan aplikasi Terminal macOS dengan direktori kerja ditata ke folder yang memuat skrip.</p><p>Skrip biasanya terletak dalam folder ~/Library/Application Support/Tunnelblick/easy-rsa. Suatu preferensi 'easy-rsaPath' mesti merupakan suatu path absolut atau diawali dengan '~', dan folder induk dari path mesti ada. Bila suatu folder ada pada path, itu akan dipakai; bila tidak ada, itu akan dibuat dan skrip easy-rsa akan dipasang ke dalamnya ketika Tunnelblick diluncurkan.</p><p>Untuk informasi tentang memakai easy-rsa, lihat <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Menyiapkan Certificate Authority (CA) Anda sendiri dan membuat sertifikan dan kunci bagi suatu server OpenVPN dan banyak klien.</a>[openvpn.net].</p><p>Untuk rincian dari pengubahan Tunnelblick atas easy-rsa, lihat berkas README yang terletak dalam folder.</p>";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick tidak bisa memuat suatu ekstensi sistem yang diperlukan untuk menyambung ke %1$@.</p><p>%2$@Informasi lebih lanjut%3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Mode admin tersisa %@";

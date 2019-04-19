@@ -113,9 +113,6 @@
 "Do nothing" = "كاری انجام نشود";
 
 /* Button */
-"Download" = "دانلود";
-
-/* Button */
 "Help" = "راهنما";
 
 /* Button */
@@ -1404,9 +1401,6 @@
 "Program error, please see the Console log." = "خطای برنامه، لطفا به میز فرمان مراجعه نمایید.";
 
 /* Window text */
-"Received fatal signal %d." = "اخطار مهلک %d دربافت شد.";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "تغییر نام موفق نبود، برای اطلاعات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
 
 /* Window text */
@@ -1663,9 +1657,6 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick نتوانست پیکربندی '%@' را حذف نماید. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
-
-/* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick با ایرادی بزرگ روبرو شد.\n\nبرای دریافت کمک با توسعه دهنده با نشانی developers@tunnelblick.net تماس حاصل فرمایید.\n\nمشکل این بود:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick با پیکربندی های %1$lu دچار مشکل شد:\n\n%2$@%3$@%4$@%5$@";
@@ -2005,9 +1996,6 @@
 
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>در صورت انتخاب</strong>، همه پیکربندی ها از یک نام کاربری و گذرواژه و یا کلید خصوصی استفاده خواهند نمود.</p>\n";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p> نرمافزار Tunnelblick قادر به بارگذاری افزونه ی سیستمی مورد نیاز برای اتصال به %1$@ نشد.</p><p> %2$@اطلاعات بیشتر %3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "مد مدیر %@ باقی مانده";

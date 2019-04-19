@@ -113,9 +113,6 @@
 "Do nothing" = "Không làm gì";
 
 /* Button */
-"Download" = "Tải về";
-
-/* Button */
 "Export Tunnelblick Setup" = "Xuất cài đặt Tunnelblick";
 
 /* Button */
@@ -1399,9 +1396,6 @@
 
 /* Window text */
 "Program error, please see the Console log." = "Chương trình lỗi, vui lòng xem nhật ký Console.";
-
-/* Window text */
-"Received fatal signal %d." = "Nhận được tín hiệu lỗi %d.";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "Đổi tên bị lỗi; xem Console Log để biết chi tiết hơn.";

@@ -113,9 +113,6 @@
 "Do nothing" = "Heç bir şey etmə";
 
 /* Button */
-"Download" = "Yüklə";
-
-/* Button */
 "Help" = "Yardım";
 
 /* Button */
@@ -1300,9 +1297,6 @@
 
 /* Window text */
 "Program error, please see the Console log." = "Program xətası, Konsol loga baxın.";
-
-/* Window text */
-"Received fatal signal %d." = "Ölümcül siqnal %d qəbul olundu.";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "Ad dəyişmə uğursuz keçdi. Təfərrüatlar üçün parametr jurnalına baxın.";

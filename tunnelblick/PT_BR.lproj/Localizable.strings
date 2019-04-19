@@ -113,9 +113,6 @@
 "Do nothing" = "Não fazer nada";
 
 /* Button */
-"Download" = "Baixar";
-
-/* Button */
 "Export Tunnelblick Setup" = "Exportar configuração do Tunnelblick";
 
 /* Button */
@@ -917,6 +914,9 @@
 /* Window text */
 "(if connected when user switched out)" = "(se conectado quando o usuário sair)";
 
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Mais informações</a> [tunnelblick.net]";
+
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Baseado no Tunnelblick, software livre disponível em <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN é marca registrada da OpenVPN Inc.";
 
@@ -982,6 +982,9 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "Todas as configurações utilizam as credenciais %@";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Além disso, por favor anexe no e-mail o arquivo 'Tunnelblick Error Data.txt' da sua área de trabalho. Ele contém informações sobre o erro e você pode abri-lo se quiser checar o seu conteúdo.\n \n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Ocorreu um erro (estado %1$ld) ao tentar verificar a segurança da configuração %2$@.\n\nPor favor encerre e reinicie o Tunnelblick. Se o problema persistir, por favor reinstale o Tunnelblick.";
@@ -1449,9 +1452,6 @@
 "Program error, please see the Console log." = "Erro do programa, por favor veja o Registo da Consola.";
 
 /* Window text */
-"Received fatal signal %d." = "Recebido sinal de erro fatal %d.";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Falha ao renomear; veja o Registro da Consola para mais detalhes.";
 
 /* Window text */
@@ -1731,7 +1731,7 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "O Tunnelblick não conseguiu desinstalar a configuração '%@'. Veja o Registro da Consola para mais detalhes.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "O Tunnelblick encontrou um erro fatal.\n\nPor favor contate os programadores em developers@tunnelblick.net para obter ajuda.\n\nO problema foi:\n\n%@";
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick encontrou um erro fatal.\n\nPara obter ajuda, por favor envie um e-mail para developers@tunnelblick.net, descrevendo o que Tunnelblick estava fazendo quando o erro ocorreu.\n\n";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick encontrou erros com %1$lu configurações:\n\n%2$@%3$@%4$@%5$@";
@@ -2010,6 +2010,9 @@
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "O seu computador pode não ser capaz de mostrar de forma correta o ícone do Tunnelblick próximo do ícone do Spotlight.\n\nIsto pode fazer com que o ícone do Tunnelblick DESAPAREÇA da barra de menu.\n\nVocê tem certeza que deseja colocar o ícone do Tunnelblick próximo do ícone do Spotlight?\n\n";
 
 /* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Sua ajuda vai beneficiar a todos os usuários do Tunnelblick.\nSe possível, por favor não clique em \"Sair\" até que o e-mail tenha sido enviado.";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "O relógio do seu sistema pode não estar definido corretamente.\n\nAlgumas de suas suas configurações podem não funcionar, a menos que o relógio do seu sistema tenha a data e hora correctas.\n\n";
 
 /* Window text */
@@ -2231,8 +2234,8 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>O Tunnelblick incluiu uma versão personalizada do 'easy-rsa', que é um conjunto de linhas de comando de rotinas escritas pelos desenvolvedores do OpenVPN para criar e manter certificados e chaves.</p><p>Ao clicar neste botão é iniciado a aplicativo Terminal do macOS com o diretório de trabalho configurado para a pasta contendo das rotinas.</p><p>As rotinas estão normalmente localizadas na pasta em ~/Library/Application Support/Tunnelblick/easy-rsa. Uma preferência 'easy-rsaPath' pode conter o caminho para uma pasta que o Tunnelblick utilizará alternativamente. 'easy-rsaPath' deve ser um caminho absoluto ou iniciar com um '~', e a pasta parente do caminho deve existir. Se a pasta existir no caminho, ela será utilizada; se não existir, ela será criada e as rotinas easy-rsa serão instaladas nela quando o Tunnelblick for iniciado.</p><p>Para informações sobre a utilização do easy-rsa, veja <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Configurando sua própria Autoridade Certificadora (CA) e gerando certificados e chaves para um servidor e múltiplos clientes OpenVPN</a> [openvpn.net].</p><p>Para detalhes das personalizações do easy-rsa do Tunnelblick, veja o arquivo README localizado na pasta.</p>";
 
-/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>O Tunnelblick não conseguiu carregar uma extensão de sistema necessária para se conectar a %1$@.</p><p>%2$@Mais informações%3$@[%4$@]</p>";
+/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick não foi capaz de carregar uma extensão do sistema necessária para se conectar a %1$@.</p><p>%2$@</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Modo administrativo %@ restante";
