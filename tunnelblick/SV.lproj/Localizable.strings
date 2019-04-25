@@ -914,6 +914,9 @@
 /* Window text */
 "(if connected when user switched out)" = "(om ansluten när användare byts)";
 
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Mer information</a> [tunnelblick.net]";
+
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Baserat på Tunnelblick, gratis mjukvara som finns på<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN är ett registrerat varumärke av OpenVPN Technologies, Inc.";
 
@@ -1725,6 +1728,9 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kunde inte avinstallera konfigurationen '%@' . Se konsolloggen för detaljer.";
 
 /* Window text */
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick upptäckte ett allvarligt fel.\n\nSkicka ett e-postmeddelande till developers@tunnelblick.net med en beskrivning av vad Tunnelblick gjorde då felet uppstod.\n\n";
+
+/* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick stötte på problem med %1$lu konfigurationer:\n\n%2$@%3$@%4$@%5$@";
 
 /* Window text */
@@ -2001,6 +2007,9 @@
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Det är inte helt säkert att din dator kan placera Tunnelblick-ikonen intill Spotlight-ikonen.\n\nDetta kan medföra att Tunnelblick-ikonen ibland FÖRSVINNER från menyraden.\n\nÄr du säker på att du vill försöka placera Tunnelblick-ikonen intill Spotlight-ikonen?\n\n";
 
 /* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Din hjälp är till nytta för alla användare av Tunnelblick.\n\nOm möjligt så ska du inte klicka på \"Avsluta\" förrän du har skickat e-postmeddelandet.";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Din systemklocka kan vara felaktigt inställd\n\nEn del, eller alla, dina konfiguration kan komma att inte ansluta ifall din systemklocka inte är inställd korrekt.\n\n";
 
 /* Window text */
@@ -2221,6 +2230,9 @@
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p> Tunnelblick innehåller en anpassad version av \"easy-rsa\", som är en uppsättning kommandoradsskript skrivna av OpenVPN-utvecklarna för att skapa och behålla certifikat och nycklar. </p>\n<p> Genom att klicka på den här knappen startas OS X Terminal-applikationen med den mappen som innehåller skripten som aktuell katalog. </p>\n<p> Skripten finns normalt i mappen ~ /Library/Application Support/ Tunnelblick/easy-rsa. En \"easy-rsaPath\" -inställning kan innehålla sökvägen till en mapp som Tunnelblick ska använda istället. 'Easy-rsaPath' måste vara en absolut sökväg eller börja med '~', och den överordnade mappen på sökvägen måste existera. Om en mapp finns i sökvägen kommer den att användas; Om den inte existerar kommer den att skapas och Easy-RSA-skript installeras i den när Tunnelblick startas. </p>\n<p> För information om hur du använder easy-rsa, se \n<a href=\"https://openvpn.net/index.php/opensource/documentation/howto.html#pki\">Sätt upp din egen certifikatutfärdare(CA) och generera certifikat och nycklar för en OpenVPN-server och flera klienter </a> [openvpn.net]. </p>\n<p> För detaljer om Tunnelblick anpassningar av easy-rsa, se README-filen i mappen. </p>";
+
+/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick kunde inte ladda ett systemtillägg som är nödvändigt för att skapa en förbindelse till %1$@.</p><p>%2$@</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Administratörsläge %@ kvarstår";

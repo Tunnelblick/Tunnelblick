@@ -914,6 +914,9 @@
 /* Window text */
 "(if connected when user switched out)" = "(ako je povezan kada se korisnik odjavi)";
 
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Više informacija</a> [tunnelblick.net]";
+
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Bazirano na Tunnelblick-u, besplatnom softveru dostupnom na adresi <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovana marka OpenVPN Inc.";
 
@@ -979,6 +982,9 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "Sve konfiguracije koriste %@ kredencijale";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Takođe vas molimo da pošaljete i 'Tunnelblick Error Data.txt' datoteku koja se nalazi na vašem dekstopu. Ova datoteka sadrži informacije o grešci. Ukoliko otvorite ovaj fajl, moći ćete da vidite više informacija.\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Greška (status %1$ld) je nastala tokom bezbednosne provere %2$@ konfiguracije.\n\nMolimo vas da ugasite i ponovo pokrenete Tunnelblick. Ako se problem nastavi, reinstalirajte Tunnelblick.";
@@ -1725,6 +1731,9 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick nije mogao da deinstalira '%@' konfiguraciju. Pogledajte log konzole za detalje.";
 
 /* Window text */
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick je prekinuo rad zbog greške.\n\nUkoliko vam je neophodna pomoć, molimo vas da pošaljete mail na adresu developers@tunnelblick.net uz opsi šta ste tačno uradili u momentu kada se greška dogodila.\n\n";
+
+/* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick je naišao na greške sa %1$lu konfiguracijama:\n\n%2$@%3$@%4$@%5$@";
 
 /* Window text */
@@ -2001,6 +2010,9 @@
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Vaš računar možda neće uspeti da prikaže Tunnelblick ikonicu blizu Spotlight ikonice.\n\nOvo može da dovede do povremenog NESTANKA Tunnelblick ikonice sa linije menija.\n\nDa li ste sigurni da želite da postavite Tunnelblick ikonicu blizu Spotlight ikonice?\n\n";
 
 /* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Od vaše pomoći benefit će imati svi korisnici Tunnelblick-a.\n\nUkoliko je moguće, molimo vas da ne zatvarate ovaj prozor dok ne pošaljkete email.";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Vaš sistemski sat možda nije ispravno podešen.\n\nNeke ili sve konfiguracije možda ne budu mogle da se povežu sve dok sistemski sat ne prikazuje tačan datum i vreme.\n\n";
 
 /* Window text */
@@ -2221,6 +2233,9 @@
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick uključuje prilagođenu verziju 'easy-rsa', koji predstavlja set skripti napisanih od strane OpenVPN programera i služi za kreiranje i održavanje sertifikata i ključeva.</p><p>Klikom na ovo dugme pokrenuće se macOS Terminal aplikacija sa radnim direktorijumom koji će biti ekvivalentant onom u kojem se nalaze skripte.</p><p>Ove skripte se uobičajeno nalaze na putanji ~/Library/Application Support/Tunnelblick/easy-rsa. 'easy-rsaPath' može sadržati putanju ka direktorijumu koji će Tunnelblick da koristi umesto predefinisane putanje. 'easy-rsaPath' mora biti apsolutna putanja ili da počinje sa '~', a naddirektorijum mora postojati. Ukoliko direktorijum na putanji već postoji, biće iskorišćen, u protivnom biće napravljen i easy-rsa skripte će biti iskopiranje u njega prilikom pokretanja Tunnelblick-a.</p><p>Za više informacija o korišćenju easy-rsa, posetite <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Podešavanje vašeg Certificate Authority (CA) i generisanje sertifikata i ključeva za OpenVPN server i više klijenata</a> [openvpn.net].</p><p>Za detalje o izmenama easy-rsa od strane Tunnelblick programera, pročitajte README koji se nalazi u samom direktorijumu.</p>";
+
+/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick nije bio u mogućnosti da učita sistemsku ekstenziju koja je neophonda kako bi se ostvarila konekcija ka %1$@.</p><p>%2$@</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Admin režim traje još %@";
