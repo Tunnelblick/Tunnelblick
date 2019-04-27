@@ -876,7 +876,7 @@
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "Filen '%@' virker å være enkodet i UTF-16. Alle OpenVPN-relaterte filer må være klartekst- eller UTF-8-filer";
 
 /* Window text */
-"'%@' at line %u was not terminated properly" = "'%1$@' på linje %2$u ble ikke korrekt avsluttet";
+"'%@' at line %u was not terminated properly" = "'%1$@' på linje %2$u ble ikke avsluttet korrekt";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' ønsker ikke å brukeropplysninger (privat nøkkel, brukernavn og passord) lagret i Nøkkelringen.";
