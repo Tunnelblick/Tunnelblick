@@ -3852,13 +3852,17 @@ NSString * fatalErrorData(const char * siglist, int signalNumber, NSString * sta
 								  ? [NSString stringWithFormat:@"%d.%d.%d", major, minor, bugFix]
 								  : @"version is unknown");
 
+	NSString * threadType = (  [NSThread isMainThread]
+							? @"main"
+							: @"secondary");
+
 	NSString * msg = [NSString stringWithFormat: @"%@:\n\n"
 					  @"macOS %@; %@\n\n"
-					  @"Received fatal signal %s (%d)\n\n"
+					  @"Received fatal signal %s (%d) on %@ thread\n\n"
 					  @"stack trace: %@",
 					  dateMsg,
 					  osVersionString, tunnelblickVersion([NSBundle mainBundle]),
-					  siglist, signalNumber,
+					  siglist, signalNumber, threadType,
 					  stackInfo];
 	return msg;
 }
