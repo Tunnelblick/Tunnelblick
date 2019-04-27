@@ -3545,6 +3545,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) processState: (NSString *) newState dated: (NSString *) dateTime
 {
+	if (  ! newState  ) {
+		NSLog(@"processState: newState = %@; dateTime = %@", newState, dateTime);
+		return;
+	}
+	
     if ([newState isEqualToString: @"EXITING"]) {
         discardSocketInput = TRUE;
         [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
