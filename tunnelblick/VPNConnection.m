@@ -3920,6 +3920,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         
         if ([command isEqualToString: @"STATE"]) {
             NSArray* parameters = [parameterString componentsSeparatedByString: @","];
+			if (  [parameters count] < 2  ) {
+				NSLog(@"processLine: Error parsing parameters; ignoring line '%@'", line);
+				return;
+			}
             NSString* state = [parameters objectAtIndex: 1];
             [self processState: state dated: nil];
             
