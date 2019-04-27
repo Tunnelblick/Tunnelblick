@@ -3539,7 +3539,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         }
     } @catch(NSException *exception) {
-        NSLog(@"Caught exception in setStateFromLine: \"%@\"", line);
+		NSLog(@"setStateFromLine: Exception %@ occurred; ignoring line '%@'", exception, line);
     }
 }
 
