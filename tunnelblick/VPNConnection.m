@@ -3509,9 +3509,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	if([line rangeOfString: @"SUCCESS: pid="].length) {
 		@try {
 			NSArray* parameters = [line componentsSeparatedByString: @"="];
+			if (  [parameters count] == 0  ) {
+				NSLog(@"setPIDFromLine: Error parsing parameters; ignoring line '%@'", line);
+				pid = 0;
+				return;
+			}
 			NSString *pidString = [parameters lastObject];
 			pid = atoi([pidString UTF8String]);			
 		} @catch(NSException *exception) {
+			NSLog(@"setPIDFromLine: Exception %@ occurred; setting pid to 0; line '%@'", exception, line);
 			pid = 0;
 		}
 	}
