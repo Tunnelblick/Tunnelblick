@@ -3416,7 +3416,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	return FALSE;
 }
 
--(void) checkDnsAddresses {
+-(void) startCheckingDnsAddresses {
+	
+	NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
 	
 	NSArray * addresses = [self dnsServers];
 	if (  ! addresses  ) {
@@ -3429,6 +3431,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 								  NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
 								  nil,
 								  NO);
+		[threadPool drain];
 		return;
 	}
 	
@@ -3443,6 +3446,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 								  NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
 								  nil,
 								  NO);
+		[threadPool drain];
 		return;
 	}
 	
@@ -3497,6 +3501,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 	
 	[message release];
+	[threadPool drain];
 }
 
 -(void) setPIDFromLine:(NSString *)line
@@ -3555,8 +3560,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [self setConnectedSinceDate: date];
             [self clearStatisticsIncludeTotals: NO];
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
-           haveConnectedSince = YES;
-			[self checkDnsAddresses];
+            haveConnectedSince = YES;
+			[NSThread detachNewThreadSelector: @selector(startCheckingDnsAddresses) toTarget: self withObject: nil];
         }
         
         [self setState: newState];
