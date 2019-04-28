@@ -1385,6 +1385,8 @@ OSStatus runTool(NSString * launchPath,
     while(  [task isRunning]  ) {
 		usleep(100000);
 	}
+	
+	NSTaskTerminationReason reason = [task terminationReason];
     
 	OSStatus status = [task terminationStatus];
 	
@@ -1418,6 +1420,11 @@ OSStatus runTool(NSString * launchPath,
         message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? @"\n" : @""), stdErrString];
 	}
     
+	if (  reason == NSTaskTerminationReasonUncaughtSignal  ) {
+		message = [NSString stringWithFormat: @"'%@' received an uncaught signal\n%@",
+				   [launchPath lastPathComponent], (message ? message : @"")];
+	}
+	
     if (  message  ) {
         appendLog([NSString stringWithFormat: @"'%@' returned status = %ld\n%@", [launchPath lastPathComponent], (long)status, message]);
     }
