@@ -1382,7 +1382,9 @@ OSStatus runTool(NSString * launchPath,
     
     [task launch];
     
-    [task waitUntilExit];
+    while(  [task isRunning]  ) {
+		usleep(100000);
+	}
     
 	OSStatus status = [task terminationStatus];
 	
