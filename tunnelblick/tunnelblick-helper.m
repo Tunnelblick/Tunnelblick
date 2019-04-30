@@ -2521,49 +2521,38 @@ int startVPN(NSString * configFile,
             [tempMutableString replaceOccurrencesOfString: @"openvpn-" withString: @"" options: 0 range: NSMakeRange(0, [tempMutableString length])];
             versionToUse = [NSString stringWithString: tempMutableString];
             
-            BOOL openvpnHasRoutePreDown = (NSOrderedDescending == [[versionToUse substringToIndex: 3] compare: @"2.2"]);
-            if (   customRoutePreDownScript
-                && (  ! openvpnHasRoutePreDown )  ) {
-                fprintf(stderr, "Your 'Tunnelblick VPN Configuration' or 'Deployed' configuration includes a 'route-pre-down.tunnelblick.sh' file,"
-                        " which requires OpenVPN's '--route-pre-down' option. That option is not available in OpenVPN version %s, it is only available"
-                        " in OpenVPN version 2.3alpha1 and higher.\n", [versionToUse UTF8String]);
-                exitOpenvpnstart(231);
-            }
-            
-            if (  openvpnHasRoutePreDown ) {
-                if (  (useScripts & OPENVPNSTART_USE_SCRIPTS_USE_DOWN_ROOT) != 0  ) {
-                    if (  customRoutePreDownScript  ) {
-                        fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the custom route-pre-down script will not"
-                                " be executed as root unless the 'user' and 'group' options are removed from the OpenVPN configuration file.\n");
-                    } else {
-						if (   ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0)
-							|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED) != 0)  ) {
-							fprintf(stderr, "Error: Tunnelblick is using 'openvpn-down-root.so', so 'Disable network access after disconnecting'"
-									" will not work because the 'route-pre-down script' will not be executed as root. Remove the 'user' and 'group' options"
-									" from the OpenVPN configuration file to allow 'Disable network access after disconnecting' to work.\n");
-							exitOpenvpnstart(170);
-						} else {
-							fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the route-pre-down script will not be used."
-									" You can override this by providing a custom route-pre-down script (which may be a copy of Tunnelblick's standard"
-									" route-pre-down script) in a Tunnelblick VPN Configuration. However, that script will not be executed as root"
-									" unless the 'user' and 'group' options are removed from the OpenVPN configuration file. If the 'user' and 'group'"
-									" options are removed, then you don't need to use a custom route-pre-down script.\n");
-						}
+			if (  (useScripts & OPENVPNSTART_USE_SCRIPTS_USE_DOWN_ROOT) != 0  ) {
+				if (  customRoutePreDownScript  ) {
+					fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the custom route-pre-down script will not"
+							" be executed as root unless the 'user' and 'group' options are removed from the OpenVPN configuration file.\n");
+				} else {
+					if (   ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0)
+						|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED) != 0)  ) {
+						fprintf(stderr, "Error: Tunnelblick is using 'openvpn-down-root.so', so 'Disable network access after disconnecting'"
+								" will not work because the 'route-pre-down script' will not be executed as root. Remove the 'user' and 'group' options"
+								" from the OpenVPN configuration file to allow 'Disable network access after disconnecting' to work.\n");
+						exitOpenvpnstart(170);
+					} else {
+						fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the route-pre-down script will not be used."
+								" You can override this by providing a custom route-pre-down script (which may be a copy of Tunnelblick's standard"
+								" route-pre-down script) in a Tunnelblick VPN Configuration. However, that script will not be executed as root"
+								" unless the 'user' and 'group' options are removed from the OpenVPN configuration file. If the 'user' and 'group'"
+								" options are removed, then you don't need to use a custom route-pre-down script.\n");
 					}
-                } else {
-                    if (   customRoutePreDownScript
-						|| ((bitMask & OPENVPNSTART_USE_TAP) != 0)
-						|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0)
-						|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED) != 0)
-					   ) {
-						[arguments addObjectsFromArray: [NSArray arrayWithObjects:
-														 @"--route-pre-down", routePreDownscriptCommand,
-														 nil
-														 ]
-						 ];
-					}
-                }
-            }
+				}
+			} else {
+				if (   customRoutePreDownScript
+					|| ((bitMask & OPENVPNSTART_USE_TAP) != 0)
+					|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0)
+					|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED) != 0)
+				   ) {
+					[arguments addObjectsFromArray: [NSArray arrayWithObjects:
+													 @"--route-pre-down", routePreDownscriptCommand,
+													 nil
+													 ]
+					 ];
+				}
+			}
         }
     }
     
