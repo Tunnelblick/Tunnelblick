@@ -4970,8 +4970,6 @@ static void signal_handler(int signalNumber)
         }
     }
     
-	TBLog(@"DB-SU", @"applicationDidFinishLaunching: 06.2")
-	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 007")
     [self hookupToRunningOpenVPNs];
     [self setupHookupWatchdogTimer];
