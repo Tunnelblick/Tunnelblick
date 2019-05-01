@@ -498,8 +498,9 @@ int createDir(NSString * dirPath, unsigned long permissions) {
     
     if (   [[NSFileManager defaultManager] fileExistsAtPath: dirPath isDirectory: &isDir]  ) {
         if (  isDir  ) {
-            // Don't try to change permissions of /Library/Application Support or ~/Library/Application Support
-            if (  [dirPath hasSuffix: @"/Library/Application Support"]  ) {
+            // Don't try to change permissions of existing /Library/Application Support, ~/Library/Application Support, or /private/var/folders/*
+            if (   [dirPath hasSuffix: @"/Library/Application Support"]
+				|| [dirPath hasPrefix: @"/private/var/folders/"]  ) {
                 return 0;
             }
             NSDictionary * attributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: dirPath traverseLink: YES];
