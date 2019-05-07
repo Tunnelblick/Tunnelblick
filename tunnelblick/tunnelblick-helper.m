@@ -2513,14 +2513,7 @@ int startVPN(NSString * configFile,
         
         if (  fileExistsForRootAtPath(newRoutePreDownscriptPath)  ) {
             BOOL customRoutePreDownScript = ! [newRoutePreDownscriptPath isEqualToString: standardRoutePreDownscriptPath];
-            NSString * versionToUse = [[openvpnPath
-                                        stringByDeletingLastPathComponent]     // remove "openvpn", the executable
-                                       lastPathComponent];                     // isolate "openvpn-XXXX"
-            
-            NSMutableString * tempMutableString = [[versionToUse mutableCopy] autorelease];
-            [tempMutableString replaceOccurrencesOfString: @"openvpn-" withString: @"" options: 0 range: NSMakeRange(0, [tempMutableString length])];
-            versionToUse = [NSString stringWithString: tempMutableString];
-            
+			
 			if (  (useScripts & OPENVPNSTART_USE_SCRIPTS_USE_DOWN_ROOT) != 0  ) {
 				if (  customRoutePreDownScript  ) {
 					fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the custom route-pre-down script will not"
