@@ -120,6 +120,19 @@ TUNTAP_SOURCE_DIR = $(SOURCES_DIR)/tuntap
 TUNTAP_BUILD_DIR = $(BUILD_DIR)/tuntap
 TUNTAP_PRODUCTS_DIR = $(PRODUCTS_DIR)/tuntap
 
+# If both of the following files exist
+# then
+#      We will NOT build tun or tap kexts.
+#      Instead, makefile-tuntap will copy these two files into third_party/products/tuntap.
+#      They will be copied from there into Tunnelblick.app/Contents/Resources by
+#          the "BuildAppsAndDmgs.sh" script.
+# else
+#      makefile-tuntap will build tun and tap kexts and put them into third_party/products/tuntap.
+#      They will be copied from there into Tunnelblick.app/Contents/Resources by
+#          the "BuildAppsAndDmgs.sh" script.
+TUNTAP_PREBUILT_TAP_NOTARIZED = $(TOPDIR)/tap-notarized.kext
+TUNTAP_PREBUILT_TUN_NOTARIZED = $(TOPDIR)/tun-notarized.kext
+
 OPENVPN_SOURCE_DIR = $(SOURCES_DIR)/openvpn
 OPENVPN_BUILD_DIR = $(BUILD_DIR)/openvpn
 OPENVPN_PRODUCTS_DIR = $(PRODUCTS_DIR)/openvpn

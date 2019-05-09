@@ -1289,30 +1289,6 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
     return openvpnPath;
 }
 
-NSString * TunTapSuffixToUse(void) {
-    
-    // Return tun/tap suffix appropriate for OS version:
-    //        * Snow Leopard - Mountain Lion UNSIGNED 2011-11-01 version
-    //        * Mavericks and higher           SIGNED current version
-    
-    NSString * suffixToReturn;
-
-    OSStatus err;
-    unsigned major, minor, bugFix;
-    if (  EXIT_SUCCESS == (err = getSystemVersion(&major, &minor, &bugFix))  ) {
-        if ( minor < 9) {
-            suffixToReturn = @"-20111101.kext";
-        } else {
-            suffixToReturn = @"-signed.kext";
-        }
-    } else {
-        fprintf(stderr, "Unable to determine OS version; using signed Tuntap kexts. Error status returned = %ld\n", (long) err);
-        suffixToReturn = @"-signed.kext";
-    }
-    
-    return suffixToReturn;
-}
-
 //**************************************************************************************************************************
 int getProcesses(struct kinfo_proc** procs, unsigned * number) {
 	//Fills in process information
@@ -1819,28 +1795,26 @@ void loadKexts(unsigned int bitMask) {
     
     NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 2];
     if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
-        NSString * tapkext = [@"tap" stringByAppendingString: TunTapSuffixToUse()];
-        NSString * tapPath = [gResourcesPath stringByAppendingPathComponent: tapkext];
+        NSString * tapPath = [gResourcesPath stringByAppendingPathComponent: @"tap-notarized.kext"];
         BOOL isDir;
         if (   ! (   [[NSFileManager defaultManager] fileExistsAtPath: tapPath isDirectory: &isDir]
                   && isDir)  ) {
-            fprintf(stderr, "%s not found\n", [tapkext UTF8String]);
+            fprintf(stderr, "tap-notarized.kext not found\n");
             exitOpenvpnstart(224);
         }
         [arguments addObject: tapPath];
-        fprintf(stderr, "Loading %s\n", [tapkext UTF8String]);
+        fprintf(stderr, "Loading tap-notarized.kext\n");
     }
     if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
-        NSString * tunkext = [@"tun" stringByAppendingString: TunTapSuffixToUse()];
-        NSString * tunPath = [gResourcesPath stringByAppendingPathComponent: tunkext];
+        NSString * tunPath = [gResourcesPath stringByAppendingPathComponent: @"tun-notarized.kext"];
         BOOL isDir;
         if (   ! (   [[NSFileManager defaultManager] fileExistsAtPath: tunPath isDirectory: &isDir]
                   && isDir)  ) {
-            fprintf(stderr, "%s not found\n", [tunkext UTF8String]);
+            fprintf(stderr, "tun-notarized.kext not found\n");
             exitOpenvpnstart(225);
         }
         [arguments addObject: tunPath];
-        fprintf(stderr, "Loading %s\n", [tunkext UTF8String]);
+        fprintf(stderr, "Loading tun-notarized.kext\n");
     }
     
     int status;

@@ -83,19 +83,8 @@ fi
 # Index the help files
   hiutil -Caf "${app_path}/Contents/Resources/help/help.helpindex" "${app_path}/Contents/Resources/help"
 
-# Copy the tun and tap kexts
-  rm -r -f                                  "${app_path}/Contents/Resources/tap.kext"
-  cp -R "../third_party/products/tuntap/tap.kext/"          "${app_path}/Contents/Resources/tap.kext"
- 
-  rm -r -f                                  "${app_path}/Contents/Resources/tun.kext"
-  cp -R "../third_party/products/tuntap/tun.kext/"          "${app_path}/Contents/Resources/tun.kext"
-
-# Create copies of kexts to be signed, too, for Mavericks and higher
-  rm -r -f                                  "${app_path}/Contents/Resources/tap-signed.kext"
-  cp -R "../third_party/products/tuntap/tap.kext/"          "${app_path}/Contents/Resources/tap-signed.kext"
- 
-  rm -r -f                                  "${app_path}/Contents/Resources/tun-signed.kext"
-  cp -R "../third_party/products/tuntap/tun.kext/"          "${app_path}/Contents/Resources/tun-signed.kext"
+# Copy tun & tap kexts into the Resources folder
+  cp -a ../third_party/products/tuntap/*.kext "${app_path}/Contents/Resources/"
 
 changeEntry()
 {
@@ -106,8 +95,10 @@ changeEntry()
     # @param String, name of variable to be replaced (TBVERSIONSTRING, TBBUILDNUMBER, or TBCONFIGURATION)
     # @param String, version or build number
 
-    sed -e "s|${2}|${3}|g" "${1}" > "${1}.tmp"
-	mv -f "${1}.tmp" "${1}"
+	if [ -e "$1" ] ; then
+		sed -e "s|${2}|${3}|g" "${1}" > "${1}.tmp"
+		mv -f "${1}.tmp" "${1}"
+	fi
 }
 
 # Set the type of configuration ("Debug" or "Unsigned") (inside CFBundleShortVersionString) for the app (only the app; the uninstaller has its own versioning)
@@ -129,16 +120,20 @@ readonly tbbn="$(cat TBBuildNumber.txt)"
 changeEntry "${app_path}/Contents/Info.plist"         TBBUILDNUMBER "${tbbn}"
 changeEntry "${uninstaller_path}/Contents/Info.plist" TBBUILDNUMBER "${tbbn}"
 
-# Set the CFBundleVersion from TBBuildNumber.txt in the kexts
+# Set the CFBundleVersion from TBBuildNumber.txt in any kexts that have not been notarized
 # Kexts must have small numbers as the second and optional 3rd part of CFBundleVersion
 # So we change a Tunnelblick build # of (for example) 1234.5678 to just 5678 for use in the kexts.
 # Since the kexts have TBBUILDNUMBER.1, TBBUILDNUMBER.2, or TBBUILDNUMBER.3, they will be 5678.1, 5678.2, and 5678.3
 readonly kextbn="${tbbn##*.}"
-changeEntry "${app_path}/Contents/Resources/tun.kext/Contents/Info.plist"            TBBUILDNUMBER "${kextbn}"
-changeEntry "${app_path}/Contents/Resources/tap.kext/Contents/Info.plist"            TBBUILDNUMBER "${kextbn}"
-changeEntry "${app_path}/Contents/Resources/tun-signed.kext/Contents/Info.plist"     TBBUILDNUMBER "${kextbn}"
-changeEntry "${app_path}/Contents/Resources/tap-signed.kext/Contents/Info.plist"     TBBUILDNUMBER "${kextbn}"
-
+for k in "${app_path}/Contents/Resources/"*.kext ; do
+  if [ -e "$k" ] ; then
+	f="$(basename "$k" )"
+	if [ "$f" != "tap-notarized.kext" ] \
+	&& [ "$f" != "tun-notarized.kext" ] ; then
+		changeEntry "${app_path}/Contents/Resources/tun.kext/Contents/Info.plist" TBBUILDNUMBER "${kextbn}"
+	fi
+  fi
+done
 # Copy git information into Info.plist: the hash and the git status (uncommitted changes)
 # Warn about uncommitted changes except for Debug builds
 if [ -e "../.git" -a  "$(which git)" != "" ] ; then
