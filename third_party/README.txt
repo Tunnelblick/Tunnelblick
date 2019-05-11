@@ -1,4 +1,4 @@
-THE THIRD_PARTY FOLDER                                             Last updated 2016-07-31
+THE THIRD_PARTY FOLDER                                             Last updated 2019-05-11
 
 CONTENTS
     INTRODUCTION
@@ -33,17 +33,12 @@ versions of the GNU autotools be installed. The "autotools" programs consist of 
 versions of the autotools programs, and macOS 10.8.5 with Xcode 4 and higher does not
 include the autotools programs at all.
 
-The "third+party/ShellScriptToInstallAutotools.sh" script will download recent (possibly not the most
+The "third_party/ShellScriptToInstallAutotools.sh" script will download recent (possibly not the most
 recent) versions of the autotools and install them into /usr/local/bin.
 
 When building Tunnelblick, the first build phase "Run Script" that builds the third party
 programs sets the path to look in /usr/local/bin first (before other folders), so any
 programs installed there will be used instead of older versions.
-
-The "Run Script" checks the version of autoconf and automake (two of the tools) and issues
-a warning if they are not the expected versions. The test is a simple one and is not
-definitive; that's why it issues a warning instead of an error; if there are no other
-problems with the build the error may be ignored.
 
 
 THE THIRD PARTY PROGRAMS
