@@ -26,7 +26,7 @@
 	<key>CFBundleVersion</key>
 	<string>TBBUILDNUMBER</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.12 (build TBBUILDNUMBER)</string>
+	<string>1.13 (build TBBUILDNUMBER)</string>
 	<key>CFBundleIdentifier</key>
 	<string>net.tunnelblick.tunnelblick-uninstaller</string>
 	<key>CFBundleIconFile</key>
