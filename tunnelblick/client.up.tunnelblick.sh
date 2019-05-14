@@ -1508,6 +1508,11 @@ ARG_RESTORE_ON_WINS_RESET="false"
 # Do extra logging until this script is mainstreamed
 ARG_EXTRA_LOGGING="true"
 
+logDebugMessage "        **********************************************"
+logDebugMessage "        ENVIRONMENT VARIABLES:"
+logDebugMessage "$( env | sed -e 's/^/        /g' )"
+logDebugMessage "        **********************************************"
+
 # Handle the arguments we know about by setting ARG_ script variables to their values, then shift them out
 while [ $# -ne 0 ] ; do
     if [ "$1" = "-6" ] ; then                       # -6 = ARG_ENABLE_IPV6_ON_TAP (for TAP connections only)
