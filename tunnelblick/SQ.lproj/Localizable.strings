@@ -378,9 +378,6 @@
 "Check if the apparent public IP address changed after connecting" = "Kontrollo nëse IP e dukshme publike ndryshoi pas lidhjes";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Ç'aktivizo IPv6 (vetëm për tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Shkëput kur kompjuteri shkon të flejë";
 
 /* Checkbox name */

@@ -1741,14 +1741,19 @@ else
 
         ipv6_disabled_services=""
         if ${ARG_DISABLE_IPV6_ON_TUN} ; then
-            ipv6_disabled_services="$( disable_ipv6 )"
-			if [ "$ipv6_disabled_services" != "" ] ; then
-                printf %s "$ipv6_disabled_services
-" | \
-                while IFS= read -r dipv6_service ; do
-                    logMessage "Disabled IPv6 for '$dipv6_service'"
-                done
-            fi
+			trusted_ip_line="$( env | grep 'trusted_ip' ; true )"
+			if [ "${trusted_ip_line/:/}" = "$trusted_ip_line" ] ; then
+            	ipv6_disabled_services="$( disable_ipv6 )"
+				if [ "$ipv6_disabled_services" != "" ] ; then
+					printf '%s\n' "$ipv6_disabled_services" \
+					| while IFS= read -r dipv6_service ; do
+                    	logMessage "Disabled IPv6 for '$dipv6_service'"
+                	done
+            	fi
+			else
+				trusted_ip="${trusted_ip_line#trusted_ip=}"
+				echo "WARNING: NOT disabling IPv6 because the OpenVPN server address is an IPv6 address ($trusted_ip)"
+			fi
         fi
         readonly ipv6_disabled_services
 		# Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines

@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "Provjeri je li se promjenila javna IP adresa nakon uspostave veze";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Onemogući IPv6 (samo za Tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Odspoji pri odlasku u stanje mirovanja računala";
 
 /* Checkbox name */

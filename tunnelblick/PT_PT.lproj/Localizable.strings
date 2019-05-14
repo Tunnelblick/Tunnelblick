@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "Verificar se o endereço IP público mudou após conexão";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Desativar IPv6 (apenas tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Desconectar quando o computador entrar em modo de repouso";
 
 /* Checkbox name */
@@ -2098,9 +2095,6 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Especifica quando o Tunnelblick se deve conectar a uma VPN.</strong></p><p>\"Quando o computador iniciar\" só pode ser usado com configurações \"Partilhadas\".</p>";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Quando selecionada</strong>, IPv6 será desativado.</p>\n<p>Desativar IPv6 é normalmente recomendado porque muitas configurações de VPN não protegem contra fuga de informações causada pelo uso do IPv6. A maioria do acesso à Internet funciona bem sem IPv6.</p>\n<p><strong>Quando não selecionada</strong>, IPv6 não será desativado.</p>\n<p><strong>Esta caixa de seleção está desativada</strong> quando utilizar uma conexão 'tap' porque não pode ser executada numa conexão 'tap'.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Quando selecionada</strong>, IPv6 será desativado.</p>\n<p><strong>Quando não selecionada </strong>, IPv6 não será desativado.</p>\n<p>Desativar IPv6 é normalmente recomendado porque muitas configurações de VPN não protegem contra vazamento de informações causado pelo uso do IPv6. A maioria do acesso à Internet funciona bem sem IPv6.</p>\n<p><strong>Esta caixa de seleção está desativada</strong> para configurações Tun.</p>";

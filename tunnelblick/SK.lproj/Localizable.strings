@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "Kontrolovať, či sa po pripojení zmenila verejná IP adresa";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Zakázať IPv6 (len zariadenie tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Odpojiť pri prechode do režimu spánku";
 
 /* Checkbox name */
@@ -2098,9 +2095,6 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Určuje kedy sa Tunnelblick má pripojiť k VPN.</strong></p><p>\"Pri spustení počítača\" je možno použiť iba pri použití \"Zdieľanej\" konfigurácie.</p>";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Ak je zaškrtnuté</strong>, IPv6 bude zakázané.</p>\n<p>Zakázanie IPv6 sa bežne odporúča, pretože mnohé konfigurácie VPN nechránia voči úniku informácií spôsobenému použitím IPv6. Prístup k internetu vo väčšine prípadov správne funguje aj bez IPv6.</p>\n<p><strong>Ak nie je zaškrtnuté</strong>, IPv6 nebude zakázané.</p>\n<p><strong>Tento výber je zakázaný</strong> pri použití pripojenia 'tap', pretože na tomto type pripojenia ho nie je možné vynútiť.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Ak je zaškrtnuté</strong>, IPv6 bude povolené.</p>\n<p><strong>Ak nie je zaškrtnuté</strong>, IPv6 nebude povolené.</p>\n<p>Zakázanie IPv6 sa bežne odporúča, pretože mnohé konfigurácie VPN nechránia voči úniku informácií spôsobenému použitím IPv6. Prístup k internetu vo väčšine prípadov správne funguje aj bez IPv6.</p>\n<p><strong>Tento výber je zakázaný</strong> pre konfigurácie používajúce pripojenie 'tun'.</p>";

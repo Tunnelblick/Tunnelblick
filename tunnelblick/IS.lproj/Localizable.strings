@@ -378,9 +378,6 @@
 "Check if the apparent public IP address changed after connecting" = "Athuga hvort sýnileg opinber IP-tala hafi breyst eftir aftengingu";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Afvirkja IPv6 (bara „tun“)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Aftengjast þegar tölvan sofnar";
 
 /* Checkbox name */

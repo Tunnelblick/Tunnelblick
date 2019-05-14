@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "تحقق ما اذا تغير عنوان الاي بي العام بعد الاتصال";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "تعطيل IPV6 (فقط تون)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "قطع الاتصال عندما يذهب الكمبيوتر في حالة السكون";
 
 /* Checkbox name */
@@ -2098,9 +2095,6 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong> يحدد عندما يجب على تُنلـبليك أن يتصل بال VPN.</strong></p>\n<p>\"عندما يشتغل الكمبيوتر\" يمكن استخدامها فقط مع إعدادات \"مشتركة\".</p>";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>عند التفعيل</strong>, سيتم تعطيل بروتوكول IPv6. </p>\n\n<p> يفضل تعطيل بروتوكول IPv6 لان كثير من اعدادات ال VPN لا تحمي من تسريب المعلومات الناتج من استخدام ال IPv6. معظم استخدام الانترنت سيعمل بشكل طبيعي من غير IPv6. </p>\n\n<p><strong>عند عدم التفعيل</strong> . لن يتم تعطيل بروتوكول IPv6.</p>\n<p><strong>غير قابل للتفعيل</strong> عند استخدام اتصال 'tap' ، لانه لا يمكن فرض تنفيذه علي اتصال 'tap'. </p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>عند التفعيل</strong>, سيتم تفعيل بروتوكول IPv6. </p>\n<p><strong>عند عدم التفعيل</strong>. لن يتم تفعيل بروتوكول IPv6.</p>\n<p> يفضل تعطيل بروتوكول IPv6 لان كثير من اعدادات ال VPN لا تحمي من تسريب المعلومات الناتج من استخدام ال IPv6. معظم استخدام الانترنت سيعمل بشكل طبيعي من غير IPv6. </p>\n<p><strong>غير قابل للتفعيل</strong> عند استخدام اعدادات 'tun'. </p>";

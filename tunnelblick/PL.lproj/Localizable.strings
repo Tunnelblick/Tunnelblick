@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "Sprawdź, czy adres IP zmienia się po nawiązaniu połączenia";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Wyłącz IPv6 (tylko tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Rozłącz gdy komputer zostaje uśpiony";
 
 /* Checkbox name */
@@ -2098,9 +2095,6 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Określa kiedy Tunnelblick powinien zainicjować połączenie VPN</strong></p><p>\"Przy starcie komputera\" może być używane tylko z konfiguracjami współdzielonymi.</p>";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Jeśli zaznaczone</strong>, IPv6 zostanie wyłączony.</p>\n<p>Wyłączenie IPv6 jest często zalecane ponieważ wiele konfiguracji VPN nie strzeże wycieków informacji spowodowanych używaniem protokołu IPv6. Większość Internetu działa prawidłowo bez IPv6</p>\n<p><strong>Jeśli nie zaznaczone</strong>, IPv6 nie zostanie wyłączony.</p>\n<p><strong>Jeśli niedostępne</strong>, jeśli używasz połączenia 'tap' ponieważ nie może zostać wymuszone na połączeniu 'tap' .</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Jeśli zaznaczone</strong>, IPv6 będzie włączone.</p>\n<p><strong>Jeśli nie zaznaczone</strong>, IPv6 nie będzie włączone.</p>\n<p>Wyłączenie IPv6 jest często zalecane ponieważ wiele konfiguracji VPN nie strzeże wycieków informacji spowodowanych używaniem protokołu IPv6. Większość Internetu działa prawidłowo bez IPv6</p>\n<p><strong>Jeśli niedostępne</strong> dla konfiguracji 'tun'.</p>";

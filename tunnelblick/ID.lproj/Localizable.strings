@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "Periksa apakah alamat IP publik yang nampak berubah setelah menyambung";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Matikan IPv6 (tun saja)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Putuskan ketika komputer tidur";
 
 /* Checkbox name */
@@ -412,6 +409,9 @@
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Jangan tampilkan peringatan tipe ini lagi";
+
+/* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Jangan peringatkan lagi tentang masalah DNS untuk sebarang konfigurasi";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "Jangan peringatkan hal ini lagi untuk sebarang konfigurasi";
@@ -517,6 +517,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Mengambil konfigurasi"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Menunggu akses jaringan"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Menunggu kata sandi"; // Please translate "Waiting for password"
@@ -743,11 +746,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Dari server VPN untuk %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • Alamat server DNS %@ adalah sebuah alamat privat tapi tidak sedang di-routing melalui VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Alamat server DNS %@ adalah sebuah server DNS publik yang dikenal oleh Tunnelblick tapi tidak sedang di-routing melalui VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Alamat server DNS %@ bukan sebuah server DNS publik yang dikenal oleh Tunnelblick dan tidak sedang di-routing melalui VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Memasang %lu konfigurasi\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Memasang satu konfigurasi\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Tidak ada server DNS yang telah dinyatakan.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Menimpa %lu konfigurasi\n\n";
@@ -896,6 +911,9 @@
 /* Window text */
 "(if connected when user switched out)" = "(bila tersambung ketika pengguna berganti)";
 
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Lebih banyak informasi</a> [tunnelblick.net]";
+
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Berbasis Tunnelblick, perangkat lunak bebas yang tersedia di<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN adalah merk dagang terdaftar dari OpenVPN Inc.";
 
@@ -961,6 +979,9 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "Semua konfigurasi memakai kredensial %@";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Harap lampirkan juga berkas 'Tunnelblick Error Data.txt' pada Desktop Anda ke surel. Itu memuat informasi tentang kesalahan. Anda dapat mengklik ganda berkas untuk melihat informasi.\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Sebuah galat (status %1$ld) terjadi ketika mencoba memeriksa keamanan konfigurasi %2$@.\n\nHarap keluar dan meluncurkan ulang Tunnelblick. Bila masalah masih terjadi, harap instal ulang Tunnelblick.";
@@ -1377,6 +1398,9 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Satu atau lebih konfigurasi sedang diabaikan. Lihat Log Konsol untuk rincian.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Satu atau lebih masalah dengan DNS ditemukan: \n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Ada satu atau beberapa masalah terdeteksi:\n\n%@";
 
 /* Window text */
@@ -1584,6 +1608,12 @@
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Ada masalah saat menghapus satu konfigurasi atau lebih. Lihat Log Konsol untuk rincian.";
 
 /* Window text */
+"There was a problem getting the list of known public DNS servers." = "Ada masalah saat mengambil daftar dari server DNS publik yang dikenal.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Ada masalah saat mengambil daftar server DNS.";
+
+/* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Ada masalah dengan konfigurasi OpenVPN. Lihat Log Konsol untuk rincian.";
 
 /* Window text */
@@ -1696,6 +1726,9 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat menghapus konfigurasi '%@'. Lihat Console Log untuk lebih detil.";
+
+/* Window text */
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick menjumpai sebuah kesalahan fatal.\n\nHaram kirim surel ke developers@tunnelblick.net untuk bantuan, menjuelaskan apa yang sedang dilakukan Tunnelblick ketika kesalah terjadi.\n\n";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick terkendala masalah dengan konfigurasi %1$lu:\n\n%2$@%3$@%4$@%5$@";
@@ -1974,6 +2007,9 @@
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Komputer Anda mungkin tidak bisa secara handal menampilkan ikon Tunnelblick dekat ikon Spotlight.\n\nIni dapat menyebabkan ikon Tunnelblick kadang-kadang MENGHILANG dari bilah menu.\n\nApakah Anda yakin hendak menempatkan ikon Tunnelblick dekat ikon Spotlight?\n\n";
 
 /* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Bantuan Anda dalam hal ini akan dirasakan oleh semua pengguna Tunnelblick.\n\nBila mungkin, harap jangan klik \"Keluar\" sampai Anda telah mengirim surel.";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Jam sistem Anda mungkin tidak ditata dengan benar.\n\nBeberapa atau semua dari konfigurasi Anda mungkin tidak bisa menyambung kecuali jam sistem punya tanggal dan waktu yang benar.\n\n";
 
 /* Window text */
@@ -2059,9 +2095,6 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Menyatakan kapan Tunnelblick mesti menyambung ke VPN.</strong></p><p>\"Ketika komputer dihidupkan\" hanya booleh dipakai dengan konfigurasi \"Bersama\".</p>";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Ketika dicentang</strong>, IPv6 akan dimatikan.</p>\n<p>Mematikan IPv6 sering disarankan karena banyak konfigurasi VPN tidak menjaga atas kebocoran informasi yang disebabkan oleh penggunaan IPv6. Kebanyakan akses internet bekerja baik tanpa IPv6.</p>\n<p><strong>Ketika tidak dicentang</strong>, IPv6 tidak akan dimatikan.</p>\n<p><strong>Kotak centang ini dimatikan</strong> ketika memakai koneksi 'tap' karena tidak bisa dipaksakan pada suatu koneksi 'tap'.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Ketika dicentang</strong>, IPv6 akan difungsikan.</p>\n<p><strong>Ketika tidak dicentang</strong>, IPv6 tidak akan difungsikan.</p>\n<p>Mematikan IPv6 sering disarankan karena banyak konfigurasi VPN tidak menjaga atas kebocoran informasi yang disebabkan oleh penggunaan IPv6. Kebanyakan akses internet bekerja baik tanpa IPv6.</p>\n<p><strong>Kotak centang ini dimatikan</strong> untuk konfigurasi Tun.</p>";
@@ -2195,6 +2228,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick termasuk suatu versi ubahan dari 'easy-rsa', yang merupakan suatu kumpulan skrip baris perintah yang ditulis oleh para pengembang OpenVPN untuk membuat dan memelihara sertifikat dan kunci.</p><p>Mengklik tombol ini meluncurkan aplikasi Terminal macOS dengan direktori kerja ditata ke folder yang memuat skrip.</p><p>Skrip biasanya terletak dalam folder ~/Library/Application Support/Tunnelblick/easy-rsa. Suatu preferensi 'easy-rsaPath' mesti merupakan suatu path absolut atau diawali dengan '~', dan folder induk dari path mesti ada. Bila suatu folder ada pada path, itu akan dipakai; bila tidak ada, itu akan dibuat dan skrip easy-rsa akan dipasang ke dalamnya ketika Tunnelblick diluncurkan.</p><p>Untuk informasi tentang memakai easy-rsa, lihat <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Menyiapkan Certificate Authority (CA) Anda sendiri dan membuat sertifikan dan kunci bagi suatu server OpenVPN dan banyak klien.</a>[openvpn.net].</p><p>Untuk rincian dari pengubahan Tunnelblick atas easy-rsa, lihat berkas README yang terletak dalam folder.</p>";
 
+/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick tidak bisa memuat suatu ekstensi sistem yang diperlukan untuk menyambung ke %1$@.</p><p>%2$@</p>";
+
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Mode admin tersisa %@";
 
@@ -2263,6 +2299,15 @@
 
 /* Checkbox */
 "Do not show this again" = "Jangan tampilkan ini lagi";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when connecting" = "Jangan peringatkan tentang hal ini lagi;\nselalu fungsikan ulang ketika menyambung";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Jangan peringatkan tentang hal ini lagi;\nselalu fungsikan ulang ketika keluar Tunnelblick";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Jangan peringatkan tentang hal ini lagi;\njangan pernah fungsikan ulang ketika memulai Tunnelblick";
 
 /* Credit description */
 "Dutch translation" = "Terjemahan bahasa Belanda";

@@ -381,9 +381,6 @@
 "Check if the apparent public IP address changed after connecting" = "اگر نشانی آی پی بعد از برقراری ارتباط تغییر کرد، بررسی کن";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "غیر فعال کردن IPv6 (فقط در tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "قطع ارتباط در زمان استراحت رایانه";
 
 /* Checkbox name */

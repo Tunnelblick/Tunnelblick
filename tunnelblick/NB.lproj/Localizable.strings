@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "Sjekk om den offentlige IP-adressen har endret seg etter oppkobling";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Deaktiver IPv6 (kun tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Koble fra når maskinen går i dvale";
 
 /* Checkbox name */
@@ -2098,9 +2095,6 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Angir når Tunnelblick skal koble til VPN.</strong></p><p>\"Når datamaskinen starter\" må bare brukes med \"Delte\" konfigurasjoner.</p>";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Når avkrysset</strong>, vil IPv6 være deaktivert.</p>\n<p>Deaktivering av IPv6 er ofte anbefalt fordi mange VPN-konfigurasjoner ikke kan gardere seg mot informasjonslekkasjer som skyldes bruk av IPv6. De fleste Internettforbindelser fungerer fint uten IPv6.</p>\n<p><strong>Når ikke avkrysset</strong>, vil IPv6 være aktivert.</p>\n<p><strong>Dette valget er utilgjengelig</strong> når du bruker en \"tap\"-tilkobling fordi det ikke kan håndheves på en \"tap\"-tilkobling.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Når avkrysset</strong>, vil IPv6 være aktivert.</p>\n<p><strong>Når ikke avkrysset</strong>, vil ikke IPv6 være aktivert.</p>\n<p>Deaktivering IPv6 er ofte anbefalt fordi mange VPN-konfigurasjoner ikke kan gardere seg mot informasjonslekkasjer som skyldes bruk av IPv6. De fleste Internett-forbindelser fungerer fint uten IPv6.</p>\n<p><strong>Dette valget er utilgjengelig</strong> for Tun-konfigurasjoner.</p>";

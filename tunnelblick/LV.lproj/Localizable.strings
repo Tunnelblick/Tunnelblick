@@ -369,9 +369,6 @@
 "Check if the apparent public IP address changed after connecting" = "Pārbaudīt, vai pēc savienojuma ir mainījusies ārējā IP adrese";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Atspējot IPv6 (tikai tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Pārtraukt savienojumu, kad dators iemieg";
 
 /* Checkbox name */
@@ -1873,9 +1870,6 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit pievienošana un testēšana";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Kad atzīmēta</strong>, IPv6 tiks atspējots.</p>\n<p>IPv6 atspējošana bieži tiek ieteikta, jo daudzas VPN konfigurācijas nepasargā no informācijas noplūdes lietojot IPv6. Vairumā gadījumu piekļuve Internetam ir iespējama bez IPv6.</p>\n<p><strong>Kad neatzīmēta</strong>, IPv6 netiks atspējots.</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong> 'tap' savienojumiem, jo šādās situācijās nav konfigurējams.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Kad atzīmēta</strong>, IPv6 tiks iespējots.</p>\n<p><strong>Kad neatzīmēta</strong>, IPv6 netiks iespējots.</p>\n<p>IPv6 atspējošana bieži tiek ieteikta, jo daudzas VPN konfigurācijas nepasargā no informācijas noplūdes lietojot IPv6. Vairumā gadījumu piekļuve Internetam ir iespējama bez IPv6.</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong> 'tun' savienojumiem.</p>";

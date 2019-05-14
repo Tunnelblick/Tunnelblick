@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "Tarkista, vaihtuiko julkinen IP-osoite yhteydenmuodostuksen jälkeen";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Poista IPV6 käytöstä (vain tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Katkaise yhteys, kun tietokone menee unitilaan";
 
 /* Checkbox name */
@@ -2068,9 +2065,6 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Määrittää milloin Tunnelblick tulee avata VPN yhteys.</strong></p><p>\"Tietokoneen käynnistyessä\" voidaan käyttää ainostaan \"yhteisiä\" asetuksia.</p>";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Kun valittu</strong>, IPv6 on pois käytöstä.</p>\n<p>IPv6 poistaminen käytöstä on usein suositeltavaa koska monet VPN asetukset eivät torju IPv6 aiheuttamaa informaatiovuotoa. Monet Internet yhteydet toimivat hyvin ilman IPv6:sta.</p>\n<p><strong>Kun ei valittu</strong>, IPv6 on käytössä.</p>\n<p><strong>Tämä valinta on pois käytöstä</strong> kun käytetään 'tap' yhteyttä, koska sitä ei voida pakottaa käyttöön 'tap' yhteydellä.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Kun valittu</strong>, IPv6 otetaan käyttöön.</p>\n<p><strong>Kun ei valittu</strong>, IPv6:ta ei oteta käyttöön.</p>\n<p>IPv6:n ottaminen pois käytöstä on usein suositeltavaa, koska monet VPN-konfiguraatiot eivät suojaa IPv6:n käytön aiheuttamilta informaatiovuodoilta. Useimmat Internet-yhteydet toimivat hyvin ilman IPv6:ta.</p>\n<p><strong>Tämä valinta on pois käytöstä</strong> Tun-konfiguraatioilla.</p>";

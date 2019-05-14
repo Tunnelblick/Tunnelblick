@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "连接后检查外部IP地址是否有所改变";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "禁用 IPv6 (仅 Tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "当计算机休眠时断开连接";
 
 /* Checkbox name */
@@ -2098,9 +2095,6 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>指定 Tunnelblick 要什么时候连接 VPN。</strong></p><p>“在电脑驱动时”选项只能用于“分享”的配置。</p>";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>选中时</strong>将停用IPV6</p>\n<p>当某些VPN配置会泄漏信息时，请关闭IPv6。多数网络配置在没有IPv6的时候也可以正常工作</p>\n<p><strong>不选中此项时</strong>IPv6不会被关闭。</p>\n<p><strong>在使用tap时</strong> 此项不可用。因为它与tap冲突</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>选中时</strong>将停用IPV6</p>\n<p>当某些VPN配置会泄漏信息时，请关闭IPv6。多数网络配置在没有IPv6的时候也可以正常工作</p>\n<p><strong>不选中此项时</strong>IPv6不会被关闭。</p>\n<p><strong>在使用tun时 </strong>此项不可用</p>";

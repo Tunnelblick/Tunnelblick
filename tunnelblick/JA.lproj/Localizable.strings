@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "接続後に見かけ上のグローバルIPアドレスが変わったかチェックする";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "IPv6を無効にする (tunのみ)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "スリープ時に接続を切断する";
 
 /* Checkbox name */
@@ -2032,9 +2029,6 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "64ビット化とテスト";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>チェックした場合</strong>、 IPv6は無効化されます。</p>\n<p>多くの場合、IPv6を無効化することを推奨します。何故ならば、多くのVPN設定はIPv6使用による情報漏洩の防衛がありません。ほとんどのインターネットはIPv6を使用しなくてもアクセスできます。</p>\n<p><strong>チェックしなかった場合</strong>、 IPv6は無効化されません。</p>\n<p>”タップ”接続は強制できないので、”タップ”接続を使用すると<strong>このチェックボックスは無効化されます。</strong></p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>チェックした場合</strong>、IPv6は無効化されます。</p>\n<p><strong>チェックしなかった場合</strong>、IPv6は無効化されません。</p>\n<p>多くの場合、IPv6を無効化することを推奨します。何故ならば、多くのVPN設定はIPv6使用による情報漏洩の防衛がありません。ほとんどのインターネットはIPv6を使用しなくてもアクセスできます。</p>\n<p>設定を調整すると、<strong>このチェックボックスは無効化できません</strong>。</p>\n";

@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "Перевіряти, чи змінилася зовнішня IP-адреса після з’єднання";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Не використовувати IPv6 (тільки для tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Від’єднуватися, коли ком’ютер переходить у режим сну";
 
 /* Checkbox name */
@@ -2098,9 +2095,6 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Вказує коли Tunnelblick має підключатись до VPN.</strong></p><p>\"При запуску комп'ютера\" може бути використана тільки для \"Спільних\" конфігурацій.</p>";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Якщо позначено</strong>, IPv6 буде деактивовано.</p>\n<p>Деактивування IPv6 часто є рекомендованим, оскільки більшість конфігурацій VPN не захищають від витоків інформації, спричинених використанням IPv6.</p>\n<p><strong>Якщо не позначено</strong>, IPv6 не буде деактивовано.</p>\n<p><strong>Ця опція деактивована</strong>коли використовується підключення 'tap', оскільки вона не може бути посилена на даному типі підключення.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Якщо позначено</strong>. IPv6 буде дозволено.</p>\n<p><strong>Якщо не позначено</strong>, IPv6 не буде дозволено.</p>\n<p>Деактивування IPv6 часто є рекомендованим, оскільки більшість конфігурацій VPN не захищають від витоків інформації, спричинених використанням IPv6. Зазвичай доступ до Інтернет нормально працює і без IPv6.</p>\n<p><strong>Ця опція деактивована</strong>для типів конфігурації Tun.</p>";

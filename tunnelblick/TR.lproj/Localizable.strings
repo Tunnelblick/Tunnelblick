@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "Görünen IP adresinin, bağlantıdan sonra değişip değişmediğini kontrol et";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "IPv6'yı devredışı bırak (sadece tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Bilgisayar uyku moduna geçtiğinde bağlantıyı kes";
 
 /* Checkbox name */
@@ -2089,9 +2086,6 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Tunnelblick'in ne zaman VPN'e bağlanması gerektiğini belirler.</strong></p><p>\"Bilgisayar başladığında\" sadece \"Paylaşılan\" ayarlarda kullanılabilir.</p>";
-
-/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>İşaretlenirse</strong>, IPv6 etkisiz hale getirilecek.</p>\n<p>IPv6'yı etkisizleştirmek genellikle tavsiye edilir çünkü bir çok VPN yapılandırması IPv6 kullanımının neden olduğu bilgi sızıntılarına karşı korumasızdır. Çoğu Internet erişimi IPv6 olmadan da düzgün çalışır.</p>\n<p><strong>İşaretlenmediğinde</strong>, IPv6 kapatılmaz.</p>\n<p>Bu kutucuk bir 'tap' bağlantısı kullanıldığında, bir 'tap' bağlantısında uygulanamadığı için <strong>etkisizleştirilir.</strong></p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>İşaretlenirse</strong>, IPv6 etkisiz hale getirilecek.</p>\n<p><strong>İşaretlenmediğinde</strong>, IPv6 kapatılmaz.</p>\n<p>IPv6'yı etkisizleştirmek genellikle tavsiye edilir çünkü bir çok VPN yapılandırması IPv6 kullanımının neden olduğu bilgi sızıntılarına karşı korumasızdır. Çoğu Internet erişimi IPv6 olmadan da düzgün çalışır.</p>\n<p>Bu kutucuk Tun yapılandırmalarında <strong>etkisizleştirilmiştir.</strong></p>";

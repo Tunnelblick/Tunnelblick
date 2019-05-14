@@ -369,9 +369,6 @@
 "Check if the apparent public IP address changed after connecting" = "Məlum olan rəsmi İP ünvan bağlantıdan sonra dəyişildiyini yoxla";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "İPv6-ı söndür (yalnız tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Kompyuter yuxu rejimində olanda bağlantını bitir";
 
 /* Checkbox name */
