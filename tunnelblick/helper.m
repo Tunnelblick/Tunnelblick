@@ -1498,7 +1498,7 @@ BOOL appHasValidSignature(void) {
     return NO;
 }
 
-NSString * displayNameForOpenvpnName(NSString * openvpnName) {
+NSString * displayNameForOpenvpnName(NSString * openvpnName, NSString * nameToReturnIfError) {
 	
 	// OpenVPN binaries are held in folders in the 'openvpn' folder in Resources.
 	// The name of the folder includes the version of OpenVPN and the name and version of the SSL/TLS library it is linked to.
@@ -1525,8 +1525,7 @@ NSString * displayNameForOpenvpnName(NSString * openvpnName) {
 		[mName replaceOccurrencesOfString: @"_"         withString: @" "         options: 0 range: NSMakeRange(0, [mName length])];
 		name = [NSString stringWithString: mName];
 	} else {
-		NSLog(@"Invalid name (must have 3 '-') for an OpenVPN folder: 'openvpn-%@'.", openvpnName);
-		name = nil;
+		name = [[nameToReturnIfError retain] autorelease];
 	}
 	
 	return name;

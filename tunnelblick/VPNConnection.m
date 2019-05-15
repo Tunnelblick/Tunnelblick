@@ -2098,6 +2098,30 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return useVersionIx;
 }
 
+-(NSString *) openvpnAndVersionLocalized: (NSString *) version {
+	
+	NSString * name = displayNameForOpenvpnName(version, nil);
+	NSString * result = (  name
+						 ? [NSString stringWithFormat:
+							NSLocalizedString(@"OpenVPN %@",
+											  @"Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'."),
+							version]
+						 : [NSString stringWithFormat:
+							NSLocalizedString(@"OpenVPN %@, which is not available in this version of Tunnelblick",
+											  @"Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'."),
+							version]);
+	return  result;
+}
+
+-(NSString *) openvpnVersionMayBeUnavailable: (NSString *) version {
+	
+	NSString * name = displayNameForOpenvpnName(version, nil);
+	NSString * result = (  name
+						 ? version
+						 : [version stringByAppendingString: @"%@ (unavailable)"]);
+	return  result;
+}
+
 -(NSUInteger) getOpenVPNVersionIxToUseConnecting: (BOOL) connecting {
 
 	// Decides what version of OpenVPN to use with the configuration and returns its index in MenuController's "openvpnVersionNames" array.
@@ -2360,7 +2384,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		if (  [[versionToTry substringToIndex: 3] compare: deprecatedInMajorMinor] != NSOrderedAscending) {
 			if (  connecting  )  {
 				TBLog(@"DB-CD", @"Connecting %@ using OpenVPN %@ which has deprecated options",
-					  [self displayName], displayNameForOpenvpnName(versionToTry));
+					  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry));
 			}
 			NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
 			warningMessage1 = [NSString stringWithFormat:
@@ -2381,7 +2405,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 												 @" The first '%@' will be replaced by the name of a configuration."
 												 @" The third '%@' will be replaced by a list of names of OpenVPN options, one on each line."
 												 @" The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
-							   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry)];
+							   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry, versionToTry)];
 		}
 	}
 
@@ -2389,18 +2413,19 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	if (  [versionWanted isNotEqualTo: versionToTry]  ) {
 		NSLog(@"Configuration %@ will use OpenVPN %@ instead of %@",
-			  [self displayName], displayNameForOpenvpnName(versionToTry), displayNameForOpenvpnName(versionWanted));
+			  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry), [self openvpnVersionMayBeUnavailable: versionWanted]);
 		if (  connecting  )  {
 			TBLog(@"DB-CD", @"Connecting %@ using OpenVPN %@ instead of %@",
-				  [self displayName], displayNameForOpenvpnName(versionToTry), displayNameForOpenvpnName(versionWanted));
+				  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry), [self openvpnVersionMayBeUnavailable: versionWanted]);
 		}
 		warningMessage2 = [NSString stringWithFormat:
-							   NSLocalizedString(@"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@).",
-												 
-												 @"Window text."
-												 @" The first '%@' will be replaced by the name of a configuration."
-												 @" The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n"),
-							   [self displayName], displayNameForOpenvpnName(versionToTry), displayNameForOpenvpnName(versionWanted)];
+						   NSLocalizedString(@"'%@' will connect using OpenVPN %@ instead of the requested version (%@).",
+											 @"Window text."
+											 @" The first '%@' will be replaced by the name of a configuration."
+											 @" The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n"),
+						   [self displayName],
+						   displayNameForOpenvpnName(versionToTry, versionToTry),
+						   [self openvpnAndVersionLocalized: versionWanted]];
 	}
 	
 	NSString * warningMessage = (  ([warningMessage2 length] != 0)

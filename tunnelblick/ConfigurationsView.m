@@ -374,20 +374,18 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 	} else {
 		NSLog(@"defaultOpenVpnFolderName() result '%@' did not start with 'openvpn-", folderName);
 	}
-	NSString * displayedVersion = displayNameForOpenvpnName(folderName);
-	if (  ! displayedVersion  ) {
-		displayedVersion = @"?";
-
+	NSString * displayedVersion = displayNameForOpenvpnName(folderName, nil);
+	if (  displayedVersion) {
+		[ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+							  [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), displayedVersion], @"name",
+							  @"", @"value",    // Empty name means default
+							  nil]];
 	}
-	[ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), displayedVersion], @"name",
-                          @"", @"value",    // Empty name means default
-                          nil]];
-    
+	
     NSUInteger ix;
     for (  ix=0; ix<[versionNames count]; ix++  ) {
         NSString * ver = [versionNames objectAtIndex: ix];
-        NSString * name = displayNameForOpenvpnName(ver);
+        NSString * name = displayNameForOpenvpnName(ver, nil);
         if (  name  ) {
             [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
                                    name, @"name",
@@ -395,10 +393,13 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
                                    nil]];
         }
     }
-    [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSString stringWithFormat: NSLocalizedString(@"Latest (%@)", @"Button"), displayNameForOpenvpnName([versionNames lastObject])], @"name",
-                          @"-", @"value",    // "-" means latest
-                          nil]];
+	displayedVersion = displayNameForOpenvpnName([versionNames lastObject], nil);
+	if (  displayedVersion  ) {
+		[ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+							  [NSString stringWithFormat: NSLocalizedString(@"Latest (%@)", @"Button"), displayedVersion], @"name",
+							  @"-", @"value",    // "-" means latest
+							  nil]];
+	}
     
     [perConfigOpenvpnVersionArrayController setContent: ovContent];
 	[perConfigOpenvpnVersionButton
