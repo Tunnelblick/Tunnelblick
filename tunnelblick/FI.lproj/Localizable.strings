@@ -875,9 +875,6 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' ei katkaistu.";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "%1$@ tulee yhdistämään OpenVPN:n versiota %2$@, ei pyydettyä versiota (OpenVPN %3$@) käyttäen.";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath'-asetus jätettiin huomiotta; se ei määritä kansiota";
 
@@ -2203,9 +2200,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "Afrikaansin käännös";
-
-/* Credit description */
-"Albanian translation" = "Albanialainen käännös";
 
 /* Credit description */
 "Animation and icon sets code" = "Animaatiot ja ikoniryhmien koodi";

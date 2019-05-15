@@ -884,9 +884,6 @@
 /* Window text */
 "'%@' was not terminated." = "%@ belum diakhiri.";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' akan menyambung memakai OpenVPN %2$@ sebagai pengganti versi yang diminta (OpenVPN %3$@).";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Preferensi 'easy-rsaPath' diabaikan; itu tidak menyatakan suatu folder";
 
@@ -2236,9 +2233,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "Terjemahan bahasa Afrikaans";
-
-/* Credit description */
-"Albanian translation" = "Terjemahan bahasa Albania";
 
 /* Credit description */
 "Animation and icon sets code" = "Kode set ikon dan animasi";

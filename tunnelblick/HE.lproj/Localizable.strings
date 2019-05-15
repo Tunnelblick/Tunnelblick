@@ -884,9 +884,6 @@
 /* Window text */
 "'%@' was not terminated." = "התגית %@ קיימת ללא סיומת בקובץ.";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' יתחבר באמצעות OpenVPN גרסה %2$@, במקום הגרסה המבוקשת (OpenVPN %3$@).";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "המאפיין 'easy-rsaPath' יתעלם; לא צויינה תיקייה";
 
@@ -1348,9 +1345,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "תרגום לאפריקנס";
-
-/* Credit description */
-"Albanian translation" = "תרגום לאלבנית";
 
 /* Credit description */
 "Arabic translation" = "תרגום לערבית";

@@ -884,9 +884,6 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' 沒有結束。";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' 將使用 OpenVPN %2$@ 連線，而不是要求的版本（OpenVPN %3$@）。";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "「easy-rsaPath」偏好設定被略過；它沒有指定一個檔案夾。";
 
@@ -2173,9 +2170,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "南非語翻譯";
-
-/* Credit description */
-"Albanian translation" = "阿爾巴尼亞語翻譯";
 
 /* Credit description */
 "Animation and icon sets code" = "動畫及圖標的編程";

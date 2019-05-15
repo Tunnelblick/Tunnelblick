@@ -885,7 +885,7 @@
 "'%@' was not terminated." = "'%@' was not terminated.";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' will connect using OpenVPN %2$@ instead of the requested version (OpenVPN %3$@).";
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' will connect using OpenVPN %2$@ instead of the requested version (%3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' preference ignored; it does not specify a folder";
@@ -1405,6 +1405,12 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, which is not available in this version of Tunnelblick";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected.";
@@ -2239,9 +2245,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "Afrikaans translation";
-
-/* Credit description */
-"Albanian translation" = "Albanian translation";
 
 /* Credit description */
 "Animation and icon sets code" = "Animation and icon sets code";

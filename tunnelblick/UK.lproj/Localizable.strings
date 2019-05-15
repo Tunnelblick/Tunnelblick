@@ -384,6 +384,9 @@
 "Check if the apparent public IP address changed after connecting" = "Перевіряти, чи змінилася зовнішня IP-адреса після з’єднання";
 
 /* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Відключити IPv6 окрім випадків, коли доступ до VPN сервера виконується через IPv6(лише tun)";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Від’єднуватися, коли ком’ютер переходить у режим сну";
 
 /* Checkbox name */
@@ -883,9 +886,6 @@
 
 /* Window text */
 "'%@' was not terminated." = "Не закритий тег '%@'.";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "Конфігурацію '%1$@' буде під'єднано із використанням OpenVPN %2$@ замість запрошеної версії (OpenVPN %3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "параметр 'easy-rsaPath' був проігнорований - вказане значення не вказує на папку";
@@ -2096,6 +2096,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Вказує коли Tunnelblick має підключатись до VPN.</strong></p><p>\"При запуску комп'ютера\" може бути використана тільки для \"Спільних\" конфігурацій.</p>";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Якщо обрано</strong>, IPv6 буде відключено, окрім випадків, коли доступ до VPN сервера виконується через IPv6.</p>\n<p>Відключення IPv6 зазвичай є рекомендованим, адже більшість VPN конфігурацій не захищають від витоків даних спричинених саме IPv6. Зазвичай доступ до інтернет працює чудово і без IPv6.</p>\n<p><strong>Якщо не обрано</strong>, IPv6 не буде відключено.</p>\n<p><strong>Ця опція недоступна</strong>, коли використовується підключення 'tap', адже його не можна примусово увімкнути для даного типу підключення.</p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Якщо позначено</strong>. IPv6 буде дозволено.</p>\n<p><strong>Якщо не позначено</strong>, IPv6 не буде дозволено.</p>\n<p>Деактивування IPv6 часто є рекомендованим, оскільки більшість конфігурацій VPN не захищають від витоків інформації, спричинених використанням IPv6. Зазвичай доступ до Інтернет нормально працює і без IPv6.</p>\n<p><strong>Ця опція деактивована</strong>для типів конфігурації Tun.</p>";
 
@@ -2236,9 +2239,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "Африканський переклад";
-
-/* Credit description */
-"Albanian translation" = "Албанський переклад";
 
 /* Credit description */
 "Animation and icon sets code" = "Анімація та набори значків";

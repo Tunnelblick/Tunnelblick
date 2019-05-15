@@ -866,9 +866,6 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' is nie beëindig.";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' sal met OpenVPN %2$@ verbind word in plaas van die vereiste weergawe (OpenVPN %3$@).";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' keuse geignoreer; dit spesifiseer nie 'n gids nie";
 

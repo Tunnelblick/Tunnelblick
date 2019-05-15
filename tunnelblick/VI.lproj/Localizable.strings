@@ -860,9 +860,6 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' không kết thúc được.";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' sẽ kết nối bằng OpenVPN %2$@ thay vì phiên bản được yêu cầu (OpenVPN %3$@).";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Cài đặt 'easy-rsaPath' đã bị bỏ qua; nó không tham chiếu đến một thư mục";
 

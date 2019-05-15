@@ -384,6 +384,9 @@
 "Check if the apparent public IP address changed after connecting" = "Verifică dacă adresa IP publică s-a schimbat după conectare";
 
 /* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Dezactivează IPv6 cu excepția cazului în care serverul VPN este accesat folosind IPv6 (doar tun)";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Deconectează când computerul este în mod hibernare";
 
 /* Checkbox name */
@@ -883,9 +886,6 @@
 
 /* Window text */
 "'%@' was not terminated." = "'%@' nu a fost terminat.";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' se va conecta folosind OpenVPN %2$@ în loc de versiunea cerută (OpenVPN %3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Preferința 'easy-rsaPath' ignorată; nu specifică un dosar";
@@ -2096,6 +2096,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Specifică când Tunnelblick trebuie să se conecteze la rețeaua VPN.</strong></p><p>Opțiunea \"Când pornește computerul\" poate fi folosită numai cu configurații \"Partajate\".</p>";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Când e bifat</strong>, IPv6 va fi dezactivat cu excepția cazului în care serverul OpenVPN este accesat folosind o adresă IPv6.</p>\n<p>Dezactivarea IPv6 este de multe ori recomandată deoarece multe configurații VPN nu protejează împotriva scurgerii de informații cauzate de utilizarea IPv6. Accesul la Internet funcționează bine fără IPv6 de cele mai multe ori.</p>\n<p><strong>Atunci când nu a fost bifat</strong>, IPv6 nu va fi dezactivat.</p>\n<p> <strong>Această casetă de selectare este dezactivată</strong> atunci când se utilizează o conexiune 'tap', deoarece nu poate fi aplicată o conexiune 'tap'.</p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong> Când e bifat </strong>, IPv6 va fi activat. </p>\n<p><strong> Când nu e bifat </strong>, IPv6 va fi dezactivat. </p>\n<p> Dezactivarea IPv6 este de multe ori recomandată deoarece multe configurații VPN nu protejează împotriva scurgerii de informații cauzate de utilizarea IPv6. Accesul la Internet functionează bine fără IPv6 de cele mai multe ori. </p>\n<p> <strong> Această casetă de selectare este dezactivată </strong> pentru configurații Tun </p>";
 
@@ -2236,9 +2239,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "Traducere în limba Afrikaans";
-
-/* Credit description */
-"Albanian translation" = "Traducere în limba Albaneză";
 
 /* Credit description */
 "Animation and icon sets code" = "Animație și coduri pentru seturi de pictograme";

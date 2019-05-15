@@ -384,6 +384,9 @@
 "Check if the apparent public IP address changed after connecting" = "Controleer of het publieke IP adres gewijzigd is na verbinden";
 
 /* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Schakel IPv6 uit tenzij de VPN-server via IPv6 benaderd wordt (alleen via tun)";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Verbinding verbreken wanneer computer overschakelt naar slaapmodus";
 
 /* Checkbox name */
@@ -884,9 +887,6 @@
 /* Window text */
 "'%@' was not terminated." = "' %@' is niet beëindigd.";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' zal verbinden middels OpenVPN %2$@ in plaats van de gevraagde versie (OpenVPN %3$@).";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' instelling genegeerd; het geeft geen specifieke map aan";
 
@@ -981,7 +981,7 @@
 "All configurations use %@ credentials" = "Alle configuraties gebruiken %@ aanmeldgegevens";
 
 /* Window text */
-"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Voeg daarnaast het 'Tunnelblick Error Data.txt'-bestand toe aan de e-mail van je desktop. Dit bevat informatie over de fout. Dubbelklik op het bestand voor meer informatie.\n\n";
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Voeg daarnaast het 'Tunnelblick Error Data.txt'-bestand op je bureaublad toe aan de e-mail. Deze bevat informatie over de fout. Dubbelklik op het bestand voor meer informatie.\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Er is een fout opgetreden (status %1$ld) tijdens de controle van de beveiliging van de %2$@ configuratie.\n\nHerstart Tunnelblick. Indien het probleem aanhoudt, herinstalleer dan Tunnelblick.";
@@ -1728,7 +1728,7 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet verwijderen. Zie het Console Log voor details.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick heeft een fatale fout aangetroffen.\n\nVoor hulp stuur een e-mail naar developers@tunnelblick.net, waarin je beschrijft wat Tunnelblick deed toen de fout optrad.\n\n";
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick heeft een fatale fout aangetroffen.\n\nVoor hulp, stuur een e-mail naar developers@tunnelblick.net, waarin je beschrijft wat Tunnelblick deed toen de fout optrad.\n\n";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick heeft fouten geconstateerd met %1$lu configurations:\n\n%2$@%3$@%4$@%5$@";
@@ -2236,9 +2236,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "Afrikaanse vertaling";
-
-/* Credit description */
-"Albanian translation" = "Albanese vertaling";
 
 /* Credit description */
 "Animation and icon sets code" = "Animatie, pictogrammen sets code";

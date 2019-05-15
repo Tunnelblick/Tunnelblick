@@ -884,9 +884,6 @@
 /* Window text */
 "'%@' was not terminated." = "\"%@' ble ikke avsluttet.";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' vil koble til ved hjelp av OpenVPN %2$@ istedenfor den forespurte versjonen (OpenVPN %3$@).";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' innstilling ignorert; den angir ikke en mappe";
 
@@ -2236,9 +2233,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "Sør-Afrikansk (Afrikaans) oversettelse";
-
-/* Credit description */
-"Albanian translation" = "Albansk oversettelse";
 
 /* Credit description */
 "Animation and icon sets code" = "Animasjoner og ikonsett kode";

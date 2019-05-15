@@ -884,9 +884,6 @@
 /* Window text */
 "'%@' was not terminated." = "Η παράμετρος '%@' τερματίστηκε.";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "Το '%1$@' θα συνδεθεί χρησιμοποιώντας OpenVPN %2$@ αντί της έκδοσης (OpenVPN %3$@) που απαιτήθηκε.";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Οι προτιμήσεις το 'easy-rsaPath' αγνοήθηκαν, δεν καθορίζουν φάκελο";
 
@@ -2236,9 +2233,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "Αφρικανική μετάφραση";
-
-/* Credit description */
-"Albanian translation" = "Αλβανική μετάφραση";
 
 /* Credit description */
 "Animation and icon sets code" = "Κωδικός ομάδων εικονιδίων και κινήσεων";

@@ -384,6 +384,9 @@
 "Check if the apparent public IP address changed after connecting" = "Kontrollera om den synliga IP-adressen har förändrats";
 
 /* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Inaktivera IPv6 om inte VPN-servern ansluts via IPv6 (endast tun-anslutningar)";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Koppla bort när datorn försätts i vila";
 
 /* Checkbox name */
@@ -884,9 +887,6 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' är inte avslutad.";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@' kommer att ansluta med OpenVPN %2$@ istället för den begärda versionen (OpenVPN %3$@).";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' inställning ignorerad; ingen mapp specificerad";
 
@@ -979,6 +979,9 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "Alla konfigurationer använder %@ användaruppgifter";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Bifoga också filen \"Tunnelblick Error Data.txt\" från ditt skrivbord i e-postmeddelandet. Den innehåller information om felet. Du kan dubbelklicka på filen för att se informationen.\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Ett fel (status %1$ld) uppstod under säkerhetskontrollen av konfiguration %2$@.\n\nVänligen starta om Tunnelblick. Om problemet kvarstår, prova att ominstallera Tunnelblick.";
@@ -2093,6 +2096,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Anger när Tunneblick ska koppla upp sig på detta VPN.</strong></p><p>\"När datorn startar\" kan bara användas med \"Delade\" inställningar.</p>";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>När vald</strong> kommer IPv6 att inaktiveras om inte OpenVPN-servern ansluts via en IPv6-adress.</p>\n<p>Det rekommenderas ofta att inaktivera IPv6 då många VPN-konfigurationer inte skyddar mot informationsläckor när just IPv6 används. De flesta kopplingarna till Internet fungerar bra utan IPv6.</p>\n<p><strong>När inte vald</strong> kommer IPv6 att aktiveras.</p>\n<p><strong>Denna ruta är inaktiverad</strong> när du använder en 'tap'-anslutning då inställningen inte är kompatibel med den typen av anslutning.</p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>När vald</strong> är IPv6 aktiverat.</p>\n<p><strong>När inte vald</strong> är IPv6 inaktiverat.</p>\n<p>Det rekommenderas ofta att inaktivera IPv6 då många VPN-konfigurationer inte skyddar mot informationsläckor när just IPv6 används. De flesta kopplingarna till Internet fungerar bra utan IPv6.</p>\n<p><strong>Denna ruta är inaktiverad</strong> för Tun-konfigurationer.</p>";
 
@@ -2233,9 +2239,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "Afrikaansk översättning";
-
-/* Credit description */
-"Albanian translation" = "Albansk översättning";
 
 /* Credit description */
 "Animation and icon sets code" = "Animation, ikonuppsättningskod";

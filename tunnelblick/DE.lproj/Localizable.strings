@@ -384,6 +384,9 @@
 "Check if the apparent public IP address changed after connecting" = "Prüfen ob die scheinbare öffentliche IP-Adresse sich nach Verbindungsherstellung geändert hat";
 
 /* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "IPv6 deaktivieren, außer es wird über IPv6 auf den VPN-Server zugegriffen (nur Tun)";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Trennen, wenn der Computer in den Ruhezustand geht";
 
 /* Checkbox name */
@@ -883,9 +886,6 @@
 
 /* Window text */
 "'%@' was not terminated." = "'%@' wurde nicht beendet.";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "\"%1$@\" wird beim Verbinden OpenVPN %2$@ anstelle der gewünschten Version (OpenVPN %3$@) nutzen.";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' Einstellung ignoriert; kein Verzeichnis angegeben";
@@ -2096,6 +2096,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Legt fest, wann sich Tunnelblick mit dem VPN verbinden soll.</strong></p><p>\"Beim Start des Computers\" kann möglicherweise nur bei \"für alle Nutzer freigegebenen\" Konfigurationen genutzt werden.</p>";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Falls ausgewählt</strong>, wird IPv6 deaktiviert, außer es wird über eine IPv6-Adresse auf den VPN-Server zugegriffen.</p>\n<p>Das Deaktivieren von IPv6 wird häufig empfohlen, da viele VPN Konfigurationen nicht gegen Informationslecks schützen, die durch die Verwendung von IPv6 entstehen. Der überwiegende Internetzugang funktioniert problemlos ohne die Verwendung von IPv6.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird IPv6 nicht deaktiviert.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> für \"Tap\" Verbindungen, da sie bei \"Tap\" Verbindungen nicht erzwungen werden kann.</p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Falls ausgewählt</strong>, wird IPv6 aktiviert.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird IPv6 deaktiviert.</p>\n<p>Das Deaktivieren von IPv6 wird häufig empfohlen, da viele VPN Konfigurationen nicht gegen Informationslecks schützen, die durch die Verwendung von IPv6 entstehen. Der überwiegende Internetzugang funktioniert problemlos ohne die Verwendung von IPv6.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> für Tun Verbindungen.</p>";
 
@@ -2236,9 +2239,6 @@
 
 /* Credit description */
 "Afrikaans translation" = "Afrikaans Übersetzung";
-
-/* Credit description */
-"Albanian translation" = "Albanische Übersetzung";
 
 /* Credit description */
 "Animation and icon sets code" = "Animationen, Icon Sets Code";

@@ -384,6 +384,9 @@
 "Check if the apparent public IP address changed after connecting" = "Görünen IP adresinin, bağlantıdan sonra değişip değişmediğini kontrol et";
 
 /* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "VPN sunucusuna IPv6 üzerinden ulaşılmamışsa, IPv6'yı kullanım dışı bırak.";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Bilgisayar uyku moduna geçtiğinde bağlantıyı kes";
 
 /* Checkbox name */
@@ -884,9 +887,6 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' sonlandırılmamış.";
 
-/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
-"'%@' will connect using OpenVPN %@ instead of the requested version (OpenVPN %@)." = "'%1$@', istenilen sürüm (OpenVPN %3$@) yerine OpenVPN %2$@ kullanılarak bağlanacak.";
-
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' ayarı yok sayıldı; bir dizine işaret etmiyor";
 
@@ -979,6 +979,9 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "Tüm yapılandırmalar %@ kimlik bilgisini kullansın";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Ayrıca, emailine masüstünde oluşan  'Tunnelblick Error Data.txt' dosyasını ekle. Bunda hata ile ilgili bilgi var. Bu bilgiyi görmek istersen dosyayı çift tıkla.";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ yapılandırmasının güvenliği kontrol edilirken bir hata oluştu. (Hata kodu %1$ld) \n\nTunnelblick 'i kapatıp tekrar açın. Eğer sorun devam ederse, Tunnelblick 'i kaldırıp tekrar yükleyin.";
@@ -1725,6 +1728,9 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick '%@' yapılandırmasını kaldıramadı. Detaylar için konsol kayıtlarına bakın.";
 
 /* Window text */
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick feci bir hata ile karşılaştı.\n\n\nYardım için developers@tunnelblick.net'e - 'hata oluştuğunda TB ne işlem yapıyordu' anlatan - bir email gönder. ";
+
+/* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick %1$lu hatası ile karşılaştı şu yapılandırmalarda karşılaştı:\n\n%2$@%3$@%4$@%5$@";
 
 /* Window text */
@@ -2001,6 +2007,9 @@
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Bilgisayarınız Tunnelblick ikonunu Spotlight ikonunun yanında gösterebilecek durumda değil.\n\nBu bazen Tunnelblick ikonunun bazen menü çubuğundan KAYBOLMASINA neden olabilir.\n\nTunnelblick ikonunu Spotlight ikonununa yakın konumlandırmak istediğinize emin misiniz?\n\n";
 
 /* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Bu konudaki yardımın, tüm Tunnelblick kullanıcılarının yararına olacak.\n\nMümkünse email'i gönderinceye kadar \"Quit\" düğmesini tıklama.";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Sistem saatiniz düzgün ayarlanmamış olabilir.\n\nSistem saat ve tarihi düzeltilmeden yapılandırmalarınızın bazısı veya hepsi bağlanamayabilir.\n\n";
 
 /* Window text */
@@ -2219,14 +2228,14 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick, sertifika ve anahtarları oluşturmak ve yönetmek amacıyla OpenVPN geliştiricileri tarafından yazılmış olan bir betikler kümesi olan 'easy-rsa'in özelleştirilmiş bir sürümünü içerir.</p><p>Bu düğmeye tıklamak macOS Terminal uygulamasını çalışma dizini betikleri içeren dizin olacak şekilde açar.</p><p>Bu betikler normalde ~/Library/Application Support/Tunnelblick/easy-rsa dizininde yer almaktadır. Bir 'easy-rsaPath' ayarı farklı bir dizini işaret ediyorsa Tunnelblick bunu kullanacaktır. 'easy-rsaPath' ya bir mutlak yol olmalı veya '~' ile başlamalıdır ve yolun bir üstü dizin mutlaka var olmalıdır. Eğer bu yolda bir dizin varsa bu kullanılacaktır, yoksa oluşturulacak ve easy-rsa betikleri buraya Tunnelblick açıldığında kurulacaktır.</p><p>easy-rsa kullanımıyla ilgili bilgi için, bkz <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Kendi Sertifika Otorite'nizi (CA) oluşturmak ve OpenVPN sunucusu ve çeşitli istemciler için sertifika ve anahtarlar üretmek</a> [openvpn.net].</p><p>Tunnelblick'in easy-rsa özelleştirmesinin detayları için dizinde bulunan README dosyasına bakınız.</p>";
 
+/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>%1$@ bağlanmak için Tunnelblick sistem eklentisini yükleyemedi.</p>\n<p>%2$@</p>";
+
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Yönetici modu %@ kaldı";
 
 /* Credit description */
 "Afrikaans translation" = "Afrikaansca çeviri";
-
-/* Credit description */
-"Albanian translation" = "Arnavutça çeviri";
 
 /* Credit description */
 "Animation and icon sets code" = "Animasyon ve simge kümesi kodu";
