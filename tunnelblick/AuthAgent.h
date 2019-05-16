@@ -91,6 +91,7 @@
 -(void)         performAuthentication;
 
 -(NSString *)   usernameFromKeychain;
+-(NSString *)   passwordFromKeychain;
 
 TBPROPERTY(NSString *, authMode,        setAuthMode)
 TBPROPERTY(NSString *, username,        setUsername)

@@ -208,6 +208,15 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     return nil;
 }
 
+-(NSString *) passwordFromKeychain {
+
+    if (  [self passwordIsInKeychain]  ) {
+        return [passwordKeychain password];
+    }
+
+    return nil;
+}
+
 // Returns an array with a username and password obtained from the Keychain or by asking the user
 // Returns nil if cancelled by user or error
 -(NSArray *)getUsernameAndPassword
@@ -243,9 +252,11 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 			passwordLocal = nil;
         }
     }
-    
+
+    NSString * key = [[self displayName] stringByAppendingString: @"-alwaysShowLoginWindow"];
     if (   (! passwordLocal)
-        || (! usernameLocal)  ) {
+        || (! usernameLocal)
+        || [gTbDefaults boolForKey: key]  ) {
         
         // Ask for password and username
 
@@ -313,8 +324,17 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
                     [gTbDefaults removeObjectForKey:  usernameAndPasswordPreferenceKey];
                 }
             }
+        } else {
+
+            // Not saving username or password, so delete them
+            if (  [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) {
+                [usernameKeychain deletePassword];
+                [passwordKeychain deletePassword];
+                [gTbDefaults removeObjectForKey: usernamePreferenceKey];
+                [gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
+            }
         }
-        
+
         [[loginScreen window] close];
     }
     

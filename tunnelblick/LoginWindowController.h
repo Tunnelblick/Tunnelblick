@@ -38,7 +38,8 @@
     
     IBOutlet NSButton           * saveUsernameInKeychainCheckbox;
     IBOutlet NSButton           * savePasswordInKeychainCheckbox;
-    
+	IBOutlet NSButton           * alwaysShowLoginWindowCheckbox;
+
     id                            delegate;
 }
 
@@ -58,6 +59,7 @@ TBPROPERTY_READONLY(NSSecureTextField *, password)
 
 TBPROPERTY_READONLY(NSButton *,    saveUsernameInKeychainCheckbox)
 TBPROPERTY_READONLY(NSButton *,    savePasswordInKeychainCheckbox)
+TBPROPERTY_READONLY(NSButton *,    alwaysShowLoginWindowCheckbox)
 
 TBPROPERTY_READONLY(id, delegate)
 

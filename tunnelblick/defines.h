@@ -826,6 +826,7 @@ name = newValue;                                    \
 @"-allowChangesToManuallySetNetworkSettings",	\
 @"-disableNetworkAccessAfterDisconnect",	\
 @"-disableNetworkAccessAfterUnexpectedDisconnect",	\
+@"-alwaysShowLoginWindow", \
 \
 @"-changeDNSServersAction",	\
 @"-changeDomainAction",	\
