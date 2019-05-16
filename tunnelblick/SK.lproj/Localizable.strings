@@ -927,9 +927,6 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Konfigurácia VPN Tunnelblick je vnorená príliš hlboko v \"%@\"";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Konfiguráciu, ktorá vyžaduje zadanie Passphrase (súkromný kľúč) alebo meno a heslo, nie je možné spustiť automaticky pri štarte počítača.";
-
-/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Vyžaduje sa identifikačné slovo pre pripojenie k\n  %1$@%2$@";
 
 /* Window text */
@@ -1222,9 +1219,6 @@
 
 /* Window text */
 "File is too large: %@" = "Súbor je príliš veľký: %@";
-
-/* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Zvoľte všetkých užívateľov pre ktorých si prajete importovať konfigurácie a nastavenia.";
 
 /* Window text */
 "GB" = "GB";
@@ -2432,12 +2426,6 @@
 
 /* Notification text */
 "Updated to %@." = "Aktualizované na verziu %@.";
-
-/* Column heading in a table */
-"Username in setup data" = "Užívateľské meno v dátach nastavenia";
-
-/* Column heading in a table */
-"Username on this computer" = "Užívateľské meno na tomto počítači";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamský preklad";

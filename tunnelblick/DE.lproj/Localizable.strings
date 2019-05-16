@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Änderungen an manuell veränderten Netzwerkeinstellungen erlauben";
 
 /* Checkbox name */
+"Always show this window" = "Dieses Fenster immer zeigen";
+
+/* Checkbox name */
 "Apply to all" = "Auf alle anwenden";
 
 /* Checkbox name */
@@ -384,7 +387,7 @@
 "Check if the apparent public IP address changed after connecting" = "Prüfen ob die scheinbare öffentliche IP-Adresse sich nach Verbindungsherstellung geändert hat";
 
 /* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "IPv6 deaktivieren, außer es wird über IPv6 auf den VPN-Server zugegriffen (nur Tun)";
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "IPv6 deaktivieren, außer es wird über IPv6 auf den VPN-Server zugegriffen";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Trennen, wenn der Computer in den Ruhezustand geht";
@@ -887,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' wurde nicht beendet.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "\"%1$@\" wird beim Verbinden OpenVPN %2$@ anstelle der gewünschten Version (OpenVPN %3$@) nutzen.";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' Einstellung ignoriert; kein Verzeichnis angegeben";
 
@@ -930,7 +936,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Eine Tunnelblick VPN-Konfiguration ist zu tief in '%@' verschachtelt";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Eine Konfiguration, die eine Passphrase (privater Schlüssel) oder einen Benutzernamen und ein Passwort benötigt, kann nicht mit dem Start des Computers starten.";
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Eine Konfiguration, die eine Passphrase (privater Schlüssel) oder einen Benutzernamen und ein Passwort benötigt, kann nicht beim Start des Computers verbunden werden.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Für eine Verbindung mit \n  %1$@%2$@\nwird eine Passphrase benötigt.";
@@ -1225,9 +1231,6 @@
 
 /* Window text */
 "File is too large: %@" = "Datei ist zu groß: %@";
-
-/* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Wählen Sie für jeden Benutzer, dessen Konfiguration und Einstellungen Sie importieren möchten, den Benutzer auf diesem Computer der diese Konfiguration und Einstellungen erhalten soll.";
 
 /* Window text */
 "GB" = "GB";
@@ -2438,12 +2441,6 @@
 
 /* Notification text */
 "Updated to %@." = "Aktualisiert auf %@.";
-
-/* Column heading in a table */
-"Username in setup data" = "Benutzername in Konfigurationsdaten";
-
-/* Column heading in a table */
-"Username on this computer" = "Benutzername auf diesem Computer";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamesische Übersetzung";

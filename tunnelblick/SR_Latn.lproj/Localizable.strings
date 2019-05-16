@@ -884,6 +884,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' nije zatvoren.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' želi da se poveže pomoću OpenVPN %2$@ umesto tražene verzije (OpenVPN %3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' podešavanje je ignorisano; direktorijum nije naznačen";
 
@@ -925,9 +928,6 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN konfiguracija je suviše ugnežđena u '%@'";
-
-/* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Konfiguracija koja zahteva tajnu sekvencu (privatni ključ) ili korisničko ime i lozinku ne može da se pokreće prilikom startovanja računara.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Tajna sekvenca je neophodna za povezivanje na\n  %1$@%2$@";
@@ -1224,9 +1224,6 @@
 "File is too large: %@" = "Datoteka je prevelik: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Ukoliko želite da uvezete konfiguraciju i podešavanja za jednog ili više korisnika, molimo vas da odaberete korisnike koji su dostupni na ovom računaru.";
-
-/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1402,6 +1399,12 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Samo Tunnelblickova VPN konfiguracija (.tblk) može biti pokrenuta pri pokretanju računara.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, koji nije dostupan u ovoj verziji Tunnelblick-a";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN ne reaguje na zahteve za prekid veze %@.\n\nTunnelblick će prekinuti vezu čim OpenVPN počne da reaguje na zahteve za prekid veze.\n\nOVO MOŽE POTRAJATI DO DVA MINUTA u određenim neobičnim okolnostima.\n\nVeza će biti nedostupna do prekida iste.";
@@ -2093,6 +2096,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Definiše kada će se Tunnelblick povezati na VPN.</strong></p><p>\"Prilikom pokretanja računara\" se može koristiti samo uz \"Deljene\" konfiguracije.</p>";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Ako je označeno</strong>, IPv6 će biti onemogućen.</p>\n<p>Onemogućavanje IPv6 je često preporučeno jer mnoge VPN konfiguracije ne štite od curenja informacija usled korišćenja IPv6. Većina internet pristupa radi bez problema i bez IPv6.</p>\n<p><strong>Ako nije označeno</strong>, IPv6 neće biti onemogućen.</p>\n<p><strong>Ova opcija je zasivljena</strong> kada se koristi 'tap' veza jer se ne može forsisari na 'tap' vezi.</p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Ako je označeno</strong>, IPv6 će biti omogućen.</p>\n<p><strong>Ako nije označeno</strong>, IPv6 neće biti omogućen.</p>\n<p>Onemogućavanje IPv6 je često preporučeno jer mnoge VPN konfiguracije ne štite od curenja informacija usled korišćenja IPv6. Većina internet pristupa radi bez problema i bez IPv6.</p>\n<p><strong>Ova opcija je zasivljena</strong> za Tun konfiguracije.</p>";
 
@@ -2432,12 +2438,6 @@
 
 /* Notification text */
 "Updated to %@." = "Ažurirano na %@.";
-
-/* Column heading in a table */
-"Username in setup data" = "Korisničko ime u podešavanjima";
-
-/* Column heading in a table */
-"Username on this computer" = "Korisničko ime na ovom računaru";
 
 /* Credit description */
 "Vietnamese translation" = "Vijetnamski prevod";

@@ -840,9 +840,6 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN Konfiqurasiyası '%@'-ın dərinliklərində yerləşib";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Şifrə-söz (özəl açar) və ya istifadəçi və şifrə tələb edən konfiqurasiya kompyuter başlayanda işə salına bilməz.";
-
-/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "%1$@%2$@\nbağlanmaq üçün şifrə-söz lazımdır";
 
 /* Window text */

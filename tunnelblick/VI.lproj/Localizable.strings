@@ -897,9 +897,6 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Cấu hình VPN Tunnelblick bị lồng vào quá sâu tại '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Cấu hình mà yêu cầu một mật khẩu (khóa cá nhân) hoặc một tên đăng nhập và mật khẩu không thể khởi động khi máy tính khởi động.";
-
-/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Cần mật khẩu để kết nối tới\n  %1$@%2$@";
 
 /* Window text */

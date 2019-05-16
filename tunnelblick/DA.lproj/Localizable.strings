@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Afbryd alle (%1$@) - registrerede offentlige IP adresse %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Afbryd alle (%1$@) – registreret offentlige IP-adresse %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Afbryd Alle (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Afbryd alle (%1$d Forbindelser) - registrerede offentlige IP adresse %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Afbryd alle (%1$d forbindelser) - registreret offentlig IP-adresse %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Afbryd Alle (%d Forbindelser)";
@@ -382,9 +382,6 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Tjek om den offentlige IP addresse har ændret sig efter du er blevet forbundet";
-
-/* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Slå IPv6 fra, medmindre der forbindes til VPN-serveren med IPv6 (kun tun)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Afbryd forbindelsen, når computeren går i vågeblus";
@@ -887,6 +884,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' blev ikke afsluttet.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' vil forbinde via OpenVPN %2$@ i stedet for den efterspurgte version (OpenVPN %3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' præference blev ignoreret; den angiver ikke en mappe";
 
@@ -928,9 +928,6 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "En Tunnelblick VPN-konfiguration er indlejret for dybt i '%@'";
-
-/* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "En konfiguration som kræver et kodeord (privat nøgle) eller et brugernavn og kodeord kan ikke automatisk starte sammen med computeren.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Et adgangsudtryk er forpligtet til at oprette forbindelse til\n  %1$@%2$@";
@@ -1227,9 +1224,6 @@
 "File is too large: %@" = "Filen er for stor: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "For hver bruger, hvis konfigurationer og indstillinger du ønsker at importere, skal du vælge brugeren på denne computer, der skal modtage konfigurationer og indstillinger.";
-
-/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1405,6 +1399,12 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Kun en Tunnelblick VPN Konfiguration (.tblk) kan startes sammen med computeren.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, som ikke er tilgængelig i denne version af Tunnelblick";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reagerer ikke på anmodningen om at afbryde forbindelsen til %@.\n\nTunnelblick vil afbryde når OpenVPN begynder at svare på anmodningerne.\n\nForbindelsen vil være utilgængelig indtil at den er blevet afbrudt.";
@@ -2438,12 +2438,6 @@
 
 /* Notification text */
 "Updated to %@." = "Opdateret til %@.";
-
-/* Column heading in a table */
-"Username in setup data" = "Brugernavn i opsætningsdata";
-
-/* Column heading in a table */
-"Username on this computer" = "Brugernavn på denne computer";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamesisk oversættelse";

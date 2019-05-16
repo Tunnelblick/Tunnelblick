@@ -927,9 +927,6 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "在 '%@' 中，一个 Tunnelblick VPN 配置文件嵌套得太深";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "需要使用口令(私人密钥)或用户名和密码的配置，不能随计算机启动而启动。";
-
-/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "需要密码才能建立连接 \n  %1$@%2$@";
 
 /* Window text */
@@ -1222,9 +1219,6 @@
 
 /* Window text */
 "File is too large: %@" = "文件 %@ 太大了";
-
-/* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "对于要导入其配置和设置的每个用户，请在此计算机上选择应接收配置和设置的用户。";
 
 /* Window text */
 "GB" = "GB";
@@ -2432,12 +2426,6 @@
 
 /* Notification text */
 "Updated to %@." = "已升级到 %@.";
-
-/* Column heading in a table */
-"Username in setup data" = "设置数据中的用户名";
-
-/* Column heading in a table */
-"Username on this computer" = "此计算机上的用户名";
 
 /* Credit description */
 "Vietnamese translation" = "越南语翻译";

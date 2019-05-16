@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Salli manuaaliset muutokset verkkoasetuksiin";
 
 /* Checkbox name */
+"Always show this window" = "Näytä aina tämä ikkuna";
+
+/* Checkbox name */
 "Apply to all" = "Käytä kaikille";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Tarkista, vaihtuiko julkinen IP-osoite yhteydenmuodostuksen jälkeen";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Poista IPv6 käytöstä, kunnes VPN palveluun otetaan IPv6 yhteys";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Katkaise yhteys, kun tietokone menee unitilaan";
@@ -746,6 +752,9 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     VPN-palvelimelta, joka toimii %1$@:n kanssa:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     DNS palvelun osoite %@ on yksityinen, mutta sitä ei ole reititetty VPN kautta.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Asennettu %lu konfiguraatiota\n\n";
 
@@ -913,9 +922,6 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblickin VPN-konfiguraatio on upotettu liian syvällte kohteeseen '%@'";
-
-/* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Konfiguraatiota, joka tarvitsee salasanan (yksityinen avain) tai käyttäjätunnuksen ja salasanan, ei voida käynnistää automaattisesti tietokoneen käynnistyksen yhteydessä.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Salasana vaaditaan yhteyden muodostamiseen kohteeseen \n  %1$@%2$@";
@@ -1209,9 +1215,6 @@
 "File is too large: %@" = "Tiedosto on liian suuri: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Jokainen käyttäjä, jonka asetuksia ja määrityksiä olet tuomassa, valitse käyttäjätili tässä tietokoneessa, jolle asetukset tuodaan.";
-
-/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1380,10 +1383,16 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Yksi tai useampi konfiguraatio jätetään huomiotta. Katso päätelokista lisätietoja.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "DNS palvelussa löytyi yksi tai useampia mahdollista ongelmaa: \n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Yksi tai useampia ongelmia havaittiin:\n\n%@";
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Vain Tunnelblick VPN-yhteys (.tblk) voi käynnistyä, kun tietokone käynnistyy.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN ei vastaa yhteydenkatkaisupyyntöihin %@.\n\nTunnelblick katkaisee yhteyden, kun OpenVPN alkaa vastata katkaisupyyntöihin.\n\nTÄMÄ VOI KESTÄÄ JOPA KAKSI MINUUTTIA tietyissä epätavallisissa olosuhteissa.\n\nYhteys on pois käytöstä, kunnes se on katkaistu.";
@@ -1585,6 +1594,9 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Yhden tai useamman konfiguraation poistaminen epäonnistui. Katso lisätietoja lokista.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "DNS luettelon hakemisessa ilmeni ongelmia.";
 
 /* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "OpenVPN konfiguraatiossa on ongelma. Katso lisätietoja lokista.";
@@ -2400,11 +2412,11 @@
 /* Notification text */
 "Updated to %@." = "Päivitetty versioon %@.";
 
-/* Column heading in a table */
-"Username in setup data" = "Käyttäjänimi asetustiedoissa";
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Käyttäjä asetustiedoissa";
 
 /* Column heading in a table */
-"Username on this computer" = "Käyttäjänimi tässä laitteessa";
+"User on this computer" = "Käyttäjä tällä laitteella";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamilainen käännös";

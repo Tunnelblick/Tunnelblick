@@ -897,9 +897,6 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "'n Tunnelblick VPN Konfigurasie is geneste te diep in '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "'n Konfigurasie wat 'n wagwoord (privaat sleutel) of 'n gebruikersnaam en paswoord kan nie begin wanner die rekenaar begin.";
-
-/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "'n Wagwoord is benodig om te koppel met\n  %1$@%2$@";
 
 /* Window text */

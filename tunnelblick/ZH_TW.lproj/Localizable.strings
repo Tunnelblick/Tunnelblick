@@ -927,9 +927,6 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "「%@」VPN 設定檔中的巢狀層級太深";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "一個需要輸入口令（私人密鑰）或用戶名和密碼的配置，是無法隨計算機啓動而啓動的。";
-
-/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "需要密碼來連線到\n  %1$@%2$@";
 
 /* Window text */
@@ -2369,12 +2366,6 @@
 
 /* Notification text */
 "Updated to %@." = "已更新到 %@";
-
-/* Column heading in a table */
-"Username in setup data" = "設定檔裡頭的使用者名稱";
-
-/* Column heading in a table */
-"Username on this computer" = "這臺電腦的使用者名稱";
 
 /* Credit description */
 "Vietnamese translation" = "越南文翻譯";

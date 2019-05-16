@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Autoriser les changements sur les paramètres réseaux réglés manuellement";
 
 /* Checkbox name */
+"Always show this window" = "Toujours afficher cette fenêtre";
+
+/* Checkbox name */
 "Apply to all" = "Appliquer à tous";
 
 /* Checkbox name */
@@ -384,7 +387,7 @@
 "Check if the apparent public IP address changed after connecting" = "Vérifier si l’adresse IP publique a changé après la connexion";
 
 /* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Désactiver IPv6 sauf si le serveur VPN utilise une adresse IPv6 (seulement tun)";
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Désactiver IPv6 sauf si le serveur VPN utilise une adresse IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Déconnecter lorsque l'ordinateur entre en veille";
@@ -887,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' n'a pas été terminé.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' sera connecté en utilisant OpenVPN %2$@ au lieu de la version demandée (%3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "la préférence 'easy-rsaPath' a été ignorée; elle ne spécifie pas un dossier";
 
@@ -930,7 +936,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Une configuration VPN Tunnelblick est imbriquée trop profondément dans '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Une configuration qui nécessite un mot de passe (clé privée) ou un nom d'utilisateur et un mot de passe ne peut pas démarrer au lancement de l'ordinateur.";
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Une configuration qui nécessite un mot de passe (clé privée) ou un nom d'utilisateur et un mot de passe ne peut pas se connecter au lancement de l'ordinateur.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Une phrase de chiffrement est requise pour se connecter à\n  %1$@%2$@";
@@ -1227,9 +1233,6 @@
 "File is too large: %@" = "Fichier trop gros : %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Pour chaque utilisateur dont vous voulez importer la configuration et les réglages, choisissez l'utilisateur de cet ordinateur qui devra recevoir la configuration et les réglages. ";
-
-/* Window text */
 "GB" = "Go";
 
 /* Window text */
@@ -1406,6 +1409,12 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Seulement une configuration VPN Tunnelblick « .tblk » peut se lancer quand l’ordinateur démarre.";
 
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, qui n'est pas disponible dans cette version de Tunnelblick";
+
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN ne répond pas aux demandes pour déconnecter %@.\n\nTunnelblick se déconnectera lorsque OpenVPN commencera à répondre aux demandes de déconnexion.\n\nCELA PEUT PRENDRE JUSQUE DEUX MINUTES dans certaines circonstances inhabituelles.\n\nLa connexion ne sera pas disponible jusqu'à ce qu'il soit déconnecté.";
 
@@ -1459,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Sécurisation de Tunnelblick %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Choisir un utilisateur cible pour chaque utilisateur dont vous voulez importer les réglages.";
 
 /* Window text */
 "Set DNS/WINS:" = "Changer DNS/WINS :";
@@ -2439,11 +2451,11 @@
 /* Notification text */
 "Updated to %@." = "Mis à jour à %@.";
 
-/* Column heading in a table */
-"Username in setup data" = "Nom d'utilisateur dans les données de configuration";
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Utilisateur dans les réglages";
 
 /* Column heading in a table */
-"Username on this computer" = "Nom d'utilisateur sur cet ordinateur";
+"User on this computer" = "Nom d'utilisateur sur cet ordinateur";
 
 /* Credit description */
 "Vietnamese translation" = "Traduction vietnamienne";

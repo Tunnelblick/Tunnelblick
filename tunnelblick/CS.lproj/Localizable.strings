@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Povolit změny ručně nastavených předvoleb sítě";
 
 /* Checkbox name */
+"Always show this window" = "Vždy zobrazit toto okno";
+
+/* Checkbox name */
 "Apply to all" = "Aplikovat na vše";
 
 /* Checkbox name */
@@ -384,7 +387,7 @@
 "Check if the apparent public IP address changed after connecting" = "Zkontrolovat jestli se vaše veřejná IP adresa změnila po připojení";
 
 /* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Zakázat IPv6, dokud není na VPN server přistupováno pomocí IPv6 (jen tun)";
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Zakázat IPv6, dokud není na VPN server přistupováno pomocí IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Odpojit při usnutí počítače";
@@ -887,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' nebylo ukončeno.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' se připojí pomocí OpenVPN %2$@ namísto požadované verze (%3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Nastavení 'easy-rsaPath' bylo ignorováno; nespecifikuje složku";
 
@@ -930,7 +936,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Konfigurace VPN Tunnelblick je vnořena příliš hluboko v '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Konfigurace, která vyžaduje passphrase (soukromý klíč) nebo jméno a heslo, není možné spustit automaticky při startu počítače.";
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Konfigurace, která vyžaduje passphrase (soukromý klíč) nebo jméno a heslo, se nemohou připojit při startu počítače.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Je požadováno heslo (passphrase) ke spojení k\n  %1$@%2$@";
@@ -1227,9 +1233,6 @@
 "File is too large: %@" = "Soubor %@ je příliš veliký";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Pro každého uživatele, u nějž si přejete importovat konfigurace a nastavení, zvolte uživatele tohoto počítače jenž má získat dané konfigurace a nastavení.";
-
-/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1406,6 +1409,12 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Pouze konfigurace VPN Tunnelblicku (.tblk) může nastartovat pouze při spuštění počítače.";
 
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, která není v této verzi Tunnelblick dostupná";
+
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN neodpovídá na žádosti o odpojeníi %@.\n\nTunnelblick se odpojí, pokud OpenVPN začne odpovídat na žádosti o odpojení .\n\nTO MŮŽE V NĚKTERÝCH NEOBVYKLÝCH SITUACÍCH TRVAT AŽ DVĚ MINUTYHIS MAY TAKE UP TO TWO MINUTES.\n\nSpojení bude nedostupné dokud není odpojeno.";
 
@@ -1459,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Zabezpečování Tunnelblicku %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Zvolte cílového uživatele pro každého uživatele, jehož nastavení chcete importovat.";
 
 /* Window text */
 "Set DNS/WINS:" = "Nastavit DNS/WINS:";
@@ -2439,11 +2451,11 @@
 /* Notification text */
 "Updated to %@." = "Aktualizováno na %@.";
 
-/* Column heading in a table */
-"Username in setup data" = "Uživatelské jméno v datech nastavení";
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Uživatel v datech nastavení";
 
 /* Column heading in a table */
-"Username on this computer" = "Uživatelské jméno na tomto počítači";
+"User on this computer" = "Uživatel tohoto počítače";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamský překlad";

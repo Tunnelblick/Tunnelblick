@@ -384,9 +384,6 @@
 "Check if the apparent public IP address changed after connecting" = "Verifică dacă adresa IP publică s-a schimbat după conectare";
 
 /* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Dezactivează IPv6 cu excepția cazului în care serverul VPN este accesat folosind IPv6 (doar tun)";
-
-/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Deconectează când computerul este în mod hibernare";
 
 /* Checkbox name */
@@ -930,9 +927,6 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "O configurare Tunnelblick VPN este imbricată prea adânc în '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "O configurație care necesită o parolă (cheie privată) sau un nume de utilizator și o parolă nu poate porni atunci când pornește calculatorul.";
-
-/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "O parolă este necesară pentru a te conecta la   %1$@%2$@";
 
 /* Window text */
@@ -1225,9 +1219,6 @@
 
 /* Window text */
 "File is too large: %@" = "Fișierul este prea mare: %@";
-
-/* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Pentru fiecare utilizator pentru care doriți importul configurațiilor și preferințelor, selectați utilizatorul acestui computer care va primi configurațiile și setările.";
 
 /* Window text */
 "GB" = "GB";
@@ -2438,12 +2429,6 @@
 
 /* Notification text */
 "Updated to %@." = "Actualizat la %@.";
-
-/* Column heading in a table */
-"Username in setup data" = "Nume utilizator în configurație";
-
-/* Column heading in a table */
-"Username on this computer" = "Nume utilizator pe acest computer";
 
 /* Credit description */
 "Vietnamese translation" = "Traducere în limba Vietnameză";

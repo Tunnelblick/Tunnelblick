@@ -906,9 +906,6 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN設定のネストが多すぎます: '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "パスフレーズ(秘密鍵)もしくはユーザー名とパスワードが必要な設定は、コンピューター起動時に接続できません。";
-
-/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "以下に接続するにはパスフレーズが必要です。\n  %1$@%2$@";
 
 /* Window text */
@@ -2255,12 +2252,6 @@
 
 /* Notification text */
 "Updated to %@." = "%@に更新されました";
-
-/* Column heading in a table */
-"Username in setup data" = "セットアップデータでのユーザ名";
-
-/* Column heading in a table */
-"Username on this computer" = "このコンピューターでのユーザ名";
 
 /* Credit description */
 "Vietnamese translation" = "ベトナム語翻訳";

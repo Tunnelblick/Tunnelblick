@@ -843,9 +843,6 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN Konfigurācija ir pakārtota pārāk dziļi iekš '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Konfigurācija, kurai nepieciešama frāzveida parole (privātā atslēga) vai lietotājvārds un parole, nevar startēties pie datora ieslēgšanas.";
-
-/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Nepieciešama frāzveida parole, lai pieslēgtos\n  %1$@%2$@";
 
 /* Window text */

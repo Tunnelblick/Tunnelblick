@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Tillåt ändringar för manuellt satta nätverksinställningar";
 
 /* Checkbox name */
+"Always show this window" = "Visa alltid detta fönster";
+
+/* Checkbox name */
 "Apply to all" = "Applicera på alla";
 
 /* Checkbox name */
@@ -382,9 +385,6 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Kontrollera om den synliga IP-adressen har förändrats";
-
-/* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Inaktivera IPv6 om inte VPN-servern ansluts via IPv6 (endast tun-anslutningar)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Koppla bort när datorn försätts i vila";
@@ -887,6 +887,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' är inte avslutad.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' kommer att ansluta med OpenVPN %2$@ istället för den begärda versionen (%3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' inställning ignorerad; ingen mapp specificerad";
 
@@ -928,9 +931,6 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "En Tunnelblick VPN konfiguration är inkapslad för djupt i '%@'";
-
-/* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "En konfiguration som kräver en lösenordsfras (privat nyckel) eller ett användarnamn och lösenord kan inte startas när datorn startar.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Det krävs ett lösenord för att kunna ansluta till\n  %1$@%2$@";
@@ -1227,9 +1227,6 @@
 "File is too large: %@" = "Filen är för stor: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "För varje användare vars konfigurationer och inställningar du vill importera, ska du välja den användare av den här datorn som ska motta konfigurationerna och inställningarna.";
-
-/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1405,6 +1402,12 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Endast en Tunnelblick VPN-konfiguration (.tblk) kan starta när datorn startas.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, som inte är tillgänglig i den här versionen av Tunnelblick";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN svarar inte på begäran om nedkoppling %@.\n\nTunnelblick kommer att koppla ner OpenVPN när OpenVPN börjar svara på begäran om nedkoppling.\n\nDETTA KAN TA UPP TILL TVÅ MINUTER under vissa omständigheter.\n\nAnslutningen kommer att vara otillgänglig tills nedkoppling kan göras.";
@@ -2438,12 +2441,6 @@
 
 /* Notification text */
 "Updated to %@." = "Uppdaterad till %@.";
-
-/* Column heading in a table */
-"Username in setup data" = "Användarnamn i inställningsdata";
-
-/* Column heading in a table */
-"Username on this computer" = "Användarnamn på den här datorn";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamesisk översättning";

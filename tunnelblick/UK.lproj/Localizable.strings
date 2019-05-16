@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Дозволити зміни до мережевих налаштувань, встановлених вручну";
 
 /* Checkbox name */
+"Always show this window" = "Завжди показувати це вікно";
+
+/* Checkbox name */
 "Apply to all" = "Застосувати до всіх";
 
 /* Checkbox name */
@@ -384,7 +387,7 @@
 "Check if the apparent public IP address changed after connecting" = "Перевіряти, чи змінилася зовнішня IP-адреса після з’єднання";
 
 /* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Відключити IPv6 окрім випадків, коли доступ до VPN сервера виконується через IPv6(лише tun)";
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Відключити IPv6 окрім випадків, коли доступ до VPN сервера виконується через IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Від’єднуватися, коли ком’ютер переходить у режим сну";
@@ -887,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "Не закритий тег '%@'.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "Конфігурацію '%1$@' буде під'єднано із використанням OpenVPN %2$@ замість запрошеної версії (OpenVPN %3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "параметр 'easy-rsaPath' був проігнорований - вказане значення не вказує на папку";
 
@@ -930,7 +936,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Занадто велика вкладеність конфігурації Tunnelblick VPN в '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Налаштування яке потребує секретну фразу (приватний ключ) або логін та пароль не може стартувати автоматично разом з компьютером.";
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Налаштування яке потребує секретну фразу (приватний ключ) або логін та пароль не може під'єднуватись автоматично під час запуску помп'ютера.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Ключова фраза необхідна для з'єднання з\n  %1$@%2$@";
@@ -1227,9 +1233,6 @@
 "File is too large: %@" = "Файл занадто великий: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Задайте кінцевого користувача для кожного з користувачів в конфігураціях та налаштуваннях, що імпортуються.";
-
-/* Window text */
 "GB" = "ГБ";
 
 /* Window text */
@@ -1405,6 +1408,12 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Тільки Tunnelblick VPN конфігурація (.tblk) може бути запущена під час запуску комп'ютера.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, що не є доступною в цій версії Tunnelblick";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN не відповідає на запити розірвати зв’язок із %@.\n\nTunnelblick буде відключенний коли OpenVPN почне відповідати на запити про розірвання зв’язку.\n\nЦЕ МОЖЕ ЗАЙНЯТИ ДО ДВУХ ХВИЛИН за певних нетипових обставин.\n\nЗв’язок буде недоступним, доки підключення не буде розірвано.";
@@ -2439,11 +2448,8 @@
 /* Notification text */
 "Updated to %@." = "Оновлено до %@.";
 
-/* Column heading in a table */
-"Username in setup data" = "Ім'я користувача в файлі налаштувань";
-
-/* Column heading in a table */
-"Username on this computer" = "Ім'я користувача на цьому комп'ютері";
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Користувач в інсталяційних даних";
 
 /* Credit description */
 "Vietnamese translation" = "Переклад на в'єтнамську";

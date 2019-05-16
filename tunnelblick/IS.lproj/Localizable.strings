@@ -1710,12 +1710,6 @@
 /* Notification text */
 "Updated to %@." = "Uppfært í %@.";
 
-/* Column heading in a table */
-"Username in setup data" = "Notandanafn í uppsetningargögnum";
-
-/* Column heading in a table */
-"Username on this computer" = "Notandanafn í þessari tölvu";
-
 /* Credit description */
 "Vietnamese translation" = "Víetnömsk þýðing";
 

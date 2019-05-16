@@ -104,7 +104,7 @@
 "Disconnect" = "Αποσύνδεση";
 
 /* Button */
-"Do Not Re-enable Network Access" = "Μη επανα-ενεργοποίηση πρόσβασης στο διαδίκτυο";
+"Do Not Re-enable Network Access" = "Μη επανενεργοποίηση πρόσβασης στο διαδίκτυο";
 
 /* Button */
 "Do not use the plugin" = "Μη χρήση επιπροσθέτων";
@@ -192,7 +192,7 @@
 
 /* Button
    Menu item */
-"Re-enable Network Access" = "Επανα-ενεργοποίηση πρόσβασης στο δίκτυο";
+"Re-enable Network Access" = "Επανενεργοποίηση δικτυακής πρόσβασης";
 
 /* Button */
 "Reinstall" = "Επανεγκαταστήσει";
@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Ενεργοποίηση χειροκίνητων ρυθμίσεων δικτύου";
 
 /* Checkbox name */
+"Always show this window" = "Να εμφανίζεται πάντα αυτό το παράθυρο";
+
+/* Checkbox name */
 "Apply to all" = "Εφαρμογή σε όλα";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Έλεγχος αν η εμφανιζόμενη διεύθυνση IP άλλαξε μετά την σύνδεση";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Απενεργοποίηση του IPv6 εκτός αν ο διακομιστής VPN συνδέεται μέσω IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Αποσύνδεση όταν ο υπολογιστής λειτουργεί σε ύπνωση";
@@ -884,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "Η παράμετρος '%@' τερματίστηκε.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' θα συνδεθεί χρησιμοποιώντας OpenVPN %2$@ αντί της ζητηθέντας έκδοσης (%3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Οι προτιμήσεις το 'easy-rsaPath' αγνοήθηκαν, δεν καθορίζουν φάκελο";
 
@@ -927,7 +936,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Μια παράμετρος VPN του Tunnelblick είναι αποθηκευμένο μέσα στο '%@' πολύ βαθεία";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Μια ρυθμίση, η οποία απαιτεί ένα συνθηματικό (ιδιωτικό κλειδί) ή ένα όνομα χρήστη και ένα κωδικό πρόσβασης, δεν μπορεί να ξεκινάει με την έναρξη του υπολογιστή.";
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Μια ρυθμίση, η οποία απαιτεί ένα συνθηματικό (ιδιωτικό κλειδί) ή ένα όνομα χρήστη και ένα κωδικό πρόσβασης, δεν μπορεί να ξεκινάει με την έναρξη του υπολογιστή.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Μια φράση-κλειδί απαιτείτε για σύνδεση στο\n  %1$@%2$@";
@@ -1224,9 +1233,6 @@
 "File is too large: %@" = "Το αρχείο είναι πολύ μεγάλο: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Για κάθε χρήστη του οποίου διαμορφώσεις και ρυθμίσεις θέλετε να εισάγετε, επιλέξτε το χρήστη σε αυτόν τον υπολογιστή που θέλετε να λάβει ρυθμίσεις και διαμορφώσεις.";
-
-/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1402,6 +1408,12 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Μόνο παράμετροι VPN του Tunnelblick (.tblk), μπορούν να ξεκινήσουν με την εκκίνηση του υπολογιστή.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, το οποίο δεν είναι διαθέσιο σε αυτή την έκδοση του Tunnelblick";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "Το OpenVPN δεν ανταποκρίνεται στα αιτήματα για αποσύνδεση %@.  \n\nΤο Tunnelblick θα αποσυνδεθεί όταν OpenVPN αρχίζει να ανταποκρίνεται στα αιτήματα αποσύνδεσης.  \n\nΑυτό μπορεί να διαρκέσει έως δύο λεπτά σε ορισμένες ασυνήθιστες περιστάσεις.\n\nΗ σύνδεση δεν θα είναι διαθέσιμη μέχρι να γίνει αποσύνδεση.";
@@ -2093,6 +2105,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Καθορίζει πότε πρέπει να συνδεθεί το Tunnelblick στο VPN.</strong></p><p>Το \"Όταν ξεκινά ο υπολογιστής\" μπορεί να χρησιμοποιηθεί μόνο με τη παράμετρο \"Shared\".</p>";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το IPv6 θα είναι απενεργοποιημένο εκτός αν ο διακομιστής OpenVPN συνδέεται μέσω μίας διεύθυνσης IPv6.</p> <p>Συνίσταταται συχνά η απενεργοποίηση του IPv6 επειδή πολλές ρυθμίσεις VPN δεν προφυλάσσουν τη διαρροή πληροφοριών που προκαλείται από τη χρήση του IPv6. Η πρόσβαση στο Internet λειτουργεί χωρίς IPv6.</p>\n<p><strong>Όταν είναι απενεργοποιημένο</strong>, το IPv6 δεν θα απενεργοποιηθεί.</p>\n<p><strong>Αυτό το στοιχείο είναι απενεργοποιημένο</strong> όταν χρησιμοποιείτε μια σύνδεση \"tap\" επειδή δεν μπορεί να επιβληθεί σε μια σύνδεση \"tap\". </p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το IPv6 θα ενεργοποιηθεί.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το IPv6 θα απενεργοποιηθεί.</p>\n<p>Η απενεργοποιήση του IPv6 συχνά προτείνεται διότι πολλές ρυθμίσεις VPΝ δεν προστατεύουν ενάντια σε διαρροές πληροφοριών οι οποίες έχουν προκληθεί από τη χρήση του IPv6. Η πρόσβαση στο Διαδίκτυο συνήθως λειτουργεί κανονικά και χωρίς IPv6.</p>\n\n<p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> για ρυθμίσεις Tun.</p>";
 
@@ -2433,11 +2448,11 @@
 /* Notification text */
 "Updated to %@." = "Ενημερώθηκε σε %@.";
 
-/* Column heading in a table */
-"Username in setup data" = "Όνομα χρήστη στις πληροφορίες εγκατάστασης";
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Όνομα χρήστη στις πληροφορίες εγκατάστασης";
 
 /* Column heading in a table */
-"Username on this computer" = "Όνομα χρήστη σε αυτόν τον υπολογιστή";
+"User on this computer" = "Όνομα χρήστη σε αυτόν τον υπολογιστή";
 
 /* Credit description */
 "Vietnamese translation" = "Βιετναμέζικη μετάφραση";

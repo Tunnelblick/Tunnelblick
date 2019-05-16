@@ -927,9 +927,6 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "En Tunnelblick VPN-konfigurering er nestet for dypt i \"%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "En konfigurasjon som krever en passordfrase (privat nøkkel) eller et brukernavn og passord kan ikke starte når datamaskinen starter.";
-
-/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "En passordfrase kreves for å koble til\n  %1$@%2$@";
 
 /* Window text */
@@ -1222,9 +1219,6 @@
 
 /* Window text */
 "File is too large: %@" = "Filen er for stor: %@";
-
-/* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "For hver enkelt brukers konfigurasjoner og innstillinger som du ønsker å importere, velg den brukeren på denne datamaskinen som skal motta innstillingene.";
 
 /* Window text */
 "GB" = "GB";
@@ -2432,12 +2426,6 @@
 
 /* Notification text */
 "Updated to %@." = "Oppdatert til %@.";
-
-/* Column heading in a table */
-"Username in setup data" = "Brukernavn i oppsettsdata";
-
-/* Column heading in a table */
-"Username on this computer" = "Brukernavn på denne datamaskinen";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamesisk oversettelse";

@@ -246,7 +246,7 @@
 "Show while connecting" = "Bağlanırken göster";
 
 /* Button */
-"Skip" = "Atla";
+"Skip" = "Geç";
 
 /* Button */
 "Speak" = "Dikte";
@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Elle ayarlanmış seçeneklerin değiştirilmesine izin ver";
 
 /* Checkbox name */
+"Always show this window" = "OnayKutusu adı. VPN için kullanıcı adı ve şifresi girilen pencerede çıkıyor. Bu, kullanıcı ad ve şifresinin kaydedilmesini sağlıyor ama pencere kapanmıyor (böylelikle, mesela şifrenin ön veya peşine ekleme yapılabiliyor)";
+
+/* Checkbox name */
 "Apply to all" = "Tümüne uygula";
 
 /* Checkbox name */
@@ -382,9 +385,6 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Görünen IP adresinin, bağlantıdan sonra değişip değişmediğini kontrol et";
-
-/* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "VPN sunucusuna IPv6 üzerinden ulaşılmamışsa, IPv6'yı kullanım dışı bırak.";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Bilgisayar uyku moduna geçtiğinde bağlantıyı kes";
@@ -887,6 +887,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' sonlandırılmamış.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@', istenilen sürüm (OpenVPN %3$@) yerine OpenVPN %2$@ kullanılarak bağlanacak.";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' ayarı yok sayıldı; bir dizine işaret etmiyor";
 
@@ -928,9 +931,6 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Bir Tunnelblick VPN Yapılandırması '%@' içerisinde çok derinde bulunuyor";
-
-/* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Parola (özel anahtar) ya da kullanıcı adı ve şifre gerektiren yapılandırma bilgisayar açıldığında başlayamaz.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Bu hedefe bağlanmak için bir parola gerekiyor\n  %1$@%2$@";
@@ -1227,9 +1227,6 @@
 "File is too large: %@" = "%@ dosyası çok büyük";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Kurulum ve ayarlarını yüklemek istediğiniz her kullanıcı için, bu bilgisayardaki kullanıcılardan kurulum ve ayarların uygulanmasını istediklerinizi seçin.";
-
-/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1405,6 +1402,12 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Sadece Tunnelblick VPN Konfigürasyonları (.tblk) bilgisayar yeniden başlatıldığında çalışabilir.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, Tunnelblick’in bu versiyonunda bulunmamaktadır";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN %@ bağlantısını kesme isteklerine yanıt vermiyor.\n\nTunnelblick OpenVPN bağlantıyı kesme isteklerine yanıt vermeye başladığında bağlantısını kesecektir.\n\nBazı olağandışı durumlarda BU İŞLEM 2 DAKİKA KADAR SÜREBİLİR.\n\nBağlantı, kesme işlemi tamamlanana kadar erişilebilir olmayacak.";
@@ -2096,6 +2099,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Tunnelblick'in ne zaman VPN'e bağlanması gerektiğini belirler.</strong></p><p>\"Bilgisayar başladığında\" sadece \"Paylaşılan\" ayarlarda kullanılabilir.</p>";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>İşaretlenirse</strong>, IPv6 etkisiz hale getirilecek.</p>\n<p>IPv6'yı etkisizleştirmek genellikle tavsiye edilir çünkü bir çok VPN yapılandırması IPv6 kullanımının neden olduğu bilgi sızıntılarına karşı korumasızdır. Çoğu Internet erişimi IPv6 olmadan da düzgün çalışır.</p>\n<p><strong>İşaretlenmediğinde</strong>, IPv6 kapatılmaz.</p>\n<p>Bu kutucuk bir 'tap' bağlantısı kullanıldığında, bir 'tap' bağlantısında uygulanamadığı için <strong>etkisizleştirilir.</strong></p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>İşaretlenirse</strong>, IPv6 etkisiz hale getirilecek.</p>\n<p><strong>İşaretlenmediğinde</strong>, IPv6 kapatılmaz.</p>\n<p>IPv6'yı etkisizleştirmek genellikle tavsiye edilir çünkü bir çok VPN yapılandırması IPv6 kullanımının neden olduğu bilgi sızıntılarına karşı korumasızdır. Çoğu Internet erişimi IPv6 olmadan da düzgün çalışır.</p>\n<p>Bu kutucuk Tun yapılandırmalarında <strong>etkisizleştirilmiştir.</strong></p>";
 
@@ -2435,12 +2441,6 @@
 
 /* Notification text */
 "Updated to %@." = "%@ sürümüne güncellendi.";
-
-/* Column heading in a table */
-"Username in setup data" = "Kullanıcı adı kurulum bilgisi";
-
-/* Column heading in a table */
-"Username on this computer" = "Bu bilgisayardaki kullanıcı adı";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamca çeviri";

@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Sta veranderingen toe aan handmatige netwerk instellingen";
 
 /* Checkbox name */
+"Always show this window" = "Dit venster altijd tonen";
+
+/* Checkbox name */
 "Apply to all" = "Toepassen op alles";
 
 /* Checkbox name */
@@ -384,7 +387,7 @@
 "Check if the apparent public IP address changed after connecting" = "Controleer of het publieke IP adres gewijzigd is na verbinden";
 
 /* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Schakel IPv6 uit tenzij de VPN-server via IPv6 benaderd wordt (alleen via tun)";
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Schakel IPv6 uit tenzij de VPN-server via IPv6 benaderd wordt";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Verbinding verbreken wanneer computer overschakelt naar slaapmodus";
@@ -887,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "' %@' is niet beëindigd.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "Om te verbinden zal '%1$@' gebruik maken van OpenVPN %2$@ in plaats van de gevraagde versie (%3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' instelling genegeerd; het geeft geen specifieke map aan";
 
@@ -930,7 +936,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Een Tunnelblick VPN configuratie is te diep genest in ' %@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Een configuratie welke een wachtwoordzin (privésleutel) of een gebruikersnaam en wachtwoord vereist kan niet gestart worden tijdens het starten van de computer.";
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Een configuratie die gebruik maakt van enerzijds een privésleutel die beveiligd is met een wachtwoordzin of anderzijds een combinatie van gebruikersnaam en wachtwoord, kan niet automatisch verbinden wanneer de computer opstart.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Er is een wachtzin vereist om te verbinden met\n  %1$@%2$@";
@@ -1227,9 +1233,6 @@
 "File is too large: %@" = "Bestand is te groot: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "Selecteer de gebruiker die de configuraties en instellingen moet ontvangen.";
-
-/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1405,6 +1408,12 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Enkel een Tunnelblick VPN configuratie (.tblk) kan starten wanneer de computer opstart.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, hetgeen niet beschikbaar is in deze versie van Tunnelblick";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reageert niet op aanvragen om te verbreken %@. \n\nTunnelblick zal de verbinding verbreken zodra OpenVPN reageert op verzoeken om de verbinding te verbreken.\n\nDit kan tot twee minuten duren onder bepaalde omstandigheden.\n\nDe verbinding is niet beschikbaar totdat de verbinding volledig verbroken is.";
@@ -2439,11 +2448,8 @@
 /* Notification text */
 "Updated to %@." = "Bijgewerkt naar %@.";
 
-/* Column heading in a table */
-"Username in setup data" = "Gebruikersnaam in setup data";
-
-/* Column heading in a table */
-"Username on this computer" = "Gebruikersnaam op deze computer";
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Gebruiker in setup gegevens";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamese vertaling";
