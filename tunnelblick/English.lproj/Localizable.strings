@@ -369,6 +369,9 @@
 "Allow changes to manually-set network settings" = "Allow changes to manually-set network settings";
 
 /* Checkbox name */
+"Always show this window" = "Always show this window";
+
+/* Checkbox name */
 "Apply to all" = "Apply to all";
 
 /* Checkbox name */
@@ -381,7 +384,7 @@
 "Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
 
 /* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)" = "Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)";
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Disable IPv6 unless the VPN server is accessed using IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
@@ -930,7 +933,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "A Tunnelblick VPN Configuration is nested too deeply in '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.";
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
@@ -1227,9 +1230,6 @@
 "File is too large: %@" = "File is too large: %@";
 
 /* Window text */
-"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings." = "For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings.";
-
-/* Window text */
 "GB" = "GB";
 
 /* Window text */
@@ -1465,6 +1465,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Select a target user for each user whose setup data you wish to import.";
 
 /* Window text */
 "Set DNS/WINS:" = "Set DNS/WINS:";
@@ -2445,11 +2448,11 @@
 /* Notification text */
 "Updated to %@." = "Updated to %@.";
 
-/* Column heading in a table */
-"Username in setup data" = "Username in setup data";
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "User in setup data";
 
 /* Column heading in a table */
-"Username on this computer" = "Username on this computer";
+"User on this computer" = "User on this computer";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamese translation";

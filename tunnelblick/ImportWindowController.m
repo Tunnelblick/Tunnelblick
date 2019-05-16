@@ -187,7 +187,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTableView *,    mainTableView,       setMainTableV
 	// the same height as in the nib. Then in adjustWindowHeightAfterWindowHeightChange: we adjust the window
 	// to fit mainTableView for the number of rows of data.
 
-	[mainTextTFC setTitle: NSLocalizedString(@"Select a target user for each user whose settings you wish to import from the setup data.",
+	[mainTextTFC setTitle: NSLocalizedString(@"Select a target user for each user whose setup data you wish to import.",
 											 @"Window text")];
 	CGFloat oldHeight = [mainTextTF frame].size.height;
 	[mainTextTF sizeToFit];
@@ -221,7 +221,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTableView *,    mainTableView,       setMainTableV
 	// Second column has popup menus with "(Do not import)" and targetUsernames
 	NSTableColumn * targetColumn = [[[NSTableColumn alloc] initWithIdentifier: @"target"] autorelease];
 	[targetColumn setWidth: columnWidth];
-	[[targetColumn headerCell] setStringValue: NSLocalizedString(@"Username on this computer", @"Column heading in a table")];
+	[[targetColumn headerCell] setStringValue: NSLocalizedString(@"User on this computer", @"Column heading in a table")];
 	align = (rtl ? NSTextAlignmentRight : NSTextAlignmentLeft);
 	[[targetColumn headerCell] setAlignment: align];
 	[[targetColumn dataCell]   setAlignment: align];
