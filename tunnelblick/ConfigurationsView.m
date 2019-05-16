@@ -446,14 +446,14 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   @"HTML info for the 'Route all IPv4 traffic through the VPN' checkbox."))];
 	
 	[disableIpv6OnTunCheckbox
-	 setTitle: NSLocalizedString(@"Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)", @"Checkbox name")
+	 setTitle: NSLocalizedString(@"Disable IPv6 unless the VPN server is accessed using IPv6", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n"
 														   @"<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use"
 														   @" of IPv6. Most Internet access works fine without IPv6.</p>\n"
 														   @"<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n"
 														   @"<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it"
 														   @" cannot be enforced on a 'tap' connection.</p>",
-														   @"HTML info for the 'Disable IPv6 unless the VPN server is accessed using IPv6 (tun only)' checkbox."))];
+														   @"HTML info for the 'Disable IPv6 unless the VPN server is accessed using IPv6' checkbox."))];
 	
 	[checkIPAddressAfterConnectOnAdvancedCheckbox
 	 setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connecting", @"Checkbox name")

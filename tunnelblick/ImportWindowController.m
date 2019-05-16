@@ -187,7 +187,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTableView *,    mainTableView,       setMainTableV
 	// the same height as in the nib. Then in adjustWindowHeightAfterWindowHeightChange: we adjust the window
 	// to fit mainTableView for the number of rows of data.
 
-	[mainTextTFC setTitle: NSLocalizedString(@"For each user whose configurations and settings you wish to import, select the user on this computer that should receive the configurations and settings.",
+	[mainTextTFC setTitle: NSLocalizedString(@"Select a target user for each user whose settings you wish to import from the setup data.",
 											 @"Window text")];
 	CGFloat oldHeight = [mainTextTF frame].size.height;
 	[mainTextTF sizeToFit];
@@ -211,7 +211,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTableView *,    mainTableView,       setMainTableV
 	// First column has sourceUsernames
 	NSTableColumn * sourceColumn = [[[NSTableColumn alloc] initWithIdentifier: @"source"] autorelease];
 	[sourceColumn setWidth: columnWidth];
-	[[sourceColumn headerCell] setStringValue: NSLocalizedString(@"Username in setup data", @"Column heading in a table")];
+	[[sourceColumn headerCell] setStringValue: NSLocalizedString(@"User in setup data",
+																 @"Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window.")];
 	NSTextAlignment align = (rtl ? NSTextAlignmentLeft : NSTextAlignmentRight);
 	[[sourceColumn headerCell] setAlignment: align];
 	[[sourceColumn dataCell]   setAlignment: align];

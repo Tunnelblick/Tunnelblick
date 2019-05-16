@@ -1936,7 +1936,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)ix];
             [self setSelectedWhenToConnectIndex: ix];
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                              NSLocalizedString(@"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.", @"Window text"));
+                              NSLocalizedString(@"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts.", @"Window text"));
         } else {
             [self setSelectedWhenToConnectIndex: 2];
         }
