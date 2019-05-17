@@ -1506,7 +1506,7 @@ ARG_TB_PATH="/Applications/Tunnelblick.app"
 ARG_RESTORE_ON_WINS_RESET="false"
 
 # Do extra logging until this script is mainstreamed
-ARG_EXTRA_LOGGING="true"
+ARG_EXTRA_LOGGING="false"
 
 logDebugMessage "        **********************************************"
 logDebugMessage "        ENVIRONMENT VARIABLES:"
