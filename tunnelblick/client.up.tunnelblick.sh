@@ -1153,6 +1153,8 @@ configureDhcpDns()
 			# Should we return 1 here and indicate an error, or attempt the old method?
 			logMessage "No DHCP/BOOTP packet found on interface. Attempting legacy configuration."
 		fi
+	else
+		logMessage "WARNING: Failed or had no output: 'ipconfig getpacket \"$dev\"'"
 	fi
 
 	unset sDomainName
@@ -1690,6 +1692,10 @@ if ${ARG_TAP} ; then
             logMessage "End of output from ${OUR_NAME}"
             logMessage "**********************************************"
 			exit 1
+		fi
+
+		if [ "$script_type" != "route-up" ] ; then
+			logMessage "WARNING: Tap connection using DHCP but 'Set DNS after routes are set' is not set in Tunnelblick's Advanced settings window (script_type = '$script_type')"
 		fi
 
 		logDebugMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
