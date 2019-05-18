@@ -4390,7 +4390,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		[logDisplay addToLog: [TB_LOG_PREFIX stringByAppendingString: text]];
 	} else {
 		[logDisplay performSelectorOnMainThread: @selector(addToLog:)
-									 withObject: text
+									 withObject: [TB_LOG_PREFIX stringByAppendingString: text]
 								  waitUntilDone: NO];
 	}
 }

@@ -23,6 +23,12 @@ logMessage()
 
 ##########################################################################################
 # @param String message - The message to log
+#
+# If Tunnelblick's "DB-UP" preference is set, extra logging will be done for all configurations.
+#
+# (If the "DB-UP" preference is set, VPNConnection sets the OPENVPNSTART_EXTRA_LOGGING bit;
+#  if tunnelblick-helper sees that bit set, it adds " -l" to OpenVPN's "--up" or "--route-up" commands; and
+#  if this script sees the "-l", it sets ARG_EXTRA_LOGGING to "true")
 logDebugMessage()
 {
     if ${ARG_EXTRA_LOGGING} ; then
@@ -40,12 +46,12 @@ logChange()
 {
 	if [ "$1" = "" ] ; then
 		if [ "$3" = "$4" ] ; then
-			echo "Did not change $2 setting of '$3' (but re-set it)"
+			logMessage "Did not change $2 setting of '$3' (but re-set it)"
 		else
-			echo "Changed $2 setting from '$4' to '$3'"
+			logMessage "Changed $2 setting from '$4' to '$3'"
 		fi
 	else
-		echo "Did not change $2 setting of '$4'"
+		logMessage "Did not change $2 setting of '$4'"
 	fi
 }
 
@@ -169,18 +175,18 @@ set_networksetup_setting() {
 	# This routine outputs log messages describing its activities.
 
 	if [ "$1" != "dnsservers" ]	&& [ "$1" != "searchdomains" ] ; then
-		echo "restore_networksetup_setting: Unknown setting name '$1'"
+		logMessage "ERROR: set_networksetup_setting: Unknown setting name '$1'"
 		exit 1
 	fi
 
 	# $2 must be present and must not have any spaces or tabs
 	if [ -z "$2" ] || [ "${2/ /}" != "$2" ] || [ "${2/$HT/}" != "$2" ]; then
-		echo "set_networksetup_setting: second argument must be present and cannot contain spaces or tabs: '$2'"
+		logMessage "ERROR: set_networksetup_setting: second argument must be present and cannot contain spaces or tabs: '$2'"
 		exit 1
 	fi
 
 	if [ ! -f "/usr/sbin/networksetup" ] ; then
-		echo "set_networksetup_setting: Cannot change setting for $1: /usr/sbin/networksetup does not exist"
+		logMessage "ERROR: set_networksetup_setting: Cannot change setting for $1: /usr/sbin/networksetup does not exist"
 		exit 1
 	fi
 
@@ -201,7 +207,7 @@ set_networksetup_setting() {
 
 				# Make sure there are no tabs in the service name
 				if [ "$service" != "${service/$HT/}" ] ; then
-					echo "set_networksetup_setting: service name '$service' contains one or more tab characters"
+					logMessage "ERROR: set_networksetup_setting: service name '$service' contains one or more tab characters"
 					exit 1
 				fi
 
@@ -1504,8 +1510,6 @@ ARG_PREPEND_DOMAIN_NAME="false"
 ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
 ARG_TB_PATH="/Applications/Tunnelblick.app"
 ARG_RESTORE_ON_WINS_RESET="false"
-
-# Do extra logging until this script is mainstreamed
 ARG_EXTRA_LOGGING="false"
 
 logDebugMessage "        **********************************************"
@@ -1676,9 +1680,6 @@ if ${ARG_TAP} ; then
 			bRouteGatewayIsDhcp="true"
 		fi
 	fi
-	
-	
-	
 
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
 		logDebugMessage "DEBUG: bRouteGatewayIsDhcp is TRUE"
@@ -1752,7 +1753,7 @@ else
             	fi
 			else
 				trusted_ip="${trusted_ip_line#trusted_ip=}"
-				echo "WARNING: NOT disabling IPv6 because the OpenVPN server address is an IPv6 address ($trusted_ip)"
+				logMessage "WARNING: NOT disabling IPv6 because the OpenVPN server address is an IPv6 address ($trusted_ip)"
 			fi
         fi
         readonly ipv6_disabled_services
