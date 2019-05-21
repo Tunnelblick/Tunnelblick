@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Povoliť zmeny ručne nastaviteľnej siete";
 
 /* Checkbox name */
+"Always show this window" = "Toto okno vždy zobraziť";
+
+/* Checkbox name */
 "Apply to all" = "Uplatniť na všetko";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Kontrolovať, či sa po pripojení zmenila verejná IP adresa";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Deaktivovať IPv6 v prípade že pripojenie VPN nepoužíva IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Odpojiť pri prechode do režimu spánku";
@@ -411,7 +417,7 @@
 "Do not show this type of warning again" = "Tieto varovania už viac nezobrazovať";
 
 /* Checkbox name */
-"Do not warn about DNS problems again for any configuration" = "Nevarovať ohľadom DNS problémov pre akúkoľvek konfiguráciu";
+"Do not warn about DNS problems again for any configuration" = "Nevarovať ohľadom DNS problémov pre ktorúkoľvek konfiguráciu";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "Nezobrazovať znovu toto varovanie pre akúkoľvek konfiguráciu";
@@ -519,7 +525,7 @@
 "GET_CONFIG" = "Získavanie konfigurácie"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "Čakanie na prístup k sieti"; // Please translate "Waiting for network access"
+"NETWORK_ACCESS" = "Čakanie na pripojenie k sieti"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Čakám na heslo"; // Please translate "Waiting for password"
@@ -884,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "\"%@\" nebolo ukončené.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' sa pripojí pomocou OpenVPN %2$@ namiesto požadovanej verzie (OpenVPN %3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "\"easy-rsaPath\" preferencie bola ignorovaná; neurčuje totižto priečinok";
 
@@ -925,6 +934,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Konfigurácia VPN Tunnelblick je vnorená príliš hlboko v \"%@\"";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Konfiguráciu, ktorá vyžaduje zadanie Passphrase (súkromný kľúč) alebo meno a heslo, nie je možné spustiť automaticky pri štarte počítača.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Vyžaduje sa identifikačné slovo pre pripojenie k\n  %1$@%2$@";
@@ -1397,6 +1409,12 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Pri štarte systému je možné spustiť len konfiguráciu Tunnelblick VPN (.tblk).";
 
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@ nie je dostupné v tejto verzii Tunelblick";
+
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN neodpovedá na požiadavky na odpojenie %@.  Tunnelblick sa odpojí ak OpenVPN začíne reagovať na žiadosti o odpojenie.  Toto môže trvať až dve minúty v prípade neobvyklých okolností.  Spojenie nebude k dispozícii až kým nebude odpojené.";
 
@@ -1450,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Zabezpečuje sa Tunnelblick %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Priradte každému užívateľovi cieľového užívateľa ktorého nastavenia chcete importovať.";
 
 /* Window text */
 "Set DNS/WINS:" = "Nastaviť DNS/WINS:";
@@ -2087,6 +2108,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Určuje kedy sa Tunnelblick má pripojiť k VPN.</strong></p><p>\"Pri spustení počítača\" je možno použiť iba pri použití \"Zdieľanej\" konfigurácie.</p>";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Ak zaškrtnuté</strong>, IPv6 bude deaktivované v prípade že spojenie OpenVPN nepoužíva IPv6.</p>\n<p>Deaktivácia IPv6 sa často odporúča, nakoľko mnohé konfigurácie VPN nechránia voči úniku informácií spôsobenému použitím IPv6. Pripojenie k Internetu vo väčšine prípadov správne funguje aj bez IPv6.</p>\n<p><strong>Ak nie zaškrtnuté</strong>, IPv6 nebude deaktivované.</p>\n<p><strong>Tento voľba je neaktívna</strong> pri použití pripojenia 'tap', pretože na tomto type pripojenia túto možnosť nie je možné aktivovať.</p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Ak je zaškrtnuté</strong>, IPv6 bude povolené.</p>\n<p><strong>Ak nie je zaškrtnuté</strong>, IPv6 nebude povolené.</p>\n<p>Zakázanie IPv6 sa bežne odporúča, pretože mnohé konfigurácie VPN nechránia voči úniku informácií spôsobenému použitím IPv6. Prístup k internetu vo väčšine prípadov správne funguje aj bez IPv6.</p>\n<p><strong>Tento výber je zakázaný</strong> pre konfigurácie používajúce pripojenie 'tun'.</p>";
 
@@ -2426,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "Aktualizované na verziu %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Užívateľské meno v nastaveniach";
+
+/* Column heading in a table */
+"User on this computer" = "Užívateľské meno na tomto počítači";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamský preklad";

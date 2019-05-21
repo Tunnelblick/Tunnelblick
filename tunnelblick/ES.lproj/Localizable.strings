@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Permitir cambios para modificar manualmente los ajustes de red";
 
 /* Checkbox name */
+"Always show this window" = "Siempre mostrar esta ventana";
+
+/* Checkbox name */
 "Apply to all" = "Aplicar a todas";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Verificar si la aparente dirección de IP pública cambió después de la conexión";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Deshabilitar IPV6 (a menos que el servidor VPN sea accedido utilizando IPV6)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Desconectar cuando el equipo se va a dormir";
@@ -930,6 +936,9 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Una Configuración VPN Tunnelblick está anidada con demasiada profundidad en '%@'";
 
 /* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Una configuración que requiera una frase clave (clave privada) o un usuario y contraseña no puede conectarse cuando la computadora inicia.";
+
+/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Se requiere una contraseña para conectarse a\n  %1$@%2$@";
 
 /* Window text */
@@ -1459,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Asegurando Tunnelblick %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Seleccione un usuario de destino para cada configuración de usuario que desea importar.";
 
 /* Window text */
 "Set DNS/WINS:" = "Establecer DNS/WINS:";
@@ -2438,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "Actualizado a %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Usuario en datos de configuración";
+
+/* Column heading in a table */
+"User on this computer" = "Usuario en esta computadora";
 
 /* Credit description */
 "Vietnamese translation" = "Traducción al Vietnamita";

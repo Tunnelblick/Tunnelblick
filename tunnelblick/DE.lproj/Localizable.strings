@@ -1409,6 +1409,12 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Beim Hochfahren des Computers kann nur eine Tunnelblick-VPN-Konfigurationsdatei (.tblk) gestartet werden.";
 
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, ist in dieser Version von Tunnelblick nicht verfügbar";
+
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reagiert nicht auf die Anfragen %@ zu trennen. \n\nTunnelblick wird die Verbindung trennen, wenn OpenVPN anfängt auf diese Trennungs-Anfragen zu reagieren.\n\nDies KANN unter besonderen Umständen BIS ZU ZWEI MINUTEN DAUERN.\n\nDie Verbindung wird nicht verfügbar sein, bis sie unterbrochen wurde.";
 
@@ -1462,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Absichern von Tunnelblick %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Benutzer auswählen, für den die Konfigurationsdateien importiert werden sollen.";
 
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS einstellen:";
@@ -2441,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "Aktualisiert auf %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Benutzer in Konfigurationsdateien";
+
+/* Column heading in a table */
+"User on this computer" = "Benutzer auf diesem Computer";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamesische Übersetzung";

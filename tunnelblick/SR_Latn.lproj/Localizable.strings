@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Dozvoli promene na ručno definisanim mrežnim podešavanjima";
 
 /* Checkbox name */
+"Always show this window" = "Uvekl prikaži ovaj prozor";
+
+/* Checkbox name */
 "Apply to all" = "Primeni na sve";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Proveravaj da li se vidljiva javna IP adresa promenila nakon povezivanja";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Isključi IPv6 ukoliko VPN server ne koristi IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Prekini konekciju kada je računar u hibernaciji";
@@ -930,6 +936,9 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN konfiguracija je suviše ugnežđena u '%@'";
 
 /* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Konfiguracija koja zahteva lozinku (privatni ključ) ili korisničko ime i lozinku ne može da se pokrene prilikom starta računara.";
+
+/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Tajna sekvenca je neophodna za povezivanje na\n  %1$@%2$@";
 
 /* Window text */
@@ -1459,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Tunnelblick se obezbeđuje %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Odaberi korisnika čije podatke želite da uvezete.";
 
 /* Window text */
 "Set DNS/WINS:" = "Podesi DNS/WINS:";
@@ -2438,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "Ažurirano na %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Korisnik za podešavanje";
+
+/* Column heading in a table */
+"User on this computer" = "Korisnik ovog računara";
 
 /* Credit description */
 "Vietnamese translation" = "Vijetnamski prevod";

@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "السماح بتغييرات يدويا في إعدادات الشبكة التي تم تعيينها";
 
 /* Checkbox name */
+"Always show this window" = "نافذة دائمة الظهور";
+
+/* Checkbox name */
 "Apply to all" = "طبق على الجميع";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "تحقق ما اذا تغير عنوان الاي بي العام بعد الاتصال";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "تعطيل بروتوكول IPv6 الا اذا امكن الوصول ل OpenVPN عن طريق عنوان IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "قطع الاتصال عندما يذهب الكمبيوتر في حالة السكون";
@@ -884,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' لم تنتهي بعد.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "%1$@' سوف يتصل باستخدام OpenVPN %2$@ بدلا من النسخة المطلوبة (OpenVPN %3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "تم تجاهل االاختيار'easy-rsaPath'; لإنه لا يحدد اي ملف";
 
@@ -925,6 +934,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "تثبيتات Tunnelblick VPN متداخلة بشكل عميق جدا في '%@'";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "الاعدادات التي تتطلب كلمة مرور(مفتاح خاص) او اسم المستخدم و كلمة مروره لا يمكن ان تتصل لدي تشغيل الحاسب.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "ادخال كلمة المرور مطلوب للاتصال ب %1$@%2$@";
@@ -1397,6 +1409,12 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "فقط اعدادات اتصال تُنلـبليك VPN (.tblk) يمكن تفعيلها عند بدء تشغيل الجهاز.";
 
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, ليس متوفر في هذه النسخة من تُنلـبليك";
+
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "لا يستجيب برنامج OpenVPN لطلب قطع الاتصال %@.\n\nسيقطع برنامج Tunnelblick الاتصال عندما يستجيب برنامج OpenVPN لطلب قطع الاتصال.\n\nهذه العملية تستغرق مدة قد تصل حتى دقيقتين.\n\nحتى انتهاء العملية سيكون استخدام هذا الاتصال غير متاح.";
 
@@ -1450,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "تأمين حماية تُنلـبليك %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "اختر اسم مستخدم مستهدف لكل مستخدم تود استيراد بيانات اعداده.";
 
 /* Window text */
 "Set DNS/WINS:" = "ضبط DNS/WINS:";
@@ -2087,6 +2108,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong> يحدد عندما يجب على تُنلـبليك أن يتصل بال VPN.</strong></p>\n<p>\"عندما يشتغل الكمبيوتر\" يمكن استخدامها فقط مع إعدادات \"مشتركة\".</p>";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>عند التفعيل</strong>, سيتم تعطيل بروتوكول IPv6 الا اذا امكن الوصول ل OpenVPN عن طريق عنوان IPv6. </p>\n\n<p> يفضل تعطيل بروتوكول IPv6 لان كثير من اعدادات ال VPN لا تحمي من تسريب المعلومات الناتج من استخدام ال IPv6. معظم استخدام الانترنت سيعمل بشكل طبيعي من غير IPv6. </p>\n\n<p><strong>عند عدم التفعيل</strong>. لن يتم تعطيل بروتوكول IPv6.</p>\n<p><strong>غير قابل للتفعيل</strong> عند استخدام اتصال 'tap' ، لانه لا يمكن فرض تنفيذه علي اتصال 'tap'. </p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>عند التفعيل</strong>, سيتم تفعيل بروتوكول IPv6. </p>\n<p><strong>عند عدم التفعيل</strong>. لن يتم تفعيل بروتوكول IPv6.</p>\n<p> يفضل تعطيل بروتوكول IPv6 لان كثير من اعدادات ال VPN لا تحمي من تسريب المعلومات الناتج من استخدام ال IPv6. معظم استخدام الانترنت سيعمل بشكل طبيعي من غير IPv6. </p>\n<p><strong>غير قابل للتفعيل</strong> عند استخدام اعدادات 'tun'. </p>";
 
@@ -2426,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "تم التحديث الي %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "اسم المستخدم في معطيات الإعداد";
+
+/* Column heading in a table */
+"User on this computer" = "اسم مستخدم الحاسوب";
 
 /* Credit description */
 "Vietnamese translation" = "الترجمه الفيتناميه";

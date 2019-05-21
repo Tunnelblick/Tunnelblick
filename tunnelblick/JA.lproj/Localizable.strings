@@ -2045,11 +2045,14 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Tunnelblickのアップデートを確認します。</p><p>Tunnelblickのウェブサイトにて、<a href=\"https://tunnelblick.net/cPrivacy.html\">プライバシーとセキュリティー</a>をご覧になれます。[tunnelblick.net]</p><p>また、VPN接続業者側のVPN設定がこのバージョンをサポートしているかもご確認ください。</p>";
 
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>問題解決のための診断情報をクリップボードにコピーします。</p><p>その情報には、ソフトウェアのバージョンと設定、OpenVPN設定ファイル、ネットワーク設定などを含みます。</p><p>また、認証情報は含みませんがIPアドレスやURLなど秘密<em>かもしれない</em>情報は含みます。この情報をメールで送信したり公開情報として投稿したりする前には、内容をチェックして秘密にしておきたい情報は削除してください。</p>";
+
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p> OpenVPNをアンインストールする方法を案内するページをウェブブラウザで開く </p>";
 
 /* HTML info for the 'Advanced...' button. */
-"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>追加設定の画面を新しいウィンドウで開く。</p><p>'VPN Details windowで'なされた変更は全て反映されます。</p>";
+"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>追加設定の画面を新しいウィンドウで開きます。</p><p>「VPN の詳細…」ウィンドウで選択した全ての接続先に変更が適用されます。</p>";
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>「次回からこの警告を表示しない」 のチェックを解除すると警告が再び表示されます。</p>";

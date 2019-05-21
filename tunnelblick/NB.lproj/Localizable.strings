@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Tillat endringer for nettverksinnstillinger som har blitt angitt manuelt";
 
 /* Checkbox name */
+"Always show this window" = "Vis alltid dette vinduet";
+
+/* Checkbox name */
 "Apply to all" = "Utfør på alle";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Sjekk om den offentlige IP-adressen har endret seg etter oppkobling";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Deaktiver IPv6 med mindre VPN-serveren er tilkoblet med IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Koble fra når maskinen går i dvale";
@@ -884,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "\"%@' ble ikke avsluttet.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' vil koble til med OpenVPN %2$@ i stedet for med den forespurte versjon (%3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' innstilling ignorert; den angir ikke en mappe";
 
@@ -925,6 +934,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "En Tunnelblick VPN-konfigurering er nestet for dypt i \"%@'";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "En konfigurasjon som krever en passordfrase (privatnøkkel) eller et brukernavn og passord kan ikke koble til når datamaskinen starter.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "En passordfrase kreves for å koble til\n  %1$@%2$@";
@@ -1397,6 +1409,12 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Det er kun en Tunnelblick VPN Konfigurasjon (.tblk) som kan startes automatisk når datamaskinen starter.";
 
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, som ikke er tilgjengelig i denne versjonen av Tunnelblick";
+
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reagerer ikke på anmodningene om å avbryte forbindelsen til %@.\n\nTunnelblick vil avbryte når OpenVPN begynner å svare på anmodningene.\n\nDETTE KAN TA OPPTIL TO MINUTTER i visse tilfeller.\n\nForbindelsen vil være utilgjengelig inntil den blir avbrutt.";
 
@@ -1450,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Sikrer Tunnelblick %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Velg en målbruker for hver av brukerene sine innstillingsdata du ønsker å importere.";
 
 /* Window text */
 "Set DNS/WINS:" = "Sett DNS/WINS:";
@@ -2087,6 +2108,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Angir når Tunnelblick skal koble til VPN.</strong></p><p>\"Når datamaskinen starter\" må bare brukes med \"Delte\" konfigurasjoner.</p>";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Når avkrysset</strong>, vil IPv6 bli deaktivert med mindre OpenVPN-serveren tilkobles via en IPv6-addresse.</p>\n<p>Å deaktivere IPv6 er ofte anbefalt fordi mange VPN-konfigurasjoner ikke beskytter mot informasjonslekkasjer når en bruker IPv6. De fleste internettforbindelser fungerer fint uten IPv6.</p>\n<p><strong>Når ikke avkrysset</strong>, vil ikke IPv6 bli deaktivert.</p>\n<p><strong>Denne avkryssingsboksen er deaktivert</strong> ved bruk av 'tap'-forbindelser fordi dette ikke kan håndheves på 'tap'-forbindelse.</p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Når avkrysset</strong>, vil IPv6 være aktivert.</p>\n<p><strong>Når ikke avkrysset</strong>, vil ikke IPv6 være aktivert.</p>\n<p>Deaktivering IPv6 er ofte anbefalt fordi mange VPN-konfigurasjoner ikke kan gardere seg mot informasjonslekkasjer som skyldes bruk av IPv6. De fleste Internett-forbindelser fungerer fint uten IPv6.</p>\n<p><strong>Dette valget er utilgjengelig</strong> for Tun-konfigurasjoner.</p>";
 
@@ -2426,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "Oppdatert til %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Bruker i innstillingsdata";
+
+/* Column heading in a table */
+"User on this computer" = "Bruker på denne datamaskinen";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamesisk oversettelse";

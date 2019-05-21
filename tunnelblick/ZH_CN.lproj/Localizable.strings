@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "允许变更手动设置的网络";
 
 /* Checkbox name */
+"Always show this window" = "永远显示此窗口";
+
+/* Checkbox name */
 "Apply to all" = "应用于全部";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "连接后检查外部IP地址是否有所改变";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "除非 VPN 服务器使用 IPv6 连接，禁用 IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "当计算机休眠时断开连接";
@@ -883,6 +889,9 @@
 
 /* Window text */
 "'%@' was not terminated." = "'%@' 没有终结符";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "“%1$@” 将采用 OpenVPN %2$@ 连接而不是被要求的版本 (%3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' 被忽略，因为它没有指定一个文件夹";

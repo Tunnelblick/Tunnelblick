@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Разреши промени на ръчно зададени мрежови настройки";
 
 /* Checkbox name */
+"Always show this window" = "Показвай винаги този прозорец";
+
+/* Checkbox name */
 "Apply to all" = "Приложи към всички";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Проверка дали публичено видимия IP адрес се променя след свързване";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Деактивирай IPv6 освен ако VPN сървърът се достъпва по IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Прекъсне, когато компютъра заспи";
@@ -409,6 +415,9 @@
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Това предупреждение да не се показва отново";
+
+/* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Не предупреждавай за DNS проблеми отново за всяка конфигурация";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "Не показвай отново за която и да е конфигурация";
@@ -514,6 +523,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Получаване на конфигурация"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Изчакване на достъп до мрежата"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Изчакване за парола"; // Please translate "Waiting for password"
@@ -740,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     От VPN сървъра за %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS сървърен адрес %@ е частен адрес, но не се рутира през VPN-а.\n     \n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS сървърен адрес %@ е публичен DNS сървър известен на Tunnelblick, но не се рутира през VPN-а.\n     \n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS сървърен адрес %@ НЕ е публичен DNS сървър известен на Tunnelblick и не се рутира през VPN-а.\n     \n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Инсталирани %lu конфигурации\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Инсталирана една конфигурация  \n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Не са зададени DNS сървъри.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Замени %lu конфигурация \n\n";
@@ -866,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "' %@' не е завършен.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' ще използва за свързване OpenVPN %2$@ вместо поисканата версия (OpenVPN %3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Свойството 'easy-rsaPath' игнорирано; не посочва папка";
 
@@ -890,6 +917,9 @@
 /* Window text */
 "(if connected when user switched out)" = "(ако e бил свързан, когато потребителят се е изключил)";
 
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Още информация</a> [tunnelblick.net]";
+
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>На базата на Tunnelblick безплатен софтуер на разположение на<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN е регистрирана търговска марка на OpenVPN Inc.";
 
@@ -904,6 +934,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN конфигурацията е загнездена твърде дълбоко в \"%@\"";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Конфигурация, която изисква секретна фраза (личен ключ) или потребителско име и парола не може да се стартира когато компютъра се стартира.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Фраза за достъп е необходима да се свържете с %1$@%2$@";
@@ -952,6 +985,9 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "Всички конфигурации използват %@ идентификационни данни";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Прикачете 'Tunnelblick Error Data.txt' файла от десктопа ви в имейла. Той съдържа информация за грешката. Може да кликнете двукратно за да видите информацията.\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Грешка (статус %1$ld) настъпи при опит за проверка на сигурността на %2$@ конфигурацията. \n\nМоля, затворете и стартирайте наново Tunnelblick. Ако проблемът продължава, преинсталирайте Tunnelblick.";
@@ -1365,10 +1401,19 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Една или повече конфигурации са игнорирани. Моля погледнете конзолния лог за повече детайли.";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "Един или повече възможни проблема с DNS:\n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Един или повече проблеми бяха открити:\n\n%@";
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Само на Tunnelblick VPN конфигурация (.tblk) може да се стартира при стартиране на компютъра.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, който не е наличен в тази версия на Tunnelblick";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN не отговаря на искането за прекъсване на %@.  \n\nTunnelblick ще прекъсне връзката, когато OpenVPN започне да отговаря на исканията за прекъсване на връзката.\n\nТОВА МОЖЕ ДА ОТНЕМЕ ДО ДВЕ МИНУТИ в някои необичайни обстоятелства.  \n\nВръзката ще бъде недостъпна, докато не бъде прекъсната.";
@@ -1423,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Подсигуряване на Tunnelblick %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Изберете целеви потребител за всеки потребител, които данни за настройка искате да импортирате.";
 
 /* Window text */
 "Set DNS/WINS:" = "Задаване на DNS/WINS:";
@@ -1572,6 +1620,12 @@
 "There was a problem deleting one or more configurations. See the Console Log for details." = "Възникна проблем при изтриване на една или повече конфигурации. За повече детайли вижте Console лог-а.";
 
 /* Window text */
+"There was a problem getting the list of known public DNS servers." = "Възникна проблем с вземане на списък с известни публични DNS сървъри.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Възникна проблем с вземане на списък с DNS сървъри.";
+
+/* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Възникна проблем с OpenVPN конфигурацията. За повече детайли вижте Console лог-а.";
 
 /* Window text */
@@ -1684,6 +1738,9 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick не може да премахне '%@' конфигурацията. Моля вижте конзолния лог за повече детайли.";
+
+/* Window text */
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick възникна фатална грешка.\n\nМоля изпратете имейл на developers@tunnelblick.net за помощ, описвайки какво правехте с Tunnelblick когато възникна грешката.\n\n";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick се натъкна на грешки с %1$lu конфигурации:\n\n%2$@%3$@%4$@%5$@";
@@ -1962,6 +2019,9 @@
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Вашият компютър е възможно да не успее да покаже иконата на Tunnelblick близо до тази на Spotlight.\n\nТова може да направи иконата на Tunnelblick да изчезне от лентата с менюто.\n\nСигурни ли сте, че искате да поставите иконата на Tunnelblick близо до тази на Spotlight?\n\n";
 
 /* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Вашата помощ ще помогне на всички потребители на Tunnelblick.\n\nАко е възможно, моля не избирайте \"Изход\" докато не е изпратен имейла.";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Вашият системен часовник не може да бъде настроен правилно.\n\nВсички или някои от вашите конфигурации могат да не се свържат освен ако системния часовник не е с правилната дата и час.\n\n";
 
 /* Window text */
@@ -2047,6 +2107,9 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Определя кога Tunnelblick се свързва с VPN.</strong></p><p>\"При стартиране на комютъра\" може да се ползва за \"Споделени\" конфигурации.</p>";
+
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Когато е маркиран</strong>, IPv6 е забранен докато OpenVPN сървърът е достъпван по IPv6 адрес.</p>\n<p>Забраняването на IPv6 е често препоръчвано защото много VPN конфигурации не предпазват от изтичане на информация причинена от използването на IPv6. Повечето връзки към интернет работят и без IPv6.</p>\n<p><strong>Когато не е маркиран</strong>, IPv6 няма да бъде забранен.</p>\n<p><strong>Тази опция е изключена и не може да се променя</strong> когато се ползва 'tap' връзка, защото не може да бъде активиране върху 'tap' връзка.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Когато е маркиран</strong>, IPv6 е разрешем.</p>\n<p><strong>Когато не е маркиран</strong>, IPv6 е забранен.</p>\n<p>Забраняването на IPv6 е често препоръчвано защото много VPN конфигурации не предпазват от изтичане на информация причинена от използването на IPv6. Повечето връзки към интернет работят и без IPv6.</p>\n<p><strong>Тази опция не е налична</strong> за Tun конфигурации.</p>";
@@ -2179,6 +2242,9 @@
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick включва персонализирана версия на 'easy-rsa', която е набор от скриптове за команден интерпретато написани от програмистите на OpenVPN за създаване и управление на сертификати и ключове.</p><p>Натискайки този бутон ще се стартира Терминал приложението на OS X и ще отвори папката със скриптовете.</p><p>Обикновено те са разположени в ~/Library/Application Support/Tunnelblick/easy-rsa. Но 'easy-rsaPath' настройката може да зададе и път до папка в Tunnelblick вместо това. 'easy-rsaPath' трябва да е абсолютен път или да започва с '~', и основната папка трябва да съществува. Ако папката посочена с пътя съществува, то тя ще се използва; ако не съществува - ще бъде създадена и скриптовете на easy-rsa ще бъдат инсталирани в нея.</p><p>За повече информация как се ползва easy-rsa, вижте <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Настройване на собствен Certificate Authority (CA) и генериране на сертификати и ключове за OpenVPN сървър и множество клиенти</a> [openvpn.net].</p><p>За повече информация по настройване на Tunnelblick easy-rsa, вижте файла README в папката.</p>";
+
+/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick не успя да зареди системно разширение, което е необходимо за връзка с %1$@.</p><p>%2$@</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Администраторски режим %@ остават";
@@ -2384,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "Актуализирано до версия %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Потр. име в данни за настройки";
+
+/* Column heading in a table */
+"User on this computer" = "Потр. име на този компютър";
 
 /* Credit description */
 "Vietnamese translation" = "Виетнамска локализация";

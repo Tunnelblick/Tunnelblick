@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Sta wijzigingen voor handmatige ingestelde netwerk instellingen toe";
 
 /* Checkbox name */
+"Always show this window" = "Dit venster altijd weergeven";
+
+/* Checkbox name */
 "Apply to all" = "Toepassen op alles";
 
 /* Checkbox name */
@@ -384,10 +387,13 @@
 "Check if the apparent public IP address changed after connecting" = "Controleer of het publieke IP adres gewijzigd is na verbinden";
 
 /* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "IPv6 uitschakelen tenzij de VPN-server over IPv6 benaderd wordt";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Verbinding verbreken wanneer computer overschakelt naar slaapmodus";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "Verbinding verbreken wanneer de gebruiker uitschakelt";
+"Disconnect when user switches out" = "Verbinding verbreken wanneer de gebruiker overgeschakelt naar een andere gebruiker";
 
 /* Checkbox name */
 "Display connection submenus" = "Submenu's van verbinding tonen";
@@ -477,7 +483,7 @@
 "Do not set nameserver" = "Nameserver niet instellen";
 
 /* PopUpButton */
-"Set nameserver (3.0b10)" = "Nameserver configureren (3.0b10)";
+"Set nameserver (3.0b10)" = "Nameserver instellen (3.0b10)";
 
 /* PopUpButton */
 "Set nameserver (3.1)" = "Nameserver configureren (3.1)";
@@ -930,6 +936,9 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Een Tunnelblick VPN configuratie is te diep genest in ' %@'";
 
 /* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Een configuratie die een wachtwoordzin (privésleutel) of een gebruikersnaam en wachtwoord vereist kan geen verbinding maken tijdens het starten van de computer.";
+
+/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Er is een wachtzin vereist om te verbinden met\n  %1$@%2$@";
 
 /* Window text */
@@ -1200,7 +1209,7 @@
 "Failed to set permissions on %@\n" = "Machtigingen instellen voor %@ mislukt\n";
 
 /* Window text */
-"Fast User Switching" = "Snel wisselen van gebruiker";
+"Fast User Switching" = "Snelle gebruikersoverschakeling";
 
 /* Window text */
 "File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Bestand '%@' lijkt van het 'rich text' formaat te zijn omdat het begint met een '{' teken. Alle bestanden gerelateerd aan OpenVPN moeten platte tekst of UTF-8 bestanden zijn.";
@@ -1459,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Tunnelblick %@ beveiligen…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Selecteer de gebruiker waarnaar u de installatiegegevens wilt importeren.";
 
 /* Window text */
 "Set DNS/WINS:" = "Instellen van DNS/WINS:";
@@ -2438,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "Bijgewerkt naar %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Gebruiker in de installatiegegevens";
+
+/* Column heading in a table */
+"User on this computer" = "Gebruiker op deze computer";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamese vertaling";

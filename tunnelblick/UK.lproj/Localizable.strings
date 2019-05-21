@@ -456,7 +456,7 @@
 "Reconnect when computer wakes up" = "Поновити з'єднання при виході комп'ютера з режиму сну";
 
 /* Checkbox name */
-"Reconnect when user switches in" = "Під’єднуватися знову при вході користувача";
+"Reconnect when user switches in" = "Поновити з'єднання при вході користувача";
 
 /* Checkbox name */
 "Require administrator authorization for key and certificate changes" = "Вимагати авторизацію адміністратора для внесення змін до ключа і сертифіката";
@@ -1470,6 +1470,9 @@
 "Securing Tunnelblick %@..." = "Забезпечую Tunnelblick %@…";
 
 /* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Вкажіть користувача для кожної з імпортованих конфігурацій.";
+
+/* Window text */
 "Set DNS/WINS:" = "Добавити DNS/WINS:";
 
 /* Window text */
@@ -1770,7 +1773,7 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick вимагає авторизації, щоб зробити конфігурацію '%@' загальнодоступною.";
 
 /* Window text */
-"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick потребує авторизаціі на зчитування даних Tunnelblick що належать іншим користувачам комп'ютера, для того щоб екпортувати повні дані Tunnelblick.\n\nЗауважте:\n\n     1. Облікові дані із Ключара НЕ будуть експортовані.\n\n     2. Експортування може зайняти істотний час.\n\n";
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick потребує авторизаціі на зчитування даних Tunnelblick що належать іншим користувачам комп'ютера, для того щоб експортувати повні дані Tunnelblick.\n\nЗауважте:\n\n     1. Облікові дані із Ключара НЕ будуть експортовані.\n\n     2. Експортування може зайняти істотний час.\n\n";
 
 /* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick вимагає авторизації, щоб видалити конфігурації %ld.\n\n Видалення конфігурацій незворотнє. Всі налаштування до них теж буде втрачено назавжди.";
@@ -2449,7 +2452,10 @@
 "Updated to %@." = "Оновлено до %@.";
 
 /* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
-"User in setup data" = "Користувач в інсталяційних даних";
+"User in setup data" = "Ім'я користувача в інсталяційних даних";
+
+/* Column heading in a table */
+"User on this computer" = "Ім'я користувача на комп'ютері";
 
 /* Credit description */
 "Vietnamese translation" = "Переклад на в'єтнамську";

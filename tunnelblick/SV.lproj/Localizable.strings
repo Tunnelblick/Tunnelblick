@@ -387,6 +387,9 @@
 "Check if the apparent public IP address changed after connecting" = "Kontrollera om den synliga IP-adressen har förändrats";
 
 /* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Inaktivera IPv6 om inte VPN-servern ansluts via IPv6 (gäller endast tun)";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Koppla bort när datorn försätts i vila";
 
 /* Checkbox name */
@@ -933,6 +936,9 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "En Tunnelblick VPN konfiguration är inkapslad för djupt i '%@'";
 
 /* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "En konfiguration som kräver en lösenordsfras (privat nyckel) eller ett användarnamn och lösenord kan inte ansluta automatiskt när datorn startar.";
+
+/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Det krävs ett lösenord för att kunna ansluta till\n  %1$@%2$@";
 
 /* Window text */
@@ -1462,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Säkrar Tunnelblick %@..";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Välj mål-användare för varje användare vars data du vill importera.";
 
 /* Window text */
 "Set DNS/WINS:" = "Ställ in DNS/WINS:";
@@ -2441,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "Uppdaterad till %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Användare i inställningsdata";
+
+/* Column heading in a table */
+"User on this computer" = "Användare på den här datorn";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamesisk översättning";

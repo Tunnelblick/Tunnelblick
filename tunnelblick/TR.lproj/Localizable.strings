@@ -387,6 +387,9 @@
 "Check if the apparent public IP address changed after connecting" = "Görünen IP adresinin, bağlantıdan sonra değişip değişmediğini kontrol et";
 
 /* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "VPN sunucusuna IPv6 kullanılarak erişilmediği sürece IPv6'yı devre dışı bırakın";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Bilgisayar uyku moduna geçtiğinde bağlantıyı kes";
 
 /* Checkbox name */
@@ -933,6 +936,9 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Bir Tunnelblick VPN Yapılandırması '%@' içerisinde çok derinde bulunuyor";
 
 /* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Bilgisayar başlatıldığında parola (private key) veya kullanıcı adı ve parola gerektiren bir yapılandırma bağlanamaz.";
+
+/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Bu hedefe bağlanmak için bir parola gerekiyor\n  %1$@%2$@";
 
 /* Window text */
@@ -1462,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Tunnelblick %@ güvenli hale getiriliyor…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Kurulum verilerini almak istediğiniz her kullanıcı için bir hedef kullanıcı seçin.";
 
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS Ayarla:";
@@ -2441,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "%@ sürümüne güncellendi.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Kurulum bilgisindeki kullanıcı";
+
+/* Column heading in a table */
+"User on this computer" = "Bu bilgisayardaki kullanıcı";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamca çeviri";

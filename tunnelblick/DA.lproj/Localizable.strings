@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Tillad ændringer til manuelle netværksindstillinger";
 
 /* Checkbox name */
+"Always show this window" = "Vis altid dette vindue";
+
+/* Checkbox name */
 "Apply to all" = "Anvend for alle";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Tjek om den offentlige IP addresse har ændret sig efter du er blevet forbundet";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Slå IPv6 fra, medmindre der forbindes til VPN-serveren med IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Afbryd forbindelsen, når computeren går i vågeblus";
@@ -930,6 +936,9 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "En Tunnelblick VPN-konfiguration er indlejret for dybt i '%@'";
 
 /* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "En konfiguration som kræver et kodeord (privat nøgle) eller et brugernavn og kodeord kan ikke oprette forbindelse når computeren startes.";
+
+/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Et adgangsudtryk er forpligtet til at oprette forbindelse til\n  %1$@%2$@";
 
 /* Window text */
@@ -1459,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Sikrer Tunnelblick %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Vælg en målbruger for hver bruger, hvis opsætningsdata du ønsker at importere.";
 
 /* Window text */
 "Set DNS/WINS:" = "Indstil DNS/WINS:";
@@ -2438,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "Opdateret til %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Brugernavn i opsætningsdata";
+
+/* Column heading in a table */
+"User on this computer" = "Brugernavn på denne computer";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamesisk oversættelse";

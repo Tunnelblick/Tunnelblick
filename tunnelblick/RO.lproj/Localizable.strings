@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Permiteți modificări pentru setarea manuală a setărilor de rețea";
 
 /* Checkbox name */
+"Always show this window" = "Afișează întotdeauna această fereastră";
+
+/* Checkbox name */
 "Apply to all" = "Aplică la toate";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Verifică dacă adresa IP publică s-a schimbat după conectare";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Dezactivează IPv6 cu excepția cazului în care serverul VPN este accesat folosind IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Deconectează când computerul este în mod hibernare";
@@ -884,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' nu a fost terminat.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' se va conecta folosind OpenVPN %2$@ în loc de versiunea cerută (%3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Preferința 'easy-rsaPath' ignorată; nu specifică un dosar";
 
@@ -925,6 +934,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "O configurare Tunnelblick VPN este imbricată prea adânc în '%@'";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "O configurație care necesită o parolă (cheie privată) sau un nume de utilizator și o parolă nu se poate conecta atunci când pornește calculatorul.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "O parolă este necesară pentru a te conecta la   %1$@%2$@";
@@ -1397,6 +1409,12 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Numai o Configurare VPN Tunnelblick (.tblk) poate porni atunci când pornește calculatorul.";
 
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, care nu este disponibil în această versiune de Tunnelblick";
+
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN nu răspunde la solicitările de a deconecta %@.\n\nTunnelblick se va deconecta când OpenVPN începe să răspundă la solicitările de deconectare.\n\nACEST LUCRU POATE DURA PÂNĂ LA DOUĂ MINUTE în anumite circumstanțe neobișnuite.\n\nConexiunea va fi indisponibilă până când acesta este deconectat.";
 
@@ -1450,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Securizare Tunnelblick %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Selecționează un utilizator destinatar pentru fiecare utilizator a cărui configurație vrei să imporți.";
 
 /* Window text */
 "Set DNS/WINS:" = "Setat DNS/WINS:";
@@ -2429,6 +2450,12 @@
 
 /* Notification text */
 "Updated to %@." = "Actualizat la %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Utilizator în configurație";
+
+/* Column heading in a table */
+"User on this computer" = "Utilizator pe acest computer";
 
 /* Credit description */
 "Vietnamese translation" = "Traducere în limba Vietnameză";

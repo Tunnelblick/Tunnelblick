@@ -1470,6 +1470,9 @@
 "Securing Tunnelblick %@..." = "Tunnelblick %@ beveiligen…";
 
 /* Window text */
+"Select a target user for each user whose setup data you wish to import." = "Selecteer een doelgebruiker voor elke gebruiker van wie de installatie data geïmporteerd moet worden.";
+
+/* Window text */
 "Set DNS/WINS:" = "Instellen van DNS/WINS:";
 
 /* Window text */
@@ -2450,6 +2453,9 @@
 
 /* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
 "User in setup data" = "Gebruiker in setup gegevens";
+
+/* Column heading in a table */
+"User on this computer" = "Gebruiker op deze computer";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamese vertaling";
