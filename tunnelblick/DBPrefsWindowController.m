@@ -421,8 +421,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     if ([self shiftSlowsAnimation] && [[[self window] currentEvent] modifierFlags] & NSShiftKeyMask)
 		[viewAnimation setDuration:0.00];
     else
-	
 		[viewAnimation setDuration:0.00];
+	
 	NSDictionary *fadeOutDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                        oldView, NSViewAnimationTargetKey,
                                        NSViewAnimationFadeOutEffect, NSViewAnimationEffectKey,
