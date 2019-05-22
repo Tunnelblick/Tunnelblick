@@ -1083,33 +1083,44 @@ configureDhcpDns()
 	unset test_domain_name
 	unset test_name_server
 
-	set +e # We instruct bash NOT to exit on individual command errors, because if we need to wait longer these commands will fail
+	# Maximum time to wait for DHCP (seconds)
+	local time_limit=15
 
-		# usually takes at least a few seconds to get a DHCP lease
-		sleep 3
-		n=0
-		while [ -z "$test_domain_name" ] && [ -z "$test_name_server" ] && [ $n -lt 5 ]
-		do
-			logMessage "Sleeping for $n seconds to wait for DHCP to finish setup."
-			sleep $n
-			n="$( expr $n + 1 )"
+	local time_waited=0
 
-			if [ -z "$test_domain_name" ]; then
-				test_domain_name="$( ipconfig getoption "$dev" domain_name 2>/dev/null )"
-			fi
+	# It usually takes at least a few seconds to get a DHCP lease, so we loop, checking once per second
+	local sleep_time=1
 
-			if [ -z "$test_name_server" ]; then
-				test_name_server="$( ipconfig getoption "$dev" domain_name_server 2>/dev/null )"
-			fi
-		done
+	while [ -z "$test_domain_name" ] && [ -z "$test_name_server" ] && [ $time_waited -lt $time_limit ] ; do
 
-		logDebugMessage "DEBUG: Finished waiting for DHCP lease: test_domain_name = '$test_domain_name', test_name_server = '$test_name_server'"
+		if [ $sleep_time -ne 0 ] ; then
+			logMessage "Sleeping for $sleep_time seconds to wait for DHCP to finish setup."
+			sleep $sleep_time
+			(( time_waited += sleep_time ))
+		fi
 
-		logDebugMessage "DEBUG: About to 'ipconfig getpacket $dev'"
-		sGetPacketOutput="$( ipconfig getpacket "$dev" )"
-		logDebugMessage "DEBUG: Completed 'ipconfig getpacket $dev'; sGetPacketOutput = $sGetPacketOutput"
+		if [ -z "$test_domain_name" ]; then
+			test_domain_name="$( ipconfig getoption "$dev" domain_name 2>/dev/null ; true )"
+		fi
 
-	set -e # We instruct bash that it CAN again fail on individual errors
+		if [ -z "$test_name_server" ]; then
+			test_name_server="$( ipconfig getoption "$dev" domain_name_server 2>/dev/null ; true )"
+		fi
+	done
+
+	if [ $time_waited -ge $time_limit ] ; then
+		logMessage "WARNING: Gave up waiting to get DHCP lease after $time_waited seconds"
+	fi
+
+	if [ -z "$test_domain_name" ] && [ -z "$test_name_server" ] ; then
+		logMessage "WARNING: domain_name and domain_name_server from 'ipconfig getoption \"$dev\"' were both empty indicating DHCP info has not been received"
+	fi
+
+	logDebugMessage "DEBUG: Finished waiting for DHCP lease: test_domain_name = '$test_domain_name', test_name_server = '$test_name_server'"
+
+	logDebugMessage "DEBUG: About to 'ipconfig getpacket $dev'"
+	sGetPacketOutput="$( ipconfig getpacket "$dev" ; true )"
+	logDebugMessage "DEBUG: Completed 'ipconfig getpacket $dev'; sGetPacketOutput = $sGetPacketOutput"
 
 	unset aNameServers
 	unset aWinsServers
@@ -1760,60 +1771,6 @@ if ${ARG_TAP} ; then
 		logMessage "Configuring tap DNS via OpenVPN"
 		configureOpenVpnDns
 		EXIT_CODE=$?
-	else
-		if [ -z "${route_vpn_gateway}" ] || [ "$route_vpn_gateway" == "dhcp" ] || [ "$route_vpn_gateway" == "DHCP" ]; then
-			# Check if $dev already has an ip configuration
-			hasIp="$(ifconfig "$dev" | grep inet | cut -d ' ' -f 2)"
-			if [ "${hasIp}" ]; then
-				logMessage "Not using DHCP because $dev already has an IP configuration ($hasIp). route_vpn_gateway = '$route_vpn_gateway'"
-			else
-				bRouteGatewayIsDhcp="true"
-				logMessage "Uing DHCP because route_vpn_gateway = '$route_vpn_gateway' and there $dev has no IP configuration"
-			fi
-		fi
-		if [ "$bRouteGatewayIsDhcp" == "true" ]; then
-			logDebugMessage "DEBUG: bRouteGatewayIsDhcp is TRUE"
-			if [ -z "$dev" ]; then
-				logMessage "ERROR: Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
-				# We don't create the "/tmp/tunnelblick-downscript-needs-to-be-run.txt" file, because the down script does NOT need to be run since we didn't do anything
-				run_prefix_or_suffix 'up-suffix.sh'
-				logMessage "End of output from ${OUR_NAME}"
-				logMessage "**********************************************"
-				exit 1
-			fi
-
-			if [ "$script_type" != "route-up" ] ; then
-				logMessage "WARNING: Tap connection using DHCP but 'Set DNS after routes are set' is not set in Tunnelblick's Advanced settings window (script_type = '$script_type')"
-			fi
-
-			logDebugMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
-			ipconfig set "$dev" DHCP
-			logMessage "Did 'ipconfig set \"$dev\" DHCP'"
-
-			if ${ARG_ENABLE_IPV6_ON_TAP} ; then
-				ipconfig set "$dev" AUTOMATIC-V6
-				logMessage "Did 'ipconfig set \"$dev\" AUTOMATIC-V6'"
-			fi
-
-			if ${ARG_WAIT_FOR_DHCP_IF_TAP} ; then
-				logMessage "Configuring tap DNS via DHCP synchronously"
-				configureDhcpDns
-			else
-				logMessage "Configuring tap DNS via DHCP asynchronously"
-				configureDhcpDns & # This must be run asynchronously; the DHCP lease will not complete until this script exits
-				EXIT_CODE=0
-			fi
-		else
-			logMessage "NOTE: No network configuration changes need to be made."
-			if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-				logMessage "WARNING: Will NOT monitor for other network configuration changes."
-			fi
-			if ${ARG_ENABLE_IPV6_ON_TAP} ; then
-				logMessage "WARNING: Will NOT set up IPv6 on TAP device because it does not use DHCP."
-			fi
-			logDnsInfoNoChanges
-			flushDNSCache
-		fi
 	fi
 else
 	if [ "$foreign_option_1" == "" ]; then
