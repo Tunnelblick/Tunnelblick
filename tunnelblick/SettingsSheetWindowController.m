@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -306,8 +306,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     }
     
 	[self setupCheckbox: useRouteUpInsteadOfUpCheckbox
-					key: @"-useRouteUpInsteadOfUp"
-			   inverted: NO];
+					key: @"-useUpInsteadOfRouteUp"
+			   inverted: YES];
 }
 
 - (void) setupDisconnectOnSleepCheckbox {
@@ -1333,9 +1333,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 
 -(IBAction) useRouteUpInsteadOfUpCheckboxWasClicked:(NSButton *)sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-useRouteUpInsteadOfUp"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-useUpInsteadOfRouteUp"
 																	 to: ([sender state] == NSOnState)
-                                                               inverted: NO];
+                                                               inverted: YES];
 }
 
 

@@ -2602,7 +2602,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setBit: OPENVPNSTART_RESTORE_ON_DNS_RESET					inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"							inverted: YES defaultTo: NO];
     [self setBit: OPENVPNSTART_PREPEND_DOMAIN_NAME					inMask: &bitMask ifConnectionPreference: @"-prependDomainNameToSearchDomains"				inverted: NO  defaultTo: NO];
     [self setBit: OPENVPNSTART_FLUSH_DNS_CACHE						inMask: &bitMask ifConnectionPreference: @"-doNotFlushCache"								inverted: YES defaultTo: NO];
-    [self setBit: OPENVPNSTART_USE_ROUTE_UP_NOT_UP					inMask: &bitMask ifConnectionPreference: @"-useRouteUpInsteadOfUp"							inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_USE_ROUTE_UP_NOT_UP					inMask: &bitMask ifConnectionPreference: @"-useUpInsteadOfRouteUp"							inverted: YES defaultTo: NO];
     [self setBit: OPENVPNSTART_RESET_PRIMARY_INTERFACE				inMask: &bitMask ifConnectionPreference: @"-resetPrimaryInterfaceAfterDisconnect"			inverted: NO  defaultTo: NO];
 	[self setBit: OPENVPNSTART_DISABLE_INTERNET_ACCESS				inMask: &bitMask ifConnectionPreference: @"-disableNetworkAccessAfterDisconnect"			inverted: NO  defaultTo: NO];
 	[self setBit: OPENVPNSTART_RESET_PRIMARY_INTERFACE_UNEXPECTED	inMask: &bitMask ifConnectionPreference: @"-resetPrimaryInterfaceAfterUnexpectedDisconnect"	inverted: NO  defaultTo: NO];
@@ -4390,7 +4390,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		[logDisplay addToLog: [TB_LOG_PREFIX stringByAppendingString: text]];
 	} else {
 		[logDisplay performSelectorOnMainThread: @selector(addToLog:)
-									 withObject: [TB_LOG_PREFIX stringByAppendingString: text]
+									 withObject: text
 								  waitUntilDone: NO];
 	}
 }

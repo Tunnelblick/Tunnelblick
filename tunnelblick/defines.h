@@ -798,7 +798,7 @@ name = newValue;                                    \
 @"-routeAllTrafficThroughVpn",	\
 @"-runMtuTest",	\
 @"-doNotFlushCache",	\
-@"-useRouteUpInsteadOfUp",	\
+@"-useUpInsteadOfRouteUp",	\
 @"-useDownRootPlugin",	\
 @"-keychainHasPrivateKey",	\
 @"-keychainHasUsernameAndPassword",	\
@@ -854,6 +854,7 @@ name = newValue;                                    \
 @"-authUsername",	\
 @"-skipWarningThatMayNotConnectInFutureBecauseOfOpenVPNOptions",	\
 @"-usernameIsSet"	\
+@"-useRouteUpInsteadOfUp"   \
 ]
 //*************************************************************************************************
 // Comment out (with "//") the following line to EXclude the VPNService feature
