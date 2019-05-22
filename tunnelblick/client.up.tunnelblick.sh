@@ -18,7 +18,7 @@
 # @param String message - The message to log
 logMessage()
 {
-	echo "*Tunnelblick: ${@}"
+	echo "*Tunnelblick: " "${@}"
 }
 
 ##########################################################################################
@@ -32,7 +32,7 @@ logMessage()
 logDebugMessage()
 {
     if ${ARG_EXTRA_LOGGING} ; then
-        echo "*Tunnelblick: ${@}"
+        echo "*Tunnelblick: " "${@}"
     fi
 }
 
@@ -59,6 +59,9 @@ logChange()
 # @param String string - Content to trim
 trim()
 {
+# We DO NOT want to double-quote {%@}
+# This should create a set of trimmed strings.
+# shellcheck disable=SC2068
 	echo ${@}
 }
 
@@ -104,7 +107,7 @@ get_networksetup_setting() {
 	fi
 
 	# Get list of services and remove the first line which contains a heading
-	local services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d' )"
+	local services ; services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d' ; true )"
 
 	# Go through the list for enabled services
 
@@ -125,7 +128,7 @@ get_networksetup_setting() {
 				fi
 
 				# Get the setting for the service
-				local setting="$(  /usr/sbin/networksetup -get$1    "$service" )"
+				local setting ; setting="$(  /usr/sbin/networksetup -get"$1" "$service" ; true )"
 
 
 				if [ "${setting/There aren/}" = "$setting" ] ; then
@@ -191,7 +194,7 @@ set_networksetup_setting() {
 	fi
 
 	# Get list of services and remove the first line which contains a heading
-	local services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d' )"
+	local service ; service="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d' ; true )"
 
 	# Go through the list for enabled services
 
@@ -211,8 +214,9 @@ set_networksetup_setting() {
 					exit 1
 				fi
 
-				# Translate commas in $2 to spaces for networksetup -- DO NOT QUOTE ${2//,/ } !!!
-				/usr/sbin/networksetup -set$1 "$service" ${2//,/ }
+				# Translate commas in $2 to spaces for networksetup to get separate arguments -- DO NOT QUOTE ${2//,/ } !!!
+				# shellcheck disable=SC2086
+				/usr/sbin/networksetup -set"$1" "$service" ${2//,/ }
 			fi
 		fi
 	done
@@ -245,6 +249,9 @@ run_prefix_or_suffix()
 		logMessage "---------- Start of output from $1"
 
 		set +e
+		# We DO NOT want to double-quote SCRIPT_ARGS
+		# They should be separate arguments to the script, as they are separate arguments to this script
+		# shellcheck disable=SC2086
 			(  "$TUNNELBLICK_CONFIG_FOLDER/$1" ${SCRIPT_ARGS[*]}  )
 			local status=$?
 		set -e
@@ -271,7 +278,7 @@ disable_ipv6() {
 # NOTE: Done only for enabled services because some versions of macOS enable the service if this IPv6 setting is changed.
 
     # Get list of services and remove the first line which contains a heading
-    local dipv6_services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d')"
+    local dipv6_services ; dipv6_services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d' ; true)"
 
     # Go through the list disabling IPv6 for enabled services, and outputting lines with the names of the services
     printf %s "$dipv6_services$LF"  |   while IFS= read -r dipv6_service ; do
@@ -387,6 +394,8 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	#     DYN_SMB_WG
 	#     DYN_SMB_NN
 	# are left empty. There isn't a way for OpenVPN to set them.
+	DYN_SMB_WG=''
+	DYN_SMB_NN=''
 
 	logDebugMessage "DEBUG:"
 	logDebugMessage "DEBUG: MAN_DNS_CONFIG = ${MAN_DNS_CONFIG}"
@@ -1119,28 +1128,28 @@ configureDhcpDns()
 
 				for tNameServer in $( echo "$sGetPacketOutput" | grep "domain_name_server" | grep -Eo "\{([0-9\.]+)(, [0-9\.]+)*\}" | grep -Eo "([0-9\.]+)" ); do
 					aNameServers[nNameServerIndex-1]="$( trim "$tNameServer" )"
-					let nNameServerIndex++
+					(( nNameServerIndex++ ))
 				done
 
 				for tWINSServer in $( echo "$sGetPacketOutput" | grep "nb_over_tcpip_name_server" | grep -Eo "\{([0-9\.]+)(, [0-9\.]+)*\}" | grep -Eo "([0-9\.]+)" ); do
 					aWinsServers[nWinsServerIndex-1]="$( trim "$tWINSServer" )"
-					let nWinsServerIndex++
+					(( nWinsServerIndex++ ))
 				done
 
 				for tSearchDomain in $( echo "$sGetPacketOutput" | grep "search_domain" | grep -Eo "\{([-A-Za-z0-9\-\.]+)(, [-A-Za-z0-9\-\.]+)*\}" | grep -Eo "([-A-Za-z0-9\-\.]+)" ); do
 					aSearchDomains[nSearchDomainIndex-1]="$( trim "$tSearchDomain" )"
-					let nSearchDomainIndex++
+					(( nSearchDomainIndex++ ))
 				done
 
 				sDomainName="$( echo "$sGetPacketOutput" | grep "domain_name " | grep -Eo ": [-A-Za-z0-9\-\.]+" | grep -Eo "[-A-Za-z0-9\-\.]+" )"
 				sDomainName="$( trim "$sDomainName" )"
 
 				if [ ${#aNameServers[*]} -gt 0 ] && [ "$sDomainName" ]; then
-					logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [ ${aNameServers[@]} ], domain name [ $sDomainName ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ]"
+					logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [" "${aNameServers[@]}" "], domain name [ $sDomainName ], search domain(s) [" "${aSearchDomains[@]}" "] and SMB server(s) [" "${aWinsServers[@]}" "]"
 					setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
 					return 0
 				elif [ ${#aNameServers[*]} -gt 0 ]; then
-					logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [ ${aNameServers[@]} ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
+					logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [" "${aNameServers[@]}" "], search domain(s) [" "${aSearchDomains[@]}" "] and SMB server(s) [" "${aWinsServers[@]}" "] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
 					setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
 					return 0
 				else
@@ -1262,39 +1271,39 @@ configureOpenVpnDns()
 		case ${vOptions[nOptionIndex-1]} in
 			"dhcp-option DOMAIN-SEARCH "*   )
 				aSearchDomains[nSearchDomainIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DOMAIN-SEARCH /}" )"
-				let nSearchDomainIndex++
+				(( nSearchDomainIndex++ ))
 				;;
 			"dhcp-option SEARCH-DOMAIN "*   )
 				aSearchDomains[nSearchDomainIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option SEARCH-DOMAIN /}" )"
-				let nSearchDomainIndex++
+				(( nSearchDomainIndex++ ))
 				;;
 			"dhcp-option DOMAIN "* )
 				sDomainName="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DOMAIN /}" )"
 				;;
 			"dhcp-option DNS "*    )
 				aNameServers[nNameServerIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DNS /}" )"
-				let nNameServerIndex++
+				(( nNameServerIndex++ ))
 				;;
 			"dhcp-option DNS6 "*    )
 				aNameServers[nNameServerIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DNS6 /}" )"
-				let nNameServerIndex++
+				(( nNameServerIndex++ ))
 				;;
 			"dhcp-option WINS "*   )
 				aWinsServers[nWinsServerIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option WINS /}" )"
-				let nWinsServerIndex++
+				(( nWinsServerIndex++ ))
 				;;
             *   )
                 logMessage "WARNING: 'foreign_option_${nOptionIndex}' = '${vOptions[nOptionIndex-1]}' ignored"
                 ;;
 		esac
-		let nOptionIndex++
+		(( nOptionIndex++ ))
 	done
 
 	if [ ${#aNameServers[*]} -gt 0 ] && [ "$sDomainName" ]; then
-		logMessage "Retrieved from OpenVPN: name server(s) [ ${aNameServers[@]} ], domain name [ $sDomainName ], search domain(s) [ ${aSearchDomains[@]} ], and SMB server(s) [ ${aWinsServers[@]} ]"
+		logMessage "Retrieved from OpenVPN: name server(s) [" "${aNameServers[@]}" "], domain name [ $sDomainName ], search domain(s) [" "${aSearchDomains[@]}" "], and SMB server(s) [" "${aWinsServers[@]}" "]"
 		setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
 	elif [ ${#aNameServers[*]} -gt 0 ]; then
-		logMessage "Retrieved from OpenVPN: name server(s) [ ${aNameServers[@]} ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
+		logMessage "Retrieved from OpenVPN: name server(s) [" "${aNameServers[@]}" "], search domain(s) [" "${aSearchDomains[@]}" "] and SMB server(s) [" "${aWinsServers[@]}" "] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
 		setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
 	else
 		logMessage "WARNING: No DNS information received from OpenVPN, so no network configuration changes need to be made."
@@ -1314,8 +1323,7 @@ flushDNSCache()
     if ${ARG_FLUSH_DNS_CACHE} ; then
 		if [ -f /usr/bin/dscacheutil ] ; then
 			set +e # we will catch errors from dscacheutil
-				/usr/bin/dscacheutil -flushcache
-				if [ $? != 0 ] ; then
+				if /usr/bin/dscacheutil -flushcache ; then
 					logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
 				else
 					logMessage "Flushed the DNS cache via dscacheutil"
@@ -1327,14 +1335,12 @@ flushDNSCache()
 
 		if [ -f /usr/sbin/discoveryutil ] ; then
 			set +e # we will catch errors from discoveryutil
-				/usr/sbin/discoveryutil udnsflushcaches
-				if [ $? != 0 ] ; then
+				if /usr/sbin/discoveryutil udnsflushcaches ; then
 					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
 				else
 					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
 				fi
-				/usr/sbin/discoveryutil mdnsflushcache
-				if [ $? != 0 ] ; then
+				if /usr/sbin/discoveryutil mdnsflushcache ; then
 					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
 				else
 					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
@@ -1347,14 +1353,12 @@ flushDNSCache()
 		if [ "$( pgrep HandsOffDaemon )" = "" ] ; then
 			if [ -f /usr/bin/killall ] ; then
 				set +e # ignore errors if mDNSResponder isn't currently running
-					/usr/bin/killall -HUP mDNSResponder > /dev/null 2>&1
-					if [ $? != 0 ] ; then
+					if /usr/bin/killall -HUP mDNSResponder > /dev/null 2>&1 ; then
 						logMessage "Not notifying mDNSResponder that the DNS cache was flushed because it is not running"
 					else
 						logMessage "Notified mDNSResponder that the DNS cache was flushed"
 					fi
-					/usr/bin/killall -HUP mDNSResponderHelper > /dev/null 2>&1
-					if [ $? != 0 ] ; then
+					if /usr/bin/killall -HUP mDNSResponderHelper > /dev/null 2>&1 ; then
 						logMessage "Not notifying mDNSResponderHelper that the DNS cache was flushed because it is not running"
 					else
 						logMessage "Notified mDNSResponderHelper that the DNS cache was flushed"
@@ -1491,6 +1495,28 @@ readonly OUR_NAME="$( basename "${0}" )"
 
 logMessage "**********************************************"
 logMessage "Start of output from ${OUR_NAME}"
+
+# Check variables should have been set up by OpenVPN
+# shellcheck disable=SC2154
+if [ -z "$dev" ] ; then
+	dev=''
+	echo "WARNING: \$dev is empty"
+fi
+# shellcheck disable=SC2154
+if [ -z "$config" ] ; then
+	config=''
+	echo "WARNING: \$config is empty"
+fi
+# shellcheck disable=SC2154
+if [ -z "$route_vpn_gateway" ] ; then
+	route_vpn_gateway=''
+	echo "WARNING: \$route_vpn_gateway is empty"
+fi
+# shellcheck disable=SC2154
+if [ -z "$script_type" ] ; then
+	script_type=''
+	echo "WARNING: \$script_type is empty"
+fi
 
 # Process optional arguments (if any) for the script
 # Each one begins with a "-"
@@ -1715,6 +1741,8 @@ if ${ARG_TAP} ; then
 		    configureDhcpDns & # This must be run asynchronously; the DHCP lease will not complete until this script exits
 		    EXIT_CODE=0
         fi
+	# "foreign_option_n" variables __may or may not__ set up by OpenVPN
+	# shellcheck disable=SC2154
 	elif [ "$foreign_option_1" == "" ]; then
 		logMessage "NOTE: No network configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
@@ -1732,6 +1760,60 @@ if ${ARG_TAP} ; then
 		logMessage "Configuring tap DNS via OpenVPN"
 		configureOpenVpnDns
 		EXIT_CODE=$?
+	else
+		if [ -z "${route_vpn_gateway}" ] || [ "$route_vpn_gateway" == "dhcp" ] || [ "$route_vpn_gateway" == "DHCP" ]; then
+			# Check if $dev already has an ip configuration
+			hasIp="$(ifconfig "$dev" | grep inet | cut -d ' ' -f 2)"
+			if [ "${hasIp}" ]; then
+				logMessage "Not using DHCP because $dev already has an IP configuration ($hasIp). route_vpn_gateway = '$route_vpn_gateway'"
+			else
+				bRouteGatewayIsDhcp="true"
+				logMessage "Uing DHCP because route_vpn_gateway = '$route_vpn_gateway' and there $dev has no IP configuration"
+			fi
+		fi
+		if [ "$bRouteGatewayIsDhcp" == "true" ]; then
+			logDebugMessage "DEBUG: bRouteGatewayIsDhcp is TRUE"
+			if [ -z "$dev" ]; then
+				logMessage "ERROR: Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
+				# We don't create the "/tmp/tunnelblick-downscript-needs-to-be-run.txt" file, because the down script does NOT need to be run since we didn't do anything
+				run_prefix_or_suffix 'up-suffix.sh'
+				logMessage "End of output from ${OUR_NAME}"
+				logMessage "**********************************************"
+				exit 1
+			fi
+
+			if [ "$script_type" != "route-up" ] ; then
+				logMessage "WARNING: Tap connection using DHCP but 'Set DNS after routes are set' is not set in Tunnelblick's Advanced settings window (script_type = '$script_type')"
+			fi
+
+			logDebugMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
+			ipconfig set "$dev" DHCP
+			logMessage "Did 'ipconfig set \"$dev\" DHCP'"
+
+			if ${ARG_ENABLE_IPV6_ON_TAP} ; then
+				ipconfig set "$dev" AUTOMATIC-V6
+				logMessage "Did 'ipconfig set \"$dev\" AUTOMATIC-V6'"
+			fi
+
+			if ${ARG_WAIT_FOR_DHCP_IF_TAP} ; then
+				logMessage "Configuring tap DNS via DHCP synchronously"
+				configureDhcpDns
+			else
+				logMessage "Configuring tap DNS via DHCP asynchronously"
+				configureDhcpDns & # This must be run asynchronously; the DHCP lease will not complete until this script exits
+				EXIT_CODE=0
+			fi
+		else
+			logMessage "NOTE: No network configuration changes need to be made."
+			if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
+				logMessage "WARNING: Will NOT monitor for other network configuration changes."
+			fi
+			if ${ARG_ENABLE_IPV6_ON_TAP} ; then
+				logMessage "WARNING: Will NOT set up IPv6 on TAP device because it does not use DHCP."
+			fi
+			logDnsInfoNoChanges
+			flushDNSCache
+		fi
 	fi
 else
 	if [ "$foreign_option_1" == "" ]; then
