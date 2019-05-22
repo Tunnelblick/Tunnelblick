@@ -1708,69 +1708,72 @@ if ${ARG_TAP} ; then
     readonly ipv6_disabled_services=""
     readonly ipv6_disabled_services_encoded=""
 
-	# Still need to do: Look for route-gateway dhcp (TAP isn't always DHCP)
-	bRouteGatewayIsDhcp="false"
-	if [ -z "${route_vpn_gateway}" ] || [ "$route_vpn_gateway" == "dhcp" ] || [ "$route_vpn_gateway" == "DHCP" ]; then
-		# Check if $dev already has an ip configuration
-		hasIp="$(ifconfig "$dev" | grep inet | cut -d ' ' -f 2)"
-		if [ "${hasIp}" ]; then
-			logMessage "Not using DHCP because $dev already has an ip configuration."
-		else
-			bRouteGatewayIsDhcp="true"
-		fi
-	fi
+	# If _any_ DHCP info (such as DNS) is provided by the OpenVPN server or the client configuration file (via "dhcp-option"), use it
+	# Otherwise, use DHCP to get DNS if possible, or do nothing about DNS
 
-	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
-		logDebugMessage "DEBUG: bRouteGatewayIsDhcp is TRUE"
-		if [ -z "$dev" ]; then
-			logMessage "ERROR: Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
-            # We don't create the "/tmp/tunnelblick-downscript-needs-to-be-run.txt" file, because the down script does NOT need to be run since we didn't do anything
-			run_prefix_or_suffix 'up-suffix.sh'
-            logMessage "End of output from ${OUR_NAME}"
-            logMessage "**********************************************"
-			exit 1
-		fi
-
-		if [ "$script_type" != "route-up" ] ; then
-			logMessage "WARNING: Tap connection using DHCP but 'Set DNS after routes are set' is not set in Tunnelblick's Advanced settings window (script_type = '$script_type')"
-		fi
-
-		logDebugMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
-		ipconfig set "$dev" DHCP
-		logMessage "Did 'ipconfig set \"$dev\" DHCP'"
-
-        if ${ARG_ENABLE_IPV6_ON_TAP} ; then
-            ipconfig set "$dev" AUTOMATIC-V6
-            logMessage "Did 'ipconfig set \"$dev\" AUTOMATIC-V6'"
-        fi
-
-        if ${ARG_WAIT_FOR_DHCP_IF_TAP} ; then
-            logMessage "Configuring tap DNS via DHCP synchronously"
-            configureDhcpDns
-        else
-    		logMessage "Configuring tap DNS via DHCP asynchronously"
-		    configureDhcpDns & # This must be run asynchronously; the DHCP lease will not complete until this script exits
-		    EXIT_CODE=0
-        fi
 	# "foreign_option_n" variables __may or may not__ set up by OpenVPN
 	# shellcheck disable=SC2154
-	elif [ "$foreign_option_1" == "" ]; then
-		logMessage "NOTE: No network configuration changes need to be made."
-		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-			logMessage "WARNING: Will NOT monitor for other network configuration changes."
+	if [ -n "$foreign_option_1" ]; then
+		if ${ARG_ENABLE_IPV6_ON_TAP} ; then
+			logMessage "WARNING: Will NOT set up IPv6 on TAP device because it does not use DHCP."
 		fi
-        if ${ARG_ENABLE_IPV6_ON_TAP} ; then
-            logMessage "WARNING: Will NOT set up IPv6 on TAP device because it does not use DHCP."
-        fi
-        logDnsInfoNoChanges
-        flushDNSCache
-	else
-        if ${ARG_ENABLE_IPV6_ON_TAP} ; then
-            logMessage "WARNING: Will NOT set up IPv6 on TAP device because it does not use DHCP."
-        fi
 		logMessage "Configuring tap DNS via OpenVPN"
 		configureOpenVpnDns
 		EXIT_CODE=$?
+	else
+		if [ -z "${route_vpn_gateway}" ] || [ "$route_vpn_gateway" == "dhcp" ] || [ "$route_vpn_gateway" == "DHCP" ]; then
+			# Check if $dev already has an ip configuration
+			hasIp="$(ifconfig "$dev" | grep inet | cut -d ' ' -f 2)"
+			if [ "${hasIp}" ]; then
+				logMessage "Not using DHCP because $dev already has an IP configuration ($hasIp). route_vpn_gateway = '$route_vpn_gateway'"
+			else
+				bRouteGatewayIsDhcp="true"
+				logMessage "Uing DHCP because route_vpn_gateway = '$route_vpn_gateway' and there $dev has no IP configuration"
+			fi
+		fi
+		if [ "$bRouteGatewayIsDhcp" == "true" ]; then
+			logDebugMessage "DEBUG: bRouteGatewayIsDhcp is TRUE"
+			if [ -z "$dev" ]; then
+				logMessage "ERROR: Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
+				# We don't create the "/tmp/tunnelblick-downscript-needs-to-be-run.txt" file, because the down script does NOT need to be run since we didn't do anything
+				run_prefix_or_suffix 'up-suffix.sh'
+				logMessage "End of output from ${OUR_NAME}"
+				logMessage "**********************************************"
+				exit 1
+			fi
+
+			if [ "$script_type" != "route-up" ] ; then
+				logMessage "WARNING: Tap connection using DHCP but 'Set DNS after routes are set' is not set in Tunnelblick's Advanced settings window (script_type = '$script_type')"
+			fi
+
+			logDebugMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
+			ipconfig set "$dev" DHCP
+			logMessage "Did 'ipconfig set \"$dev\" DHCP'"
+
+			if ${ARG_ENABLE_IPV6_ON_TAP} ; then
+				ipconfig set "$dev" AUTOMATIC-V6
+				logMessage "Did 'ipconfig set \"$dev\" AUTOMATIC-V6'"
+			fi
+
+			if ${ARG_WAIT_FOR_DHCP_IF_TAP} ; then
+				logMessage "Configuring tap DNS via DHCP synchronously"
+				configureDhcpDns
+			else
+				logMessage "Configuring tap DNS via DHCP asynchronously"
+				configureDhcpDns & # This must be run asynchronously; the DHCP lease will not complete until this script exits
+				EXIT_CODE=0
+			fi
+		else
+			logMessage "NOTE: No network configuration changes need to be made."
+			if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
+				logMessage "WARNING: Will NOT monitor for other network configuration changes."
+			fi
+			if ${ARG_ENABLE_IPV6_ON_TAP} ; then
+				logMessage "WARNING: Will NOT set up IPv6 on TAP device because it does not use DHCP."
+			fi
+			logDnsInfoNoChanges
+			flushDNSCache
+		fi
 	fi
 else
 	if [ "$foreign_option_1" == "" ]; then
