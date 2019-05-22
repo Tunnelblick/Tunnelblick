@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015, 2016, 2019 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -35,6 +35,13 @@ extern TBUserDefaults * gTbDefaults;
 
 @implementation PassphraseWindowController
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *, visiblePassphrase)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,    eyeButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,     eyeNormal)
+TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,     eyeRedSlash)
+
 -(id) initWithDelegate: (id) theDelegate
 {
     self = [super initWithWindowNibName: [UIHelper appendRTLIfRTLLanguage: @"PassphraseWindow"]];
@@ -52,6 +59,9 @@ extern TBUserDefaults * gTbDefaults;
                                                                name: NSWorkspaceDidWakeNotification
                                                              object: nil];
     
+    eyeNormal   = [[NSImage imageNamed: @"eyeNormal"]   retain];
+    eyeRedSlash = [[NSImage imageNamed: @"eyeRedSlash"] retain];
+
     delegate = [theDelegate retain];
     return self;
 }
@@ -80,7 +90,14 @@ extern TBUserDefaults * gTbDefaults;
     [mainText setTitle: text];
     
     [saveInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
-    
+
+	if (  keychainHasPrivateKeyForDisplayName([[self delegate] displayName])  ) {
+		[[self eyeButton] setEnabled: NO];
+		[[self eyeButton] setHidden:  YES];
+	} else {
+		[self setInputBoxAndImageAndPassphrase: @"" exposed: NO];
+	}
+
     NSString * autoConnectKey   = [displayName stringByAppendingString: @"autoConnect"];
     NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
     BOOL connectOnSystemStart = (   [gTbDefaults boolForKey: autoConnectKey]
@@ -143,6 +160,56 @@ extern TBUserDefaults * gTbDefaults;
     [NSApp stopModal];
 }
 
+-(void) exposePassphraseAndSetImage {
+
+    [[self passphrase] setHidden:  TRUE];
+    [[self passphrase] setEnabled: FALSE];
+
+    [[self visiblePassphrase] setHidden:  FALSE];
+    [[self visiblePassphrase] setEnabled: TRUE];
+
+    [[self eyeButton] setImage: eyeRedSlash];
+}
+
+-(void) hidePassphraseAndSetImage {
+
+    [[self visiblePassphrase] setHidden:  TRUE];
+    [[self visiblePassphrase] setEnabled: FALSE];
+
+    [[self passphrase] setHidden:  FALSE];
+    [[self passphrase] setEnabled: TRUE];
+
+    [[self eyeButton] setImage: eyeNormal];
+}
+
+-(void) setInputBoxAndImageAndPassphrase: (NSString *) pw exposed: (BOOL) exposed {
+
+    if (  exposed  ) {
+        [[self visiblePassphrase] setStringValue: pw];
+        [self exposePassphraseAndSetImage];
+    } else {
+        [[self passphrase] setStringValue: pw];
+        [self hidePassphraseAndSetImage];
+    }
+}
+
+-(IBAction) eyeButtonWasClicked: (id) sender {
+
+    if (  [[eyeButton image] isEqual: eyeNormal]  ) {
+
+        // Make passphrase visible and swap the eye image
+        NSString * pw = [[self passphrase] stringValue];
+        [self setInputBoxAndImageAndPassphrase: pw exposed: YES];
+
+    } else {
+
+        // Make passphrase invisible and swap the eye image
+        NSString * pw = [[self visiblePassphrase] stringValue];
+        [self setInputBoxAndImageAndPassphrase: pw exposed: NO];
+    }
+    
+    (void) sender;
+}
 -(void) applicationDidChangeScreenParametersNotificationHandler: (NSNotification *) n
 {
  	(void) n;

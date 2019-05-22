@@ -10,6 +10,7 @@
                 <outlet property="OKButton" destination="9" id="49"/>
                 <outlet property="alwaysShowLoginWindowCheckbox" destination="TLH-Cp-GnI" id="FjL-h1-z3a"/>
                 <outlet property="cancelButton" destination="35" id="59"/>
+                <outlet property="eyeButton" destination="PCd-3S-bP7" id="noT-Pl-QzN"/>
                 <outlet property="iconIV" destination="3" id="60"/>
                 <outlet property="mainText" destination="32" id="48"/>
                 <outlet property="password" destination="55" id="63"/>
@@ -18,6 +19,7 @@
                 <outlet property="saveUsernameInKeychainCheckbox" destination="42" id="89"/>
                 <outlet property="username" destination="38" id="64"/>
                 <outlet property="usernameTFC" destination="45" id="54"/>
+                <outlet property="visiblePassword" destination="d3G-tm-xxA" id="cn9-Bk-bKk"/>
                 <outlet property="window" destination="1" id="15"/>
             </connections>
         </customObject>
@@ -26,23 +28,110 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" frameAutosaveName="ConnectingWindow" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="345" width="412" height="300"/>
+            <rect key="contentRect" x="196" y="345" width="500" height="300"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="412" height="300"/>
+                <rect key="frame" x="0.0" y="0.0" width="500" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView id="27">
-                        <rect key="frame" x="0.0" y="0.0" width="412" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
-                            <imageView id="3">
-                                <rect key="frame" x="17" y="212" width="72" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="4"/>
-                            </imageView>
+                            <textField verticalHuggingPriority="750" id="31">
+                                <rect key="frame" x="109" y="208" width="373" height="76"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="text" id="32">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" id="44" userLabel="Username label">
+                                <rect key="frame" x="17" y="178" width="129" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="UsernameLabel" id="45">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" id="38">
+                                <rect key="frame" x="152" y="175" width="328" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="39">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="-2" id="61"/>
+                                    <outlet property="nextKeyView" destination="55" id="102"/>
+                                </connections>
+                            </textField>
+                            <button id="42">
+                                <rect key="frame" x="150" y="151" width="333" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="check" title="Save username in Keychain" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="43">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="saveUsernameInKeychainCheckboxWasClicked:" target="-2" id="91"/>
+                                    <outlet property="nextKeyView" destination="86" id="104"/>
+                                </connections>
+                            </button>
+                            <textField verticalHuggingPriority="750" id="46" userLabel="Password label">
+                                <rect key="frame" x="17" y="114" width="129" height="17"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="PasswordLabel" id="47">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <secureTextField verticalHuggingPriority="750" id="55">
+                                <rect key="frame" x="152" y="111" width="300" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="56">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <allowedInputSourceLocales>
+                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                    </allowedInputSourceLocales>
+                                </secureTextFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="-2" id="62"/>
+                                    <outlet property="nextKeyView" destination="42" id="YMm-IW-6cN"/>
+                                </connections>
+                            </secureTextField>
+                            <textField verticalHuggingPriority="750" id="d3G-tm-xxA">
+                                <rect key="frame" x="152" y="111" width="300" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="M3Y-1v-I6A">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="-2" id="0Ca-CO-ANC"/>
+                                    <outlet property="nextKeyView" destination="42" id="Cpe-rl-WjP"/>
+                                </connections>
+                            </textField>
+                            <button id="86">
+                                <rect key="frame" x="150" y="87" width="332" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="check" title="Save password in Keychain" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="87">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="9" id="Ss3-St-Zpg"/>
+                                </connections>
+                            </button>
                             <button verticalHuggingPriority="750" id="9">
-                                <rect key="frame" x="293" y="41" width="105" height="32"/>
+                                <rect key="frame" x="381" y="41" width="105" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="push" title="O" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="10">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -56,8 +145,35 @@ DQ
                                     <outlet property="nextKeyView" destination="35" id="108"/>
                                 </connections>
                             </button>
+                            <button id="TLH-Cp-GnI" userLabel="Always show this window Checkbox">
+                                <rect key="frame" x="19" y="18" width="464" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="check" title="Always show this window$$$" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="jtk-B7-hT4">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="38" id="O0L-qN-jLE"/>
+                                </connections>
+                            </button>
+                            <button id="PCd-3S-bP7">
+                                <rect key="frame" x="460" y="112" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8Fd-wU-leU">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="eyeButtonWasClicked:" target="-2" id="7a1-eR-vCH"/>
+                                </connections>
+                            </button>
+                            <imageView id="3">
+                                <rect key="frame" x="21" y="212" width="72" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="4"/>
+                            </imageView>
                             <button verticalHuggingPriority="750" id="35">
-                                <rect key="frame" x="188" y="42" width="105" height="32"/>
+                                <rect key="frame" x="265" y="41" width="105" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="C" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="36">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -68,99 +184,9 @@ Gw
                                 </buttonCell>
                                 <connections>
                                     <action selector="cancelButtonWasClicked:" target="-2" id="37"/>
-                                    <outlet property="nextKeyView" destination="38" id="109"/>
+                                    <outlet property="nextKeyView" destination="TLH-Cp-GnI" id="DKo-fw-Z8f"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" id="31">
-                                <rect key="frame" x="110" y="208" width="285" height="76"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="text" id="32">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField verticalHuggingPriority="750" id="38">
-                                <rect key="frame" x="151" y="175" width="241" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="39">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="-2" id="61"/>
-                                    <outlet property="nextKeyView" destination="55" id="102"/>
-                                </connections>
-                            </textField>
-                            <button id="42">
-                                <rect key="frame" x="149" y="150" width="245" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="check" title="Save username in Keychain" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="43">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="saveUsernameInKeychainCheckboxWasClicked:" target="-2" id="91"/>
-                                    <outlet property="nextKeyView" destination="86" id="104"/>
-                                </connections>
-                            </button>
-                            <button id="86">
-                                <rect key="frame" x="149" y="87" width="245" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="check" title="Save password in Keychain" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="87">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <outlet property="nextKeyView" destination="9" id="107"/>
-                                </connections>
-                            </button>
-                            <textField verticalHuggingPriority="750" id="44">
-                                <rect key="frame" x="17" y="177" width="129" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Label" id="45">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField verticalHuggingPriority="750" id="46">
-                                <rect key="frame" x="17" y="114" width="129" height="17"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Label" id="47">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button id="TLH-Cp-GnI" userLabel="Always show this window Checkbox">
-                                <rect key="frame" x="29" y="19" width="366" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="check" title="Always show this window$$$" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="jtk-B7-hT4">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <outlet property="nextKeyView" destination="9" id="kbY-Dc-UFb"/>
-                                </connections>
-                            </button>
-                            <secureTextField verticalHuggingPriority="750" id="55">
-                                <rect key="frame" x="151" y="111" width="241" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="56">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <allowedInputSourceLocales>
-                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                                    </allowedInputSourceLocales>
-                                </secureTextFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="-2" id="62"/>
-                                    <outlet property="nextKeyView" destination="42" id="106"/>
-                                </connections>
-                            </secureTextField>
                         </subviews>
                         <connections>
                             <outlet property="nextKeyView" destination="42" id="79"/>
@@ -172,7 +198,7 @@ Gw
                 <outlet property="delegate" destination="-2" id="24"/>
                 <outlet property="initialFirstResponder" destination="38" id="77"/>
             </connections>
-            <point key="canvasLocation" x="1100" y="611"/>
+            <point key="canvasLocation" x="655" y="399"/>
         </window>
     </objects>
 </document>

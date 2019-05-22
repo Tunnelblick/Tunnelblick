@@ -19,6 +19,7 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+#include "defines.h"
 
 @interface PassphraseWindowController : NSWindowController <NSWindowDelegate>
 {
@@ -30,10 +31,16 @@
     IBOutlet NSButton           * OKButton;
     
     IBOutlet NSSecureTextField  * passphrase;
-    
+    IBOutlet NSTextField        * visiblePassphrase;
+
     IBOutlet NSButton           * saveInKeychainCheckbox;
     
+    IBOutlet NSButton           * eyeButton;
+
     id                            delegate;
+
+    NSImage                     * eyeNormal;
+    NSImage                     * eyeRedSlash;
 }
 
 -(id)           initWithDelegate:       (id)            theDelegate;
@@ -41,6 +48,7 @@
 
 -(IBAction)     cancelButtonWasClicked: (id)            sender;
 -(IBAction)     OKButtonWasClicked:     (id)            sender;
+-(IBAction)     eyeButtonWasClicked:    (id)            sender;
 
 -(NSTextField *)passphrase;
 -(void)         setPassphrase:          (NSTextField *) newValue;
@@ -48,5 +56,9 @@
 -(BOOL)         saveInKeychain;
 
 -(id)           delegate;
+
+TBPROPERTY_READONLY(NSTextField *, visiblePassphrase)
+
+TBPROPERTY_READONLY(NSButton *,    eyeButton)
 
 @end

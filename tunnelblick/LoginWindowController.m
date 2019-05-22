@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015, 2016, 2019 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -34,12 +34,18 @@ extern TBUserDefaults * gTbDefaults;
 
 @implementation LoginWindowController
 
-TBSYNTHESIZE_OBJECT(retain, NSTextField *,       username, setUsername)
-TBSYNTHESIZE_OBJECT(retain, NSSecureTextField *, password, setPassword)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField       *, username)
+TBSYNTHESIZE_OBJECT_GET(retain, NSSecureTextField *, password)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField       *, visiblePassword)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, saveUsernameInKeychainCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, alwaysShowLoginWindowCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, eyeButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeNormal)
+TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
 -(id) initWithDelegate: (id) theDelegate
 {
@@ -58,6 +64,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, alwaysShowLoginWindowCheckbox)
                                                                name: NSWorkspaceDidWakeNotification
                                                              object: nil];
     
+    eyeNormal   = [[NSImage imageNamed: @"eyeNormal"]   retain];
+    eyeRedSlash = [[NSImage imageNamed: @"eyeRedSlash"] retain];
+
     delegate = [theDelegate retain];
     return self;
 }
@@ -141,10 +150,19 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, alwaysShowLoginWindowCheckbox)
     [[self saveUsernameInKeychainCheckbox] setEnabled: enableSaveUsernameCheckbox];
 	
     NSString * passwordLocal = [delegate passwordFromKeychain];
-    if (  [passwordLocal length] == 0  ) {
-        passwordLocal = @"";
-    }
-	[[self password] setStringValue: passwordLocal];
+    if (  passwordLocal  ) {
+		// Password is in the Keychain, so don't show the eye button
+		[[self eyeButton] setEnabled: NO];
+		[[self eyeButton] setHidden:  YES];
+	} else {
+		// Password is not in the Keychain, so set it to an empty string and show the eye button
+		passwordLocal = @"";
+		[[self eyeButton] setEnabled: YES];
+		[[self eyeButton] setHidden:  NO];
+	}
+	
+	[self setInputBoxAndImageAndPassword: passwordLocal exposed: NO];
+
 	[[self savePasswordInKeychainCheckbox] setState:   (  ([passwordLocal length] == 0)
                                                         ? NSOffState
                                                         : NSOnState)];
@@ -184,6 +202,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, alwaysShowLoginWindowCheckbox)
 {
 	(void) sender;
 	
+	// If the password is exposed, copy it from the NSTextBox to the NSSecureTextBox
+	if (  [[eyeButton image] isEqual: eyeRedSlash]  ) {
+		[[self password] setStringValue: [visiblePassword stringValue]];
+	}
+
     const char * usernameC = [escaped(  [[self username] stringValue]  ) UTF8String];
     const char * passwordC = [escaped(  [[self password] stringValue]  ) UTF8String];
     if (   (strlen(usernameC) == 0)
@@ -215,6 +238,60 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, alwaysShowLoginWindowCheckbox)
 	}
 }
 
+-(void) exposePasswordAndSetImage {
+
+    [[self password] setHidden:  TRUE];
+    [[self password] setEnabled: FALSE];
+
+    [[self visiblePassword] setHidden:  FALSE];
+    [[self visiblePassword] setEnabled: TRUE];
+
+    [[self username] setNextKeyView: [self visiblePassword]];
+
+    [[self eyeButton] setImage: eyeRedSlash];
+}
+
+-(void) hidePasswordAndSetImage {
+
+    [[self visiblePassword] setHidden:  TRUE];
+    [[self visiblePassword] setEnabled: FALSE];
+
+    [[self password] setHidden:  FALSE];
+    [[self password] setEnabled: TRUE];
+
+    [[self username] setNextKeyView: [self password]];
+
+    [[self eyeButton] setImage: eyeNormal];
+}
+
+-(void) setInputBoxAndImageAndPassword: (NSString *) pw exposed: (BOOL) exposed {
+
+    if (  exposed  ) {
+        [[self visiblePassword] setStringValue: pw];
+        [self exposePasswordAndSetImage];
+    } else {
+        [[self password] setStringValue: pw];
+        [self hidePasswordAndSetImage];
+    }
+}
+
+-(IBAction) eyeButtonWasClicked: (id) sender {
+
+    if (  [[eyeButton image] isEqual: eyeNormal]  ) {
+
+        // Make password visible and swap the eye image
+        NSString * pw = [[self password] stringValue];
+        [self setInputBoxAndImageAndPassword: pw exposed: YES];
+
+    } else {
+
+        // Make password invisible and swap the eye image
+        NSString * pw = [[self visiblePassword] stringValue];
+        [self setInputBoxAndImageAndPassword: pw exposed: NO];
+    }
+    
+    (void) sender;
+}
 
 -(void) applicationDidChangeScreenParametersNotificationHandler: (NSNotification *) n
 {

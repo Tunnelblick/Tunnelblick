@@ -32,15 +32,21 @@
     
     IBOutlet NSTextField        * username;
     IBOutlet NSSecureTextField  * password;
-    
+    IBOutlet NSTextField        * visiblePassword;
+
     IBOutlet NSTextFieldCell    * usernameTFC;
     IBOutlet NSTextFieldCell    * passwordTFC;
+
+    IBOutlet NSButton           * eyeButton;
     
     IBOutlet NSButton           * saveUsernameInKeychainCheckbox;
     IBOutlet NSButton           * savePasswordInKeychainCheckbox;
 	IBOutlet NSButton           * alwaysShowLoginWindowCheckbox;
 
     id                            delegate;
+
+    NSImage                     * eyeNormal;
+    NSImage                     * eyeRedSlash;
 }
 
 -(id)       initWithDelegate:       (id)            theDelegate;
@@ -48,6 +54,7 @@
 
 -(IBAction) cancelButtonWasClicked: (id)            sender;
 -(IBAction) OKButtonWasClicked:     (id)            sender;
+-(IBAction) eyeButtonWasClicked:    (id)            sender;
 
 -(IBAction) saveUsernameInKeychainCheckboxWasClicked: (id) sender;
 
@@ -56,6 +63,9 @@
 
 TBPROPERTY_READONLY(NSTextField *,       username)
 TBPROPERTY_READONLY(NSSecureTextField *, password)
+TBPROPERTY_READONLY(NSTextField *,       visiblePassword)
+
+TBPROPERTY_READONLY(NSButton *,    eyeButton)
 
 TBPROPERTY_READONLY(NSButton *,    saveUsernameInKeychainCheckbox)
 TBPROPERTY_READONLY(NSButton *,    savePasswordInKeychainCheckbox)

@@ -36,6 +36,8 @@
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		630210131465CBBC00283B78 /* CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 630210121465CBBC00283B78 /* CS.lproj */; };
 		630365D81C02D65600259FD8 /* SettingsSheet-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */; };
+		6305DAB5228DAB75001AA6CE /* eyeRedSlash.png in Resources */ = {isa = PBXBuildFile; fileRef = 6305DAB3228DAB75001AA6CE /* eyeRedSlash.png */; };
+		6305DAB6228DAB75001AA6CE /* eyeNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6305DAB4228DAB75001AA6CE /* eyeNormal.png */; };
 		63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */; };
 		6308EEE9222701E8003D974C /* TA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6308EEE8222701E8003D974C /* TA.lproj */; };
@@ -403,6 +405,8 @@
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		630210121465CBBC00283B78 /* CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CS.lproj; sourceTree = "<group>"; };
 		630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "SettingsSheet-RTL.xib"; sourceTree = "<group>"; };
+		6305DAB3228DAB75001AA6CE /* eyeRedSlash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeRedSlash.png; sourceTree = "<group>"; };
+		6305DAB4228DAB75001AA6CE /* eyeNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeNormal.png; sourceTree = "<group>"; };
 		6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.LaunchAtLogin.plist; sourceTree = "<group>"; };
 		6308EEE8222701E8003D974C /* TA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TA.lproj; sourceTree = "<group>"; };
 		63097CDD22323E2B005F94CF /* NSDate+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TB.m"; sourceTree = "<group>"; };
@@ -1042,6 +1046,8 @@
 				63FFD6531D0E9C8B00D4FFD9 /* Lock-open.png */,
 				63206BC11D273CBD00019DFB /* info-icon-on-left-360x40.png */,
 				63206BC21D273CBD00019DFB /* info-icon-on-right-360x40.png */,
+				6305DAB3228DAB75001AA6CE /* eyeRedSlash.png */,
+				6305DAB4228DAB75001AA6CE /* eyeNormal.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1595,6 +1601,7 @@
 				615F748F0ED3A4E5007F6F0A /* FR.lproj in Resources */,
 				63903D18145EAD49006627C9 /* HU.lproj in Resources */,
 				63BD86E81205BA39005B8E38 /* IT.lproj in Resources */,
+				6305DAB5228DAB75001AA6CE /* eyeRedSlash.png in Resources */,
 				615F749A0ED3A4FA007F6F0A /* JA.lproj in Resources */,
 				63EA2CAC1C9EFCF0005F0872 /* IS.lproj in Resources */,
 				615F749B0ED3A4FA007F6F0A /* KO.lproj in Resources */,
@@ -1684,6 +1691,7 @@
 				63B16B521E204D37002958D0 /* updates_sign_with_v1_signature in Resources */,
 				633888F81C00F2FC0076032D /* LoginWindow-RTL.xib in Resources */,
 				63DC245319FA73A9006B1BDF /* EL.lproj in Resources */,
+				6305DAB6228DAB75001AA6CE /* eyeNormal.png in Resources */,
 				63DEC01A20EFC2C90008AC26 /* client.4.up.tunnelblick.sh in Resources */,
 				63DC245719FA73E3006B1BDF /* BG.lproj in Resources */,
 				631494A519FA7B9E009057D1 /* PT_PT.lproj in Resources */,
