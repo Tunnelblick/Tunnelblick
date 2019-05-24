@@ -613,6 +613,7 @@ name = newValue;                                    \
 @"skipWarningAboutErrorGettingDnsServers", \
 @"skipWarningAboutErrorGettingKnownPublicDnsServers", \
 @"skipWarningAboutDnsProblems", \
+@"skipWarningAboutWhenSystemStartsConfigurationsThatAreNotConnected", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\

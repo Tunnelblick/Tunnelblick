@@ -53,7 +53,8 @@ enum TerminationReason {
     terminatingBecauseOfRestart    = 3,
     terminatingBecauseOfQuit       = 4,
     terminatingBecauseOfError      = 5,
-    terminatingBecauseOfFatalError = 6
+    terminatingBecauseOfFatalError = 6,
+	terminatingBecauseOfUpdate     = 7
 };
 
 enum SleepWakeState {

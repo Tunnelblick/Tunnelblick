@@ -2378,7 +2378,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	[gTbDefaults removeObjectForKey: @"skipWarningAboutNoSignature"];
 	[gTbDefaults setBool: TRUE forKey: @"haveStartedAnUpdateOfTheApp"];
 	
-	reasonForTermination = terminatingBecauseOfQuit;
+	reasonForTermination = terminatingBecauseOfUpdate;
 	
 	[gTbDefaults setBool: NO forKey: @"launchAtNextLogin"];
 	terminatingAtUserRequest = TRUE;
@@ -3074,10 +3074,12 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
             NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
             NSString* autoConnectKey   = [[connection displayName] stringByAppendingString: @"autoConnect"];
             
-            if (  ! (   [gTbDefaults boolForKey: onSystemStartKey]
-                     && [gTbDefaults boolForKey: autoConnectKey]
-                     )
-                ) {
+			if (   (reasonForTermination == terminatingBecauseOfUpdate)
+				|| ( ! (   [gTbDefaults boolForKey: onSystemStartKey]
+						&& [gTbDefaults boolForKey: autoConnectKey]
+						)
+					)
+				) {
                 [disconnectList addObject: connection];
             } else {
                 disconnectingAll = FALSE;
