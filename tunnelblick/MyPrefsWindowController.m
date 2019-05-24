@@ -1501,7 +1501,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         appName = [appName substringToIndex: [appName length] - 4];
     }
     
-    NSString * windowLabel = [NSString stringWithFormat: @"%@ - Tunnelblick", localizeNonLiteral(currentViewName, @"Window title")];
+    NSString * windowLabel = [NSString stringWithFormat: @"%@", localizeNonLiteral(currentViewName, @"Window title")];
 
     if (  [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]  ) {
         VPNConnection * connection = [self selectedConnection];
