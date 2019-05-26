@@ -3797,7 +3797,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                         || ([string rangeOfString: @"process-network-changes"].length != 0)
                         || ([string rangeOfString: @"standardize-scutil-output"].length != 0)
                         ) {
-                        includeDict = TRUE;
+						if (  [string rangeOfString: @"Google Software Update installer"].length == 0  ) {
+							includeDict = TRUE;
+						}
                     }
                 }
             }
