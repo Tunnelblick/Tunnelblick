@@ -3075,6 +3075,8 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
             NSString* autoConnectKey   = [[connection displayName] stringByAppendingString: @"autoConnect"];
             
 			if (   (reasonForTermination == terminatingBecauseOfUpdate)
+				|| (reasonForTermination == terminatingBecauseOfRestart)
+				|| (reasonForTermination == terminatingBecauseOfShutdown)
 				|| ( ! (   [gTbDefaults boolForKey: onSystemStartKey]
 						&& [gTbDefaults boolForKey: autoConnectKey]
 						)
@@ -3088,9 +3090,7 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
 	// Set up expectDisconnect flag files as needed
-	if (   disconnectingAll
-		|| (reasonForTermination == terminatingBecauseOfRestart)
-		|| (reasonForTermination == terminatingBecauseOfShutdown)  ) {
+	if (  disconnectingAll  ) {
 		
 		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", @"ALL", nil], nil, nil);
 		TBLog(@"DB-SD", @"Set 'expect disconnect 1 ALL'");
