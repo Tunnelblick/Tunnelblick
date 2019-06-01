@@ -15,17 +15,20 @@
 # @param String message - The message to log
 logMessage()
 {
+	# shellcheck disable=SC2145
 	echo "*Tunnelblick: ${@}"
 }
 
 # @param String message - The message to log
 logDebugMessage()
 {
+	# shellcheck disable=SC2145
 	echo "*Tunnelblick: ${@}" > /dev/null
 }
 
 trim()
 {
+# shellcheck disable=SC2068
 echo ${@}
 }
 
@@ -116,6 +119,7 @@ run_prefix_or_suffix()
 		logMessage "---------- Start of output from $1"
 
 		set +e
+			# shellcheck disable=SC2086
 			(  "$TUNNELBLICK_CONFIG_FOLDER/$1" ${SCRIPT_ARGS[*]}  )
 			local status=$?
 		set -e
