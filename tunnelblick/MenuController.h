@@ -195,6 +195,8 @@ enum StatusIconPosition {
 
 	BOOL					  quittingAfterAnInstall;		// Used to control cleanup: after an install
 	
+	BOOL					  haveClearedQuitLog;
+
 	BOOL					  showingImportSetupWindow;		// True iff we are actively importing a .tblksetup
 
 	BOOL					  didFinishLaunching;			// True if Tunnelblick has been secured or installed securely (user didn't cancel install)

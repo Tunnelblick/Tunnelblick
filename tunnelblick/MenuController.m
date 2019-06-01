@@ -452,7 +452,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
     if (  (self = [super init])  ) {
         
         reasonForTermination = terminatingForUnknownReason;
-        
+
+		haveClearedQuitLog = FALSE;
 		doingSetupOfUI = FALSE;
         launchFinished = FALSE;
         hotKeyEventHandlerIsInstalled = FALSE;
@@ -7448,23 +7449,20 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	(void) sender;
 	
-	NSArray * reasons = [NSArray arrayWithObjects:
-						 @"for unknown reason, probably Command-Q",
-						 @"because of logout",
-						 @"because of shutdown",
-						 @"because of restart",
-						 @"because of Quit",
-						 @"because of an error",
-						 @"because of a fatal error",
-						 nil];
-	NSString * reasonString;
-	if (  reasonForTermination < [reasons count]  ) {
-		reasonString = [reasons objectAtIndex: reasonForTermination];
-	} else {
-		reasonString = [reasons objectAtIndex: 0];
-	}
+	NSArray * reasons = @[@"for unknown reason, probably Command-Q",
+						  @"because of logout",
+						  @"because of shutdown",
+						  @"because of restart",
+						  @"because of Quit",
+						  @"because of an error",
+						  @"because of a fatal error"];
 
-    NSLog(@"applicationShouldTerminate: termination %@; delayed until 'shutdownTunnelblick' finishes", reasonString);
+	NSString * reasonString = (  (reasonForTermination < [reasons count]  )
+							   ? [reasons objectAtIndex: reasonForTermination]
+							   : [reasons objectAtIndex: 0]);
+
+	[self quitLog: [NSString stringWithFormat:
+					@"applicationShouldTerminate: termination %@; delayed until 'shutdownTunnelblick' finishes)", reasonString] toNSLog: NO];
     [self performSelectorOnMainThread: @selector(shutDownTunnelblick) withObject: nil waitUntilDone: NO];
     return NSTerminateLater;
 }
@@ -7473,7 +7471,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
     gShuttingDownTunnelblick = TRUE;
     
-    TBLog(@"DB-SD", @"shutDownTunnelblick: started.")
+	[self quitLog:  @"shutDownTunnelblick: started." toNSLog: NO];
     terminatingAtUserRequest = TRUE;
     
 	if (   (reasonForTermination != terminatingBecauseOfLogout)
@@ -7483,21 +7481,59 @@ void terminateBecauseOfBadConfiguration(void)
 	}
 	
     if (  [theAnim isAnimating]  ) {
-        TBLog(@"DB-SD", @"shutDownTunnelblick: stopping icon animation.")
+		[self quitLog: @"shutDownTunnelblick: stopping icon animation." toNSLog: NO];
         [theAnim stopAnimation];
     }
     
-    TBLog(@"DB-SD", @"shutDownTunnelblick: Starting cleanup.");
+	[self quitLog: @"shutDownTunnelblick: Starting cleanup." toNSLog: NO];
     if (  [self cleanup]  ) {
-        TBLog(@"DB-SD", @"shutDownTunnelblick: Cleanup finished.")
+ 		[self quitLog: @"shutDownTunnelblick: Cleanup finished." toNSLog: NO];
     } else {
-        TBLog(@"DB-SD", @"shutDownTunnelblick: Cleanup already being done.")
+		[self quitLog: @"shutDownTunnelblick: Cleanup already being done." toNSLog: NO];
     }
-    
-    NSLog(@"Finished shutting down Tunnelblick; allowing termination");
+
+	[self quitLog: @"Finished shutting down Tunnelblick; allowing termination" toNSLog: YES];
     [NSApp replyToApplicationShouldTerminate: YES];
 }
 
+-(void) quitLog: (NSString *) message toNSLog: (BOOL) toNSLog {
+
+	if (  toNSLog  ) {
+		NSLog(@"%@", message);
+	}
+
+	static pthread_mutex_t quitLogMutex = PTHREAD_MUTEX_INITIALIZER;
+
+	OSStatus status = pthread_mutex_lock( &quitLogMutex );
+	if (  status != EXIT_SUCCESS  ) {
+		NSLog(@"pthread_mutex_lock( &quitLogMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		return;
+	}
+
+	NSString * path = TUNNELBLICK_QUIT_LOG_PATH;
+
+	if (  ! haveClearedQuitLog  ) {
+		[gFileMgr tbRemovePathIfItExists: path];
+		[gFileMgr createFileAtPath: path contents: nil attributes: nil];
+		haveClearedQuitLog = TRUE;
+	}
+
+	NSString * date = [[NSDate date] tunnelblickUserLogRepresentation];
+	const char * messageC = [[NSString stringWithFormat: @"%@: %@\n", date, message] UTF8String];
+	NSData * data = [NSData dataWithBytes: messageC length: strlen(messageC)];
+
+	NSFileHandle * output = [NSFileHandle fileHandleForUpdatingAtPath: path];
+	[output seekToEndOfFile];
+	[output writeData: data];
+	[output closeFile];
+
+
+	status = pthread_mutex_unlock( &quitLogMutex );
+	if (  status != EXIT_SUCCESS  ) {
+		NSLog(@"pthread_mutex_unlock( &quitLogMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		return;
+	}
+}
 
 //- (void) applicationWillTerminate: (NSNotification*) notification
 //{
