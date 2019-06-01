@@ -97,8 +97,8 @@ get_networksetup_setting() {
 	#       get_networksetup_setting   searchdomains
 
 	if [ "$1" != "dnsservers" ] && [ "$1" != "searchdomains" ] ; then
-		echo "restore_networksetup_setting: Unknown setting name '$1'" 1>&2
-		exit 1
+		echo "ERROR: restore_networksetup_setting: Unknown setting name '$1'" 1>&2
+		return;
 	fi
 
 	if [ ! -f "/usr/sbin/networksetup" ] ; then
@@ -190,7 +190,7 @@ set_networksetup_setting() {
 
 	if [ ! -f "/usr/sbin/networksetup" ] ; then
 		logMessage "ERROR: set_networksetup_setting: Cannot change setting for $1: /usr/sbin/networksetup does not exist"
-		exit 1
+		return
 	fi
 
 	# Get list of services and remove the first line which contains a heading
@@ -215,8 +215,16 @@ set_networksetup_setting() {
 				fi
 
 				# Translate commas in $2 to spaces for networksetup to get separate arguments -- DO NOT QUOTE ${2//,/ } !!!
-				# shellcheck disable=SC2086
-				/usr/sbin/networksetup -set"$1" "$service" ${2//,/ }
+				set +e
+					# shellcheck disable=SC2086
+					/usr/sbin/networksetup -set"$1" "$service" ${2//,/ }
+					local status=$?
+				set -e
+				if [ $status -eq 0 ] ; then
+					logMessage "Used networksetup to set $service $1 to $2"
+				else
+					logMessage "ERROR: Error $status trying to set $service $1 to $2 via /usr/sbin/networksetup -set\"$1\" \"$service\" ${2//,/ }"
+				fi
 			fi
 		fi
 	done
