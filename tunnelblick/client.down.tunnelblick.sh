@@ -45,8 +45,8 @@ restore_networksetup_setting() {
 	# This routine outputs log messages describing its activities.
 
 	if [ "$1" != "dnsservers" ] && [ "$1" != "searchdomains" ] ; then
-		logMessage "restore_networksetup_setting: Unknown setting name '$1'"
-		exit 1
+		logMessage "ERROR: restore_networksetup_setting: Unknown setting name '$1'"
+		return
 	fi
 
 	if [ -z "$2" ] ; then
@@ -55,8 +55,8 @@ restore_networksetup_setting() {
 	fi
 
 	if [ ! -f "/usr/sbin/networksetup" ] ; then
-		logMessage "restore_networksetup_setting: Cannot restore setting for $1: /usr/sbin/networksetup does not exist"
-		exit 1
+		logMessage "ERROR: restore_networksetup_setting: Cannot restore setting for $1: /usr/sbin/networksetup does not exist"
+		return
 	fi
 
 	# Process each line separately. Add \n to end of input to make sure partial lines are processed.
@@ -74,10 +74,16 @@ restore_networksetup_setting() {
 			service="$( echo "$line"  |  sed -e 's/[^ ]* \(.*\)/\1/' )"
 
 			# Translate commas in "setting" to spaces for networksetup
-			/usr/sbin/networksetup -set$1 "$service" ${setting//,/ }
-
-			logMessage "Used networksetup to restore $service $1 to $setting"
-
+			set +e
+				# shellcheck disable=2086
+				/usr/sbin/networksetup -set"$1" "$service" ${setting//,/ }
+				local status=$?
+			set -e
+			if [ $status -eq 0 ] ; then
+				logMessage "Used networksetup to restore $service $1 to $setting"
+			else
+				logMessage "ERROR: Error $status trying to restore $service $1 to $setting via /usr/sbin/networksetup -set$1 \"$service\" ${setting//,/ }"
+			fi
 		fi
 
 	done
@@ -97,13 +103,13 @@ run_prefix_or_suffix()
 # That folder is where the script will be (if it exists).
 
 	if [  -z "$TUNNELBLICK_CONFIG_FOLDER" ] ; then
-		logMessage "The 'TUNNELBLICK_CONFIG_FOLDER' environment variable is missing or empty"
-		exit 1
+		logMessage "ERROR: The 'TUNNELBLICK_CONFIG_FOLDER' environment variable is missing or empty"
+		return
 	fi
 
 	if [ "$1" != "down-prefix.sh" ] && [ "$1" != "down-suffix.sh" ] ; then
-		logMessage "run_prefix_or_suffix not called with 'down-prefix.sh' or 'down-suffix.sh'"
-		exit 1
+		logMessage "ERROR: run_prefix_or_suffix not called with 'down-prefix.sh' or 'down-suffix.sh'"
+		return
 	fi
 
 	if [ -e "$TUNNELBLICK_CONFIG_FOLDER/$1" ] ; then
@@ -118,7 +124,7 @@ run_prefix_or_suffix()
 
 		if [ $status -ne 0 ] ; then
 			logMessage "ERROR: $1 exited with error status $status"
-			exit $status
+			return
 		fi
 	fi
 }
