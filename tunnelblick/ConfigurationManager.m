@@ -4026,7 +4026,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * consoleContents = [self stringContainingRelevantConsoleLogEntries];
         
         NSString * kextContents = [self nonAppleKextContents];
-        
+
+		NSString * quitLogContents = [NSString stringWithContentsOfFile: TUNNELBLICK_QUIT_LOG_PATH
+															   encoding: NSUTF8StringEncoding
+																  error: nil];
+		if ( ! quitLogContents ) {
+			quitLogContents = @"(Not found)";
+		}
+
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
@@ -4041,6 +4048,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							 @"Network services:\n\n%@\n%@"
                              @"ifconfig output:\n\n%@\n%@"
 							 @"Non-Apple kexts that are loaded:\n\n%@\n%@"
+							 @"Quit Log:\n\n%@\n%@"
 							 @"Console Log:\n\n%@\n",
                              versionContents, gitInfo,
                              [connection localizedName],
@@ -4053,6 +4061,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							 networkServicesContents, separatorString,
                              ifconfigOutput, separatorString,
 							 kextContents, separatorString,
+							 quitLogContents, separatorString,
                              consoleContents];
         
         pb = [NSPasteboard generalPasteboard];
