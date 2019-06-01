@@ -45,8 +45,8 @@ restore_networksetup_setting() {
 	# This routine outputs log messages describing its activities.
 
 	if [ "$1" != "dnsservers" ] && [ "$1" != "searchdomains" ] ; then
-		logMessage "restore_networksetup_setting: Unknown setting name '$1'"
-		exit 1
+		logMessage "ERROR: restore_networksetup_setting: Unknown setting name '$1'"
+		return
 	fi
 
 	if [ -z "$2" ] ; then
@@ -55,8 +55,8 @@ restore_networksetup_setting() {
 	fi
 
 	if [ ! -f "/usr/sbin/networksetup" ] ; then
-		logMessage "restore_networksetup_setting: Cannot restore setting for $1: /usr/sbin/networksetup does not exist"
-		exit 1
+		logMessage "ERROR: restore_networksetup_setting: Cannot restore setting for $1: /usr/sbin/networksetup does not exist"
+		return
 	fi
 
 	# Process each line separately. Add \n to end of input to make sure partial lines are processed.
@@ -74,10 +74,16 @@ restore_networksetup_setting() {
 			service="$( echo "$line"  |  sed -e 's/[^ ]* \(.*\)/\1/' )"
 
 			# Translate commas in "setting" to spaces for networksetup
-			/usr/sbin/networksetup -set$1 "$service" ${setting//,/ }
-
-			logMessage "Used networksetup to restore $service $1 to $setting"
-
+			set +e
+				# shellcheck disable=2086
+				/usr/sbin/networksetup -set"$1" "$service" ${setting//,/ }
+				local status=$?
+			set -e
+			if [ $status -eq 0 ] ; then
+				logMessage "Used networksetup to restore $service $1 to $setting"
+			else
+				logMessage "ERROR: Error $status trying to restore $service $1 to $setting via /usr/sbin/networksetup -set$1 \"$service\" ${setting//,/ }"
+			fi
 		fi
 
 	done
@@ -97,13 +103,13 @@ run_prefix_or_suffix()
 # That folder is where the script will be (if it exists).
 
 	if [  -z "$TUNNELBLICK_CONFIG_FOLDER" ] ; then
-		logMessage "The 'TUNNELBLICK_CONFIG_FOLDER' environment variable is missing or empty"
-		exit 1
+		logMessage "ERROR: The 'TUNNELBLICK_CONFIG_FOLDER' environment variable is missing or empty"
+		return
 	fi
 
 	if [ "$1" != "down-prefix.sh" ] && [ "$1" != "down-suffix.sh" ] ; then
-		logMessage "run_prefix_or_suffix not called with 'down-prefix.sh' or 'down-suffix.sh'"
-		exit 1
+		logMessage "ERROR: run_prefix_or_suffix not called with 'down-prefix.sh' or 'down-suffix.sh'"
+		return
 	fi
 
 	if [ -e "$TUNNELBLICK_CONFIG_FOLDER/$1" ] ; then
@@ -118,7 +124,7 @@ run_prefix_or_suffix()
 
 		if [ $status -ne 0 ] ; then
 			logMessage "ERROR: $1 exited with error status $status"
-			exit $status
+			return
 		fi
 	fi
 }
@@ -195,17 +201,15 @@ flushDNSCache()
 		if [ "$( pgrep HandsOffDaemon )" = "" ] ; then
 			if [ -f /usr/bin/killall ] ; then
 				set +e # ignore errors if mDNSResponder isn't currently running
-					/usr/bin/killall -HUP mDNSResponder > /dev/null 2>&1
-					if [ $? != 0 ] ; then
-						logMessage "Not notifying mDNSResponder that the DNS cache was flushed because it is not running"
-					else
+					if /usr/bin/killall -HUP mDNSResponder > /dev/null 2>&1 ; then
 						logMessage "Notified mDNSResponder that the DNS cache was flushed"
-					fi
-					/usr/bin/killall -HUP mDNSResponderHelper > /dev/null 2>&1
-					if [ $? != 0 ] ; then
-						logMessage "Not notifying mDNSResponderHelper that the DNS cache was flushed because it is not running"
 					else
+						logMessage "Not notifying mDNSResponder that the DNS cache was flushed because it is not running"
+					fi
+					if /usr/bin/killall -HUP mDNSResponderHelper > /dev/null 2>&1 ; then
 						logMessage "Notified mDNSResponderHelper that the DNS cache was flushed"
+					else
+						logMessage "Not notifying mDNSResponderHelper that the DNS cache was flushed because it is not running"
 					fi
 				set -e # bash should again fail on errors
 			else
@@ -303,7 +307,7 @@ EOF
 
 			if [ -f /usr/sbin/networksetup ] ; then
 				set +e
-					local service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${PINTERFACE}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
+					local service; service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${PINTERFACE}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
 					local status=$?
 					if [ $status -ne 0 ] ; then
 						logMessage "WARNING: Error status $status trying to get name of primary service for \"Device: ${PINTERFACE}\""
@@ -463,6 +467,7 @@ fi
 if ${ARG_TAP} ; then
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
         if [ "$bTapDeviceHasBeenSetNone" == "false" ]; then
+			# shellcheck disable=SC2154
             if [ -z "$dev" ]; then
                 # If $dev is not defined, then use TunnelDevice, which was set from $dev by client.up.tunnelblick.sh
                 # ($def is not defined when this script is called from MenuController to clean up when exiting Tunnelblick)
@@ -631,5 +636,3 @@ run_prefix_or_suffix 'down-suffix.sh'
 
 logMessage "End of output from ${OUR_NAME}"
 logMessage "**********************************************"
-
-exit 0
