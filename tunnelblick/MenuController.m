@@ -3070,17 +3070,14 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
     while (  (connection = [e nextObject])  ) {
         
         if (  ! [connection isDisconnected]  ) {
-            
-            NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
-            NSString* autoConnectKey   = [[connection displayName] stringByAppendingString: @"autoConnect"];
-            
-			if (   (reasonForTermination == terminatingBecauseOfUpdate)
+
+			NSString * name = [connection displayName];
+			BOOL connectOnSystemStart = (   [gTbDefaults boolForKey: [name stringByAppendingString: @"-onSystemStart"]]
+										 && [gTbDefaults boolForKey: [name stringByAppendingString: @"autoConnect"]]);
+			if (   ( ! connectOnSystemStart )
+				|| (reasonForTermination == terminatingBecauseOfUpdate)
 				|| (reasonForTermination == terminatingBecauseOfRestart)
 				|| (reasonForTermination == terminatingBecauseOfShutdown)
-				|| ( ! (   [gTbDefaults boolForKey: onSystemStartKey]
-						&& [gTbDefaults boolForKey: autoConnectKey]
-						)
-					)
 				) {
                 [disconnectList addObject: connection];
             } else {
