@@ -1335,9 +1335,9 @@ flushDNSCache()
 		if [ -f /usr/bin/dscacheutil ] ; then
 			set +e # we will catch errors from dscacheutil
 				if /usr/bin/dscacheutil -flushcache ; then
-					logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
-				else
 					logMessage "Flushed the DNS cache via dscacheutil"
+				else
+					logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
 				fi
 			set -e # bash should again fail on errors
 		else
@@ -1347,14 +1347,14 @@ flushDNSCache()
 		if [ -f /usr/sbin/discoveryutil ] ; then
 			set +e # we will catch errors from discoveryutil
 				if /usr/sbin/discoveryutil udnsflushcaches ; then
-					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
-				else
 					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
+				else
+					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
 				fi
 				if /usr/sbin/discoveryutil mdnsflushcache ; then
-					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
-				else
 					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
+				else
+					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
 				fi
 			set -e # bash should again fail on errors
 		else
@@ -1365,14 +1365,14 @@ flushDNSCache()
 			if [ -f /usr/bin/killall ] ; then
 				set +e # ignore errors if mDNSResponder isn't currently running
 					if /usr/bin/killall -HUP mDNSResponder > /dev/null 2>&1 ; then
-						logMessage "Not notifying mDNSResponder that the DNS cache was flushed because it is not running"
-					else
 						logMessage "Notified mDNSResponder that the DNS cache was flushed"
+					else
+						logMessage "Not notifying mDNSResponder that the DNS cache was flushed because it is not running"
 					fi
 					if /usr/bin/killall -HUP mDNSResponderHelper > /dev/null 2>&1 ; then
-						logMessage "Not notifying mDNSResponderHelper that the DNS cache was flushed because it is not running"
-					else
 						logMessage "Notified mDNSResponderHelper that the DNS cache was flushed"
+					else
+						logMessage "Not notifying mDNSResponderHelper that the DNS cache was flushed because it is not running"
 					fi
 				set -e # bash should again fail on errors
 			else
