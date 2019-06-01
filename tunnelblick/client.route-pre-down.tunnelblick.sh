@@ -45,6 +45,7 @@ run_prefix_or_suffix()
 		logMessage "---------- Start of output from $1"
 
 		set +e
+			# shellcheck disable=SC2086
 			(  "$TUNNELBLICK_CONFIG_FOLDER/$1" ${SCRIPT_ARGS[*]}  )
 			local status=$?
 		set -e
@@ -237,6 +238,7 @@ EOF
         fi
             
         # Release the DHCP lease
+		# shellcheck disable=2154
         if [ -z "$dev" ]; then
             # If $dev is not defined, then use TunnelDevice, which was set from $dev by client.up.tunnelblick.sh
             # ($dev is not defined when this script is called from MenuController to clean up when OpenVPN has crashed)
