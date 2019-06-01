@@ -73,8 +73,8 @@ restore_networksetup_setting() {
 			# "setting" is everything BEFORE the first space in the line
 			# "service" is everything AFTER  the first space in the line
 			#              because "setting" can't contain spaces, but "service" can
-			setting="$( echo "$line"  |  sed -e 's/ .*//' )"
-			service="$( echo "$line"  |  sed -e 's/[^ ]* \(.*\)/\1/' )"
+			setting="${line%% *}"
+			service="${line#* }"
 
 			# Translate commas in "setting" to spaces for networksetup
 			set +e
