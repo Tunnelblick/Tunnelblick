@@ -393,7 +393,7 @@
 "Disconnect when computer goes to sleep" = "Verbinding verbreken wanneer computer overschakelt naar slaapmodus";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "Verbinding verbreken wanneer de gebruiker overgeschakelt naar een andere gebruiker";
+"Disconnect when user switches out" = "Verbinding verbreken wanneer de gebruiker overschakelt";
 
 /* Checkbox name */
 "Display connection submenus" = "Submenu's van verbinding tonen";
@@ -1939,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Waarschuwing: Een of meerdere instellingen konden niet worden hernoemd. Zie het Console Log voor details.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Waarschuwing: de volgende configuraties, die moeten worden gestart wanneer de computer opstart, zijn niet verbonden:\n\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Waarschuwing: Deze VPN kan mogelijk in de toekomst geen verbinding maken.\n\nHet OpenVPN-configuratiebestand voor '%1$@' bevat deze OpenVPN-opties:\n\n%2$@\nU dient de configuratie bij te werken zodat het gebruikt kan worden met nieuwere versies van OpenVPN.\n\nTunnelblick zal OpenVPN %3$@ gebruiken om deze configuratie te verbinden.\n\nEchter, u zult niet in staat zijn om met dit VPN te verbinden met toekomstige versies van Tunnelblick welke geen versie van OpenVPN heeft bijgeleverd die deze opties accepteert.";

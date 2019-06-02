@@ -8,7 +8,7 @@
 "Disconnect All (%@)" = "Роз'єднати всі (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Роз'єднати всі (%1$d Підключення) - видима публічна IP адреса %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Від'єднати усі (%1$d підключення) - видима публічна IP адреса %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Роз'єднати всі (%d З'єднання)";

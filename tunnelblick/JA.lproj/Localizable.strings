@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "手動でセットされたネットワーク設定への変更を許可する";
 
 /* Checkbox name */
+"Always show this window" = "このウインドウでは常に表示";
+
+/* Checkbox name */
 "Apply to all" = "全員に適用";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "接続後に見かけ上のグローバルIPアドレスが変わったかチェックする";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "VPNサーバへIPv6で接続できる場合を除き、IPv6を無効にする";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "スリープ時に接続を切断する";
@@ -409,6 +415,9 @@
 
 /* Checkbox name */
 "Do not show this type of warning again" = "今後はこの種類の警告を表示しない";
+
+/* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "今後はDNSの問題に関する警告を表示しない";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "次回から環境設定についての警告を表示しない";
@@ -514,6 +523,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "設定を取得しています"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "ネットワークアクセスを待ち"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "パスワードを待っています"; // Please translate "Waiting for password"
@@ -740,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     VPNサーバ %1$@ からのメッセージ:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNSサーバのIPアドレス「%@」はプライベートIPアドレスですが、経路がVPNへ向いていません。\n\n";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNSサーバのIPアドレス「%@」はパブリックDNSサーバですが、経路がVPNへ向いていません。\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNSサーバのIPアドレス「%@」はパブリックDNSサーバではありませんが、経路がVPNへ向いていません。\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu つの設定がインストールされました\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • 設定をインストールしました\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • DNSサーバが指定されていません。\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • 設定を%lu個上書きしました\n\n";
@@ -866,6 +890,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' が正しく終端されていません。";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' は指定されたバージョン(%3$@)の代わりにOpenVPN %2$@ を使用して接続します。";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' がフォルダを指定していないので無視されます。";
 
@@ -890,6 +917,9 @@
 /* Window text */
 "(if connected when user switched out)" = "(切り替え前に接続していた時のみ)";
 
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">その他の情報</a> [tunnelblick.net]";
+
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Tunnelblickに基づき、フリーのソフトウェアは<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>でご利用になれます。<br><br>OpenVPNは OpenVPN Technologies, Inc. の登録商標です。";
 
@@ -904,6 +934,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN設定のネストが多すぎます: '%@'";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "秘密鍵のパスフレーズや、ユーザ名とパスワードの入力が必要な設定は、コンピューターの起動時には接続できません。";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "以下に接続するにはパスフレーズが必要です。\n  %1$@%2$@";
@@ -952,6 +985,9 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "全ての接続先で認証「%@」を使用する";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "また、デスクトップに作成されたファイル 'Tunnelblick Error Data.txt' をメールに添付してください。このファイルにはエラーに関する情報が含まれています。ダブルクリックして内容を確認できます。\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "接続先 %2$@ のセキュリティチェック時にエラー（ステータス %1$ld）がおきました。\n\nTunnelblick を終了して再度起動してください。再び問題が起きる時は、Tunnelblick を再インストールしてください。";
@@ -1286,6 +1322,9 @@
 /* Window text */
 "NetBIOS name:" = "NetBIOS 名:";
 
+/* Window text; the %@ will be replaced by a list of configuration names. */
+"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "選択された設定のうちのいくつかには 'user' や 'group' オプションが含まれているため、切断後にネットワークアクセスを無効にすることができません。これらのオプションが指定されている場合はOpenVPNが管理者権限で実行されていないためです。\n\n'user' や 'group' オプションが含まれている設定:\n\n%@\n\n";
+
 /* Window text */
 "Network access was disabled when a VPN disconnected." = "VPNが停止したためネットワークに接続できません。";
 
@@ -1362,10 +1401,19 @@
 "One or more configurations are being ignored. See the Console Log for details." = "接続先をいくつか無視しました。詳細はコンソールログを参照してください。";
 
 /* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "いくつかのDNSの問題が見つりました: \n\n%@";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "いくつかの問題が見つかりました:\n\n%@";
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "コンピュータ起動時に接続できる Tunnelblick VPN の接続先 (.tblk) は1つだけです。";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, このバージョンの Tunnelblick では利用出来ません";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "%@ の切断要求にOpenVPNが応答しません。\n\nTunnelblickは、OpenVPNが切断要求を処理し始めるまでは切断されません。\n\nこれは2分程度かかる場合があります。\n\n切断が完了するまでは接続出来ません。";
@@ -1420,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Tunnelblickを安全に移行しています %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "インポートするセットアップデータに含まれる、各ユーザ名に対応するユーザ名を選択してください。";
 
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS 設定:";
@@ -1569,6 +1620,12 @@
 "There was a problem deleting one or more configurations. See the Console Log for details." = "設定の削除で問題が起こりました。詳細はコンソールログを参照してください。";
 
 /* Window text */
+"There was a problem getting the list of known public DNS servers." = "パブリックDNSサーバのリストを取得する時に問題が発生しました。";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "DNSサーバのリストを取得する時に問題が発生しました。";
+
+/* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "OpenVPNの設定に問題があります。詳細はコンソールログを参照してください。";
 
 /* Window text */
@@ -1681,6 +1738,9 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "接続先「%@」をアンインストールすることができません。詳細はコンソールログを参照してください。";
+
+/* Window text */
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick に致命的なエラーが発生しました。\n\n発生したエラーの内容を書いたメールを developers@tunnelblick.net へ送ってください。\n\n";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "%1$luつのエラーが発生しました:\n\n%2$@%3$@%4$@%5$@";
@@ -1880,6 +1940,9 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "警告: この設定の名称を変更することはできません。詳細はコンソールログを参照してください。";
 
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "警告: 以下の設定はコンピューターの起動時に接続するよに設定されていますが、接続されません:\n\n%@\n";
+
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "OpenVPN設定ファイル '%1$@' は、以下のOpenVPNオプションを含みます。\n\n%2$@\n最新のOpenVPN設定ファイルに更新することにより、より新しいOpenVPNを使用することができます。\n\nTunnelblickはOpenVPN %3$@ を使ってこのVPNに接続します。\n\nしかし、このVPNに将来的に新しいTunnelblick ( 現在のOpenVPNオプションを許可しない ) を使って接続することができなくなります。";
 
@@ -1959,6 +2022,9 @@
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "このコンピュータでは、Tunnelblick アイコンを Spotlight アイコンの近くに配置することはできません。\n\nメニューバーにTunnelblick アイコンが表示されなくなる場合がありますが、unnelblick アイコンを Spotlight アイコンの近くに配置するようにしますか？\n";
 
 /* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "あなたの助けがすべての Tunnelblick ユーザの役に立ちます。\n\nどうかメールを送る前に \"Quit\" をクリックせず、ご協力をお願いします。";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "システムクロックが正しく設定されていない可能性があります。\n\nシステムクロックを正しく設定しないと、いくつかの接続設定が正しく動作しない可能性があります。\n\n";
 
 /* Window text */
@@ -1984,6 +2050,9 @@
 
 /* Window text */
 "\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nこの設定を暗号化するための証明書が失効しました。\n詳しいVPNのログはVPNの詳細内、設定パネルにある「ログ」タブから確認できます。";
+
+/* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nこのエラーは OpenVPN サーバから送られた OpenVPN 設定に以下の問題が含まれていることを示しています:\n\n     • スペルが間違っている\n\n     • パラメータが不足している、余計なパラメータが指定されている\n\n     •このバージョンの OpenVPN では実装されていないオプションです(おそらく新しいオプションでまだサポートされていないか、古いオプションで既に削除されているもの)。\"VPN の詳細\" ウインドウの \"設定\" タブにある \"OpenVPN バージョン\" で、この設定で使用する OpenVPN のバージョンを選択できます。\n\n詳細は \"VPN の詳細\" ウインドウの \"ログ\" タブに出力されているログを確認してください。";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nまた、%ld 個の Tunnelblick VPN 設定ファイルをインストールしますか？";
@@ -2255,6 +2324,12 @@
 
 /* Notification text */
 "Updated to %@." = "%@に更新されました";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "セットアップデータでのユーザ名";
+
+/* Column heading in a table */
+"User on this computer" = "このコンピューターでのユーザ名";
 
 /* Credit description */
 "Vietnamese translation" = "ベトナム語翻訳";
