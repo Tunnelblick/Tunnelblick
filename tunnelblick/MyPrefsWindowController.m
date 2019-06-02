@@ -1878,8 +1878,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 	(void) sender;
 	
 	[self indicateWaitingForDiagnosticInfoToClipboard];
-	
-	[ConfigurationManager putDiagnosticInfoOnClipboardInNewThreadForDisplayName: [[self selectedConnection] displayName]];
+
+	NSString * logContents = [[[[[((MenuController *)[NSApp delegate]) logScreen] configurationsPrefsView] logView] textStorage] string];
+	[ConfigurationManager putDiagnosticInfoOnClipboardInNewThreadForDisplayName: [[self selectedConnection] displayName] log: logContents];
 }
 
 

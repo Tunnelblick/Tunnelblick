@@ -122,7 +122,7 @@ typedef enum
 
 +(void) installConfigurationsInNewThreadShowMessagesDoNotNotifyDelegateWithPaths: (NSArray *) filePaths;
 
-+(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName;
++(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName log: (NSString *) log;
 
 +(void) terminateAllOpenVPNInNewThread;
 

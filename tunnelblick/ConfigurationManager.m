@@ -3977,7 +3977,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	return [listOfServices stringByAppendingFormat: @"\n%@", wifiPowerStatus];
 }
 
-+(void) putDiagnosticInfoOnClipboardWithDisplayName: (NSString *) displayName {
++(void) putDiagnosticInfoOnClipboardWithDisplayName: (NSString *) displayName log: (NSString *) logContents {
 	
 	NSPasteboard * pb = [NSPasteboard generalPasteboard];
 	[pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
@@ -4011,10 +4011,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         NSString * programPreferencesContents       = [ConfigurationManager getPreferences: gProgramPreferences       prefix: @""];
         
-		// Get Tunnelblick log
-        NSTextStorage * store = [[[[((MenuController *)[NSApp delegate]) logScreen] configurationsPrefsView] logView] textStorage];
-        NSString * logContents = [store string];
-        
+		if (  ! logContents  ) {
+			logContents = @"(Unavailable)";
+		}
 		
 		// Get list of network services and status of Wi-Fi
 		NSString * networkServicesContents = [ConfigurationManager networkServicesInfo];
@@ -4530,11 +4529,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [pool drain];
 }
 
-+(void) putDiagnosticInfoOnClipboardOperation: (NSString *) displayName {
++(void) putDiagnosticInfoOnClipboardOperation: (NSDictionary *) dict {
 	
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
-    [ConfigurationManager putDiagnosticInfoOnClipboardWithDisplayName: displayName];
+
+	NSString * displayName = [dict objectForKey: @"displayName"];
+	NSString * logContents = nilIfNSNull([dict objectForKey: @"logContents"]);
+
+    [ConfigurationManager putDiagnosticInfoOnClipboardWithDisplayName: displayName log: logContents];
     
     [TBOperationQueue removeDisableList];
     
@@ -4782,11 +4784,16 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [((MenuController *)[NSApp delegate]) startCheckingForConfigurationUpdates];
 }
 
-+(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName {
++(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName log: (NSString *) logContents {
     
+	NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+						   displayName, 			 @"displayName",
+						   NSNullIfNil(logContents), @"logContents",
+						   nil];
+
     [TBOperationQueue addToQueueSelector: @selector(putDiagnosticInfoOnClipboardOperation:)
                                   target: [ConfigurationManager class]
-                                  object: displayName
+                                  object: dict
                              disableList: [NSArray arrayWithObject: displayName]];
 }
 
