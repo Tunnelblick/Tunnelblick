@@ -590,7 +590,22 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	[awc setCheckboxIsChecked:   checkboxIsOn];
 	
 	if (  [[msg class] isSubclassOfClass: [NSString class]]  ) {
-		[awc setMessage: msg];
+		if ( runningOnNewerThanWithBugFix(10, 14, 4)  ) {
+			// Surround the msg with a span that sets text foreground/background colors for light or dark mode
+			NSMutableString * ms = [[[NSMutableString alloc]
+									 initWithFormat:
+									 @"<span style=\"color:%@;background-color:%@\">%@</span>",
+									 rgbValues(YES), rgbValues(NO), msg]
+									autorelease];
+			// Do simplest possible conversion of text to HTML by replacing newlines with <br>
+			//    and multiple spaces with multiple &nbsp;
+			[ms replaceOccurrencesOfString: @"\n" withString: @"<br>" options: 0 range: NSMakeRange(0, [ms length])];
+			[ms replaceOccurrencesOfString: @"  " withString: @"&nbsp;&nbsp;" options: 0 range: NSMakeRange(0, [ms length])];
+			NSAttributedString * result = attributedStringFromHTML(ms);
+			[awc setMessageAS: result];
+		} else {
+			[awc setMessage: msg];
+		}
 	} else if (  [[msg class] isSubclassOfClass: [NSAttributedString class]]  ) {
 		[awc setMessageAS: msg];
 	} else {
