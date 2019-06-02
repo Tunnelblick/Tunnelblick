@@ -204,6 +204,11 @@ BOOL runningOnHighSierraOrNewer(void)
 	return runningOnNewerThan(10, 12);
 }
 
+BOOL runningOnMojaveOrNewer(void)
+{
+	return runningOnNewerThan(10, 13);
+}
+
 BOOL runningOnNewerThanWithBugFix(unsigned majorVersion, unsigned minorVersion, unsigned bugfixVersion)
 {
 	unsigned major, minor, bugFix;
