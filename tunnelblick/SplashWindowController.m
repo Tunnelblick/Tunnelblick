@@ -111,9 +111,10 @@ extern BOOL gShuttingDownWorkspace;
     [newValue retain];
     [message release];
     message = newValue;
-    
+
     if (  mainText  ) {
         [mainText setTitle: newValue];
+		[mainTextTF sizeToFit];
         [[self window] display];
     }
 }

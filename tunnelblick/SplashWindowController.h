@@ -26,7 +26,8 @@
     IBOutlet NSImageView        * iconIV;
     
     IBOutlet NSTextFieldCell    * mainText;
-    
+	IBOutlet NSTextField        * mainTextTF;
+
     IBOutlet NSTextFieldCell    * copyrightTFC;
     
     NSString                    * message;
