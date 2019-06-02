@@ -7514,7 +7514,9 @@ void terminateBecauseOfBadConfiguration(void)
 
 	if (  ! haveClearedQuitLog  ) {
 		[gFileMgr tbRemovePathIfItExists: path];
-		[gFileMgr createFileAtPath: path contents: nil attributes: nil];
+		if (  ! [gFileMgr createFileAtPath: path contents: nil attributes: nil]  ) {
+			NSLog(@"quitLog: Error creating %@", path);
+		}
 		haveClearedQuitLog = TRUE;
 	}
 
