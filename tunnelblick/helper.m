@@ -332,11 +332,9 @@ NSAttributedString * attributedStringFromHTML(NSString * html) {
 		return nil;
 	}
 	
-    NSMutableAttributedString * as = [[NSMutableAttributedString alloc] initWithHTML: htmlData options: @{NSTextEncodingNameDocumentOption: @"UTF-8"} documentAttributes: nil];
-	if ( htmlData == nil  ) {
-		NSLog(@"attributedStringFromHTML: cannot initWithHTML:; stack trace = %@", callStack());
-		return nil;
-	}
+	NSAttributedString * as = [[[NSAttributedString alloc]
+								initWithHTML: htmlData options: @{NSTextEncodingNameDocumentOption: @"UTF-8"} documentAttributes: nil]
+							   autorelease];
     return as;
 }
 
