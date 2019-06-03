@@ -250,7 +250,7 @@
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <subviews>
                                                                         <popUpButton verticalHuggingPriority="750" id="543" customClass="TBPopUpButton">
-                                                                            <rect key="frame" x="242" y="238" width="286" height="26"/>
+                                                                            <rect key="frame" x="243" y="238" width="285" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="When TB launches$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="547" id="544">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -277,7 +277,7 @@
                                                                             </popUpButtonCell>
                                                                         </popUpButton>
                                                                         <popUpButton verticalHuggingPriority="750" id="540" customClass="TBPopUpButton">
-                                                                            <rect key="frame" x="242" y="212" width="286" height="26"/>
+                                                                            <rect key="frame" x="243" y="212" width="285" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Automatically$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="554" id="551">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -301,7 +301,7 @@
                                                                             </connections>
                                                                         </popUpButton>
                                                                         <textField verticalHuggingPriority="750" id="542">
-                                                                            <rect key="frame" x="-1" y="218" width="241" height="17"/>
+                                                                            <rect key="frame" x="11" y="218" width="229" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Set DNS/WINS$:" id="549">
                                                                                 <font key="font" metaFont="system"/>
@@ -310,7 +310,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <popUpButton verticalHuggingPriority="750" id="1358" customClass="TBPopUpButton">
-                                                                            <rect key="frame" x="242" y="160" width="286" height="26"/>
+                                                                            <rect key="frame" x="243" y="160" width="285" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="No logging$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1365" id="1361">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -331,17 +331,8 @@
                                                                                 <outlet property="nextKeyView" destination="1113" id="1368"/>
                                                                             </connections>
                                                                         </popUpButton>
-                                                                        <textField verticalHuggingPriority="750" id="1359">
-                                                                            <rect key="frame" x="11" y="166" width="229" height="17"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log level$:" id="1360">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                        </textField>
                                                                         <textField verticalHuggingPriority="750" id="541">
-                                                                            <rect key="frame" x="-1" y="244" width="241" height="17"/>
+                                                                            <rect key="frame" x="11" y="244" width="229" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Connect$:" id="550">
                                                                                 <font key="font" metaFont="system"/>
@@ -350,7 +341,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <popUpButton verticalHuggingPriority="750" id="Qci-0o-1RH" customClass="TBPopUpButton">
-                                                                            <rect key="frame" x="243" y="134" width="286" height="26"/>
+                                                                            <rect key="frame" x="243" y="134" width="285" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Do nothing$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="NeE-bm-ZpY" id="j02-Ff-EzS">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -377,7 +368,7 @@
                                                                             </popUpButtonCell>
                                                                         </popUpButton>
                                                                         <textField verticalHuggingPriority="750" id="7Op-8O-tzd">
-                                                                            <rect key="frame" x="11" y="140" width="230" height="17"/>
+                                                                            <rect key="frame" x="11" y="140" width="229" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Upon expected disconnect$:" id="JFR-X0-osV">
                                                                                 <font key="font" metaFont="system"/>
@@ -386,7 +377,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <popUpButton verticalHuggingPriority="750" id="feg-1i-aRG" customClass="TBPopUpButton">
-                                                                            <rect key="frame" x="243" y="108" width="286" height="26"/>
+                                                                            <rect key="frame" x="243" y="108" width="285" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Do nothing$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="KuK-84-3eb" id="lZZ-KV-st7">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -413,7 +404,7 @@
                                                                             </popUpButtonCell>
                                                                         </popUpButton>
                                                                         <textField verticalHuggingPriority="750" id="Cdj-vv-PNV">
-                                                                            <rect key="frame" x="11" y="114" width="230" height="17"/>
+                                                                            <rect key="frame" x="11" y="114" width="229" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Upon unexpected disconnect$:" id="TAi-Ap-1mE">
                                                                                 <font key="font" metaFont="system"/>
@@ -422,7 +413,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <popUpButton verticalHuggingPriority="750" id="1113" customClass="TBPopUpButton">
-                                                                            <rect key="frame" x="242" y="186" width="286" height="26"/>
+                                                                            <rect key="frame" x="243" y="186" width="285" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="4.5.6$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1120" id="1118">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -443,7 +434,7 @@
                                                                             </connections>
                                                                         </popUpButton>
                                                                         <textField verticalHuggingPriority="750" id="1114">
-                                                                            <rect key="frame" x="-1" y="192" width="242" height="17"/>
+                                                                            <rect key="frame" x="11" y="192" width="229" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="OpenVPN Version$:" id="1117">
                                                                                 <font key="font" metaFont="system"/>
@@ -452,7 +443,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <button verticalHuggingPriority="750" id="536" customClass="TBButton">
-                                                                            <rect key="frame" x="15" y="-5" width="122" height="32"/>
+                                                                            <rect key="frame" x="7" y="-7" width="122" height="32"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="push" title="Advanced$..." bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="575">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -510,6 +501,15 @@
                                                                                 <outlet property="nextKeyView" destination="s6c-Ua-ajN" id="Ejx-59-DH3"/>
                                                                             </connections>
                                                                         </button>
+                                                                        <textField verticalHuggingPriority="750" id="1359">
+                                                                            <rect key="frame" x="11" y="166" width="229" height="17"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log level$:" id="1360">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
                                                                     </subviews>
                                                                 </customView>
                                                             </subviews>
