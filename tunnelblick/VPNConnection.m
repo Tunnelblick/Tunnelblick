@@ -3404,38 +3404,36 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	return FALSE;
 }
 
--(BOOL) isPrivateAddress: (NSString *) address {
+-(BOOL) isNotAPublicIPAddress: (NSString *) address {
 	
-	// Returns TRUE if an IP address is either localhost or a private IP address
+	// Returns TRUE if an IP address is localhost, an IPv4 private address, or an IPv6 unique local address
 	//
 	// Returns FALSE if there was an error (after logging the error).
 	//
 	// Note: The address must be a valid IPv4 or IPv6 address.
 	
-	if (   [address hasPrefix: @"10."]				// 10.*.*.* are private
-		|| [address hasPrefix: @"127."]				// 127.*.*.* are IPv4 localhost
-		|| [address hasPrefix: @"192.168"]			// 192.168.*.* are private
-		|| [address isEqualToString: @"::1"]  ) {	// IPv6 localhost
+	NSString * addressLowCase = [address lowercaseString];
+
+	if (   [addressLowCase hasPrefix: @"10."]				// 10.*.*.* are IPv4 private addresses
+		|| [addressLowCase hasPrefix: @"192.168"]			// 192.168.*.* are IPv4 private addresses
+		|| [addressLowCase hasPrefix: @"fc"]				// fc00::/7 are IPv6 "unique local addresses"
+		|| [addressLowCase hasPrefix: @"fd"]
+		|| [addressLowCase hasPrefix: @"127."]				// IPv4 localhost
+		|| [addressLowCase isEqualToString: @"::1"]  ) {	// IPv6 localhost
 		return TRUE;
 	}
 	
-	if (  [address hasPrefix: @"172."]  ) {
-		NSArray * quads = [address componentsSeparatedByString: @"."];
+	// 172.16.*.* - 172.31.*.* are IPv4 private addresses
+	if (  [addressLowCase hasPrefix: @"172."]  ) {
+		NSArray * quads = [addressLowCase componentsSeparatedByString: @"."];
 		if (  [quads count] == 4) {
 			NSString * quad2 = [quads objectAtIndex: 1];
-			return (   ([@"15" compare: quad2] == NSOrderedAscending)		// 172.16.*.* - 172.31.*.* are private
+			return (   ([@"15" compare: quad2] == NSOrderedAscending)
 					&& ([quad2 compare: @"32"] == NSOrderedAscending) );
 		} else {
-			NSLog(@"isPrivateAddress: Error: address %@ is not a dotted-quad address", address);
+			NSLog(@"isNotAPublicIPAddress: Error: address %@ is not a dotted-quad address", address);
 			return FALSE;
 		}
-	}
-	
-	NSString * addressLowCase = [address lowercaseString];
-	
-	if (   [addressLowCase hasPrefix: @"fc"]
-		|| [addressLowCase hasPrefix: @"fd"]  ) {
-		return TRUE;
 	}
 	
 	return FALSE;
@@ -3493,10 +3491,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 				if (  [self isRoutedThroughVpn: address type: type]  ) {
 					[self addToLog: [NSString stringWithFormat: @"DNS address %@ is being routed through the VPN", address]];
 				} else {
-					if (  [self isPrivateAddress: address]  ) {
-						[self addToLog: [NSString stringWithFormat: @"Warning: DNS server address %@ is a private address but is not being routed through the VPN.\n\n", address]];
+					if (  [self isNotAPublicIPAddress: address]  ) {
+						[self addToLog: [NSString stringWithFormat: @"Warning: DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n", address]];
 						[message appendString: [NSString stringWithFormat:
-												NSLocalizedString(@"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n", @"Window text"), address]];
+												NSLocalizedString(@"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n", @"Window text"), address]];
 					} else {
 						if (  [knownPublicDnsServers containsObject: address]  ) {
 							[self addToLog: [NSString stringWithFormat: @"Warning: DNS server Address %@ is a known public DNS server but is not being routed through the VPN", address]];
