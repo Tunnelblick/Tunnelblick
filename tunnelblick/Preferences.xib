@@ -1383,7 +1383,7 @@
                                 <size key="maxSize" width="923" height="10000000"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.99294117647058822" horizontal="YES" id="481">
                         <rect key="frame" x="-100" y="-100" width="87" height="18"/>
