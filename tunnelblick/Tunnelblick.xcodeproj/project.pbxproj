@@ -256,6 +256,13 @@
 		B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */; };
 		B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D807021832EEC400A0B937 /* NSTimer+TB.m */; };
 		B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6264B1641C8C700943C59 /* easyRsa.m */; };
+		E5B723D222A88679008ACE97 /* TBChallengeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B723D122A88679008ACE97 /* TBChallengeTextView.m */; };
+		E5B723DF22A88F33008ACE97 /* AGClock.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B723D422A88F33008ACE97 /* AGClock.m */; };
+		E5B723E022A88F33008ACE97 /* AGOtp.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B723D522A88F33008ACE97 /* AGOtp.m */; };
+		E5B723E122A88F33008ACE97 /* AGStringEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B723D922A88F33008ACE97 /* AGStringEncoding.m */; };
+		E5B723E222A88F33008ACE97 /* AGTotp.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B723DC22A88F33008ACE97 /* AGTotp.m */; };
+		E5B723E322A88F33008ACE97 /* AGBase32.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B723DD22A88F33008ACE97 /* AGBase32.m */; };
+		E5B723E622A88FBC008ACE97 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B723E522A88FBB008ACE97 /* MF_Base64Additions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -663,6 +670,21 @@
 		B8D807021832EEC400A0B937 /* NSTimer+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+TB.m"; sourceTree = "<group>"; };
 		B8F6264A1641C8C700943C59 /* easyRsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easyRsa.h; sourceTree = "<group>"; };
 		B8F6264B1641C8C700943C59 /* easyRsa.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = easyRsa.m; sourceTree = "<group>"; };
+		E5B723D022A88679008ACE97 /* TBChallengeTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBChallengeTextView.h; sourceTree = "<group>"; };
+		E5B723D122A88679008ACE97 /* TBChallengeTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBChallengeTextView.m; sourceTree = "<group>"; };
+		E5B723D422A88F33008ACE97 /* AGClock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGClock.m; sourceTree = "<group>"; };
+		E5B723D522A88F33008ACE97 /* AGOtp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGOtp.m; sourceTree = "<group>"; };
+		E5B723D622A88F33008ACE97 /* AGTotp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTotp.h; sourceTree = "<group>"; };
+		E5B723D722A88F33008ACE97 /* AGBase32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBase32.h; sourceTree = "<group>"; };
+		E5B723D822A88F33008ACE97 /* AeroGearOTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AeroGearOTP.h; sourceTree = "<group>"; };
+		E5B723D922A88F33008ACE97 /* AGStringEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGStringEncoding.m; sourceTree = "<group>"; };
+		E5B723DA22A88F33008ACE97 /* AGOtp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGOtp.h; sourceTree = "<group>"; };
+		E5B723DB22A88F33008ACE97 /* AGClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGClock.h; sourceTree = "<group>"; };
+		E5B723DC22A88F33008ACE97 /* AGTotp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTotp.m; sourceTree = "<group>"; };
+		E5B723DD22A88F33008ACE97 /* AGBase32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBase32.m; sourceTree = "<group>"; };
+		E5B723DE22A88F33008ACE97 /* AGStringEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGStringEncoding.h; sourceTree = "<group>"; };
+		E5B723E422A88FBB008ACE97 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
+		E5B723E522A88FBB008ACE97 /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -757,6 +779,7 @@
 			isa = PBXGroup;
 			children = (
 				B8407882170CE4E10002B941 /* Authorization & Keychain */,
+				E5B723D322A88F33008ACE97 /* ChallengeSecret */,
 				B840787F170CE4130002B941 /* Common */,
 				B8407881170CE4B00002B941 /* Class Extensions & Subclasses */,
 				B8407880170CE44C0002B941 /* Configurations */,
@@ -1219,6 +1242,8 @@
 				B82DF4D7182704D800A121DE /* TBPerformer.m */,
 				6337527B101A1EBD00775AA2 /* TBTextView.h */,
 				6337527C101A1EBD00775AA2 /* TBTextView.m */,
+				E5B723D022A88679008ACE97 /* TBChallengeTextView.h */,
+				E5B723D122A88679008ACE97 /* TBChallengeTextView.m */,
 			);
 			name = "Class Extensions & Subclasses";
 			sourceTree = "<group>";
@@ -1377,6 +1402,26 @@
 				B891E57416F61A3800627008 /* tunnelblick-uninstaller.Info.plist */,
 			);
 			name = Uninstaller;
+			sourceTree = "<group>";
+		};
+		E5B723D322A88F33008ACE97 /* ChallengeSecret */ = {
+			isa = PBXGroup;
+			children = (
+				E5B723D422A88F33008ACE97 /* AGClock.m */,
+				E5B723D522A88F33008ACE97 /* AGOtp.m */,
+				E5B723D622A88F33008ACE97 /* AGTotp.h */,
+				E5B723D722A88F33008ACE97 /* AGBase32.h */,
+				E5B723D822A88F33008ACE97 /* AeroGearOTP.h */,
+				E5B723D922A88F33008ACE97 /* AGStringEncoding.m */,
+				E5B723DA22A88F33008ACE97 /* AGOtp.h */,
+				E5B723DB22A88F33008ACE97 /* AGClock.h */,
+				E5B723DC22A88F33008ACE97 /* AGTotp.m */,
+				E5B723DD22A88F33008ACE97 /* AGBase32.m */,
+				E5B723DE22A88F33008ACE97 /* AGStringEncoding.h */,
+				E5B723E422A88FBB008ACE97 /* MF_Base64Additions.h */,
+				E5B723E522A88FBB008ACE97 /* MF_Base64Additions.m */,
+			);
+			path = ChallengeSecret;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1822,10 +1867,12 @@
 				61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */,
 				61BC4B7A0E2F9EBC00F24255 /* NSArray+cArray.m in Sources */,
 				61BC4B7B0E2F9EBC00F24255 /* MenuController.m in Sources */,
+				E5B723E022A88F33008ACE97 /* AGOtp.m in Sources */,
 				6395C2321E37B90000E3C176 /* TBButton.m in Sources */,
 				61BC4B7C0E2F9EBC00F24255 /* NetSocket.m in Sources */,
 				61BC4B7D0E2F9EBC00F24255 /* NetSocket+Text.m in Sources */,
 				61BC4B7E0E2F9EBC00F24255 /* NSApplication+LoginItem.m in Sources */,
+				E5B723E322A88F33008ACE97 /* AGBase32.m in Sources */,
 				61BC4B800E2F9EBC00F24255 /* KeyChain.m in Sources */,
 				61BC4B810E2F9EBC00F24255 /* AuthAgent.m in Sources */,
 				61BC4B910E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.m in Sources */,
@@ -1834,6 +1881,7 @@
 				61BC4B940E2F9EDA00F24255 /* UKMainThreadProxy.m in Sources */,
 				6185E7400E76045D0009C2FD /* helper.m in Sources */,
 				631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */,
+				E5B723DF22A88F33008ACE97 /* AGClock.m in Sources */,
 				6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */,
 				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
 				637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */,
@@ -1855,6 +1903,7 @@
 				635ECE601378EA1F00F67F8D /* GeneralView.m in Sources */,
 				635ECE631378EA4000F67F8D /* AppearanceView.m in Sources */,
 				635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */,
+				E5B723D222A88679008ACE97 /* TBChallengeTextView.m in Sources */,
 				63E56EE713848338007E39AB /* VPNService.m in Sources */,
 				63E56EE813848338007E39AB /* VPNServiceCreateAccountController.m in Sources */,
 				63E56EE913848338007E39AB /* VPNServiceIntroController.m in Sources */,
@@ -1877,7 +1926,9 @@
 				B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */,
 				B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */,
 				B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */,
+				E5B723E622A88FBC008ACE97 /* MF_Base64Additions.m in Sources */,
 				B8C9FB47170C77A400BCA243 /* LeftNavDataSource.m in Sources */,
+				E5B723E222A88F33008ACE97 /* AGTotp.m in Sources */,
 				B8C9FB48170C77A400BCA243 /* LeftNavItem.m in Sources */,
 				B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */,
 				B86D13091811859000FDFB3B /* ListingWindowController.m in Sources */,
@@ -1888,6 +1939,7 @@
 				632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */,
 				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
 				6372CDCA1BFCCBC500FC04DC /* TBOperationQueue.m in Sources */,
+				E5B723E122A88F33008ACE97 /* AGStringEncoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

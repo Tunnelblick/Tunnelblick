@@ -48,7 +48,10 @@
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
+#import "MF_Base64Additions.h"
+#import "AeroGearOTP.h"
 #import "VPNConnection.h"
+#import "TBChallengeTextView.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gPrivatePath;
@@ -3654,6 +3657,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }
 
+- (NSString *)generateOTPWithSecret:(NSString *)secret {
+    NSData *secretData = [AGBase32 base32Decode:secret];
+    AGTotp *otp = [[[AGTotp alloc] initWithSecret:secretData] autorelease];
+    return [otp generateOTP];
+}
+
 -(void) processChallengeResponseErrorWithMessage: (NSDictionary *) dict {
 	
 	NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
@@ -3741,6 +3750,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	// Gets a response to a challenge.
 	//
 	// If a script is available and is not being temporarily overridden, invoke the script and return its output as the response
+    // If secret is available in keychain, generate OTP and return it
 	//
 	// Otherwise get the response from the user:
 	//		If responseRequired is TRUE
@@ -3780,7 +3790,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	} else {
 		useManualChallengeResponseOnce = FALSE;
 	}
-	
+
+    // Get secret from keychain if any
+    if ([myAuthAgent keychainHasChallengeSecret]){
+        return [self generateOTPWithSecret:[myAuthAgent challengeSecretFromKeychain]];
+    }
+    
 	// Otherwise, query the user
 	if (  [challenge length] == 0  ) {
 		if (  ! responseRequired  ) {
@@ -3809,17 +3824,22 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 										otherButton: nil
 						  informativeTextWithFormat: @"%@", challenge];
 	id input = (  echoResponse
-				? [[[NSTextField       alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)] autorelease]
-				: [[[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)] autorelease]);
+				? [[[TBChallengeTextView       alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)] autorelease]
+				: [[[TBChallengeSecureTextView alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)] autorelease]);
 	[alert setAccessoryView: input];
 	[[alert window] setInitialFirstResponder: input];
 	[NSApp activateIgnoringOtherApps: YES];
+    [input setAlert:alert];
 	
 	NSModalResponse buttonValue = [alert runModal];
 	
 	if (  buttonValue == NSAlertDefaultReturn  ) {
 		[input validateEditing];
 		return [input stringValue];
+    } else if (  buttonValue == NSAlertThirdButtonReturn  ) {
+        [input validateEditing];
+        [myAuthAgent saveChallengeSecretToKeychain:[input stringValue]];
+        return [self generateOTPWithSecret:[input stringValue]];
 	} else if (  buttonValue != NSAlertAlternateReturn  ) {
 		NSLog(@"getResponseToChallenge: Invalid input dialog button return value %ld for %@", (long)buttonValue, [self displayName]);
 	}
