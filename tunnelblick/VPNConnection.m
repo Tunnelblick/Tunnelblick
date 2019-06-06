@@ -3793,7 +3793,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Get secret from keychain if any
     if ([myAuthAgent keychainHasChallengeSecret]){
-        return [self generateOTPWithSecret:[myAuthAgent challengeSecretFromKeychain]];
+        NSString *secret = [myAuthAgent challengeSecretFromKeychain];
+        if ([secret length] != 0) {
+            return [self generateOTPWithSecret:secret];
+        }
     }
     
 	// Otherwise, query the user
