@@ -36,4 +36,11 @@
     uint64_t counter = (uint64_t) (seconds / 30);
     return counter;
 }
+
+-(void) dealloc {
+    [_date release];
+    _date = nil;
+    [super dealloc];
+}
+
 @end

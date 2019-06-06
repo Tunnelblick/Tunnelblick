@@ -28,7 +28,7 @@ enum {
 @implementation AGStringEncoding
 
 + (id)stringEncodingWithString:(NSString *)string {
-  return [[self alloc] initWithString:string];
+  return [[[self alloc] initWithString:string] autorelease];
 }
 
 - (id)initWithString:(NSString *)string {
@@ -127,8 +127,8 @@ enum {
 
   [outData setLength:outPos];
 
-  return [[NSString alloc] initWithData:outData
-                                encoding:NSASCIIStringEncoding];
+  return [[[NSString alloc] initWithData:outData
+                                encoding:NSASCIIStringEncoding] autorelease];
 }
 
 - (NSData *)decode:(NSString *)inString {

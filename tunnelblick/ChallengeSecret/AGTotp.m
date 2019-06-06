@@ -44,12 +44,18 @@ const NSUInteger defaultInterval = 30;
 }
 
 - (NSString *)now {
-    return [self now:[[AGClock alloc] init]];
+    return [self now:[[[AGClock alloc] init] autorelease]];
 }
 
 - (NSString *)now:(AGClock *)clock {
     uint64_t interval = [clock currentInterval];
     return [super generateOTPForCounter:interval];
+}
+
+-(void) dealloc {
+    [_clock release];
+    _clock = nil;
+    [super dealloc];
 }
 
 @end

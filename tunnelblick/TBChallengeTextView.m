@@ -24,6 +24,12 @@
     }
 }
 
+-(void) dealloc {
+    [_secretButton release]; _secretButton = nil;
+    [_alert release];        _alert = nil;
+    [super dealloc];
+}
+
 @end
 
 @implementation TBChallengeSecureTextView
@@ -41,6 +47,12 @@
             _secretButton.hidden = YES;
         }
     }
+}
+
+-(void) dealloc {
+    [_secretButton release]; _secretButton = nil;
+    [_alert release];        _alert = nil;
+    [super dealloc];
 }
 
 @end

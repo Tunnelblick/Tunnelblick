@@ -60,7 +60,8 @@ const uint32_t defaultDigits = 6;
 }
 
 - (void)dealloc {
-  self.secret = nil;
+    self.secret = nil;
+    [super dealloc];
 }
 
 // Must be overriden by subclass.
