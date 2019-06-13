@@ -25,6 +25,48 @@ logDebugMessage()
 }
 
 ##########################################################################################
+execute_command() {
+
+	# Executes a command, printing an optional success or failure message.
+	#
+	# If an error occurs, a detailed error message is always printed before the optional failure message.
+	#
+	#	$1      = empty string or string to print if the command succeeded
+	#	$2		= empty string or string to print if the command failed
+	#	$3...$n = command to execute and its arguments
+	#
+	# The return status will be the status the command returned.
+
+	local success_msg="$1"
+	shift
+	local failure_msg="$1"
+	shift
+
+	# Construct a string for eval, with the command and arguments enclosed in single quotes to avoid splitting and further expansion
+	local command=''
+	while [ $# -ne 0 ] ; do
+		command="$command '$1'"
+		shift
+	done
+
+	local status
+	eval "$command" 2>&1
+	status=$?
+	if [ $status -eq 0 ] ; then
+		if [ -n "$success_msg" ] ; then
+			logMessage "$success_msg"
+		fi
+	else
+		logMessage "ERROR: Failed with status $status: " "${@}"
+		if [ -n "$failure_msg" ] ; then
+			logMessage "$failure_msg"
+		fi
+	fi
+
+	return $status
+}
+
+##########################################################################################
 run_prefix_or_suffix()
 {
 # @param String 'down-prefix.sh' or 'down-suffix.sh'
@@ -76,15 +118,14 @@ restore_ipv6() {
         return
     fi
 
-    printf %s "$1$LF"  |   while IFS= read -r ripv6_service ; do
+	local ripv6_service
+
+	printf %s "$1$LF"  |   while IFS= read -r ripv6_service ; do
 		if [ -n "$ripv6_service" ] ; then
-			/usr/sbin/networksetup -setv6automatic "$ripv6_service"
-			local status=$?
-			if [ $status -eq 0 ] ; then
-				logMessage "Re-enabled IPv6 (automatic) for \"$ripv6_service\""
-			else
-				logMessage "WARNING: Error $status trying to re-enable IPv6 (automatic) via /usr/sbin/networksetup -setv6automatic \"$ripv6_service\""
-			fi
+
+			execute_command "Re-enabled IPv6 (automatic) for \"$ripv6_service\""       \
+							"Error happened while trying to re-enable IPv6 (automatic)" \
+							/usr/sbin/networksetup -setv6automatic "$ripv6_service"
 		fi
     done
 }
@@ -94,32 +135,24 @@ flushDNSCache()
 {
     if ${ARG_FLUSH_DNS_CACHE} ; then
 		if [ -f /usr/bin/dscacheutil ] ; then
-			/usr/bin/dscacheutil -flushcache
-			local status=$?
-			if [ $status -ne 0 ] ; then
-				logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/bin/dscacheutil -flushcache"
-			else
-				logMessage "Flushed the DNS cache via /usr/bin/dscacheutil -flushcache"
-			fi
+			execute_command "Flushed the DNS cache with dscacheutil -flushcache" \
+							"Error happened while trying to flush the DNS cache" \
+							/usr/bin/dscacheutil -flushcache
+
 		else
 			logMessage "WARNING: /usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
 		fi
 
 		if [ -f /usr/sbin/discoveryutil ] ; then
-			/usr/sbin/discoveryutil udnsflushcaches
-			local status=$?
-			if [ $status -ne 0 ] ; then
-				logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/sbin/discoveryutil udnsflushcaches"
-			else
-				logMessage "Flushed the DNS cache via /usr/sbin/discoveryutil udnsflushcaches"
-			fi
-			/usr/sbin/discoveryutil mdnsflushcache
-			local status=$?
-			if [ $status -ne 0 ] ; then
-				logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/sbin/discoveryutil mdnsflushcache"
-			else
-				logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
-			fi
+
+			execute_command "Flushed the DNS cache with discoveryutil udnsflushcaches" \
+							"Error happened while trying to flush the DNS cache" \
+							/usr/sbin/discoveryutil udnsflushcaches
+
+			execute_command "Flushed the DNS cache with discoveryutil mdnsflushcache" \
+							"Error happened while trying to flush the DNS cache" \
+							/usr/sbin/discoveryutil mdnsflushcache
+
 		else
 			logMessage "/usr/sbin/discoveryutil not present. Not flushing the DNS cache via discoveryutil"
 		fi
@@ -184,38 +217,28 @@ EOF
 
     if [ "${primary_interface}" != "" ] ; then
 	    if [ "${primary_interface}" == "${wifi_interface}" ] && [ -f /usr/sbin/networksetup ] ; then
-			/usr/sbin/networksetup -setairportpower "${primary_interface}" off
-			local status=$?
-			if [ $status -eq 0 ] ; then
-				logMessage "Turned off primary interface via /usr/sbin/networksetup -setairportpower \"${primary_interface}\" off"
-			else
-				logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setairportpower \"${primary_interface}\" off"
-			fi
+
+			execute_command "Turned off primary interface with networksetup -setairportpower \"${primary_interface}\" off" \
+							"Error happened while trying to turn off primary interface" \
+							/usr/sbin/networksetup -setairportpower "${primary_interface}" off
+
 			sleep 2
-			/usr/sbin/networksetup -setairportpower "${primary_interface}" on
-			local status=$?
-			if [ $status -eq 0 ] ; then
-				logMessage "Turned on primary interface via /usr/sbin/networksetup -setairportpower \"${primary_interface}\" on"
-			else
-				logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setairportpower \"${primary_interface}\" on"
-			fi
+
+			execute_command "Turned on primary interface with networksetup -setairportpower \"${primary_interface}\" on" \
+							"Error happened while trying to turn on primary interface" \
+							/usr/sbin/networksetup -setairportpower "${primary_interface}" on
+
 		else
 		    if [ -f /sbin/ifconfig ] ; then
-				/sbin/ifconfig "${primary_interface}" down
-				local status=$?
-				if [ $status -eq 0 ] ; then
-					logMessage "Turned off primary interface via /sbin/ifconfig \"${primary_interface}\" down"
-				else
-					logMessage "WARNING: Error $status trying to turn off primary interface via /sbin/ifconfig \"${primary_interface}\" down"
-				fi
+				execute_command "Turned off primary interface with ifconfig \"${primary_interface}\" down" \
+								"Error happened while trying to turn off primary interface" \
+								/sbin/ifconfig "${primary_interface}" down
+
                 sleep 2
-				/sbin/ifconfig "${primary_interface}" up
-				local status=$?
-				if [ $status -eq 0 ] ; then
-					logMessage "Turned on primary interface via /sbin/ifconfig \"${primary_interface}\" up"
-				else
-					logMessage "WARNING: Error $status trying to turn on primary interface via /sbin/ifconfig \"${primary_interface}\" up"
-				fi
+
+				execute_command "Turned on primary interface with ifconfig \"${primary_interface}\" down" \
+								"Error happened while trying to turn on primary interface" \
+								/sbin/ifconfig "${primary_interface}" up
 			else
 				logMessage "WARNING: Not resetting primary interface via ifconfig because /sbin/ifconfig does not exist."
 			fi
@@ -224,29 +247,23 @@ EOF
 				local service; service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${primary_interface}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
 				local status=$?
 				if [ $status -ne 0 ] ; then
-					logMessage "WARNING: Error status $status trying to get name of primary service for \"Device: ${primary_interface}\""
+					logMessage "ERROR: status $status trying to get name of primary service for \"Device: ${primary_interface}\""
 				fi
 				if [ "$service" != "" ] ; then
-					/usr/sbin/networksetup -setnetworkserviceenabled "$service" off
-					local status=$?
-					if [ $status -eq 0 ] ; then
-						logMessage "Turned off primary interface '${primary_interface}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
-					else
-						logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
-					fi
+					execute_command "Turned off primary interface '${primary_interface}' with networksetup" \
+									"Error happened while trying to turn off primary interface" \
+									/usr/sbin/networksetup -setnetworkserviceenabled "$service" off
+
 					sleep 2
-					/usr/sbin/networksetup -setnetworkserviceenabled "$service" on
-					local status=$?
-					if [ $status -eq 0 ] ; then
-						logMessage "Turned on primary interface '${primary_interface}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
-					else
-						logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
-					fi
+
+					execute_command "Turned on primary interface '${primary_interface}' with networksetup" \
+									"Error happened while trying to turn on primary interface" \
+									/usr/sbin/networksetup -setnetworkserviceenabled "$service" on
 				else
-					logMessage "WARNING: Not resetting primary service via networksetup because could not find primary service."
+					logMessage "ERROR: Not resetting primary service via networksetup because could not find primary service."
 				fi
 			else
-				logMessage "WARNING: Not resetting primary service '$service' via networksetup because /usr/sbin/networksetup does not exist."
+				logMessage "ERROR: Not resetting primary service '$service' via networksetup because /usr/sbin/networksetup does not exist."
 			fi
 		fi
     else
@@ -373,34 +390,29 @@ if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 	logMessage "Cancelled monitoring of system configuration changes"
 fi
 
+# Release the DHCP lease on a tap device
 if ${ARG_TAP} ; then
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
         if [ "$bTapDeviceHasBeenSetNone" == "false" ]; then
+
+			# If $dev is not defined, then use $sTunnelDevice, which was set from $dev by client.up.tunnelblick.sh.
+			# $dev is defined by OpenVPN prior to it invoking this script, but it is not defined when this script
+			# is invoked from MenuController to clean up when exiting Tunnelblick or when OpenVPN crashed.
 			# shellcheck disable=SC2154
-            if [ -z "$dev" ]; then
-                # If $dev is not defined, then use TunnelDevice, which was set from $dev by client.up.tunnelblick.sh
-                # ($def is not defined when this script is called from MenuController to clean up when exiting Tunnelblick)
-                if [ -n "${sTunnelDevice}" ]; then
-                    logMessage "WARNING: \$dev not defined; using TunnelDevice: ${sTunnelDevice}"
-                    /usr/sbin/ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
-					status=$?
-					if [  $status -eq 0 ] ; then
-						logMessage "Released the DHCP lease via /usr/sbin/ipconfig set \"${sTunnelDevice}\" NONE"
-					else
-						logMessage "WARNING: Error $status from /usr/sbin/ipconfig set \"${sTunnelDevice}\" NONE"
-					fi
-                else
-                    logMessage "WARNING: Cannot configure TAP interface to NONE without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
-                fi
-            else
-				/usr/sbin/ipconfig set "$dev" NONE 2>/dev/null
-				status=$?
-				if [  $status -eq 0 ] ; then
-					logMessage "Released the DHCP lease via /usr/sbin/ipconfig set \"$dev\" NONE"
-				else
-					logMessage "WARNING: Error $status from /usr/sbin/ipconfig set \"$dev\" NONE"
+			TAP_DHCP_DEVICE="$dev"
+            if [ -z "$TAP_DHCP_DEVICE" ]; then
+				TAP_DHCP_DEVICE="$sTunnelDevice"
+                if [ -n "$TAP_DHCP_DEVICE" ]; then
+                    logMessage "WARNING: \$dev not defined; using TunnelDevice: $sTunnelDevice"
 				fi
-            fi
+			fi
+			if [ -n "$TAP_DHCP_DEVICE" ] ; then
+				execute_command "Released the DHCP lease" \
+								"Error happened trying to release the DHCP lease" \
+								/usr/sbin/ipconfig set "$TAP_DHCP_DEVICE" NONE
+			else
+				logMessage "WARNING: Cannot configure TAP interface to NONE without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
+			fi
         fi
     fi
 fi
@@ -513,16 +525,17 @@ restore_ipv6 "$sRestoreIpv6Services"
 
 flushDNSCache
 
-# Remove our system configuration data
-scutil <<-EOF
-	open
-	remove State:/Network/OpenVPN/OldDNS
-	remove State:/Network/OpenVPN/OldSMB
-	remove State:/Network/OpenVPN/OldDNSSetup
-	remove State:/Network/OpenVPN/DNS
-	remove State:/Network/OpenVPN/SMB
-	remove State:/Network/OpenVPN
-	quit
+execute_command	"Removed system configuration data created by the up script" \
+				"Error happened while trying to remove system configuration data created by the up script" \
+				scutil <<-EOF
+					open
+					remove State:/Network/OpenVPN/OldDNS
+					remove State:/Network/OpenVPN/OldSMB
+					remove State:/Network/OpenVPN/OldDNSSetup
+					remove State:/Network/OpenVPN/DNS
+					remove State:/Network/OpenVPN/SMB
+					remove State:/Network/OpenVPN
+					quit
 EOF
 
 resetPrimaryInterface $ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT $ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED
