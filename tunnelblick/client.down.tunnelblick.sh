@@ -158,13 +158,13 @@ flushDNSCache()
 resetPrimaryInterface()
 {
 
-	should_reset="$2"
-	expected_folder_path="/Library/Application Support/Tunnelblick/expect-disconnect"
+	local should_reset="$2"
+	local expected_folder_path="/Library/Application Support/Tunnelblick/expect-disconnect"
 	if [ -e "$expected_folder_path/ALL" ] ; then
 		should_reset="$1"
 	else
 		logMessage "$expected_folder_path/ALL does not exist"
-		filename="$( echo "${TUNNELBLICK_CONFIG_FOLDER}" | sed -e 's/-/--/g' | sed -e 's/\./-D/g' | sed -e 's/\//-S/g' )"
+		local filename ; filename="$( echo "${TUNNELBLICK_CONFIG_FOLDER}" | sed -e 's/-/--/g' | sed -e 's/\./-D/g' | sed -e 's/\//-S/g' )"
 		if [ -e "$expected_folder_path/$filename" ]; then
 			rm -f "$expected_folder_path/$filename"
 			should_reset="$1"
@@ -175,66 +175,68 @@ resetPrimaryInterface()
 		return
 	fi
 
-	WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
-	if [ "${WIFI_INTERFACE}" == "" ] ; then
-		WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
+	local wifi_interface
+	wifi_interface="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
+	if [ "${wifi_interface}" == "" ] ; then
+		wifi_interface="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
 	fi
-	PINTERFACE="$( scutil <<-EOF |
+	local primary_interface
+	primary_interface="$( scutil <<-EOF |
 		open
 		show State:/Network/Global/IPv4
 		quit
 EOF
 		grep PrimaryInterface | sed -e 's/.*PrimaryInterface : //' )"
 
-    if [ "${PINTERFACE}" != "" ] ; then
-	    if [ "${PINTERFACE}" == "${WIFI_INTERFACE}" ] && [ -f /usr/sbin/networksetup ] ; then
-			/usr/sbin/networksetup -setairportpower "${PINTERFACE}" off
+    if [ "${primary_interface}" != "" ] ; then
+	    if [ "${primary_interface}" == "${wifi_interface}" ] && [ -f /usr/sbin/networksetup ] ; then
+			/usr/sbin/networksetup -setairportpower "${primary_interface}" off
 			local status=$?
 			if [ $status -eq 0 ] ; then
-				logMessage "Turned off primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" off"
+				logMessage "Turned off primary interface via /usr/sbin/networksetup -setairportpower \"${primary_interface}\" off"
 			else
-				logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" off"
+				logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setairportpower \"${primary_interface}\" off"
 			fi
 			sleep 2
-			/usr/sbin/networksetup -setairportpower "${PINTERFACE}" on
+			/usr/sbin/networksetup -setairportpower "${primary_interface}" on
 			local status=$?
 			if [ $status -eq 0 ] ; then
-				logMessage "Turned on primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" on"
+				logMessage "Turned on primary interface via /usr/sbin/networksetup -setairportpower \"${primary_interface}\" on"
 			else
-				logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" on"
+				logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setairportpower \"${primary_interface}\" on"
 			fi
 		else
 		    if [ -f /sbin/ifconfig ] ; then
-				/sbin/ifconfig "${PINTERFACE}" down
+				/sbin/ifconfig "${primary_interface}" down
 				local status=$?
 				if [ $status -eq 0 ] ; then
-					logMessage "Turned off primary interface via /sbin/ifconfig \"${PINTERFACE}\" down"
+					logMessage "Turned off primary interface via /sbin/ifconfig \"${primary_interface}\" down"
 				else
-					logMessage "WARNING: Error $status trying to turn off primary interface via /sbin/ifconfig \"${PINTERFACE}\" down"
+					logMessage "WARNING: Error $status trying to turn off primary interface via /sbin/ifconfig \"${primary_interface}\" down"
 				fi
                 sleep 2
-				/sbin/ifconfig "${PINTERFACE}" up
+				/sbin/ifconfig "${primary_interface}" up
 				local status=$?
 				if [ $status -eq 0 ] ; then
-					logMessage "Turned on primary interface via /sbin/ifconfig \"${PINTERFACE}\" up"
+					logMessage "Turned on primary interface via /sbin/ifconfig \"${primary_interface}\" up"
 				else
-					logMessage "WARNING: Error $status trying to turn on primary interface via /sbin/ifconfig \"${PINTERFACE}\" up"
+					logMessage "WARNING: Error $status trying to turn on primary interface via /sbin/ifconfig \"${primary_interface}\" up"
 				fi
 			else
 				logMessage "WARNING: Not resetting primary interface via ifconfig because /sbin/ifconfig does not exist."
 			fi
 
 			if [ -f /usr/sbin/networksetup ] ; then
-				local service; service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${PINTERFACE}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
+				local service; service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${primary_interface}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
 				local status=$?
 				if [ $status -ne 0 ] ; then
-					logMessage "WARNING: Error status $status trying to get name of primary service for \"Device: ${PINTERFACE}\""
+					logMessage "WARNING: Error status $status trying to get name of primary service for \"Device: ${primary_interface}\""
 				fi
 				if [ "$service" != "" ] ; then
 					/usr/sbin/networksetup -setnetworkserviceenabled "$service" off
 					local status=$?
 					if [ $status -eq 0 ] ; then
-						logMessage "Turned off primary interface '${PINTERFACE}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
+						logMessage "Turned off primary interface '${primary_interface}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
 					else
 						logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
 					fi
@@ -242,7 +244,7 @@ EOF
 					/usr/sbin/networksetup -setnetworkserviceenabled "$service" on
 					local status=$?
 					if [ $status -eq 0 ] ; then
-						logMessage "Turned on primary interface '${PINTERFACE}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
+						logMessage "Turned on primary interface '${primary_interface}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
 					else
 						logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
 					fi
