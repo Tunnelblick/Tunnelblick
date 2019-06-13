@@ -15,8 +15,7 @@
 # @param String message - The message to log
 logMessage()
 {
-	# shellcheck disable=SC2145
-	echo "*Tunnelblick: ${@}"
+	echo "$( date -j +'%Y-%m-%d %H:%M:%S' ) *Tunnelblick: " "${@}" | tee -a "/Library/Application Support/Tunnelblick/DownLog.txt"
 }
 
 # @param String message - The message to log
