@@ -21,8 +21,7 @@ logMessage()
 # @param String message - The message to log
 logDebugMessage()
 {
-	# shellcheck disable=SC2145
-	echo "*Tunnelblick: ${@}" > /dev/null
+	logMessage "${@}"
 }
 
 trim()
