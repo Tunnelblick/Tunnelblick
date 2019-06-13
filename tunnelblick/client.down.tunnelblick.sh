@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 # Note: must be bash; uses bash-specific tricks
 #
 # ******************************************************************************************************************
@@ -54,11 +54,9 @@ run_prefix_or_suffix()
 	if [ -e "$TUNNELBLICK_CONFIG_FOLDER/$1" ] ; then
 		logMessage "---------- Start of output from $1"
 
-		set +e
-			# shellcheck disable=SC2086
-			(  "$TUNNELBLICK_CONFIG_FOLDER/$1" ${SCRIPT_ARGS[*]}  )
-			local status=$?
-		set -e
+		# shellcheck disable=SC2086
+		(  "$TUNNELBLICK_CONFIG_FOLDER/$1" ${SCRIPT_ARGS[*]}  )
+		local status=$?
 
 		logMessage "---------- End of output from $1"
 
@@ -86,15 +84,13 @@ restore_ipv6() {
 
     printf %s "$1$LF"  |   while IFS= read -r ripv6_service ; do
 		if [ -n "$ripv6_service" ] ; then
-			set +e
-				/usr/sbin/networksetup -setv6automatic "$ripv6_service"
-				local status=$?
-				if [ $status -eq 0 ] ; then
-					logMessage "Re-enabled IPv6 (automatic) for \"$ripv6_service\""
-				else
-					logMessage "WARNING: Error $status trying to re-enable IPv6 (automatic) via /usr/sbin/networksetup -setv6automatic \"$ripv6_service\""
-				fi
-			set -e
+			/usr/sbin/networksetup -setv6automatic "$ripv6_service"
+			local status=$?
+			if [ $status -eq 0 ] ; then
+				logMessage "Re-enabled IPv6 (automatic) for \"$ripv6_service\""
+			else
+				logMessage "WARNING: Error $status trying to re-enable IPv6 (automatic) via /usr/sbin/networksetup -setv6automatic \"$ripv6_service\""
+			fi
 		fi
     done
 }
@@ -104,54 +100,48 @@ flushDNSCache()
 {
     if ${ARG_FLUSH_DNS_CACHE} ; then
 		if [ -f /usr/bin/dscacheutil ] ; then
-			set +e # we will catch errors from dscacheutil
-				/usr/bin/dscacheutil -flushcache
-				local status=$?
-				if [ $status -ne 0 ] ; then
-					logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/bin/dscacheutil -flushcache"
-				else
-					logMessage "Flushed the DNS cache via /usr/bin/dscacheutil -flushcache"
-				fi
-			set -e # bash should again fail on errors
+			/usr/bin/dscacheutil -flushcache
+			local status=$?
+			if [ $status -ne 0 ] ; then
+				logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/bin/dscacheutil -flushcache"
+			else
+				logMessage "Flushed the DNS cache via /usr/bin/dscacheutil -flushcache"
+			fi
 		else
 			logMessage "WARNING: /usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
 		fi
 
 		if [ -f /usr/sbin/discoveryutil ] ; then
-			set +e # we will catch errors from discoveryutil
-				/usr/sbin/discoveryutil udnsflushcaches
-				local status=$?
-				if [ $status -ne 0 ] ; then
-					logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/sbin/discoveryutil udnsflushcaches"
-				else
-					logMessage "Flushed the DNS cache via /usr/sbin/discoveryutil udnsflushcaches"
-				fi
-				/usr/sbin/discoveryutil mdnsflushcache
-				local status=$?
-				if [ $status -ne 0 ] ; then
-					logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/sbin/discoveryutil mdnsflushcache"
-				else
-					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
-				fi
-			set -e # bash should again fail on errors
+			/usr/sbin/discoveryutil udnsflushcaches
+			local status=$?
+			if [ $status -ne 0 ] ; then
+				logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/sbin/discoveryutil udnsflushcaches"
+			else
+				logMessage "Flushed the DNS cache via /usr/sbin/discoveryutil udnsflushcaches"
+			fi
+			/usr/sbin/discoveryutil mdnsflushcache
+			local status=$?
+			if [ $status -ne 0 ] ; then
+				logMessage "WARNING: Error $status: Unable to flush the DNS cache via /usr/sbin/discoveryutil mdnsflushcache"
+			else
+				logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
+			fi
 		else
 			logMessage "/usr/sbin/discoveryutil not present. Not flushing the DNS cache via discoveryutil"
 		fi
 
 		if [ "$( pgrep HandsOffDaemon )" = "" ] ; then
 			if [ -f /usr/bin/killall ] ; then
-				set +e # ignore errors if mDNSResponder isn't currently running
-					if /usr/bin/killall -HUP mDNSResponder > /dev/null 2>&1 ; then
-						logMessage "Notified mDNSResponder that the DNS cache was flushed"
-					else
-						logMessage "Not notifying mDNSResponder that the DNS cache was flushed because it is not running"
-					fi
-					if /usr/bin/killall -HUP mDNSResponderHelper > /dev/null 2>&1 ; then
-						logMessage "Notified mDNSResponderHelper that the DNS cache was flushed"
-					else
-						logMessage "Not notifying mDNSResponderHelper that the DNS cache was flushed because it is not running"
-					fi
-				set -e # bash should again fail on errors
+				if /usr/bin/killall -HUP mDNSResponder > /dev/null 2>&1 ; then
+					logMessage "Notified mDNSResponder that the DNS cache was flushed"
+				else
+					logMessage "Not notifying mDNSResponder that the DNS cache was flushed because it is not running"
+				fi
+				if /usr/bin/killall -HUP mDNSResponderHelper > /dev/null 2>&1 ; then
+					logMessage "Notified mDNSResponderHelper that the DNS cache was flushed"
+				else
+					logMessage "Not notifying mDNSResponderHelper that the DNS cache was flushed because it is not running"
+				fi
 			else
 				logMessage "WARNING: /usr/bin/killall not present. Not notifying mDNSResponder or mDNSResponderHelper that the DNS cache was flushed"
 			fi
@@ -185,94 +175,77 @@ resetPrimaryInterface()
 		return
 	fi
 
-	set +e # "awk" may return error status if no matches are found, so don't fail on individual errors
-		WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
-		if [ "${WIFI_INTERFACE}" == "" ] ; then
-			WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
-		fi
-		PINTERFACE="$( scutil <<-EOF |
-			open
-			show State:/Network/Global/IPv4
-			quit
+	WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
+	if [ "${WIFI_INTERFACE}" == "" ] ; then
+		WIFI_INTERFACE="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
+	fi
+	PINTERFACE="$( scutil <<-EOF |
+		open
+		show State:/Network/Global/IPv4
+		quit
 EOF
-		grep PrimaryInterface | sed -e 's/.*PrimaryInterface : //'
-		)"
-    set -e # resume abort on error
+		grep PrimaryInterface | sed -e 's/.*PrimaryInterface : //' )"
 
     if [ "${PINTERFACE}" != "" ] ; then
 	    if [ "${PINTERFACE}" == "${WIFI_INTERFACE}" ] && [ -f /usr/sbin/networksetup ] ; then
-			set +e
-				/usr/sbin/networksetup -setairportpower "${PINTERFACE}" off
-				local status=$?
-				if [ $status -eq 0 ] ; then
-					logMessage "Turned off primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" off"
-				else
-					logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" off"
-				fi
-			set -e
+			/usr/sbin/networksetup -setairportpower "${PINTERFACE}" off
+			local status=$?
+			if [ $status -eq 0 ] ; then
+				logMessage "Turned off primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" off"
+			else
+				logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" off"
+			fi
 			sleep 2
-			set +e
-				/usr/sbin/networksetup -setairportpower "${PINTERFACE}" on
-				local status=$?
-				if [ $status -eq 0 ] ; then
-					logMessage "Turned on primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" on"
-				else
-					logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" on"
-				fi
-			set -e
+			/usr/sbin/networksetup -setairportpower "${PINTERFACE}" on
+			local status=$?
+			if [ $status -eq 0 ] ; then
+				logMessage "Turned on primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" on"
+			else
+				logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setairportpower \"${PINTERFACE}\" on"
+			fi
 		else
 		    if [ -f /sbin/ifconfig ] ; then
-				set +e
-					/sbin/ifconfig "${PINTERFACE}" down
-					local status=$?
-					if [ $status -eq 0 ] ; then
-						logMessage "Turned off primary interface via /sbin/ifconfig \"${PINTERFACE}\" down"
-					else
-						logMessage "WARNING: Error $status trying to turn off primary interface via /sbin/ifconfig \"${PINTERFACE}\" down"
-					fi
-				set -e
+				/sbin/ifconfig "${PINTERFACE}" down
+				local status=$?
+				if [ $status -eq 0 ] ; then
+					logMessage "Turned off primary interface via /sbin/ifconfig \"${PINTERFACE}\" down"
+				else
+					logMessage "WARNING: Error $status trying to turn off primary interface via /sbin/ifconfig \"${PINTERFACE}\" down"
+				fi
                 sleep 2
-				set +e
-					/sbin/ifconfig "${PINTERFACE}" up
-					local status=$?
-					if [ $status -eq 0 ] ; then
-						logMessage "Turned on primary interface via /sbin/ifconfig \"${PINTERFACE}\" up"
-					else
-						logMessage "WARNING: Error $status trying to turn on primary interface via /sbin/ifconfig \"${PINTERFACE}\" up"
-					fi
-				set -e
+				/sbin/ifconfig "${PINTERFACE}" up
+				local status=$?
+				if [ $status -eq 0 ] ; then
+					logMessage "Turned on primary interface via /sbin/ifconfig \"${PINTERFACE}\" up"
+				else
+					logMessage "WARNING: Error $status trying to turn on primary interface via /sbin/ifconfig \"${PINTERFACE}\" up"
+				fi
 			else
 				logMessage "WARNING: Not resetting primary interface via ifconfig because /sbin/ifconfig does not exist."
 			fi
 
 			if [ -f /usr/sbin/networksetup ] ; then
-				set +e
-					local service; service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${PINTERFACE}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
-					local status=$?
-					if [ $status -ne 0 ] ; then
-						logMessage "WARNING: Error status $status trying to get name of primary service for \"Device: ${PINTERFACE}\""
-					fi
-				set -e
+				local service; service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${PINTERFACE}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
+				local status=$?
+				if [ $status -ne 0 ] ; then
+					logMessage "WARNING: Error status $status trying to get name of primary service for \"Device: ${PINTERFACE}\""
+				fi
 				if [ "$service" != "" ] ; then
-					set +e
-						/usr/sbin/networksetup -setnetworkserviceenabled "$service" off
-						local status=$?
-						if [ $status -eq 0 ] ; then
-							logMessage "Turned off primary interface '${PINTERFACE}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
-						else
-							logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
-						fi
-					set -e
+					/usr/sbin/networksetup -setnetworkserviceenabled "$service" off
+					local status=$?
+					if [ $status -eq 0 ] ; then
+						logMessage "Turned off primary interface '${PINTERFACE}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
+					else
+						logMessage "WARNING: Error $status trying to turn off primary interface via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" off"
+					fi
 					sleep 2
-					set +e
-						/usr/sbin/networksetup -setnetworkserviceenabled "$service" on
-						local status=$?
-						if [ $status -eq 0 ] ; then
-							logMessage "Turned on primary interface '${PINTERFACE}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
-						else
-							logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
-						fi
-					set -e
+					/usr/sbin/networksetup -setnetworkserviceenabled "$service" on
+					local status=$?
+					if [ $status -eq 0 ] ; then
+						logMessage "Turned on primary interface '${PINTERFACE}' via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
+					else
+						logMessage "WARNING: Error $status trying to turn on primary interface via /usr/sbin/networksetup -setnetworkserviceenabled \"$service\" on"
+					fi
 				else
 					logMessage "WARNING: Not resetting primary service via networksetup because could not find primary service."
 				fi
@@ -411,43 +384,36 @@ if ${ARG_TAP} ; then
                 # ($def is not defined when this script is called from MenuController to clean up when exiting Tunnelblick)
                 if [ -n "${sTunnelDevice}" ]; then
                     logMessage "WARNING: \$dev not defined; using TunnelDevice: ${sTunnelDevice}"
-                    set +e
-						/usr/sbin/ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
-						status=$?
-						if [  $status -eq 0 ] ; then
-							logMessage "Released the DHCP lease via /usr/sbin/ipconfig set \"${sTunnelDevice}\" NONE"
-						else
-							logMessage "WARNING: Error $status from /usr/sbin/ipconfig set \"${sTunnelDevice}\" NONE"
-						fi
-                    set -e
+                    /usr/sbin/ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
+					status=$?
+					if [  $status -eq 0 ] ; then
+						logMessage "Released the DHCP lease via /usr/sbin/ipconfig set \"${sTunnelDevice}\" NONE"
+					else
+						logMessage "WARNING: Error $status from /usr/sbin/ipconfig set \"${sTunnelDevice}\" NONE"
+					fi
                 else
                     logMessage "WARNING: Cannot configure TAP interface to NONE without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
                 fi
             else
-                set +e
-					/usr/sbin/ipconfig set "$dev" NONE 2>/dev/null
-					status=$?
-					if [  $status -eq 0 ] ; then
-						logMessage "Released the DHCP lease via /usr/sbin/ipconfig set \"$dev\" NONE"
-					else
-						logMessage "WARNING: Error $status from /usr/sbin/ipconfig set \"$dev\" NONE"
-					fi
-                set -e
+				/usr/sbin/ipconfig set "$dev" NONE 2>/dev/null
+				status=$?
+				if [  $status -eq 0 ] ; then
+					logMessage "Released the DHCP lease via /usr/sbin/ipconfig set \"$dev\" NONE"
+				else
+					logMessage "WARNING: Error $status from /usr/sbin/ipconfig set \"$dev\" NONE"
+				fi
             fi
         fi
     fi
 fi
 
 # Issue warning if the primary service ID has changed
-set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-	PSID_CURRENT="$( scutil <<-EOF |
-		open
-		show State:/Network/Global/IPv4
-		quit
+PSID_CURRENT="$( scutil <<-EOF |
+	open
+	show State:/Network/Global/IPv4
+	quit
 EOF
-grep 'Service : ' | sed -e 's/.*Service : //'
-)"
-set -e # resume abort on error
+grep 'Service : ' | sed -e 's/.*Service : //' )"
 if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
 	logMessage "Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
 fi
@@ -533,18 +499,14 @@ fi
 logMessage "Restored the DNS and SMB configurations"
 
 if [ -e /etc/resolv.conf ] ; then
-	set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-		new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
-	set -e # resume abort on error
+	new_resolver_contents="$( grep -v '#' < /etc/resolv.conf )"
 else
 	new_resolver_contents="(unavailable)"
 fi
 logDebugMessage "DEBUG:"
 logDebugMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
 
-set +e # scutil --dns will return error status in case dns is already down, so don't fail if no dns found
-	scutil_dns="$( scutil --dns)"
-set -e # resume abort on error
+scutil_dns="$( scutil --dns)"
 logDebugMessage "DEBUG:"
 logDebugMessage "DEBUG: scutil --dns = ${scutil_dns}"
 logDebugMessage "DEBUG:"
