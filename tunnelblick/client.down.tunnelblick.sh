@@ -269,6 +269,8 @@ readonly LF="
 
 readonly OUR_NAME=$(basename "${0}")
 
+rm -f "/Library/Application Support/Tunnelblick/DownLog.txt"
+
 logMessage "**********************************************"
 logMessage "Start of output from ${OUR_NAME}"
 
