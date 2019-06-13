@@ -24,12 +24,6 @@ logDebugMessage()
 	logMessage "${@}"
 }
 
-trim()
-{
-# shellcheck disable=SC2068
-echo ${@}
-}
-
 ##########################################################################################
 run_prefix_or_suffix()
 {
