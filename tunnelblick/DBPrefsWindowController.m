@@ -168,7 +168,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	
 	NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:identifier] autorelease];
 	[item setLabel:label];
-	[item setImage:image];
+	if (  image  ) {
+		[item setImage:image];
+	}
 	[item setTarget:self];
 	[item setAction:@selector(toggleActivePreferenceView:)];
 	

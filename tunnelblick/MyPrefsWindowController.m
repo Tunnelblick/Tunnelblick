@@ -332,7 +332,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 	if (  [UIHelper languageAtLaunchWasRTL]  ) {
 		// Add an NSToolbarFlexibleSpaceIdentifier item on the left, to force the primary toolbar buttons to the right
 		[self addLockIcon];
-		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: (NSImage *)[NSNull null]];
+		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: nil];
 		[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: NSImageNameInfo              ]];
 		[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: NSImageNameAdvanced          ]];
 		[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
@@ -344,7 +344,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 		[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
 		[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: NSImageNameAdvanced          ]];
 		[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: NSImageNameInfo              ]];
-		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: (NSImage *)[NSNull null]];
+		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: nil];
 		[self addLockIcon];
 	}
 	
