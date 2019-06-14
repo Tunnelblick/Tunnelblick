@@ -7463,8 +7463,17 @@ void terminateBecauseOfBadConfiguration(void)
 
 	[self quitLog: [NSString stringWithFormat:
 					@"applicationShouldTerminate: termination %@; delayed until 'shutdownTunnelblick' finishes)", reasonString] toNSLog: NO];
-    [self performSelectorOnMainThread: @selector(shutDownTunnelblick) withObject: nil waitUntilDone: NO];
+	[NSThread detachNewThreadSelector: @selector(startShutdown) toTarget: self withObject: nil];
     return NSTerminateLater;
+}
+
+-(void) startShutdown {
+
+	NSAutoreleasePool * pool = [NSAutoreleasePool new];
+
+	[self performSelectorOnMainThread: @selector(shutDownTunnelblick) withObject: nil waitUntilDone: NO];
+
+	[pool drain];
 }
 
 -(void) shutDownTunnelblick
