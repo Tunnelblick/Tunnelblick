@@ -364,10 +364,10 @@ LEASEWATCHER_PLIST_PATH="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*
 REMOVE_LEASEWATCHER_PLIST="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RemoveLeaseWatcherPlist :' | sed -e 's/^.*: //g')"
 PSID="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*Service :' | sed -e 's/^.*: //g')"
 ARG_TAP="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :' | sed -e 's/^.*: //g')"
-bRouteGatewayIsDhcp="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :' | sed -e 's/^.*: //g')"
-bTapDeviceHasBeenSetNone="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :' | sed -e 's/^.*: //g')"
-bAlsoUsingSetupKeys="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :' | sed -e 's/^.*: //g')"
-sTunnelDevice="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TunnelDevice :' | sed -e 's/^.*: //g')"
+ROUTE_GATEWAY_IS_DHCP="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :' | sed -e 's/^.*: //g')"
+TAP_DEVICE_HAS_BEEN_SET_NONE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :' | sed -e 's/^.*: //g')"
+ALSO_USING_SETUP_KEYS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :' | sed -e 's/^.*: //g')"
+TUNNEL_DEVICE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TunnelDevice :' | sed -e 's/^.*: //g')"
 
 # Note: '\n' was translated into '\t', so we translate it back (it was done because grep and sed only work with single lines)
 readonly sRestoreIpv6Services="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreIpv6Services :' | sed -e 's/^.*: //g' | tr '\t' '\n')"
@@ -383,18 +383,18 @@ fi
 
 # Release the DHCP lease on a tap device
 if ${ARG_TAP} ; then
-	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
-        if [ "$bTapDeviceHasBeenSetNone" == "false" ]; then
+	if [ "$ROUTE_GATEWAY_IS_DHCP" == "true" ]; then
+        if [ "$TAP_DEVICE_HAS_BEEN_SET_NONE" == "false" ]; then
 
-			# If $dev is not defined, then use $sTunnelDevice, which was set from $dev by client.up.tunnelblick.sh.
+			# If $dev is not defined, then use $TUNNEL_DEVICE, which was set from $dev by client.up.tunnelblick.sh.
 			# $dev is defined by OpenVPN prior to it invoking this script, but it is not defined when this script
 			# is invoked from MenuController to clean up when exiting Tunnelblick or when OpenVPN crashed.
 			# shellcheck disable=SC2154
 			TAP_DHCP_DEVICE="$dev"
             if [ -z "$TAP_DHCP_DEVICE" ]; then
-				TAP_DHCP_DEVICE="$sTunnelDevice"
+				TAP_DHCP_DEVICE="$TUNNEL_DEVICE"
                 if [ -n "$TAP_DHCP_DEVICE" ]; then
-                    logMessage "WARNING: \$dev not defined; using TunnelDevice: $sTunnelDevice"
+                    logMessage "WARNING: \$dev not defined; using TunnelDevice: $TUNNEL_DEVICE"
 				fi
 			fi
 			if [ -n "$TAP_DHCP_DEVICE" ] ; then
@@ -402,7 +402,7 @@ if ${ARG_TAP} ; then
 								"Error happened trying to release the DHCP lease" \
 								/usr/sbin/ipconfig set "$TAP_DHCP_DEVICE" NONE
 			else
-				logMessage "WARNING: Cannot configure TAP interface to NONE without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
+				logMessage "WARNING: Cannot configure TAP interface to NONE without \$dev or TUNNEL_DEVICE being defined. Device may not have disconnected properly."
 			fi
         fi
     fi
@@ -458,7 +458,7 @@ EOF
 fi
 
 if [ "${DNS_OLD_SETUP}" = "${TB_NO_SUCH_KEY}" ] ; then
-	if ${bAlsoUsingSetupKeys} ; then
+	if ${ALSO_USING_SETUP_KEYS} ; then
 		logDebugMessage "DEBUG: Removing 'Setup:' DNS key"
 		scutil <<-EOF
 			open
@@ -469,7 +469,7 @@ EOF
 		logDebugMessage "DEBUG: Not removing 'Setup:' DNS key"
 	fi
 else
-	if ${bAlsoUsingSetupKeys} ; then
+	if ${ALSO_USING_SETUP_KEYS} ; then
 		logDebugMessage "DEBUG: Restoring 'Setup:' DNS key"
 		scutil <<-EOF
 			open
@@ -512,7 +512,7 @@ logDebugMessage "DEBUG:"
 logDebugMessage "DEBUG: scutil --dns = ${scutil_dns}"
 logDebugMessage "DEBUG:"
 
-restore_ipv6 "$sRestoreIpv6Services"
+restore_ipv6 "$IPV6_SERVICES_TO_RESTORE"
 
 flushDNSCache
 
