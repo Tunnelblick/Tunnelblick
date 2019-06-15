@@ -113,18 +113,12 @@
 
 #define TUNNELBLICK_QUIT_LOG_PATH [@"~/Library/Application Support/Tunnelblick/QuitLog.txt" stringByExpandingTildeInPath]
 
-// NOTE: some scripts refer to the following two paths without using this header file
+// NOTE: some scripts refer to the following paths without using this header file
 #define L_AS_T_DISABLED_NETWORK_SERVICES_PATH         @"/Library/Application Support/Tunnelblick/disabled-network-services.txt"
 #define L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH          @"/Library/Application Support/Tunnelblick/expect-disconnect"
-
-// NOTE: some scripts refer to the following path without using this header file
 #define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
 #define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
-
-// NOTE: some scripts refer to the following path without using this header file
-#define DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH @"/tmp/tunnelblick-downscript-needs-to-be-run.txt"
-
-// NOTE: tunnelblick-uninstaller.sh refers to the installer log path without using this header file
+#define DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH @"/Library/Application Support/Tunnelblick/downscript-needs-to-be-run.txt"
 #define INSTALLER_LOG_PATH      @"/tmp/tunnelblick-installer-log.txt"
 
 // NOTE: net.tunnelblick.tunnelblick.tunnelblickd.plist and tunnelblick-uninstaller.sh refer to the tunnelblickd log path without using this header file

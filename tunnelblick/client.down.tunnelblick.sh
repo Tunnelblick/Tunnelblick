@@ -287,11 +287,7 @@ rm -f "/Library/Application Support/Tunnelblick/DownLog.txt"
 logMessage "**********************************************"
 logMessage "Start of output from ${OUR_NAME}"
 
-# Remove the flag file that indicates we need to run the down script
-
-if [ -e   "/tmp/tunnelblick-downscript-needs-to-be-run.txt" ] ; then
-    rm -f "/tmp/tunnelblick-downscript-needs-to-be-run.txt"
-fi
+rm -f "/Library/Application Support/Tunnelblick/downscript-needs-to-be-run.txt"
 
 # Test for the "-r" Tunnelbick option (Reset primary interface after disconnecting) because we _always_ need its value.
 # Usually we get the value for that option (and the other options) from State:/Network/OpenVPN,
