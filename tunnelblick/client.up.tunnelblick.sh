@@ -139,6 +139,7 @@ get_networksetup_setting() {
 					setting="${setting//$LF/,}"
 
 					# Make sure there are no tabs or spaces in the setting
+					# shellcheck disable=SC2252
 					if [ "$setting" != "${setting/$HT/}" ] || [ "$setting" != "${setting/ /}" ] ; then
 						echo "get_networksetup_setting: setting '$setting' for service '$service' contains spaces or tabs" 1>&2
 						exit 1
