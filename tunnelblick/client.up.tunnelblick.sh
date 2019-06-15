@@ -754,24 +754,24 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	# in 10.8 and higher, ServerAddresses and SearchDomains must be set via the Setup: key in addition to the State: key
 	# in 10.7 if ServerAddresses or SearchDomains are manually set, ServerAddresses and SearchDomains must be similarly set with the Setup: key in addition to the State: key
 	#
-	# we pass a flag indicating whether we've done that to the other scripts in 'bAlsoUsingSetupKeys'
+	# we pass a flag indicating whether we've done that to the other scripts in 'ALSO_USING_SETUP_KEYS'
 
 	case "${OSVER}" in
 		10.7 )
 			if [ "${MAN_DNS_SA}" = "" ] && [  "${MAN_DNS_SD}" = "" ] ; then
 				logDebugMessage "DEBUG: macOS 10.7 and neither ServerAddresses nor SearchDomains were set manually, so will modify DNS settings using only State:"
 				readonly SKP_SETUP_DNS="#"
-				readonly bAlsoUsingSetupKeys="false"
+				readonly ALSO_USING_SETUP_KEYS="false"
 			else
 				logDebugMessage "DEBUG: macOS 10.7 and ServerAddresses or SearchDomains were set manually, so will modify DNS settings using Setup: in addition to State:"
 				readonly SKP_SETUP_DNS=""
-				readonly bAlsoUsingSetupKeys="true"
+				readonly ALSO_USING_SETUP_KEYS="true"
 			fi
 			;;
 		* )
 			logDebugMessage "DEBUG: macOS 10.8 or higher, so will modify DNS settings using Setup: in addition to State:"
 			readonly SKP_SETUP_DNS=""
-			readonly bAlsoUsingSetupKeys="true"
+			readonly ALSO_USING_SETUP_KEYS="true"
 			;;
 	esac
 
@@ -822,19 +822,19 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	#   * Translate \n to \t so stored string is all on one line to make extracting the string easier
 
 	if [ "${FIN_DNS_SA}" != "" ] ; then
-		network_setup_restore_dns_info="$( get_networksetup_setting dnsservers )$LF"
+		NETWORK_SETUP_RESTORE_DNS_INFO="$( get_networksetup_setting dnsservers )$LF"
 		logMessage "Saved existing DNS servers from networksetup"
-		logDebugMessage "$network_setup_restore_dns_info"
-		readonly network_setup_restore_dns_info="$(  echo -n "$network_setup_restore_dns_info" | tr '\n' '\t')"
+		logDebugMessage "$NETWORK_SETUP_RESTORE_DNS_INFO"
+		readonly NETWORK_SETUP_RESTORE_DNS_INFO="$(  echo -n "$NETWORK_SETUP_RESTORE_DNS_INFO" | tr '\n' '\t')"
 	else
 		logMessage "Not saving the DNS servers from networksetup"
 	fi
 
 	if [ "${FIN_DNS_SD}" != "" ] ; then
-		network_setup_restore_searchdomains_info="$( get_networksetup_setting searchdomains )$LF"
+		NETWORK_SETUP_RESTORE_SEARCHDOMAINS_INFO="$( get_networksetup_setting searchdomains )$LF"
 		logMessage "Saved existing search domains from networksetup"
-		logDebugMessage "$network_setup_restore_searchdomains_info"
-		readonly network_setup_restore_searchdomains_info="$(  echo -n "$network_setup_restore_searchdomains_info" | tr '\n' '\t')"
+		logDebugMessage "$NETWORK_SETUP_RESTORE_SEARCHDOMAINS_INFO"
+		readonly NETWORK_SETUP_RESTORE_SEARCHDOMAINS_INFO="$(  echo -n "$NETWORK_SETUP_RESTORE_SEARCHDOMAINS_INFO" | tr '\n' '\t')"
 	else
 		logMessage "Not saving the search domains from networksetup"
 	fi
@@ -842,7 +842,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	scutil <<-EOF > /dev/null
 		open
 
-		# Store our variables for the other scripts (leasewatch, down, etc.) to use
+		# Store our variables for the other scripts (process-network-changes, leasewatch, down, etc.) to use
 		d.init
 		# The '#' in the next line does NOT start a comment; it indicates to scutil that a number follows it (as opposed to a string or an array)
 		d.add PID # ${PPID}
@@ -857,13 +857,13 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
         d.add IsTapInterface        "${ARG_TAP}"
         d.add FlushDNSCache         "${ARG_FLUSH_DNS_CACHE}"
         d.add ResetPrimaryInterface "${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT}"
-        d.add RouteGatewayIsDhcp    "${bRouteGatewayIsDhcp}"
-		d.add bAlsoUsingSetupKeys   "${bAlsoUsingSetupKeys}"
+        d.add RouteGatewayIsDhcp    "${ROUTE_GATEWAY_IS_DHCP}"
+		d.add bAlsoUsingSetupKeys   "${ALSO_USING_SETUP_KEYS}"
         d.add TapDeviceHasBeenSetNone "false"
         d.add TunnelDevice          "$dev"
-        d.add RestoreIpv6Services   "$ipv6_disabled_services_encoded"
-		d.add NetworkSetupRestorednsserversInfo    "$network_setup_restore_dns_info"
-		d.add NetworkSetupRestoresearchdomainsInfo "$network_setup_restore_searchdomains_info"
+        d.add RestoreIpv6Services   "$IPV6_DISABLED_SERVICES_ENCODED"
+		d.add NetworkSetupRestorednsserversInfo    "$NETWORK_SETUP_RESTORE_DNS_INFO"
+		d.add NetworkSetupRestoresearchdomainsInfo "$NETWORK_SETUP_RESTORE_SEARCHDOMAINS_INFO"
 		set State:/Network/OpenVPN
 
 		# Back up the device's current DNS and SMB configurations,
@@ -1704,7 +1704,7 @@ else
     readonly DEFAULT_DOMAIN_NAME="openvpn"
 fi
 
-bRouteGatewayIsDhcp="false"
+ROUTE_GATEWAY_IS_DHCP="false"
 
 # We sleep to allow time for macOS to process network settings
 sleep 2
@@ -1714,8 +1714,8 @@ EXIT_CODE=0
 if ${ARG_TAP} ; then
 
     # IPv6 should be re-enabled only for TUN, not TAP
-    readonly ipv6_disabled_services=""
-    readonly ipv6_disabled_services_encoded=""
+    readonly IPV6_DISABLED_SERVICES=""
+    readonly IPV6_DISABLED_SERVICES_ENCODED=""
 
 	# If _any_ DHCP info (such as DNS) is provided by the OpenVPN server or the client configuration file (via "dhcp-option"), use it
 	# Otherwise, use DHCP to get DNS if possible, or do nothing about DNS
@@ -1736,12 +1736,12 @@ if ${ARG_TAP} ; then
 			if [ "${hasIp}" ]; then
 				logMessage "Not using DHCP because $dev already has an IP configuration ($hasIp). route_vpn_gateway = '$route_vpn_gateway'"
 			else
-				bRouteGatewayIsDhcp="true"
+				ROUTE_GATEWAY_IS_DHCP="true"
 				logMessage "Uing DHCP because route_vpn_gateway = '$route_vpn_gateway' and there $dev has no IP configuration"
 			fi
 		fi
-		if [ "$bRouteGatewayIsDhcp" == "true" ]; then
-			logDebugMessage "DEBUG: bRouteGatewayIsDhcp is TRUE"
+		if [ "$ROUTE_GATEWAY_IS_DHCP" == "true" ]; then
+			logDebugMessage "DEBUG: ROUTE_GATEWAY_IS_DHCP is TRUE"
 			if [ -z "$dev" ]; then
 				logMessage "ERROR: Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
 				# We don't create the "/Library/Application Support/Tunnelblick/downscript-needs-to-be-run.txt" file, because the down script does NOT need to be run since we didn't do anything
@@ -1797,13 +1797,13 @@ else
         flushDNSCache
 	else
 
-        ipv6_disabled_services=""
+        IPV6_DISABLED_SERVICES=""
         if ${ARG_DISABLE_IPV6_ON_TUN} ; then
 			trusted_ip_line="$( env | grep 'trusted_ip' ; true )"
 			if [ "${trusted_ip_line/:/}" = "$trusted_ip_line" ] ; then
-            	ipv6_disabled_services="$( disable_ipv6 )"
-				if [ "$ipv6_disabled_services" != "" ] ; then
-					printf '%s\n' "$ipv6_disabled_services" \
+            	IPV6_DISABLED_SERVICES="$( disable_ipv6 )"
+				if [ "$IPV6_DISABLED_SERVICES" != "" ] ; then
+					printf '%s\n' "$IPV6_DISABLED_SERVICES" \
 					| while IFS= read -r dipv6_service ; do
                     	logMessage "Disabled IPv6 for '$dipv6_service'"
                 	done
@@ -1813,9 +1813,9 @@ else
 				logMessage "WARNING: NOT disabling IPv6 because the OpenVPN server address is an IPv6 address ($trusted_ip)"
 			fi
         fi
-        readonly ipv6_disabled_services
+        readonly IPV6_DISABLED_SERVICES
 		# Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
-		readonly ipv6_disabled_services_encoded="$( echo "$ipv6_disabled_services" | tr '\n' '\t' )"
+		readonly IPV6_DISABLED_SERVICES_ENCODED="$( echo "$IPV6_DISABLED_SERVICES" | tr '\n' '\t' )"
 
 		configureOpenVpnDns
 		EXIT_CODE=$?
