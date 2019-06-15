@@ -529,7 +529,7 @@ execute_command	"Removed system configuration data created by the up script" \
 					quit
 EOF
 
-resetPrimaryInterface $ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT $ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED
+resetPrimaryInterface "$ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT" "$ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED"
 
 run_prefix_or_suffix 'down-suffix.sh'
 
