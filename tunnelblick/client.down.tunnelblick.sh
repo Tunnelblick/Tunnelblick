@@ -516,17 +516,17 @@ restore_ipv6 "$sRestoreIpv6Services"
 
 flushDNSCache
 
-execute_command	"Removed system configuration data created by the up script" \
-				"Error happened while trying to remove system configuration data created by the up script" \
-				scutil <<-EOF
-					open
-					remove State:/Network/OpenVPN/OldDNS
-					remove State:/Network/OpenVPN/OldSMB
-					remove State:/Network/OpenVPN/OldDNSSetup
-					remove State:/Network/OpenVPN/DNS
-					remove State:/Network/OpenVPN/SMB
-					remove State:/Network/OpenVPN
-					quit
+# Ignore errors trying to delete items in the system configuration database.
+# They won't exist if the computer shut down or restarted while the VPN was connected.
+scutil <<-EOF
+	open
+	remove State:/Network/OpenVPN/OldDNS
+	remove State:/Network/OpenVPN/OldSMB
+	remove State:/Network/OpenVPN/OldDNSSetup
+	remove State:/Network/OpenVPN/DNS
+	remove State:/Network/OpenVPN/SMB
+	remove State:/Network/OpenVPN
+	quit
 EOF
 
 resetPrimaryInterface "$ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT" "$ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED"
