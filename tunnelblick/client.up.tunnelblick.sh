@@ -18,7 +18,7 @@
 # @param String message - The message to log
 logMessage()
 {
-	echo "*Tunnelblick: " "${@}"
+	echo "$( date -j +'%H:%M:%S' ) *Tunnelblick: " "${@}"
 }
 
 ##########################################################################################
@@ -32,7 +32,11 @@ logMessage()
 logDebugMessage()
 {
     if ${ARG_EXTRA_LOGGING} ; then
-        echo "*Tunnelblick: " "${@}"
+		if [ -z "$1" ] ; then
+			logMessage ''
+		else
+			logMessage "_________ " "${@}"
+		fi
     fi
 }
 
@@ -1447,7 +1451,6 @@ ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
 ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED="false"
 ARG_TB_PATH="/Applications/Tunnelblick.app"
 ARG_RESTORE_ON_WINS_RESET="false"
-ARG_EXTRA_LOGGING="false"
 
 logDebugMessage "        **********************************************"
 logDebugMessage "        ENVIRONMENT VARIABLES:"
