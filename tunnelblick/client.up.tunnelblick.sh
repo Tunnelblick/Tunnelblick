@@ -160,78 +160,6 @@ get_networksetup_setting() {
 	IFS="$saved_IFS"
 }
 
-##########################################################################################
-set_networksetup_setting() {
-
-	# Sets the networksetup setting named $1 to $2 for each active network service.
-	#
-	# $1 must be either "dnsservers" or "searchdomains". (Those are the only two settings
-	#    that can be modified by "networksetup".)
-	#
-	# $2 is is a comma-separated list to set the setting to. To remove a setting, use 'empty'.
-	#
-	# Examples:
-	#       set_networksetup_setting   dnsservers   8.8.8.8
-	#       set_networksetup_setting   dnsservers   8.8.8.8,8.8.4.4
-	#       set_networksetup_setting   dnsservers   empty
-	#       set_networksetup_setting   searchdomains example.com,example.net,example.org
-	#
-	# This routine outputs log messages describing its activities.
-
-	if [ "$1" != "dnsservers" ]	&& [ "$1" != "searchdomains" ] ; then
-		logMessage "ERROR: set_networksetup_setting: Unknown setting name '$1'"
-		exit 1
-	fi
-
-	# $2 must be present and must not have any spaces or tabs
-	if [ -z "$2" ] || [ "${2/ /}" != "$2" ] || [ "${2/$HT/}" != "$2" ]; then
-		logMessage "ERROR: set_networksetup_setting: second argument must be present and cannot contain spaces or tabs: '$2'"
-		exit 1
-	fi
-
-	if [ ! -f "/usr/sbin/networksetup" ] ; then
-		logMessage "ERROR: set_networksetup_setting: Cannot change setting for $1: /usr/sbin/networksetup does not exist"
-		return
-	fi
-
-	# Get list of services and remove the first line which contains a heading
-	local service ; service="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d' ; true )"
-
-	# Go through the list for enabled services
-
-	local saved_IFS="$IFS"
-
-	printf %s "$services$LF" | \
-	while IFS= read -r service ; do
-
-		if [ -n "$service" ] ; then
-
-			# If first character of a line is a *, the service is disabled, so we skip it
-			if [ "${service:0:1}" != "*" ] ; then
-
-				# Make sure there are no tabs in the service name
-				if [ "$service" != "${service/$HT/}" ] ; then
-					logMessage "ERROR: set_networksetup_setting: service name '$service' contains one or more tab characters"
-					exit 1
-				fi
-
-				# Translate commas in $2 to spaces for networksetup to get separate arguments -- DO NOT QUOTE ${2//,/ } !!!
-				set +e
-					# shellcheck disable=SC2086
-					/usr/sbin/networksetup -set"$1" "$service" ${2//,/ }
-					local status=$?
-				set -e
-				if [ $status -eq 0 ] ; then
-					logMessage "Used networksetup to set $service $1 to $2"
-				else
-					logMessage "ERROR: Error $status trying to set $service $1 to $2 via /usr/sbin/networksetup -set\"$1\" \"$service\" ${2//,/ }"
-				fi
-			fi
-		fi
-	done
-
-	IFS="$saved_IFS"
-}
 
 ##########################################################################################
 run_prefix_or_suffix()
@@ -817,28 +745,6 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	# PPID is a script variable (defined by bash itself) that contains the process ID of the parent of the process running the script (i.e., OpenVPN's process ID)
 	# config is an environmental variable set to the configuration path by OpenVPN prior to running this up script
 
-	# Use 'networksetup' to save DNS servers and search domains for all active network services.
-	#	* Append LF because bash $() removes trailing LF.)
-	#   * Translate \n to \t so stored string is all on one line to make extracting the string easier
-
-	if [ "${FIN_DNS_SA}" != "" ] ; then
-		NETWORK_SETUP_RESTORE_DNS_INFO="$( get_networksetup_setting dnsservers )$LF"
-		logMessage "Saved existing DNS servers from networksetup"
-		logDebugMessage "$NETWORK_SETUP_RESTORE_DNS_INFO"
-		readonly NETWORK_SETUP_RESTORE_DNS_INFO="$(  echo -n "$NETWORK_SETUP_RESTORE_DNS_INFO" | tr '\n' '\t')"
-	else
-		logMessage "Not saving the DNS servers from networksetup"
-	fi
-
-	if [ "${FIN_DNS_SD}" != "" ] ; then
-		NETWORK_SETUP_RESTORE_SEARCHDOMAINS_INFO="$( get_networksetup_setting searchdomains )$LF"
-		logMessage "Saved existing search domains from networksetup"
-		logDebugMessage "$NETWORK_SETUP_RESTORE_SEARCHDOMAINS_INFO"
-		readonly NETWORK_SETUP_RESTORE_SEARCHDOMAINS_INFO="$(  echo -n "$NETWORK_SETUP_RESTORE_SEARCHDOMAINS_INFO" | tr '\n' '\t')"
-	else
-		logMessage "Not saving the search domains from networksetup"
-	fi
-
 	scutil <<-EOF > /dev/null
 		open
 
@@ -863,8 +769,6 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
         d.add TapDeviceHasBeenSetNone "false"
         d.add TunnelDevice          "$dev"
         d.add RestoreIpv6Services   "$IPV6_DISABLED_SERVICES_ENCODED"
-		d.add NetworkSetupRestorednsserversInfo    "$NETWORK_SETUP_RESTORE_DNS_INFO"
-		d.add NetworkSetupRestoresearchdomainsInfo "$NETWORK_SETUP_RESTORE_SEARCHDOMAINS_INFO"
 		set State:/Network/OpenVPN
 
 		# Back up the device's current DNS and SMB configurations,
@@ -914,23 +818,6 @@ EOF
 	logDebugMessage "DEBUG:"
 	logDebugMessage "DEBUG: Pause for configuration changes to be propagated to State:/Network/Global/DNS and .../SMB"
 	sleep 1
-
-	# The "$FIN_..." variables have fields separated by spaces, but networksetup
-	# uses fields separated by commas.
-
-	if [ "${FIN_DNS_SA}" != "" ] ; then
-		set_networksetup_setting dnsservers                "${FIN_DNS_SA// /,}"
-		logMessage "Used networksetup to set DNS servers to ${FIN_DNS_SA// /,}"
-	else
-		logMessage "No DNS servers to set, so not using networksetup to set DNS servers"
-	fi
-
-	if [ "${FIN_DNS_SD}" != "" ] ; then
-		set_networksetup_setting searchdomains                "${FIN_DNS_SD// /,}"
-		logMessage "Used networksetup to set search domains to ${FIN_DNS_SD// /,}"
-	else
-		logMessage "No search domains to set, so not using networksetup to set search domains"
-	fi
 
 	scutil <<-EOF > /dev/null
 		open
