@@ -25,6 +25,7 @@
 #import "defines.h"
 #import "helper.h"
 
+#import "MenuController.h"
 #import "NSTimer+TB.h"
 
 extern BOOL gShuttingDownWorkspace;
@@ -48,7 +49,10 @@ extern BOOL gShuttingDownWorkspace;
     
     [iconIV setImage: [NSImage imageNamed: @"tb-logo-309x64-2011-06-26"]];
     
-    [mainText setTitle: message];
+	NSString * text = [NSString stringWithFormat: NSLocalizedString(@"Starting Tunnelblick %@...",
+																	@"Window text; '%@' will be replaced with a version number such as '3.6.10'"),
+					   [(MenuController *)[NSApp delegate] tunnelblickVersionString]];
+    [self setMessage: text];
     
     [copyrightTFC setStringValue: copyrightNotice()];
     
