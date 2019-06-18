@@ -4014,7 +4014,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		if (  ! logContents  ) {
 			logContents = @"(Unavailable)";
 		}
-		
+
 		// Get list of network services and status of Wi-Fi
 		NSString * networkServicesContents = [ConfigurationManager networkServicesInfo];
 		
@@ -4026,12 +4026,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         NSString * kextContents = [self nonAppleKextContents];
 
-		NSString * quitLogContents = [NSString stringWithContentsOfFile: TUNNELBLICK_QUIT_LOG_PATH
-															   encoding: NSUTF8StringEncoding
-																  error: nil];
-		if ( ! quitLogContents ) {
-			quitLogContents = @"(Not found)";
-		}
+		NSString * quitLogContents = [self stringWithFileContentsOrNotFound: TUNNELBLICK_QUIT_LOG_PATH];
+
+		NSString * downLogContents = [self stringWithFileContentsOrNotFound: [L_AS_T stringByAppendingPathComponent: @"DownLog.txt"]];
+
+		NSString * previousDownLogContents = [self stringWithFileContentsOrNotFound: [L_AS_T stringByAppendingPathComponent: @"DownLog.previous.txt"]];
 
 		NSString * separatorString = @"================================================================================\n\n";
 		
@@ -4044,6 +4043,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              @"Wildcard preferences:\n\n%@\n%@"
                              @"Program preferences:\n\n%@\n%@"
                              @"Tunnelblick Log:\n\n%@\n%@"
+							 @"Down log:\n\n%@\n%@"
+							 @"Previous down log:\n\n%@\n%@"
 							 @"Network services:\n\n%@\n%@"
                              @"ifconfig output:\n\n%@\n%@"
 							 @"Non-Apple kexts that are loaded:\n\n%@\n%@"
@@ -4057,6 +4058,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              wildcardPreferencesContents, separatorString,
                              programPreferencesContents, separatorString,
                              logContents, separatorString,
+							 downLogContents, separatorString,
+							 previousDownLogContents, separatorString,
 							 networkServicesContents, separatorString,
                              ifconfigOutput, separatorString,
 							 kextContents, separatorString,
@@ -4071,6 +4074,18 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSLog(@"diagnosticInfoToClipboardButtonWasClicked but no configuration selected");
     }
 	
+}
+
++(NSString *) stringWithFileContentsOrNotFound: (NSString *) filePath {
+
+	NSString * s = [NSString stringWithContentsOfFile: filePath
+											 encoding: NSUTF8StringEncoding
+												error: nil];
+	if ( ! s ) {
+		s = @"(Not found)";
+	}
+
+	return s;
 }
 
 +(void) terminateAllOpenVPN {
