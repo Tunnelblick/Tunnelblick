@@ -1,5 +1,5 @@
 /*
- * Copyright 2014, 2015, 2016, 2018 by Jonathan K. Bullard. All rights reserved.
+ * Copyright 2014, 2015, 2016, 2018, 2019 by Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,6 +24,16 @@
  This daemon is used by the Tunnelblick GUI to start and stop OpenVPN instances and perform other activities that require root access.
  
  It is a modified version of SampleD.c, a sample program supplied by Apple.
+
+ It is normally invoked with no arguments, when it is invoked because data is available on the socket.
+
+ However, it is called with one argument, "load", when first loaded (via a "RunAtLoad" entry in a different launchd .plist).
+ That would usually happen only once when the system boots but also happens during installation when tunnelblickd is loaded.
+
+ When the "load" argument is present, tunnelblickd checks for the presence of a file,
+ /Library/Application Support/Tunnelblick/restore-ipv6.txt. If present, tunnelblickd will restore IPv6 to "Automatic" for
+ each service listed in a separate line in the file and then delete the file.
+
  */
 
 #import <arpa/inet.h>
@@ -270,6 +280,175 @@ OSStatus runTool(NSString * userName,
     return status;
 }
 
+void updateApproximateLastBootInfo(BOOL	            infoFileExists,
+								   NSTimeInterval   approximateMostRecentReboot,
+								   NSString       * approximateLastRebootInfoPath,
+								   aslclient        asl,
+								   aslmsg           log_msg) {
+
+	if (  infoFileExists  ) {
+		NSError * error;
+		if (  ! [[NSFileManager defaultManager] removeItemAtPath: approximateLastRebootInfoPath error: &error]  ) {
+			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not delete %s; error = %s",
+					[approximateLastRebootInfoPath UTF8String], [[error description] UTF8String]);
+		} else {
+			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Deleted %s", [approximateLastRebootInfoPath UTF8String]);
+		}
+	}
+
+	const char * approximateMostRecentRebootStringC = [[NSString stringWithFormat: @"%f", approximateMostRecentReboot] UTF8String];
+	if (  !  [[NSFileManager defaultManager] createFileAtPath: approximateLastRebootInfoPath
+													 contents: [NSData dataWithBytes: approximateMostRecentRebootStringC
+																			  length: strlen(approximateMostRecentRebootStringC)]
+												   attributes: nil]  ) {
+		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not create %s", [approximateLastRebootInfoPath UTF8String]);
+	} else {
+		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Wrote %s", [approximateLastRebootInfoPath UTF8String]);
+	}
+}
+
+BOOL isFirstRunAfterBoot(aslclient  asl,
+						 aslmsg     log_msg) {
+
+	// Consider this to be the first run after boot if
+	//
+	//	(A) L_AS_T/last-reboot-info.txt does not exist;
+	//  or
+	//	(B) The time-since-1970 in that file is approximately the same as the time-since-1970 of the most recent boot.
+
+	// This is only an __approximation__ of the time-since-1970 of the reboot
+	// because [NSDate date] and systemUptime are not accessed simultaneously
+	NSTimeInterval approximateMostRecentReboot = [[[NSDate date]
+												   dateByAddingTimeInterval: ( - [[NSProcessInfo processInfo] systemUptime] )]
+												  timeIntervalSince1970];
+
+	BOOL firstRunAfterBoot = FALSE;
+	BOOL infoFileExists;
+	NSError * error;
+	NSString * approximateLastRebootInfoPath = [L_AS_T stringByAppendingPathComponent: @"last-reboot-info.txt"];
+
+	if (  (infoFileExists = [[NSFileManager defaultManager] fileExistsAtPath: approximateLastRebootInfoPath])  ) {
+		NSTimeInterval approximateLastKnownReboot = (NSTimeInterval)[[NSString stringWithContentsOfFile: approximateLastRebootInfoPath
+																					encoding: NSUTF8StringEncoding
+																					   error: &error] doubleValue];
+
+		NSTimeInterval timeDifference = fabs( approximateLastKnownReboot - approximateMostRecentReboot );
+
+		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "approximateLastKnownReboot = %f; approximateMostRecentReboot = %f; difference = %f",
+				approximateLastKnownReboot, approximateMostRecentReboot, timeDifference);
+
+		// Assuming the time between [NSDate date] and systemUpTime is less than five seconds
+		//      and the time between reboots is more than five seconds.
+		if (  timeDifference < 5.0 ) {
+			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "This reboot time is approximately the same as the last reboot time; not first run after rebooting");
+		} else {
+			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "This reboot time is very different from the last reboot time; first run after rebooting");
+			firstRunAfterBoot = TRUE;
+		}
+	} else {
+		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "last-reboot-info.txt doesn't exist; this is the first run");
+		firstRunAfterBoot = TRUE; // Because file doesn't exist
+	}
+
+	if (  firstRunAfterBoot  ) {
+		updateApproximateLastBootInfo(infoFileExists, approximateMostRecentReboot, approximateLastRebootInfoPath, asl, log_msg);
+	}
+
+	return firstRunAfterBoot;
+}
+
+void restoreIpv6(aslclient  asl,
+				 aslmsg     log_msg) {
+
+	NSString * path = @"/Library/Application Support/Tunnelblick/restore-ipv6.txt";
+
+	if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "restore-ipv6.txt does not exist");
+		return;
+	}
+
+	NSError * error;
+	NSString * servicesString = [NSString stringWithContentsOfFile: path
+														  encoding: NSUTF8StringEncoding
+															 error: &error];
+
+	if (  [[NSFileManager defaultManager] removeItemAtPath: path error: &error]) {
+		asl_log(asl, log_msg, ASL_LEVEL_INFO, "Deleted %s", [path UTF8String]);
+	} else {
+		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not delete %s; error was %s", [path UTF8String], [[error description] UTF8String]);
+		// Fall through to continue even though the error happened to report that file can't be read or to restore IPv6 if it can be read
+	}
+
+	if (  ! servicesString  ) {
+		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not read %s; error was %s", [path UTF8String], [[error description] UTF8String]);
+		return;
+	}
+
+	NSArray * services = [servicesString componentsSeparatedByString: @"\n"];
+	if (  services  ) {
+		NSString * service;
+		NSEnumerator * e = [services objectEnumerator];
+		BOOL processed_a_service = FALSE;
+		while (  (service = [e nextObject])  ) {
+			if (  [service length] != 0  ) {
+				processed_a_service = TRUE;
+				NSArray * arguments = [NSArray arrayWithObjects: @"-setv6automatic", service, nil];
+				OSStatus status = runTool(@"root", @"wheel", TOOL_PATH_FOR_NETWORKSETUP, arguments, nil, nil, asl, log_msg);
+				if (  status == 0  ) {
+					asl_log(asl, log_msg, ASL_LEVEL_INFO, "Restored IPv6 to 'Automatic' for %s", [service UTF8String]);
+				} else {
+					asl_log(asl, log_msg, ASL_LEVEL_ERR, "Failed with status %d while trying to restore IPv6 to 'Automatic' for %s", status, [service UTF8String]);
+				}
+			}
+		}
+		if (  ! processed_a_service  ) {
+			asl_log(asl, log_msg, ASL_LEVEL_WARNING, "%s exists but does not include any service names. Contents = '%s'",
+					[path UTF8String], [servicesString UTF8String]);
+		}
+	} else {
+		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not parse into separate lines: '%s'", [servicesString UTF8String]);
+	}
+}
+
+void clearExpectedDisconnectFolder(aslclient  asl,
+								   aslmsg     log_msg) {
+
+	NSString * file;
+	NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH];
+	BOOL haveDeletedSomething = FALSE;
+	while (  (file = [dirEnum nextObject])  ) {
+		[dirEnum skipDescendants];
+		NSString * fullPath = [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: file];
+		NSError * error;
+		if (  [[NSFileManager defaultManager] removeItemAtPath: fullPath error: &error]  ) {
+			haveDeletedSomething = TRUE;
+		} else {
+			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error while trying to delete %s: %s", [fullPath UTF8String], [[error description] UTF8String]);
+		}
+	}
+
+	if (  haveDeletedSomething  ) {
+		asl_log(asl, log_msg, ASL_LEVEL_INFO, "Cleared contents of %s", [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH UTF8String]);
+	} else {
+		asl_log(asl, log_msg, ASL_LEVEL_INFO, "Nothing to clear in %s", [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH UTF8String]);
+	}
+}
+
+void removeShutdownFlagFile (aslclient  asl,
+							 aslmsg     log_msg) {
+
+	NSError * error;
+	NSString * path = @"/Library/Application Support/Tunnelblick/shutting-down-computer.txt";
+
+	if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+		if (  [[NSFileManager defaultManager] removeItemAtPath: path error: &error]  ) {
+			asl_log(asl, log_msg, ASL_LEVEL_INFO, "Deleted %s", [path UTF8String]);
+		} else {
+			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error removing %s: %s", [path UTF8String], [[error description] UTF8String]);
+		}
+	}
+}
+
 int main(void) {
 	
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];
@@ -309,14 +488,6 @@ int main(void) {
 		return EXIT_FAILURE;
 	}
 		
-    // Create a new kernel event queue that we'll use for our notification.
-    // Note the use of the '%m' formatting character.
-	// ASL will replace %m with the error string associated with the current value of errno.
-    if (  -1 == (kq = kqueue())  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "kqueue(): %m");
-        goto done;
-    }
-	
 	// Make sure we are root:wheel
 	if (   (getuid()  != 0)
 		|| (getgid()  != 0)
@@ -327,7 +498,35 @@ int main(void) {
 				(unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
 		goto done;
 	}
-    
+
+	if (  isFirstRunAfterBoot(asl, log_msg)  ) {
+
+		// This is the first time tunnelblickd has run since a reboot:
+		//
+		// 	  (A) Restore IPv6 to "Automatic" for each service listed in /L_AS_T/restore-ipv6.txt, then delete the file.
+		//
+		//	  (B) Delete everything in /Library/Application Support/Tunnelblick/expect-disconnect/
+		//
+		//	  (C) Delete /Library/Application Support/Tunnelblick/shutting-down-computer.txt if it exists
+
+		restoreIpv6(asl, log_msg);
+
+		clearExpectedDisconnectFolder(asl, log_msg);
+
+		removeShutdownFlagFile(asl, log_msg);
+
+	} else {
+		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "tunnelblickd invoked but not first run after reboot");
+	}
+
+	// Create a new kernel event queue that we'll use for our notification.
+	// Note the use of the '%m' formatting character.
+	// ASL will replace %m with the error string associated with the current value of errno.
+	if (  -1 == (kq = kqueue())  ) {
+		asl_log(asl, log_msg, ASL_LEVEL_ERR, "kqueue(): %m");
+		goto done;
+	}
+
     // Register ourselves with launchd.
     if (  NULL == (checkin_request = launch_data_new_string(LAUNCH_KEY_CHECKIN))  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "launch_data_new_string(\"" LAUNCH_KEY_CHECKIN "\") Unable to create string.");
