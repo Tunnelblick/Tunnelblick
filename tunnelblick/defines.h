@@ -571,7 +571,7 @@ name = newValue;                                    \
 @"DB-TD",     /* Extra logging for tunnelblickd interactions, */	\
 @"DB-TO",     /* Extra logging for terminating OpenVPN processes (via kill, killall, or socket) */	\
 @"DB-UC",     /* Extra logging for updating configurations */	\
-@"DB-UP",     /* Extra logging for the up script */	\
+@"DB-UP",     /* Extra logging for the up and down scripts */	\
 @"DB-UU",	  /* Extra logging for UI updates */	\
 \
 @"useRtlLayout",	/* Use RTL language layout, regardless of language (for debugging RTL layout issues) */	\
