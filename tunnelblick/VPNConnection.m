@@ -2891,7 +2891,7 @@ ifConnectionPreference: (NSString *)     keySuffix
 				[managementSocket writeString: @"auth-retry none\r\n" encoding: NSUTF8StringEncoding];
 			}
 		}
-		
+
         [managementSocket close];
         [managementSocket setDelegate: nil];
         [managementSocket release];
@@ -4886,7 +4886,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         
 		if (   (status == EXIT_SUCCESS)
 			&& [stdOutString hasPrefix: @"No such script exists: "]  ) {
-			[self addToLog: [NSString stringWithFormat: @"No '%@.sh' script to execute", scriptName]];
 			return;
 		}
 		
