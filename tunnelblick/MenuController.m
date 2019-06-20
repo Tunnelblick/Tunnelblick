@@ -6912,7 +6912,7 @@ BOOL warnAboutNonTblks(void)
         return 0;
     }
     
-    NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
+	NSLog(@"Installation or repair succeeded but installFlags = 0x%x; Log:\n%@", installFlags, installerLog);
     
 	[installerLog release];
     TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
