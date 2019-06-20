@@ -744,6 +744,17 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	logDebugMessage "${SKP_SMB}${SKP_SMB_WG}ADD State: Workgroup      ${FIN_SMB_WG}"
 	logDebugMessage "${SKP_SMB}${SKP_SMB_WA}ADD State: WINSAddresses  ${FIN_SMB_WA}"
 
+	# Save the list of services that need to have their IPv6 settings restored to "Automatic" when disconnecting.
+	#
+	# This is done because the changes cannot be restored in the down script during a restart or shutdown because
+	# the networksetup daemon may not be running. On the first run after a computer start, tunnelblickd will
+	# use this list to restore IPv6 settings, then it will delete the file.
+	#
+	# (Normally -- when not shutting down or restarting the computer -- the down script does the IPv6 restorations.)
+
+	if [ -n "$IPV6_DISABLED_SERVICES" ] ; then
+		echo "$IPV6_DISABLED_SERVICES" > "/Library/Application Support/Tunnelblick/restore-ipv6.txt"
+	fi
 
 	# Save the openvpn process ID and the Network Primary Service ID, leasewather.plist path, logfile path, and optional arguments from Tunnelblick,
 	# then save old and new DNS and SMB settings
@@ -1697,7 +1708,7 @@ else
         if ${ARG_DISABLE_IPV6_ON_TUN} ; then
 			trusted_ip_line="$( env | grep 'trusted_ip' ; true )"
 			if [ "${trusted_ip_line/:/}" = "$trusted_ip_line" ] ; then
-            	IPV6_DISABLED_SERVICES="$( disable_ipv6 )"
+            	readonly IPV6_DISABLED_SERVICES="$( disable_ipv6 )"
 				if [ "$IPV6_DISABLED_SERVICES" != "" ] ; then
 					printf '%s\n' "$IPV6_DISABLED_SERVICES" \
 					| while IFS= read -r dipv6_service ; do
@@ -1709,7 +1720,7 @@ else
 				logMessage "WARNING: NOT disabling IPv6 because the OpenVPN server address is an IPv6 address ($trusted_ip)"
 			fi
         fi
-        readonly IPV6_DISABLED_SERVICES
+
 		# Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
 		readonly IPV6_DISABLED_SERVICES_ENCODED="$( echo "$IPV6_DISABLED_SERVICES" | tr '\n' '\t' )"
 
