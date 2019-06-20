@@ -4185,11 +4185,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
 	TBLog(@"DB-TO", @"terminateOpenVPNWithManagmentSocketForConnection for '%@' invoked'", [connection displayName]);
 	
-	if (  ! ALLOW_OPENVPNSTART_KILL  ) {
-		NSLog(@"terminateOpenVPNWithManagmentSocketForConnection for '%@' returning immediately because ALLOW_OPENVPNSTART_KILL is FALSE. Cannot kill OpenVPN process.", [connection displayName]);
-		return;
-	}
-	
 	if (  sizeof(pid_t) != 4  ) {
 		NSLog(@"sizeof(pid_t) is %lu, not 4!", sizeof(pid_t));
 		[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
