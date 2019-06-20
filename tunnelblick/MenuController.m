@@ -3053,6 +3053,29 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 // Access only one mass disconnection at a time
 static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
 
+-(void) doDisconnectionsForShuttingDownComputer {
+
+	// Starts expected disconnect for all configurations.
+	//
+	// Done by disconnecting from the management socket because OpenVPN reacts faster to that than anything else, including SIGTERM.
+
+	OSStatus status = pthread_mutex_lock( &doDisconnectionsMutex );
+	if (  status != EXIT_SUCCESS  ) {
+		NSLog(@"doDisconnectionsForShuttingDownComputer: pthread_mutex_lock( &doDisconnectionsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		return;
+	}
+
+	[self quitLog: @"doDisconnectionsForShuttingDownComputer: Set 'expect disconnect 1 ALL'"  toNSLog: YES];
+
+	VPNConnection * connection;
+	NSEnumerator * e = [[self myVPNConnectionDictionary] objectEnumerator];
+	while (  (connection = [e nextObject])  ) {
+		[connection disconnectBecauseShuttingDownComputer];
+	}
+
+	// Never unlock the mutex
+}
+
 -(void) doDisconnectionsForQuittingTunnelblick {
     
     OSStatus status = pthread_mutex_lock( &doDisconnectionsMutex );

@@ -2873,22 +2873,30 @@ ifConnectionPreference: (NSString *)     keySuffix
     [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: (unsigned short)portNumber]];
 }
 
+-(void) disconnectBecauseShuttingDownComputer {
+
+	[self sendSigtermToManagementSocket];
+	[self disconnectFromManagmentSocket];
+}
+
 -(void) disconnectFromManagmentSocket
 {
     if (  managementSocket  ) {
-		
-		// Restore status of auth-retry (only if we changed it in the first place)
-		if (  [self forceAuthRetryInteract]  ) {
-			if (  [self authRetryParameter]  ) {
-				
-				// Restore status of retry-auth
-				NSString * command = [NSString stringWithFormat: @"auth-retry %@\r\n", [self authRetryParameter]];
-				[managementSocket writeString: command encoding: NSUTF8StringEncoding];
-				
-			} else {
-				
-				// No auth-retry parameter, set to the default, 'none'
-				[managementSocket writeString: @"auth-retry none\r\n" encoding: NSUTF8StringEncoding];
+
+		if (  ! gShuttingDownOrRestartingComputer  ) {
+			// Restore status of auth-retry (only if we changed it in the first place)
+			if (  [self forceAuthRetryInteract]  ) {
+				if (  [self authRetryParameter]  ) {
+
+					// Restore status of retry-auth
+					NSString * command = [NSString stringWithFormat: @"auth-retry %@\r\n", [self authRetryParameter]];
+					[managementSocket writeString: command encoding: NSUTF8StringEncoding];
+
+				} else {
+
+					// No auth-retry parameter, set to the default, 'none'
+					[managementSocket writeString: @"auth-retry none\r\n" encoding: NSUTF8StringEncoding];
+				}
 			}
 		}
 

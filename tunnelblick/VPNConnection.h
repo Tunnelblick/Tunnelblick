@@ -203,6 +203,8 @@ struct Statistics {
 
 -(NSUInteger)		defaultVersionIxFromVersionNames: (NSArray *) versionNames;
 
+-(void) 			disconnectBecauseShuttingDownComputer;
+
 -(NSString *)       displayLocation;
 
 -(NSString *)       displayName;
