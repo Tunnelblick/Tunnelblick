@@ -3069,7 +3069,7 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
     VPNConnection * connection;
     NSEnumerator * e = [[self myVPNConnectionDictionary] objectEnumerator];
     while (  (connection = [e nextObject])  ) {
-        
+
         if (  ! [connection isDisconnected]  ) {
 
 			NSString * name = [connection displayName];
@@ -3086,13 +3086,13 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         }
     }
-    
+
 	// Set up expectDisconnect flag files as needed
 	if (  disconnectingAll  ) {
 		
 		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", @"ALL", nil], nil, nil);
 		TBLog(@"DB-SD", @"Set 'expect disconnect 1 ALL'");
-		
+
 	} else if (  (reasonForTermination == terminatingBecauseOfQuit)
 			   || (reasonForTermination == terminatingBecauseOfLogout)  ) {
 		NSEnumerator * e = [disconnectList objectEnumerator];
@@ -3103,18 +3103,18 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
 			TBLog(@"DB-SD", @"Set 'expect disconnect 1 %@'", encodedPath);
 		}
 	}
-	
+
     NSMutableArray * connectionsToWaitFor = [self startDisconnecting: disconnectList
                                                     disconnectingAll: disconnectingAll
                                                  quittingTunnelblick: YES
                                                           logMessage: @"Disconnecting because quitting Tunnelblick"];
     [self waitForDisconnection: connectionsToWaitFor];
-    
+
 	if (  [gFileMgr fileExistsAtPath: [L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH stringByAppendingPathComponent: @"ALL"]]  ) {
 		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"0", @"ALL", nil], nil, nil);
 		NSLog(@"Set 'expect disconnect 0 ALL'");
 	}
-	
+
     status = pthread_mutex_unlock( &doDisconnectionsMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"doDisconnectionsForQuittingTunnelblick: pthread_mutex_unlock( &doDisconnectionsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
