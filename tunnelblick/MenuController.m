@@ -3574,7 +3574,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 // Returns TRUE if cleaned up, or FALSE if a cleanup is already taking place
 -(BOOL) cleanup 
 {
-    TBLog(@"DB-SD", @"cleanup: Entering cleanup")
+	[self quitLog: @"cleanup: Entering cleanup"  toNSLog: YES];
     
     gShuttingDownTunnelblick = TRUE;
     
@@ -3586,7 +3586,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
 	if (  ! didFinishLaunching  ) {
-		NSLog(@"cleanup aborted because Tunnelblick did not finish launching");
+		[self quitLog: @"cleanup aborted because Tunnelblick did not finish launching"  toNSLog: YES];
 		return TRUE;
 	}
 	
@@ -3597,15 +3597,20 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-	[self doDisconnectionsForQuittingTunnelblick];
-	
+	[self quitLog: @"synchronized user defaults"  toNSLog: YES];
+
 	if ( gShuttingDownOrRestartingComputer ) {
-		TBLog(@"DB-SD", @"cleanup: Skipping cleanup because computer is shutting down or restarting")
+		runOpenvpnstart(@[@"shuttingDownComputer"], nil, nil);
+		[self quitLog: @"Set up flag files for shutting down the computer and expecting all configurations to be disconnected"  toNSLog: YES];
+		[self doDisconnectionsForShuttingDownComputer];
+		[self quitLog: @"Started disconnecting all configurations"  toNSLog: YES];
+		[self quitLog: @"Skipping cleanup because computer is shutting down or restarting"  toNSLog: YES];
 		// DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
 		return TRUE;
 	}
 	
+	[self doDisconnectionsForQuittingTunnelblick];
+
 	[self askAndMaybeReenableNetworkAccessAtLaunch: NO];
 	
     TBCloseAllAlertPanels();
