@@ -7530,7 +7530,7 @@ void terminateBecauseOfBadConfiguration(void)
 	}
 
 	NSString * date = [[NSDate date] tunnelblickUserLogRepresentation];
-	const char * messageC = [[NSString stringWithFormat: @"%@: %@\n", date, message] UTF8String];
+	const char * messageC = [[NSString stringWithFormat: @"%@ %@\n", date, message] UTF8String];
 	NSData * data = [NSData dataWithBytes: messageC length: strlen(messageC)];
 
 	NSFileHandle * output = [NSFileHandle fileHandleForUpdatingAtPath: path];
