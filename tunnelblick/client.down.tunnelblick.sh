@@ -195,9 +195,12 @@ get_info_saved_by_up_script() {
 	if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 		log_message "WARNING: Not restoring network settings because no saved Tunnelblick DNS information was found."
 
-		flushDNSCache
-
-		resetPrimaryInterface
+		if [ -e "/Library/Application Support/Tunnelblick/shutting-down-computer.txt" ] ; then
+			log_message "WARNING: Not flushing DNS or resetting the primary interface because the computer is shutting down."
+		else
+			flushDNSCache
+			resetPrimaryInterface
+		fi
 
 		log_message "End of output from ${OUR_NAME}"
 		log_message "**********************************************"
@@ -681,31 +684,41 @@ log_message "Start of output from ${OUR_NAME}"
 
 rm -f "/Library/Application Support/Tunnelblick/downscript-needs-to-be-run.txt"
 
-profile_or_execute run_prefix_or_suffix 'down-prefix.sh'
+if [ -e "/Library/Application Support/Tunnelblick/shutting-down-computer.txt" ] ; then
 
-# The following command will exit this script if the info cannot be accessed.
-# This happens when the computer is being shut down or restarted while this script is executed.
-profile_or_execute get_info_saved_by_up_script
+	log_message "WARNING: Skipping further processing because the computer is shutting down."
+	log_message "         No down-prefix.sh, down-suffix.sh, or post-disconnect.sh scripts were run."
 
-profile_or_execute get_primary_service_id_and_warn_if_it_changed
+else
 
-profile_or_execute remove_leasewatcher
+	profile_or_execute run_prefix_or_suffix 'down-prefix.sh'
 
-profile_or_execute release_dhcp
+	# Note: The following command will exit this script if the info cannot be accessed
+	profile_or_execute get_info_saved_by_up_script
 
-profile_or_execute restore_network_settings
+	profile_or_execute get_primary_service_id_and_warn_if_it_changed
 
-profile_or_execute restore_ipv6
+	profile_or_execute remove_leasewatcher
 
-profile_or_execute debug_log_current_network_settings
+	profile_or_execute release_dhcp
 
-profile_or_execute flushDNSCache
+	profile_or_execute restore_network_settings
 
-profile_or_execute resetPrimaryInterface
+	profile_or_execute restore_ipv6
 
-profile_or_execute remove_system_configuration_items
+	profile_or_execute debug_log_current_network_settings
 
-profile_or_execute run_prefix_or_suffix 'down-suffix.sh'
+	profile_or_execute flushDNSCache
+
+	profile_or_execute resetPrimaryInterface
+
+	profile_or_execute remove_system_configuration_items
+
+	profile_or_execute run_prefix_or_suffix 'down-suffix.sh'
+
+	# Remove the file containing info needed to undo network changes if this script is not run to completion (because it was)
+	rm -f "/Library/Application Support/Tunnelblick/restore-ipv6.txt"
+fi
 
 log_message "End of output from ${OUR_NAME}"
 log_message "**********************************************"
