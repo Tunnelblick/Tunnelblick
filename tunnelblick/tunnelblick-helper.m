@@ -131,6 +131,10 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart test\n"
             "               always returns success\n\n"
             
+			"./openvpnstart shuttingDownComputer\n"
+			"               * Creates a file at /Library/Application Support/Tunnelblick/shutting-down-computer.txt\n"
+			"               * Creates a file at /Library/Application Support/Tunnelblick/expect-disconnect/ALL\n\n"
+
 			"./openvpnstart re-enable-network-services\n"
 			"               to run Tunnelblick's re-enable-network-services.sh script\n\n"
 			
@@ -1635,6 +1639,27 @@ void expectDisconnect(unsigned int flag, NSString * filename) {
 	}
 }
 
+void shuttingDownComputer (void) {
+
+	NSString * path = @"/Library/Application Support/Tunnelblick/shutting-down-computer.txt";
+
+	if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+		appendLog(@"createShuttingDownFlagFile: Flag file already exists");
+		return;
+	}
+
+	becomeRoot(@"To create shutdown flag file");
+	BOOL ok = [[NSFileManager defaultManager] createFileAtPath: path contents: nil attributes: nil] ;
+	stopBeingRoot();
+
+	if (  ok ) {
+		appendLog(@"createShuttingDownFlagFile: Created flag file");
+	} else {
+		appendLog(@"createShuttingDownFlagFile: Could not create flag file");
+	}
+
+	expectDisconnect(1, @"ALL");
+}
 //**************************************************************************************************************************
 
 void compareShadowCopy (NSString * fileName) {
@@ -3028,6 +3053,12 @@ int main(int argc, char * argv[]) {
 		
         } else if (  strcmp(command, "test") == 0  ) {
             if (  argc == 2  ) {
+				syntaxError = FALSE;
+			}
+
+		} else if (  strcmp(command, "shuttingDownComputer") == 0  ) {
+			if (  argc == 2  ) {
+				shuttingDownComputer();
 				syntaxError = FALSE;
 			}
             
