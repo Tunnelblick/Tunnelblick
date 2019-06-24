@@ -209,6 +209,11 @@ BOOL runningOnMojaveOrNewer(void)
 	return runningOnNewerThan(10, 13);
 }
 
+BOOL runningOnCatalinaOrNewer(void)
+{
+	return runningOnNewerThan(10, 14);
+}
+
 BOOL runningOnNewerThanWithBugFix(unsigned majorVersion, unsigned minorVersion, unsigned bugfixVersion)
 {
 	unsigned major, minor, bugFix;

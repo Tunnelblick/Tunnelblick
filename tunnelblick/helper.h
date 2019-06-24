@@ -153,6 +153,7 @@ BOOL           runningOnElCapitanOrNewer(void);
 BOOL           runningOnSierraOrNewer(void);
 BOOL           runningOnHighSierraOrNewer(void);
 BOOL           runningOnMojaveOrNewer(void);
+BOOL           runningOnCatalinaOrNewer(void);
 BOOL           runningOnTen_Fourteen_FiveOrNewer(void);
 
 BOOL           tunnelblickTestPrivateOnlyHasTblks(void);

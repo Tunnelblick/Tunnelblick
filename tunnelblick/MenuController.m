@@ -395,8 +395,11 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	}
 }
 
--(void) checkTemporaryFolder: (NSString *) folderPath requiredPermissions: (mode_t) requiredPermissions {
-	
+-(void) checkTemporaryFolder: (NSString *) folderPath
+		 requiredPermissions: (mode_t) requiredPermissions
+			   requiredOwner: (uid_t) requiredOwner
+		  requiredGroupOwner: (gid_t) requiredGroupOwner {
+
 	[self warnIfFolderDoesNotExist: folderPath];
 	
 	BOOL isBad = TRUE;
@@ -406,8 +409,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 		if (  ([attributes fileType] == NSFileTypeSymbolicLink) == [folderPath isEqualToString: @"/tmp"]  ) {
 			unsigned long owner      = [[attributes objectForKey: NSFileOwnerAccountID     ] unsignedLongValue];
 			unsigned long groupOwner = [[attributes objectForKey: NSFileGroupOwnerAccountID] unsignedLongValue];
-			if (   (owner      == 0)
-				&& (groupOwner == 0) ) {
+			if (   (owner      == requiredOwner)
+				&& (groupOwner == requiredGroupOwner) ) {
 				mode_t permissions = (mode_t) [[attributes objectForKey: NSFilePosixPermissions] shortValue];
 				if (  (permissions & 07777) == requiredPermissions   ) {
 					isBad = FALSE;
@@ -415,10 +418,10 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 					NSLog(@"%@ does not have the required (permissions = 0%lo; require 0%lo)", folderPath, (long) permissions, (long)requiredPermissions);
 				}
 			} else {
-				NSLog(@"%@ is owned by %lu:%lu, instead of 0:0", folderPath, (long)owner, (long)groupOwner);
+				NSLog(@"%@ is owned by %lu:%lu, instead of %lu:%lu", folderPath, (long)owner, (long)groupOwner, (long)requiredOwner, (long)requiredGroupOwner);
 			}
 		} else {
-			NSLog(@"%@ is a symlink and is not, or is not a symlink and should be one.", folderPath);
+			NSLog(@"%@ is a symlink but should not be one, or is not a symlink but should be one.", folderPath);
 		}
 	} else {
 		NSLog(@"%@ does not have attributes.", folderPath);
@@ -433,9 +436,12 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	
 	// Warn and offer to quit if the system folders Tunnelblick uses don't exist or aren't secure.
 	
-	[self checkTemporaryFolder: @"/tmp"         requiredPermissions: 00755];
-	[self checkTemporaryFolder: @"/private"     requiredPermissions: 00755];
-	[self checkTemporaryFolder: @"/private/tmp" requiredPermissions: 01777];
+	gid_t gid_for_tmp = (  runningOnCatalinaOrNewer()
+				   ? ADMIN_GROUP_ID
+				   : 0);
+	[self checkTemporaryFolder: @"/tmp"         requiredPermissions: 00755 requiredOwner: 0 requiredGroupOwner: gid_for_tmp];
+	[self checkTemporaryFolder: @"/private"     requiredPermissions: 00755 requiredOwner: 0 requiredGroupOwner: 0];
+	[self checkTemporaryFolder: @"/private/tmp" requiredPermissions: 01777 requiredOwner: 0 requiredGroupOwner: 0];
 	
 	[self checkSystemFolder: @"/Applications"];
 	[self checkSystemFolder: @"/Library"];
