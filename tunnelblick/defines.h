@@ -850,7 +850,7 @@ name = newValue;                                    \
 /* No longer used */	\
 @"-authUsername",	\
 @"-skipWarningThatMayNotConnectInFutureBecauseOfOpenVPNOptions",	\
-@"-usernameIsSet"	\
+@"-usernameIsSet",	\
 @"-useRouteUpInsteadOfUp"   \
 ]
 //*************************************************************************************************
