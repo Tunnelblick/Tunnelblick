@@ -1106,6 +1106,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 				return [NSArray array];
 			}
 		}
+
+		sleep(1); // Do this at most once per second.
 	}
     
     uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
