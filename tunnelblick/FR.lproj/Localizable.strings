@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     Du serveur VPN pour %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • L'adresse de DNS %@ est une adresse privée mais n'est pas routée à travers le VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • L'adresse de DNS %@ est l'adresse d'un DNS public connu de Tunnelblick mais n'est pas routée à travers le VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • L'adresse de DNS %@ n'est pas l'adresse d'un DNS public connu de Tunnelblick et n'est pas routée à travers le VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • L'adresse IP du serveur DNS %@ est privée et n'est pas routée via le VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installé %lu configurations\n\n";
@@ -1939,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Avertissement : une ou plusieurs préférences n'ont pas pu être renommées. Veuillez voir les messages de la console pour les détails.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Avertissement: Les configurations suivantes, qui devraient se connecter au démarrage de l'ordinateur, ne sont pas actives:\n\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Attention: Ce VPN pourrait ne plus fonctionner dans le futur. \n\nLe fichier de configuration pour '%1$@' contient ces options OpenVPN: \n\n%2$@\nVous devriez mettre à jour la configuration afin qu'elle puisse être utilisée avec les versions modernes d'OpenVPN. \n\nTunnelblick utilisera OpenVPN %3$@ pour connecter cette configuration. \n\nCependant, vous ne pourrez plus établir la connexion VPN avec les versions futures de Tunnelblick car elles n'incluront plus de version d'OpenVPN qui comprennent cette(ces) option(s).";

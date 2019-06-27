@@ -753,9 +753,6 @@
 "     From the VPN server for %@:\n\n%@" = "     Van de VPN-server voor %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is een prive-adres maar wordt niet via de VPN gerouteerd.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is een openbare DNS-server die bekend is bij Tunnelblick, maar niet via de VPN wordt gerouteerd.\n\n";
 
 /* Window text */

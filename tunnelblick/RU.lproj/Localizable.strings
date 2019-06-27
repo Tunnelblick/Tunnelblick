@@ -219,7 +219,7 @@
 "Retry with manual response" = "Повторить еще с ручным ответом";
 
 /* Button */
-"Retry" = "Повтор";
+"Retry" = "Повторить";
 
 /* Button */
 "Revert to the Last Secured Copy" = "Возвратиться к предыдущей безопасной копии";
@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     От VPN сервера для %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     Адрес DNS сервера %@ является частным адресом, но он не был перенаправлен через VPN.\n\n.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     Адрес DNS сервера %@ - публичный DNS сервер, известный приложению Tunnelblick, но он не будет перенаправлен через VPN.\n\n.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     Адрес DNS сервера %@ не является публичным DNS сервером, известным Tunnelblick, и не будет перенаправлен через VPN.\n\n.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "• Адрес DNS сервера %@ не является публичным IP адресом, а потому, не будет маршрутизирован через VPN туннель. \n\n.";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Установлено %lu конфигураций\n\n";
@@ -1542,7 +1542,7 @@
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "Файл конфигурации OpenVPN %1$@ содержит опцию '%2$@', которая предназначена только для Windows. Его нельзя использовать в macOS.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
-"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Журнал OpenVPN содержит следующие сообщения: \n\n\"%1$@\".%2$@";
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Журнал OpenVPN содержит следующее сообщение: \n\n\"%1$@\".%2$@";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "Журнал событий OpenVPN не существует или был удален.";
@@ -1940,8 +1940,11 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Предупреждение: Не удаётся переименовать одно или несколько предпочтений. Подробности в Журнале Событий.";
 
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Предупреждение: следующие конфигурации должны быть подключены во время старта компьютера, однако они не были подключены:\n\n%@";
+
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
-"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Внимание: данный VPN может перестать подключаться в будущем.\n\nКонфигурационный файл OpenVPN для \"%1$@\" содержит следующие опции:\n\n%2$@\nВам следует обновить конфигурацию, чтобы её можно было использовать с актуальными версиями OpenVPN.\n\nTunnelblick будет использовать OpenVPN %3$@ для этой конфигурации.\n\nТем не менее, вы не сможете подключиться к этому VPN в будущих версиях Tunnelblick, которые не будет включать в себя OpenVPN устаревшей версии, которая поддерживает эти параметры.";
+"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Внимание: данный VPN может перестать подключаться в будущем.\n\nКонфигурационный файл OpenVPN для \"%1$@\" содержит следующие опции:\n\n%2$@\nВам следует обновить конфигурацию, чтобы её можно было использовать с актуальными версиями OpenVPN.\n\nTunnelblick будет использовать OpenVPN %3$@ для этой конфигурации.\n\nТем не менее, вы не сможете подключиться к этому VPN в будущих версиях Tunnelblick, которые не будут включать в себя OpenVPN устаревшей версии c поддержкой этих параметров.";
 
 /* Window text */
 "Warnings:" = "Предупреждения:";
@@ -2133,7 +2136,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Когда отмечено</strong>, Tunnelblick укажет OpenVPN направлять весь IPv4 трафик через сервер VPN.</p>\n<p><strong>Когда не отмечено</strong>, по умолчанию OpenVPN будет использовать VPN только для трафика предназначенного для сети VPN. Весь остальной трафик будет использовать обычное соединение к Интернету не используя VPN. Поведение по умолчанию OpenVPN может быть изменено конфигурацией OpenVPN или VPN-сервером, причиняя маршрутизацию всего трафика через VPN-сервер как будто это поле было бы отмечено. </p>\n";
 
 /* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Когда отмечено</strong>, Tunnelblick не будет отображать повторные предупреждения в течении %lu дней.</p>\n<p><strong>Когда не отмечено</strong>, Tunnelblick будет отображать предупреждения при каждом запуске.</p>\n";
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Когда отмечено</strong>, Tunnelblick не будет отображать повторно это предупреждение в течениe %lu дней.</p>\n<p><strong>Когда не отмечено</strong>, Tunnelblick будет отображать это предупреждение при каждом запуске.</p>\n";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Когда отмечено</strong>, Tunnelblick прекратит отображать это предупреждение повторно.</p>\n<p><strong>Когда не отмечено</strong>, Tunnelblick продолжит отображать это предупреждение повторно.</p>\n";

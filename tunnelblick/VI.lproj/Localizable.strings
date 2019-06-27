@@ -746,9 +746,6 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Từ máy chủ VPN cho %1$@:\n\n%2$@";
 
-/* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     Địa chỉ máy chủ DNS %@ là 1 địa chỉ riêng nhưng nó không chuyển kết nối thông qua VPN.\n\n";
-
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "• Cài đặt %lu cấu hình\n\n";
 

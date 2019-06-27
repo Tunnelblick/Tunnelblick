@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     من الخادم %1$@ لـ %2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • عنوان خادم DNS %@ هو عنوان خاص ولكن لا يتم توجيهه عبر ال VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • عنوان خادم DNS %@ هو خادم DNS عام معروف ل Tunnelblick لكن لا يتم توجيهه عبر ال VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • عنوان خادم DNS %@ ليس خادم DNS عام معروف ل Tunnelblick ولا يتم توجيهه عبر ال VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • عنوان خادم DNS %@ هو ليس عنوان IP عامًا و لا يتم توجيهه عبر ال VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     تم تحميل %lu الاعدادات";
@@ -1939,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "تحذير: تعذر اعادة تسمية بعض الاختيارات. راجع السجل للتفاصيل.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "تحذير: الإعدادات التالية، التي يجب أن تتصل عند بدء تشغيل الكمبيوتر ، غير متصلة: \n\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "تحذير: هذا ال VPN ربما لا يتصل في المستقبل.\n\nملف إعدادات ال OpenVPN ل %1$@ تتضمن خيارات OpenVPN هذه:\n\n%2$@\nيجب عليك تحديث هذه الإعدادات لكي تستخدم في إصدارات حديثة من OpenVPN.\n\nتُنلـبليك سوف يستخدم OpenVPN %3$@ ليتصل بهذه الإعدادات.\n\nولكن, أنت لن تستطيع أن بالإتصال لهذا ال VPN بالنسخ المستقبلية ل تُنلـبليك اللتي لا تحتوي على إصدار OpenVPN اللذي يقبل هذه الخيارات.";

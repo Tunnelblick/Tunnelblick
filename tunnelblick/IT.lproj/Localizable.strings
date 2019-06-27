@@ -387,7 +387,7 @@
 "Check if the apparent public IP address changed after connecting" = "Verifica se l’indirizzo IP pubblico apparente cambia dopo la connessione";
 
 /* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6" = "Non usare IPv6 a meno che il server VPN non sia acceduto esplicitamente tramite IPv6";
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Non usare IPv6 a meno che il server VPN usi esplicitamente IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Disconnetti quando il computer è in stato di stop";
@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     Dal server VPN per la connessione %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • l'indirizzo del server DNS (%@) è un indirizzo privato ma non viene indirizzato attraverso la VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • l'indirizzo del server DNS (%@) è un indirizzo pubblico di un server DNS riconosciuto da Tunnelblick ma non viene indirizzato attraverso la VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • l'indirizzo del server DNS (%@) è un indirizzo pubblico di un server DNS non riconosciuto da Tunnelblick e non viene indirizzato attraverso la VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • l'indirizzo del server DNS %@ non è un indirizzo IP pubblico e non verrà instradato attraverso la VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installato %lu configurazioni\n\n";
@@ -1939,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Attenzione: Una o più preferenze non possono essere rinominate. Dai un occhio alla Console per maggiori dettagli.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Attenzione: Le seguenti configurazioni a cui ci si dovrebbe collegare all' avvio del computer, non sono connesse:\n\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Attenzione: in futuro potrebbe non essere più possibile collegarsi alla VPN.\n\nIl documento di impostazioni per '%1$@' contiene le seguenti opzioni:\n\n%2$@\nÈ necessario modificare le configurazioni in modo che possano essere usate con le versioni più recenti di OpenVPN.\n\nTunnelblick userà la versione %3$@ di OpenVPN per collegarsi alla VPN.\n\nIn futuro non sarà possibile collegarsi a questa VPN con versioni di Tunnelblick che non includano una versione di OpenVPN che riconosca queste opzioni.";

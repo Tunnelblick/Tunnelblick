@@ -207,7 +207,7 @@
 "Reset Disabled Warnings" = "Letiltott figyelmeztetések törlése";
 
 /* Button */
-"Reset primary interface" = "Elsődleges interface visszaállíása";
+"Reset primary interface" = "Elsődleges interface visszaállítása";
 
 /* Button */
 "Restart connection" = "Kapcsolat újraindítása";
@@ -369,7 +369,7 @@
 "VPN Details..." = "VPN Részletek…";
 
 /* Checkbox name */
-"Allow changes to manually-set network settings" = "Változások engedélyezése a hálózati beállítások kézi változtatásához";
+"Allow changes to manually-set network settings" = "Változások engedélyezése a kézzel megadott hálózati beállításokban";
 
 /* Checkbox name */
 "Always show this window" = "Mindig mutassa ezt az ablakot";
@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     A VPN szerver üzenete a %1$@-tól:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • A %@ DNS szerver cím egy privát cím, de nem kerül a VPN-en keresztül átroutolásra.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • A %@ DNS szerver cím egy Tunnelblick által ismert nyilvános cím, de nem kerül a VPN-en keresztül átroutolásra.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • A %@ DNS szerver cím egy Tunnelblick által nem ismert nyilvános cím, és nem kerül a VPN-en keresztül átroutolásra.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     A %@ DNS cím egy belső hálózati cím, így nem kerül átroutolásra a VPN kapcsolaton keresztül.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu konfiguráció telepítve\n\n";
@@ -922,6 +922,9 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>A Tunnelblickre épülő ingyenes software elérhető itt:<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>Az OpenVPN az OpenVPN Inc. bejegyzett védjegye.";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>A hálózati beállítások visszaállítása sikertelen volt a lekapcsolódás után a következő kapcsolatról: %@.</p><p>Ezt a problémát jellemzően a \"user nobody\" és/vagy a \"group nobody\" OpenVPN beállítások okozzák.</p><p>A hálózati beállítások visszaállításához kérjük indítsa újra a számítógépet.</p><p>A probléma jövőbeli elkerülése érdekében távolítsa el a \"user nobody' és a \"group nobody\" sorokat az OpenVPN konfigurációs fájlból.</p><p>További információt ezzel kapcsolatban a <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] bejegyzésben találhat.</p></font>\n\n";
 
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Ez a Tunnelblick verzió már %lu napos.</p><p>Kérjük, keressen egy újabb verziót:</p><ul><li>Manuálisan a Tunnelblick 'VPN részletek' ablak 'Beállítások' paneljén; vagy <br></li><li> Egy újabb verzióért a <a href=\"https://tunnelblick.net/downloads.html\"> Tunnelblick letöltő oldalon</a>[tunnelblick.net].</li></ul>";
@@ -1319,6 +1322,9 @@
 /* Window text */
 "NetBIOS name:" = "NetBIOS név:";
 
+/* Window text; the %@ will be replaced by a list of configuration names. */
+"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "A hálózati hozzáférést nem lehet kikapcsolni egy vagy több kiválasztott konfigurációról történő lekapcsolódás után, mert ezek beállításai tartalmazzák a \"user\" és/vagy a \"group\" értékeket. Ezen beállítás sorok azt eredményezik, hogy az OpenVPN ne root felhasználóként fusson a lekapcsolódásnál, így nem lesz jogosultsága kikapcsolni a hálózati hozzáférést.\n\nA következő konfigurációk tartalmazzák a \"user\" és/vagy \"group\" beállítás értékeket:\n\n%@\n\n";
+
 /* Window text */
 "Network access was disabled when a VPN disconnected." = "A hálózati hozzáférést kikapcsolásra került, amikor a VPN szétkapcsolt.";
 
@@ -1637,6 +1643,9 @@
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Ez a harmadgyártó által készített Tunnelblick változat nem indítható vagy telepíthető mert nem tartalmaz Info.plist fájlt.\n\n";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Erre a VPN kapcsolatra nem lehet csatlakozni.\n\nAz %1$@ OpenVPN konfigurációs fájlja az alábbi beállításokat tartalmazza:\n\n%2$@\nA Tunnelblick jelenlegi verziójában található egyik OpenVPN verzió sem támogatja ezeket az opciókat.\n\nKérjük frissítse a konfigurációs fájlt, hogy az OpenVPN modern verzióival kompatibilis legyen.";
+
 /* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "A VPN-nek szüksége van egy kérdésre adott válaszra, de nem adta meg a megválaszolandó kérdést.";
 
@@ -1762,6 +1771,9 @@
 
 /* Window text */
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "A Tunnelblicknek engedélyre van szüksége, hogy a '%@' konfigurációt megosztottra változtassa.";
+
+/* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "A Tunnelblicknek jóváhagyásra van szüksége, hogy hozzáférhessen a számítógép többi felhasználójának Tunnelblick adataihoz, hogy az össes Tunnelblick beállítást sikeresen exportálhassa.\n\nKérjük vegye figyelembe, hogy:\n\n     1. A Kulcskarikában tárolt Hitelesítő adatok NEM kerülnek exportálásra.\n\n     2. Ez a művelet hosszabb időt vehet igénybe.\n\n";
 
 /* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "A Tunnelblicknek engedélyre van szüksége, hogy eltávolítsa a(z) %ld konfigurációt.\n\nA konfigurációk eltávolítása végleges és visszavonhatatlan. A konfigurációkhoz tartozó minden beállítás szintén végleges törlésre kerül.";
@@ -1928,6 +1940,12 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Figyelem: Egy vagy több beállítás nem nevezhető át. Nézze meg a Konzol log-ot részletekért.";
 
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Figyelmeztetés: Az alábbi konfigurációk, amelyeknek a számítógép indulásánál automatikusan kapcsolódniuk kellene, nincsenek kapcsolódva:\n\n%@\n";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Figyelmeztetés: Ez a VPN kapcsolat a jövőben nem biztos, hogy működni fog\n\nAz %1$@ OpenVPN konfigurációs fájlja az alábbi beállításokat tartalmazza:\n\n%2$@\nKérjük frissítse a konfigurációs fájlt, hogy az OpenVPN modern verzióival kompatibilis legyen.\n\nA Tunnelblick most az OpenVPN %3$@ verzióját fogja használni a kapcsolódáshoz.\n\nA Tunnelblick jövőbeli verzióival, amelyek már nem tartalmazzák ezt az OpenVPN verziót, ez a beállítás már nem lesz kompatibilis, így nem lesz képes kapcsolódni, hacsak nem frissíti a beállításait.";
+
 /* Window text */
 "Warnings:" = "Figyelmeztetések:";
 
@@ -2031,6 +2049,12 @@
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nFigyelem: a konfigurációk közül egy vagy több jelenleg is csatlakozik. Ezek a kapcsolatok bontva lesznek, utána telepítés/csere/eltávolítás következik, végül a konfigurációk újra csatlakoznak, kivéve ha eltávolították őket.\n\n";
 
 /* Window text */
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nA kapcsolat titkosításához használt tanúsítványok közül egy vagy több lejárt.\n\nRészletes információt a \"VPN részletei\" ablak \"Konfigurációk\" paneljének \"Napló\" fülében, a VPN naplóban talál.";
+
+/* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nEz a hibaüzenet azt jelenti, hogy egy vagy több, az OpenVPN konfigurációban található, vagy az OpenVPN szerver által \"leküldött\" beállítás vagy:\n\n     • elütést tartalmaz\n\n     • hiányzó vagy váratlan paraméterekkel rendelkezik\n\n     • nincs támogatva a konfigurációhoz használt OpenVPN verzióban. Lehet, hogy ez egy új beállítás, amely még nem támogatott az OpenVPN korábbi verziójában, vagy elavult beállítás, amely már eltávolításra került az OpenVPN újabb verzióiban. Ehhez a konfigurációhoz használt OpenVPN verzió kiválasztható a \"VPN részletei\" ablak \"Konfigurációk\" paneljének \"Beállítások\" fülén.\n\nRészletes információt a \"VPN részletei\" ablak \"Konfigurációk\" paneljének \"Napló\" fülében, a VPN naplóban talál.";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nés a(z) %ld Tunnelblick VPN Konfiguráció telepítése";
 
 /* Window text */
@@ -2068,6 +2092,21 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bites engedélyezés és tesztelés";
+
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Amennyiben több mint %u felhasználóval rendelkező számítógépre szeretne Tunnelblick beállításokat importálni, egy kiegészítő szöveges fájlra van szüksége az importálandó felhasználói adatok összerendeléséhez.</p>\n<p>További információt az <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">Exporting and Importing Tunnelblick Setups</a> dokumentumban talál.</p></font>";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Kiválasztja az OpenVPN és az SSL szoftver verzióját, amelyet használni fog ezen VPN kapcsolathoz.</strong><ul><li><strong>Az \"Alapértelmezett\" beállítás</strong> a Tunnelblick ezen verziójában alapértelmezett OpenVPN és SSL szoftvert fogja használni. Az alapértelmezés eltérhet a Tunnelblick különböző verzióiban.<br></li><li><strong>Az \"Utolsó\" beállítás</strong> az OpenVPN és az SSL szoftver legfrissebb, ebben a Tunnelblick verzióban szereplő változatát fogja használni. A legfrissebb szoftvercsomag eltérhet a Tunnelblick különböző verzióiban.<br></li><li><strong>Minden más beállítás</strong> a megadott OpenVPN és SSL szoftver verziót fogja használni, amennyiben ebben a Tunnelblick verzióban ezek elérhetőek. Amennyiben az nem elérhető, a legközelebbi találat kerül használatra.<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Megadja, hogy milyen módosításokat végezzen a DNS beállításokon a Tunnelblick amíg a VPN kapcsolat él.</strong> A következő lehetőségek állnak rendelkezésre:<ul><li><strong>Ne állítsa be a névszervert</strong>: Nincs módosítás.<br></li><li><strong>Névszerver beállítása</strong>: A Tunnelblick az alapértelmezett szkriptjét használja a DNS és WINS beállítások kezeléséhez. Ez általában a legjobb választás. Az OpenVPN által biztosított útmutatás alapján módosít a DNS és WINS beállásokon. Azon DNS and WINS beállítások, amelyek kézzel lettek megadva, nem kerülnek módosításra, hacsak a \"Változások engedélyezése a kézzel megadott hálózati beállításokban\" nem kerül kiválasztásra a \"Haladó...\" beállítások ablakban.<br></li><li><strong>Névszerver beállítása (3.1)</strong>: A Tunnelblick 3.1 verziójában található szkript használata a DNS és WINS beállítások kezelésére.<br></li><li><strong>Névszerver beállítása (3.0b10)</strong>: A Tunnelblick 3.0b10 verziójában található szkript használata a DNS és WINS beállítások kezelésére.<br></li><li><strong>Névszerver beállítása (1-es alternatíva)</strong>: Egy alternatív szkript használata a DNS és WINS beállítások kezelésére.<br></li></ul>";
+
+/* HTML info for the 'On unexpected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Megadható, hogy a mit tegyen a Tunnelblick ha a VPN kapcsolat <em>váratlanul</em> lekapcsolódik</strong> (például, ha az OpenVPN lefagy, vagy elveszíti a kapcsolatot a VPN-el, és úgy van beállítva, hogy leálljon, ha ez megtörténik). A lehetőségek:</p><ul><li><strong>Ne tegyen semmit</strong><br></li><li><strong>Elsődleges interface visszaállítása</strong>: A Tunnelblick visszaállítja az elsődleges hálózati interfészt az 'ipconfig down; ipconfig up' parancsok használatával. Ez segíthet abban az esetben, ha egy adott konfiguráció sikertelenül próbálja a hálózati beállításokat helyreállítani egy lekapcsolódás után.<br></li><li><strong>Hálózati hozzáférés kikapcsolása (\"Vészmegszakító\")</strong>: A Tunnelblick minden (helyi és internetes) hálózati kapcsolatot megszakít a Wi-Fi és az összes többi hálózati szolgáltatás leállításával. Ez segíthet biztosítani, hogy semmilyen adat nem szivárog ki a VPN kapcsolaton kívülre. Amennyiben a Tunnelblick kikapcsolta a a hálózati hozzáférést, a menüsorban található Tunnelblick ikonra kattinva, egy menüparanccsal lehet újra engedélyezni a hozzáférést. Emellett újraengedélyezhető a Wi-Fi annak visszakapcsolásával, a többi hálózati szolgáltatás pedig a Rendszerbeállítások : Hálózat paneljénben engedélyezhető újra. <strong>Ezen beállítás elképzelhető, hogy nem működik megfelelően, amennyiben egyszerre egynél több VPN kapcsolat él.</strong></li></ul>";
+
+/* HTML info for the 'On expected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Megadható, hogy a mit tegyen a Tunnelblick ha a VPN kapcsolat <em>rendesen kapcsolódik le</em></strong> (Például a \"Megszakítás\" menüpont vagy gombbal történő lekapcsolódás esetén). A lehetőségek:</p><ul><li><strong>Ne tegyen semmit</strong><br></li><li><strong>Elsődleges interface visszaállítása</strong>: A Tunnelblick visszaállítja az elsődleges hálózati interfészt az 'ipconfig down; ipconfig up' parancsok használatával. Ez segíthet abban az esetben, ha egy adott konfiguráció sikertelenül próbálja a hálózati beállításokat helyreállítani egy lekapcsolódás után.<br></li><li><strong>Hálózati hozzáférés kikapcsolása (\"Vészmegszakító\")</strong>: A Tunnelblick minden (helyi és internetes) hálózati kapcsolatot megszakít a Wi-Fi és az összes többi hálózati szolgáltatás leállításával. Ez segíthet biztosítani, hogy semmilyen adat nem szivárog ki a VPN kapcsolaton kívülre. Amennyiben a Tunnelblick kikapcsolta a a hálózati hozzáférést, a menüsorban található Tunnelblick ikonra kattinva, egy menüparanccsal lehet újra engedélyezni a hozzáférést. Emellett újraengedélyezhető a Wi-Fi annak visszakapcsolásával, a többi hálózati szolgáltatás pedig a Rendszerbeállítások : Hálózat paneljénben engedélyezhető újra. <strong>Ezen beállítás elképzelhető, hogy nem működik megfelelően, amennyiben egyszerre egynél több VPN kapcsolat él.</strong></li></ul>";
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Meghatározza, hogy a Tunnelblicknek mikor kell csatlakoznia a VPN-hez.</strong></p>\n<p>\"A számítógép indulásánál\"csak \"megosztott\" konfiguráció esetén használható.</p>";
@@ -2167,6 +2206,9 @@
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p> A vágólapra másolja a konzol naplójának az utolsó részét, így be lehet illeszteni egy e-mailbe vagy egyéb dokumentumba. </p><p> A napló a Tunnelblick és OpenVPN tevékenységének adatait tartalmazza. Ez tartalmazza a szokásos állapotüzeneteket és részletes hibaüzenetek amelyek túl hosszúak ahoz hogy a felhasználónak bemutassa egy párbeszéd ablakban. </p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Egy tömörített fájlba exportálja a Tunnelblick beállításait az Asztalra, beleértve az összes konfigurációt és ezen számítógép összes felhasználójának beállításait. </p><ul><li>A Kulcskarikában tárolt Hitelesítő adatok <strong>nem</strong> kerülnek exportálásra.</li><li>Ez a művelet hosszabb időt vehet igénybe.</li></ul>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Megnyitja a böngésző ablakot a Tunnelblick honlapján, amelyik információkat tartalmaz a Tunnelblick eltávolításáról.</p>";

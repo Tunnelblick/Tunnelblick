@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     Fra VPN serveren for %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS server adressen %@ er en privat adresse, men bliver ikke sendt via/gennem VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS server adressen %@ er en offentlig DNS-server kendt for Tunnelblick, men bliver ikke sendt via/gennem VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS server adressen %@ er ikke en offentlig DNS-server kendt for Tunnelblick og bliver ikke sendt via/gennem VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS server adressen %@ er ikke en offentlig IP adresse og bliver ikke sendt via/gennem VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installerede %lu konfigurationer\n\n";
@@ -1940,6 +1940,9 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Advarsel: En eller flere indstillinger kunne ikke omdøbes. Se konsol loggen for detaljer.";
 
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Advarsel: De følgende konfigurationer, som skulle forbinde når computeren starter, er ikke forbundet:\n\n%@\n";
+
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Advarsel: Denne VPN kan muligvis ikke forbinde i fremtiden.\n\nOpenVPN konfigurationsfilen for '%1$@' indeholder disse OpenVPN indstillinger:\n\n%2$@\nDet anbefales at du opdaterer konfigurationsfilen således at den kan bruges med nyere versioner af OpenVPN.\n\nTunnelblick bruger OpenVPN %3$@ til at tilslutte til denne VPN.\n\nFremtidige versioner af Tunnelblick inkluderer ikke denne version af OpenVPN, og vil derved ikke fungere med denne konfigurationsfil.";
 
@@ -2377,7 +2380,7 @@
 "LANGUAGE_TRANSLATION" = "Dansk oversættelse";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Jakob Bo Søndergaard Madsen og Kurt Jarusutthirak Nielsen";
+"LEAD_TRANSLATORS" = "Jakob Bo Søndergaard Madsen, Kurt Jarusutthirak Nielsen og FoghDesign";
 
 /* Credit description */
 "Latvian translation" = "Lettisk oversættelse";

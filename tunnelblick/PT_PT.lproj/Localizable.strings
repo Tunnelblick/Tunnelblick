@@ -753,9 +753,6 @@
 "     From the VPN server for %@:\n\n%@" = "     Do servidor VPN para %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • O servidor de DNS com endereço %@ pertence a uma sub-rede privada mas não tem uma rota configurada por via da VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • O servidor de DNS com endereço %@ é publico e conhecido pelo Tunnelblick mas não tem uma rota configurada por via da VPN.\n\n";
 
 /* Window text */

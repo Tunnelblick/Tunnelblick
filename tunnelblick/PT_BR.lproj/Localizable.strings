@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     Do servidor VPN para %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • Servidor DNS com endereço %@ é um endereço privado, mas não está sendo roteado através da VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Servidor DNS com endereço %@ é um servidor DNS público conhecido pelo Tunnelblick, mas não está sendo roteado através da VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Servidor DNS com endereço %@ não é um servidor DNS público conhecido pelo Tunnelblick e não está sendo roteado através da VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     O endereço do DNS %@ não é um IP público e não está sendo roteado pela VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Instalou %lu configurações\n\n";

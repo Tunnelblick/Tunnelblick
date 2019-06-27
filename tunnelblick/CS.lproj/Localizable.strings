@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     Z VPN serveru pro %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS server s adresou %@ má privátní adresu a nebude směrována přes VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS server s adresou %@ je veřejný DNS server známy Tunnelblicku. Není směrován přes VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS server s adresou %@ není veřejný DNS server známý Tunnelblicku a není směrován přes VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • adresa DNS serveru %@ není veřejná IP adresa a nebude směrována přes VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Nainstalováno %lu konfigurací\n\n";
@@ -1939,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Varování: Jednu nebo více předvoleb není možné přejmenovat. Detaily v logu konzoly.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Varování: následující konfigurace, jež by se měly připojovat při startu počítače, nejsou připojeny:\n\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Varování: Tato VPN se v budoucnu nemusí připojit.\n\nKonfigurační soubor OpenVPN pro '%1$@' obsahuje tato nastavení OpenVPN:\n\n%2$@\nMěli byste upravit konfiguraci tak, aby bylo možné ji použít s moderními verzemi OpenVPN.\n\nK připojení této konfigurace Tunnelblick použije OpenVPN %3$@.\n\nNicméně v budoucnu se budete moct připojit k této VPN jen těch verzích Tunnelblicku, jež zahrnují verze OpenVPN podporující tato nastavení.";

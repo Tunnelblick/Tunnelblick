@@ -110,7 +110,7 @@
 "Do not use the plugin" = "Nu folosi plugin-ul";
 
 /* Button */
-"Do nothing" = "Nu fă nimic";
+"Do nothing" = "Nicio acțiune";
 
 /* Button */
 "Export Tunnelblick Setup" = "Exportă configurarea Tunnelblick";
@@ -152,10 +152,10 @@
 "More Info" = "Informații suplimentare";
 
 /* Button */
-"Never load Tap driver" = "Nu încărca vreodată driver-ul Tap";
+"Never load Tap driver" = "Nu încărca niciodată driver-ul Tap";
 
 /* Button */
-"Never load Tun driver" = "Nu încărca vreodată driver-ul Tun";
+"Never load Tun driver" = "Nu încărca niciodată driver-ul Tun";
 
 /* Button */
 "Never show" = "Ascunde întotdeauna";
@@ -207,7 +207,7 @@
 "Reset Disabled Warnings" = "Resetează avertismentele dezactivate";
 
 /* Button */
-"Reset primary interface" = "Resetați interfața primară";
+"Reset primary interface" = "Resetează interfața primară";
 
 /* Button */
 "Restart connection" = "Repornește conexiunea";
@@ -216,19 +216,19 @@
 "Restore" = "Restaurează";
 
 /* Button text */
-"Retry with manual response" = "Reîncercați cu răspuns manual";
+"Retry with manual response" = "Reîncearcă cu răspuns manual";
 
 /* Button */
-"Retry" = "Încercați din nou";
+"Retry" = "Reîncearcă";
 
 /* Button */
-"Revert to the Last Secured Copy" = "Reveniți la ultima copie securizată";
+"Revert to the Last Secured Copy" = "Revino la ultima copie securizată";
 
 /* Button */
 "Revert" = "Restaurează la valorile precedente";
 
 /* Button */
-"Secure the Configuration" = "Securizați configurarea";
+"Secure the Configuration" = "Securizează configurarea";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Arată pe ecranul implicit (%1$u x %2$u)";
@@ -243,13 +243,13 @@
 "Show while connecting and connected" = "Afișați în timp ce vă conectați și în timp ce sunteți conectat";
 
 /* Button */
-"Show while connecting" = "Arată în timp ce se conectează";
+"Show while connecting" = "Arată în timpul conectării";
 
 /* Button */
 "Skip" = "Treci peste";
 
 /* Button */
-"Speak" = "Vorbire";
+"Speak" = "Vorbește";
 
 /* Button */
 "Standard icon" = "Iconiță standard";
@@ -636,7 +636,7 @@
 "Info" = "Info";
 
 /* Window title */
-"Install Configuration For All Users?" = "Instalează configurările pentru toţi utilizatorii?";
+"Install Configuration For All Users?" = "Instalează configurația pentru toţi utilizatorii?";
 
 /* Window title */
 "Installation failed" = "Instalarea a esuat";
@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     De la serverul VPN pentru %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • Adresa serverului DNS %@ este o adresă privată dar nu este transmisă prin rețeaua VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Adresa serverului DNS %@ este un server DNS public cunoscut de Tunnelblick dar nu este transmisă prin rețeaua VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Adresa serverului DNS %@ nu este un server DNS public cunoscut de Tunnelblick și nu este transmisă prin rețeaua VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • Adresa serverului DNS %@ nu este un IP public și nu va fi rutat prin VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     %lu configurări instalate\n\n";
@@ -1939,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Atenție: Una sau mai multe preferințe nu au putut fi redenumite. Consultați Console Log pentru detalii.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Atenție: Următoarele configurații, ce sunt conectate automat la pornirea sistemului, nu sunt conectate:\n\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Avertisment: Este posibil ca VPN-ul acesta să nu se conecteze în viitor.\n\nFișierul de configurare OpenVPN pentru '%1$@' conține aceste opțiuni OpenVPN:\n\n%2$@\n\nAr trebui să actualizați configurația astfel încât să poată fi utilizată cu versiunile moderne ale OpenVPN.\n\nTunnelblick va folosi OpenVPN %3$@ pentru a conecta această configurație.\n\nCu toate acestea, nu veți putea să vă conectați la această rețea VPN cu versiuni viitoare ale Tunnelblick care nu includ o versiune OpenVPN care acceptă aceste opțiuni.";

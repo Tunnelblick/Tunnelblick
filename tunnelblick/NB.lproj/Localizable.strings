@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     Fra VPN tjeneren for %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS-tjeneraddressen %@ er en privat adresse, men blir ikke rutet gjennom VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS-tjeneraddressen %@ er en offentlig DNS-tjener som er kjent for Tunnelblick, men den blir ikke rutet gjennom VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS-tjeneraddressen %@ er ikke en offentlig DNS-tjener som er kjent for Tunnelblick, og den blir ikke rutet gjennom VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS-serveradresse %@ er ikke en offentlig IP-adresse og blir ikke rutet gjennom VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • installere %lu konfigurasjoner\n\n";
@@ -1939,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Advarsel: En eller flere innstillinger kunne ikke døpes om. Se konsolloggen for detaljer.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Advarsel: Følgende konfigurasjoner, som skal koble til når datamaskinen starter, er ikke tilkoblet:\n\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Varsel: Denne VPN'en kan muligens ikke kobles til i framtiden.\n\nOpenVPN konfigurasjonsfilen for '%1$@' inneholder disse OpenVPN instillingene:\n\n%2$@\nDu bør oppdatere konfigurasjonen slik at den kan brukes med moderne versjoner av OpenVPN.\n\nTunnelblick kommer til å bruke OpenVPN %3$@ for å koble seg til denne konfigurasjonen.\n\nMen, du kommer ikke til å få koble deg til denne VPN'en i framtidie versjoner av Tunnelblick som ikke inneholder denne versjonen av OpenVPN som tillater instillingene.";

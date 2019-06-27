@@ -747,9 +747,6 @@
 "     From the VPN server for %@:\n\n%@" = "     從 VPN 伺服器傳來 %1$@：\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     DNS 主機位址 %@ 屬於私有位址，但是並未透過 VPN 連線。\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     DNS 主機位址 %@ 屬於 Tunnelblick 已知的開放主機，但是並未透過 VPN 連線。\n\n";
 
 /* Window text */

@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     Des del servidor VPN per a %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • L’adreça del servidor DNS %@ és una adreça privada que no es enrutada a través de la VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • L’adreça del servidor DNS %@ és una adreça pública de DNS coneguda per Tunnelblick que no es enrutada a través de la VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • L’adreça del servidor DNS %@ no és una adreça pública de DNS coneguda per Tunnelblick que no es enrutada a través de la VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • L’adreça del servidor DNS %@ no és una adreça pública i no està éssent enrutada a través de la VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • S'han instal·lat %lu configuracions\n\n";
@@ -1940,6 +1940,9 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Atenció: Una o més configuracions no s'han pogut canviar de nom. Consulta la Consola de missatges per més informació.";
 
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Advertència: les configuracions següents, que haurien de connectar-se quan s'inicia l’ordinador, no estan connectades:\n\n%@\n";
+
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Advertència: aquesta VPN pot ser no es pugui connectar en el futur.\n\nEl fitxer de configuració OpenVPN per a '%1$@' conté aquestes opcions d'OpenVPN:\n\n%2$@\nHeu d'actualitzar la configuració perquè pugui utilitzar-se amb versions modernes d'OpenVPN.\n\nTunnelblick usarà OpenVPN %3$@ per connectar aquesta configuració.\n\nNo obstant això, no podreu connectar-vos a aquesta VPN amb futures versions de Tunnelblick que no incloguin una versió d'OpenVPN que accepti les opcions.";
 
@@ -2377,7 +2380,7 @@
 "LANGUAGE_TRANSLATION" = "Traducció al Català";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Aleix Dorca";
+"LEAD_TRANSLATORS" = "Aleix Dorca i La Pegunta Foundation";
 
 /* Credit description */
 "Latvian translation" = "Traducció al Letó";

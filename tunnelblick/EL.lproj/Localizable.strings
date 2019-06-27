@@ -753,9 +753,6 @@
 "     From the VPN server for %@:\n\n%@" = "     Από τον διακομιστή VPN για %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • H διεύθυνση διακομιστή DNS %@ είναι μια ιδιωτική διεύθυνση, αλλά δεν δρομολογείται μέσω του VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • H διεύθυνση διακομιστή DNS %@ είναι μια γνωστή δημόσια διεύθυνση, αλλά δεν δρομολογείται μέσω του VPN.\n\n";
 
 /* Window text */

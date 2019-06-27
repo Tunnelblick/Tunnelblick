@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     Vom VPN Server für %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS-Server %@ ist eine private Adresse, wird aber nicht durch den VPN geroutet.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS-Server %@ ist eine öffentliche Adresse, die Tunnelblick bekannt ist, wird aber nicht durch den VPN geroutet.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS-Server %@ ist keine Tunnelblick bekannte öffentliche Adresse, und wird nicht durch den VPN geroutet.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     DNS Server %@ ist keine öffentliche IP Adresse und wird nicht durch den VPN geroutet.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu Konfigurationen  installiert\n\n";
@@ -918,7 +918,7 @@
 "(if connected when user switched out)" = "(falls beim Benutzerwechsel verbunden )";
 
 /* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
-"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Mehr information</a> [tunnelblick.net]";
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Mehr Informationen</a> [tunnelblick.net]";
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Basierend auf Tunnelblick, freie Software verfügbar unter<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN ist ein eingetragenes Markenzeichen der OpenVPN Inc.";
@@ -987,7 +987,7 @@
 "All configurations use %@ credentials" = "Alle Konfigurationen nutzen %@ Zugangsdaten";
 
 /* Window text */
-"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Hängen Sie bitte auch die Datei \"Tunnelblick Error Data.txt\" auf Ihrem Desktop an die E-Mail. Sie enthält Informationen zu dem Fehler. Sie können auf die Datei doppelklicken, um diese Informationen zu sehen.\n\n";
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Bitte auch die auf Ihrem Schreibtisch erscheinende Datei \"Tunnelblick Error Data.txt\" als Anhang mitsenden. Sie enthält Information zum Fehler, die Sie per Doppelklick einsehen können.\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Beim Prüfen der Sicherheit der Konfiguration %2$@ ist ein Fehler (Status %1$ld) aufgetreten.\n\nBitte beenden Sie Tunnelblick und starten es dann erneut. Falls der Fehler weiterhin besteht, installieren Sie bitte Tunnelblick neu.";
@@ -1413,7 +1413,7 @@
 "OpenVPN %@" = "OpenVPN %@";
 
 /* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
-"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, ist in dieser Version von Tunnelblick nicht verfügbar";
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@ ist in dieser Version von Tunnelblick nicht verfügbar";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reagiert nicht auf die Anfragen %@ zu trennen. \n\nTunnelblick wird die Verbindung trennen, wenn OpenVPN anfängt auf diese Trennungs-Anfragen zu reagieren.\n\nDies KANN unter besonderen Umständen BIS ZU ZWEI MINUTEN DAUERN.\n\nDie Verbindung wird nicht verfügbar sein, bis sie unterbrochen wurde.";
@@ -1940,6 +1940,9 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Achtung: Eine oder mehrere Einstellungen konnten nicht umbenannt werden. Details sind im Konsolen-Log zu finden.";
 
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Warnung: Die nachfolgenden Konfigurationen, welche beim Start des Computers hätten geladen werden sollen, konnten nicht verbunden werden:\n\n%@\n";
+
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Achtung: Dieses VPN kann möglicherweise in der Zukunft nicht verbunden werden.\n\nDie OpenVPN Konfigurationsdatei für \"%1$@\" enthält die folgenden OpenVPN Optionen:\n\n%2$@\nSie sollten die Konfiguration aktualisieren, damit sie mit modernen Versionen von OpenVPN genutzt werden kann.\n\nTunnelblick wird OpenVPN %3$@ nutzen, um diese Konfiguration zu verbinden.\n\nDennoch können Sie dieses VPN mit zukünftigen Versionen von Tunnelblick, die nicht eine Version von OpenVPN beinhalten, die diese Optionen akzeptiert, nicht verbinden.";
 
@@ -2109,7 +2112,7 @@
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Legt fest, wann sich Tunnelblick mit dem VPN verbinden soll.</strong></p><p>\"Beim Start des Computers\" kann möglicherweise nur bei \"für alle Nutzer freigegebenen\" Konfigurationen genutzt werden.</p>";
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Falls ausgewählt</strong>, wird IPv6 deaktiviert, außer es wird über eine IPv6-Adresse auf den VPN-Server zugegriffen.</p>\n<p>Das Deaktivieren von IPv6 wird häufig empfohlen, da viele VPN Konfigurationen nicht gegen Informationslecks schützen, die durch die Verwendung von IPv6 entstehen. Der überwiegende Internetzugang funktioniert problemlos ohne die Verwendung von IPv6.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird IPv6 nicht deaktiviert.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> für \"Tap\" Verbindungen, da sie bei \"Tap\" Verbindungen nicht erzwungen werden kann.</p>";
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Falls markiert</strong>, wird IPv6 deaktiviert, außer man greift über eine IPv6-Adresse auf den VPN-Server zu.</p>\n<p>Das Deaktivieren von IPv6 wird oft empfohlen, da viele VPN Konfigurationen nicht gegen Informationslecks schützen, die durch die Verwendung von IPv6 entstehen. Der Internetzugang funktioniert meistens problemlos ohne Nutzung von IPv6.</p>\n<p><strong>Falls nicht markiert </strong>, wird IPv6 nicht deaktiviert.</p>\n<p><strong>Dieses Kontrollkästchen ist deaktiviert</strong>, wenn man \"TAP\" Verbindungen nutzt, da es bei diesen Verbindungen nicht erzwungen werden kann.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Falls ausgewählt</strong>, wird IPv6 aktiviert.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird IPv6 deaktiviert.</p>\n<p>Das Deaktivieren von IPv6 wird häufig empfohlen, da viele VPN Konfigurationen nicht gegen Informationslecks schützen, die durch die Verwendung von IPv6 entstehen. Der überwiegende Internetzugang funktioniert problemlos ohne die Verwendung von IPv6.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> für Tun Verbindungen.</p>";
@@ -2455,7 +2458,7 @@
 "User in setup data" = "Benutzer in Konfigurationsdateien";
 
 /* Column heading in a table */
-"User on this computer" = "Benutzer auf diesem Computer";
+"User on this computer" = "Benutzername auf diesem Computer";
 
 /* Credit description */
 "Vietnamese translation" = "Vietnamesische Übersetzung";

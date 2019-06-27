@@ -228,7 +228,7 @@
 "Revert" = "Deshacer";
 
 /* Button */
-"Secure the Configuration" = "Asegurar la Configuración";
+"Secure the Configuration" = "Asegurar la configuración";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Mostrar en pantalla predeterminada (%1$u x %2$u)";
@@ -327,7 +327,7 @@
 "OpenVPN level %lu" = "OpenVPN nivel %lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPN nivel 0 - Registrar sólo los errores fatales";
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN nivel 0 - Registrar sólo errores fatales";
 
 /* Menu Item */
 "OpenVPN level 11 - extremely verbose output" = "OpenVPN level 11 - Registro extremadamente detallado";
@@ -453,7 +453,7 @@
 "Prepend domain name to search domains" = "Incluir nombre de dominio al buscar dominios";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Re-conectar después de reanudar la suspensión del equipo";
+"Reconnect when computer wakes up" = "Reconectar al reactivar el equipo";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Reconectar cuando el usuario vuelve";
@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     Desde el servidor VPN para %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • La dirección del servidor DNS %@ es privada pero no será ruteada a través de la VPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • La dirección del servidor DNS %@ corresponde a un servidor DNS público conocido por Tunnelblick pero no será ruteada a través de la VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • La dirección del servidor DNS %@ no corresponde a un servidor DNS público conocido por Tunnelblick y no será ruteada a través de la VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     La dirección del servidor DNS %@ no es una IP pública y no será ruteada a través de la VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Instaló %lu configuraciones\n\n";
@@ -1940,8 +1940,11 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Advertenca: Una o más preferencias no pudieron ser renombradas. Ver el registro de consola para obtener detalles.";
 
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Precaución: Las siguientes configuraciones, que debieran conectarse cuando el computador inicie, no están conectadas:\n\n%@\n";
+
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
-"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Advertencia: Esta VPN puede no conectarser en el futuro.\n\nEl archivo de configuración para '%1$@' contiene estas opciones de OpenVPN:\n\n%2$@\nUd. debería actualizar la configuración, de modo que pueda ser utilizada con versiones actuales de OpenVPN.\n\nTunnelblick utilizará OpenVPN %3$@ para conectarse con esta configuración.\n\nSin embargo, Ud. no será capaz de conectarse a esta VPN con futuras versiones de Tunnelblick que no incluyan una versión de OpenVPN que acepte estas opciones.";
+"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Advertencia: Esta VPN puede no conectarse en el futuro.\n\nEl archivo de configuración para '%1$@' contiene estas opciones de OpenVPN:\n\n%2$@\nUd. debería actualizar la configuración, de modo que pueda ser utilizada con versiones actuales de OpenVPN.\n\nTunnelblick utilizará OpenVPN %3$@ para conectarse con esta configuración.\n\nSin embargo, Ud. no será capaz de conectarse a esta VPN con futuras versiones de Tunnelblick que no incluyan una versión de OpenVPN que acepte estas opciones.";
 
 /* Window text */
 "Warnings:" = "Advertencias:";
@@ -2548,7 +2551,7 @@
 "Email address:" = "Dirección de correo electrónico:";
 
 /* Window text VPNService */
-"Invalid URL: %@" = "URL invalida: %@";
+"Invalid URL: %@" = "URL inválido: %@";
 
 /* Window text VPNService */
 "No valid session token." = "No hay token de sesión válido.";

@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     Från VPN-servern konfigurerad i %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     DNS-adressen %@ är privat, men skickas inte via VPN:en.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     DNS-adressen %@ är publik och känd för Tunnelblick, men skickas inte via VPN:en.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     DNS-adressen %@ är inte en publik DNS-server som Tunnelblick känner till och den skicka inte via VPN:en.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS-adressen %@ är inte en publik IP-adress och färdas inte igenom VPN tjänsten.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installerade %lu konfigurationer\n\n";
@@ -1939,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Varning: En eller flera inställningar kunde inte döpas om. Se konsolloggen för detaljer.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Varning: Följande konfigurationer vid uppstart är ej aktiva: \n\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Varning: Denna VPN-koppling kan eventuellt inte ansluta i framtiden.\n\nOpenVPN-konfigurationsfilen '%1$@' innehåller följande val:\n\n%2$@\nDu ska uppdatera konfigurationen så att den kan användas tillsammans med moderna versioner av OpenVPN.\n\nTunnelblick kommer att använda OpenVPN %3$@ för att ansluta med den här konfigurationen.\n\nDock kommer du inte att kunna använda denna VPN-koppling med en framtida version av Tunnelblick som inte inkluderar en version av OpenVPN som klarar av alternativen.";

@@ -753,13 +753,13 @@
 "     From the VPN server for %@:\n\n%@" = "     %1$@ için VPN sunucusundan:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     • DNS sunucu adresi %@ özel bir adres fakat VPN üzerinden yönlendirilmiyor.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS sunucu adresi %@ Tunnelblick tarafından tanınan genel bir DNS sunucusu fakat VPN üzerinden yönlendirilmiyor.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS sunucu adresi %@ Tunnelblick tarafından tanınan genel bir DNS sunucusu değil ve VPN üzerinden yönlendirilmiyor.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     %@ Genel IP (Public IP) olmadığı için VPN den yönlendirilememektedir.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu yapılandırma kuruldu\n\n";
@@ -1939,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Uyarı: Bir ya da daha fazla ayar yeniden isimlendirilemez. Detaylar için konsol kayıtlarına bakın.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Diikat: Bilgisayarınız başlatıldıgında bağlanması gereken aşağıdaki konfigürasyonlar, bağlantıyı sağlayamadı.\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Uyarı: Bu VPN'e gelecekte bağlanılamayabilir.\n\n'%1$@' için seçili OpenVPN yapılandırma dosyası aşağıdaki öğeleri içermektedir:\n\n%2$@\nBu yapılandırma dosyasını OpenVPN'in modern sürümlerini destekleyebileceği bir biçimde günellemelisiniz.\n\nTunnelblick bu yapılandırmaya bağlanmak için OpenVPN %3$@ kullanacaktır.\n\nAncak, Tunnelblick'in gelecekte OpenVPN'in bu seçeneklerini kabul etmeyen sürümlerle bu VPN'e bağlanamayacaksınız.";

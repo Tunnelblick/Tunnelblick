@@ -747,9 +747,6 @@
 "     From the VPN server for %@:\n\n%@" = "     משרת הDNS עבור %1$@:\n\n%2$@";
 
 /* Window text */
-"     • DNS server address %@ is a private address but is not being routed through the VPN.\n\n" = "     כתובת הDNS %@ הינה פרטית ולא מנותבת דרך ספק הVPN.\n\n";
-
-/* Window text */
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     כתובת הDNS %@ הינה פרטית וידועה ל-Tunnelblick ולא מנותבת דרך ספק הVPN.\n\n";
 
 /* Window text */
