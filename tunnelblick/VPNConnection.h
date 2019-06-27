@@ -296,6 +296,7 @@ struct Statistics {
 
 TBPROPERTY_READONLY(StatusWindowController *,  statusScreen)
 TBPROPERTY_READONLY(NSString *,                tapOrTun)
+TBPROPERTY_READONLY(AuthAgent *,               authAgent)
 TBPROPERTY_WRITEONLY(NSSound *,                tunnelUpSound,                    setTunnelUpSound)
 TBPROPERTY_WRITEONLY(NSSound *,                tunnelDownSound,                  setTunnelDownSound)
 TBPROPERTY_WRITEONLY(BOOL,                     speakWhenConnected,               setSpeakWhenConnected)

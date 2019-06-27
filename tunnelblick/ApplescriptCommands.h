@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2019 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -63,6 +63,30 @@
 
 
 @interface ApplescriptHaveAddedAndOrRemovedOneOrMoreConfigurations : NSScriptCommand {
+}
+- (id)performDefaultImplementation;
+@end
+
+
+@interface ApplescriptSaveUsername : NSScriptCommand {
+}
+- (id)performDefaultImplementation;
+@end
+
+
+@interface ApplescriptSavePassword : NSScriptCommand {
+}
+- (id)performDefaultImplementation;
+@end
+
+
+@interface ApplescriptSavePassphrase : NSScriptCommand {
+}
+- (id)performDefaultImplementation;
+@end
+
+
+@interface ApplescriptDeleteAllCredentials : NSScriptCommand {
 }
 - (id)performDefaultImplementation;
 @end

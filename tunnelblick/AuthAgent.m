@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2019. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -401,7 +401,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     }
 }
 
--(void)deleteCredentialsFromKeychainIncludingUsername:  (BOOL) includeUsername
+-(BOOL)deleteCredentialsFromKeychainIncludingUsername:  (BOOL) includeUsername
 {
     if (  [authMode isEqualToString: @"privateKey"]  ) {
         if (  [gTbDefaults boolForKey:passphrasePreferenceKey]  ) { // Delete saved privateKey from Keychain if it has been saved
@@ -427,7 +427,10 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     }
     else {
         NSLog(@"Invalid authMode '%@' in deleteCredentialsFromKeychainIncludingUsername:", [self authMode]);
+		return NO;
     }
+
+	return YES;
 }
 
 -(void) deletePassphrase {
@@ -445,6 +448,40 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         [gTbDefaults removeObjectForKey:  usernameAndPasswordPreferenceKey];    // and indicate that only the username is saved
         [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
     }
+}
+
+-(BOOL) saveUsername: (NSString *) username {
+
+	[usernameKeychain setPassword: username];
+	if (  ! [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  ) {
+		[gTbDefaults setBool: YES forKey: usernamePreferenceKey];
+	}
+
+	return YES;
+}
+
+-(BOOL) savePassword: (NSString *) password {
+
+	if (   [gTbDefaults boolForKey: usernamePreferenceKey]
+		|| [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  ) {
+		[passwordKeychain setPassword: password];
+		if (   [gTbDefaults boolForKey: usernamePreferenceKey]  ) {
+			[gTbDefaults removeObjectForKey: usernamePreferenceKey];
+		}
+
+		[gTbDefaults setBool: YES forKey: usernameAndPasswordPreferenceKey];
+		return YES;
+	}
+
+	NSLog(@"Attempt to save password for %@ ignored because the username has not been set", displayName);
+	return NO;
+}
+
+-(BOOL) savePassphrase: (NSString *) passphrase {
+
+	[passphraseKeychain setPassword: passphrase];
+	[gTbDefaults setBool: YES forKey: passphrasePreferenceKey];
+	return YES;
 }
 
 -(BOOL) keychainHasPassphrase

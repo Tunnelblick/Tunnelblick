@@ -81,5 +81,32 @@
 			<result type="boolean" description="Returns 0."/>
 		</command>
 		
+		<command name="save username" code="TBLKSaUn" description="Save the username for a VPN configuration in the Keychain.">
+			<cocoa class="ApplescriptSaveUsername"/>
+			<direct-parameter description="Username" type="text"/>
+			<parameter name="for" code="tbk1" description="Name of configuration whose username is to be set." type="text"/>
+			<result type="boolean" description="Returns true if the username was set, false if the username could not be set."/>
+		</command>
+
+		<command name="save password" code="TBLKSaPw" description="Save the password for a VPN configuration in the Keychain.">
+			<cocoa class="ApplescriptSavePassword"/>
+			<direct-parameter description="Password" type="text"/>
+			<parameter name="for" code="tbk2" description="Name of configuration whose password is to be set." type="text"/>
+			<result type="boolean" description="Returns true if the password was set, false if the password could not be set."/>
+		</command>
+
+		<command name="save passphrase" code="TBLKSaPp" description="Save the passphrase for a VPN configuration in the Keychain.">
+			<cocoa class="ApplescriptSavePassphrase"/>
+			<direct-parameter description="Passphrase" type="text"/>
+			<parameter name="for" code="tbk3" description="Name of configuration whose passphrase is to be set." type="text"/>
+			<result type="boolean" description="Returns true if the passphrase was set, false if the passphrase could not be set."/>
+		</command>
+
+		<command name="delete all credentials for" code="TBLKDelC" description="Delete all of the credentials (username, password, and passphrase) for a VPN configuration.">
+			<cocoa class="ApplescriptDeleteAllCredentials"/>
+			<direct-parameter description="Name of configuration whose credentials are to be deleted." type="text"/>
+			<result type="boolean" description="Returns true if the credentials were deleted, false if the credentials could not be deleted."/>
+		</command>
+
 	</suite>
 </dictionary>

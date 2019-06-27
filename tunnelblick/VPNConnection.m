@@ -5112,6 +5112,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	speakWhenDisconnected = newValue;
 }
 
+-(AuthAgent *) authAgent {
+
+	return [[myAuthAgent retain] autorelease];
+}
 TBSYNTHESIZE_OBJECT_GET(retain, StatusWindowController *, statusScreen)
 
 TBSYNTHESIZE_OBJECT_SET(		NSString *,				  sanitizedConfigurationFileContents, setSanitizedConfigurationFileContents)

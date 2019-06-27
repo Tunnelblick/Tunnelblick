@@ -22,6 +22,7 @@
 
 #import "ApplescriptCommands.h"
 
+#import "AuthAgent.h"
 #import "MenuController.h"
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
@@ -173,6 +174,98 @@ extern TBUserDefaults  * gTbDefaults;
 	
 	[(MenuController *)[NSApp delegate] updateMenuAndDetailsWindow];
 	return [NSNumber numberWithInt: 0];
+}
+
+@end
+
+
+@implementation ApplescriptSaveUsername
+
+- (id)performDefaultImplementation
+{
+	NSString * username = [self directParameter];
+
+	NSDictionary * evaluatedArguments = [self evaluatedArguments];
+	NSString * displayName = [evaluatedArguments objectForKey: @"for"];
+	NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+	AuthAgent * authAgent = [connection authAgent];
+
+	if (  authAgent  ) {
+		BOOL ok = [authAgent saveUsername: username];
+		return [NSNumber numberWithBool: ok];
+	}
+
+	return @NO;
+}
+
+@end
+
+
+@implementation ApplescriptSavePassword
+
+- (id)performDefaultImplementation
+{
+	NSString * password = [self directParameter];
+
+	NSDictionary * evaluatedArguments = [self evaluatedArguments];
+	NSString * displayName = [evaluatedArguments objectForKey: @"for"];
+	NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+	AuthAgent * authAgent = [connection authAgent];
+
+	if (  authAgent  ) {
+		BOOL ok = [authAgent savePassword: password];
+		return [NSNumber numberWithBool: ok];
+	}
+
+	NSLog(@"");
+	return @NO;
+}
+
+@end
+
+@implementation ApplescriptSavePassphrase
+
+- (id)performDefaultImplementation
+{
+	NSString * passphrase = [self directParameter];
+
+	NSDictionary * evaluatedArguments = [self evaluatedArguments];
+	NSString * displayName = [evaluatedArguments objectForKey: @"for"];
+	NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+
+	AuthAgent * authAgent = [connection authAgent];
+
+	if (  authAgent  ) {
+		BOOL ok = [authAgent savePassphrase: passphrase];
+		return [NSNumber numberWithBool: ok];
+	}
+
+	return @NO;
+}
+
+@end
+
+@implementation ApplescriptDeleteAllCredentials
+
+- (id)performDefaultImplementation
+{
+	NSString * displayName = [self directParameter];
+
+	NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+	AuthAgent * authAgent = [connection authAgent];
+
+	if (  authAgent  ) {
+		[authAgent deletePassphrase];
+		[authAgent setAuthMode: @"password"];
+		BOOL ok = [authAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+		return [NSNumber numberWithBool: ok];
+	}
+
+	return @NO;
 }
 
 @end
