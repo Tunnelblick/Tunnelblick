@@ -450,9 +450,9 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     }
 }
 
--(BOOL) saveUsername: (NSString *) username {
+-(BOOL) saveUsername: (NSString *) theUsername {
 
-	[usernameKeychain setPassword: username];
+	[usernameKeychain setPassword: theUsername];
 	if (  ! [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  ) {
 		[gTbDefaults setBool: YES forKey: usernamePreferenceKey];
 	}
@@ -460,11 +460,11 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 	return YES;
 }
 
--(BOOL) savePassword: (NSString *) password {
+-(BOOL) savePassword: (NSString *) thePassword {
 
 	if (   [gTbDefaults boolForKey: usernamePreferenceKey]
 		|| [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  ) {
-		[passwordKeychain setPassword: password];
+		[passwordKeychain setPassword: thePassword];
 		if (   [gTbDefaults boolForKey: usernamePreferenceKey]  ) {
 			[gTbDefaults removeObjectForKey: usernamePreferenceKey];
 		}
@@ -477,9 +477,9 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 	return NO;
 }
 
--(BOOL) savePassphrase: (NSString *) passphrase {
+-(BOOL) savePassphrase: (NSString *) thePassphrase {
 
-	[passphraseKeychain setPassword: passphrase];
+	[passphraseKeychain setPassword: thePassphrase];
 	[gTbDefaults setBool: YES forKey: passphrasePreferenceKey];
 	return YES;
 }
