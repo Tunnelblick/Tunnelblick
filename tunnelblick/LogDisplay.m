@@ -168,19 +168,33 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     return nil;
 }
 
++(BOOL) inDarkMode {
+
+	NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+	BOOL darkMode = (   [osxMode isEqualToString: @"dark"]
+					 || [osxMode isEqualToString: @"Dark"]  );
+	return darkMode;
+}
+
 +(NSColor *) redColorForHighlighting {
 	
-	return [NSColor colorWithCalibratedRed: 1.0 green: 0.0 blue: 0.0 alpha: 0.4];
+	return [NSColor colorWithCalibratedRed: 1.0 green: 0.0 blue: 0.0 alpha: (  [LogDisplay inDarkMode]
+																			 ? 0.7
+																			 : 0.4)];
 }
 
 +(NSColor *) yellowColorForHighlighting {
 	
-	return [NSColor colorWithCalibratedRed: 1.0 green: 1.0 blue: 0.0 alpha: 0.4];
+	return [NSColor colorWithCalibratedRed: 1.0 green: 1.0 blue: 0.0 alpha: (  [LogDisplay inDarkMode]
+																			 ? 0.6
+																			 : 0.4)];
 }
 
 +(NSColor *) blueColorForHighlighting {
 	
-	return [NSColor colorWithCalibratedRed: 0.0 green: 1.0 blue: 1.0 alpha: 0.2];
+	return [NSColor colorWithCalibratedRed: 0.0 green: 1.0 blue: 1.0 alpha: (  [LogDisplay inDarkMode]
+																			 ? 0.7
+																			 : 0.2)];
 }
 
 +(NSColor *) darkBlueColorForFont {
@@ -188,49 +202,75 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 	return [NSColor colorWithCalibratedRed: 0.0 green: 0.0 blue: 1.0 alpha: 1.0];
 }
 
++(NSColor *) lightBlueColorForFont {
+
+	return [NSColor colorWithCalibratedRed: (69.0 / 256.0) green: (122.0 / 256.0) blue: (187.0 / 256.0) alpha: 1.0];
+}
+
++(NSColor *) blueColorForFont {
+
+	NSColor * blue = (  [LogDisplay inDarkMode]
+					  ? [LogDisplay lightBlueColorForFont]
+					  : [LogDisplay darkBlueColorForFont]);
+	return blue;
+}
+
++(void) getColorsForForeground: (NSColor * *) foregroundColor
+					background: (NSColor * *) backgroundColor
+				   useBlueText: (BOOL) useBlueText
+			useRedHighlighting: (BOOL) useRedHighlighting
+		 useYellowHighlighting: (BOOL) useYellowHighlighting
+		   useBlueHighlighting: (BOOL) useBlueHighlighting {
+
+	BOOL inDarkMode = [LogDisplay inDarkMode];
+
+	*backgroundColor = (  useRedHighlighting
+						? [LogDisplay redColorForHighlighting]
+						: (  useYellowHighlighting
+						   ? [LogDisplay yellowColorForHighlighting]
+						   : (  useBlueHighlighting
+							  ? [LogDisplay blueColorForHighlighting]
+							  : [NSColor textBackgroundColor]  )  )  );
+
+	*foregroundColor = (  useBlueText
+						? (  inDarkMode
+						   ? (  (   useRedHighlighting
+								 || useYellowHighlighting
+								 || useBlueHighlighting)
+							  ? [LogDisplay darkBlueColorForFont]
+							  : [LogDisplay lightBlueColorForFont]  )
+						   : [LogDisplay darkBlueColorForFont])
+						:  [NSColor textColor]);
+}
 // Highlights errors with red, warnings with yellow, and notes with blue
 // Renders Tunnelblick log entries in blue text and OpenVPN entries in black text
 -(NSMutableAttributedString *) attributedStringFromLine: (NSString *) line fromTunnelblick: (BOOL) fromTunnelblick {
-    
+
+	BOOL useRedHighlighting    = [line rangeOfString: @"ERROR:" options: NSCaseInsensitiveSearch].length != 0;
+	BOOL useYellowHighlighting = (  useRedHighlighting
+								  ? NO
+								  : [line rangeOfString: @"WARNING:" options: NSCaseInsensitiveSearch].length != 0);
+	BOOL useBlueHighlighting   = (  (   useRedHighlighting
+									 || useYellowHighlighting)
+								  ? NO
+								  : [line rangeOfString: @"NOTE:" options: NSCaseInsensitiveSearch].length != 0);
+
+	NSColor * foregroundColor;
+	NSColor * backgroundColor;
+	[LogDisplay getColorsForForeground: &foregroundColor
+							background: &backgroundColor
+						   useBlueText: fromTunnelblick
+					useRedHighlighting: useRedHighlighting
+				 useYellowHighlighting: useYellowHighlighting
+				   useBlueHighlighting:	useBlueHighlighting];
+
     NSMutableAttributedString * string = [[[NSMutableAttributedString alloc] initWithString: line] autorelease];
     
     NSRange lineRange = NSMakeRange(0, [line length]);
 
-	[string addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: lineRange];
-	[string addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: lineRange];
-	
-    NSRange issueRange = [line rangeOfString: @"NOTE:" options: NSCaseInsensitiveSearch];
-    if (  issueRange.length != 0  ) {
-        [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay blueColorForHighlighting]   range: lineRange];
-    }
-    
-    issueRange = [line rangeOfString: @"WARNING:" options: NSCaseInsensitiveSearch];
-    if (  issueRange.length != 0  ) {
-        [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay yellowColorForHighlighting] range: lineRange];
-    }
-    
-    issueRange = [line rangeOfString: @"ERROR:" options: NSCaseInsensitiveSearch];
-    if (  issueRange.length != 0  ) {
-        [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay redColorForHighlighting]    range: lineRange];
-    }
-    
-    issueRange = [line rangeOfString: @"no default was specified by either --route-gateway or --ifconfig options" options: NSCaseInsensitiveSearch];
-    if (  issueRange.length != 0  ) {
-        [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay redColorForHighlighting]    range: lineRange];
-    }
-    
-	if (  fromTunnelblick  ) {
-		[string addAttribute: NSForegroundColorAttributeName value: [LogDisplay darkBlueColorForFont]       range: lineRange];
-	}
-	
-	if (  ! warnedAboutUserGroupAlready  ) {
-		issueRange = [line rangeOfString: @"must be root to alter routing table" options: NSCaseInsensitiveSearch];
-		if (  issueRange.length != 0  ) {
-			[self performSelectorOnMainThread: @selector(warnAboutUserGroup) withObject: nil waitUntilDone: NO];
-			warnedAboutUserGroupAlready = TRUE;
-		}
-	}
-	
+	[string addAttribute: NSForegroundColorAttributeName value: foregroundColor range: lineRange];
+    [string addAttribute: NSBackgroundColorAttributeName value: backgroundColor range: lineRange];
+
     return string;
 }
 
