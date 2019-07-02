@@ -3391,7 +3391,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSString * stdErr;
 	
 	NSString * ipv6Flag = (  ([address rangeOfString: @":"].length != 0)
-						   ? @"-ipv6"
+						   ? @"-inet6"
 						   : @"");
 	OSStatus status = runTool(TOOL_PATH_FOR_BASH,
 							  [NSArray arrayWithObjects:
