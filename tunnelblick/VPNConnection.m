@@ -3390,10 +3390,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSString * stdOut;
 	NSString * stdErr;
 	
+	NSString * ipv6Flag = (  ([address rangeOfString: @":"].length != 0)
+						   ? @"-ipv6"
+						   : @"");
 	OSStatus status = runTool(TOOL_PATH_FOR_BASH,
 							  [NSArray arrayWithObjects:
 							   @"-c",
-							   [NSString stringWithFormat: @"route -n get %@ | grep '  interface: ' | sed -e 's/  interface: //'", address],
+							   [NSString stringWithFormat: @"route -n get %@ %@ | grep '  interface: ' | sed -e 's/  interface: //'", ipv6Flag, address],
 							   nil],
 							  &stdOut, &stdErr);
 	if (  status != 0  ) {
