@@ -6861,8 +6861,8 @@ BOOL warnAboutNonTblks(void)
                                          nil);
             if (  result != NSAlertAlternateReturn  ) {   // Quit if "Quit" or error
 				NSString * installerLog = @" (none)";
-				if (  [gFileMgr fileExistsAtPath: @"/tmp/tunnelblick-installer-log.txt"]  ) {
-					NSData * data = [gFileMgr contentsAtPath: @"/tmp/tunnelblick-installer-log.txt"];
+				if (  [gFileMgr fileExistsAtPath: INSTALLER_LOG_PATH]  ) {
+					NSData * data = [gFileMgr contentsAtPath: INSTALLER_LOG_PATH];
 					if (  data  ) {
 						installerLog = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
 					}
@@ -6927,8 +6927,8 @@ BOOL warnAboutNonTblks(void)
     }
 	
 	NSString * installerLog = @" (none)";
-	if (  [gFileMgr fileExistsAtPath: @"/tmp/tunnelblick-installer-log.txt"]  ) {
-		NSData * data = [gFileMgr contentsAtPath: @"/tmp/tunnelblick-installer-log.txt"];
+	if (  [gFileMgr fileExistsAtPath: INSTALLER_LOG_PATH]  ) {
+		NSData * data = [gFileMgr contentsAtPath: INSTALLER_LOG_PATH];
 		if (  data  ) {
 			installerLog = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
 		}
