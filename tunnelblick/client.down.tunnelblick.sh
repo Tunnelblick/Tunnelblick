@@ -497,7 +497,7 @@ flushDNSCache()
 resetPrimaryInterface()
 {
 
-	local should_reset="$$ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED"
+	local should_reset="$ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED"
 	local expected_folder_path="/Library/Application Support/Tunnelblick/expect-disconnect"
 	if [ -e "$expected_folder_path/ALL" ] ; then
 		should_reset="$ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT"
