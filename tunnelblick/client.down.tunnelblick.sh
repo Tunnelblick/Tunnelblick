@@ -246,13 +246,13 @@ get_item() {
 ##########################################################################################
 get_primary_service_id_and_warn_if_it_changed() {
 
-	local current_psid ; current_psid="$( scutil <<-EOF |
+	local ipv4 ; ipv4="$( scutil <<-EOF |
 		open
 		show State:/Network/Global/IPv4
 		quit
 EOF
-		grep 'Service : ' | sed -e 's/.*Service : //' )"
-
+		grep 'Service : ' )"
+	local current_psid="${ipv4##* : }"
 	if [ "${PSID}" != "${current_psid}" ] ; then
 		log_message "Ignoring change of Network Primary Service from ${PSID} to ${current_psid}"
 	fi
@@ -502,7 +502,10 @@ resetPrimaryInterface()
 	if [ -e "$expected_folder_path/ALL" ] ; then
 		should_reset="$ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT"
 	else
-		local filename ; filename="$( echo "${TUNNELBLICK_CONFIG_FOLDER}" | sed -e 's/-/--/g' | sed -e 's/\./-D/g' | sed -e 's/\//-S/g' )"
+		# "Encode" config path so it can be used as a filename by replacing - with --, . with -D, and / with -S
+		local filename="${TUNNELBLICK_CONFIG_FOLDER//-/--}"
+		filename="${filename//./-D}"
+		filename="${filename//\//-S}"
 		if [ -e "$expected_folder_path/$filename" ]; then
 			rm -f "$expected_folder_path/$filename"
 			should_reset="$ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT"
@@ -518,13 +521,13 @@ resetPrimaryInterface()
 	if [ -z "${wifi_interface}" ] ; then
 		wifi_interface="$(/usr/sbin/networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
 	fi
-	local primary_interface
-	primary_interface="$( scutil <<-EOF |
+	local ipv4; ipv4="$( scutil <<-EOF |
 		open
 		show State:/Network/Global/IPv4
 		quit
 EOF
-		grep PrimaryInterface | sed -e 's/.*PrimaryInterface : //' )"
+		grep PrimaryInterface )"
+	local primary_interface="${ipv4##* : }"
 
     if [ -n "${primary_interface}" ] ; then
 	    if [ "${primary_interface}" == "${wifi_interface}" ] && [ -f /usr/sbin/networksetup ] ; then
@@ -555,7 +558,10 @@ EOF
 			fi
 
 			if [ -f /usr/sbin/networksetup ] ; then
-				local service; service="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${primary_interface}" | sed -e 's/^(Hardware Port: //g' | sed -e 's/, Device.*//g' )"
+				local primary_interface_service_info; primary_interface_service_info="$( /usr/sbin/networksetup -listnetworkserviceorder | grep "Device: ${primary_interface}" )"
+				local service="${primary_interface_service_info#*Hardware Port: }"
+				service="${service%%, Device: *}"
+
 				local status=$?
 				log_message_if_nonzero $status "ERROR: status $status trying to get name of primary service for \"Device: ${primary_interface}\""
 				if [ $status = 0 ] \
