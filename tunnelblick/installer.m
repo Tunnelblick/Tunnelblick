@@ -1113,7 +1113,7 @@ void copyTheApp(void) {
 		appendLog(@"Unable to remove all 'com.apple.quarantine' extended attributes");
 		errorExit();
 	} else {
-		appendLog(@"Removed all 'com.apple.quarantine' extended attributes");
+		appendLog(@"Removed any 'com.apple.quarantine' extended attributes");
 	}
 }
 
