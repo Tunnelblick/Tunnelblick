@@ -2292,7 +2292,10 @@ int main(int argc, char *argv[])
     
     gRealUserID  = getuid();
     gRealGroupID = getgid();
-    
+
+	appendLog([NSString stringWithFormat: @"getuid() = %ld; getgid() = %ld; geteuid() = %ld; getegid() = %ld",
+			   (long)gRealUserID, (long)gRealGroupID, (long)geteuid(), (long)getegid()]);
+
     NSString * firstPath = nil;
     if (  argc > 2  ) {
         firstPath = [gFileMgr stringWithFileSystemRepresentation: argv[2] length: strlen(argv[2])];
