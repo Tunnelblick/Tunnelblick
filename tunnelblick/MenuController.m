@@ -7268,11 +7268,11 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
                     if (   [fullPath hasSuffix: @"/Info.plist"]
 						|| [fullPath hasSuffix: @"/CodeResources"]
                         || [[[fullPath stringByDeletingLastPathComponent] lastPathComponent] isEqualToString: @"_CodeSignature"]   ) {
-                        if (  ! checkOwnerAndPermissions(fullPath, 0, 0, 0644)  ) {
+                        if (  ! checkOwnerAndPermissions(fullPath, 0, 0, PERMS_SECURED_READABLE)  ) {
                            return YES;
                         }
                     } else {
-                        if (  ! checkOwnerAndPermissions(fullPath, 0, 0, 0755)  ) {
+                        if (  ! checkOwnerAndPermissions(fullPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
                             return YES;
                         }
                     }
