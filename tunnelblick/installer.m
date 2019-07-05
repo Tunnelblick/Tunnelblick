@@ -1239,7 +1239,7 @@ void secureTheApp(NSString * appResourcesPath) {
 	}
 	
 	// Secure kexts
-	// Everything inside the kext should have 0755 permissions except the Info.plist, and all contents of _CodeSignature, which should have 0644 permissions
+	// Everything inside the kext should have 0755 permissions except Info.plist, CodeResources, and all contents of _CodeSignature, which should have 0644 permissions
 	dirEnum = [gFileMgr enumeratorAtPath: appResourcesPath];
 	while (  (file = [dirEnum nextObject])  ) {
 		[dirEnum skipDescendents];
@@ -1252,8 +1252,9 @@ void secureTheApp(NSString * appResourcesPath) {
 				while (  (itemName = [kextEnum nextObject])  ) {
 					NSString * fullPath = [kextPath stringByAppendingPathComponent: itemName];
 					if (   [fullPath hasSuffix: @"/Info.plist"]
-						|| [[[fullPath stringByDeletingLastPathComponent] lastPathComponent] isEqualToString: @"_CodeSignature"]   ) {
 						okSoFar = okSoFar && checkSetPermissions(fullPath, 0644, YES);
+						|| [fullPath hasSuffix: @"/CodeResources"]
+						|| [[[fullPath stringByDeletingLastPathComponent] lastPathComponent] isEqualToString: @"_CodeSignature"]  ) {
 					} else {
 						okSoFar = okSoFar && checkSetPermissions(fullPath, 0755, YES);
 					}
