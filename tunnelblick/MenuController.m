@@ -7253,7 +7253,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	}
 			
     // Check all kexts
-    // Everything in a kext should have permissions of 0755 except Info.plist and the contents of _CodeSignature, which all should have permissions of 0644
+    // Everything in a kext should have permissions of 0755 except Info.plist, CodeResources, and the contents of _CodeSignature, which all should have permissions of 0644
     dirEnum = [gFileMgr enumeratorAtPath: resourcesPath];
     while (  (file = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
@@ -7266,6 +7266,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
                 while (  (itemName = [kextEnum nextObject])  ) {
                     NSString * fullPath = [kextPath stringByAppendingPathComponent: itemName];
                     if (   [fullPath hasSuffix: @"/Info.plist"]
+						|| [fullPath hasSuffix: @"/CodeResources"]
                         || [[[fullPath stringByDeletingLastPathComponent] lastPathComponent] isEqualToString: @"_CodeSignature"]   ) {
                         if (  ! checkOwnerAndPermissions(fullPath, 0, 0, 0644)  ) {
                            return YES;
