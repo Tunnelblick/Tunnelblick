@@ -1262,7 +1262,7 @@ void secureTheApp(NSString * appResourcesPath) {
 		dirEnum = [gFileMgr enumeratorAtPath: codeSigPath];
 		while (  (file = [dirEnum nextObject])  ) {
 			NSString * itemPath = [codeSigPath stringByAppendingPathComponent: file];
-			okSoFar = okSoFar && checkSetPermissions(itemPath, 0644, YES);
+			okSoFar = okSoFar && checkSetPermissions(itemPath, PERMS_SECURED_READABLE, YES);
 		}
 	}
 	
@@ -1280,11 +1280,11 @@ void secureTheApp(NSString * appResourcesPath) {
 				while (  (itemName = [kextEnum nextObject])  ) {
 					NSString * fullPath = [kextPath stringByAppendingPathComponent: itemName];
 					if (   [fullPath hasSuffix: @"/Info.plist"]
-						okSoFar = okSoFar && checkSetPermissions(fullPath, 0644, YES);
 						|| [fullPath hasSuffix: @"/CodeResources"]
 						|| [[[fullPath stringByDeletingLastPathComponent] lastPathComponent] isEqualToString: @"_CodeSignature"]  ) {
+						okSoFar = okSoFar && checkSetPermissions(fullPath, PERMS_SECURED_READABLE, YES);
 					} else {
-						okSoFar = okSoFar && checkSetPermissions(fullPath, 0755, YES);
+						okSoFar = okSoFar && checkSetPermissions(fullPath, PERMS_SECURED_EXECUTABLE, YES);
 					}
 				}
 			} else {
