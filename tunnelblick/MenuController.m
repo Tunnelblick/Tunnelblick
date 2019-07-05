@@ -6900,7 +6900,8 @@ BOOL warnAboutNonTblks(void)
             NSLog(@"installer reported failure: %@: %@", launchPath, arguments);
             continue;
         } else if (  result == wfeaSuccess  ) {
-            
+
+			BOOL inApplicationsFolderAlready = (  (installFlags & INSTALLER_COPY_APP) == 0  );
             okNow = (0 == (   installFlags
                            & (  INSTALLER_COPY_APP
                               | INSTALLER_SECURE_APP
@@ -6913,7 +6914,7 @@ BOOL warnAboutNonTblks(void)
                      ? YES
                      
                      // We do this to make sure installer actually did what MenuController told it to do
-                     : needToRunInstaller(installFlags & INSTALLER_COPY_APP) == 0
+                     : needToRunInstaller(inApplicationsFolderAlready)
                      );
             
             if (  okNow  ) {
