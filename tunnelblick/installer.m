@@ -1162,11 +1162,44 @@ void secureTheApp(NSString * appResourcesPath) {
 	
 	BOOL okSoFar = checkSetOwnership(tunnelblickPath, YES, 0, 0);
 	
+	// Check/set all Tunnelblick.app folders to have PERMS_SECURED_FOLDER permissions
+	//           everything else to not group- or other-writable and not suid and not sgid
+
+/*	if (  ! makeUnlockedAtPath( tunnelblickPath)  ) {
+		okSoFar = FALSE;
+	}
+*/
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: tunnelblickPath];
+	NSString * file;
+	BOOL isDir;
+	while (  (file = [dirEnum nextObject])  ) {
+		NSString * fullPath = [tunnelblickPath stringByAppendingPathComponent: file];
+		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+			&& isDir  ) {
+			okSoFar = okSoFar && checkSetPermissions(fullPath, PERMS_SECURED_FOLDER, YES);
+		} else {
+			NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: fullPath traverseLink: NO];
+			unsigned long  perms = [atts filePosixPermissions];
+			// Nothing should be writable by group, writable by user, be suid, or be sgid
+			unsigned long  permsShouldHave = (perms & ~(S_IWGRP | S_IWOTH | S_ISUID | S_ISGID));
+			if (  (perms != permsShouldHave )  ) {
+				if (  chmod([fullPath fileSystemRepresentation], permsShouldHave) == 0  ) {
+					appendLog([NSString stringWithFormat: @"Changed permissions from %lo to %lo on %@",
+							   (long) perms, (long) permsShouldHave, fullPath]);
+				} else {
+					NSString * fileIsImmutable = (  [atts fileIsImmutable]
+												  ? @"; file is immutable"
+												  : @"" );
+
+					appendLog([NSString stringWithFormat: @"Unable to change permissions (error %ld: '%s'%@) from %lo to %lo on %@",
+							   (long)errno, strerror(errno), fileIsImmutable, (long) perms, (long) permsShouldHave, fullPath]);
+					okSoFar = FALSE;
+				}
+			}
+		}
+	}
+
 	okSoFar = okSoFar && checkSetPermissions(infoPlistPath,             PERMS_SECURED_READABLE,   YES);
-	
-	okSoFar = okSoFar && checkSetPermissions(appResourcesPath,          PERMS_SECURED_FOLDER,     YES);
-	
-	okSoFar = okSoFar && checkSetPermissions(openvpnPath,               PERMS_SECURED_FOLDER,     YES);
 	
 	okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,          PERMS_SECURED_EXECUTABLE, YES);
 	
@@ -1205,18 +1238,14 @@ void secureTheApp(NSString * appResourcesPath) {
 	okSoFar = okSoFar && checkSetPermissions(reactivateTunnelblickPath, PERMS_SECURED_EXECUTABLE, YES);
 	okSoFar = okSoFar && checkSetPermissions(reenableNetworkServicesPath, PERMS_SECURED_ROOT_EXEC, YES);
 	
-	// Check/set OpenVPN version folders and openvpn and openvpn-down-root.so in them
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnPath];
-	NSString * file;
-	BOOL isDir;
+	// Check/set each OpenVPN binary and its corresponding openvpn-down-root.so
+	dirEnum = [gFileMgr enumeratorAtPath: openvpnPath];
 	while (  (file = [dirEnum nextObject])  ) {
 		[dirEnum skipDescendents];
 		NSString * fullPath = [openvpnPath stringByAppendingPathComponent: file];
 		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
 			&& isDir  ) {
 			if (  [file hasPrefix: @"openvpn-"]  ) {
-				okSoFar = okSoFar && checkSetPermissions(fullPath, PERMS_SECURED_FOLDER, YES);
-				
 				NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
 				okSoFar = okSoFar && checkSetPermissions(thisOpenvpnPath, PERMS_SECURED_EXECUTABLE, YES);
 				
@@ -1230,7 +1259,6 @@ void secureTheApp(NSString * appResourcesPath) {
 	NSString * codeSigPath = [contentsPath stringByAppendingPathComponent: @"_CodeSignature"];
 	if (   [gFileMgr fileExistsAtPath: codeSigPath isDirectory: &isDir]
 		&& isDir  ) {
-		okSoFar = okSoFar && checkSetPermissions(codeSigPath, PERMS_SECURED_FOLDER, YES);
 		dirEnum = [gFileMgr enumeratorAtPath: codeSigPath];
 		while (  (file = [dirEnum nextObject])  ) {
 			NSString * itemPath = [codeSigPath stringByAppendingPathComponent: file];
