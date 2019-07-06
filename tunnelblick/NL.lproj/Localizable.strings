@@ -758,6 +758,9 @@
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is niet een openbare DNS-server die niet bekend is bij Tunnelbkick en wordt niet via de VPN gerouteerd.\n\n";
 
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is niet een openbaar IP-adres en wordt niet via de VPN gerouteerd.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu configuraties geïnstalleerd\n\n";
 
