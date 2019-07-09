@@ -152,6 +152,8 @@ enum StatusIconPosition {
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
 	NSString                * publicIPAddress;				// Apparent public IP address
+
+	NSString				* openVPNLogHeader;				// Header for OpenVPN logs: macOS version, Tunnelblick version, previous Tunnelblick version
 	
     TBUIUpdater             * uiUpdater;                    // Used to periodically update displays
 	

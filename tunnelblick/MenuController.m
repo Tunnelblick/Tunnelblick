@@ -2896,19 +2896,37 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }
 
+-(NSString *) extractItemFromSwVersWithOption: (NSString *) option {
+
+	NSString * stringWithNL = nil;
+	OSStatus status = runTool(TOOL_PATH_FOR_SW_VERS, @[option], &stringWithNL, nil);
+	if (  status != 0  ) {
+		stringWithNL = @"?\n";
+	}
+
+	NSString * result = (  ([stringWithNL length] > 0 )
+						 ? [stringWithNL substringToIndex: [stringWithNL length] - 1]
+						 : @"?"  );
+	return result;
+}
+
 - (NSString *) openVPNLogHeader
 {
-    unsigned major, minor, bugFix;
-    NSString * currentVersionString = (  getSystemVersion(&major, &minor, &bugFix) == EXIT_SUCCESS
-                                       ? [NSString stringWithFormat:@"%d.%d.%d", major, minor, bugFix]
-                                       : @"version is unknown");
-    
-    NSArray  * versionHistory     = [gTbDefaults arrayForKey: @"tunnelblickVersionHistory"];
-    NSString * priorVersionString = (  (  [versionHistory count] > 1  )
-                                     ? [NSString stringWithFormat: @"; prior version %@", [versionHistory objectAtIndex: 1]]
-                                     : @"");
+	if (  ! openVPNLogHeader  ) {
 
-    return ([NSString stringWithFormat:@"%@macOS %@; %@%@", TB_LOG_PREFIX, currentVersionString, tunnelblickVersion([NSBundle mainBundle]), priorVersionString]);
+		NSString * versionNumber = [self extractItemFromSwVersWithOption: @"-productVersion"];
+
+		NSString * buildNumber   = [self extractItemFromSwVersWithOption: @"-buildVersion"];
+
+		NSArray  * versionHistory     = [gTbDefaults arrayForKey: @"tunnelblickVersionHistory"];
+		NSString * priorVersionString = (  (  [versionHistory count] > 1  )
+										 ? [NSString stringWithFormat: @"; prior version %@", [versionHistory objectAtIndex: 1]]
+										 : @"");
+		openVPNLogHeader = [[NSString stringWithFormat:@"%@macOS %@ (%@); %@%@",
+							 TB_LOG_PREFIX, versionNumber, buildNumber, tunnelblickVersion([NSBundle mainBundle]), priorVersionString] retain];
+	}
+
+	return [[openVPNLogHeader retain] autorelease];
 }
 
 - (void) checkForUpdates: (id) sender

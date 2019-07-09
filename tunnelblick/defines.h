@@ -149,6 +149,7 @@
 #define TOOL_PATH_FOR_PLUTIL		@"/usr/bin/plutil"
 #define TOOL_PATH_FOR_PS			@"/bin/ps"
 #define TOOL_PATH_FOR_SCUTIL		@"/usr/sbin/scutil"
+#define TOOL_PATH_FOR_SW_VERS		@"/usr/bin/sw_vers"
 #define TOOL_PATH_FOR_TAR			@"/usr/bin/tar"
 
 // The number of characters in each line of output from "ps -A" that are before the process' command line
