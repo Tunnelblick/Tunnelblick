@@ -758,6 +758,9 @@
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     DNS palvelun osoite %@ ei ole Tunnelblickin julkiseksi tunnistama palvelu ja sitä ei ole reititetty VPN kautta.\n\n";
 
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     DNS palvelun osoite %@ ei ole julkinen IP osoite ja sitä ei ole reititetty VPN yhteyden kautta.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Asennettu %lu konfiguraatiota\n\n";
 
@@ -1936,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Varoitus: Yhtä tai useampia asetuksia ei pystytty uudelleennimeämään. Katso päätelokista lisätietoja.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Varoitus: Seuraavat yhteysmääritykset, jotka yhdistetään automaattisesti laitteen käynnistyessä, eivät ole yhdistetty:\n\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Varoitus: Tämä VPN ei välttämättä voi yhdistyä tulevaisuudessa.\n\nOpenVPN:n konfiguraatiotiedosto '%1$@' sisältää nämä OpenVPN-vaihtoehdot:\n\n%2$@\nSinun pitäisi päivittää konfiguraatio, jotta sitä voidaan käyttää OpenVPN:n modernien versioiden kanssa.\n\nTunnelblick tulee käyttämään OpenVPN:n versiota %3$@ yhdistääkseen tämän konfiguraation.\n\nEt silti pysty yhdistämään tätä VPN:ää uudempien Tunnelblickin versioiden kanssa, koska niissä ei tule olemaan sellaista OpenVPN:n versiota joka hyväksyy nämä vaihtoehdot.";

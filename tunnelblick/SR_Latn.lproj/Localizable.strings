@@ -758,6 +758,9 @@
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     Adresa DNS servera %@ nije poznata Tunnelblick-u i saobraćaj nije rutiran kroz VPN.\n\n";
 
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     Adresa DNS servera %@ je privatna IP adresa i nije rutirana kroz VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Instalirano %lu konfiguracija\n\n";
 
@@ -1936,6 +1939,9 @@
 
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Upozorenje: Jedna ili više opcija ne može se preimenovati. Pogledajte log konzole za detalje.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Upozorenje: Navedene konfiguracije, koje bi trebalo da se povežu prilikom pokretanja računara, nisu povezane:\n\n%@\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Upozorenje: Ovaj VPN možda neće moći da se poveže u budućnosti.\n\nOpenVPN konfiguracijski fajl za %1$@ sadrži sledeće OpenVPN opcije:\n\n%2$@\nTrebalo bi da osvežite konfiguraciju kako bi mogla da se koristi sa modernim verzijama OpenVPN-a.\n\nTunnelblick će koristiti OpenVPN %3$@ da se poveže na ovu konfiguraciju.\n\nMeđutim, nećete moći da se povežete na ovaj VPN u budućim verzijama Tunnelblicka koje ne sadrže verziju OpenVPN-a koje prihvataju ovu opciju.";
