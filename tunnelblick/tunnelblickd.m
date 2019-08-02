@@ -199,11 +199,11 @@ OSStatus runTool(NSString * userName,
     NSString * stdErrPath = [tempDir stringByAppendingString: @"/stderr.txt"];
 
     if (  ! [[NSFileManager defaultManager] createFileAtPath: stdOutPath contents: [NSData data] attributes: nil]  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get create %s", [stdOutPath UTF8String]);
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not create %s", [stdOutPath UTF8String]);
         exit(EXIT_FAILURE);
     }
     if (  ! [[NSFileManager defaultManager] createFileAtPath: stdErrPath contents: [NSData data] attributes: nil]  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get create %s", [stdErrPath UTF8String]);
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not create %s", [stdErrPath UTF8String]);
         exit(EXIT_FAILURE);
     }
     
