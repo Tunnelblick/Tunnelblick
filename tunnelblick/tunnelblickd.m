@@ -195,9 +195,9 @@ OSStatus runTool(NSString * userName,
     
     NSString * tempDir    = [newTemporaryDirectoryPath(asl, log_msg) autorelease];
     
-    NSString * stdOutPath = [tempDir stringByAppendingString: @"stdout.txt"];
-    NSString * stdErrPath = [tempDir stringByAppendingString: @"stderr.txt"];
-    
+    NSString * stdOutPath = [tempDir stringByAppendingString: @"/stdout.txt"];
+    NSString * stdErrPath = [tempDir stringByAppendingString: @"/stderr.txt"];
+
     if (  ! [[NSFileManager defaultManager] createFileAtPath: stdOutPath contents: [NSData data] attributes: nil]  ) {
         asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get create %s", [stdOutPath UTF8String]);
         exit(EXIT_FAILURE);
