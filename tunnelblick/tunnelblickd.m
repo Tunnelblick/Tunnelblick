@@ -256,6 +256,7 @@ OSStatus runTool(NSString * userName,
     if (  0 != rmdir([tempDir fileSystemRepresentation])  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not rmdir %s; errno = %ld; error was '%s'", [tempDir UTF8String], (long)errno, strerror(errno));
     }
+	asl_log(asl, log_msg, ASL_LEVEL_INFO, "Removed temporary directory %s", [tempDir UTF8String]);
     
     NSString * message = nil;
     
