@@ -107,7 +107,8 @@ NSString * newTemporaryDirectoryPath(aslclient  asl,
 {
     //**********************************************************************************************
     // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
-    // Modified to check for malloc returning NULL, use strlcpy, use realpath, and use more readable length for stringWithFileSystemRepresentation
+    // Heavily modified to check for malloc returning NULL, use strlcpy, use realpath, use more readable length
+	// for stringWithFileSystemRepresentation, use fallback if mkdtemp() fails, and do logging.
     
     NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"Tunnelblick-XXXXXX"];
     const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
@@ -121,14 +122,41 @@ NSString * newTemporaryDirectoryPath(aslclient  asl,
     
     strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
     
-    char * dirPath = mkdtemp(tempDirectoryNameCString);
-    if (  ! dirPath  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not create a temporary directory");
-        exit(-1);
-    }
-    
-    NSString *tempFolder = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempDirectoryNameCString
-                                                                                       length: strlen(tempDirectoryNameCString)];
+	NSString *tempFolder;
+	if (  mkdtemp(tempDirectoryNameCString)  ) {
+		tempFolder = [[NSFileManager defaultManager]
+					  stringWithFileSystemRepresentation: tempDirectoryNameCString
+					  length: strlen(tempDirectoryNameCString)];
+		asl_log(asl, log_msg, ASL_LEVEL_INFO, "Created new temporary directory %s", [tempFolder UTF8String]);
+	} else {
+		tempFolder = @"/var/tmp/tunnelblickd";
+		if (  [[NSFileManager defaultManager] fileExistsAtPath: tempFolder]  ) {
+			asl_log(asl, log_msg, ASL_LEVEL_INFO,
+					"Could not create a new temporary directory with '%s'. Error was %d: '%s'"
+					" Using existing temporary directory at %s.",
+					tempDirectoryNameCString, errno, strerror(errno), [tempFolder UTF8String]);
+		} else {
+			NSError * err;
+			if (  [[NSFileManager defaultManager] createDirectoryAtPath: tempFolder
+											  withIntermediateDirectories: NO
+															   attributes: nil
+																	error: &err]  ) {
+				asl_log(asl, log_msg, ASL_LEVEL_INFO,
+						"Could not create a new temporary directory with '%s'. Error was %d: '%s'."
+						" Created new temporary directory at %s.",
+						tempDirectoryNameCString, errno, strerror(errno), [tempFolder UTF8String]);
+			} else {
+				asl_log(asl, log_msg, ASL_LEVEL_EMERG,
+						"Could not create a new temporary directory with '%s'. Error was %d: '%s'."
+						" Could not create a new temporary directory at %s; error was %s'",
+						tempDirectoryNameCString, errno, strerror(errno), [tempFolder UTF8String], [[err description] UTF8String]);
+				exit(-1);
+			}
+		}
+	}
+
+	free(tempDirectoryNameCString);
+
     // Change from /var to /private/var to avoid using a symlink and thinking there is a symlink attack (normally, /var is a symlink to /private/var)
     if (  [tempFolder hasPrefix: @"/var/"]  ) {
         struct stat sb;
@@ -151,9 +179,7 @@ NSString * newTemporaryDirectoryPath(aslclient  asl,
             asl_log(asl, log_msg, ASL_LEVEL_WARNING, "stat(\"/var\") failed; tempFolder = %s", [tempFolder UTF8String]);
         }
     }
-    
-    free(tempDirectoryNameCString);
-    
+
     // End of code from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
     //**********************************************************************************************
     
