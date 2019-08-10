@@ -129,12 +129,22 @@ NSString * newTemporaryDirectoryPath(aslclient  asl,
 					  length: strlen(tempDirectoryNameCString)];
 		asl_log(asl, log_msg, ASL_LEVEL_INFO, "Created new temporary directory %s", [tempFolder UTF8String]);
 	} else {
+		NSString * folderInfo = [NSString stringWithFormat: @"NSTemporaryDirectory() = %@\n",
+								 [tempDirectoryTemplate stringByDeletingLastPathComponent]];
+		NSString * folder = [[tempDirectoryTemplate copy] autorelease];
+		while (  (folder = [folder stringByDeletingLastPathComponent]).length > 1  )   {
+			NSString * exists = (  [[NSFileManager defaultManager] fileExistsAtPath: folder]
+								 ? @"exists"
+								 : @"does not exist");
+			folderInfo = [folderInfo stringByAppendingFormat: @"%@ %@\n", folder, exists];
+		}
+
 		tempFolder = @"/var/tmp/tunnelblickd";
 		if (  [[NSFileManager defaultManager] fileExistsAtPath: tempFolder]  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_INFO,
 					"Could not create a new temporary directory with '%s'. Error was %d: '%s'"
-					" Using existing temporary directory at %s.",
-					tempDirectoryNameCString, errno, strerror(errno), [tempFolder UTF8String]);
+					" Using existing temporary directory at %s.\n%s",
+					tempDirectoryNameCString, errno, strerror(errno), [tempFolder UTF8String], [folderInfo UTF8String]);
 		} else {
 			NSError * err;
 			if (  [[NSFileManager defaultManager] createDirectoryAtPath: tempFolder
@@ -143,13 +153,13 @@ NSString * newTemporaryDirectoryPath(aslclient  asl,
 																	error: &err]  ) {
 				asl_log(asl, log_msg, ASL_LEVEL_INFO,
 						"Could not create a new temporary directory with '%s'. Error was %d: '%s'."
-						" Created new temporary directory at %s.",
-						tempDirectoryNameCString, errno, strerror(errno), [tempFolder UTF8String]);
+						" Created new temporary directory at %s.\n%s",
+						tempDirectoryNameCString, errno, strerror(errno), [tempFolder UTF8String], [folderInfo UTF8String]);
 			} else {
 				asl_log(asl, log_msg, ASL_LEVEL_EMERG,
 						"Could not create a new temporary directory with '%s'. Error was %d: '%s'."
-						" Could not create a new temporary directory at %s; error was %s'",
-						tempDirectoryNameCString, errno, strerror(errno), [tempFolder UTF8String], [[err description] UTF8String]);
+						" Could not create a new temporary directory at %s; error was %s\n%s",
+						tempDirectoryNameCString, errno, strerror(errno), [tempFolder UTF8String], [[err description] UTF8String], [folderInfo UTF8String]);
 				exit(-1);
 			}
 		}
