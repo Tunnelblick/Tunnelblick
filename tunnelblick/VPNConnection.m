@@ -1752,8 +1752,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         }
         
         if (  numConnections != 1  ) {
+			NSString * mainMessage = [NSString stringWithFormat:
+									  NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')", @"Window text"),
+									  numConnectionsWithModifyNameserver, (numConnections - numConnectionsWithModifyNameserver)];
+			NSString * warningMessage = (  (numConnectionsWithModifyNameserver == 0)
+										 ? @""
+										 : NSLocalizedString(@"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity.", @"Window text"));
             int button = TBRunAlertPanelExtended(NSLocalizedString(@"Do you wish to connect?", @"Window title"),
-                                                 [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", @"Window text"), numConnectionsWithModifyNameserver, (numConnections-numConnectionsWithModifyNameserver) ],
+                                                 [NSString stringWithFormat: @"%@%@", mainMessage, warningMessage],
                                                  NSLocalizedString(@"Connect", @"Button"),  // Default button
                                                  NSLocalizedString(@"Cancel", @"Button"),   // Alternate button
                                                  nil,
