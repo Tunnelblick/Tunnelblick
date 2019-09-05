@@ -1254,9 +1254,6 @@
 "Modified configuration file to remove path information" = "فایل پیکربندی برای پاک کردن اطلاعات مسیر ویرایش شد";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "چندین اتصال همزمان ایجاد خواهد شد(%1$d با 'تنظیمات نام سروز'، %2$d بدون تنظیمات 'نام سرور').";
-
-/* Window text */
 "Named Credentials" = "اعتبار نامه های نام دار";
 
 /* Window text */

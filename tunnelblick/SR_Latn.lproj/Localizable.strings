@@ -1308,9 +1308,6 @@
 "Modified configuration file to remove path information" = "Konfiguracioni fajl je modifikovan zarad uklanjanja informacije o putanji";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Više paralelnih konekcija će biti kreirano (%1$d sa 'Podesi namesever', %2$d bez 'Podesi nameserver').";
-
-/* Window text */
 "Named Credentials" = "Pripadajući kredencijali";
 
 /* Window text */

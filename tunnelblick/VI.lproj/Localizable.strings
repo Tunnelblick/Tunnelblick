@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "Cho phép thay đổi cài đặt mạng thủ công";
 
 /* Checkbox name */
+"Always show this window" = "Luôn hiển thị cửa sổ này";
+
+/* Checkbox name */
 "Apply to all" = "Áp dụng cho tất cả";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Kiểm tra địa chỉ public IP có thay đổi sau khi kết nối không";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Vô hiệu hóa IPv6 trừ khi máy chủ VPN được truy cập bằng IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Ngắt kết nối khi máy tính chuyển sang chế độ nghỉ";
@@ -746,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Từ máy chủ VPN cho %1$@:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Địa chỉ máy chủ DNS %@ là một máy chủ DNS công cộng được biết đến với Tunnelblick nhưng không được định tuyến qua VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Địa chỉ máy chủ DNS %@ không phải là một máy chủ DNS công cộng được biết đến với Tunnelblick và không được định tuyến qua VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • Địa chỉ máy chủ DNS %@ không phải một địa chỉ IP công cộng và không được định tuyến qua VPN.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "• Cài đặt %lu cấu hình\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = " • Cài đặt một cấu hình\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Không có máy chủ DNS nào được chỉ định.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "• Thay thế %lu cấu hình\n\n";
@@ -794,14 +812,23 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "• Chuyển đổi cấu hình OpenVPN";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Sao chép một cấu hình\n";
+
 /* Window text */
 "  • Install forced preferences\n" = "• Cài đặt tuỳ chỉnh bắt buộc";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "• Cài đặt hoặc cập nhật cấu hình";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Di chuyển một cấu hình\n";
+
 /* Window text */
 "  • Move the private configurations folder\n" = "• Chuyển vào thư mục cấu hình riêng tư";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Xóa một cấu hình\n";
 
 /* Window text */
 "  • Secure configurations\n" = "• Cấu hình bảo mật";
@@ -848,14 +875,23 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' đã tồn tại ở của sổ làm việc.\n\nBạn có muốn thay thế không?";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' dường như là một tệp được mã hóa bằng UTF-16. Tất cả tập tin liên quan đến OpenVPN phải là tệp văn bản thuần túy hoặc UTF-8";
+
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' tại dòng %2$u không kết thúc bình thường";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' không có bất cứ thông tin đăng nhập (khoá bí mật hoặc tên đăng nhập và password) được lưu trong Keychain.";
 
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "Tập tin '%@' không phải là một tập tin văn bản thuần tuý hoặc được định dạng bằng UTF-8.";
+
 /* Window text */
 "'%@' was not terminated." = "'%@' không kết thúc được.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' sẽ kết nối bằng OpenVPN %2$@ thay vì phiên bản được yêu cầu (OpenVPN %3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "Cài đặt 'easy-rsaPath' đã bị bỏ qua; nó không tham chiếu đến một thư mục";
@@ -880,6 +916,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(Nếu đã kết nối khi chuyển sang người dùng khác)";
+
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Thêm thông tin</a> [tunnelblick.net]";
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Được cung cấp bởi Tunnelblick, phần mềm này có thể sử dụng miễn phí tại<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN là một nhẫn hiệu đã được đăng ký của OpenVPN, Inc.";
@@ -1257,9 +1296,6 @@
 "Modified configuration file to remove path information" = "Tập tin cấu hình được chỉnh sửa để xoá thông tin đường dẫn";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Nhiều kết nối đồng thời có thể được tạo ra (%1$d với 'Set nameserver', %2$d không có 'Set nameserver').";
-
-/* Window text */
 "Named Credentials" = "Thông tin xác thực được đặt tên";
 
 /* Window text */
@@ -1342,6 +1378,12 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Chỉ có một cấu hình Tunnelblick VPN (.tblk) có thể chạy khi máy tính khởi chạy.";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@ không có sẵn trong phiên bản này của Tunnelblick";
 
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN đang không phản hồi đến yêu cầu ngắt kết nối %@.\n\nTunnelblick sẽ ngắt kết nối khi OpenVPN bắt đầu phản hồi đến yêu cầu ngắt kết nối.\n\nĐIỀU NÀY CÓ THỂ TỐN ĐẾN HAI PHÚT trong một số trường hợp bất thường.\n\nKết nối sẽ không sẵn sàng cho đến khi nó bị ngắt kết nối.";
@@ -1494,7 +1536,19 @@
 "The passphrase was not accepted." = "Đoạn văn bản không được chấp nhận.";
 
 /* Window text */
+"There are no OpenVPN configurations to install." = "Không có cấu hình OpenVPN nào để cài đặt.";
+
+/* Window text */
+"There are no OpenVPN processes running" = "Không có tiến trình OpenVPN nào đang chạy";
+
+/* Window text */
+"There was a problem with\n\n%@:\n\n%@" = "Có một vấn đề với\n\n%1$@:\n\n%2$@";
+
+/* Window text */
 "There was a problem:\n\n%@" = "Đã có một lỗi:\n\n%@";
+
+/* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Đã xảy ra sự cố khi nhập cài đặt Tunnelblick.\n\nXem Console log để biết chi tiết.";
 
 /* Window text */
 "Translation by" = "Bản dịch bởi";

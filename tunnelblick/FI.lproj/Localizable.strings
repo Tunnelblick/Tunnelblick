@@ -1308,9 +1308,6 @@
 "Modified configuration file to remove path information" = "Konfiguraatiotiedostoa muokattiin polkutiedon poistamiseksi";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Useita samanaikaisia yhteyksiä luotaisiin (%1$d optiolla 'Set nameserver', %2$d ilman optiota 'Set nameserver').";
-
-/* Window text */
 "Named Credentials" = "Nimetyt käyttäjätunnukset";
 
 /* Window text */

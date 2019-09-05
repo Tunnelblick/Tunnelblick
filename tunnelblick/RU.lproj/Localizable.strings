@@ -1308,7 +1308,7 @@
 "Modified configuration file to remove path information" = "Изменённый файл конфигурации для удаления сведений о пути";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Будут созданы несколько соединений (%1$d с 'Установкой DNS', %2$d без 'Установки DNS').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Будут созданы несколько соединений (%1$d с 'Установкой DNS сервера', %2$d без 'Установки DNS сервера')";
 
 /* Window text */
 "Named Credentials" = "Именованные учётные данные";
@@ -2053,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nЭто ошибка говорит о том что опция в конфигурационном файле OpenVPN или навязанная сервером: \n\n     • написана с ошибкой,\n\n     • не достает или имеет дополнительные аргументы, или\n\n     • не реализована версией OpenVPN которая используется с данной конфигурацией. Эта опция может быть новой и не поддерживаемой старой версией OpenVPN, или старой которая была удалена в новой версии OpenVPN. Вы можете выбрать версию OpenVPN использованную с этой конфигурацией на вкладке \"Настройки\" на панели \"Конфигурации\" в окне Tunnelblick \"Детали VPN\".\n\nСмотрите журнал VPN на вкладке \"Журнал\" на панели \"Конфигурации\" в окне Tunnelblick \"Детали VPN\" для получения более подробной информации.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nНастройки \"Установка DNS сервера\" Tunnelblick только работают с одним соединением VPN. Их применение с более чем одним соединением может нанести ущерб вашем настройкам сети или вызвать потерю подключения к сети.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nи установить конфигурации Tunnelblick VPN %ld";

@@ -1308,7 +1308,7 @@
 "Modified configuration file to remove path information" = "Τροποποίηση αρχείου παραμέτρων για αφαίρεση πληροφοριών διαδρομής";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Θα δημιουργηθούν πολλαπλές ταυτόχρονες συνδέσεις (%1$d με 'καθορισμένο όνομα διακομιστή', %2$d χωρίς 'καθορισμένο όνομα διακομιστή',).";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Θα δημιουργηθούν πολλαπλές ταυτόχρονες συνδέσεις (%1$d με 'καθορισμένο όνομα διακομιστή', %2$d χωρίς 'καθορισμένο όνομα διακομιστή')";
 
 /* Window text */
 "Named Credentials" = "Όνομα πιστοποιητικού";
@@ -2053,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nΑυτό το λάθος σημαίνει ότι κάποια παράμετρος που περιλαμβάνεται στο αρχείο παραμετροποίησης του OpenVPN ή \"τέθηκε\" από τον εξυπηρετητή OpenVPN:\n \n     • έχει κάποιο ορθογραφικό λάθος\n\n     • έχει λιγότερα ή περισσότερα ορίσματα από όσα απαιτούνται, ή\n\n     • δεν είναι υλοποιημένη στην έκδοση του OpenVPN που χρησιμοποιείται σε αυτή την παραμετροποίηση. Μπορεί να είναι καινούρια επιλογή που δεν είναι υλοποιημένη σε μια παλαιότερη έκδοση του OpenVPN, ή μια παλιά επιλογή που έχει διαγραφεί στην καινούρια έκδοση του OpenVPN. Μπορείτε να επιλέξετε την έκδοση του OpenVPN με αυτή την παραμετροποίηση στην καρτέλα \"Ρυθμίσεις\" του πλαισίου \"Παράμετροι\" στο παράθυρο \"Πληροφορίες VPN\" του Tunnelblick.\n\nΔείτε το αρχείο καταγραφής συμβάντων VPN στην καρτέλα \"Ιστορικό\" του πλαισίου \"Παράμετροι\" στο παράθυρο \"Πληροφορίες VPN\" του Tunnelblick.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nΗ επιλογή 'Ορισμός διακομιστή' (επίλυσης ονομάτων) λειτουργεί μόνο για με μία ενεργή VPN σύνδεση. Αν χρησιμοποιηθεί με περισσότερες ενεργές συνδέσεις ταυτόχρονα μπορεί να προκαλέσει λανθασμένες ρυθμίσεις και απώλεια συνδεσιμότητας.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nκαι εγκαταστάθηκαν οι παράμετροι %ld VPN του Tunnelblick";

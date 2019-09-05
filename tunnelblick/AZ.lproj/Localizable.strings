@@ -1188,9 +1188,6 @@
 "Modified configuration file to remove path information" = "Keçid məlumatını silmək üçün konfiqurasiya fayləna dəyişiklik edilmişdir";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Eyni vaxtda bir neçə bağlantı yaradılacaq (%1$d təyin olunmuş server adı ilə, %2$d isə təyin olunmamış server adı ilə).";
-
-/* Window text */
 "Named Credentials" = "Adı çəkilən Etimadnamələr";
 
 /* Window text */

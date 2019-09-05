@@ -758,6 +758,9 @@
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNSサーバのIPアドレス「%@」はパブリックDNSサーバではありませんが、経路がVPNへ向いていません。\n\n";
 
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNSサーバのアドレス %@ は公開されているIPアドレスでなく、VPNでルーティングされません。\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu つの設定がインストールされました\n\n";
 
@@ -1303,9 +1306,6 @@
 
 /* Window text */
 "Modified configuration file to remove path information" = "設定ファイルからパス情報を削除しました";
-
-/* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "同時に複数の接続先に繋がっています(%1$d のネームサーバー設定を使用、%2$d のネームサーバー設定は使用していません)。";
 
 /* Window text */
 "Named Credentials" = "認証の指定";
@@ -2090,6 +2090,12 @@
 /* Credit description */
 "64-bit enabling and testing" = "64ビット化とテスト";
 
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Tunnelblick setupをユーザーアカウント数が%u以上のあるコンピューターにインポートするには, インポートするデータを説明するテキストファイルの作成が必要です</p>\n<p>もっと知りたいなら、 <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>をご覧ください。</p></font>";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>このVPNに接続するときに使うOpenVPNとSSLのバージョンを指定してください。</strong><ul><li><strong>デフォルトの設定</strong> はこのTunnelBlickバージョンで提供されたOpenSSLのバージョンを使ったOpenVPNのデフォルト設定を使います。デフォルト設定はTunnelBlickのバージョンによって変わることがあります。<br></li><li><strong>「最新」設定</strong>はこのTunnelBlickのバージョンで提供されたLibreSSLのバージョンを使っている最新版のOpenVPNを使います。「最新」の設定はTunnelBlickのバージョンによって変わることがあります。<br></li><li><strong>他の設定</strong> は指定されたOpenVPNとSSLのバージョンを使います。 （このTunnelBlickのバージョンで利用可能な場合）。利用可能でなければ、選択の設定に一番近い利用可能の設定を利用してVPNに接続します。<br></li></ul>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>チェックした場合</strong>、IPv6は無効化されます。</p>\n<p><strong>チェックしなかった場合</strong>、IPv6は無効化されません。</p>\n<p>多くの場合、IPv6を無効化することを推奨します。何故ならば、多くのVPN設定はIPv6使用による情報漏洩の防衛がありません。ほとんどのインターネットはIPv6を使用しなくてもアクセスできます。</p>\n<p>設定を調整すると、<strong>このチェックボックスは無効化できません</strong>。</p>\n";
 
@@ -2123,8 +2129,29 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>「次回からこの警告を表示しない」 のチェックを解除すると警告が再び表示されます。</p>";
 
+/* HTML info for the 'VPN log level' button. */
+"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>TunnelblickおよびOpenVPNによって行われるログの書き込み量を指定します</p>";
+
+/* HTML info for the 'Icon' button. */
+"<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>メニューバーに表示するTunnelblickアイコンを指定します</p>";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Tunnelblickのメインメニューを呼び出すためのショートカットキーを指定します</p>";
+
+/* HTML info for the 'Maximum log display size' button. */
+"<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>VPNログの表示に使用するメモリ量（最大値）を指定します。</p>";
+
+/* HTML info for the button for selecting which screen to show status windows. */
+"<p>Specifies the screen on which Tunnelblick should display VPN status windows.</p>" = "<p>TunnelblickがVPNステータスウィンドウを表示する画面を指定します</p>";
+
+/* HTML info for the 'VPN status windows' button. */
+"<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>TunnelblickがVPNステータスウィンドウを表示するタイミングを指定します</p>";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNSキャッシュはDNS (名前解決システム) 情報のコピーを含みます。</p>\n<p><strong>チェックを入れた場合</strong>、DNSキャッシュは接続・切断時に削除されます。 全ての名前解決はVPNのセットアップに指定されたネームサーバーより実行されます。</p>\n<p><strong>チェックを入れなかった場合</strong>、DNSキャッシュは削除されません。VPN割り当てのネームサーバーがVPNに接続される前に、ドメイン名がネームサーバーキャッシュと競合すると、問題が発生することがあります。</p>";
+
+/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblickは%1$@に接続するために必要な設定を読み込むことができませんでした。</p><p>%2$@</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "管理者モードはあと %@ です";
@@ -2191,6 +2218,15 @@
 
 /* Checkbox */
 "Do not show this again" = "次回から表示しない";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when connecting" = "この警告を再び表示しない;\n接続する際、再び有効にする";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "この警告を再び表示しない;\nTunnelblickを終了する際、再び有効にする";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "この警告を再び表示しない;\nTunnelblickを起動した際、再び有効にしない";
 
 /* Credit description */
 "Dutch translation" = "オランダ語翻訳";

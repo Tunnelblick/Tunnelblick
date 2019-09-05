@@ -98,10 +98,22 @@
 "Delete" = "삭제";
 
 /* Button */
+"Disable network access" = "네트워크 접근 해제";
+
+/* Button */
 "Disconnect" = "연결 해제";
 
 /* Button */
+"Do Not Re-enable Network Access" = "네트워크 접근을 다시 설정하지 않기";
+
+/* Button */
 "Do not use the plugin" = "플러그인 사용 안함";
+
+/* Button */
+"Do nothing" = "아무것도 하지 않음";
+
+/* Button */
+"Export Tunnelblick Setup" = "Tunnelblick 환경설정을 파일로 저장하기";
 
 /* Button */
 "Help" = "도움말";
@@ -132,6 +144,9 @@
 
 /* Button */
 "Monochrome icon" = "흑백 아이콘";
+
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "추가 정보 [%@]";
 
 /* Button */
 "More Info" = "추가 정보";
@@ -175,6 +190,10 @@
 /* Button */
 "Quit" = "종료";
 
+/* Button
+   Menu item */
+"Re-enable Network Access" = "네트워크 접근을 다시 설정";
+
 /* Button */
 "Reinstall" = "다시 설치";
 
@@ -186,6 +205,9 @@
 
 /* Button */
 "Reset Disabled Warnings" = "경고 무시 재설정";
+
+/* Button */
+"Reset primary interface" = "주 인터페이스 초기화";
 
 /* Button */
 "Restart connection" = "연결 재시작";
@@ -200,7 +222,13 @@
 "Retry" = "다시 시도";
 
 /* Button */
+"Revert to the Last Secured Copy" = "마지막으로 보호된 설정으로 복구";
+
+/* Button */
 "Revert" = "복원";
+
+/* Button */
+"Secure the Configuration" = "설정을 보호하기";
 
 /* Button */
 "Show on default screen (%u x %u)" = "기본 화면 (%1$u x %2$u)에서 보기";
@@ -210,6 +238,9 @@
 
 /* Button */
 "Show when connection status changes" = "연결 상태가 변경될 때 보기";
+
+/* Button */
+"Show while connecting and connected" = "연결 중이거나 연결되었을 때 보여주기";
 
 /* Button */
 "Show while connecting" = "연결하는 동안 보기";
@@ -305,6 +336,12 @@
 "OpenVPN level 3 - normal output" = "OpenVPN 레벨 3 - 일반적인 출력";
 
 /* Menu Item */
+"OpenVPN level 4 - values for all options" = "OpenVPN 레벨 4 - 모든 옵션 값";
+
+/* Menu Item */
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN 레벨 5 - 각 패킷의 \"R\" 또는 \"W\"";
+
+/* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPN 레벨 6 - 매우 상세한 출력";
 
 /* Menu Item */
@@ -335,6 +372,9 @@
 "Allow changes to manually-set network settings" = "수동으로 설정한 네트워크 설정들의 변경을 허용";
 
 /* Checkbox name */
+"Always show this window" = "항상 이 창 보기";
+
+/* Checkbox name */
 "Apply to all" = "모두 적용";
 
 /* Checkbox name */
@@ -345,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "연결 후에 공인 IP 주소 변경 확인";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "VPN 서버에 IPv6으로 접속하지 않으면 IPv6를 비활성화";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "컴퓨터가 절전 모드로 전환 될 때 연결 해제";
@@ -482,6 +525,9 @@
 "GET_CONFIG" = "설정 받는 중"; // Please translate ""
 
 /* Connection status */
+"NETWORK_ACCESS" = "네트워크 접속을 기다리는 중"; // Please translate "Waiting for network access"
+
+/* Connection status */
 "PASSWORD_WAIT" = "비밀번호 대기 중"; // Please translate "Waiting for password"
 
 /* Connection status */
@@ -582,6 +628,9 @@
 
 /* Window title */
 "File not found" = "파일을 찾을 수 없습니다";
+
+/* Window title */
+"Import a Tunnelblick Setup" = "Tunnelblick 환경설정을 파일에서 불러오기";
 
 /* Window title */
 "Info" = "정보";
@@ -703,11 +752,23 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     %1$@ 구성의 VPN 서버로부터:\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS 서버 주소 %@ 는 Tunnelblick에 공용 DNS 서버로 알려졌지만, VPN을 통해서 라우팅 되지 않고 있습니다.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS 서버 주소 %@ 는 Tunnelblick에 공용 DNS 서버로 알려지지않았지만, VPN을 통해서 라우팅 되지 않고 있습니다.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS 서버 주소 %@ 는 공용 IP가 아니지만, VPN을 통해서 라우팅 되지 않고 있습니다.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu 개 설정 설치\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • 1개 설정 설치\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • 지정된 DNS 서버가 없습니다.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • %lu개 설정 교체\n\n";
@@ -770,7 +831,7 @@
 "  • Remove a configuration\n" = "  • 설정 제거\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • 보안 설정\n";
+"  • Secure configurations\n" = "  • 설정을 보호\n";
 
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ 은 무료 소프트웨어 입니다: %3$@ 의 %2$@ 사용건 조건 아래 배포 및 수정을 허용합니다.\n\n%4$@ 은 OpenVPN Technologies, Inc. 의 등록상표입니다.";
@@ -805,17 +866,32 @@
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@는 마지막 보안 (복제) 복사본으로 복원되었습니다.\n\n";
 
+/* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n 참고: Tunnelblick이 관리자 모드 입니다, 그래서 컴퓨터 관리자의 권한을 필요로 하지 않습니다.";
+
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld 구성이 마지막 보안 (복제) 복사본으로부터 복원되었습니다.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "Desktop에 '%@' 폴더가 이미 있습니다.\n\n기존 것을 교체하겠습니까?";
 
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "%@' 은 UTF-16로 인코딩되어 있습니다. OpenVPN 연관 파일은 반드시 '일반 텍스트' 또는 'UTF-8' 파일이어야 합니다.";
+
+/* Window text */
+"'%@' at line %u was not terminated properly" = "%2$u줄의 '%1$@' 가 정상적으로 끝나지 않았습니다";
+
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@'는 키체인에 저장된 인증(개인 키 또는 사용자 계정과 암호)이 없습니다.";
 
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@'은 일반 텍스트나 UTF-8 파일이 아닙니다.";
+
 /* Window text */
 "'%@' was not terminated." = "'%@' 가 중지되지 않았습니다.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' 는 지정된 버전 (%3$@) 대신 OpenVPN %2$@ 을 통해서 연결될 것입니다.";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' 설정 값 무시. 폴더를 지정하지 않았습니다";
@@ -841,6 +917,9 @@
 /* Window text */
 "(if connected when user switched out)" = "(사용자 전환 할 때 연결되어 있었다면)";
 
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">추가 정보</a> [tunnelblick.net]";
+
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Tunnelblick을 기반으로 제공되는 무료 소프트웨어는 다음 주소에서 배포됩니다<br><a href=\"http://tunnelblick\">http://tunnelblick.net</a><br><br>OpenVPN은 OpenVPN Technologies, Inc.의 등록 상표입니다.";
 
@@ -852,6 +931,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN 설정이 '%@' 에서 너무 깊이 중첩되어있습니다.";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "암호(개인 키) 또는 사용자 이름과 비밀번호를 요구하는 구성 파일은 컴퓨터가 시작할 때 연결될 수 없습니다.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "다음과 연결하기 위해 암호가 필요합니다\n  %1$@%2$@";
@@ -900,6 +982,9 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "모든 설정은 %@ 인증을 사용합니다";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "추가로, 바탕화면에 저장된 'Tunnelblick Error Data.txt' 파일을 메일에 첨부해주세요. 해당 파일은 오류와 관련된 정보를 담고 있습니다. 더블클릭하여 해당 정보를 보실 수 있습니다.\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ 설정의 보안을 확인하는 동안 오류 (상태 %1$ld)가 발생했습니다.\n\n종료 후 Tunnelblick 다시 실행하십시오. 이 문제가 지속되면 Tunnelblick을 다시 설치하십시오.";
@@ -993,6 +1078,12 @@
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "'%@' 설정은 수정 할 수 없습니다. '수정 가능' 으로 설정할 수 없기 때문입니다.\n";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "설정 '%1$@' 은(는) Tunnelblick %2$@ 나 그 이상을 필요로 합니다; 당신은 Tunnelblick %3$@ 을(를) 이용하고 있습니다.\n\n이 설정을 설치하기 위해서는 Tunnelblick의 업데이트가 필요합니다.";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "설정 '%1$@' 은(는) Tunnelblick %2$@ 나 그 이하를 필요로 합니다; 당신은 Tunnelblick %3$@ 을(를) 이용하고 있습니다.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "이름에 허용되지 않는 문자가 있어서 설정 '%1$@'은 무시됩니다.\n\n다음 문자는 허용되지 않습니다: '%2$s'\n\n";
@@ -1118,7 +1209,10 @@
 "Fast User Switching" = "빠른 사용자 전환";
 
 /* Window text */
-"File '%@' contains one or more NUL characters." = "파일 '%@'에 한 개나 이상의 널 문자가 있습니다.";
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "'%@' 파일은 '{' 문자로 시작하기 때문에 리치 텍스트인 것 같습니다. 모든 OpenVPN 관련 파일들은 일반 텍스트 또는 UTF-8 파일이어야합니다.";
+
+/* Window text */
+"File '%@' contains one or more NUL characters." = "파일 '%@'에 한 개 이상의 널 문자가 있습니다.";
 
 /* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "파일 '%@' 끝에 백슬래시는 허용 되지 않습니다.";
@@ -1211,9 +1305,6 @@
 "Modified configuration file to remove path information" = "경로 정보를 삭제하기 위해 설정 파일을 변경하였습니다";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "(%1$d개는 '네임서버 설정'으로, %2$d개는 '네임서버 설정' 없이) 동시에 여러 개 연결이 만들어졌습니다.";
-
-/* Window text */
 "Named Credentials" = "인증 지정";
 
 /* Window text */
@@ -1224,6 +1315,12 @@
 
 /* Window text */
 "NetBIOS name:" = "NetBIOS 이름:";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected." = "VPN 연결이 끊어졌을 때 네트워크 접근이 해제되었습니다.";
+
+/* Window text */
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "VPN이 끊어지면서 네트워크 접근이 해제되었습니다.\n\n네트워크 접근을 다시 설정하시겠습니까?\n\n";
 
 /* Window text */
 "Network setting" = "네트워크 설정";
@@ -1259,6 +1356,12 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "이미 존재하는 설정을 덮어쓰지 않기 때문에, '%@'은 'TBKeepExistingFilesList'을 사용할 수 없습니다.";
 
 /* Window text */
+"On expected disconnect:" = "예상된 연결 해제 시:";
+
+/* Window text */
+"On unexpected disconnect:" = "예상하지 못한 연결 해제 시:";
+
+/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Tunnelblick이 모르는 1개 또는 이상의 OpenVPN 프로세스가 실행중입니다. Tunnelblick과 별개로 OpenVPN을 실행한 것이 아니면, 이전에 실행된 Tunnelblick이 OpenVPN 프로세스를 올바르게 내리지 못한 것입니다. 이 프로세스들은 Tunnelblick 동작을 방해할 수 있습니다. 모든 OpenVPN 프로세스를 중단하겠습니까?";
 
 /* Window text */
@@ -1268,16 +1371,16 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Tunnelblick이 모르는 1개 또는 이상의 OpenVPN 프로세스가 실행중입니다. Tunnelblick과 별개로 OpenVPN을 실행한 것이 아니면, 이전에 실행된 Tunnelblick이 OpenVPN 프로세스를 올바르게 내리지 못한 것입니다. 이 프로세스들을 중단해야 합니다. 이 프로세스들은 Tunnelblick 동작을 방해할 수 있습니다.\n\n'활성 상태 보기' 어플리케이션에서 프로세스를 중단할 수 있습니다.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "설치하려는 하나 이상의 VPN 구성이 Tunnelblick에게 인식되지 않는 OpenVPN 옵션을 가지고 있습니다. 구성이나 Tunnelblick상에서 오류가 발생하거나, VPN에 연결할 때 루트 권한으로 실행되는 프로그램을 포함할 수 있습니다. 그런 프로그램은 당신의 컴퓨터에 대한 완전한 제어 권한을 가질 수 있습니다.\n\n이 제작자를 신뢰하지 않는다면 구성을 설치하지 마십시오.\n\n구성의 제작자를 신뢰하고 설치를 계속하시겠습니까?\n\n";
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "설치하려는 하나 이상의 VPN 구성이 Tunnelblick에게 인식되지 않는 OpenVPN 옵션을 가지고 있습니다. 구성이나 Tunnelblick상에서 오류가 발생하거나, VPN에 연결할 때 루트 권한으로 실행되는 프로그램을 포함할 수 있습니다. 그런 프로그램은 당신의 컴퓨터에 대한 완전한 제어 권한을 가질 수 있습니다.\n\n이 제작자를 신뢰하지 않는다면 구성을 설치하지 마십시오.\n\n구성의 제작자를 신뢰하고 설치하시겠습니까?\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN에 접속할 때 루트 권한으로 실행되는 프로그램이 포함된 하나 이상의 VPN 구성이 설치 중입니다. 해당 프로그램은 구성의 일부이며 Tunnelblick에 포함되지 않습니다. 해당 프로그램은 당신의 컴퓨터에 대한 완전한 제어 권한을 가질 수 있습니다.\n\n이 제작자를 신뢰하지 않는다면 구성을 설치하지 마십시오.\n\n구성의 제작자를 신뢰하며 설치를 계속하시겠습니까?\n\n";
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN에 접속할 때 루트 권한으로 실행되는 프로그램이 포함된 하나 이상의 VPN 구성이 설치 중입니다. 해당 프로그램은 구성의 일부이며 Tunnelblick에 포함되지 않습니다. 해당 프로그램은 당신의 컴퓨터에 대한 완전한 제어 권한을 가질 수 있습니다.\n\n이 제작자를 신뢰하지 않는다면 구성을 설치하지 마십시오.\n\n구성의 제작자를 신뢰하며 설치하시겠습니까?\n\n";
 
 /* Window text */
 "One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN에 접속할 때 실행되는 프로그램이 포함된 하나 이상의 VPN 구성이 설치 중입니다. 해당 프로그램은 구성의 일부이며 Tunnelblick에 포함되지 않습니다.\n\n이 제작자를 신뢰할 수 있는 경우에만 구성을 설치하십시오.\n\n구성의 제작자를 신뢰하며 설치하시겠습니까?\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN에 접속할 때 루트 권한으로 실행되는 프로그램이 포함된 하나 이상의 VPN 구성이 업데이트 중입니다. 해당 프로그램은 구성의 일부이며 Tunnelblick에 포함되지 않습니다. 해당 프로그램은 당신의 컴퓨터에 대한 완전한 제어 권한을 가질 수 있습니다.\n\n이 제작자를 신뢰하지 않는다면 구성을 설치하지 마십시오.\n\n구성의 제작자를 신뢰하며 설치를 계속하시겠습니까?\n\n";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN에 접속할 때 루트 권한으로 실행되는 프로그램이 포함된 하나 이상의 VPN 구성이 업데이트 중입니다. 해당 프로그램은 구성의 일부이며 Tunnelblick에 포함되지 않습니다. 해당 프로그램은 당신의 컴퓨터에 대한 완전한 제어 권한을 가질 수 있습니다.\n\n이 제작자를 신뢰하지 않는다면 구성을 설치하지 마십시오.\n\n구성의 제작자를 신뢰하며 설치하시겠습니까?\n\n";
 
 /* Window text */
 "One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN에 접속할 때 실행되는 프로그램이 포함된 하나 이상의 VPN 구성이 업데이트되는 중 입니다. 해당 프로그램은 구성의 일부이며 Tunnelblick에 포함되지 않습니다.\n\n이 제작자를 신뢰할 수 있는 경우에만 구성을 설치하십시오.\n\n구성의 제작자를 신뢰하며 설치하시겠습니까?\n\n";
@@ -1297,8 +1400,17 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "오직 Tunnelblick VPN 설정 (.tblk)만 컴퓨터가 시작할 때 실행될 수 있습니다.";
 
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, 이 버전의 Tunnelblick에서는 사용할 수 없습니다";
+
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "%@ 에 대한 접속 해제 요청에 OpenVPN이 응답하지 않습니다.\n\nTunnelblick은 OpenVPN이 접속 해제 요청에 응답할 때 연결을 해제할 것입니다.\n\n특이한 상황에서는 2분까지도 걸릴 수 있습니다. \n\n접속이 해제되기 전까지 연결을 사용할 수 없습니다.";
+
+/* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
+"OpenVPN version %@ is not available. Using %@ as the default." = "OpenVPN 버전 %1$@ 을(를) 사용할 수 없습니다. 버전 %2$@ 을(를) 사용합니다.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN 버전:";
@@ -1349,6 +1461,9 @@
 "Securing Tunnelblick %@..." = "Tunnelblick %@을 구성하는 중…";
 
 /* Window text */
+"Select a target user for each user whose setup data you wish to import." = "불러온 환경설정에 여러 사용자들이 있습니다. 각 사용자명에 대해 새 사용자를 지정해주세요.";
+
+/* Window text */
 "Set DNS/WINS:" = "DNS/WINS 설정:";
 
 /* Window text */
@@ -1391,6 +1506,9 @@
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "시스템 폴더 %1$@ (%2$@) 는 안전하지 않습니다.\n\n이 문제가 해결될 때까지 Tunnelblick과 다른 프로그램이 정상적으로 동작하지 않을 수 있습니다.\n\n자세한 사항은 콘솔 로그를 참고하십시오.";
 
 /* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "'%@' OpenVPN 옵션은 macOS에서 허용되지 않습니다. 그것은 'Windows 전용' 옵션입니다.";
+
+/* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN 옵션 '%@' 은 Tunnelblick에서 허용되지 않습니다.";
 
 /* Window text */
@@ -1407,6 +1525,15 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' 설정 값은 문자열의 배열이어야 합니다.";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "OpenVPN 설정 파일인 '%@' 은(는) 마지막으로 보호된 이후 수정되었습니다.\n\n수정된 설정을 보호하시거나 마지막으로 보호된 설정으로 복원하시겠습니까?\n\n";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "%1$@ 에 있는 OpenVPN 설정 파일은 Windows에서만 사용할 수 있는 '%2$@' 옵션을 포함하고 있습니다. 이것은 macOS에서는 사용할 수 없습니다.";
+
+/* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN 로그가 다음 메세지를 포함하고 있습니다: \n\n\"%1$@\".%2$@";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "OpenVPN 로그가 아직 없거나 삭제되었습니다.";
@@ -1622,6 +1749,9 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "'%@' 구성을 공유 구성으로 변경하기 위해서 인증이 필요합니다.";
 
 /* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick은 모든 Tunnelblick 데이터를 파일로 출력하려 합니다. 이 컴퓨터에 저장된 다른 사용자들의 Tunnelblick 데이터를 읽기 위해 인증이 필요합니다.\n\n다음을 참고해주세요:\n\n     1. Keychain에 저장된 인증은 파일로 출력되지 않습니다.\n\n     2. 출력은 오래걸릴 수 있습니다.\n\n";
+
+/* Window text */
 "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "%ld 구성을 삭제하기 위해서 인증이 필요합니다.\n\n 구성 삭제는 영구적이며 되돌릴 수 없습니다. 구성을 위한 모든 설정은 영구적으로 삭제됩니다.";
 
 /* Window text */
@@ -1629,6 +1759,9 @@
 
 /* Window text */
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "'%1$@' 구성을 '%2$@'로 이름을 변경하기 위해서 인증이 필요합니다.";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick은 입력된 데이터를 보호하기 위해 인증이 필요합니다.";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick이 컴퓨터 관리자만 변경할 수 있는 설정을 변경하려고 합니다.";
@@ -1894,14 +2027,29 @@
 /* Suffix for a duplicate of a file */
 " copy" = " 복사본";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' 은/는 OpenVPN %2$@ 에서 폐지가 예정되었고, 후속버전에서 지워졌거나 지워질 예정입니다\n\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' 은/는 OpenVPN %2$@ 에서 폐지가 예정되었고, OpenVPN %3$@ 에서 제거되었습니다\n\n";
+
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d일 %2$d:%3$02d:%4$02d";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+"'%@' was added in OpenVPN %@\n" = "'%1$@' 은/는 OpenVPN %2$@에 추가되었습니다\n";
+
+/* Popup button menu item */
+"(Do not import)" = "(불러오지 않기)";
+
 /* Credit description */
 "64-bit enabling and testing" = "64-bit 지원 및 테스트";
+
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>%u개 이상의 사용자 계정을 가진 컴퓨터에 Tunnelblick 설정을 불러오기 위해서는, 불러오고 싶은 데이터가 지정된 Text File을 만들어야합니다.</p>\n<p>자세한 정보는, <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\"> https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>를 참고하세요.</p></font>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>체크되었을 때</strong>, IPv6이 활성화됩니다.</p>\n<p><strong>체크되지 않았을 때</strong>, IPv6이 활성화 되지 않습니다.</p>\n<p>많은 VPN 구성들이 IPv6을 사용함으로 생기는 정보 유출에 대해 보호하지 않으므로 IPv6을 비활성화하는 것이 추천됩니다. 대다수 인터넷 접속은 IPv6 없이도 잘 작동합니다.</p>\n<p>Tun 구성에 대해 <strong>이 체크상자는 비활성화됩니다.</strong></p>";
@@ -1954,6 +2102,9 @@
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>체크되었을 때</strong>, 다른 설정에 관계없이 어떠한 자동 업데이트 확인 또는 IP 주소 변경 확인도 하지 않습니다. 주: 두 활동 모두 Tunnelblick 웹사이트에 접속합니다.</p>\n<p><strong>체크되지 않았을 때</strong>, 아래 활성화 되었다면 자동 업데이트 확인이 이루어지고, 만약 구성 설정에 활성화되었다면 구성에 연결되었을 때 IP 주소 변경 확인을 합니다.</p><p>자세한 사항은 [tunnelblick.net]의 <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> 항목을 보십시오.</p><p>&nbsp;</p>";
 
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>체크되었을 때</strong>, Tunnelblick 아이콘이 Spotlight 아이콘 근처에 위치합니다:</p>\n<p>%1$@</p>\n<p><strong>체크되지 않았을 때</strong>, Tunnelblick 아이콘이 원래 자리에 위치합니다:</p>\n<p>%2$@</p>\n<p><strong>이 체크상자가 비활성화된 경우</strong> 옵션이 필요가 없는 macOS Sierra와 그 이상이거나 문제를 일으키는 것으로 알려진 시스템입니다</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">추가 정보</a></p>";
+
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>체크되었을 때</strong>, 구성이 연결 해제되었더라도 VPN 상태창이 표시됩니다.</p><p>상단의 '보지 않기'가 선택되었다면 <strong>이 체크상자는 사용이 불가합니다.</strong></p>";
 
@@ -1993,11 +2144,17 @@
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>추가 설정을 위한 창을 엽니다.</p><p>변동사항은 'VPN 상세' 창에 선택된 모든 구성에 적용됩니다.</p>";
 
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Tunnelblick에 의해 시작한 것이 아닌 것을 포함한 모든 OpenVPN 프로세스를 종료합니다. 당신은 Tunnelblick의 '연결 해제' 또는 '모든 연결 해제' 버튼과 메뉴 명령을 통해 Tunnelblick을 이용한 구성을 연결 해제해야 합니다. </p><p>이 버튼을 누르는 것은 'SIGTERM' 신호를 'openvpn'이라 명명된 모든 프로세스에 전송합니다. 보통 이 행동은 OpenVPN이 모든 연결을 닫고 종료하게 만듭니다. 만약 이 버튼이 모든 OpenVPN 프로세스를 종료시키지 않는다면, macOS 활동 모니터를 이용해 프로세스를 '강제 종료'할 필요가 있습니다.</p>";
+
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>'이 경고를 다시 하지 않음' 체크상자에 의해 억제된 경고를 복원합니다.</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 캐시는 DNS 정보의 복사본을 포함하고 있습니다.</p>\n<p><strong>체크되었을 때</strong>, 연결하거나 연결 해제한 후 DNS 캐시가 삭제됩니다. DNS 검색은 VPN 설정에서 지정한 이름 서버에 의해 수행됩니다.</p>\n<p><strong>체크되지 않았을 때</strong>, DNS 캐시는 삭제되지 않습니다. VPN 설정에서 지정한 이름 서버와 캐시된 이전 VPN 항목 간에 이름이 중복 될 경우, 문제가 발생할 수 있습니다.</p>";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick은 사용자화 버전의 'easy-rsa'를 포함합니다. 'easy-rsa'란 자격 증명과 키를 만들고 유지하기 위해 OpenVPN 개발자에 의해 작성된 커맨드 라인 스크립트 세트입니다.</p><p>이 버튼을 누르면 스크립트를 포함하는 폴더에 대한 작업 디렉토리 세트와 함께 macOS 터미널 어플리케이션이 실행됩니다.</p><p>스크립트는 일반적으로 ~/Library/Application Support/Tunnelblick/easy-rsa에 위치하고 있습니다. 'easy-rsaPath' 설정은 Tunnelblick이 대신 사용할 폴더에 대한 경로를 포함할 수 있습니다. 'easy-rsaPath'는 반드시 절대 경로 또는 '~'로 시작하며 상위 폴더가 존재하는 경로를 포함해야 합니다. 만약 폴더가 경로에 존재한다면, 사용될 것입니다; 만약 폴더가 존재하지 않는다면, 폴더가 생성될 것이고 easy-rsa 스크립트가 Tunnelblick이 실행될 때 설치될 것입니다.</p><p>easy-rsa를 사용하는 정보에 대해선, <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a>를 확인하십시오.[openvpn.net]</p><p>Tunnelblick의 easy-rsa 사용자화에 대한 자세한 사항은 폴더에 있는 README 파일을 참고하십시오.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "관리자 모드가 %@ 남았습니다";
@@ -2094,6 +2251,9 @@
 "Greek translation" = "그리스어 번역";
 
 /* Credit description */
+"Hebrew translation" = "히브리어 번역";
+
+/* Credit description */
 "Hungarian translation" = "헝가리어 번역";
 
 /* Credit description */
@@ -2171,6 +2331,9 @@
 /* Credit description */
 "Swedish translation" = "스웨덴어 번역";
 
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Tunnelblick 설정 %@";
+
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick 아이콘";
 
@@ -2188,6 +2351,12 @@
 
 /* Notification text */
 "Updated to %@." = "%@로 업데이트 됨";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "설치 데이터의 사용자";
+
+/* Column heading in a table */
+"User on this computer" = "이 컴퓨터의 사용자";
 
 /* Credit description */
 "Vietnamese translation" = "베트남어 번역";

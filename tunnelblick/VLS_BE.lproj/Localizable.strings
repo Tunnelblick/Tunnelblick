@@ -1308,9 +1308,6 @@
 "Modified configuration file to remove path information" = "het configuratiebestand aangepast om de pad informatie te verwijderen";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Meerdere gelijktijdige verbindingen zouden worden gemaakt (%1$d met 'Set nameserver', %2$d zonder 'Set nameserver').";
-
-/* Window text */
 "Named Credentials" = "Benoemde aanmeldgegevens";
 
 /* Window text */

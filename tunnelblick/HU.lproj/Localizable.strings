@@ -1308,7 +1308,7 @@
 "Modified configuration file to remove path information" = "Módosította a konfigurációs fájlt az elérési útról kapott információ törlése érdekében";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Több egyidejű kapcsolat készült (%1$d a 'Névszerver beállítás'-sal, %2$d 'Névszerver beállítás' nélkül).";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Több egyidejű kapcsolat készül (%1$d a 'Névszerver beállítás'-sal, %2$d 'Névszerver beállítás' nélkül)";
 
 /* Window text */
 "Named Credentials" = "Nevesített hitelesítőadatok";
@@ -2053,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nEz a hibaüzenet azt jelenti, hogy egy vagy több, az OpenVPN konfigurációban található, vagy az OpenVPN szerver által \"leküldött\" beállítás vagy:\n\n     • elütést tartalmaz\n\n     • hiányzó vagy váratlan paraméterekkel rendelkezik\n\n     • nincs támogatva a konfigurációhoz használt OpenVPN verzióban. Lehet, hogy ez egy új beállítás, amely még nem támogatott az OpenVPN korábbi verziójában, vagy elavult beállítás, amely már eltávolításra került az OpenVPN újabb verzióiban. Ehhez a konfigurációhoz használt OpenVPN verzió kiválasztható a \"VPN részletei\" ablak \"Konfigurációk\" paneljének \"Beállítások\" fülén.\n\nRészletes információt a \"VPN részletei\" ablak \"Konfigurációk\" paneljének \"Napló\" fülében, a VPN naplóban talál.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nA Tunnelblick 'Névszerver beállítása' funkció egyszerre csak egy VPN kapcsolattal működik. Több, mint egy VPN kapcsolattal való egyidejű használata esetén károsíthatja a hálózati beállításokat, vagy a hálózati kapcsolat megszakadását okozhatja.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nés a(z) %ld Tunnelblick VPN Konfiguráció telepítése";

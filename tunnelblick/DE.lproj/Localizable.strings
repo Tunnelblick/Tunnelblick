@@ -1308,7 +1308,7 @@
 "Modified configuration file to remove path information" = "Konfigurationsdatei wurde geändert um Pfadinformationen zu entfernen";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Mehrere Verbindungen würden gleichzeitig erzeugt (%d mit „Nameserver festlegen“ und %d ohne „Nameserver festlegen“).";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Mehrere Verbindungen würden gleichzeitig erzeugt (%1$d mit „Nameserver festlegen“ und %2$d ohne „Nameserver festlegen“)";
 
 /* Window text */
 "Named Credentials" = "Benannte Zugangsdaten";
@@ -2053,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nDiese Fehlermeldung bedeutet, dass eine Option, die in der OpenVPN Konfigurationsdatei enthalten ist oder vom OpenVPN-Server \"gepushed\" wurde:\n\n     • falsch geschrieben wurde\n\n     • fehlende oder zusätzliche Argumente beinhaltet, oder\n\n     • in der Version von OpenVPN, die für diese Konfiguration verwendet wird, nicht implementiert ist. Dies kann eine neue Option sein, die nicht in einer alten Version von OpenVPN implementiert ist, oder eine alte Option, die in einer neuen Version von OpenVPN entfernt wurde. Sie können in dem Reiter \"Einstellungen\" des Fensters \"Konfigurationen\" im Fenster \"VPN Details\" von Tunnelblick wählen, welche Version von OpenVPN mit dieser Konfiguration verwendet werden soll.\n\nWeitere Details finden Sie im VPN Log unter dem Reiter \"Log\" im Fenster \"Konfigurationen\" des Tunnelblick Fensters \"VPN-Details\".";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nDie \"Nameserver setzen\"-Einstellungen funktionieren nur für eine einzelne VPN-Verbindung. Sie mit mehr als einer VPN-Verbindung gleichzeitig zu benutzen, könnte Ihre Netzwerkeinstellungen beschädigen oder einen Verlust der Netzwerkverbindung verursachen.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nund installiere %ld Tunnelblick VPN Konfigurationen";

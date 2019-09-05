@@ -5,7 +5,7 @@
 "Disconnect All (%@) - apparent public IP address %@" = "Disconnetti tutte (%1$@) - indirizzo IP pubblico (apparente) %2$@";
 
 /* Status message */
-"Disconnect All (%@)" = "Disconnetti tutte (%@)";
+"Disconnect All (%@)" = "Disconnetti tutto (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
 "Disconnect All (%d Connections) - apparent public IP address %@" = "Disconnetti tutte (%1$d connessioni) - indirizzo IP pubblico (apparente) %2$@";
@@ -216,7 +216,7 @@
 "Restore" = "Ripristina";
 
 /* Button text */
-"Retry with manual response" = "Riprova con risposta manuale";
+"Retry with manual response" = "Riprova con una risposta manuale";
 
 /* Button */
 "Retry" = "Prova Nuovamente";
@@ -1308,7 +1308,7 @@
 "Modified configuration file to remove path information" = "modificato il file di configurazione per rimuovere le informazioni di percorso";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Più connessioni simultanee saranno create (%1$d con 'Configura il nameserver', %2$d senza 'Configura il nameserver').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Verranno create più connessioni simultanee (%1$d con 'Configura il nameserver', %2$d senza 'Configura il nameserver')";
 
 /* Window text */
 "Named Credentials" = "Credenziali di uso frequente";
@@ -2053,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nQuesto errore significa che un'opzione contenuta nel documento di configurazione di OpenVPN o che è stata richiesta dal server OpenVPN:\n\n     • non è stata scritta correttamente,\n\n     • non ha il numero corretto di parametri, o\n\n     • non è supportata dalla versione di OpenVPN usata da questa configurazione. Potrebbe trattarsi di una nuova opzione  non supportata in una versione meno recente di OpenVPN o di un'opzione non più supportata che è stata rimossa da una versione più recente di OpenVPN. È possibile scegliere quale versione di OpenVPN usare per questa configurazione  all'interno di \"Impostazioni\" nel pannello \"Configurazioni\" nella finestra \"Dettagli sulla VPN\".\n\nÈ possibile trovare ulteriori informazioni all'interno di \"Log\" nel pannello \"Configurazioni\" nella finestra \"Dettagli sulla VPN\" di Tunnelblick.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nL'opzione 'Configura nameserver' è in grado di funzionare con una singola connessione VPN. Usare questa impostazione con più di una VPN contemporaneamente potrebbe danneggiare le impostazioni di rete e/o causare perdita di connettività.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ne installa %ld Configurazioni VPN Tunnelblick";

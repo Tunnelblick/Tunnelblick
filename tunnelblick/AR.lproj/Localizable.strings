@@ -525,7 +525,7 @@
 "GET_CONFIG" = "جار الحصول على الاعدادات"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "إنتظار الولوج إلى الشبكة"; // Please translate "Waiting for network access"
+"NETWORK_ACCESS" = "بإنتظار الاتصال بالإنترنت"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "بانتظار كلمة المرور"; // Please translate "Waiting for password"
@@ -639,13 +639,13 @@
 "Install Configuration For All Users?" = "تثبيت الإعدادات لجميع المستخدمين؟";
 
 /* Window title */
-"Installation failed" = "التثبيت فشل";
+"Installation failed" = "فشل التثبيت";
 
 /* Window title */
-"Installation or Repair Failed" = "التثبيت او الإصلاح فشل";
+"Installation or Repair Failed" = "تثبيت او اصلاح فشل";
 
 /* Window title */
-"Installation succeeded" = "التثبيت نجح";
+"Installation succeeded" = "تم التثبيت بنجاح";
 
 /* Window title */
 "Log" = "سجل";
@@ -1306,9 +1306,6 @@
 
 /* Window text */
 "Modified configuration file to remove path information" = "تم تعديل ملف الاعدادات لإلغاء بيانات المسار";
-
-/* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "يمكن انشاء اتصالات متعددة (%1$d باستخدام ‘Set nameserver‘، %2$d بدون استخدام ’اعداد النيم سيرفر’).";
 
 /* Window text */
 "Named Credentials" = "الوثائق الثبوتية المستخدمة";

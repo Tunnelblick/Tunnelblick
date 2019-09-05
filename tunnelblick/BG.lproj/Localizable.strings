@@ -1308,9 +1308,6 @@
 "Modified configuration file to remove path information" = "Модифицирала конфигурационния файл с цел премахване на информация за пътя";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Множествени едновременни връзки ще бъдат създадени (%1$d с 'Зададен домейн', %2$d без 'Зададен домейн').";
-
-/* Window text */
 "Named Credentials" = "Именувани идентификационни данни";
 
 /* Window text */

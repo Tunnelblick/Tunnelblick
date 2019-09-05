@@ -1308,9 +1308,6 @@
 "Modified configuration file to remove path information" = "Berkas konfigurasi diubah untuk menghapus informasi path";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Beberapa koneksi simultan akan dibuat (%1$d dengan 'Set nameserver', %2$d tanpa 'Set nameserver').";
-
-/* Window text */
 "Named Credentials" = "Kredensial Dengan Nama";
 
 /* Window text */

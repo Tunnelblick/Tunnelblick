@@ -1308,9 +1308,6 @@
 "Modified configuration file to remove path information" = "Ändrat konfigurationsfilen med att ta bort sökvägsinformation";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Flera samtidiga anslutningar skulle skapas (%1$d med 'Set nameserver', %2$d utan 'Set nameserver').";
-
-/* Window text */
 "Named Credentials" = "Namngivna uppgifter";
 
 /* Window text */

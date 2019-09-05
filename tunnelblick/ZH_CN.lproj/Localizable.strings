@@ -758,6 +758,9 @@
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS服务器%@不是 Tunnelblick 已知的公开服务器，不通过VPN路由\n\n";
 
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     · DNS服务器 %@ 不是公开的IP地址，将不会通过VPN路由。\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • 安装了 %lu 个配置\n\n";
 
@@ -931,6 +934,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "在 '%@' 中，一个 Tunnelblick VPN 配置文件嵌套得太深";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "需要口令(私钥) 或需要使用用户名和密码的配置，将无法在计算机启动时连接。";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "需要密码才能建立连接 \n  %1$@%2$@";
@@ -1302,7 +1308,7 @@
 "Modified configuration file to remove path information" = "修改了配置文件以删除路径信息";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "多个并行连接将被建立(%1$d 个连接有'选择域名服务器', %2$d 个连接没有'选择域名服务器').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "多个并行连接将被建立(%1$d 个连接有'选择域名服务器', %2$d 个连接没有'选择域名服务器').";
 
 /* Window text */
 "Named Credentials" = "给你的认证信息命名";
@@ -1403,6 +1409,12 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "只有 Tunnelblick 私人配置 (.tblk) 可以在计算机启动时启动.";
 
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "当前版本的 Tunnelblick 不支持 OpenVPN %@";
+
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN 不响应请求断开 %@ 的连接\n\n当 OpenVPN 开始响应断开连接的请求时，Tunnelblick 将会断开连接。\n\n在这种意料之外的情况下，这将需要 2 分钟。\n\n当它断开连接时，该连接将不可用。";
 
@@ -1456,6 +1468,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "正在对 Tunnelblick 进行安全配置%@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "为每个安装数据中的用户选择导入的目标用户。";
 
 /* Window text */
 "Set DNS/WINS:" = "配置 DNS/WINS:";
@@ -1925,6 +1940,9 @@
 /* Window text */
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "警告: 未能重命名一个或多个偏好. 详情请查看控制台日志.";
 
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "警告：以下被设置为计算机启动时自动连接的配置没有能自动连接成功：\n\n%@\n";
+
 /* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
 "Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "警告：这个 VPN 未来可能无法连接。\n\n'%1$@' 的 OpenVPN 配置文件里有以下 OpenVPN 选项：\n\n%2$@\n你应该要修改配置以保证 OpenVPN 的先进版本能够采用。\n\nTunnelblick 将使用 OpenVPN %3$@ 连接这个配置。\n\n不过，未来的 Tunnelblick 版本不一定包含一个能接受以上选项的 OpenVPN 版本。你将无法用这样的 Tunnelblick 版本来连接这个 VPN。";
 
@@ -2037,6 +2055,9 @@
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\n这个错误意味着 OpenVPN 配置文件包含的或 OpenVPN 服务器“推”的选项：\n\n     • 拼错了，\n\n     • 有缺少的或多余的参数，或\n\n     • 这个配置采用的 OpenVPN 版本不实现。也许是旧版本 OpenVPN 不实现的新的选项，也许是新版本 OpenVPN 已经去除的旧的选项。你可以在 TunnelBlick 的 “VPN 详情” 窗口中的 “配置” 面板中的 “选项” 标签页中选择这个配置要用什么 OpenVPN 版本。\n\n另见 Tunnelblick 的 “VPN 详情” 窗口中的 “配置” 面板中的 “日记” 标签页中的 VPN 日记获得详细信息。";
 
 /* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nTunnelblick 的“选择域名服务器”功能只在一个VPN连接上起效。如果在多个VPN连接上使用，有可能损坏网络设置，或造成网络连接断开。";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\n安装 %ld Tunnelblick VPN 配置";
 
 /* Window text */
@@ -2092,6 +2113,9 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>指定 Tunnelblick 要什么时候连接 VPN。</strong></p><p>“在电脑驱动时”选项只能用于“分享”的配置。</p>";
+
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>如果选中</strong>，如果 OpenVPN 服务器并非通过IPv6地址访问，则IPv6 将会被禁用。</p>\n<p>禁用 IPv6 通常是推荐的，因为很多VPN配置并无法保证不因IPv6导致信息泄露。 大多数的互联网访问也可以在没有IPv6的情况下良好工作。</p>\n<p><strong>如果不勾选</strong>， IPv6 将不会被禁用。</p>\n<p>如果使用 TAP 连接 <strong>此复选框将不可用</strong>，因为这个选项无法被用于TAP连接上。</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>选中时</strong>将停用IPV6</p>\n<p>当某些VPN配置会泄漏信息时，请关闭IPv6。多数网络配置在没有IPv6的时候也可以正常工作</p>\n<p><strong>不选中此项时</strong>IPv6不会被关闭。</p>\n<p><strong>在使用tun时 </strong>此项不可用</p>";
@@ -2432,6 +2456,12 @@
 
 /* Notification text */
 "Updated to %@." = "已升级到 %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "安装数据中的用户";
+
+/* Column heading in a table */
+"User on this computer" = "此计算机上的用户";
 
 /* Credit description */
 "Vietnamese translation" = "越南语翻译";

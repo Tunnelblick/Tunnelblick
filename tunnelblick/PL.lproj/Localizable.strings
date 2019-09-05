@@ -1308,7 +1308,7 @@
 "Modified configuration file to remove path information" = "Zmodyfikowano plik konfiguracji w celu usunięcia informacji o ścieżce";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Wiele jednoczesnych połączeń będzie ustanowionych (%1$d z opcją 'Set nameserver', %2$d bez opcji'Set nameserver').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Wiele jednoczesnych połączeń byłoby ustanowionych (%1$d z opcją 'Ustaw serwer nazw', %2$d bez opcji 'Ustaw serwer nazw')";
 
 /* Window text */
 "Named Credentials" = "Nazwane dane logowania";
@@ -2053,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nTen błąd oznacza że któraś z opcji w pliku konfiguracyjnym OpenVPN lub opcja wymuszona przez serwer OpenVPN:\n\n • zawiera literówki\n\n • ma brakujące lub dodatkowe argumenty, lub\n\n • nie jest częścią implementacji wersji OpenVPN używanej przez tą konfigurację. To może być nowa opcja która nie jest częścią implementacji starszych wersji OpenVPN, lub stara opcja która została usunięta w nowszej wersji OpenVPN. Możesz wybrać którą wersję OpenVPN używać z tą konfiguracją w zakładce ustawień panelu konfiguracji w okienku \"Właściwości VPN\" Tunnelblick.\n\nSzczegóły błędu znajdują się w logu VPN który możesz podejrzeć w zakładce 'Log' panelu konfiguracji w okienku \"Właściwości VPN\" Tunnelblick.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nUstawienia 'Ustaw serwer nazw' działają tylko dla pojedynczego połączenia VPN. Używanie ich jednocześnie z więcej niż jednym połączeniem VPN może spowodować uszkodzenie ustawień sieciowych lub brak połączenia z siecią.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ni zainstaluj %ld konfiguracji VPN Tunnelblick'a";

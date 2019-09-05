@@ -1308,9 +1308,6 @@
 "Modified configuration file to remove path information" = "Modifikoval sa konfiguračný soubor tak, aby sa odstránila informacia o ceste";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Došlo by k vytvoreniu viacerých paralelných spojení (%1$d s 'Nastaviť nameserver', %2$d bez 'Nastaviť nameserver').";
-
-/* Window text */
 "Named Credentials" = "Vytvorené prístupové údaje";
 
 /* Window text */

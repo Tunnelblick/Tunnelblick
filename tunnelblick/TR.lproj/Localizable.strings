@@ -1308,7 +1308,7 @@
 "Modified configuration file to remove path information" = "Dizin yolu bilgisini silmek için yapılandırma dosyası değiştirildi";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Çoklu ve eşzamanlı bağlantılar oluşturulabilir ( %1$d ile 'Set nameserver' kullanılarak, %2$d için 'Set nameserver' kullanmadan ).";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Çoklu ve eşzamanlı bağlantılar oluşturulabilir ( %1$d ile 'Set nameserver' kullanılarak, %2$d için 'Set nameserver' kullanmadan)";
 
 /* Window text */
 "Named Credentials" = "Adlandırılmış Kimlik Bilgileri";
@@ -2053,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nBu hatanın anlamı, OpenVPN'de bulunan veya OpenVPN sunucusu tarafından zorlanan bir yapılandırma dosyasındaki seçeneğin:\n\n     • hatalı yazıldığı\n\n     • eksik veya fazla argüman içerdiği, veya\n\n     • OpenVPN'in bu sürümü için uygulanabilir olmadığı anlamına gelir. Bu durum, OpenVPN'in bu sürümünde bulunmayan yeni bir seçeneğin olduğuna, veya, OpenVPN'in bu sürümünün desteklemediği eski bir seçenek olduğuna işaret olabilir. Tunnelblick'in \"Ayarlar\" menüsünün \"Yapılandırma\" sekmesinde \"VPN Detayları\" penceresinde hangi OpenVPN sürümünün kullanılacağını seçebilirsiniz. \n\nDetaylı bilgi için Tunnelblick'in \"Yapılandırma\" panelinin \"VPN Detayları\" penceresinin \"Kayıt Defteri\" sekmesine bakınız.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nTunnelblik'in 'Set nameserver\" ayarı sadece bir VPN bağlantısında kullanılabilir. Bu özelliği birden fazla VPN bağlantısı ile beraber aynı anda kullanmak ağ ayarlarınızı bozabilir veya ağ bağlantınızı kaybetmenize neden olabilir.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nve %ld Tunnelblick VPN yapılandırmasını yükle";

@@ -1308,9 +1308,6 @@
 "Modified configuration file to remove path information" = "O ficheiro de configuração foi alterado para remover as informações da sua localização";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Múltiplas conexões simultâneas seriam criadas (%1$d com 'Definir nameserver', %2$d sem 'Definir nameserver').";
-
-/* Window text */
 "Named Credentials" = "Credenciais Nomeadas";
 
 /* Window text */

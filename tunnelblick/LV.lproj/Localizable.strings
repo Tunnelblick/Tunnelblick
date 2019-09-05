@@ -1200,9 +1200,6 @@
 "Modified configuration file to remove path information" = "Pārveidojusi konfigurācijas failu, lai izņemtu ceļa informāciju";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Vienlaicīgi tiks izveidoti vairāki savienojumi (%1$d ar 'Iestatīt DNS serveri', %2$d bez 'Iestatīt DNS serveri').";
-
-/* Window text */
 "Named Credentials" = "Norādītie piekļuves dati";
 
 /* Window text */

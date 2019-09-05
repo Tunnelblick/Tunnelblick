@@ -1308,7 +1308,7 @@
 "Modified configuration file to remove path information" = "Fișier de configurare modificat pentru a elimina informațiile despre cale";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Conexiuni simultane multiple vor fi create (%1$d cu 'Set nameserver',%2$d fără 'Set nameserver').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Conexiuni simultane multiple vor fi create (%1$d cu 'Set nameserver',%2$d fără 'Set nameserver')";
 
 /* Window text */
 "Named Credentials" = "Credențiale numite";
@@ -2053,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nAceastă eroare înseamnă că o opțiune care este conținută în fișierul de configurare OpenVPN sau a fost \"împinsă\" de serverul OpenVPN:\n\n      • a fost incorect scrisă,\n\n      • are argumente suplimentare sau lipsă, sau\n\n      • nu este implementată de versiunea OpenVPN care este utilizată pentru această configurație. Poate fi o opțiune nouă care nu este implementată într-o versiune veche a OpenVPN sau o opțiune veche care a fost eliminată într-o nouă versiune OpenVPN. Puteți alege ce versiune de OpenVPN să utilizați cu această configurație în panoul \"Setări\" din panoul \"Configurări\" din fereastra \"Detaliile VPN\" al Tunnelblick.\n\nConsultați jurnalul VPN în fila \"Jurnal\" din panoul \"Configurări\" din fereastra \"Detalii VPN\" a Tunnelblick pentru mai multe detalii.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nOpțiunea Tunnelblick 'Set nameserver' funcționează numai cu o singură conexiune VPN. Utilizarea ei cu mai multe conexiuni VPN simultane poate afecta parametrii de rețea sau poate provoca pierderea conexiunii la rețea.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nși instalați %ld configurații Tunnelblick VPN";

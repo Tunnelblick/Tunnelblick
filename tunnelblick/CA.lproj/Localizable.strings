@@ -1308,9 +1308,6 @@
 "Modified configuration file to remove path information" = "Arxiu de configuració modificat per eliminar informació de camí";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Es crearien múltiples connexions simultànies (%1$d amb 'Configurar el servidor de noms', %2$d sense 'Configurar el servidor de noms').";
-
-/* Window text */
 "Named Credentials" = "Credencials";
 
 /* Window text */

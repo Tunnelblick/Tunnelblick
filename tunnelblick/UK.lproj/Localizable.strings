@@ -1032,7 +1032,7 @@
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Ви впевнені, що бажаєте видалити облікові дані (приватний ключ та/або ім'я користувача та пароль), які зберігаються у Ключарі для групи облікових даних '%@'?";
 
 /* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Ви впевнені, що хочете встановити конфігурації, які ЗМОЖУТЬ ОТРИМАТИ ПОВНИЙ КОНТРОЛЬ НАД ВАШИМ КОМП'ЮТЕРОМ?\n\n";
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Ви впевнені, що бажаєте встановити конфігурації, які МОЖУТЬ ОТРИМАТИ ПОВНИЙ КОНТРОЛЬ НАД ВАШИМ КОМП'ЮТЕРОМ?\n\n";
 
 /* Window text */
 "Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Ви впевнені, що бажаєте встановити конфігурації, які можуть отримати ПОВНИЙ КОНТРОЛЬ НАД ВАШИМ КОМП'ЮТЕРОМ?\n\n";
@@ -1308,7 +1308,7 @@
 "Modified configuration file to remove path information" = "Змінено файл конфігурації задля видалення інформаціі про шлях";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Кілька одночасних підключень буде створено (%1$d з 'Set nameserver', %2$d без 'Set nameserver').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Кілька паралельних підключень буде створено (%1$d з 'Set nameserver', %2$d без 'Set nameserver')";
 
 /* Window text */
 "Named Credentials" = "Іменовані облікові дані";
@@ -2053,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nЦя помилка означає що опція в файлі конфірурації OpenVPN або отримана від сервера OpenVPN:\n\n     • має орфоргафічну помилку,\n\n     • має відсутні або зайві аргументи, або\n\n     • її реалізація відсутня в версії OpenVPN що використана для цієї конфігурації. Це може бути нова опція, реалізація якої відсутня в старій версії OpenVPN, або стара опція, реалізація якої видалена із нової версії OpenVPN. Ви можете обрати версію OpenVPN для використання із цією конфігурацією в закладці \"Налаштування\" панелі \"Конфігурація\" вікна \"Деталі VPN\" для Tunnelblick.\n\nПеревірте подробиці в журналі VPN на закладці \"Журнал\"  панелі \"Конфігурація\" вікна \"Деталі VPN\" для Tunnelblick.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nНалаштування Tunnelblick 'Set nameserver' працюють тільки для одного підключення VPN. Їх використання з більше ніж одним одночасним підключенням VPN може пошкодити налаштування вашої мережі або мережа буде недоступна.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nі встановити %ld конфігурацій Tunnelblick VPN";
