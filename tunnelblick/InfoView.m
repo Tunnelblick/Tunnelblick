@@ -189,7 +189,7 @@ extern TBUserDefaults * gTbDefaults;
     // Credits data comes from the following arrays:
     
     NSArray * mainCredits = [NSArray arrayWithObjects:
-                             [NSArray arrayWithObjects: @"Angleo Laub",      NSLocalizedString(@"Founder, original program and documentation", @"Credit description"), nil],
+                             [NSArray arrayWithObjects: @"Angelo Laub",      NSLocalizedString(@"Founder, original program and documentation", @"Credit description"), nil],
                              [NSArray arrayWithObjects: @"James Yonan",      @"OpenVPN", nil],
                              [NSArray arrayWithObjects: @"Dirk Theisen",     NSLocalizedString(@"Contributed much to the early code", @"Credit description"), nil],
                              [NSArray arrayWithObjects: @"Jonathan Bullard", NSLocalizedString(@"Program and documentation enhancements and maintenance after version 3.0b10", @"Credit description"), nil],
