@@ -1308,6 +1308,9 @@
 "Modified configuration file to remove path information" = "Berkas konfigurasi diubah untuk menghapus informasi path";
 
 /* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Beberapa koneksi yang bersamaan akan dibuat (%1$d dengan 'Nama Server', %2$d tanpa 'Nama Server')";
+
+/* Window text */
 "Named Credentials" = "Kredensial Dengan Nama";
 
 /* Window text */
@@ -2050,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nKesalahan ini berarti bahwa suatu opsi yang dimuat dalam berkas konfigurasi OpenVPN atau \"didorong\" oleh server OpenVPN:\n\n     • salah eja,\n\n     • kurang atau kelebihan argumen, atau\n\n     • tidak diimplementasikan oleh versi OpenVPN yang sedang dipakai untuk konfigurasi ini. Ini mungkin suatu opsi baru yang tidak diimplementasikan dalam versi lama OpenVPN, atau opsi lama yang telah dihapus dalam versi baru OpenVPN. Anda dapat memilih versi OpenVPN mana yang dipakai dengan konfigurasi ini dalam tab \"Pengaturan\" dari panel \"Konfigurasi\" dari jendela Tunnelblick \"Rincian VPN\".\n\nLihat log VPN dalam tab \"Log\" dari panel \"Konfigurasi\" dari jendela Tunnelblick \"Rincian VPN\" untuk rinciannya.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nPengaturan Tunnelblick 'Atur Nama Server' dapat dipakai untuk koneksi VPN tunggal. Jika dipakai lebih dari satu koneksi VPN dalam waktu bersamaan dapat merusak pengaturan network atau memutuskan koneksi jaringan.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ndan memasang %ld Konfigurasi VPN Tunnelblick";

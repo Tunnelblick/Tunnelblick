@@ -1308,6 +1308,9 @@
 "Modified configuration file to remove path information" = "Arxiu de configuració modificat per eliminar informació de camí";
 
 /* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Es crearien múltiples connexions simultànies (%1$d amb 'Configurar el servidor de noms', %2$d sense 'Configurar el servidor de noms')";
+
+/* Window text */
 "Named Credentials" = "Credencials";
 
 /* Window text */
@@ -2050,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nAquest error significa que una opció que es troba en el fitxer de configuració d'OpenVPN o que ha estat \"forçada\" pel servidor OpenVPN:\n\n     • ha estat mal escrita,\n\n     • li falten o sobren arguments, o\n\n     • no s'implementa amb la versió d'OpenVPN que s'utilitza per a aquesta configuració. Pot ser una nova opció que no s'implementi en una versió anterior d'OpenVPN, o una opció antiga que s'hagi eliminat en una nova versió d'OpenVPN. Podeu triar la versió d'OpenVPN que voleu utilitzar amb aquesta configuració a la pestanya \"Configuració\" del panell \"Configuracions\" de la finestra \"Detalls VPN\" de Tunnelblick.\n\nConsulteu el registre del VPN a la pestanya \"Registre\" del panell \"Configuracions\" de la finestra \"Detalls VPN\" de Tunnelblick per obtenir-ne més detalls.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\n'Configurar el servidor de noms' només funciona amb una connexió VPN. Utilitzar-ho amb més d'una connexió VPN a la vegada pot causar problemes de connexió o, fins i tot, deixar-te completament desconnectat.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ni instal·lar %ld Configuracions Tunnelblick VPN";

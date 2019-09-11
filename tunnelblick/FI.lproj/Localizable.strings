@@ -1308,6 +1308,9 @@
 "Modified configuration file to remove path information" = "Konfiguraatiotiedostoa muokattiin polkutiedon poistamiseksi";
 
 /* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Useita samanaikaisia yhteyksiä ollaan luomassa. (%1$d valinnalla 'Aseta nimipalvelin', %2$d ilman valintaa 'Aseta nimipalvelin')";
+
+/* Window text */
 "Named Credentials" = "Nimetyt käyttäjätunnukset";
 
 /* Window text */
@@ -2050,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nTämä virhe tarkoittaa että asetus joka on määritetty OpenVPN konfiguraatiossa tiedostossa tai on \"pakotettu\" OpenVPN palvelimen toimesta:\n\n     • sisältää kirjoitusvirheitä,\n\n     • puutteellisia tai ylimääräisiä muuttujia, tai\n\n     • ei sisälly käytettävään OpenVPN version tukemiin asetuksiin. Tämä voi olla uusi asetus joka ei sisälly vanhaan versioon, tai asetus joka on poistettu uudesta OpenVPN versiosta. \nVoit valita tämän konfiguraation kanssa käytettävän OpenVPN version Tunnelblickin \"VPN-yksityiskohdat\" ikkunan \"Asetukset\" välilehdeltä \"Konfiguraatiot\" paneelista.\n\nKatso VPN logit \"VPN-yksityiskohdat\" ikkunan \"Konfiguraatiot\" paneelin \"Logit\" välilehdeltä lisätietoja varten.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nTunnelblickin 'Aseta nimipalvelin' asetus voi toimia ainoastaan yhdellä VPN yhteydellä. Käyttämällä sitä useammalla kuin yhdellä VPN yhteydellä samaan aikaan voi verkkoasetukset vahingoittua tai verkkoyhteys voidaan menettää.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nja asentaa %ld Tunnelblick VPN-konfiguraatiota";

@@ -8,7 +8,7 @@
 "Disconnect All (%@)" = "قطع كافة الاتصالات (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "قطع جميع الإتصالات (%1$d اتصال) - عنوان جهاز الكمبيوتر الظاهر %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "قطع جميع (%1$d اتصالات) - عنوان جهاز الكمبيوتر الظاهر %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "قطع كافة الإتصالات (وصلات%d)";
@@ -158,10 +158,10 @@
 "Never load Tun driver" = "لا تحمل معرفات العتاد تون ابداً";
 
 /* Button */
-"Never show" = "لا تعرض مجدداً";
+"Never show" = "عدم العرض ابداً";
 
 /* Button */
-"No keyboard shortcut" = "لا اختصار للوحة المفاتيح";
+"No keyboard shortcut" = "بلا اختصار للوحة المفاتيح";
 
 /* Button */
 "No sound" = "لا صوت";
@@ -390,10 +390,10 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "تعطيل بروتوكول IPv6 الا اذا امكن الوصول ل OpenVPN عن طريق عنوان IPv6";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "قطع الاتصال عندما يذهب الكمبيوتر في حالة السكون";
+"Disconnect when computer goes to sleep" = "قطع الاتصال عندما يصبح الكمبيوتر في وضع السكون";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "قطع الاتصال عند تبديل المستخدم الخروج";
+"Disconnect when user switches out" = "قطع الاتصال عند تسجيل خروج المستخدم";
 
 /* Checkbox name */
 "Display connection submenus" = "عرض قوائم الاتصال الفرعية";
@@ -1308,6 +1308,9 @@
 "Modified configuration file to remove path information" = "تم تعديل ملف الاعدادات لإلغاء بيانات المسار";
 
 /* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "انشاء اتصالات متعددة في وقت واحد (%1$d باستخدام ‘تعيين النيم سيرفير‘، %2$d بدون استخدام ’اعداد النيم سيرفر’)";
+
+/* Window text */
 "Named Credentials" = "الوثائق الثبوتية المستخدمة";
 
 /* Window text */
@@ -2050,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nهذا الخطأ يعني أن هناك خيارًا موجودًا في ملف تكوين OpenVPN أو \"تم دفعه\" بواسطة خادم OpenVPN:\n\n• تم بها أخطاء إملائية،\n\n• في عداد المفقودين أو الحجج الإضافية، أو\n\n     • لم يتم تنفيذه بواسطة إصدار OpenVPN الذي يتم استخدامه لهذا التكوين. قد يكون خيارًا جديدًا لم يتم تنفيذه في إصدار قديم من OpenVPN ، أو خيار قديم تمت إزالته في إصدار جديد من OpenVPN. يمكنك اختيار إصدار OpenVPN المراد استخدامه مع هذا التكوين في علامة التبويب \"الإعدادات\" بلوحة \"التهيئة\" في نافذة \"تفاصيل VPN\" في Tunnelblick.\n\nراجع سجل VPN في علامة التبويب \"Log\" في لوحة \"Configurations\" في نافذة \"تفاصيل VPN\" في Tunnelblick لمزيد من التفاصيل.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nتُنلـبليك 'إعداد النيم سيرفير' يعمل فقط على اتصال VPN واحد.\nاستخدام اكثر من اتصال VPN في نفس الوقت ممكن ان يتسبب في تلف اعدادات الانترنت أو فقدان الاتصال في الانترنت.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nتثبيت %ld اعدادات اتصال تُنلـبليك";

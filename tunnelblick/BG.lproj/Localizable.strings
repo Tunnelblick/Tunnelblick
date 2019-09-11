@@ -1308,6 +1308,9 @@
 "Modified configuration file to remove path information" = "Модифицирала конфигурационния файл с цел премахване на информация за пътя";
 
 /* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Множествени едновременни връзки ще бъдат създадени (%1$d със 'Зададен домейн', %2$d без 'Зададен домейн')";
+
+/* Window text */
 "Named Credentials" = "Именувани идентификационни данни";
 
 /* Window text */
@@ -2050,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nТази грешка означава, че опция която е в OpenVPN конгифурациония файл или е бил зададена от  OpenVPN сървъра:\n\n     • е сгрешена при изписване\n\n     • има липсващи или повече аргументи или\n\n     • не се поддържа от тази версия на OpenVPN. Може да е нова опция която не съществува в по-стара версия, или стара опция, която е премахната в по-нова версия на OpenVPN. Може да изберете с коя версия на OpenVPN да използвате тази конфигурация в таб \"Настройки\" на прозорец \"VPN детайли\".\n\nВиж VPN лога за детайли.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nНастройката със 'Зададен домейн' работи само с единична VPN връзка. Използвайки тази настройка с повече от една VPN връзка едновременно може да повреди мрежовите ви настройки или да причини загуба на мрежова връзка.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nи инсталирате %ld Tunnelblick VPN конфигурации";

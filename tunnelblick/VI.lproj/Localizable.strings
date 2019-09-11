@@ -923,6 +923,9 @@
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Được cung cấp bởi Tunnelblick, phần mềm này có thể sử dụng miễn phí tại<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN là một nhẫn hiệu đã được đăng ký của OpenVPN, Inc.";
 
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Thiết lập mạng không được khôi phục đúng cách sau khi ngắt kết nối từ %@.</p><p>Vấn đề này thường xảy ra do sử dụng các tùy chọn OpenVPN là 'user nobody' và/hoặc 'group nobody'.</p><p>Để khôi phục thiết lập mạng, bạn nên khởi động lại máy tính của mình.</p><p>Để ngăn chặn lỗi này xảy ra trong tương lai, hãy bỏ tùy chọn 'user nobody' và 'group nobody' trong tập tin cấu hình OpenVPN của bạn.</p><p>Hãy xem <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] để biết thêm thông tin.</p></font>\n\n";
+
 /* Window text */
 "<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Phiên bản hiện tại của Tunnelblick đã cũ hơn %lu ngày.</p><p>Vui lòng kiểm tra phiên bản mới hơn:</p><ul><li>Tại khung 'Preferences' của cửa sổ 'VPN Details' của Tunnelblick; hoặc<br></li><li>Tìm một phiên bản mới hơn tại <a href=\"https://tunnelblick.net/downloads.html\">Trang tải về của Tunnelblick</a> [tunnelblick.net].</li></ul>";
 
@@ -931,6 +934,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Cấu hình VPN Tunnelblick bị lồng vào quá sâu tại '%@'";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Một cấu hình mà yêu cầu một cụm mật khẩu (khóa cá nhân) hoặc tên đăng nhập và mật khẩu không thể kết nối khi máy tính khởi động.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Cần mật khẩu để kết nối tới\n  %1$@%2$@";
@@ -979,6 +985,9 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "Tất cả cấu hình sử dụng %@ thông tin đăng nhập";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Ngoài ra, vui lòng đính kèm tệp 'Tunnelblick Error Data.txt' trên Desktop của bạn vào email. Tệp này chứa thông tin về lỗi. Bạn có thể bấm đúp vào tệp để xem thông tin.\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Một lỗi (%1$ld) xuất hiện trong khi kiểm tra bảo mật của cấu hình %2$@.\n\nXin hãy khở động lại Tunnelblick. Nếu vấn đề không được khắc phục, xin hãy cài đặt lại Tunnelblick.";
@@ -1203,6 +1212,9 @@
 "Fast User Switching" = "Chuyển Đổi Nhanh Người Dùng";
 
 /* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Tập tin '%@' đang được định dạng là 'văn bản đa dạng' bởi vì nó bắt đầu bằng một ký tự '{'. Mọi tập tin liên quan đến OpenVPN phải ở dạng 'văn bản thuần tuý' hay định dạng bằng 'UTF-8'.";
+
+/* Window text */
 "File '%@' contains one or more NUL characters." = "Tập tin '%@' có chứa một hay nhiều ký tự NUL.";
 
 /* Window text */
@@ -1294,6 +1306,9 @@
 
 /* Window text */
 "Modified configuration file to remove path information" = "Tập tin cấu hình được chỉnh sửa để xoá thông tin đường dẫn";
+
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Nhiều kết nối đồng thời sẽ được tạo ra (%1$d với 'Set nameserver', %2$d không có 'Set nameserver')";
 
 /* Window text */
 "Named Credentials" = "Thông tin xác thực được đặt tên";

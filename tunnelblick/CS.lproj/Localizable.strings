@@ -1308,6 +1308,9 @@
 "Modified configuration file to remove path information" = "Modifikoval konfigurační soubor, aby odstranil informaci o souborové cestě";
 
 /* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Může být vytvořeno více souběžných spojení (%1$d s 'Nastavit nameserver', %2$d bez 'Nastavit nameserver')";
+
+/* Window text */
 "Named Credentials" = "Pojmenované přístupové údaje";
 
 /* Window text */
@@ -2050,6 +2053,9 @@
 
 /* Window text */
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nTato chyba znamená, že volba, jež je v konfiguračním souboru OpenVPN, nebo byla \"odeslána\" serverem OpenVPN:\n\n      • byla nesprávně napsána,\n\n      • má chybějící či nadbytečné argumenty, nebo\n\n      • není implementována verzí OpenVPN, kterou pro tuto konfiguraci používáte. Může to být nová volba, jež není implementovaná v starší verzi OpenVPN, nebo stará volba, která byla odstraněná v nové verzi OpenVPN. Výběr verze OpenVPN pro tuto konfiguraci můžete vybrat na záložce \"Nastavení\" v panelu \"Konfigurace\" v Tunnelblick okně \"Detaily VPN\".\n\nVíce informací najdete v logu VPN na záložce \"Log\" na panelu \"Konfigurace\" v okně \"Detaily VPN\".";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\n\"Set nameserver\" nastavení fungují pouze pro jediné VPN připojení. Použití s více VPN spojeními najednou může způsobit chyby v nastavení sítě, nebo způsobit ztrátu síťového připojení.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\n a instalovat %ld konfigurací VPN Tunnelblicku";
