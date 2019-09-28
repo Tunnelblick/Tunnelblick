@@ -752,6 +752,9 @@ name = newValue;                                    \
 @"managementPortStartingPortNumber",	\
 @"userAgreementVersionAgreedTo",	\
 @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",	\
+@"buildExpirationTimestamp",	\
+@"daysBeforeFirstWarningOfOldBuild",	\
+@"daysToDeferWarningOfOldBuild",	\
 @"doNotShowCheckForUpdatesNowMenuItem",	\
 @"doNotShowForcedPreferenceMenuItems",	\
 @"doNotShowKeyboardShortcutSubmenu",	\

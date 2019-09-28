@@ -4854,80 +4854,6 @@ static void signal_handler(int signalNumber)
 	return latestVersion;
 }
 
--(void) warnIfOutOfDateBuild {
-	
-	// Uses the "buildExpirationTimestamp" (NSNumber *) preference as persistent storage for deferring this warning
-	
-	NSString * buildTimestampString = [[self tunnelblickInfoDictionary] objectForKey: @"TBBuildTimestamp"];
-	if (  ! buildTimestampString  ) {
-		return;
-	}
-	long buildTimestamp = atol([buildTimestampString UTF8String]);
-	if (  buildTimestamp <= 0  ) {
-		return;
-	}
-	
-	long daysBeforeFirstWarningOfOldBuild = (long)[gTbDefaults unsignedIntForKey: @"daysBeforeFirstWarningOfOldBuild" default: 180 min: 0 max: 99999];
-	if (   daysBeforeFirstWarningOfOldBuild == 0  ) {
-		return;
-	}
-	
-	long now = time(NULL);
-	
-	NSNumber * buildExpirationTimestamp = [gTbDefaults objectForKey: @"buildExpirationTimestamp"];
-	long expires = (  buildExpirationTimestamp
-					? [buildExpirationTimestamp longValue]
-					: (buildTimestamp + (daysBeforeFirstWarningOfOldBuild * SECONDS_PER_DAY)));
-	
-	if (  now - expires > 0  ) {
-		
-		// Get TB version without the build #
-		NSString * tbVersion = [[self tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
-		NSRange r = [tbVersion rangeOfString: @" ("];
-		if (  r.length != 0 ) {
-			tbVersion = [tbVersion substringToIndex: r.location];
-		}
-		NSString * title = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick %@ may need to be updated", @"Window title"), tbVersion];
-
-		long tbAgeInDays = (now - buildTimestamp) / SECONDS_PER_DAY;
-		NSAttributedString * message = attributedLightDarkStringFromHTML([NSString stringWithFormat:
-																		  NSLocalizedString(@"<p>This version of Tunnelblick is %lu days old.</p>"
-																				   
-																				   @"<p>Please check for a newer version:</p>"
-																				   
-																				   @"<ul>"
-																				   @"<li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li>"
-																				   @"<li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">"
-																				   @"Tunnelblick Downloads page</a> [tunnelblick.net].</li>"
-																				   @"</ul>",
-																				   @"Window text"),
-																		  tbAgeInDays]);
-		if (  ! message  ) {
-			NSLog(@"warnIfOutOfDateBuild: message = nil");
-			message = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Please check for a newer version.", @"Window text") attributes: nil] autorelease];
-		}
-		
-		long daysToDeferWarningOfOldBuild = (long)[gTbDefaults unsignedIntForKey: @"daysToDeferWarningOfOldBuild" default: 30 min: 0 max: 99999];
-		NSAttributedString * checkboxInfoText = attributedStringFromHTML([NSString stringWithFormat:
-																		  NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n"
-																						   @"<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n",
-																						   @"HTML info for the 'Do not warn about this for [number of days] days' checkbox."), daysToDeferWarningOfOldBuild]);
-		if (  ! checkboxInfoText  ) {
-			NSLog(@"warnIfOutOfDateBuild: checkboxInfoText = nil");
-			message = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"(An error occurred creating the help content.)", @"Window text") attributes: nil] autorelease];
-		}
-
-		NSNumber * newExpirationTimestamp = [NSNumber numberWithLong: now + (daysToDeferWarningOfOldBuild * SECONDS_PER_DAY)];
-		TBShowAlertWindowExtended(title,
-								  message,
-								  nil,
-								  @"buildExpirationTimestamp", newExpirationTimestamp,
-								  [NSString stringWithFormat: NSLocalizedString(@"Do not warn about this for %lu days", @"Checkbox name"), daysToDeferWarningOfOldBuild],
-								  checkboxInfoText,
-								  NO);
-	}
-}
-
 -(void) warnIfOnSystemStartConfigurationsAreNotConnectedThread {
 
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -5366,8 +5292,6 @@ static void signal_handler(int signalNumber)
         [self showConfirmIconNearSpotlightIconDialog];
     }
     
-	[self warnIfOutOfDateBuild];
-
 	[NSThread detachNewThreadSelector: @selector(warnIfOnSystemStartConfigurationsAreNotConnectedThread) toTarget: self withObject: nil];
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021")
