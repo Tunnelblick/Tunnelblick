@@ -15,6 +15,7 @@
 
 #import "DBPrefsWindowController.h"
 
+#import "helper.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 
@@ -420,10 +421,13 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     }
     [self newViewWillAppear: newView identifier: identifier];
     
-    if ([self shiftSlowsAnimation] && [[[self window] currentEvent] modifierFlags] & NSShiftKeyMask)
+	if (  runningOnMojaveOrNewer()  ) {
+		[viewAnimation setDuration: 0.0];
+	} else if (  [self shiftSlowsAnimation] && [[[self window] currentEvent] modifierFlags] & NSShiftKeyMask  ) {
 		[viewAnimation setDuration:1.25];
-    else
+	} else {
 		[viewAnimation setDuration:0.25];
+	}
 	
 	NSDictionary *fadeOutDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                        oldView, NSViewAnimationTargetKey,
