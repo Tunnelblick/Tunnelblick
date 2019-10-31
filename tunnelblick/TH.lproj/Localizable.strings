@@ -301,3 +301,6 @@
 
 /* Menu Item */
 "Do Not Show on Tunnelblick Menu" = "ไม่แสดงในเมนูของ Tunnelblick";
+
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Teerapap Changwichukarn";
