@@ -429,9 +429,6 @@
 "Do not warn about this again" = "Viac na toto neupozorňovať";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Neupozorňovať o tomto %lu dní";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "Povoliť IPv6 (len zariadenie tap)";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "Systémové požiadavky programu neboli naplnené";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Možno bude potrebné aktualizovať program Tunnelblick %@";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Chyba konfigurácie Tunnelblick";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "\"easy-rsaPath\" preferencie bola ignorovaná; musí byť defnovaná absolútna cesta alebo cesta začínať s \"~\"";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(Vyskytla sa chyba pri vytváraní kontextu nápovedy.)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Logovanie je zakázané)";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Nastavenia siete sa nepodarilo správne obnovit po odpojení od %@.</p><p>Tento problém je zvyčajne spôsobený použitím parametra 'user nobody' a/alebo 'group nobody' v OpenVPN konfigurácii.</p><p>Na obnovenie nastavenia siete sa odporúča reštartovať počítač.</p><p>Aby sa predišlo v budúcnosti tejto chybe, je potrebné odstránit parametre 'user nobody' a 'group nobody' z konfiguračného súboru OpenVPN.</p><p>Viac informácií nájdete na <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net].</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Táto verzia Tunnelblicku je stará %lu dní.</p><p>Prosím, skontrolujte dostupnosť novej verzie:</p><ul><li>Ručne v okne \"Detaily VPN\", v paneli Predvoľby, alebo<br></li><li>dohľadaním novšej verzie na <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick stránke Downloads</a>[tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference alebo TBAlwaysSetPreference sa odkazuje na neznámu preferenciu \"%1$@\" %2$@";
@@ -1438,9 +1426,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Cesta \"%1$@\" obsahuje znaky, ktoré nie sú povolené.\n\nZnaky, ktoré nie sú povolené: \"%2$s\"  ";
-
-/* Window text */
-"Please check for a newer version." = "Prosím skontrolujte existenciu novšej verzie.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Zadajte, prosím, meno a kliknite na \"OK\" alebo \"Zrušiť\".\n\n";
@@ -2137,9 +2122,6 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Pokiaľ je zaškrtnuté</strong>, Tunnelblick dá pokyn, aby OpenVPN smeroval všetku IPv4 trafiku cez VPN server.</p>\n<p><strong>Pokiaľ nie je zaškrtnuté</strong>, vo východiskovom stave OpenVPN smeruje trafiku cez VPN iba pokiaľ je cieľ vo VPN sieti. Všetka ostatná trafika pôjde normálne cez internetové pripojenie bez použitia VPN. Štandardné chovanie OpenVPN môžete zmeniť nastavením klienta, alebo nastavením na serveri VPN a celý prenos dát bude smerovaný cez VPN server, pokiaľ je táto voľba aktívna.</p>\n";
-
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Pokiaľ zaškrtnuté</strong>, Tunnelblick už nebude zobrazovať toto upozornenie nasledujúcich %lu dní.</p>\n<p><strong>Pokiaľ zaškrtnuté</strong>, Tunnelblick znovu zobrazí toto upozornenie pri každom spustení.</p>\n";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Pokiaľ zaškrtnuté</strong>, Tunnelblick už nebude zobrazovať toto upozornenie.</p>\n<p><strong>Pokiaľ zaškrtnuté</strong>, Tunnelblick znovu zobrazí toto upozornenie.</p>\n";

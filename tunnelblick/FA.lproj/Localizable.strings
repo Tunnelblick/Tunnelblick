@@ -113,6 +113,9 @@
 "Do nothing" = "كاری انجام نشود";
 
 /* Button */
+"Export Tunnelblick Setup" = "استخراج تنظیمات Tunnelblick";
+
+/* Button */
 "Help" = "راهنما";
 
 /* Button */
@@ -369,6 +372,9 @@
 "Allow changes to manually-set network settings" = "پذیرفتن تغییرات جدید به تنظیمات دستی شبکه";
 
 /* Checkbox name */
+"Always show this window" = "این پنجره را همیشه نشان بده";
+
+/* Checkbox name */
 "Apply to all" = "برای همه اعمال کن";
 
 /* Checkbox name */
@@ -415,9 +421,6 @@
 
 /* Checkbox name */
 "Do not warn about this again" = "درباره ی این دیگر به من هشدار نده";
-
-/* Checkbox name */
-"Do not warn about this for %lu days" = "درباره ی این تا %lu روز دیگر به من هشدار نده";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "فعال نمودن IPv6 (فقط در tap)";
@@ -511,6 +514,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "دریافت پیکربندی"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "در حال انتظار برای دسترسی شبکه"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "در حال انتظار برای گذرواژه"; // Please translate "Waiting for password"
@@ -615,6 +621,9 @@
 "File not found" = "فایل یافت نشد";
 
 /* Window title */
+"Import a Tunnelblick Setup" = "وارد کردن تنظیمات Tunnelblick";
+
+/* Window title */
 "Info" = "اطلاعات";
 
 /* Window title */
@@ -673,9 +682,6 @@
 
 /* Window title */
 "System Requirements Not Met" = "پیش نیاز سامانه یافت نشد";
-
-/* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelbilk %@ نیاز به بروز رسانی دارد";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "خطا در پیکربندی Tunnelblick";
@@ -860,9 +866,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "تنظیمات 'easy-rsaPath' رد شده است; این باید یه مسیر مطلق باشد و یا با '~' شروع شود";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(یک خطا هنگام ایجاد محتوی کمکی رخ داد.)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(گزارش دهی غیر فعال است)";
 
@@ -882,13 +885,13 @@
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>بر اساس Tunnelblick, نرم افزار رایگان از طریق <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a> در دسترس است<br><br>\nOpenVPN یه علامت تجاری ثبت شده .OpenVPN Inc می باشد.";
 
 /* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p> این نسخه از Tunnelblick به مقدار %lu روز پیش منتشر شده.</p><p> لطفا برای چک کردن نسخه ی جدیدتر:</p><ul><li> به قسمت «تنظیمات» نرم افزار و پنجره «جزئیات VPN» رفته؛ یا <br></li><li> با رفتن به <a href=\"https://tunnelblick.net/downloads.html\"> صفحه دانلود Tunnelblick</a>[tunnelblick.net]</li></ul>";
-
-/* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "کلید TBPreference یا TBAlwaysSetPreference به تنطیمات ناشناخته %1$@ در %2$@ اشاره دارد";
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "پیکربندی وی پی ان در Tunnelblick بسیار زیاد در %@ تو در تو شده است";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "یک پیکربندی که نیاز به عبارت عبور(کلید خصوصی) یا نام کاربری و گذرواژه دارد هنگامی که رایانه در حال بارگزاری است, نمی تواند متصل شود.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "گذرواژه ای نیاز است برای ارتباط با\n   %1$@%2$@";
@@ -1349,6 +1352,9 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "فقط یک پیکربندی وی پی ان (.tblk)Tunnelblick هنگام بارگزاری رایانه قابل اجرا است.";
 
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
 /* Window text */
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN به درخواست ها برای قطع ارتباط %@ پاسخ نمی دهد.\n\nTunnelblick وقتی OpenVPN قادر به پاسخگویی به درخواست های قطع ارتباط شد، قطع خواهد شد.\n\nاین امکان دارد تا دو دقیقه در شرابط نامطلوب به طول بینجامد.\n\nارتباط تا هنگام قطع شدن در دسترس نخواهد بود.";
 
@@ -1399,6 +1405,9 @@
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "ایمن سازی Tunnelblick %@…";
+
+/* Window text */
+"Select a target user for each user whose setup data you wish to import." = "برای هر کاربری که داده های تنظیمات آن را می‌خواهید وارد کنید، یک کاربر هدف انتخاب کنید.";
 
 /* Window text */
 "Set DNS/WINS:" = "ثبت DNS/WINS:";
@@ -1539,6 +1548,9 @@
 "There was a problem deleting one or more configurations. See the Console Log for details." = "مشکلی در راه حذف یک یا چند پیکربندی بوجود آمد. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
 
 /* Window text */
+"There was a problem getting the list of the DNS servers." = "در دریافت لیست سرور‌های DNS مشکلی وجود داشت.";
+
+/* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "مشکلی با پیکربندی OpenVPN بوجود آمد. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
 
 /* Window text */
@@ -1546,6 +1558,9 @@
 
 /* Window text */
 "There was a problem:\n\n%@" = "یک مشکل وجود داشت:\n\n%@";
+
+/* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "در ورود تنظیمات Tunnelblick مشکلاتی وجود داشت.\n\nبرای جزئیات بیشتر به سیاهه کنسول مراجعه کنید.";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "این نسخه عرضه شده Tunnelblick قابل نصب و یا اجرا نیست زیرا تغییر نام پیدا کرده، یا updateFeedURL و SUFeedURL وجود ندارند و یا دارای 'tunnelblick.net' هستند، و یا CFBundleIdentifier وجود ندارد و یا دارای 'net.tunnelblick' است.\n\n";
@@ -1969,6 +1984,9 @@
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
 "'%@' was added in OpenVPN %@\n" = "'%1$@' به OpenVPN %2$@ اضافه شد\n";
+
+/* Popup button menu item */
+"(Do not import)" = "(وارد نکن)";
 
 /* Credit description */
 "64-bit enabling and testing" = "فعال سازی و تست ۶۴ بیتی";

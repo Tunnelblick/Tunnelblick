@@ -429,9 +429,6 @@
 "Do not warn about this again" = "Không hiển thị cảnh báo này nữa";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Đừng cảnh báo về điều này trong %lu ngày";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "Cho phép IPv6 ( Chỉ cho tap)";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "Cấu hình hệ thống không phù hợp";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ cần được cập nhật";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Cấu hình Tunnelblick gặp sự cố";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Cài đặt 'easy-rsaPath' đã bị bỏ qua; nó phải là một đường dẫn tuyệt đối hoặc bắt đầu với '~'";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(Một lỗi đã xuất hiện khi tạo nội dung trợ giúp.)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Nhật ký đã bị vô hiệu hóa.)";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Thiết lập mạng không được khôi phục đúng cách sau khi ngắt kết nối từ %@.</p><p>Vấn đề này thường xảy ra do sử dụng các tùy chọn OpenVPN là 'user nobody' và/hoặc 'group nobody'.</p><p>Để khôi phục thiết lập mạng, bạn nên khởi động lại máy tính của mình.</p><p>Để ngăn chặn lỗi này xảy ra trong tương lai, hãy bỏ tùy chọn 'user nobody' và 'group nobody' trong tập tin cấu hình OpenVPN của bạn.</p><p>Hãy xem <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] để biết thêm thông tin.</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Phiên bản hiện tại của Tunnelblick đã cũ hơn %lu ngày.</p><p>Vui lòng kiểm tra phiên bản mới hơn:</p><ul><li>Tại khung 'Preferences' của cửa sổ 'VPN Details' của Tunnelblick; hoặc<br></li><li>Tìm một phiên bản mới hơn tại <a href=\"https://tunnelblick.net/downloads.html\">Trang tải về của Tunnelblick</a> [tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Một giá trị của từ khoá TBPreference hay TBAlwaysSetPreference có giá trị tham khảo không xác định '%1$@' ở trong %2$@";
@@ -1423,9 +1411,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Đường dẫn '%1$@' có chứa những ký tự không hợp lệ.\n\nCác ký tự không hợp lệ: '%2$s'\n\n";
-
-/* Window text */
-"Please check for a newer version." = "Vui lòng kiểm tra cho một phiên bản mới hơn.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Vui lòng nhập một tên và nhấn \"OK\" hay nhấn \"Cancel\".\n\n";

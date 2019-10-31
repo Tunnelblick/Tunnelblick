@@ -414,9 +414,6 @@
 "Do not warn about this again" = "Ekki vara við þessu aftur";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Ekki vara mér við þetta í %lu daga";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "Virkja IPv6 (bara „tap“)";
 
 /* Checkbox name */
@@ -678,9 +675,6 @@
 "System Requirements Not Met" = "Kerfiskröfur ekki uppfylltar";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ þarf kannski að uppfæra";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Uppsetningarvilla í Tunnelblick";
 
 /* Window title */
@@ -844,9 +838,6 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Byggt á Tunnelblick, opnu forriti sem sækja má frá<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN er skráð vörumerki OpenVPN Inc.";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Þessi útgáfa Tunnelblick er %lu daga gömul.</p><p>Vinsamlegast sæktu nýlegri útgáfu:</p><ul><li>Með því að fara í flipann „Stillingar“ í glugganum „VPN-upplýsingar“; eða<br></li><li>Með því að leita eftir nýlegri útgáfu á <a href=\"https://tunnelblick.net/downloads.html\">vefsíðu Tunnelblick</a> [tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Aðgangsorð þarf til að tengjast\n %1$@%2$@";
@@ -1171,9 +1162,6 @@
 
 /* Window text */
 "Password:" = "Lykilorð:";
-
-/* Window text */
-"Please check for a newer version." = "Vinsamlegast athugið hvort nýlegri útgáfa sé til.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Sláðu inn nýtt nafn og ýttu svo á „Í lagi“ eða „Hætta við“.\n\n";

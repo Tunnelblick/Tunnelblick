@@ -429,9 +429,6 @@
 "Do not warn about this again" = "Μην ειδοποιηθώ για αυτό ξανά";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Να μην ειδοποιούμαι για αυτό για %lu μέρες";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "Ενεργοποίηση IPv6 (μόνο tap)";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "Μη συμβατό με απαιτήσεις του συστήματος";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Το Tunnelblick %@ μπορεί να χρειάζεται να αναβαθμιστεί";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Πρόβλημα παραμέτρων του Tunnelblick";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Προτιμήσεις 'easy-rsaPath' αγνοήθηκαν, πρέπει να είναι απόλυτη διαδρομή ή να ξεκινά με το σύμβολο '~'";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(Παρουσιάστηκε σφάλμα κατά τη δημιουργία βοηθητικού περιεχομένου.)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Η καταγραφή είναι απενεργοποιημένη)";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>H ρύθμιση δικτύου δεν έχει επαναφερθεί σωστά μετά την αποσύνδεση από το %@.</p><p>Αυτό το πρόβλημα προκαλείται συνήθως από τη χρήση των «user nobody» ή/και «group nobody» OpenVPN επιλογών.</p><p>Για να επαναφέρετε τη ρύθμιση του δικτύου, πρέπει να επανεκκινήσετε τον υπολογιστή σας.</p><p>Για να αποτρέψετε αυτό το σφάλμα στο μέλλον, αφαιρέστε τις γραμμές «user nobody» και «group nobody» από το αρχείο OpenVPN παραμέτρων.</p><p>Δείτε <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">τις OpenVPN επιλογές χρηστών και ομάδας </a> του [tunnelblick.net] για περισσότερες πληροφορίες.</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Αυτή η έκδοση του Tunnelblick είναι %lu ημερών παλιά. </p><p>Παρακαλώ ελέγξτε για τη νεότερη έκδοση:</p><ul><li>Χειροκίνητα στον πίνακα \"Ρυθμίσεις\" στο παράθυρο \"Λεπτομέρειες VPN\" είτε<br></li><li>Κοιτάζοντας για νεότερη έκδοση στη <a href=\"https://tunnelblick.net/downloads.html\"> σελίδα λήψεων του Tunnelblick</a>[tunnelblick.net]</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Ένα κλειδί TBPreference ή TBAlwaysSetPreference αναφέρεται σε μια άγνωστη προτίμηση ' %1$@' σε %2$@";
@@ -1438,9 +1426,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Η διαδρομή '%1$@' περιέχει χαρακτήρες που δεν επιτρέπονται.  \n\nΧαρακτήρες που δεν επιτρέπονται: '%2$s'\n\n";
-
-/* Window text */
-"Please check for a newer version." = "Παρακαλώ ελέγξτε για μια νεότερη έκδοση.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Παρακαλώ εισάγετε όνομα και πατήστε \"OK\" ή πατήστε \"Άκυρο\".\n\n";
@@ -2137,9 +2122,6 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Όταν επιλεγεί</strong>, Το Tunnelblick θα δώσει εντολή στο OpenVPN να δρομολογήσει όλη την κυκλοφορία IPv4 μέσω του διακομιστή VPN.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, από προεπιλογή το OpenVPN θα χρησιμοποιεί το VPN μόνο για κίνηση που προορίζεται για το δίκτυο VPN. Όλη η άλλη κυκλοφορία θα χρησιμοποιήσει την κανονική σύνδεση στο Internet χωρίς να περάσει από το VPN. Η προεπιλεγμένη συμπεριφορά του OpenVPN ενδέχεται να αλλάξει από τη διαμόρφωση OpenVPN ή από τον διακομιστή VPN και να προκαλέσει τη δρομολόγηση όλη τη κυκλοφορία IPv4 μέσω του διακομιστή VPN σαν να είχε ελεγχθεί αυτό το πλαίσιο ελέγχου.</p>\n";
-
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Όταν είναι ενεργοποιημένο</strong>, το Tunnelblick δε θα δείχνει αυτή την ειδοποίηση για %lu μέρες.</p>\n<p><strong>Όταν είναι απενεργοποιημένο</strong>, το Tunnelblick θα δείχνει αυτή την ειδοποίηση κατά την εκκίνηση του.</p>\n";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Όταν είναι ενεργοποιημένο</strong>, το Tunnelblick δε θα δείχνει αυτή την ειδοποίηση.</p>\n<p><strong>Όταν είναι απενεργοποιημένο</strong>, το Tunnelblick θα δείχνει αυτή την ειδοποίηση.</p>\n";

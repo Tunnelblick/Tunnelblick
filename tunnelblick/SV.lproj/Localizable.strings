@@ -429,9 +429,6 @@
 "Do not warn about this again" = "Varna inte för detta igen";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Varna inte om detta igen i %lu dagar";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "Aktivera IPv6 (endast tap)";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "Systemkrav uppfylls ej";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ kan behöva uppdateras";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblickkonfigurationsproblem";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' inställning ignorerad; det måste vara en absolut sökväg eller börja med '~'";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(Ett fel inträffade när hjälptexten skulle skapas.)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Loggning är avslagen)";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Nätverksinställningen kunde inte återställas korrekt efter frånkopplingen från %@.</p><p>Det här problemet orsakas vanligtvis vid användande av \"ingen användare\" och/eller \"ingen grupp\" OpenVPN alternativen.</p><p>För att återställa nätverksinställningen måste du starta om din dator.</p><p>För att förhindra det här felet i framtiden kan du ta bort \"ingen användare\" och \"ingen grupp\" linjerna från din OpenVPN konfigurationsfil.</p><p>Se <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Användare och grupp OpenVPN alternativ</a> [tunnelblick.net] för mer information.</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Denna version av Tunnelblick är %lu dagar gammal.</p><p>Vänligen leta efter en nyare version:</p><ul><li>Manuellt under 'Inställningar' i Tunnelblicks fönster för 'VPN Detaljer' - eller<br></li><li>Genom att leta efter en nyare version på <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblicks nerladdningssida</a>[tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "En TBPreference eller TBAlwaysSetPreference nyckel refererar till en okänd inställning '%1$@' i %2$@";
@@ -1438,9 +1426,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Sökvägen \"%1$@\" innehåller ogiltiga tecken.\n\nOgiltiga tecken: \"%2$s\"\n\n";
-
-/* Window text */
-"Please check for a newer version." = "Försök installera en nyare version.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Var god ange ett namn och klicka på \"OK\" eller klicka på \"Cancel\".\n\n";
@@ -2137,9 +2122,6 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Om markerad</strong>, kommer Tunnelblick att instruera OpenVPN att hänvisa all IPv4 trafik genom VPN servern.</p>\n<p><strong>Om ej markerad</strong>, kommer OpenVPN som standard använda VPN bara för trafik som är avsedd för VPN nätverket. All annan trafik kommer att använda normal Internet förbildelse utan att gå via VPN. OpenVPN's standard beteende kan ändras beroende på OpenVPN konfigurationen eller VPN servern och göra så att all IPv4 traffik leds genom VPN servern som om den här rutan hade varit markerad. </p>\n";
-
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Om markerad</strong> så visar Tunnelblick inte den här varningen under %lu dagar.</p>\n<p><strong>Om ej markerad</strong> så kommer varningen att visas varje gång Tunnelblick startas.</p>\n";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Om den är markerad</strong>, så visar Tunnelblick inte den här varningen igen.</p>\n<p><strong>Om den är tom</strong>, så visar Tunnelblick den här varningen igen.</p>\n";

@@ -429,9 +429,6 @@
 "Do not warn about this again" = "次回からこの警告を表示しない";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "%lu 日間は警告しない";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "IPv6を有効にする (tapのみ)";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "必要なシステムがありません";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ がアップデート可能です。";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 接続先に問題があります";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' が絶対パスもしくは '~' で始まっていないため無視されます。";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(ヘルプメッセージの生成中にエラーが発生しました)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "（ログ無効）";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>%@から切断後のネットワーク設定が復旧できていないようです。</p><p>この問題は'user nobody'もしくは'group nobody'をOpenVPNのオプションで指定しているためです。</p><p>設定を復旧させるには、コンピュータを再起動する必要があります。</p><p>今後このエラーを防ぐためには、上記のオプションをOpenVPNの設定から削除する必要があります。</p><p>詳しくは <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net]をご覧ください。</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>現在のバージョンのTunnelblickは %lu 日前のものです。</p><p>最新のバージョンを入手する</p><ul><li>「環境設定」画面の「VPNの詳細」か、<br></li><li><a href=\"https://tunnelblick.net/downloads.html\">Tunnelblickのウェブサイトからダウンロード</a>[tunnelblick.net]することができます。</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "%2$@ に、TBPreferenceまたはTBAlwaysSetPreferenceが未知な設定 %1$@ を指定しています";
@@ -1435,9 +1423,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "パス '%1$@' に許可されていない文字が含まれています。\n\n以下の文字は許可されていません: '%2$s'\n\n";
-
-/* Window text */
-"Please check for a newer version." = "新しいバージョンを確認してください。";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "名前を入れて、「了解」または「キャンセル」をクリックしてください。\n\n";

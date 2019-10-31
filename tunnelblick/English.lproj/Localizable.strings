@@ -2415,6 +2415,9 @@
 /* Credit description */
 "Swedish translation" = "Swedish translation";
 
+/* Credit description */
+"Thai translation" = "Thai translation";
+
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "Tunnelblick Setup %@";
 

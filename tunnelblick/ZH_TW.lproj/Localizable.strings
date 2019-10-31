@@ -429,9 +429,6 @@
 "Do not warn about this again" = "不再顯示此警告";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "在 %lu 天內不要再提醒我";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "啟用 IPv6（tap only）";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "未能達到系統要求";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ 可以更新";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 設定錯誤";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "「easy-rsaPath」偏好設定被略過；它必須是絕對路徑或以（ ~ ）開頭";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(建立說明檔案時發生錯誤。)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "（已經停止紀錄歷史。）";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>在與 %@ 中斷連線後，並未正確地恢復網路設定。</p><p>這個問題通常是由於在 OpenVPN 選項中使用了「user nobody」或「group nobody」。</p><p>為了正確恢復網路設定，您應該重新啟動電腦。</p><p>要想避免這個問題再次發生，請在 OpenVPN 設定中移除「user nobody」或「group nobody」。</p><p>更多資訊可於<a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">OpenVPN 的使用者和群組選項</a> [tunnelblick.net] 取得。</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>這個 Tunnelblick 的版本已經有 %lu 添了。</p><p>請檢查較新的版本：</p><ul><li>手動在 Tunnelblick「VPN 詳情」視窗的「偏好設定」面板上；或<br></li><li>藉由在<a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick 下載頁面</a>[tunnelblick.net]來尋找最近的版本。</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "一個 TBPreference 或 TBAlwaysSetPreference 鍵參照了末知的偏好設定「%1$@」於 %2$@";
@@ -1438,9 +1426,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "路徑「%1$@」包含不被允許的字元。\n\n不被允許的字元：「%2$s」\n\n";
-
-/* Window text */
-"Please check for a newer version." = "請檢查是否有更新的版本。";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "請輸入一個名稱，然後點擊 \"確認\" 或 \"取消\" 。\n\n";
@@ -2134,9 +2119,6 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>若勾選</strong>，Tunnelblick 會指示 OpenVPN 路由所有 IPv4 的流量通過 VPN 伺服器。</p>\n<p><strong>若未勾選</strong>，OpenVPN 預設只對於指定 VPN 網路的流量使用 VPN。其他沒有經過 VPN 的所有流量會使用一般網際網路的流線。也許可以透過 OpenVPN 設定或 VPN 伺服器修改 OpenVPN 的預設行為，而且，如果有勾選核取方塊，會路由所有 IPv4 流量通過 VPN 伺服器。</p>\n";
-
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>若選中</strong>，Tunnelblick 在接下來的 %lu 天內不會再顯示該警告。</p>\n<p><strong>未選中</strong>，Tunnelblick 每次啓動時會顯示該警告。</p>\n";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>若選中</strong>，Tunnelblick 不會再顯示該警告。</p>\n<p><strong>未選中</strong>，Tunnelblick 會再顯示該警告。</p>\n";

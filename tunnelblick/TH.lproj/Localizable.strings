@@ -1,0 +1,303 @@
+/* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
+/* See https://tunnelblick.net/cLocalizeTranslate.html.           */
+
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) - apparent public IP address %@" = "ตัดการเชื่อมต่อทั้งหมด (%1$@) - หมายเลขไอพี %2$@";
+
+/* Status message */
+"Disconnect All (%@)" = "ตัดการเชื่อมต่อทั้งหมด (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) - apparent public IP address %@" = "ตัดการเชื่อมต่อทั้งหมด (%1$d การเชื่อมต่อ) - หมายเลขไอพี %2$@";
+
+/* Status message */
+"Disconnect All (%d Connections)" = "ตัดการเชื่อมต่อทั้งหมด (%d การเชื่อมต่อ)";
+
+/* Status message */
+"No Active Connections" = "ไม่มีการเชื่อมต่อในขณะนี้";
+
+/* Textbox name */
+"Username:" = "ชื่อผู้ใช้";
+
+/* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+
+/* Button */
+"(None available)" = "(ไม่มีให้เลือก)";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"Advanced..." = "ขั้นสูง…";
+
+/* Button */
+"All Users" = "ผู้ใช้ทุกคน";
+
+/* Button */
+"Always load Tap driver" = "โหลดไดร์เวอร์ Tap เสมอ";
+
+/* Button */
+"Always load Tun driver" = "โหลดไดร์เวอร์ Tun เสมอ";
+
+/* Button */
+"Always use the plugin" = "ใช้ปลั๊กอินเสมอ";
+
+/* Button */
+"Back" = "ย้อนกลับ";
+
+/* Button */
+"Cancel" = "ยกเลิก";
+
+/* Menu item */ /* Button */
+"Check For Updates Now" = "ตรวจสอบการอัพเดท";
+
+/* Button */
+"Check Now" = "ตรวจสอบตอนนี้";
+
+/* Button */
+"Connect" = "เชื่อมต่อ";
+
+/* Button */
+"Continue" = "ดำเนินการต่อ";
+
+/* Button */
+"Convert Configurations" = "แปลงคอนฟิกเกอเรชั่น";
+
+/* Button */
+"Copy Console Log to Clipboard" = "คัดลอก Console Log ไปยัง Clipboard";
+
+/* Button */
+"Copy Diagnostic Info to Clipboard" = "คัดลอกข้อมูลการวิเคราะห์ไปยัง Clipboard";
+
+/* Button */
+"Create sample configuration and edit it" = "สร้างคอนฟิกเกอเรชั่นตัวอย่างแล้วแก้ไข";
+
+/* Button */
+"Default (%@)" = "ค่าเริ่มต้น (%@)";
+
+/* Button */
+"Delete Credentials" = "ลบข้อมูลยืนยันตัวตน";
+
+/* Button */
+"Delete saved passphrase and try again" = "ลบข้อความรหัสผ่านที่บันทึกไว้แล้วลองใหม่อีกครั้ง";
+
+/* Button */
+"Delete saved password and try again" = "ลบรหัสผ่านที่บันทึกไว้แล้วลองใหม่อีกครั้ง";
+
+/* Button */
+"Delete" = "ลบ";
+
+/* Button */
+"Disable network access" = "ปิดการเข้าถึงเครือข่าย";
+
+/* Button */
+"Disconnect" = "ตัดการเชื่อมต่อ";
+
+/* Button */
+"Do Not Re-enable Network Access" = "อย่าเปิดการเข้าถึงเครือข่ายกลับมา";
+
+/* Button */
+"Do not use the plugin" = "อย่าใช้ปลั๊กอิน";
+
+/* Button */
+"Do nothing" = "ไม่ต้องทำอะไร";
+
+/* Button */
+"Export Tunnelblick Setup" = "ส่งออกการติดตั้ง Tunnelblick";
+
+/* Button */
+"Help" = "วิธีใช้";
+
+/* Button */
+"I DO NOT have configuration files" = "ฉัน \"ไม่มี\" ไฟล์คอนฟิกเกอเรชั่น";
+
+/* Button */
+"I have configuration files" = "ฉันมีไฟล์คอนฟิกเกอเรชั่น";
+
+/* Button */
+"Ignore" = "ไม่ต้องทำอะไร";
+
+/* Button */
+"Install" = "ติดตั้ง";
+
+/* Button */
+"Latest (%@)" = "ล่าสุด (%@)";
+
+/* Button */
+"Load Tap driver automatically" = "โหลดไดร์เวอร์ Tap โดยอัตโนมัติ";
+
+/* Button */
+"Load Tun driver automatically" = "โหลดไดร์เวอร์ Tun โดยอัตโนมัติ";
+
+/* Button */
+"Manually" = "ด้วยตนเอง";
+
+/* Button */
+"Monochrome icon" = "ไอคอนสีเดียว";
+
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "ข้อมูลเพิ่มเติม [%@]";
+
+/* Button */
+"More Info" = "ข้อมูลเพิ่มเติม";
+
+/* Button */
+"Never load Tap driver" = "ไม่โหลดไดร์เวอร์ Tap";
+
+/* Button */
+"Never load Tun driver" = "ไม่โหลดไดร์เวอร์ Tun";
+
+/* Button */
+"Never show" = "ไม่แสดง";
+
+/* Button */
+"No keyboard shortcut" = "ไม่มีปุ่มลัด";
+
+/* Button */
+"No sound" = "ปิดเสียง";
+
+/* Button */
+"OK" = "ตกลง";
+
+/* Button */
+"Only Me" = "เฉพาะฉัน";
+
+/* Button */
+"Open Uninstall Instructions in Browser" = "เปิดดูขั้นตอนการถอนการติดตั้งในเบราว์เซอร์";
+
+/* Button */
+"Open easy-rsa in Terminal" = "เปิด easy-rsa ในเทอร์มินอล";
+
+/* Button */
+"Place Icon Near the Spotlight Icon" = "วางไอคอนใกล้ไอคอน Spotlight";
+
+/* Button */
+"Place Icon Normally" = "วางไอคอนตามปกติ";
+
+/* Button */
+"Quit All OpenVPN Processes" = "ปิดทุกโพรเซสของ OpenVPN";
+
+/* Button */
+"Quit" = "ออก";
+
+/* Button
+   Menu item */
+"Re-enable Network Access" = "เปิดการเข้าถึงเครือข่ายกลับมา";
+
+/* Button */
+"Reinstall" = "ติดตั้งใหม่";
+
+/* Button */
+"Remove Credentials" = "ลบข้อมูลยืนยันตัวตน";
+
+/* Button */
+"Replace" = "แทนที่";
+
+/* Button */
+"Reset Disabled Warnings" = "ล้างการเตือนที่ปิดไว้";
+
+/* Button */
+"Reset primary interface" = "ล้างหน้าจอหลักแล้วเริ่มใหม่";
+
+/* Button */
+"Restart connection" = "ปิดแล้วเปิดการเชื่อมต่อใหม่";
+
+/* Button */
+"Restore" = "คืนสภาพ";
+
+/* Button text */
+"Retry with manual response" = "ลองอีกครั้งด้วยการตอบเอง";
+
+/* Button */
+"Retry" = "ลองอีกครั้ง";
+
+/* Button */
+"Revert to the Last Secured Copy" = "เปลี่ยนกลับไปฉบับล่าสุดที่รักษาไว้";
+
+/* Button */
+"Revert" = "เปลี่ยนกลับ";
+
+/* Button */
+"Secure the Configuration" = "รักษาคอนฟิกเกอเรชั่นไว้";
+
+/* Button */
+"Show on default screen (%u x %u)" = "แสดงบนหน้าจอเริ่มต้น (%1$u x %2$u)";
+
+/* Button */
+"Show on screen %u (%u x %u)" = "แสดงบนหน้าจอ %1$u (%2$u x %3$u)";
+
+/* Button */
+"Show when connection status changes" = "แสดงเมื่อสถานะการเชื่อมต่อเปลี่ยนแปลง";
+
+/* Button */
+"Show while connecting and connected" = "แสดงขณะที่กำลังเชื่อมต่อและเชื่อมต่อแล้ว";
+
+/* Button */
+"Show while connecting" = "แสดงขณะกำลังเชื่อมต่อ";
+
+/* Button */
+"Skip" = "ข้าม";
+
+/* Button */
+"Speak" = "พูด";
+
+/* Button */
+"Standard icon" = "ไอคอนมาตรฐาน";
+
+/* Button */
+"Terminate All OpenVPN processes" = "จบทุกโพรเซสของ OpenVPN";
+
+/* Button */
+"Terminate" = "จบ";
+
+/* Button */
+"This configuration has its own separate credentials" = "คอนฟิกเกอเรชั่นนี้มีข้อมูลยืนยันตัวตนต่างหาก";
+
+/* Button */
+"This configuration uses %@ credentials" = "คอนฟิกเกอเรชั่นนี้ใช้ข้อมูลยืนยันตัวตน %@";
+
+/* Button */
+"Try again with saved passphrase" = "ลองอีกครั้งโดยใช้ข้อความรหัสผ่านที่เก็บไว้";
+
+/* Button */
+"Try again with saved username and password" = "ลองอีกครั้งโดยใช้ชื่อผู้ใช้และรหัสผ่านที่เก็บไว้";
+
+/* Button */
+"Try again" = "ลองอีกครั้ง";
+
+/* Button */
+"Tunnelblick 3.3 icon" = "ไอคอน Tunnelblick 3.3";
+
+/* Button */
+"When Tunnelblick launches" = "เมื่อ Tunnelblick เริ่มทำงาน";
+
+/* Button */
+"When computer starts" = "เมื่อคอมพิวเตอร์เริ่มทำงาน";
+
+/* Menu item */
+"Add a VPN..." = "เพิ่ม VPN";
+
+/* Menu item */
+"Connect %@%@" = "เชื่อมต่อกับ %@%@";
+
+/* Menu Item */
+"Delete Configuration's Credentials in Keychain..." = "ลบข้อมูลยืนยันตัวตนของคอนฟิกเกอเรชั่นออกจาก Keychain";
+
+/* Menu item tooltip */
+"Disabled because this setting is being forced" = "ปิดไว้เพราะถูกบังคับโดยการตั้งค่า";
+
+/* Menu item */
+"Disconnect %@%@" = "ตัดการเชื่อมต่อกับ %@%@";
+
+/* Menu Item */
+"Do Not Show on Tunnelblick Menu" = "ไม่แสดงในเมนูของ Tunnelblick";

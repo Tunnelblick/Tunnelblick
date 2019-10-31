@@ -148,6 +148,7 @@
 		639EC33E1C0E16A9001FE378 /* StatusWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */; };
 		639F0FBA1960EFA100A3090E /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
+		63A6F033236B93CF002762D9 /* TH.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63A6F032236B93CF002762D9 /* TH.lproj */; };
 		63AA8E5F1492C77700C791C9 /* process-network-changes.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AA8E5E1492C77700C791C9 /* process-network-changes.m */; };
 		63AB7D001D930BCE008ED621 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AB7CFF1D930BCE008ED621 /* QuartzCore.framework */; };
 		63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ABFE9B1349E435003DEB64 /* LoginWindowController.m */; };
@@ -525,6 +526,7 @@
 		639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StatusWindow-RTL.xib"; sourceTree = "<group>"; };
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
+		63A6F032236B93CF002762D9 /* TH.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TH.lproj; sourceTree = "<group>"; };
 		63AA8E581492C75200C791C9 /* process-network-changes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "process-network-changes"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA8E5E1492C77700C791C9 /* process-network-changes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "process-network-changes.m"; sourceTree = "<group>"; };
 		63AB7CFF1D930BCE008ED621 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1125,6 +1127,7 @@
 				63E5276920C2DA7E00963456 /* SR_Latn.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
 				6308EEE8222701E8003D974C /* TA.lproj */,
+				63A6F032236B93CF002762D9 /* TH.lproj */,
 				6389ADBC1AE4265100E2FAD8 /* TR.lproj */,
 				B87C59DA17982F3900FFE540 /* UK.lproj */,
 				6364DB8A1E3F5CB40089962B /* VI.lproj */,
@@ -1586,6 +1589,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				61BC4DB40E2FA3C300F24255 /* MainMenu.xib in Resources */,
 				61F294A60ED389520097DE94 /* openvpn.conf in Resources */,
+				63A6F033236B93CF002762D9 /* TH.lproj in Resources */,
 				615F748A0ED3A4C2007F6F0A /* English.lproj in Resources */,
 				634E02051CAD9764008637FF /* AF.lproj in Resources */,
 				63E5276A20C2DA7E00963456 /* SR_Latn.lproj in Resources */,

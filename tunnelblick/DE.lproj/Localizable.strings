@@ -429,9 +429,6 @@
 "Do not warn about this again" = "Nicht mehr darauf hinweisen";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Warnung für %lu Tage nicht mehr anzeigen";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "IPv6 aktivieren (nur Tap)";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "Systemvoraussetzungen nicht erfüllt";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ muss möglicherweise aktualisiert werden";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick-Konfigurationsproblem";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' Einstellung ignoriert; Pfad muss absolut sein oder mit '~' beginnen";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(Beim Erstellen des Hilfe-Inhalts ist ein Fehler aufgetreten.)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Protokollierung ist ausgeschaltet)";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Die Netzwerkeinstellungen konnten nach der Trennung von %@ nicht richtig wiederhergestellt werden.</p><p>Dieses Problem tritt meistens bei der Benutzung der OpenVPN-Option 'user nobody' und/oder 'group nobody' auf.</p><p>Um die Netzwerkeinstellungen wiederherzustellen, starten Sie ihren Computer neu.</p><p>Um diesen Fehler in Zukunft zu vermeiden, entfernen Sie die Zeilen 'user nobody' and 'group nobody' aus ihrer OpenVPN Konfigurationsdatei.</p><p>Siehe <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Benutzer und Gruppen OpenVPN Optionen</a> [tunnelblick.net] für mehr Informationen.</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Diese Version von Tunnelblick ist %lu Tage alt.</p><p>Bitte überprüfen Sie, ob es eine neuere Version gibt.</p>-<ul>-<li>Entweder manuell im Fenster \"Einstellungen\" unter \"VPN Details\"; oder<br></li><li> auf der <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads Seite</a> [tunnelblick.net].</li>-</ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Ein TBPreference oder TBAlwaysSetPreference Schlüssel zeigt auf unbekannte Einstellung '%1$@' in %2$@";
@@ -1438,9 +1426,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Der Pfad '%1$@' enthält Zeichen, die nicht zulässig sind. \n\nDie Zeichen, die nicht zulässig sind, sind: '%2$s'\n\n";
-
-/* Window text */
-"Please check for a newer version." = "Bitte überprüfen Sie, ob es eine neuere Version gibt.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Bitte einen Namen eingeben und „OK“ klicken oder „Abbrechen“.\n\n";
@@ -2137,9 +2122,6 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick OpenVPN anweisen, allen Datenverkehr durch IPv4 zu routen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird OpenVPN standardmäßig das VPN nur für den Verkehr nutzen, dessen Ziel das VPN-Netzwerk ist. Anderer Datenverkehr wird das normale Internet benutzen, ohne durch das VPN zu gehen. Das Standardverhalten von OpenVPN kann durch die OpenVPN-Konfiguration oder den VPN-Server beeinflusst werden, so dass aller IPv4-Traffic durch den VPN-Server geroutet wird, als wäre diese Checkbox ausgewählt worden. </p>\n \nContext | Request Context\n";
-
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick die Warnung für %lu Tage nicht mehr anzeigen.</p>\n<p><strong>Falls nicht ausgewählt</strong>,wird Tunnelblick diese Warnung bei jedem Start anzeigen.</p>";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick diese Warnung nicht wieder anzeigen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird Tunnelblick diese Warnung wieder anzeigen.</p>\n";

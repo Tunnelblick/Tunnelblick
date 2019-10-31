@@ -429,9 +429,6 @@
 "Do not warn about this again" = "No volver a advertir sobre esto";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "No advertir sobre esto por %lu días";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "Habilitar IPv6 (sólo tap)";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "Requerimientos del Sistema no Alcanzados";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ necesita ser actualizado";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Problema de Configuración de Tunnelblick";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "preferencia 'easy-rsaPath' ignorada; debe ser una ruta absoluta o empezar con '~'";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(Ha ocurrido un error creando el contenido de la ayuda.)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(El registro está desactivado.)";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>La configuración de red no fue restablecida apropiadamente luego de desconectarse de %@.</p><p>Este problema es causado usualmente por utilizar la opción de OpenVPN 'user nobody' y/o 'group nobody'.</p><p>Para restablecer la configuración de red debería reiniciar su computadora.</p><p>Para evitar este error en el futuro, debería remover las líneas 'user nobody' y 'group nobody' de su archivo de configuración de OpenVPN.</p><p>Ver <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] para más información.</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Esta versión de Tunnelblick es de hace %lu días.</p><p>Por favor compruebe si hay una nueva versión:</p><ul><li>Manualmente en el panel de 'Preferencias' en la ventana de configuración de 'Detalles de VPN'; o <br></li><li>Buscando la versión mas reciente en <a href=\"https://tunnelblick.net/downloads.html\">la página de descargas de Tunnelblick</a>[tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Una clave TBPreference o TBAlwaysSetPreference refiere a una preferencia desconocida '%1$@' en %2$@";
@@ -1438,9 +1426,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "La ruta '%1$@' contiene caracteres no permitidos.\n\nLos caracteres no permitidos son: '%2$s'\n\n";
-
-/* Window text */
-"Please check for a newer version." = "Por favor, verifique si existe una versión más reciente.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Por favor ingrese un nombre y de click a \"OK\" o de click a \"Cancelar\".\n\n";
@@ -2137,9 +2122,6 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Cuando se selecciona</strong>, Tunnelblick notificará a OpenVPN para que rutee todo el tráfico a través del servidor VPN.</p>\n<p><strong>Cuando no se selecciona</strong>, por defecto OpenVPN utilizará la VPN únicamente para el tráfico destinado a la red de VPN. Todo el resto del tráfico utilizará la conexión normal de Internet sin pasar a través de la VPN.\nEl comportamiento por defecto de OpenVPN puede ser modificado por la configuración de OpenVPN ó por el servidor VPN y hacer que todo el tráfico sea ruteado a través del servidor VPN como si este checkbox hubiese sido seleccionado.</p>\n";
-
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Cuando esta chequeado</strong>, Tunnelblick no mostrará esta advertencia nuevamente por %lu días.</p><p><strong>Cuando no este chequeado</strong>, Tunnelblick mostrará esta advertencia cada vez que sea la aplicación sea abierta.</p>\n";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Cuando este chequeado</strong>, Tunnelblick no mostrará esta advertencia nuevamente.</p><p><strong>Cuando no este chequeado</strong>, Tunnelblick mostrará esta advertencia nuevamente.</p>\n";

@@ -429,9 +429,6 @@
 "Do not warn about this again" = "이 경고를 다시 하지 않음";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "%lu 일 동안 경고하지 않습니다.";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "IPv6 설정 (tap 전용)";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "시스템 요구사항과 일치하지 않습니다";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ 은 업데이트가 필요합니다.";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 설정 문제";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' 설정 값 무시. 절대 경로 또는 '~' 로 시작해야 합니다";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(도움말 컨텐츠를 생성하는 도중 오류가 발생했습니다.)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(로그 기록 중단됨.)";
 
@@ -922,9 +913,6 @@
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Tunnelblick을 기반으로 제공되는 무료 소프트웨어는 다음 주소에서 배포됩니다<br><a href=\"http://tunnelblick\">http://tunnelblick.net</a><br><br>OpenVPN은 OpenVPN Technologies, Inc.의 등록 상표입니다.";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>이 버전의 Tunnelblick은 %lu일 경과되었습니다.</p><p>새로운 버전을 확인하십시오:</p><ul>\n<li>’VPN 상세’ 창의 ’환경설정’ 패널에서 수동으로 확인하거나; 또는<br></li><li>[tunnelblick.net] <a href=\"https://tunnelblick.net/downloads.html”>Tunnelblick 다운로드 페이지</a>에서 최신 버전을 찾으십시오.</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference 또는 TBAlwaysSetPreference 키가 %2$@ 에서 알 수 없는 설정 '%1$@' 를 참조하고 있습니다.";
@@ -1429,9 +1417,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "경로 '%1$@' 는 허용되지 않는 문자를 포함하고 있습니다.\n\n허용되지 않는 문자: '%2$s'\n\n";
-
-/* Window text */
-"Please check for a newer version." = "새 버전은 확인하십시오.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "이름을 입력하고 \"확인\" 또는 \"취소\"를 클릭하십시오.\n\n";
@@ -2072,9 +2057,6 @@
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>체크되었을 때</strong>, Tunnelblick이 모든 IPv4 트래픽에 대해 VPN 서버를 통하도록 OpenVPN에 명령합니다.</p>\n<p><strong>체크되지 않았을 때</strong>, 기본적으로 OpenVPN이 VPN 네트워크를 향하는 트래픽에 대해서만 VPN만을 사용합니다. 모든 다른 트래픽은 VPN을 통하지 않는 인터넷 연결을 사용합니다. OpenVPN의 기본 행동은 OpenVPN 구성이나 VPN 서버에 의해 변경 될 수 있으며, 마치 이 체크상자가 체크된 것마냥 모든 IPv4 트래픽이 VPN 서버를 지나치도록 행동할 수 있습니다.</p>\n";
 
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>체크되었을 때</strong>, Tunnelblick은 이 경고 메시지를 %lu일 동안 다시 표시하지 않습니다.</p>\n<p><strong>체크되지 않았을 때</strong>, Tunnelblick은 이 경고 메시지를 매번 실행할 때마다 표시할 것입니다.</p>\n";
-
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>체크되었을 때</strong>, Tunnelblick은 이 경고 메시지를 다시 표시하지 않습니다.</p>\n<p><strong>체크되지 않았을 때</strong>, Tunnelblick은 이 경고 메시지를 다시 표시할 것입니다.</p>\n";
 
@@ -2221,6 +2203,15 @@
 
 /* Checkbox */
 "Do not show this again" = "다시 보이지 않기";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when connecting" = "이 경고를 다시 표시하지 않기;\n연결할 때 항상 다시 활성화";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "이 경고를 다시 표시하지 않기;\nTunnelblick을 종료할 때 항상 다시 활성화";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "이 경고를 다시 표시하지 않기;\nTunnelblick을 시작할 때 다시 활성화하지 않음";
 
 /* Credit description */
 "Dutch translation" = "네덜란드어 번역";

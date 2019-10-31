@@ -420,9 +420,6 @@
 "Do not warn about this again" = "Nemoj više upozoravati";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Ne upozoravaj me na ovo %lu dana";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "Omogući IPv6 (samo za Tap)";
 
 /* Checkbox name */
@@ -676,9 +673,6 @@
 
 /* Window title */
 "System Requirements Not Met" = "Sistemski zahtjevi nisu ispunjeni";
-
-/* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ će trebati ažurirati";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Problem Tunnelblick konfiguracije";

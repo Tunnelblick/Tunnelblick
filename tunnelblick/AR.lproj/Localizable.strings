@@ -173,7 +173,7 @@
 "Only Me" = "أنا فقط";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "فتح تعليمات ازالة التثبيت في متصفح";
+"Open Uninstall Instructions in Browser" = "فتح تعليمات ازالة التثبيت في المتصفح";
 
 /* Button */
 "Open easy-rsa in Terminal" = "فتح easy-rsa في نافذة طرفية";
@@ -210,7 +210,7 @@
 "Reset primary interface" = "إعادة تعيين الواجهة الأساسية";
 
 /* Button */
-"Restart connection" = "إعادة انشاء الإتصال";
+"Restart connection" = "إعادة الاتصال";
 
 /* Button */
 "Restore" = "إستعادة";
@@ -234,13 +234,13 @@
 "Show on default screen (%u x %u)" = "الاظهار على الشاشة الرئيسة (%u x %u)";
 
 /* Button */
-"Show on screen %u (%u x %u)" = "الاظهار على الشاشة(%u x %u)";
+"Show on screen %u (%u x %u)" = "اظهار على الشاشة %1$u (%2$u x %3$u)";
 
 /* Button */
 "Show when connection status changes" = "عرض عند تغيير حالة الاتصال";
 
 /* Button */
-"Show while connecting and connected" = "Show while connecting and connected\n\n35/5000\nعرض أثناء الاتصال والتوصيل";
+"Show while connecting and connected" = "عرض أثناء الاتصال والتوصيل";
 
 /* Button */
 "Show while connecting" = "عرض أثناء انشاء الإتصال";
@@ -318,7 +318,7 @@
 "Make Configuration Shared..." = "اجعل الإعدادات مشتركة...";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "ليس هناك تسجيل في OpenVPN او تُنلـبليك VPN";
+"No OpenVPN or Tunnelblick VPN logging" = "ليس هناك تسجيل في OpenVPN او Tunnelblick VPN";
 
 /* Menu item */
 "No VPN Configurations Available" = "لا يوجد اعدادات OpenVPN متوفرة";
@@ -330,7 +330,7 @@
 "OpenVPN level 0 - no output except fatal errors" = "OpenVPN مستوى 0 - ليس هناك ناتج يذكر باستثناء الاخطاء الوخيمة";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN مستوى 11 - الناتج مطول لالغاية";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN مستوى 11 - الناتج مطول للغاية";
 
 /* Menu Item */
 "OpenVPN level 3 - normal output" = "OpenVPN مستوى 3 - ناتج عادي";
@@ -369,19 +369,19 @@
 "VPN Details..." = "تفاصيل شبكة VPN...";
 
 /* Checkbox name */
-"Allow changes to manually-set network settings" = "السماح بتغييرات يدويا في إعدادات الشبكة التي تم تعيينها";
+"Allow changes to manually-set network settings" = "السماح بالتغييرات لتعيين اعدادات الشبكة بشكل يدوي";
 
 /* Checkbox name */
-"Always show this window" = "نافذة دائمة الظهور";
+"Always show this window" = "إظهار هذه النافذة دوماٌ";
 
 /* Checkbox name */
-"Apply to all" = "طبق على الجميع";
+"Apply to all" = "تطبيق على الكل";
 
 /* Checkbox name */
 "Check for updates automatically" = "تحقق من وجود تحديثات تلقائياً";
 
 /* Checkbox name */
-"Check for updates to beta versions" = "تحقق من وجود تحديثات إلى إصدارات بيتا";
+"Check for updates to beta versions" = "تحقق من وجود تحديثات إلى إصدارات تجريبية";
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "تحقق ما اذا تغير عنوان الاي بي العام بعد الاتصال";
@@ -429,9 +429,6 @@
 "Do not warn about this again" = "لا تحذر حول هذا مرة أخرى";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "لا ترسل لي تحذيراً حول هذا ل %lu يوم";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "تفعيل IPV6 (فقط تاب)";
 
 /* Checkbox name */
@@ -462,10 +459,10 @@
 "Require administrator authorization for key and certificate changes" = "تتطلب إذن المسؤول عن الخدمة لاجراء تغييرات على المفتاح و الشهادة";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "تحويل حركة سيرالمعلومات عبر الشبكة الخاصة الافتراضية (VPN)";
+"Route all IPv4 traffic through the VPN" = "تحويل حركة سير المعلومات عبر الشبكة الخاصة الافتراضية VPN";
 
 /* Checkbox name */
-"Run MTU maximum size test after connecting" = "تشغيل إختبار أقصى حجم لل ام يو تي بعد الإتصال";
+"Run MTU maximum size test after connecting" = "تشغيل إختبار أقصى حجم ام تي يو بعد الإتصال";
 
 /* Checkbox name */
 "Save in Keychain" = "حفظ في سلسلة مفاتيح النظام";
@@ -504,7 +501,7 @@
 "ADD_ROUTES" = "إضافة الخطوط"; // Please translate "Adding routes"
 
 /* Connection status */
-"ASSIGN_IP" = "تعيين عنوان ال اي  بي"; // Please translate "Assigning IP address"
+"ASSIGN_IP" = "تعيين عنوان الـIP"; // Please translate "Assigning IP address"
 
 /* Connection status */
 "AUTH" = "السماح"; // Please translate "Authorizing"
@@ -516,7 +513,7 @@
 "CONNECTING" = "جارٍ الاتصال"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "قطع الاتصال"; // Please translate "Disconnecting"
+"DISCONNECTING" = "جار قطع الاتصال"; // Please translate "Disconnecting"
 
 /* Connection status */
 "EXITING" = "غير متصل"; // Please translate "Disconnected"
@@ -531,7 +528,7 @@
 "PASSWORD_WAIT" = "بانتظار كلمة المرور"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "إنتظار عبارة المرور"; // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "بإنتظار عبارة المرور"; // Please translate "Waiting for password"
 
 /* Connection status */
 "RECONNECTING" = "جار اعادة الاتصال"; // Please translate ""
@@ -691,9 +688,6 @@
 
 /* Window title */
 "System Requirements Not Met" = "متطلبات النظام لم تتحقق";
-
-/* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ يمكن أن يحتاج إلى تحديث";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "خطأ في إعدادات تُنلـبليك";
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "تم تجاهل االاختيار'easy-rsaPath'; يجب ان يكون المسار مطلقا او يبدا ب '~'";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(حدث خطأ في إنشاء محتوى المساعده)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(التسجيل معطل.)";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>لم تتم إستعادة إعدادات الشبكة بشكل صحيح بعد قطع الاتصال ب %@.</p><p>تحدث هذه المشكلة عادةً عند استخدام خيارات OpenVPN 'user nobody' و / أو 'group nobody'.</p><p>لإعادة إعدادات الشبكة, يجب عليك إعادة تشغيل الكمبيوتر.</p><p>لمنع هذا الخطأ في المستقبل, قم بحذف أسطر 'user nobody' و 'group nobody' من ملف إعدادات OpenVPN.</p>\n<p>أنظر<a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">مستخدم و مجموعة خيارات OpenVPN</a>[tunnelblick.net] للمزيد من المعلومات.</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>هذا الإصدار من Tunnelblick يرجع لـ%lu يوم.</p>\n<p>الرجاء إستخدام إصدار أحدث:</p>\n<ul><li>يدوياً من خلال الذهاب لقائمة 'الإعدادات' في Tunnelblick ثم 'تفاصيل شبكات VPN'؛ أو <br></li><li> من خلال تحميل آخر إصدار من الموقع <a href=\"https://tunnelblick.net/downloads.html\"> تحميل Tunnelblick\n</a>[tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "يشير المفتاح TBAlways او ListPreference إلى اختيارغير معروف '%1$@' في %2$@";
@@ -1377,7 +1365,7 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "هناك واحدة او اكثر من عمليات OpenVPN تعمل الآن ، ولكنها غير مرتبطة ب Tunnelblick. اذا كنت لا تستخدم OpenVPN دون استخدام Tunnelblick فهذا يعنى وجود نسخة قديمة من البرنامج لم يتم اغلاقها بعد ، ويجب اغلاقها لكي تعمل النسخة الجديدة. هل تريد اغلاق كل عمليات OpenVPN الآن ؟";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "هناك واحدة او اكثر من عمليات OpenVPN تعمل الآن ، ولكنها غير مرتبطة ب Tunnelblick. اذا كنت لا تستخدم OpenVPN دون استخدام تُنلـبليك فهذا يعنى وجود نسخة قديمة من البرنامج لم يتم اغلاقها بعد ، ويجب اغلاقها لكي تعمل النسخة الجديدة.\n\nيمكن اغلاق هذه العمليات عن طريق منظم العمليات Activity Monitor.\n\n";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "هناك واحدة او اكثر من عمليات OpenVPN تعمل الآن ، ولكنها غير مرتبطة ب Tunnelblick. اذا كنت لا تستخدم OpenVPN دون استخدام Tunnelblick فهذا يعنى وجود نسخة قديمة من البرنامج لم يتم اغلاقها بعد ، ويجب اغلاقها لكي تعمل النسخة الجديدة.\n\nيمكن اغلاق هذه العمليات عن طريق منظم العمليات Activity Monitor.\n\n";
 
 /* Window text */
 "One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "هناك واحد أو أكثر من إعدادات الـVPN التي يتم تثبيتها تتضمن إعدادات OpenVPN غير معرفة للبرنامج، ويمكن ان تسبب بعض المشاكل او تقوم بتشغيل بعض البرامج بصلاحيات متقدمة عند الاتصال.\n\nلا تقم بالتثبيت الا اذا كنت تثق فى مقدم تلك الاعدادات.\n\nهل تثق بمقدم تلك الاعدادات وتريد تثبيتها ؟\n\n";
@@ -1401,7 +1389,7 @@
 "One or more configurations are being ignored. See the Console Log for details." = "بعض الإعدادات تم تجاهلها، راجع شاشة التحكم لمزيد من التفصيل.";
 
 /* Window text */
-"One or more possible problems with DNS were found: \n\n%@" = "تم وجود مشكل أو عدة مشاكل في DNS\n%@";
+"One or more possible problems with DNS were found: \n\n%@" = "تم وجود مشكلة أو عدة مشاكل في DNS:\n%@";
 
 /* Window text */
 "One or more problems were detected:\n\n%@" = "تم اكتشاف بعض الأخطاء:\n\n%@";
@@ -1438,9 +1426,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "عنوان الدليل ‘%1$@‘ يحتوي على رموز غير مسموحة.\n\nالرموز غير المسموحة هي: ‘%2$s‘\n\n";
-
-/* Window text */
-"Please check for a newer version." = "الرجاء التحديث لإصدار أحدث.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "الرجاء أدخل الإسم المطلوب ثم إضغط \"موافق\" ،أو إضغط \"إلغاء\".\n\n";
@@ -2137,9 +2122,6 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "في حالة التحقق من <p><strong> فان Tunnelblick سوف ترسل تعليمات الى OpenVPN لنقل كل IPv4 ترافيك خلال شبكة ال VPN.</p>\n";
-
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>عند إختياره</strong>, تُنلـبليك لن يقوم بإظهار هذا التنبيه مرة اخرى لمدة %lu أيام.</p>\n<p><strong>عند عدم إختياره</strong>, تُنلـبليك سوف يقوم بإظهار هذا التنبيه في كل مرة تقوم فيها بفتح هذا البرنامج.</p>\n";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>عند إختياره</strong>, تُنلـبليك لن يقوم بإظهار هذا التنبيه مرة اخرى.</p>\n<p><strong>عند عدم إختياره</strong>, تُنلـبليك سوف يقوم بإظهار هذا التنبيه مرة اخرى.</p>\n";

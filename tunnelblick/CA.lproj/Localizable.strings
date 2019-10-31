@@ -429,9 +429,6 @@
 "Do not warn about this again" = "No m'avisis més sobre això";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "No tornar a avisar sobre això fins d'ací %lu dies";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "Habilitar IPv6 (només tap)";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "No es compleixen els requeriments de sistema";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ pot ser necessite ser actualitzat";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Problema de configuració del Tunnelblick";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "La preferència 'easy-rsaPath' no s'ha tingut en compte; ha de ser un camí absolut o començar amb '~'";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(S'ha produït un error en crear el contingut de l'ajuda.)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Registre de missatges deshabilitat.)";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica, Arial, sans-serif\"><p>La configuració de la xarxa no s'ha restaurat correctament després d'haver-se desconnectat de %@.</p><p>Aquest problema sol produir-se usant l'usuari \"ningú\" i / o el grup \"ningú\" de les opcions d'OpenVPN.</p><p>Per restaurar la configuració de la xarxa, haureu de reiniciar l'equip.</p><p>Per evitar aquest error en el futur, elimineu l'usuari \"ningú\" i el grup \"ningú\" del vostre fitxer de configuració OpenVPN.</p><p>Vegeu <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Opcions d'usuari i grup OpenVPN</a> [tunnelblick.net] per obtenir més informació.</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Aquesta versió de Tunnelblick és de fa %lu dies.</p><p>Comproveu si hi ha una versió més nova:</p><ul><li>Manualment al tauler de 'Preferències' de la finestra de Tunnelblick 'Detalls VPN'; o<br></li><li>Buscant una versió més recent a la <a href=\"https://tunnelblick.net/downloads.html\">pàgina de descàrregues de Tunnelblick</a> [tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Una clau de TBPreference o TBAlwaysSetPreference apunta a una preferència desconeguda '%1$@' a %2$@";
@@ -1438,9 +1426,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "El camí '%1$@' conté caràcters que no estan permesos.\n\nCaràcters no permesos: '%2$s'\n\n";
-
-/* Window text */
-"Please check for a newer version." = "Per favor, comprovi si hi ha una versió més nova.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Entra un nom i fes click a \"OK\" or a \"Cancel\", si us plau.\n\n";
@@ -2137,9 +2122,6 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Quan se selecciona</strong>, Tunnelblick notificarà a OpenVPN perquè encamini tot el tràfic a través del servidor VPN.</p>\n<p><strong>Quan no se selecciona</strong>, per defecte OpenVPN utilitzarà la VPN únicament per al tràfic destinat a la xarxa de VPN. Tota la resta del tràfic utilitzarà la connexió normal d'Internet sense passar a través de la VPN.\nEl comportament per defecte d'OpenVPN pot ser modificat per la configuració d'OpenVPN o pel servidor VPN i fer que tot el tràfic sigui encaminat a través del servidor VPN com si aquest checkbox hagués estat seleccionat.</p>\n";
-
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Quan estigui seleccionat</strong>, Tunnelblick no mostrarà aquesta advertència de nou fins d'ací a %lu dies.</p>\n<p><strong>Quan no estigui seleccionat</strong>, Tunnelblick mostrarà aquesta advertència cada vegada que es llança.</p>\n";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Quan estigui seleccionat</strong>, Tunnelblick no mostrarà aquesta advertència de nou.</p>\n<p><strong>Quan no estigui seleccionat</strong>, Tunnelblick mostrarà aquesta advertència de nou.</p>\n";

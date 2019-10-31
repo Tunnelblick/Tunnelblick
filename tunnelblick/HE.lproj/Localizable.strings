@@ -372,6 +372,9 @@
 "Allow changes to manually-set network settings" = "אפשר שינויים לקביעה ידנית של הגדרות רשת";
 
 /* Checkbox name */
+"Always show this window" = "תמיד הצג את חלון זה";
+
+/* Checkbox name */
 "Apply to all" = "אשר להכל";
 
 /* Checkbox name */
@@ -382,6 +385,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "בדוק אם כתובת IP ציבורית גלויה השתנתה לאחר ההתחברות";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "בטל תמיכה ב-IPv6 אלא אם שרת גישה לשרת הVPN מתבצעת באמצעות IPV6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "נתק כאשר המחשב עובר למצב שינה";
@@ -421,9 +427,6 @@
 
 /* Checkbox name */
 "Do not warn about this again" = "אל תציג אזהרה זו שוב";
-
-/* Checkbox name */
-"Do not warn about this for %lu days" = "אל תציג אזהרה זו למשך %lu ימים";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "אפשר IPv6 (tap בלבד(";
@@ -687,9 +690,6 @@
 "System Requirements Not Met" = "דרישות מערכת לא תואמות";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "%@ Tunnelblick - ישנה גרסא חדשה";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "בעייה בהגדרות Tunnelblick";
 
 /* Window title */
@@ -751,6 +751,9 @@
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     כתובת הDNS %@ איננה פרטית ואינה ידועה ל-Tunnelblick ולא מנותבת דרך ספק הVPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     כתובת הDNS %@ אינה ציבורית ולא מנותבת דרך הVPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     %lu קונפיגורציות הותקנו בהצלחה\n\n";
@@ -881,14 +884,14 @@
 /* Window text */
 "'%@' was not terminated." = "התגית %@ קיימת ללא סיומת בקובץ.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' יתחבר באמצעות OpenVPN גרסה %2$@, במקום הגרסה המבוקשת (OpenVPN %3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "המאפיין 'easy-rsaPath' יתעלם; לא צויינה תיקייה";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "המאפיין 'easy-rsaPath' יתעלם; הוא צריך להיות נתיב מוחלט או להתחיל עם '~'";
-
-/* Window text */
-"(An error occurred creating the help content.)" = "(אירעה שגיאה במהלך הכנת תוכן העזרה)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(תיעוד ביומן כבוי.)";
@@ -915,13 +918,13 @@
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>תצורת הרשת לא שוחזרה כראוי לאחר ההתנתקות מ-%@.</p><p>בעיה זו נגרמת בדרך כלל בעקבות שימוש בהגדרות 'user nobody' ו/או 'group nobody'.</p><p>כדי לשחזר את הגדרות הרשת, עליך לאתחל מחדש את המחשב.</p><p>על מנת למנוע שגיאה זו בעתיד, מחק את השורות 'user nobody' ו-'group nobody' מקובץ הקונפיגורציה.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">הגדרות משתמש וקבוצות OpenVPN</a> [tunnelblick.net] למידע נוסף.</p></font>";
 
 /* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>גרסת Tunnelblick זו היא בת %lu ימים.</p><p>אנא בדוק אם ישנה גרסה חדשה זמינה:</p><ul><li>באופן ידני בפאנל 'העדפות' של חלון 'נתוני VPN'; או <br></li><li>או בדוק אם ישנה גרסה עדכנית יותר ב<a href=\"https://tunnelblick.net/downloads.html\">עמוד ההורדות של Tunnelblick</a> [tunnelblick.net].</li></ul>";
-
-/* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "מפתח TBPreference או TBAlwaysSetPreference מתייחס להעדפה לא ידועה '%1$@' ב-%2$@";
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "קונפיגורציית Tunnelblick VPN נמצאת תחת יותר מידי תיקיות ב%@";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "לא ניתן להתחבר אוטומטית עם עליית המחשב באמצעות קונפיגורציה שדורשת passphrase (מפתח פרטי) או שם משתמש וסיסמא.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "סיסמא נדרשת על מנת להתחבר ל\n%1$@%2$@";
@@ -1065,7 +1068,25 @@
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "ההגדרות %@ אינן מאובטחות. נא התקן(י) Tunnelblick מחדש.";
 
 /* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "לא ניתן לעדכן את הקונפיגורציה '%@' מכיוון שהיא אינה מסומנת כניתנת לעדכון.\n";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "הקונפיגורציה '%1$@' דורשת את גרסא %2$@ ומעלה; אתה משתמש בTunnelblick %3$@.\n\nאנא עדכן את Tunnelblick בכדי להתקין את הקונפיגורציה הזו.";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "קונפיגורציה %1$@ דורשת את גרסא %2$@ ומטה של Tunnelblick; אתה משתמש בTunnelblick %3$@.";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "הקונפיגורציה %1$@ לא תהיה בשימוש, מכיוון שהשם שלה מכיל תווים אסורים לשימוש.\n\nתווים אסורים לשימוש: %2$s\n\n";
+
+/* Window text */
 "Configuration changes:" = "שינוי הגדרות:";
+
+/* Window text */
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "קונפיגורציות מותקנות מקבצים שיסופקו לך ע״י מנהל הרשת שלך או ספק הVPN שלך. \n\nקבצי קונפיגורציה הם בעלי סיומת .tblk, .ovpn או .conf. \n\n(יכולים להיות קבצים נוספים המשוייכים לקונפיגורציה עם סיומת אחרות; התעלמו מהם.)\n\nכדי להתקין קובץ קונפיגורציה, גרור אותו אל האייקון של Tunnelblick או לרשימת הקונפיגורציות בטאב 'Configurations' של חלון ה'VPN Details'.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "קונפיגורציות חיצוניות שאינן חלק מTunnelblick יותקנו כאשר תתקין את Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "התחבר:";
@@ -1075,6 +1096,9 @@
 
 /* Window text */
 "Converted OpenVPN configuration" = "הגדרות OpenVPN הומרו בהצלחה";
+
+/* Window text */
+"Converting %@ at line %lu: %@" = "ממיר את %1$@ בשורה %2$lu: %3$@";
 
 /* Window text */
 "Converting %@: %@" = "ממיר %1$@:%2$@";
@@ -1107,7 +1131,13 @@
 "Could not get attributes of %@" = "שגיעה אירעה במהלך קריאת הקובץ %@";
 
 /* Window text */
+"Could not get modification date of %@" = "לא ניתן לחלץ את תאריך העדכון של %@";
+
+/* Window text */
 "Could not resolve symbolic link at %@" = "לא ניתן למצוא את המיקום שאליו מפנה קיצור הדרך %@";
+
+/* Window text */
+"Could not set modification date of %@ to %@" = "לא ניתן לעדכן את תאריך העדכון של %1$@ ל%2$@";
 
 /* Window text */
 "DNS servers:" = "שרתי תחום (DNS):";
@@ -1119,7 +1149,22 @@
 "Do you wish to delete the %@ credentials?" = "האם ברצונך למחוק את שם המשתמש וסיסמה עבור %@?";
 
 /* Window text */
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "האם אתה מעוניין להתקין את הקונפיגורציה '%@' בעבור כל המשתמשים במחשב זה, או רק בעבור עצמך? \n\n";
+
+/* Window text */
+"Do you wish to reinstall '%@' version %@?" = "האם אתם מעוניין להתקין מחדש את '%1$@' בגרסא %2$@?";
+
+/* Window text */
+"Do you wish to replace '%@' version %@ with version %@?" = "האם אתה מעוניין להחליף את גרסא %2$@ של '%1$@' בגרסא %3$@?";
+
+/* Window text */
 "Do you wish to replace the '%@' configuration?\n\n" = "האם ברצונך להחליף את ההגדרות עבור %@?\n\n";
+
+/* Window text */
+"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "האם אתה רוצה להחזיר את הקונפיגורציות %ld לעותק המאובטח (shadow) האחרון שלהן?\n\n";
+
+/* Window text */
+"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "האם אתה רוצה להחזיר את הקונפיגורציה '%@' לעותק המאובטח (shadow) האחרון שלה?\n\n";
 
 /* Window text */
 "Domain:" = "שם תחום:";
@@ -1134,6 +1179,15 @@
 "EB/s" = "אקסה-בתים לשנייה";
 
 /* Window text */
+"Expected command not found for '%@'" = "לא נמצא הפקודה '%@'";
+
+/* Window text */
+"Expected path not found for '%@'" = "לא נמצא הנתיב '%@'";
+
+/* Window text */
+"Failed to copy %@ to %@" = "ההעתקה מ%1$@ ל%2$@ נכשלה";
+
+/* Window text */
 "Failed to create folder at %@" = "אירעה שגיעה במהלך יצירת התיקיה ב%@";
 
 /* Window text */
@@ -1144,6 +1198,24 @@
 
 /* Window text */
 "Fast User Switching" = "החלפת משתמשים מהירה";
+
+/* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "נראה כי הקובץ '%@' בפורמט Rich Text מכיוון שהוא מתחיל בתו '{'. כל קובץ הקשור ל-OpenVPN חייב להיות קובץ plain text או UTF-8.";
+
+/* Window text */
+"File '%@' contains one or more NUL characters." = "הקובץ '%@' מכיל תו NUL אחד או יותר.";
+
+/* Window text */
+"File '%@' ends with a backslash, which is not allowed." = "הקובץ '%@' מסתיים בלוכסן אחורי (\"\\\"), מה שאינו חוקי.";
+
+/* Window text */
+"File '%@' has an extension which is not known to Tunnelblick." = "סיומת הקובץ '%@' אינה מוכרת לTunnelblick.";
+
+/* Window text */
+"File '%@' is missing" = "הקובץ '%@' לא נמצא";
+
+/* Window text */
+"File '%@' is too short (%lu bytes)" = "הקובץ '%1$@' קצר מדי (%2$lu בייטים)";
 
 /* Window text */
 "File is too large: %@" = "קובץ גדול מידי: %@";
@@ -1200,6 +1272,9 @@
 "Last checked: %@" = "נבדק לאחרונה ב:%@";
 
 /* Window text */
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "שורה %1$d בקובץ '%2$@' מכילה תו אסור ובלתי ניתן להדפסה (0x%3$X).\n\n";
+
+/* Window text */
 "MB" = "מגה-בתים";
 
 /* Window text */
@@ -1212,7 +1287,16 @@
 "Menu:" = "תפריט:";
 
 /* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "לא ניתן למצוא את המפתחות CFBundleIdentifier ו-CFBundleVersion בקובץ Info.plist בעבור\n\n%@\n\nקונפיגורציית VPN זו מוכלת בתוך קונפיגורציית VPN חיצונית הניתנת לעדכון, כך שהיא חייבת לכלול CFBundleIdentifier וCFBundleVersion משלה.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "לא ניתן למצוא את הקובץ Info.plist בעבור\n\n%@\n\nקונפיגורציית VPN זו מוכלת בתוך קונפיגורציית VPN חיצונית הניתנת לעדכון, כך שהיא חייבת לכלול קובץ Info.plist.";
+
+/* Window text */
 "Modified configuration file to remove path information" = "קובץ ההגדרות עודכן להסרת מידע על נתיב";
+
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "מספר חיבורים מקביליים יווצרו (%1$d עם 'קבע nameserver', %2$d ללא 'קבע nameserver')";
 
 /* Window text */
 "Named Credentials" = "פרטי הזדהות";
@@ -1242,13 +1326,82 @@
 "No 'TBPackageVersion' in %@" = "TBPackageVersion לא נמצא ב%@";
 
 /* Window text */
+"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "אין נתיב לeasy-rsa. כנראה שישנה בעיה בהגדרה 'easy-rsaPath'";
+
+/* Window text */
+"Non-array value for '%@' in %@" = "הערך במפתח '%1$@' ב%2$@ אינו מערך";
+
+/* Window text */
+"Non-boolean value for '%@' in %@" = "הערך במפתח '%1$@' ב%2$@ אינו בוליאני";
+
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "הערך במפתח '%1$@' ב%2$@ אינו מספרי";
+
+/* Window text */
+"Non-string value for '%@' in %@" = "הערך במפתח '%1$@' ב%2$@ אינו מחרוזת";
+
+/* Window text */
+"Non-string value for an item in '%@' in %@" = "הערך בעבור פריט '%1$@' ב%2$@ אינו מחרוזת";
+
+/* Window text */
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "לאף אחת מהקונפיגורציות הנבחרות %ld אין הרשאות (private key או שם וסיסמא) מאוחסנות בKeychain.";
+
+/* Window text */
 "Not a .ovpn or .conf: %@" = "קובץ זה איננו ovpn. או conf. תקני: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "אינך מחליף קונפיגורציה קיימת, כך שהקונפיגורציה '%@' לא יכולה להשתמש ב'TBKeepExistingFilesList'";
 
 /* Window text */
 "On expected disconnect:" = "בעת ניתוק צפוי:";
 
 /* Window text */
 "On unexpected disconnect:" = "בעת ניתוק בלתי צפוי:";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "תהליך OpenVPN אחד או יותר רצים כרגע, אך אינם מוכרים לTunnelblick. אם אתה לא מריץ את OpenVPN בנפרד מTunnelblick, כנראה שהפעלה קודמת של Tunnelblick לא נסגרה כראוי ותצטרך לסגור אותה בעצמך. הרצות קודמות אלו יכולים להפריע לפעולתה התקינה של Tunnelblick. האם אתה מעוניין לסגור את כל תהליכי הOpenVPN?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "תהליך OpenVPN אחד או יותר רצים כרגע, אך אינם מוכרים לTunnelblick. אם אתה לא מריץ את OpenVPN בנפרד מTunnelblick, כנראה שהפעלה קודמת של Tunnelblick לא נסגרה כראוי ותצטרך לסגור אותה בעצמך. הרצות קודמות אלו יכולים להפריע לפעולתה התקינה של Tunnelblick. האם אתה מעוניין לסגור אותם?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "תהליך OpenVPN אחד או יותר רצים כרגע, אך אינם מוכרים לTunnelblick. אם אתה לא מריץ את OpenVPN בנפרד מTunnelblick, כנראה שהפעלה קודמת של Tunnelblick לא נסגרה כראוי ותצטרך לסגור אותה בעצמך. הרצות קודמות אלו יכולים להפריע לפעולתה התקינה של Tunnelblick.\n\nניתן לסגור אותן באמצעות אפליקציית 'Activity Monitor'.\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "חלק מקונפיגורציות הVPN שמותקנות כוללות אפשרויות OpenVPN שלא מוכרות לTunnelblick. זו יכולה להיות שגיאה בקונפיגורציה או בTunnelblick, או שחלק מהקונפיגורציות כוללות תוכנות שירוצו כroot כשתתחבר לVPN. תוכנות כאלו יכולות לקבל **שליטה מלאה על המחשב שלך**.\n\nאנא אל תתקינו את קונפיגורציות אלה אלא אתם סומכים לחלוטין על מקורן.\n\nהאם אתה סומך על מקור הקונפיגורציות ומעוניין להתקין אותן?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "חלק מקונפיגורציות הVPN שמותקנות כוללות אפשרויות כוללות תוכנות שירוצו כroot כשתתחבר לVPN. תוכנות אלה הן חלק מהקונפיגורציה ולא חלק מTunnelblick עצמה והן יכולות לקבל **שליטה מלאה על המחשב שלך**.\n\nאנא אל תתקינו את קונפיגורציות אלה אלא אתם סומכים לחלוטין על מקורן.\n\nהאם אתה סומך על מקור הקונפיגורציות ומעוניין להתקין אותן?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being installed include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "חלק מקונפיגורציות הVPN שמותקנות כוללות תוכנות שירצו כאשר תתחבר לVPN. תוכנות אלה הן חלק מהקונפיגורציה ולא חלק מTunnelblick עצמה.\n\nאנא אל תתקינו את קונפיגורציות אלה אלא אתם סומכים לחלוטין על מקורן.\n\nהאם אתה סומך על מקור הקונפיגורציות ומעוניין להתקין אותן?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "חלק מקונפיגורציות הVPN שמותקנות כוללות אפשרויות כוללות תוכנות שירוצו כroot כשתתחבר לVPN. תוכנות אלה הן חלק מהקונפיגורציה ולא חלק מTunnelblick עצמה והן יכולות לקבל **שליטה מלאה על המחשב שלך**.\n\nאנא אל תתקינו את קונפיגורציות אלה אלא אתם סומכים לחלוטין על מקורן.\n\nהאם אתה סומך על מקור הקונפיגורציות ומעוניין להתקין אותן?\n\n";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "חלק מקונפיגורציות הVPN שמותקנות כוללות תוכנות שירצו כאשר תתחבר לVPN. תוכנות אלה הן חלק מהקונפיגורציה ולא חלק מTunnelblick עצמה.\n\nאנא אל תתקינו את קונפיגורציות אלה אלא אתם סומכים לחלוטין על מקורן.\n\nהאם אתה סומך על מקור הקונפיגורציות ומעוניין להתקין אותן?\n\n";
+
+/* Window text */
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "VPN אחד או יותר מחוברים כרגע. אנא התנתק מכל הVPNים המחוברים וסגור את Tunnelblick לפני שתמשיך.";
+
+/* Window text */
+"One or more configurations are being ignored. See the Console Log for details." = "Tunnelblick תתעלם מקונפיגורצייה אחת או יותר. בדוק את הConsole Log לפרטים נוספים.";
+
+/* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "בעיה אחת או יותר עם DNS נמצאו:\n\n%@";
+
+/* Window text */
+"One or more problems were detected:\n\n%@" = "בעיה אחת או יותר נמצאו:\n\n%@";
+
+/* Window text */
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "ניתן להפעיל אוטומטית עם עליית המחשב אך ורק קונפיגורציית Tunnelblick (סיומת .tblk).";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, אשר לא זמינה בגרסא זו של Tunnelblick";
 
 /* Window text */
 "OpenVPN version:" = "גרסת OpenVPN:";
@@ -1264,9 +1417,6 @@
 
 /* Window text */
 "Password:" = "סיסמא:";
-
-/* Window text */
-"Please check for a newer version." = "אנא חפש\\י גרסה חדשה.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "אנא בחר שם ולחץ המשך או ביטול.\n\n";

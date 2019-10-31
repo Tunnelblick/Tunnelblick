@@ -429,9 +429,6 @@
 "Do not warn about this again" = "Nu avertiza despre asta din nou";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Nu avertizați despre asta pentru %lu zile";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "Activează IPv6 (doar tap)";
 
 /* Checkbox name */
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "Cerințele de sistem nu sunt îndeplinite";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "E posibil ca Tunnelblick %@ sa trebuiască actualizat";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Probleme cu configurarea Tunnelblick";
 
 /* Window title */
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Preferința 'easy-rsaPath' ignorată; acesta trebuie să fie o cale absolută sau să înceapă cu '~'";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "A apărut o eroare la creare fișierului de ajutor";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Înregistrarea este dezactivată.)";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Configurația rețelei nu a fost restaurată corect după deconectarea de la %@.</p><p>Această problemă este în general rezultatul folosirii opțiunilor OpenVPN 'user nobody' și/sau 'group nobody'.</p><p>Pentru restaurarea configurației rețelei, computerul trebuie repornit.</p><p>Pentru a evita această eroare în viitor, șterge liniile 'user nobody' și 'group nobody' din fișierul de configurație OpenVPN.</p><p>Consultă <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Opțiunile OpenVPN pentru Utilizator și Grup</a> [tunnelblick.net] pentru informații suplimentare.</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p> Această versiune de Tunnelblick este veche de %lu zile. </p> <p> Verificați dacă aveți o versiune mai nouă: </p> <ul> <li> Manual în panoul \"Preferințe\" din fereastra \"Detaliile VPN\" de la Tunnelblick; sau<br> </li> <li> Căutând o versiune mai recentă în <a href=\"https://tunnelblick.net/downloads.html\"> pagina Descărcări Tunnelblick </a> [tunnelblick.net]. </li> </ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "O cheie TBPreference sau TBAlwaysSetPreference se referă la o preferință necunoscută '%1$@' în %2$@";
@@ -1438,9 +1426,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Calea %1$@ conține caractere care nu sunt permise.\nCaracterele care nu sunt permise: %2$s\n\n";
-
-/* Window text */
-"Please check for a newer version." = "Verificați dacă exista o versiune mai nouă.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Vă rugăm să introduceți un nume și faceți clic pe \"OK\" sau pe \"Anulați\".\n\n";
@@ -2137,9 +2122,6 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong> Când bifată </strong>, Tunnelblick va instrui OpenVPN pentru a dirija traficul IPv4 prin intermediul serverului VPN. </p>\n<p><strong> Atunci când nu este bifată </strong>, implicit OpenVPN va utiliza VPN numai pentru traficul care este destinat pentru rețeaua VPN. Pentru celelalte tipuri de trafic se va folosi conexiunea la Internet normala fara a trece prin VPN. Comportamentul implicit OpenVPN poate fi modificat prin configurația OpenVPN sau serverul VPN și poate determina tot traficul IPv4 să fie dirijat prin serverul VPN ca și în cazul în care această casetă a fost bifată. </p>\n";
-
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Când este bifată</strong>, Tunnelblick nu va mai afișa acest avertisment timp de %lu zile.</p>\n<p><strong>Când nu este bifată</strong>, Tunnelblick va afișa acest avertisment la fiecare pornire.</p>\n";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Când este bifată</strong>, Tunnelblick nu va mai afișa acest avertisment.</p>\n<p><strong>Când nu este bifată</strong>, Tunnelblick va afișa din nou acest avertisment.</p>\n";

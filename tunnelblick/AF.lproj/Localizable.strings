@@ -420,9 +420,6 @@
 "Do not warn about this again" = "Moenie weer waarsku nie";
 
 /* Checkbox name */
-"Do not warn about this for %lu days" = "Moenie vir %lu dae hieroor waarsku nie";
-
-/* Checkbox name */
 "Enable IPv6 (tap only)" = "Skakel IPv6 aan (tap alleenlik)";
 
 /* Checkbox name */
@@ -681,9 +678,6 @@
 "System Requirements Not Met" = "Stelselvereistes nie bereik";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "Tunnelblick %@ moet dalk opgedateer word";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick opset probleem";
 
 /* Window title */
@@ -871,9 +865,6 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' keuse geignoreer; dit moet 'n absolute lokasie wees of met '-' begin";
-
-/* Window text */
-"(An error occurred creating the help content.)" = "('N Fout het voorgekom met die skep van die hulpinhoud.)";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Melding is afgeskakel.)";

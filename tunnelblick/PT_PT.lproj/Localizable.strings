@@ -372,7 +372,7 @@
 "Allow changes to manually-set network settings" = "Permitir que alterações definam manualmente as configurações de rede";
 
 /* Checkbox name */
-"Always show this window" = "Nome da checkbox. Aparece na janela usada para introdução do nome de utilizador e palavra-passe para uma VPN. Isto permite que o nome de utilizador e a palavra-passe sejam guardados, mas a janela continua a ser mostrada (um prefixo ou sufixo pode ser adicionado à palavra-passe guardada, por exemplo).";
+"Always show this window" = "Mostrar sempre esta janela";
 
 /* Checkbox name */
 "Apply to all" = "Aplicar a todos";
@@ -427,9 +427,6 @@
 
 /* Checkbox name */
 "Do not warn about this again" = "Não avisar novamente";
-
-/* Checkbox name */
-"Do not warn about this for %lu days" = "Não avisar acerca disto por %lu dias";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "Ativar IPv6 (apenas 'tap')";
@@ -693,9 +690,6 @@
 "System Requirements Not Met" = "Requisitos de Sistema Não São Suficientes";
 
 /* Window title */
-"Tunnelblick %@ may need to be updated" = "O Tunnelblick %@ pode necessitar de ser atualizado";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Problema na Configuração do Tunnelblick";
 
 /* Window title */
@@ -759,7 +753,7 @@
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • O servidor de DNS com endereço %@ não é um servidor publico conhecido pelo Tunnelblick e não tem uma rota configurada por via da VPN.\n\n";
 
 /* Window text */
-"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • O servidor de DNS com endereço %@ não é um servidor publico conhecido pelo Tunnelblick e não tem uma rota configurada por via da VPN.\n\n";
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • O servidor de DNS com endereço %@ não é um endereço IP público e mano está a ser encaminhado pela VPN.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Instaladas %lu configurações\n\n";
@@ -899,9 +893,6 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Preferência 'easy-rsaPath' ignorada; precisa de uma localização absoluta ou deve começar com o carater '~'";
 
-/* Window text */
-"(An error occurred creating the help content.)" = "(Ocorreu um erro ao criar o conteúdo de ajuda.)";
-
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Registro desativado.)";
 
@@ -925,9 +916,6 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>A definições de rede não foram restauradas corretamente depois de desligar de %@.</p><p>Este problema é por norma causado por utilizar 'user nobody' e/ou o 'group nobody' nas opções OpenVPN.</p><p>Para restaurar as definições de rede é necessário reiniciar o computador.</p><p>Para evitar este problema no futuro, remova as linhas 'user nobody' e 'group nobody' do ficheiro de configuração OpenVPN.</p><p>Veja <a href=\"Opções OpenVPN User e Group OpenVPN\">Opções OpenVPN User e Group OpenVPN</a> [tunnelblick.net] para mais informações</p></font>\n\n";
-
-/* Window text */
-"<p>This version of Tunnelblick is %lu days old.</p><p>Please check for a newer version:</p><ul><li>Manually on the 'Preferences' panel of Tunnelblick's 'VPN Details' window; or<br></li><li>By looking for a more recent version on the <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads page</a> [tunnelblick.net].</li></ul>" = "<p>Esta versão do Tunnelblick tem %lu dias.</p><p>Por favor verifique se existe uma versão mais recente:</p><ul><li>Manualmente no painel 'Preferências' na janela 'Detalhes da VPN'; ou<br></li><li>Procurando uma versão mais recente na <a href=\"https://tunnelblick.net/downloads.html\">página de Downloads do TunnelBlick</a> [tunnelblick.net].</li></ul>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Uma chave TBPreference ou TBAlwaysSetPreference refere-se a uma preferência desconhecida '%1$@' em %2$@";
@@ -1308,6 +1296,9 @@
 "Modified configuration file to remove path information" = "O ficheiro de configuração foi alterado para remover as informações da sua localização";
 
 /* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Serão criadas múltiplas ligações em simultâneo (%1$d com 'Definir nameserver', %2$d sem 'Definir nameserver')";
+
+/* Window text */
 "Named Credentials" = "Credenciais Nomeadas";
 
 /* Window text */
@@ -1435,9 +1426,6 @@
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "A localização '%1$@' contém carateres não permitidos.\n\nCarateres que não são permitidos: '%2$s'\n\n";
-
-/* Window text */
-"Please check for a newer version." = "Por favor verifique se existe uma versão mais recente.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Por favor digite um nome e clique \"OK\" ou clique \"Cancelar\".\n\n";
@@ -2052,6 +2040,9 @@
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nEste erro significa que uma opção que está contida no ficheiro de configuração do OpenVPN ou que foi \"forçada\" pelo servidor OpenVPN:\n\n\n     • possui erros ortográficos,\n\n     • tem falta ou excesso de argumentos, ou\n\n     • não está implementada na versão do OpenVPN que está a ser usada nesta configuração. Pode ser uma opção nova que não está implementada numa versão antiga do OpenVPN, ou uma opção antiga que foi removida numa versão nova do OpenVPN. Pode escolher que versão do OpenVPN usar com este ficheiro de configuração no separador \"Configurações\" do painel de \"Configurações\" da janela \"Detalhes da VPN\".\n\nVeja o registo da VPN no separador \"Registo\" do painel \"Configurações\" da janela \"Detalhes da VPN\" do Tunnelblick para mais detalhes.";
 
 /* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nAs definiçōes de nameserver funcionam apenas para uma única ligação VPN. Se as aplicar a mais do que uma ligação VPN em simultâneo, pode corromper as suas definições de rede e provocar a perda de ligaçāo.";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ne instalar as Configurações VPN do Tunnelblick %ld";
 
 /* Window text */
@@ -2131,9 +2122,6 @@
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Quando selecionada</strong>, o Tunnelblick instruirá o OpenVPN para rotear todo o tráfego IPv4 através do servidor VPN.</p>\n<p><strong>Quando não selecionada </strong>, por padrão o OpenVPN utilizará a VPN apenas para o tráfego que for destinado para a rede da VPN. Todo o restante tráfego utilizará a conexão de Internet normal sem passar através da VPN. O comportamento padrão do OpenVPN pode ser mudado pela configuração OpenVPN ou pelo servidor VPN e fazer com que todo o tráfego IPv4 seja roteado através do servidor VPN como se esta caixa de seleção tivesse sido selecionada. </p>\n";
-
-/* HTML info for the 'Do not warn about this for [number of days] days' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will not show this warning again for %lu days.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning each time it is launched.</p>\n" = "<p><strong>Quando selecionado</strong>, Tunnelblick não mostrará este aviso novamente durante %lu dias.</p>\n<p><strong>Quando não selecionado</strong>, Tunnelblick mostrará este aviso cada vez que for iniciado.</p>\n";
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Quando selecionado</strong>, Tunnelblick não mostrará este aviso novamente.</p>\n<p><strong>Quando não selecionado</strong>, Tunnelblick mostrará este aviso novamente.</p>\n";
