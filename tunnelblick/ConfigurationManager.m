@@ -4268,8 +4268,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							   dateTimeString];
 		
 		// Put the output file on the user's Desktop
-		NSString * targetPath = [[[@"/Users"
-								   stringByAppendingPathComponent: NSUserName()]
+		NSString * targetPath = [[NSHomeDirectory()
 								  stringByAppendingPathComponent: @"Desktop"]
 								 stringByAppendingPathComponent: filename];
 		
