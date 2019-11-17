@@ -614,6 +614,12 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     return ! ( connectWhenComputerStarts || prefToNotDisconnect );
 }
 
+-(BOOL) shouldAuthenticateOnConnect {
+    NSString * authKey = [[self displayName] stringByAppendingString: @"-authenticateOnConnect"];
+    BOOL authenicateOnConnct = [gTbDefaults boolForKey:authKey];
+    return authenicateOnConnct;
+}
+
 // Returns TRUE if this configuration will be connected when the system starts via a launchd .plist
 -(BOOL) launchdPlistWillConnectOnSystemStart
 {
