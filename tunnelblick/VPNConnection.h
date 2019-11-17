@@ -273,7 +273,7 @@ struct Statistics {
 
 -(BOOL)             shouldDisconnectWhenBecomeInactiveUser;
 -(BOOL)             shouldAuthenticateOnConnect;
--(BOOL)             getAuthentication;
+-(void)             authAndConnect:             (NSDictionary *) dict;
 
 -(void)             showStatusWindowForce:      (BOOL)          force;
 

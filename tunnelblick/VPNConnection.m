@@ -1841,27 +1841,26 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
     
     if ([self shouldAuthenticateOnConnect]) {
-        if (![self getAuthentication]) {
-            return;
-        }
+        [self authAndConnect: dict];
+    } else {
+        [self finishMakingConnection: dict];
     }
 	
-	[self finishMakingConnection: dict];
 }
 
--(BOOL) getAuthentication {
-    __block BOOL correctAuth = NO;
-    LAContext * context = [[LAContext alloc] init];
+-(void) authAndConnect: (NSDictionary *) dict {
+    LAContext * context = [[[LAContext alloc] init] autorelease];
     NSError * authError = nil;
     NSString * promptMessage = NSLocalizedString(@"Authenticate with TouchID", @"TouchID Prompt");
-    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
-        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&authError]) {
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication
                 localizedReason:promptMessage
                           reply:^(BOOL success, NSError *error) {
             if (success) {
-                correctAuth = YES;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self finishMakingConnection:dict];
+                });
             } else {
-                correctAuth = NO;
                 switch (error.code) {
                     case LAErrorAuthenticationFailed:
                         NSLog(@"AUTH FAILED");
@@ -1873,13 +1872,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                         NSLog(@"PASSWORD ENTRY PRESSED");
                         break;
                     default:
-                        NSLog([@"ERROR: " stringByAppendingString:error.description]);
+                        NSLog(@"%@", [@"ERROR: " stringByAppendingString:error.description]);
                         break;
                 }
             }
         }];
     }
-    return correctAuth;
 }
 
 -(void) addMessageToDisplayIfConnectionFails: (NSString *) message {
