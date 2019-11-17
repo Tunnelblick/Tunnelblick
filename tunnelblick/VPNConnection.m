@@ -1850,16 +1850,18 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 -(BOOL) getAuthentication {
+    __block BOOL correctAuth = NO;
     LAContext * context = [[LAContext alloc] init];
     NSError * authError = nil;
     NSString * promptMessage = NSLocalizedString(@"Authenticate with TouchID", @"TouchID Prompt");
     if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
         [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
                 localizedReason:promptMessage
-                          reply:^(BOOL success, NSError *error){
+                          reply:^(BOOL success, NSError *error) {
             if (success) {
-                return YES;
+                correctAuth = YES;
             } else {
+                correctAuth = NO;
                 switch (error.code) {
                     case LAErrorAuthenticationFailed:
                         NSLog(@"AUTH FAILED");
@@ -1877,7 +1879,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         }];
     }
-    return NO;
+    return correctAuth;
 }
 
 -(void) addMessageToDisplayIfConnectionFails: (NSString *) message {
