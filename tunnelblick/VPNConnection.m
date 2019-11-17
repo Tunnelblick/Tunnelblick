@@ -1841,7 +1841,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
     
     if ([self shouldAuthenticateOnConnect]) {
-        
+        if (![self getAuthentication]) {
+            return;
+        }
     }
 	
 	[self finishMakingConnection: dict];
@@ -1851,6 +1853,30 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     LAContext * context = [[LAContext alloc] init];
     NSError * authError = nil;
     NSString * promptMessage = NSLocalizedString(@"Authenticate with TouchID", @"TouchID Prompt");
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                localizedReason:promptMessage
+                          reply:^(BOOL success, NSError *error){
+            if (success) {
+                return YES;
+            } else {
+                switch (error.code) {
+                    case LAErrorAuthenticationFailed:
+                        NSLog(@"AUTH FAILED");
+                        break;
+                    case LAErrorUserCancel:
+                        NSLog(@"USER CANCELLED");
+                        break;
+                    case LAErrorUserFallback:
+                        NSLog(@"PASSWORD ENTRY PRESSED");
+                        break;
+                    default:
+                        NSLog([@"ERROR: " stringByAppendingString:error.description]);
+                        break;
+                }
+            }
+        }];
+    }
     return NO;
 }
 
