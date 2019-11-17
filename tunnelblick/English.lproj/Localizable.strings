@@ -13,6 +13,9 @@
 /* Status message */
 "No Active Connections" = "No Active Connections";
 
+/* TouchID Prompt */
+"Authenticate with TouchID" = "Authenticate with TouchID";
+
 /* Textbox name */
 "Username:" = "Username:";
 

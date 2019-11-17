@@ -22,6 +22,7 @@
 
 #import <CoreServices/CoreServices.h>
 #import <libkern/OSAtomic.h>
+#import <LocalAuthentication/LocalAuthentication.h>
 #import <pthread.h>
 #import <signal.h>
 
@@ -1838,8 +1839,19 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		[NSThread detachNewThreadSelector: @selector(waitForNetworkAvailabilityThread:) toTarget: self withObject: dict];
 		return;
 	}
+    
+    if ([self shouldAuthenticateOnConnect]) {
+        
+    }
 	
 	[self finishMakingConnection: dict];
+}
+
+-(BOOL) getAuthentication {
+    LAContext * context = [[LAContext alloc] init];
+    NSError * authError = nil;
+    NSString * promptMessage = NSLocalizedString(@"Authenticate with TouchID", @"TouchID Prompt");
+    return NO;
 }
 
 -(void) addMessageToDisplayIfConnectionFails: (NSString *) message {

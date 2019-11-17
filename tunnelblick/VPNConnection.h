@@ -272,6 +272,8 @@ struct Statistics {
 -(BOOL)				shadowCopyIsIdentical;
 
 -(BOOL)             shouldDisconnectWhenBecomeInactiveUser;
+-(BOOL)             shouldAuthenticateOnConnect;
+-(BOOL)             getAuthentication;
 
 -(void)             showStatusWindowForce:      (BOOL)          force;
 
