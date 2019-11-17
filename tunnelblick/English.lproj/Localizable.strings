@@ -378,7 +378,7 @@
 "Apply to all" = "Apply to all";
 
 /* Checkbox Name */
-"Authenticate before establishing a VPN Connection" = "Authenticate before establishing a VPN Connection";
+"Authenticate before establishing a VPN Connection(TOUCHID ONLY)" = "Authenticate before establishing a VPN Connection(TOUCHID ONLY)";
 
 /* Checkbox name */
 "Check for updates automatically" = "Check for updates automatically";

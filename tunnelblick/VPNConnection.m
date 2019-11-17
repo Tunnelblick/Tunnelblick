@@ -1868,9 +1868,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                     case LAErrorUserCancel:
                         NSLog(@"USER CANCELLED");
                         break;
-                    case LAErrorUserFallback:
-                        NSLog(@"PASSWORD ENTRY PRESSED");
-                        break;
                     default:
                         NSLog(@"%@", [@"ERROR: " stringByAppendingString:error.description]);
                         break;
