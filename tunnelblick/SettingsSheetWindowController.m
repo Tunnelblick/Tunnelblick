@@ -237,6 +237,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     }
 }
 
+-(void) setupAuthenticateOnConnectCheckbox {
+    if (!configurationName) {
+        return;
+    }
+    [self setupCheckbox:authenticateOnConnect
+                    key:@"-authenticateOnConnect"
+               inverted:NO];
+}
+
 -(void) setupFlushDNSCheckbox {
     
     if (  ! configurationName  ) {
@@ -606,7 +615,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 														   @" of IPv6. Most Internet access works fine without IPv6.</p>\n"
 														   @"<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>",
 														   @"HTML info for the 'Enable IPv6 (tap only)' checkbox."))];
-	
+    
 	[keepConnectedCheckbox
 	  setTitle: NSLocalizedString(@"Keep connected", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n"
@@ -822,6 +831,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     [disconnectWhenUserSwitchesOutCheckbox setEnabled: NO];
     [reconnectWhenUserSwitchesInCheckbox   setEnabled: NO];
+    [authenticateOnConnect                 setEnabled: NO];
     
     // While Connected tab
     
@@ -867,6 +877,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [useRouteUpInsteadOfUpCheckbox				setEnabled: YES];
     [enableIpv6OnTapCheckbox					setEnabled: YES];
     [keepConnectedCheckbox						setEnabled: YES];
+    [authenticateOnConnect                      setEnabled: YES];
     
     [loadTunPopUpButton                    setEnabled: YES];
     [loadTapPopUpButton                    setEnabled: YES];
@@ -950,6 +961,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [self setupDisconnectOnSleepCheckbox];
     [self setupReconnectOnWakeFromSleepCheckbox];
 	[self setupUseRouteUpInsteadOfUpCheckbox];
+    [self setupAuthenticateOnConnectCheckbox];
 
     [self setupCheckbox: disconnectWhenUserSwitchesOutCheckbox
                     key: @"-doNotDisconnectOnFastUserSwitch"
@@ -1294,6 +1306,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 }
 
 // Methods for Connecting & Disconnecting tab
+- (IBAction)authenticateOnConnectWasClicked:(NSButton *)sender {
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-authenticateOnConnect"
+                                                                                         to: ([sender state] == NSOnState)
+                                                                                   inverted: NO];
+}
 
 -(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (NSButton *) sender {
     
