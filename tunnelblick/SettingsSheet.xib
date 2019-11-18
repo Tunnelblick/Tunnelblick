@@ -219,12 +219,12 @@
                                         <popUpButton verticalHuggingPriority="750" id="715" customClass="TBPopUpButton">
                                             <rect key="frame" x="6" y="261" width="313" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="722">
+                                              <popUpButtonCell key="cell" type="push" title="Load Tun automatically$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="726" id="722">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
                                                 <menu key="menu" title="OtherViews" id="723">
                                                     <items>
-                                                        <menuItem title="Load Tun automatically$" id="726">
+                                                        <menuItem title="Load Tun automatically$" state="on" id="726">
                                                             <connections>
                                                                 <action selector="loadTunAutomaticallyMenuItemWasClicked:" target="-2" id="769"/>
                                                             </connections>
