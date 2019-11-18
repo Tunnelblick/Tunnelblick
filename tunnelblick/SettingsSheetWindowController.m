@@ -1301,9 +1301,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 // Methods for Connecting & Disconnecting tab
 - (IBAction)authenticateOnConnectWasClicked:(NSButton *)sender {
-//    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-authenticateOnConnect"
-//                                                                                         to: ([sender state] == NSOnState)
-//                                                                                   inverted: NO];
     TBButton * checkbox = authenticateOnConnect;
     if (  [checkbox isEnabled]  ) {
         [checkbox setEnabled: NO];
@@ -1318,7 +1315,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                                      ? [NSMutableDictionary dictionaryWithDictionary: dict]
                                      : [NSMutableDictionary dictionaryWithCapacity: 1]);
     
-    [newDict setObject: [NSNumber numberWithBool: ( ! newState) ] forKey: @"-authenticateOnConnect"];
+    [newDict setObject: [NSNumber numberWithBool: ( ! newState) ] forKey: [configurationName stringByAppendingString:@"-authenticateOnConnect"]];
     
     NSString * tempDictionaryPath = [newTemporaryDirectoryPath() stringByAppendingPathComponent: @"forced-preferences.plist"];
     OSStatus status = (  tempDictionaryPath
@@ -1363,10 +1360,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 }
 
 -(void) setupUpdatesAuthenticateOnConnectCheckbox {
-    
+    NSString *key = [configurationName stringByAppendingString:@"-authenticateOnConnect"];
     TBButton * checkbox = authenticateOnConnect;
-    BOOL answer = (   [gTbDefaults boolForKey: @"-authenticateOnConnect"]
-                   && ( ! [gTbDefaults canChangeValueForKey: @"-authenticateOnConnect"] )
+    BOOL answer = (   [gTbDefaults boolForKey: key]
+                   && ( ! [gTbDefaults canChangeValueForKey: key] )
                    );
     [checkbox setState: (  answer
                          ? NSOnState
