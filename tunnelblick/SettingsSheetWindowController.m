@@ -36,6 +36,8 @@
 #import "UIHelper.h"
 #import "VPNConnection.h"
 #import "SystemAuth.h"
+#import "NSFileManager+TB.h"
+
 
 extern NSString             * gPrivatePath;
 extern NSFileManager        * gFileMgr;
