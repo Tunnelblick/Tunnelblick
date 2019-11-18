@@ -1307,9 +1307,39 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 // Methods for Connecting & Disconnecting tab
 - (IBAction)authenticateOnConnectWasClicked:(NSButton *)sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-authenticateOnConnect"
-                                                                                         to: ([sender state] == NSOnState)
-                                                                                   inverted: NO];
+//    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-authenticateOnConnect"
+//                                                                                         to: ([sender state] == NSOnState)
+//                                                                                   inverted: NO];
+    TBButton * checkbox = authenticateOnConnect;
+    if (  [checkbox isEnabled]  ) {
+        [checkbox setEnabled: NO];
+    } else {
+         return;
+    }
+    
+    BOOL newState = [sender state];
+    
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    NSMutableDictionary * newDict = (  dict
+                                     ? [NSMutableDictionary dictionaryWithDictionary: dict]
+                                     : [NSMutableDictionary dictionaryWithCapacity: 1]);
+    
+    [newDict setObject: [NSNumber numberWithBool: ( ! newState) ] forKey: @"-authenticateOnConnect"];
+    
+    NSString * tempDictionaryPath = [newTemporaryDirectoryPath() stringByAppendingPathComponent: @"forced-preferences.plist"];
+    OSStatus status = (  tempDictionaryPath
+                       ? (  [newDict writeToFile: tempDictionaryPath atomically: YES]
+                          ? 0
+                          : -1)
+                       : -1);
+    if (  status == 0  ) {
+        [NSThread detachNewThreadSelector: @selector(generalAdminApprovalForKeyAndCertificateChangesThread:) toTarget: self withObject: tempDictionaryPath];
+    }
+    
+    // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
+    // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
+    // To undo that afterwards, we delay changing the value for 0.2 seconds.
+    [self performSelector: @selector(setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox) withObject: nil afterDelay: 0.2];
 }
 
 -(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (NSButton *) sender {
