@@ -618,7 +618,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 -(BOOL) shouldAuthenticateOnConnect {
     NSString * authKey = [[self displayName] stringByAppendingString: @"-authenticateOnConnect"];
     BOOL authenicateOnConnct = [gTbDefaults boolForKey:authKey];
-    return authenicateOnConnct;
+    NSOperatingSystemVersion minimumSupportedOSVersion = { .majorVersion = 10, .minorVersion = 10, .patchVersion = 0 };
+    BOOL isSupported = [NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:minimumSupportedOSVersion];
+    return authenicateOnConnct && isSupported;
 }
 
 // Returns TRUE if this configuration will be connected when the system starts via a launchd .plist
