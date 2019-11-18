@@ -618,9 +618,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 -(BOOL) shouldAuthenticateOnConnect {
     NSString * authKey = [[self displayName] stringByAppendingString: @"-authenticateOnConnect"];
     BOOL authenicateOnConnct = [gTbDefaults boolForKey:authKey];
-    NSOperatingSystemVersion minimumSupportedOSVersion = { .majorVersion = 10, .minorVersion = 10, .patchVersion = 0 };
-    BOOL isSupported = [NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:minimumSupportedOSVersion];
-    return authenicateOnConnct && isSupported;
+    return authenicateOnConnct && runningOnYosemiteOrNewer();
 }
 
 // Returns TRUE if this configuration will be connected when the system starts via a launchd .plist
@@ -1675,6 +1673,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 - (void) connect: (id) sender userKnows: (BOOL) userKnows
 {
 	(void) sender;
+    
+    if ([self shouldAuthenticateOnConnect]) {
+        BOOL success = [self authenticateUser];
+        if (!success) {
+            return;
+        }
+    }
 	
     [self invalidateConfigurationParse];
     
@@ -1842,26 +1847,23 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		return;
 	}
     
-    if ([self shouldAuthenticateOnConnect]) {
-        [self authAndConnect: dict];
-    } else {
-        [self finishMakingConnection: dict];
-    }
-	
+    [self finishMakingConnection:dict];
+    
 }
 
--(void) authAndConnect: (NSDictionary *) dict {
+-(BOOL) authenticateUser {
+    __block BOOL successAuth = NO;
     LAContext * context = [[[LAContext alloc] init] autorelease];
     NSError * authError = nil;
     NSString * promptMessage = NSLocalizedString(@"authenticate", @"Authentication Prompt");
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&authError]) {
         [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication
                 localizedReason:promptMessage
                           reply:^(BOOL success, NSError *error) {
+            successAuth = success;
             if (success) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self finishMakingConnection:dict];
-                });
+                NSLog(@"Success!");
             } else {
                 switch (error.code) {
                     case LAErrorAuthenticationFailed:
@@ -1871,12 +1873,16 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                         NSLog(@"USER CANCELLED");
                         break;
                     default:
-                        NSLog(@"%@", [@"ERROR: " stringByAppendingString:error.description]);
+                        NSLog(@"OTHER ERROR");
                         break;
                 }
             }
+            dispatch_semaphore_signal(sema);
         }];
     }
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    dispatch_release(sema);
+    return successAuth;
 }
 
 -(void) addMessageToDisplayIfConnectionFails: (NSString *) message {
