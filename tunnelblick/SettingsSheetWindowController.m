@@ -238,15 +238,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     }
 }
 
--(void) setupAuthenticateOnConnectCheckbox {
-    if (!configurationName) {
-        return;
-    }
-    [self setupCheckbox:authenticateOnConnect
-                    key:@"-authenticateOnConnect"
-               inverted:NO];
-}
-
 -(void) setupFlushDNSCheckbox {
     
     if (  ! configurationName  ) {
@@ -962,7 +953,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [self setupDisconnectOnSleepCheckbox];
     [self setupReconnectOnWakeFromSleepCheckbox];
 	[self setupUseRouteUpInsteadOfUpCheckbox];
-    [self setupAuthenticateOnConnectCheckbox];
+    [self setupUpdatesAuthenticateOnConnectCheckbox];
 
     [self setupCheckbox: disconnectWhenUserSwitchesOutCheckbox
                     key: @"-doNotDisconnectOnFastUserSwitch"
@@ -1358,10 +1349,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                                              installTblks: nil];
         [auth release];
         
-        [self performSelectorOnMainThread: @selector(finishGeneralAdminApprovalForKeyAndCertificateChanges:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];
+        [self performSelectorOnMainThread: @selector(finishAuthenticateOnConnect:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];
     } else {
         OSStatus status = 1; // User cancelled installation
-        [self performSelectorOnMainThread: @selector(finishGeneralAdminApprovalForKeyAndCertificateChanges:) withObject: [NSNumber numberWithInt: status] waitUntilDone: NO];
+        [self performSelectorOnMainThread: @selector(finishAuthenticateOnConnect:) withObject: [NSNumber numberWithInt: status] waitUntilDone: NO];
     }
     
     [gFileMgr tbRemovePathIfItExists: [forcedPreferencesDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
@@ -1378,6 +1369,27 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [checkbox setState: (  answer
                          ? NSOnState
                          : NSOffState)];
+}
+
+-(void) finishAuthenticateOnConnect: (NSNumber *) statusNumber {
+    
+    // Runs in main thread
+    
+    OSStatus status = [statusNumber intValue];
+    
+    if (  status == 0  ) {
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+        [gTbDefaults setPrimaryDefaults: dict];
+    } else {
+        if (  status != 1  ) { // status != cancelled by user (i.e., there was an error)
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
+        }
+    }
+    
+    [self setupUpdatesAuthenticateOnConnectCheckbox];
+    TBButton * checkbox = authenticateOnConnect;
+    [checkbox setEnabled: YES];
 }
 
 -(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (NSButton *) sender {
