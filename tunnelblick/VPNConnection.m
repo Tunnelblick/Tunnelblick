@@ -1851,7 +1851,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) authAndConnect: (NSDictionary *) dict {
     LAContext * context = [[[LAContext alloc] init] autorelease];
     NSError * authError = nil;
-    NSString * promptMessage = NSLocalizedString(@"Authenticate with TouchID", @"TouchID Prompt");
+    NSString * promptMessage = NSLocalizedString(@"authenticate", @"Authentication Prompt");
     if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&authError]) {
         [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication
                 localizedReason:promptMessage

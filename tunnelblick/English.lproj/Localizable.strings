@@ -13,8 +13,8 @@
 /* Status message */
 "No Active Connections" = "No Active Connections";
 
-/* TouchID Prompt */
-"Authenticate with TouchID" = "Authenticate with TouchID";
+/* Authentication Prompt */
+"authenticate" = "authenticate";
 
 /* Textbox name */
 "Username:" = "Username:";
@@ -378,7 +378,7 @@
 "Apply to all" = "Apply to all";
 
 /* Checkbox Name */
-"Authenticate before establishing a VPN Connection(TOUCHID ONLY)" = "Authenticate before establishing a VPN Connection(TOUCHID ONLY)";
+"Authenticate before connecting" = "Authenticate before connecting";
 
 /* Checkbox name */
 "Check for updates automatically" = "Check for updates automatically";
@@ -2102,7 +2102,7 @@
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>";
 
 /* HTML info for the 'Authenticate before establishing a VPN Connection'*/
-"<p><strong>When checked</strong>, You will be asked to authenticate yourself before connecting to the selected VPN (TouchID if your computer supports it). </p>\n<p><strong>When not checked</strong>, You will connect to the VPN upon clicking the 'Connect' button with no further action needed" = "<p><strong>When checked</strong>, You will be asked to authenticate yourself before connecting to the selected VPN (TouchID if your computer supports it). </p>\n<p><strong>When not checked</strong>, You will connect to the VPN upon clicking the 'Connect' button with no further action needed";
+"<p><strong>When checked</strong>, You will be asked to authenticate yourself before connecting to the selected VPN (TouchID if your computer supports it). You must be over macOS 10.10(Yosemite) to use this </p>\n<p><strong>When not checked</strong>, You will connect to the VPN upon clicking the 'Connect' button with no further action needed" = "<p><strong>When checked</strong>, You will be asked to authenticate yourself before connecting to the selected VPN (TouchID if your computer supports it). You must be over macOS 10.10(Yosemite) to use this </p>\n<p><strong>When not checked</strong>, You will connect to the VPN upon clicking the 'Connect' button with no further action needed";
 
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */

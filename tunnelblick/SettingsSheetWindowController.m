@@ -673,7 +673,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n"
 														   @"<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>",
 														   @"HTML info for the 'Disconnect when computer goes to sleep' checkbox."))];
-    [authenticateOnConnect setTitle: NSLocalizedString(@"Authenticate before establishing a VPN Connection(TOUCHID ONLY)", @"Checkbox name") infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, You will be asked to authenticate yourself before connecting to the selected VPN (TouchID if your computer supports it). </p>\n<p><strong>When not checked</strong>, You will connect to the VPN upon clicking the 'Connect' button with no further action needed", @"HTML info for the 'Authenticate before establishing a VPN Connection"))];
+    [authenticateOnConnect setTitle: NSLocalizedString(@"Authenticate before connecting", @"Checkbox name") infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, You will be asked to authenticate yourself before connecting to the selected VPN (TouchID if your computer supports it). </p>\n<p><strong>When not checked</strong>, You will connect to the VPN upon clicking the 'Connect' button with no further action needed", @"HTML info for the 'Authenticate before establishing a VPN Connection"))];
 	
 	[reconnectOnWakeFromSleepCheckbox
 	  setTitle: NSLocalizedString(@"Reconnect when computer wakes up", @"Checkbox name")
