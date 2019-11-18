@@ -1340,7 +1340,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
     // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
     // To undo that afterwards, we delay changing the value for 0.2 seconds.
-    [self performSelector: @selector(setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox) withObject: nil afterDelay: 0.2];
+    [self performSelector: @selector(setupUpdatesAuthenticateOnConnectCheckbox) withObject: nil afterDelay: 0.2];
 }
 
 -(void) authenticateOnConnectThread: (NSString *) forcedPreferencesDictionaryPath {
@@ -1367,6 +1367,17 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [gFileMgr tbRemovePathIfItExists: [forcedPreferencesDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
     
     [pool drain];
+}
+
+-(void) setupUpdatesAuthenticateOnConnectCheckbox {
+    
+    TBButton * checkbox = authenticateOnConnect;
+    BOOL answer = (   [gTbDefaults boolForKey: @"-authenticateOnConnect"]
+                   && ( ! [gTbDefaults canChangeValueForKey: @"-authenticateOnConnect"] )
+                   );
+    [checkbox setState: (  answer
+                         ? NSOnState
+                         : NSOffState)];
 }
 
 -(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (NSButton *) sender {
