@@ -29,8 +29,8 @@
 #import "UIHelper.h"
 #import "SystemAuth.h"
 #import "NSFileManager+TB.h"
-#import "installer.m"
 
+extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
 
 @implementation UIHelper

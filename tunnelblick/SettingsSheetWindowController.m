@@ -1311,7 +1311,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     BOOL newState = [sender state];
     
     [UIHelper secureOnClickWriter:newState key:[configurationName stringByAppendingFormat:@"-authenticateOnConnect"]];
-    
+    [checkbox setEnabled:YES];
     [self performSelector: @selector(setupUpdatesAuthenticateOnConnectCheckbox) withObject: nil afterDelay: 0.2];
 }
 
