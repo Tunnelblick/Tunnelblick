@@ -69,7 +69,8 @@
                                          msg: (NSString *) msg;
 
 +(void)         secureOnClickWriter: (BOOL) state
-                                key: (NSString *) key;
+                                key: (NSString *) key
+                           inverted: (BOOL) inverted;
 
 @end
 

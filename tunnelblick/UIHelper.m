@@ -402,13 +402,16 @@ extern TBUserDefaults * gTbDefaults;
     CGPathRelease(shakePath);
 }
 
-+(void)secureOnClickWriter:(BOOL)state key:(NSString *)key {
++(void)secureOnClickWriter:(BOOL)state key:(NSString *)key inverted: (BOOL) inverted {
+    if (inverted) {
+        state = !state;
+    }
     NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
     NSMutableDictionary * newDict = (  dict
                                      ? [NSMutableDictionary dictionaryWithDictionary: dict]
                                      : [NSMutableDictionary dictionaryWithCapacity: 1]);
     
-    [newDict setObject: [NSNumber numberWithBool: (!state) ] forKey: key];
+    [newDict setObject: [NSNumber numberWithBool: (state) ] forKey: key];
     
     NSString * tempDictionaryPath = [newTemporaryDirectoryPath() stringByAppendingPathComponent: @"forced-preferences.plist"];
     OSStatus status = (  tempDictionaryPath
@@ -416,6 +419,7 @@ extern TBUserDefaults * gTbDefaults;
                           ? 0
                           : -1)
                        : -1);
+    NSLog(@"%d", (int)status);
     if (  status == 0  ) {
         [NSThread detachNewThreadSelector: @selector(secureAuthThread:) toTarget: self withObject: tempDictionaryPath];
     }
