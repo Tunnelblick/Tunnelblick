@@ -399,4 +399,28 @@ extern TBUserDefaults * gTbDefaults;
     CGPathRelease(shakePath);
 }
 
++(void)secureOnClickWriter:(BOOL)state key:(NSString *)key {
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    NSMutableDictionary * newDict = (  dict
+                                     ? [NSMutableDictionary dictionaryWithDictionary: dict]
+                                     : [NSMutableDictionary dictionaryWithCapacity: 1]);
+    
+    [newDict setObject: [NSNumber numberWithBool: (!state) ] forKey: key];
+    
+    NSString * tempDictionaryPath = [newTemporaryDirectoryPath() stringByAppendingPathComponent: @"forced-preferences.plist"];
+    OSStatus status = (  tempDictionaryPath
+                       ? (  [newDict writeToFile: tempDictionaryPath atomically: YES]
+                          ? 0
+                          : -1)
+                       : -1);
+    if (  status == 0  ) {
+        [NSThread detachNewThreadSelector: @selector(authenticateOnConnectThread:) toTarget: self withObject: tempDictionaryPath];
+    }
+    
+    // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
+    // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
+    // To undo that afterwards, we delay changing the value for 0.2 seconds.
+    [self performSelector: @selector(setupUpdatesAuthenticateOnConnectCheckbox) withObject: nil afterDelay: 0.2];
+}
+
 @end

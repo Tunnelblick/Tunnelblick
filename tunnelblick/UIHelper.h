@@ -68,5 +68,8 @@
 +(void)         showSuccessNotificationTitle: (NSString *) title
                                          msg: (NSString *) msg;
 
++(void)         secureOnClickWriter: (BOOL) state
+                                key: (NSString *) key;
+
 @end
 
