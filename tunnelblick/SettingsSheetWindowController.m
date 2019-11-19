@@ -1311,6 +1311,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     BOOL newState = [sender state];
     
     [UIHelper secureOnClickWriter:newState key:[configurationName stringByAppendingFormat:@"-authenticateOnConnect"]];
+    
+    [self performSelector: @selector(setupUpdatesAuthenticateOnConnectCheckbox) withObject: nil afterDelay: 0.2];
 }
 
 
@@ -1323,27 +1325,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [checkbox setState: (  answer
                          ? NSOnState
                          : NSOffState)];
-}
-
--(void) finishAuthenticateOnConnect: (NSNumber *) statusNumber {
-    
-    // Runs in main thread
-    
-    OSStatus status = [statusNumber intValue];
-    
-    if (  status == 0  ) {
-        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
-        [gTbDefaults setPrimaryDefaults: dict];
-    } else {
-        if (  status != 1  ) { // status != cancelled by user (i.e., there was an error)
-            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                              NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
-        }
-    }
-    
-    [self setupUpdatesAuthenticateOnConnectCheckbox];
-    TBButton * checkbox = authenticateOnConnect;
-    [checkbox setEnabled: YES];
 }
 
 -(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (NSButton *) sender {

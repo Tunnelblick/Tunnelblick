@@ -423,7 +423,6 @@ extern TBUserDefaults * gTbDefaults;
     // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
     // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
     // To undo that afterwards, we delay changing the value for 0.2 seconds.
-    [self performSelector: @selector(setupUpdatesAuthenticateOnConnectCheckbox) withObject: nil afterDelay: 0.2];
 }
 
 -(void) secureAuthThread: (NSString *) forcedPreferencesDictionaryPath {
@@ -440,15 +439,29 @@ extern TBUserDefaults * gTbDefaults;
                                              installTblks: nil];
         [auth release];
         
-        [self performSelectorOnMainThread: @selector(finishAuthenticateOnConnect:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];
+        [self performSelectorOnMainThread: @selector(finishAuthenticating:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];
     } else {
         OSStatus status = 1; // User cancelled installation
-        [self performSelectorOnMainThread: @selector(finishAuthenticateOnConnect:) withObject: [NSNumber numberWithInt: status] waitUntilDone: NO];
+        [self performSelectorOnMainThread: @selector(finishAuthenticating:) withObject: [NSNumber numberWithInt: status] waitUntilDone: NO];
     }
     
     [gFileMgr tbRemovePathIfItExists: [forcedPreferencesDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
     
     [pool drain];
+}
+
+-(void) finishAuthenticating: (NSNumber *) statusNumber {
+    OSStatus status = [statusNumber intValue];
+     
+     if (  status == 0  ) {
+         NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+         [gTbDefaults setPrimaryDefaults: dict];
+     } else {
+         if (  status != 1  ) { // status != cancelled by user (i.e., there was an error)
+             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                               NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
+         }
+     }
 }
 
 @end
