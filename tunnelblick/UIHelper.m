@@ -27,6 +27,9 @@
 #import "MenuController.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
+#import "SystemAuth.h"
+#import "NSFileManager+TB.h"
+#import "installer.m"
 
 extern TBUserDefaults * gTbDefaults;
 
@@ -414,13 +417,38 @@ extern TBUserDefaults * gTbDefaults;
                           : -1)
                        : -1);
     if (  status == 0  ) {
-        [NSThread detachNewThreadSelector: @selector(authenticateOnConnectThread:) toTarget: self withObject: tempDictionaryPath];
+        [NSThread detachNewThreadSelector: @selector(secureAuthThread:) toTarget: self withObject: tempDictionaryPath];
     }
     
     // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
     // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
     // To undo that afterwards, we delay changing the value for 0.2 seconds.
     [self performSelector: @selector(setupUpdatesAuthenticateOnConnectCheckbox) withObject: nil afterDelay: 0.2];
+}
+
+-(void) secureAuthThread: (NSString *) forcedPreferencesDictionaryPath {
+    // Runs in a separate thread so user authorization doesn't hang the main thread
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
+    if (  auth  ) {
+        NSInteger status = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
+                                           extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
+                                          usingSystemAuth: auth
+                                             installTblks: nil];
+        [auth release];
+        
+        [self performSelectorOnMainThread: @selector(finishAuthenticateOnConnect:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];
+    } else {
+        OSStatus status = 1; // User cancelled installation
+        [self performSelectorOnMainThread: @selector(finishAuthenticateOnConnect:) withObject: [NSNumber numberWithInt: status] waitUntilDone: NO];
+    }
+    
+    [gFileMgr tbRemovePathIfItExists: [forcedPreferencesDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
+    
+    [pool drain];
 }
 
 @end
