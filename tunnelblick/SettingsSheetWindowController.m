@@ -1330,7 +1330,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
     // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
     // To undo that afterwards, we delay changing the value for 0.2 seconds.
-//    [UIHelper secureOnClickWriter:newState key:[configurationName stringByAppendingFormat:@"-authenticateOnConnect"] inverted:NO];
     [self performSelector: @selector(setupUpdatesAuthenticateOnConnectCheckbox) withObject: nil afterDelay: 0.2];
 }
 -(void) secureAuthThread: (NSString *) forcedPreferencesDictionaryPath {

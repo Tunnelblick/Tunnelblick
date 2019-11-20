@@ -27,8 +27,6 @@
 #import "MenuController.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
-#import "SystemAuth.h"
-#import "NSFileManager+TB.h"
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
