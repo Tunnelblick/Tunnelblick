@@ -871,7 +871,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [useRouteUpInsteadOfUpCheckbox				setEnabled: YES];
     [enableIpv6OnTapCheckbox					setEnabled: YES];
     [keepConnectedCheckbox						setEnabled: YES];
-    [authenticateOnConnect                      setEnabled: YES];
+    [self setupUpdatesAuthenticateOnConnectCheckbox];
     
     [loadTunPopUpButton                    setEnabled: YES];
     [loadTapPopUpButton                    setEnabled: YES];
@@ -1369,15 +1369,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
          }
      }
     [self setupUpdatesAuthenticateOnConnectCheckbox];
-    TBButton * checkbox = authenticateOnConnect;
-    [checkbox setEnabled: YES];
 }
 
 -(void) setupUpdatesAuthenticateOnConnectCheckbox {
     NSString *key = [configurationName stringByAppendingString:@"-authenticateOnConnect"];
     TBButton * checkbox = authenticateOnConnect;
     BOOL answer = (   [gTbDefaults boolForKey: key]
-                   && ( ! [gTbDefaults canChangeValueForKey: key] )
+                   && ( ! [gTbDefaults canChangeValueForKey: key] && localAuthenticationIsAvailable())
                    );
     [checkbox setState: (  answer
                          ? NSOnState
