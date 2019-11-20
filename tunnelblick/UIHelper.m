@@ -28,7 +28,6 @@
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 
-extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
 
 @implementation UIHelper
