@@ -117,7 +117,7 @@
 		637A879B13B75694003C1871 /* tb-logo-309x64-2011-06-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 637A879A13B75694003C1871 /* tb-logo-309x64-2011-06-26.png */; };
 		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
 		637B0A1E1A81DC2100210900 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 637B0A1D1A81DC2100210900 /* Sparkle.framework */; };
-		637B0A281A81DC3500210900 /* Sparkle.framework in Copy Sparkle */ = {isa = PBXBuildFile; fileRef = 637B0A1D1A81DC2100210900 /* Sparkle.framework */; };
+		637B0A281A81DC3500210900 /* Sparkle.framework in Copy Sparkle */ = {isa = PBXBuildFile; fileRef = 637B0A1D1A81DC2100210900 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		638164DE1C145CC100B59958 /* reactivate-tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */; };
 		638222211E287C0500A2BD87 /* updates_create_signature in Resources */ = {isa = PBXBuildFile; fileRef = 638222201E287C0500A2BD87 /* updates_create_signature */; };
 		638613271492C88B00C3DCCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
