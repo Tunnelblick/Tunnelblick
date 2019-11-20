@@ -667,7 +667,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n"
 														   @"<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>",
 														   @"HTML info for the 'Disconnect when computer goes to sleep' checkbox."))];
-    [authenticateOnConnect setTitle: NSLocalizedString(@"Authenticate before connecting", @"Checkbox name") infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, You will be asked to authenticate yourself before connecting to the selected VPN (TouchID if your computer supports it). </p>\n<p><strong>When not checked</strong>, You will connect to the VPN upon clicking the 'Connect' button with no further action needed", @"HTML info for the 'Authenticate before establishing a VPN Connection"))];
+    [authenticateOnConnectCheckbox setTitle: NSLocalizedString(@"Authenticate before connecting", @"Checkbox name") infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n"
+   @"<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n",
+   @"<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p>"
+))];
 	
 	[reconnectOnWakeFromSleepCheckbox
 	  setTitle: NSLocalizedString(@"Reconnect when computer wakes up", @"Checkbox name")
@@ -825,7 +828,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     [disconnectWhenUserSwitchesOutCheckbox setEnabled: NO];
     [reconnectWhenUserSwitchesInCheckbox   setEnabled: NO];
-    [authenticateOnConnect                 setEnabled: NO];
+    [authenticateOnConnectCheckbox                 setEnabled: NO];
     
     // While Connected tab
     
@@ -1301,7 +1304,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 // Methods for Connecting & Disconnecting tab
 - (IBAction)authenticateOnConnectWasClicked:(NSButton *)sender {
-    TBButton * checkbox = authenticateOnConnect;
+    TBButton * checkbox = authenticateOnConnectCheckbox;
     if (  [checkbox isEnabled]  ) {
         [checkbox setEnabled: NO];
     } else {
@@ -1373,7 +1376,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 -(void) setupUpdatesAuthenticateOnConnectCheckbox {
     NSString *key = [configurationName stringByAppendingString:@"-authenticateOnConnect"];
-    TBButton * checkbox = authenticateOnConnect;
+    TBButton * checkbox = authenticateOnConnectCheckbox;
     BOOL answer = (   [gTbDefaults boolForKey: key]
                    && ( ! [gTbDefaults canChangeValueForKey: key] && localAuthenticationIsAvailable())
                    );

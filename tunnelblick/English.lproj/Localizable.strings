@@ -2101,8 +2101,8 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>";
 
-/* HTML info for the 'Authenticate before establishing a VPN Connection'*/
-"<p><strong>When checked</strong>, You will be asked to authenticate yourself before connecting to the selected VPN (TouchID if your computer supports it). You must be over macOS 10.10(Yosemite) to use this </p>\n<p><strong>When not checked</strong>, You will connect to the VPN upon clicking the 'Connect' button with no further action needed" = "<p><strong>When checked</strong>, You will be asked to authenticate yourself before connecting to the selected VPN (TouchID if your computer supports it). You must be over macOS 10.10(Yosemite) to use this </p>\n<p><strong>When not checked</strong>, You will connect to the VPN upon clicking the 'Connect' button with no further action needed";
+/* HTML info for the 'Authenticate before connecting'*/
+"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p>" = "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p>"
 
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */

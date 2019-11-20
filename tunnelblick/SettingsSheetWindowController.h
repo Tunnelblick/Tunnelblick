@@ -79,7 +79,7 @@ typedef enum {
 	IBOutlet NSMenuItem          * loadTapAlwaysMenuItem;
 	IBOutlet NSMenuItem          * loadTapNeverMenuItem;
 	
-    IBOutlet TBButton * authenticateOnConnect;
+    IBOutlet TBButton * authenticateOnConnectCheckbox;
     IBOutlet TBButton        * disconnectOnSleepCheckbox;
     IBOutlet TBButton        * reconnectOnWakeFromSleepCheckbox;
 	
