@@ -1855,9 +1855,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     __block BOOL successAuth = NO;
     LAContext * context = [[[LAContext alloc] init] autorelease];
     NSError * authError = nil;
-    NSString * promptMessage = NSLocalizedString(@"authenticate", @"Authentication Prompt");
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&authError]) {
+        NSString * promptMessage = NSLocalizedString(@"authenticate", @"Authentication Prompt");
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
         [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication
                 localizedReason:promptMessage
                           reply:^(BOOL success, NSError *error) {
