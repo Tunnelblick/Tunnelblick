@@ -15,7 +15,7 @@
                 <outlet property="alertSoundsBox" destination="791" id="826"/>
                 <outlet property="allConfigurationsUseTheSameCredentialsCheckbox" destination="596" id="612"/>
                 <outlet property="allowManualNetworkSettingsOverrideCheckbox" destination="FCu-cG-Y2S" id="lXT-DZ-ucH"/>
-                <outlet property="authenticateOnConnect" destination="OBs-eA-DKw" id="Vbu-AS-JgC"/>
+                <outlet property="authenticateOnConnectCheckbox" destination="OBs-eA-DKw" id="Vbu-AS-JgC"/>
                 <outlet property="connectingAndDisconnectingTabViewItem" destination="14" id="566"/>
                 <outlet property="connectingHelpButton" destination="352" id="354"/>
                 <outlet property="connectionAlertSoundTFC" destination="807" id="810"/>
