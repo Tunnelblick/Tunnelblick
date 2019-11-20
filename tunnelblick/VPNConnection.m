@@ -618,7 +618,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 -(BOOL) shouldAuthenticateOnConnect {
     NSString * authKey = [[self displayName] stringByAppendingString: @"-authenticateOnConnect"];
     BOOL authenicateOnConnct = [gTbDefaults boolForKey:authKey];
-    return authenicateOnConnct && runningOnYosemiteOrNewer();
+    return authenicateOnConnct && localAuthenticationIsAvailable();
 }
 
 // Returns TRUE if this configuration will be connected when the system starts via a launchd .plist
@@ -1882,7 +1882,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
         dispatch_release(sema);
     } else {
-        NSLog(@"LAPolicy error: %@/", authError.description);
+        NSLog(@"LAContext canEvaluatePolicy error: %@", authError.description);
     }
     return successAuth;
 }
