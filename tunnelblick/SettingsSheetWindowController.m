@@ -667,10 +667,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n"
 														   @"<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>",
 														   @"HTML info for the 'Disconnect when computer goes to sleep' checkbox."))];
-    [authenticateOnConnectCheckbox setTitle: NSLocalizedString(@"Authenticate before connecting", @"Checkbox name") infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n"
-   @"<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n",
-   @"<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p>"
-))];
+    [authenticateOnConnectCheckbox setTitle: NSLocalizedString(@"Authenticate before connecting", @"Checkbox name")
+                                  infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n"
+                                                                                        @"<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n"
+                                                                                        @"<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p>",
+                                                                                        @"HTML info for the 'Authenticate before connecting' checkbox."))];
 	
 	[reconnectOnWakeFromSleepCheckbox
 	  setTitle: NSLocalizedString(@"Reconnect when computer wakes up", @"Checkbox name")
