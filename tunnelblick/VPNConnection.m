@@ -1881,6 +1881,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         }];
         dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
         dispatch_release(sema);
+    } else {
+        NSLog(@"LAPolicy error: %@/", authError.description);
     }
     return successAuth;
 }
