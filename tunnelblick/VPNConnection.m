@@ -1867,13 +1867,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             } else {
                 switch (error.code) {
                     case LAErrorAuthenticationFailed:
-                        NSLog(@"AUTH FAILED");
+                        NSLog(@"User failed to authenticate");
                         break;
                     case LAErrorUserCancel:
-                        NSLog(@"USER CANCELLED");
+                        NSLog(@"User cancelled authentication process");
                         break;
                     default:
-                        NSLog(@"OTHER ERROR");
+                        NSLog(@"Other error: %@/", error.description);
                         break;
                 }
             }

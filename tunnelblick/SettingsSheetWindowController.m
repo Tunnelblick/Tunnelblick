@@ -1322,7 +1322,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                           ? 0
                           : -1)
                        : -1);
-    NSLog(@"%d", (int)status);
     if (  status == 0  ) {
         [NSThread detachNewThreadSelector: @selector(secureAuthThread:) toTarget: self withObject: tempDictionaryPath];
     }
