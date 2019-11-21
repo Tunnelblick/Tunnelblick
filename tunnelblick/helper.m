@@ -312,7 +312,7 @@ BOOL shouldPlaceIconInStandardPositionInStatusBar(void) {
 }
 
 BOOL localAuthenticationIsAvailable(void) {
-    return runningOnYosemiteOrNewer();
+    return runningOnSierraOrNewer();
 }
 
 NSString * rgbValues(BOOL foreground) {
