@@ -79,6 +79,7 @@ typedef enum {
 	IBOutlet NSMenuItem          * loadTapAlwaysMenuItem;
 	IBOutlet NSMenuItem          * loadTapNeverMenuItem;
 	
+    IBOutlet TBButton * authenticateOnConnectCheckbox;
     IBOutlet TBButton        * disconnectOnSleepCheckbox;
     IBOutlet TBButton        * reconnectOnWakeFromSleepCheckbox;
 	
@@ -219,7 +220,7 @@ typedef enum {
 -(void) setupSettingsFromPreferences;
 
 // Methods for Connecting tab
-
+-(IBAction) authenticateOnConnectWasClicked:                        (NSButton *) sender;
 -(IBAction) flushDnsCacheCheckboxWasClicked:                        (NSButton *) sender;
 -(IBAction) allowManualNetworkSettingsOverrideCheckboxWasClicked:   (NSButton *) sender;
 -(IBAction) keepConnectedCheckboxWasClicked:                        (NSButton *) sender;

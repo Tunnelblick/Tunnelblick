@@ -35,6 +35,9 @@
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 #import "VPNConnection.h"
+#import "SystemAuth.h"
+#import "NSFileManager+TB.h"
+
 
 extern NSString             * gPrivatePath;
 extern NSFileManager        * gFileMgr;
@@ -606,7 +609,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 														   @" of IPv6. Most Internet access works fine without IPv6.</p>\n"
 														   @"<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>",
 														   @"HTML info for the 'Enable IPv6 (tap only)' checkbox."))];
-	
+    
 	[keepConnectedCheckbox
 	  setTitle: NSLocalizedString(@"Keep connected", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n"
@@ -664,6 +667,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n"
 														   @"<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>",
 														   @"HTML info for the 'Disconnect when computer goes to sleep' checkbox."))];
+    [authenticateOnConnectCheckbox setTitle: NSLocalizedString(@"Authenticate before connecting", @"Checkbox name")
+                                  infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n"
+                                                                                        @"<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n"
+                                                                                        @"<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p>",
+                                                                                        @"HTML info for the 'Authenticate before connecting' checkbox."))];
 	
 	[reconnectOnWakeFromSleepCheckbox
 	  setTitle: NSLocalizedString(@"Reconnect when computer wakes up", @"Checkbox name")
@@ -821,6 +829,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     [disconnectWhenUserSwitchesOutCheckbox setEnabled: NO];
     [reconnectWhenUserSwitchesInCheckbox   setEnabled: NO];
+    [authenticateOnConnectCheckbox                 setEnabled: NO];
     
     // While Connected tab
     
@@ -866,6 +875,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [useRouteUpInsteadOfUpCheckbox				setEnabled: YES];
     [enableIpv6OnTapCheckbox					setEnabled: YES];
     [keepConnectedCheckbox						setEnabled: YES];
+    [self setupUpdatesAuthenticateOnConnectCheckbox];
     
     [loadTunPopUpButton                    setEnabled: YES];
     [loadTapPopUpButton                    setEnabled: YES];
@@ -949,6 +959,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [self setupDisconnectOnSleepCheckbox];
     [self setupReconnectOnWakeFromSleepCheckbox];
 	[self setupUseRouteUpInsteadOfUpCheckbox];
+    [self setupUpdatesAuthenticateOnConnectCheckbox];
 
     [self setupCheckbox: disconnectWhenUserSwitchesOutCheckbox
                     key: @"-doNotDisconnectOnFastUserSwitch"
@@ -1293,6 +1304,92 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 }
 
 // Methods for Connecting & Disconnecting tab
+- (IBAction)authenticateOnConnectWasClicked:(NSButton *)sender {
+    TBButton * checkbox = authenticateOnConnectCheckbox;
+    if (  [checkbox isEnabled]  ) {
+        [checkbox setEnabled: NO];
+    } else {
+         return;
+    }
+    
+    BOOL newState = [sender state];
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    NSMutableDictionary * newDict = (  dict
+                                     ? [NSMutableDictionary dictionaryWithDictionary: dict]
+                                     : [NSMutableDictionary dictionaryWithCapacity: 1]);
+    
+    [newDict setObject: [NSNumber numberWithBool: (newState) ] forKey: [configurationName stringByAppendingFormat:@"-authenticateOnConnect"]];
+    
+    NSString * tempDictionaryPath = [newTemporaryDirectoryPath() stringByAppendingPathComponent: @"forced-preferences.plist"];
+    OSStatus status = (  tempDictionaryPath
+                       ? (  [newDict writeToFile: tempDictionaryPath atomically: YES]
+                          ? 0
+                          : -1)
+                       : -1);
+    if (  status == 0  ) {
+        [NSThread detachNewThreadSelector: @selector(secureAuthThread:) toTarget: self withObject: tempDictionaryPath];
+    }
+    
+    // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
+    // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
+    // To undo that afterwards, we delay changing the value for 0.2 seconds.
+    [self performSelector: @selector(setupUpdatesAuthenticateOnConnectCheckbox) withObject: nil afterDelay: 0.2];
+}
+-(void) secureAuthThread: (NSString *) forcedPreferencesDictionaryPath {
+    // Runs in a separate thread so user authorization doesn't hang the main thread
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
+    if (  auth  ) {
+        NSInteger status = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
+                                           extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
+                                          usingSystemAuth: auth
+                                             installTblks: nil];
+        [auth release];
+        
+        [self performSelectorOnMainThread: @selector(finishAuthenticating:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];
+    } else {
+        OSStatus status = 1; // User cancelled installation
+        [self performSelectorOnMainThread: @selector(finishAuthenticating:) withObject: [NSNumber numberWithInt: status] waitUntilDone: NO];
+    }
+    
+    [gFileMgr tbRemovePathIfItExists: [forcedPreferencesDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
+    
+    [pool drain];
+}
+
+-(void) finishAuthenticating: (NSNumber *) statusNumber {
+    OSStatus status = [statusNumber intValue];
+     
+     if (  status == 0  ) {
+         NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+         [gTbDefaults setPrimaryDefaults: dict];
+     } else {
+         if (  status != 1  ) { // status != cancelled by user (i.e., there was an error)
+             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                               NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
+         }
+     }
+    [self setupUpdatesAuthenticateOnConnectCheckbox];
+}
+
+-(void) setupUpdatesAuthenticateOnConnectCheckbox {
+    NSString *key = [configurationName stringByAppendingString:@"-authenticateOnConnect"];
+    TBButton * checkbox = authenticateOnConnectCheckbox;
+    if (localAuthenticationIsAvailable()) {
+        [checkbox setEnabled:YES];
+    } else {
+        [checkbox setEnabled:NO];
+    }
+    BOOL answer = (   [gTbDefaults boolForKey: key]
+                   && ( ! [gTbDefaults canChangeValueForKey: key] && localAuthenticationIsAvailable())
+                   );
+    [checkbox setState: (  answer
+                         ? NSOnState
+                         : NSOffState)];
+}
 
 -(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (NSButton *) sender {
     

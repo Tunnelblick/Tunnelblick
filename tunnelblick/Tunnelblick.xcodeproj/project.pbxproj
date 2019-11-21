@@ -236,6 +236,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A425AA582380E5C7000686E7 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A425AA572380E5C7000686E7 /* LocalAuthentication.framework */; };
 		B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
 		B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
 		B8045A0A161EF26700609C98 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
@@ -633,6 +634,7 @@
 		63FFD6571D0E9D9400D4FFD9 /* SystemAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemAuth.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A425AA572380E5C7000686E7 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		B8045A07161EF26700609C98 /* sharedRoutines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharedRoutines.h; sourceTree = "<group>"; };
 		B8045A08161EF26700609C98 /* sharedRoutines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sharedRoutines.m; sourceTree = "<group>"; };
 		B8051F4C1754DA630024841C /* SK.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SK.lproj; sourceTree = "<group>"; };
@@ -738,6 +740,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A425AA582380E5C7000686E7 /* LocalAuthentication.framework in Frameworks */,
 				63AB7D001D930BCE008ED621 /* QuartzCore.framework in Frameworks */,
 				6329EA021A9AF6EF00A0BFA8 /* SystemConfiguration.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -884,6 +887,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A425AA572380E5C7000686E7 /* LocalAuthentication.framework */,
 				63AB7CFF1D930BCE008ED621 /* QuartzCore.framework */,
 				6329EA031A9AF7B700A0BFA8 /* CFNetwork.framework */,
 				6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */,

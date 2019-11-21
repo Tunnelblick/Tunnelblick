@@ -160,6 +160,7 @@ BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
 BOOL           tunnelblickTestAppInApplications(void);
 BOOL           tunnelblickTestDeployed(void);
 BOOL           tunnelblickTestHasDeployBackups(void);
+BOOL           localAuthenticationIsAvailable(void);
 
 OSStatus       MyGotoHelpPage           (NSString * pagePath,
                                          NSString * anchorName);

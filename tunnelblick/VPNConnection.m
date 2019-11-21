@@ -22,6 +22,7 @@
 
 #import <CoreServices/CoreServices.h>
 #import <libkern/OSAtomic.h>
+#import <LocalAuthentication/LocalAuthentication.h>
 #import <pthread.h>
 #import <signal.h>
 
@@ -612,6 +613,12 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     BOOL prefToNotDisconnect       = [gTbDefaults boolForKey: doNotDisconnectKey];
     
     return ! ( connectWhenComputerStarts || prefToNotDisconnect );
+}
+
+-(BOOL) shouldAuthenticateOnConnect {
+    NSString * authKey = [[self displayName] stringByAppendingString: @"-authenticateOnConnect"];
+    BOOL authenicateOnConnct = [gTbDefaults boolForKey:authKey];
+    return authenicateOnConnct && localAuthenticationIsAvailable();
 }
 
 // Returns TRUE if this configuration will be connected when the system starts via a launchd .plist
@@ -1666,6 +1673,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 - (void) connect: (id) sender userKnows: (BOOL) userKnows
 {
 	(void) sender;
+    
+    if ([self shouldAuthenticateOnConnect]) {
+        BOOL success = [self authenticateUser];
+        if (!success) {
+            return;
+        }
+    }
 	
     [self invalidateConfigurationParse];
     
@@ -1832,8 +1846,45 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		[NSThread detachNewThreadSelector: @selector(waitForNetworkAvailabilityThread:) toTarget: self withObject: dict];
 		return;
 	}
-	
-	[self finishMakingConnection: dict];
+    
+    [self finishMakingConnection:dict];
+    
+}
+
+-(BOOL) authenticateUser {
+    __block BOOL successAuth = NO;
+    LAContext * context = [[[LAContext alloc] init] autorelease];
+    NSError * authError = nil;
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&authError]) {
+        NSString * promptMessage = NSLocalizedString(@"authenticate", @"Authentication Prompt");
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication
+                localizedReason:promptMessage
+                          reply:^(BOOL success, NSError *error) {
+            successAuth = success;
+            if (success) {
+                NSLog(@"Success!");
+            } else {
+                switch (error.code) {
+                    case LAErrorAuthenticationFailed:
+                        NSLog(@"User failed to authenticate");
+                        break;
+                    case LAErrorUserCancel:
+                        NSLog(@"User cancelled authentication process");
+                        break;
+                    default:
+                        NSLog(@"Other error: %@/", error.description);
+                        break;
+                }
+            }
+            dispatch_semaphore_signal(sema);
+        }];
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+        dispatch_release(sema);
+    } else {
+        NSLog(@"LAContext canEvaluatePolicy error: %@", authError.description);
+    }
+    return successAuth;
 }
 
 -(void) addMessageToDisplayIfConnectionFails: (NSString *) message {
