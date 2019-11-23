@@ -28,32 +28,27 @@ built-tuntap-prepare:
 		exit 1 ; \
 	else \
 		echo "THIRD_PARTY: Expanding Tun/Tap ..." ; \
-		cd $(TUNTAP_SOURCE_DIR)/$(TUNTAP_20111101_NAME) ; \
-		mkdir -p $(TUNTAP_BUILD_DIR)/$(TUNTAP_20111101_NAME) ; \
-		tar -x -f $(TUNTAP_20111101_TARGZ) -C $(TUNTAP_BUILD_DIR)/$(TUNTAP_20111101_NAME) ; \
 		cd $(TUNTAP_SOURCE_DIR)/$(TUNTAP_CURRENT_NAME) ; \
 		mkdir -p $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME) ; \
 		tar -x -f $(TUNTAP_CURRENT_TARGZ) -C $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME) ; \
 		echo "THIRD_PARTY: Patching Tun/Tap.." ; \
-		for tuntapdir in $(TUNTAP_20111101_NAME) $(TUNTAP_CURRENT_NAME) ; do \
-			if [ -d $(TUNTAP_BUILD_DIR)/$$tuntapdir/tuntap ] ; then \
-				cd $(TUNTAP_BUILD_DIR)/$$tuntapdir/tuntap ; \
-				for patch_file in $(TUNTAP_SOURCE_DIR)/$$tuntapdir/patches/*.diff; do \
-					patch_name=$$tuntapdir/$$(basename "$${patch_file}") ; \
-					patch -p0 -N --dry-run -i $$patch_file > /dev/null; \
+		if [ -d $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME)/tuntap ] ; then \
+			cd $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME)/tuntap ; \
+			for patch_file in $(TUNTAP_SOURCE_DIR)/$(TUNTAP_CURRENT_NAME)/patches/*.diff; do \
+				patch_name=$(TUNTAP_CURRENT_NAME)/$$(basename "$${patch_file}") ; \
+				patch -p0 -N --dry-run -i $$patch_file > /dev/null; \
+				if [ $$? == 0 ]; then \
+					patch -p0 -N -i $$patch_file; \
 					if [ $$? == 0 ]; then \
-						patch -p0 -N -i $$patch_file; \
-						if [ $$? == 0 ]; then \
-							echo "Tun/Tap patch applied: $$patch_name" ; \
-						else \
-							echo "error: Tun/Tap patch failed after a successful dry run: $$patch_name" ; \
-						fi \
+						echo "Tun/Tap patch applied: $$patch_name" ; \
 					else \
-						echo "error: Tun/Tap patch could not be applied: $$patch_name" ; \
+						echo "error: Tun/Tap patch failed after a successful dry run: $$patch_name" ; \
 					fi \
-				done ; \
-			fi ; \
-		done ; \
+				else \
+					echo "error: Tun/Tap patch could not be applied: $$patch_name" ; \
+				fi \
+			done ; \
+		fi ; \
 		echo "THIRD_PARTY: Patched Tun/Tap" ; \
 	fi ; \
 	touch $(TOPDIR)/built-tuntap-prepare
@@ -74,9 +69,6 @@ built-tuntap: built-tuntap-prepare
 		export TUNTAP_ARCHS="$(foreach f, $(TARGET_ARCHS), -arch $f)" ; \
 		cd $(TUNTAP_BUILD_DIR) ; \
 		mkdir -p $(TUNTAP_PRODUCTS_DIR) ; \
-		$(MAKE) -C $(TUNTAP_20111101_NAME)/tuntap/ ; \
-		cp -f -p -R $(TUNTAP_20111101_NAME)/tuntap/tap.kext $(TUNTAP_PRODUCTS_DIR)/tap-20111101.kext ; \
-		cp -f -p -R $(TUNTAP_20111101_NAME)/tuntap/tun.kext $(TUNTAP_PRODUCTS_DIR)/tun-20111101.kext ; \
 		$(MAKE) -C $(TUNTAP_CURRENT_NAME)/tuntap/ ; \
 		cp -f -a $(TUNTAP_CURRENT_NAME)/tuntap/tap.kext $(TUNTAP_PRODUCTS_DIR)/tap.kext ; \
 		cp -f -a $(TUNTAP_CURRENT_NAME)/tuntap/tun.kext $(TUNTAP_PRODUCTS_DIR)/tun.kext ; \

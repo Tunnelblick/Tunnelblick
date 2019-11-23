@@ -48,9 +48,7 @@ PKCS11_NAME      = pkcs11-helper-1.22
 
 EASY_RSA_3_NAME  = easy-rsa-3.0.1
 
-TUNTAP_20111101_NAME  = tuntap-20111101
 TUNTAP_CURRENT_NAME   = tuntap-20141104
-TUNTAP_20111101_TARGZ = tuntap_20111101_src.tar.gz
 TUNTAP_CURRENT_TARGZ  = tuntap_20141104_src.tar.gz
 
 
