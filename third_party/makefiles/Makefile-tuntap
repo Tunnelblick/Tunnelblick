@@ -55,8 +55,8 @@ built-tuntap-prepare:
 			fi ; \
 		done ; \
 		echo "THIRD_PARTY: Patched Tun/Tap" ; \
-	fi
-	touch built-tuntap-prepare
+	fi ; \
+	touch $(TOPDIR)/built-tuntap-prepare
 
 built-tuntap: built-tuntap-prepare
 	if [ -e $(TUNTAP_PREBUILT_TAP_NOTARIZED) ] \
@@ -82,7 +82,7 @@ built-tuntap: built-tuntap-prepare
 		cp -f -a $(TUNTAP_CURRENT_NAME)/tuntap/tun.kext $(TUNTAP_PRODUCTS_DIR)/tun.kext ; \
 		echo "THIRD_PARTY: Built Tun/Tap" ; \
 	fi ; \
-	touch built-tuntap
+	touch $(TOPDIR)/built-tuntap
 
 built-tuntap-clean:
 	if [ -e $(TUNTAP_PREBUILT_TAP_NOTARIZED) ] \
