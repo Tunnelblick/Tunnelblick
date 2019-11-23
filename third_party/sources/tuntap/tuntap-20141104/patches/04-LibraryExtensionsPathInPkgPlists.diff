@@ -1,0 +1,25 @@
+Index: src/tap/Makefile
+===================================================================
+--- pkg/launchd/net.sf.tuntaposx.tap.plist	2014-10-19 15:24:34.000000000 -0400
++++ pkg/launchd/net.sf.tuntaposx.tap.plist	2019-11-23 04:32:40.000000000 -0500
+@@ -7,7 +7,7 @@
+     <key>ProgramArguments</key>
+     <array>
+         <string>/sbin/kextload</string>
+-        <string>/Library/Extensions/tun.kext</string>
++        <string>/Library/Extensions/tap.kext</string>
+     </array>
+     <key>KeepAlive</key>
+     <false/>
+diff -u -r tuntap-a/pkg/launchd/net.sf.tuntaposx.tun.plist tuntap-b/pkg/launchd/net.sf.tuntaposx.tun.plist
+--- pkg/launchd/net.sf.tuntaposx.tun.plist	2014-10-19 15:24:21.000000000 -0400
++++ pkg/launchd/net.sf.tuntaposx.tun.plist	2019-11-23 04:36:09.000000000 -0500
+@@ -7,7 +7,7 @@
+     <key>ProgramArguments</key>
+     <array>
+         <string>/sbin/kextload</string>
+-        <string>/Library/Extensions/tap.kext</string>
++        <string>/Library/Extensions/tun.kext</string>
+     </array>
+     <key>KeepAlive</key>
+     <false/>
