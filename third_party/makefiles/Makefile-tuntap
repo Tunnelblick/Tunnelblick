@@ -20,60 +20,66 @@
 
 built-tuntap-prepare:
 	if [ -e $(TUNTAP_PREBUILT_TAP_NOTARIZED) ] \
-	&& [ -e $(TUNTAP_PREBUILT_TUN_NOTARIZED) ] ; then \
-		echo "THIRD_PARTY: Not expanding or patching Tun/Tap because pre-built kexts exist" ; \
-	elif [ -e $(TUNTAP_PREBUILT_TAP_NOTARIZED) ] \
-	  || [ -e $(TUNTAP_PREBUILT_TUN_NOTARIZED) ] ; then \
-		echo "error: THIRD_PARTY: If either tap-notarized.kext or tun-notarized.kext is present in the third_party folder, both must be present" ; \
+	&& [ ! -e $(TUNTAP_PREBUILT_TUN_NOTARIZED) ] ; then \
+		echo "error: THIRD_PARTY: If tap-notarized.kext is present in the third_party folder, tun-notarized.kext must also be present" ; \
 		exit 1 ; \
-	else \
-		echo "THIRD_PARTY: Expanding Tun/Tap ..." ; \
-		cd $(TUNTAP_SOURCE_DIR)/$(TUNTAP_CURRENT_NAME) ; \
-		mkdir -p $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME) ; \
-		tar -x -f $(TUNTAP_CURRENT_TARGZ) -C $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME) ; \
-		echo "THIRD_PARTY: Patching Tun/Tap.." ; \
-		if [ -d $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME)/tuntap ] ; then \
-			cd $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME)/tuntap ; \
-			for patch_file in $(TUNTAP_SOURCE_DIR)/$(TUNTAP_CURRENT_NAME)/patches/*.diff; do \
-				patch_name=$(TUNTAP_CURRENT_NAME)/$$(basename "$${patch_file}") ; \
-				patch -p0 -N --dry-run -i $$patch_file > /dev/null; \
-				if [ $$? == 0 ]; then \
-					patch -p0 -N -i $$patch_file; \
-					if [ $$? == 0 ]; then \
-						echo "Tun/Tap patch applied: $$patch_name" ; \
-					else \
-						echo "error: Tun/Tap patch failed after a successful dry run: $$patch_name" ; \
-					fi \
-				else \
-					echo "error: Tun/Tap patch could not be applied: $$patch_name" ; \
-				fi \
-			done ; \
-		fi ; \
-		echo "THIRD_PARTY: Patched Tun/Tap" ; \
 	fi ; \
+	if [ -e $(TUNTAP_PREBUILT_TUN_NOTARIZED) ] \
+	&&   [ ! -e $(TUNTAP_PREBUILT_TAP_NOTARIZED) ] ; then \
+		echo "error: THIRD_PARTY: If tun-notarized.kext is present in the third_party folder, tap-notarized.kext must also be present" ; \
+		exit 1 ; \
+    fi ; \
+	\
+    echo "THIRD_PARTY: Expanding Tun/Tap ..." ; \
+    cd $(TUNTAP_SOURCE_DIR)/$(TUNTAP_CURRENT_NAME) ; \
+	mkdir -p $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME) ; \
+	tar -x -f $(TUNTAP_CURRENT_TARGZ) -C $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME) ; \
+	echo "THIRD_PARTY: Patching Tun/Tap.." ; \
+    if [ -d $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME)/tuntap ] ; then \
+        cd $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME)/tuntap ; \
+        for patch_file in $(TUNTAP_SOURCE_DIR)/$(TUNTAP_CURRENT_NAME)/patches/*.diff; do \
+            patch_name=$(TUNTAP_CURRENT_NAME)/$$(basename "$${patch_file}") ; \
+            patch -p0 -N --dry-run -i $$patch_file > /dev/null; \
+            if [ $$? == 0 ]; then \
+                patch -p0 -N -i $$patch_file; \
+                if [ $$? == 0 ]; then \
+                    echo "Tun/Tap patch applied: $$patch_name" ; \
+                else \
+                    echo "error: Tun/Tap patch failed after a successful dry run: $$patch_name" ; \
+                fi \
+            else \
+                echo "error: Tun/Tap patch could not be applied: $$patch_name" ; \
+            fi \
+        done ; \
+    fi ; \
+    echo "THIRD_PARTY: Patched Tun/Tap" ; \
 	touch $(TOPDIR)/built-tuntap-prepare
 
 built-tuntap: built-tuntap-prepare
 	if [ -e $(TUNTAP_PREBUILT_TAP_NOTARIZED) ] \
-	&& [ -e $(TUNTAP_PREBUILT_TUN_NOTARIZED) ] ; then \
-		echo "THIRD_PARTY: Not building Tun/Tap because pre-built kexts exist" ; \
-		mkdir -p $(TUNTAP_PRODUCTS_DIR) ; \
-		cp -f -a $(TUNTAP_PREBUILT_TAP_NOTARIZED) $(TUNTAP_PRODUCTS_DIR)/tap-notarized.kext ; \
-		cp -f -a $(TUNTAP_PREBUILT_TUN_NOTARIZED) $(TUNTAP_PRODUCTS_DIR)/tun-notarized.kext ; \
-	elif [ -e $(TUNTAP_PREBUILT_TAP_NOTARIZED) ] \
-	||   [ -e $(TUNTAP_PREBUILT_TUN_NOTARIZED) ] ; then \
-		echo "error: THIRD_PARTY: If either tap-notarized.kext or tun-notarized.kext is present in the third_party folder, both must be present" ; \
+	&& [ ! -e $(TUNTAP_PREBUILT_TUN_NOTARIZED) ] ; then \
+		echo "error: THIRD_PARTY: If tap-notarized.kext is present in the third_party folder, tun-notarized.kext must also be present" ; \
 		exit 1 ; \
-	else \
-		echo "THIRD_PARTY: Building Tun/Tap for '$(ARCHS)' with deploy-target '$(MACOSX_DEPLOYMENT_TARGET)' and SDK path '$(SDK_DIR)'" ; \
-		export TUNTAP_ARCHS="$(foreach f, $(TARGET_ARCHS), -arch $f)" ; \
-		cd $(TUNTAP_BUILD_DIR) ; \
-		mkdir -p $(TUNTAP_PRODUCTS_DIR) ; \
-		$(MAKE) -C $(TUNTAP_CURRENT_NAME)/tuntap/ ; \
-		cp -f -a $(TUNTAP_CURRENT_NAME)/tuntap/tap.kext $(TUNTAP_PRODUCTS_DIR)/tap.kext ; \
-		cp -f -a $(TUNTAP_CURRENT_NAME)/tuntap/tun.kext $(TUNTAP_PRODUCTS_DIR)/tun.kext ; \
-		echo "THIRD_PARTY: Built Tun/Tap" ; \
 	fi ; \
+	if [ -e $(TUNTAP_PREBUILT_TUN_NOTARIZED) ] \
+	&&   [ ! -e $(TUNTAP_PREBUILT_TAP_NOTARIZED) ] ; then \
+		echo "error: THIRD_PARTY: If tun-notarized.kext is present in the third_party folder, tap-notarized.kext must also be present" ; \
+		exit 1 ; \
+	fi ; \
+	\
+	echo "THIRD_PARTY: Copying pre-build notarized kexts" ; \
+	mkdir -p $(TUNTAP_PRODUCTS_DIR) ; \
+	cp -f -a $(TUNTAP_PREBUILT_TAP_NOTARIZED) $(TUNTAP_PRODUCTS_DIR)/tap-notarized.kext ; \
+	cp -f -a $(TUNTAP_PREBUILT_TUN_NOTARIZED) $(TUNTAP_PRODUCTS_DIR)/tun-notarized.kext ; \
+	\
+    echo "THIRD_PARTY: Building Tun/Tap for '$(ARCHS)' with deploy-target '$(MACOSX_DEPLOYMENT_TARGET)' and SDK path '$(SDK_DIR)'" ; \
+    export TUNTAP_ARCHS="$(foreach f, $(TARGET_ARCHS), -arch $f)" ; \
+    cd $(TUNTAP_BUILD_DIR) ; \
+    mkdir -p $(TUNTAP_PRODUCTS_DIR) ; \
+    $(MAKE) -C $(TUNTAP_CURRENT_NAME)/tuntap/ ; \
+    cp -f -a $(TUNTAP_CURRENT_NAME)/tuntap/tap.kext $(TUNTAP_PRODUCTS_DIR)/tap.kext ; \
+    cp -f -a $(TUNTAP_CURRENT_NAME)/tuntap/tun.kext $(TUNTAP_PRODUCTS_DIR)/tun.kext ; \
+    echo "THIRD_PARTY: Built Tun/Tap" ; \
 	touch $(TOPDIR)/built-tuntap
 
 built-tuntap-clean:
