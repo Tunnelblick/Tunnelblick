@@ -1,0 +1,52 @@
+--- README.installer	2014-08-10 16:47:35.000000000 -0400
++++ README.installer	2019-11-25 21:27:52.000000000 -0500
+@@ -1,3 +1,49 @@
++*******************************************************************************
++*                                                                             *
++* Note: The contents of the tuntaposx [1] README.installer appears below the  *
++*       following, which is about the Tunnelblick TunTap installer.           *
++*                                                                             *
++* The Tunnelblick TunTap installer is a notarized version of the tuntaposx    *
++* TunTap installer and installs Tunnelblick versions of tun and tap kexts.    *
++*                                                                             *
++* TUNNELBLICK USERS: DO NOT INSTALL TUNTAP!!!                                 *
++*                                                                             *
++*     It is not necessary to install the tuntap kexts if you use Tunnelblick  *
++*     because Tunnelblick includes tun and tap kexts that are dynamically     *
++*     loaded and unloaded as needed. Installing the kexts can interfere with  *
++*     the operation of Tunnelblick, so installing them is not recommended.    *
++*                                                                             *
++* TUN IS USUALLY NOT NEEDED                                                   *
++*                                                                             *
++*     Although the "tun" kext was needed in early versions of OS X, OS X      *
++*     10.6.8 and higher include a built-in "utun" driver provided by Apple.   *
++*     OpenVPN will automatically use utun for tun connections unless the      *
++*     configuration includes the "dev-type tun" option. See the note at the   *
++*     start of Errors Loading  Kexts [2].                                     *
++*                                                                             *
++* ABOUT THIS INSTALLER                                                        *
++*                                                                             *
++* This notarized installer is provided for the convenience of those who are   *
++* not using Tunnelblick but wish to install TunTap. "Notarized" software has  *
++* been examined by Apple and been found to not contain malware. The           *
++* tuntaposx project is no longer being maintained [3] and does not plan to    *
++* provide a notarized installer.                                              *
++*                                                                             *
++* The installer package included in this folder was notarized by a developer  *
++* for the Tunnelblick project [4]. It includes notarized tun and tap kexts    *
++* that were originally built for Tunnelblick. These kexts have bundle IDs of  *
++* net.tunnelblick.tun and net.tunnelblick.tap and have bundle versions that   *
++* correspond to the version of Tunnelblick for which they were built, but     *
++* have no other changes.                                                      *
++*                                                                             *
++* [1] https://sourceforge.net/projects/tuntaposx/                             *
++* [2] https://tunnelblick.net/cKextLoadError.html                             *
++* [3] https://sourceforge.net/p/tuntaposx/bugs/28/#cfc8                       *
++* [4] https://tunnelblick.net                                                 *
++*                                                                             *
++* The original README.installer file appears below.                           *
++*                                                                             *
++*******************************************************************************
+
+ tun/tap driver installer
+ ========================
