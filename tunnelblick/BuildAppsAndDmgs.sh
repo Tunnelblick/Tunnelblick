@@ -22,6 +22,9 @@
 #
 # This script is the final step in creating Tunnelblick. It creates Tunnelblick.app, Tunnelblick Uninstaller.app, and the disk images for each of them.
 
+# Save the working directory so we can cd to it easily
+original_wd="$( pwd )"
+
 # Touch the build folder to get it to the top of listings sorted by modification date
 touch build
 
@@ -83,8 +86,85 @@ fi
 # Index the help files
   hiutil -Caf "${app_path}/Contents/Resources/help/help.helpindex" "${app_path}/Contents/Resources/help"
 
+# If the notarized versions exist, use them, otherwise use the normal versions.
+kext_products_folder="$( cd ../third_party/products/tuntap ; pwd )"
+  if [ -e "$kext_products_folder/tap-notarized.kext" ] ; then
+    tap_name="tap-notarized.kext"
+  else
+	tap_name="tap.kext"
+  fi
+  if [ -e "$kext_products_folder/tun-notarized.kext" ] ; then
+	tun_name="tun-notarized.kext"
+  else
+	tun_name="tun.kext"
+  fi
+
 # Copy tun & tap kexts into the Resources folder
-  cp -a ../third_party/products/tuntap/*.kext "${app_path}/Contents/Resources/"
+  cp -a "$kext_products_folder/$tap_name" "${app_path}/Contents/Resources/"
+  cp -a "$kext_products_folder/$tun_name" "${app_path}/Contents/Resources/"
+
+# Create a tuntap .pkg in the build folder
+
+  # Set up source and target folders
+  mkdir -p "build/${CONFIGURATION}/tuntap_pkg"
+  pkg_target_dir="$( cd build/${CONFIGURATION}/tuntap_pkg ; pwd )"
+  pkg_src_folder="$( cd ../third_party/build/tuntap/tuntap-20141104/tuntap/pkg ; pwd )"
+
+  # Determine tuntap_version (e.g. "20141104") from name of folder
+  ttv="$( ls ../third_party/build/tuntap)"
+  tuntap_version="${ttv:(-8)}"
+
+  # Remove target folder and .tar.gz if they exist
+  rm -f -R "$pkg_target_dir"
+  rm -f "$pkg_target_dir/../tunnelblick_tuntap_$tuntap_version.tar.gz"
+  # Create Library/Extensions folders and copy the .kexts into it
+  mkdir -p "$pkg_target_dir/pkgbuild/tap_root/Library/Extensions"
+  mkdir -p "$pkg_target_dir/pkgbuild/tun_root/Library/Extensions"
+  cp -pR "$kext_products_folder/$tap_name" "$pkg_target_dir/pkgbuild/tap_root/Library/Extensions/tap.kext"
+  cp -pR "$kext_products_folder/$tun_name" "$pkg_target_dir/pkgbuild/tun_root/Library/Extensions/tun.kext"
+
+  # Create Library/LaunchDaemons folders and copy the .plists into then
+  mkdir -p "$pkg_target_dir/pkgbuild/tap_root/Library/LaunchDaemons"
+  mkdir -p "$pkg_target_dir/pkgbuild/tun_root/Library/LaunchDaemons"
+  cp -p "$pkg_src_folder/launchd/net.sf.tuntaposx.tap.plist" "$pkg_target_dir/pkgbuild/tap_root/Library/LaunchDaemons/tap.plist"
+  cp -p "$pkg_src_folder/launchd/net.sf.tuntaposx.tun.plist" "$pkg_target_dir/pkgbuild/tun_root/Library/LaunchDaemons/tun.plist"
+
+  # Build the separate tap and tun packages
+  pkgbuild 	--root				"$pkg_target_dir/pkgbuild/tap_root" \
+			--component-plist	"$pkg_src_folder/components/tap.plist" \
+			--scripts			"$pkg_src_folder/scripts/tap" \
+			--identifier        "net.tunnelblick.tuntappkg" \
+			--timestamp \
+			"$pkg_target_dir/tap.pkg"
+  pkgbuild 	--root				"$pkg_target_dir/pkgbuild/tun_root" \
+			--component-plist	"$pkg_src_folder/components/tun.plist" \
+			--scripts			"$pkg_src_folder/scripts/tun" \
+			--identifier        "net.tunnelblick.tuntappkg" \
+			--timestamp \
+			"$pkg_target_dir/tun.pkg"
+
+  # Build the tuntap package
+  # Don't put any resources into it, we'll copy them later (don't know why, but this is the way the tuntaposx makefiles do it)
+  cd "$pkg_target_dir"
+  productbuild	--distribution	"$pkg_src_folder/distribution.xml" \
+				--package-path	"$pkg_target_dir/pkgbuild" \
+				--resources		"$pkg_src_folder/res.dummy" \
+				"$pkg_target_dir/tuntap_$tuntap_version.pkg"
+  cd "$original_wd"
+
+  # Add the actual resources to the package
+  pkgutil --expand "$pkg_target_dir/tuntap_$tuntap_version.pkg" "$pkg_target_dir/pkgbuild/tuntap_pkg.d"
+  cp -pR "$pkg_src_folder/res/" "$pkg_target_dir/pkgbuild/tuntap_pkg.d/Resources"
+  pkgutil --flatten "$pkg_target_dir/pkgbuild/tuntap_pkg.d" "$pkg_target_dir/tuntap_$tuntap_version.pkg"
+
+  # Create a.tar.gz of the tuntap package
+  mkdir "$pkg_target_dir/tunnelblick_tuntap_$tuntap_version"
+  cd    "$pkg_target_dir/tunnelblick_tuntap_$tuntap_version"
+  cp -a "$pkg_src_folder/../README"                  "README"
+  cp -a "$pkg_src_folder/../README.installer"        "README.installer"
+  cp -a "$pkg_target_dir/tuntap_$tuntap_version.pkg" "tuntap_$tuntap_version.pkg"
+  tar czf "$pkg_target_dir/../tunnelblick_tuntap_$tuntap_version.tar.gz" .
+  cd "$original_wd"
 
 changeEntry()
 {
