@@ -1795,25 +1795,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 
 +(BOOL) optionIsInBlacklist: (NSString *) option {
     
-    // String with a list of options that are not "safe" in that they invoke a command or script.
-    
-    // Option list was last updated from options.c in git master 0e591a2 (2015-12-27)
-    
-    static NSString * allowedOptions =
-    @"|"
-    @"auth-user-pass-verify|"
-    @"client-connect|"
-    @"client-disconnect|"
-    @"down|"
-    @"ipchange|"
-    @"iproute|"
-    @"learn-address|"
-    @"route-pre-down|"
-    @"route-up|"
-    @"tls-verify|"
-    @"up|";
-    
-    BOOL inBlacklist = [allowedOptions rangeOfString: [NSString stringWithFormat: @"|%@|", option]].length != 0;
+    NSArray * blackList = OPENVPN_OPTIONS_THAT_ARE_UNSAFE;
+
+    BOOL inBlacklist = [blackList containsObject: option];
     return inBlacklist;
 }
 
