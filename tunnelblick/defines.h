@@ -198,6 +198,12 @@
 #define OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY [NSArray arrayWithObjects: @"allow-nonadmin", @"cryptoapicert", @"dhcp-release", @"dhcp-renew", @"pause-exit", @"register-dns", @"service", @"show-adapters", @"show-net", @"show-net-up", @"show-valid-subnets", @"tap-sleep", @"win-sys", nil]
 
 //*************************************************************************************************
+// OpenVPN options that cannot appear in a "safe" configuration
+#define OPENVPN_OPTIONS_THAT_ARE_UNSAFE [NSArray arrayWithObjects: @"auth-user-pass-verify", @"config", @"client-connect", @"client-disconnect", \
+                                                                   @"down", @"ipchange", @"iproute", @"learn-address", \
+                                                                   @"plugin", @"route-pre-down", @"route-up", @"tls-verify",  @"up", nil]
+
+//*************************************************************************************************
 // Tunnelblick and OpenVPN logging levels, stored in the per-configuration "-loggingLevel" preference.
 // Levels from 0...11 are passed to OpenVPN in the --verb option and Tunnelblick does logging
 // At TUNNELBLICK_CONFIG_LOGGING_LEVEL, Tunnelblick does logging but does not set --verb, so the OpenVPN default or the configuration file setting is used
