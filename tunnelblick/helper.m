@@ -1347,7 +1347,7 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
     }
     
 #ifdef TBDebug
-	NSString * header = [NSString stringWithFormat: @"tunnelblickd status from %@: %ld\n", subcommand, (long) status];
+	NSString * header = [NSString stringWithFormat: @"tunnelblickd status from %@: %ld\nArguments:\n%@\n", subcommand, (long) status, arguments];
 	[logMsg insertString: header atIndex: 0];
 	NSLog(@"%@", logMsg);
 #else
