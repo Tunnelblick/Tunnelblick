@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "Yhdistä uudelleen sisäänkirjautuessa";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Vaadi pääkäyttäjän hyväksyntä avainten ja sertifikaattien muutoksiin";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Ohjaa kaikki IPv4-liikenne VPN:n läpi";
 
 /* Checkbox name */
@@ -1728,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick kohtasi vakavan virheen.\n\nAuta Tunnelblick kehitystä ja lähetä ystävällisesti sähköposti developers@tunnelblick.net, kuvaile mitä Tunnelblick teki ja miten virhe ilmeni.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick kohtasi virheitä %1$lu konfiguraatioissa:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick ei onnistunut korjaamaan ongelmia %@':n asetuksissa. Lisätiedot ovat päätelokissa";
 
 /* Window text */
@@ -2060,9 +2054,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopio";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' on vanhentunut OpenVPN versiossa %2$@ ja on poistettu tai tullaan poistamaan myöhemmässä versiossa\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' on vanhentunut OpenVPN %2$@ ja poistetaan OpenVPN %3$@ versiossa\n\n";
 
@@ -2083,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Tuodaksesi Tunnelblick asetuksia tietokoneeseen, jossa on enemmän kuin %u käyttäjätiliä, tulee luoda tekstitiedosto joka määrittää tuotavat tiedot.</p>\n<p>Katso lisätietoja <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Määrittää OpenVPN sekä SSL ohjelmistojen versiot, joita käytetään VPN yhteyden muodostamiseen.</strong><ul><li><strong>\"Oletus\"</strong> käyttää OpenVPN ohjelmiston oletusversiota ja OpenSSL kirjastoa joka sisältyy tähän Tunnelblick versioon. Oletus voi vaihdella eri Tunnelblick versioiden välillä.<br></li><li><strong>\"Viimeisin\"</strong> käyttää OpenVPN ohjelmiston viimeisintä versiota LibreSSL kirjastolla, joka sisältyy tähän Tunnelblick versioon. Viimeisin versio voi vaihdella eri Tunnelblick versioissa.<br></li><li><strong>Mikä muu tahansa</strong> määritettyä versiota OpenVPN ohjelmistosta sekä SSL kirjastosta, mikäli ne ovat saatavilla tässä Tunnelblick versiossa. Mikäli eivät ole saatavissa, käytetään lähintä mahdollista versiota.<br></li></ul>";
 
@@ -2098,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Määrittää milloin Tunnelblick tulee avata VPN yhteys.</strong></p><p>\"Tietokoneen käynnistyessä\" voidaan käyttää ainostaan \"yhteisiä\" asetuksia.</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Kun valittu</strong>, IPv6 on pois käytöstä, kunnes OpenVPN palveluun otetaan yhteyttä IPv6 osoitteella.</p>\n<p>IPv6 poistaminen käytöstä on suositeltavaa, koska useat VPN kokoonpanot eivät turvaa tietovuodoilta käytettäessä IPv6 yhteyksiä. Useimmat Internet yhteydet toimivat hyvin myös ilman IPv6.</p>\n<p><strong>Kun ei valittu</strong>, IPv6 ei ole poistettu käytöstä.</p>\n<p><strong>Tämä valinta ei ole käytössä</strong>, kun käytetään 'tap' yhteyttä, koska tätä ei voida pakottaa 'tap' yhteyksillä.</p>";
@@ -2125,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Mikäli valittu</strong>, Tunnelblick ei näytä tätä varoitusta enää uudelleen.</p>\n<p><strong>Jos ei ole valittu</strong>, Tunnelblick näyttää tämän varoituksen uudelleen.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kun valittu</strong>, Tunnelblick vaatii laitteen pääkäyttäjän hyväksynnän tehdä muutoksia avain- ja sertifikaattitiedostoihin.</p>\n<p><strong>Jos ei ole valittu</strong>, tavallinen käyttäjä voi sallia muutokset avain- ja sertifikaattitiedostoihin.</p><p><strong>Huomaa: Laitteen pääkäyttäjän valtuutus tarvitaan tämän asetuksen muuttamiseen.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Kun valittu</strong>, Tunnelblick vahtii muutoksia verkkoasetuksissa ja reagoi niihin (esimerkiksi, DHCP-uudistamisten tai Internet-yhteyksien vaihtamisen aiheuttamat muutokset) pitääkseen VPN-yhteyden kytkettynä. Tunnelblickin oletustoiminnat, kun verkkoasetukset muuttuvat, toimivat yleensä hyvin, mutta voit määrittää eri toimintoja välilehdellä 'Kun kytketty' 'Lisäasetukset'-ikkunassa.</p>\n<p><strong>Kun ei valittu</strong>, Tunnelblick will jättää verkkomuutokset huomiotta.</p>\n<p><strong>Tämä valintalaatikko on poistettu käytöstä</strong> kun 'Aseta DNS/WINS'-asetus on 'Aseta nimipalvelin' or 'Aseta nimipalvelin (3.1)'.</p>";

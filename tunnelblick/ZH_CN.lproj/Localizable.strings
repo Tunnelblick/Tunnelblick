@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "用户转入时, 重新连接";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "变更密钥和证书时需要管理员权限";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "通过 VPN 路由所有的 IPv4 流量";
 
 /* Checkbox name */
@@ -1728,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick 遇到了一个致命错误。\n\n请将发生错误时 Tunnelblick 正在进行的操作发送邮件至 developers@tunnelblick.net 获得帮助。\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick 在配置文件 %1$lu 中遇到错误:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick 未能修复 '%@' 的偏好配置问题. 详情请查看控制台日志";
 
 /* Window text */
@@ -2060,9 +2054,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " 复制";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " “%1$@” 在OpenVPN %2$@ 中已弃用，将会在未来的版本中移除。\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' 这个选项在 OpenVPN %2$@ 版本的配置中是过时的，已经在 OpenVPN %3$@ 版本中移除。\n\n";
 
@@ -2083,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>要在具有超过 %u 个用户帐户的计算机上导入 Tunnelblick 设置，你必须创建一个文本文件，用于指定要导入的数据。</p><p>详情请参看<a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>指定连接 VPN 应该使用的 OpenVPN 和 SSL 软件版本。</strong><ul><li><strong>“默认”选项</strong>将使用这个 Tunnelblick 版本包含的默认 OpenVPN 与 OpenSSL 版本。不同的 Tunnelblick 版本的默认可能不一样。<br></li><li><strong>“最新”选项</strong>将使用这个 Tunnelblick 版本包含的最新 OpenVPN 与 LibreSSL 版本。不同的 Tunnelblick 版本的最新版本可能不一样。<br></li><li><strong>任何其他的选项</strong>将使用指定的 OpenVPN 与 SSL 软件，只要这个 Tunnelblick 版本有包含。如果没有包含的话，最接近的搭配将被使用。<br></li></ul>";
 
@@ -2098,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>指定 Tunnelblick 要什么时候连接 VPN。</strong></p><p>“在电脑驱动时”选项只能用于“分享”的配置。</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>如果选中</strong>，如果 OpenVPN 服务器并非通过IPv6地址访问，则IPv6 将会被禁用。</p>\n<p>禁用 IPv6 通常是推荐的，因为很多VPN配置并无法保证不因IPv6导致信息泄露。 大多数的互联网访问也可以在没有IPv6的情况下良好工作。</p>\n<p><strong>如果不勾选</strong>， IPv6 将不会被禁用。</p>\n<p>如果使用 TAP 连接 <strong>此复选框将不可用</strong>，因为这个选项无法被用于TAP连接上。</p>";
@@ -2125,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>如果您选择检查</strong>，Tunnelblick在接下来的 %lu 天内不会再提示更新。</p>\n<p><strong>如果您不检查</strong>Tunnelblick不会再提示您。</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>选中时</strong>，Tunnelblick将申请电脑管理员的授权才能允许用户修改秘钥和证书文件。</p>\n<p><strong>不选中时</strong>，将允许普通用户修改秘钥和证书文件。</p><p><strong>提示：需要管理员授权才能修改此项设置。</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>当勾选时</strong>，Tunnelblick 将会监视并在网络发生变化时 （例如，由 DHCP 续租发生的网络变化，或者切换网络连接时）重新连接，以保持与 VPN 服务器的连接。当网络发生变化是，Tunnelblick 的默认行为通常会正常工作，但你可以在 '高级'设置窗口中的 '当连接时' 选项卡中指定不同的行为。</p>\n<p><strong>当没有勾选是</strong>，Tunnelblick 会负略掉网络的改变。</p>\n<p>当 'Set DNS/WINS' 没有被设置为 'Set nameserver' 或 'Set nameserver(3.1)' 时，<strong>该复选框不可用</strong></p>。";

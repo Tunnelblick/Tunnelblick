@@ -302,5 +302,20 @@
 /* Menu Item */
 "Do Not Show on Tunnelblick Menu" = "ไม่แสดงในเมนูของ Tunnelblick";
 
+/* Menu Item */
+"Duplicate Configuration..." = "สร้างซ้ำจากคอนฟิกเกอเรชั่น...";
+
+/* Menu Item */
+"Edit OpenVPN Configuration File..." = "แก้ไขไฟล์ OpenVPN คอนฟิกเกอเรชั่น...";
+
+/* Menu Item */
+"Examine OpenVPN Configuration File..." = "ตรวจดูไฟล์ OpenVPN คอนฟิกเกอเรชั่น...";
+
+/* Menu Item */
+"Make Configuration Private..." = "ทำให้คอนฟิกเกอเรชั่นเป็นส่วนตัว…";
+
+/* Menu Item */
+"Make Configuration Shared..." = "ทำให้คอนฟิกเกอเรชั่นสามารถแบ่งปันได้…";
+
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Teerapap Changwichukarn";

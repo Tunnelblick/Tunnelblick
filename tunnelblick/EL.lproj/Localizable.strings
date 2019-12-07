@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "Επανασύνδεση όταν ο χρήστης εισέρχεται";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Να απαιτείται έγκριση από διαχειριστή για αλλαγές σε κλειδιά και πιστοποιητικά";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Δρομολόγιση όλης της κίνησης του IPv4 μέσω του VPN";
 
 /* Checkbox name */
@@ -1728,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Το Tunnelblick αντιμετώπισε ένα σφάλμα.\n\nΠαρακαλώ στείλτε ένα email στο developers@tunnelblick.net για βοήθεια, περιγράφοντας τα βήματα που προκάλεσαν το σφάλμα.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Το Tunnelblick αντιμετώπισε σφάλματα με της %1$lu παραμέτρους: \n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Το Tunnelblick απέτυχε να επιδιορθώσει προβλήματα με επιλογές για '%@'. Λεπτομέρειες στο ημερολόγιο Κονσόλας.";
 
 /* Window text */
@@ -2060,9 +2054,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " αντιγραφή";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " Το '%1$@' καταργήθηκε στο OpenVPN %2$@ και αφαιρέθηκε ή θα αφαιρεθεί σε επόμενη έκδοση\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " Το '%1$@' καταργήθηκε στο OpenVPN %2$@ και αφαιρέθηκε στο OpenVPN %3$@\n\n";
 
@@ -2083,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Για την εισαγωγή Tunnelblick ρυθμίσεων σε έναν υπολογιστή που έχει παραπάνω από %u λογαριασμούς χρηστών, πρέπει να δημιουργήσετε ένα αρχείο κειμένου που να καθορίζει τα δεδομένα που θα εισαχθούν.</p>\n<p>Για περισσότερες πληροφορίες, δείτε <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Καθορίζει την έκδοση του OpenVPN και το λογισμικό SSL που πρέπει να χρησιμοποιηθεί για τη σύνδεση του VPN.</strong><ul><li><strong>Η ρύθμιση \"Προεπιλογή\"</strong>θα χρησιμοποιήσει την προεπιλεγμένη έκδοση του OpenVPN με το OpenSSL που περιλαμβάνεται σε αυτήν την έκδοση του Tunnelblick. Η προεπιλογή μπορεί να διαφέρει σε διαφορετικές εκδόσεις του Tunnelblick.<br></li><li><strong>Η ρύθμιση \"Πρόσφατο\" </strong> θα χρησιμοποιήσει την τελευταία έκδοση του OpenVPN με το LibreSSL που περιλαμβάνεται σε αυτή την έκδοση του Tunnelblick. Η τελευταία έκδοση μπορεί να διαφέρει σε διαφορετικές εκδόσεις του Tunnelblick.<br></li><li><strong> Οποιαδήποτε άλλη ρύθμιση </strong> θα χρησιμοποιήσει την καθορισμένη έκδοση του λογισμικού OpenVPN και SSL εάν είναι διαθέσιμες σε αυτή την έκδοση του Tunnelblick. Εάν δεν είναι διαθέσιμο, θα χρησιμοποιηθεί το πλησιέστερο ταίριασμα.<br></li></ul>";
 
@@ -2098,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Καθορίζει πότε πρέπει να συνδεθεί το Tunnelblick στο VPN.</strong></p><p>Το \"Όταν ξεκινά ο υπολογιστής\" μπορεί να χρησιμοποιηθεί μόνο με τη παράμετρο \"Shared\".</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το IPv6 θα είναι απενεργοποιημένο εκτός αν ο διακομιστής OpenVPN συνδέεται μέσω μίας διεύθυνσης IPv6.</p> <p>Συνίσταταται συχνά η απενεργοποίηση του IPv6 επειδή πολλές ρυθμίσεις VPN δεν προφυλάσσουν τη διαρροή πληροφοριών που προκαλείται από τη χρήση του IPv6. Η πρόσβαση στο Internet λειτουργεί χωρίς IPv6.</p>\n<p><strong>Όταν είναι απενεργοποιημένο</strong>, το IPv6 δεν θα απενεργοποιηθεί.</p>\n<p><strong>Αυτό το στοιχείο είναι απενεργοποιημένο</strong> όταν χρησιμοποιείτε μια σύνδεση \"tap\" επειδή δεν μπορεί να επιβληθεί σε μια σύνδεση \"tap\". </p>";
@@ -2125,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Όταν είναι ενεργοποιημένο</strong>, το Tunnelblick δε θα δείχνει αυτή την ειδοποίηση.</p>\n<p><strong>Όταν είναι απενεργοποιημένο</strong>, το Tunnelblick θα δείχνει αυτή την ειδοποίηση.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Όταν επιλεχθεί</strong>, το Tunnelblick θα απαιτεί την εξουσιοδότηση του διαχειριστή του ηλεκτρονικού υπολογιστή για την πραγματοποίηση αλλαγών στα αρχεία κλειδιών και πιστοποιητικών.</p>\n<p><strong>Όταν δεν ειναι επιλεγμένο</strong>, ένας τυπικός χρήστης θα επιτρέπεται να κάνει αλλαγές στα αρχεία κλειδιών και πιστοποιητικών.</p><p><strong>Σημείωση: Για την αλλαγή αυτής της ρύθμισης απαιτείται εξουσιοδότηση από τον διαχειριστή του ηλεκτρονικού υπολογιστή.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, Το Tunnelblick θα παρακολουθήσει και θα αντιδρά σε αλλαγές στις ρυθμίσεις δικτύου (για παράδειγμα, αλλαγές που προκαλούνται από ανανεώσεις DHCP ή εναλλαγή συνδέσεων στο Internet) για να προσπαθήσει να διατηρήσει το VPN συνδεδεμένο. Οι προεπιλεγμένες ενέργειες του Tunnelblick κατά την αλλαγή των ρυθμίσεων δικτύου συνήθως λειτουργούν σωστά, αλλά μπορείτε να ορίσετε διαφορετικές ενέργειες στην καρτέλα 'Ενώ είναι συνδεδεμένο' στο παράθυρο ρυθμίσεων 'Για προχωρημένους'.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το Tunnelblick θα αγνοεί τις αλλαγές δικτύου.</p>\n<p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> όταν η επιλογή 'Set DNS / WINS' δεν έχει οριστεί σε 'Ρύθμιση nameserver' ή 'Ρύθμιση nameserver (3.1)'.</p>";

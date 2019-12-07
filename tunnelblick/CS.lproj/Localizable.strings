@@ -377,6 +377,9 @@
 /* Checkbox name */
 "Apply to all" = "Aplikovat na vše";
 
+/* Checkbox Name */
+"Authenticate before connecting" = "Autorizujte před připojením";
+
 /* Checkbox name */
 "Check for updates automatically" = "Zkontrolovat automaticky aktualizace";
 
@@ -456,7 +459,7 @@
 "Reconnect when user switches in" = "Obnovit připojení po znovupřihlášení uživatele";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Změna klíče a certifikátu požaduje autorizaci administrátora";
+"Require administrator authorization to install all configurations" = "Pro instalaci všech konfigurací je nutná autorizace administrátora";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Směrovat všechen přenos IPv4 přes VPN";
@@ -761,6 +764,12 @@
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Nainstalována jedna konfigurace\n\n";
 
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "     • Instalovány nebo změněny %lu \"bezpečné\" konfigurace\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = "     • Instalována nebo změněna jedna \"bezpečná\" konfigurace\n\n";
+
 /* Window text */
 "     • No DNS servers have been specified.\n\n" = "     • Žádný DNS server nebyl určen.\n\n";
 
@@ -781,6 +790,9 @@
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install one configuration\n" = "    • Instalovat jednu konfiguraci\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    • Instalovat nebo pozměnit %lu \"bezpečnou\" kofiguraci (autorizace administrátora není vyžadována)\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    • Nahradit %lu konfigurací\n\n";
@@ -1011,7 +1023,7 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Opravdu nechcete zkonvertovat konfigurace OpenVPN do konfigurací VPN Tunnelblicku?\n\nKONFIGURACE NEBUDE DOSTUPNÁ, POKUD JE NEPŘEVEDETE!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Opravdu si přejete smazat přihlašovací údaje (privátní klíč a/nebo jméno a heslo) pro konfigurace %ld, která jsou uloženy v Klíčence?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Opravdu si přejete smazat přihlašovací údaje (privátní klíč a/nebo jméno a heslo) pro konfigurace %ld, které jsou uloženy v Klíčence?";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Opravdu si přejete smazat identifikační údaje (privátní klíč a/nebo jméno a heslo) pro '%@', která je uložena v klíčence?";
@@ -1728,7 +1740,7 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "V Tunnelblicku nastala závažná chyba.\n\nProsím napište zprávu o pomoc na developers@tunnelblick.net, s popisem co se s Tunnelblickem dělo v okamžiku, kdy chyba nastala.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick nalezl chyby v %1$lu konfiguracích:\n\n%2$@%3$@%4$@%5$@";
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick nalezl chyby v %1$lu konfiguracích:\n\n%2$@%3$@%4$@%5$@%6$@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick není schopen opravit problém s preferencemi pro '%@'. Detaily v logu konzole";
@@ -1834,6 +1846,9 @@
 
 /* Window text */
 "Unable to create %@ owned by %ld:%ld with %lo permissions" = "Není možné vytvořit %1$@ vlastněné %2$ld:%3$ld s oprávněními %4$lo";
+
+/* Window text */
+"Unable to install or replace the '%@' configuration\n" = "Konfiguraci '%@' není možné instalovat nebo přepsat\n";
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "Není možné instalovat konfiguraci '%@'\n";
@@ -2061,7 +2076,7 @@
 " copy" = " kopie";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " %1$@ přestal být podporován v OpenVPN %2$@ a byl, nebo bude, odstraněn v pozdější verzi\n\n";
+" • '%@' was deprecated in OpenVPN %@ and has been or may be removed in a later version\n\n" = " %1$@ přestal být podporován v OpenVPN %2$@ a byl, nebo bude, odstraněn v pozdější verzi\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " \"%1$@\" je v OpenVPN %2$@ zastaralé a odstraněno v OpenVPN %3$@\n\n";
@@ -2083,7 +2098,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Musíte vytvořit textový soubor s popisem importovaných dat, pokud chcete importovat nastavení Tunnelblicku na počítači, který má více než %u uživatelských účtů.</p>\n<p>Více informací na <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Specifikuje verzi OpenVPN a SSL software, který by měl být použit pro VPN spojení.</strong><ul><li><strong>Nastavení Default</strong> použije defaultní verzi OpenVPN a OpenSSL, které jsou obsaženy v této verzi Tunnelblicku. Default se mezi verzemi Tunnelblicku může lišit.<br></li><li><strong>Nastavení Poslední</strong> bude používat poslední verzi OpenVPN s LibreSSL, které je obsaženo v této verzi Tunnelblicku. Poslední verze se mezi různými verzemi Tunnelblicku může lišit.<br></li><li><strong>Jiné nastavení</strong> bude použita specifikovaná verze OpenVPN a SSL, pokud jsou dostupné v této verzi Tunnelblicku. Pokud dostupné nejsou, tak je použita nejbližší verze.<br></li></ul>";
 
@@ -2098,6 +2112,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Upřesňuje kdy se má Tunnelblick připojit k VPN.</strong></p><p>\"Když se spouští počítač\" může být použito pouze u \"Sdílených\" konfigurací.</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Pokud zaškrtnuto </strong>, tak bude zakázáno IPv6, dokud není k OpenVPN serveru přistupováno pomocí IPv6 adresy.</p>\n<p>Zákaz IPv6 je často doporučen, poněvadž mnoho konfigurací VPN nezaručuje že nedojde k úniku informací při použití IPv6. Většina internetových přístupů pracuje i bez IPv6.</p>\n<p><strong>Pokud není zaškrtnuto</strong>, IPv6 nebude zakázáno.</p>\n<p><strong>Tento checkbox je zakázán</strong>, když je použito spojení 'tap', protože nemůže být vynuceno na spojení 'tap'.</p>";
@@ -2125,9 +2140,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Jeli zaškrtnuto</strong>, Tunnelblick již nebude zobrazovat toto upozornění.</p>\n<p><strong>Jeli nezaškrtnuto</strong>, Tunnelblick znovu zobrazí toto upozornění.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Pokud zaškrtnuto</strong>, Tunnelblick bude vyžadovat autorizaci administrátora pro provedení změn do souborů s klíči a certifikáty.</p>\n<p><strong>Pokud nezaškrtnuto</strong>, standardnímu uživateli bude umožněno provádět změny v klíčích a certifikátech.</p><p><strong>Poznámka: A autorizace administrátora je vyžadována pro změnu nastavení.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Pokud zaškrtnuto</strong>, Tunnelblick bude sledovat a reagovat na změny v síťovém nastavení (na příklad změny způsobené obnovením DHCP nebo přepnutím internetového spojení), aby udrželo VPN připojené. Defaultní akce Tunnelblicku spouštěné při změně síťového nastavení jsou obvykle dostatečné. Je ale možné nastavit jiné akce na záložce 'Po připojení' okna 'Rozšířené nastavení'.</p>\n<p><strong>Když není zaškrtnuto</strong>, Tunnelblick bude ignorovat síťové změny.</p>\n<p><strong>Tento checkbox je zakázán</strong> Pokud 'Nastavit DNS/WINS' není nastaveno na 'Nastavit nameserver' nebo 'Nastavit nameserver (3.1)'.</p>";
@@ -2418,6 +2430,9 @@
 /* Credit description */
 "Swedish translation" = "Švédský překlad";
 
+/* Credit description */
+"Thai translation" = "Thajský překlad";
+
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "Tunnelblick nastavení %@";
 
@@ -2450,6 +2465,9 @@
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Nápověda Xcode & integrace OpenSSL";
+
+/* Authentication Prompt */
+"authenticate" = "autentifikace";
 
 /* Button VPNService */
 "Accept" = "Akceptovat";

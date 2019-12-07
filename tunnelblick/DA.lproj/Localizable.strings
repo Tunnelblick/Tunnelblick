@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "Genopret forbindelse når brugeren skifter tilbage";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Behøver administrator adgang for nøgle og certifikat ændringer";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Kør al IPv4-trafikken gennem VPN";
 
 /* Checkbox name */
@@ -1728,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick opdagede en alvorlig fejl.\n\nSend venligst en e-mail til developers@tunnelblick.net med en beskrivelse af, hvad tunnelblick gjorde, da fejlen opstod.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick fandt fejl med %1$lu konfigurationer:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Det mislykkedes at fikse problemerne med indstillingerne for '%@'. Detaljerne er i Konsollens Log";
 
 /* Window text */
@@ -2060,9 +2054,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopier";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' blev forældet i OpenVPN %2$@ og har været eller vil blive fjernet i en senere version\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' blev forældet i OpenVPN %2$@ og fjernet i OpenVPN %3$@\n\n";
 
@@ -2083,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>At importere et Tunnelblick-opsætning på en computer, der har mere end %u brugerkonti, skal du oprette en tekstfil, der angiver de data, der skal importeres.</p>\n<p>For mere information, se <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Angiver den version af OpenVPN og den SSL-software, der skal bruges til at forbinde VPN.</strong><ul><li><strong>\"Standard\" indstillingen</strong>vil bruge standardversionen af OpenVPN med OpenSSL, der er inkluderet i denne version af Tunnelblick. Standarden kan være anderledes i forskellige versioner af Tunnelblick.<br></li><li><strong>Den \"Nyeste\" indstilling</strong>vil bruge den nyeste version af OpenVPN med LibreSSL, der er inkluderet i denne version af Tunnelblick. Den nyeste version kan være anderledes i forskellige versioner af Tunnelblick.<br></li><li><strong>En hvilken som helst anden indstilling</strong>vil bruge den specificerede version af OpenVPN og SSL software, hvis de er tilgængelige i denne version af Tunnelblick. Hvis ikke tilgængelig, vil det nærmeste match blive brugt.<br></li></ul>";
 
@@ -2098,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Angiver hvornår Tunnelblick skal forbinde til VPN.</strong></p><p>\"Når computeren startes\" kan kun bruges ved \"Delte\" konfigurationer.</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Når valgt</strong>, vil IPv6 være slået fra, med mindre der forbindes til OpenVPN-serveren gennem en IPv6-adresse.</p>\n<p>Det vil ofte være anbefalet at slå IPv6 fra, da mange VPN-konfigurationer ikke beskytter mod informations-lækager, der skyldes brug af IPv6. Internetadgang virker normalt fint uden IPv6.</p>\n<p><strong>Uafkrydset</strong> vil IPv6 ikke blive slået fra.</p>\n<p><strong>Denne afkrydsningsboks kan ikke benyttes</strong>, når der bruges en 'tap'-forbindelse, da indstillingen ikke kan virke ved en 'tap'-forbindelse.</p>";
@@ -2125,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Når markeret</strong>, vil Tunnelblick ikke vise denne advarsel igen.</p>\n<p><strong>Hvis ikke markeret</strong> så vil Tunnelblick vise denne advarsel igen.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Når afkrydsningsfeltet er markeret</strong>, vil Tunnelblick kræve en computeradministrators godkendelse for at lave ændringer til nøgle- og certifikatfiler.</p>\n<p><strong>Når afkrydsningsfeltet ikke er markeret</strong>, vil en standardbruger have mulighed for at lave ændringer til nøgle- og certifikatfiler.</p><p><strong>Bemærk: En computeradministrators godkendelse kræves for at ændre denne indstilling.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Når afkrydsningsfeltet er markeret</strong>, vil Tunnelblick holde øje med og reagere på ændringer i netværksindstillinger (fx ænderinger der skyldes DHCP-fornyelser eller skift af internetforbindelse) for at forsøge altid at holde VPN-forbindelsen oppe. Tunnelblicks standardhandlinger når netværksindstillinger ændrer sig, fungerer normalt godt, men du kan angive forskellige handlinger under fanen \"Mens du er forbundet\" i vinduet \"Avanceret\"</p>\n<p><strong>Når afkrydsningsfeltet ikke er markeret</strong>, vil Tunnelblick ignorere netværksændringer.</p>\n<p><strong>Dette afkrydsningsfelt er deaktiveret</strong> når 'Indstil DNS/WINS' er sat til 'Sæt navneserver' eller 'Sæt navneserver (3.1)'.</p>";

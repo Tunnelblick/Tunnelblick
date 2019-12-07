@@ -441,9 +441,6 @@
 "Reconnect when user switches in" = "Tengjast aftur þegar notandi skráir sig aftur inn";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Krefjast samþykkis kerfisstjóra fyrir breytingar á lyklum og vottorðum";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Beina allri IPv4-umferð um VPN-netið";
 
 /* Checkbox name */

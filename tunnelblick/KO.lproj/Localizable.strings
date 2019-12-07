@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "사용자 전환이 되었을 때 다시 연결";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "키와 인증서의 변경을 위해 관리자 권한이 필요합니다";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "모든 IPv4 트래픽을 VPN 적용";
 
 /* Checkbox name */
@@ -1704,9 +1701,6 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick이 '%@' 설정을 삭제할 수 없습니다. 자세한 것은 콘솔 로그를 보십시오.";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick의 %1$lu 설정에서 오류가 발생했습니다 :\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick이 '%@'의 환경설정과 관련된 문제를 복구하는 것에 실패했습니다. 자세한 것은 콘솔 로그에 있습니다.";
 
 /* Window text */
@@ -2011,9 +2005,6 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " 복사본";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' 은/는 OpenVPN %2$@ 에서 폐지가 예정되었고, 후속버전에서 지워졌거나 지워질 예정입니다\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' 은/는 OpenVPN %2$@ 에서 폐지가 예정되었고, OpenVPN %3$@ 에서 제거되었습니다\n\n";

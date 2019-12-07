@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "Znova pripojiť pri prepnutí na aktuálneho užívateľa";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Vyžadovať autorizáciu správcu pri zmene klúča a certifikátu";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Smerovať všetok IPv4 dátový prenos cez VPN";
 
 /* Checkbox name */
@@ -1728,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "V Tunnelblicku nastala závažná chyba.\n\nProsím napíšte správu o pomoc na developers@tunnelblick.net, s popisom čo sa s Tunnelblickem dialo v okamihu, kedy chyba nastala.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick zistil chyby v %1$lu konfiguráciách:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Aplikácii Tunnelblick sa nepodarilo opraviť problémy s nastavením pre '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly";
 
 /* Window text */
@@ -2060,9 +2054,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopia";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " %1$@ prestal byť podporovaný v OpenVPN %2$@ a bol, alebo bude, odstránený v neskoršej verzii\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " '%1$@' prestal byť podporovaný v OpenVPN %2$@ a odstránený v OpenVPN %3$@\n\n";
 
@@ -2083,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Aby bolo možné importovať nastavenia Tunnelblick na počítači s viac ako %u uživateľskými účtami, je potrebné vytvoriť textový súbor obsahujúci dáta ktoré sa majú importovať.</p>\n<p>Viacej informácií na <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong> Špecifikuje verziu OpenVPN a SSL softvér, ktorý by mal byť použitý pre VPN spojenie. </strong><ul><li> Nastavenie <strong> Default </strong> použije predvolenú verziu OpenVPN a OpenSSL, ktoré sú obsiahnuté v tejto verzii Tunnelblicku. Default nastavenie sa medzi verziami Tunnelblicku môže líšiť. <br></li><li> Nastavenie <strong> \"Posledné\" </strong> bude používať poslednú verziu OpenVPN s LibreSSL, ktoré sú obsiahnuté v tejto verzii Tunnelblicku. Posledná verzia sa medzi rôznymi verziami Tunnelblicku môže líšiť. <br></li><li><strong> Iné nastavenia </strong> bude používať špecifikované verzie OpenVPN a SSL, ak sú dostupné v tejto verzii Tunnelblicku. Ak dostupné nie sú, tak je použitá najbližšia verzia. <br></li></ul>";
 
@@ -2098,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Určuje kedy sa Tunnelblick má pripojiť k VPN.</strong></p><p>\"Pri spustení počítača\" je možno použiť iba pri použití \"Zdieľanej\" konfigurácie.</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Ak zaškrtnuté</strong>, IPv6 bude deaktivované v prípade že spojenie OpenVPN nepoužíva IPv6.</p>\n<p>Deaktivácia IPv6 sa často odporúča, nakoľko mnohé konfigurácie VPN nechránia voči úniku informácií spôsobenému použitím IPv6. Pripojenie k Internetu vo väčšine prípadov správne funguje aj bez IPv6.</p>\n<p><strong>Ak nie zaškrtnuté</strong>, IPv6 nebude deaktivované.</p>\n<p><strong>Tento voľba je neaktívna</strong> pri použití pripojenia 'tap', pretože na tomto type pripojenia túto možnosť nie je možné aktivovať.</p>";
@@ -2125,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Pokiaľ zaškrtnuté</strong>, Tunnelblick už nebude zobrazovať toto upozornenie.</p>\n<p><strong>Pokiaľ zaškrtnuté</strong>, Tunnelblick znovu zobrazí toto upozornenie.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Pokiaľ zaškrtnuté</strong>, Tunnelblick bude vyžadovať autorizáciu administrátora pre uskutočnenie zmien do súborov s kľúčmi a certifikátmi.</p>\n<p><strong>Pokiaľ nezaškrtnuté</strong>, štandardnému používateľovi bude umožnené uskutočňovať zmeny v kľúčoch a certifikátoch.</p><p><strong>Poznámka: autorizácia administrátora je vyžadovaná pre zmenu nastavenia.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Pokiaľ zaškrtnuté</strong>, Tunnelblick bude sledovať a reagovať na zmeny v sieťovom nastavení (na príklad zmeny spôsobené obnovením DHCP alebo prepnutím internetového spojenia), aby sa udržalo VPN pripojené. Predvolená akcie Tunnelblicku spustené pri zmene sieťového nastavení sú zvyčajne dostatočné. Je ale možné nastaviť iné akcie na záložke 'Po pripojení' okna 'Rozšírené nastavenia'.</p>\n<p><strong>Pokiaľ nie je zaškrtnuté</strong>, Tunnelblick bude ignorovať sieťové zmeny.</p>\n<p><strong>Táto voľba je zakázaná</strong> Pokiaľ 'Nastaviť DNS/WINS' nie je nastavené v 'Nastaviť nameserver' alebo 'Nastaviť nameserver (3.1)'.</p>";

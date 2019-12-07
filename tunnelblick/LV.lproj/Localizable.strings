@@ -432,9 +432,6 @@
 "Reconnect when user switches in" = "Atjaunot savienojumu, atgriežoties lietotāja kontā";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Pieprasīt administratora autorizāciju atslēgu un sertifikātu izmaiņām";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Maršrutēt visu IPv4 datplūsmu caur VPN savienojumu";
 
 /* Checkbox name */
@@ -1552,9 +1549,6 @@
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick neizdevās atinstalēt konfigurāciju '%@'. Vairāk informācijas notikumu žurnālā.";
-
-/* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick radās kļūdas ar %1$lu konfigurācijām:\n\n%2$@%3$@%4$@%5$@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick neizdevās labot problēmas ar '%@' iestatījumiem. Vairāk informācijas notikumu žurnālā.";

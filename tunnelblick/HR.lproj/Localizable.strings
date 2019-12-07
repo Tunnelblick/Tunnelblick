@@ -447,9 +447,6 @@
 "Reconnect when user switches in" = "Ponovno spoji nakon prebacivanja korisnika";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Uključi administratorska prava kod promjene ključa ili certifikata";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Preusmjeri sav IPv4 promet preko VPN-a";
 
 /* Checkbox name */

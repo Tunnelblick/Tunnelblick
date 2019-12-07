@@ -447,9 +447,6 @@
 "Reconnect when user switches in" = "Herverbind wanneer gebruiker verander";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Vereis administrateur magtiging vir sleutel en sertifikaat veranderinge";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Roete al die IPv4 verkeer deur die VPN";
 
 /* Checkbox name */

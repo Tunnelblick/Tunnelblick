@@ -432,9 +432,6 @@
 "Reconnect when user switches in" = "İstifadəçi daxil olanda təkrar qoşul";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Açar və sertifikat dəyişiklikləri zamanı administrator icazəsi tələb et";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Bütün İPv4 trafikini VPN-dən keçir";
 
 /* Checkbox name */

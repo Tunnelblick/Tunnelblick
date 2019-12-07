@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "Återanslut när användare byter tillbaka";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Begär administratörs-lösenord för att ändra nycklar och certifikat";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Vidarebefordra alla IPv4-trafik genom VPN";
 
 /* Checkbox name */
@@ -1728,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick upptäckte ett allvarligt fel.\n\nSkicka ett e-postmeddelande till developers@tunnelblick.net med en beskrivning av vad Tunnelblick gjorde då felet uppstod.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick stötte på problem med %1$lu konfigurationer:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick misslyckades med att åtgärda problemen med inställningarna för '%@'. Detaljer finns i konsolloggen";
 
 /* Window text */
@@ -2060,9 +2054,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopiera";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' fasades ur i OpenVPN %2$@ och har eller kommer att tas bort i en senare version\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' fasades ur i OpenVPN %2$@ och togs bort i OpenVPN %3$@\n\n";
 
@@ -2083,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>För att importera en Tunnelblick-inställning på en dator som har fler än %u användarkonton måste du skapa n textfil som specificerar den data som ska importeras.</p>\n<p>För mer information, se <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Anger vilken version av OpenVPN och SSL-programvaran som ska användas för att ansluta VPN.</strong><ul><li><strong>Inställningen \"Standard\"</strong> använder standardversionen av OpenVPN med OpenSSL som ingår i denna version av Tunnelblick. Denna version kan skilja sig mellan olika versioner av Tunnelblick.<br></li><li><strong>Inställningen \"Senaste\"</strong> använder den senaste versionen av OpenVPN med LibreSSL som ingår i denna version av Tunnelblick. Den senaste versionen kan skilja sig mellan olika versioner av Tunnelblick.<br></li><li><strong>Alla andra inställningar</strong> använder den angivna versionen av OpenVPN och SSL-programvaran om de är tillgängliga i den här versionen av Tunnelblick. Om inte, kommer den närmaste versionen att användas.<br></li></ul>";
 
@@ -2098,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Anger när Tunneblick ska koppla upp sig på detta VPN.</strong></p><p>\"När datorn startar\" kan bara användas med \"Delade\" inställningar.</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>När vald</strong> kommer IPv6 att inaktiveras om inte OpenVPN-servern ansluts via en IPv6-adress.</p>\n<p>Det rekommenderas ofta att inaktivera IPv6 då många VPN-konfigurationer inte skyddar mot informationsläckor när just IPv6 används. De flesta kopplingarna till Internet fungerar bra utan IPv6.</p>\n<p><strong>När inte vald</strong> kommer IPv6 att aktiveras.</p>\n<p><strong>Denna ruta är inaktiverad</strong> när du använder en 'tap'-anslutning då inställningen inte är kompatibel med den typen av anslutning.</p>";
@@ -2125,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Om den är markerad</strong>, så visar Tunnelblick inte den här varningen igen.</p>\n<p><strong>Om den är tom</strong>, så visar Tunnelblick den här varningen igen.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Om markerad</strong> kommer Tunnelblick att kräva administratörsrättigheter för att uppdatera nyckel- och certifikatfiler.</p>\n<p><strong>Om ej markerad</strong> kommer en vanliga användare få rättigheter att uppdatera nyckel- och certifikatfiler.</p><p><strong>Notera: Administratörsrättigheter krävs för att ändra denna inställning.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Om markerad</strong>, kommer Tunnelblick att bevaka och reagera på förändringar i nätverksinställningar (till exempel, förändringar orsakade av DHCP förnyelser eller byte av Internet förbindelser) för att försöka att behålla VPN ansluten. Tunnelblicks standard åtgärd när nätverksinställningar ändras fungerar vanligtvis väl, men du kan specificera andra åtgärder i 'Ansluten' fliken i fönstret för 'Avancerat'.</p>\n<p><strong>Om ej markerad</strong>, kommer Tunnelblick att ignorera nätverksförändringar.</p>\n<p><strong>Denna ruta är inaktiverad</strong> när 'Välj DNS/WINS' inte är inställd på 'Välj namnserver' eller 'Välj namnserver (3.1)'.</p>";

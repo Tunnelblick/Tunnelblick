@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "إعادة الاتصال عند تبديل المستخدم";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "تتطلب إذن المسؤول عن الخدمة لاجراء تغييرات على المفتاح و الشهادة";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "تحويل حركة سير المعلومات عبر الشبكة الخاصة الافتراضية VPN";
 
 /* Checkbox name */
@@ -1728,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "واجه Tunnelblick خطئا كارثيا.\n\nللمساعدة، المرجو مراسلة developers@tunnelblick.net مع تحديد ما كان Tunnelblick يقوم به عند وقوع الخطء.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "واجه تُنلـبليك اخطاء في اعدادات اتصال %1$lu:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "تعذر اصلاح خطأ في الخيارات لـ ‘%@‘. راجع السجل للتفاصيل";
 
 /* Window text */
@@ -2060,9 +2054,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " نسخ";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • %1$@ تم إهماله في OpenVPN %2$@ و تم - أو سيتم ـ حذفه في إصدارات لاحقة\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • %1$@ تم إهماله من OpenVPN %2$@ و تم حذفه من OpenVPN %3$@\n\n";
 
@@ -2083,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>لتقوم بإستيراد إعدادات تُنلـبليك الى كمبيوتر يحتوي اكثر من %u حساب مستخدم, يجب عليم إنشاء ملف نصّي يحدد البيانات اللتي تريد استيرادها.</p>\n<p>لمزيد من المعلومات, أنظر <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>حدد إصدار OpenVPN و برنامج SSL اللذان يجب إستخدامهما للإتصال بال VPN.</strong><ul><li><strong>الإعدادات \"الإفتراضية\"</strong>سوف تستخدم الإصدار الإفتراضي من OpenVPN مع OpenSSL اللذي هو ضمن هذا الإصدار من تُنلـبليك.\nالإفتراضي يمكن أن يكون مختلف من إصدار إلى أخر من إصدارات تُنلـبليك.<br></li><li><strong>الإعدادات \"الأخيرة\"</strong>سوف تستخدم الإصدارات الإخيرة من OpenVPN مع LibreSSL اللذان هما مشمولين في تُنلـبليك. الإصدار الأخير يمكن أن يكون مختلف من إصدار إلى أخر من إصدارات تُنلـبليك.<br></li><li><strong>أي إعداد أخر</strong>سوف يستخدم الإصدار محدد من OpenVPN و برنامج SSL إذا كانا متاحين في إصدرا تُنلـبليك هذا. إذا لم يكونا متاحين, أقرب إصدار مشابه لهم سوف يستخدم.<br></li></ul>";
 
@@ -2098,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong> يحدد عندما يجب على تُنلـبليك أن يتصل بال VPN.</strong></p>\n<p>\"عندما يشتغل الكمبيوتر\" يمكن استخدامها فقط مع إعدادات \"مشتركة\".</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>عند التفعيل</strong>, سيتم تعطيل بروتوكول IPv6 الا اذا امكن الوصول ل OpenVPN عن طريق عنوان IPv6. </p>\n\n<p> يفضل تعطيل بروتوكول IPv6 لان كثير من اعدادات ال VPN لا تحمي من تسريب المعلومات الناتج من استخدام ال IPv6. معظم استخدام الانترنت سيعمل بشكل طبيعي من غير IPv6. </p>\n\n<p><strong>عند عدم التفعيل</strong>. لن يتم تعطيل بروتوكول IPv6.</p>\n<p><strong>غير قابل للتفعيل</strong> عند استخدام اتصال 'tap' ، لانه لا يمكن فرض تنفيذه علي اتصال 'tap'. </p>";
@@ -2125,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>عند إختياره</strong>, تُنلـبليك لن يقوم بإظهار هذا التنبيه مرة اخرى.</p>\n<p><strong>عند عدم إختياره</strong>, تُنلـبليك سوف يقوم بإظهار هذا التنبيه مرة اخرى.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>عند إختيارها</strong>, تُنلـبليك سيحتاج إذن مسؤول جهاز الكمبيوتر لإجراء تغييرات على ملفات المفتاح و الشهادة.</p>\n<p><strong>عند عدم إختيارها</strong>, سوف يسمح لأي مستخدم عادي بإجراء تغيرات على ملفات المفتاح والشهادة</p><p><strong>ملاحظة: إذن مدير جهاز الكمبيوتر مطلوب هنا من أجل تغير الإعدادات.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<P> على <strong> عندما فحص </ قوي>، Tunnelblick سوف يراقب عن والاستجابة للتغيرات في إعدادات الشبكة (على سبيل المثال، والتغيرات الناجمة عن تجديد DHCP أو تبديل وصلات الانترنت) في محاولة للحفاظ على VPN اتصال. الإجراءات الافتراضية Tunnelblick عند تغيير إعدادات الشبكة عادة تعمل بشكل جيد، ولكن يمكنك تحديد إجراءات مختلفة على علامة التبويب \"أثناء الاتصال\" من \"خيارات متقدمة\" نافذة الإعدادات. </ P>\n<P> على <strong> عندما لم يتم التحقق </ قوي>، سوف Tunnelblick تجاهل التغييرات الشبكة. </ P>\n<P> <strong> يتم تعطيل </ strong> عند \"تعيين DNS / WINS\" لم يتم تعيين خانة الاختيار هذه إلى 'خادم الأسماء تعيين' أو 'تعيين خادم الأسماء (3.1). </ P>";

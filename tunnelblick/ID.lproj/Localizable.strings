@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "Sambung ulang ketika pengguna masuk";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Memerlukan otorisasi administrator untuk perubahan kunci dan sertifikat";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Salurkan semua lalu lintas IPv4 melalui VPN";
 
 /* Checkbox name */
@@ -1728,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick menjumpai sebuah kesalahan fatal.\n\nHaram kirim surel ke developers@tunnelblick.net untuk bantuan, menjuelaskan apa yang sedang dilakukan Tunnelblick ketika kesalah terjadi.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick terkendala masalah dengan konfigurasi %1$lu:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick gagal memperbaiki masalah dengan preferensi untuk '%@'. Rincian ada dalam Log Konsol";
 
 /* Window text */
@@ -2060,9 +2054,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " salinan";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • '%1$@' kedaluwarsa dalam OpenVPN %2$@ dan telah atau akan dihapus dalam versi selanjutnya\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' sudah kedaluwarsa dalam OpenVPN %2$@ dan dihapus dalam OpenVPN %3$@\n\n";
 
@@ -2083,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Untuk mengimpor sebuah setup Tunnelblick pada suatu komputer yang memiliki lebih dari %u akun pengguna, Anda mesti membuat sebuah berkas teks yang menyatakan data yang akan diimpor.</p>\n<p>Untuk informasi lebih lanjut, lihat <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a></p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Menyatakan versi perangkat lunak SSL dan OpenVPN yang mesti dipakai untuk menyambungkan VPN.</strong><ul><li><strong>Pengaturan \"Baku\"</strong> akan memakai versi OpenVPN baku dengan OpenSSL yang disertakan dalam versi Tunnelblick ini. Nilai baku mungkin berbeda dalam versi lain dari Tunnelblick.<br></li><li><strong>Pengaturan \"Terbaru\"</strong> akan memakai versi OpenVPN terbaru dengan LibreSSL yang disertakan dalam versi Tunnelblick ini. Nilai terbaru mungkin berbeda dalam versi lain dari Tunnelblick.<br></li><li><strong>Sebarang setelan lain</strong> akan memakai versi perangkat lunak SSL dan OpenVPN yang dinyatakan bila mereka tersedia dalam versi Tunnelblick ini. Bila tidak tersedia, kecocokan paling dekat akan dipakai.<br></li></ul>";
 
@@ -2098,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Menyatakan kapan Tunnelblick mesti menyambung ke VPN.</strong></p><p>\"Ketika komputer dihidupkan\" hanya booleh dipakai dengan konfigurasi \"Bersama\".</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Ketika dicentang</strong>, IPv6 akan dimatikan kecuali server OpenVPN sedang diakses melalui sebuah alamat IPv6.</p>\n<p>Mematikan IPv6 sering disarankan karena banyak konfigurasi VPN tidak menjaga atas kebocoran informasi yang disebabkan oleh penggunaan IPv6. Kebanyakan akses internet bekerja baik tanpa IPv6.</p>\n<p><strong>Ketika tidak dicentang</strong>, IPv6 tidak akan dimatikan.</p>\n<p><strong>Kotak centang ini dimatikan</strong> ketika memakai koneksi 'tap' karena tidak bisa dipaksakan pada suatu koneksi 'tap'.</p>";
@@ -2125,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Ketika dicentang</strong>, Tunnelblick tidak akan menampilkan peringatan ini lagi.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick akan menampilkan peringatan ini lagi.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan membutuhkan otorisasi administrator komputer untuk membuat perubahan ke berkas kunci dan sertifikat.</p>\n<p><strong>Ketika tidak dicentang</strong>, pengguna standar akan diizinkan membuat perubahan ke berkas kunci dan sertifikat.</p><p><strong>Catatan: Otorisasi administrator komputer diperlukan untuk mengubah pengaturan ini.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan mengamati dan berreaksi atas perubahan dalam pengaturan jaringan (sebagai contoh, perubahan yang disebabkan oleh pembaruan DHCP atau berpindah koneksi Internet) untuk mencoba menjaga VPN tersambung. Aksi baku Tunnelblick ketika pengaturan jaringan berubah biasanya bekerja dengan baik, tapi Anda boleh menyatakan aksi yang berbeda pada tab 'Ketika Tersambung' dari jendela pengaturan 'Tingkat Lanjut'.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick akan mengabaikan perubahan jaringan.</p>\n<p><strong>Kotak centang ini dimatikan</strong> ketika 'Atur DNS/WINS' ditata ke 'Atur nameserver' atau 'Atur nameserver (3.1)'.</p>";

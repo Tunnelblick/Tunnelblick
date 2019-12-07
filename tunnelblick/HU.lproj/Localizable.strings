@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "Újracsatlakozás amikor a felhasználó bejelentkezik";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "A kulcs és tanúsítvány változtatásához rendszergazdai jogosultság szükséges";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Minden IPv4 forgalom VPN-en keresztül történő irányítása";
 
 /* Checkbox name */
@@ -1728,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "A Tunnelblick végzetes hibát észlelt.\n\nSegítségért kérjük küldjön e-mailt a developers@tunnelblick.net címre, és írja le, hogy mit csinált a Tunnelblick amikor a hiba történt.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "A Tunnelbilck hibát észlelt a(z) %1$lu konfigurációnál:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "A Tunnelblick nem tudta megjavítani a(z) '%@' konfigurációhoz tartozó beállításokat. Részletek a Konzol log-ban.";
 
 /* Window text */
@@ -2060,9 +2054,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " másolat";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • A(z) '%1$@' nem javasolt az OpenVPN %2$@ verzió óta, és eltávolították vagy el fogják távolítani a későbbi verzióban\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • A(z) '%1$@' nem javasolt az OpenVPN %2$@ verzió óta, és eltávolították az OpenVPN %3$@ verzióban\n\n";
 
@@ -2083,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Amennyiben több mint %u felhasználóval rendelkező számítógépre szeretne Tunnelblick beállításokat importálni, egy kiegészítő szöveges fájlra van szüksége az importálandó felhasználói adatok összerendeléséhez.</p>\n<p>További információt az <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">Exporting and Importing Tunnelblick Setups</a> dokumentumban talál.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Kiválasztja az OpenVPN és az SSL szoftver verzióját, amelyet használni fog ezen VPN kapcsolathoz.</strong><ul><li><strong>Az \"Alapértelmezett\" beállítás</strong> a Tunnelblick ezen verziójában alapértelmezett OpenVPN és SSL szoftvert fogja használni. Az alapértelmezés eltérhet a Tunnelblick különböző verzióiban.<br></li><li><strong>Az \"Utolsó\" beállítás</strong> az OpenVPN és az SSL szoftver legfrissebb, ebben a Tunnelblick verzióban szereplő változatát fogja használni. A legfrissebb szoftvercsomag eltérhet a Tunnelblick különböző verzióiban.<br></li><li><strong>Minden más beállítás</strong> a megadott OpenVPN és SSL szoftver verziót fogja használni, amennyiben ebben a Tunnelblick verzióban ezek elérhetőek. Amennyiben az nem elérhető, a legközelebbi találat kerül használatra.<br></li></ul>";
 
@@ -2098,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Meghatározza, hogy a Tunnelblicknek mikor kell csatlakoznia a VPN-hez.</strong></p>\n<p>\"A számítógép indulásánál\"csak \"megosztott\" konfiguráció esetén használható.</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Kiválasztás esetén</strong>az IPv6 kikapcsolva, kivéve, ha az OpenVPN szerver egy IPv/ címen át érhető el.</p>\n<p>Az IPv6 kikapcsolása gyakran javasolt, mert sok VPN konfiguráció nem nyújt védelmet az IPv6 használata miatti információszívárgás ellen. A legtöbb internetkapcsolat megfelelően működik IPv6 használata nélkül is.</p>\n<p><strong>Ha nem választja ki</strong>az IPv6 nem kerül kikapcsolásra.</p>\n<p><strong>Ez a jelölőnégyzet inaktív</strong> 'tap' kapcsolat esetén, mert nem kényszeríthető 'tap' kapcsolat esetén</p>";
@@ -2125,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Kiválasztás esetén</strong> a Tunnelblick nem mutatja újra ezt a figyelmeztetést.</p>\n<p><strong>Ha nem választja ki</strong>, akkor a Tunnelblick újra mutatja ezt a figyelmeztetést.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kiválasztás esetén </strong>a Tunnelblick kérni fogja a számítógép rendszergazda engedélyét, hogy módosítsa a kulcs és tanúsítvány fájlokat. </p>\n<p><strong>Ha nem választja ki </strong>, akkor a továbbiakban a normál felhasználók is módosíthatják a kulcs és tanúsítvány fájlokat.</p><p><strong>Megjegyzés: Számítógép rendszergazda engedélye szükséges a beállítás megváltoztatásához.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Kiválasztás esetén</strong> a Tunnelblick figyelemmel kíséri és reagál a hálózati beállítások változásaira (például internetkapcsolat váltás vagy DHCP megújítás miatti változások) hogy megpróbálja a VPN-t kapcsolatban tartani. A Tunnelblick alapértelmezett beállításai általában jól működnek a hálózati beállítások változásánál, de beállítható más lehetőség is a 'Kapcsolat alatt' fülön a 'Speciális' beállítások ablakban.</p>\n<p><strong>Ha nincs kiválasztva</strong> figyelmen kívül hagyja a hálózati változásokat.</p>\n<p><strong>A jelölőnégyzet inaktív</strong> ha a 'DNS/WINS beállítás' nem 'Névszerver beállítása' vagy 'Névszerver beállítása (3.1)'.</p>";

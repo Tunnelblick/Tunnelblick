@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "ユーザスイッチから戻った時に再接続する";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "キーと証明書の変更に管理者権限が必要";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "すべてのトラフィックをVPN経由で接続する";
 
 /* Checkbox name */
@@ -1725,9 +1722,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick に致命的なエラーが発生しました。\n\n発生したエラーの内容を書いたメールを developers@tunnelblick.net へ送ってください。\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "%1$luつのエラーが発生しました:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "「%@」の設定の問題を解決できませんでした。詳細はコンソールログにあります";
 
 /* Window text */
@@ -2054,9 +2048,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " コピー";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " '%1$@'はOpenVPN %2$@ では非推奨のオプションとなり、以降のバージョンでは廃止される場合があります。\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' はOpenVPN %2$@では非推奨のオプションとなり、OpenVPN %3$@で廃止されました。\n\n";
 
@@ -2077,7 +2068,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Tunnelblick setupをユーザーアカウント数が%u以上のあるコンピューターにインポートするには, インポートするデータを説明するテキストファイルの作成が必要です</p>\n<p>もっと知りたいなら、 <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>をご覧ください。</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>このVPNに接続するときに使うOpenVPNとSSLのバージョンを指定してください。</strong><ul><li><strong>デフォルトの設定</strong> はこのTunnelBlickバージョンで提供されたOpenSSLのバージョンを使ったOpenVPNのデフォルト設定を使います。デフォルト設定はTunnelBlickのバージョンによって変わることがあります。<br></li><li><strong>「最新」設定</strong>はこのTunnelBlickのバージョンで提供されたLibreSSLのバージョンを使っている最新版のOpenVPNを使います。「最新」の設定はTunnelBlickのバージョンによって変わることがあります。<br></li><li><strong>他の設定</strong> は指定されたOpenVPNとSSLのバージョンを使います。 （このTunnelBlickのバージョンで利用可能な場合）。利用可能でなければ、選択の設定に一番近い利用可能の設定を利用してVPNに接続します。<br></li></ul>";
 

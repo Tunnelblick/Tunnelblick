@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "התחבר מחדש כאשר המשתמש מתחבר";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "דרוש הרשאת מנהל עבור שינויים במפתח ובאישור";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "נתב את כל תעבורת IPv4 דרך VPN";
 
 /* Checkbox name */

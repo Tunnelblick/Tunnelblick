@@ -392,9 +392,6 @@
 "Reconnect when user switches in" = "Lahuta ühendus kasutaja vahetumisega";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Nõua autentimist identifikaatori ja sertifikaadi muutmiseks";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Suuna kõik IPv4 andmed läbi VPN-i";
 
 /* Checkbox name */

@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "Kullanıcı geri geldiğinde tekrar bağlan";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Anahtar ve sertifika değişimleri için yönetici onayı gerekir";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "IPv4 trafiğinin tamamını VPN üzerinden yönlendir";
 
 /* Checkbox name */
@@ -1728,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick feci bir hata ile karşılaştı.\n\n\nYardım için developers@tunnelblick.net'e - 'hata oluştuğunda TB ne işlem yapıyordu' anlatan - bir email gönder. ";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick %1$lu hatası ile karşılaştı şu yapılandırmalarda karşılaştı:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick '%@' için ayarları onarma işlemini tamamlayamadı. Detaylar Konsol Log 'da görülebilir";
 
 /* Window text */
@@ -2060,9 +2054,6 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopyala";
 
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " '%1$@' OpenVPN %2$@ de artık geçersiz olup, ileriki versiyonlarda silinecek veya silinmiş olabilir\n\n";
-
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' OpenVPN %2$@ sürümünden beri desteklenmemektedir ve OpenVPN %3$@ sürümünde kullanımdan kaldırılmıştır\n\n";
 
@@ -2083,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\">%u 'dan daha fazla kullanıcı hesabı olan bilgisayara Tunnelblick ayarı aktarmak için, hangi verinin aktarılacağını belirten metin dosyası oluşturmalısınız.</p><p>Daha fazla bilgi için<a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>VPN'e bağlanmak için kullanılacak olan OpenVPN ve SSL yazılımı sürümünü belirler.</strong><ul><li>\n<strong>\"Varsayılan\"ayar</strong> Tunnelblick'in bu versiyonuyla gelen, varsayılan OpenVPN ve OpenSSL sürümünü kullanacaktır. Varsayılan sürüm, Tunnelblick'in farklı versiyonlarında farklılık gösterebilir.<br></li><li><strong>\"En Son\" ayar</strong> OpenVPN'in en son sürümünde bulunan ve Tunnelblick'in bu versiyonuyla gelen LibreSSL'i kullanacaktır. En son sürüm, Tunnelblick'in değişik versiyonlarında farklılık gösterebilir.<br></li><li><strong>Herhangi başka bir ayar</strong>, eğer Tunnelblick'in mevcut sürümünde var ise, OpenVPN ve SSL yazılımlarının seçili versiyonlarını kullanacaktır. Eğer yok ise, en yakın seçeneği kullanacaktır.<br></li></ul>";
 
@@ -2098,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Tunnelblick'in ne zaman VPN'e bağlanması gerektiğini belirler.</strong></p><p>\"Bilgisayar başladığında\" sadece \"Paylaşılan\" ayarlarda kullanılabilir.</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>İşaretlenirse</strong>, IPv6 etkisiz hale getirilecek.</p>\n<p>IPv6'yı etkisizleştirmek genellikle tavsiye edilir çünkü bir çok VPN yapılandırması IPv6 kullanımının neden olduğu bilgi sızıntılarına karşı korumasızdır. Çoğu Internet erişimi IPv6 olmadan da düzgün çalışır.</p>\n<p><strong>İşaretlenmediğinde</strong>, IPv6 kapatılmaz.</p>\n<p>Bu kutucuk bir 'tap' bağlantısı kullanıldığında, bir 'tap' bağlantısında uygulanamadığı için <strong>etkisizleştirilir.</strong></p>";
@@ -2125,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Seçildiğinde</strong>, Tunnelblick bu uyarıyı bir daha göstermeyecektir.</p><p><strong>Seçilmediğinde</strong>, Tunnelblick bu uyarıyı tekrar gösterecektir.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>İşaretlendiğinde</strong>, Tunnelblick anahtar ve sertifika dosyalarında değişiklik yapmak için bir bilgisayar yöneticisinin onayını ister.</p>\n<p><strong>İşaretlenmediğinde</strong>, standart bir kullanıcı anahtar ve sertifika dosyalarında değişiklik yapmaya yetkili olacaktır.</p><p><strong>Not: Bu ayarı değiştirmek için bir bilgisayar yöneticisinin izni gerekir.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Seçildiğinde</strong>, Tunnelblick, VPN bağlantınızın kopmamasını sağlamak icin, network bağlantısını izler ve örneğin DHCP yenilemeleri veya internet bağlantısı değişikliklerinde geri bildirim sağlar. Tunnelblick'in varsayilan seçenekleri genellikle iyi sonuç verir fakat \"Bağlanti Sağlandiktan Sonra\" sekmesindeki \"İleri düzey Seçenekleri\" ayarlarindan farkli opsiyonlar belirleyebilirsiniz. </p>\n<p><strong>Seçilmediğinde</strong>, Tunnelblick network değişikliklerini dikkate almaz..</p>\n<p><strong>Bu seçenek geçerli degildir</strong> when 'Set DNS/WINS', 'Set nameserver' veya 'Set nameserver (3.1 olarak secilmemistir.</p>";

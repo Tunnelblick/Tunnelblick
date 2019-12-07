@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "Ponovo se poveži nakon što se korisnik prijavi";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Zahtevaj odobrenje administratora za promene ključeva i sertifikata";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Preusmeri sav IPv4 saobraćaj kroz VPN";
 
 /* Checkbox name */
@@ -1296,6 +1293,9 @@
 "Modified configuration file to remove path information" = "Konfiguracioni fajl je modifikovan zarad uklanjanja informacije o putanji";
 
 /* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Više paralelnih konekcija će biti kreirano (%1$d sa 'Podesi namesever', %2$d bez 'Podesi nameserver')";
+
+/* Window text */
 "Named Credentials" = "Pripadajući kredencijali";
 
 /* Window text */
@@ -1725,9 +1725,6 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick je prekinuo rad zbog greške.\n\nUkoliko vam je neophodna pomoć, molimo vas da pošaljete mail na adresu developers@tunnelblick.net uz opsi šta ste tačno uradili u momentu kada se greška dogodila.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick je naišao na greške sa %1$lu konfiguracijama:\n\n%2$@%3$@%4$@%5$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick nije uspeo da popravi probleme sa podešavanjima za '%@'. Detalji su u logu konzole";
 
 /* Window text */
@@ -2037,6 +2034,9 @@
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nOva greška znači da je opcija koju sadrži OpenVPN konfiguracioni fajl ili koja je \"prosleđena\" od strane OpenVPN servera:\n\n     • pogrešno napisana,\n\n     • ima nedostajuće argumente ili višak argumenata, ili\n\n     • nije implementirana u verziji OpenVPN-a koju ova konfiguracija koristi. Može biti da je to nova opcija koja ne postoji u starijoj verziji OpenVPN-a ili stara opcija koja je uklonjena u novijoj verziji. Možete odabrati koju verziju OpenVPN-a će se koristiti sa ovom konfiguracijom u \"Podešavanja\" tabu \"Konfiguracije\" panela Tunelblick-ovog \"VPN Detalji\" prozora.";
 
 /* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nTunnelblickovo 'Podesi nameserver' podešavanje radi samo u slučaju jedne VPN veze. Korišćenje ovog podešavanja sa više od jedne VPN veze istovremenom može pokvariti vaša mrežna podešavanja ili dovesti do gubitka mrežne veze.";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ni instaliraj %ld Tunnelblick VPN konfiguracije";
 
 /* Window text */
@@ -2053,9 +2053,6 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " kopija";
-
-/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and has been or will be removed in a later version\n\n" = " • Opcija '%1$@' je označena kao zastarela u OpenVPN %2$@ i biće uklonjena u narednim verzijama\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • Opcija '%1$@' je označena kao zastarela u OpenVPN %2$@ i uklonjena je u OpenVPN %3$@\n\n";
@@ -2077,7 +2074,6 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Ukoliko želite da uvezete Tunnelblick konfiguraciju na računaru koji poseduje više od %u korisnička naloga, prvo je potrebno da kreirate datoteku sa specifikacijom podataka koji treba da budu uveženi. </p>\n<p>Za više informacija posetite <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Precizira verziju OpenVPN-a i SSL softvera koji će se koristiti prilikom povezivanja na VPN.</strong><ul><li><strong>\"Podrazumevano\" podešavanje</strong> će koristiti podrazumevanu verziju OpenVPN-a sa OpenSSL-om koji su uključeni u ovu verziju Tunnelblick-a. Podrazumevana verzija se može razlikovati između verzija Tunnelblick-a. <br></li><li><strong>\"Najnovije\" podešavanje</strong> će koristiti najnoviju verziju OpenVPN-a sa LibreSSL-om koja je uključena u ovoj verziji Tunnelblick-a. Najnovija verzija se može razlikovati između verzija Tunnelblick-a.<br></li><li><strong>Bilo koje drugo podešavanje </strong> će koristiti odabranu verziju OpenVPN-a i SSL softvera ukoliko su dostupne u ovoj verziji Tunnelblicka. Ukoliko nisu, odabraće se najsličnije.<br></li></ul>";
 
@@ -2092,6 +2088,7 @@
 
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Definiše kada će se Tunnelblick povezati na VPN.</strong></p><p>\"Prilikom pokretanja računara\" se može koristiti samo uz \"Deljene\" konfiguracije.</p>";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Ako je označeno</strong>, IPv6 će biti onemogućen.</p>\n<p>Onemogućavanje IPv6 je često preporučeno jer mnoge VPN konfiguracije ne štite od curenja informacija usled korišćenja IPv6. Većina internet pristupa radi bez problema i bez IPv6.</p>\n<p><strong>Ako nije označeno</strong>, IPv6 neće biti onemogućen.</p>\n<p><strong>Ova opcija je zasivljena</strong> kada se koristi 'tap' veza jer se ne može forsisari na 'tap' vezi.</p>";
@@ -2119,9 +2116,6 @@
 
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Kada je uključeno</strong>, Tunnelblick neće više prikazivati ovo upozorenje.</p>\n<p><strong>Kada je isključeno</strong>, Tunnelblick će opet prikazivati ovo upozorenje.</p>\n";
-
-/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kada je uključeno</strong>, Tunnelblick će zahtevati administratorsko odobrenje za izmene na ključevima i sertifikatima.</p>\n<p><strong>Kada je isključeno</strong>, običan korisnik će moći da menja ključeve i sertifikate.</p><p><strong>Napomena: Odobrenje administratora je neophodno za promenu ovog podešavanja.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Kada je čekirano</strong>, Tunnelblick će pratiti i reagovati na promene u mrežnim podešavanjima (npr. promene usled DHCP osveženja ili promene internet veze) kako bi očuvao VPN povezanim. Podrazumevana podešavanja obično rade dobro, ali ako želite možete podesiti drugačije akcije na 'Dok je povezan' tabu među naprednim podešavanjima.</p>\n<p><strong>Kada nije čekirano</strong>, Tunnelblick će zanemariti promene na mreži.</p>\n<p><strong>Ova opcija je onemogućena</strong> kada 'Podesi DNS/WINS' nije podešeno na 'Podesi nameserver' ili 'Podesi nameserver (3.1)'.</p>";
@@ -2411,6 +2405,9 @@
 
 /* Credit description */
 "Swedish translation" = "Švedski prevod";
+
+/* Credit description */
+"Thai translation" = "Tajlandski prevod";
 
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "Tunnelblick podešavanja %@";

@@ -456,9 +456,6 @@
 "Reconnect when user switches in" = "Kết nối lại khi chuyển người dùng";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Yêu cầu uỷ quyền quản trị khi thay đổi khoá và chứng chỉ";
-
-/* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Chuyển tất cả lưu lượng IPv4 qua VPN";
 
 /* Checkbox name */
