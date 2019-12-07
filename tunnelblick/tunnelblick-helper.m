@@ -2040,6 +2040,17 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
         NSString * sourceFullPath = [sourceResourcesPath stringByAppendingPathComponent: name];
         NSString * targetFullPath = [targetResourcesPath stringByAppendingPathComponent: name];
 
+        // Files that are identical to existing files are OK
+        if (  [fm contentsEqualAtPath: sourceFullPath andPath: targetFullPath]  ) {
+            if (  doUpdate  ) {
+                if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
+                    return FALSE;
+                }
+            }
+
+            continue;
+        }
+
         // Certificate and key files are OK, and we update if appropriate
         if (  [extensionsForKeysAndCerts containsObject: [name pathExtension]]  ) {
             if (  doUpdate  ) {
@@ -2079,11 +2090,9 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
 
         }
 
-        // All other files must exist already and be identical
-        if (  ! [fm contentsEqualAtPath: sourceFullPath andPath: targetFullPath]  ) {
-            fprintf(stderr, "'%s' in the new and old configurations are not identical\n", [name UTF8String]);
-            return FALSE;
-        }
+        // No other files are allowed
+        fprintf(stderr, "'%s' does not exist in the old configuration or is not identical to the same file in the old configuration\n", [name UTF8String]);
+        return FALSE;
     }
 
     return TRUE;
