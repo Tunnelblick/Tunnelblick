@@ -670,7 +670,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [authenticateOnConnectCheckbox setTitle: NSLocalizedString(@"Authenticate before connecting", @"Checkbox name")
                                   infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n"
                                                                                         @"<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n"
-                                                                                        @"<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p>",
+                                                                                        @"<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p>"
+                                                                                        @"<p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>",
                                                                                         @"HTML info for the 'Authenticate before connecting' checkbox."))];
 	
 	[reconnectOnWakeFromSleepCheckbox
