@@ -1885,33 +1885,146 @@ void unloadKexts(unsigned int bitMask) {
     runAsRoot(TOOL_PATH_FOR_KEXTUNLOAD, arguments, 0755);
 }
 
+BOOL forceCopyFileAsRoot(NSString * sourceFullPath, NSString * targetFullPath) {
+
+    NSFileManager * fm = [NSFileManager defaultManager];
+
+    // Assume copying something in .tblk/Contents/Resources, but handle something in .tblk/Contents
+    NSString * resourcesFolder = [targetFullPath  stringByDeletingLastPathComponent];
+    if (  [[resourcesFolder lastPathComponent] isNotEqualTo: @"Resources"]  ) {
+        if (  [[resourcesFolder lastPathComponent] isNotEqualTo: @"Contents"]) {
+            fprintf(stderr, "Copying from/to unknown folder: %s", [targetFullPath UTF8String]);
+            return FALSE;
+        }
+
+        resourcesFolder = [resourcesFolder stringByAppendingPathComponent: @"Resources"];
+    }
+
+    NSString * contentsFolder  = [resourcesFolder stringByDeletingLastPathComponent];
+    NSString * tblkFolder      = [contentsFolder  stringByDeletingLastPathComponent];
+
+    becomeRoot(@"Install or replace safe file in configuration");
+
+    // Create the .tblk folder structure if it does not exist already
+    if ( ! [fm fileExistsAtPath: resourcesFolder]  ) {
+        NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     NSFileOwnerAccountID,      [NSNumber numberWithUnsignedLong: 0],
+                                     NSFileGroupOwnerAccountID, [NSNumber numberWithUnsignedLong: 0],
+                                     NSFilePosixPermissions,    [NSNumber numberWithShort: PERMS_SECURED_FOLDER],
+                                     nil];
+        if (  ! [fm tbCreateDirectoryAtPath: tblkFolder attributes: attributes]  ) {
+            stopBeingRoot();
+            return FALSE;
+        }
+        if (  ! [fm tbCreateDirectoryAtPath: contentsFolder attributes: attributes]  ) {
+            stopBeingRoot();
+            return FALSE;
+        }
+        if (  ! [fm tbCreateDirectoryAtPath: resourcesFolder attributes: attributes]  ) {
+            stopBeingRoot();
+            return FALSE;
+        }
+    }
+
+    if (  ! [fm tbRemovePathIfItExists: targetFullPath]  ) {
+        stopBeingRoot();
+        return FALSE;
+    }
+
+    BOOL ok = [fm tbCopyPath: sourceFullPath toPath: targetFullPath handler: nil];
+
+    stopBeingRoot();
+
+    if (  ok ) {
+        fprintf(stderr, "Copied %s into %s\n",
+                [[targetFullPath lastPathComponent] UTF8String], [[targetFullPath stringByDeletingLastPathComponent] UTF8String]);
+    }
+
+    return ok;
+}
+
+BOOL isSafeConfigFileForInstallOrUpdate(NSString * sourcePath, NSString * targetPath) {
+
+    // Get a string containing the OpenVPN configuration file
+    NSData * data = [[NSFileManager defaultManager] contentsAtPath: sourcePath];
+    if (  ! data  ) {
+        fprintf(stderr, "isSafeConfigFileForInstallOrUpdate: No file at %s\n", [targetPath UTF8String]);
+        return NO;
+    }
+
+    NSString * config = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    if (  ! config  ) {
+        fprintf(stderr, "isSafeConfigFileForInstallOrUpdate: Error decoding data for %s", [targetPath UTF8String]);
+        return NO;
+    }
+
+    // Examine each line of the OpenVPN configuration file for options that are not allowed in a "safe" configuration
+    NSArray * lines = [config componentsSeparatedByString: @"\n"];
+    NSUInteger ix;
+    for (  ix=0; ix<[lines count]; ix++  ) {
+        NSString * line = [lines objectAtIndex: ix];
+
+        // Skip leading spaces and tabs
+        while(  [line length] > 0  ) {
+            NSString * firstChar = [line substringWithRange: NSMakeRange(0,1)];
+            if (   [firstChar isEqualToString: @" "]
+                || [firstChar isEqualToString: @"\t"]  ) {
+                line = [line substringFromIndex: 1];
+            } else {
+                break;
+            }
+        }
+
+        if ( [line length] < 2  ) {
+            continue;
+        }
+
+        // Skip comments
+        if (   [[line substringWithRange: NSMakeRange(0,1)] isEqualToString: @"#"]
+            || [[line substringWithRange: NSMakeRange(0,1)] isEqualToString: @";"]  ) {
+            continue;
+        }
+
+        // If the line starts with an unsafe option, it is unsafe
+        NSArray * options = OPENVPN_OPTIONS_THAT_ARE_UNSAFE;
+        NSUInteger ox;
+        for (  ox=0; ox<[options count]; ox++  ) {
+            NSString * option = [options objectAtIndex: ox];
+            if (  [line hasPrefix: option]  ) {
+                if (  [line length] == [option length]  ) {
+                    fprintf(stderr, "isSafeConfigFileForInstallOrUpdate: Unsafe option found: %s\n", [option UTF8String]);
+                    return NO;
+                }
+                NSString * nextChar = [line substringWithRange: NSMakeRange([option length], 1)];
+                if (   [nextChar isEqualToString: @" "]
+                    || [nextChar isEqualToString: @"\t"]  ) {
+                    fprintf(stderr, "isSafeConfigFileForInstallOrUpdate: Unsafe option found: %s\n", [option UTF8String]);
+                    return NO;
+                }
+            }
+        }
+    }
+
+    return YES;
+}
+
 //**************************************************************************************************************************
 
 BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdate) {
     
-    // Either does a "safe" (certs/keys only) non-admin-authorized update of the shadow copy or tests that such an update can be done
-    
+    // Installs a "safe" configuration or replaces a configuration with a "safe" one, or tests that such an install or replacement can be done.
+    // A "safe" configuration can contain only certificate and key files and/or Info.plist and/or a config.ovpn which does not have
+    // options that invoke scripts and/or files that are identical to files in the existing configuration.
+    //
+    // "Safe" installs/replacements can only be done to a private configuration (source = user's copy, target = secured shadow copy).
+
     NSFileManager * fm = [NSFileManager defaultManager];
     
     NSString * sourceContentsPath  = [sourcePath         stringByAppendingPathComponent: @"Contents"];
     NSString * sourceResourcesPath = [sourceContentsPath stringByAppendingPathComponent: @"Resources"];
-    NSString * sourceInfoPlistPath = [sourceContentsPath stringByAppendingPathComponent: @"Info.plist"];
-    
+
     NSString * targetContentsPath  = [targetPath         stringByAppendingPathComponent: @"Contents"];
     NSString * targetResourcesPath = [targetContentsPath stringByAppendingPathComponent: @"Resources"];
-    NSString * targetInfoPlistPath = [targetContentsPath stringByAppendingPathComponent: @"Info.plist"];
-    
-    if (  [fm fileExistsAtPath: sourceInfoPlistPath]  ) {
-        if (  [fm fileExistsAtPath: targetInfoPlistPath]  ) {
-            if (  ! [fm contentsEqualAtPath: sourceInfoPlistPath andPath: targetInfoPlistPath]  ) {
-                fprintf(stderr, "'Info.plist' in the new configuration at %s is not identical to the same file in the old configuration at %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
-                return  FALSE;
-            }
-        } else {
-            fprintf(stderr, "'Info.plist' exists in the new configuration at %s but does not exist in the old configuration at %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
-            return FALSE;
-        }
-    }
     
     NSArray * extensionsForKeysAndCerts = KEY_AND_CRT_EXTENSIONS;
     
@@ -1926,35 +2039,66 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
         
         NSString * sourceFullPath = [sourceResourcesPath stringByAppendingPathComponent: name];
         NSString * targetFullPath = [targetResourcesPath stringByAppendingPathComponent: name];
-        
-        // File must exist in the shadow copy
-        if (  ! [fm fileExistsAtPath: targetFullPath]  ) {
-            fprintf(stderr, "'%s' exists in the new configuration at %s but does not exist in the old configuration at %s\n", [name UTF8String], [sourcePath UTF8String], [targetPath UTF8String]);
-            return FALSE;
-        }
-        
+
+        // Certificate and key files are OK, and we update if appropriate
         if (  [extensionsForKeysAndCerts containsObject: [name pathExtension]]  ) {
-            
-            // If a key/cert file and we are actually doing the update, replace the file
             if (  doUpdate  ) {
-                if (  ! [fm tbRemoveFileAtPath: targetFullPath handler: nil]  ) {
-                    return FALSE;
-                }
-                if (  ! [fm tbCopyPath: sourceFullPath toPath: targetFullPath handler: nil]  ) {
+                if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
                     return FALSE;
                 }
             }
-        } else {
-            
-            // Not a key/cert file, it must be identical to the shadow copy
-            if (  ! [fm contentsEqualAtPath: sourceFullPath andPath: targetFullPath]  ) {
-                fprintf(stderr, "'%s' in the new configuration at %s is not identical to the same file in the old configuration at %s\n", [name UTF8String], [sourcePath UTF8String], [targetPath UTF8String]);
+
+            continue;
+        }
+
+        // Configuration files are OK if they are "safe", update if appropriate
+        if (  [[name lastPathComponent] isEqualToString: @"config.ovpn"]  ) {
+            if ( ! isSafeConfigFileForInstallOrUpdate(sourceFullPath, targetFullPath)  ) {
+                fprintf(stderr, "config.ovpn in the new configuration at %s is not safe\n", [sourcePath UTF8String]);
                 return FALSE;
             }
+            if (  doUpdate  ) {
+                if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
+                    return FALSE;
+                }
+            }
+
+            continue;
+
+        }
+
+        // Info.plist files are OK, update if appropriate
+        if (  [[name lastPathComponent] isEqualToString: @"Info.plist"]) {
+            if (  doUpdate  ) {
+                if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
+                    return FALSE;
+                }
+            }
+
+            continue;
+
+        }
+
+        // All other files must exist already and be identical
+        if (  ! [fm contentsEqualAtPath: sourceFullPath andPath: targetFullPath]  ) {
+            fprintf(stderr, "'%s' in the new and old configurations are not identical\n", [name UTF8String]);
+            return FALSE;
         }
     }
-    
+
     return TRUE;
+}
+
+void restoreUserFolderSecurity(NSString * privateFolderPath) {
+
+    // Restore normal security on the user's private configuration
+    becomeRoot(@"normalize security on the user's private configuration");
+    BOOL ok = secureOneFolder(privateFolderPath, YES, gUidOfUser);
+    stopBeingRoot();
+    if (  ! ok  ) {
+        fprintf(stderr, "Unable to restore normal security on folder %s\n", [privateFolderPath UTF8String]);
+        exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+    }
 }
 
 void safeUpdate(NSString * displayName, BOOL doUpdate) {
@@ -1998,6 +2142,7 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
         ok = safeUpdateWorker(sourcePath, targetPath, NO);
         stopBeingRoot();
         if (  ! ok  ) {
+            restoreUserFolderSecurity(sourcePath);
             fprintf(stderr, "SafeUpdate test failed; source = %s; target = %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
             exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
         }
@@ -2007,19 +2152,22 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
         ok = safeUpdateWorker(sourcePath, targetPath, YES);
         stopBeingRoot();
         if (  ! ok  ) {
+            restoreUserFolderSecurity(sourcePath);
             fprintf(stderr, "SafeUpdate failed; source = %s; target = %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
             exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
         }
-        
-        // Restore normal security on the user's private configuration
-        becomeRoot(@"normal security on the user's private configuration");
-        ok = secureOneFolder(sourcePath, YES, gUidOfUser);
+
+        becomeRoot(@"Secure shadow copy after safeUpdate");
+        ok = secureOneFolder(targetPath, NO, 0);
         stopBeingRoot();
+
+        restoreUserFolderSecurity(sourcePath);
+
         if (  ! ok  ) {
-            fprintf(stderr, "Unable to restore normal security on folder %s\n", [sourcePath UTF8String]);
+            fprintf(stderr, "SafeUpdate failed; could not secure the shadow copy. source = %s; target = %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
             exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
         }
-        
+
     } else {
         // Test if it is OK to update
         becomeRoot(@"do safeUpdateTest");

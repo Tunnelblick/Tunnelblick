@@ -121,11 +121,14 @@ extern TBUserDefaults * gTbDefaults;
 	[generalConfigurationChangesTFC setTitle: NSLocalizedString(@"Configuration changes:", @"Window text")];
 	
 	[generalAdminApprovalForKeyAndCertificateChangesCheckbox
-	 setTitle: NSLocalizedString(@"Require administrator authorization for key and certificate changes", @"Checkbox name")
-	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n"
-														   @"<p><strong>When not checked</strong>, a standard user will be allowed to make changes to key and certificate files.</p>"
+	 setTitle: NSLocalizedString(@"Require administrator authorization to install all configurations", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to install or replace all configurations.</p>\n"
+														   @"<p><strong>When not checked</strong>, a standard user will be allowed to install or replace \"safe\" configurations.</p>"
+                                                           @"<p>A \"safe\" configuration is one which does not contain or change commands or scripts or references to commands or scripts. Configurations"
+                                                           @" with commands or scripts can enable <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertical privilege escalation</a> [wikipedia.org]."
+                                                           @" <a href=\"https://tunnelblick.net/cSafeInstalls.html\">Details</a> [tunnelblick.net].</p>"
 														   @"<p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>",
-														   @"HTML info for the 'Require administrator authorization for key and certificate changes' checkbox."))];
+														   @"HTML info for the 'Require administrator authorization to install all configurations' checkbox."))];
 	
 	[updatesUpdatesTFC setTitle: NSLocalizedString(@"Updates:", @"Window text")];
 	

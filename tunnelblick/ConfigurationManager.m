@@ -2244,31 +2244,47 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         && ( ! moveInstead)
         && okToUpdateConfigurationsWithoutAdminApproval()
         && [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-        
-        // Back up the user's private copy of the configuration
-        NSString * backupOfTargetPath  = [targetPath stringByAppendingPathExtension: @"old"];
-        if (  [gFileMgr tbForceRenamePath: targetPath toPath: backupOfTargetPath]  ) {
-            
-            // Copy the replacement to the private copy for the safeUpdate
-            if (  [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
-                
-                // Do the safeUpdate
-                NSArray * arguments = [NSArray arrayWithObjects:
-                                       @"safeUpdate",
-                                       displayNameFromPath(targetPath),
-                                       nil];
-                OSStatus status = runOpenvpnstart(arguments, nil, nil);
-                if (  status == OPENVPNSTART_UPDATE_SAFE_OK  ) {
-                    // safeUpdate was done so don't need to inform user if can't remove .old file (that will be logged)
-                    [gFileMgr tbRemovePathIfItExists: backupOfTargetPath];
-                    return TRUE;
-                }
+
+        BOOL privateTargetExists = [gFileMgr fileExistsAtPath: targetPath];
+
+        // Back up the user's private copy of the configuration if it exists
+        NSString * backupOfTargetPath  = [targetPath stringByAppendingPathExtension: @"backup"];
+        if (  privateTargetExists  ) {
+            if (  ! [gFileMgr tbForceRenamePath: targetPath toPath: backupOfTargetPath]  ) {
+                return FALSE;
             }
-            
-            // Couldn't do safeUpdate, so restore old private copy
-            [gFileMgr tbForceRenamePath: backupOfTargetPath toPath: sourcePath];
         }
-        
+
+        // Copy the replacement to the private copy for the safeUpdate
+        if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
+            // Restore old private copy if there was one, or delete the one we created
+           if (  privateTargetExists  ) {
+                [gFileMgr tbForceRenamePath: backupOfTargetPath toPath: sourcePath];
+            } else {
+                [gFileMgr tbRemovePathIfItExists: targetPath];
+            }
+            return FALSE;
+        }
+
+       // Do the safeUpdate
+        NSArray * arguments = [NSArray arrayWithObjects:
+                               @"safeUpdate",
+                               displayNameFromPath(targetPath),
+                               nil];
+        OSStatus status = runOpenvpnstart(arguments, nil, nil);
+        if (  status == OPENVPNSTART_UPDATE_SAFE_OK  ) {
+            // safeUpdate was done so don't need to inform user if can't remove .old file (that will be logged)
+            [gFileMgr tbRemovePathIfItExists: backupOfTargetPath];
+            return TRUE;
+        }
+
+        // Couldn't do safeUpdate, so restore old private copy if there was one, or delete the one we created
+        if (  privateTargetExists  ) {
+            [gFileMgr tbForceRenamePath: backupOfTargetPath toPath: sourcePath];
+        } else {
+            [gFileMgr tbRemovePathIfItExists: targetPath];
+        }
+
         NSLog(@"Could not do 'safeUpdate' of configuration file %@ to %@", sourcePath, targetPath);
         if (  warn  ) {
 			NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
@@ -2397,54 +2413,74 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 }
 
--(void) setupNonAdminReplacements {
-    
-    // Moves paths from replaceSources/Targets to noAdminSources/Targets if they can use non-admin-authorized safeUpdate
+-(void) setupNonAdminReplacementsFromSources: (NSMutableArray * ) sources targets: (NSMutableArray *) targets {
+
+    // "sources" contains paths to the new configurations
+    // "targets" contains paths to the existing configuration or to where the configuration should be installed
     
     // Only do this is if it is allowed by a forced preference
     if (  ! okToUpdateConfigurationsWithoutAdminApproval()  ) {
         return;
     }
-    
-    // Add objects to noAdminSources and noAdminTargets if they can be replaced without admin authorization
+
+    // Move objects to noAdminSources and noAdminTargets if they can be installed or replaced without admin authorization
     NSUInteger ix;
-    for (  ix=0; ix<[replaceSources count]; ix++  ) {
-        NSString * sourcePath   = [replaceSources objectAtIndex: ix];
-        NSString * targetPath   = [replaceTargets objectAtIndex: ix];
-        NSString * targetBackup = [targetPath stringByAppendingPathExtension: @"old"];
-		
+    for (  ix=0; ix<[sources count]; ix++  ) {
+        NSString * sourcePath   = [sources objectAtIndex: ix];
+        NSString * targetPath   = [targets objectAtIndex: ix];
+
         // Only do this for private configs
         if (  ! [targetPath hasPrefix: [gPrivatePath stringByAppendingPathComponent: @"/"]]  ) {
             continue;
         }
-        
-		// Rename the private config, replace it with the new config, see if a safeUpdate will work, then restore the original private config
-		
-		if (  ! [gFileMgr tbForceRenamePath: targetPath toPath: targetBackup]  ) {
-			continue;
-		}
-        
-		if (  [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
-			
-			NSString * displayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-			NSArray * arguments = [NSArray arrayWithObjects:
-								   @"safeUpdateTest",
-								   displayName,
-								   nil];
-			OSStatus status = runOpenvpnstart(arguments, nil, nil);
-			if (  status == OPENVPNSTART_UPDATE_SAFE_OK  ) {
-				[noAdminSources addObject: sourcePath];
-				[noAdminTargets addObject: targetPath];
-			}
-		}
-        
-        [gFileMgr tbForceRenamePath: targetBackup toPath: targetPath];
+
+        // Rename the private config, replace it with the new config, see if a safeUpdate will work, then restore the original private config
+        BOOL targetExisted = [gFileMgr fileExistsAtPath: targetPath];
+        NSString * targetBackup = [targetPath stringByAppendingPathExtension: @"old"];
+        if (  targetExisted  ) {
+            if (  ! [gFileMgr tbForceRenamePath: targetPath toPath: targetBackup]  ) {
+                continue;
+            }
+        }
+
+        if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
+            if (  targetExisted  ) {
+                [gFileMgr tbForceRenamePath: targetBackup toPath: targetPath];
+            }
+            continue;
+        }
+
+        NSString * displayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+        NSArray * arguments = [NSArray arrayWithObjects:
+                               @"safeUpdateTest",
+                               displayName,
+                               nil];
+        OSStatus status = runOpenvpnstart(arguments, nil, nil);
+        if (  status == OPENVPNSTART_UPDATE_SAFE_OK  ) {
+            [noAdminSources addObject: sourcePath];
+            [noAdminTargets addObject: targetPath];
+            [sources removeObject: sourcePath];
+            [targets removeObject: targetPath];
+        }
+
+        if (  targetExisted  ) {
+            if (  [gFileMgr fileExistsAtPath: targetBackup]  ) {
+                [gFileMgr tbForceRenamePath: targetBackup toPath: targetPath];
+            }
+        } else {
+            [gFileMgr tbRemovePathIfItExists: targetPath];
+        }
     }
+}
+
+-(void) setupNonAdminReplacements {
+
+    // Moves paths from installSources/Targets and replaceSources/Targets to noAdminSources/Targets if they can use non-admin-authorized safeUpdate
     
-    // Now remove items from replaceSources and replaceTargets that are in nonAdminSources/nonAdminTargets
-    for (  ix=0; ix<[noAdminSources count]; ix++  ) {
-        [replaceSources removeObject: [noAdminSources objectAtIndex: ix]];
-        [replaceTargets removeObject: [noAdminTargets objectAtIndex: ix]];
+    // Only do this is if it is allowed by a forced preference
+    if (  okToUpdateConfigurationsWithoutAdminApproval()  ) {
+        [self setupNonAdminReplacementsFromSources: replaceSources targets: replaceTargets];
+        [self setupNonAdminReplacementsFromSources: installSources targets: installTargets];
     }
 }
 
@@ -2459,12 +2495,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSUInteger nToUninstall = [[self deletions]      count];
     NSUInteger nToInstall   = [[self installSources] count];
-    NSUInteger nToReplace   = [[self replaceSources] count] + [[self noAdminSources] count];
+    NSUInteger nToReplace   = [[self replaceSources] count];
+    NSUInteger nSafe        = [[self noAdminSources] count];
     
     NSArray * connectedTargetDisplayNames = [self connectedConfigurationDisplayNames];
     
     // If there's nothing to do, just return as if the user cancelled
-	if (  (nToUninstall + nToInstall + nToReplace) == 0  ) {
+	if (  (nToUninstall + nToInstall + nToReplace + nSafe) == 0  ) {
 		return NSApplicationDelegateReplyCancel;
 	}
     
@@ -2478,6 +2515,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                : (  (nToReplace == 1)
                                   ? NSLocalizedString(@"    • Replace one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
                                   : [NSString stringWithFormat: NSLocalizedString(@"    • Replace %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToReplace]));
+    NSString * safeMsg     = (  (nSafe == 0)
+                               ? @""
+                               : (  (nSafe == 1)
+                                  ? NSLocalizedString(@"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n", @"Window text: 'Tunnelblick needs to: *'")
+                                  : [NSString stringWithFormat: NSLocalizedString(@"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nSafe]));
     NSString * installMsg   = (  (nToInstall == 0)
                                ? @""
                                : (  (nToInstall == 1)
@@ -2487,11 +2529,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                 ? @""
                                 :  NSLocalizedString(@"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n", @"Window text"));
     
-    NSString * authMsg = [NSString stringWithFormat: @"%@\n%@%@%@%@", NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text"), uninstallMsg, replaceMsg, installMsg, disconnectMsg];
+    NSString * authMsg = [NSString stringWithFormat: @"%@\n%@%@%@%@%@", NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text"), uninstallMsg, replaceMsg, installMsg, safeMsg, disconnectMsg];
     
     // Get a SystemAuth WITH A RETAIN COUNT OF 1, from MenuController's startupInstallAuth, the lock, or from a user interaction
     SystemAuth * auth = [[((MenuController *)[NSApp delegate]) startupInstallAuth] retain];
- 	if (   ( (nToUninstall + nToInstall + nToReplace - [noAdminSources count]) != 0)
+ 	if (   ( (nToUninstall + nToInstall + nToReplace) != 0)
         && ( ! auth )  ) {
         auth = [SystemAuth newAuthWithPrompt: authMsg];
         if (   ! auth  ) {
@@ -2520,6 +2562,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSUInteger nUninstallErrors = 0;
     NSUInteger nInstallErrors   = 0;
 	NSUInteger nReplaceErrors   = 0;
+    NSUInteger nSafeErrors      = 0;
 	NSUInteger nUpdateErrors    = 0;
     
 	NSMutableString * installerErrorMessages = [NSMutableString stringWithCapacity: 1000];
@@ -2588,7 +2631,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
     }
 	
-    // Do "safe update" (replace keys and certificates) from .tblks in 'noAdminSources' to 'noAdminTargets'
+    // Do "safe" installs/updates from .tblks in 'noAdminSources' to 'noAdminTargets'
     for (  ix=0; ix<[[self noAdminSources] count]; ix++  ) {
         
         NSString * source = [[self noAdminSources] objectAtIndex: ix];
@@ -2611,9 +2654,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             }
             
         } else {
-            nReplaceErrors++;
+            nSafeErrors++;
             NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
-            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
+            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to install or replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
     
@@ -2697,7 +2740,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSUInteger nNetUninstalls   = nToUninstall - nUninstallErrors;
 		NSUInteger nNetInstalls     = nToInstall   - nInstallErrors;
 		NSUInteger nNetReplacements = nToReplace   - nReplaceErrors;
-		
+        NSUInteger nNetSafes        = nSafe        - nSafeErrors;
+
 		uninstallMsg = (  (nNetUninstalls == 0)
 						? @""
 						: (  (nNetUninstalls == 1)
@@ -2708,6 +2752,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 						: (  (nNetReplacements == 1)
 						   ? NSLocalizedString(@"     • Replaced one configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
 						   : [NSString stringWithFormat: NSLocalizedString(@"     • Replaced %lu configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetReplacements]));
+        safeMsg      = (  (nNetSafes == 0)
+                        ? @""
+                        : (  (nNetSafes == 1)
+                           ? NSLocalizedString(@"     • Installed or replaced one \"safe\" configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
+                           : [NSString stringWithFormat: NSLocalizedString(@"     • Installed or replaced %lu \"safe\" configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetSafes]));
 		installMsg   = (  (nNetInstalls == 0)
 						? @""
 						: (  (nNetInstalls == 1)
@@ -2719,13 +2768,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 								 : NSLocalizedString(@"Tunnelblick successfully:\n\n", @"Window text: '* Installed/Replaced/Uninstalled'"));
 		
 		if (  nTotalErrors == 0  ) {
-			msg = [NSString stringWithFormat: @"%@%@%@%@", headerMsg, uninstallMsg, replaceMsg, installMsg];
+			msg = [NSString stringWithFormat: @"%@%@%@%@%@", headerMsg, uninstallMsg, replaceMsg, installMsg, safeMsg];
             if (  [msg length] != 0  ) {
                 [UIHelper showSuccessNotificationTitle: NSLocalizedString(@"VPN Configuration Installation", @"Window title") msg: msg];
             }
 		} else {
-			msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@", @"Window text"),
-				   (unsigned long)nTotalErrors, installerErrorMessages, headerMsg, uninstallMsg, replaceMsg, installMsg];
+			msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@", @"Window text"),
+				   (unsigned long)nTotalErrors, installerErrorMessages, headerMsg, uninstallMsg, replaceMsg, installMsg, safeMsg];
             TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation", @"Window title"), msg);
 		}
 		
