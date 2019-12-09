@@ -2040,7 +2040,7 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
         NSString * sourceFullPath = [sourceResourcesPath stringByAppendingPathComponent: name];
         NSString * targetFullPath = [targetResourcesPath stringByAppendingPathComponent: name];
 
-        // Files that are identical to existing files are OK
+        // Files that are identical to existing files are OK; update if requested
         if (  [fm contentsEqualAtPath: sourceFullPath andPath: targetFullPath]  ) {
             if (  doUpdate  ) {
                 if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
@@ -2051,8 +2051,14 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
             continue;
         }
 
-        // Certificate and key files are OK, and we update if appropriate
-        if (  [extensionsForKeysAndCerts containsObject: [name pathExtension]]  ) {
+		// Info.plist, user-mode scripts, and certificate and key files are OK; update if requested
+        if (   [sourceFullPath hasSuffix: @".tblk/Contents/Info.plist"]
+			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/static-challenge-response.user.sh"]
+			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/dynamic-challenge-response.user.sh"]
+			|| (   [extensionsForKeysAndCerts containsObject: [name pathExtension]]
+				&& [[sourceFullPath stringByDeletingLastPathComponent] hasSuffix: @".tblk/Contents/Resources"]
+				&& ( 0 != [sourceFullPath rangeOfString: @".tblk/Contents/Resources/"].length )
+				)  ) {
             if (  doUpdate  ) {
                 if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
                     return FALSE;
@@ -2062,7 +2068,7 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
             continue;
         }
 
-        // Configuration files are OK if they are "safe", update if appropriate
+		// Configuration files are OK if they are "safe"; update if requested
         if (  [[name lastPathComponent] isEqualToString: @"config.ovpn"]  ) {
             if ( ! isSafeConfigFileForInstallOrUpdate(sourceFullPath, targetFullPath)  ) {
                 fprintf(stderr, "config.ovpn in the new configuration at %s is not safe\n", [sourcePath UTF8String]);
@@ -2075,19 +2081,6 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
             }
 
             continue;
-
-        }
-
-        // Info.plist files are OK, update if appropriate
-        if (  [[name lastPathComponent] isEqualToString: @"Info.plist"]) {
-            if (  doUpdate  ) {
-                if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
-                    return FALSE;
-                }
-            }
-
-            continue;
-
         }
 
         // No other files are allowed
