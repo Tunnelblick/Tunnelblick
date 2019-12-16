@@ -68,8 +68,7 @@ extern volatile int32_t       gActiveInactiveState;
 
 -(void)             afterFailureHandler:            (NSTimer *)     timer;
 
--(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow
-										 userKnows: (BOOL)          userKnows;
+-(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow;
 
 -(void)             clearStatisticsRatesDisplay;
 
@@ -318,32 +317,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 }
 
 -(BOOL) makeShadowCopyMatchConfiguration {
-	
-	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								 [NSString stringWithFormat: NSLocalizedString(@"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\n"
-																			   @"Do you wish to secure the modified configuration or revert to the last secured configuration?\n\n",
-																			   @"Window text; the %@ will be replaced by the name of a configuration."), [self displayName]],
-								 NSLocalizedString(@"Secure the Configuration",		   @"Button"),  // Default
-								 NSLocalizedString(@"Cancel",						   @"Button"),  // Alternate
-								 NSLocalizedString(@"Revert to the Last Secured Copy", @"Button")); // Other
-	switch (  result  ) {
-			
-		case NSAlertAlternateReturn:
-			return NO;
-			break;
-			
-		case NSAlertDefaultReturn:
-			return [ConfigurationManager createShadowCopyWithDisplayName: [self displayName]];
-			break;
-			
-		case NSAlertOtherReturn:
-			return [ConfigurationManager revertOneConfigurationToShadowWithDisplayName: [self displayName]];
-			break;
-			
-		default:
-			NSLog(@"Unexpected result from TBRunAlertPanel: %d", result);
-			return NO;
-	}
+
+	return [ConfigurationManager makeShadowCopyMatchConfigurationWithDisplayName: [self displayName]];
 }
 
 
@@ -780,7 +755,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 -(BOOL) makeDictionary: (NSDictionary * *)  dict withLabel: (NSString *) daemonLabel openvpnstartArgs: (NSMutableArray * *) openvpnstartArgs
 {
 	NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO userKnows: YES] mutableCopy] autorelease];
+    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO] mutableCopy] autorelease];
     if (  ! (*openvpnstartArgs)  ) {
         return NO;
     }
@@ -1806,7 +1781,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
     [self clearLog];
     
-    [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES userKnows: userKnows]];
+    [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES]];
     
     connectedUseScripts    = (unsigned)[[argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_USE_SCRIPTS_IX] intValue];
     [self setConnectedCfgLocCodeString: [argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_CFG_LOC_CODE_IX]];
@@ -2517,17 +2492,15 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return [versionNames indexOfObject: versionToTry];
 }
 
--(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
-								  userKnows: (BOOL) userKnows {
+-(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow {
 	
-	// Returns nil if user cancelled or an error message has been shown to the user
+	// Returns nil if user cancelled, must revert or secure shadow copy, or an error message has been shown to the user
 	
     NSString * cfgPath = [self configPath];
 
     if (   [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
         if (  ! [self shadowCopyIsIdentical]  ) {
-			
-			[ConfigurationManager createShadowConfigurationInNewThreadWithDisplayName: [self displayName] thenConnectUserKnows: userKnows];
+			[ConfigurationManager makeShadowCopyMatchConfigurationInNewThreadWithDisplayName: [self displayName]];
 			return nil;
 		}
     }

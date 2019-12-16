@@ -3662,6 +3662,35 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return [NSArray arrayWithArray: displayNames];
 }
 
++(BOOL)makeShadowCopyMatchConfigurationWithDisplayName: (NSString *) displayName {
+
+	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								 [NSString stringWithFormat: NSLocalizedString(@"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\n"
+																			   @"Do you wish to secure the modified configuration or revert to the last secured configuration?\n\n",
+																			   @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
+								 NSLocalizedString(@"Secure the Configuration",		   @"Button"),  // Default
+								 NSLocalizedString(@"Cancel",						   @"Button"),  // Alternate
+								 NSLocalizedString(@"Revert to the Last Secured Copy", @"Button")); // Other
+	switch (  result  ) {
+
+		case NSAlertAlternateReturn:
+			return NO;
+			break;
+
+		case NSAlertDefaultReturn:
+			return [ConfigurationManager createShadowCopyWithDisplayName: displayName];
+			break;
+
+		case NSAlertOtherReturn:
+			return [ConfigurationManager revertOneConfigurationToShadowWithDisplayName: displayName];
+			break;
+
+		default:
+			NSLog(@"Unexpected result from TBRunAlertPanel: %d", result);
+			return NO;
+	}
+}
+
 +(BOOL) createShadowCopyWithDisplayName: (NSString *) displayName {
     
     NSString * prompt = NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text");
@@ -3687,26 +3716,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
         }
     } else {
-        NSLog(@"createShadowThenConnectWithDisplayName: No configuration path for '%@'", displayName);
+        NSLog(@"createShadowCopyWithDisplayName: No configuration path for '%@'", displayName);
     }
     
 	return NO;
 }
 
-+(void) createShadowThenConnectWithDisplayName: (NSString *) displayName userKnows: (BOOL) userKnows {
-	
-	if (  ! [ConfigurationManager createShadowCopyWithDisplayName: displayName]  ) {
-		NSLog(@"Unable to create or update secure (shadow) copy of configuration file for %@", displayName);
-		return;
-	}
-	
-	VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
-	if (  connection  ) {
-		[connection performSelectorOnMainThread: @selector(connectUserKnows:) withObject: [NSNumber numberWithBool: userKnows] waitUntilDone: NO];
-	} else {
-		NSLog(@"createShadowThenConnectWithDisplayName: No connection object for '%@'", displayName);
-	}
-}
 
 +(NSString *) listOfFilesInTblkForConnection: (VPNConnection *) connection {
     
@@ -4490,31 +4505,18 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	[pool drain];
 }
 
-+(void) createShadowConfigurationThenConnectUserKnowsWithDisplayNameOperation: (NSString *) displayName {
-	
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	
-	[ConfigurationManager createShadowThenConnectWithDisplayName: displayName userKnows: YES];
-	
-    [TBOperationQueue removeDisableList];
-    
-    [TBOperationQueue operationIsComplete];
-    
-    [pool drain];
-} 
++(void) makeShadowCopyMatchConfigurationInNewThreadWithDisplayNameOperation: (NSString *) displayName {
 
-+(void) createShadowConfigurationThenConnectUserDoesNotKnowWithDisplayNameOperation: (NSString *) displayName {
-	
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	
-	[ConfigurationManager createShadowThenConnectWithDisplayName: displayName userKnows: NO];
-	
-    [TBOperationQueue removeDisableList];
-    
-    [TBOperationQueue operationIsComplete];
-    
-    [pool drain];
-} 
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+	[ConfigurationManager makeShadowCopyMatchConfigurationWithDisplayName: displayName];
+
+	[TBOperationQueue removeDisableList];
+
+	[TBOperationQueue operationIsComplete];
+
+	[pool drain];
+}
 
 +(void) renameConfigurationWithPathsOperation: (NSDictionary *) dict {
     
@@ -4765,19 +4767,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              disableList: [NSArray arrayWithObject: displayName]];
 }
 
-+(void) createShadowConfigurationInNewThreadWithDisplayName: (NSString *) displayName thenConnectUserKnows: (BOOL) userKnows {
-	
-	if (  userKnows  ) {
-        [TBOperationQueue addToQueueSelector: @selector(createShadowConfigurationThenConnectUserKnowsWithDisplayNameOperation:)
-                                      target: [ConfigurationManager class]
-                                      object: displayName
-                                 disableList: [NSArray arrayWithObject: displayName]];
-	} else {
-        [TBOperationQueue addToQueueSelector: @selector(createShadowConfigurationThenConnectUserDoesNotKnowWithDisplayNameOperation:)
-                                      target: [ConfigurationManager class]
-                                      object: displayName
-                                 disableList: [NSArray arrayWithObject: displayName]];
-	}
++(void) makeShadowCopyMatchConfigurationInNewThreadWithDisplayName: (NSString *) displayName {
+
+	[TBOperationQueue addToQueueSelector: @selector(makeShadowCopyMatchConfigurationInNewThreadWithDisplayNameOperation:)
+								  target: [ConfigurationManager class]
+								  object: displayName
+							 disableList: [NSArray arrayWithObject: displayName]];
 }
 
 +(void) renameConfigurationInNewThreadAtPath: (NSString *) sourcePath
