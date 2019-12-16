@@ -3693,6 +3693,31 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(BOOL) createShadowCopyWithDisplayName: (NSString *) displayName {
     
+	// Try without admin approval first
+	if (  okToUpdateConfigurationsWithoutAdminApproval()  ) {
+
+		NSArray * arguments = [NSArray arrayWithObjects: @"safeUpdate", displayName, nil];
+		OSStatus status = runOpenvpnstart(arguments, nil, nil);
+
+		switch (  status  ) {
+
+			case OPENVPNSTART_UPDATE_SAFE_OK:
+				return YES;
+				break;
+
+			case OPENVPNSTART_UPDATE_SAFE_NOT_OK:
+				// Fall through to do admin-authorized copy
+				break;
+
+			default:
+				NSLog(@"doSafeUpdateOfConfigWithDisplayName: safeUpdateTest of '%@' returned unknown code %d", displayName, status);
+				// Fall through to do admin-authorized copy
+				break;
+		}
+	}
+
+	// Get admin approval because it isn't a "safe" update
+
     NSString * prompt = NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text");
     SystemAuth * auth = [[SystemAuth newAuthWithPrompt: prompt] autorelease];
     if (   ! auth  ) {
