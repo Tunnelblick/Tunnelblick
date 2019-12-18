@@ -2019,30 +2019,44 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
     // "Safe" installs/replacements can only be done to a private configuration (source = user's copy, target = secured shadow copy).
 
     NSFileManager * fm = [NSFileManager defaultManager];
-    
-    NSString * sourceContentsPath  = [sourcePath         stringByAppendingPathComponent: @"Contents"];
-    NSString * sourceResourcesPath = [sourceContentsPath stringByAppendingPathComponent: @"Resources"];
 
-    NSString * targetContentsPath  = [targetPath         stringByAppendingPathComponent: @"Contents"];
-    NSString * targetResourcesPath = [targetContentsPath stringByAppendingPathComponent: @"Resources"];
-    
     NSArray * extensionsForKeysAndCerts = KEY_AND_CRT_EXTENSIONS;
     
-    NSDirectoryEnumerator * dirE = [fm enumeratorAtPath: sourceResourcesPath];
+    NSDirectoryEnumerator * dirE = [fm enumeratorAtPath: sourcePath];
     NSString * name;
     while (  (name = [dirE nextObject])  ) {
         
-        // Ignore invisible files (such as .DS_Store)
-        if (  [name hasPrefix: @"."]  ) {
-            continue;
-        }
-        
-        NSString * sourceFullPath = [sourceResourcesPath stringByAppendingPathComponent: name];
-        NSString * targetFullPath = [targetResourcesPath stringByAppendingPathComponent: name];
+		NSString * sourceFullPath = [sourcePath stringByAppendingPathComponent: name];
+		NSString * targetFullPath = [targetPath stringByAppendingPathComponent: name];
 
-        // Files that are identical to existing files are OK; update if requested
+		BOOL isDir = NO;
+		if (  ! [fm fileExistsAtPath: sourceFullPath isDirectory: &isDir]  ) {
+			fprintf(stderr, "Disappeared! %s\n", [sourceFullPath UTF8String]);
+			return FALSE;
+		}
+
+		// Ignore Contents folder and Contents/Resources folder but process the _contents_ of the folders
+		// Don't allow any other folders
+		if (  isDir  ) {
+			if (   [name isEqualToString: @"Contents"]
+				|| [name isEqualToString: @"Contents/Resources"] ) {
+				continue;
+			}
+
+			fprintf(stderr, "Unknown folder %s\n", [sourceFullPath UTF8String]);
+			return FALSE;
+		}
+
+		// Not a folder, must be a file
+
+		// Ignore .DS_Store files in any folder; don't copy them
+		if (  [[name lastPathComponent] isEqualToString: @".DS_Store"]  ) {
+			continue;
+		}
+
+        // Any files that are identical to existing files are OK; update if requested (change timestamps)
         if (  [fm contentsEqualAtPath: sourceFullPath andPath: targetFullPath]  ) {
-            if (  doUpdate  ) {
+			if (  doUpdate  ) {
                 if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
                     return FALSE;
                 }
@@ -2051,13 +2065,12 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
             continue;
         }
 
-		// Info.plist, user-mode scripts, and certificate and key files are OK; update if requested
+		// Changed Info.plist, user-mode scripts, and certificate and key files are OK; update if requested
         if (   [sourceFullPath hasSuffix: @".tblk/Contents/Info.plist"]
 			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/static-challenge-response.user.sh"]
 			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/dynamic-challenge-response.user.sh"]
 			|| (   [extensionsForKeysAndCerts containsObject: [name pathExtension]]
 				&& [[sourceFullPath stringByDeletingLastPathComponent] hasSuffix: @".tblk/Contents/Resources"]
-				&& ( 0 != [sourceFullPath rangeOfString: @".tblk/Contents/Resources/"].length )
 				)  ) {
             if (  doUpdate  ) {
                 if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
@@ -2068,8 +2081,8 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
             continue;
         }
 
-		// Configuration files are OK if they are "safe"; update if requested
-        if (  [[name lastPathComponent] isEqualToString: @"config.ovpn"]  ) {
+		// A changed configuration file is OK if the new one is "safe"; update if requested
+        if (  [sourceFullPath hasSuffix: @".tblk/Contents/Resources/config.ovpn"]  ) {
             if ( ! isSafeConfigFileForInstallOrUpdate(sourceFullPath, targetFullPath)  ) {
                 fprintf(stderr, "config.ovpn in the new configuration at %s is not safe\n", [sourcePath UTF8String]);
                 return FALSE;
