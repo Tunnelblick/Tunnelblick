@@ -238,6 +238,7 @@ default_openvpn="z"
 
 # DEFAULT OpenVPN will be the lowest version linked to OpenSSL with the following prefix:
 default_openvpn_version_prefix="openvpn-2.4"
+default_openssl_version_prefix="openssl-1.1.1"
 
 for d in `ls "../third_party/products/openvpn"`
 do
@@ -246,7 +247,7 @@ do
   cp "../third_party/products/openvpn/${d}/openvpn-down-root.so" "${app_path}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
   chmod 744 "${app_path}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
   if [ "${d}" \< "${default_openvpn}" ] ; then
-    if [ "${d}" != "${d/openssl/xx}" ] ; then
+    if [ "${d}" != "${d/$default_openssl_version_prefix/xx}" ] ; then
 	  dovp_len=${#default_openvpn_version_prefix}
 	  if [ "${d:0:$dovp_len}" = "$default_openvpn_version_prefix" ] ; then
 		echo "Setting default OpenVPN version to $d"
