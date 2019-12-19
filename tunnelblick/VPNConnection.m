@@ -3531,7 +3531,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			NSString * address;
 			NSEnumerator * e = [addresses objectEnumerator];
 			while (  (address = [e nextObject])  ) {
-				
+				if (  ! [self isConnected]  ) {
+					break;
+				}
 				if (  [self isRoutedThroughVpn: address type: type]  ) {
 					[self addToLog: [NSString stringWithFormat: @"DNS address %@ is being routed through the VPN", address]];
 				} else {
@@ -3555,7 +3557,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 	}
 	
-	if (  [message length] != 0  ) {
+	if (   ( [message length] != 0 )
+		&& [self isConnected]  ) {
 		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								  [NSString stringWithFormat:
 								   NSLocalizedString(@"One or more possible problems with DNS were found: \n\n%@", @"Window text"), message],
