@@ -110,9 +110,20 @@ typedef enum
 
 +(BOOL) createShadowCopyWithDisplayName: (NSString *) displayName;
 
-+(BOOL) makeShadowCopyMatchConfigurationWithDisplayName: (NSString *) displayName;
++(NSDictionary *) getUpdateInfoForDisplayName: (NSString *) displayName;
 
-+(void) makeShadowCopyMatchConfigurationInNewThreadWithDisplayName: (NSString *) displayName;
++(NSString *) updatePathForDisplayName: (NSString *)     displayName
+							updateInfo: (NSDictionary *) updateInfo;
+
++(BOOL) makeShadowCopyMatchConfigurationWithDisplayName: (NSString *)	  displayName
+											 updateInfo: (NSDictionary *) updateInfo
+											thenConnect: (BOOL)			  thenConnect
+											  userKnows: (BOOL)			  userKnows;
+
++(void) makeShadowCopyMatchConfigurationInNewThreadWithDisplayName: (NSString *)	 displayName
+														updateInfo: (NSDictionary *) updateInfo
+													   thenConnect: (BOOL)			 thenConnect
+														 userKnows: (BOOL)			 userKnows;
 
 +(void) renameConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
 

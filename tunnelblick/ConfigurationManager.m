@@ -353,7 +353,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				}
 			} else if (   ( ! [key isEqualToString: @"TBUninstall"] )
 					   && ( ! [key isEqualToString: @"TBMinimumTunnelblickVersion"] )
-					   && ( ! [key isEqualToString: @"TBMaximumTunnelblickVersion"] )  ) {
+					   && ( ! [key isEqualToString: @"TBMaximumTunnelblickVersion"] )
+					   && ( ! [key isEqualToString: @"TBConfigurationUpdateURL"] )  ) {
                 return [NSString stringWithFormat: NSLocalizedString(@"Unknown key '%@' in %@", @"Window text"), key, path];
             }
         }
@@ -3662,27 +3663,284 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return [NSArray arrayWithArray: displayNames];
 }
 
-+(BOOL)makeShadowCopyMatchConfigurationWithDisplayName: (NSString *) displayName {
++(NSDictionary *) getInfoPlistForDisplayName: (NSString*) displayName {
 
-	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								 [NSString stringWithFormat: NSLocalizedString(@"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\n"
+	// Get the Info.plist from the shadow configuration
+	NSString * infoPlistPath = [[[[[L_AS_T_USERS
+									stringByAppendingPathComponent: NSUserName()]
+								   stringByAppendingPathComponent: displayName]
+								  stringByAppendingPathExtension: @"tblk"]
+								 stringByAppendingPathComponent: @"Contents"]
+								stringByAppendingPathComponent: @"Info.plist"];
+	if (  ! [gFileMgr fileExistsAtPath: infoPlistPath]  ) {
+		TBLog(@"DB-UC", @"getInfoPlist: No Info.plist for %@", displayName);
+		return nil;
+	}
+
+	NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: infoPlistPath];
+	if (  ! infoPlist  ) {
+		NSLog(@"getInfoPlist: Info.plist for %@ cannot be read and parsed", displayName);
+		return nil;
+	}
+
+	return infoPlist;
+}
+
++(NSData *) getDataFromUrlString: (NSString *) urlString {
+
+	NSString * escapedUrlString = [urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+	if (  ! escapedUrlString  ) {
+		NSLog(@"getDataFromUrlString: UpdateURL entry cannot be percent-escaped: %@", urlString);
+		return nil;
+	}
+
+	NSURL * updateUrl = [NSURL URLWithString: escapedUrlString];
+	if (  ! updateUrl  ) {
+		NSLog(@"getDataFromUrlString: UpdateURL cannot be parsed: %@", urlString);
+		return nil;
+	}
+
+	NSURLRequest * urlRequest = [NSURLRequest requestWithURL: updateUrl
+												 cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+											 timeoutInterval: 30.0];
+
+	NSURLResponse * urlResponse = nil;
+	NSError * urlError = nil;
+	NSData * urlData = [NSURLConnection sendSynchronousRequest: urlRequest
+											 returningResponse: &urlResponse
+														 error: &urlError];
+	if (  ! urlData  ) {
+		NSLog(@"getDataFromUrlString: Unable to connect within 30 seconds to %@\nError was %@", urlString, urlError);
+		return nil;
+	}
+
+	return urlData;
+}
+
++(NSData *) getDataFromUrlUsingKey: (NSString *)     key
+					  inDictionary: (NSDictionary *) dict
+						withSuffix: (NSString *)     suffix {
+
+	NSString * urlString = [dict objectForKey: key];
+	if (  ! urlString  ) {
+		TBLog(@"DB-UC",@"getDataFromUrlUsingKey: No %@ key", key);
+		return nil;
+	}
+
+	if (  ! [urlString hasPrefix: @"https://"]  ) {
+		NSLog(@"Configuration update URL is not https:// (%@)", urlString);
+		return nil;
+	}
+
+	NSData * data = [self getDataFromUrlString: [urlString stringByAppendingString: suffix]];
+
+	return data;
+}
+
++(NSString *) getStringFromUrlUsingKey: (NSString *)	 key
+						  inDictionary: (NSDictionary *) dict
+							withSuffix: (NSString *)	 suffix {
+
+	NSData * data = [self getDataFromUrlUsingKey: key inDictionary: dict withSuffix: (NSString *) suffix];
+	if (  ! data  ) {
+		return nil;
+	}
+
+	NSString * string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+	if (  ! string  ) {
+		NSLog(@"getStringFromUrlUsingKey: Can't get object for %@", key);
+		return nil;
+	}
+
+	return string;
+}
+
++(NSDictionary *) getUpdateInfoForDisplayName: (NSString *) displayName {
+
+	// If an update is available, returns the URL string for the .zip file containing the update
+
+	NSDictionary * infoPlist = [ConfigurationManager getInfoPlistForDisplayName: displayName];
+	if (  ! infoPlist  ) {
+		TBLog(@"DB-UC",@"configurationUpdateDataForDisplayName: No Info.plist for %@", displayName);
+		return nil;
+	}
+
+	NSString * currentVersionString = [infoPlist objectForKey: @"CFBundleVersion"];
+	if (  ! currentVersionString  ) {
+		TBLog(@"DB-UC",@"configurationUpdateData: No CFBundleVersion");
+		return nil;
+	}
+
+	NSString * updateVersionString = [ConfigurationManager getStringFromUrlUsingKey: @"TBConfigurationUpdateURL"
+																	   inDictionary: infoPlist
+																		 withSuffix: @"/version.txt"];
+	if (  ! updateVersionString  ) {
+		TBLog(@"DB-UC",@"configurationUpdateData: No data from ConfigurationUpdate version");
+		return nil;
+	}
+
+	if (  [updateVersionString tunnelblickVersionCompare: currentVersionString] != NSOrderedDescending) {
+		TBLog(@"DB-UC",@"configurationUpdateData: Configuration is up to date: current = %@; update = %@", currentVersionString, updateVersionString);
+		return nil;
+	}
+
+	TBLog(@"DB-UC",@"configurationUpdateData: Update is available; current = %@; update = %@", currentVersionString, updateVersionString);
+
+	NSString * zipURLString = [[infoPlist objectForKey: @"TBConfigurationUpdateURL"] stringByAppendingString: @"/config.tblk.zip"];
+
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			updateVersionString, @"updateVersionString",
+			zipURLString, 		 @"updateZipURLString", nil];
+}
+
++(NSString *) updatePathForDisplayName: (NSString *)     displayName
+							updateInfo: (NSDictionary *) updateInfo {
+
+	// Copy the update into the unsecured copy of the configuration
+
+	// Get the update data
+	NSString * updateZipURLString = [updateInfo objectForKey: @"updateZipURLString"];
+	NSData * zipData = [ConfigurationManager getDataFromUrlString: updateZipURLString];
+	if (  ! zipData  ) {
+		TBLog(@"DB-UC",@"No update is available for %@ at %@", displayName, updateZipURLString);
+		return nil;
+	}
+
+	// Store the update data in a temporary .zip file
+	NSString * zipPath = [newTemporaryDirectoryPath()
+						  stringByAppendingPathComponent: @"configuration-update.zip"];
+	if (  ! [gFileMgr createFileAtPath: zipPath contents: zipData attributes: nil]  ) {
+		NSLog(@"Unable to create %lu bytes of data at %@", [zipData length], zipPath);
+		return nil;
+	}
+
+	// Expand the .zip into a temporary folder
+	//
+	// macOS doesn't have any built-in system call to expand .zip files but does have a tar command
+	// that does, so rather than add a dependancy just to expand the file, we accept the performance
+	// degradation of calling an external program to do the expansion.
+	
+	NSString * targetFolderPath = [[newTemporaryDirectoryPath()
+									stringByAppendingPathComponent: displayName]
+								   stringByAppendingPathExtension: @"tblk"];
+	if (  ! [gFileMgr tbCreateDirectoryAtPath: targetFolderPath attributes: nil]  ) {
+		[gFileMgr tbRemoveFileAtPath: [zipPath          stringByDeletingLastPathComponent] handler: nil];
+		[gFileMgr tbRemoveFileAtPath: [targetFolderPath stringByDeletingLastPathComponent] handler: nil];
+		return nil;
+	}
+	NSArray * arguments = [NSArray arrayWithObjects:
+						   @"-x",
+						   @"--exclude",          @"__MACOSX",
+						   @"--strip-components", @"1",
+						   @"-C",                 targetFolderPath,
+						   @"-f",                 zipPath,
+						   nil];
+	BOOL ok = ( EXIT_SUCCESS == runTool(TOOL_PATH_FOR_TAR, arguments, nil, nil) );
+
+	[gFileMgr tbRemoveFileAtPath: [zipPath stringByDeletingLastPathComponent] handler: nil];
+
+	if (  ok  ) {
+
+		// Check that the version number in the configuration in the .zip is as expected
+		NSString * targetInfoPlistPath = [[targetFolderPath
+										   stringByAppendingPathComponent: @"Contents"]
+										  stringByAppendingPathComponent: @"Info.plist"];
+		NSDictionary * newInfoPlist = [NSDictionary dictionaryWithContentsOfFile: targetInfoPlistPath];
+		NSString * newVersion = [newInfoPlist objectForKey: @"CFBundleVersion"];
+		NSString * expectedVersion = [updateInfo objectForKey: @"updateVersionString"];
+		if (  ! [newVersion isEqualToString: expectedVersion]  ) {
+			NSLog(@"Update configuration is version %@; expected version %@", newVersion, expectedVersion);
+			return nil;
+		}
+
+		return targetFolderPath;
+	}
+
+	[gFileMgr tbRemoveFileAtPath: [targetFolderPath stringByDeletingLastPathComponent] handler: nil];
+	return nil;
+}
+
++(BOOL) makeShadowCopyMatchConfigurationWithDisplayName: (NSString *)	  displayName
+											 updateInfo: (NSDictionary *) updateInfo
+											thenConnect: (BOOL)			  thenConnect
+											  userKnows: (BOOL)			  userKnows {
+
+	// Returns TRUE if updated or skipped update or secured or reverted.
+	// Returns FALSE only user cancelled or an error occurred.
+
+	int result;
+
+	if (  updateInfo  ) {
+		result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								 [NSString stringWithFormat: NSLocalizedString(@"An update to the %@ VPN configuration is available.\n\n"
+																			   @"Do you wish to update the configuration?\n\n",
+																			   @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
+								 NSLocalizedString(@"Update",		    @"Button"),  // Default
+								 NSLocalizedString(@"Cancel",		    @"Button"),  // Alternate
+								 NSLocalizedString(@"Skip this Update", @"Button")); // Other
+	} else {
+		result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								 [NSString stringWithFormat: NSLocalizedString(@"The %@ VPN configuration has been modified since it was last secured.\n\n"
 																			   @"Do you wish to secure the modified configuration or revert to the last secured configuration?\n\n",
 																			   @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
 								 NSLocalizedString(@"Secure the Configuration",		   @"Button"),  // Default
 								 NSLocalizedString(@"Cancel",						   @"Button"),  // Alternate
 								 NSLocalizedString(@"Revert to the Last Secured Copy", @"Button")); // Other
+	}
+
 	switch (  result  ) {
 
-		case NSAlertAlternateReturn:
+		case NSAlertAlternateReturn: // Cancel
+			TBLog(@"DB-UC",@"Cancelled updating or securing for %@", displayName);
 			return NO;
 			break;
 
-		case NSAlertDefaultReturn:
-			return [ConfigurationManager createShadowCopyWithDisplayName: displayName];
+		case NSAlertDefaultReturn: // Update or Secure the Configuration
+			TBLog(@"DB-UC",@"Updating or securing %@", displayName);
+			if (  updateInfo  ) {
+
+				NSString * updatePath = [ConfigurationManager updatePathForDisplayName: displayName updateInfo: updateInfo];
+				NSString * unsecuredPrivatePath = [[gPrivatePath
+													stringByAppendingPathComponent: displayName]
+												   stringByAppendingPathExtension: @"tblk"];
+				if (  ! [gFileMgr tbForceRenamePath: updatePath toPath: unsecuredPrivatePath]  ) {
+					return NO;
+				}
+				[gFileMgr tbRemoveFileAtPath:  [updatePath stringByDeletingLastPathComponent] handler: nil];
+				if (  ! [ConfigurationManager createShadowCopyWithDisplayName: displayName]  ) {
+					return NO;
+				}
+				if (  thenConnect  ) {
+					VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+					[connection connectOnMainThreadUserKnows: [NSNumber numberWithBool: userKnows]];
+				}
+				return YES;
+			} else {
+				return [ConfigurationManager createShadowCopyWithDisplayName: displayName];
+			}
 			break;
 
-		case NSAlertOtherReturn:
-			return [ConfigurationManager revertOneConfigurationToShadowWithDisplayName: displayName];
+		case NSAlertOtherReturn: // Skip the Update or Revert to the Last Secured Copy
+			if (  updateInfo  ) {
+				TBLog(@"DB-UC",@"Skipping an update for %@", displayName);
+				if (  thenConnect  ) {
+					VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+					[connection setSkipConfigurationUpdateCheckOnce: TRUE];
+					[connection connectOnMainThreadUserKnows: [NSNumber numberWithBool: userKnows]];
+				}
+				return YES;
+			} else {
+				TBLog(@"DB-UC",@"Reverting %@", displayName);
+				BOOL reverted = [ConfigurationManager revertOneConfigurationToShadowWithDisplayName: displayName];
+				if (  reverted  ) {
+					if (  thenConnect  ) {
+						VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+						[connection connectOnMainThreadUserKnows: [NSNumber numberWithBool: userKnows]];
+					}
+				}
+				return reverted;
+
+			}
 			break;
 
 		default:
@@ -4530,11 +4788,16 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	[pool drain];
 }
 
-+(void) makeShadowCopyMatchConfigurationInNewThreadWithDisplayNameOperation: (NSString *) displayName {
++(void) makeShadowCopyMatchConfigurationInNewThreadWithDisplayNameOperation: (NSDictionary *) dict {
 
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
-	[ConfigurationManager makeShadowCopyMatchConfigurationWithDisplayName: displayName];
+	NSString	 * displayName = [dict objectForKey:  @"displayName"];
+	NSDictionary * updateInfo  = nilIfNSNull( [dict objectForKey:  @"updateInfo"] );
+	BOOL		   thenConnect = [[dict objectForKey: @"thenConnect"] boolValue];
+	BOOL		   userKnows   = [[dict objectForKey: @"userKnows"] boolValue];
+
+	[ConfigurationManager makeShadowCopyMatchConfigurationWithDisplayName: displayName updateInfo: updateInfo thenConnect: thenConnect userKnows: userKnows];
 
 	[TBOperationQueue removeDisableList];
 
@@ -4792,11 +5055,21 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              disableList: [NSArray arrayWithObject: displayName]];
 }
 
-+(void) makeShadowCopyMatchConfigurationInNewThreadWithDisplayName: (NSString *) displayName {
++(void) makeShadowCopyMatchConfigurationInNewThreadWithDisplayName: (NSString *)	 displayName
+														updateInfo: (NSDictionary *) updateInfo
+													   thenConnect: (BOOL)			 thenConnect
+														 userKnows: (BOOL)			 userKnows {
+
+	NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+						   displayName,							   @"displayName",
+						   NSNullIfNil(updateInfo),				   @"updateInfo",
+						   [NSNumber numberWithBool: thenConnect], @"thenConnect",
+						   [NSNumber numberWithBool: userKnows],   @"userKnows",
+						   nil];
 
 	[TBOperationQueue addToQueueSelector: @selector(makeShadowCopyMatchConfigurationInNewThreadWithDisplayNameOperation:)
 								  target: [ConfigurationManager class]
-								  object: displayName
+								  object: dict
 							 disableList: [NSArray arrayWithObject: displayName]];
 }
 

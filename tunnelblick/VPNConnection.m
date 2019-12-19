@@ -68,7 +68,8 @@ extern volatile int32_t       gActiveInactiveState;
 
 -(void)             afterFailureHandler:            (NSTimer *)     timer;
 
--(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow;
+-(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow
+										 userKnows: (BOOL)			userKnows;
 
 -(void)             clearStatisticsRatesDisplay;
 
@@ -318,7 +319,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(BOOL) makeShadowCopyMatchConfiguration {
 
-	return [ConfigurationManager makeShadowCopyMatchConfigurationWithDisplayName: [self displayName]];
+	return [ConfigurationManager makeShadowCopyMatchConfigurationWithDisplayName: [self displayName] updateInfo: nil thenConnect: NO userKnows: NO];
 }
 
 
@@ -755,7 +756,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 -(BOOL) makeDictionary: (NSDictionary * *)  dict withLabel: (NSString *) daemonLabel openvpnstartArgs: (NSMutableArray * *) openvpnstartArgs
 {
 	NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO] mutableCopy] autorelease];
+	*openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO userKnows: NO] mutableCopy] autorelease];
     if (  ! (*openvpnstartArgs)  ) {
         return NO;
     }
@@ -1781,7 +1782,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
     [self clearLog];
     
-    [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES]];
+	[self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES userKnows: userKnows]];
     
     connectedUseScripts    = (unsigned)[[argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_USE_SCRIPTS_IX] intValue];
     [self setConnectedCfgLocCodeString: [argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_CFG_LOC_CODE_IX]];
@@ -2492,15 +2493,26 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return [versionNames indexOfObject: versionToTry];
 }
 
--(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow {
+-(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow userKnows: (BOOL) userKnows {
 	
 	// Returns nil if user cancelled, must revert or secure shadow copy, or an error message has been shown to the user
 	
     NSString * cfgPath = [self configPath];
 
     if (   [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-        if (  ! [self shadowCopyIsIdentical]  ) {
-			[ConfigurationManager makeShadowCopyMatchConfigurationInNewThreadWithDisplayName: [self displayName]];
+		NSDictionary * updateInfo = nil;
+		if (  skipConfigurationUpdateCheckOnce  ) {
+			skipConfigurationUpdateCheckOnce = FALSE;
+			TBLog(@"DB-UC", @"Skipping check for configuration update for %@", [self displayName]);
+		} else {
+			TBLog(@"DB-UC", @"Checking for configuration update for %@", [self displayName]);
+			updateInfo = [ConfigurationManager getUpdateInfoForDisplayName: [self displayName]];
+		}
+
+        if (   updateInfo
+			|| ( ! [self shadowCopyIsIdentical] )  ) {
+			TBLog(@"DB-UC", @"Configuration has been modified or has a pending update for %@", [self displayName]);
+			[ConfigurationManager makeShadowCopyMatchConfigurationInNewThreadWithDisplayName: [self displayName] updateInfo: updateInfo thenConnect: YES userKnows: userKnows];
 			return nil;
 		}
     }
@@ -5190,7 +5202,7 @@ TBSYNTHESIZE_OBJECT(retain,     NSString *,               tunOrTap,             
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     haveConnectedSince,               setHaveConnectedSince)
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     logFilesMayExist,                 setLogFilesMayExist)
-
+TBSYNTHESIZE_NONOBJECT_SET(		BOOL,					  skipConfigurationUpdateCheckOnce, setSkipConfigurationUpdateCheckOnce)
 
 //*********************************************************************************************************
 //

@@ -161,6 +161,9 @@ struct Statistics {
 	BOOL volatile	connectAfterDisconnect; // True if need to connect again after the disconnect completes
 	BOOL volatile	connectAfterDisconnectUserKnows; // Argument for the reconnect
     BOOL volatile   completelyDisconnected; // True only after GUI has caught up to disconnect request
+
+	BOOL volatile   skipConfigurationUpdateCheckOnce; // True only after have skipped a configuration update, so the next
+													  // connection attempt will not try to check for the update
 }
 
 // PUBLIC METHODS:
@@ -301,6 +304,7 @@ TBPROPERTY_WRITEONLY(NSSound *,                tunnelUpSound,                   
 TBPROPERTY_WRITEONLY(NSSound *,                tunnelDownSound,                  setTunnelDownSound)
 TBPROPERTY_WRITEONLY(BOOL,                     speakWhenConnected,               setSpeakWhenConnected)
 TBPROPERTY_WRITEONLY(BOOL,                     speakWhenDisconnected,            setSpeakWhenDisconnected)
+TBPROPERTY_WRITEONLY(BOOL,                     skipConfigurationUpdateCheckOnce, setSkipConfigurationUpdateCheckOnce)
 TBPROPERTY(          NSMenuItem *,             menuItem,                         setMenuItem)
 TBPROPERTY(          NSDate *,                 bytecountsUpdated,                setBytecountsUpdated)
 TBPROPERTY(          NSArray *,                argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
