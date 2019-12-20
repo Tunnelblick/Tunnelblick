@@ -377,6 +377,9 @@
 /* Checkbox name */
 "Apply to all" = "Toepassen op alles";
 
+/* Checkbox Name */
+"Authenticate before connecting" = "Authenticeer voor connectie";
+
 /* Checkbox name */
 "Check for updates automatically" = "Automatisch naar updates zoeken";
 
@@ -454,6 +457,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Opnieuw verbinden wanneer gebruiker inschakelt";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "Vereis administrator rechten om configuraties te installeren";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Verstuur al het IPv4 verkeer via de VPN tunnel";
@@ -758,6 +764,12 @@
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • één configuratie geïnstalleerd\n\n";
 
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "     Installeer of vervang %lu \"veilige\" configuraties\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = "     Geinstalleerde of vervangen eerste \"veilige\" configuratie\n\n";
+
 /* Window text */
 "     • No DNS servers have been specified.\n\n" = "     • Geen DNS-servers gespecificeerd.\n\n";
 
@@ -778,6 +790,12 @@
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install one configuration\n" = "    • Installeer één configuratie\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    Installeer of vervang %lu \"veilige\" configuratie (administrator rechten niet vereist)\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "    Installeer of vervang een \"veilige\" configuratie (administrator rechten niet vereist)\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    • %lu configuraties vervangen\n\n";
@@ -1725,6 +1743,9 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Er is een fatale fout opgetreden in Tunnelblick.\n\nVoor hulp, gelieve een mail te sturen naar developers@tunnelblick.net met een beschrijving van wat Tunnelblick aan het doen was toen de fout \noptrad.\n\n";
 
 /* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick encountered errors with %1$lu configurations:\n\n%2$@%3$@%4$@%5$@%6$@";
+
+/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick slaagde er niet in om problemen op te lossen met voorkeuren voor '%@'. Details staan in het console log";
 
 /* Window text */
@@ -1828,6 +1849,9 @@
 
 /* Window text */
 "Unable to create %@ owned by %ld:%ld with %lo permissions" = "Niet in staat om %1$@  aan te maken, eigendom van %2$ld:%3$ld met %4$lo machtigingen";
+
+/* Window text */
+"Unable to install or replace the '%@' configuration\n" = "Niet mogelijk om de '%@' configuratie te installeren of te vervangen\n";
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "Niet in staat om de configuratie '%@' te installeren\n";
@@ -2054,6 +2078,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopie";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or may be removed in a later version\n\n" = " • '%1$@' is vervangen in OpenVPN %2$@ en is of wordt verwijderd in een nieuwere versie\n\n";
+
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' is uitgefaseerd in OpenVPN %2$@ en verwijderd in OpenVPN %3$@\n\n";
 
@@ -2117,6 +2144,9 @@
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Indien aangevinkt</strong>, zal Tunnelblick deze waarschuwing niet meer tonen.</p>\n<p><strong>Indien uitgevinkt</strong>, zal Tunnelblick deze waarschuwing weer tonen.</p>\n";
 
+/* HTML info for the 'Require administrator authorization to install all configurations' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to install or replace all configurations.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to install or replace \"restricted\" configurations.</p><p>A \"restricted\" configuration is one which does not contain or change commands or scripts or references to commands or scripts. Configurations with commands or scripts can enable <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertical privilege escalation</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Details</a> [tunnelblick.net].</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Wanneer aangevinkt</strong>, Tunnelblick vereist een computer beheerders administrator akkooord om de configuratie te installeren of te vervangen.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, een normale gebruiker is het toegestaan om een \"beperkte\" configuratie te installeren of te vervangen.</p><p>Een \"beperkte\" installatie is een installatie welke geen commands of veranderingen of referenties naar commando's of scripts bevat. Configuraties met commando's of scripts kunnen <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertical privilege escalation</a> [wikipedia.org] aanzetten. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Details</a> [tunnelblick.net].</p><p><strong>Let op: Een beheerders akkoord is noodzakelijk om deze instelling te veranderen.</strong></p>";
+
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Wanneer aangevinkt</strong>, Tunnelblick zal kijken naar en reageren op veranderingen in de netwerkinstellingen (bijvoorbeeld, wijzigingen veroorzaakt door DHCP vernieuwingen of schakelende internet verbindingen) in een poging om de VPN verbinding te behouden. De standaard acties van Tunnelblick wanneer netwerkveranderingen optreden werken goed in de meeste gevallen, maar je kunt verschillende acties opgeven in de tab 'While Connected' of de 'Advanced' instelscherm.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, Tunnelblick zal netwerk wijzigingen negeren.</p>\n<p><strong>Deze keuzebox is niet beschikbaar</strong> wanneer 'Set DNS/WINS' niet is ingesteld naar 'Set nameserver' of 'Set nameserver (3.1)'.</p>";
 
@@ -2164,6 +2194,9 @@
 
 /* HTML info for the 'Display connection timers' checkbox. */
 "<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Wanneer aangevinkt</strong>, zal de tijd vanaf de connectie worden getoond in het menu van Tunnelblick en in de titel van het VPN details venster.</p>";
+
+/* HTML info for the 'Authenticate before connecting' checkbox. */
+"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Indien aangevinkt</strong>, moet je jezelf authenticeren voor dat je verbinding maakt. Je kan jezelf authenticeren met een wachtwoord of, indien beschikbaar TouchID of FaceIDyou.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, geen authenthicatie is benodigd voordat je kan verbinden.</p>\n<p><strong>Deze keuze mogelijkheid is niet mogelijk</strong> als je een versie van macOS gebruikt die niet ondersteunt.</p><p><strong>Let op: Een computer beheerders autorisatie is noodzakelijk om deze installeren aan te passen.</strong></p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
 "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>Een 'tap' stuurprogramma is nodig voor Tap verbindingen. Tunnelblick bevat een eigen Tap stuurprogramma omdat deze niet bij het systeem is inbegrepen. Indien u een ander Tap stuurprogramma hebt geïnstalleerd kan Tunnelblick wellicht zijn eigen stuurprogramma niet laden.</p><p>U kunt kiezen of en wanneer Tunnelblick zijn eigen stuurprogramma zal laden:</p>\n<p><strong>Automatisch Tap stuurprogramma laden</strong>: Tunnelblick zal het stuurprogramma laden wanneer nodig en ontladen wanneer het niet meer nodig is.</p>\n<p><strong>Altijd Tap stuurprogramma laden</strong>: Tunnelblick zal het stuurprogramma laden wanneer het deze configuratie verbindt en ontladen wanneer het niet meer nodig is.</p>\n<p><strong>Nooit Tap stuurprogramma laden</strong>: Tunnelblick zal het stuurprogamma nooit laden.</p>\n<p><strong>Deze checkbox is uitgeschakeld</strong> voor Tun configuraties.</p>";
@@ -2406,6 +2439,9 @@
 /* Credit description */
 "Swedish translation" = "Zweedse vertaling";
 
+/* Credit description */
+"Thai translation" = "Thaise vertaling";
+
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "Tunnelblick Setup %@";
 
@@ -2438,6 +2474,9 @@
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode hulp & OpenSSL integratie";
+
+/* Authentication Prompt */
+"authenticate" = "authenticeer";
 
 /* Button VPNService */
 "Accept" = "Accepteren";

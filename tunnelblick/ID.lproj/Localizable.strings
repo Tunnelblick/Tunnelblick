@@ -377,6 +377,9 @@
 /* Checkbox name */
 "Apply to all" = "Terapkan ke semua";
 
+/* Checkbox Name */
+"Authenticate before connecting" = "Otorisasi sebelum terhubung";
+
 /* Checkbox name */
 "Check for updates automatically" = "Periksa pemutakhiran secara otomatis";
 
@@ -454,6 +457,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Sambung ulang ketika pengguna masuk";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "Perlu otorisasi administrator untuk memasang semua konfigurasi";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Salurkan semua lalu lintas IPv4 melalui VPN";
@@ -757,6 +763,9 @@
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Memasang satu konfigurasi\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "     Terpasang atau tertimpa %lu konfigurasi \"safe\"\n\n";
 
 /* Window text */
 "     • No DNS servers have been specified.\n\n" = "     • Tidak ada server DNS yang telah dinyatakan.\n\n";

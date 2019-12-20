@@ -377,6 +377,9 @@
 /* Checkbox name */
 "Apply to all" = "全員に適用";
 
+/* Checkbox Name */
+"Authenticate before connecting" = "接続前認証";
+
 /* Checkbox name */
 "Check for updates automatically" = "更新を自動的にチェックする";
 
@@ -454,6 +457,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "ユーザスイッチから戻った時に再接続する";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "全ての設定をインストールするために管理者権限が必要";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "すべてのトラフィックをVPN経由で接続する";
@@ -758,6 +764,12 @@
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • 設定をインストールしました\n\n";
 
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "インストールされた、または差し替えられた%luつの安全な設定\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = "インストールされた、または差し替えられた1つの安全な設定\n\n";
+
 /* Window text */
 "     • No DNS servers have been specified.\n\n" = "     • DNSサーバが指定されていません。\n\n";
 
@@ -778,6 +790,12 @@
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install one configuration\n" = "    • 設定をインストール\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    インストールされた、または差し替えられた%luの安全な設定（管理者権限は不要）\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "インストールされた、または差し替えられた1つの安全な設定（管理者権限は不要）\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    設定を%luつ上書き\n\n";
@@ -1293,6 +1311,9 @@
 "Modified configuration file to remove path information" = "設定ファイルからパス情報を削除しました";
 
 /* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "複数の同時接続が作成されます（ネームサーバで%1$dつの接続、ネームサーバなしで%2$dつの接続）";
+
+/* Window text */
 "Named Credentials" = "認証の指定";
 
 /* Window text */
@@ -1722,6 +1743,9 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick に致命的なエラーが発生しました。\n\n発生したエラーの内容を書いたメールを developers@tunnelblick.net へ送ってください。\n\n";
 
 /* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick において%1$luの設定でエラーが発生しました。：\n%2$@%3$@%4$@%5$@%6$@";
+
+/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "「%@」の設定の問題を解決できませんでした。詳細はコンソールログにあります";
 
 /* Window text */
@@ -1825,6 +1849,9 @@
 
 /* Window text */
 "Unable to create %@ owned by %ld:%ld with %lo permissions" = "「%2$ld」による「%1$@」は作成できません。「%3$ld」は「%4$lo」権限をもっています。";
+
+/* Window text */
+"Unable to install or replace the '%@' configuration\n" = "インストールが出来ない、または'%@' の設定を差し替えて下さい。\n";
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "%@の設定をインストールできませんでした\n";
@@ -2031,6 +2058,9 @@
 "\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nこのエラーは OpenVPN サーバから送られた OpenVPN 設定に以下の問題が含まれていることを示しています:\n\n     • スペルが間違っている\n\n     • パラメータが不足している、余計なパラメータが指定されている\n\n     •このバージョンの OpenVPN では実装されていないオプションです(おそらく新しいオプションでまだサポートされていないか、古いオプションで既に削除されているもの)。\"VPN の詳細\" ウインドウの \"設定\" タブにある \"OpenVPN バージョン\" で、この設定で使用する OpenVPN のバージョンを選択できます。\n\n詳細は \"VPN の詳細\" ウインドウの \"ログ\" タブに出力されているログを確認してください。";
 
 /* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nTunnelblickの’ネームサーバ設定’ は、1つのVPN接続でのみ有効です。同時に1つ以上のVPN接続の利用により、ネットワーク設定を破壊したり、ネットワーク接続が切断されたりする可能性があります。";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nまた、%ld 個の Tunnelblick VPN 設定ファイルをインストールしますか？";
 
 /* Window text */
@@ -2047,6 +2077,9 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " コピー";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or may be removed in a later version\n\n" = " '%1$@'はOpenVPN %2$@ では非推奨のオプションとなり、以降のバージョンでは廃止される場合があります。\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' はOpenVPN %2$@では非推奨のオプションとなり、OpenVPN %3$@で廃止されました。\n\n";
@@ -2070,6 +2103,9 @@
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Tunnelblick setupをユーザーアカウント数が%u以上のあるコンピューターにインポートするには, インポートするデータを説明するテキストファイルの作成が必要です</p>\n<p>もっと知りたいなら、 <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>をご覧ください。</p></font>";
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>このVPNに接続するときに使うOpenVPNとSSLのバージョンを指定してください。</strong><ul><li><strong>デフォルトの設定</strong> はこのTunnelBlickバージョンで提供されたOpenSSLのバージョンを使ったOpenVPNのデフォルト設定を使います。デフォルト設定はTunnelBlickのバージョンによって変わることがあります。<br></li><li><strong>「最新」設定</strong>はこのTunnelBlickのバージョンで提供されたLibreSSLのバージョンを使っている最新版のOpenVPNを使います。「最新」の設定はTunnelBlickのバージョンによって変わることがあります。<br></li><li><strong>他の設定</strong> は指定されたOpenVPNとSSLのバージョンを使います。 （このTunnelBlickのバージョンで利用可能な場合）。利用可能でなければ、選択の設定に一番近い利用可能の設定を利用してVPNに接続します。<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "VPN接続中に、TunnelblickがDNS設定を変更するために何を行うかを指定します（もしあれば）。選択肢としては、\n・ネームサーバを設定しない：何もされません。\n・ネームサーバの設定：Tunnelblickは、標準スクリプトを使用してDNSおよびWINS設定を処理します。 通常、これがベストの選択となります。 OpenVPNの指示に従い、DNSおよびWINS設定を変更します。 手動で設定されたDNSおよびWINS設定は、[詳細設定] 設定ウィンドウの[手動で設定されたネットワーク設定への変更を許可する] が選択されていない限り変更されません。\n・ネームサーバ（3.1）の設定：Tunnelblickは、Tunnelblick 3.1のスクリプトを使用して、DNSおよびWINS設定を処理します。\n・ネームサーバ（3.0b10）の設定：Tunnelblickは、Tunnelblick 3.0b10のスクリプトを使用して、DNSおよびWINS設定を処理します。\n・ネームサーバ（代替 1）の設定：Tunnelblickは、代替スクリプトを使用して、DNSおよびWINS設定を処理します。";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>チェックした場合</strong>、IPv6は無効化されます。</p>\n<p><strong>チェックしなかった場合</strong>、IPv6は無効化されません。</p>\n<p>多くの場合、IPv6を無効化することを推奨します。何故ならば、多くのVPN設定はIPv6使用による情報漏洩の防衛がありません。ほとんどのインターネットはIPv6を使用しなくてもアクセスできます。</p>\n<p>設定を調整すると、<strong>このチェックボックスは無効化できません</strong>。</p>\n";
@@ -2312,6 +2348,9 @@
 /* Credit description */
 "Swedish translation" = "スウェーデン語翻訳";
 
+/* Credit description */
+"Thai translation" = "タイ語翻訳";
+
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "Tunnelblick設定 %@";
 
@@ -2344,6 +2383,9 @@
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcodeの助言とOpenSSLの統合";
+
+/* Authentication Prompt */
+"authenticate" = "認証";
 
 /* Button VPNService */
 "Accept" = "了解";

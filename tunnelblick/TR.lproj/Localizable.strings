@@ -377,6 +377,9 @@
 /* Checkbox name */
 "Apply to all" = "Tümüne uygula";
 
+/* Checkbox Name */
+"Authenticate before connecting" = "Bağlanmadan önce kullanıcı bilgilerini girerek kendini tanıt";
+
 /* Checkbox name */
 "Check for updates automatically" = "Güncellemeleri otomatik olarak kontrol et";
 
@@ -454,6 +457,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Kullanıcı geri geldiğinde tekrar bağlan";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "Tüm yapılandırmaları yüklemek için yönetici yetkilendirmesi iste";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "IPv4 trafiğinin tamamını VPN üzerinden yönlendir";
@@ -758,6 +764,12 @@
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Bir yapılandırma kuruldu\n\n";
 
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "     %lu \"Güvenli\" yapılandırmaları yüklendi veya değiştirildi\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = "     \"Güvenli\" yapılandırmalarından biri yüklendi veya değiştirildi\n\n";
+
 /* Window text */
 "     • No DNS servers have been specified.\n\n" = "     • DNS sunucusu belirtilmedi.\n\n";
 
@@ -778,6 +790,12 @@
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install one configuration\n" = "    • Bir yapılandırma kur\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    %lu \"Güvenli\" yapılandırmaları (yönetici şifresi olmadan) yükle veya değiştir\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "    \"Güvenli\" yapılandırmaları (yönetici şifresi olmadan) yükle veya değiştir\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    • %lu yapılandırmayı değiştir\n\n";
@@ -1725,6 +1743,9 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick feci bir hata ile karşılaştı.\n\n\nYardım için developers@tunnelblick.net'e - 'hata oluştuğunda TB ne işlem yapıyordu' anlatan - bir email gönder. ";
 
 /* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick %1$lu yapılandırmalarında hatalarla karşılaştı:\n\n%2$@%3$@%4$@%5$@%6$@";
+
+/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick '%@' için ayarları onarma işlemini tamamlayamadı. Detaylar Konsol Log 'da görülebilir";
 
 /* Window text */
@@ -1828,6 +1849,9 @@
 
 /* Window text */
 "Unable to create %@ owned by %ld:%ld with %lo permissions" = "%2$ld:%3$ld sahipliğinde ve %4$lo haklarındaki %1$@ dosyası yaratılamıyor";
+
+/* Window text */
+"Unable to install or replace the '%@' configuration\n" = "'%@' konfigürasyon dosyası değiştirilemiyor yada kurulamıyor\n";
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "'%@' yapılandırması yüklenemedi\n";
@@ -2054,6 +2078,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopyala";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or may be removed in a later version\n\n" = " '%1$@' OpenVPN %2$@ de artık geçersiz olup, ileriki versiyonlarda silinecek veya silinmiş olabilir\n\n";
+
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' OpenVPN %2$@ sürümünden beri desteklenmemektedir ve OpenVPN %3$@ sürümünde kullanımdan kaldırılmıştır\n\n";
 
@@ -2117,6 +2144,9 @@
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Seçildiğinde</strong>, Tunnelblick bu uyarıyı bir daha göstermeyecektir.</p><p><strong>Seçilmediğinde</strong>, Tunnelblick bu uyarıyı tekrar gösterecektir.</p>\n";
 
+/* HTML info for the 'Require administrator authorization to install all configurations' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to install or replace all configurations.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to install or replace \"restricted\" configurations.</p><p>A \"restricted\" configuration is one which does not contain or change commands or scripts or references to commands or scripts. Configurations with commands or scripts can enable <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertical privilege escalation</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Details</a> [tunnelblick.net].</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Seçildiğinde</strong>, Tunnelblick yapılandırmaların yüklenmesi veya değiştirilmesi için bilgisayar yönetici onayı isteyecektir.</p>\n<p><strong>Seçilmediğinde</strong>, yetkisiz bir kullanıcının \"kısıtlı\" yapılandırmaları kurmasına veya değiştirmesine izin verilecektir.</p><p>\"Kısıtlı\" yapılandırmalar komut yada komut kümeleri içermeyen veya bunları değiştirmeyen, diğer komut yada komut kümelerine gönderme yapmayan yapılandırmalardır. Komut yada komut kümeleri içeren yapılandırmalar<a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">dikey yetki yükseltimini</a> [wikipedia.org] aktif hale getirebilir. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Detaylar.</a> [tunnelblick.net].</p><p><strong>Not: Bu ayarı değiştirmek için bilgisayar yöneticisinin onay gereklidir.</strong></p>";
+
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Seçildiğinde</strong>, Tunnelblick, VPN bağlantınızın kopmamasını sağlamak icin, network bağlantısını izler ve örneğin DHCP yenilemeleri veya internet bağlantısı değişikliklerinde geri bildirim sağlar. Tunnelblick'in varsayilan seçenekleri genellikle iyi sonuç verir fakat \"Bağlanti Sağlandiktan Sonra\" sekmesindeki \"İleri düzey Seçenekleri\" ayarlarindan farkli opsiyonlar belirleyebilirsiniz. </p>\n<p><strong>Seçilmediğinde</strong>, Tunnelblick network değişikliklerini dikkate almaz..</p>\n<p><strong>Bu seçenek geçerli degildir</strong> when 'Set DNS/WINS', 'Set nameserver' veya 'Set nameserver (3.1 olarak secilmemistir.</p>";
 
@@ -2164,6 +2194,9 @@
 
 /* HTML info for the 'Display connection timers' checkbox. */
 "<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>İşaretlendiğinde</strong>, bağlantı başlatıldığından beri geçen süre Tunnelblick menü içerisinde ve VPN Detayları penceresinin başlığında gösterilecektir.</p>";
+
+/* HTML info for the 'Authenticate before connecting' checkbox. */
+"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Seçildiğinde</strong>, bağlantı öncesinde kendinizi tanıtmanız gerekecektir. Kendinizi şifre, veya varsa, TouchID yada FaceID kullanarak tanıtabilirsiniz.</p>\n<p><strong>Seçilmediğinde,</strong>, bağlantı öncesinde tanıtım istenmeyecektir.</p>\n<p>Bu yapılandırmayı desteklemeyen macOS sürümlerinde bu seçenek<strong>etkin değildir</strong>.</p><p><strong>Not: Bu ayarı değiştirmek için bilgisayar yöneticisinin onay gereklidir.</strong></p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
 "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>Tap bağlantıları için bir 'tap' aygıt sürücüsü gereklidir. Sistem sağlamadığı için Tunnelblick kendi Tap sürücüsünü içermektedir. Farklı bir Tap sürücüsü yüklediyseniz, Tunnelblick kendi sürücüsünü yükleyemeyebilir.</p><p>Tunnelblick'in kendi sürücüsünü ne zaman yüklemesi gerektiğini seçebilirsiniz:</p>\n<p><strong>Tap sürücüsünü otomatik olarak yükle</strong>: Tunnelblick gerektiğinde kendi sürücüsünü yükler ve ihtiyaç kalmadığında kaldırır.</p>\n<p><strong>Her zaman Tap sürücüsünü yükle</strong>: Tunnelblick bu yapılandırmaya bağlandığında kendi sürücüsünü yükler ve ihtiyaç kalmadığında kaldırır.</p>\n<p><strong>Hiçbir zaman Tap sürücüsünü yükleme</strong>: Tunnelblick kendi sürücüsünü hiç yüklemez.</p>\n<p>Tun yapılandırmalarında <strong>bu kutucuk etkin değildir.</strong></p>";
@@ -2406,6 +2439,9 @@
 /* Credit description */
 "Swedish translation" = "İspanyolca çeviri";
 
+/* Credit description */
+"Thai translation" = "Taylandca çeviri";
+
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "Tunnelblick Kurulum %@";
 
@@ -2438,6 +2474,9 @@
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode yardım ve OpenSSL entegrasyonu";
+
+/* Authentication Prompt */
+"authenticate" = "kimlik doğrulaması";
 
 /* Button VPNService */
 "Accept" = "Kabul Et";

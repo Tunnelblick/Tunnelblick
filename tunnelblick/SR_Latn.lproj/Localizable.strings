@@ -377,6 +377,9 @@
 /* Checkbox name */
 "Apply to all" = "Primeni na sve";
 
+/* Checkbox Name */
+"Authenticate before connecting" = "Autentifikujte se pre konekcije";
+
 /* Checkbox name */
 "Check for updates automatically" = "Automatski vrši proveru novih verzija";
 
@@ -454,6 +457,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Ponovo se poveži nakon što se korisnik prijavi";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "Odobrenje administratora je potrebno za instalaciju svih konfiguracija";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Preusmeri sav IPv4 saobraćaj kroz VPN";
@@ -758,6 +764,12 @@
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Instalirana jedna konfiguracija\n\n";
 
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "     • Instalirano ili izmenjeno %lu \"bezbednih\" konfiguracija\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = "     • Instalirana ili izmenjena jedna \"bezbedna\" konfiguracija\n\n";
+
 /* Window text */
 "     • No DNS servers have been specified.\n\n" = "     Nijedan DNS server nije naveden.\n\n";
 
@@ -778,6 +790,12 @@
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install one configuration\n" = "    • Instaliraj jednu konfiguraciju\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    • Instaliraj ili izmeni %lu \"bezbednih\" konfiguracija (administratorska dozvola nije potrebna)\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "    • Instaliraj ili izmeni jednu \"bezbednu\" konfiguraciju (administratorska dozvola nije potrebna)\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    • Zameni %lu konfiguracija\n\n";
@@ -1725,6 +1743,9 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick je prekinuo rad zbog greške.\n\nUkoliko vam je neophodna pomoć, molimo vas da pošaljete mail na adresu developers@tunnelblick.net uz opsi šta ste tačno uradili u momentu kada se greška dogodila.\n\n";
 
 /* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick je naišao na grešku u %1$lu konfiguracija(e):\n\n%2$@%3$@%4$@%5$@%6$@";
+
+/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick nije uspeo da popravi probleme sa podešavanjima za '%@'. Detalji su u logu konzole";
 
 /* Window text */
@@ -1828,6 +1849,9 @@
 
 /* Window text */
 "Unable to create %@ owned by %ld:%ld with %lo permissions" = "Neuspešno kreiranje %1$@ vlasnika %2$ld:%3$ld sa %4$lo dozvolama";
+
+/* Window text */
+"Unable to install or replace the '%@' configuration\n" = "Instalacija ili zamena '%@' konfiguracije nije uspela\n";
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "Neuspešna instalacija '%@' konfiguracije\n";
@@ -2054,6 +2078,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopija";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or may be removed in a later version\n\n" = " • '%1$@' je označen kao zastareo od strane OpenVPN %2$@ i može biti kompletno izbačen u narednim verzijama\n\n";
+
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
 " • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • Opcija '%1$@' je označena kao zastarela u OpenVPN %2$@ i uklonjena je u OpenVPN %3$@\n\n";
 
@@ -2117,6 +2144,9 @@
 /* HTML info for the 'Do not warn about this again' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Kada je uključeno</strong>, Tunnelblick neće više prikazivati ovo upozorenje.</p>\n<p><strong>Kada je isključeno</strong>, Tunnelblick će opet prikazivati ovo upozorenje.</p>\n";
 
+/* HTML info for the 'Require administrator authorization to install all configurations' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to install or replace all configurations.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to install or replace \"restricted\" configurations.</p><p>A \"restricted\" configuration is one which does not contain or change commands or scripts or references to commands or scripts. Configurations with commands or scripts can enable <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertical privilege escalation</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Details</a> [tunnelblick.net].</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kada je aktivirano</strong>, Tunnelblick će tražiti administratosko odobrenje kako bi instralirao ili zamenio sve konfiguracije.</p>\n<p><strong>Kada nije aktivirano</strong>, standardni korisnik će biti u mogućnosti da instalira ili zameni \"privlegovane\" konfiguracije.</p><p>Privilegovana konfiguracija je ona koja ne sadrži ili ne menja komande ili sadržaj skripti ili reference ka komandama ili drugim skriptama. Konfiguracija koje sadrže komande ili skripte mogu da uključe i <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertikalnu eskalaciju privilegija</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Više detalja</a> [tunnelblick.net].</p><p><strong>Napomena: autorizacija od strane administratora sistema je neophodna za promenu ovog podešavanja.</strong></p>";
+
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Kada je čekirano</strong>, Tunnelblick će pratiti i reagovati na promene u mrežnim podešavanjima (npr. promene usled DHCP osveženja ili promene internet veze) kako bi očuvao VPN povezanim. Podrazumevana podešavanja obično rade dobro, ali ako želite možete podesiti drugačije akcije na 'Dok je povezan' tabu među naprednim podešavanjima.</p>\n<p><strong>Kada nije čekirano</strong>, Tunnelblick će zanemariti promene na mreži.</p>\n<p><strong>Ova opcija je onemogućena</strong> kada 'Podesi DNS/WINS' nije podešeno na 'Podesi nameserver' ili 'Podesi nameserver (3.1)'.</p>";
 
@@ -2164,6 +2194,9 @@
 
 /* HTML info for the 'Display connection timers' checkbox. */
 "<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Kada je uključeno</strong>, vreme trajanja konekcije je prikazano u Tunnelblick meniju i u naslvu VPN Detalji prozora.</p>";
+
+/* HTML info for the 'Authenticate before connecting' checkbox. */
+"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kada je aktivirano</strong>, bićete u obaveti da se autentifikujete pre konektovanja. Autentifikacija je moguća korišćenjem lozinke ili, ukoliko su dostupni, putem TouchID ili FaceID sistema.</p>\n<p><strong>Kada nije aktivirano</strong>, autentifikacija neće biti neophodna pre konektovanja.</p>\n<p><strong>Ovaj opcija nije dostupna</strong> ukoliko koristite verziju macOS sistema koji nema adekvatnu podršku.</p><p><strong>Napomena: autorizacija od strane administratora sistema je neophodna za promenu ovog podešavanja.</strong></p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
 "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>'tap' drajver je neophodan za Tap konekcije. Tunnelblick poseduje sopstveni Tap drajver jer ga nema u okviru sistema. Ako ste instalirali drugi Tap drajver, Tunnelblick možda neće biti u mogućnosti da učita svoj drajver.</p><p>Možete odabrati da li i kada će Tunnelblick učitavati svoj drajver:</p>\n<p><strong>Učitaj Tap drajver automatski</strong>: Tunnelblick učitava svoj drajver po potrebi i uklanja ga kada više nije potreban.</p>\n<p><strong>Uvek učitaj Tap drajver</strong>: Tunnelblick učitava svoj drajver kada se povezuje ova konfiguracija i uklanja kada više nije potreban.</p>\n<p><strong>Nikad ne učitavaj Tap drajver</strong>: Tunnelblick nikad ne učitava svoj drajver.</p>\n<p><strong>Opcija je onemogućena</strong> za Tun konfiguracije.</p>";
@@ -2441,6 +2474,9 @@
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode pomoć i OpenSSL integracija";
+
+/* Authentication Prompt */
+"authenticate" = "autentifkuj";
 
 /* Button VPNService */
 "Accept" = "Prihvati";
