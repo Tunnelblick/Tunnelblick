@@ -3875,9 +3875,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 								 [NSString stringWithFormat: NSLocalizedString(@"An update to the %@ VPN configuration is available.\n\n"
 																			   @"Do you wish to update the configuration?\n\n",
 																			   @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
-								 NSLocalizedString(@"Update",		    @"Button"),  // Default
+								 NSLocalizedString(@"Update",		    @"Button. 'Update' refers to the update of a configuration."),  // Default
 								 NSLocalizedString(@"Cancel",		    @"Button"),  // Alternate
-								 NSLocalizedString(@"Skip this Update", @"Button")); // Other
+								 NSLocalizedString(@"Skip this Update", @"Button. 'Update' refers to the update of a configuration.")); // Other
 	} else {
 		result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								 [NSString stringWithFormat: NSLocalizedString(@"The %@ VPN configuration has been modified since it was last secured.\n\n"
