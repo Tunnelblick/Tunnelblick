@@ -1493,9 +1493,6 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Tuỳ chỉnh 'namedCredentialsNames' phải là một danh sách các chuỗi ký tự";
 
-/* Window text; the %@ will be replaced by the name of a configuration. */
-"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Tập tin cấu hình OpenVPN cho '%@' đã bị chỉnh sửa sau lần cuối nó mà nó được bảo mật.\n\nBạn có muốn bảo mật cấu hình đã bị chỉnh sửa hay đảo ngược về cấu hình lần cuối được bảo mật?\n\n";
-
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Nhật ký của OpenVPN có chứa thông điệp sau: \n\n\"%1$@\".%2$@";
 

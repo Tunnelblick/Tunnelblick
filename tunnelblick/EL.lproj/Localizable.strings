@@ -1535,9 +1535,6 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Οι προτιμήσεις στον 'ονόματαΟνόματα Πιστοποιητικών' πρέπει να είναι πίνακας με σειρές συμβόλων.";
 
-/* Window text; the %@ will be replaced by the name of a configuration. */
-"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Το αρχείο παραμετροποίησης OpenVPN για '%@' τροποποιήθηκε αφού είχε ασφαλιστεί.\n\nΕπιθυμείτε να ασφαλίσετε την τροποποιημένη παραμετροποίηση ή να επαναφέρετε την τελευταία ασφαλή παραμετροποίηση;\n\n";
-
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "Το αρχείο παραμέτρων %1$@ του OpenVPN περιέχει την επιλογή '%2$@', η οποία είναι για Windows-μόνο. Δεν μπορεί να χρησιμοποιηθεί στο macOS.";
 

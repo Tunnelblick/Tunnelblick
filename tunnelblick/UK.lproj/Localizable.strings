@@ -1535,9 +1535,6 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Опція 'namedCredentialsNames' повинна бути масивом з рядків";
 
-/* Window text; the %@ will be replaced by the name of a configuration. */
-"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Файл конфігурації OpenVPN для '%@' був модифікований після того як він був збережений.\n\nВи бажаєте зберегти змінену конфігурацію чи відновити її до останньої збереженої конфігурації?\n\n";
-
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "Файл конфігурації OpenVPN %1$@ містить опцію '%2$@', яка призначена тільки для Windows. Він не може вікористовуватися в macOS.";
 

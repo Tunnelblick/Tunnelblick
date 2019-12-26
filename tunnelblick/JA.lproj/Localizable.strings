@@ -1535,9 +1535,6 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "設定項目「namedCredentialsNames」は文字列の配列でないといけません";
 
-/* Window text; the %@ will be replaced by the name of a configuration. */
-"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "最後に暗号化された時からOpenVPNの設定'%@'は変更されています。\n変更を暗号化するか、以前暗号化された設定に戻しますか?\n\n";
-
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "%1$@ に含まれるOpenVPN設定 '%2$@' はWIndows専用のオプションです。macOSでは使用できません。";
 

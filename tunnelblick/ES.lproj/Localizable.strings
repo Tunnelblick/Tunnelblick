@@ -1535,9 +1535,6 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "La preferencia 'namedCredentialsNames' debe ser un array de strings";
 
-/* Window text; the %@ will be replaced by the name of a configuration. */
-"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "El archivo de configuración de OpenVPN para '%@' fue modificado luego de haber sido protegido.\n\n¿Desea Ud. proteger la configuración modificada o revertir a la última configuración protegida?\n\n";
-
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "El archivo de configuración en %1$@ contiene una opción '%2$@', la cual es para Windows únicamente. No puede ser utilizada en macOS.";
 

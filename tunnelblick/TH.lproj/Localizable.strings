@@ -317,5 +317,140 @@
 /* Menu Item */
 "Make Configuration Shared..." = "ทำให้คอนฟิกเกอเรชั่นสามารถแบ่งปันได้…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "ไม่เก็บล็อกไฟล์สำหรับ OpenVPN หรือ Tunnelblick VPN";
+
+/* Menu item */
+"No VPN Configurations Available" = "ไม่มี VPN คอนฟิกเกอเรชั่น";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN ระดับ %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN ระดับ 0 - ไม่เก็บยกเว้นความผิดพลาดร้ายแรง";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN ระดับ 11 - เก็บแบบละเอียดมาก";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN ระดับ 3 - ปกติ";
+
+/* Menu Item */
+"OpenVPN level 4 - values for all options" = "OpenVPN ระดับ 4 - เก็บค่าของทุกตัวเลือก";
+
+/* Menu Item */
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN ระดับ 5 - \"R\" หรือ \"W\" สำหรับแต่ละแพ็คเก็ต";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN ระดับ 6 - เก็บแบบละเอียด";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "ระดับล็อกไฟล์ของ OpenVPN ถูกตั้งโดยคอนฟิกเกอเรชั่น";
+
+/* Menu item */
+"Quit Tunnelblick" = "ปิด Tunnelblick";
+
+/* Menu Item */
+"Rename Configuration..." = "แก้ชื่อคอนฟิกเกอเรชั่น...";
+
+/* Menu Item */
+"Revert Configuration..." = "แก้คอนฟิกเกอเรชั่นกลับเหมือนเดิม...";
+
+/* Menu Item */
+"Show OpenVPN Log in Finder" = "เปิด Finder เพื่อดูล็อกไฟล์ของ OpenVPN";
+
+/* Menu Item */
+"Show on Tunnelblick Menu" = "แสดงในเมนูของ Tunnelblick";
+
+/* Menu item */
+"Suggestion or Bug Report..." = "คำแนะนำหรือแจ้งบั๊ก";
+
+/* Menu item */
+"VPN Details..." = "รายละเอียด VPN";
+
+/* Checkbox name */
+"Allow changes to manually-set network settings" = "อนุญาตให้มีการตั้งค่าเครือข่ายเองได้";
+
+/* Checkbox name */
+"Always show this window" = "แสดงหน้าต่างนี้เสมอ";
+
+/* Checkbox name */
+"Apply to all" = "ใช้กับทุกอย่าง";
+
+/* Checkbox Name */
+"Authenticate before connecting" = "ยืนยันตัวตนก่อนเชื่อมต่อ";
+
+/* Checkbox name */
+"Check for updates automatically" = "ตรวจสอบการอัพเดทโดยอัตโนมัติ";
+
+/* Checkbox name */
+"Check for updates to beta versions" = "ตรวจสอบการอัพเดทของเวอร์ชั่นเบต้า";
+
+/* Checkbox name */
+"Check if the apparent public IP address changed after connecting" = "ตรวจสอบว่าหมายเลขไอพีสาธารณะเปลี่ยนหรือไม่หลังจากเชื่อมต่อ";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "ปิด IPv6 ถ้าเซิร์ฟเวอร์ VPN ไม่ได้ใช้ IPv6";
+
+/* Checkbox name */
+"Disconnect when computer goes to sleep" = "ตัดการเชื่อมต่อเมื่อคอมพิวเตอร์เข้าสู่โหมดหลับ";
+
+/* Checkbox name */
+"Disconnect when user switches out" = "ตัดการเชื่อมต่อเมื่อเปลี่ยนผู้ใช้";
+
+/* Checkbox name */
+"Display connection submenus" = "แสดงเมนูย่อยของการเชื่อมต่อ";
+
+/* Checkbox name */
+"Display connection timers" = "แสดงการนับเวลาที่เชื่อมต่อ";
+
+/* Checkbox name */
+"Display window while Tunnelblick is starting up" = "แสดงหน้าต่างขณะที่ Tunnelblick กำลังเริ่มทำงาน";
+
+/* Checkbox name */
+"Do not ask again, always 'Ignore'" = "อย่าถามอีก ไม่ต้องทำอะไรทุกครั้ง";
+
+/* Checkbox name */
+"Do not ask again, always Continue" = "อย่าถามอีก ดำเนินการต่อทุกครั้ง";
+
+/* Checkbox name */
+"Do not ask again, always convert" = "อย่าถามอีก แปลงทุกครั้ง";
+
+/* Checkbox name */
+"Do not show this type of warning again" = "ไม่ต้องแสดงคำเตือนแบบนี้อีก";
+
+/* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "ไม่ต้องแสดงคำเตือนเกี่ยวกับปัญหา DNS อีก ไม่ว่าคอนฟิกเกอเรชั่นใดๆ";
+
+/* Checkbox name */
+"Do not warn about this again for any configuration" = "ไม่ต้องแสดงคำเตือนนี้อีก ไม่ว่าคอนฟิกเกอเรชั่นใดๆ";
+
+/* Checkbox name */
+"Do not warn about this again for this configuration" = "ไม่ต้องแสดงคำเตือนนี้อีกสำหรับคอนฟิกเกอเรชั่นนี้";
+
+/* Checkbox name */
+"Do not warn about this again" = "ไม่ต้องแสดงคำเตือนนี้อีก";
+
+/* Checkbox name */
+"Enable IPv6 (tap only)" = "เปิดใช้ IPv6 (tap only)";
+
+/* Checkbox name */
+"Flush DNS cache after connecting or disconnecting" = "ล้างแคช DNS หลังจากเชื่อมต่อหรือตัดการเชื่อมต่อ";
+
+/* Checkbox name */
+"Inhibit automatic update checking and IP Address checking" = "ไม่ตรวจสอบการอัพเดทและหมายเลขไอพี";
+
+/* Checkbox name */
+"Keep connected" = "รักษาการเชื่อมต่อไว้";
+
+/* Checkbox name */
+"Monitor network settings" = "เฝ้าดูการตั้งค่าเครือข่าย";
+
+/* Checkbox name */
+"Place near Spotlight icon" = "วางใกล้ไอคอน Spotlight";
+
+/* Checkbox name */
+"Prepend domain name to search domains" = "ต่อชื่อ domain ไว้ข้างหน้า search domains";
+
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Teerapap Changwichukarn";

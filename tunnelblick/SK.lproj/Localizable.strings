@@ -1535,9 +1535,6 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Položka nastavení 'namedCredentialsNames' musí obsahovať skupinu znakov";
 
-/* Window text; the %@ will be replaced by the name of a configuration. */
-"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "OpenVPN konfiguračný súbor pre '%@' bol zmenený od posledného zabezpečenia.\n\nPrajete si zabezpečiť modifikovanú konfiguráciu alebo vrátiť na poslednú zabezpečenú konfiguráciu?\n\n";
-
 /* Window text */
 "The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "Súbor OpenVPN konfigurácie v %1$@ obsahuje možnosť \"%2$@\", ktorá je dostupná len v systéme Windows. Nie je možné teda túto možnosť použiť na macOS.";
 

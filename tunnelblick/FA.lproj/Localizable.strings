@@ -1463,9 +1463,6 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "تنظیمات 'namedCredentialsNames' باید آرایه ای از رشته ها باشد";
 
-/* Window text; the %@ will be replaced by the name of a configuration. */
-"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "فایل پیکربندی OpenVPN برای '%@' بعد از آخرین امن سازی تغییر یافته است.\n\nآیا مایل به امن سازی پیکربندی ویرایش شده و یا بازگردانی آن به اخرین وضعیت امن هستید؟\n\n";
-
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "گزارش OpenVPN دارای پیغام زیر است:\n\n\"%1$@\".%2$@";
 
