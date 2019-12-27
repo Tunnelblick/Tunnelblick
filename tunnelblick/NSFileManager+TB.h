@@ -34,7 +34,8 @@
                      handler:(id)handler;
 
 -(BOOL)           tbCreateDirectoryAtPath:(NSString *)path
-                               attributes:(NSDictionary *)attributes;
+			  withIntermediateDirectories:(BOOL)withIntermediateDirectories
+							   attributes:(NSDictionary *)attributes;
 
 -(BOOL)           tbCreateSymbolicLinkAtPath:(NSString *)path
                                  pathContent:(NSString *)otherPath;

@@ -76,20 +76,22 @@ void appendLog(NSString * errMsg);
 }
 
 
--(BOOL) tbCreateDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes {
-    
-    if (  [self respondsToSelector:@selector (createDirectoryAtPath:withIntermediateDirectories:attributes:error:)]  ) {
-        NSError * err = nil;
-        BOOL answer = [self createDirectoryAtPath:path withIntermediateDirectories:NO attributes:attributes error: &err];
-        if (  ! answer  ) {
-            NSString * errMsg = [NSString stringWithFormat: @"Error returned from createDirectoryAtPath: %@ withIntermediateDirectories: NO attributes: %@; Error was %@; stack trace: %@", path, attributes, err, fmCallStack()];
-            appendLog(errMsg);
-        }
-        return answer;
-    }
-    
-    appendLog(@"No implementation for createDirectoryAtPath:attributes:");
-    return NO;
+-(BOOL) tbCreateDirectoryAtPath:(NSString *)path
+	withIntermediateDirectories:(BOOL)withIntermediateDirectories
+					 attributes:(NSDictionary *)attributes {
+
+	if (  [self respondsToSelector:@selector (createDirectoryAtPath:withIntermediateDirectories:attributes:error:)]  ) {
+		NSError * err = nil;
+		BOOL answer = [self createDirectoryAtPath:path withIntermediateDirectories:withIntermediateDirectories attributes:attributes error: &err];
+		if (  ! answer  ) {
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from createDirectoryAtPath: %@ withIntermediateDirectories: NO attributes: %@; Error was %@; stack trace: %@", path, attributes, err, fmCallStack()];
+			appendLog(errMsg);
+		}
+		return answer;
+	}
+
+	appendLog(@"No implementation for createDirectoryAtPath:withIntermediateDirectories:attributes:");
+	return NO;
 }
 
 -(BOOL) tbCreateSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherPath {

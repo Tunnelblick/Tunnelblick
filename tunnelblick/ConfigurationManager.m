@@ -3823,7 +3823,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	NSString * targetFolderPath = [[newTemporaryDirectoryPath()
 									stringByAppendingPathComponent: displayName]
 								   stringByAppendingPathExtension: @"tblk"];
-	if (  ! [gFileMgr tbCreateDirectoryAtPath: targetFolderPath attributes: nil]  ) {
+	if (  ! [gFileMgr tbCreateDirectoryAtPath: targetFolderPath withIntermediateDirectories: YES attributes: nil]  ) {
 		[gFileMgr tbRemoveFileAtPath: [zipPath          stringByDeletingLastPathComponent] handler: nil];
 		[gFileMgr tbRemoveFileAtPath: [targetFolderPath stringByDeletingLastPathComponent] handler: nil];
 		return nil;

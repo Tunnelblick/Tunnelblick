@@ -521,13 +521,8 @@ int createDir(NSString * dirPath, unsigned long permissions) {
         }
     }
     
-    // No such directory. Create its parent directory (recurse) if necessary
-    if (  createDir([dirPath stringByDeletingLastPathComponent], permissions) == -1  ) {
-        return -1;
-    }
-    
-    // Parent directory exists. Create the directory we want
-    if (  ! [[NSFileManager defaultManager] tbCreateDirectoryAtPath: dirPath attributes: permissionsAsAttribute] ) {
+    // Create the directory we want. Create parent directories if necessary
+    if (  ! [[NSFileManager defaultManager] tbCreateDirectoryAtPath: dirPath withIntermediateDirectories: YES attributes: permissionsAsAttribute] ) {
         if (   [[NSFileManager defaultManager] fileExistsAtPath: dirPath isDirectory: &isDir]
             && isDir  ) {
             appendLog([NSString stringWithFormat: @"Warning: Created directory %@ but unable to set permissions to %lo", dirPath, permissions]);

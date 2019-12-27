@@ -597,7 +597,7 @@ void createFolder(NSString * path) {
 								 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountName],      NSFileOwnerAccountName,
 								 [enclosingFolderAttributes objectForKey: NSFilePosixPermissions],      NSFilePosixPermissions,
 								 nil];
-	if ( ! [gFileMgr tbCreateDirectoryAtPath: path attributes: attributes]  ) {
+	if ( ! [gFileMgr tbCreateDirectoryAtPath: path withIntermediateDirectories: NO attributes: attributes]  ) {
 		errorExit();
 	}
 	

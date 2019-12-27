@@ -1900,9 +1900,6 @@ BOOL forceCopyFileAsRoot(NSString * sourceFullPath, NSString * targetFullPath) {
         resourcesFolder = [resourcesFolder stringByAppendingPathComponent: @"Resources"];
     }
 
-    NSString * contentsFolder  = [resourcesFolder stringByDeletingLastPathComponent];
-    NSString * tblkFolder      = [contentsFolder  stringByDeletingLastPathComponent];
-
     becomeRoot(@"Install or replace safe file in configuration");
 
     // Create the .tblk folder structure if it does not exist already
@@ -1912,15 +1909,7 @@ BOOL forceCopyFileAsRoot(NSString * sourceFullPath, NSString * targetFullPath) {
                                      NSFileGroupOwnerAccountID, [NSNumber numberWithUnsignedLong: 0],
                                      NSFilePosixPermissions,    [NSNumber numberWithShort: PERMS_SECURED_FOLDER],
                                      nil];
-        if (  ! [fm tbCreateDirectoryAtPath: tblkFolder attributes: attributes]  ) {
-            stopBeingRoot();
-            return FALSE;
-        }
-        if (  ! [fm tbCreateDirectoryAtPath: contentsFolder attributes: attributes]  ) {
-            stopBeingRoot();
-            return FALSE;
-        }
-        if (  ! [fm tbCreateDirectoryAtPath: resourcesFolder attributes: attributes]  ) {
+        if (  ! [fm tbCreateDirectoryAtPath: resourcesFolder withIntermediateDirectories: YES attributes: attributes]  ) {
             stopBeingRoot();
             return FALSE;
         }
