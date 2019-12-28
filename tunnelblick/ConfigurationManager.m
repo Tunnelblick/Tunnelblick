@@ -956,7 +956,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return FALSE;
     }
     
-	NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: [[targetPath lastPathComponent] stringByDeletingPathExtension]];
+	NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: [lastPartOfPath(targetPath) stringByDeletingPathExtension]];
     
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
         NSLog(@"Could not uninstall configuration file %@", targetPath);
