@@ -3835,11 +3835,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 						   @"-C",                 targetFolderPath,
 						   @"-f",                 zipPath,
 						   nil];
-	BOOL ok = ( EXIT_SUCCESS == runTool(TOOL_PATH_FOR_TAR, arguments, nil, nil) );
+	if (  EXIT_SUCCESS == runTool(TOOL_PATH_FOR_TAR, arguments, nil, nil)  ) {
 
-	[gFileMgr tbRemoveFileAtPath: [zipPath stringByDeletingLastPathComponent] handler: nil];
-
-	if (  ok  ) {
+		[gFileMgr tbRemoveFileAtPath: [zipPath stringByDeletingLastPathComponent] handler: nil];
 
 		// Check that the version number in the configuration in the .zip is as expected
 		NSString * targetInfoPlistPath = [[targetFolderPath
@@ -3850,12 +3848,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSString * expectedVersion = [updateInfo objectForKey: @"updateVersionString"];
 		if (  ! [newVersion isEqualToString: expectedVersion]  ) {
 			NSLog(@"Update configuration is version %@; expected version %@", newVersion, expectedVersion);
+			[gFileMgr tbRemoveFileAtPath: [targetFolderPath stringByDeletingLastPathComponent] handler: nil];
 			return nil;
 		}
 
 		return targetFolderPath;
 	}
 
+	NSLog(@"Error expanding file (%lu bytes long) at %@", [zipData length], zipPath);
 	[gFileMgr tbRemoveFileAtPath: [targetFolderPath stringByDeletingLastPathComponent] handler: nil];
 	return nil;
 }
