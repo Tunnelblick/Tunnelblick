@@ -1534,7 +1534,7 @@ NSString * displayNameForOpenvpnName(NSString * openvpnName, NSString * nameToRe
 	// The version numbers and library name cannot contain '-' characters.
 	// Example: a folder named 'openvpn-1.2.3_git_master_123abcd-libressl-4.5.6' will be shown to the user as "123 git master 123abcd - LibreSSL v4.5.6"
 	//
-	// NOTE: This method's input openvpnName is the part of the folder name _after_ 'openvpn-'
+	// NOTE: This method's input openvpnName is the part of the folder name _after_ 'openvpn-' except that if it is located in L_AS_T/openvpn it must be suffixed with SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN.
 	
 	NSArray * parts = [openvpnName componentsSeparatedByString: @"-"];
 	
@@ -1553,6 +1553,11 @@ NSString * displayNameForOpenvpnName(NSString * openvpnName, NSString * nameToRe
 		name = [NSString stringWithString: mName];
 	} else {
 		name = [[nameToReturnIfError retain] autorelease];
+	}
+
+	if (  [name hasSuffix: SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN]  ) {
+		name = [NSString stringWithFormat: NSLocalizedString(@"%@ (non-Tunnelblick)",@"Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1'"),
+				[name substringToIndex: [name length] - [SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN length]]];
 	}
 	
 	return name;
