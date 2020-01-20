@@ -4589,11 +4589,10 @@ static void signal_handler(int signalNumber)
                nil]  );
 }
 
--(BOOL) setUpOpenVPNNames {
-    
-    NSMutableArray * nameArray = [[[NSMutableArray alloc] initWithCapacity: 5] autorelease];
-    
-    NSString * openvpnDirPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"openvpn"];
+-(BOOL) setUpOpenVPNNames: (NSMutableArray *) nameArray
+		 fromFolderAtPath: (NSString *)       openvpnDirPath
+				   suffix: (NSString *)       suffix {
+
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnDirPath];
     NSString * dirName;
     while (  (dirName = [dirEnum nextObject])  ) {
@@ -4626,7 +4625,7 @@ static void signal_handler(int signalNumber)
 						[self terminateBecause: terminatingBecauseOfError];
 						return FALSE;
 					}
-                    [nameArray addObject: versionWithSslSuffix];
+                    [nameArray addObject: [versionWithSslSuffix stringByAppendingString: suffix]];
                     continue;
                 }
             }
@@ -4636,21 +4635,44 @@ static void signal_handler(int signalNumber)
             return FALSE;
         }
     }
-    
-	[nameArray sortUsingSelector:@selector(compare:)];
-	
-    if (  [nameArray count] == 0  ) {
-        NSLog(@"There are no versions of OpenVPN in this copy of Tunnelblick");
-        [self terminateBecause: terminatingBecauseOfError];
-        return FALSE;
-    }
-	
-	// Sort the array so OpenSSL comes before LibreSSL
+
+	return TRUE;
+}
+
+-(BOOL) setUpOpenVPNNames {
+
+	// The names are the folder names in Tunnelblick.app/Contents/Resources/openvpn and /Library/Application Support/Tunnelblick/openvpn
+	// that hold openvpn binaries, except that names from /Library... are suffixed by SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN so they can be distinguished from the others.
+
+	NSMutableArray * nameArray = [[[NSMutableArray alloc] initWithCapacity: 5] autorelease];
+
+	// Get names from Tunnelblick.app/Contents/Resources/openvpn
+	NSString * dirPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"openvpn"];
+	if ( ! [self setUpOpenVPNNames: nameArray fromFolderAtPath: dirPath suffix: @""]  ) {
+		return FALSE;
+	}
+
+	// Add the names from /Library/Application Support/Tunnelblick/openvpn if it exists
+	dirPath = L_AS_T_OPENVPN;
+	if (   [gFileMgr fileExistsAtPath: dirPath]  ) {
+		if ( ! [self setUpOpenVPNNames: nameArray fromFolderAtPath: dirPath suffix: SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN]  ) { // Suffix indicates openvpn binary external to Tunnelblick
+			return FALSE;
+		}
+	}
+
+	if (  [nameArray count] == 0  ) {
+		NSLog(@"There are no versions of OpenVPN in this copy of Tunnelblick");
+		[self terminateBecause: terminatingBecauseOfError];
+		return FALSE;
+	}
+
+	// Sort the array but so OpenSSL comes before LibreSSL
 	NSMutableArray * sortedNames = [[[NSMutableArray alloc] initWithCapacity: [nameArray count]] autorelease];
 	NSUInteger ix;
+	[nameArray sortUsingSelector:@selector(compare:)];
 	for (  ix=0; ix<[nameArray count]; ix++  ) {
 		if (   (ix != [nameArray count]-1)
-            && ([[nameArray objectAtIndex: ix]     rangeOfString: @"libressl"].length != 0)
+			&& ([[nameArray objectAtIndex: ix]     rangeOfString: @"libressl"].length != 0)
 			&& ([[nameArray objectAtIndex: ix + 1] rangeOfString: @"openssl"].length  != 0)  ) {
 			[sortedNames addObject: [nameArray objectAtIndex: ix + 1]];
 			[sortedNames addObject: [nameArray objectAtIndex: ix]];
@@ -4659,9 +4681,9 @@ static void signal_handler(int signalNumber)
 			[sortedNames addObject: [nameArray objectAtIndex: ix]];
 		}
 	}
-	
+
     [self setOpenvpnVersionNames: [NSArray arrayWithArray: sortedNames]];
-    
+
     return TRUE;
 }
 
