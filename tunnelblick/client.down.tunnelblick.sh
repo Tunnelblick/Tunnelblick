@@ -550,7 +550,7 @@ EOF
 
                 sleep 2
 
-				execute_command "Turned on primary interface with ifconfig \"${primary_interface}\" down" \
+				execute_command "Turned on primary interface with ifconfig \"${primary_interface}\" up" \
 								"Error happened while trying to turn on primary interface" \
 								/sbin/ifconfig "${primary_interface}" up
 			else
