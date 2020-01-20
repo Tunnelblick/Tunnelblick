@@ -2200,7 +2200,14 @@ int startVPN(NSString * configFile,
 	// Tries to start an openvpn connection (up to ten times if not starting from GUI).
     // Returns OPENVPNSTART_COULD_NOT_START_OPENVPN (having output a message to stderr) if any other error occurs
 	
-	NSString * openvpnPath  = openvpnToUsePath([gResourcesPath stringByAppendingPathComponent: @"openvpn"], openvpnVersion);    
+	NSString * folderPath = nil;
+	if (  [openvpnVersion hasSuffix: SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN]  ) {
+		openvpnVersion = [openvpnVersion substringToIndex: [openvpnVersion length] - [SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN length]];
+		folderPath = L_AS_T_OPENVPN;
+	} else {
+		folderPath = [gResourcesPath stringByAppendingPathComponent: @"openvpn"];
+	}
+	NSString * openvpnPath = openvpnToUsePath(folderPath, openvpnVersion);
     NSString * downRootPath = [[openvpnPath stringByDeletingLastPathComponent]
                                stringByAppendingPathComponent: @"openvpn-down-root.so"];
     
