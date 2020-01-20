@@ -61,6 +61,9 @@
 // Prefix log entries from Tunnelblick itself (as opposed to OpenVPN) with this string.
 #define TB_LOG_PREFIX @"*Tunnelblick: "
 
+// Suffix added to an OpenVPN name to indicate it is in L_AS_T_OPENVPN instead of in Tunnelblick.app/Contents/Resources/openvpn
+#define SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN @"EXTERNAL"
+
 // Maximum hotKey index
 #define MAX_HOTKEY_IX 12
 
@@ -105,6 +108,8 @@
 #define L_AS_T_USERS  @"/Library/Application Support/Tunnelblick/Users"
 
 #define L_AS_T_TBLKS  @"/Library/Application Support/Tunnelblick/Tblks"
+
+#define L_AS_T_OPENVPN  @"/Library/Application Support/Tunnelblick/Openvpn"
 
 #define L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH   @"/Library/Application Support/Tunnelblick/forced-preferences.plist"
 
