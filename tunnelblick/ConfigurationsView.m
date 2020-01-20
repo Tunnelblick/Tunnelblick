@@ -402,25 +402,32 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 	}
     
     [perConfigOpenvpnVersionArrayController setContent: ovContent];
+	NSString * html = NSLocalizedString(@"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to"
+										@" connect the VPN.</strong>"
+
+										@"<ul>"
+
+										@"<li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is"
+										@" included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li>"
+
+										@"<li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is"
+										@" included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li>"
+
+										@"<li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are"
+										@" available in this version of Tunnelblick. If not available, the closest match will be used.<br></li>"
+
+										@"</ul>",
+
+										@"HTML info for the 'OpenVPN version' button.");
+	if (  [gFileMgr fileExistsAtPath: L_AS_T_OPENVPN]  ) {
+		html = [html stringByAppendingString: NSLocalizedString(@"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN are not part of Tunnelblick."
+																@" They have been installed by a computer administrator into the /Library/Application Support/Tunnelblick/Openvpn folder.</strong></p>",
+																@"HTML info for the 'OpenVPN version' button.")];
+	}
+
 	[perConfigOpenvpnVersionButton
 	 setTitle: nil
-	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to"
-														   @" connect the VPN.</strong>"
-														   
-														   @"<ul>"
-														   
-														   @"<li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is"
-														   @" included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li>"
-
-														   @"<li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is"
-														   @" included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li>"
-														   
-														   @"<li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are"
-														   @" available in this version of Tunnelblick. If not available, the closest match will be used.<br></li>"
-														   
-														   @"</ul>",
-
-														   @"HTML info for the 'OpenVPN version' button."))];
+	 infoTitle: attributedStringFromHTML(html)];
 	[UIHelper setTitle: nil ofControl: perConfigOpenvpnVersionButton shift: rtl narrow: YES enable: YES];
 	
 	[self shiftLabelsAndButtonsWtc: wtcWidthChange sdns: sdnsWidthChange pcov: pcovWidthChange loggingLevelWidthChange: loggingLevelWidthChange uponDisconnectWidthChange: udWidthChange uponUnexpectedDisconnectWidthChange: uudWidthChange];
