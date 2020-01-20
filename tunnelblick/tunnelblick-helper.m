@@ -2024,11 +2024,16 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
 			return FALSE;
 		}
 
-		// Ignore Contents folder and Contents/Resources folder but process the _contents_ of the folders
+		// Ignore Contents folder and Contents/Resources folder and Contents/Resources/*.lproj but process the _contents_ of the folders
 		// Don't allow any other folders
 		if (  isDir  ) {
 			if (   [name isEqualToString: @"Contents"]
-				|| [name isEqualToString: @"Contents/Resources"] ) {
+				|| [name isEqualToString: @"Contents/Resources"]
+				|| (   [name hasPrefix: @"Contents/Resources/"]
+					&& [name hasSuffix: @".lproj"]
+					&& ([[name componentsSeparatedByString: @"/"] count] == 3)
+					)
+				) {
 				continue;
 			}
 
@@ -2054,13 +2059,20 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
             continue;
         }
 
-		// Changed Info.plist, user-mode scripts, and certificate and key files are OK; update if requested
+		// Changed Info.plist, user-mode scripts, and certificate and key files, and *.lproj/Localizable.strings files are OK; update if requested
         if (   [sourceFullPath hasSuffix: @".tblk/Contents/Info.plist"]
 			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/static-challenge-response.user.sh"]
 			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/dynamic-challenge-response.user.sh"]
 			|| (   [extensionsForKeysAndCerts containsObject: [name pathExtension]]
 				&& [[sourceFullPath stringByDeletingLastPathComponent] hasSuffix: @".tblk/Contents/Resources"]
-				)  ) {
+				)
+			|| (   [name hasPrefix: @"Contents/Resources/"]
+				&& [name hasSuffix: @".lproj/Localizable.strings"]
+				&& ([[name componentsSeparatedByString: @"/"] count] == 4)
+				&& [[sourceFullPath stringByDeletingLastPathComponent] hasSuffix: @".tblk/Contents/Resources"]
+				)
+
+			) {
             if (  doUpdate  ) {
                 if (  ! forceCopyFileAsRoot(sourceFullPath, targetFullPath)  ) {
                     return FALSE;
