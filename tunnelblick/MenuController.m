@@ -7091,6 +7091,39 @@ BOOL needToSecureFolderAtPath(NSString * path, BOOL isDeployFolder)
     return NO;
 }
 
+BOOL checkOwnerAndPermissionsOfOpenvpnFolders(NSString * openvpnFolderPath) {
+
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnFolderPath];
+	NSString * file;
+	BOOL isDir;
+	while (  (file = [dirEnum nextObject])  ) {
+		[dirEnum skipDescendents];
+		NSString * fullPath = [openvpnFolderPath stringByAppendingPathComponent: file];
+		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+			&& isDir  ) {
+			if (  ! checkOwnerAndPermissions(fullPath, 0, 0, PERMS_SECURED_FOLDER)  ) {
+				return NO;
+			}
+
+			if (  [file hasPrefix: @"openvpn-"]  ) {
+				NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
+				if (  ! checkOwnerAndPermissions(thisOpenvpnPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
+					return NO;
+				}
+
+				NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
+				if (  [gFileMgr fileExistsAtPath: thisOpenvpnDownRootPath]  ) {
+					if (  ! checkOwnerAndPermissions(thisOpenvpnDownRootPath, 0, 0, PERMS_SECURED_ROOT_EXEC)  ) {
+						return NO;
+					}
+				}
+			}
+		}
+	}
+
+	return YES;
+}
+
 BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 {
 	// Check ownership and permissions on components of Tunnelblick.app
@@ -7174,34 +7207,15 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     }
     
     // Check OpenVPN version folders and the binaries of openvpn and openvpn-down-root.so in them
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnFolderPath];
-    NSString * file;
-    BOOL isDir;
-    while (  (file = [dirEnum nextObject])  ) {
-        [dirEnum skipDescendents];
-        NSString * fullPath = [openvpnFolderPath stringByAppendingPathComponent: file];
-        if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
-            && isDir  ) {
-            if (  ! checkOwnerAndPermissions(fullPath, 0, 0, PERMS_SECURED_FOLDER)  ) {
-                return YES;
-            }
-            
-            if (  [file hasPrefix: @"openvpn-"]  ) {
-                NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
-                if (  ! checkOwnerAndPermissions(thisOpenvpnPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
-                    return YES;
-                }
-                
-                NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
-                if (  ! checkOwnerAndPermissions(thisOpenvpnDownRootPath, 0, 0, PERMS_SECURED_ROOT_EXEC)  ) {
-                    return YES;
-                }
-            }
-        }
-    }
-    
+	if (  ! checkOwnerAndPermissionsOfOpenvpnFolders(openvpnFolderPath)  ) {
+		return YES; // NSLog already called
+	}
+
 	// Check _CodeSignature if it is present. It should have 0755 permissions, and all of its contents should have 0644 permissions
 	NSString * codeSigPath = [contentsPath stringByAppendingPathComponent: @"_CodeSignature"];
+	NSDirectoryEnumerator * dirEnum;
+	NSString * file;
+	BOOL isDir;
 	if (   [gFileMgr fileExistsAtPath: codeSigPath isDirectory: &isDir]
 		&& isDir  ) {
 		if (  ! checkOwnerAndPermissions(codeSigPath, 0, 0, PERMS_SECURED_FOLDER)  ) {
@@ -7320,6 +7334,13 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
             return YES; // NSLog already called
         }
     }
+
+	// Check L_AS_T_OPENVPN and its contents
+	if (  [gFileMgr fileExistsAtPath: L_AS_T_OPENVPN]  ) {
+		if (  ! checkOwnerAndPermissionsOfOpenvpnFolders(L_AS_T_OPENVPN)  ) {
+			return YES; // NSLog already called
+		}
+	}
     
     // Final check: Everything in the application is owned by root:wheel and is not writable by "other"
     dirEnum = [gFileMgr enumeratorAtPath: tunnelblickPath];
