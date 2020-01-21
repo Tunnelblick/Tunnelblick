@@ -798,6 +798,7 @@ name = newValue;                                    \
 @"autoConnect",	\
 @"-onSystemStart",	\
 @"useDNS",	\
+@"-authenticateOnConnect", \
 @"-notMonitoringConnection",	\
 @"-doNotRestoreOnDnsReset",	\
 @"-doNotRestoreOnWinsReset",	\
