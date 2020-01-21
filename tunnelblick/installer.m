@@ -908,6 +908,38 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void) {
 	return TRUE;
 }
 
+void secureOpenvpnBinariesFolder(NSString * enclosingFolder) {
+
+	if (   ( ! checkSetOwnership(enclosingFolder, YES, 0, 0))
+		|| ( ! checkSetPermissions(enclosingFolder, PERMS_SECURED_FOLDER, NO))  ) {
+		errorExit();
+	}
+
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: enclosingFolder];
+	NSString * folder;
+	BOOL isDir;
+	while (  (folder = [dirEnum nextObject])  ) {
+		[dirEnum skipDescendents];
+		NSString * fullPath = [enclosingFolder stringByAppendingPathComponent: folder];
+		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+			&& isDir  ) {
+			if (  ! checkSetPermissions(fullPath, PERMS_SECURED_FOLDER, YES)  ) {
+				errorExit();
+			}
+			if (  [folder hasPrefix: @"openvpn-"]  ) {
+				NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
+				if (  ! checkSetPermissions(thisOpenvpnPath, PERMS_SECURED_EXECUTABLE, YES)  ) {
+					errorExit();
+				}
+				NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
+				if (  ! checkSetPermissions(thisOpenvpnDownRootPath, PERMS_SECURED_ROOT_EXEC, YES)  ) {
+					errorExit();
+				}
+			}
+		}
+	}
+}
+
 void doInitialWork(void) {
 	
 	if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
@@ -958,6 +990,10 @@ void doInitialWork(void) {
 		}
 	}
 	
+	if (  [gFileMgr fileExistsAtPath: L_AS_T_OPENVPN]  ) {
+		secureOpenvpnBinariesFolder(L_AS_T_OPENVPN);
+	}
+
 	// Create the .mip file owned by root with 0600 permissions in L_AS_T if it doesn't already exist
 	NSDirectoryEnumerator  * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T];
 	NSString * fileName;
@@ -1238,23 +1274,9 @@ void secureTheApp(NSString * appResourcesPath) {
 	okSoFar = okSoFar && checkSetPermissions(reactivateTunnelblickPath, PERMS_SECURED_EXECUTABLE, YES);
 	okSoFar = okSoFar && checkSetPermissions(reenableNetworkServicesPath, PERMS_SECURED_ROOT_EXEC, YES);
 	
-	// Check/set each OpenVPN binary and its corresponding openvpn-down-root.so
-	dirEnum = [gFileMgr enumeratorAtPath: openvpnPath];
-	while (  (file = [dirEnum nextObject])  ) {
-		[dirEnum skipDescendents];
-		NSString * fullPath = [openvpnPath stringByAppendingPathComponent: file];
-		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
-			&& isDir  ) {
-			if (  [file hasPrefix: @"openvpn-"]  ) {
-				NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
-				okSoFar = okSoFar && checkSetPermissions(thisOpenvpnPath, PERMS_SECURED_EXECUTABLE, YES);
-				
-				NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
-				okSoFar = okSoFar && checkSetPermissions(thisOpenvpnDownRootPath, PERMS_SECURED_ROOT_EXEC, NO);
-			}
-		}
-	}
-	
+	// Check/set each OpenVPN binary inside Tunnelblick.app and its corresponding openvpn-down-root.so
+	secureOpenvpnBinariesFolder(openvpnPath);
+
 	// Secure _CodeSignature if it is present. All of its contents should have 0644 permissions
 	NSString * codeSigPath = [contentsPath stringByAppendingPathComponent: @"_CodeSignature"];
 	if (   [gFileMgr fileExistsAtPath: codeSigPath isDirectory: &isDir]
