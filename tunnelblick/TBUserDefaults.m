@@ -374,11 +374,24 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 }
 
 -(void) removeAllObjectsWithSuffix: (NSString *) key {
+
+
+	// Remove "*KEY"
+	NSString * fullKey = [@"*" stringByAppendingString: key];
+	if (  [self primaryObjectForKey: fullKey] != nil  ) {
+		NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced", fullKey);
+	} else if (  [self forcedObjectForKey: fullKey] != nil  ) {
+		NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced (Deployed)", fullKey);
+	} else {
+		[userDefaults removeObjectForKey: fullKey];
+		NSLog(@"Removing %@", fullKey);
+	}
+
     // Brute force -- try to remove key ending with the suffix for all configurations
     NSEnumerator * dictEnum = [[((MenuController *)[NSApp delegate]) myConfigDictionary] keyEnumerator];
     NSString * displayName;
     while (  (displayName = [dictEnum nextObject])  ) {
-        NSString * fullKey = [displayName stringByAppendingString: key];
+        fullKey = [displayName stringByAppendingString: key];
         if (  [self primaryObjectForKey: fullKey] != nil  ) {
             NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced", fullKey);
         } else if (  [self forcedObjectForKey: fullKey] != nil  ) {
