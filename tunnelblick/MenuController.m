@@ -7093,6 +7093,10 @@ BOOL needToSecureFolderAtPath(NSString * path, BOOL isDeployFolder)
 
 BOOL checkOwnerAndPermissionsOfOpenvpnFolders(NSString * openvpnFolderPath) {
 
+	if (  ! checkOwnerAndPermissions(openvpnFolderPath, 0, 0, PERMS_SECURED_FOLDER)  ) {
+		return NO;
+	}
+
 	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnFolderPath];
 	NSString * file;
 	BOOL isDir;
