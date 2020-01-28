@@ -242,6 +242,9 @@
 /* Button */
 "Show while connecting" = "Birta meðan á unnið er úr tengingu";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Sleppa uppfærslu";
+
 /* Button */
 "Skip" = "Sleppa";
 
@@ -275,6 +278,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Táknmynd Tunnelblick 3.3";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Uppfæra";
+
 /* Button */
 "When Tunnelblick launches" = "Þegar Tunnelblick opnast";
 
@@ -289,6 +295,9 @@
 
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Eyða auðkennisgögnum samskipanar úr Keychain…";
+
+/* Menu item tooltip */
+"Disabled because this setting is being forced" = "Afvirkjað því þessari stillingu má ekki breyta";
 
 /* Menu item */
 "Disconnect %@%@" = "Aftengjast (%@%@)";
@@ -366,7 +375,13 @@
 "Allow changes to manually-set network settings" = "Leyfa breytingum á handstilltum netstillingum";
 
 /* Checkbox name */
+"Always show this window" = "Alltaf sýna þennan glugga";
+
+/* Checkbox name */
 "Apply to all" = "Stilla á allt";
+
+/* Checkbox Name */
+"Authenticate before connecting" = "Auðkenna fyrir tengingu";
 
 /* Checkbox name */
 "Check for updates automatically" = "Athuga sjálfkrafa með uppfærslur";
@@ -376,6 +391,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Athuga hvort sýnileg opinber IP-tala hafi breyst eftir aftengingu";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Afvirkja IPv6 nema samskipti við VPN-þjóninn fari fram með IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Aftengjast þegar tölvan sofnar";
@@ -403,6 +421,9 @@
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Ekki birta þess konar viðvörun aftur";
+
+/* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Ekki vara mér við DNS-vandamálum aftur fyrir neina samskipan";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "Ekki vara mér við þetta fyrir neina samskipan";
@@ -439,6 +460,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Tengjast aftur þegar notandi skráir sig aftur inn";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "Krefjast samþykkis kerfisstjóra til að setja upp allar samskipanir";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Beina allri IPv4-umferð um VPN-netið";
@@ -725,11 +749,32 @@
 /* Window title */
 "While Connected" = "Þegar tengt er";
 
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "     Frá VPN-þjóninum fyrir %1$@:\n\n%2$@";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Slóð DNS-þjónsins %@ er opinber DNS-þjónn sem er kunnuglegur Tunnelblick en henni hefur ekki verið beint um VPN-ið.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Slóð DNS-þjónsins %@ er ekki opinber DNS-þjónn sem er kunnuglegur Tunnelblick og henni hefur ekki verið beint um VPN-ið.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • Slóð DNS-þjónsins %@ er ekki opinber IP-tala og henni hefur ekki verið beint um VPN-ið.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Setja upp %lu samskipanir\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Setja upp eina samskipan\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "     • Setti upp eða skipti út %lu „öruggum“ samskipunum\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = "     • Setti upp eða skipti út einni „öruggri“ samskipan\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Enginn DNS-þjónn hefur verið tilgreindur.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Skipta %lu samskipunum út\n\n";
@@ -750,6 +795,12 @@
 "    • Install one configuration\n" = "    • Setja upp eina samskipan\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    • Setja upp eða skipta út %lu „öruggum“ samskipunum (samþykkis kerfisstjóra krefst ekki)\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "    • Setja upp eða skipta út einni „öruggri“ samskipan (samþykkis kerfisstjóra krefst ekki)\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    • Skipta %lu samskipunum út\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
@@ -761,6 +812,12 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • Fjarlægja eina samskipan\n";
 
+/* Window text */
+"  • Be installed in /Applications as Tunnelblick\n" = "  • Vera sett upp í /Applications sem Tunnelblick\n";
+
+/* Window text */
+"  • Change ownership and permissions of the program to secure it\n" = "  • Breyta eignarhaldi og eignarstjórn forritsins til að gera það öruggt\n";
+
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Ganga frá uppfærslunni\n";
 
@@ -769,6 +826,9 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • Afrita samskipan\n";
+
+/* Window text */
+"  • Install forced preferences\n" = "  • Setja upp óbreytanlegar stillingar\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Sejta upp eða uppfæra samskipan(ir)\n";
@@ -795,6 +855,9 @@
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Vilt þú skipta \n%1$@ í \n%2$@ \nút fyrir %3$@%4$@?\n\n";
 
 /* Window text */
+" Forced preferences will also be installed or replaced.\n\n" = " Óbreytanlegar stillingar verða einnig settar upp eða þeim skipt út.\n\n";
+
+/* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Ath.: OpenVPN-samskipunum verður um breytt í Tunnelblick VPN-samskipanir.\n\n";
 
 /* Window text */
@@ -813,10 +876,25 @@
 "%@ exists but is not a folder" = "%@ er til en er ekki mappa";
 
 /* Window text */
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ hefur verið breytt aftur í síðasta varna (skugga)afritið.\n\n";
+
+/* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Ath. Tunnelblick er í kerfisstjóraham og því krefst samþykkis kerfisstjóra ekki.";
+
+/* Window text */
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld samskipunum hefur verið breytt aftur í síðasta varna (skugga)afritið.\n\n";
+
+/* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "„%@“ er þegar til á Skjáborðinu.\n\nViltu skipta því út?";
+
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "„%@“ virðist vera skrá kóðuð í UTF-16. Allar OpenVPN-tengdar skrár verða að vera venjulegur texti eða kóðaðar í UTF-8";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "„%@“ hefur engin auðkennisgögn (einkalykil eða notandanafn og lykilorð) vistuð í Keychain.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "„%@“ er ekki venjuleg textaskrá eða UTF-8-skrá.";
 
 /* Window text */
 "'%@' was not terminated." = "Ekki var hætt í „%@“.";
@@ -828,10 +906,16 @@
 "(Never checked)" = "(Aldrei athugað)";
 
 /* Window text */
+"(The 'easy-rsaPath' preference is invalid.)" = "(Stillingin „easy-rsaPath“ er ógild.)";
+
+/* Window text */
 "(if connected when computer went to sleep)" = "(ef tengt er þegar tölvan sofnar)";
 
 /* Window text */
 "(if connected when user switched out)" = "(ef tengt er þegar notandinn skráir út)";
+
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Nánari upplýsingar</a> [tunnelblick.net]";
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Byggt á Tunnelblick, opnu forriti sem sækja má frá<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN er skráð vörumerki OpenVPN Inc.";
@@ -870,7 +954,43 @@
 "An error occurred while trying to launch %@" = "Villa kom upp þegar reynt var að ræsa %@";
 
 /* Window text */
+"An internal Tunnelblick error occurred%@%@" = "Innri villa kom upp í Tunnelblick%1$@%2$@";
+
+/* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Innri villa kom upp í Tunnelblick: fileIsReasonableSize: ekki tókst að sækja eiginleika: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Innri villa kom upp í Tunnelblick: fileIsReasonableSize: Ekki tókst að sækja stærð: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Innri villa kom upp í Tunnelblick: fileIsReasonableSize: Ekki tókst að sækja tegund: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Innri villa kom upp í Tunnelblick: fileIsReasonableSize: Ekki tókst að sækja skrárgerð: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Innri villa kom upp í Tunnelblick: fileIsReasonableSize: Slóð er tóm";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Uppfærsla fyrir VPN-samskipanina %@ er aðgengileg.\n\nVilt þú uppfæra samskipanina?\n\n";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Ert þú viss um að þú viljir eyða auðkennisgögnum (einkalykli og/eða notandanafni og lykilorði) fyrir %ld samskipanir sem vistaðar eru í Keychain?";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Ert þú viss um að þú viljir eyða auðkennisgögnum (einkalykli og/eða notandanafni og lykilorði) fyrir „%@“ sem vistuð eru í Keychain?";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Ert þú viss um að þú viljir eyða auðkennisgögnum (einkalykli og/eða notandanafni og lykilorði) sem vistuð eru í Keychain fyrir auðkennisgögnin „%@“?";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Ert þú viss um að þú viljir setja upp samskipanir sem geta ALGJÖRLEGA YFIRTEKIÐ TÖLVUNA ÞÍNA?\n\n";
+
+/* Window text */
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Ert þú viss um að þú viljir setja upp samskipanir sem gætu ALGJÖRLEGA YFIRTEKIÐ TÖLVUNA ÞÍNA?\n\n";
+
+/* Window text */
+"At line %lu of the OpenVPN configuration file: %@" = "Á línu %1$lu í OpenVPN-auðkennsigagnaskránni: %2$@";
 
 /* Window text */
 "B" = "B";
@@ -1005,6 +1125,9 @@
 "EB/s" = "EB/s";
 
 /* Window text */
+"Expected command not found for '%@'" = "Væntanleg skipan fannst ekki fyrir „%@“";
+
+/* Window text */
 "Expected path not found for '%@'" = "Væntanleg slóð fannst ekki fyrir „%@“";
 
 /* Window text */
@@ -1021,6 +1144,9 @@
 
 /* Window text */
 "Fast User Switching" = "Skipt um notanda";
+
+/* Window text */
+"File '%@' appears to be in rich text format because it starts with a '{' character. All OpenVPN-related files must be plain text or UTF-8 files." = "Skráin „%@“ virðist vera sniðinn texti þar sem hún byrjar á tákninu „{“. Allar OpenVPN-tengdar skrár verða að vera venjulegur texti eða kóðaðar í UTF-8.";
 
 /* Window text */
 "File '%@' contains one or more NUL characters." = "Skráin „%@“ inniheldur einn eða fleiri NUL-stafi.";
@@ -1074,6 +1200,9 @@
 "Installing configurations is not allowed" = "Uppsetning samskipana ekki heimiluð";
 
 /* Window text */
+"Internal error: commentOutLines: line %lu does not exist" = "Innri villa: commentOutLines: lína %lu er ekki til";
+
+/* Window text */
 "Invalid value '%@' for '%@' in %@" = "Ógilt gildi „%1$@“ fyrir „%2$@“ í %3$@";
 
 /* Window text */
@@ -1087,6 +1216,9 @@
 
 /* Window text */
 "Last checked: %@" = "Síðast athugað: %@";
+
+/* Window text */
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Lína %1$d í skránni „%2$@“ inniheldur óbirtanlegt tákn (0x%3$X) sem er ekki leyfilegt.\n\n";
 
 /* Window text */
 "MB" = "MB";
@@ -1143,7 +1275,28 @@
 "On unexpected disconnect:" = "Við óvænta aftengingu:";
 
 /* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Eitt eða fleiri OpenVPN-ferli er í gangi en er ekki kunnuglegt Tunnelblick. Ef þú ert ekki að keyra OpenVPN samhliða Tunnelblick þýðir þetta yfirleitt að Tunnelblick tókst ekki að loka þeim almennilega áður og þú ættir því að hætta sjálf(ur) í þeim. Ferlin eru líkleg til að trufla virkni Tunnelblick. Vilt þú hætta í öllum opnum OpenVPN-ferlum?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Eitt eða fleiri OpenVPN-ferli er í gangi en er ekki kunnuglegt Tunnelblick. Ef þú ert ekki að keyra OpenVPN samhliða Tunnelblick þýðir þetta yfirleitt að Tunnelblick tókst ekki að loka þeim almennilega áður og þú ættir því að hætta sjálf(ur) í þeim. Ferlin eru líkleg til að trufla virkni Tunnelblick. Vilt þú hætta í þeim?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Eitt eða fleiri OpenVPN-ferli er í gangi en er ekki kunnuglegt Tunnelblick. Ef þú ert ekki að keyra OpenVPN samhliða Tunnelblick þýðir þetta yfirleitt að Tunnelblick tókst ekki að loka þeim almennilega áður og þú ættir því að hætta sjálf(ur) í þeim. Ferlin eru líkleg til að trufla virkni Tunnelblick.\n\nHætta má í þeim í forritinu „Activity Monitor“.\n\n";
+
+/* Window text */
 "One or more problems were detected:\n\n%@" = "Ein eða fleiri villur greindust:\n\n%@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, sem ekki er aðgengilegt í þessari útgáfu Tunnelblick";
+
+/* Window text */
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN svarar ekki beiðni um að aftengjast %@.\n\nTunnelblick aftengist þegar OpenVPN byrjar að svara beiðni um aftengingu.\n\nÞetta getur tekið ALLT AÐ TVÆR MÍNÚTUR í ákveðnum óeðlilegum aðstæðum.\n\nTengingin verður ekki aðgengileg þangað til hún aftengist.";
+
+/* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
+"OpenVPN version %@ is not available. Using %@ as the default." = "Útgáfa %1$@ OpenVPN er ekki aðgengileg. Notar %2$@ sem sjálfgefna útgáfu.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN-útgáfa:";
@@ -1159,6 +1312,9 @@
 
 /* Window text */
 "Password:" = "Lykilorð:";
+
+/* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Slóðin „%1$@“ inniheldur óheimil tákn.\n\nÓheimil tákn eru: „%2$s“\n\n";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Sláðu inn nýtt nafn og ýttu svo á „Í lagi“ eða „Hætta við“.\n\n";
@@ -1187,6 +1343,9 @@
 /* Window text */
 "Single-quote missing in line %u" = "Úrfellingarmerki vantar á línu %u";
 
+/* Window text */
+"Skipped copying %@ because a file with that name and contents has already been copied." = "Sleppti því að afrita %@ þar sem skrá með sama nafni og innihaldi hefur þegar verið afrituð.";
+
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Starting Tunnelblick %@..." = "Tunnelblick %@ ræsist…";
 
@@ -1214,6 +1373,9 @@
 /* Window text */
 "That name is being used.\n\n" = "Þetta nafn er nú þegar í notkun.\n\n";
 
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "VPN-samskipaninni %@ hefur verið breytt síðan hún var síðast varin.\n\nVilt þú verja breyttu samskipanina eða fara aftur í síðustu vörnu samskipanina?\n\n";
+
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Kerfismappan %1$@ (%2$@) er ekki örugg.\n\nTunneblick og önnur forrit virka hugsanlega ekki rétt þangað til bætt er úr þessu.\n\nNánari upplýsingar má finna í atburðaskrá Console.";
 
@@ -1222,6 +1384,30 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN-valkosturinn „%@“ er óheimill við notkun í Tunnelblick.";
+
+/* Window text */
+"The '%@' credentials may not be added because the list of named credentials is being forced." = "Auðkennisgögnum „%@“ verður hugsanlega ekki bætt við vegna þess að listanum yfir tilgreind auðkennisgögn má ekki breyta.";
+
+/* Window text */
+"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "Auðkennisgögnum „%@“ verður hugsanlega ekki bætt við vegna þess að ein eða fleiri samskipanir neyðast til að nota þau.";
+
+/* Window text */
+"The 'credentialsNames' preference must be an array of strings." = "Stillingin „credentialsNames“ verður að vera fylki strengja.";
+
+/* Window text */
+"The 'namedCredentialsNames' preference must be an array of strings" = "Stillingin „ namedCredentialsNames“ verður að vera fylki strengja";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN-skráin í %1$@ inniheldur stillinguna „%2$@“, sem er eingöngu til fyrir Windows. Hana er ekki hægt að nota á macOS.";
+
+/* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
+"The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN-atburðaskráin inniheldur eftirfarandi skilaboð: \n\n\"%1$@\".%2$@";
+
+/* Window text */
+"The OpenVPN log does not yet exist or has been deleted." = "OpenVPN-atburðaskráin er ekki ennþá til eða henni hefur verið eytt.";
+
+/* Window text */
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Tunnelblick-stillingarnar spilltust og hafa verið endurstilltar. (Gömlu stillingarnar hafa verið endurnefndar.)\n\nSjá atburðaskrá Console fyrir nánari upplýsingar.";
 
 /* Window text */
 "The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Samskipanarskráin vísar í skrána\n\n%1$@\n\nsem á að vera í\n\n%2$@\n\nen skráin er ekki til.";
@@ -1274,8 +1460,17 @@
 /* Window text */
 "Translation by" = "Þýtt af";
 
+/* Window text */
+"Trying to quit all OpenVPN processes..." = "Reynir að hætta í öllum opnum OpenVPN ferlum…";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tekist hefur að verja Tunnelblick %@.";
+
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Tunnelblick %@ is ready." = "Tunnelblick %@ er tilbúið.";
+
+/* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Kerfisstjórahamur Tunnelblick\n\n Leyfa tímabundið breytingum sem krefjast samþykkis kerfisstjóra\n\n Setan gildir út eftir fimm mínútur eða þegar glugganum „VPN-upplýsingar“ er lokað.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Netaðgangur Tunnelblick:";
@@ -1293,10 +1488,52 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Ekki tókst að ræsa Tunnelblick vegna vandamáls í samskipaninni. Nánari upplýsingar má finna í atburðaskrá Console.";
 
 /* Window text */
+"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick tókst ekki að fjarlægja samskipanina „%@“ að fullu. Sjá atburðaskrá Console fyrir nánari upplýsingar.";
+
+/* Window text */
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick tókst ekki að afrita samskipanina „%@“. Sjá atburðaskrá Console fyrir nánari upplýsingar.";
+
+/* Window text */
+"Tunnelblick could not create the empty configuration folder" = "Tunnelblick tókst ekki að búa til tóma samskipanarmöppu";
+
+/* Window text */
+"Tunnelblick could not create the sample configuration" = "Tunnelblick tókst ekki að buá til sýnissamskipan";
+
+/* Window text */
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick tókst ekki að birta glugga.\n\nCFUserNotificationCreate() skilaði error = %1$ld; notification = %2$@";
+
+/* Window text */
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick tókst ekki að sækja upplýsingar um IP-tölu áður tengingin við %@ var opnuð.\n\n";
+
+/* Window text */
 "Tunnelblick could not load a kext" = "Tókst ekki að hlaða kext-skrá";
 
 /* Window text */
 "Tunnelblick is based on %@." = "Tunnelblick byggist á %@.";
+
+/* Window text */
+"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick krefst samþykkis til að tvírita samskipanina „%@“.";
+
+/* Window text */
+"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick krefst samþykkis til að gera %ld samskipanir leynilegar.";
+
+/* Window text */
+"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick krefst samþykkis til að gera %ld samskipanir opinberar.";
+
+/* Window text */
+"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick krefst samþykkis til að gera samskipanina „%@“ leynilega.";
+
+/* Window text */
+"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick krefst samþykkis til að gera samskipanina „%@“ opinbera.";
+
+/* Window text */
+"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick krefst samþykkis til að fjarlægja %ld samskipanir.\n\n Að fjarlægja samskipanir er óafturkallanleg aðgerð. Allar stillingar fyrir samskipanirnar verða einnig fjarlægðar fyrir fullt og allt.";
+
+/* Window text */
+"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick krefst samþykkis til að fjarlægja samskipanina „%@“.\n\n Að fjarlægja samskipan er óafturkallanleg aðgerð. Allar stillingar fyrir samskipanina verða einnig fjarlægðar fyrir fullt og allt.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick krefst samþykkis til að endurnefna samskipanina „%1$@“ í „%2$@“.";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick þarf að:\n";
@@ -1330,6 +1567,18 @@
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "Tókst ekki að setja samskipanina „%@“ upp\n";
+
+/* Window text */
+"Unable to open configuration file for modification" = "Tókst ekki að opna samskipanarskrána til breytinga";
+
+/* Window text */
+"Unable to parse configuration file as UTF-8" = "Tókst ekki að þátta samskipanarskrána sem UTF-8-skrá";
+
+/* Window text */
+"Unable to replace the '%@' configuration\n" = "Tókst ekki að skipta samskipaninni „%@“ út\n";
+
+/* Window text */
+"Unable to secure %@ because it is owned by %@" = "Tókst ekki að gera %1$@ öruggt því það er í eigu %2$@";
 
 /* Window text */
 "Unable to secure %@" = "Tókst ekki að gera „%@“ öruggt";
@@ -1380,6 +1629,21 @@
 "WINS servers:" = "WINS-þjónar:";
 
 /* Window text */
+"Warning: '%@' is already a named credential." = "Viðvörun: „%@“ er þegar tilgreint sem auðkennisgagn.";
+
+/* Window text */
+"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Viðvörun: Eina eða fleiri stillingar ekki tókst að tvírita. Sjá atburðaskrá Console fyrir nánari upplýsingar.";
+
+/* Window text */
+"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Viðvörun: Eina eða fleiri stillingar ekki tókst að endurnefna. Sjá atburðaskrá Console fyrir nánari upplýsingar.";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Viðvörun: Eftirfarandi samskipanir, sem eiga að tengjast þegar tölvan ræsist, eru ekki tengdar:\n\n%@\n";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Viðvörun: Þetta VPN tengist hugsanlega ekki í framtíðinni.\n\nOpenVPN-samskipanarskráin fyrir „%1$@“ inniheldur þessar OpenVPN-stillingar:\n\n%2$@\nÞú ættir að uppfæra samskipanina þannig að hana má nota með síðustu útgáfu OpenVPN.\n\nTunnelblick mun nota OpenVPN %3$@ til að tengjast með þessari samskipan.\n\nHins vegar verður ekki hægt að tengjast þessu VPN-i með komandi útgáfum Tunnelblick sem ekki innihalda útgáfu OpenVPN sem tekur við þessum stillingum.";
+
+/* Window text */
 "Warnings:" = "Viðvaranir:";
 
 /* Window text */
@@ -1390,6 +1654,9 @@
 
 /* Window text */
 "Workgroup:" = "Vinnuhópur:";
+
+/* Window text */
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "• Búa til sýnissamskipan á skjáborðinu\n             og\n  • Opna OpenVPN-samskipanarskrá hennar í TextEdit þannig að þú getir breytt því til að tengjast VPN-inu þínu?\n\n";
 
 /* Window text */
 "You are not allowed to replace a private configuration" = "Þú mátt ekki skipta leynilegri samskipan út";
@@ -1674,6 +1941,9 @@
 /* Credit description */
 "Swedish translation" = "Sænsk þýðing";
 
+/* Credit description */
+"Thai translation" = "Taílensk þýðing";
+
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "Tunnelblick-uppsetning %@";
 
@@ -1695,11 +1965,20 @@
 /* Notification text */
 "Updated to %@." = "Uppfært í %@.";
 
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Notandi í uppsetningargögnum";
+
+/* Column heading in a table */
+"User on this computer" = "Notandi í þessari tölvu";
+
 /* Credit description */
 "Vietnamese translation" = "Víetnömsk þýðing";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Hjálp með Xcode og samþættingu OpenSSL";
+
+/* Authentication Prompt */
+"authenticate" = "auðkennast";
 
 /* Button VPNService */
 "Accept" = "Samþykkja";

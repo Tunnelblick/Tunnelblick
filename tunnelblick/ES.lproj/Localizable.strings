@@ -179,7 +179,7 @@
 "Open easy-rsa in Terminal" = "Abrir easy-rsa en Terminal";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Coloque el ícono cerca del ícono de Spotlight";
+"Place Icon Near the Spotlight Icon" = "Coloque el icono cerca del icono de Spotlight";
 
 /* Button */
 "Place Icon Normally" = "Coloque el ícono normalmente";
@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "Mostrar mientras se conecta";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Saltar esta actualización";
+
 /* Button */
 "Skip" = "Omitir";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Icono de Tunnelblick 3.3";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Actualizar";
 
 /* Button */
 "When Tunnelblick launches" = "Cuando Tunnelblick inicia";
@@ -861,13 +867,16 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick debe estar instalado en el directorio Aplicaciones.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick necesita autorización del administrador para poder conectar automáticamente a '%@' cuando el equipo arranque.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick necesita la autorización del administrador para poder conectar automáticamente a '%@' cuando el equipo arranque.";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick necesita autorización del administrador para detener la conexión '%@' automáticamente cuando el equipo inicie.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ALERTA: Esta copia de Tunnelblick ha sido manipulada.\n\n";
+
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (no creada por Tunnelblick)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ existe pero no es un directorio";
@@ -1021,6 +1030,9 @@
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Se ha producido un error interno en Tunnelblick: fileIsReasonableSize: la ruta está vacía";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Está disponible una actualización a la configuración de la VPN %@.\n\n¿Quieres actualizar la configuración?\n\n";
 
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Estás seguro de querer convertir las configuraciones OpenVPN en configuraciones VPN de Tunnelblick?\n\nLAS CONFIGURACIONES NO ESTARÁN DISPONIBLES SI NO LAS CONVIERTES!\n\n";
@@ -1510,6 +1522,9 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Ese nombre está siedo usado.\n\n";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "La configuración VPN %@ ha sido modificada desde la última vez que fue protegida.\n\n¿Desea proteger la configuración modificada o revertirla a la última configuración protegida?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "La capeta %1$@ del sistema (%2$@) no es segura.\n\nTunnelblick y otros programas pueden no operar apropiadamente hasta que este problema sea corregido.\n\nEl Registro de Consola (Console log) tiene los detalles.";
@@ -2099,6 +2114,9 @@
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Para importar una configuración Tunnelblick en una computadora que tiene más de %u cuentas de usuario, deberá crear un archivo de texto que especifique los datos a ser importados.</p>\n<p>Para más información ver <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Las versiones '<strong> no Tunnelblick</strong>' de OpenVPN no fueron creadas por el proyectoTunnelblick y no forman parte de Tunnelblick. Las mismas han sido instaladas por un administrador de la computadora.</p>";
+
+/* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Especifica la versión de OpenVPN y el software de SSL que debería ser utilizado para conectar la VPN.</strong><ul><li><strong>El ajuste por omisión (Default)</strong> utilizará la versión por omisión de OpenVPN con OpenSSl que está incluida en esta versión de Tunnelblick. La versión por omisión (default) puede ser diferente para diferentes versiones de Tunnelblick.<br></li><li><strong>El ajuste \"Más reciente\"</strong> empleará la última versión de OpenVPN con LibreSSL que está incluida en la presente versión de Tunnelblick. La versión más reciente puede ser diferente para distintas versiones de Tunnelblick.<br></li><li><strong>Cualquier otro ajuste</strong> utilizará la versión especificada de software de OpenVPN y SSL si están disponibles para la presente versión de Tunnelblick. Si no estuvieran disponibles, las versiones más próximas serán empleadas.<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
@@ -2602,7 +2620,7 @@
 "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "No hay ninguna configuración llamada '%@' instalada.\n\nIntente reinstalar Tunnelblick desde una imagen de disco.";
 
 /* Window text VPNService */
-"To create your free Tunnelblick account we need your email address and a password of your choosing." = "Para crear su cuenta gratis de Tunnelblick necesitamos su dirección de correo electrónico y una contraseña de su elección.";
+"To create your free Tunnelblick account we need your email address and a password of your choosing." = "Para crear su cuenta gratuita de Tunnelblick necesitamos su dirección de correo electrónico y una contraseña de su elección.";
 
 /* Window text VPNService */
 "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick te permite explorar el Internet de manera libre sin restricciones mientras simultáneamente asegura tu conexión de Internet.";
@@ -2614,7 +2632,7 @@
 "Unable to check account status:\n     %@" = "Incapaz de chequear estatus de cuenta:\n     %@";
 
 /* Window text VPNService */
-"Unable to check registration for empty email address" = "Incapaz de chequear registro para una dirección de correo electrónico vacía";
+"Unable to check registration for empty email address" = "Imposible comprobar el registro porque la dirección de correo electrónico está vacía";
 
 /* Window text VPNService */
 "Unable to connect to server" = "Incapaz de conectarse al servidor";

@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "Wys terwyl besig om te verbind";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Slaan oor dié opdatering";
+
 /* Button */
 "Skip" = "Slaan Oor";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikoon";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Opdateer";
 
 /* Button */
 "When Tunnelblick launches" = "Wanneer Tunnelblick begin";
@@ -372,7 +378,13 @@
 "Allow changes to manually-set network settings" = "Laat veranderinge toe in handgestelde netwerkstellings";
 
 /* Checkbox name */
+"Always show this window" = "Wys altyd hierdie venster";
+
+/* Checkbox name */
 "Apply to all" = "Pas toe op alles";
+
+/* Checkbox Name */
+"Authenticate before connecting" = "Staaf voor aansluiting";
 
 /* Checkbox name */
 "Check for updates automatically" = "Kyk vir opdaterings outomaties";
@@ -382,6 +394,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Kyk of die oënskynlike IP-adres verander na verbinding";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Skakel IPv6 uit, tensy toegang tot die VPN-bediener IPv6 benodig";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Skei wanneer rekenaar gaan slaap";
@@ -409,6 +424,9 @@
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Moenie hierdie tipe waarskuwing weer wys nie";
+
+/* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Moenie weer waarsku oor DNS-probleme vir enige konfigurasie nie";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "Moet my nie weer waarsky vir enige konigurasie nie";
@@ -445,6 +463,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Herverbind wanneer gebruiker verander";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "Administrateursmagtiging nodig om alle konfigurasies te installeer";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Roete al die IPv4 verkeer deur die VPN";
@@ -508,6 +529,9 @@
 
 /* Connection status */
 "GET_CONFIG" = "Besig om konfigurasie te kry"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Wag vir netwerk toegang"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "Wag vir wagwoord"; // Please translate "Waiting for password"
@@ -731,11 +755,29 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     Van die VPN bediener vir %1$@\n\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS-bedieneradres %@ is 'n openbare DNS-bediener wat aan Tunnelblick bekend is, maar word nie deur die VPN gestuur nie.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS-bedieneradres %@ is nie 'n openbare DNS-bediener bekend aan Tunnelblick nie, en word nie deur die VPN gestuur nie.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS-bedieneradres %@ is nie 'n openbare IP-adres nie, en word nie deur die VPN gestuur nie.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu konfigurasies geinstalleer\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Een konfigurasie geinstalleer\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "     Geïnstalleerde of vervangde %lu \"veilige\" konfigurasies\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = "     Geïnstalleerde of vervangde een \"veilig\" konfigurasie\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "     • Geen DNS-bedieners is gespesifiseer nie.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • %lu konfigurasies vervang\n\n";
@@ -754,6 +796,12 @@
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install one configuration\n" = "    • Installeer een konfigurasie\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    • Installeer of vervang %lu \"veilige\" konfigurasies (administrasie magtiging nie nodig nie)\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "    • Installeer of vervang een \"veilige\" konfigurasies (administrasie magtiging nie nodig nie)\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    • Vervang %lu konfigurasies\n\n";
@@ -827,6 +875,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WAARSKUWING: Hierdie Tunnelblick kopie is gepeuter mee.\n\n.\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (nie-Tunnelblick)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ bestaan, maar is nie 'n gids";
 
@@ -857,6 +908,9 @@
 /* Window text */
 "'%@' was not terminated." = "'%@' is nie beëindig.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' sal met OpenVPN %2$@ verbind word in plaas van die vereiste weergawe (%3$@).";
+
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' keuse geignoreer; dit spesifiseer nie 'n gids nie";
 
@@ -877,6 +931,12 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(indien gekoppel wanneer gebruiker uitskakel)";
+
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Meer informasie</a> [tunnelblick.net]";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Gebaseer op Tunnelblick, verniet sagteware by<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is 'n geregistreerde handelsmerk van OpenVPN Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "'n TBPreference of TBAlwaysSetPreference sleutel verwys na 'n onbekende keuse '%1$@' in %2$@\n \nContext | Request Context";

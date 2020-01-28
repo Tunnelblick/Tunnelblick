@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "عرض أثناء انشاء الإتصال";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "تخطي هذا التحديث";
+
 /* Button */
 "Skip" = " تخطي";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "أيقونة تُنلـبليك 3.3";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "تحديث";
 
 /* Button */
 "When Tunnelblick launches" = "عند تشغيل برنامج تُنلـبليك";
@@ -376,6 +382,9 @@
 
 /* Checkbox name */
 "Apply to all" = "تطبيق على الكل";
+
+/* Checkbox Name */
+"Authenticate before connecting" = "البدء بالمصادقة قبل الاتصال";
 
 /* Checkbox name */
 "Check for updates automatically" = "تحقق من وجود تحديثات تلقائياً";
@@ -1003,6 +1012,9 @@
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "حدث خطأ داخلي في ’حجم الملف’: تُنلـبليك: مسار فارغ";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "يتوفر تحديث %@ لاعدادات الVPN.\nهل تريد تحديث الاعدادات؟";
 
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "هل أنت متأكد من أنك لا تريد تحويل تثبيتات تُنلـبليك VPNالى تثبيتات تُنلـبليك VPN؟ \nالتثبيتات لن تكون متاحة اذا لم يتم تحويلها!\n\n";
@@ -2071,6 +2083,7 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>لتقوم بإستيراد إعدادات تُنلـبليك الى كمبيوتر يحتوي اكثر من %u حساب مستخدم, يجب عليم إنشاء ملف نصّي يحدد البيانات اللتي تريد استيرادها.</p>\n<p>لمزيد من المعلومات, أنظر <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>حدد إصدار OpenVPN و برنامج SSL اللذان يجب إستخدامهما للإتصال بال VPN.</strong><ul><li><strong>الإعدادات \"الإفتراضية\"</strong>سوف تستخدم الإصدار الإفتراضي من OpenVPN مع OpenSSL اللذي هو ضمن هذا الإصدار من تُنلـبليك.\nالإفتراضي يمكن أن يكون مختلف من إصدار إلى أخر من إصدارات تُنلـبليك.<br></li><li><strong>الإعدادات \"الأخيرة\"</strong>سوف تستخدم الإصدارات الإخيرة من OpenVPN مع LibreSSL اللذان هما مشمولين في تُنلـبليك. الإصدار الأخير يمكن أن يكون مختلف من إصدار إلى أخر من إصدارات تُنلـبليك.<br></li><li><strong>أي إعداد أخر</strong>سوف يستخدم الإصدار محدد من OpenVPN و برنامج SSL إذا كانا متاحين في إصدرا تُنلـبليك هذا. إذا لم يكونا متاحين, أقرب إصدار مشابه لهم سوف يستخدم.<br></li></ul>";
 
@@ -2435,6 +2448,9 @@
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "مساعدة Xcode وتكامل OpenSSL";
+
+/* Authentication Prompt */
+"authenticate" = "مصادقة";
 
 /* Button VPNService */
 "Accept" = "قبول";

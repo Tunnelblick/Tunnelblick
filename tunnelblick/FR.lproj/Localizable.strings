@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "Afficher pendant l’établissement de connexion";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "'Mise à Jour' modifiera la configuration pour refléter les changements effectués";
+
 /* Button */
 "Skip" = "Passer";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Icône Tunnelblick 3.3";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Mise à jour";
 
 /* Button */
 "When Tunnelblick launches" = "Au démarrage de Tunnelblick";
@@ -869,6 +875,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ATTENTION: Cette copie de Tunnelblick a été falsifiée.\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "'%@' (non-Tunnelblick)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ existe mais n’est pas un dossier";
 
@@ -1021,6 +1030,9 @@
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Une erreur interne à Tunnelblick est survenue : fileIsReasonableSize: le chemin n'est pas défini";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Une mise à jour de la configuration VPN %@ est disponible.\n\nSouhaitez-vous mettre à jour la configuration ?\n\n";
 
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Etes vous sûr de ne pas vouloir convertir les configurations OpenVPN en configurations Tunnelblick ?\n\nCES CONFIGURATIONS NE SERONT PAS DISPONIBLES SI VOUS NE LES CONVERTISSEZ PAS !\n\n";
@@ -1510,6 +1522,9 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Ce nom est déjà utilisé.\n\n";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "La configuration VPN pour %@ a été modifiée depuis le dernier verrouillage.\n\nSouhaitez-vous verrouiller la configuration modifiée ou revenir à la version précédente ?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Le dossier système %1$@ (%2$@) n'est pas sécurisé.\n\nTunnelblick et d'autres programmes pourraient ne pas fonctionner correctement jusqu'à ce que ce problème soit corrigé.\n\nLa console d'erreurs contient plus de détails.";
@@ -2098,6 +2113,9 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Pour importer des réglages Tunnelblick sur un ordinateur qui a plus de %u comptes utilisateur, vous devez créer un fichier texte qui spécifie les données à importer.</p>\n<p>Pour plus d'information, voir <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Les versions '<strong>non-Tunnelblick</strong>' de OpenVPN non pas été créées dans le cadre du projet Tunnelblick et n'en font donc pas partie. Elles ont été installées par un compte administrateur de cet ordinateur.\n</p>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Détermine la version d'OpenVPN et du logiciel SSL à utiliser pour se connecter au VPN.</strong><ul><li><strong>Le réglage \"Défaut\"</strong> utilisera la version par défaut d'OpenVPN avec le logiciel OpenSSL inclus dans cette version de Tunnelblick. Ce défaut peut différer selon la version de Tunnelblick.<br></li><li><strong>Le réglage \"Dernier\"</strong> utilisera la version la plus récente d'OpenVPN avec le logiciel LibreSSL inclus dans cette version de Tunnelblick. La version la plus récente peut différer selon la version de Tunnelblick.<br></li><li><strong>Tout autre réglage</strong> utilisera les versions spécifiées d'OpenVPN et du logiciel SSL si elles sont disponibles dans cette version de Tunnelblick. Si elles sont indisponibles, les correspondances les plus proches seront utiliseées.<br></li></ul>";
 

@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "Показывать в процессе соединения";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Пропустить это обновление";
+
 /* Button */
 "Skip" = "Пропустить";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Иконка в стиле Tunnelblick 3.3";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Обновить";
 
 /* Button */
 "When Tunnelblick launches" = "Когда запускается Tunnelblick";
@@ -369,7 +375,7 @@
 "VPN Details..." = "Детали VPN…";
 
 /* Checkbox name */
-"Allow changes to manually-set network settings" = "Разрешить изменения настроек сети установленных вручную";
+"Allow changes to manually-set network settings" = "Разрешить изменения настроек сети, установленных вручную";
 
 /* Checkbox name */
 "Always show this window" = "Всегда показывать это окно";
@@ -869,6 +875,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ПРЕДУПРЕЖДЕНИЕ: Эта копия Tunnelblick была модифицирована.\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (не-Tunnelblick)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ существует, но не в папке";
 
@@ -1014,13 +1023,16 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Произошла внутренняя ошибка Tunnelblick: fileIsReasonableSize: не удаётся получить размер: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Произошла внутренняя ошибка Tunnelblick: fileIsReasonableSize: Cannot get type: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Произошла внутренняя ошибка Tunnelblick: fileIsReasonableSize: не удаётся получить тип: %@";
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Произошла внутренняя ошибка Tunnelblick: fileIsReasonableSize: неверный тип файла: %@";
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Произошла внутренняя ошибка Tunnelblick: fileIsReasonableSize: пустой путь (nil)";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Доступно обновление %@ VPN конфигурации.\n\nХотите обновить конфигурацию?\n\n";
 
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Вы действительно не хотите конвертировать конфигурации OpenVPN?\n\nКОНФИГУРАЦИИ НЕ БУДУТ ДОСТУПНЫ, ПОКА ВЫ ИХ НЕ ПРЕОБРАЗУЕТЕ!\n\n";
@@ -1510,6 +1522,9 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Это имя используется.\n\n";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Конфигурация %@ VPN была изменена с момента последней защиты.\n\nХотите защитить измененную конфигурацию или вернуться к последней защищенной конфигурации?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Системная папка %1$@ (%2$@) небезопасна.\n\nTunnelblick и другие программы не смогут полноценно работать, пока эта проблема не будет устранена.\n\nПодробности в журнале Консоли.";
@@ -2098,6 +2113,9 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Для импорта конфигурации Tunnelblick на компьютер, в котором более %u учётных записей пользователя необходимо создать текстовый файл, в котором будет указано, что должно быть импортировано.</p>\n<p>За дополнительной информацией обратитесь к документации на официальном сайте: <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>non-Tunnelblick</strong>' версии OpenVPN не были созданы проектом Tunnelblick и не являются его частью. Они были установлены администратором компьютера.</p>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Определяет версию OpenVPN и SSL программ которые следует использовать при соединение VPN.</strong><ul><li><strong>Настройка \"по умолчанию\"</strong> будет использовать версию OpenVPN с версией OpenSSL включенной с этой версией программы Tunnelblick. Версия \"по умолчанию\" может отличаться в разных версиях Tunnelblick.<br></li><li><strong>Настройка \"Последняя доступная\"</strong> будет использовать последнюю доступную версию OpenVPN с LibreSSL включенной с этой версией программы Tunnelblick.<br></li><li><strong>Любые другие настройки</strong> будут использовать указанные версии OpenVPN и SSL программ, если они доступны в этой версии Tunnelblick. При отсутствии указанной версии, будет использоваться самая ближайшая подходящая версия.<br></li></ul>";
 

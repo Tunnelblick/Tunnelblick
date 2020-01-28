@@ -216,7 +216,7 @@
 "Restore" = "Gendan";
 
 /* Button text */
-"Retry with manual response" = "Prøv igen med manuel respons";
+"Retry with manual response" = "Prøv igen med manuelt svar";
 
 /* Button */
 "Retry" = "Forsøg igen";
@@ -244,6 +244,9 @@
 
 /* Button */
 "Show while connecting" = "Vis under tilslutning";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Spring denne opdatering over";
 
 /* Button */
 "Skip" = "Spring over";
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikon";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Opdater";
 
 /* Button */
 "When Tunnelblick launches" = "Når Tunnelblick startes";
@@ -765,7 +771,7 @@
 "     • Installed one configuration\n\n" = "     • Installerede en konfiguration\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed or replaced %lu \"safe\" configurations\n\n" = "     • Installerede eller overskrev %lu \"sikre\" konfigurationer\n\n";
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "     • Installerede eller overskrevne %lu \"sikre\" konfigurationer\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed or replaced one \"safe\" configuration\n\n" = "     • Installerede eller overskrev én \"sikker\" konfiguration\n\n";
@@ -843,7 +849,7 @@
 "  • Secure configurations\n" = "  • Sikre konfigurationer\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ er gratis software: du kan redistribuere det og/eller modificere det under vilkårene fra %2$@ som publiceret af %3$@.\n\n%4$@ er et registeret varemærke af OpenVPN Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ er gratis software: du kan redistribuere det og/eller modificere det under vilkårene fra %2$@ som er publiceret af %3$@.\n\n%4$@ er et registeret varemærke af OpenVPN Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Vil du installere %1$@ i %2$@%3$@?\n\n";
@@ -868,6 +874,9 @@
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ADVARSEL: Denne kopi af Tunnelblick er blevet manipuleret med.\n\n";
+
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (Ej-Tunnelblick)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ eksisterer men er ikke en mappe";
@@ -1021,6 +1030,9 @@
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Der opstod en intern Tunnelblick fejl: fileIsReasonableSize: path er tom";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "En opdatering til %@ VPN konfiguration er tilgængelig.\n\nØnsker du at opdatere denne konfiguration?\n\n";
 
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Er du sikker på at du ikke vil konvertere OpenVPN konfigurationer til Tunnelblick VPN konfigurationer?\n\nKONFIGURATIONER VIL IKKE VÆRE TILGÆNGELIGE HVIS DU IKKE KONVERTERER DEM!\n\n";
@@ -1510,6 +1522,9 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Navnet er allerede i brug.\n\n";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "OpenVPN konfigurationen for '%@' er ændret efter den sidst blev gemt.\n\nVil du gemme den ændrede konfiguration eller gendanne den senste gemte?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "%1$@ system mappen (%2$@) er ikke sikker.\n\nTunnelblick og andre programmer fungerer muligvis ikke korrekt, før dette problem er løst.\n\nKonsolloggen har detaljer.";
@@ -2098,6 +2113,9 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>At importere et Tunnelblick-opsætning på en computer, der har mere end %u brugerkonti, skal du oprette en tekstfil, der angiver de data, der skal importeres.</p>\n<p>For mere information, se <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>Ej-Tunnelblick</strong>' versioner af OpenVPN er ikke lavet af TunnelBlick projektet og er derfor ikke ikke en del af Tunnelblick. De er blevet installeret af en computer administrator.</p>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Angiver den version af OpenVPN og den SSL-software, der skal bruges til at forbinde VPN.</strong><ul><li><strong>\"Standard\" indstillingen</strong>vil bruge standardversionen af OpenVPN med OpenSSL, der er inkluderet i denne version af Tunnelblick. Standarden kan være anderledes i forskellige versioner af Tunnelblick.<br></li><li><strong>Den \"Nyeste\" indstilling</strong>vil bruge den nyeste version af OpenVPN med LibreSSL, der er inkluderet i denne version af Tunnelblick. Den nyeste version kan være anderledes i forskellige versioner af Tunnelblick.<br></li><li><strong>En hvilken som helst anden indstilling</strong>vil bruge den specificerede version af OpenVPN og SSL software, hvis de er tilgængelige i denne version af Tunnelblick. Hvis ikke tilgængelig, vil det nærmeste match blive brugt.<br></li></ul>";
 

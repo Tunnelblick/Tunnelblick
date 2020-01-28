@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "Zobraziť počas pripájania";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Preskočiť túto aktualizáciu";
+
 /* Button */
 "Skip" = "Preskočiť";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Ikona Tunnelblick 3.3";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Aktualizovať";
 
 /* Button */
 "When Tunnelblick launches" = "Po štarte Tunnelblick";
@@ -869,6 +875,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UPOZORNENIE: Došlo k neodbornej úprave tejto kópie Tunnelblick.\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (ne-Tunnelblick)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ existuje, ale nie je priečinok";
 
@@ -1021,6 +1030,9 @@
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Vyskytla sa vnútorná chyba Tunnelblick: fileIsReasonableSize: cesta nie je zadaná";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Je dostupná aktualizácia pre %@ VPN konfiguráciu.\n\nChcete aktualizovať konfiguráciu?\n\n";
 
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Skutočne si prajete previesť konfiguráciu OpenVPN na konfiguráciu Tunnelblick VPN?\n\nKONFIGURÁCIE NEBUDÚ DOSTUPNÉ POKIAĽ ICH NEPREVEDIETE!\n\n";
@@ -1510,6 +1522,9 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Názov sa používa.\n\n";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "VPN konfiguračný súbor pre '%@' bol zmenený od posledného zabezpečenia.\n\nPrajete si zabezpečiť modifikovanú konfiguráciu alebo vrátiť na poslednú zabezpečenú konfiguráciu?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Systémový adresár %1$@ (%2$@) nie je zabezpečený.\n\nAž do vyriešenia tohoto problému je možné, že Tunnelblick a iné programy nebudú fungovat správne.\n\nVýpis konzole obsahuje dalšie detaily.";
@@ -2098,6 +2113,9 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Aby bolo možné importovať nastavenia Tunnelblick na počítači s viac ako %u uživateľskými účtami, je potrebné vytvoriť textový súbor obsahujúci dáta ktoré sa majú importovať.</p>\n<p>Viacej informácií na <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>ne-Tunnelblick</strong>' verzie OpenVPN neboli vytvorené Tunnelblick projektom a nie sú súčasťou Tunnelblicku. Boli nainštalované administrátorom.</p>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong> Špecifikuje verziu OpenVPN a SSL softvér, ktorý by mal byť použitý pre VPN spojenie. </strong><ul><li> Nastavenie <strong> Default </strong> použije predvolenú verziu OpenVPN a OpenSSL, ktoré sú obsiahnuté v tejto verzii Tunnelblicku. Default nastavenie sa medzi verziami Tunnelblicku môže líšiť. <br></li><li> Nastavenie <strong> \"Posledné\" </strong> bude používať poslednú verziu OpenVPN s LibreSSL, ktoré sú obsiahnuté v tejto verzii Tunnelblicku. Posledná verzia sa medzi rôznymi verziami Tunnelblicku môže líšiť. <br></li><li><strong> Iné nastavenia </strong> bude používať špecifikované verzie OpenVPN a SSL, ak sú dostupné v tejto verzii Tunnelblicku. Ak dostupné nie sú, tak je použitá najbližšia verzia. <br></li></ul>";
 

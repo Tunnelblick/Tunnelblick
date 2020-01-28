@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "Показувати в процесі з'єднання";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Пропустити це оновлення";
+
 /* Button */
 "Skip" = "Пропустити";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Іконка Tunnelblick 3.3";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Оновити";
 
 /* Button */
 "When Tunnelblick launches" = "При запуску Tunnelblick";
@@ -869,6 +875,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " УВАГА: Копію Tunnelblick було підроблено.\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (не-Tunnelblick)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ існує, але це не папка";
 
@@ -1021,6 +1030,9 @@
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Сталася внутрішня помилка Tunnelblick: fileIsReasonableSize: шлях відсутній";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Наявне оновлення VPN концігурації %@.\n\nЧи бажаєте оновити конфігурацію?\n\n";
 
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Ви впевнені, що не потрібно перетворити конфігурації OpenVPN в конфігурації Tunnelblick VPN?  КОНФІГУРАЦІЇ НЕ БУДУТЬ ДОСТУПНІ, ЯКЩО ВИ НЕ ПЕРЕТВОРИТЕ ЇХ!\n\n";
@@ -1510,6 +1522,9 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Це ім'я вже використовується.\n\n";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Конфігурацію %@ було змінено відколи вона востаннє була збережена.\n\nБажаєте зберегти змінену конфігурацію, чи відновити до останньої збереженої?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "%1$@ системна папка (%2$@) не є безпечною.\n\nTunnelblick та інші програми не зможуть виконуватись коректно, доки проблему не буде усунуто.\n\nДетальніше в звіті Консолі.";
@@ -2098,6 +2113,9 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Щоб імпортувати налаштування Tunnelblick на комп'ютер, який має більше ніж %u облікових записів, потрібно створити текстовий файл, який міститиме дані для імпорту.</p>\n<p>Більше інформації за посиланням <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>не-Tunnelblick</strong>' версії OpenVPN не були створені проектом Tunnelblick і не є його частиною. Вони були встановлені адміністратором комп'ютера.</p>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Вказує на версію OpenVPN та програмного забезпечення SSL що мають бути використані для з'єднання VPN.</strong><ul><li><strong>Налаштування \"За замовченням\"</strong> використовуватимуть версію OpenVPN за замовченням із OpenSSL яка включена до цієї версії Tunnelblick. Замовчення можуть відрізнятись у різних версіях Tunnelblick.<br></li><li><strong>Налаштування \"Остання\"</strong> використовуватимуть останню версію OpenVPN разом із LibreSSL яка включена до цієї версії Tunnelblick. Остання версія може відрізнятись у різних версіях Tunnelblick.<br></li><li><strong>Будь які інші налаштування</strong> використовуватимуть вказані версії OpenVPN та SSL якщо вони наявні в цій версії Tunnelblick. За іх відсутності буде використано найближче співпадіння.<br></li></ul>";
 
