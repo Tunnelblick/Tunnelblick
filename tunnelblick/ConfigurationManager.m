@@ -3704,13 +3704,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 												 cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
 											 timeoutInterval: 30.0];
 
-	NSURLResponse * urlResponse = nil;
+	NSHTTPURLResponse * urlResponse = nil;
 	NSError * urlError = nil;
 	NSData * urlData = [NSURLConnection sendSynchronousRequest: urlRequest
 											 returningResponse: &urlResponse
 														 error: &urlError];
 	if (  ! urlData  ) {
 		NSLog(@"getDataFromUrlString: Unable to connect within 30 seconds to %@\nError was %@", urlString, urlError);
+		return nil;
+	}
+
+	NSUInteger statusCode = 0;
+	if (  (statusCode = [urlResponse statusCode]) != 200  ) {
+		NSLog(@"getDataFromUrlString: Response code %lu ('%@') to GET %@\nError was %@",
+			  (unsigned long)statusCode, [NSHTTPURLResponse localizedStringForStatusCode: statusCode], urlString, urlError);
 		return nil;
 	}
 
@@ -3900,6 +3907,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			if (  updateInfo  ) {
 
 				NSString * updatePath = [ConfigurationManager updatePathForDisplayName: displayName updateInfo: updateInfo];
+				if (  updatePath == nil  ) {
+					TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+									  [NSString stringWithFormat:
+									   NSLocalizedString(@"Could not obtain the updated version of configuration '%@'. See the Console Log for details.", @"Window text."), displayName]);
+					return NO;
+				}
 				NSString * unsecuredPrivatePath = [[gPrivatePath
 													stringByAppendingPathComponent: displayName]
 												   stringByAppendingPathExtension: @"tblk"];
