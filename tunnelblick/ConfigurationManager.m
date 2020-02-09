@@ -3853,6 +3853,25 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 		[gFileMgr tbRemoveFileAtPath: [zipPath stringByDeletingLastPathComponent] handler: nil];
 
+		// Get a list of files or folders that start with a period, then delete them
+		NSString * file;
+		NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: targetFolderPath];
+		NSMutableArray * filesToDelete = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
+		while (  (file = [dirEnum nextObject])  ) {
+			if (   [file hasPrefix: @"."]
+				|| ([file rangeOfString: @"/."].length != 0)  ) {
+				[dirEnum skipDescendants];
+				[filesToDelete addObject: file];
+			}
+		}
+		NSEnumerator * e = [filesToDelete objectEnumerator];
+		while (  (file = [e nextObject])  ) {
+			NSString * fullPath = [targetFolderPath stringByAppendingPathComponent: file];
+			if (  [gFileMgr tbRemoveFileAtPath: fullPath handler: nil]  ) {
+				TBLog(@"DB-UC", @"Removed invisible file or folder %@", fullPath)
+			}
+		}
+
 		// Check that the version number in the configuration in the .zip is as expected
 		NSString * targetInfoPlistPath = [[targetFolderPath
 										   stringByAppendingPathComponent: @"Contents"]
