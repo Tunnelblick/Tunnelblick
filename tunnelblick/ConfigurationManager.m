@@ -3790,11 +3790,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	}
 
 	if (  [updateVersionString tunnelblickVersionCompare: currentVersionString] != NSOrderedDescending) {
-		TBLog(@"DB-UC",@"configurationUpdateData: Configuration is up to date: current = %@; update = %@", currentVersionString, updateVersionString);
+		TBLog(@"DB-UC",@"configurationUpdateData: Configuration is up to date: current = '%@'; update = '%@'", currentVersionString, updateVersionString);
 		return nil;
 	}
 
-	TBLog(@"DB-UC",@"configurationUpdateData: Update is available; current = %@; update = %@", currentVersionString, updateVersionString);
+	TBLog(@"DB-UC", @"configurationUpdateData: Update is available; current = '%@'; update = '%@'", currentVersionString, updateVersionString);
 
 	NSString * zipURLString = [[infoPlist objectForKey: @"TBConfigurationUpdateURL"] stringByAppendingString: @"/config.tblk.zip"];
 
