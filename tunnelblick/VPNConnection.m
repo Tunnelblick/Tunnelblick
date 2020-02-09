@@ -2507,6 +2507,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		} else {
 			TBLog(@"DB-UC", @"Checking for configuration update for %@", [self displayName]);
 			updateInfo = [ConfigurationManager getUpdateInfoForDisplayName: [self displayName]];
+			TBLog(@"DB-UC", @"update info = %@", updateInfo);
 		}
 
         if (   updateInfo

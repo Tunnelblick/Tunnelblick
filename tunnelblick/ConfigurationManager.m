@@ -3700,6 +3700,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		return nil;
 	}
 
+	TBLog(@"DB-UC", @"getDataFromUrlString: Attempting to fetch '%@'", urlString);
 	NSURLRequest * urlRequest = [NSURLRequest requestWithURL: updateUrl
 												 cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
 											 timeoutInterval: 30.0];
@@ -3721,6 +3722,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		return nil;
 	}
 
+	TBLog(@"DB-UC", @"getDataFromUrlString: Fetched %lu bytes from '%@'", [urlData length], urlString);
 	return urlData;
 }
 
@@ -3759,6 +3761,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		return nil;
 	}
 
+	TBLog(@"DB-UC", @"getStringFromUrlUsingKey: Obtained '%@'", string);
 	return string;
 }
 
