@@ -3704,6 +3704,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	NSURLRequest * urlRequest = [NSURLRequest requestWithURL: updateUrl
 												 cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
 											 timeoutInterval: 30.0];
+	if (  ! urlRequest  ) {
+		NSLog(@"getDataFromUrlString: Unable to create URL request with URL from %@", urlString);
+		return nil;
+	}
 
 	NSHTTPURLResponse * urlResponse = nil;
 	NSError * urlError = nil;
