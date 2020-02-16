@@ -2,7 +2,7 @@
 #
 # tunnelblick-uninstaller.sh
 #
-# Copyright © 2013, 2015, 2018 Jonathan K. Bullard. All rights reserved
+# Copyright © 2013, 2015, 2018, 2020 Jonathan K. Bullard. All rights reserved
 
 ####################################################################################
 #
@@ -653,17 +653,21 @@ for user in $( dscl . list /users ) ; do
     done
 
 	# run the per-user routine to delete keychain items
-	uninstall_log "     >>> Will do  /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'"
-    output="$(/usr/bin/su "${user}" -c "/bin/bash -c uninstall_tb_user_keychain_items")"
-	uninstall_log "     >>> Finished /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'"
-    if [ "${output}" != "" ] ; then
-	  log "${output}"
-	  if [ "${output:0:7}" = "Error: " ] ; then
-		exit 0
-	  fi
-	  if [ "${output:0:9}" = "Problem: " ] ; then
-	    if [ "${os_version}" = "10.4" ] ; then
-	      warn_about_10_4_keychain_problem="true"
+    if [ "root" = $( echo "${user}" | tr '[:upper:]' '[:lower:]' ) ] ; then
+	  log "Problem: Can not delete Keychain items for user '$user'. If there are such items, they must be removed manually."
+	else
+	  uninstall_log "     >>> Will do  /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'"
+      output="$(/usr/bin/su "${user}" -c "/bin/bash -c uninstall_tb_user_keychain_items")"
+	  uninstall_log "     >>> Finished /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'"
+      if [ "${output}" != "" ] ; then
+		log "${output}"
+		if [ "${output:0:7}" = "Error: " ] ; then
+		  exit 0
+		fi
+		if [ "${output:0:9}" = "Problem: " ] ; then
+		  if [ "${os_version}" = "10.4" ] ; then
+			warn_about_10_4_keychain_problem="true"
+		  fi
 		fi
 	  fi
 	fi
