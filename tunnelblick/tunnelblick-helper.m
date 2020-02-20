@@ -830,7 +830,12 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
 			    ) {
                 notOk = FALSE;
             }
-			
+
+		} else if (   [path hasPrefix: [L_AS_T_OPENVPN
+										stringByAppendingString: @"/"] ]
+				   && [path hasSuffix: @"/openvpn"]  ) {
+			notOk = FALSE;
+
 		} else if (  [path hasPrefix: @"/L"]  ) {
             if (   (   [path hasSuffix: @".tblk/Contents/Resources/pre-connect.sh"      ]
 					|| [path hasSuffix: @".tblk/Contents/Resources/pre-disconnect.sh"   ]
