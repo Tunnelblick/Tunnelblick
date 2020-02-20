@@ -3443,7 +3443,7 @@ int main(int argc, char * argv[]) {
                 if (  (argc >  7) && (strlen(argv[ 7]) <  6) && (atoi(argv[7]) == 1)  ) noMonitor  = TRUE;
                 if (  (argc >  8) && (strlen(argv[ 8]) < 10)                          ) bitMask = cvt_atou(argv[8], @"bitMask");
                 if (  (argc >  9) && (strlen(argv[ 9]) < 16)                          ) leasewatchOptions = [NSString stringWithUTF8String: argv[9]]; 
-                if (  (argc > 10) && (strlen(argv[10]) < 32)                          ) openvpnVersion    = [NSString stringWithUTF8String: argv[10]];
+                if (  (argc > 10) && (strlen(argv[10]) < 128)                         ) openvpnVersion    = [NSString stringWithUTF8String: argv[10]];
                 
                 validateConfigName(configFile);
                 validatePort(port);
