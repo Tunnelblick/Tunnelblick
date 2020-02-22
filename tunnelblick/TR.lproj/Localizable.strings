@@ -875,6 +875,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UYARI: Tunnelblick'in bu kopyasıyla oynanmış.\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (Tunnelblick tarafindan yaratılmamıştır.)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ mevcut fakat bir dizin değil";
 
@@ -1156,6 +1159,9 @@
 
 /* Window text */
 "Could not get modification date of %@" = "%@ nın değiştirilme tarihi bulunamıyor";
+
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "'%@' Konfigürasyon dosyasındaki güncellemeleri alamiyorum. Detaylar icin Konsol Log'una göz atın.";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "%@ da ki kısayol bulunamıyor";

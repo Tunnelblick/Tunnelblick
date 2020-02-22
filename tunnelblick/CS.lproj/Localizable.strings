@@ -1160,6 +1160,9 @@
 /* Window text */
 "Could not get modification date of %@" = "Nelze získat datum modifikace pro %@";
 
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Nepodařilo se získat aktualizovanou verzi konfigurace \"%@\". Pro detaily navštivte log.";
+
 /* Window text */
 "Could not resolve symbolic link at %@" = "Nelze nalézt symbolický odkaz na %@";
 

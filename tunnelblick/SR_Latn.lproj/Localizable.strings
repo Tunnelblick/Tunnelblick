@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "Prikaži dok traje povezivanje";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Prekoči ovo ažuriranje";
+
 /* Button */
 "Skip" = "Preskoči";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikonica";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Ažuriraj";
 
 /* Button */
 "When Tunnelblick launches" = "Prilikom pokretanja Tunnelblicka";
@@ -868,6 +874,9 @@
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UPOZORENJE: Ova kopija Tunnelblick-a je izmenjena.\n\n";
+
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (non-Tunnelblick)";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ postoji ali nije direktorijum";

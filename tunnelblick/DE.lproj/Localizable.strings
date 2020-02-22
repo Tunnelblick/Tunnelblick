@@ -1160,6 +1160,9 @@
 /* Window text */
 "Could not get modification date of %@" = "Konnte das Änderungsdatum von %@ nicht lesen";
 
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Es konnte keine aktualisierte Version der '%@' Konfiguration erhalten werden. Details sind im Konsolen-Log zu finden.";
+
 /* Window text */
 "Could not resolve symbolic link at %@" = "Symbolische Verknüpfung auf %@ konnte nicht aufgelöst werden";
 

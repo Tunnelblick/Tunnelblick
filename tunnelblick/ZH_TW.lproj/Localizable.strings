@@ -1160,6 +1160,9 @@
 /* Window text */
 "Could not get modification date of %@" = "無法取得 %@ 的修改日期";
 
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "無法獲取設定 %@ 的更新版本。請見控制台日誌內的細節。";
+
 /* Window text */
 "Could not resolve symbolic link at %@" = "無法解析符號連結 %@";
 

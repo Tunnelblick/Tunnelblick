@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "Δείξε κατα την σύνδεση";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Παράβλεψη αυτής της ενημέρωσης";
+
 /* Button */
 "Skip" = "Παράβλεψη";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Εικονίδιο Tunnelblick 3.3";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Ενημέρωση";
 
 /* Button */
 "When Tunnelblick launches" = "Όταν το Tunnelblick εκκινηθεί";
@@ -869,6 +875,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ΠΡΟΣΟΧΗ: Αυτό το αντίγραφο του Tunnelblick είναι πλαστό.\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (εκτός Tunnelblick)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ υπάρχει αλλά δεν είναι φάκελος";
 
@@ -1022,6 +1031,9 @@
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Παρουσιάστηκε ένα εσωτερικό σφάλμα Tunnelblick: fileIsReasonableSize: η διαδρομή είναι κενή";
 
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Είναι διαθέσιμη μια ενημέρωση για παραμετροποίηση του %@ VPN.\n\nΘέλετε να ενημερώσετε τη παραμετροποίηση;\n\n";
+
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Είστε σίγουροι ότι θέλετε να μετατρέψετε της παραμέτρους του OpenVPN σε παραμέτρους VPN του Tunnelblick;\n\nΟΙ ΠΑΡΑΜΕΤΡΟΙ ΔΕΝ ΘΑ ΕΙΝΑΙ ΔΙΑΘΕΣΙΜΟΙ ΑΝ ΔΕΝ ΤΟΥΣ ΜΕΤΑΤΡΕΨΕΤΕ!\n\n";
 
@@ -1147,6 +1159,9 @@
 
 /* Window text */
 "Could not get modification date of %@" = "Αδυναμία λήψης ημερομηνίας τροποποίησης του %@";
+
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Δεν ήταν δυνατή η λήψη της ενημερωμένης έκδοσης διαμόρφωσης '%@'. Για λεπτομέρειες, ανατρέξτε στο αρχείο καταγραφής κονσόλας.";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "Δεν μπόρεσε να επιλυθεί συμβολικός δεσμός στο %@";
@@ -1510,6 +1525,9 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Αυτό το όνομα χρησιμοποιείτε.\n\n";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Το αρχείο παραμετροποίησης OpenVPN για '%@' τροποποιήθηκε αφού είχε ασφαλιστεί.\n\nΕπιθυμείτε να ασφαλίσετε την τροποποιημένη παραμετροποίηση ή να επαναφέρετε την τελευταία ασφαλή παραμετροποίηση;\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Ο φάκελος %1$@ (%2$@) δεν είναι ασφαλής.\n\nΤο Tunnelblick και άλλα προγράμματα μπορεί να μη δουλεύουν σωστά μέχρι να διορθωθεί το πρόβλημα.\n\nΗ κονσόλα καταγραφής έχει λεπτομέρειες.";
@@ -2098,6 +2116,8 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Για την εισαγωγή Tunnelblick ρυθμίσεων σε έναν υπολογιστή που έχει παραπάνω από %u λογαριασμούς χρηστών, πρέπει να δημιουργήσετε ένα αρχείο κειμένου που να καθορίζει τα δεδομένα που θα εισαχθούν.</p>\n<p>Για περισσότερες πληροφορίες, δείτε <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p> Οι εκδόσεις του OpenVPN <strong> εκτός Tunnelblick </strong> δεν δημιουργήθηκαν από το έργο Tunnelblick και δεν αποτελούν μέρος του Tunnelblick. Έχουν εγκατασταθεί από τον διαχειριστή του υπολογιστή. </p>";
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Καθορίζει την έκδοση του OpenVPN και το λογισμικό SSL που πρέπει να χρησιμοποιηθεί για τη σύνδεση του VPN.</strong><ul><li><strong>Η ρύθμιση \"Προεπιλογή\"</strong>θα χρησιμοποιήσει την προεπιλεγμένη έκδοση του OpenVPN με το OpenSSL που περιλαμβάνεται σε αυτήν την έκδοση του Tunnelblick. Η προεπιλογή μπορεί να διαφέρει σε διαφορετικές εκδόσεις του Tunnelblick.<br></li><li><strong>Η ρύθμιση \"Πρόσφατο\" </strong> θα χρησιμοποιήσει την τελευταία έκδοση του OpenVPN με το LibreSSL που περιλαμβάνεται σε αυτή την έκδοση του Tunnelblick. Η τελευταία έκδοση μπορεί να διαφέρει σε διαφορετικές εκδόσεις του Tunnelblick.<br></li><li><strong> Οποιαδήποτε άλλη ρύθμιση </strong> θα χρησιμοποιήσει την καθορισμένη έκδοση του λογισμικού OpenVPN και SSL εάν είναι διαθέσιμες σε αυτή την έκδοση του Tunnelblick. Εάν δεν είναι διαθέσιμο, θα χρησιμοποιηθεί το πλησιέστερο ταίριασμα.<br></li></ul>";

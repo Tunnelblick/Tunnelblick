@@ -1160,6 +1160,9 @@
 /* Window text */
 "Could not get modification date of %@" = "Nu a putut obține data modificării %@";
 
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Nu s-a putut obține versiunea cea mai recentă a configurației '%@'. Consultați Console Log pentru detalii.";
+
 /* Window text */
 "Could not resolve symbolic link at %@" = "Nu am putut rezolva link-ul simbolic %@";
 

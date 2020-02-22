@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "연결하는 동안 보기";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "이 업데이트 건너뛰기";
+
 /* Button */
 "Skip" = "건너뛰기";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 아이콘";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "업데이트";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblick 실행할 때";
@@ -377,6 +383,9 @@
 /* Checkbox name */
 "Apply to all" = "모두 적용";
 
+/* Checkbox Name */
+"Authenticate before connecting" = "연결 전 인증하기";
+
 /* Checkbox name */
 "Check for updates automatically" = "자동으로 업데이트 확인";
 
@@ -454,6 +463,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "사용자 전환이 되었을 때 다시 연결";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "모든 구성을 설치하기 위해 관리자 인증 요구";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "모든 IPv4 트래픽을 VPN 적용";
@@ -2309,6 +2321,9 @@
 
 /* Credit description */
 "Swedish translation" = "스웨덴어 번역";
+
+/* Credit description */
+"Thai translation" = "태국어 번역";
 
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "Tunnelblick 설정 %@";

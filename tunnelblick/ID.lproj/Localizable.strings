@@ -1160,6 +1160,9 @@
 /* Window text */
 "Could not get modification date of %@" = "Tidak bisa memperoleh tanggal modifikasi %@";
 
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Tidak dapat memperoleh versi konfigurasi '%@' yang diperbarui. Lihat Log Konsol untuk rincian.";
+
 /* Window text */
 "Could not resolve symbolic link at %@" = "Tidak bisa mengurai taut simbolik pada %@";
 

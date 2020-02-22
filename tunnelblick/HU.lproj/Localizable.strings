@@ -1160,6 +1160,9 @@
 /* Window text */
 "Could not get modification date of %@" = "A(z) %@ módosítás dátuma nem ismert";
 
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "A \"%@\" konfiguráció frissített változatát nem sikerült elérni. A részletek a Konzol Naplóban találhatóak.";
+
 /* Window text */
 "Could not resolve symbolic link at %@" = "Nem sikerült feloldani a következő szimbolikus linket: %@";
 
