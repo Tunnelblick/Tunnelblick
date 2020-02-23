@@ -4641,7 +4641,7 @@ static void signal_handler(int signalNumber)
 
 -(BOOL) setUpOpenVPNNames {
 
-	// The names are the folder names in Tunnelblick.app/Contents/Resources/openvpn and /Library/Application Support/Tunnelblick/openvpn
+	// The names are the folder names in Tunnelblick.app/Contents/Resources/openvpn and /Library/Application Support/Tunnelblick/Openvpn
 	// that hold openvpn binaries, except that names from /Library... are suffixed by SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN so they can be distinguished from the others.
 
 	NSMutableArray * nameArray = [[[NSMutableArray alloc] initWithCapacity: 5] autorelease];
