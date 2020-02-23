@@ -1160,6 +1160,9 @@
 /* Window text */
 "Could not get modification date of %@" = "Kunde inte hitta ändringsdatum för %@";
 
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Kunde inte erhålla den uppdaterade versionen av configuration '%@'. Se konsolloggen för information.";
+
 /* Window text */
 "Could not resolve symbolic link at %@" = "Kunde inte slå upp symbolisk länk %@";
 

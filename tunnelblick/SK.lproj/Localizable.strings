@@ -384,7 +384,7 @@
 "Apply to all" = "Uplatniť na všetko";
 
 /* Checkbox Name */
-"Authenticate before connecting" = "Autorizujte pred pripojením";
+"Authenticate before connecting" = "Pred pripojením sa autorizujte";
 
 /* Checkbox name */
 "Check for updates automatically" = "Automaticky kontrolovať aktualizácie";

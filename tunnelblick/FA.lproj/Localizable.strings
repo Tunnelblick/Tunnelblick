@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "نمایش حین اتصال";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "این بروزرسانی را از قلم بیانداز";
+
 /* Button */
 "Skip" = "رد کردن";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "آیکون Tunnelblick 3.3";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "به‌روزرسانی";
 
 /* Button */
 "When Tunnelblick launches" = "در زمان اجرا شدن Tunnelblick";
@@ -412,6 +418,9 @@
 
 /* Checkbox name */
 "Do not show this type of warning again" = "این نوع هشدار را دیگر نشان نده";
+
+/* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "در مورد اشکالات DNS برای هیچ تنظیماتی اخطار نده";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "در مورد این گزینه برای هیچ پیکربندی دیگری هشدار نشان نده";
@@ -742,6 +751,12 @@
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • یک پیکربندی نصب شد\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = " • تنظیماتی «امن» نصب یا جایگزین شد\n\n";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = " • هیچ DNS سروری مشخص نشده";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • %lu پیکربندی جایگزین شد\n\n";
@@ -1656,6 +1671,9 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick نتوانست پیکربندی '%@' را حذف نماید. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
 
 /* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick با پیکربندی های %1$lu دچار مشکل شد:\n\n%2$@%3$@%4$@%5$@%6$@";
+
+/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick نتوانست ایرادات با تنظیمات '%@' را ترمیم نماید. جزییات بیشت در میزفرمان گزارشات";
 
 /* Window text */
@@ -1753,6 +1771,9 @@
 
 /* Window text */
 "Unable to create %@ owned by %ld:%ld with %lo permissions" = "عدم توانایی در ایجاد %1$@ با مالکیت %2$ld: %3$ld و اجازه های %4$lo";
+
+/* Window text */
+"Unable to install or replace the '%@' configuration\n" = "عدم توانایی در جایگزین کردن پیکربندی '%@'\n";
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "عدم توانایی در نصب پیکربندی '%@'\n";

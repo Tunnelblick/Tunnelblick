@@ -1161,7 +1161,7 @@
 "Could not get modification date of %@" = "Kon wijzigingsdatum van %@ niet verkrijgen";
 
 /* Window text. */
-"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Kan de bijgewerkte versie van configuratie '%@' niet verkrijgen. Zie de console log voor details.";
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Kon de bijgewerkte versie van configuratie '%@' niet ophalen. Bekijk de console log voor meer informatie.";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "Kan symbolische link %@ niet opzoeken";
