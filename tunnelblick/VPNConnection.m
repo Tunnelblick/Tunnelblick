@@ -1380,7 +1380,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     }
     
     if (  ! ipInfo  ) {
-        NSLog(@"An error occured fetching IP address information after connecting");
+        NSLog(@"An error occurred fetching IP address information after connecting");
         [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
                                withObject: @"An error occured fetching IP address information using the ipInfo host's IP address after connecting"
                             waitUntilDone: NO];
