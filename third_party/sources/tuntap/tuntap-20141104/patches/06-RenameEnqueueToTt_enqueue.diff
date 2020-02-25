@@ -1,0 +1,32 @@
+--- src/tuntap.cc	2014-11-03 18:35:06.000000000 -0500
++++ src/tuntap.cc	2020-02-24 23:32:26.000000000 -0500
+@@ -210,7 +210,7 @@
+ }
+ 
+ bool
+-tuntap_mbuf_queue::enqueue(mbuf_t mb)
++tuntap_mbuf_queue::tt_enqueue(mbuf_t mb)
+ {
+ 	if (size == QUEUE_SIZE)
+ 		return false;
+@@ -800,7 +800,7 @@
+ 
+ 		auto_lock l(&lock);
+ 
+-		if (!send_queue.enqueue(pkt)) {
++		if (!send_queue.tt_enqueue(pkt)) {
+ 			mbuf_freem(pkt);
+ 			mbuf_freem_list(m);
+ 			return ENOBUFS;
+diff -u -r tuntap_a/src/tuntap.h tuntap_b/src/tuntap.h
+--- src/tuntap.h	2014-11-03 18:35:06.000000000 -0500
++++ src/tuntap.h	2020-02-24 23:32:10.000000000 -0500
+@@ -170,7 +170,7 @@
+ 
+ 		/* enqueue an mbuf. returns true if there was space left, so the mbuf could be
+ 		 * queued, false otherwise */
+-		bool enqueue(mbuf_t mb);
++		bool tt_enqueue(mbuf_t mb);
+ 
+ 		/* tries to dequeue the next mbuf. If the queue is empty, NULL is returned */
+ 		mbuf_t dequeue();
