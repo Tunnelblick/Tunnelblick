@@ -1160,6 +1160,9 @@
 /* Window text */
 "Could not get modification date of %@" = "Не може да получи датата на модифициране на %@";
 
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Неуспешно зареждане на актуализирана версия на конфигурация '%@'. Вижте журнала за детайли.";
+
 /* Window text */
 "Could not resolve symbolic link at %@" = "Не може да обработи символна връзка в %@";
 
