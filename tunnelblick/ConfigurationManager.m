@@ -604,7 +604,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			if (   ( ! [firstChar isEqualToString: @";"] )
 				&& ( ! [firstChar isEqualToString: @"#"] )  ) {
 				[outString appendFormat: @"%@\n", line];
-			}
+            } else if ([firstChar isEqualToString: @"#"]) {
+                if ([line hasPrefix:@"#AviatrixController "]) {
+                    [outString appendFormat: @"%@\n", line];
+                }
+            }
 		}
 	}
 	
@@ -761,7 +765,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(NSString *)parseConfigurationForConnection: (VPNConnection *) connection
 							 hasAuthUserPass: (BOOL *)          hasAuthUserPass
-						  authRetryParameter: (NSString **)	    authRetryParameter {
+                          authRetryParameter: (NSString **)	    authRetryParameter
+                                     samlUrl: (NSString **)     samlUrl {
 	
     // Parses the configuration file.
     // Sets *hasAuthUserPass TRUE if configuration has a 'auth-user-pass' option with no arguments; FALSE otherwise
@@ -793,7 +798,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	} else {
 		*authRetryParameter = theAuthRetryParameter;
 	}
-	
+    
+    // Set saml url
+    NSString * samlURLStr = [ConfigurationManager parseString: cfgContents forOption: @"#AviatrixController" ];
+    if (  *samlUrl  ) {
+        NSLog(@"parseConfigurationForConnection: *samlUrl is not nil, so it is not being set to %@", samlURLStr);
+    } else {
+        *samlUrl = samlURLStr;
+    }
+    
     NSString * userOption  = [ConfigurationManager parseString: cfgContents forOption: @"user" ];
     if (  [userOption length] == 0  ) {
         userOption = nil;

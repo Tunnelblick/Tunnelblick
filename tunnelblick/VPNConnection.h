@@ -40,7 +40,8 @@ typedef enum
 {
 	userWantsUndecided,
 	userWantsRetry,
-    userWantsAbandon
+    userWantsAbandon,
+    userWantsSamlAuth
 } VPNConnectionUserWantsState;
 
 typedef unsigned long long TBByteCount;
@@ -157,7 +158,9 @@ struct Statistics {
 	BOOL            speakWhenDisconnected; // True iff should speak that we are disconnected
     BOOL            hasAuthUserPass;    // True iff configuration has a 'auth-user-pass' option. VALID ONLY IF tunOrTap is not nil
     BOOL            discardSocketInput; // True if should discard anything from the managment socket (set after receiving status of EXITING)
-	
+    NSString        *samlUrl;    // string if configuration has a '#AviatrixController' option. VALID ONLY IF tunOrTap is not nil
+    NSString        *samlUserName; // string if the Aviatrix controller returns an user name for the VPN login
+    NSString        *samlPassword; // string if the Aviatrix controller returns a password for the VPN login
 	BOOL volatile	connectAfterDisconnect; // True if need to connect again after the disconnect completes
 	BOOL volatile	connectAfterDisconnectUserKnows; // Argument for the reconnect
     BOOL volatile   completelyDisconnected; // True only after GUI has caught up to disconnect request
@@ -297,6 +300,8 @@ struct Statistics {
 
 -(BOOL)				userOrGroupOptionExistsInConfiguration;
 
+-(void)             provideCredentials: (NSString *) parameterString line: (NSString *) line;
+
 TBPROPERTY_READONLY(StatusWindowController *,  statusScreen)
 TBPROPERTY_READONLY(NSString *,                tapOrTun)
 TBPROPERTY_READONLY(AuthAgent *,               authAgent)
@@ -321,6 +326,9 @@ TBPROPERTY(          BOOL,                     ipCheckLastHostWasIPAddress,     
 TBPROPERTY(          BOOL,                     haveConnectedSince,               setHaveConnectedSince)
 TBPROPERTY(          BOOL,                     logFilesMayExist,                 setLogFilesMayExist)
 TBPROPERTY(          NSString *,               localizedName,                    setLocalizedName)
+TBPROPERTY(          NSString *,               samlUrl,                          setSamlUrl)
+TBPROPERTY(          NSString *,               samlUserName,                     setSamlUserName)
+TBPROPERTY(          NSString *,               samlPassword,                     setSamlPassword)
 
 //*********************************************************************************************************
 //

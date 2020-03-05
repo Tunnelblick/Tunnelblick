@@ -88,7 +88,8 @@ typedef enum
 
 +(NSString *) parseConfigurationForConnection: (VPNConnection *) connection
 							  hasAuthUserPass: (BOOL *)          hasAuthUserPass
-						   authRetryParameter: (NSString **)	 authRetryParameter;
+                           authRetryParameter: (NSString **)	 authRetryParameter
+                                      samlUrl: (NSString **)     samlUrl;
 
 +(BOOL)                     userCanEditConfiguration:   (NSString *)        filePath;
 

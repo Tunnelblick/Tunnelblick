@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DA680CA2411869800F416AF /* SamlWKView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DA680C72411869800F416AF /* SamlWKView.xib */; };
+		2DA680CB2411869800F416AF /* SamlWKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA680C92411869800F416AF /* SamlWKView.m */; };
 		615F748A0ED3A4C2007F6F0A /* English.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74860ED3A4C2007F6F0A /* English.lproj */; };
 		615F748F0ED3A4E5007F6F0A /* FR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F748C0ED3A4E5007F6F0A /* FR.lproj */; };
 		615F74990ED3A4FA007F6F0A /* DE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74900ED3A4FA007F6F0A /* DE.lproj */; };
@@ -364,6 +366,9 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2DA680C72411869800F416AF /* SamlWKView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SamlWKView.xib; sourceTree = "<group>"; };
+		2DA680C82411869800F416AF /* SamlWKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamlWKView.h; sourceTree = "<group>"; };
+		2DA680C92411869800F416AF /* SamlWKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SamlWKView.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tunnelblick_Prefix.pch; sourceTree = "<group>"; };
 		615F74860ED3A4C2007F6F0A /* English.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = English.lproj; sourceTree = "<group>"; };
 		615F748C0ED3A4E5007F6F0A /* FR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FR.lproj; sourceTree = "<group>"; };
@@ -897,6 +902,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2DA680CC241186B500F416AF /* Saml */ = {
+			isa = PBXGroup;
+			children = (
+				2DA680C82411869800F416AF /* SamlWKView.h */,
+				2DA680C92411869800F416AF /* SamlWKView.m */,
+				2DA680C72411869800F416AF /* SamlWKView.xib */,
+			);
+			name = Saml;
+			sourceTree = "<group>";
+		};
 		61BC4B880E2F9EDA00F24255 /* UKKQueue */ = {
 			isa = PBXGroup;
 			children = (
@@ -953,6 +968,7 @@
 		63ABFE901349E370003DEB64 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				2DA680CC241186B500F416AF /* Saml */,
 				635971401C06736B0055FBC5 /* UIHelper.h */,
 				635971411C06736B0055FBC5 /* UIHelper.m */,
 				63CC72F61928C58600F81220 /* UI Updater */,
@@ -1669,6 +1685,7 @@
 				63E56EC713848194007E39AB /* VPNServiceProve.xib in Resources */,
 				63E56EC813848194007E39AB /* VPNServiceSorry.xib in Resources */,
 				633888F61C00F2FC0076032D /* AlertWindow-RTL.xib in Resources */,
+				2DA680CA2411869800F416AF /* SamlWKView.xib in Resources */,
 				63118D0D1EA77A6900F20EC1 /* VLS_BE.lproj in Resources */,
 				63F39E961FBDBE1900C18FDE /* re-enable-network-services.sh in Resources */,
 				63EA2CAA1C9EFCF0005F0872 /* FA.lproj in Resources */,
@@ -1849,6 +1866,7 @@
 				6311306411041B89003435F1 /* LoginItemsAE.c in Sources */,
 				6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */,
 				63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */,
+				2DA680CB2411869800F416AF /* SamlWKView.m in Sources */,
 				63FA09411D25E68500859556 /* MAAttachedWindow.m in Sources */,
 				63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */,
@@ -2167,6 +2185,7 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = net.tunnelblick.tunnelblick;
 				PRODUCT_NAME = Tunnelblick;
 				WARNING_CFLAGS = (
@@ -2443,6 +2462,7 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = net.tunnelblick.tunnelblick;
 				PRODUCT_NAME = Tunnelblick;
 				WARNING_CFLAGS = (

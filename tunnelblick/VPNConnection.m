@@ -50,6 +50,8 @@
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 #import "VPNConnection.h"
+#import "SamlWKView.h"
+#import "defines.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gPrivatePath;
@@ -63,6 +65,7 @@ extern NSArray              * gRateUnits;
 extern NSArray              * gTotalUnits;
 extern volatile int32_t       gSleepWakeState;
 extern volatile int32_t       gActiveInactiveState;
+extern SamlWKView           * gsamlWKView;
 
 @interface VPNConnection()          // PRIVATE METHODS
 
@@ -919,7 +922,10 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	[dynamicChallengeFlags            release]; dynamicChallengeFlags            = nil;
 	[authRetryParameter				  release]; authRetryParameter               = nil;
 	[statistics.lastSet               release]; statistics.lastSet               = nil;
-	
+    [samlUrl                          release]; samlUrl                          = nil;
+    [samlUserName                     release]; samlUserName                     = nil;
+    [samlPassword                     release]; samlPassword                     = nil;
+    
     [super dealloc];
 }
 
@@ -1912,11 +1918,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  ! tunOrTap  ) {
 		NSString * authRetryParameterTemp = nil;
-		[self setTunOrTap: [ConfigurationManager parseConfigurationForConnection: self
-																 hasAuthUserPass: &hasAuthUserPass
-															  authRetryParameter: &authRetryParameterTemp]];
-
-		[self setAuthRetryParameter: authRetryParameterTemp];
+        NSString * samlUrlTemp = nil;
+        [self setTunOrTap: [ConfigurationManager parseConfigurationForConnection: self
+                                                                 hasAuthUserPass: &hasAuthUserPass
+                                                              authRetryParameter: &authRetryParameterTemp
+                                                                         samlUrl: &samlUrlTemp]];
+        
+        [self setAuthRetryParameter: authRetryParameterTemp];
+        [self setSamlUrl:samlUrlTemp];
         
         // tunOrTap == 'Cancel' means we cancel whatever we're doing
         if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
@@ -1944,6 +1953,19 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	[self setTunOrTapAndHasAuthUserPassAndAuthRetryParameter];
 	return [[authRetryParameter retain] autorelease];
+}
+
+-(NSString*) samlUrl {
+    [self setTunOrTapAndHasAuthUserPassAndAuthRetryParameter];
+    return [[samlUrl retain] autorelease];
+}
+
+-(NSString*) samlPassword {
+    return [[samlPassword retain] autorelease];
+}
+
+-(NSString*) samlUserName {
+    return [[samlUserName retain] autorelease];
 }
 
 -(BOOL) hasAnySavedCredentials {
@@ -2881,7 +2903,19 @@ ifConnectionPreference: (NSString *)     keySuffix
 		}
 	} else {
         [self addToLog: @"Connecting; 'Connect' (toggle) menu command invoked"];
-		[self connect: sender userKnows: YES];
+        if ( !self.isConnected && self.samlUrl && [self.samlUrl hasPrefix:@"http"] ) {
+            if ( !gsamlWKView ) {
+                gsamlWKView = [[SamlWKView alloc] initWithWindowNibName:@"SamlWKView"];
+                gsamlWKView.vpnConnection = self;
+                gsamlWKView.vpnConnectionSender = sender;
+                gsamlWKView.samlURL = self.samlUrl;
+            } else {
+                [gsamlWKView setURL:self.samlUrl];
+            }
+            [gsamlWKView showWindow:self];
+        } else {
+            [self connect: sender userKnows: YES];
+        }
 	}
 }
 
@@ -3025,6 +3059,41 @@ ifConnectionPreference: (NSString *)     keySuffix
 	}
 }
 
+- (BOOL) IsOpenVPNExisting:(NSString*) userProfile {
+    NSTask *psTask = [[NSTask alloc] init];
+    NSTask *grepTask = [[NSTask alloc] init];
+    
+    [psTask setLaunchPath: @"/bin/ps"];
+    [grepTask setLaunchPath: @"/usr/bin/grep"];
+    
+    [psTask setArguments: [NSArray arrayWithObjects: @"-ef", nil]];
+    [grepTask setArguments: [NSArray arrayWithObjects: @"openvpn", nil]];
+    
+    /* ps ==> grep */
+    NSPipe *pipeBetween = [NSPipe pipe];
+    [psTask setStandardOutput: pipeBetween];
+    [grepTask setStandardInput: pipeBetween];
+    
+    /* grep ==> me */
+    NSPipe *pipeToMe = [NSPipe pipe];
+    [grepTask setStandardOutput: pipeToMe];
+    
+    NSFileHandle *grepOutput = [pipeToMe fileHandleForReading];
+    
+    [psTask launch];
+    [grepTask launch];
+    
+    NSData *data = [grepOutput readDataToEndOfFile];
+    
+    NSString* grepString;
+    grepString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    
+    if ([grepString containsString:userProfile])
+        return TRUE;
+    
+    return FALSE;
+}
+
 static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (BOOL) startDisconnectingUserKnows: (NSNumber *) userKnows {
@@ -3106,6 +3175,15 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
               CSTRING_FROM_BOOL(notConnectWhenComputerStarts),
               CSTRING_FROM_BOOL([managementSocket isConnected]));
         return NO;
+    }
+    
+    BOOL isOpenVPNExisting = [self IsOpenVPNExisting: self.configPath];
+    
+    if ( samlUrl && [samlUrl hasPrefix:@"http"] && !isOpenVPNExisting ) {
+        [self setState: @"EXITING"];
+        [self hasDisconnected];
+        areDisconnecting = FALSE;
+        areConnecting = FALSE;
     }
     
     return YES;
@@ -4069,25 +4147,31 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                         }
                     }
                 }
-                int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self localizedName], NSLocalizedString(@"Authentication failed", @"Window title")],
-                                               message,
-                                               tryAgainButton,							 // Default
-                                               deleteAndTryAgainButton,                  // Alternate
-                                               NSLocalizedString(@"Cancel", @"Button")); // Other
-                if (alertVal == NSAlertDefaultReturn) {
-                    userWantsState = userWantsRetry;                // User wants to retry
-                    
-                } else if (alertVal == NSAlertAlternateReturn) {
-                    if (  isPassphraseCommand  ) {
-                        [myAuthAgent deletePassphrase];
-                    } else {
-                        [myAuthAgent deletePassword];
-                    }
-                    userWantsState = userWantsRetry;
+                
+                if ( samlUrl && [samlUrl hasPrefix:@"http"] ) {
+                    TBLog(@"DB-AU", @"saml authentication again. set userWantsUndecided");
+                    userWantsState = userWantsSamlAuth;
                 } else {
-                    userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
-                    [self addToLog: @"Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
-                    [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
+                    int alertVal= TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self localizedName], NSLocalizedString(@"Authentication failed", @"Window title")],
+                                                   message,
+                                                   tryAgainButton,                             // Default
+                                                   deleteAndTryAgainButton,                  // Alternate
+                                                   NSLocalizedString(@"Cancel", @"Button")); // Other
+                    if (alertVal == NSAlertDefaultReturn) {
+                        userWantsState = userWantsRetry;                // User wants to retry
+                        
+                    } else if (alertVal == NSAlertAlternateReturn) {
+                        if (  isPassphraseCommand  ) {
+                            [myAuthAgent deletePassphrase];
+                        } else {
+                            [myAuthAgent deletePassword];
+                        }
+                        userWantsState = userWantsRetry;
+                    } else {
+                        userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
+                        [self addToLog: @"Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
+                        [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
+                    }
                 }
                 
 				TBLog(@"DB-AU", @"processLine: queuing afterFailureHandler: for execution in 0.5 seconds");
@@ -4120,7 +4204,25 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                         // User wants to retry; send the credentials
 						TBLog(@"DB-AU", @"processLine: authFailed and userWantsRetry, so requesting credentials again");
                         [self provideCredentials: parameterString line: line];
-                    } // else user wants to abandon, so just ignore the request for credentials
+                    } else if (  userWantsState == userWantsSamlAuth  ) {
+                        // User wants to retry; send the credentials
+                        TBLog(@"DB-AU", @"processLine: authFailed and userWantsRetry, so requesting credentials again");
+                        TBLog(@"DB-AU", @"saml authentication again");
+                        TBLog(@"DB-AU", @"saml vpn connection statue=%@", self.lastState);
+                        if ([self.lastState isEqualToString:@"RECONNECTING"]) {
+                            [self setState: @"PASSWORD_WAIT"];
+                            if ( !gsamlWKView ) {
+                                gsamlWKView = [[SamlWKView alloc] initWithWindowNibName:@"SamlWKView"];
+                                gsamlWKView.samlURL = samlUrl;
+                            } else {
+                                [gsamlWKView setURL:samlUrl];
+                            }
+                            gsamlWKView.vpnConnection = self;
+                            gsamlWKView.vpnConnectionSender = nil;
+                            [gsamlWKView showWindow:self];
+                        }
+                    }
+                    // else user wants to abandon, so just ignore the request for credentials
 					TBLog(@"DB-AU", @"processLine: authFailed and user wants to abandon, so ignoring the request");
                 } else {
 					TBLog(@"DB-AU", @"processLine: auth succeeded so requesting credentials");
@@ -4357,14 +4459,22 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			[self processDynamicChallengeResponse];
 			return;
 		}
-	
+        
+        NSString *myPassword = nil;
+        NSString *myUsername = nil;
         [myAuthAgent setAuthMode:@"password"];
-        [myAuthAgent performAuthentication];
-        if (  [myAuthAgent authenticationWasFromKeychain]  ) {
-            [self addToLog: @"Obtained VPN username and password from the Keychain"];
+        if ( self.samlUrl && [self.samlUrl hasPrefix:@"http"] ) {
+            myPassword = self.samlPassword;
+            myUsername = self.samlUserName;
+        } else {
+            [myAuthAgent performAuthentication];
+            if (  [myAuthAgent authenticationWasFromKeychain]  ) {
+                [self addToLog: @"Obtained VPN username and password from the Keychain"];
+            }
+            myPassword = [myAuthAgent password];
+            myUsername = [myAuthAgent username];
         }
-        NSString *myPassword = [myAuthAgent password];
-        NSString *myUsername = [myAuthAgent username];
+        
         if(   (myUsername != nil)
            && (myPassword != nil)  ){
             const char * usernameC  = [escaped(myUsername) UTF8String];
@@ -5199,6 +5309,9 @@ TBSYNTHESIZE_OBJECT(retain,     NSString *,               localizedName,        
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               requestedState,                   setRequestedState)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               lastState,                        setLastState)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               tunOrTap,                         setTunOrTap)
+TBSYNTHESIZE_OBJECT_SET(        NSString *,               samlUrl,                          setSamlUrl)
+TBSYNTHESIZE_OBJECT_SET(        NSString *,               samlUserName,                     setSamlUserName)
+TBSYNTHESIZE_OBJECT_SET(        NSString *,               samlPassword,                     setSamlPassword)
 
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     haveConnectedSince,               setHaveConnectedSince)

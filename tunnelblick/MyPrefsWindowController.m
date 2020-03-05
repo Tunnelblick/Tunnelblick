@@ -50,6 +50,7 @@
 #import "UIHelper.h"
 #import "UtilitiesView.h"
 #import "VPNConnection.h"
+#import "SamlWKView.h"
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
@@ -58,6 +59,8 @@ extern NSString       * gDeployPath;
 extern unsigned         gMaximumLogSize;
 extern NSArray        * gProgramPreferences;
 extern NSArray        * gConfigurationPreferences;
+
+SamlWKView *gsamlWKView = nil;
 
 @interface MyPrefsWindowController()
 
@@ -1639,8 +1642,21 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(IBAction) connectButtonWasClicked: (id) sender
 {
     VPNConnection * connection = [self selectedConnection];
-    if (  connection  ) {
-        [connection connect: sender userKnows: YES];
+    if ( connection ) {
+        NSString* samlUrl = connection.samlUrl;
+        if ( samlUrl && [samlUrl hasPrefix:@"http"] ) {
+            if ( !gsamlWKView ) {
+                gsamlWKView = [[SamlWKView alloc] initWithWindowNibName:@"SamlWKView"];
+                gsamlWKView.vpnConnection = connection;
+                gsamlWKView.vpnConnectionSender = sender;
+                gsamlWKView.samlURL = samlUrl;
+            } else {
+                [gsamlWKView setURL:samlUrl];
+            }
+            [gsamlWKView showWindow:self];
+        } else {
+            [connection connect: sender userKnows: YES];
+        }
     } else {
         NSLog(@"connectButtonWasClicked but no configuration selected");
     }
