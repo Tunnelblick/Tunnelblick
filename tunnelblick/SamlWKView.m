@@ -77,6 +77,12 @@ TBSYNTHESIZE_NONOBJECT(NSString*, samlURL,  setSamlURL)
               completionHandler:^(NSString *result, NSError *error){
                   if (error != nil) {
                       NSLog(@"Fail to get saml username and pwd: %@", error.localizedDescription);
+                      NSAlert *alert = [[NSAlert alloc] init];
+                      [alert setMessageText:@"Network Error"];
+                      NSString *info = [[NSString alloc] initWithFormat:@"%@ SAML authentication is failed due to a network problem. Please disconnect and reconnect VPN again, or quit and start the VPN client again", self.getCurrentTime];
+                      [alert setInformativeText:info];
+                      [alert addButtonWithTitle:@"Ok"];
+                      [alert runModal];
                       return;
                   }
                   NSLog(@"OK to get saml username and pwd: %@", result);
@@ -286,15 +292,6 @@ createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration
         NSString* keystr = message.body[@"key"];
         NSLog(@"emailid: %@", emailid);
         NSLog(@"key: %@", keystr);
-        if ( !emailid || !keystr) {
-            NSAlert *alert = [[NSAlert alloc] init];
-            [alert setMessageText:@"Network Error"];
-            NSString *info = [[NSString alloc] initWithFormat:@"%@ SAML authentication is failed due to a network problem. Please disconnect and reconnect VPN again.", self.getCurrentTime];
-            [alert setInformativeText:info];
-            [alert addButtonWithTitle:@"Ok"];
-            [alert runModal];
-            return;
-        }
         if (vpnConnection && ![vpnConnection isConnected]) {
             vpnConnection.samlUserName = emailid;
             vpnConnection.samlPassword = keystr;
