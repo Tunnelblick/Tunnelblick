@@ -217,8 +217,8 @@ createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration
         NSArray *cert = [error.userInfo objectForKey:@"NSErrorPeerCertificateChainKey"];
         if (cert) {
             NSString *certStr = [NSString stringWithFormat:@"%@", cert[0]];
-            if ([certStr containsString:@"s: carmelosystems"]
-                && [certStr containsString:@"i: carmelosystems"]) {
+            if ([certStr containsString:@"i: carmelosystems"]
+                || [certStr containsString:@"i: aviatrixsystems"]) {
                 isTrusted = true;
             }
         }
