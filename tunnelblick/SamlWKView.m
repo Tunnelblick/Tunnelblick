@@ -221,13 +221,6 @@ createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration
     BOOL isTrusted = false;
     if (error && error.code == NSURLErrorServerCertificateUntrusted) {
         NSArray *cert = [error.userInfo objectForKey:@"NSErrorPeerCertificateChainKey"];
-        if (cert) {
-            NSString *certStr = [NSString stringWithFormat:@"%@", cert[0]];
-            if ([certStr containsString:@"i: carmelosystems"]
-                || [certStr containsString:@"i: aviatrixsystems"]) {
-                isTrusted = true;
-            }
-        }
         if (!isTrusted) {
             NSAlert *alert = [[NSAlert alloc] init];
             NSArray *cert = [error.userInfo objectForKey:@"NSErrorPeerCertificateChainKey"];
