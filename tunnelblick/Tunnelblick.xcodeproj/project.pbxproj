@@ -61,6 +61,7 @@
 		63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */; };
 		6329EA021A9AF6EF00A0BFA8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */; };
 		6329EA051A9B003700A0BFA8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */; };
+		632AA70124211D2A00C7860D /* SW-TZ.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 632AA70024211D2900C7860D /* SW-TZ.lproj */; };
 		632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */; };
 		632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632BB9E9194F2D13006CD7DA /* AlertWindow.xib */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
@@ -431,6 +432,7 @@
 		63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.up.tunnelblick.sh; sourceTree = "<group>"; };
 		6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6329EA031A9AF7B700A0BFA8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		632AA70024211D2900C7860D /* SW-TZ.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "SW-TZ.lproj"; sourceTree = "<group>"; };
 		632BB9E6194F2CFA006CD7DA /* AlertWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWindowController.h; sourceTree = "<group>"; };
 		632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWindowController.m; sourceTree = "<group>"; };
 		632BB9E9194F2D13006CD7DA /* AlertWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertWindow.xib; sourceTree = "<group>"; };
@@ -1130,6 +1132,7 @@
 				635497FE1FABD9E10009E149 /* SQ.lproj */,
 				63E5276920C2DA7E00963456 /* SR_Latn.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
+				632AA70024211D2900C7860D /* SW-TZ.lproj */,
 				6308EEE8222701E8003D974C /* TA.lproj */,
 				63A6F032236B93CF002762D9 /* TH.lproj */,
 				6389ADBC1AE4265100E2FAD8 /* TR.lproj */,
@@ -1707,6 +1710,7 @@
 				639B6119205BE7FD00BC2FF5 /* HE.lproj in Resources */,
 				6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */,
 				635713A61A6709D800709670 /* AR.lproj in Resources */,
+				632AA70124211D2A00C7860D /* SW-TZ.lproj in Resources */,
 				63206BC41D273CBD00019DFB /* info-icon-on-right-360x40.png in Resources */,
 				63DEC01C20EFC2D30008AC26 /* client.4.down.tunnelblick.sh in Resources */,
 				634E02071CAD9776008637FF /* HR.lproj in Resources */,

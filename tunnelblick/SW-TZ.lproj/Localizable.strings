@@ -1,0 +1,96 @@
+/* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
+/* See https://tunnelblick.net/cLocalizeTranslate.html.           */
+
+
+/* Status message */
+"Disconnect All (%@)" = "Ondoa Maunganisho Yote (%@)";
+
+/* Status message */
+"Disconnect All (%d Connections)" = "Ondoa Maunganisho Yote (%d Maunganisho)";
+
+/* Status message */
+"No Active Connections" = "\n21/5000\nHakuna Maunganisho Hai";
+
+/* Button */
+"Back" = "Nyuma";
+
+/* Button */
+"Connect" = "Unganisha";
+
+/* Button */
+"Continue" = "Endelea";
+
+/* Button */
+"Delete" = "Futa";
+
+/* Button */
+"Disconnect" = "Tenganisha";
+
+/* Button */
+"Do nothing" = "Usifanye Chochote";
+
+/* Button */
+"Help" = "Msaada";
+
+/* Button */
+"I DO NOT have configuration files" = "Sina mafaili ya kusanidi";
+
+/* Button */
+"I have configuration files" = "Ninayo Mafaili ya Kusanidi";
+
+/* Button */
+"Ignore" = "Puuza au usifanye chochote";
+
+/* Button */
+"Install" = "Sanikisha";
+
+/* Button */
+"Latest (%@)" = "Mpya(%@)";
+
+/* Button */
+"Load Tap driver automatically" = "Pakia Tap dereva moja kwa moja";
+
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "Maelezo zaidi [%@]";
+
+/* Button */
+"More Info" = "Maelezo zaidi";
+
+/* Button */
+"Reinstall" = "Sanidi upya";
+
+/* Button */
+"Replace" = "Badilisha";
+
+/* Button */
+"Restart connection" = "Anza upya maunganisho";
+
+/* Button */
+"Retry" = "Jaribu tena";
+
+/* Button */
+"Show when connection status changes" = "Onesha pindi hali  ya uunganisho ikibadilika";
+
+/* Button */
+"Show while connecting and connected" = "Onesha wakati wa kuunganisha na maunganisho";
+
+/* Button */
+"Show while connecting" = "Onesha wakati wa kuunganisha";
+
+/* Menu item */
+"Connect %@%@" = "Unganisha %@%@";
+
+/* Menu item */
+"Disconnect %@%@" = "Ondoa Maunganisho %@%@";
+
+/* Checkbox Name */
+"Authenticate before connecting" = "Thibitisha kabla ya kuunganishwa";
+
+/* Checkbox name */
+"Check if the apparent public IP address changed after connecting" = "Angalia ikiwa anwani dhahiri ya IP ya umma ilibadilika baada ya kuunganishwa";
+
+/* Checkbox name */
+"Disconnect when computer goes to sleep" = "Ondoa Maunganisho wakati kompyuta inakwenda kulala";
+
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Dr. Joseph Mbowe";
