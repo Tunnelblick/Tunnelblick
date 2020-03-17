@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "Ilmoita yhteyttä luotaessa";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Ohita tämä päivitys";
+
 /* Button */
 "Skip" = "Ohita";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 -ikoni";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Päivitä";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblickin käynnistyessä";
@@ -869,6 +875,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " VAROITUS: Tätä on Tunnelblickin kopiota on peukaloitu.\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (ei-Tunnelblick)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ on olemassa, mutta se on kansio";
 
@@ -1022,6 +1031,9 @@
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Sisäinen Tunnelblick-virhe tapahtui: fileIsReasonableSize: polku on tyhjä";
 
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Päivitys saatavissa %@ VPN määrityksiin.\n\nPäivitetäänkö määritykset?";
+
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Oletko varma, että et halua muuntaa OpenVPN konfiguraatioita Tunnekblick VPN konfiguraatioiksi?\n\nKONFIGURAATIOT EIVÄT OLE KÄYTÖSSÄ JOS ET MUUNNA NIITÄ!\n\n";
 
@@ -1147,6 +1159,9 @@
 
 /* Window text */
 "Could not get modification date of %@" = "Kohteen %@ muokkauspäivää ei saatu";
+
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Päivitys määrityksiin '%@' ei onnistunut. Katso tarkempaa tietoa logista.";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "Ei voitu selvittää symbolista linkkiä kohteessa %@";
@@ -1510,6 +1525,9 @@
 
 /* Window text */
 "That name is being used.\n\n" = "Tätä nimeä käytetään.\n\n";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "VPN määritystä %@ on muokattu viimeisen suojauksen jälkeen.\n\nHaluatko suojata muokatun version vai palauttaa takaisin viimeksi suojatun version?";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Järjestelmäkansio %1$@ ei ole suojattu (%2$@).\n\nTunnelblick ja muut sovellukset eivät toimi odotetusti, ennen kuin tämä ongelma on korjattu.\n\nTarkempia tietoja on lokissa.";
@@ -2098,6 +2116,8 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Tuodaksesi Tunnelblick asetuksia tietokoneeseen, jossa on enemmän kuin %u käyttäjätiliä, tulee luoda tekstitiedosto joka määrittää tuotavat tiedot.</p>\n<p>Katso lisätietoja <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>Tunnelblick</strong>' versioon kuulumaton OpenVPN on asennettu, joka ei ole osa Tunnelblick ohjelmistoa. Järjestelmänvalvoja on asentanut sen.";
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Määrittää OpenVPN sekä SSL ohjelmistojen versiot, joita käytetään VPN yhteyden muodostamiseen.</strong><ul><li><strong>\"Oletus\"</strong> käyttää OpenVPN ohjelmiston oletusversiota ja OpenSSL kirjastoa joka sisältyy tähän Tunnelblick versioon. Oletus voi vaihdella eri Tunnelblick versioiden välillä.<br></li><li><strong>\"Viimeisin\"</strong> käyttää OpenVPN ohjelmiston viimeisintä versiota LibreSSL kirjastolla, joka sisältyy tähän Tunnelblick versioon. Viimeisin versio voi vaihdella eri Tunnelblick versioissa.<br></li><li><strong>Mikä muu tahansa</strong> määritettyä versiota OpenVPN ohjelmistosta sekä SSL kirjastosta, mikäli ne ovat saatavilla tässä Tunnelblick versiossa. Mikäli eivät ole saatavissa, käytetään lähintä mahdollista versiota.<br></li></ul>";
