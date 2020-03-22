@@ -245,6 +245,9 @@
 /* Button */
 "Show while connecting" = "Mostrar enquanto se conecta";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Ignore esta actualização";
+
 /* Button */
 "Skip" = "Saltar";
 
@@ -277,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Ícone do Tunnelblick 3.3";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Actualizar";
 
 /* Button */
 "When Tunnelblick launches" = "Quando o Tunnelblick iniciar";
@@ -869,6 +875,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " AVISO: Esta cópia do Tunnelblick foi adulterada.\n\n";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (não-Tunnelblick)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@ existe mas não é uma pasta";
 
@@ -1022,6 +1031,9 @@
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Ocorreu um erro interno no Tunnelblick: fileIsReasonableSize: Localização não definida";
 
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Uma actualização para a configuração da VPN %@ está disponível. \n\nDeseja actualizar esta configuração?";
+
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Tem certeza que deseja converter as configurações OpenVPN para configurações VPN do Tunnelblick?\n\nELAS NÃO ESTARÃO DISPONÍVEIS SE NÃO CONVERTÊ-LAS!\n\n";
 
@@ -1147,6 +1159,9 @@
 
 /* Window text */
 "Could not get modification date of %@" = "Não foi possível obter data da modificação de %@";
+
+/* Window text. */
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Não foi possível obter a versão actualizada da configuração '%@'. Veja o Log da Consola para mais detalhes.";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "Não foi possível resolver o link simbólico em %@";
@@ -2110,9 +2125,6 @@
 
 /* HTML info for the 'On expected disconnect' button. */
 "<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Especifica o que o Tunnelblick faz quando a VPN é desconectada <em>conforme esperado</em></strong> (por exemplo, um item de menu ou botão \"Desconectar\" é clicado). As escolhas são:</p><ul><li><strong>Não fazer nada</strong><br></li><li><strong>Redefinir interface principal</strong>: Tunnelblick redefine a interface de rede principal emitindo comandos 'ipconfig down; ipconfig up' para a interface. Isto pode ser útil quando uma configuração falha ao restaurar as configurações de rede corretamente após uma desconexão.<br></li><li><strong>Desabilitar o acesso à rede (\"Kill Switch\")</strong>: Tunnelblick corta todo o acesso à rede (local e Internet) desativando o Wi-Fi e desativando todos os outros serviços de rede. Isso pode ajudar a garantir que nada escape do computador exceto pela VPN. Se o Tunnelblick tiver desativado o acesso à rede um comando de menu para reativar todo o acesso desabilitado estará disponível no ícone do Tunnelblick na barra de menu. Você também pode reativar o Wi-Fi ativando-o ou reativar outros serviços de rede em Preferências do sistema : Rede. <strong>Essa configuração pode não funcionar corretamente quando mais de uma VPN é conectada simultaneamente.</strong></li></ul>";
-
-/* HTML info for the 'Connect' button. */
-"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>" = "<p><strong>Especifica quando o Tunnelblick se deve conectar a uma VPN.</strong></p><p>\"Quando o computador iniciar\" só pode ser usado com configurações \"Partilhadas\".</p>";
 
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */

@@ -1,18 +1,68 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) - apparent public IP address %@" = "Ondoa zote (%1$@) - anwani dhahiri ya IP ya umma%2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Ondoa Maunganisho Yote (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Ondoa Viunganisho vyote (%1$d) - anwani dhahiri ya Itifaki ya Intaneti(Internet Protocol)  ya umma%2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Ondoa Maunganisho Yote (%d Maunganisho)";
 
 /* Status message */
-"No Active Connections" = "\n21/5000\nHakuna Maunganisho Hai";
+"No Active Connections" = "\nHakuna Maunganisho Amilifu";
+
+/* Textbox name */
+"Username:" = "Jina la Mtumiaji";
+
+/* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Chaguo-Amri-F%3$d)";
+
+/* Button */
+"(None available)" = "(Haipatikani)";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"Advanced..." = "Ya Juu";
+
+/* Button */
+"All Users" = "Watumiaji Wote";
+
+/* Button */
+"Always load Tap driver" = "Kila mara pakia Tepu kiendeshi";
+
+/* Button */
+"Always load Tun driver" = "Kila mara pakia Tun kiendeshi";
+
+/* Button */
+"Always use the plugin" = "Kila mara tumia programu-jalizi";
 
 /* Button */
 "Back" = "Nyuma";
+
+/* Button */
+"Cancel" = "Ghairi";
+
+/* Menu item */ /* Button */
+"Check For Updates Now" = "Angalia Sasisho Sasa";
+
+/* Button */
+"Check Now" = "Angalia Sasa";
 
 /* Button */
 "Connect" = "Unganisha";
@@ -21,10 +71,31 @@
 "Continue" = "Endelea";
 
 /* Button */
+"Convert Configurations" = "Kubadilisha Usanidi";
+
+/* Button */
+"Create sample configuration and edit it" = "Unda usanidi wa mfano na uhariri";
+
+/* Button */
+"Default (%@)" = "Mpangoli(%@)";
+
+/* Button */
+"Delete Credentials" = "Futa dhamana";
+
+/* Button */
 "Delete" = "Futa";
 
 /* Button */
+"Disable network access" = "Lemaza Fikio mtandao";
+
+/* Button */
 "Disconnect" = "Tenganisha";
+
+/* Button */
+"Do Not Re-enable Network Access" = "Usiwezeshe upya Fikio ya Mtandao";
+
+/* Button */
+"Do not use the plugin" = "Usitumie programu-jalizi";
 
 /* Button */
 "Do nothing" = "Usifanye Chochote";
@@ -42,13 +113,16 @@
 "Ignore" = "Puuza au usifanye chochote";
 
 /* Button */
-"Install" = "Sanikisha";
+"Install" = "Sakinisha";
 
 /* Button */
 "Latest (%@)" = "Mpya(%@)";
 
 /* Button */
 "Load Tap driver automatically" = "Pakia Tap dereva moja kwa moja";
+
+/* Button */
+"Load Tun driver automatically" = "Pakia Tun dereva moja kwa moja";
 
 /* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "More Info [%@]" = "Maelezo zaidi [%@]";
@@ -57,16 +131,74 @@
 "More Info" = "Maelezo zaidi";
 
 /* Button */
+"Never load Tap driver" = "Kamwe usipakie Tepu kiendeshi";
+
+/* Button */
+"Never load Tun driver" = "Kamwe usipakie Tun kiendeshi";
+
+/* Button */
+"Never show" = "Kamwe Usioneshe";
+
+/* Button */
+"No keyboard shortcut" = "Hakuna njia ya mkato ya Bodidota";
+
+/* Button */
+"No sound" = "Hakuna sauti";
+
+/* Button */
+"OK" = "Sawa";
+
+/* Button */
+"Only Me" = "Mimi tu";
+
+/* Button */
+"Open Uninstall Instructions in Browser" = "Fungua Maelekezo ya Kuondoa katika Kivinjari";
+
+/* Button */
+"Open easy-rsa in Terminal" = "Fungua rsa-rahisi katika Temino";
+
+/* Button */
+"Place Icon Near the Spotlight Icon" = "Weka Picha-funzo karibu na Picha-funzo ya Uangalizi";
+
+/* Button */
+"Place Icon Normally" = "Weka Picha-funzo Kawaida";
+
+/* Button */
+"Quit All OpenVPN Processes" = "Ondoa  michakato yote ya OpenVPN";
+
+/* Button */
+"Quit" = "Ondoka";
+
+/* Button
+   Menu item */
+"Re-enable Network Access" = "Wezesha upya Fikio ya Mtandao";
+
+/* Button */
 "Reinstall" = "Sanidi upya";
+
+/* Button */
+"Remove Credentials" = "Ondoa dhamana";
 
 /* Button */
 "Replace" = "Badilisha";
 
 /* Button */
-"Restart connection" = "Anza upya maunganisho";
+"Reset Disabled Warnings" = "Rudisha maonyo yaliyo Lemazwa";
+
+/* Button */
+"Restart connection" = "Anzisha upya maunganisho";
+
+/* Button */
+"Restore" = "Rejesha";
 
 /* Button */
 "Retry" = "Jaribu tena";
+
+/* Button */
+"Show on default screen (%u x %u)" = "Onesha katika Skrini mpangoli(%1$u x %2$u)";
+
+/* Button */
+"Show on screen %u (%u x %u)" = "Onesha katika skrini%1$u (%2$u x %3$u)";
 
 /* Button */
 "Show when connection status changes" = "Onesha pindi hali  ya uunganisho ikibadilika";
@@ -77,20 +209,104 @@
 /* Button */
 "Show while connecting" = "Onesha wakati wa kuunganisha";
 
+/* Button */
+"Speak" = "Ongea";
+
+/* Button */
+"Terminate All OpenVPN processes" = "Katisha michakato yote ya OpenVPN";
+
+/* Button */
+"Terminate" = "Sitisha";
+
+/* Button */
+"Try again" = "Jaribu tena";
+
+/* Button */
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 picha-funzo";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Sasisha";
+
+/* Button */
+"When computer starts" = "Wakati kompyuta inapoanza";
+
+/* Menu item */
+"Add a VPN..." = "Ongeza VPN…";
+
 /* Menu item */
 "Connect %@%@" = "Unganisha %@%@";
 
+/* Menu Item */
+"Delete Configuration's Credentials in Keychain..." = "Futa dhamana ya usanidi katika Cheni-funguo…";
+
 /* Menu item */
 "Disconnect %@%@" = "Ondoa Maunganisho %@%@";
+
+/* Menu Item */
+"Do Not Show on Tunnelblick Menu" = "Usionyeshe kwenye Menyu ya Tunnelblick";
+
+/* Menu Item */
+"Duplicate Configuration..." = "Rudufisha Usanidi";
+
+/* Menu Item */
+"Edit OpenVPN Configuration File..." = "Hariri Faili la Usanidi ya OpenVPN…";
+
+/* Menu Item */
+"Examine OpenVPN Configuration File..." = "Chunguza Faili la Usanidi ya OpenVPN…";
+
+/* Menu Item */
+"Make Configuration Private..." = "Fanya Usanidi uwe wa Kibinafsi…";
+
+/* Menu Item */
+"Make Configuration Shared..." = "Fanya Usanidi Kutumiwa na wengi...";
+
+/* Menu item */
+"No VPN Configurations Available" = "Hakuna Usanidi wa VPN Unapatikana";
+
+/* Menu item */
+"Quit Tunnelblick" = "Katisha Tunnelblick";
+
+/* Menu item */
+"VPN Details..." = "Maelezo ya VPN…";
 
 /* Checkbox Name */
 "Authenticate before connecting" = "Thibitisha kabla ya kuunganishwa";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Angalia ikiwa anwani dhahiri ya IP ya umma ilibadilika baada ya kuunganishwa";
+"Check if the apparent public IP address changed after connecting" = "Angalia ikiwa anwani dhahiri ya Itifaki ya Intaneti ya umma ilibadilika baada ya kuunganishwa";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Ondoa Maunganisho wakati kompyuta inakwenda kulala";
+"Disconnect when computer goes to sleep" = "Ondoa Unganisho wakati kompyuta inakwenda kulala";
+
+/* Window title */
+"Active connection" = "Maunganisho Amilifu";
+
+/* Window title */
+"Installation failed" = "Usanikishaji umeshindwa";
+
+/* Window title */
+"Installation or Repair Failed" = "Usanikishaji  au Urekebishaji Umeshindwa";
+
+/* Window text */
+"Cancelled trying to quit all OpenVPN processes" = "Ghairisha kujaribu kukatisha michakato yote ya OpenVPN";
+
+/* Window text */
+"Installation failed:\n\n%@" = "Usanikishaji umeshindwa:\n\n%@";
+
+/* Window text */
+"Keyboard shortcut:" = "Njia ya mkato ya Bodidota";
+
+/* Window text */
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Tafadhali ingiza jina na bofya \"Sawa\" au bofya \"Ghairi\"";
+
+/* Window text */
+"The installation or repair took too long or failed. Try again?" = "Usanikishaji au Urekebishaji ulichukua muda mrefu sana au haukufanikiwa. Jaribu tena?";
+
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Usanikishaji, uondoaji, ukifu, au urekebishaji wa sehemu moja au zaidi za Tunnelblick haikufaulu. Tazama Ingizo la Console kwa maelezo.";
+
+/* Checkbox text */
+"Check for IP address changes" = "Angalia mabadiliko ya Anwani ya Itifaki ya Inteneti";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Dr. Joseph Mbowe";
