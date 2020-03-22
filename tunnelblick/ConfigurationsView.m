@@ -245,7 +245,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 	[whenToConnectPopUpButton
 	 setTitle: nil
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p>"
-														   @"<p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>",
+														   @"<p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase)"
+														   @" stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>",
 														   @"HTML info for the 'Connect' button."))];
     [UIHelper setTitle: nil ofControl: whenToConnectPopUpButton shift: rtl narrow: YES enable: YES];
     
