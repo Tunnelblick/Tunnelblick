@@ -25,6 +25,12 @@
 {
     IBOutlet NSImageView        * iconIV;
     
+	IBOutlet NSTextFieldCell    * tbNameTFC;
+	IBOutlet NSTextField        * tbNameTF;
+
+	IBOutlet NSTextFieldCell    * versionTFC;
+	IBOutlet NSTextField        * versionTF;
+
     IBOutlet NSTextFieldCell    * mainText;
 	IBOutlet NSTextField        * mainTextTF;
 

@@ -47,12 +47,20 @@ extern BOOL gShuttingDownWorkspace;
 {
     [[self window] setTitle: NSLocalizedString(@"Tunnelblick", @"Window title")];
     
-    [iconIV setImage: [NSImage imageNamed: @"tb-logo-309x64-2011-06-26"]];
-    
-	NSString * text = [NSString stringWithFormat: NSLocalizedString(@"Starting Tunnelblick %@...",
-																	@"Window text; '%@' will be replaced with a version number such as '3.6.10'"),
-					   [(MenuController *)[NSApp delegate] tunnelblickVersionString]];
-    [self setMessage: text];
+    [iconIV setImage: [NSImage imageNamed: @"tb-icon-64x64.v1"]];
+
+    NSString * tunnelblickName = NSLocalizedString(@"Tunnelblick", @"Window title");
+	[tbNameTFC setTitle: tunnelblickName];
+
+    NSMutableString * versionString = [[[(MenuController *)[NSApp delegate] tunnelblickVersionString] mutableCopy] autorelease];
+    NSString * programNameAndSpace = [tunnelblickName stringByAppendingString: @""];
+    [versionString replaceOccurrencesOfString: programNameAndSpace
+                                   withString: @""
+                                      options: 0
+                                        range: NSMakeRange(0, [versionString length])];
+    [versionTFC setTitle: versionString];
+
+    [self setMessage: NSLocalizedString(@"Starting Tunnelblick...", @"Window text in the splash screen")];
     
     [copyrightTFC setStringValue: copyrightNotice()];
     
@@ -118,10 +126,10 @@ extern BOOL gShuttingDownWorkspace;
 
     if (  mainText  ) {
         [mainText setTitle: newValue];
-		[mainTextTF sizeToFit];
         [[self window] display];
     }
 }
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSString *, message)
+
 @end

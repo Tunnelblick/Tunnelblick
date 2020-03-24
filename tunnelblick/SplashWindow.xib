@@ -11,11 +11,15 @@
                 <outlet property="iconIV" destination="3" id="60"/>
                 <outlet property="mainText" destination="81" id="82"/>
                 <outlet property="mainTextTF" destination="80" id="YiK-5a-mzw"/>
+                <outlet property="tbNameTF" destination="oi5-B6-Qye" id="6eK-AK-upk"/>
+                <outlet property="tbNameTFC" destination="a37-A2-j16" id="mxW-Bn-ng7"/>
+                <outlet property="versionTF" destination="LB5-oL-Siv" id="4ua-3S-hzX"/>
+                <outlet property="versionTFC" destination="WHg-yd-0ot" id="8FL-Di-ilG"/>
                 <outlet property="window" destination="1" id="15"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Tunn..." allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="ConnectingWindow" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -30,15 +34,24 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <imageView id="3">
-                                <rect key="frame" x="20" y="83" width="349" height="64"/>
+                                <rect key="frame" x="20" y="83" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="4"/>
                             </imageView>
                             <textField verticalHuggingPriority="750" id="80">
-                                <rect key="frame" x="17" y="50" width="355" height="17"/>
+                                <rect key="frame" x="18" y="50" width="355" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please wait$" id="81">
                                     <font key="font" metaFont="systemBold"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" id="LB5-oL-Siv">
+                                <rect key="frame" x="90" y="83" width="281" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="VersionInfo$" id="WHg-yd-0ot">
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -48,6 +61,15 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Copyright$" id="84">
                                     <font key="font" metaFont="systemBold"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" id="oi5-B6-Qye">
+                                <rect key="frame" x="90" y="104" width="281" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="TunnelblickName$" id="a37-A2-j16">
+                                    <font key="font" metaFont="systemBlack" size="20"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
