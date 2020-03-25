@@ -968,7 +968,7 @@ int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments
     
     [task setCurrentDirectoryPath: @"/private/tmp"];
     
-    [task setEnvironment: getSafeEnvironment(configName, configLocCode)];
+    [task setEnvironment: getSafeEnvironment(configName, configLocCode, nil)];
     
 	becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
     

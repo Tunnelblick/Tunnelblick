@@ -1248,13 +1248,15 @@ NSString * configFolderPathFromConfigNameAndLocCode(NSString * configName, unsig
 	return path;
 }
 
-NSDictionary * getSafeEnvironment(NSString * configName, unsigned configLocCode) {
-    
+NSDictionary * getSafeEnvironment(NSString * configName, unsigned configLocCode, NSDictionary * additionalEntries) {
+
     // Create our own environment to guard against Shell Shock (BashDoor) and similar vulnerabilities in bash
     // (Even if bash is not being launched directly, whatever is being launched could invoke bash;
 	//  for example, openvpnstart launches openvpn which can invoke bash for scripts)
     //
 	// If configName is provided, the TUNNELBLICK_CONFIG_FOLDER variable is set to the path of the folder that contains the configuration file.
+	//
+	// If additionalEntries is not nil, entries in that dictionary are added to the result (replacing standard entries with the same name).
 	//
     // This environment consists of several standard shell variables
 	// A modified version of this routine is in process-network-changes
@@ -1269,7 +1271,11 @@ NSDictionary * getSafeEnvironment(NSString * configName, unsigned configLocCode)
                                  TOOL_PATH_FOR_BASH,     @"SHELL",
                                  @"unix2003",            @"COMMAND_MODE",
                                  nil];
-    
+
+	if (  additionalEntries  ) {
+		[env addEntriesFromDictionary: additionalEntries];
+	}
+
 	if (  configName  ) {
 		NSString * path = configFolderPathFromConfigNameAndLocCode(configName, configLocCode);
 		if (  path ) {
@@ -1374,7 +1380,7 @@ OSStatus runTool(NSString * launchPath,
     [task setCurrentDirectoryPath: @"/private/tmp"];
     [task setStandardOutput: outFile];
     [task setStandardError:  errFile];
-    [task setEnvironment: getSafeEnvironment(nil, 0)];
+    [task setEnvironment: getSafeEnvironment(nil, 0, nil)];
     
     [task launch];
     
@@ -1438,7 +1444,7 @@ void startTool(NSString * launchPath,
     [task setLaunchPath: launchPath];
     [task setArguments:  arguments];
     [task setCurrentDirectoryPath: @"/private/tmp"];
-    [task setEnvironment: getSafeEnvironment(nil, 0)];
+    [task setEnvironment: getSafeEnvironment(nil, 0, nil)];
     
     [task launch];
 }

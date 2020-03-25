@@ -100,7 +100,7 @@ BOOL makeUnlockedAtPath(NSString * path);
 
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser);
 
-NSDictionary * getSafeEnvironment(NSString * configName, unsigned configLocCode);
+NSDictionary * getSafeEnvironment(NSString * configName, unsigned configLocCode, NSDictionary * additionalEntries);
 
 OSStatus runTool(NSString * launchPath,
                  NSArray  * arguments,

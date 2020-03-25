@@ -1072,7 +1072,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	NSTask * task = [[[NSTask alloc] init] autorelease];
     [task setLaunchPath: scriptPath];
     [task setCurrentDirectoryPath: @"/private/tmp"];
-    [task setEnvironment: getSafeEnvironment(nil, 0)];
+    [task setEnvironment: getSafeEnvironment(nil, 0, nil)];
     [task launch];
 }
 
