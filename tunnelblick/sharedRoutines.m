@@ -1335,11 +1335,12 @@ NSString * newTemporaryDirectoryPath(void)
 }
 
 
-OSStatus runTool(NSString * launchPath,
-                 NSArray  * arguments,
-                 NSString * * stdOutStringPtr,
-                 NSString * * stdErrStringPtr) {
-	
+OSStatus runToolExtended(NSString     * launchPath,
+						 NSArray      * arguments,
+						 NSString     * * stdOutStringPtr,
+						 NSString     * * stdErrStringPtr,
+						 NSDictionary * additionalEnvironmentEntries) {
+
 	// Runs a command or script, returning the execution status of the command, stdout, and stderr
 	
     // Send stdout and stderr to files in a temporary directory
@@ -1432,6 +1433,18 @@ OSStatus runTool(NSString * launchPath,
     }
     
 	return status;
+}
+
+OSStatus runTool(NSString * launchPath,
+				 NSArray  * arguments,
+				 NSString * * stdOutStringPtr,
+				 NSString * * stdErrStringPtr) {
+	
+	return runToolExtended(launchPath,
+						   arguments,
+						   stdOutStringPtr,
+						   stdErrStringPtr,
+						   nil);
 }
 
 void startTool(NSString * launchPath,

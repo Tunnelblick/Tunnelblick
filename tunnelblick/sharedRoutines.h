@@ -107,6 +107,12 @@ OSStatus runTool(NSString * launchPath,
                  NSString * * stdOut,
                  NSString * * stdErr);
 
+OSStatus runToolExtended(NSString     * launchPath,
+						 NSArray      * arguments,
+						 NSString     * * stdOutStringPtr,
+						 NSString     * * stdErrStringPtr,
+						 NSDictionary * additionalEnvironmentEntries);
+
 void startTool(NSString * launchPath,
 			   NSArray *  arguments);
 
