@@ -3793,6 +3793,37 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	return response;
 }
 
+-(NSString *) stdoutFromTblkScript: (NSString *) scriptFilename {
+
+	NSString * scriptPath = [[[configPath stringByAppendingPathComponent: @"Contents"]
+							  stringByAppendingPathComponent: @"Resources"]
+							 stringByAppendingPathComponent: scriptFilename];
+	if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
+		NSArray * arguments = [NSArray array];
+		NSString * stdoutString = nil;
+		NSString * stderrString = nil;
+		NSDictionary * additionalEnvironmentEntries = [NSDictionary dictionaryWithObjectsAndKeys:
+													   [self displayName], @"TunnelblickConfigurationName",
+													   nil];
+		OSStatus status = runToolExtended(scriptPath, arguments, &stdoutString, &stderrString, additionalEnvironmentEntries);
+
+		if (  status == EXIT_SUCCESS  ) {
+			if (  [stdoutString hasSuffix: @"\n"]  ) {
+				stdoutString = [stdoutString substringToIndex: [stdoutString length] - 1 ];
+			}
+			[self addToLog: [NSString stringWithFormat: @"Received response from %@", scriptFilename]];
+			return stdoutString;
+		}
+
+		[self addToLog: [NSString stringWithFormat: @"Error status %d returned by %@.\nstdout = '%@'\nstderr = '%@'",
+						 (int)status, scriptFilename, stdoutString, stderrString]];
+	} else {
+		TBLog(@"DB-AU", @"File does not exist: '%@'", scriptPath);
+	}
+	
+	return nil;
+}
+
 - (NSString *) getResponseToChallenge: (NSString *) challenge
 						 echoResponse: (BOOL)       echoResponse
 					 responseRequired: (BOOL)       responseRequired
@@ -4285,6 +4316,40 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	[self setDynamicChallengeFlags:    nil];
 }
 
+-(NSString *) passwordAsModifed: (NSString *) password {
+
+	// Returns the password, as modified by password-replace.user.sh, password-prepend.user.sh, and/or password-append.user.sh
+
+	NSString * replaceString = [self stdoutFromTblkScript: @"password-replace.user.sh"];
+	NSString * prependString = [self stdoutFromTblkScript: @"password-prepend.user.sh"];
+	NSString * appendString  = [self stdoutFromTblkScript: @"password-append.user.sh"];
+
+	if (  replaceString  ) {
+		password = [[replaceString retain] autorelease];
+		appendLog(@"Replaced password with output from password-replace.user.sh");
+		if (   prependString
+			|| appendString  ) {
+			appendLog(@"Warning: Used output from password-replace.user.sh and ignored password-prepend.user.sh and/or password-append.user.sh");
+		}
+	} else {
+		if (   prependString
+			|| appendString  ) {
+			if (  prependString  ) {
+				password = [prependString stringByAppendingString: password];
+				appendLog(@"Prepended password with output from password-prepend.user.sh");
+			}
+			if (  appendString  ) {
+				password = [password stringByAppendingString: appendString];
+				appendLog(@"Appended password with output from password-append.user.sh");
+			}
+		} else {
+			TBLog(@"DB-AU", @"None of password-replace.user.sh, password-prepend.user.sh, or password-append.user.sh exist");
+		}
+	}
+
+	return password;
+}
+
 -(void) provideCredentials: (NSString *) parameterString line: (NSString *) line
 {
 	TBLog(@"DB-AU", @"processLine: provideCredentials: invoked");
@@ -4367,11 +4432,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString *myUsername = [myAuthAgent username];
         if(   (myUsername != nil)
            && (myPassword != nil)  ){
+
+			myPassword = [self passwordAsModifed: myPassword];
+
             const char * usernameC  = [escaped(myUsername) UTF8String];
             const char * passwordC  = [escaped(myPassword) UTF8String];
             if (   ( strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )
                 || ( strlen(passwordC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )  ) {
-                [self addToLog: [NSString stringWithFormat: @"Disconnecting; username is %ld bytes long; password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
+                [self addToLog: [NSString stringWithFormat: @"Disconnecting; after escaping, username is %ld bytes long and password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
                 [self startDisconnectingUserKnows: @NO];
             } else {
                 NSString * response = nil;

@@ -152,7 +152,10 @@ BOOL shouldRunScriptAsUserAtPath(NSString * path) {
 	
 	NSString * name = [path lastPathComponent];
 	return (  [name isEqualToString: @"static-challenge-response.user.sh"]
-		   || [name isEqualToString: @"dynamic-challenge-response.user.sh"]  );
+		   || [name isEqualToString: @"dynamic-challenge-response.user.sh"]
+			|| [name isEqualToString: @"password-replace.user.sh"]
+			|| [name isEqualToString: @"password-prepend.user.sh"]
+			|| [name isEqualToString: @"password-append.user.sh"]  );
 }
 
 // Returns YES if file doesn't exist, or has the specified ownership and permissions

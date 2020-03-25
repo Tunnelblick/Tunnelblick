@@ -2068,6 +2068,9 @@ BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdat
         if (   [sourceFullPath hasSuffix: @".tblk/Contents/Info.plist"]
 			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/static-challenge-response.user.sh"]
 			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/dynamic-challenge-response.user.sh"]
+			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/password-replace.user.sh"]
+			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/password-prepend.user.sh"]
+			|| [sourceFullPath hasSuffix: @".tblk/Contents/Resources/password-append.user.sh"]
 			|| (   [extensionsForKeysAndCerts containsObject: [name pathExtension]]
 				&& [[sourceFullPath stringByDeletingLastPathComponent] hasSuffix: @".tblk/Contents/Resources"]
 				)
