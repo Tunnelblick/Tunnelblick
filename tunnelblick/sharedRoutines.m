@@ -1384,7 +1384,7 @@ OSStatus runToolExtended(NSString     * launchPath,
     [task setCurrentDirectoryPath: @"/private/tmp"];
     [task setStandardOutput: outFile];
     [task setStandardError:  errFile];
-    [task setEnvironment: getSafeEnvironment(nil, 0, nil)];
+    [task setEnvironment: getSafeEnvironment(nil, 0, additionalEnvironmentEntries)];
     
     [task launch];
     
