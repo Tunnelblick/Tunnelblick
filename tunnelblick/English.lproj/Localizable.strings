@@ -1274,8 +1274,8 @@
 /* Window text */
 "Installation finished successfully." = "Installation finished successfully.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
+/* Window text */
+"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Installing configurations is not allowed";
@@ -1478,8 +1478,8 @@
 /* Window text */
 "Search domain:" = "Search domain:";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
+/* Window text */
+"Securing Tunnelblick..." = "Securing Tunnelblick…";
 
 /* Window text */
 "Select a target user for each user whose setup data you wish to import." = "Select a target user for each user whose setup data you wish to import.";
@@ -1493,8 +1493,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
+/* Window text in the splash screen */
+"Starting Tunnelblick..." = "Starting Tunnelblick…";
 
 /* Window text */
 "Startup window:" = "Startup window:";
@@ -1688,14 +1688,8 @@
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Trying to quit all OpenVPN processes…";
 
-/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
-
 /* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
+"Tunnelblick Admin Mode\n\n Allow changes that require a computer administrator's authorization.\n\n Admin mode is in effect until the 'VPN Details' window is closed or the 'Exit Admin mode' button is clicked." = "Tunnelblick Admin Mode\n\n Allow changes that require a computer administrator's authorization.\n\n Admin mode is in effect until the 'VPN Details' window is closed or the 'Exit Admin mode' button is clicked.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick Internet Use:";
@@ -1761,6 +1755,9 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
 
 /* Window text */
+"Tunnelblick has been secured." = "Tunnelblick has been secured.";
+
+/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* Window text */
@@ -1768,6 +1765,9 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick is ready.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick needs authorization to duplicate the '%@' configuration.";
@@ -2270,9 +2270,6 @@
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick was not able to load a system extension that is needed to connect to %1$@.</p><p>%2$@</p>";
 
-/* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "Admin mode %@ remaining";
-
 /* Credit description */
 "Afrikaans translation" = "Afrikaans translation";
 
@@ -2283,7 +2280,7 @@
 "Arabic translation" = "Arabic translation";
 
 /* Toolbar text for 'Lock' item */
-"Authenticating..." = "Authenticating…";
+"Authorizing..." = "Authorizing…";
 
 /* Credit description */
 "Azerbaijani translation" = "Azerbaijani translation";
@@ -2354,6 +2351,9 @@
 
 /* Credit description */
 "Estonian translation" = "Estonian translation";
+
+/* Toolbar text for 'Lock' item */
+"Exit Admin mode" = "Exit Admin mode";
 
 /* Credit description */
 "Finnish translation" = "Finnish translation";
