@@ -648,7 +648,6 @@ name = newValue;                                    \
 @"doNotIgnoreSignal13",	\
 @"doNotLaunchOnLogin", /* DISABLE the ability to launch on login provided by launchAtNextLogin */	\
 @"launchAtNextLogin",	\
-@"onlyAdminsCanUnprotectConfigurationFiles",	\
 @"standardApplicationPath",	\
 @"doNotCreateLaunchTunnelblickLinkinConfigurations",	\
 @"menuIconSet",	\
@@ -773,6 +772,7 @@ name = newValue;                                    \
 @"keyboardShortcutModifiers",	\
 @"managementPortStartingPortNumber",	\
 @"maximumLogSize",	\
+@"onlyAdminsCanUnprotectConfigurationFiles",	\
 @"skipWarningAboutUsingOpenvpnTxpVersion",	\
 @"skipWarningAboutUsingOpenvpnNonTxpVersion",	\
 @"skipWarningAboutNoOpenvpnTxpVersion",	\
