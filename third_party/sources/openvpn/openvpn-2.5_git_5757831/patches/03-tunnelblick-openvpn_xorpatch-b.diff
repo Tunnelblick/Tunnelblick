@@ -1,7 +1,7 @@
-diff -u -r -x .DS_Store openvpn-2.5_git_d42f070.old/src/openvpn/options.c openvpn-2.5_git_d42f070.new/src/openvpn/options.c
---- openvpn-2.5_git_d42f070.old/src/openvpn/options.c	2019-09-05 14:55:43.000000000 -0400
-+++ openvpn-2.5_git_d42f070.new/src/openvpn/options.c	2019-09-05 14:55:43.000000000 -0400
-@@ -824,6 +824,9 @@
+diff -u -r -x .DS_Store openvpn-2.5_git_5757831.old/src/openvpn/options.c openvpn-2.5_git_5757831.new/src/openvpn/options.c
+--- openvpn-2.5_git_5757831.old/src/openvpn/options.c	2020-04-03 06:14:35.000000000 -0400
++++ openvpn-2.5_git_5757831.new/src/openvpn/options.c	2020-04-03 06:14:35.000000000 -0400
+@@ -831,6 +831,9 @@
      o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
      o->resolve_in_advance = false;
      o->proto_force = -1;
@@ -11,7 +11,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_d42f070.old/src/openvpn/options.c openvp
  #ifdef ENABLE_OCC
      o->occ = true;
  #endif
-@@ -984,6 +987,9 @@
+@@ -994,6 +997,9 @@
      setenv_str_i(es, "local_port", e->local_port, i);
      setenv_str_i(es, "remote", e->remote, i);
      setenv_str_i(es, "remote_port", e->remote_port, i);
@@ -21,7 +21,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_d42f070.old/src/openvpn/options.c openvp
  
      if (e->http_proxy_options)
      {
-@@ -1438,6 +1444,9 @@
+@@ -1467,6 +1473,9 @@
      SHOW_BOOL(bind_ipv6_only);
      SHOW_INT(connect_retry_seconds);
      SHOW_INT(connect_timeout);
@@ -31,7 +31,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_d42f070.old/src/openvpn/options.c openvp
  
      if (o->http_proxy_options)
      {
-@@ -5957,6 +5966,46 @@
+@@ -6116,6 +6125,46 @@
          }
          options->proto_force = proto_force;
      }
