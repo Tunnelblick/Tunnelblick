@@ -1994,15 +1994,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	//		OpenVPN version the option(s) were removed in (if has a '?' suffix, the removal version has not been decided)
 	//		Option name...
 	//
-	// These entries are based on version 23 (modified 2019-11-17 18:33) of https://community.openvpn.net/openvpn/wiki/DeprecatedOptions
+	// These entries are based on version 27 (modified 2020-03-17 22:52) of https://community.openvpn.net/openvpn/wiki/DeprecatedOptions
 	
 	NSArray * removedOptions = [NSArray arrayWithObjects:
 								[NSArray arrayWithObjects: @"2.1", @"2.5",  @"ifconfig-pool-linear", nil],
 								[NSArray arrayWithObjects: @"2.3", @"2.4",  @"tls-remote", nil],
 								[NSArray arrayWithObjects: @"2.3", @"2.5",  @"compat-names", @"no-name-remapping", nil],
-								[NSArray arrayWithObjects: @"2.4", @"2.4",  @"max-routes", nil],
 								[NSArray arrayWithObjects: @"2.4", @"2.5",  @"client-cert-not-required", @"key-method", @"no-iv", @"no-replay", @"ns-cert-type", nil],
-								[NSArray arrayWithObjects: @"2.4", @"2.5?", @"comp-lzo", @"max-routes", @"dhcp-release", nil],
+								[NSArray arrayWithObjects: @"2.4", @"2.5?", @"comp-lzo", @"max-routes", @"dhcp-release", @"secret", nil],
 								[NSArray arrayWithObjects: @"2.4", @"2.6",  @"keysize", nil],
 								nil];
 	
