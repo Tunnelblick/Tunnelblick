@@ -3792,9 +3792,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	return response;
 }
 
--(NSString *) stdoutFromTblkScript: (NSString *) scriptFilename {
+-(NSString *) stdoutFromTblkScript: (NSString *) scriptFilename cancelledOrErrorPtr: (BOOL *) cancelledOrError {
 
-	NSString * scriptPath = [[[configPath stringByAppendingPathComponent: @"Contents"]
+    // Returns stdout output from running a user's password-* script
+    // Returns nil if there was no script to be run
+    // Sets 'cancelledOrError' true if the user cancelled or an error occurred
+
+    *cancelledOrError = FALSE;
+
+    NSString * scriptPath = [[[configPath stringByAppendingPathComponent: @"Contents"]
 							  stringByAppendingPathComponent: @"Resources"]
 							 stringByAppendingPathComponent: scriptFilename];
 	if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
@@ -3816,6 +3822,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 		[self addToLog: [NSString stringWithFormat: @"Error status %d returned by %@.\nstdout = '%@'\nstderr = '%@'",
 						 (int)status, scriptFilename, stdoutString, stderrString]];
+        *cancelledOrError = TRUE;
 	} else {
 		TBLog(@"DB-AU", @"File does not exist: '%@'", scriptPath);
 	}
@@ -4318,10 +4325,24 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSString *) passwordAsModifed: (NSString *) password {
 
 	// Returns the password, as modified by password-replace.user.sh, password-prepend.user.sh, and/or password-append.user.sh
+    // Returns nil if the user cancelled or there was an error
 
-	NSString * replaceString = [self stdoutFromTblkScript: @"password-replace.user.sh"];
-	NSString * prependString = [self stdoutFromTblkScript: @"password-prepend.user.sh"];
-	NSString * appendString  = [self stdoutFromTblkScript: @"password-append.user.sh"];
+    BOOL cancelledOrError = FALSE;
+
+    NSString * replaceString = [self stdoutFromTblkScript: @"password-replace.user.sh" cancelledOrErrorPtr: &cancelledOrError];
+    if (  cancelledOrError  ) {
+        return nil;
+    }
+
+	NSString * prependString = [self stdoutFromTblkScript: @"password-prepend.user.sh" cancelledOrErrorPtr: &cancelledOrError];
+    if (  cancelledOrError  ) {
+        return nil;
+    }
+
+	NSString * appendString  = [self stdoutFromTblkScript: @"password-append.user.sh"  cancelledOrErrorPtr: &cancelledOrError];
+    if (  cancelledOrError  ) {
+        return nil;
+    }
 
 	if (  replaceString  ) {
 		password = [[replaceString retain] autorelease];
@@ -4433,7 +4454,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
            && (myPassword != nil)  ){
 
 			myPassword = [self passwordAsModifed: myPassword];
-
+            if (  ! myPassword  ) {
+                [self addToLog: @"Error or user cancelled when asked to replace/prepend/append password"];
+                [self startDisconnectingUserKnows: @NO];
+                return;
+            }
             const char * usernameC  = [escaped(myUsername) UTF8String];
             const char * passwordC  = [escaped(myPassword) UTF8String];
             if (   ( strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER )
