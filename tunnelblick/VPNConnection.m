@@ -2323,7 +2323,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 				// One or more options in the configuration file are not included in any version of OpenVPN in this copy of Tunnelblick
 				if (  connecting  )  {
-					TBLog(@"DB-CD", @"Cannot connect %@ because the configuration file includesone or more options that are not included in any OpenVPN version in this version of Tunnelblick",
+					TBLog(@"DB-CD", @"Cannot connect %@ because the configuration file includes one or more options that are not included in any OpenVPN version in this version of Tunnelblick",
 						  [self displayName]);
 				}
 				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
