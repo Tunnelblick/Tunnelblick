@@ -622,6 +622,9 @@ name = newValue;                                    \
 @"skipWarningAboutErrorGettingKnownPublicDnsServers", \
 @"skipWarningAboutDnsProblems", \
 @"skipWarningAboutWhenSystemStartsConfigurationsThatAreNotConnected", \
+@"skipWarningAboutAlwaysLoadTunAndOrTapOnFutureMacOS", \
+@"skipWarningAboutDevNodeTunOnFutureMacOS", \
+@"skipWarningAboutTapConnectionOnFutureMacOS", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\
