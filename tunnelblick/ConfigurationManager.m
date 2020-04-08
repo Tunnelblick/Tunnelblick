@@ -883,13 +883,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSLog(@"The configuration file for '%@' contains a 'dev-node' option, but the argument does not begin with 'tun', 'tap', or 'utun'", [connection displayName]);
 	}
     
-    // If there is a "dev-type" entry, return that device type (tun, utun, tap)
+    // If there is a "dev-type" entry, return that device type (tun or tap)
     NSString * devTypeOption = [ConfigurationManager parseString: cfgContents forOption: @"dev-type"];
     if (  devTypeOption  ) {
         if (  [devTypeOption isEqualToString: @"tun"]  ) {
-            return @"tun";
-        }
-        if (  [devTypeOption isEqualToString: @"utun"]  ) {
             return @"utun";
         }
         if (  [devTypeOption isEqualToString: @"tap"]  ) {
