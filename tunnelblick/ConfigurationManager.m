@@ -880,7 +880,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		if (  [devNodeOption hasPrefix: @"tap"]  ) {
 			return @"tap";
 		}
-		NSLog(@"The configuration file for '%@' contains a 'dev-node' option, but the argument does not begin with 'tun', 'tap', or 'utun'. It has been ignored", [connection displayName]);
+		NSLog(@"The configuration file for '%@' contains a 'dev-node' option, but the argument does not begin with 'tun', 'tap', or 'utun'", [connection displayName]);
 	}
     
     // If there is a "dev-type" entry, return that device type (tun, utun, tap)
@@ -895,7 +895,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  [devTypeOption isEqualToString: @"tap"]  ) {
             return @"tap";
         }
-        NSLog(@"The configuration file for '%@' contains a 'dev-type' option, but the argument is not 'tun' or 'tap'. It has been ignored", [connection displayName]);
+        NSLog(@"The configuration file for '%@' contains 'dev-type %@'. Ony 'dev-type tun' and 'dev-type tap' are allowed", devTypeOption, [connection displayName]);
     }
     
     // If there is a "dev" entry, return that device type for 'tap' or 'utun' but for 'tun', return 'tunOrUtun' so that will be decided when connecting (depends on macOS version and OpenVPN version)
@@ -911,7 +911,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			return @"tap";
 		}
         
-        NSLog(@"The configuration file for '%@' contains a 'dev' option, but the argument does not begin with 'tun', 'tap', or 'utun'. It has been ignored", [connection displayName]);
+        NSLog(@"The configuration file for '%@' contains a 'dev' option, but the argument does not begin with 'tun', 'tap', or 'utun'", [connection displayName]);
         NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
                           [connection localizedName]];
         skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutNoTunOrTap"];
