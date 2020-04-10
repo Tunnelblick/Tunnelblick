@@ -150,12 +150,7 @@ BOOL isValidIPAdddress(NSString * ipAddress) {
 
 BOOL shouldRunScriptAsUserAtPath(NSString * path) {
 	
-	NSString * name = [path lastPathComponent];
-	return (  [name isEqualToString: @"static-challenge-response.user.sh"]
-		   || [name isEqualToString: @"dynamic-challenge-response.user.sh"]
-			|| [name isEqualToString: @"password-replace.user.sh"]
-			|| [name isEqualToString: @"password-prepend.user.sh"]
-			|| [name isEqualToString: @"password-append.user.sh"]  );
+    return [path hasSuffix: @".user.sh"];
 }
 
 // Returns YES if file doesn't exist, or has the specified ownership and permissions
@@ -1107,7 +1102,7 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
     // Permissions:
     mode_t folderPerms;         //  For folders
     mode_t rootScriptPerms;     //  For files with .sh extensions that are run as root
-	mode_t userScriptPerms;     //  For files with .sh extensions that are run as the user -- that is, if shouldRunScriptAsUserAtPath()
+	mode_t userScriptPerms;     //  For files with .user.sh extensions, which are run as the user
     mode_t executablePerms;     //  For files with .executable extensions (only appear in a Deploy folder
     mode_t publicReadablePerms; //  For files named forced-preferences (only appear in a Deploy folder) or Info.plist
     mode_t otherPerms;          //  For all other files
