@@ -1169,7 +1169,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setupDisableIpv6OnTun:					connection];
         [self setupCheckIPAddress:						connection];
 		
-        [[configurationsPrefsView advancedButton] setEnabled: YES];
+        [[configurationsPrefsView advancedButton] setEnabled: ! [gTbDefaults boolForKey: @"disableAdvancedButton"]];
         [settingsSheetWindowController            setupSettingsFromPreferences];
         
     } else {
