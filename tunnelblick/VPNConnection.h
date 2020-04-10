@@ -106,8 +106,6 @@ struct Statistics {
 	NSString	  * dynamicChallengeFlags;
 	NSString      * authRetryParameter;		// Parameter from auth-retry as seen in configuration file (or nil if not seen)
 	
-	time_t			timeLastWarnedAboutOpenVPNVersion;
-	
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     volatile int32_t avoidHasDisconnectedDeadlock; // See note at start of 'hasDisconnected' method

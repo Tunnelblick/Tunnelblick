@@ -216,7 +216,6 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         portNumber = 0;
 		pid = 0;
         avoidHasDisconnectedDeadlock = 0;
-		timeLastWarnedAboutOpenVPNVersion = 0;
         
 		waitingForNetworkAvailability = FALSE;
 		wereWaitingForNetworkAvailability = FALSE;
@@ -2473,20 +2472,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								 );
  
 	if (  warningMessage  ) {
-		// Warn about this at most once per minute for this configuration.
-		// This avoids the problem that this method may be called several times before the user has a chance to respond to the warning.
-		time_t now = time(NULL);
-		if (  (now - timeLastWarnedAboutOpenVPNVersion) > 60  ) {
-			timeLastWarnedAboutOpenVPNVersion = now;
-			TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-									  warningMessage,
-									  key,
-									  nil,
-									  nil,
-									  nil,
-									  nil,
-									  NO);
-		}
+        TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                  warningMessage,
+                                  key,
+                                  nil,
+                                  nil,
+                                  nil,
+                                  nil,
+                                  NO);
 	}
 	
 	return [versionNames indexOfObject: versionToTry];
