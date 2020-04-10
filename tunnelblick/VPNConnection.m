@@ -2321,10 +2321,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			if (  [[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending) {
 
 				// One or more options in the configuration file are not included in any version of OpenVPN in this copy of Tunnelblick
-				if (  connecting  )  {
-					TBLog(@"DB-CD", @"Cannot connect %@ because the configuration file includes one or more options that are not included in any OpenVPN version in this version of Tunnelblick",
+                NSLog(@"Cannot connect %@ because the configuration file includes one or more options that are not included in any OpenVPN version in this version of Tunnelblick. To see them, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
 						  [self displayName]);
-				}
 				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
 				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								  [NSString stringWithFormat:
@@ -2384,7 +2382,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				
 				// One or more options in the configuration file are not included in any version of OpenVPN in this copy of Tunnelblick
 				if (  connecting  )  {
-					TBLog(@"DB-CD", @"Cannot connect %@ because the configuration file includesone or more options that are not included in any OpenVPN version in this version of Tunnelblick",
+					NSLog(@"Cannot connect %@ because the configuration file includes one or more options that are not included in any OpenVPN version in this version of Tunnelblick. To see them, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
 						  [self displayName]);
 				}
 				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
@@ -2417,7 +2415,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  deprecatedInMajorMinor  ) {
 		if (  [[versionToTry substringToIndex: 3] compare: deprecatedInMajorMinor] != NSOrderedAscending) {
 			if (  connecting  )  {
-				TBLog(@"DB-CD", @"Connecting %@ using OpenVPN %@ which has deprecated options",
+				NSLog(@"Connecting %@ using OpenVPN %@ which has deprecated options. To see them, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
 					  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry));
 			}
 			NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
@@ -2446,10 +2444,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSString * warningMessage2 = @"";
 	
 	if (  [versionWanted isNotEqualTo: versionToTry]  ) {
-		NSLog(@"Configuration %@ will use OpenVPN %@ instead of %@",
+		NSLog(@"Configuration %@ will use OpenVPN %@ instead of %@. To see why, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
 			  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry), [self openvpnVersionMayBeUnavailable: versionWanted]);
 		if (  connecting  )  {
-			TBLog(@"DB-CD", @"Connecting %@ using OpenVPN %@ instead of %@",
+			NSLog(@"Connecting %@ using OpenVPN %@ instead of %@. To see why, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
 				  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry), [self openvpnVersionMayBeUnavailable: versionWanted]);
 		}
 		warningMessage2 = [NSString stringWithFormat:
