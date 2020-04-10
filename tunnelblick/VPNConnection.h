@@ -65,7 +65,7 @@ struct Statistics {
 
 @interface VPNConnection : TBPerformer <NSWindowDelegate>
 {
-    NSString      * configPath;         // Full path to the configuration file (.conf or .ovpn file or .tblk package)
+    NSString      * configPath;         // Full path to the .tblk package
     // The configuration file MUST reside (for security reasons) in
     //      Tunnelblick.app/Contents/Resources/Deploy
     // or   ~/Library/Application Support/Tunnelblick/Configurations
