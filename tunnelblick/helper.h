@@ -74,6 +74,8 @@ NSString     * firstPartOfPath          (NSString * thePath);
 NSString     * lastPartOfPath           (NSString * thePath);
 NSString     * displayNameFromPath      (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
+NSString     * secureTblkPathForTblkPath(NSString * path);
+
 
 NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSString     * localizeNonLiteral        (NSString * status,

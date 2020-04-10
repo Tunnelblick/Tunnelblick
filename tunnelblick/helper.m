@@ -39,6 +39,7 @@
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
+#import "MenuController.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 
@@ -405,6 +406,27 @@ NSString * firstPathComponent(NSString * path)
     return [path substringToIndex: slash.location];
 }
 
+NSString * secureTblkPathForTblkPath(NSString * path) {
+
+    if (  [path hasSuffix: @".tblk"]  ) {
+        if (   [path hasPrefix: L_AS_T_SHARED]
+            || [path hasPrefix: L_AS_T_USERS]
+            || [path hasPrefix: gDeployPath]  ) {
+            return path;
+        }
+
+        if (  [path hasPrefix: gPrivatePath]  ) {
+            NSString * suffix = lastPartOfPath(path);
+            return [[L_AS_T_USERS
+                     stringByAppendingPathComponent: NSUserName()]
+                    stringByAppendingPathComponent: suffix];
+        }
+    }
+
+    NSLog(@"secureTblkPathForTblkPath(): bad input path '%@'", path);
+    [(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+    return nil;
+}
 
 NSString * displayNameFromPath (NSString * thePath) {
 	

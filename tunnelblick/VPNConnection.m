@@ -3859,7 +3859,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     *cancelledOrError = FALSE;
 
-    NSString * scriptPath = [[[configPath stringByAppendingPathComponent: @"Contents"]
+    NSString * scriptPath = [[[secureTblkPathForTblkPath(configPath)
+                               stringByAppendingPathComponent: @"Contents"]
 							  stringByAppendingPathComponent: @"Resources"]
 							 stringByAppendingPathComponent: scriptFilename];
 	if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
@@ -3913,7 +3914,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			NSString * scriptFilename = (  isStatic
 										 ? @"static-challenge-response.user.sh"
 										 : @"dynamic-challenge-response.user.sh");
-			NSString * scriptPath = [[[configPath stringByAppendingPathComponent: @"Contents"]
+			NSString * scriptPath = [[[secureTblkPathForTblkPath(configPath)
+                                       stringByAppendingPathComponent: @"Contents"]
 									  stringByAppendingPathComponent: @"Resources"]
 									 stringByAppendingPathComponent: scriptFilename];
 			if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
