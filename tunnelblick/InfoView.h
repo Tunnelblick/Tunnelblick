@@ -43,15 +43,12 @@
     CGFloat                       requestedPosition;
     CGFloat                       lastPosition;
     BOOL                          restartAtTop;
-    
-    IBOutlet NSButton           * infoHelpButton;
 }
 
 -(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier;
 -(void) newViewWillAppear:    (NSView *) view identifier: (NSString *) identifier;
 -(void) newViewDidAppear:     (NSView *) view;
 
-TBPROPERTY_READONLY(NSButton        *, infoHelpButton)
 TBPROPERTY_READONLY(NSTextFieldCell *, infoVersionTFC)
 TBPROPERTY(NSTimer *, scrollTimer, setScrollTimer)
 

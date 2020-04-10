@@ -175,7 +175,6 @@
 
 
 // Method for InfoView
--(IBAction) infoHelpButtonWasClicked: (id) sender;
 
 
 // Methods for UtiltiesView

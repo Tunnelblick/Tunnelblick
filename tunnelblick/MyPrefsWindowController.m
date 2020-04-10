@@ -524,7 +524,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     } else if (   view == utilitiesPrefsView  ) {
         [[self window] makeFirstResponder: [utilitiesPrefsView utilitiesHelpButton]];
     } else if (   view == infoPrefsView  ) {
-        [[self window] makeFirstResponder: [infoPrefsView infoHelpButton]];
         NSString * deployedString = (  gDeployPath && [gFileMgr fileExistsAtPath: gDeployPath]
                                      ? NSLocalizedString(@" (Deployed)", @"Window title")
                                      : @"");
@@ -3247,13 +3246,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
-
--(IBAction) infoHelpButtonWasClicked: (id) sender
-{
-	(void) sender;
-	
-    MyGotoHelpPage(@"info.html", nil);
-}
 
 
 //***************************************************************************************************************

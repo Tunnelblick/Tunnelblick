@@ -1303,7 +1303,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="123"/>
                 </imageView>
                 <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" id="479">
-                    <rect key="frame" x="20" y="256" width="741.92999999999995" height="89"/>
+                    <rect key="frame" x="20" y="256" width="742" height="89"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="CRZ-nK-lA0">
                         <rect key="frame" x="1" y="1" width="740" height="87"/>
@@ -1369,18 +1369,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="792">
-                    <rect key="frame" x="878" y="13" width="25" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                    <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="793">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="infoHelpButtonWasClicked:" target="-2" id="797"/>
-                        <outlet property="nextKeyView" destination="120" id="800"/>
-                    </connections>
-                </button>
             </subviews>
             <connections>
                 <outlet property="infoCopyrightTFC" destination="403" id="820"/>
@@ -1388,7 +1376,6 @@
                 <outlet property="infoCreditTV" destination="462" id="471"/>
                 <outlet property="infoDescriptionSV" destination="479" id="483"/>
                 <outlet property="infoDescriptionTV" destination="482" id="484"/>
-                <outlet property="infoHelpButton" destination="792" id="796"/>
                 <outlet property="infoLogoIV" destination="118" id="439"/>
                 <outlet property="infoVersionTFC" destination="121" id="472"/>
             </connections>

@@ -656,7 +656,6 @@ extern TBUserDefaults * gTbDefaults;
     lastPosition = [[infoCreditSV contentView] bounds].origin.y;
 }
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, infoHelpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, infoVersionTFC)
 TBSYNTHESIZE_OBJECT(retain, NSTimer *, scrollTimer, setScrollTimer)
 
