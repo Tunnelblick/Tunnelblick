@@ -2338,8 +2338,25 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								   [self displayName], problematicOptions]);
 				
 				return NSNotFound;
-			}
-		}
+            } else {
+                if (  connecting  )  {
+                    NSLog(@"Connecting %@ with OpenVPN %@ because it contains options that are not included OpenVPN version %@. %@",
+                          [self displayName], [versionToTry substringToIndex: 3], removedInMajorMinor, removedAndDeprecatedOptionsInfo);
+                }
+                NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
+                TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                  [NSString stringWithFormat:
+                                   NSLocalizedString(@"This VPN cannot be connected using OpenVPN %@, so OpenVPN %@ will be used instead.\n\n"
+                                                     @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
+                                                     @"%@\n"
+                                                     @"You should update the configuration so it can be used with modern versions of OpenVPN.",
+
+                                                     @"Window text."
+                                                     @" The first '%@' will be replaced by the name of a configuration."
+                                                     @" The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed."),
+                                   versionWanted, versionToTry, [self displayName], problematicOptions]);
+            }
+        }
 	}
 
 	// Deal with added options in this configuration file
