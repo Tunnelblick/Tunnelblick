@@ -518,6 +518,10 @@ NSString * defaultOpenVpnFolderName (void) {
 	return defaultLinkTarget;
 }
 
+// List of preferencesToSetTrue for all windows we have shown since launch.
+// Used to only show each window once.
+static NSMutableArray * showAlertWindowAlreadyShownWindowPreferencesCache = nil;
+
 AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 												  id				   msg, // NSString or NSAttributedString only
 												  NSString			 * preferenceToSetTrue,
@@ -552,7 +556,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	//			If nil, "checkboxInfoTitle" defaults to
 	//				    "When checked, Tunnelblick will not show this warning again. When not checked, Tunnelblick will show this warning again."
 	//
-	// If "preferenceName" and "preferenceValue are both not nil:
+	// If "preferenceName" and "preferenceValue" are both not nil:
 	//
 	//		A checkbox will be displayed and the preference "preferenceName" will be set to the preferenceValue when the window is
 	//		closed if the checkbox had a check in it at the time the window was closed (via the "OK" button, the close button, or the ESC key).
@@ -580,14 +584,26 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
         return nil;
     }
 
-	// If user has previously checked "Do not warn about this again", don't do anything and return nil
+	// If user has previously checked "Do not warn about this again", or if the window for this preference has already been shown,
+    // then don't do anything and return nil
 	if (  preferenceToSetTrue  ) {
 		if (  [gTbDefaults boolForKey: preferenceToSetTrue]  ) {
-			NSLog(@"Preference '%@' is TRUE, so not displaying the warning dialog.", preferenceToSetTrue);
+            NSLog(@"Not displaying the warning dialog for '%@' because the preference is TRUE.", preferenceToSetTrue);
 			return nil;
 		}
+
+        if (  [showAlertWindowAlreadyShownWindowPreferencesCache containsObject: preferenceToSetTrue]  ) {
+            NSLog(@"Not displaying the warning dialog for '%@' because it has already been shown.", preferenceToSetTrue);
+            return nil;
+        }
+
+        if ( ! showAlertWindowAlreadyShownWindowPreferencesCache  ) {
+            showAlertWindowAlreadyShownWindowPreferencesCache = [[NSMutableArray alloc] initWithCapacity: 10];
+        }
+
+        [showAlertWindowAlreadyShownWindowPreferencesCache addObject: preferenceToSetTrue];
 	}
-    
+
 	AlertWindowController * awc = [[[AlertWindowController alloc] init] autorelease];
 
 	[awc setHeadline:			 title];
@@ -628,6 +644,12 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	[win makeKeyAndOrderFront: nil];
     [NSApp activateIgnoringOtherApps: YES];
 	return awc;
+}
+
+void TBShowAlertWindowClearCache(void) {
+
+    [showAlertWindowAlreadyShownWindowPreferencesCache release];
+    showAlertWindowAlreadyShownWindowPreferencesCache = nil;
 }
 
 AlertWindowController * TBShowAlertWindow (NSString * title,

@@ -2853,6 +2853,8 @@ static BOOL firstTimeShowingWindow = TRUE;
             [gTbDefaults removeAllObjectsWithSuffix: key];
         }
     }
+
+    TBShowAlertWindowClearCache();
 }
 
 

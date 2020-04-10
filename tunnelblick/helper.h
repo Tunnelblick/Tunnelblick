@@ -104,6 +104,8 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 												  NSAttributedString * checkboxInfoTitle,
 												  BOOL				   checkboxIsOn);
 
+void TBShowAlertWindowClearCache(void);
+
 int            TBRunAlertPanel          (NSString * title,
                                          NSString * msg,
                                          NSString * defaultButtonLabel,
