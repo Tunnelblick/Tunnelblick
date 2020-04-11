@@ -3713,6 +3713,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [self clearStatisticsIncludeTotals: NO];
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
             haveConnectedSince = YES;
+            [messagesIfConnectionFails removeAllObjects];   // Because connection didn't fail : )
 			[NSThread detachNewThreadSelector: @selector(startCheckingDnsAddresses) toTarget: self withObject: nil];
         }
         
