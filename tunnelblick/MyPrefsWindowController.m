@@ -1673,10 +1673,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	(void) sender;
 
-	NSString * sourceDisplayName = [[self selectedConnection] displayName];
-	if (  sourceDisplayName  ) {
-		[ConfigurationManager renameConfigurationInNewThreadWithDisplayName: sourceDisplayName];
-	}
+    NSOutlineView * outlineView = [ (NSScrollView *)[[configurationsPrefsView outlineViewController] view] documentView];
+    [outlineView editColumn: 0
+                        row: [outlineView selectedRow]
+                  withEvent: nil
+                     select: YES];
+    return;
 }
 
 -(IBAction) duplicateConfigurationMenuItemWasClicked: (id) sender

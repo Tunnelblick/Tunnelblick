@@ -75,7 +75,7 @@ NSString     * lastPartOfPath           (NSString * thePath);
 NSString     * displayNameFromPath      (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
 NSString     * secureTblkPathForTblkPath(NSString * path);
-
+NSString     * standardizedPathForRename(NSString * sourcePath, NSString * newName, BOOL doBeepOnError);
 
 NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSString     * localizeNonLiteral        (NSString * status,
@@ -87,12 +87,6 @@ __attribute__((annotate("returns_localized_nsstring")))
 static inline NSString * LocalizationNotNeeded(NSString *s) {
 	return s;
 }
-
-NSString     * TBGetString				(NSString * msg,
-										 NSString * nameToPrefill);
-
-NSString     * TBGetDisplayName         (NSString * msg,
-                                         NSString * sourcePath);
 
 AlertWindowController * TBShowAlertWindow(NSString * title,
                                           id         msg); // NSString or NSAttributedString only

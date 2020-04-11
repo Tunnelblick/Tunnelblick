@@ -4768,61 +4768,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [pool drain];
 }
 
-+(void) renameConfigurationWithDisplayNameOperation: (NSString *) sourceDisplayName {
-    
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
-	BOOL didRename = FALSE;
-	NSString * newName;
-	
-    VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceDisplayName];
-	if (  connection  ) {
-		
-		NSString * sourcePath = [connection configPath];
-		
-		// Get the new name
-		NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Please enter a new name for '%@'.", @"Window text"), [sourceDisplayName lastPathComponent]];
-		newName = TBGetDisplayName(prompt, sourcePath);
-		[((MenuController *)[NSApp delegate]) reactivateTunnelblick];
-
-		if (  newName  ) {
-			
-			if (  ! [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: newName]  ) {
-				NSString * sourceFolder = [sourcePath stringByDeletingLastPathComponent];
-				NSString * targetPath = [sourceFolder stringByAppendingPathComponent: newName];
-				NSString * newExtension = [newName pathExtension];
-				if (  [newExtension isEqualToString: @"tblk"]  ) {
-					newName = [newName stringByDeletingPathExtension];
-				} else {
-					targetPath = [targetPath stringByAppendingPathExtension: @"tblk"];
-				}
-				
-				if (  [ConfigurationManager renameConfigurationFromPath: sourcePath
-																 toPath: targetPath]  ) {
-					didRename = TRUE;
-				}
-			} else {
-				NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: newName];
-				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								  [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' already exists.", @"Window text"), localName]);
-			}
-		}
-	}
-	
-    [TBOperationQueue removeDisableList];
-    
-	if (  didRename  ) {
-		NSDictionary * renameDict = [NSDictionary dictionaryWithObjectsAndKeys:
-									 sourceDisplayName, @"oldDisplayName",
-									 newName,           @"newDisplayName",
-									 nil];
-		[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedWithRenameDictionary:) withObject: renameDict waitUntilDone: NO];
-	}
-	
-    [TBOperationQueue operationIsComplete];
-    
-	[pool drain];
-}
 
 +(void) makeShadowCopyMatchConfigurationInNewThreadWithDisplayNameOperation: (NSDictionary *) dict {
 
@@ -5081,14 +5026,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                   target: [ConfigurationManager class]
                                   object: groupName
                              disableList: [NSArray arrayWithObject: @"*"]];
-}
-
-+(void) renameConfigurationInNewThreadWithDisplayName: (NSString *) displayName {
-	
-    [TBOperationQueue addToQueueSelector: @selector(renameConfigurationWithDisplayNameOperation:)
-                                  target: [ConfigurationManager class]
-                                  object: displayName
-                             disableList: [NSArray arrayWithObject: displayName]];
 }
 
 +(void) makeShadowCopyMatchConfigurationInNewThreadWithDisplayName: (NSString *)	 displayName

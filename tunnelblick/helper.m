@@ -485,6 +485,78 @@ NSString * tblkPathFromConfigPath(NSString * path)
     return nil;
 }
 
+NSString * standardizedPathForRename(NSString * sourcePath, NSString * newName, BOOL doBeepOnError) {
+
+    // The new name can start with "../" sequences to back out of subfolders.
+    // We must make sure that it is in that many subfolders.
+    //
+    // The new name can include "subfolder/" sequences to go into subfolders.
+    // We must make sure that those subfolders exist.
+
+    NSString * sourceDisplayName = displayNameFromPath(sourcePath);
+
+    // Remove prefixes of "../" from a copy of newName, and the same number of leading folder names from sourceDisplayName
+    // It doesn't matter that we are removing the wrong folder names, we just want to make sure there aren't too many '../'
+    NSString * nameTemp = [[newName copy] autorelease];
+    while (  [nameTemp hasPrefix: @"../"]  ) {
+
+        // Make sure there is at least one subfolder (and remove it)
+        NSRange r = [sourceDisplayName rangeOfString: @"/"];
+        if (  r.length != 0  ) {
+            sourceDisplayName = [sourceDisplayName substringFromIndex: r.location + 1];
+        } else {
+            NSLog(@"JKB: Too many leading '../' sequences in '%@'", newName);
+            if (  doBeepOnError  ) {
+                NSBeep();
+            }
+            return nil;
+        }
+
+        // Remove the "../" prefix
+        nameTemp = [nameTemp substringFromIndex: 3];
+     }
+
+    // Make sure there are no prohibited characters in the name
+    if (  invalidConfigurationName(nameTemp, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          [NSString stringWithFormat:
+                           NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
+                           PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING,
+                           @""]);
+        if (  doBeepOnError  ) {
+            NSBeep();
+        }
+        return nil;
+    }
+
+    NSString * targetPath   = [[[[sourcePath stringByDeletingLastPathComponent]
+                                 stringByAppendingPathComponent: newName]
+                                stringByAppendingPathExtension: @"tblk"]
+                               stringByStandardizingPath];
+
+    // Make sure the existing folder already exists
+    NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
+    if (  ! [gFileMgr fileExistsAtPath: enclosingFolder]  ) {
+        NSLog(@"No folder exists at '%@'", enclosingFolder);
+        if (  doBeepOnError  ) {
+            NSBeep();
+        }
+        return nil;
+    }
+
+    // Make sure the target doesn't already exist
+    if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+        NSLog(@"Already exists: '%@'", targetPath);
+        if (  doBeepOnError  ) {
+            NSBeep();
+        }
+        return nil;
+    }
+
+
+    return targetPath;
+}
+
 // Returns a string with the version # for Tunnelblick, e.g., "Tunnelbick 3.0b12 (build 157)"
 NSString * tunnelblickVersion(NSBundle * bundle)
 {
@@ -1094,75 +1166,6 @@ bail:
 	}
 	
     return err;
-}
-
-NSString * TBGetString(NSString * msg, NSString * nameToPrefill)
-{
-    NSMutableDictionary* panelDict = [[NSMutableDictionary alloc] initWithCapacity:6];
-    [panelDict setObject:NSLocalizedString(@"Name Required", @"Window title") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
-    [panelDict setObject:msg                                                  forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    [panelDict setObject:@""                                                  forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
-    [panelDict setObject:nameToPrefill                                        forKey:(NSString *)kCFUserNotificationTextFieldValuesKey];
-    [panelDict setObject:NSLocalizedString(@"OK", @"Button")                  forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
-    [panelDict setObject:NSLocalizedString(@"Cancel", @"Button")              forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
-    [panelDict setObject:[NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                                 pathForResource:@"tunnelblick"
-                                                 ofType: @"icns"]]            forKey:(NSString *)kCFUserNotificationIconURLKey];
-    SInt32 error;
-    CFUserNotificationRef notification;
-    CFOptionFlags response;
-    
-    // Get a name from the user
-    notification = CFUserNotificationCreate(NULL, 30.0, 0, &error, (CFDictionaryRef)panelDict);
-    [panelDict release];
-    
-    if((error) || (CFUserNotificationReceiveResponse(notification, 0.0, &response))) {
-        CFRelease(notification);    // Couldn't receive a response
-        NSLog(@"Could not get a string from the user.\n\nAn unknown error occured.");
-        return nil;
-    }
-    
-    if((response & 0x3) != kCFUserNotificationDefaultResponse) {
-        CFRelease(notification);    // User clicked "Cancel"
-        return nil;
-    }
-    
-    // Get the new name from the textfield
-    NSString * returnString = [(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 0)
-                               stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    CFRelease(notification);
-    return returnString;
-}
-
-
-// Call with a message to display and the path of a configuration that will be renamed or installed.
-// Returns with nil if cancelled, otherwise the display name of a configuration that sourcePath can be renamed to or installed to
-NSString * TBGetDisplayName(NSString * msg,
-                            NSString * sourcePath)
-{
-    NSString * nameToPrefill = [[sourcePath lastPathComponent] stringByDeletingPathExtension];
-    NSString * newName = TBGetString(msg, nameToPrefill);
-    while (  newName  ) {
-        if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING)  ) {
-            newName = TBGetString([NSString stringWithFormat:
-								   NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
-								   PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING,
-								   msg],
-								  nameToPrefill);
-        } else if (   ([newName length] == 0)
-                   || ([newName length] > MAX_LENGTH_OF_DISPLAY_NAME)) {
-            newName = TBGetString([NSLocalizedString(@"Please enter a name and click \"OK\" or click \"Cancel\".\n\n", @"Window text") stringByAppendingString: msg], nameToPrefill);
-        } else {
-            NSString * targetPath = [[[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: newName] stringByAppendingPathExtension: @"conf"]; // (Don't use the .conf, but may need it for lastPartOfPath)
-            NSString * dispNm = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-            if (  nil == [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: dispNm]  ) {
-                break;
-            }
-            newName = TBGetString([NSLocalizedString(@"That name is being used.\n\n", @"Window text") stringByAppendingString: msg], nameToPrefill);
-        }
-    }
-    
-    return newName;
 }
 
 NSString * credentialsGroupFromDisplayName (NSString * displayName)

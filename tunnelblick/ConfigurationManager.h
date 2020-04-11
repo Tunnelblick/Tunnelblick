@@ -106,8 +106,6 @@ typedef enum
 
 +(void) removeCredentialsGroupInNewThreadWithName: (NSString *) name;
 
-+(void) renameConfigurationInNewThreadWithDisplayName: (NSString *) displayName;
-
 +(BOOL) createShadowCopyWithDisplayName: (NSString *) displayName;
 
 +(NSDictionary *) getUpdateInfoForDisplayName: (NSString *) displayName;

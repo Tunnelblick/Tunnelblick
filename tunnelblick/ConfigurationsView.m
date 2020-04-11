@@ -216,7 +216,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
     [outlineView setDelegate:   leftNavDataSrc];
     [outlineView expandItem: [outlineView itemAtRow: 0]];
 	
-	[renameConfigurationMenuItem          setTitle: NSLocalizedString(@"Rename Configuration..."                          , @"Menu Item")];
+	[renameConfigurationMenuItem          setTitle: NSLocalizedString(@"Rename Configuration"                             , @"Menu Item")];
     [duplicateConfigurationMenuItem       setTitle: NSLocalizedString(@"Duplicate Configuration..."                       , @"Menu Item")];
     [makePrivateMenuItem			      setTitle: NSLocalizedString(@"Make Configuration Private..."                    , @"Menu Item")];
     [makeSharedMenuItem                   setTitle: NSLocalizedString(@"Make Configuration Shared..."                     , @"Menu Item")];

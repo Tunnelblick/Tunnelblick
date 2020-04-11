@@ -291,32 +291,18 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         return;
     }
 	
-	if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING)  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-						  [NSString stringWithFormat:
-						   NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
-						   PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING,
-						   @""]);
-        return;
-    }
-    
 	NSString * sourceDisplayName = [item displayName];
     VPNConnection * connection   = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceDisplayName];
     if (  ! connection  ) {
         NSLog(@"Tried to rename configuration but no configuration has been selected");
         return;
     }
-    
-    NSString * sourcePath = [connection configPath];
-    
-    NSString * sourceFolder = [sourcePath stringByDeletingLastPathComponent];
-    NSString * targetPath   = [sourceFolder stringByAppendingPathComponent: newName];
-    NSString * newExtension = [newName pathExtension];
-    if (  ! [newExtension isEqualToString: @"tblk"]  ) {
-        targetPath = [targetPath stringByAppendingPathExtension: @"tblk"];
-    }
 
-	[ConfigurationManager renameConfigurationInNewThreadAtPath: sourcePath toPath: targetPath];
+    NSString * sourcePath = [connection configPath];
+    NSString * targetPath = standardizedPathForRename(sourcePath, newName, YES);
+    if (  targetPath  ) {
+        [ConfigurationManager renameConfigurationInNewThreadAtPath: sourcePath toPath: targetPath];
+    }
 }
 
 @end
