@@ -4793,6 +4793,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
 	NSString * sourcePath = [dict objectForKey: @"sourcePath"];
 	NSString * targetPath = [dict objectForKey: @"targetPath"];
+
+    if (  ! [firstPartOfPath(sourcePath) isEqualToString: firstPartOfPath(targetPath)]  ) {
+        NSLog(@"renameConfigurationWithPathsOperation: Cannot rename private to shared or vice-versa.\n"
+              @"     Source = '%@'\n     Target = '%@'", sourcePath, targetPath);
+
+        [TBOperationQueue removeDisableList];
+        [TBOperationQueue operationIsComplete];
+        [pool drain];
+        return;
+    }
+
 	NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
 	NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
 	BOOL didRename = FALSE;
