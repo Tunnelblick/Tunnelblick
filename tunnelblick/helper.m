@@ -406,6 +406,44 @@ NSString * firstPathComponent(NSString * path)
     return [path substringToIndex: slash.location];
 }
 
+NSString * pathWithNumberSuffixIfItemExistsAtPath(NSString * path, BOOL includeCopyInNewName) {
+
+    // Returns the path if it does not exist.
+    // Otherwise, returns a path that does not exist: " 2", " 3", etc.
+    //
+    // If includeCopyInNewName is TRUE, return "path copy", "path copy 2", "path copy 3", etc.
+    //
+    // Returns nil if path is not an absolute path, or too many copies already exist
+
+    if (  ! [path hasPrefix: @"/"]  ) {
+        NSLog(@"pathWithNumberSuffixIfItemExistsAtPath: path is not absolute: %@", path);
+        return nil;
+    }
+
+    NSInteger count = 0;
+    NSString * pathWithoutCopyOrExtension = [path stringByDeletingPathExtension];
+    NSString * newPath = [[path retain] autorelease];
+
+    while (  [gFileMgr fileExistsAtPath: newPath]  ) {
+        if (  count++ > 99  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                              NSLocalizedString(@"Too many duplicate configurations already exist.", @"Window text"));
+            return nil;
+        }
+
+        NSString * copySuffix = (  includeCopyInNewName
+                                 ? (  (count == 1)
+                                    ? NSLocalizedString(@" copy", @"Suffix for a duplicate of a file")
+                                    : [NSString stringWithFormat: NSLocalizedString(@" copy %ld", @"Suffix for a duplicate of a file"), (long)count])
+                                 : [NSString stringWithFormat: @" %ld", (long)(count + 1)]);
+
+        newPath = [[pathWithoutCopyOrExtension stringByAppendingString: copySuffix]
+                   stringByAppendingPathExtension: @"tblk"];
+    }
+
+    return newPath;
+}
+
 NSString * secureTblkPathForTblkPath(NSString * path) {
 
     if (  [path hasSuffix: @".tblk"]  ) {

@@ -1709,33 +1709,10 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     // Get a target path like the finder: "xxx copy.ext", "xxx copy 2.ext", "xxx copy 3.ext", etc.
-    NSString * sourceFolder = [sourcePath stringByDeletingLastPathComponent];
-    NSString * sourceLast = [sourcePath lastPathComponent];
-    NSString * sourceLastName = [sourceLast stringByDeletingPathExtension];
-    NSString * sourceExtension = [sourceLast pathExtension];
-    NSString * targetName;
-    NSString * targetPath;
-    int copyNumber;
-    for (  copyNumber=1; copyNumber<100; copyNumber++  ) {
-        if (  copyNumber == 1) {
-            targetName = [sourceLastName stringByAppendingString: NSLocalizedString(@" copy", @"Suffix for a duplicate of a file")];
-        } else {
-            targetName = [sourceLastName stringByAppendingFormat: NSLocalizedString(@" copy %d", @"Suffix for a duplicate of a file"), copyNumber];
-        }
-        
-        targetPath = [[sourceFolder stringByAppendingPathComponent: targetName] stringByAppendingPathExtension: sourceExtension];
-        if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
-            break;
-        }
+    NSString * targetPath = pathWithNumberSuffixIfItemExistsAtPath(sourcePath, YES);
+    if (  targetPath  ) {
+        [ConfigurationManager duplicateConfigurationInNewThreadPath: sourcePath toPath: targetPath];
     }
-    
-    if (  copyNumber > 99  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                          NSLocalizedString(@"Too many duplicate configurations already exist.", @"Window text"));
-        return;
-    }
-    
-    [ConfigurationManager duplicateConfigurationInNewThreadPath: sourcePath toPath: targetPath];
 }
 
 -(IBAction) revertToShadowMenuItemWasClicked: (id) sender

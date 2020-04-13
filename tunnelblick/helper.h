@@ -76,7 +76,7 @@ NSString     * displayNameFromPath      (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
 NSString     * secureTblkPathForTblkPath(NSString * path);
 NSString     * standardizedPathForRename(NSString * sourcePath, NSString * newName, BOOL doBeepOnError);
-
+NSString     * pathWithNumberSuffixIfItemExistsAtPath(NSString * path, BOOL includeCopyInNewName);
 NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSString     * localizeNonLiteral        (NSString * status,
                                          NSString * type);
