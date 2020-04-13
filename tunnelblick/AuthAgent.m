@@ -133,7 +133,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 }
 
 // Returns non-zero length private key obtained by asking the user
-// Returns nil if user cancelled or other error occured
+// Returns nil if user cancelled or other error occurred
 -(NSString *)askForPrivateKey
 {
     if (  ! [authMode isEqualToString:@"privateKey"]  ) {

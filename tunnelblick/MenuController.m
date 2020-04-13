@@ -7760,7 +7760,7 @@ void terminateBecauseOfBadConfiguration(void)
 	if (  [ipInfo count] > 0  ) {
 		TBLog(@"DB-IT", @"checkIPAddressAfterSleepingConnectionThread: success");
 	} else {
-        NSLog(@"An error occured fetching IP address information after sleeping");
+        NSLog(@"An error occurred fetching IP address information after sleeping");
         uint64_t timeToWaitNanoseconds = [gTbDefaults unsignedIntForKey: @"delayBeforeReconnectingAfterSleepAndIpaFetchError" default: 5 min: 0 max: 600] * 1000000000ull;
         uint64_t timeItTookNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
         if (  timeItTookNanoseconds < timeToWaitNanoseconds  ) {

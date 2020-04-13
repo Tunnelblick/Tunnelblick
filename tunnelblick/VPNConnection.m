@@ -1317,7 +1317,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 			[self ipInfoTimeoutBeforeConnectingDialog: timeoutToUse];
 		}
 	} else {
-        NSLog(@"An error occured fetching IP address information before connecting");
+        NSLog(@"An error occurred fetching IP address information before connecting");
         [self ipInfoErrorDialog];
     }
     
@@ -1381,7 +1381,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     if (  ! ipInfo  ) {
         NSLog(@"An error occurred fetching IP address information after connecting");
         [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
-                               withObject: @"An error occured fetching IP address information using the ipInfo host's IP address after connecting"
+                               withObject: @"An error occurred fetching IP address information using the ipInfo host's IP address after connecting"
                             waitUntilDone: NO];
         [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
         [threadPool drain];

@@ -131,7 +131,7 @@ enum StatusIconPosition {
 	
     NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
     
-    NSDictionary            * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file or .tblk package
+    NSDictionary            * myConfigDictionary;           // List of all configurations. key = display name, value = path to .tblk package
 
     NSDictionary            * myVPNConnectionDictionary;    // List of all VPNConnections. key = display name, value = VPNConnection object for the configuration
     
