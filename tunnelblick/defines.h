@@ -96,6 +96,9 @@
 // Header for commands to tunnelblickd that are to be handled by openvpnstart (note that this is a C-string, not an NSString)
 #define TUNNELBLICKD_OPENVPNSTART_HEADER_C "openvpnstart: "
 
+// Drag ID for drag and drop of items in the list of configurations in the "Preferences" panel of the "VPN Details" window
+#define TB_LEFT_NAV_ITEMS_DRAG_ID @"net.tunnelblick.tunnelblick.leftnav.drag"
+
 //*************************************************************************************************
 // Paths:
 

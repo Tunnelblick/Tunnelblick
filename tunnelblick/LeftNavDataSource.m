@@ -26,6 +26,7 @@
 
 #import "ConfigurationManager.h"
 #import "LeftNavItem.h"
+#import "LeftNavViewController.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
 #import "NSApplication+LoginItem.h"
@@ -303,6 +304,165 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     if (  targetPath  ) {
         [ConfigurationManager renameConfigurationInNewThreadAtPath: sourcePath toPath: targetPath];
     }
+}
+
+-(NSDictionary *) infoForDropInfo: (id < NSDraggingInfo >) info
+                             item: (id)                    item {
+
+    // Return a dictionary of info about a drop.
+    // Returns nil if should not do the drop.
+
+    // If the Option key is down, this is a copy instead of a move
+    NSEvent * event = [NSApp currentEvent];
+    if (  ! event  ) {
+        NSLog(@"infoForDropInfo:item: Could not get event");
+        return nil;
+    }
+    NSEventModifierFlags flags = [event modifierFlags];
+    BOOL copy = (flags & 0x80000) != 0;   // Option key (Left = 0x80120, Right = 0x80140)
+
+    // Get the source displayName and path
+    NSPasteboard * pb = [info draggingPasteboard];
+    NSArray * pbItems = [pb pasteboardItems];
+    if (  [pbItems count] != 1  ) {
+        // Can only drag one item at a time. TODO: drag multiple items at a time
+        return nil;
+    }
+    NSPasteboardItem * pbItem = [pbItems firstObject];
+    NSString * sourceDisplayName = [pbItem stringForType: TB_LEFT_NAV_ITEMS_DRAG_ID];
+    if (  ! sourceDisplayName  ) {
+        NSLog(@"infoForDropInfo:item: Could not get stringForType for pbItem = %@ in pbItems = %@ from pb = %@", pbItem, pbItems, pb);
+        return nil;
+    }
+    NSString * sourcePath = nil;
+    if (   [sourceDisplayName isEqualToString: @""]
+        || [sourceDisplayName hasSuffix: @"/"]  ) {
+        // TODO: be able to drag a folder
+        return nil;
+    } else {
+        // Dragging a configuration
+        NSDictionary * configs = [((MenuController *)[NSApp delegate]) myConfigDictionary];
+        sourcePath = [configs objectForKey: sourceDisplayName];
+        if (  ! sourcePath  ) {
+            NSLog(@"infoForDropInfo:item: Could not get configuration path for '%@' from myConfigDictionary = %@", sourceDisplayName, configs);
+            return nil;
+        }
+        if (   [sourcePath hasPrefix: gDeployPath]
+            && ( ! copy  )  ) {
+            NSLog(@"Can't move a Deployed configuration (but can copy it)");
+            return nil;
+        }
+    }
+
+    // Get the target displayName and path
+    // Remove the last "/" and everything to its right
+    NSString * name = [item displayName];
+    if (  ! name  ) {
+        // This happens when dragging past the end of the list
+        return nil;
+    }
+    if (   ( [name length] != 0 )
+        && ( ! [name hasSuffix: @"/"] )
+        ) {
+        // Can't drop on configuration (configurations have names that doesn't end in "/")
+        return nil;
+    }
+    NSRange r = [name rangeOfString: @"/" options: NSBackwardsSearch];
+    NSString * prefix = (  (r.location == NSNotFound)
+                         ? prefix = @""
+                         : [name substringToIndex: r.location]);
+
+    NSString * targetDisplayName = [prefix stringByAppendingPathComponent: [sourceDisplayName lastPathComponent]];
+
+    NSString * targetPath = [[firstPartOfPath(sourcePath)
+                              stringByAppendingPathComponent: targetDisplayName]
+                             stringByAppendingPathExtension: @"tblk"];
+
+    NSNumber * copyNotMove = [NSNumber numberWithBool: copy];
+    NSDictionary * result = [NSDictionary dictionaryWithObjectsAndKeys:
+                             copyNotMove,       @"copyNotMove",
+                             sourceDisplayName, @"sourceDisplayName",
+                             targetDisplayName, @"targetDisplayName",
+                             targetPath,        @"targetPath",
+                             sourcePath,        @"sourcePath",
+                             nil];
+    return result;
+}
+
+-(id <NSPasteboardWriting>) outlineView: (NSOutlineView *) outlineView
+                pasteboardWriterForItem: (id)              item {
+
+    (void)outlineView;
+
+    NSString * stringRep = [item displayName];
+    if (  ! stringRep) {
+        NSLog(@"targetPathWithCopySuffixFromTargetPath:sourcePath:copy: Could not get displayName from item = %@", item);
+        return nil;
+    }
+
+    NSPasteboardItem * pboardItem = [[[NSPasteboardItem alloc] init] autorelease];
+
+    [pboardItem setString: stringRep forType: TB_LEFT_NAV_ITEMS_DRAG_ID];
+
+    return pboardItem;
+}
+
+-(NSDragOperation)outlineView: (NSOutlineView *)        outlineView
+                 validateDrop: (id < NSDraggingInfo >) info
+                 proposedItem: (id)                    item
+           proposedChildIndex: (NSInteger)             index {
+
+    (void)outlineView;
+    (void)index;
+
+    NSDictionary * dict = [self infoForDropInfo: info item: item];
+
+    if (  ! dict  ) {
+        return NSDragOperationNone;
+    }
+
+    NSString * sourcePath  =  [dict objectForKey: @"sourcePath"];
+    NSString * targetPath  =  [dict objectForKey: @"targetPath"];
+    if (  [sourcePath isEqualToString: targetPath]  ) {
+        // Don't allow drag within a folder; it wouldn't do anything because folders are sorted alphanumerically
+        return NSDragOperationNone;
+    }
+
+    if (  [[dict objectForKey: @"copyNotMove"] boolValue]  ) {
+       return NSDragOperationCopy;
+    } else {
+        return NSDragOperationMove;
+    }
+}
+
+
+-(BOOL) outlineView: (NSOutlineView *)        outlineView
+         acceptDrop: (id < NSDraggingInfo >) info
+               item: (id)                    item
+         childIndex: (NSInteger)             index {
+
+    (void)outlineView;
+    (void)index;
+
+    NSDictionary * dict = [self infoForDropInfo: info item: item];
+
+    if (  ! dict  ) {
+        return NO;
+    }
+
+    BOOL       copyNotMove = [[dict objectForKey: @"copyNotMove"] boolValue];
+    NSString * sourcePath  =  [dict objectForKey: @"sourcePath"];
+    NSString * targetPath  =  [dict objectForKey: @"targetPath"];
+
+    // Copy or move the item. If successful, the method will reload the data for the outlineView
+
+    if (  copyNotMove  ) {
+        [ConfigurationManager copyConfigurationInNewThreadPath: sourcePath toPath: targetPath];
+    } else {
+        [ConfigurationManager moveConfigurationInNewThreadAtPath:  sourcePath toPath: targetPath];
+    }
+
+    return TRUE;
 }
 
 @end

@@ -25,6 +25,7 @@
 #import "helper.h"
 
 #import "LeftNavDataSource.h"
+#import "LeftNavViewController.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
 #import "NSString+TB.h"
@@ -480,7 +481,11 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   @"<p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>",
 														   @"HTML info for the 'Advanced...' button."))
 	 disabled: [gTbDefaults boolForKey: @"disableAdvancedButton"]];
-	
+
+    LeftNavViewController * oVC = [self outlineViewController];
+    NSOutlineView         * oView = [oVC outlineView];
+    [oView registerForDraggedTypes: [NSArray arrayWithObject: TB_LEFT_NAV_ITEMS_DRAG_ID]];
+
 	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
