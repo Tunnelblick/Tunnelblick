@@ -125,7 +125,11 @@ typedef enum
 
 +(void) renameConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
 
++(void) moveConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
+
 +(void) duplicateConfigurationInNewThreadPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
+
++(void) copyConfigurationInNewThreadPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
 
 +(void) installConfigurationsUpdateInBundleInMainThreadAtPath: (NSString *) path;
 

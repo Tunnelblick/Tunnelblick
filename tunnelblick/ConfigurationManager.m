@@ -3568,75 +3568,205 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [auth release];
 }
 
-+(BOOL) renameConfigurationFromPath: (NSString *)         sourcePath
-                             toPath: (NSString *)         targetPath {
++(NSString *) pathToUseIfItemAtPathExists: (NSString *) path {
+
+    if (  ! [gFileMgr fileExistsAtPath: path]  ) {
+        return [[path retain] autorelease];
+    }
+
+    NSString * msg = [NSString stringWithFormat:
+                      NSLocalizedString(@"A configuration named '%@' already exists in this location.\n"
+                                       @"Do you want to replace it with the one you're moving or copying?", @"Window text"), lastPartOfPath(path)];
+    int  result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                  msg,
+                                  NSLocalizedString(@"Cancel",    @"Button"),   // Default
+                                  NSLocalizedString(@"Keep Both", @"Button"),   // Alternate
+                                  NSLocalizedString(@"Replace",   @"Button"));  // Other
+    switch (  result  ) {
+
+        case NSAlertDefaultReturn:
+            // User cancelled, do nothing
+            return nil;
+            break;
+
+        case NSAlertAlternateReturn:
+            // Keep both, so create a new path with a name suffixed by a number, e.g. "Config 2"
+            return pathWithNumberSuffixIfItemExistsAtPath(path, NO);
+            break;
+
+        case NSAlertOtherReturn:
+            // Replace, so just use same path
+            return [[path retain] autorelease];
+            break;
+
+        default:
+            NSLog(@"pathToUseIfItemAtPathExists: TBRunAlertPanel returned %d", result);
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                          NSLocalizedString(@"An error occurred. Please try again.", @"Window text"),
+                            nil, nil, nil);
+            break;
+    }
+
+    return nil;
+}
+
++(BOOL) verifyCanDoMoveOrRenameFromPath: (NSString *) sourcePath name: (NSString *) sourceName {
+
+    VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceName];
+    if (  ! connection  ) {
+        NSLog(@"renameConfigurationFromPath: No '%@' configuration exists", sourceName);
+        return FALSE;
+    }
+
+    if (  ! [connection isDisconnected]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
+                          NSLocalizedString(@"You cannot rename or move a configuration unless it is disconnected.", @"Window text"));
+        return FALSE;
+    }
+
+    if (  [ConfigurationManager isConfigurationSetToConnectWhenComputerStartsAtPath: sourcePath]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You cannot rename or move a configuration which is set to start when the computer starts.", @"Window text"));
+        return FALSE;
+    }
+
+    if (  [sourcePath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You cannot rename or move a Deployed configuration.", @"Window text"));
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
++(void) copyConfigurationFromPath: (NSString *)         sourcePath
+                           toPath: (NSString *)         targetPath {
+
+    // If the target exists, offer to replace or keep both copies
+    targetPath = [self pathToUseIfItemAtPathExists: targetPath];
+    if (  ! targetPath  ) {
+        return;
+    }
+
+    NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to copy the '%@' configuration.", @"Window text"), sourceDisplayName];
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth  ) {
+        return;
+    }
+
+    if (  [ConfigurationManager copyConfigPath: sourcePath
+                                        toPath: targetPath
+                               usingSystemAuth: auth
+                                    warnDialog: YES
+                                   moveNotCopy: NO
+                                       noAdmin: NO]  ) {
+
+        if (  ! [gTbDefaults copyPreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                              NSLocalizedString(@"Warning: One or more settings could not be copied. See the Console Log for details.", @"Window text"));
+        }
+
+        copyCredentials(sourceDisplayName, targetDisplayName);
+    }
+    
+    [auth release];
+}
+
++(void) moveCredentialsAndSettingsFrom: (NSString *) sourceDisplayName to: (NSString *) targetDisplayName {
+
+    // Save status of "-keychainHasUsernameAndPassword", "-keychainHasUsername", and "-keychainHasPrivateKey" because they are deleted by moveCredentials()
+    BOOL havePwCredentials = keychainHasUsernameAndPasswordForDisplayName(sourceDisplayName);
+    BOOL haveUnCredentials = keychainHasUsernameWithoutPasswordForDisplayName(sourceDisplayName);
+    BOOL havePkCredentials = keychainHasPrivateKeyForDisplayName(sourceDisplayName);
+
+    moveCredentials(sourceDisplayName, targetDisplayName);
+
+    if (  ! [gTbDefaults movePreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                          NSLocalizedString(@"Warning: One or more preferences could not be moved or renamed. See the Console Log for details.", @"Window text"));
+    }
+
+    // Restore "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" to the new configuration's preferences because they were not transferred by moveCredentials()
+    if (  havePwCredentials  ) {
+        [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
+    }
+    if (  haveUnCredentials  ) {
+        [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasUsername"]];
+    }
+    if (  havePkCredentials  ) {
+        [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasPrivateKey"]];
+    }
+}
+
++(void) moveConfigurationFromPath: (NSString *)         sourcePath
+                           toPath: (NSString *)         targetPath {
+
+    // If the target exists, offer to replace or keep both copies
+    targetPath = [self pathToUseIfItemAtPathExists: targetPath];
+    if (  ! targetPath  ) {
+        return;
+    }
+
+    NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+
+    if (  ! [self verifyCanDoMoveOrRenameFromPath: sourcePath name: sourceDisplayName]  ) {
+        return;
+    }
+
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move the '%@' configuration.", @"Window text"), sourceDisplayName];
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth  ) {
+        return;
+    }
+
+    if (  [ConfigurationManager copyConfigPath: sourcePath
+                                        toPath: targetPath
+                               usingSystemAuth: auth
+                                    warnDialog: YES
+                                   moveNotCopy: YES
+                                       noAdmin: NO]  ) {
+
+        [self moveCredentialsAndSettingsFrom: sourceDisplayName to: targetDisplayName];
+    } else {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"Move failed; see the Console Log for details.", @"Window text"));
+    }
+
+    [auth release];
+}
+
++(BOOL) renameConfigurationFromPath: (NSString *) sourcePath
+                             toPath: (NSString *) targetPath {
 	
 	// Returns TRUE if succeeded or FALSE if cancelled or failed (if failed, the user has already been notified)
     
     NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
     NSString * targetName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
     
-    VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceName];
-    if (  ! connection  ) {
-        NSLog(@"renameConfigurationFromPath: No '%@' configuration exists", sourceName);
+    if (  ! [self verifyCanDoMoveOrRenameFromPath: sourcePath name: sourceName]  ) {
         return FALSE;
     }
-    
-    if (  ! [connection isDisconnected]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
-                          NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"));
-        return FALSE;
-    }
-    
-    if (  [ConfigurationManager isConfigurationSetToConnectWhenComputerStartsAtPath: sourcePath]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"You cannot rename a configuration which is set to start when the computer starts.", @"Window text"));
-        return FALSE;
-    }
-    
-    if (  [sourcePath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"You cannot rename a Deployed configuration.", @"Window text"));
-        return FALSE;
-    }
-    
+
     NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename the '%@' configuration to '%@'.", @"Window text"), sourceName, targetName];
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (   ! auth ) {
         return FALSE;
     }
 	
-	BOOL ok = [ConfigurationManager copyConfigPath: sourcePath
-											toPath: targetPath
-								   usingSystemAuth: auth
-										warnDialog: YES
-                                       moveNotCopy: YES
-                                           noAdmin: NO];
-	if (  ok  ) {
-        
-        // Save status of "-keychainHasUsernameAndPassword", "-keychainHasUsername", and "-keychainHasPrivateKey" because they are deleted by moveCredentials()
-        BOOL havePwCredentials = keychainHasUsernameAndPasswordForDisplayName(sourceName);
-        BOOL haveUnCredentials = keychainHasUsernameWithoutPasswordForDisplayName(sourceName);
-        BOOL havePkCredentials = keychainHasPrivateKeyForDisplayName(sourceName);
-        
-        moveCredentials(sourceName, targetName);
-        
-        if (  ! [gTbDefaults movePreferencesFrom: sourceName to: targetName]  ) {
-            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                              NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"));
-        }
-        
-        // Restore "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" to the new configuration's preferences because they were not transferred by moveCredentials()
-        if (  havePwCredentials  ) {
-            [gTbDefaults setBool: TRUE forKey: [targetName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
-        }
-        if (  haveUnCredentials  ) {
-            [gTbDefaults setBool: TRUE forKey: [targetName stringByAppendingString: @"-keychainHasUsername"]];
-        }
-        if (  havePkCredentials  ) {
-            [gTbDefaults setBool: TRUE forKey: [targetName stringByAppendingString: @"-keychainHasPrivateKey"]];
-        }
-	} else {
+    if (  [ConfigurationManager copyConfigPath: sourcePath
+                                        toPath: targetPath
+                               usingSystemAuth: auth
+                                    warnDialog: YES
+                                   moveNotCopy: YES
+                                       noAdmin: NO]  ) {
+
+        [self moveCredentialsAndSettingsFrom: sourceName to: targetName];
+
+    } else {
 		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
 						  NSLocalizedString(@"Rename failed; see the Console Log for details.", @"Window text"));
 	}
@@ -4832,6 +4962,25 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [pool drain];
 }
 
++(void) moveConfigurationWithPathsOperation: (NSDictionary *) dict {
+
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+    NSString * sourcePath = [dict objectForKey: @"sourcePath"];
+    NSString * targetPath = [dict objectForKey: @"targetPath"];
+
+    [ConfigurationManager moveConfigurationFromPath: sourcePath
+                                             toPath: targetPath];
+
+    [TBOperationQueue removeDisableList];
+
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+
+    [TBOperationQueue operationIsComplete];
+
+    [pool drain];
+}
+
 +(void) duplicateConfigurationWithPathsOperation: (NSDictionary *) dict {
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -4846,6 +4995,25 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
 	
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) copyConfigurationWithPathsOperation: (NSDictionary *) dict {
+
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+    NSString * sourcePath = [dict objectForKey: @"sourcePath"];
+    NSString * targetPath = [dict objectForKey: @"targetPath"];
+
+    [ConfigurationManager copyConfigurationFromPath: sourcePath
+                                             toPath: targetPath];
+
+    [TBOperationQueue removeDisableList];
+
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+
     [TBOperationQueue operationIsComplete];
     
     [pool drain];
@@ -5072,6 +5240,21 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              disableList: [ConfigurationManager displayNamesFromPaths: paths]];
 }
 
++(void) moveConfigurationInNewThreadAtPath: (NSString *) sourcePath
+                                    toPath: (NSString *) targetPath {
+
+    NSArray * paths = [NSArray arrayWithObjects: sourcePath, targetPath, nil];
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                           sourcePath, @"sourcePath",
+                           targetPath, @"targetPath",
+                           nil];
+
+    [TBOperationQueue addToQueueSelector: @selector(moveConfigurationWithPathsOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: dict
+                             disableList: [ConfigurationManager displayNamesFromPaths: paths]];
+}
+
 +(void) duplicateConfigurationInNewThreadPath: (NSString *) sourcePath
 									   toPath: (NSString *) targetPath {
 	
@@ -5082,6 +5265,21 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 						   nil];
 
     [TBOperationQueue addToQueueSelector: @selector(duplicateConfigurationWithPathsOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: dict
+                             disableList: [ConfigurationManager displayNamesFromPaths: paths]];
+}
+
++(void) copyConfigurationInNewThreadPath: (NSString *) sourcePath
+                                  toPath: (NSString *) targetPath {
+
+    NSArray * paths = [NSArray arrayWithObjects: sourcePath, targetPath, nil];
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                           sourcePath, @"sourcePath",
+                           targetPath, @"targetPath",
+                           nil];
+
+    [TBOperationQueue addToQueueSelector: @selector(copyConfigurationWithPathsOperation:)
                                   target: [ConfigurationManager class]
                                   object: dict
                              disableList: [ConfigurationManager displayNamesFromPaths: paths]];
