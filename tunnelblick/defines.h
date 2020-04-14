@@ -578,6 +578,7 @@ name = newValue;                                    \
 @"DB-IT",     /* Extra logging for IP address check threading */	\
 @"DB-MC",	  /* Extra logging for menu cache creation and use */	\
 @"DB-MO",     /* Extra logging for mouseover (of icon and status windows) */	\
+@"DB-PO",     /* Extra logging for populating the NSOutlineView showing configurations */	\
 @"DB-PU",     /* Extra logging for information popups */	\
 @"DB-SD",     /* Extra logging for shutdown */	\
 @"DB-SI",     /* Extra logging for status item creation/deletion/move */	\
