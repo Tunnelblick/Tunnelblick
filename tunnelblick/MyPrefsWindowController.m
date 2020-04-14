@@ -1348,37 +1348,38 @@ static BOOL firstTimeShowingWindow = TRUE;
 - (BOOL)validateMenuItem:(NSMenuItem *) anItem
 {
 	VPNConnection * connection = [self selectedConnection];
-	
-	if (  [anItem action] == @selector(addConfigurationButtonWasClicked:)  ) {
+    SEL selector = [anItem action];
+
+	if (  selector == @selector(addConfigurationButtonWasClicked:)  ) {
 		return ! [gTbDefaults boolForKey: @"disableAddConfigurationButton"];
 	}
 	
-	if (  [anItem action] == @selector(removeConfigurationButtonWasClicked:)  ) {
+	if (  selector == @selector(removeConfigurationButtonWasClicked:)  ) {
 		return (   ( ! [gTbDefaults boolForKey: @"disableRemoveConfigurationButton"] )
 				&& [self isAnySelectedConfigurationNotDeployed]);
 	}
 	
-	if (  [anItem action] == @selector(renameConfigurationMenuItemWasClicked:)  ) {
+	if (  selector == @selector(renameConfigurationMenuItemWasClicked:)  ) {
 		return (   ( ! [gTbDefaults boolForKey: @"disableRenameConfigurationMenuItem"] )
 				&& ( [self isAnySelectedConfigurationNotDeployed])
 				&& [self oneConfigurationIsSelected] );
 	}
 	
-	if (  [anItem action] == @selector(duplicateConfigurationMenuItemWasClicked:)  ) {
+	if (  selector == @selector(duplicateConfigurationMenuItemWasClicked:)  ) {
 		return (   (! [gTbDefaults boolForKey: @"disableDuplicateConfigurationMenuItem"] )
 				&& [self isAnySelectedConfigurationNotDeployed]
 				&& [self oneConfigurationIsSelected] );
 	}
 	
-	if (  [anItem action] == @selector(makePrivateMenuItemWasClicked:)  ) {
+	if (  selector == @selector(makePrivateMenuItemWasClicked:)  ) {
 		return [self isAnySelectedConfigurationShared];
 	}
 	
-	if (  [anItem action] == @selector(makeSharedMenuItemWasClicked:)  ) {
+	if (  selector == @selector(makeSharedMenuItemWasClicked:)  ) {
 		return [self isAnySelectedConfigurationPrivate];
 		
 	}
-	if (  [anItem action] == @selector(revertToShadowMenuItemWasClicked:)  ) {
+	if (  selector == @selector(revertToShadowMenuItemWasClicked:)  ) {
 		return (   ( ! [gTbDefaults boolForKey: @"disableRevertToShadowMenuItem"] )
 				&& (   [[connection configPath] hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])
 				&& ( ! [connection shadowCopyIsIdentical] )  );
@@ -1388,16 +1389,16 @@ static BOOL firstTimeShowingWindow = TRUE;
 		return [self isAnySelectedConfigurationDoNotShowOnTbMenu];
 	}
 	
-	if (  [anItem action] == @selector(doNotShowOnTbMenuMenuItemWasClicked:)  ) {
+	if (  selector == @selector(doNotShowOnTbMenuMenuItemWasClicked:)  ) {
 		return [self isAnySelectedConfigurationShowOnTbMenu];
 	}
 	
-	if (  [anItem action] == @selector(editOpenVPNConfigurationFileMenuItemWasClicked:)  ) {
+	if (  selector == @selector(editOpenVPNConfigurationFileMenuItemWasClicked:)  ) {
 		return (   ( ! [gTbDefaults boolForKey: @"disableExamineOpenVpnConfigurationFileMenuItem"] )
 				&& [self oneConfigurationIsSelected]);
 	}
 	
-	if (  [anItem action] == @selector(showOpenvpnLogMenuItemWasClicked:)  ) {
+	if (  selector == @selector(showOpenvpnLogMenuItemWasClicked:)  ) {
 		NSString * path = [[self selectedConnection] openvpnLogPath];
 		return (   ( ! [gTbDefaults boolForKey: @"disableShowOpenVpnLogInFinderMenuItem"] )
 				&& [[connection configPath] hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]
@@ -1406,29 +1407,29 @@ static BOOL firstTimeShowingWindow = TRUE;
 				&&[gFileMgr fileExistsAtPath: [[self selectedConnection] openvpnLogPath]]);
 	}
 	
-	if (  [anItem action] == @selector(removeCredentialsMenuItemWasClicked:)  ) {
+	if (  selector == @selector(removeCredentialsMenuItemWasClicked:)  ) {
 		return (   ( ! [gTbDefaults boolForKey: @"disableDeleteConfigurationCredentialsInKeychainMenuItem"] )
 				&& [self isAnySelectedConfigurationCredentialed] );
 	}
 	
-	if (  [anItem action] == @selector(whenToConnectManuallyMenuItemWasClicked:)  ) {
+	if (  selector == @selector(whenToConnectManuallyMenuItemWasClicked:)  ) {
 		return TRUE;
 	}
 	
-	if (  [anItem action] == @selector(whenToConnectTunnelBlickLaunchMenuItemWasClicked:)  ) {
+	if (  selector == @selector(whenToConnectTunnelBlickLaunchMenuItemWasClicked:)  ) {
 		return TRUE;
 	}
 	
-	if (  [anItem action] == @selector(whenToConnectOnComputerStartMenuItemWasClicked:)  ) {
+	if (  selector == @selector(whenToConnectOnComputerStartMenuItemWasClicked:)  ) {
 		return [[self selectedConnection] mayConnectWhenComputerStarts];
 	}
 	
-	if (   ( [anItem action] == @selector(uponDisconnectDoNothingMenuItemWasClicked:) )
-		|| ( [anItem action] == @selector(uponDisconnectResetPrimaryInterfaceMenuItemWasClicked:) )
-		|| ( [anItem action] == @selector(uponDisconnectDisableNetworkAccessMenuItemWasClicked:) )
-		|| ( [anItem action] == @selector(uponUnexpectedDisconnectDoNothingMenuItemWasClicked:) )
-		|| ( [anItem action] == @selector(uponUnexpectedDisconnectResetPrimaryInterfaceMenuItemWasClicked:) )
-		|| ( [anItem action] == @selector(uponUnexpectedDisconnectDisableNetworkAccessMenuItemWasClicked:) )
+	if (   ( selector == @selector(uponDisconnectDoNothingMenuItemWasClicked:) )
+		|| ( selector == @selector(uponDisconnectResetPrimaryInterfaceMenuItemWasClicked:) )
+		|| ( selector == @selector(uponDisconnectDisableNetworkAccessMenuItemWasClicked:) )
+		|| ( selector == @selector(uponUnexpectedDisconnectDoNothingMenuItemWasClicked:) )
+		|| ( selector == @selector(uponUnexpectedDisconnectResetPrimaryInterfaceMenuItemWasClicked:) )
+		|| ( selector == @selector(uponUnexpectedDisconnectDisableNetworkAccessMenuItemWasClicked:) )
 	   ) {
 		return YES;
 	}
