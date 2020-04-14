@@ -1678,7 +1678,6 @@ static BOOL firstTimeShowingWindow = TRUE;
                         row: [outlineView selectedRow]
                   withEvent: nil
                      select: YES];
-    return;
 }
 
 -(IBAction) duplicateConfigurationMenuItemWasClicked: (id) sender
