@@ -88,6 +88,9 @@ static inline NSString * LocalizationNotNeeded(NSString *s) {
 	return s;
 }
 
+NSString     * TBGetString				(NSString * msg,
+                                         NSString * nameToPrefill);
+
 AlertWindowController * TBShowAlertWindow(NSString * title,
                                           id         msg); // NSString or NSAttributedString only
 
