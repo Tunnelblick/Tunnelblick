@@ -47,6 +47,9 @@
     IBOutlet NSMenuItem          * makeSharedMenuItem;
 	IBOutlet NSMenuItem          * revertToShadowMenuItem;
 
+    IBOutlet NSMenuItem          * c_o_p_yConfigurationsIntoNewFolderMenuItem;
+    IBOutlet NSMenuItem          * moveConfigurationsIntoNewFolderMenuItem;
+
     IBOutlet NSMenuItem          * showOnTbMenuMenuItem;
     IBOutlet NSMenuItem          * doNotShowOnTbMenuMenuItem;
 
@@ -133,6 +136,8 @@ TBPROPERTY_READONLY(NSButton *,            removeConfigurationButton)
 TBPROPERTY_READONLY(NSPopUpButton *,       workOnConfigurationPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   workOnConfigurationArrayController)
 
+TBPROPERTY_READONLY(NSMenuItem *,          c_o_p_yConfigurationsIntoNewFolderMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          moveConfigurationsIntoNewFolderMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          renameConfigurationMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          duplicateConfigurationMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          makePrivateMenuItem)

@@ -217,6 +217,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
     [outlineView setDelegate:   leftNavDataSrc];
     [outlineView expandItem: [outlineView itemAtRow: 0]];
 	
+    [c_o_p_yConfigurationsIntoNewFolderMenuItem setTitle: NSLocalizedString(@"Copy Configuration(s) into New Folder..."      , @"Menu Item")];
+    [moveConfigurationsIntoNewFolderMenuItem setTitle: NSLocalizedString(@"Move Configuration(s) into New Folder..."      , @"Menu Item")];
 	[renameConfigurationMenuItem          setTitle: NSLocalizedString(@"Rename Configuration"                             , @"Menu Item")];
     [duplicateConfigurationMenuItem       setTitle: NSLocalizedString(@"Duplicate Configuration..."                       , @"Menu Item")];
     [makePrivateMenuItem			      setTitle: NSLocalizedString(@"Make Configuration Private..."                    , @"Menu Item")];
@@ -505,6 +507,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            removeConfigurationButton
 TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       workOnConfigurationPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   workOnConfigurationArrayController)
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          c_o_p_yConfigurationsIntoNewFolderMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          moveConfigurationsIntoNewFolderMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          renameConfigurationMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          duplicateConfigurationMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          makePrivateMenuItem)

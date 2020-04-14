@@ -123,6 +123,10 @@ typedef enum
 													   thenConnect: (BOOL)			 thenConnect
 														 userKnows: (BOOL)			 userKnows;
 
++(void) copyConfigurationsIntoNewFolderInNewThread: (NSArray *) displayNames;
+
++(void) moveConfigurationsIntoNewFolderInNewThread: (NSArray *) displayNames;
+
 +(void) renameConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
 
 +(void) moveConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;

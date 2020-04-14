@@ -120,10 +120,16 @@
 -(IBAction) makePrivateMenuItemWasClicked:            (id) sender;
 -(IBAction) makeSharedMenuItemWasClicked:             (id) sender;
 -(IBAction) revertToShadowMenuItemWasClicked:         (id) sender;
+
+-(IBAction) c_o_p_yConfigurationsIntoNewFolderMenuItemWasClicked: (id) sender;
+-(IBAction) moveConfigurationsIntoNewFolderMenuItemWasClicked: (id) sender;
+
 -(IBAction) showOnTbMenuMenuItemWasClicked:           (id) sender;
 -(IBAction) doNotShowOnTbMenuMenuItemWasClicked:      (id) sender;
+
 -(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked: (id) sender;
 -(IBAction) showOpenvpnLogMenuItemWasClicked:         (id)  sender;
+
 -(IBAction) removeCredentialsMenuItemWasClicked:      (id) sender;
 
 -(IBAction) disconnectButtonWasClicked:               (id)  sender;

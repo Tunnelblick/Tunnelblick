@@ -1291,6 +1291,24 @@ static BOOL firstTimeShowingWindow = TRUE;
 	return FALSE;
 }
 
+-(BOOL) isAnySelectedConfigurationDeployed {
+
+    NSArray * displayNames = [self displayNamesOfSelection];
+    NSString * displayName;
+    NSEnumerator * e = [displayNames objectEnumerator];
+    while (  (displayName = [e nextObject])  ) {
+        NSString * path = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: displayName];
+        if (  ! path  ) {
+            NSLog(@"isAnySelectedConfigurationShared: Internal error: No configuration for '%@'", displayName);
+        }
+        if (  [path hasPrefix: @"/Application/Tunnelblick.app/Contents/Resources/Deploy/"]  ) {
+            return TRUE;
+        }
+    }
+    
+    return FALSE;
+}
+
 -(BOOL) isAnySelectedConfigurationCredentialed {
 	
 	NSArray * displayNames = [self displayNamesOfSelection];
@@ -1385,7 +1403,24 @@ static BOOL firstTimeShowingWindow = TRUE;
 				&& ( ! [connection shadowCopyIsIdentical] )  );
 	}
 	
-	if (  [anItem action] == @selector(showOnTbMenuMenuItemWasClicked:)  ) {
+    if (  selector == @selector(c_o_p_yConfigurationsIntoNewFolderMenuItemWasClicked:)  ) {
+        NSString * title = (  [self oneConfigurationIsSelected]
+                            ? NSLocalizedString(@"Copy Configuration into New Folder...",  @"Menu item")
+                            : NSLocalizedString(@"Copy Configurations into New Folder...", @"Menu item"));
+        [[configurationsPrefsView c_o_p_yConfigurationsIntoNewFolderMenuItem] setTitle: title];
+        return ( ! [gTbDefaults boolForKey: @"disableCopyConfigurationsIntoNewFolderMenuItem"] );
+    }
+
+    if (  selector == @selector(moveConfigurationsIntoNewFolderMenuItemWasClicked:)  ) {
+        NSString * title = (  [self oneConfigurationIsSelected]
+                            ? NSLocalizedString(@"Move Configuration into New Folder...",  @"Menu item")
+                            : NSLocalizedString(@"Move Configurations into New Folder...", @"Menu item"));
+        [[configurationsPrefsView moveConfigurationsIntoNewFolderMenuItem] setTitle: title];
+        return (   ( ! [gTbDefaults boolForKey: @"disableMoveConfigurationsIntoNewFolderMenuItem"] )
+                && ( ! [self isAnySelectedConfigurationDeployed] ) );
+    }
+
+	if (  selector == @selector(showOnTbMenuMenuItemWasClicked:)  ) {
 		return [self isAnySelectedConfigurationDoNotShowOnTbMenu];
 	}
 	
@@ -1724,6 +1759,36 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [displayNames count] != 0  ) {
 		[ConfigurationManager revertToShadowInNewThreadWithDisplayNames: displayNames];
     }
+}
+
+-(IBAction) c_o_p_yConfigurationsIntoNewFolderMenuItemWasClicked: (id) sender
+{
+    (void) sender;
+
+    VPNConnection * connection = [self selectedConnection];
+    if (  ! connection  ) {
+        NSLog(@"c_o_p_yConfigurationsIntoNewFolderMenuItemWasClicked but no configuration has been selected");
+        return;
+    }
+
+    NSArray * displayNames = [self displayNamesOfSelection];
+
+    [ConfigurationManager copyConfigurationsIntoNewFolderInNewThread: displayNames];
+}
+
+-(IBAction) moveConfigurationsIntoNewFolderMenuItemWasClicked: (id) sender
+{
+    (void) sender;
+
+    VPNConnection * connection = [self selectedConnection];
+    if (  ! connection  ) {
+        NSLog(@"moveConfigurationsIntoNewFolderMenuItemWasClicked but no configuration has been selected");
+        return;
+    }
+
+    NSArray * displayNames = [self displayNamesOfSelection];
+
+    [ConfigurationManager moveConfigurationsIntoNewFolderInNewThread: displayNames];
 }
 
 -(IBAction) showOnTbMenuMenuItemWasClicked: (id) sender

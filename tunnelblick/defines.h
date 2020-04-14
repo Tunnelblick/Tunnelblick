@@ -676,6 +676,8 @@ name = newValue;                                    \
 @"disableAddConfigurationButton",	\
 @"disableRemoveConfigurationButton",	\
 @"disableWorkOnConfigurationButton",	\
+@"disableCopyConfigurationsIntoNewFolderMenuItem",	\
+@"disableMoveConfigurationsIntoNewFolderMenuItem",	\
 @"disableRenameConfigurationMenuItem",	\
 @"disableDuplicateConfigurationMenuItem",	\
 @"disableMakeConfigurationPublicOrPrivateMenuItem",	\

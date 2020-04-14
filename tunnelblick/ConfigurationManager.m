@@ -3639,8 +3639,152 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return TRUE;
 }
 
-+(void) copyConfigurationFromPath: (NSString *)         sourcePath
-                           toPath: (NSString *)         targetPath {
++(BOOL) moveOrCopyCredentialsAndSettingsFrom: (NSString *) sourceDisplayName to: (NSString *) targetDisplayName moveNotCopy: (BOOL) moveNotCopy {
+
+    BOOL problemWithSettings = FALSE;;
+
+    if (  moveNotCopy  ) {
+
+        // Save status of "-keychainHasUsernameAndPassword", "-keychainHasUsername", and "-keychainHasPrivateKey" because they are deleted by moveCredentials()
+        BOOL havePwCredentials = keychainHasUsernameAndPasswordForDisplayName(sourceDisplayName);
+        BOOL haveUnCredentials = keychainHasUsernameWithoutPasswordForDisplayName(sourceDisplayName);
+        BOOL havePkCredentials = keychainHasPrivateKeyForDisplayName(sourceDisplayName);
+
+        moveCredentials(sourceDisplayName, targetDisplayName);
+
+        problemWithSettings = ( ! [gTbDefaults movePreferencesFrom: sourceDisplayName to: targetDisplayName] );
+
+       if (  havePwCredentials  ) {
+            [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
+        }
+        if (  haveUnCredentials  ) {
+            [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasUsername"]];
+        }
+        if (  havePkCredentials  ) {
+            [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasPrivateKey"]];
+        }
+
+    } else {
+
+        copyCredentials(sourceDisplayName, targetDisplayName);
+        problemWithSettings = ( ! [gTbDefaults copyPreferencesFrom: sourceDisplayName to: targetDisplayName] );
+    }
+
+    return ( ! problemWithSettings );
+}
+
++(NSString *) folderTargetPathForPath: (NSString *) sourcePath {
+
+    NSString * msg = NSLocalizedString(@"Please enter a name for the new folder", @"Window text");
+
+    NSString * newName = TBGetString(msg, @"");
+
+    NSString * targetPath = nil;
+
+    while (  newName  ) {
+
+        if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
+
+            newName = TBGetString([NSString stringWithFormat:
+                                   NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
+                                   PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING,
+                                   msg],
+                                  newName);
+
+        } else if (  [newName length] == 0  ) {
+
+            newName = TBGetString(msg, @"");
+
+        } else if ( [newName length] > MAX_LENGTH_OF_DISPLAY_NAME  ) {
+
+            newName = TBGetString([NSLocalizedString(@"The name is too long.\n\n%@\n\n", @"Window text") stringByAppendingString: msg],
+                                  newName);
+            
+        } else {
+
+            targetPath = [[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: newName];
+            if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
+                break;
+            }
+
+            targetPath = nil;
+
+            newName = TBGetString([NSLocalizedString(@"That folder exists.\n\n", @"Window text") stringByAppendingString: msg], newName);
+        }
+    }
+
+    return targetPath;
+}
+
++(void) copyOrMoveConfigurationsIntoNewFolder: (NSArray *) displayNames moveNotCopy: (BOOL) moveNotCopy {
+
+    NSString * firstDisplayName = [displayNames firstObject];
+    if (  ! firstDisplayName  ) {
+        NSLog(@"copyOrMoveConfigurationsIntoNewFolder: no names");
+        return;
+    }
+
+    NSDictionary * pathsDictionary = [((MenuController *)[NSApp delegate]) myConfigDictionary];
+
+    NSString * firstSourcePath = [pathsDictionary objectForKey: firstDisplayName];
+    if (  ! firstSourcePath  ) {
+        NSLog(@"copyOrMoveConfigurationsIntoNewFolder: no configPath for %@", firstDisplayName);
+        return;
+    }
+
+    NSString * targetFolderPath = [self folderTargetPathForPath: firstSourcePath];
+    if (  ! targetFolderPath  ) {
+        return; // User cancelled
+    }
+
+    NSString * prompt = NSLocalizedString(@"Tunnelblick needs authorization to copy or move configurations.", @"Window text");
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth  ) {
+        return;
+    }
+
+    BOOL problemWithSettings = FALSE;
+    NSString * sourceName;
+    NSEnumerator * e = [displayNames objectEnumerator];
+    while (  (sourceName = [e nextObject]  )  ) {
+
+        NSString * sourcePath = [pathsDictionary objectForKey: sourceName];
+        if (  ! firstDisplayName  ) {
+            NSLog(@"copyOrMoveConfigurationsIntoNewFolder: no configPath for %@", sourceName);
+            return;
+        }
+
+        NSString * targetPath = [targetFolderPath stringByAppendingPathComponent: [sourcePath lastPathComponent]];
+
+        if (  [ConfigurationManager copyConfigPath: sourcePath
+                                            toPath: targetPath
+                                   usingSystemAuth: auth
+                                        warnDialog: YES
+                                       moveNotCopy: moveNotCopy
+                                           noAdmin: NO]  ) {
+
+            NSString * sourceDisplayName = lastPartOfPath(sourcePath);
+            NSString * targetDisplayName = lastPartOfPath(targetPath);
+
+            if (  ! [self moveOrCopyCredentialsAndSettingsFrom: sourceDisplayName to: targetDisplayName moveNotCopy: moveNotCopy]  ) {
+                problemWithSettings = TRUE;
+            }
+        } else {
+            problemWithSettings = TRUE;
+            break;
+        }
+    }
+
+    if (  problemWithSettings  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                          NSLocalizedString(@"Warning: One or more settings could not be copied. See the Console Log for details.", @"Window text"));
+    }
+
+    [auth release];
+}
+
++(void) copyConfigurationFromPath: (NSString *) sourcePath
+                           toPath: (NSString *) targetPath {
 
     // If the target exists, offer to replace or keep both copies
     targetPath = [self pathToUseIfItemAtPathExists: targetPath];
@@ -3675,34 +3819,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [auth release];
 }
 
-+(void) moveCredentialsAndSettingsFrom: (NSString *) sourceDisplayName to: (NSString *) targetDisplayName {
-
-    // Save status of "-keychainHasUsernameAndPassword", "-keychainHasUsername", and "-keychainHasPrivateKey" because they are deleted by moveCredentials()
-    BOOL havePwCredentials = keychainHasUsernameAndPasswordForDisplayName(sourceDisplayName);
-    BOOL haveUnCredentials = keychainHasUsernameWithoutPasswordForDisplayName(sourceDisplayName);
-    BOOL havePkCredentials = keychainHasPrivateKeyForDisplayName(sourceDisplayName);
-
-    moveCredentials(sourceDisplayName, targetDisplayName);
-
-    if (  ! [gTbDefaults movePreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                          NSLocalizedString(@"Warning: One or more preferences could not be moved or renamed. See the Console Log for details.", @"Window text"));
-    }
-
-    // Restore "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" to the new configuration's preferences because they were not transferred by moveCredentials()
-    if (  havePwCredentials  ) {
-        [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
-    }
-    if (  haveUnCredentials  ) {
-        [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasUsername"]];
-    }
-    if (  havePkCredentials  ) {
-        [gTbDefaults setBool: TRUE forKey: [targetDisplayName stringByAppendingString: @"-keychainHasPrivateKey"]];
-    }
-}
-
-+(void) moveConfigurationFromPath: (NSString *)         sourcePath
-                           toPath: (NSString *)         targetPath {
++(void) moveConfigurationFromPath: (NSString *) sourcePath
+                           toPath: (NSString *) targetPath {
 
     // If the target exists, offer to replace or keep both copies
     targetPath = [self pathToUseIfItemAtPathExists: targetPath];
@@ -3730,7 +3848,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                    moveNotCopy: YES
                                        noAdmin: NO]  ) {
 
-        [self moveCredentialsAndSettingsFrom: sourceDisplayName to: targetDisplayName];
+        [self moveOrCopyCredentialsAndSettingsFrom: sourceDisplayName to: targetDisplayName moveNotCopy: YES];
     } else {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           NSLocalizedString(@"Move failed; see the Console Log for details.", @"Window text"));
@@ -3764,7 +3882,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                    moveNotCopy: YES
                                        noAdmin: NO]  ) {
 
-        [self moveCredentialsAndSettingsFrom: sourceName to: targetName];
+        [self moveOrCopyCredentialsAndSettingsFrom: sourceName to: targetName moveNotCopy: YES];
 
     } else {
 		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
@@ -4917,6 +5035,36 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	[pool drain];
 }
 
++(void) copyConfigurationsIntoNewFolderOperation: (NSArray *) displayNames {
+
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+    [ConfigurationManager copyOrMoveConfigurationsIntoNewFolder: displayNames moveNotCopy: FALSE];
+
+    [TBOperationQueue removeDisableList];
+
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) moveConfigurationsIntoNewFolderOperation: (NSArray *) displayNames {
+
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+    [ConfigurationManager copyOrMoveConfigurationsIntoNewFolder: displayNames moveNotCopy: TRUE];
+
+    [TBOperationQueue removeDisableList];
+
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
 +(void) renameConfigurationWithPathsOperation: (NSDictionary *) dict {
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -5223,6 +5371,22 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 								  target: [ConfigurationManager class]
 								  object: dict
 							 disableList: [NSArray arrayWithObject: displayName]];
+}
+
++(void) copyConfigurationsIntoNewFolderInNewThread: (NSArray *) displayNames {
+
+    [TBOperationQueue addToQueueSelector: @selector(copyConfigurationsIntoNewFolderOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: displayNames
+                             disableList: displayNames];
+}
+
++(void) moveConfigurationsIntoNewFolderInNewThread: (NSArray *) displayNames {
+
+    [TBOperationQueue addToQueueSelector: @selector(moveConfigurationsIntoNewFolderOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: displayNames
+                             disableList: displayNames];
 }
 
 +(void) renameConfigurationInNewThreadAtPath: (NSString *) sourcePath

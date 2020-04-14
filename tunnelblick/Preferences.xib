@@ -29,6 +29,37 @@
                             <rect key="frame" x="0.0" y="0.0" width="167" height="350"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                             <subviews>
+                                <button verticalHuggingPriority="750" id="584">
+                                    <rect key="frame" x="0.0" y="-1" width="22" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="609">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="addConfigurationButtonWasClicked:" target="-2" id="660"/>
+                                        <outlet property="nextKeyView" destination="587" id="757"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" id="587">
+                                    <rect key="frame" x="21" y="-1" width="22" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="590">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="removeConfigurationButtonWasClicked:" target="-2" id="669"/>
+                                        <outlet property="nextKeyView" destination="585" id="758"/>
+                                    </connections>
+                                </button>
+                                <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="oJP-Gq-geW">
+                                    <rect key="frame" x="73" y="19" width="98" height="5"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <font key="titleFont" metaFont="system"/>
+                                </box>
                                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1059">
                                     <rect key="frame" x="0.0" y="22" width="167" height="328"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,42 +105,18 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                 </scrollView>
-                                <button verticalHuggingPriority="750" id="584">
-                                    <rect key="frame" x="0.0" y="-1" width="22" height="24"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="609">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="smallSystem"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="addConfigurationButtonWasClicked:" target="-2" id="660"/>
-                                        <outlet property="nextKeyView" destination="587" id="757"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" id="587">
-                                    <rect key="frame" x="21" y="-1" width="22" height="24"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="590">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="smallSystem"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="removeConfigurationButtonWasClicked:" target="-2" id="669"/>
-                                        <outlet property="nextKeyView" destination="585" id="758"/>
-                                    </connections>
-                                </button>
                                 <popUpButton verticalHuggingPriority="750" id="585">
                                     <rect key="frame" x="42" y="-1" width="31" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="overlaps" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" preferredEdge="maxY" selectedItem="608" id="597">
+                                    <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="overlaps" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" preferredEdge="maxY" id="597">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
                                         <menu key="menu" title="OtherViews" id="598">
                                             <items>
                                                 <menuItem image="NSActionTemplate" hidden="YES" id="608"/>
-                                                <menuItem title="Rename Configuration...$" id="605">
+                                                <menuItem title="Rename Configuration...$" id="Bpo-cu-Iik">
                                                     <connections>
-                                                        <action selector="renameConfigurationMenuItemWasClicked:" target="-2" id="1272"/>
+                                                        <action selector="renameConfigurationMenuItemWasClicked:" target="-2" id="bmh-72-3qF"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem title="Duplicate Configuration...$" id="1270">
@@ -134,6 +141,17 @@
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="602"/>
+                                                <menuItem title="Copy Configurations New Folder...$" id="605">
+                                                    <connections>
+                                                        <action selector="c_o_p_yConfigurationsIntoNewFolderMenuItemWasClicked:" target="-2" id="iqC-0n-bCo"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Move Configurations New Folder...$" id="uZN-A9-NfL">
+                                                    <connections>
+                                                        <action selector="moveConfigurationsIntoNewFolderMenuItemWasClicked:" target="-2" id="xX3-Hs-HQX"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="E1K-qK-MGn"/>
                                                 <menuItem title="Show on Tunnelblick Menu$" id="1261">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
@@ -170,13 +188,6 @@
                                         <outlet property="nextKeyView" destination="525" id="783"/>
                                     </connections>
                                 </popUpButton>
-                                <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="oJP-Gq-geW">
-                                    <rect key="frame" x="73" y="19" width="98" height="5"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <font key="titleFont" metaFont="system"/>
-                                </box>
                             </subviews>
                         </customView>
                         <customView id="520">
@@ -184,7 +195,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <box autoresizesSubviews="NO" transparent="YES" title="Box" borderType="line" titlePosition="noTitle" id="521">
-                                    <rect key="frame" x="-3" y="-12" width="748" height="374"/>
+                                    <rect key="frame" x="-3" y="-13" width="748" height="374"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <userGuides>
                                         <userLayoutGuide location="425" affinity="minY"/>
@@ -591,10 +602,12 @@
             <connections>
                 <outlet property="addConfigurationButton" destination="584" id="614"/>
                 <outlet property="advancedButton" destination="536" id="649"/>
+                <outlet property="c_o_p_yConfigurationsIntoNewFolderMenuItem" destination="605" id="YcK-sU-RZD"/>
                 <outlet property="checkIPAddressAfterConnectOnAdvancedCheckbox" destination="5Fj-8t-plZ" id="pXJ-Ov-vBo"/>
                 <outlet property="configurationsHelpButton" destination="525" id="679"/>
                 <outlet property="configurationsTabView" destination="522" id="738"/>
                 <outlet property="connectButton" destination="526" id="727"/>
+                <outlet property="c_o_p_yConfigurationsIntoNewFolderMenuItem" destination="605" id="6mN-28-V7x"/>
                 <outlet property="diagnosticInfoToClipboardButton" destination="1203" id="1287"/>
                 <outlet property="diagnosticInfoToClipboardProgressIndicator" destination="1283" id="1285"/>
                 <outlet property="disableIpv6OnTunCheckbox" destination="MQw-BI-NTg" id="yhh-Ex-sbR"/>
@@ -615,6 +628,7 @@
                 <outlet property="makePrivateMenuItem" destination="603" id="1268"/>
                 <outlet property="makeSharedMenuItem" destination="607" id="1269"/>
                 <outlet property="monitorNetworkForChangesCheckbox" destination="s6c-Ua-ajN" id="Uec-gb-aT4"/>
+                <outlet property="moveConfigurationsIntoNewFolderMenuItem" destination="uZN-A9-NfL" id="L5o-4x-uAy"/>
                 <outlet property="outlineViewController" destination="1068" id="1077"/>
                 <outlet property="perConfigOpenvpnVersionArrayController" destination="1122" id="1123"/>
                 <outlet property="perConfigOpenvpnVersionButton" destination="1113" id="1124"/>
@@ -622,7 +636,7 @@
                 <outlet property="perConfigOpenvpnVersionTFC" destination="1117" id="1126"/>
                 <outlet property="removeConfigurationButton" destination="587" id="629"/>
                 <outlet property="removeCredentialsMenuItem" destination="606" id="628"/>
-                <outlet property="renameConfigurationMenuItem" destination="605" id="1276"/>
+                <outlet property="renameConfigurationMenuItem" destination="Bpo-cu-Iik" id="kiV-nS-zMO"/>
                 <outlet property="revertToShadowMenuItem" destination="1038" id="1040"/>
                 <outlet property="routeAllTrafficThroughVpnCheckbox" destination="H67-4J-t8M" id="Tss-Pe-kge"/>
                 <outlet property="setNameserverArrayController" destination="650" id="654"/>
