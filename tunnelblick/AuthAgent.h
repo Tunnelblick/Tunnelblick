@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2015, 2016, 2019. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2015, 2016, 2019, 2020. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -23,11 +23,11 @@
 // TO USE an AuthAgent:
 // 1. Create it via "initWithConfigName:"
 // 2. Specify an authorization mode via "setAuth:"
-// 3. Use "performAuthentication" to get credentials
+// 3. Use "performAuthenticationAllowingInteraction:" to get credentials
 // 4. Access the passphrase or username & password via their "getters"
 //
 // You may change the authorization mode at any time, but you then need to
-// do a "performAuthentication" to get the appropriate credential(s) so that
+// do a "performAuthenticationAllowingInteraction:" to get the appropriate credential(s) so that
 // they will be returned by the "getters"
 
 #import "defines.h"
@@ -47,7 +47,7 @@
     NSString * credentialsName;             // Name of a group, or the displayName if no group
 	
     // Passphrase for "privateKey" authentication, username & password for "password" authentication
-    // The appropriate ones are set by the performAuthentication method, and come either from the keychain, or from asking the user for them
+    // The appropriate ones are set by the performAuthenticationAllowingInteraction: method, and come either from the keychain, or from asking the user for them
 	NSString * passphrase;
 	NSString * password;
 	NSString * username;
@@ -68,9 +68,10 @@
     NSString * usernameAndPasswordPreferenceKey;
     NSString * usernamePreferenceKey;
     
-    BOOL authenticationWasFromKeychain;     // Last performAuthentication data came from the Keychain
+    BOOL authenticationWasFromKeychain;     // Last performAuthenticationAllowingInteraction: data came from the Keychain
 	BOOL showingLoginWindow;
 	BOOL showingPassphraseWindow;
+    BOOL allowInteraction;
 }
 
 // PUBLIC METHODS:
@@ -92,7 +93,7 @@
 -(BOOL)         keychainHasUsernameAndPassword;
 -(BOOL)         keychainHasAnyCredentials;
 
--(void)         performAuthentication;
+-(void)         performAuthenticationAllowingInteraction: (BOOL) interactionIsAllowed;
 
 -(NSString *)   usernameFromKeychain;
 -(NSString *)   passwordFromKeychain;

@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2019. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2019, 2020. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -262,6 +262,13 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 
         authenticationWasFromKeychain = FALSE;
         
+        if (  ! allowInteraction  ) {
+            if (  usernameLocal  ) {
+                return [NSArray arrayWithObjects: usernameLocal, nil];
+            }
+            return nil;
+        }
+        
         if (  ! loginScreen  ) {
             loginScreen = [[LoginWindowController alloc] initWithDelegate: self];
 		} else {
@@ -355,11 +362,14 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 	NSArray *authArray = [self getUsernameAndPassword];
 	if([authArray count]) {                
 		NSString *usernameLocal = [authArray objectAtIndex:0];
-		NSString *passwordLocal = [authArray objectAtIndex:1];
-		[self setUsername:usernameLocal];
-		[self setPassword:passwordLocal];
+        [self setUsername:usernameLocal];
+        if ([authArray count] > 1) {
+            NSString *passwordLocal = [authArray objectAtIndex:1];
+            [self setPassword:passwordLocal];
+        }
 	}
 }
+
 -(void)performPrivateKeyAuthentication
 {
     if (  ! [authMode isEqualToString:@"privateKey"]  ) {
@@ -379,7 +389,9 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     
     if (  [passphraseLocal length] == 0  ) {
         [gTbDefaults removeObjectForKey: passphrasePreferenceKey];
-        passphraseLocal = [self askForPrivateKey];
+        passphraseLocal = (  allowInteraction
+                           ? [self askForPrivateKey]
+                           : nil);
         authenticationWasFromKeychain = FALSE;
     } else {
         authenticationWasFromKeychain = TRUE;
@@ -388,8 +400,11 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     [self setPassphrase:passphraseLocal];
 }
 
--(void)performAuthentication
+-(void) performAuthenticationAllowingInteraction: (BOOL) interactionIsAllowed
 {
+
+    allowInteraction = interactionIsAllowed;
+
 	if([[self authMode] isEqualToString:@"privateKey"]) {
 		[self performPrivateKeyAuthentication];
 	}
