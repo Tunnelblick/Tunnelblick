@@ -2456,8 +2456,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 												 
 												 @"Window text."
 												 @" The first '%@' will be replaced by the name of a configuration."
-												 @" The third '%@' will be replaced by a list of names of OpenVPN options, one on each line."
-												 @" The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
+												 @" The second '%@' will be replaced by a list of names of OpenVPN options, one on each line."
+												 @" The third '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
 							   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry, versionToTry)];
             alreadyWarnedAboutUsingDifferentVersionOfOpenVPN = TRUE;
 		}
