@@ -2443,7 +2443,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			}
 			NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
 			warningMessage1 = [NSString stringWithFormat:
-							   NSLocalizedString(@"This VPN works now but may not work in a future version of Tunnelblick.\n\n"
+							   NSLocalizedString(@"This VPN works now, but may not work in a future version of Tunnelblick.\n\n"
 												 
 												 @"The OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n"
 												 

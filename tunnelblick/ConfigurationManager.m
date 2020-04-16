@@ -3558,8 +3558,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                        noAdmin: NO]  ) {
         
         if (  ! [gTbDefaults copyPreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
-            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                              NSLocalizedString(@"Warning: One or more preferences could not be duplicated. See the Console Log for details.", @"Window text"));
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"Warning: One or more settings could not be duplicated. See the Console Log for details.", @"Window text"));
         }
         
         copyCredentials(sourceDisplayName, targetDisplayName);
@@ -3697,7 +3697,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
         } else if ( [newName length] > MAX_LENGTH_OF_DISPLAY_NAME  ) {
 
-            newName = TBGetString([NSLocalizedString(@"The name is too long.\n\n%@\n\n", @"Window text. The '%@' is an additional message in a separate paragraph.") stringByAppendingString: msg],
+            newName = TBGetString([NSLocalizedString(@"The name is too long.\n\n", @"Window text.") stringByAppendingString: msg],
                                   newName);
             
         } else {
