@@ -2287,6 +2287,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSDictionary * removedAndDeprecatedOptionsInfo = [self removedAndDeprecatedOptionsInfoForConfigurationFile: configString];
 	NSString * removedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"removedInOpenvpnVersion"];
 
+    BOOL alreadyWarnedAboutUsingDifferentVersionOfOpenVPN = FALSE;
+
 	if (  removedInMajorMinor  ) {
 
 		while (  [[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending  ) {
@@ -2346,15 +2348,19 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                 NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
                 TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                   [NSString stringWithFormat:
-                                   NSLocalizedString(@"This VPN cannot be connected using OpenVPN %@, so OpenVPN %@ will be used instead.\n\n"
+                                   NSLocalizedString(@"OpenVPN %@ will be used to connect this configuration instead of OpenVPN %@.\n\n"
+
                                                      @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
+
                                                      @"%@\n"
                                                      @"You should update the configuration so it can be used with modern versions of OpenVPN.",
 
                                                      @"Window text."
-                                                     @" The first '%@' will be replaced by the name of a configuration."
-                                                     @" The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed."),
+                                                     @" The first and second '%@' will each be replaced by a version number such as '3.2'."
+                                                     @" The third '%@' will be replaced by the name of a configuration."
+                                                     @" The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed."),
                                    versionWanted, versionToTry, [self displayName], problematicOptions]);
+                alreadyWarnedAboutUsingDifferentVersionOfOpenVPN = TRUE;
             }
         }
 	}
@@ -2437,13 +2443,11 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			}
 			NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
 			warningMessage1 = [NSString stringWithFormat:
-							   NSLocalizedString(@"Warning: This VPN may not connect in the future.\n\n"
+							   NSLocalizedString(@"This VPN works now but may not work in a future version of Tunnelblick.\n\n"
 												 
-												 @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
+												 @"The OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n"
 												 
 												 @"%@\n"
-												 
-												 @"You should update the configuration so it can be used with modern versions of OpenVPN.\n\n"
 												 
 												 @"Tunnelblick will use OpenVPN %@ to connect this configuration.\n\n"
 												 
@@ -2455,6 +2459,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 												 @" The third '%@' will be replaced by a list of names of OpenVPN options, one on each line."
 												 @" The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
 							   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry, versionToTry)];
+            alreadyWarnedAboutUsingDifferentVersionOfOpenVPN = TRUE;
 		}
 	}
 
@@ -2463,18 +2468,16 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  [versionWanted isNotEqualTo: versionToTry]  ) {
 		NSLog(@"Configuration %@ will use OpenVPN %@ instead of %@. To see why, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
 			  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry), [self openvpnVersionMayBeUnavailable: versionWanted]);
-		if (  connecting  )  {
-			NSLog(@"Connecting %@ using OpenVPN %@ instead of %@. To see why, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
-				  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry), [self openvpnVersionMayBeUnavailable: versionWanted]);
-		}
-		warningMessage2 = [NSString stringWithFormat:
-						   NSLocalizedString(@"'%@' will connect using OpenVPN %@ instead of the requested version (%@).",
-											 @"Window text."
-											 @" The first '%@' will be replaced by the name of a configuration."
-											 @" The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n"),
-						   [self displayName],
-						   displayNameForOpenvpnName(versionToTry, versionToTry),
-						   [self openvpnAndVersionLocalized: versionWanted]];
+        if ( ! alreadyWarnedAboutUsingDifferentVersionOfOpenVPN  ) {
+            warningMessage2 = [NSString stringWithFormat:
+                               NSLocalizedString(@"'%@' will connect using OpenVPN %@ instead of the requested version (%@).",
+                                                 @"Window text."
+                                                 @" The first '%@' will be replaced by the name of a configuration."
+                                                 @" The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n"),
+                               [self displayName],
+                               displayNameForOpenvpnName(versionToTry, versionToTry),
+                               [self openvpnAndVersionLocalized: versionWanted]];
+        }
 	}
 	
 	NSString * warningMessage = (  ([warningMessage2 length] != 0)
@@ -2517,9 +2520,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     if (   alwaysLoadTun
         || alwaysLoadTap  ) {
 
-        NSAttributedString * message = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>You have set up configuration '%@' to 'always load tun driver' and/or 'always load tap driver' when connecting.</p>\n"
-                                                                                                              @"<p>This will cause problems connecting the configuration on a future version of macOS.</p>"
-                                                                                                              @"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>"
+        NSAttributedString * message = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>This VPN works now, but may not work in a future version of macOS.</p>\n"
+
+                                                                                                              @"<p>Configuration '%@' is set to 'always load tun driver' and/or 'always load tap driver' when connecting.</p>\n"
+
+                                                                                                              @"<p>This may cause problems using the configuration on a future version of macOS.</p>\n"
+
+                                                                                                              @"<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n"
                                                                                                               @"<p>&nbsp;</p>",
                                                                                                               @"HTML for a popup window"),
                                                                  [self localizedName]]);
@@ -2528,18 +2535,26 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
         if (  ! [tunOrTap isEqualToString: @"utun"]  ) {
             if (  [tunOrTap isEqualToString: @"tun"]  ) {
-                NSAttributedString * message = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>The OpenVPN configuration file for '%@' includes 'dev-node tun'.</p>\n"
-                                                                                                                      @"<p>This is unnecessary and will cause problems connecting on a future version of macOS.</p>"
-                                                                                                                      @"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>"
+                NSAttributedString * message = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>This VPN works now, but may not work in a future version of macOS.</p>\n"
+
+                                                                                                                      @"<p>The OpenVPN configuration file for '%@' should be updated. It includes 'dev-node tun'.</p>\n"
+
+                                                                                                                      @"<p>This is unnecessary and may cause problems connecting on a future version of macOS.</p>\n"
+
+                                                                                                                      @"<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n"
                                                                                                                       @"<p>&nbsp;</p>",
                                                                                                                       @"HTML for a popup window"),
                                                                          [self localizedName]]);
                 TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"), message, @"skipWarningAboutDevNodeTunOnFutureMacOS", nil, nil, nil, nil, NO);
                 
             } else 	if ( [tunOrTap isEqualToString: @"tap"]  ) {
-                NSAttributedString * message = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>Configuration '%@' creates a 'tap' VPN connection.</p>\n"
-                                                                                                                      @"<p>Such configurations will not work on a future version of macOS.</p>"
-                                                                                                                      @"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>",
+                NSAttributedString * message = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>This VPN works now, but may not work in a future version of macOS.</p>\n"
+
+                                                                                                                      @"<p>The OpenVPN configuration file for '%@' should be updated. It creates a 'tap' VPN connection.</p>\n"
+
+                                                                                                                      @"<p>Such configurations may not work on a future version of macOS.</p>\n"
+
+                                                                                                                      @"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n",
                                                                                                                       @"HTML for a popup window"),
                                                                          [self localizedName]]);
                 TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"), message, @"skipWarningAboutTapConnectionOnFutureMacOS", nil, nil, nil, nil, NO);
