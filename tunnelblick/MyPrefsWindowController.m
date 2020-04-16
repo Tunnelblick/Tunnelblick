@@ -1405,16 +1405,16 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
     if (  selector == @selector(c_o_p_yConfigurationsIntoNewFolderMenuItemWasClicked:)  ) {
         NSString * title = (  [self oneConfigurationIsSelected]
-                            ? NSLocalizedString(@"Copy Configuration into New Folder...",  @"Menu item")
-                            : NSLocalizedString(@"Copy Configurations into New Folder...", @"Menu item"));
+                            ? NSLocalizedString(@"Copy Configuration into a New Folder...",  @"Menu item")
+                            : NSLocalizedString(@"Copy Configurations into a New Folder...", @"Menu item"));
         [[configurationsPrefsView c_o_p_yConfigurationsIntoNewFolderMenuItem] setTitle: title];
         return ( ! [gTbDefaults boolForKey: @"disableCopyConfigurationsIntoNewFolderMenuItem"] );
     }
 
     if (  selector == @selector(moveConfigurationsIntoNewFolderMenuItemWasClicked:)  ) {
         NSString * title = (  [self oneConfigurationIsSelected]
-                            ? NSLocalizedString(@"Move Configuration into New Folder...",  @"Menu item")
-                            : NSLocalizedString(@"Move Configurations into New Folder...", @"Menu item"));
+                            ? NSLocalizedString(@"Move Configuration into a New Folder...",  @"Menu item")
+                            : NSLocalizedString(@"Move Configurations into a New Folder...", @"Menu item"));
         [[configurationsPrefsView moveConfigurationsIntoNewFolderMenuItem] setTitle: title];
         return (   ( ! [gTbDefaults boolForKey: @"disableMoveConfigurationsIntoNewFolderMenuItem"] )
                 && ( ! [self isAnySelectedConfigurationDeployed] ) );

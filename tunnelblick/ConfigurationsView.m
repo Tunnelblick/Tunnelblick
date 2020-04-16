@@ -217,8 +217,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
     [outlineView setDelegate:   leftNavDataSrc];
     [outlineView expandItem: [outlineView itemAtRow: 0]];
 	
-    [c_o_p_yConfigurationsIntoNewFolderMenuItem setTitle: NSLocalizedString(@"Copy Configuration(s) into New Folder..."      , @"Menu Item")];
-    [moveConfigurationsIntoNewFolderMenuItem setTitle: NSLocalizedString(@"Move Configuration(s) into New Folder..."      , @"Menu Item")];
+    [c_o_p_yConfigurationsIntoNewFolderMenuItem setTitle: NSLocalizedString(@"Copy Configuration into a New Folder..."      , @"Menu Item")];
+    [moveConfigurationsIntoNewFolderMenuItem setTitle: NSLocalizedString(@"Move Configuration into a New Folder..."      , @"Menu Item")];
 	[renameConfigurationMenuItem          setTitle: NSLocalizedString(@"Rename Configuration"                             , @"Menu Item")];
     [duplicateConfigurationMenuItem       setTitle: NSLocalizedString(@"Duplicate Configuration..."                       , @"Menu Item")];
     [makePrivateMenuItem			      setTitle: NSLocalizedString(@"Make Configuration Private..."                    , @"Menu Item")];

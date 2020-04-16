@@ -420,7 +420,7 @@ NSString * pathWithNumberSuffixIfItemExistsAtPath(NSString * path, BOOL includeC
         return nil;
     }
 
-    NSInteger count = 0;
+    int count = 0;
     NSString * pathWithoutCopyOrExtension = [path stringByDeletingPathExtension];
     NSString * newPath = [[path retain] autorelease];
 
@@ -434,8 +434,8 @@ NSString * pathWithNumberSuffixIfItemExistsAtPath(NSString * path, BOOL includeC
         NSString * copySuffix = (  includeCopyInNewName
                                  ? (  (count == 1)
                                     ? NSLocalizedString(@" copy", @"Suffix for a duplicate of a file")
-                                    : [NSString stringWithFormat: NSLocalizedString(@" copy %ld", @"Suffix for a duplicate of a file"), (long)count])
-                                 : [NSString stringWithFormat: @" %ld", (long)(count + 1)]);
+                                    : [NSString stringWithFormat: NSLocalizedString(@" copy %d", @"Suffix for a duplicate of a file"), count])
+                                 : [NSString stringWithFormat: @" %d", (count + 1)]);
 
         newPath = [[pathWithoutCopyOrExtension stringByAppendingString: copySuffix]
                    stringByAppendingPathExtension: @"tblk"];

@@ -3580,8 +3580,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     int  result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                   msg,
                                   NSLocalizedString(@"Cancel",    @"Button"),   // Default
-                                  NSLocalizedString(@"Keep Both", @"Button"),   // Alternate
-                                  NSLocalizedString(@"Replace",   @"Button"));  // Other
+                                  NSLocalizedString(@"Keep Both", @"Button. In a dialog that says a file already exists in a new location."),   // Alternate
+                                  NSLocalizedString(@"Replace",   @"Button. In a dialog that says a file already exists in a new location."));  // Other
     switch (  result  ) {
 
         case NSAlertDefaultReturn:
@@ -3675,7 +3675,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(NSString *) folderTargetPathForPath: (NSString *) sourcePath {
 
-    NSString * msg = NSLocalizedString(@"Please enter a name for the new folder", @"Window text");
+    NSString * msg = NSLocalizedString(@"Please enter a name for the new folder.", @"Window text");
 
     NSString * newName = TBGetString(msg, @"");
 
@@ -3697,7 +3697,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
         } else if ( [newName length] > MAX_LENGTH_OF_DISPLAY_NAME  ) {
 
-            newName = TBGetString([NSLocalizedString(@"The name is too long.\n\n%@\n\n", @"Window text") stringByAppendingString: msg],
+            newName = TBGetString([NSLocalizedString(@"The name is too long.\n\n%@\n\n", @"Window text. The '%@' is an additional message in a separate paragraph.") stringByAppendingString: msg],
                                   newName);
             
         } else {
@@ -3795,7 +3795,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
     NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
 
-    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to copy the '%@' configuration.", @"Window text"), sourceDisplayName];
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to copy or move the '%@' configuration.", @"Window text"), sourceDisplayName];
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (   ! auth  ) {
         return;
@@ -3835,7 +3835,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return;
     }
 
-    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move the '%@' configuration.", @"Window text"), sourceDisplayName];
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to copy or move the '%@' configuration.", @"Window text"), sourceDisplayName];
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (   ! auth  ) {
         return;
