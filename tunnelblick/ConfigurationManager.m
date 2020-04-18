@@ -3763,8 +3763,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                        moveNotCopy: moveNotCopy
                                            noAdmin: NO]  ) {
 
-            NSString * sourceDisplayName = lastPartOfPath(sourcePath);
-            NSString * targetDisplayName = lastPartOfPath(targetPath);
+            NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+            NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
 
             if (  ! [self moveOrCopyCredentialsAndSettingsFrom: sourceDisplayName to: targetDisplayName moveNotCopy: moveNotCopy]  ) {
                 problemWithSettings = TRUE;
