@@ -4,6 +4,7 @@ xcode_project: tunnelblick/Tunnelblick.xcodeproj
 xcode_scheme: Tunnelblick
 addons:
   homebrew:
+    update: true
     brewfile: true
 env:
   matrix:
