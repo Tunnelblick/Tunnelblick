@@ -1,0 +1,5 @@
+os: osx
+osx_image: xcode7.3
+xcode_project: tunnelblick/Tunnelblick.xcodeproj
+xcode_scheme: Tunnelblick
+script: set -o pipefail && xcodebuild -project tunnelblick/Tunnelblick.xcodeproj -target Tunnelblick -configuration Debug -UseModernBuildSystem=NO build
