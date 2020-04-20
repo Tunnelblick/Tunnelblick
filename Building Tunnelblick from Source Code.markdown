@@ -105,7 +105,7 @@ Notes:
   Required packages are available from homebrew. If you have homebrew
   installed, open a Terminal window and execute
 
-  brew install autoconf automake libtool
+  brew bundle
 
   **Method 2. Shell Script Install**
 
