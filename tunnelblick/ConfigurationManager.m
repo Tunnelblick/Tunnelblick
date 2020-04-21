@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -3673,49 +3673,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return ( ! problemWithSettings );
 }
 
-+(NSString *) folderTargetPathForPath: (NSString *) sourcePath {
-
-    NSString * msg = NSLocalizedString(@"Please enter a name for the new folder.", @"Window text");
-
-    NSString * newName = TBGetString(msg, @"");
-
-    NSString * targetPath = nil;
-
-    while (  newName  ) {
-
-        if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
-
-            newName = TBGetString([NSString stringWithFormat:
-                                   NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
-                                   PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING,
-                                   msg],
-                                  newName);
-
-        } else if (  [newName length] == 0  ) {
-
-            newName = TBGetString(msg, @"");
-
-        } else if ( [newName length] > MAX_LENGTH_OF_DISPLAY_NAME  ) {
-
-            newName = TBGetString([NSLocalizedString(@"The name is too long.\n\n", @"Window text.") stringByAppendingString: msg],
-                                  newName);
-            
-        } else {
-
-            targetPath = [[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: newName];
-            if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
-                break;
-            }
-
-            targetPath = nil;
-
-            newName = TBGetString([NSLocalizedString(@"That folder exists.\n\n", @"Window text") stringByAppendingString: msg], newName);
-        }
-    }
-
-    return targetPath;
-}
-
 +(void) copyOrMoveConfigurationsIntoNewFolder: (NSArray *) displayNames moveNotCopy: (BOOL) moveNotCopy {
 
     NSString * firstDisplayName = [displayNames firstObject];
@@ -3732,9 +3689,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return;
     }
 
-    NSString * targetFolderPath = [self folderTargetPathForPath: firstSourcePath];
+    NSString * untitledFolderName = NSLocalizedString(@"untitled folder", @"File name of a newly-created folder");
+    NSString * newPath = [[firstSourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: untitledFolderName];
+    NSString * targetFolderPath = pathWithNumberSuffixIfItemExistsAtPath(newPath, NO);
     if (  ! targetFolderPath  ) {
-        return; // User cancelled
+        return; // Error, couldn't get a path
     }
 
     NSString * prompt = NSLocalizedString(@"Tunnelblick needs authorization to copy or move configurations.", @"Window text");

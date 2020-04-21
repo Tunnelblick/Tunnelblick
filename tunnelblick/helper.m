@@ -409,7 +409,7 @@ NSString * firstPathComponent(NSString * path)
 NSString * pathWithNumberSuffixIfItemExistsAtPath(NSString * path, BOOL includeCopyInNewName) {
 
     // Returns the path if it does not exist.
-    // Otherwise, returns a path that does not exist: " 2", " 3", etc.
+    // Otherwise, returns a path that does not exist: "path 2", "path 3", etc.
     //
     // If includeCopyInNewName is TRUE, return "path copy", "path copy 2", "path copy 3", etc.
     //
@@ -543,7 +543,7 @@ NSString * standardizedPathForRename(NSString * sourcePath, NSString * newName, 
         if (  r.length != 0  ) {
             sourceDisplayName = [sourceDisplayName substringFromIndex: r.location + 1];
         } else {
-            NSLog(@"JKB: Too many leading '../' sequences in '%@'", newName);
+            NSLog(@"Too many leading '../' sequences in '%@'", newName);
             if (  doBeepOnError  ) {
                 NSBeep();
             }
@@ -1204,44 +1204,6 @@ bail:
 	}
 	
     return err;
-}
-
-NSString * TBGetString(NSString * msg, NSString * nameToPrefill) {
-
-    NSMutableDictionary* panelDict = [[NSMutableDictionary alloc] initWithCapacity:6];
-    [panelDict setObject:NSLocalizedString(@"Name Required", @"Window title") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
-    [panelDict setObject:msg                                                  forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    [panelDict setObject:@""                                                  forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
-    [panelDict setObject:nameToPrefill                                        forKey:(NSString *)kCFUserNotificationTextFieldValuesKey];
-    [panelDict setObject:NSLocalizedString(@"OK", @"Button")                  forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
-    [panelDict setObject:NSLocalizedString(@"Cancel", @"Button")              forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
-    [panelDict setObject:[NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                                 pathForResource:@"tunnelblick"
-                                                 ofType: @"icns"]]            forKey:(NSString *)kCFUserNotificationIconURLKey];
-    SInt32 error;
-    CFUserNotificationRef notification;
-    CFOptionFlags response;
-
-    // Get a name from the user
-    notification = CFUserNotificationCreate(NULL, 30.0, 0, &error, (CFDictionaryRef)panelDict);
-    [panelDict release];
-
-    if((error) || (CFUserNotificationReceiveResponse(notification, 0.0, &response))) {
-        CFRelease(notification);    // Couldn't receive a response
-        NSLog(@"Could not get a string from the user.\n\nAn unknown error occured.");
-        return nil;
-    }
-
-    if((response & 0x3) != kCFUserNotificationDefaultResponse) {
-        CFRelease(notification);    // User clicked "Cancel"
-        return nil;
-    }
-
-    // Get the new name from the textfield
-    NSString * returnString = [(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 0)
-                               stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    CFRelease(notification);
-    return returnString;
 }
 
 NSString * credentialsGroupFromDisplayName (NSString * displayName)
