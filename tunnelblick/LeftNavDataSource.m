@@ -1,5 +1,5 @@
 /*
- * Copyright 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2013, 2014, 2015, 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -34,8 +34,8 @@
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 
-extern TBUserDefaults * gTbDefaults;
 extern NSString       * gDeployPath;
+extern TBUserDefaults * gTbDefaults;
 
 @implementation LeftNavDataSource
 
@@ -56,7 +56,7 @@ extern NSString       * gDeployPath;
 
 -(NSDictionary *) rowsByDisplayName {
 	
-	return [[rowsByDisplayName copy] autorelease];	// Non-mutable copy
+	return [NSDictionary dictionaryWithDictionary: rowsByDisplayName];	// Non-mutable copy
 }
 
 - (BOOL)  keys: (NSArray *) theKeys
@@ -93,19 +93,35 @@ haveSameParent: (unsigned)  theLevel {
     while (  *theIxPtr < [theKeys count]  ) {
         unsigned currentIx = *theIxPtr;
         NSString * displayName = [theKeys objectAtIndex: currentIx];
-        NSString * localName   = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
-        NSArray * components = [localName pathComponents];
+        NSString * localName;
+        if (  [displayName hasSuffix: @"/"]  ) {
+            localName = [displayName substringToIndex: [displayName length] -1];
+        } else if ( [displayName length] == 0  ) {
+            localName = @"";
+        } else  {
+            localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
+        }
+        NSArray * components = [displayName pathComponents];
         unsigned nComponents = [components count];
+        TBLog(@"DB-PO", @"ncomponents = %u; displayName = '%@'; localName = '%@'; row = %d; ix = %d; currentIx = %d; theLevel = %d",
+              nComponents, displayName, localName, *theRowPtr, *theIxPtr, currentIx, theLevel);
 		if (   firstOfThisParent
 			|| [self keys: theKeys atIndex: currentIx haveSameParent: theLevel]  ) {
 			if (  nComponents == theLevel + 1  ) {
-				LeftNavItem * item = [[[LeftNavItem alloc] init] autorelease];
-				[item setDisplayName:             displayName];
-				[item setNameToShowInOutlineView: [components objectAtIndex: theLevel]];
-				[item setChildren:                nil];
-				[item setParent:                  theParent];
-				[[theParent children] addObject: item];
-                [rowsByDisplayName setObject: [NSNumber numberWithUnsignedInt: (*theRowPtr)++] forKey: displayName];
+                NSString * name = [components objectAtIndex: theLevel];
+                if (  ! [name isEqualToString: @"/"]  ) {
+                    LeftNavItem * item = [[[LeftNavItem alloc] init] autorelease];
+                    [item setDisplayName:             displayName];
+                    [item setNameToShowInOutlineView: name];
+                    [item setChildren:                nil];
+                    [item setParent:                  theParent];
+                    [[theParent children] addObject: item];
+                    TBLog(@"DB-PO", @"#1: Added displayName = '%@'; name = '%@'; row = %d; ix = %d", displayName, name, *theRowPtr, *theIxPtr);
+                    [rowsByDisplayName setObject: [NSNumber numberWithUnsignedInt: (*theRowPtr)++] forKey: displayName];
+                } else {
+                    TBLog(@"DB-PO", @"Not adding \"/\"");
+                }
+
 				(*theIxPtr)++;
 			} else if (  nComponents > theLevel + 1  ) {
 				LeftNavItem * item = [[[LeftNavItem alloc] init] autorelease];
@@ -118,6 +134,8 @@ haveSameParent: (unsigned)  theLevel {
 				[item setNameToShowInOutlineView: [components objectAtIndex: theLevel]];
 				[item setChildren:                [[[NSMutableArray alloc] initWithCapacity: 20] autorelease]];
 				[item setParent:                  theParent];
+                TBLog(@"DB-PO", @"#2: Added '%@'; dispNm = '%@'; row = %d; ix = %d; currentIx = %d",
+                      dispNm, [components objectAtIndex: theLevel], *theRowPtr, *theIxPtr, currentIx);
 				[[theParent children] addObject: item];
 				(*theRowPtr)++;
 				[self addItemsFromKeys: theKeys toParent: item atLevel: theLevel+1 fromIndexPtr: theIxPtr atRowPtr: theRowPtr];
@@ -149,20 +167,19 @@ displayNameForTableColumn: (NSTableColumn *) tableColumn
 - (void) reload {
     
     [rowsByDisplayName removeAllObjects];
-    
-    NSArray * sortedDisplayNames = [[[((MenuController *)[NSApp delegate]) myConfigDictionary] allKeys]
-                                    sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
-    
+
     // We create a new rootItem, but will only use it's children variable
     LeftNavItem * newRootItem = [[[LeftNavItem alloc] init] autorelease];
     [newRootItem setDisplayName: nil];  // Not used
     [newRootItem setParent:      nil];  // Not used
     [newRootItem setChildren:    [[[NSMutableArray alloc] initWithCapacity: 20] autorelease]];
     
-    // Add all the configurations to the new rootItem (i.e., add them as children of the new rootItem)
+    // Add all the configurations and empty folders to the new rootItem (i.e., add them as children of the new rootItem)
+    NSArray * sortedNames = [[(MenuController *)[NSApp delegate] logScreen] leftNavDisplayNames];
+    TBLog(@"DB-PO", @"sortedNames = %@",sortedNames);
     unsigned i = 0;
 	unsigned r = 0;
-    [self addItemsFromKeys: sortedDisplayNames toParent: newRootItem atLevel: 0 fromIndexPtr: &i atRowPtr: &r];
+    [self addItemsFromKeys: sortedNames toParent: newRootItem atLevel: 0 fromIndexPtr: &i atRowPtr: &r];
     
     // Replace the old rootItem's children with the new rootItem's children
     [[LeftNavItem rootItem] setChildren: [newRootItem children]];

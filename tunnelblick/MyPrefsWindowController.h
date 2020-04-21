@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -44,19 +44,24 @@
     IBOutlet UtilitiesView        * utilitiesPrefsView;
     
     BOOL                            lockIconIsUnlocked;
-    
+    BOOL                            usingOnlySharedConfigurations;
+    BOOL                            usingOnlyPrivateConfigurations;
+
     NSString                      * previouslySelectedNameOnLeftNavList;
     
-    NSMutableArray                * leftNavList;                      // Items in the left navigation list as displayed to the user
-    //                                                             Each item is a string with either
+    NSMutableArray                * leftNavList;           // Items in the left navigation list as displayed to the user
+    //                                                        Each item is a string with either
     //                                                             a folder name (possibly indented) or
     //                                                             a connection name (possibly indented)
     
-    NSMutableArray                * leftNavDisplayNames;              // A string for each item in leftNavList
-    //                                                             Each item is a string with either
-    //                                                             An empty string (corresponding to a folder name entry in leftNavList) or
-    //                                                             The full display name for the corresponding connection
-    
+    NSArray                       * leftNavDisplayNames;   // A string for each item in leftNavList; either
+    //                                                           * The full display name for the corresponding connection;
+    //                                                             or, if usingOnlySharedConfigurations OR usingOnlyPrivateConfigurations
+    //                                                           * A folder path ending in "/", relative to the base of a folder
+    //                                                             of configurations (i.e., like a display name). This is a
+    //                                                             folder that contains no configurations. It is used to show such
+    //                                                             folders in the leftNav list.
+
     SettingsSheetWindowController * settingsSheetWindowController;
     
     AuthorizationRef               authorization;                    // Authorization reference for Shared/Deployed configuration manipulation
@@ -199,7 +204,7 @@
 
 // Getters & Setters
 
-TBPROPERTY_READONLY(NSMutableArray *, leftNavDisplayNames)
+TBPROPERTY_READONLY(NSArray *, leftNavDisplayNames)
 
 TBPROPERTY_READONLY(ConfigurationsView *, configurationsPrefsView)
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -103,8 +103,6 @@ extern NSArray        * gConfigurationPreferences;
 @end
 
 @implementation MyPrefsWindowController
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, leftNavDisplayNames)
 
 TBSYNTHESIZE_OBJECT(retain, NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelectedNameOnLeftNavList)
 
@@ -869,38 +867,174 @@ static BOOL firstTimeShowingWindow = TRUE;
     [[configurationsPrefsView perConfigOpenvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
 }
 
+-(void) setUsingOnlySharedAndUsingOnlyPrivate {
+
+    // Set up usingOnlyPrivateConfigurations and usingOnlySharedConfigurations
+
+    usingOnlyPrivateConfigurations = FALSE;
+    usingOnlySharedConfigurations  = FALSE;
+
+    BOOL haveShared  = FALSE;
+    BOOL havePrivate = FALSE;
+
+    NSArray * allConfigPaths = [[((MenuController *)[NSApp delegate]) myConfigDictionary] allValues];
+    NSEnumerator * e = [allConfigPaths objectEnumerator];
+    NSString * path;
+    while (  (path = [e nextObject])  ) {
+        if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+            havePrivate = TRUE;
+            if (  haveShared  ) {
+                return; // Both set to false already
+            }
+
+        } else if ([path hasPrefix: L_AS_T_SHARED]  ) {
+            haveShared = TRUE;
+            if (  havePrivate  ) {
+                return; // Both set to false already
+            }
+
+        } else if ([path hasPrefix: gDeployPath]) {
+            return; // Both set to false already
+        } else {
+            NSLog(@"setUsingOnlySharedAndUsingOnlyPrivate: bad path = %@", path);
+        }
+    }
+
+    usingOnlySharedConfigurations = haveShared;
+    usingOnlyPrivateConfigurations= havePrivate;
+}
+
+-(NSArray *) leftNavDisplayNames {
+
+    // Returns a sorted array of the names that appear in the left navigation list. The array consists of
+    // the displayName for each configuration that is visible to the user, plus the names of folders that
+    // do not contain configurations but are in the configuration folders being displayed (if only shared
+    // or only private configurations are being displayed).
+    //
+    // ALSO, sets usingOnlyPrivateConfigurations and usingOnlySharedConfigurations TRUE or FALSE.
+    //
+    //  * Configurations are indicated by a name that does not end in "/"
+    //  * Empty folders are indicated by a name that ends in "/".
+    //
+    // This is done by creating an array with displayNames and then adding the names of empty folders.
+    //
+    // Empty folders in Shared or the user's private folder are included if only shared configurations
+    // are used or only private configurations are used, respectively.
+
+    if (  leftNavDisplayNames  ) {
+        return [NSArray arrayWithArray: leftNavDisplayNames];
+    }
+
+    // displayName of each the configurations that may be visible to the user
+    NSArray * displayNames = [[((MenuController *)[NSApp delegate]) myConfigDictionary] allKeys];
+
+    // This will be our result, and will include the empty folders
+    NSMutableArray * allNames = [displayNames mutableCopy];
+
+    [self setUsingOnlySharedAndUsingOnlyPrivate];
+
+    if (  usingOnlyPrivateConfigurations  ) {
+        [self addEmptyFoldersFrom: gPrivatePath to: allNames];
+    } else if (  usingOnlySharedConfigurations  ) {
+        [self addEmptyFoldersFrom: L_AS_T_SHARED to: allNames];
+    }
+
+    NSArray * result = [allNames sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
+
+    [allNames release];
+
+    leftNavDisplayNames = [result retain];
+
+    return result;
+}
+
+-(void) addEmptyFoldersFrom: (NSString *) folder to: (NSMutableArray *) list {
+
+    TBLog(@"DB-PO", @"Adding empty folders from %@", folder);
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: folder];
+    NSString * file;
+    while ( (file = [dirE nextObject])  ) {
+        if (  [file hasSuffix: @".tblk"]  ) {
+            [dirE skipDescendants];
+        } else {
+            NSString * fullPath = [folder stringByAppendingPathComponent: file];
+            if (  [self isDirAndHasNoTblksInItselfOrSubdirsAndHasNoSubdirs: fullPath]  ) {
+                NSString * dirnameSlash = [file stringByAppendingString: @"/"];
+                if (  ! [list containsObject: dirnameSlash]  ) {
+                    [list addObject: dirnameSlash];
+                    TBLog(@"DB-PO", @"     added empty folder '%@'", file);
+                }
+            }
+        }
+    }
+}
+
+-(BOOL) isDirAndHasNoTblksInItselfOrSubdirsAndHasNoSubdirs: (NSString *) path {
+
+    BOOL isDir;
+    if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]
+        && isDir  ) {
+        NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
+        NSString * file;
+        while ( (file = [dirE nextObject])  ) {
+            [dirE skipDescendants];
+            if (  [file hasSuffix: @".tblk"]  ) {
+                return FALSE;
+            }
+            NSString * fullPath = [path stringByAppendingPathComponent: file];
+            if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+                && isDir  ) {
+                return FALSE;
+            }
+        }
+    } else {
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+
+
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect
 {
     NSUInteger leftNavIndexToSelect = NSNotFound;
     
     NSMutableArray * currentFolders = [NSMutableArray array]; // Components of folder enclosing most-recent leftNavList/leftNavDisplayNames entry
-    NSArray * allConfigsSorted = [[[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
-    
+
     // If the configuration we want to select is gone, don't try to select it
+    NSArray * list = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] allKeys];
     if (  displayNameToSelect  ) {
-        if (  ! [allConfigsSorted containsObject: displayNameToSelect]  ) {
+        if (  ! [list containsObject: displayNameToSelect]  ) {
             displayNameToSelect = nil;
         }
 	}
 	
     // If no display name to select and there are any names, select the first one
 	if (  ! displayNameToSelect  ) {
-        if (  [allConfigsSorted count] > 0  ) {
-            displayNameToSelect = [allConfigsSorted objectAtIndex: 0];
+        if (  [list count] > 0  ) {
+            displayNameToSelect = [list objectAtIndex: 0];
         }
     }
-	
-	[leftNavList         release];
-	[leftNavDisplayNames release];
-	leftNavList         = [[NSMutableArray alloc] initWithCapacity: [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] count]];
-	leftNavDisplayNames = [[NSMutableArray alloc] initWithCapacity: [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] count]];
+
+    // Clear leftNavDisplayNames and get a fresh copy
+    [leftNavDisplayNames release];
+    leftNavDisplayNames = nil;
+    NSArray * leftNavNames = [self leftNavDisplayNames];
+
+    // Clear leftNavList and re-create it from leftNavNames (which may include empty folders)
+    [leftNavList         release];
+	leftNavList         = [[NSMutableArray alloc] initWithCapacity: [leftNavDisplayNames count]];
 	int currentLeftNavIndex = 0;
 	
-	NSEnumerator* configEnum = [allConfigsSorted objectEnumerator];
-    NSString * dispNm;
-    while (  (dispNm = [configEnum nextObject])  ) {
-        VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: dispNm];
-		NSArray * currentConfig = [dispNm componentsSeparatedByString: @"/"];
+	NSEnumerator* leftNavEnum = [leftNavNames objectEnumerator];
+    NSString * leftNavName;
+    while (  (leftNavName = [leftNavEnum nextObject])  ) {
+
+        VPNConnection * connection = (  [leftNavName hasSuffix: @"/"]
+                                      ? nil
+                                      : [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: leftNavName]);
+
+		NSArray * currentConfig = [leftNavName componentsSeparatedByString: @"/"];
 		unsigned firstDiff = [self firstDifferentComponent: currentConfig and: currentFolders];
 		
 		// Track any necessary "outdenting"
@@ -917,26 +1051,28 @@ static BOOL firstTimeShowingWindow = TRUE;
 		// Add a "folder" line for each folder in currentConfig starting with the first-Diff-th entry (if any)
 		unsigned i;
 		for (  i=firstDiff; i < [currentConfig count]-1; i++  ) {
-			[leftNavDisplayNames addObject: @""];
 			NSString * folderName = [currentConfig objectAtIndex: i];
-			[leftNavList         addObject: [self indent: folderName by: i]];
-			[currentFolders addObject: folderName];
-			++currentLeftNavIndex;
+            if (  [folderName length] > 0  ) {
+                [leftNavList         addObject: [self indent: folderName by: i]];
+                [currentFolders addObject: folderName];
+                ++currentLeftNavIndex;
+            }
 		}
 		
 		// Add a "configuration" line
-		[leftNavDisplayNames addObject: [connection displayName]];
-		[leftNavList         addObject: [self indent: [currentConfig lastObject] by: [currentConfig count]-1u]];
-		
-		if (  displayNameToSelect  ) {
-			if (  [displayNameToSelect isEqualToString: [connection displayName]]  ) {
-				leftNavIndexToSelect = currentLeftNavIndex;
-			}
-		} else if (   ( leftNavIndexToSelect == NSNotFound )
-				   && ( ! [connection isDisconnected] )  ) {
-			leftNavIndexToSelect = currentLeftNavIndex;
-		}
-		++currentLeftNavIndex;
+        if (  ! [leftNavName hasSuffix: @"/"]  ) {
+            [leftNavList         addObject: [self indent: [currentConfig lastObject] by: [currentConfig count]-1u]];
+
+            if (  displayNameToSelect  ) {
+                if (  [displayNameToSelect isEqualToString: [connection displayName]]  ) {
+                    leftNavIndexToSelect = currentLeftNavIndex;
+                }
+            } else if (   ( leftNavIndexToSelect == NSNotFound )
+                       && ( ! [connection isDisconnected] )  ) {
+                leftNavIndexToSelect = currentLeftNavIndex;
+            }
+            ++currentLeftNavIndex;
+        }
 	}
 	
     LeftNavViewController * oVC = [[self configurationsPrefsView] outlineViewController];
@@ -1408,7 +1544,9 @@ static BOOL firstTimeShowingWindow = TRUE;
                             ? NSLocalizedString(@"Copy Configuration into a New Folder...",  @"Menu item")
                             : NSLocalizedString(@"Copy Configurations into a New Folder...", @"Menu item"));
         [[configurationsPrefsView c_o_p_yConfigurationsIntoNewFolderMenuItem] setTitle: title];
-        return ( ! [gTbDefaults boolForKey: @"disableCopyConfigurationsIntoNewFolderMenuItem"] );
+        return (   (   usingOnlySharedConfigurations
+                    || usingOnlyPrivateConfigurations )
+                && ( ! [gTbDefaults boolForKey: @"disableCopyConfigurationsIntoNewFolderMenuItem"] ) );
     }
 
     if (  selector == @selector(moveConfigurationsIntoNewFolderMenuItemWasClicked:)  ) {
@@ -1416,8 +1554,9 @@ static BOOL firstTimeShowingWindow = TRUE;
                             ? NSLocalizedString(@"Move Configuration into a New Folder...",  @"Menu item")
                             : NSLocalizedString(@"Move Configurations into a New Folder...", @"Menu item"));
         [[configurationsPrefsView moveConfigurationsIntoNewFolderMenuItem] setTitle: title];
-        return (   ( ! [gTbDefaults boolForKey: @"disableMoveConfigurationsIntoNewFolderMenuItem"] )
-                && ( ! [self isAnySelectedConfigurationDeployed] ) );
+        return (   (   usingOnlySharedConfigurations
+                    || usingOnlyPrivateConfigurations )
+                && ( ! [gTbDefaults boolForKey: @"disableMoveConfigurationsIntoNewFolderMenuItem"] ) );
     }
 
 	if (  selector == @selector(showOnTbMenuMenuItemWasClicked:)  ) {
@@ -2568,10 +2707,22 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  newValue != selectedLeftNavListIndex  ) {
         
         // Don't allow selection of a "folder" row, only of a "configuration" row
-        while (  [[leftNavDisplayNames objectAtIndex: (unsigned) newValue] length] == 0) {
+        while (   (newValue < [leftNavDisplayNames count])
+               && ([[leftNavDisplayNames objectAtIndex: (unsigned) newValue] hasSuffix: @"/"])  ) {
             ++newValue;
         }
-        
+        if (  newValue >= [leftNavDisplayNames count]) {
+            newValue = 0;
+        }
+        while (   (newValue < [leftNavDisplayNames count])
+               && ([[leftNavDisplayNames objectAtIndex: (unsigned) newValue] hasSuffix: @"/"])  ) {
+            ++newValue;
+        }
+        if (  newValue >= [leftNavDisplayNames count]) {
+            NSLog(@"No configurations in leftNavDisplaynames, only folders");
+            return;
+        }
+
         NSUInteger oldSelectedLeftNavIndex = selectedLeftNavListIndex;
         
         if (  selectedLeftNavListIndex != NSNotFound  ) {
