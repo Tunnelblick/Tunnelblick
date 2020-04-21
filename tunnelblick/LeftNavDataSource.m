@@ -381,8 +381,6 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     NSNumber * copyNotMove = [NSNumber numberWithBool: copy];
     NSDictionary * result = [NSDictionary dictionaryWithObjectsAndKeys:
                              copyNotMove,       @"copyNotMove",
-                             sourceDisplayName, @"sourceDisplayName",
-                             targetDisplayName, @"targetDisplayName",
                              targetPath,        @"targetPath",
                              sourcePath,        @"sourcePath",
                              nil];
