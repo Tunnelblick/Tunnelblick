@@ -189,7 +189,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     NSRect tvFrame = NSMakeRect(0.0, 0.0, newSize.width, newSize.height * 1.10); // Add to height of textview so it doesn't need to be scrolled
     NSTextView * tv = [[[NSTextView alloc] initWithFrame: tvFrame] autorelease];
     [tv setSelectable: YES];
-    [tv setEditable:   YES];
+    [tv setEditable:   NO];
     [tv setAutomaticQuoteSubstitutionEnabled: YES];
     [tv setAutomaticLinkDetectionEnabled:     YES];
     NSTextStorage * ts = [tv textStorage];
