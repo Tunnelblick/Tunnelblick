@@ -720,12 +720,10 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
     // then don't do anything and return nil
 	if (  preferenceToSetTrue  ) {
 		if (  [gTbDefaults boolForKey: preferenceToSetTrue]  ) {
-            NSLog(@"Not displaying the warning dialog for '%@' because the preference is TRUE.", preferenceToSetTrue);
 			return nil;
 		}
 
         if (  [showAlertWindowAlreadyShownWindowPreferencesCache containsObject: preferenceToSetTrue]  ) {
-            NSLog(@"Not displaying the warning dialog for '%@' because it has already been shown.", preferenceToSetTrue);
             return nil;
         }
 
