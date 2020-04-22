@@ -471,7 +471,13 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
             }
         }
     }
-    
+
+    // Special case: display name is the value of lastConnectedDisplayName preference
+    if (   [[self stringForKey: @"lastConnectedDisplayName"] isEqualToString: sourceDisplayName]
+        && [self canChangeValueForKey: @"lastConnectedDisplayName"]  ) {
+        [self setObject: targetDisplayName forKey: @"lastConnectedDisplayName"];
+    }
+
     // Then, remove all preferences for the source configuration
     if (  ! [self removePreferencesFor: sourceDisplayName]  ) {
         problemsFound = TRUE;
