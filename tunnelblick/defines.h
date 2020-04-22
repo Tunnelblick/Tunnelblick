@@ -655,7 +655,6 @@ name = newValue;                                    \
 @"doNotIgnoreSignal13",	\
 @"doNotLaunchOnLogin", /* DISABLE the ability to launch on login provided by launchAtNextLogin */	\
 @"launchAtNextLogin",	\
-@"standardApplicationPath",	\
 @"doNotCreateLaunchTunnelblickLinkinConfigurations",	\
 @"menuIconSet",	\
 @"easy-rsaPath",	\
@@ -787,6 +786,7 @@ name = newValue;                                    \
 @"skipWarningAboutNoOpenvpnTxpVersion",	\
 @"skipWarningAboutOnlyOpenvpnTxpVersion",	\
 @"skipWarningAboutReenablingInternetAccessAtExit",	\
+@"standardApplicationPath",	\
 @"tunnelblickdHash",	\
 @"tunnelblickdPlistHash",	\
 @"updateAutomatically",	\
