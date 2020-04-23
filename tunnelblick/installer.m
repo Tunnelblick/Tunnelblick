@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -1606,12 +1606,6 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 	
 	if (  secondPath  ) {
 		appendLog(@"Operation is INSTALLER_DELETE but secondPath is set");
-		errorExit();
-	}
-	
-	NSString * ext = [firstPath pathExtension];
-	if (  ! [ext isEqualToString: @"tblk"]  ) {
-		appendLog([NSString stringWithFormat: @"trying to remove unknown item at %@", firstPath]);
 		errorExit();
 	}
 	
