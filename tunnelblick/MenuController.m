@@ -2658,7 +2658,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 						 [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' ('%@') will be ignored because its"
 																	   @" name contains characters that are not allowed.\n\n"
 																	   @"Characters that are not allowed: '%s'\n\n", @"Window text"),
-						  [self localizedNameForDisplayName: dispNm], dispNm, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING]);
+						  [self localizedNameForDisplayName: dispNm], dispNm, PROHIBITED_DISPLAY_NAME_CHARACTERS_WITH_SPACES_CSTRING]);
         return;
     }
     VPNConnection* myConnection = [[[VPNConnection alloc] initWithConfigPath: path

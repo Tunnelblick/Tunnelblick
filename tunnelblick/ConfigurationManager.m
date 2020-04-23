@@ -468,11 +468,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             
             if (  addIt  ) {
                 if (  invalidConfigurationName(dispName, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
-                    TBShowAlertWindow(NSLocalizedString(@"Name not allowed", @"Window title"),
+                    TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                       [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' will be ignored because its"
                                                                                     @" name contains characters that are not allowed.\n\n"
 																			        @"Characters that are not allowed: '%s'\n\n", @"Window text"),
-									   dispName, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING]);
+									   dispName, PROHIBITED_DISPLAY_NAME_CHARACTERS_WITH_SPACES_CSTRING]);
                 } else {
                     if (  [dict objectForKey: dispName]  ) {
                         NSLog(@"Tunnelblick Configuration ignored: The name is already being used: %@", fullPath);

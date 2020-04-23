@@ -816,7 +816,7 @@ NSString * fileIsReasonableAt(NSString * path) {
 	if (  invalidConfigurationName(path, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
 		NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"Path '%@' contains characters that are not allowed.\n\n"
                                                                           @"Characters that are not allowed: '%s'\n\n", @"Window text"),
-                             path, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING];
+                             path, PROHIBITED_DISPLAY_NAME_CHARACTERS_WITH_SPACES_CSTRING];
         appendLog(errMsg);
         return errMsg;
 	}
@@ -869,7 +869,7 @@ NSString * allFilesAreReasonableIn(NSString * path) {
 	if (  invalidConfigurationName(path, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
 		NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"Path '%@' contains characters that are not allowed.\n\n"
                                                                           @"Characters that are not allowed: '%s'\n\n", @"Window text"),
-				path, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING];
+				path, PROHIBITED_DISPLAY_NAME_CHARACTERS_WITH_SPACES_CSTRING];
         appendLog(errMsg);
         return errMsg;
 	}

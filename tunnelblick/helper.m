@@ -555,11 +555,10 @@ NSString * standardizedPathForRename(NSString * sourcePath, NSString * newName, 
      }
 
     // Make sure there are no prohibited characters in the name
-    if (  invalidConfigurationName(nameTemp, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
+    if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING)  ) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           [NSString stringWithFormat:
                            NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
-                           PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING,
                            @""]);
         if (  doBeepOnError  ) {
             NSBeep();
@@ -576,6 +575,7 @@ NSString * standardizedPathForRename(NSString * sourcePath, NSString * newName, 
     NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
     if (  ! [gFileMgr fileExistsAtPath: enclosingFolder]  ) {
         NSLog(@"No folder exists at '%@'", enclosingFolder);
+                           PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_WITH_SPACES_CSTRING, @""]);
         if (  doBeepOnError  ) {
             NSBeep();
         }

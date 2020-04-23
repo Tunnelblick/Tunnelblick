@@ -1848,7 +1848,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 			TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
 							  [NSString stringWithFormat:
 							  NSLocalizedString(@"Names may not include any of the following characters: %s", @"Window text"),
-							  PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING]);
+							  PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_WITH_SPACES_CSTRING]);
 		} else {
 			NSString * errMsg = [gTbDefaults addNamedCredentialsGroup: newName];
 			if (  errMsg  ) {
