@@ -212,10 +212,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
         }
     }
     
-    [leftNavDataSrc reload];
     [outlineView setDataSource: leftNavDataSrc];
     [outlineView setDelegate:   leftNavDataSrc];
-    [outlineView expandItem: [outlineView itemAtRow: 0]];
 	
     [c_o_p_yConfigurationsIntoNewFolderMenuItem setTitle: NSLocalizedString(@"Copy Configuration into a New Folder..."      , @"Menu Item")];
     [moveConfigurationsIntoNewFolderMenuItem setTitle: NSLocalizedString(@"Move Configuration into a New Folder..."      , @"Menu Item")];
