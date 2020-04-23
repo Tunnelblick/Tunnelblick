@@ -1472,6 +1472,61 @@ void installForcedPreferences(NSString * firstPath, NSString * secondPath) {
 	}
 }
 
+void doFolderRename(NSString * sourcePath, NSString * targetPath) {
+
+    // Renames the source folder to the target folder. Both folders need to be in the same folder.
+    //
+    // If the source folder is a private folder, the corresponding secure folder is also renamed if it exists.
+    //
+    // Uses rename() so nothing needs be done with ownership/permissions.
+
+    NSString * enclosingFolder = [sourcePath stringByDeletingLastPathComponent];
+    if (  [enclosingFolder isNotEqualTo: [targetPath stringByDeletingLastPathComponent]]  ) {
+        appendLog([NSString stringWithFormat: @"Cannot rename folder to a different enclosing folder: %@ to %@", sourcePath, targetPath]);
+        errorExit();
+    }
+    if (  ! [gFileMgr fileExistsAtPath: sourcePath]  ) {
+        appendLog([NSString stringWithFormat: @"rename source does not exist: %@ to %@", sourcePath, targetPath]);
+        errorExit();
+    }
+    if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+        appendLog([NSString stringWithFormat: @"rename target exists: %@ to %@", sourcePath, targetPath]);
+        errorExit();
+    }
+    if (  0 == rename([sourcePath fileSystemRepresentation], [targetPath fileSystemRepresentation])  ) {
+        appendLog([NSString stringWithFormat: @"Renamed %@ to %@", sourcePath, targetPath]);
+    } else {
+        appendLog([NSString stringWithFormat: @"Error from rename = %d ('%s') trying to rename %@ to %@",
+                   errno, strerror(errno), sourcePath, targetPath]);
+        errorExit();
+    }
+
+    if (  [sourcePath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+
+        // It's a private path. Rename any existing corresponding shadow path, too
+        NSString * secureSourcePath = [[L_AS_T_USERS
+                                        stringByAppendingPathComponent: NSUserName()]
+                                       stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
+        NSString * secureTargetPath = [[L_AS_T_USERS
+                                        stringByAppendingPathComponent: NSUserName()]
+                                       stringByAppendingPathComponent: lastPartOfPath(targetPath)];
+
+        if (  [gFileMgr fileExistsAtPath: secureSourcePath]  ) {
+            if (  [gFileMgr fileExistsAtPath: secureTargetPath]  ) {
+                appendLog([NSString stringWithFormat: @"rename target exists: %@ to %@", secureSourcePath, secureTargetPath]);
+                errorExit();
+            }
+            if (  0 == rename([secureSourcePath fileSystemRepresentation], [secureTargetPath fileSystemRepresentation])  ) {
+                appendLog([NSString stringWithFormat: @"Renamed %@ to %@", secureSourcePath, secureTargetPath]);
+            } else {
+                appendLog([NSString stringWithFormat: @"Error from rename = %d ('%s') trying to rename %@ to %@",
+                           errno, strerror(errno), secureSourcePath, secureTargetPath]);
+                errorExit();
+            }
+        }
+    }
+}
+
 void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy) {
 	
 	if (   ( ! firstPath )
@@ -1482,17 +1537,38 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 	
 	NSString * sourcePath = [[secondPath copy] autorelease];
 	NSString * targetPath = [[firstPath  copy] autorelease];
-	
-	// Make sure we are dealing with .tblks
-	if (  ! [[sourcePath pathExtension] isEqualToString: @"tblk"]  ) {
-		appendLog([NSString stringWithFormat: @"Only .tblks may be copied or moved: Not a .tblk: %@", sourcePath]);
+
+    BOOL sourceIsTblk = [[sourcePath pathExtension] isEqualToString: @"tblk"];
+    BOOL targetIsTblk = [[targetPath pathExtension] isEqualToString: @"tblk"];
+
+	// Make sure we are dealing with two .tblks or two non-tblks
+	if (   (   sourceIsTblk
+            && ( ! targetIsTblk ))
+        || (   targetIsTblk
+            && ( ! sourceIsTblk ) )  ) {
+		appendLog([NSString stringWithFormat: @"Only two .tblks or two folders may be copied or moved: %@ to %@", sourcePath, targetPath]);
 		errorExit();
 	}
-	if (  ! [[targetPath pathExtension] isEqualToString: @"tblk"]  ) {
-		appendLog([NSString stringWithFormat: @"Only .tblks may be copied or moved: Not a .tblk: %@", targetPath]);
-		errorExit();
-	}
-	
+
+    if (  ! sourceIsTblk  ) { // And, by the above, the target is not a .tblk either
+        if (  ! moveNotCopy  ) {
+            appendLog([NSString stringWithFormat: @"Can only move, not **copy**, a folder: %@ to %@", sourcePath, targetPath]);
+            errorExit();
+        }
+        BOOL isDir;
+        if (   (   [gFileMgr fileExistsAtPath: sourcePath isDirectory: &isDir]
+                && isDir)
+            && (   ( ! [gFileMgr fileExistsAtPath: targetPath isDirectory: &isDir] )
+                && isDir)
+            ) {
+            doFolderRename(sourcePath, targetPath);
+            return;
+        } else {
+            appendLog([NSString stringWithFormat: @"Source does not exist or target does exist for copy or move: %@ to %@", sourcePath, targetPath]);
+            errorExit();
+        }
+    }
+
 	// Create the enclosing folder(s) if necessary. Owned by root unless if in gPrivatePath, in which case it is owned by the user
 	NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
 	uid_t  own   = 0;
