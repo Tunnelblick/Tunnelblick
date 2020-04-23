@@ -230,7 +230,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
     [showOpenvpnLogMenuItem               setTitle: NSLocalizedString(@"Show OpenVPN Log in Finder"                       , @"Menu Item")];
     [removeCredentialsMenuItem            setTitle: NSLocalizedString(@"Delete Configuration's Credentials in Keychain...", @"Menu Item")];
     
-    // "editOpenVPNConfigurationFileMenuItem" is initialized in validateDetailsWindowControls
+    // "editOpenVPNConfigurationFileMenuItem" is initialized in validateDetailsWindowControlsForConnection:
     
     
     // Right split view - Log tab

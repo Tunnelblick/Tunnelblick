@@ -3341,7 +3341,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  ! gShuttingDownTunnelblick  ) {
 		[((MenuController *)[NSApp delegate]) updateUI];
 		[((MenuController *)[NSApp delegate]) updateIconImage];
-		[[((MenuController *)[NSApp delegate]) logScreen] validateDetailsWindowControls];
+        [[((MenuController *)[NSApp delegate]) logScreen] validateDetailsWindowControlsForConnection: self];
 	}
 	
     if (   ( ! [requestedState isEqualToString: @"EXITING"])

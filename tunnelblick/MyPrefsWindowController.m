@@ -626,7 +626,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [((MenuController *)[NSApp delegate]) startOrStopUiUpdater];
     }
     
-    [self validateDetailsWindowControls];   // Set windows enabled/disabled
+    [self validateDetailsWindowControlsForConnection: connection];
 	
 	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }
@@ -1131,7 +1131,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setupDisableIpv6OnTun:					nil];
         [self setupNetworkMonitoring:					nil];
 		[self setupPerConfigOpenvpnVersion:				nil];
-        [self validateDetailsWindowControls];
+        [self validateDetailsWindowControlsForConnection: nil];
         [settingsSheetWindowController setConfigurationName: nil];
         
     }
@@ -1251,10 +1251,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
--(void) validateDetailsWindowControls
-{
-    VPNConnection * connection = [self selectedConnection];
-    
+-(void) validateDetailsWindowControlsForConnection: (VPNConnection *) connection {
+
 	[self updateConnectionStatusAndTime];
 	
     if (   connection
@@ -2751,7 +2749,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setupNetworkMonitoring:					newConnection];
 		[self setupPerConfigOpenvpnVersion:				newConnection];
         
-        [self validateDetailsWindowControls];
 		
 		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
                 
@@ -2771,6 +2768,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             [newConnection stopMonitoringLogFiles];
         }
     }
+    [self validateDetailsWindowControlsForConnection: newConnection];
 }
 
 //***************************************************************************************************************

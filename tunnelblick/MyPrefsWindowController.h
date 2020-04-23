@@ -104,7 +104,7 @@
 -(void) lockTheLockIcon;
 -(void) validateWhenConnectingForConnection:                  (VPNConnection *) theConnection;
 -(void) validateConnectAndDisconnectButtonsForConnection:     (VPNConnection *) theConnection;
--(void) validateDetailsWindowControls;
+-(void) validateDetailsWindowControlsForConnection:           (VPNConnection *) connection;
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 -(void) setupAppearanceConnectionWindowScreenButton;
 -(void) setupAppearancePlaceIconNearSpotlightCheckbox;

@@ -82,7 +82,8 @@ void validateDetailsAndStatusWindows(void) {
 	
     id vpnDetails = [((MenuController *)[NSApp delegate]) logScreen];
     if (  vpnDetails  ) {
-        [vpnDetails performSelectorOnMainThread: @selector(validateDetailsWindowControls) withObject: nil waitUntilDone: NO];
+        VPNConnection * connection = [vpnDetails selectedConnection];
+        [vpnDetails performSelectorOnMainThread: @selector(validateDetailsWindowControlsForConnection:) withObject: connection waitUntilDone: NO];
     }
     
     NSDictionary * dict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
