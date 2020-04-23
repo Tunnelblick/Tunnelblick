@@ -607,21 +607,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     if (  connection  ) {
     
-        [self updateConnectionStatusAndTime];
-        
-        [self indicateNotWaitingForLogDisplay: [self selectedConnection]];
-        [self validateWhenToConnect: [self selectedConnection]];
-        
-        [self setupSetNameserver:						[self selectedConnection]];
-        [self setupLoggingLevel:						[self selectedConnection]];
-        [self setupRouteAllTraffic:						[self selectedConnection]];
-        [self setupUponDisconnectPopUpButton:			[self selectedConnection]];
-		[self setupUponUnexpectedDisconnectPopUpButton:	[self selectedConnection]];
-        [self setupCheckIPAddress:						[self selectedConnection]];
-        [self setupDisableIpv6OnTun:					[self selectedConnection]];
-        [self setupNetworkMonitoring:					[self selectedConnection]];
-        [self setupPerConfigOpenvpnVersion:				[self selectedConnection]];
-        
+        [self indicateNotWaitingForLogDisplay: connection];
+
         // Set up a timer to update connection times
         [((MenuController *)[NSApp delegate]) startOrStopUiUpdater];
     }
