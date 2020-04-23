@@ -297,7 +297,7 @@ enum StatusIconPosition {
 -(NSArray *)        sortedSounds;
 -(unsigned)         statusScreenIndex;
 -(void)             unloadKexts;
--(void)				updateMenuAndDetailsWindow;
+-(void)				updateMenuAndDetailsWindowForceLeftNavigation: (BOOL) forceLeftNavigationUpdate;
 -(BOOL)             userIsAnAdmin;
 -(void)             startCheckingForConfigurationUpdates;
 -(void)             statusWindowController:                 (id)                ctl

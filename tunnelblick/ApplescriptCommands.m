@@ -172,7 +172,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation {
 	
-	[(MenuController *)[NSApp delegate] updateMenuAndDetailsWindow];
+	[(MenuController *)[NSApp delegate] updateMenuAndDetailsWindowForceLeftNavigation: NO];
 	return [NSNumber numberWithInt: 0];
 }
 

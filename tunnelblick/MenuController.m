@@ -167,7 +167,6 @@ BOOL needToConvertNonTblks(void);
                         andModifierKeys:                    (UInt32)            modifierKeys;
 -(BOOL)				showWelcomeScreenForWelcomePath:        (NSString *)        welcomePath;
 -(NSStatusItem *)   statusItem;
--(void)				updateMenuAndDetailsWindow;
 -(void)             updateUI;
 -(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
 -(void) relaunchIfNecessary;
@@ -2536,20 +2535,23 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) configurationsChanged {
 	
-	[self updateMenuAndDetailsWindow];
+	[self updateMenuAndDetailsWindowForceLeftNavigation: NO];
 }
 
 -(void) configurationsChangedWithRenameDictionary: (NSDictionary *)  renameDictionary {
 	
 	NSString * oldDisplayName = [renameDictionary objectForKey: @"oldDisplayName"];
 	NSString * newDisplayName = [renameDictionary objectForKey: @"newDisplayName"];
-    
+    BOOL       refresh        = [[renameDictionary objectForKey: @"refresh"] boolValue];
+
 	BOOL oldNameWasSelected = [[[[self logScreen] selectedConnection] displayName] isEqualToString: oldDisplayName];
 	if (  oldNameWasSelected  ) {
 		[[self logScreen] setPreviouslySelectedNameOnLeftNavList: newDisplayName];
 	}
 
-	[self updateMenuAndDetailsWindow];
+    if (  refresh  ) {
+        [self updateMenuAndDetailsWindowForceLeftNavigation: NO];
+    }
 }
 
 -(void) changedDisplayConnectionTimersSettings
@@ -2598,9 +2600,9 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // If any new config files have been added, add each to the menu and add tabs for each to the Log window.
 // If any config files have been deleted, remove them from the menu and remove their tabs in the Log window
--(void) updateMenuAndDetailsWindow 
+-(void)updateMenuAndDetailsWindowForceLeftNavigation: (BOOL) forceLeftNavigationUpdate
 {
-    BOOL needToUpdateLogWindow = FALSE;         // If we changed any configurations, process the changes after we're done
+    BOOL needToUpdateLogWindow = forceLeftNavigationUpdate; // If we changed any configurations, process the changes after we're done
     
     NSString * dispNm;
     
@@ -4962,7 +4964,7 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 05")
     [self updateIconImage];
-    [self updateMenuAndDetailsWindow];
+    [self updateMenuAndDetailsWindowForceLeftNavigation: YES];
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 06")
     
