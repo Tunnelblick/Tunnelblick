@@ -5583,7 +5583,8 @@ static void signal_handler(int signalNumber)
                 
                 LeftNavItem * item = [ov itemAtRow: idx];
                 NSString * displayName = [item displayName];
-                if (  [displayName length] != 0  ) {	// Ignore folders; just process configurations
+                if (   ([displayName length] != 0)	// Ignore root item and folders; just process configurations
+                    && ( ! [displayName hasSuffix: @"/"] )  ) {
                     NSString * actualKey = [displayName stringByAppendingString: key];
                     [gTbDefaults setObject: newValue forKey: actualKey];
                 }
