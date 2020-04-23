@@ -2533,6 +2533,11 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     return YES;
 }
 
+-(void) configurationsChangedForceLeftNavigationUpdate {
+
+    [self updateMenuAndDetailsWindowForceLeftNavigation: YES];
+}
+
 -(void) configurationsChanged {
 	
 	[self updateMenuAndDetailsWindowForceLeftNavigation: NO];

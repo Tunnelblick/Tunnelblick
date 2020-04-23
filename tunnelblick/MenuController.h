@@ -251,6 +251,7 @@ enum StatusIconPosition {
 -(void)             checkForUpdates:                        (id)                sender;
 -(BOOL)             cleanup;
 -(void)             configurationsChanged;
+-(void)             configurationsChangedForceLeftNavigationUpdate;
 -(void)             configurationsChangedWithRenameDictionary: (NSDictionary *)  renameDictionary;
 -(NSArray *)        connectionsNotDisconnected;
 -(void)             connectionStateDidChange:                  (id)              connection;
