@@ -928,18 +928,19 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
 	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 	
-    if (   ( ! connection )
-        || ( ![TBOperationQueue shouldUIBeEnabledForDisplayName: configurationName] )  ) {
-        [self disableEverything];
-        [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
-        return;
-    }
-	
     NSString * programName;
     if (  [configurationName isEqualToString: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
         programName = @"";
     } else {
         programName = [NSString stringWithFormat: @" - Tunnelblick"];
+    }
+
+    if (   ( ! connection )
+        || ( ![TBOperationQueue shouldUIBeEnabledForDisplayName: configurationName] )  ) {
+        [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"Advanced Settings%@", @"Window title"), programName]];
+        [self disableEverything];
+        [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
+        return;
     }
 	
 	NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: configurationName];
