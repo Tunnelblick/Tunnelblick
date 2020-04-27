@@ -420,25 +420,33 @@ NSString * pathWithNumberSuffixIfItemExistsAtPath(NSString * path, BOOL includeC
         return nil;
     }
 
+    BOOL pathWasTblk = [path hasSuffix: @".tblk"];
+
+    NSString * pathWithoutExtension = (  pathWasTblk
+                                       ? [path stringByDeletingPathExtension]
+                                       : path);
+
+    NSString * dotExtension = (  pathWasTblk
+                               ? @".tblk"
+                               : @"");
+
     int count = 0;
-    NSString * pathWithoutCopyOrExtension = [path stringByDeletingPathExtension];
     NSString * newPath = [[path retain] autorelease];
 
     while (  [gFileMgr fileExistsAtPath: newPath]  ) {
         if (  count++ > 99  ) {
             TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                              NSLocalizedString(@"Too many duplicate configurations already exist.", @"Window text"));
+                              NSLocalizedString(@"Too many copies already exist.", @"Window text. 'Copies' refers to copies of a configuration or a folder of configurations."));
             return nil;
         }
 
         NSString * copySuffix = (  includeCopyInNewName
                                  ? (  (count == 1)
-                                    ? NSLocalizedString(@" copy", @"Suffix for a duplicate of a file")
-                                    : [NSString stringWithFormat: NSLocalizedString(@" copy %d", @"Suffix for a duplicate of a file"), count])
+                                    ? NSLocalizedString(@" copy", @"Suffix for the first copy of a file as is made by Finder's Command-click 'duplicate' command.")
+                                    : [NSString stringWithFormat: NSLocalizedString(@" copy %d", @"Suffix for an additional copy of a file as is made by Finder's Command-click 'duplicate' command."), count])
                                  : [NSString stringWithFormat: @" %d", (count + 1)]);
 
-        newPath = [[pathWithoutCopyOrExtension stringByAppendingString: copySuffix]
-                   stringByAppendingPathExtension: @"tblk"];
+        newPath = [[pathWithoutExtension stringByAppendingString: copySuffix] stringByAppendingString: dotExtension];
     }
 
     return newPath;
@@ -523,76 +531,57 @@ NSString * tblkPathFromConfigPath(NSString * path)
     return nil;
 }
 
-NSString * standardizedPathForRename(NSString * sourcePath, NSString * newName, BOOL doBeepOnError) {
+NSString * configPathFromDisplayName(NSString * name) {
 
-    // The new name can start with "../" sequences to back out of subfolders.
-    // We must make sure that it is in that many subfolders.
-    //
-    // The new name can include "subfolder/" sequences to go into subfolders.
-    // We must make sure that those subfolders exist.
+    // If the displayName is for a configuration that appears in the left navigation, returns the path to the .tblk.
+    // If the path is for a folder that exists in Shared, private, or secured, returns an empty string.
+    // Otherwise returns nil.
 
-    NSString * sourceDisplayName = displayNameFromPath(sourcePath);
+    // Return the path if it is a .tblk that appears in the left navigation
+    NSString * path = [[(MenuController *)[NSApp delegate] myConfigDictionary] objectForKey: name];
+    if (  path  ) {
+        return path;
+    }
 
-    // Remove prefixes of "../" from a copy of newName, and the same number of leading folder names from sourceDisplayName
-    // It doesn't matter that we are removing the wrong folder names, we just want to make sure there aren't too many '../'
-    NSString * nameTemp = [[newName copy] autorelease];
-    while (  [nameTemp hasPrefix: @"../"]  ) {
+    // If it's a shared folder, private folder, or secured folder, return @"", else return nil
+    BOOL isDir;
+    NSString * testPath = [gPrivatePath stringByAppendingPathComponent: name];
+    if (   [gFileMgr fileExistsAtPath: testPath isDirectory: &isDir]
+        && isDir  ) {
+        return @"";
+    }
 
-        // Make sure there is at least one subfolder (and remove it)
-        NSRange r = [sourceDisplayName rangeOfString: @"/"];
-        if (  r.length != 0  ) {
-            sourceDisplayName = [sourceDisplayName substringFromIndex: r.location + 1];
-        } else {
-            NSLog(@"Too many leading '../' sequences in '%@'", newName);
-            if (  doBeepOnError  ) {
-                NSBeep();
-            }
-            return nil;
-        }
+    testPath = [L_AS_T_SHARED stringByAppendingPathComponent: name];
+    if (   [gFileMgr fileExistsAtPath: testPath isDirectory: &isDir]
+        && isDir  ) {
+        return @"";
+    }
 
-        // Remove the "../" prefix
-        nameTemp = [nameTemp substringFromIndex: 3];
-     }
+    testPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
+                stringByAppendingPathComponent: name];
+    if (   [gFileMgr fileExistsAtPath: testPath isDirectory: &isDir]
+        && isDir  ) {
+        return @"";
+    }
+
+    return nil;
+}
+
+BOOL displayNameIsValid(NSString * newName, BOOL doBeepOnError) {
 
     // Make sure there are no prohibited characters in the name
     if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING)  ) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           [NSString stringWithFormat:
                            NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
-                           @""]);
-        if (  doBeepOnError  ) {
-            NSBeep();
-        }
-        return nil;
-    }
-
-    NSString * targetPath   = [[[[sourcePath stringByDeletingLastPathComponent]
-                                 stringByAppendingPathComponent: newName]
-                                stringByAppendingPathExtension: @"tblk"]
-                               stringByStandardizingPath];
-
-    // Make sure the existing folder already exists
-    NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
-    if (  ! [gFileMgr fileExistsAtPath: enclosingFolder]  ) {
-        NSLog(@"No folder exists at '%@'", enclosingFolder);
                            PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_WITH_SPACES_CSTRING, @""]);
         if (  doBeepOnError  ) {
             NSBeep();
         }
-        return nil;
+        return NO;
     }
 
-    // Make sure the target doesn't already exist
-    if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-        NSLog(@"Already exists: '%@'", targetPath);
-        if (  doBeepOnError  ) {
-            NSBeep();
-        }
-        return nil;
-    }
-
-
-    return targetPath;
+    return YES;
 }
 
 // Returns a string with the version # for Tunnelblick, e.g., "Tunnelbick 3.0b12 (build 157)"

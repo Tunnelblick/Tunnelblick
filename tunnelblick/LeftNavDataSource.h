@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2013, 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,9 +19,11 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+@class LeftNavItem;
+
 @interface LeftNavDataSource : NSObject <NSOutlineViewDataSource, NSOutlineViewDelegate> {
 	
-    NSMutableDictionary * rowsByDisplayName;  // Maps displayName (key) to row of outlineView (object)
+    NSMutableDictionary * itemsByDisplayName;  // Maps displayName, perhaps a folder with trailing slash, to an item
 }
 
 - (void)           reload;
@@ -49,6 +51,6 @@ displayNameForTableColumn: (NSTableColumn *) tableColumn
            forTableColumn: (NSTableColumn *) tableColumn
                    byItem: (id)              item;
 
--(NSDictionary *) rowsByDisplayName;
+-(LeftNavItem *) itemForName: (NSString *) name;
 
 @end

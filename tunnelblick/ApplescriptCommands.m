@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2019 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2019, 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -172,7 +172,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation {
 	
-	[(MenuController *)[NSApp delegate] updateMenuAndDetailsWindowForceLeftNavigation: NO];
+	[(MenuController *)[NSApp delegate] updateMenuAndDetailsWindowForceLeftNavigation: YES];
 	return [NSNumber numberWithInt: 0];
 }
 

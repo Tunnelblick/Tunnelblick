@@ -2543,22 +2543,6 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	[self updateMenuAndDetailsWindowForceLeftNavigation: NO];
 }
 
--(void) configurationsChangedWithRenameDictionary: (NSDictionary *)  renameDictionary {
-	
-	NSString * oldDisplayName = [renameDictionary objectForKey: @"oldDisplayName"];
-	NSString * newDisplayName = [renameDictionary objectForKey: @"newDisplayName"];
-    BOOL       refresh        = [[renameDictionary objectForKey: @"refresh"] boolValue];
-
-	BOOL oldNameWasSelected = [[[[self logScreen] selectedConnection] displayName] isEqualToString: oldDisplayName];
-	if (  oldNameWasSelected  ) {
-		[[self logScreen] setPreviouslySelectedNameOnLeftNavList: newDisplayName];
-	}
-
-    if (  refresh  ) {
-        [self updateMenuAndDetailsWindowForceLeftNavigation: NO];
-    }
-}
-
 -(void) changedDisplayConnectionTimersSettings
 {
     [self startOrStopUiUpdater];

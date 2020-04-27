@@ -39,6 +39,7 @@ uint64_t       nowAbsoluteNanoseconds    (void);
 
 NSString     * configPathFromTblkPath   (NSString * path);
 NSString     * tblkPathFromConfigPath   (NSString * path);
+NSString     * configPathFromDisplayName(NSString * name);
 
 NSString     * configLocCodeStringForPath(NSString * configPath);
 
@@ -59,6 +60,7 @@ NSString     * copyrightNotice          (void);
 NSString     * escaped                  (NSString * string);
 
 BOOL okToUpdateConfigurationsWithoutAdminApproval(void);
+BOOL displayNameIsValid(NSString * newName, BOOL doBeepOnError);
 
 NSMutableString * encodeSlashesAndPeriods(NSString * s);
 
@@ -75,7 +77,6 @@ NSString     * lastPartOfPath           (NSString * thePath);
 NSString     * displayNameFromPath      (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
 NSString     * secureTblkPathForTblkPath(NSString * path);
-NSString     * standardizedPathForRename(NSString * sourcePath, NSString * newName, BOOL doBeepOnError);
 NSString     * pathWithNumberSuffixIfItemExistsAtPath(NSString * path, BOOL includeCopyInNewName);
 NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSString     * localizeNonLiteral        (NSString * status,

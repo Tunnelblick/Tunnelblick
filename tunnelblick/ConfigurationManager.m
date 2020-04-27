@@ -924,11 +924,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return nil;
 }
 
-+(BOOL) deleteConfigPath: (NSString *)   targetPath
-         usingSystemAuth: (SystemAuth *) auth
-              warnDialog: (BOOL)         warn {
-    
-    // Deletes a config file or package
++(BOOL) deleteConfigOrFolderAtPath: (NSString *)   targetPath
+                   usingSystemAuth: (SystemAuth *) auth
+                        warnDialog: (BOOL)         warn {
+
+    // Deletes a config file or package or a folder
     // Returns TRUE if succeeded
     // Returns FALSE if failed, having already output an error message to the console log
     
@@ -952,21 +952,30 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSLog(@"Error while deleting %@", targetPath);
         return FALSE;
     }
-    
-	NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: [lastPartOfPath(targetPath) stringByDeletingPathExtension]];
-    
+
+    NSString * localName = lastPartOfPath(targetPath);
+    if (  [localName hasSuffix: @".tblk"]  ) {
+        localName = [((MenuController *)[NSApp delegate])
+                    localizedNameForDisplayName:  [localName stringByDeletingPathExtension]];
+    }
+
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-        NSLog(@"Could not uninstall configuration file %@", targetPath);
+        NSLog(@"Could not remove %@", targetPath);
         if (  warn  ) {
-            NSString * title = NSLocalizedString(@"Could Not Uninstall Configuration", @"Window title");
-            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
+            NSString * title = NSLocalizedString(@"Tunnelblick", @"Window title");
+            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not remove\n\n%@. See the Console Log for details.", @"Window text. The '%@' refers to a configuration or a folder of configurations."), localName];
             TBShowAlertWindow(title, msg);
         }
         return FALSE;
     }
 	
-    NSLog(@"Uninstalled configuration file %@", targetPath);
-    
+    NSLog(@"Deleted '%@'", targetPath);
+
+    if (  ! [targetPath hasSuffix: @".tblk"]  ) {
+        return TRUE;
+    }
+
+
     if (  bundleId  ) {
         
           // Stop updating any configurations with this bundleId
@@ -990,7 +999,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 NSLog(@"Could not delete \"stub\" .tblk container %@", containerPath);
                 if (  warn  ) {
                     NSString * title = NSLocalizedString(@"Could Not Uninstall Configuration", @"Window title");
-                    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
+                    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
                     TBShowAlertWindow(title, msg);
                 }
                 return FALSE;
@@ -2572,9 +2581,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		
 		NSString * target = [[self deletions] objectAtIndex: ix];
 		
-		if (  ! [ConfigurationManager deleteConfigPath: target
-                                       usingSystemAuth: auth
-                                            warnDialog: NO]  ) {
+        if (  ! [ConfigurationManager deleteConfigOrFolderAtPath: target
+                                                 usingSystemAuth: auth
+                                                      warnDialog: NO]  ) {
 			nUninstallErrors++;
 			NSString * targetDisplayName   = [lastPartOfPath(target) stringByDeletingPathExtension];
             NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
@@ -3115,82 +3124,139 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return NO;
 }
 
-+(BOOL) okToRemoveOneConfigurationWithDisplayName: (NSString *) displayName {
++(BOOL) okToRemoveOneConfigurationOrFolderWithDisplayName: (NSString *) displayName {
     
-    VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
-    if (  ! connection  ) {
-        NSLog(@"okToRemoveConfigurationWithDisplayNames: Cannot get VPNConnection object for display name '%@'", displayName);
-        return NO;
+    if (  ! [displayName hasSuffix: @"/"]  ) {
+
+        // It's a configuration
+        VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+        if (  ! connection  ) {
+            NSLog(@"okToRemoveConfigurationWithDisplayNames: Cannot get VPNConnection object for display name '%@'", displayName);
+            return NO;
+        }
+
+        NSString * configurationPath = [connection configPath];
+        if (  ! [connection isDisconnected]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"You may not remove a configuration unless it is disconnected.", @"Window text"));
+            return NO;
+        }
+        if (  [ConfigurationManager isConfigurationSetToConnectWhenComputerStartsAtPath: configurationPath]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"You may not remove a configuration which is set to start when the computer starts.", @"Window text"));
+            return NO;
+        }
+
+        if (  [configurationPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"You may not remove a Deployed configuration.", @"Window text"));
+            return NO;
+        }
+
+        return YES;
     }
-    
-    if (  ! [connection isDisconnected]  ) {
+
+    NSString * dirPath = configPathFromDisplayName(displayName);
+    if (  ! [@"" isEqualToString: dirPath]  ) {
+        NSLog(@"Display name '%@' is not a folder or it doesn't exist in the shared, private, or secured folders", displayName);
+        return NO; // It doesn't exist in shared or private, or it's not a folder
+    }
+
+    // It's a folder. If it has no configurations inside it, or inside it's subfolders, we can delete it.
+
+    // Because it is a folder, it could exist in the shared, private and/or secured folders, so we need to look in all three
+
+    BOOL haveConfigurations = FALSE;
+    NSArray * folders = [NSArray arrayWithObjects: gPrivatePath, L_AS_T_SHARED, [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()], nil];
+    NSEnumerator * e  = [folders objectEnumerator];
+    NSString * path;
+    while (  (path = [e nextObject])  ) {
+        NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
+        NSString * file;
+        while (  (file = [dirE nextObject])  ) {
+            if (   [file hasPrefix: displayName]
+                && [file hasSuffix: @".tblk"]  ) {
+                haveConfigurations = TRUE;
+                break;
+            }
+        }
+    }
+
+    if (  haveConfigurations  ) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"You may not remove a configuration unless it is disconnected.", @"Window text"));
+                          NSLocalizedString(@"You may not remove a folder unless it is empty.", @"Window text"));
         return NO;
     }
-    
-    NSString * configurationPath = [connection configPath];
-	
-    if (  [ConfigurationManager isConfigurationSetToConnectWhenComputerStartsAtPath: configurationPath]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"You may not remove a configuration which is set to start when the computer starts.", @"Window text"));
-        return NO;
-    }
-    
-    if (  [configurationPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"You may not remove a Deployed configuration.", @"Window text"));
-        return NO;
-    }
-    
+
     return YES;
 }
 
-+(void) removeConfigurationsWithDisplayNamesWorker: (NSArray *) displayNames
-                                   usingSystemAuth: (SystemAuth *) auth {
-    
++(void) removeConfigurationsOrFoldersWithDisplayNamesWorker: (NSArray *) displayNames
+                                            usingSystemAuth: (SystemAuth *) auth {
+
+    BOOL ok = TRUE;
     NSString * displayName;
     NSEnumerator * e = [displayNames objectEnumerator];
     while (  (displayName = [e nextObject])  ) {
-        
-        VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
-        if (  ! connection  ) {
-            NSLog(@"removeConfigurationsWithDisplayNamesWorker: Cannot get VPNConnection object for display name '%@'", displayName);
-            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                              NSLocalizedString(@"There was a problem deleting one or more configurations. See the Console Log for details.", @"Window text"));
-            return;
-        }
-        
-        NSString * configurationPath = [connection configPath];
-        
-        // Get ready to remove group credentials if no other configurations use them
-        NSString * group = credentialsGroupFromDisplayName(displayName);
-        if (   group
-            && [gTbDefaults numberOfConfigsInCredentialsGroup: group] > 1  ) {
-            group = nil;
-        }
-        
-        BOOL ok = [ConfigurationManager deleteConfigPath: configurationPath
-                                         usingSystemAuth: auth
-                                              warnDialog: YES];
-        if (  ok  ) {
-            if (  group  ) {
-                AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
-                
-                [myAuthAgent setAuthMode: @"privateKey"];
-                if (  [myAuthAgent keychainHasAnyCredentials]  ) {
-                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
-                }
-                [myAuthAgent setAuthMode: @"password"];
-                if (  [myAuthAgent keychainHasAnyCredentials]  ) {
-                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+
+        NSString * path;
+        BOOL isFolder = [displayName hasSuffix: @"/"];
+        if (  isFolder  ) {
+            // Do for shared and private folders. (installer will delete secure folder corresponding to private folder)
+            NSArray * folders = [NSArray arrayWithObjects: L_AS_T_SHARED, gPrivatePath, nil];
+            NSEnumerator * e = [folders objectEnumerator];
+            NSString * folder;
+            while (   ok
+                   && (folder = [e nextObject])  ) {
+                NSString * path = [folder stringByAppendingPathComponent: displayName];
+                if (   [gFileMgr fileExistsAtPath: path]  ) {
+                    ok = [ConfigurationManager deleteConfigOrFolderAtPath: path
+                                                          usingSystemAuth: auth
+                                                               warnDialog: YES];
                 }
             }
+
+            [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: displayName with: nil];
             
-            [gTbDefaults removePreferencesFor: displayName];
         } else {
+            VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+            if (  ! connection  ) {
+                NSLog(@"removeConfigurationsOrFoldersWithDisplayNamesWorker: Cannot get VPNConnection object for display name '%@'", displayName);
+                ok = FALSE;
+            }
+
+            if (  ok  ) {
+                path = [connection configPath];
+                ok = [ConfigurationManager deleteConfigOrFolderAtPath: path
+                                                      usingSystemAuth: auth
+                                                           warnDialog: YES];
+                if (  ok  ) {
+                    NSString * group = credentialsGroupFromDisplayName(displayName);
+                    if (   group
+                        && [gTbDefaults numberOfConfigsInCredentialsGroup: group] > 1  ) {
+                        group = nil;
+                    }
+                    if (  group  ) {
+                        AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
+
+                        [myAuthAgent setAuthMode: @"privateKey"];
+                        if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+                            [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+                        }
+                        [myAuthAgent setAuthMode: @"password"];
+                        if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+                            [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+                        }
+                    }
+                    
+                    [gTbDefaults removePreferencesFor: displayName];
+                }
+            }
+        }
+
+        if (  ! ok  ) {
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                              NSLocalizedString(@"There was a problem deleting one or more configurations. See the Console Log for details.", @"Window text"));
+                              NSLocalizedString(@"There was a problem deleting one or more configurations or folders. See the Console Log for details.", @"Window text"));
             return;
         }
     }
@@ -3408,27 +3474,27 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	}
 }
 
-+(void) removeConfigurationsWithDisplayNames: (NSArray *) displayNames {
++(void) removeConfigurationsOrFoldersWithDisplayNames: (NSArray *) displayNames {
     
-    // Make sure we can remove all of the configurations
+    // Make sure we can remove all of the configurations or folders
     NSEnumerator * e = [displayNames objectEnumerator];
     NSString * displayName;
     while (  (displayName = [e nextObject])  ) {
-        if (  ! [ConfigurationManager okToRemoveOneConfigurationWithDisplayName: displayName]) {
+        if (  ! [ConfigurationManager okToRemoveOneConfigurationOrFolderWithDisplayName: displayName]) {
             return;
         }
     }
     
-    NSString * prompt = (  ([displayNames count] == 1)
-                         ? [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.", @"Window text"), [displayNames objectAtIndex: 0]]
-                         : [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.", @"Window text"), (unsigned long)[displayNames count]]);
+    NSString * prompt = NSLocalizedString(@"Tunnelblick needs authorization to remove one or more configurations"
+                                          @" or folders.\n\n Removal is permanent and cannot be undone."
+                                          @" Settings for removed configurations will also be removed permanently.", @"Window text");
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (   ! auth  ) {
         return;
     }
-    [ConfigurationManager removeConfigurationsWithDisplayNamesWorker: displayNames
-                                                     usingSystemAuth: auth];
-    
+    [ConfigurationManager removeConfigurationsOrFoldersWithDisplayNamesWorker: displayNames
+                                                              usingSystemAuth: auth];
+
     [auth release];
 }
 
@@ -3848,6 +3914,93 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 						  NSLocalizedString(@"Rename failed; see the Console Log for details.", @"Window text"));
 	}
     
+    [auth release];
+    return ok;
+}
+
++(BOOL) renameFolderFromDisplayName: (NSString *) sourceDisplayName
+                             toName: (NSString *) name {
+
+    // Returns TRUE if succeeded or FALSE if cancelled or failed (if failed, the user has already been notified)
+    //
+    // RENAMES UP TO THREE FOLDERS: shared, private, and secured.
+
+    // Normalize sourceDisplayName to end in a slash
+    if (  ! [sourceDisplayName hasSuffix: @"/"]  ) {
+        sourceDisplayName = [sourceDisplayName stringByAppendingString: @"/"];
+    }
+
+    // Normalize name to NOT end in a slash
+    if (  [name hasSuffix: @"/"]  ) {
+        name = [name substringToIndex: [name length] - 1];
+    }
+
+    NSString * nameForPrompt = [sourceDisplayName substringToIndex: [sourceDisplayName length] - 1];
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename '%@'.", @"Window text. '%@' is the name of a folder of configurations."), nameForPrompt];
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth ) {
+        return FALSE;
+    }
+
+    NSString * targetDisplayName = [[[sourceDisplayName stringByDeletingLastPathComponent]
+                                     stringByAppendingPathComponent: name]
+                                    stringByAppendingString: @"/"];                         // NOTE: Ends in "/"
+
+    // Move preferences and credentials of configurations that will, in effect, be moved by the rename.
+
+    BOOL ok = TRUE;
+
+    NSArray * configurations = [[(MenuController *)[NSApp delegate] myConfigDictionary] allValues];
+    NSEnumerator * e = [configurations objectEnumerator];
+    NSString * path;
+    while (  (path = [e nextObject])  ) {
+         NSString * thisSourceLastPart = lastPartOfPath(path);
+        if (  [thisSourceLastPart hasPrefix: sourceDisplayName]  ) {
+            NSString * thisSourceDisplayName = [thisSourceLastPart stringByDeletingPathExtension];
+            NSString * thisTargetDisplayName = [[[[thisSourceDisplayName substringToIndex: [sourceDisplayName length]]
+                                                  stringByDeletingLastPathComponent]    // Remove name to change
+                                                 stringByAppendingPathComponent: name]  // Add new name
+                                                stringByAppendingPathComponent: [thisSourceDisplayName substringFromIndex: [sourceDisplayName length]]];
+            ok = ok && [self moveOrCopyCredentialsAndSettingsFrom: thisSourceDisplayName to: thisTargetDisplayName moveNotCopy: YES];
+        }
+    }
+
+    // Change the preference *values* that reference the old folder to reference the new one
+    [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: sourceDisplayName with: targetDisplayName];
+
+    // Now move the folder(s)
+    if (  ok  ) {
+
+        // Move folders in both Shared and private (installer will copy private to secure if appropriate)
+        NSArray * folders = [NSArray arrayWithObjects: L_AS_T_SHARED, gPrivatePath, nil];
+        NSEnumerator * e = [folders objectEnumerator];
+        NSString * folder;
+        while (  (folder = [e nextObject])  ) {
+            NSString * fullSourcePath = [folder stringByAppendingPathComponent: sourceDisplayName];
+            NSString * fullTargetPath = [folder stringByAppendingPathComponent: targetDisplayName];
+
+            if (   [gFileMgr fileExistsAtPath: fullSourcePath]  ) {
+                if (  ! [gFileMgr fileExistsAtPath: fullTargetPath]  ) {
+                    NSArray * arguments = [NSArray arrayWithObjects: fullTargetPath, fullSourcePath, nil];
+                    NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_MOVE
+                                                                                    extraArguments: arguments
+                                                                                   usingSystemAuth: auth
+                                                                                      installTblks: nil];
+                    if (  installerResult != 0  ) {
+                        NSLog(@"Could not rename folder %@ to %@", fullSourcePath, name);
+                        ok = FALSE;
+                    }
+                } else {
+                    NSLog(@"Item exists at '%@'", fullTargetPath);
+                    ok = FALSE;
+                }
+            }
+        }
+
+
+        [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
+    }
+
     [auth release];
     return ok;
 }
@@ -4921,15 +5074,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [pool drain];
 }
 
-+(void) removeConfigurationsWithDisplayNamesOperation: (NSArray *) displayNames {
++(void) removeConfigurationsOrFoldersWithDisplayNamesOperation: (NSArray *) displayNames {
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
-    [ConfigurationManager removeConfigurationsWithDisplayNames: displayNames];
+    [ConfigurationManager removeConfigurationsOrFoldersWithDisplayNames: displayNames];
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 	
     [TBOperationQueue operationIsComplete];
     
@@ -5041,31 +5194,72 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return;
     }
 
-	NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
 	NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
 	BOOL didRename = FALSE;
-	if (  ! [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: targetDisplayName]  ) {
+	if (  [self anyConfigurationFolderContainsDisplayName: targetDisplayName]  ) {
+        NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: targetDisplayName];
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists.", @"Window text. '%@' is the name of a configuration or a folder of configurations."), localName]);
+    } else {
 		if (  [ConfigurationManager renameConfigurationFromPath: sourcePath
 														 toPath: targetPath]  ) {
 			didRename = TRUE;
 		}
-	} else {
-		NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: targetDisplayName];
-		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-						  [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' already exists.", @"Window text"), localName]);
 	}
     
     [TBOperationQueue removeDisableList];
     
 	if (  didRename  ) {
-		NSDictionary * renameDict = [NSDictionary dictionaryWithObjectsAndKeys:
-									 sourceDisplayName, @"oldDisplayName",
-									 targetDisplayName, @"newDisplayName",
-									 nil];
-		[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedWithRenameDictionary:) withObject: renameDict waitUntilDone: NO];
+		[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 	}
     [TBOperationQueue operationIsComplete];
     
+    [pool drain];
+}
+
++(BOOL) anyConfigurationFolderContainsDisplayName: (NSString *) name {
+
+    NSString * nameWithoutSlashOrTblk = (  [name hasSuffix: @"/"]
+                                         ? [name substringToIndex: [name length] - 1]
+                                         : (  [name hasSuffix: @".tblk"]
+                                            ? [name stringByDeletingPathExtension]
+                                            : name));
+    NSString * nameWithDotTblk = [nameWithoutSlashOrTblk stringByAppendingPathExtension: @"tblk"];
+
+
+    BOOL result = (   [gFileMgr fileExistsAtPath: [gPrivatePath stringByAppendingPathComponent: nameWithoutSlashOrTblk]]
+                   || [gFileMgr fileExistsAtPath: [gPrivatePath stringByAppendingPathComponent: nameWithDotTblk]]
+                   || [gFileMgr fileExistsAtPath: [L_AS_T_SHARED stringByAppendingPathComponent: nameWithoutSlashOrTblk]]
+                   || [gFileMgr fileExistsAtPath: [L_AS_T_SHARED stringByAppendingPathComponent: nameWithDotTblk]]
+                   || [gFileMgr fileExistsAtPath: [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
+                                                   stringByAppendingPathComponent: nameWithoutSlashOrTblk]]
+                   || [gFileMgr fileExistsAtPath: [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
+                                                   stringByAppendingPathComponent: nameWithDotTblk]]  );
+
+    return result;
+}
+
++(void) renameFolderWithDisplayNameOperation: (NSDictionary *) dict {
+
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+    NSString * sourceDisplayName = [dict objectForKey: @"sourceDisplayName"];
+    NSString * targetName = [dict objectForKey: @"targetName"];
+
+    NSString * targetDisplayName = [[sourceDisplayName stringByDeletingLastPathComponent]
+                                    stringByAppendingPathComponent: targetName];
+
+    if (  [self anyConfigurationFolderContainsDisplayName: targetDisplayName]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists.", @"Window text. '%@' is the name of a configuration or a folder of configurations."), targetName]);
+    } else {
+        [self renameFolderFromDisplayName: sourceDisplayName toName: targetName];
+    }
+
+    [TBOperationQueue removeDisableList];
+
+    [TBOperationQueue operationIsComplete];
+
     [pool drain];
 }
 
@@ -5282,12 +5476,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              disableList: displayNames];
 }
 
-+(void) removeConfigurationsInNewThreadWithDisplayNames: (NSArray *)  displayNames {
++(void) removeConfigurationsOrFoldersInNewThreadWithDisplayNames: (NSArray *)  displayNames {
 	
-    [TBOperationQueue addToQueueSelector: @selector(removeConfigurationsWithDisplayNamesOperation:)
+    [TBOperationQueue addToQueueSelector: @selector(removeConfigurationsOrFoldersWithDisplayNamesOperation:)
                                   target: [ConfigurationManager class]
                                   object: displayNames
-                             disableList: displayNames];
+                             disableList: [NSArray arrayWithObject: @"*"]];
 }
 
 +(void) revertToShadowInNewThreadWithDisplayNames: (NSArray *)  displayNames {
@@ -5361,6 +5555,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                   target: [ConfigurationManager class]
                                   object: dict
                              disableList: [ConfigurationManager displayNamesFromPaths: paths]];
+}
+
++(void) renameFolderInNewThreadWithDisplayName: (NSString *) sourceDisplayName
+                                        toName: (NSString *) targetName {
+
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                           sourceDisplayName, @"sourceDisplayName",
+                           targetName,        @"targetName",
+                           nil];
+
+    [TBOperationQueue addToQueueSelector: @selector(renameFolderWithDisplayNameOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: dict
+                             disableList: [NSArray arrayWithObject: @"*"]];
 }
 
 +(void) moveConfigurationInNewThreadAtPath: (NSString *) sourcePath

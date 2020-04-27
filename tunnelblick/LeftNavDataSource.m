@@ -35,6 +35,7 @@
 #import "VPNConnection.h"
 
 extern NSString       * gDeployPath;
+extern NSString       * gPrivatePath;
 extern TBUserDefaults * gTbDefaults;
 
 @implementation LeftNavDataSource
@@ -42,21 +43,21 @@ extern TBUserDefaults * gTbDefaults;
 -(id) init {
     self = [super init];
     if (self) {
-        rowsByDisplayName = [[NSMutableDictionary alloc] initWithCapacity: 100];
+        itemsByDisplayName = [[NSMutableDictionary alloc] initWithCapacity: 100];
     }
     return self;    
 }
 
 -(void) dealloc {
     
-    [rowsByDisplayName release]; rowsByDisplayName = nil;
+    [itemsByDisplayName release]; itemsByDisplayName = nil;
     
     [super dealloc];
 }
 
--(NSDictionary *) rowsByDisplayName {
-	
-	return [NSDictionary dictionaryWithDictionary: rowsByDisplayName];	// Non-mutable copy
+-(LeftNavItem *) itemForName: (NSString *) name {
+
+    return [itemsByDisplayName objectForKey: name];
 }
 
 - (BOOL)  keys: (NSArray *) theKeys
@@ -117,7 +118,8 @@ haveSameParent: (unsigned)  theLevel {
                     [item setParent:                  theParent];
                     [[theParent children] addObject: item];
                     TBLog(@"DB-PO", @"#1: Added displayName = '%@'; name = '%@'; row = %d; ix = %d", displayName, name, *theRowPtr, *theIxPtr);
-                    [rowsByDisplayName setObject: [NSNumber numberWithUnsignedInt: (*theRowPtr)++] forKey: displayName];
+                    [itemsByDisplayName setObject: item forKey: displayName];
+                    (*theRowPtr)++;
                 } else {
                     TBLog(@"DB-PO", @"Not adding \"/\"");
                 }
@@ -137,7 +139,8 @@ haveSameParent: (unsigned)  theLevel {
                 TBLog(@"DB-PO", @"#2: Added '%@'; dispNm = '%@'; row = %d; ix = %d; currentIx = %d",
                       dispNm, [components objectAtIndex: theLevel], *theRowPtr, *theIxPtr, currentIx);
 				[[theParent children] addObject: item];
-				(*theRowPtr)++;
+                [itemsByDisplayName setObject: item forKey: dispNm];
+                (*theRowPtr)++;
 				[self addItemsFromKeys: theKeys toParent: item atLevel: theLevel+1 fromIndexPtr: theIxPtr atRowPtr: theRowPtr];
 			} else {
 				(*theIxPtr)++;
@@ -166,7 +169,7 @@ displayNameForTableColumn: (NSTableColumn *) tableColumn
 
 - (void) reload {
     
-    [rowsByDisplayName removeAllObjects];
+    [itemsByDisplayName removeAllObjects];
 
     // We create a new rootItem, but will only use it's children variable
     LeftNavItem * newRootItem = [[[LeftNavItem alloc] init] autorelease];
@@ -238,8 +241,11 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 
 -(BOOL) outlineView: (NSOutlineView *) outlineView
    shouldSelectItem: (id) item {
-	
-	BOOL val = ! [self outlineView: outlineView isItemExpandable: item];
+
+    (void)outlineView;
+
+    NSString * name = [item displayName];
+	BOOL val = ! [@"" isEqualToString: name];   // Allow selection of anything except the root item
 	return val;
 }
 
@@ -309,17 +315,22 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         return;
     }
 	
-	NSString * sourceDisplayName = [item displayName];
-    VPNConnection * connection   = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceDisplayName];
-    if (  ! connection  ) {
-        NSLog(@"Tried to rename configuration but no configuration has been selected");
-        return;
-    }
-
-    NSString * sourcePath = [connection configPath];
-    NSString * targetPath = standardizedPathForRename(sourcePath, newName, YES);
-    if (  targetPath  ) {
-        [ConfigurationManager renameConfigurationInNewThreadAtPath: sourcePath toPath: targetPath];
+    if (  displayNameIsValid(newName, NO)  ) {
+        NSString * sourceDisplayName = [item displayName];
+        if (  [sourceDisplayName hasSuffix: @"/"]  ) {
+            [ConfigurationManager renameFolderInNewThreadWithDisplayName: sourceDisplayName toName: newName];
+        } else {
+            VPNConnection * connection   = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceDisplayName];
+            if (  ! connection  ) {
+                NSLog(@"Tried to rename configuration but no configuration has been selected");
+                return;
+            }
+            NSString * sourcePath = [connection configPath];
+            NSString * targetPath = [[[sourcePath stringByDeletingLastPathComponent]
+                                      stringByAppendingPathComponent: newName]
+                                     stringByAppendingPathExtension: @"tblk"];
+            [ConfigurationManager renameConfigurationInNewThreadAtPath: sourcePath toPath: targetPath];
+        }
     }
 }
 

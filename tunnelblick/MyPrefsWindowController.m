@@ -125,13 +125,11 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedAppearanceConnectionWindowDispla
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedAppearanceConnectionWindowScreenIndex, setSelectedAppearanceConnectionWindowScreenIndexDirect)
 
 TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
-TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
 -(void) dealloc {
 	
     [currentViewName                     release];
 	[previouslySelectedNameOnLeftNavList release];
-	[leftNavList                         release];
 	[leftNavDisplayNames                 release];
     [settingsSheetWindowController       release];
 	
@@ -571,6 +569,14 @@ static BOOL firstTimeShowingWindow = TRUE;
     return [idxSet count] == 1;
 }
 
+-(BOOL) oneOrMoreConfigurationsAreSelected {
+
+    LeftNavViewController   * ovc    = [configurationsPrefsView outlineViewController];
+    NSOutlineView           * ov     = [ovc outlineView];
+    NSIndexSet              * idxSet = [ov selectedRowIndexes];
+    return ([idxSet count] > 0);
+}
+
 -(void) setupConfigurationsView
 {
 	
@@ -582,16 +588,12 @@ static BOOL firstTimeShowingWindow = TRUE;
     [self setSelectedLoggingLevelIndexDirect:            [NSNumber numberWithInteger: NSNotFound]];
     selectedWhenToConnectIndex     = NSNotFound;
 
-    selectedLeftNavListIndex = 0;
-    
-    [leftNavList                          release];
-    leftNavList                         = nil;
     [leftNavDisplayNames                  release];
     leftNavDisplayNames                 = nil;
     [settingsSheetWindowController        release];
     settingsSheetWindowController       = nil;
-    [previouslySelectedNameOnLeftNavList  release];
-    previouslySelectedNameOnLeftNavList = [[gTbDefaults stringForKey: @"leftNavSelectedDisplayName"] retain];
+
+    [self setPreviouslySelectedNameOnLeftNavList: [gTbDefaults stringForKey: @"leftNavSelectedDisplayName"]];
 
     authorization = 0;
     
@@ -601,9 +603,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     [[configurationsPrefsView configurationsTabView] setDelegate: self];
     
-    VPNConnection * connection = [self selectedConnection];
-    
     // Right split view - Settings tab
+
+    VPNConnection * connection = [self selectedConnection];
 
     if (  connection  ) {
     
@@ -854,42 +856,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     [[configurationsPrefsView perConfigOpenvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
 }
 
--(void) setUsingOnlySharedAndUsingOnlyPrivate {
-
-    // Set up usingOnlyPrivateConfigurations and usingOnlySharedConfigurations
-
-    usingOnlyPrivateConfigurations = FALSE;
-    usingOnlySharedConfigurations  = FALSE;
-
-    BOOL haveShared  = FALSE;
-    BOOL havePrivate = FALSE;
-
-    NSArray * allConfigPaths = [[((MenuController *)[NSApp delegate]) myConfigDictionary] allValues];
-    NSEnumerator * e = [allConfigPaths objectEnumerator];
-    NSString * path;
-    while (  (path = [e nextObject])  ) {
-        if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-            havePrivate = TRUE;
-            if (  haveShared  ) {
-                return; // Both set to false already
-            }
-
-        } else if ([path hasPrefix: L_AS_T_SHARED]  ) {
-            haveShared = TRUE;
-            if (  havePrivate  ) {
-                return; // Both set to false already
-            }
-
-        } else if ([path hasPrefix: gDeployPath]) {
-            return; // Both set to false already
-        } else {
-            NSLog(@"setUsingOnlySharedAndUsingOnlyPrivate: bad path = %@", path);
-        }
-    }
-
-    usingOnlySharedConfigurations = haveShared;
-    usingOnlyPrivateConfigurations= havePrivate;
-}
 
 -(NSArray *) leftNavDisplayNames {
 
@@ -898,15 +864,14 @@ static BOOL firstTimeShowingWindow = TRUE;
     // do not contain configurations but are in the configuration folders being displayed (if only shared
     // or only private configurations are being displayed).
     //
-    // ALSO, sets usingOnlyPrivateConfigurations and usingOnlySharedConfigurations TRUE or FALSE.
-    //
     //  * Configurations are indicated by a name that does not end in "/"
     //  * Empty folders are indicated by a name that ends in "/".
     //
     // This is done by creating an array with displayNames and then adding the names of empty folders.
     //
-    // Empty folders in Shared or the user's private folder are included if only shared configurations
-    // are used or only private configurations are used, respectively.
+    // Empty folders in Shared, the user's private folder and the secure copy are included.
+    //
+    // NOTE: This list has an entry for each configuation and each empty folder.
 
     if (  leftNavDisplayNames  ) {
         return [NSArray arrayWithArray: leftNavDisplayNames];
@@ -918,13 +883,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     // This will be our result, and will include the empty folders
     NSMutableArray * allNames = [displayNames mutableCopy];
 
-    [self setUsingOnlySharedAndUsingOnlyPrivate];
-
-    if (  usingOnlyPrivateConfigurations  ) {
-        [self addEmptyFoldersFrom: gPrivatePath to: allNames];
-    } else if (  usingOnlySharedConfigurations  ) {
-        [self addEmptyFoldersFrom: L_AS_T_SHARED to: allNames];
-    }
+    [self addEmptyFoldersFrom: gPrivatePath to: allNames];
+    [self addEmptyFoldersFrom: L_AS_T_SHARED to: allNames];
+    [self addEmptyFoldersFrom: [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()] to: allNames];
 
     NSArray * result = [allNames sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
 
@@ -984,20 +945,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect
 {
-    NSUInteger leftNavIndexToSelect = NSNotFound;
-    
-    NSMutableArray * currentFolders = [NSMutableArray array]; // Components of folder enclosing most-recent leftNavList/leftNavDisplayNames entry
+    NSMutableArray * currentFolders = [NSMutableArray array]; // Components of folder enclosing most-recent leftNavDisplayNames entry
 
-    // If the configuration we want to select is gone, don't try to select it
-    NSArray * list = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] allKeys];
-    if (  displayNameToSelect  ) {
-        if (  ! [list containsObject: displayNameToSelect]  ) {
-            displayNameToSelect = nil;
-        }
-	}
-	
-    // If no display name to select and there are any names, select the first one
+    // If no display name to select and there are any connections, select the first one
 	if (  ! displayNameToSelect  ) {
+        NSArray * list = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] allKeys];
         if (  [list count] > 0  ) {
             displayNameToSelect = [list objectAtIndex: 0];
         }
@@ -1009,17 +961,11 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSArray * leftNavNames = [self leftNavDisplayNames];
 
     // Clear leftNavList and re-create it from leftNavNames (which may include empty folders)
-    [leftNavList         release];
-	leftNavList         = [[NSMutableArray alloc] initWithCapacity: [leftNavDisplayNames count]];
 	int currentLeftNavIndex = 0;
 	
 	NSEnumerator* leftNavEnum = [leftNavNames objectEnumerator];
     NSString * leftNavName;
     while (  (leftNavName = [leftNavEnum nextObject])  ) {
-
-        VPNConnection * connection = (  [leftNavName hasSuffix: @"/"]
-                                      ? nil
-                                      : [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: leftNavName]);
 
 		NSArray * currentConfig = [leftNavName componentsSeparatedByString: @"/"];
 		unsigned firstDiff = [self firstDifferentComponent: currentConfig and: currentFolders];
@@ -1040,7 +986,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 		for (  i=firstDiff; i < [currentConfig count]-1; i++  ) {
 			NSString * folderName = [currentConfig objectAtIndex: i];
             if (  [folderName length] > 0  ) {
-                [leftNavList         addObject: [self indent: folderName by: i]];
                 [currentFolders addObject: folderName];
                 ++currentLeftNavIndex;
             }
@@ -1048,16 +993,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
 		// Add a "configuration" line
         if (  ! [leftNavName hasSuffix: @"/"]  ) {
-            [leftNavList         addObject: [self indent: [currentConfig lastObject] by: [currentConfig count]-1u]];
-
-            if (  displayNameToSelect  ) {
-                if (  [displayNameToSelect isEqualToString: [connection displayName]]  ) {
-                    leftNavIndexToSelect = currentLeftNavIndex;
-                }
-            } else if (   ( leftNavIndexToSelect == NSNotFound )
-                       && ( ! [connection isDisconnected] )  ) {
-                leftNavIndexToSelect = currentLeftNavIndex;
-            }
             ++currentLeftNavIndex;
         }
 	}
@@ -1070,7 +1005,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     // Expand items that were left expanded previously and get row # we should select (that matches displayNameToSelect)
     
-    NSInteger ix = 0;	// Track row # of name we are to display
+    NSInteger row = -1;	// Track row # of name we are to display
     
     NSArray * expandedDisplayNames = [gTbDefaults arrayForKey: @"leftNavOutlineViewExpandedDisplayNames"];
     LeftNavViewController * outlineViewController = [configurationsPrefsView outlineViewController];
@@ -1087,40 +1022,63 @@ static BOOL firstTimeShowingWindow = TRUE;
             }
         }
         if (  [displayNameToSelect isEqualToString: itemDisplayName]  ) {
-            ix = r;
+            row = r;
         }
     }
-    
-    if (  displayNameToSelect  ) {
-        [oView selectRowIndexes: [NSIndexSet indexSetWithIndex: ix] byExtendingSelection: NO];
-        [[[configurationsPrefsView outlineViewController] outlineView] scrollRowToVisible: ix];
-    }
-	
-    // If there are any entries in the list
-    // Select the entry that was selected previously, or the first that was not disconnected, or the first
-    if (  currentLeftNavIndex > 0  ) {
-        if (  leftNavIndexToSelect == NSNotFound  ) {
-            if (  [leftNavList count]  ) {
-                leftNavIndexToSelect = 0;
+
+    // If no row to select, get it from preferences.
+    // This happens when a folder is renamed; the preferences are updated but our 'displayNameToSelect' variable is not.
+    if (  row == -1  ) {
+        NSString * name = [gTbDefaults stringForKey: @"leftNavSelectedDisplayName"];
+        if (  name  ) {
+            row = [self rowForName: name];
+            if (  row == -1  ) {
+                [self performSelector: @selector(selectLeftNavName:) withObject: name  afterDelay: 0.2];
+                return;
             }
         }
-        if (  leftNavIndexToSelect != NSNotFound  ) {
-            selectedLeftNavListIndex = NSNotFound;  // Force a change
-            [self setSelectedLeftNavListIndex: (unsigned)leftNavIndexToSelect];
+    }
+
+    if (  row == -1  ) {
+        NSString * name = [gTbDefaults stringForKey: @"lastConnectedDisplayName"];
+        if (  name  ) {
+            row = [self rowForName: name];
         }
-    } else {
-        [self setupSetNameserver:						nil];
-        [self setupLoggingLevel:						nil];
-        [self setupRouteAllTraffic:						nil];
-		[self setupUponDisconnectPopUpButton:			nil];
-		[self setupUponUnexpectedDisconnectPopUpButton:	nil];
-        [self setupCheckIPAddress:						nil];
-        [self setupDisableIpv6OnTun:					nil];
-        [self setupNetworkMonitoring:					nil];
-		[self setupPerConfigOpenvpnVersion:				nil];
+    }
+
+    if (   (row == -1)
+        && (currentLeftNavIndex > 0)  ) {
+        row = 0;
+    }
+
+    if (  row == -1  ) {
         [self validateDetailsWindowControlsForConnection: nil];
         [settingsSheetWindowController setConfigurationName: nil];
-        
+    } else {
+        [oView selectRowIndexes: [NSIndexSet indexSetWithIndex: row] byExtendingSelection: NO];
+        [[[configurationsPrefsView outlineViewController] outlineView] scrollRowToVisible: row];
+        [self setPreviouslySelectedNameOnLeftNavList: nil]; // Force change
+        [self setSelectedLeftNavListIndex: row];
+    }
+}
+
+-(void) selectLeftNavName: (NSString *) name {
+
+    NSInteger row = [self rowForName: name];
+    if (  row == -1) {
+        NSString * name = [gTbDefaults stringForKey: @"lastConnectedDisplayName"];
+        if (  name  ) {
+            row = [self rowForName: name];
+        }
+    }
+
+    if (  row != -1  ) {
+        LeftNavViewController * oVC = [[self configurationsPrefsView] outlineViewController];
+        NSOutlineView * oView = [oVC outlineView];
+        [oView selectRowIndexes: [NSIndexSet indexSetWithIndex: row] byExtendingSelection: NO];
+        [[[configurationsPrefsView outlineViewController] outlineView] scrollRowToVisible: row];
+        [self setPreviouslySelectedNameOnLeftNavList: nil]; // Force change
+        [self setSelectedLeftNavListIndex: row];
     }
 }
 
@@ -1255,8 +1213,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         
 		[[configurationsPrefsView addConfigurationButton]    setEnabled: TRUE];
 		
-        [[configurationsPrefsView removeConfigurationButton] setEnabled: (   [self oneConfigurationIsSelected]
-																		  || connection  )];
+        [[configurationsPrefsView removeConfigurationButton] setEnabled: [self oneOrMoreConfigurationsAreSelected]];
 		
 		[[configurationsPrefsView workOnConfigurationPopUpButton] setEnabled: ( ! [gTbDefaults boolForKey: @"disableWorkOnConfigurationButton"] )];
 		[[configurationsPrefsView workOnConfigurationPopUpButton] setAutoenablesItems: YES];
@@ -1296,8 +1253,11 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // There is not a connection selected or it should have its UI controls disabled. Don't let the user do anything except add a configuration or disconnect one.
 
+        BOOL enableRemoveButton = (   [self oneOrMoreConfigurationsAreSelected]
+                                   && [TBOperationQueue shouldUIBeEnabledForDisplayName: nil]);
+
 		[[configurationsPrefsView addConfigurationButton]           setEnabled: YES];
-        [[configurationsPrefsView removeConfigurationButton]        setEnabled: NO];
+        [[configurationsPrefsView removeConfigurationButton]        setEnabled: enableRemoveButton];
         [[configurationsPrefsView workOnConfigurationPopUpButton]   setEnabled: NO];
         
         // The "Log" and "Settings" items can't be selected because tabView:shouldSelectTabViewItem: will return NO if there is no selected connection
@@ -1348,7 +1308,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             (void) stop;
             LeftNavItem * item = [ov itemAtRow: idx];
             NSString * name = [item displayName];
-            if (  [name length] != 0  ) {	// Ignore folders; just process configurations
+            if (  [name length] != 0  ) {
                 [displayNames addObject: name];
             }
         }];
@@ -1529,9 +1489,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                             ? NSLocalizedString(@"Copy Configuration into a New Folder...",  @"Menu item")
                             : NSLocalizedString(@"Copy Configurations into a New Folder...", @"Menu item"));
         [[configurationsPrefsView c_o_p_yConfigurationsIntoNewFolderMenuItem] setTitle: title];
-        return (   (   usingOnlySharedConfigurations
-                    || usingOnlyPrivateConfigurations )
-                && ( ! [gTbDefaults boolForKey: @"disableCopyConfigurationsIntoNewFolderMenuItem"] ) );
+        return (  ! [gTbDefaults boolForKey: @"disableCopyConfigurationsIntoNewFolderMenuItem"]  );
     }
 
     if (  selector == @selector(moveConfigurationsIntoNewFolderMenuItemWasClicked:)  ) {
@@ -1539,9 +1497,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                             ? NSLocalizedString(@"Move Configuration into a New Folder...",  @"Menu item")
                             : NSLocalizedString(@"Move Configurations into a New Folder...", @"Menu item"));
         [[configurationsPrefsView moveConfigurationsIntoNewFolderMenuItem] setTitle: title];
-        return (   (   usingOnlySharedConfigurations
-                    || usingOnlyPrivateConfigurations )
-                && ( ! [gTbDefaults boolForKey: @"disableMoveConfigurationsIntoNewFolderMenuItem"] ) );
+        return (  ! [gTbDefaults boolForKey: @"disableMoveConfigurationsIntoNewFolderMenuItem"] );
     }
 
 	if (  selector == @selector(showOnTbMenuMenuItemWasClicked:)  ) {
@@ -1716,32 +1672,12 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
--(VPNConnection *) connectionForLeftNavIndex: (NSUInteger) ix {
-    
-    if (  ix != NSNotFound  ) {
-        if (  ix < [leftNavDisplayNames count]  ) {
-            NSString * dispNm = [leftNavDisplayNames objectAtIndex: ix];
-            if (  dispNm != nil) {
-                VPNConnection* connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: dispNm];
-                if (  connection  ) {
-                    return connection;
-                }
-                NSArray *allConnections = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] allValues];
-                if (  [allConnections count] != 0  ) {
-                    return [allConnections objectAtIndex:0];
-                }
-                return nil;
-            }
-        }
-    }
-    
-    return nil;
-    
-}
-- (VPNConnection*) selectedConnection
-// Returns the connection associated with the currently selected connection or nil on error.
-{
-    return [self connectionForLeftNavIndex: selectedLeftNavListIndex];
+- (VPNConnection*) selectedConnection {
+
+    // Returns the connection associated with the currently selected connection or nil on error.
+
+    VPNConnection * connection = [self connectionForName: previouslySelectedNameOnLeftNavList];
+    return connection;
 }
 
 // User Interface
@@ -1824,7 +1760,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSArray * displayNames = [self displayNamesOfSelection];
     
     if (  [displayNames count] != 0  ) {
-		[ConfigurationManager removeConfigurationsInNewThreadWithDisplayNames: displayNames];
+		[ConfigurationManager removeConfigurationsOrFoldersInNewThreadWithDisplayNames: displayNames];
     }
 
 }
@@ -2137,7 +2073,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 			
 			LeftNavItem * item = [ov itemAtRow: idx];
 			NSString * displayName = [item displayName];
-			if (  [displayName length] != 0  ) {	// Ignore folders; just process configurations
+			if (   ([displayName length] != 0)
+                && ( ! [displayName hasSuffix: @"/"] )  ) {	// Ignore folders; just process configurations
 
 				VPNConnection * connection = [[(MenuController*)[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
 				if (  ! connection  ) {
@@ -2658,6 +2595,54 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
+-(VPNConnection *) connectionForName: (NSString *) name {
+
+    if ( ! name  ) {
+        return nil;
+    }
+
+    NSDictionary * dict = [(MenuController *)[NSApp delegate] myVPNConnectionDictionary];
+    VPNConnection * connection = [dict objectForKey: name];
+    return connection;
+}
+
+-(NSInteger) rowForName: (NSString *) name {
+
+    if ( ! name  ) {
+        return -1;
+    }
+
+    ConfigurationsView      * cv   = [self configurationsPrefsView];
+    LeftNavDataSource       * ds   = [cv leftNavDataSrc];
+    LeftNavItem             * item = [ds itemForName: name];
+
+    LeftNavViewController   * ovc  = [cv outlineViewController];
+    NSOutlineView           * ov   = [ovc outlineView];
+    NSInteger                 row  = (  ov
+                                      ? [ov rowForItem: item]
+                                      : -1);
+    return row;
+}
+
+-(NSString *) nameForRow: (NSInteger) row {
+
+    if (  row == -1  ) {
+        return nil;
+    }
+
+    NSOutlineView     * oV   = [[configurationsPrefsView outlineViewController] outlineView];
+    LeftNavItem       * item = [oV itemAtRow: row];
+    NSString          * name = [item displayName];
+    return name;
+}
+
+-(void) forceSelectionOfRow: (NSInteger) row {
+
+    NSOutlineView * oV = [[configurationsPrefsView outlineViewController] outlineView];
+    NSIndexSet * ixs = [NSIndexSet indexSetWithIndex: row];
+    [oV selectRowIndexes: ixs byExtendingSelection: NO];
+}
+
 -(void) tableViewSelectionDidChange:(NSNotification *)notification
 {
 	(void) notification;
@@ -2667,95 +2652,51 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) selectedLeftNavListIndexChanged
 {
-    int n;
-	
-    n = [[[configurationsPrefsView outlineViewController] outlineView] selectedRow];
-    NSOutlineView * oV = [[configurationsPrefsView outlineViewController] outlineView];
-    LeftNavItem * item = [oV itemAtRow: n];
-    LeftNavDataSource * oDS = (LeftNavDataSource *) [oV dataSource];
-    NSString * displayName = [oDS outlineView: oV displayNameForTableColumn: nil byItem: item];
-    NSDictionary * dict = [oDS rowsByDisplayName];
-    NSNumber * ix = [dict objectForKey: displayName];
-    if (  ix  ) {
-        n = [ix intValue];
-    } else {
-        return; // No configurations
-    }
-		
-    [self setSelectedLeftNavListIndex: (unsigned) n];
-	
-	[self validateDetailsWindowControls];
+    NSInteger n = [[[configurationsPrefsView outlineViewController] outlineView] selectedRow];
+    [self setSelectedLeftNavListIndex: n];
 }
 
 -(void) setSelectedLeftNavListIndex: (NSUInteger) newValue
 {
-    if (  newValue != selectedLeftNavListIndex  ) {
-        
-        // Don't allow selection of a "folder" row, only of a "configuration" row
-        while (   (newValue < [leftNavDisplayNames count])
-               && ([[leftNavDisplayNames objectAtIndex: (unsigned) newValue] hasSuffix: @"/"])  ) {
-            ++newValue;
-        }
-        if (  newValue >= [leftNavDisplayNames count]) {
-            newValue = 0;
-        }
-        while (   (newValue < [leftNavDisplayNames count])
-               && ([[leftNavDisplayNames objectAtIndex: (unsigned) newValue] hasSuffix: @"/"])  ) {
-            ++newValue;
-        }
-        if (  newValue >= [leftNavDisplayNames count]) {
-            NSLog(@"No configurations in leftNavDisplaynames, only folders");
+    NSString * newName = [self nameForRow: newValue];
+
+    if (  [newName isEqualToString: previouslySelectedNameOnLeftNavList]  ) {
+        return;
+    }
+
+    if (  ! newName  ) {
+        newName = [self nameForRow: 1];
+        if (  ! newName  ) {
+            NSLog(@"setSelectedLeftNavListIndex: Could not get nameForRow: 1");
             return;
         }
 
-        NSUInteger oldSelectedLeftNavIndex = selectedLeftNavListIndex;
-        
-        if (  selectedLeftNavListIndex != NSNotFound  ) {
-            VPNConnection * connection = [self selectedConnection];
-            if (  [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
-                [connection stopMonitoringLogFiles];
-            }
-        }
-        
-        selectedLeftNavListIndex = newValue;
-        
-		// Set name and status of the new connection in the window title.
-		VPNConnection* newConnection = [self selectedConnection];
-        NSString * dispNm = [newConnection displayName];
-		
-		BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
-		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
-		
-        [self setupSetNameserver:						newConnection];
-        [self setupLoggingLevel:						newConnection];
-        [self setupRouteAllTraffic:						newConnection];
-		[self setupUponDisconnectPopUpButton:			newConnection];
-		[self setupUponUnexpectedDisconnectPopUpButton:	newConnection];
-        [self setupCheckIPAddress:						newConnection];
-        [self setupDisableIpv6OnTun:					newConnection];
-        [self setupNetworkMonitoring:					newConnection];
-		[self setupPerConfigOpenvpnVersion:				newConnection];
-        
-		
-		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
-                
-        [dispNm retain];
-        [previouslySelectedNameOnLeftNavList release];
-        previouslySelectedNameOnLeftNavList = dispNm;
-        [gTbDefaults setObject: dispNm forKey: @"leftNavSelectedDisplayName"];
-        
-        [settingsSheetWindowController setConfigurationName: dispNm];
-        
-        if (   [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]
-            && [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
-            VPNConnection * oldConnection = [self connectionForLeftNavIndex: oldSelectedLeftNavIndex];
-            [oldConnection stopMonitoringLogFiles];
-            [newConnection startMonitoringLogFiles];
-        } else {
-            [newConnection stopMonitoringLogFiles];
-        }
+        [self forceSelectionOfRow: 1];
+        return;
     }
+
+    VPNConnection * newConnection = [self connectionForName: newName];
+
+    if (   [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]
+        && [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
+        VPNConnection * oldConnection = [self connectionForName: previouslySelectedNameOnLeftNavList];
+        [oldConnection stopMonitoringLogFiles];
+        [newConnection startMonitoringLogFiles];
+    } else {
+        [newConnection stopMonitoringLogFiles];
+    }
+
+    [self setPreviouslySelectedNameOnLeftNavList: newName];
+    [gTbDefaults setObject: newName forKey: @"leftNavSelectedDisplayName"];
+
+    [settingsSheetWindowController setConfigurationName: newName];
+
+    BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
+    [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+
     [self validateDetailsWindowControlsForConnection: newConnection];
+
+    [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 //***************************************************************************************************************

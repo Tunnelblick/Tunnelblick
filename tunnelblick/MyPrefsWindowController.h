@@ -44,22 +44,15 @@
     IBOutlet UtilitiesView        * utilitiesPrefsView;
     
     BOOL                            lockIconIsUnlocked;
-    BOOL                            usingOnlySharedConfigurations;
-    BOOL                            usingOnlyPrivateConfigurations;
 
     NSString                      * previouslySelectedNameOnLeftNavList;
     
-    NSMutableArray                * leftNavList;           // Items in the left navigation list as displayed to the user
-    //                                                        Each item is a string with either
-    //                                                             a folder name (possibly indented) or
-    //                                                             a connection name (possibly indented)
-    
-    NSArray                       * leftNavDisplayNames;   // A string for each item in leftNavList; either
-    //                                                           * The full display name for the corresponding connection;
-    //                                                             or, if usingOnlySharedConfigurations OR usingOnlyPrivateConfigurations
-    //                                                           * A folder path ending in "/", relative to the base of a folder
+    NSArray                       * leftNavDisplayNames;   // A string for each item in the left navigation; either
+    //                                                           * The full display name for a connection;
+    //                                                        or
+    //                                                           * a folder path ending in "/", relative to the base of a folder
     //                                                             of configurations (i.e., like a display name). This is a
-    //                                                             folder that contains no configurations. It is used to show such
+    //                                                             folder that is not a configuration. It is used to show such
     //                                                             folders in the leftNav list.
 
     SettingsSheetWindowController * settingsSheetWindowController;
@@ -68,7 +61,6 @@
     
     NSUInteger                     selectedWhenToConnectIndex;
     
-    NSUInteger                     selectedLeftNavListIndex;
     IBOutlet NSNumber            * selectedSetNameserverIndex;
     IBOutlet NSNumber            * selectedPerConfigOpenvpnVersionIndex;
     IBOutlet NSNumber            * selectedLoggingLevelIndex;
@@ -108,7 +100,6 @@
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 -(void) setupAppearanceConnectionWindowScreenButton;
 -(void) setupAppearancePlaceIconNearSpotlightCheckbox;
--(void) setupLeftNavigationToDisplayName:                     (NSString *) displayName;
 
 // Used by LogDisplay to scroll to the current point in the log
 -(NSTextView *) logView;
@@ -213,8 +204,6 @@ TBPROPERTY(NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelecte
 TBPROPERTY_READONLY(NSUInteger, selectedWhenToConnectIndex)
 
 TBPROPERTY_READONLY(SettingsSheetWindowController *, settingsSheetWindowController)
-
-TBPROPERTY(NSUInteger, selectedLeftNavListIndex,             setSelectedLeftNavListIndex)
 
 TBPROPERTY(NSNumber *, selectedSetNameserverIndex,           setSelectedSetNameserverIndex)
 TBPROPERTY(NSNumber *, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndex)

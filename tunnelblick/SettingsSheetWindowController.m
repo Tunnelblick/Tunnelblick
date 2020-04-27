@@ -937,7 +937,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
     if (   ( ! connection )
         || ( ![TBOperationQueue shouldUIBeEnabledForDisplayName: configurationName] )  ) {
-        [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"Advanced Settings%@", @"Window title"), programName]];
+        [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"Advanced Settings%@", @"Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick')"), programName]];
         [self disableEverything];
         [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
         return;

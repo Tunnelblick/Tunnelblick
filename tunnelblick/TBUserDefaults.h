@@ -81,6 +81,8 @@
 
 -(void) removeAllObjectsWithSuffix:           (NSString *) key;
 
+-(void) replacePrefixOfPreferenceValuesThatHavePrefix: (NSString *) old with: (NSString *) new;
+
 -(NSArray *) valuesForPreferencesSuffixedWith:(NSString *) key;
 
 -(void) scanForUnknownPreferencesInDictionary: (NSDictionary *) dict

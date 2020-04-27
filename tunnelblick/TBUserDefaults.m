@@ -440,6 +440,69 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 	return values;
 }
 
+-(void) replacePrefix: (NSString *) old ofValueOfPreferenceKey: (NSString *) key with: (NSString *) new {
+
+    // If a displayName is being renamed, this replaces the value with the new name.
+    // If a folder is being renamed (old ends in "/"), this replaces only up to and including the folder name with the new name.
+    //
+    // If new is nil, removes the preference instead of renaming it.
+
+    if (   [self canChangeValueForKey: key]  ) {
+        NSString * value = [self stringForKey: key];
+        if (   [value isEqualToString: old]
+            || (   [old hasSuffix: @"/"]
+                && [value hasPrefix: old])  ) {
+            if (  new  ) {
+                NSString * suffix = [value substringFromIndex: [old length]];
+                NSString * newValue = [new stringByAppendingString: suffix];
+                [self setObject: newValue forKey: key];
+            } else {
+                [self removeObjectForKey: key];
+            }
+        }
+    }
+}
+
+-(void) replacePrefixOfPreferenceValuesThatHavePrefix: (NSString *) old with: (NSString *) new {
+
+    // Process renames of a displayName or folder name (old ends in "/") for the small number of preferences that have a displayName in the value.
+    // (Most preferences have the displayName in the preference's key.)
+    //
+    // If new is nil, removes the preference instead of renaming it.
+
+    // A displayName may be the value of the lastConnectedDisplayName and leftNavSelectedDisplayName preferences
+    [self replacePrefix: old ofValueOfPreferenceKey: @"lastConnectedDisplayName"   with: new];
+    [self replacePrefix: old ofValueOfPreferenceKey: @"leftNavSelectedDisplayName" with: new];
+
+    if (  [self canChangeValueForKey: @"leftNavOutlineViewExpandedDisplayNames"]  ) {
+        NSArray * expandedDisplayNames = [self arrayForKey: @"leftNavOutlineViewExpandedDisplayNames"];
+        if (  expandedDisplayNames  ) {
+            // Note: Can't change array while it is being enumerated, so change a one-deep mutable copy of the array.
+            NSMutableArray * mutableExpandedDisplayNames = [[expandedDisplayNames mutableCopy] autorelease];
+            NSString * value;
+            NSEnumerator * e = [expandedDisplayNames objectEnumerator];
+            BOOL changed = FALSE;
+            while (  (value = [e nextObject])  ) {
+                if (   [value isEqualToString: old]
+                    || (   [old hasSuffix: @"/"]
+                        && [value hasPrefix: old])  ) {
+                    [mutableExpandedDisplayNames removeObject: value];
+                    if (  new  ) {
+                        NSString * suffix = [value substringFromIndex: [old length]];
+                        NSString * newValue = [new stringByAppendingString: suffix];
+                        [mutableExpandedDisplayNames addObject: newValue];
+                    }
+                    changed = TRUE;
+                }
+            }
+
+            if (  changed  ) {
+                [self setObject: [NSArray arrayWithArray: mutableExpandedDisplayNames] forKey:@"leftNavOutlineViewExpandedDisplayNames"];
+            }
+        }
+    }
+}
+
 -(BOOL) movePreferencesFrom: (NSString *) sourceDisplayName
                          to: (NSString *) targetDisplayName {
     
@@ -472,11 +535,8 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
         }
     }
 
-    // Special case: display name is the value of lastConnectedDisplayName preference
-    if (   [[self stringForKey: @"lastConnectedDisplayName"] isEqualToString: sourceDisplayName]
-        && [self canChangeValueForKey: @"lastConnectedDisplayName"]  ) {
-        [self setObject: targetDisplayName forKey: @"lastConnectedDisplayName"];
-    }
+    // Then move the special-case preferences
+    [self replacePrefixOfPreferenceValuesThatHavePrefix: sourceDisplayName with: targetDisplayName];
 
     // Then, remove all preferences for the source configuration
     if (  ! [self removePreferencesFor: sourceDisplayName]  ) {
@@ -536,7 +596,8 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
             }
         }
     }
-    
+
+    [self replacePrefixOfPreferenceValuesThatHavePrefix: displayName with: nil];
     return ! problemsFound;
 }
 

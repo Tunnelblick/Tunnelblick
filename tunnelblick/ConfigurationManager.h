@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -96,7 +96,7 @@ typedef enum
 
 +(void) makeConfigurationsSharedInNewThreadWithDisplayNames: (NSArray *) displayNames;
 
-+(void) removeConfigurationsInNewThreadWithDisplayNames: (NSArray *) displayNames;
++(void) removeConfigurationsOrFoldersInNewThreadWithDisplayNames: (NSArray *) displayNames;
 
 +(BOOL) revertOneConfigurationToShadowWithDisplayName: (NSString *) displayName;
 
@@ -128,6 +128,8 @@ typedef enum
 +(void) moveConfigurationsIntoNewFolderInNewThread: (NSArray *) displayNames;
 
 +(void) renameConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
+
++(void) renameFolderInNewThreadWithDisplayName: (NSString *) sourceDisplayName toName: (NSString *) targetName;
 
 +(void) moveConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
 
