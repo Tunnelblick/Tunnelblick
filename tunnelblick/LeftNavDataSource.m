@@ -362,19 +362,39 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         NSLog(@"infoForDropInfo:item: Could not get stringForType for pbItem = %@ in pbItems = %@ from pb = %@", pbItem, pbItems, pb);
         return nil;
     }
+
+    // For folders, we send source and target displayName, for configurations, we send source and target paths
     NSString * sourcePath = nil;
-    if (   [sourceDisplayName isEqualToString: @""]
-        || [sourceDisplayName hasSuffix: @"/"]  ) {
-        // TODO: be able to drag a folder
-        return nil;
+    NSString * targetPath = nil;
+    NSString * targetDisplayName = nil;
+
+    // Make sure it is OK to drag the source
+
+    if (  [sourceDisplayName length] == 0  ) {
+        // Allow drop to the outermost level (the "Configurations" level)
+        sourceDisplayName = @"/";
+    }
+
+    BOOL sourceIsFolder = [sourceDisplayName hasSuffix: @"/"];
+
+    if (  sourceIsFolder  ) {
+
+        // Dragging a folder
+        if (  copy  ) {
+            // TODO: be able to copy a folder
+            return nil;
+        }
+
     } else {
-        // Dragging a configuration
+
+        // Dragging a configuration; get the source path
         NSDictionary * configs = [((MenuController *)[NSApp delegate]) myConfigDictionary];
         sourcePath = [configs objectForKey: sourceDisplayName];
         if (  ! sourcePath  ) {
             NSLog(@"infoForDropInfo:item: Could not get configuration path for '%@' from myConfigDictionary = %@", sourceDisplayName, configs);
             return nil;
         }
+
         if (   [sourcePath hasPrefix: gDeployPath]
             && ( ! copy  )  ) {
             NSLog(@"Can't move a Deployed configuration (but can copy it)");
@@ -382,35 +402,42 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         }
     }
 
-    // Get the target displayName and path
-    // Remove the last "/" and everything to its right
-    NSString * name = [item displayName];
-    if (  ! name  ) {
-        // This happens when dragging past the end of the list
-        return nil;
+    // Make sure it is OK to drop on the target
+
+    targetDisplayName = [item displayName];
+    if (  ! targetDisplayName  ) {
+        // This happens when dragging past the end of the list. Pretend we are dragging to outermost level
+        targetDisplayName = @"/";
     }
-    if (   ( [name length] != 0 )
-        && ( ! [name hasSuffix: @"/"] )
-        ) {
+    if (  ! [targetDisplayName hasSuffix: @"/"]  ) {
         // Can't drop on configuration (configurations have names that doesn't end in "/")
         return nil;
     }
-    NSRange r = [name rangeOfString: @"/" options: NSBackwardsSearch];
-    NSString * prefix = (  (r.location == NSNotFound)
-                         ? prefix = @""
-                         : [name substringToIndex: r.location]);
 
-    NSString * targetDisplayName = [prefix stringByAppendingPathComponent: [sourceDisplayName lastPathComponent]];
+    // If dragging a folder, get the source and target displayNames.
+    // If dragging a configuration, get the source and target paths.
 
-    NSString * targetPath = [[firstPartOfPath(sourcePath)
-                              stringByAppendingPathComponent: targetDisplayName]
-                             stringByAppendingPathExtension: @"tblk"];
+    if (  ! sourceIsFolder  ) {
+        // Get the target path, removing the last "/" and everything to its right
+        NSRange r = [targetDisplayName rangeOfString: @"/" options: NSBackwardsSearch];
+        NSString * prefix = (  (r.location == NSNotFound)
+                             ? prefix = @""
+                             : [targetDisplayName substringToIndex: r.location]);
+        NSString * name = [prefix stringByAppendingPathComponent: [sourceDisplayName lastPathComponent]];
+        targetPath = [[firstPartOfPath(sourcePath)
+                                  stringByAppendingPathComponent: name]
+                                 stringByAppendingPathExtension: @"tblk"];
+    }
 
-    NSNumber * copyNotMove = [NSNumber numberWithBool: copy];
+    NSNumber * copyNotMove     = [NSNumber numberWithBool: copy];
+    NSNumber * folderNotConfig = [NSNumber numberWithBool: sourceIsFolder];
     NSDictionary * result = [NSDictionary dictionaryWithObjectsAndKeys:
-                             copyNotMove,       @"copyNotMove",
-                             targetPath,        @"targetPath",
-                             sourcePath,        @"sourcePath",
+                             copyNotMove,                    @"copyNotMove",
+                             folderNotConfig,                @"folderNotConfig",
+                             NSNullIfNil(targetPath),        @"targetPath",
+                             NSNullIfNil(sourcePath),        @"sourcePath",
+                             NSNullIfNil(targetDisplayName), @"targetDisplayName",
+                             NSNullIfNil(sourceDisplayName), @"sourceDisplayName",
                              nil];
     return result;
 }
@@ -447,15 +474,25 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         return NSDragOperationNone;
     }
 
+    BOOL       folderNotConfig   = [[dict objectForKey: @"folderNotConfig"] boolValue];
     NSString * sourcePath  =  [dict objectForKey: @"sourcePath"];
     NSString * targetPath  =  [dict objectForKey: @"targetPath"];
-    if (  [sourcePath isEqualToString: targetPath]  ) {
-        // Don't allow drag within a folder; it wouldn't do anything because folders are sorted alphanumerically
-        return NSDragOperationNone;
-    }
+    NSString * sourceDisplayName =  [dict objectForKey: @"sourceDisplayName"];
+    NSString * targetDisplayName =  [dict objectForKey: @"targetDisplayName"];
 
+    if (  folderNotConfig  ) {
+        if (  [sourceDisplayName isEqualToString: targetDisplayName]  ) {
+            // Don't allow drag within a folder; it wouldn't do anything because folders are sorted alphanumerically
+            return NSDragOperationNone;
+        }
+    } else {
+        if (  [sourcePath isEqualToString: targetPath]  ) {
+            // Don't allow drag within a folder; it wouldn't do anything because folders are sorted alphanumerically
+            return NSDragOperationNone;
+        }
+    }
     if (  [[dict objectForKey: @"copyNotMove"] boolValue]  ) {
-       return NSDragOperationCopy;
+        return NSDragOperationCopy;
     } else {
         return NSDragOperationMove;
     }
@@ -476,18 +513,31 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         return NO;
     }
 
-    BOOL       copyNotMove = [[dict objectForKey: @"copyNotMove"] boolValue];
-    NSString * sourcePath  =  [dict objectForKey: @"sourcePath"];
-    NSString * targetPath  =  [dict objectForKey: @"targetPath"];
+    BOOL       copyNotMove       = [[dict objectForKey: @"copyNotMove"]     boolValue];
+    BOOL       folderNotConfig   = [[dict objectForKey: @"folderNotConfig"] boolValue];
+    NSString * sourcePath        =  [dict objectForKey: @"sourcePath"];
+    NSString * targetPath        =  [dict objectForKey: @"targetPath"];
+    NSString * sourceDisplayName =  [dict objectForKey: @"sourceDisplayName"];
+    NSString * targetDisplayName =  [dict objectForKey: @"targetDisplayName"];
 
     // Copy or move the item. If successful, the method will reload the data for the outlineView
 
-    if (  copyNotMove  ) {
-        [ConfigurationManager copyConfigurationInNewThreadPath: sourcePath toPath: targetPath];
-    } else {
-        [ConfigurationManager moveConfigurationInNewThreadAtPath:  sourcePath toPath: targetPath];
-    }
+    if (  folderNotConfig  ) {
+        if (  copyNotMove  ) {
+            return false;   // TODO: copy folders
+        } else {
+            // Instead of moving source to target, we rename source to target/source
+            NSString * renameTargetDisplayName = [targetDisplayName stringByAppendingString: sourceDisplayName];
+            [ConfigurationManager renameFolderInNewThreadWithDisplayName: sourceDisplayName toName: renameTargetDisplayName];
+        }
 
+    } else {
+        if (  copyNotMove  ) {
+            [ConfigurationManager copyConfigurationInNewThreadPath: sourcePath toPath: targetPath];
+        } else {
+            [ConfigurationManager moveConfigurationInNewThreadAtPath:  sourcePath toPath: targetPath];
+        }
+    }
     return TRUE;
 }
 
