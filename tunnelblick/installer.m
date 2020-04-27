@@ -1480,11 +1480,6 @@ void doFolderRename(NSString * sourcePath, NSString * targetPath) {
     //
     // Uses rename() so nothing needs be done with ownership/permissions.
 
-    NSString * enclosingFolder = [sourcePath stringByDeletingLastPathComponent];
-    if (  [enclosingFolder isNotEqualTo: [targetPath stringByDeletingLastPathComponent]]  ) {
-        appendLog([NSString stringWithFormat: @"Cannot rename folder to a different enclosing folder: %@ to %@", sourcePath, targetPath]);
-        errorExit();
-    }
     if (  ! [gFileMgr fileExistsAtPath: sourcePath]  ) {
         appendLog([NSString stringWithFormat: @"rename source does not exist: %@ to %@", sourcePath, targetPath]);
         errorExit();
