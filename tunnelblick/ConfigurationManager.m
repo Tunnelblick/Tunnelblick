@@ -963,7 +963,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSLog(@"Could not remove %@", targetPath);
         if (  warn  ) {
             NSString * title = NSLocalizedString(@"Tunnelblick", @"Window title");
-            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not remove\n\n%@. See the Console Log for details.", @"Window text. The '%@' refers to a configuration or a folder of configurations."), localName];
+            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not remove %@. See the Console Log for details.", @"Window text. The '%@' refers to a configuration or a folder of configurations."), localName];
             TBShowAlertWindow(title, msg);
         }
         return FALSE;
