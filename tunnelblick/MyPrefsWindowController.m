@@ -294,7 +294,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
         // Lock icon is showing "Locked"
         TBLog(@"DB-AA", @"toggleLockItem: Disabling the lock icon");
         [item setEnabled: NO];
-        [item setLabel: NSLocalizedString(@"Authenticating...", @"Toolbar text for 'Lock' item")];
+        [item setLabel: NSLocalizedString(@"Authorizing...", @"Toolbar text for 'Lock' item indicating Tunnelblick is waiting for a computer administrator to authorize a request.")];
         TBLog(@"DB-AA", @"toggleLockItem: Creating thread to request authorization to unlock the lock icon");
         [NSThread detachNewThreadSelector: @selector(toggleLockItemGetAuthThread) toTarget: self withObject: nil];
     }
