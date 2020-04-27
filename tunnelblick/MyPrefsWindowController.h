@@ -43,6 +43,8 @@
     IBOutlet InfoView             * infoPrefsView;
     IBOutlet UtilitiesView        * utilitiesPrefsView;
     
+    NSTimer                       * lockTheLockIconTimer;
+    NSDate                        * lockTimeoutDate;
     BOOL                            lockIconIsUnlocked;
 
     NSString                      * previouslySelectedNameOnLeftNavList;

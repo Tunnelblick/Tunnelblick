@@ -106,6 +106,8 @@ extern NSArray        * gConfigurationPreferences;
 
 TBSYNTHESIZE_OBJECT(retain, NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelectedNameOnLeftNavList)
 
+TBSYNTHESIZE_OBJECT(retain, NSTimer *,  lockTheLockIconTimer,                setLockTheLockIconTimer)
+
 TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationsView *, configurationsPrefsView)
 
 TBSYNTHESIZE_OBJECT_GET(retain, SettingsSheetWindowController *, settingsSheetWindowController)
@@ -113,6 +115,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, SettingsSheetWindowController *, settingsSheetWi
 TBSYNTHESIZE_OBJECT_SET(NSString *, currentViewName, setCurrentViewName)
 
 // Synthesize getters and direct setters:
+TBSYNTHESIZE_OBJECT(retain, NSDate   *, lockTimeoutDate,                      setLockTimeoutDate)
+
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedSetNameserverIndex,           setSelectedSetNameserverIndexDirect)
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndexDirect)
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedLoggingLevelIndex,            setSelectedLoggingLevelIndexDirect)
@@ -128,6 +132,10 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 
 -(void) dealloc {
 	
+    [lockTheLockIconTimer invalidate];
+    [lockTheLockIconTimer                release];
+    TBLog(@"DB-AA", @"MyPrefsWindowController|dealloc: Invalidated the lock timer");
+    
     [currentViewName                     release];
 	[previouslySelectedNameOnLeftNavList release];
 	[leftNavDisplayNames                 release];
@@ -145,13 +153,16 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 
 -(void) lockTheLockIcon {
     
-    // Invoked when the window closes or the user clicks the 'Exit Admin mode' button
+    // Invoked when the window closes or authorization for lock times out
     
     if (  ! [NSThread isMainThread]  ) {
         NSLog(@"lockTheLockIcon invoked but not on main thread; stack trace = %@", callStack());
         [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return;
     }
+    
+    [lockTheLockIconTimer invalidate];
+    TBLog(@"DB-AA", @"lockTheLockIcon: Invalidated the lock timer");
     
     NSToolbarItem *item = [toolbarItems objectForKey: @"lockIcon"];
     
@@ -166,6 +177,37 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
     }
 }
 
+-(void) setLockLabelWithTimeLeft {
+    
+   NSTimeInterval timeLeft = [[self lockTimeoutDate] timeIntervalSinceDate: [NSDate date]];
+    if (  timeLeft < 0.0 ) {
+        timeLeft = 0.0;
+    }
+    NSTimeInterval minutes = floor(timeLeft / 60.0);
+    NSTimeInterval seconds = round(timeLeft - (minutes * 60.0));
+    if (  seconds >= 60.0  ) {
+        seconds -= 60.0;
+        minutes += 1.0;
+    }
+    NSString * timeLeftString = [NSString stringWithFormat: @"%01.0f:%02.0f", minutes, seconds];
+    
+    NSToolbarItem * item = [toolbarItems objectForKey: @"lockIcon"];
+    [item setLabel: [NSString stringWithFormat: NSLocalizedString(@"Admin mode %@ remaining", @"Toolbar text for 'Lock' item"),
+                     timeLeftString]];
+}
+
+-(void) lockIconTimerTick {
+    
+    NSTimeInterval timeLeft = [[self lockTimeoutDate] timeIntervalSinceDate: [NSDate date]];
+    if (  timeLeft <= 0.5  ) {
+        [lockTheLockIconTimer invalidate];
+        [self performSelectorOnMainThread: @selector(lockTheLockIcon) withObject: nil waitUntilDone: NO];
+    } else {
+        [self performSelectorOnMainThread: @selector(setLockLabelWithTimeLeft) withObject: nil waitUntilDone: NO];
+    }
+}
+
+
 -(void) enableLockIcon: (SystemAuth *) sa {
     
     // Invoked when the user has given (sa != nil) or cancelled (sa == nil) an authorization
@@ -177,12 +219,17 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
     }
     
     NSToolbarItem * item = [toolbarItems objectForKey: @"lockIcon"];
-
     if (  sa  ) {
         [SystemAuth setLockSystemAuth: sa];
-
+        
+        // Set up a timer to change the icon to be "locked" and release the authorization when the authorization is scheduled to time out
+        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(lockIconTimerTick) userInfo: nil repeats: YES];
+        [lockTheLockIconTimer invalidate];
+        [self setLockTheLockIconTimer: timer];
+        [self setLockTimeoutDate: [[NSDate date] dateByAddingTimeInterval: 300.00]];
+        
         [item setImage: [NSImage imageNamed: @"Lock-open"]];
-		[item setLabel: NSLocalizedString(@"Exit Admin mode", @"Toolbar text for 'Lock' item")];
+        [self setLockLabelWithTimeLeft];
         lockIconIsUnlocked = TRUE;
         if (  ! [[self window] isVisible]  ) {
             NSLog(@"enableLockIcon: displaying 'VPN Details' window because an authorization was obtained.");
@@ -190,13 +237,12 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
             [NSApp activateIgnoringOtherApps:YES];
         }
         
-        TBLog(@"DB-AA", @"enableLockIcon: Unlocked the lock icon and set lockSystemAuth");
+        TBLog(@"DB-AA", @"enableLockIcon: Unlocked the lock icon, set lockSystemAuth, and set a timer to relock the lock icon in five minutes");
     } else {
         [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' item")];
         [NSApp activateIgnoringOtherApps:YES];
     }
     
-
     TBLog(@"DB-AA", @"enableLockIcon: Enabling the lock icon");
     [item setEnabled: YES];
 }
@@ -207,7 +253,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
-    NSString * prompt = NSLocalizedString(@"Tunnelblick Admin Mode\n\n Allow changes that require a computer administrator's authorization.\n\n Admin mode is in effect until the 'VPN Details' window is closed or the 'Exit Admin mode' button is clicked.", @"Window text");
+    NSString * prompt = NSLocalizedString(@"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.", @"Window text");
     SystemAuth * sa = [[SystemAuth newAuthWithPrompt: prompt] autorelease];
     if (  sa  ) {
         // We update the UI in the main thread to avoid having the task finish when there are still pending CoreAnimation tasks to complete
@@ -239,6 +285,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
         lockIconIsUnlocked = FALSE;
         [item setImage: [NSImage imageNamed: @"Lock"]];
         [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' item")];
+        [lockTheLockIconTimer invalidate];
         [SystemAuth setLockSystemAuth: nil];
         TBLog(@"DB-AA", @"toggleLockItem:  Locked the lock icon, invalidated the lock icon timeout timer, and set lockAuthRef to nil");
         
@@ -247,7 +294,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
         // Lock icon is showing "Locked"
         TBLog(@"DB-AA", @"toggleLockItem: Disabling the lock icon");
         [item setEnabled: NO];
-        [item setLabel: NSLocalizedString(@"Authorizing...", @"Toolbar text for 'Lock' item")];
+        [item setLabel: NSLocalizedString(@"Authenticating...", @"Toolbar text for 'Lock' item")];
         TBLog(@"DB-AA", @"toggleLockItem: Creating thread to request authorization to unlock the lock icon");
         [NSThread detachNewThreadSelector: @selector(toggleLockItemGetAuthThread) toTarget: self withObject: nil];
     }
