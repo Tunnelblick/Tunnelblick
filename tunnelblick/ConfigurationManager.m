@@ -3817,10 +3817,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return;
     }
 
+    NSString * prompt;
     NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
     NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-
-    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to copy or move the '%@' configuration.", @"Window text"), sourceDisplayName];
+    NSString * folderEnclosingTarget = [targetDisplayName stringByDeletingLastPathComponent];
+    if (  [folderEnclosingTarget isEqualToString: @""]  ) {
+        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to copy configuration '%@'.", @"Window text"), sourceDisplayName];
+    } else {
+        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to copy configuration '%@' into folder '%@'.", @"Window text"), sourceDisplayName, folderEnclosingTarget];
+    }
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (   ! auth  ) {
         return;
@@ -3860,7 +3865,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return;
     }
 
-    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to copy or move the '%@' configuration.", @"Window text"), sourceDisplayName];
+    NSString * prompt;
+    NSString * folderEnclosingTarget = [targetDisplayName stringByDeletingLastPathComponent];
+    if (  [folderEnclosingTarget isEqualToString: @""]  ) {
+        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move configuration '%@'.", @"Window text"), sourceDisplayName];
+    } else {
+        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move configuration '%@' into folder '%@'.", @"Window text"), sourceDisplayName, folderEnclosingTarget];
+    }
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (   ! auth  ) {
         return;
@@ -3894,7 +3905,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return FALSE;
     }
 
-    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename the '%@' configuration to '%@'.", @"Window text"), sourceName, targetName];
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename configuration '%@' to '%@'.", @"Window text"), sourceName, [targetName lastPathComponent]];
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (   ! auth ) {
         return FALSE;
@@ -3919,32 +3930,27 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 }
 
 +(BOOL) renameFolderFromDisplayName: (NSString *) sourceDisplayName
-                             toName: (NSString *) name {
+                      toDisplayName: (NSString *) targetDisplayName {
 
     // Returns TRUE if succeeded or FALSE if cancelled or failed (if failed, the user has already been notified)
     //
     // RENAMES UP TO THREE FOLDERS: shared, private, and secured.
 
-    // Normalize sourceDisplayName to end in a slash
-    if (  ! [sourceDisplayName hasSuffix: @"/"]  ) {
-        sourceDisplayName = [sourceDisplayName stringByAppendingString: @"/"];
+    NSString * prompt;
+    NSString * sourceNameForPrompt = [sourceDisplayName substringToIndex: [sourceDisplayName length] - 1];
+    NSString * folderEnclosingSource = [sourceDisplayName stringByDeletingLastPathComponent];
+    NSString * folderEnclosingTarget = [targetDisplayName stringByDeletingLastPathComponent];
+    if (  [folderEnclosingSource isEqualToString: folderEnclosingTarget]  ) {
+        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename folder '%@' to '%@'.", @"Window text"), [sourceDisplayName lastPathComponent], [targetDisplayName lastPathComponent]];
+    } else if (  [folderEnclosingTarget isEqualToString: @""]  ) {
+        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move folder '%@'.", @"Window text"), sourceNameForPrompt];
+    } else {
+        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move folder '%@' into folder '%@'.", @"Window text"), sourceNameForPrompt, folderEnclosingTarget];
     }
-
-    // Normalize name to NOT end in a slash
-    if (  [name hasSuffix: @"/"]  ) {
-        name = [name substringToIndex: [name length] - 1];
-    }
-
-    NSString * nameForPrompt = [sourceDisplayName substringToIndex: [sourceDisplayName length] - 1];
-    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename '%@'.", @"Window text. '%@' is the name of a folder of configurations."), nameForPrompt];
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
     if (   ! auth ) {
         return FALSE;
     }
-
-    NSString * targetDisplayName = [[[sourceDisplayName stringByDeletingLastPathComponent]
-                                     stringByAppendingPathComponent: name]
-                                    stringByAppendingString: @"/"];                         // NOTE: Ends in "/"
 
     // Move preferences and credentials of configurations that will, in effect, be moved by the rename.
 
@@ -3957,11 +3963,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
          NSString * thisSourceLastPart = lastPartOfPath(path);
         if (  [thisSourceLastPart hasPrefix: sourceDisplayName]  ) {
             NSString * thisSourceDisplayName = [thisSourceLastPart stringByDeletingPathExtension];
-            NSString * thisTargetDisplayName = [[[[thisSourceDisplayName substringToIndex: [sourceDisplayName length]]
-                                                  stringByDeletingLastPathComponent]    // Remove name to change
-                                                 stringByAppendingPathComponent: name]  // Add new name
-                                                stringByAppendingPathComponent: [thisSourceDisplayName substringFromIndex: [sourceDisplayName length]]];
-            ok = ok && [self moveOrCopyCredentialsAndSettingsFrom: thisSourceDisplayName to: thisTargetDisplayName moveNotCopy: YES];
+            NSString * thisSourceDisplayNameAfterSourceDisplayName = [thisSourceDisplayName substringFromIndex: [sourceDisplayName length]];
+            NSString * thisTargetDisplayName = [targetDisplayName stringByAppendingPathComponent: thisSourceDisplayNameAfterSourceDisplayName];
+           ok = ok && [self moveOrCopyCredentialsAndSettingsFrom: thisSourceDisplayName to: thisTargetDisplayName moveNotCopy: YES];
         }
     }
 
@@ -3987,7 +3991,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                                                                    usingSystemAuth: auth
                                                                                       installTblks: nil];
                     if (  installerResult != 0  ) {
-                        NSLog(@"Could not rename folder %@ to %@", fullSourcePath, name);
+                        NSLog(@"Could not rename folder '%@' to '%@'", fullSourcePath, fullTargetPath);
                         ok = FALSE;
                     }
                 } else {
@@ -5212,6 +5216,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	if (  didRename  ) {
 		[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 	}
+    
     [TBOperationQueue operationIsComplete];
     
     [pool drain];
@@ -5244,16 +5249,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
     NSString * sourceDisplayName = [dict objectForKey: @"sourceDisplayName"];
-    NSString * targetName = [dict objectForKey: @"targetName"];
-
-    NSString * targetDisplayName = [[sourceDisplayName stringByDeletingLastPathComponent]
-                                    stringByAppendingPathComponent: targetName];
+    NSString * targetDisplayName = [dict objectForKey: @"targetDisplayName"];
 
     if (  [self anyConfigurationFolderContainsDisplayName: targetDisplayName]  ) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists.", @"Window text. '%@' is the name of a configuration or a folder of configurations."), targetName]);
+                          [NSString stringWithFormat: NSLocalizedString(@"Folder '%@' already exists.", @"Window text. '%@' is the name of a folder of configurations."), [targetDisplayName substringToIndex: [targetDisplayName length] - 1]]);
     } else {
-        [self renameFolderFromDisplayName: sourceDisplayName toName: targetName];
+        [self renameFolderFromDisplayName: sourceDisplayName toDisplayName: targetDisplayName];
     }
 
     [TBOperationQueue removeDisableList];
@@ -5558,11 +5560,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 }
 
 +(void) renameFolderInNewThreadWithDisplayName: (NSString *) sourceDisplayName
-                                        toName: (NSString *) targetName {
+                                 toDisplayName: (NSString *) targetDisplayName {
 
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
                            sourceDisplayName, @"sourceDisplayName",
-                           targetName,        @"targetName",
+                           targetDisplayName, @"targetDisplayName",
                            nil];
 
     [TBOperationQueue addToQueueSelector: @selector(renameFolderWithDisplayNameOperation:)

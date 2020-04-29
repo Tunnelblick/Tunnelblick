@@ -129,7 +129,7 @@ typedef enum
 
 +(void) renameConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
 
-+(void) renameFolderInNewThreadWithDisplayName: (NSString *) sourceDisplayName toName: (NSString *) targetName;
++(void) renameFolderInNewThreadWithDisplayName: (NSString *) sourceDisplayName toDisplayName: (NSString *) targetDisplayName;
 
 +(void) moveConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
 

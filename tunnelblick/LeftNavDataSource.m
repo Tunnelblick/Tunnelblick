@@ -318,7 +318,10 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     if (  displayNameIsValid(newName, NO)  ) {
         NSString * sourceDisplayName = [item displayName];
         if (  [sourceDisplayName hasSuffix: @"/"]  ) {
-            [ConfigurationManager renameFolderInNewThreadWithDisplayName: sourceDisplayName toName: newName];
+            NSString * targetDisplayName = [[[sourceDisplayName stringByDeletingLastPathComponent]
+                                             stringByAppendingPathComponent: newName]
+                                            stringByAppendingString: @"/"];
+            [ConfigurationManager renameFolderInNewThreadWithDisplayName: sourceDisplayName toDisplayName: targetDisplayName];
         } else {
             VPNConnection * connection   = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceDisplayName];
             if (  ! connection  ) {
@@ -353,7 +356,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     NSPasteboard * pb = [info draggingPasteboard];
     NSArray * pbItems = [pb pasteboardItems];
     if (  [pbItems count] != 1  ) {
-        // Can only drag one item at a time. TODO: drag multiple items at a time
+        TBLog(@"DB-D2", @"Dragging multiple items is not currently implemented");
         return nil;
     }
     NSPasteboardItem * pbItem = [pbItems firstObject];
@@ -370,9 +373,9 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 
     // Make sure it is OK to drag the source
 
-    if (  [sourceDisplayName length] == 0  ) {
-        // Allow drop to the outermost level (the "Configurations" level)
-        sourceDisplayName = @"/";
+    if (  [sourceDisplayName isEqualToString: @""]  ) {
+        TBLog(@"DB-D2", @"Dragging the 'Configurations' header line is not allowed");
+        return nil;
     }
 
     BOOL sourceIsFolder = [sourceDisplayName hasSuffix: @"/"];
@@ -381,7 +384,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 
         // Dragging a folder
         if (  copy  ) {
-            // TODO: be able to copy a folder
+            TBLog(@"DB-D2", @"Copying folders is not currently implemented");
             return nil;
         }
 
@@ -404,29 +407,53 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 
     // Make sure it is OK to drop on the target
 
-    targetDisplayName = [item displayName];
-    if (  ! targetDisplayName  ) {
-        // This happens when dragging past the end of the list. Pretend we are dragging to outermost level
-        targetDisplayName = @"/";
-    }
-    if (  ! [targetDisplayName hasSuffix: @"/"]  ) {
-        // Can't drop on configuration (configurations have names that doesn't end in "/")
+    NSString * targetDisplayNameWithoutLastComponent = [item displayName];
+    if (  ! targetDisplayNameWithoutLastComponent  ) {
+        TBLog(@"DB-D2", @"Dropping to the left of the list (off the list)");
         return nil;
     }
 
-    // If dragging a folder, get the source and target displayNames.
-    // If dragging a configuration, get the source and target paths.
+    BOOL targetIsFolder = (   [targetDisplayNameWithoutLastComponent isEqualToString: @""] // "Configurations" header or below the bottom of the list
+                           || [targetDisplayNameWithoutLastComponent hasSuffix: @"/"]);
+
+    if (  ! targetIsFolder  ) {
+        TBLog(@"DB-D2", @"Dropping on configurations is not allowed");
+        return nil;
+    }
+
+    // Target is a folder
+
+    if (  sourceIsFolder  ) {
+        if (  [targetDisplayNameWithoutLastComponent hasPrefix: sourceDisplayName]  ) {
+            TBLog(@"DB-D2", @"Copying or moving a folder onto itself or into one of its subfolders is not allowed");
+            return nil;
+        }
+    }
+
+    if (  ! copy  ) {
+        NSString * folderEnclosingSource = [sourceDisplayName stringByDeletingLastPathComponent];
+        if (  [sourceDisplayName hasSuffix: @"/"]) {
+            folderEnclosingSource = [folderEnclosingSource stringByAppendingString: @"/"];
+        }
+        if (  [targetDisplayNameWithoutLastComponent isEqualToString: folderEnclosingSource]  ) {
+            TBLog(@"DB-D2", @"Moving a folder or a configuration into the folder that it is already in is not allowed");
+            return nil;
+        }
+    }
+
+    // Append the last path component of the source to the target displayName to get the target displayName
+    targetDisplayName = [[targetDisplayNameWithoutLastComponent
+                          stringByAppendingPathComponent: [sourceDisplayName lastPathComponent]]
+                         stringByAppendingString: (  sourceIsFolder
+                                                   ? @"/"
+                                                   : @".tblk")];
+
+    // If dragging a folder, use the source and target displayNames.
+    // If dragging a configuration, set the source and target paths.
 
     if (  ! sourceIsFolder  ) {
-        // Get the target path, removing the last "/" and everything to its right
-        NSRange r = [targetDisplayName rangeOfString: @"/" options: NSBackwardsSearch];
-        NSString * prefix = (  (r.location == NSNotFound)
-                             ? prefix = @""
-                             : [targetDisplayName substringToIndex: r.location]);
-        NSString * name = [prefix stringByAppendingPathComponent: [sourceDisplayName lastPathComponent]];
-        targetPath = [[firstPartOfPath(sourcePath)
-                                  stringByAppendingPathComponent: name]
-                                 stringByAppendingPathExtension: @"tblk"];
+        targetPath = [firstPartOfPath(sourcePath)
+                      stringByAppendingPathComponent: targetDisplayName];
     }
 
     NSNumber * copyNotMove     = [NSNumber numberWithBool: copy];
@@ -439,6 +466,13 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
                              NSNullIfNil(targetDisplayName), @"targetDisplayName",
                              NSNullIfNil(sourceDisplayName), @"sourceDisplayName",
                              nil];
+
+    if (  sourceIsFolder  ) {
+        TBLog(@"DB-D2", @"folder %s; cpy %s; srcName = '%@'; tgtName = '%@'", CSTRING_FROM_BOOL(sourceIsFolder), CSTRING_FROM_BOOL(copy), sourceDisplayName, targetDisplayName);
+    } else {
+        TBLog(@"DB-D2", @"folder %s; cpy %s; srcPath = '%@'; tgtLast = '%@'", CSTRING_FROM_BOOL(sourceIsFolder), CSTRING_FROM_BOOL(copy), sourcePath, lastPartOfPath(targetPath));
+    }
+
     return result;
 }
 
@@ -475,22 +509,26 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     }
 
     BOOL       folderNotConfig   = [[dict objectForKey: @"folderNotConfig"] boolValue];
-    NSString * sourcePath  =  [dict objectForKey: @"sourcePath"];
-    NSString * targetPath  =  [dict objectForKey: @"targetPath"];
-    NSString * sourceDisplayName =  [dict objectForKey: @"sourceDisplayName"];
-    NSString * targetDisplayName =  [dict objectForKey: @"targetDisplayName"];
 
+    BOOL draggingWithinFolder = FALSE;
     if (  folderNotConfig  ) {
+        NSString * sourceDisplayName =  [dict objectForKey: @"sourceDisplayName"];
+        NSString * targetDisplayName =  [dict objectForKey: @"targetDisplayName"];
         if (  [sourceDisplayName isEqualToString: targetDisplayName]  ) {
-            // Don't allow drag within a folder; it wouldn't do anything because folders are sorted alphanumerically
-            return NSDragOperationNone;
+            draggingWithinFolder = TRUE;
         }
     } else {
+        NSString * sourcePath  =  [dict objectForKey: @"sourcePath"];
+        NSString * targetPath  =  [dict objectForKey: @"targetPath"];
         if (  [sourcePath isEqualToString: targetPath]  ) {
-            // Don't allow drag within a folder; it wouldn't do anything because folders are sorted alphanumerically
-            return NSDragOperationNone;
+            draggingWithinFolder = TRUE;
         }
     }
+    if (  draggingWithinFolder  ) {
+        TBLog(@"DB-D2", @"Dragging within a folder is not allowed");
+        return NSDragOperationNone;
+    }
+
     if (  [[dict objectForKey: @"copyNotMove"] boolValue]  ) {
         return NSDragOperationCopy;
     } else {
@@ -524,11 +562,10 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 
     if (  folderNotConfig  ) {
         if (  copyNotMove  ) {
-            return false;   // TODO: copy folders
+            return FALSE;   // TODO: copy folders
         } else {
             // Instead of moving source to target, we rename source to target/source
-            NSString * renameTargetDisplayName = [targetDisplayName stringByAppendingString: sourceDisplayName];
-            [ConfigurationManager renameFolderInNewThreadWithDisplayName: sourceDisplayName toName: renameTargetDisplayName];
+            [ConfigurationManager renameFolderInNewThreadWithDisplayName: sourceDisplayName toDisplayName: targetDisplayName];
         }
 
     } else {
