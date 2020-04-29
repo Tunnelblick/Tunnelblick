@@ -574,6 +574,7 @@ name = newValue;                                    \
 @"DB-AU",	  /* Extra logging for VPN authorization */	\
 @"DB-CD",     /* Extra logging for connect/disconnect */	\
 @"DB-DD",     /* Extra logging for drag/drop onto VPN Details window */	\
+@"DB-D2",     /* Extra logging for drag/drop within the left navigation of the VPN Details window */	\
 @"DB-HU",     /* Extra logging for hookup, */	\
 @"DB-IC",     /* Extra logging for IP address checking */	\
 @"DB-IT",     /* Extra logging for IP address check threading */	\
