@@ -169,10 +169,10 @@
 //*************************************************************************************************
 // Characters in a configuration's display name that are not allowed
 // Note that \000 - \037 and \177 are also prohibited, and that "(" and ")" _ARE_ allowed.
-#define PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING                 "!#&;:~|?'\"~<>^[]{}$%*"
-#define PROHIBITED_DISPLAY_NAME_CHARACTERS_WITH_SPACES_CSTRING     "! # & ; : ~ | ? ' \" ~ < > ^ [ ] { } $ % *"
-#define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING "!#&;:~|?'\"~<>^[]{}$%*/"
-#define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_WITH_SPACES_CSTRING "! # & ; : ~ | ? ' \" ~ < > ^ [ ] { } $ % * /"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING                 "\\!#&;:~|?'\"~<>^[]{}$%*"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_WITH_SPACES_CSTRING     "\\ ! # & ; : ~ | ? ' \" ~ < > ^ [ ] { } $ % *"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING "\\!#&;:~|?'\"~<>^[]{}$%*/"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_WITH_SPACES_CSTRING "\\ ! # & ; : ~ | ? ' \" ~ < > ^ [ ] { } $ % * /"
 
 // Characters that are allowed in a domain name (and thus, a CFBundleIdentifier)
 #define ALLOWED_DOMAIN_NAME_CHARACTERS @".-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
