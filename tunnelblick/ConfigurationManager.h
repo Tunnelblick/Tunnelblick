@@ -131,11 +131,11 @@ typedef enum
 
 +(void) renameFolderInNewThreadWithDisplayName: (NSString *) sourceDisplayName toDisplayName: (NSString *) targetDisplayName;
 
-+(void) moveConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
-
 +(void) duplicateConfigurationInNewThreadPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
 
-+(void) copyConfigurationInNewThreadPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
++(void) moveOrCopyConfigurationsInNewThreadAtPaths: (NSArray *) sourcePaths
+                                           toPaths: (NSArray *) targetPaths
+                                       moveNotCopy: (BOOL)      moveNotCopy;
 
 +(void) installConfigurationsUpdateInBundleInMainThreadAtPath: (NSString *) path;
 

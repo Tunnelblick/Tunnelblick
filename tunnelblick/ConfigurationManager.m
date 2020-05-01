@@ -3634,7 +3634,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [auth release];
 }
 
-+(NSString *) pathToUseIfItemAtPathExists: (NSString *) path {
++(NSString *) pathToUseIfItemAtPathExists: (NSString *) path stopNotCancel: (BOOL) stopNotCancel {
 
     if (  ! [gFileMgr fileExistsAtPath: path]  ) {
         return [[path retain] autorelease];
@@ -3643,9 +3643,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * msg = [NSString stringWithFormat:
                       NSLocalizedString(@"A configuration named '%@' already exists in this location.\n"
                                        @"Do you want to replace it with the one you're moving or copying?", @"Window text"), lastPartOfPath(path)];
+
+    NSString * cancelOrStopButtonText = (  stopNotCancel
+                                         ? NSLocalizedString(@"Stop", @"Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done.")
+                                         : NSLocalizedString(@"Cancel", @"Button."));
+
     int  result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                   msg,
-                                  NSLocalizedString(@"Cancel",    @"Button"),   // Default
+                                  cancelOrStopButtonText,   // Default
                                   NSLocalizedString(@"Keep Both", @"Button. In a dialog that says a file already exists in a new location."),   // Alternate
                                   NSLocalizedString(@"Replace",   @"Button. In a dialog that says a file already exists in a new location."));  // Other
     switch (  result  ) {
@@ -3803,91 +3808,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  problemWithSettings  ) {
         TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
                           NSLocalizedString(@"Warning: One or more settings could not be copied. See the Console Log for details.", @"Window text"));
-    }
-
-    [auth release];
-}
-
-+(void) copyConfigurationFromPath: (NSString *) sourcePath
-                           toPath: (NSString *) targetPath {
-
-    // If the target exists, offer to replace or keep both copies
-    targetPath = [self pathToUseIfItemAtPathExists: targetPath];
-    if (  ! targetPath  ) {
-        return;
-    }
-
-    NSString * prompt;
-    NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
-    NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-    NSString * folderEnclosingTarget = [targetDisplayName stringByDeletingLastPathComponent];
-    if (  [folderEnclosingTarget isEqualToString: @""]  ) {
-        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to copy configuration '%@'.", @"Window text"), sourceDisplayName];
-    } else {
-        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to copy configuration '%@' into folder '%@'.", @"Window text"), sourceDisplayName, folderEnclosingTarget];
-    }
-    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
-    if (   ! auth  ) {
-        return;
-    }
-
-    if (  [ConfigurationManager copyConfigPath: sourcePath
-                                        toPath: targetPath
-                               usingSystemAuth: auth
-                                    warnDialog: YES
-                                   moveNotCopy: NO
-                                       noAdmin: NO]  ) {
-
-        if (  ! [gTbDefaults copyPreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
-            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                              NSLocalizedString(@"Warning: One or more settings could not be copied. See the Console Log for details.", @"Window text"));
-        }
-
-        copyCredentials(sourceDisplayName, targetDisplayName);
-    }
-    
-    [auth release];
-}
-
-+(void) moveConfigurationFromPath: (NSString *) sourcePath
-                           toPath: (NSString *) targetPath {
-
-    // If the target exists, offer to replace or keep both copies
-    targetPath = [self pathToUseIfItemAtPathExists: targetPath];
-    if (  ! targetPath  ) {
-        return;
-    }
-
-    NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
-    NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-
-    if (  ! [self verifyCanDoMoveOrRenameFromPath: sourcePath name: sourceDisplayName]  ) {
-        return;
-    }
-
-    NSString * prompt;
-    NSString * folderEnclosingTarget = [targetDisplayName stringByDeletingLastPathComponent];
-    if (  [folderEnclosingTarget isEqualToString: @""]  ) {
-        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move configuration '%@'.", @"Window text"), sourceDisplayName];
-    } else {
-        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move configuration '%@' into folder '%@'.", @"Window text"), sourceDisplayName, folderEnclosingTarget];
-    }
-    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
-    if (   ! auth  ) {
-        return;
-    }
-
-    if (  [ConfigurationManager copyConfigPath: sourcePath
-                                        toPath: targetPath
-                               usingSystemAuth: auth
-                                    warnDialog: YES
-                                   moveNotCopy: YES
-                                       noAdmin: NO]  ) {
-
-        [self moveOrCopyCredentialsAndSettingsFrom: sourceDisplayName to: targetDisplayName moveNotCopy: YES];
-    } else {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"Move failed; see the Console Log for details.", @"Window text"));
     }
 
     [auth release];
@@ -5159,7 +5079,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     [TBOperationQueue removeDisableList];
 
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+   [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
 
     [TBOperationQueue operationIsComplete];
     
@@ -5265,25 +5185,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [pool drain];
 }
 
-+(void) moveConfigurationWithPathsOperation: (NSDictionary *) dict {
-
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-
-    NSString * sourcePath = [dict objectForKey: @"sourcePath"];
-    NSString * targetPath = [dict objectForKey: @"targetPath"];
-
-    [ConfigurationManager moveConfigurationFromPath: sourcePath
-                                             toPath: targetPath];
-
-    [TBOperationQueue removeDisableList];
-
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
-
-    [TBOperationQueue operationIsComplete];
-
-    [pool drain];
-}
-
 +(void) duplicateConfigurationWithPathsOperation: (NSDictionary *) dict {
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -5303,15 +5204,64 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [pool drain];
 }
 
-+(void) copyConfigurationWithPathsOperation: (NSDictionary *) dict {
++(void) moveOrCopyConfigurationsWithPathsOperation: (NSDictionary *) dict {
 
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
-    NSString * sourcePath = [dict objectForKey: @"sourcePath"];
-    NSString * targetPath = [dict objectForKey: @"targetPath"];
+    NSArray * sourcePaths = [dict objectForKey:  @"sourcePaths"];
+    NSArray * targetPaths = [dict objectForKey:  @"targetPaths"];
+    BOOL      moveNotCopy = [[dict objectForKey: @"moveNotCopy"] boolValue];
 
-    [ConfigurationManager copyConfigurationFromPath: sourcePath
-                                             toPath: targetPath];
+    if (  [sourcePaths count] != [targetPaths count]  ) {
+        NSLog(@"moveOrCopyConfigurationsWithPathsOperation: [sourcePaths count] != [targetPaths count]; sourcePaths = %@\ntargetPaths=%@", sourcePaths, targetPaths);
+        [TBOperationQueue removeDisableList];
+        [TBOperationQueue operationIsComplete];
+        [pool drain];
+        return;
+    }
+
+    NSString * prompt = NSLocalizedString(@"Tunnelblick needs authorization to copy or move configurations.", @"Window text");
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth  ) {
+        [TBOperationQueue removeDisableList];
+        [TBOperationQueue operationIsComplete];
+        [pool drain];
+        return;
+    }
+
+    NSUInteger i;
+    for (  i=0; i<[sourcePaths count]; i++  ) {
+        NSString * sourcePath = [sourcePaths objectAtIndex: i];
+        NSString * targetPath = [targetPaths objectAtIndex: i];
+
+        // If the target exists, offer to replace or keep both copies
+        targetPath = [self pathToUseIfItemAtPathExists: targetPath stopNotCancel: (i>0)];
+        if (  ! targetPath  ) {
+            break;
+        }
+        
+        BOOL ok = [self copyConfigPath: sourcePath
+                                toPath: targetPath
+                       usingSystemAuth: auth
+                            warnDialog: YES
+                           moveNotCopy: moveNotCopy
+                               noAdmin: NO];
+        if (  ! ok  ) {
+            break;
+        }
+
+        NSString * sourceDisplayName = displayNameFromPath(sourcePath);
+        NSString * targetDisplayName = displayNameFromPath(targetPath);
+        if (  ! [gTbDefaults copyPreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                              NSLocalizedString(@"Warning: One or more settings could not be copied. See the Console Log for details.", @"Window text"));
+            break;
+        }
+
+        copyCredentials(sourceDisplayName, targetDisplayName);
+    }
+
+    [auth release];
 
     [TBOperationQueue removeDisableList];
 
@@ -5573,21 +5523,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              disableList: [NSArray arrayWithObject: @"*"]];
 }
 
-+(void) moveConfigurationInNewThreadAtPath: (NSString *) sourcePath
-                                    toPath: (NSString *) targetPath {
-
-    NSArray * paths = [NSArray arrayWithObjects: sourcePath, targetPath, nil];
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                           sourcePath, @"sourcePath",
-                           targetPath, @"targetPath",
-                           nil];
-
-    [TBOperationQueue addToQueueSelector: @selector(moveConfigurationWithPathsOperation:)
-                                  target: [ConfigurationManager class]
-                                  object: dict
-                             disableList: [ConfigurationManager displayNamesFromPaths: paths]];
-}
-
 +(void) duplicateConfigurationInNewThreadPath: (NSString *) sourcePath
 									   toPath: (NSString *) targetPath {
 	
@@ -5603,19 +5538,22 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              disableList: [ConfigurationManager displayNamesFromPaths: paths]];
 }
 
-+(void) copyConfigurationInNewThreadPath: (NSString *) sourcePath
-                                  toPath: (NSString *) targetPath {
++(void) moveOrCopyConfigurationsInNewThreadAtPaths: (NSArray *) sourcePaths
+                                           toPaths: (NSArray *) targetPaths
+                                       moveNotCopy: (BOOL)      moveNotCopy {
 
-    NSArray * paths = [NSArray arrayWithObjects: sourcePath, targetPath, nil];
+    NSNumber * move = [NSNumber numberWithBool: moveNotCopy];
+
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                           sourcePath, @"sourcePath",
-                           targetPath, @"targetPath",
+                           sourcePaths, @"sourcePaths",
+                           targetPaths, @"targetPaths",
+                           move,        @"moveNotCopy",
                            nil];
 
-    [TBOperationQueue addToQueueSelector: @selector(copyConfigurationWithPathsOperation:)
+    [TBOperationQueue addToQueueSelector: @selector(moveOrCopyConfigurationsWithPathsOperation:)
                                   target: [ConfigurationManager class]
                                   object: dict
-                             disableList: [ConfigurationManager displayNamesFromPaths: paths]];
+                             disableList: [NSArray arrayWithObject: @"*"]];
 }
 
 +(void) installConfigurationsUpdateInBundleInMainThreadAtPath: (NSString *) path {

@@ -352,33 +352,63 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     NSEventModifierFlags flags = [event modifierFlags];
     BOOL copy = (flags & 0x80000) != 0;   // Option key (Left = 0x80120, Right = 0x80140)
 
-    // Get the source displayName and path
+    // Get the source displayNames and paths
+    NSString * sourceDisplayName = nil;
     NSPasteboard * pb = [info draggingPasteboard];
     NSArray * pbItems = [pb pasteboardItems];
-    if (  [pbItems count] != 1  ) {
-        TBLog(@"DB-D2", @"Dragging multiple items is not currently implemented");
-        return nil;
+    NSMutableArray * sourceDisplayNames = [[[NSMutableArray alloc] initWithCapacity: [pbItems count]] autorelease];
+    BOOL haveAFolder = FALSE;
+    BOOL haveAConfig = FALSE;
+    NSUInteger i;
+    for (  i=0; i<[pbItems count]; i++  ) {
+
+        NSPasteboardItem * pbItem = [pbItems objectAtIndex: i];
+        sourceDisplayName = [pbItem stringForType: TB_LEFT_NAV_ITEMS_DRAG_ID];
+        if (  ! sourceDisplayName  ) {
+            NSLog(@"infoForDropInfo:item: Could not get stringForType for pbItem = %@ in pbItems = %@ from pb = %@", pbItem, pbItems, pb);
+            return nil;
+        }
+
+        BOOL isFolder = [sourceDisplayName hasSuffix: @"/"];
+
+        if (   (   isFolder
+                && haveAConfig )
+            || (   ( ! isFolder )
+                && haveAFolder )
+            ) {
+            TBLog(@"DB-D2", @"Dragging configurations and folders simultanously is not allowed");
+            return nil;
+        }
+
+        if (   isFolder
+            && haveAFolder  ) {
+            TBLog(@"DB-D2", @"Dragging more than one folder at a time is not allowed");
+            return nil;
+        }
+
+        if (  [sourceDisplayName isEqualToString: @""]  ) {
+            TBLog(@"DB-D2", @"Dragging the 'Configurations' header line is not allowed");
+            return nil;
+        }
+        
+        haveAFolder = haveAFolder || isFolder;
+        haveAConfig = haveAConfig || ( ! isFolder);
+
+        [sourceDisplayNames addObject: sourceDisplayName];
     }
-    NSPasteboardItem * pbItem = [pbItems firstObject];
-    NSString * sourceDisplayName = [pbItem stringForType: TB_LEFT_NAV_ITEMS_DRAG_ID];
-    if (  ! sourceDisplayName  ) {
-        NSLog(@"infoForDropInfo:item: Could not get stringForType for pbItem = %@ in pbItems = %@ from pb = %@", pbItem, pbItems, pb);
+
+    // Make sure it is OK to drag the source
+
+    if (  [sourceDisplayNames count] == 0  ) {
+        TBLog(@"DB-D2", @"No sources selected");
         return nil;
     }
 
     // For folders, we send source and target displayName, for configurations, we send source and target paths
-    NSString * sourcePath = nil;
-    NSString * targetPath = nil;
-    NSString * targetDisplayName = nil;
+    NSMutableArray * sourcePaths = nil;
+    NSMutableArray * targetPaths = nil;
 
-    // Make sure it is OK to drag the source
-
-    if (  [sourceDisplayName isEqualToString: @""]  ) {
-        TBLog(@"DB-D2", @"Dragging the 'Configurations' header line is not allowed");
-        return nil;
-    }
-
-    BOOL sourceIsFolder = [sourceDisplayName hasSuffix: @"/"];
+    BOOL sourceIsFolder = haveAFolder;
 
     if (  sourceIsFolder  ) {
 
@@ -388,24 +418,35 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
             return nil;
         }
 
+        sourceDisplayName = [sourceDisplayNames firstObject];
+
     } else {
 
-        // Dragging a configuration; get the source path
+        // Dragging one or more configurations; get the source paths
+        sourcePaths = [[[NSMutableArray alloc] initWithCapacity: [sourceDisplayNames count]] autorelease];
         NSDictionary * configs = [((MenuController *)[NSApp delegate]) myConfigDictionary];
-        sourcePath = [configs objectForKey: sourceDisplayName];
-        if (  ! sourcePath  ) {
-            NSLog(@"infoForDropInfo:item: Could not get configuration path for '%@' from myConfigDictionary = %@", sourceDisplayName, configs);
-            return nil;
-        }
 
-        if (   [sourcePath hasPrefix: gDeployPath]
-            && ( ! copy  )  ) {
-            NSLog(@"Can't move a Deployed configuration (but can copy it)");
-            return nil;
+        for (  i=0; i<[sourceDisplayNames count]; i++  ) {
+            NSString * sourceDisplayName = [sourceDisplayNames objectAtIndex: i];
+            NSString * sourcePath = [configs objectForKey: sourceDisplayName];
+            if (  ! sourcePath  ) {
+                NSLog(@"infoForDropInfo:item: Could not get path for configuration '%@' from myConfigDictionary = %@", sourceDisplayName, configs);
+                return nil;
+            }
+
+            if (   [sourcePath hasPrefix: gDeployPath]
+                && ( ! copy  )  ) {
+                NSLog(@"Can't move a Deployed configuration (but can copy it)");
+                return nil;
+            }
+
+            [sourcePaths addObject: sourcePath];
         }
     }
 
     // Make sure it is OK to drop on the target
+
+    NSString * targetDisplayName = nil;
 
     NSString * targetDisplayNameWithoutLastComponent = [item displayName];
     if (  ! targetDisplayNameWithoutLastComponent  ) {
@@ -430,47 +471,62 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         }
     }
 
-    if (  ! copy  ) {
+    for (  i=0; i<[sourceDisplayNames count]; i++  ) {
+        NSString * sourceDisplayName = [sourceDisplayNames objectAtIndex: i];
         NSString * folderEnclosingSource = [sourceDisplayName stringByDeletingLastPathComponent];
         if (  [sourceDisplayName hasSuffix: @"/"]) {
             folderEnclosingSource = [folderEnclosingSource stringByAppendingString: @"/"];
         }
         if (  [targetDisplayNameWithoutLastComponent isEqualToString: folderEnclosingSource]  ) {
-            TBLog(@"DB-D2", @"Moving a folder or a configuration into the folder that it is already in is not allowed");
+            TBLog(@"DB-D2", @"Moving or copying a folder or a configuration into the folder that it is already in is not allowed");
             return nil;
         }
     }
 
     // Append the last path component of the source to the target displayName to get the target displayName
-    targetDisplayName = [[targetDisplayNameWithoutLastComponent
-                          stringByAppendingPathComponent: [sourceDisplayName lastPathComponent]]
-                         stringByAppendingString: (  sourceIsFolder
-                                                   ? @"/"
-                                                   : @".tblk")];
-
-    // If dragging a folder, use the source and target displayNames.
-    // If dragging a configuration, set the source and target paths.
-
-    if (  ! sourceIsFolder  ) {
-        targetPath = [firstPartOfPath(sourcePath)
-                      stringByAppendingPathComponent: targetDisplayName];
+    NSMutableArray * targetDisplayNames = [[[NSMutableArray alloc] initWithCapacity: [sourceDisplayNames count]] autorelease];
+    for (  i=0; i<[sourceDisplayNames count]; i++  ) {
+        NSString * sourceDisplayName = [sourceDisplayNames objectAtIndex: i];
+        targetDisplayName = [[targetDisplayNameWithoutLastComponent
+                              stringByAppendingPathComponent: [sourceDisplayName lastPathComponent]]
+                             stringByAppendingString: (  sourceIsFolder
+                                                       ? @"/"
+                                                       : @"")];
+        [targetDisplayNames addObject: targetDisplayName];
     }
 
-    NSNumber * copyNotMove     = [NSNumber numberWithBool: copy];
+
+    // If dragging a folder, use the source displayName that is already set and set the targetPath.
+    // If dragging one or more configurations, use the source paths already set and set the target paths.
+
+    if (  sourceIsFolder  ) {
+        targetDisplayName = [targetDisplayNames firstObject];
+    } else {
+        targetPaths = [[[NSMutableArray alloc] initWithCapacity: [sourceDisplayNames count]] autorelease];
+        for (  i=0; i<[sourceDisplayNames count]; i++  ) {
+            NSString * targetDisplayName = [targetDisplayNames objectAtIndex: i];
+            NSString * targetPath = [[firstPartOfPath([sourcePaths objectAtIndex: i])
+                                      stringByAppendingPathComponent: targetDisplayName]
+                                     stringByAppendingPathExtension: @"tblk"];
+            [targetPaths addObject: targetPath];
+        }
+    }
+
+    NSNumber * moveNotCopy     = [NSNumber numberWithBool: ( ! copy )];
     NSNumber * folderNotConfig = [NSNumber numberWithBool: sourceIsFolder];
     NSDictionary * result = [NSDictionary dictionaryWithObjectsAndKeys:
-                             copyNotMove,                    @"copyNotMove",
+                             moveNotCopy,                    @"moveNotCopy",
                              folderNotConfig,                @"folderNotConfig",
-                             NSNullIfNil(targetPath),        @"targetPath",
-                             NSNullIfNil(sourcePath),        @"sourcePath",
+                             NSNullIfNil(targetPaths),       @"targetPaths",
+                             NSNullIfNil(sourcePaths),       @"sourcePaths",
                              NSNullIfNil(targetDisplayName), @"targetDisplayName",
                              NSNullIfNil(sourceDisplayName), @"sourceDisplayName",
                              nil];
 
     if (  sourceIsFolder  ) {
-        TBLog(@"DB-D2", @"folder %s; cpy %s; srcName = '%@'; tgtName = '%@'", CSTRING_FROM_BOOL(sourceIsFolder), CSTRING_FROM_BOOL(copy), sourceDisplayName, targetDisplayName);
+        TBLog(@"DB-D2", @"folder %s; cpy %s; srcNames = '%@'; tgtNames = '%@'", CSTRING_FROM_BOOL(sourceIsFolder), CSTRING_FROM_BOOL(copy), sourceDisplayNames, targetDisplayNames);
     } else {
-        TBLog(@"DB-D2", @"folder %s; cpy %s; srcPath = '%@'; tgtLast = '%@'", CSTRING_FROM_BOOL(sourceIsFolder), CSTRING_FROM_BOOL(copy), sourcePath, lastPartOfPath(targetPath));
+        TBLog(@"DB-D2", @"folder %s; cpy %s; srcPaths = '%@'; tgtPaths = '%@'", CSTRING_FROM_BOOL(sourceIsFolder), CSTRING_FROM_BOOL(copy), sourcePaths, targetPaths);
     }
 
     return result;
@@ -518,10 +574,16 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
             draggingWithinFolder = TRUE;
         }
     } else {
-        NSString * sourcePath  =  [dict objectForKey: @"sourcePath"];
-        NSString * targetPath  =  [dict objectForKey: @"targetPath"];
-        if (  [sourcePath isEqualToString: targetPath]  ) {
-            draggingWithinFolder = TRUE;
+        NSArray * sourcePaths =  [dict objectForKey: @"sourcePaths"];
+        NSArray * targetPaths =  [dict objectForKey: @"targetPaths"];
+        NSUInteger i;
+        for (  i=0; i<[sourcePaths count]; i++  ) {
+            NSString * sourcePath = [sourcePaths objectAtIndex: i];
+            NSString * targetPath = [targetPaths objectAtIndex: i];
+            if (  [sourcePath isEqualToString: targetPath]  ) {
+                draggingWithinFolder = TRUE;
+                break;
+            }
         }
     }
     if (  draggingWithinFolder  ) {
@@ -529,10 +591,10 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         return NSDragOperationNone;
     }
 
-    if (  [[dict objectForKey: @"copyNotMove"] boolValue]  ) {
-        return NSDragOperationCopy;
-    } else {
+    if (  [[dict objectForKey: @"moveNotCopy"] boolValue]  ) {
         return NSDragOperationMove;
+    } else {
+        return NSDragOperationCopy;
     }
 }
 
@@ -551,29 +613,25 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         return NO;
     }
 
-    BOOL       copyNotMove       = [[dict objectForKey: @"copyNotMove"]     boolValue];
+    BOOL       moveNotCopy       = [[dict objectForKey: @"moveNotCopy"]     boolValue];
     BOOL       folderNotConfig   = [[dict objectForKey: @"folderNotConfig"] boolValue];
-    NSString * sourcePath        =  [dict objectForKey: @"sourcePath"];
-    NSString * targetPath        =  [dict objectForKey: @"targetPath"];
+    NSArray  * sourcePaths       =  [dict objectForKey: @"sourcePaths"];
+    NSArray  * targetPaths       =  [dict objectForKey: @"targetPaths"];
     NSString * sourceDisplayName =  [dict objectForKey: @"sourceDisplayName"];
     NSString * targetDisplayName =  [dict objectForKey: @"targetDisplayName"];
 
     // Copy or move the item. If successful, the method will reload the data for the outlineView
 
     if (  folderNotConfig  ) {
-        if (  copyNotMove  ) {
-            return FALSE;   // TODO: copy folders
-        } else {
+        if (  moveNotCopy  ) {
             // Instead of moving source to target, we rename source to target/source
             [ConfigurationManager renameFolderInNewThreadWithDisplayName: sourceDisplayName toDisplayName: targetDisplayName];
+        } else {
+            return FALSE;   // TODO: copy folders
         }
 
     } else {
-        if (  copyNotMove  ) {
-            [ConfigurationManager copyConfigurationInNewThreadPath: sourcePath toPath: targetPath];
-        } else {
-            [ConfigurationManager moveConfigurationInNewThreadAtPath:  sourcePath toPath: targetPath];
-        }
+        [ConfigurationManager moveOrCopyConfigurationsInNewThreadAtPaths: sourcePaths toPaths: targetPaths moveNotCopy: moveNotCopy];
     }
     return TRUE;
 }
