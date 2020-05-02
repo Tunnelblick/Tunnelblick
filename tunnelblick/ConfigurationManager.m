@@ -5112,7 +5112,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     [TBOperationQueue removeDisableList];
 
-   [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+   [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 
     [TBOperationQueue operationIsComplete];
     
@@ -5127,7 +5127,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     [TBOperationQueue removeDisableList];
 
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 
     [TBOperationQueue operationIsComplete];
     
@@ -5230,7 +5230,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 	
     [TBOperationQueue operationIsComplete];
     
@@ -5335,7 +5335,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     [TBOperationQueue removeDisableList];
 
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 
     [TBOperationQueue operationIsComplete];
     
@@ -5353,7 +5353,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
     
     [TBOperationQueue operationIsComplete];
     
@@ -5461,7 +5461,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
     
     [TBOperationQueue operationIsComplete];
 	
@@ -5812,7 +5812,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                            notifyDelegate: NO
                                          disallowCommands: NO];
     
-    [((MenuController *)[NSApp delegate]) configurationsChanged];
+    [((MenuController *)[NSApp delegate]) configurationsChangedForceLeftNavigationUpdate];
 }
 
 +(CommandOptionsStatus) commandOptionsInOpenvpnConfigurationAtPath: (NSString *) path
