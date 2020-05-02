@@ -3681,6 +3681,39 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return nil;
 }
 
++(BOOL) createConfigurationFolderAtPath: (NSString *) path usingSystemAuth: (SystemAuth *) auth {
+
+    NSArray * arguments = [NSArray arrayWithObjects: path, @"", nil];
+    NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_COPY
+                                                                    extraArguments: arguments
+                                                                   usingSystemAuth: auth
+                                                                      installTblks: nil];
+    if (  installerResult != 0  ) {
+        NSLog(@"Could not create configuration folder '%@'", path);
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
++(BOOL) createConfigurationFoldersForDisplayName: (NSString *) targetDisplayName usingSystemAuth: (SystemAuth *) auth {
+
+    // Creates shared, private, and secured configuration folders with the specified display name
+    NSString * sharedPath = [L_AS_T_SHARED stringByAppendingPathComponent: targetDisplayName];
+    if (  ! [gFileMgr fileExistsAtPath: sharedPath]  ) {
+        if (  ! [self createConfigurationFolderAtPath: sharedPath usingSystemAuth: auth]  ) {
+            return FALSE;
+        }
+    }
+
+    NSString * privatePath = [gPrivatePath stringByAppendingPathComponent: targetDisplayName];
+    if (  ! [gFileMgr fileExistsAtPath: privatePath]  ) {
+        return [self createConfigurationFolderAtPath: privatePath usingSystemAuth: auth];
+    }
+
+    return TRUE;
+}
+
 +(BOOL) verifyCanDoMoveOrRenameFromPath: (NSString *) sourcePath name: (NSString *) sourceName {
 
     VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceName];
@@ -5204,6 +5237,43 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [pool drain];
 }
 
++(void) createConfigurationFoldersForDisplayNamesOperation: (NSDictionary *) dict {
+
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+    NSString * sourceDisplayName = [dict objectForKey:  @"sourceDisplayName"];
+    NSString * targetDisplayName = [dict objectForKey:  @"targetDisplayName"];
+
+    NSString * prompt = [NSString stringWithFormat:
+                         NSLocalizedString(@"Tunnelblick needs authorization to copy folder '%@'.", @"Window text"),
+                         sourceDisplayName];
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth  ) {
+        [TBOperationQueue removeDisableList];
+        [TBOperationQueue operationIsComplete];
+        [pool drain];
+        return;
+    }
+
+    if (  ! [self createConfigurationFoldersForDisplayName: targetDisplayName usingSystemAuth: auth]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          [NSString stringWithFormat:
+                           NSLocalizedString(@"Tunnelblick could not copy folder '%@'. See the Console Log for details.", @"Window text"),
+                           sourceDisplayName]);
+    }
+
+    [auth release];
+
+    [TBOperationQueue removeDisableList];
+
+    NSLog(@"JKB: Scheduling configurationsChangedForceLeftNavigationUpdate in createConfigurationFoldersForDisplayNamesOperation");
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
+
+    [TBOperationQueue operationIsComplete];
+
+    [pool drain];
+}
+
 +(void) moveOrCopyConfigurationsWithPathsOperation: (NSDictionary *) dict {
 
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -5518,6 +5588,69 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                            nil];
 
     [TBOperationQueue addToQueueSelector: @selector(renameFolderWithDisplayNameOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: dict
+                             disableList: [NSArray arrayWithObject: @"*"]];
+}
+
++(void) copyFolderInNewThreadWithDisplayName: (NSString *) sourceDisplayName toDisplayName: (NSString *) targetDisplayName {
+
+    // Build arrays of source and target paths, then send them to moveOrCopyConfigurationsWithPathsOperation:
+
+    NSMutableArray * sourcePaths = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
+    NSMutableArray * targetPaths = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
+
+    NSArray * configurations = [[(MenuController *)[NSApp delegate] myConfigDictionary] allValues];
+    NSEnumerator * e = [configurations objectEnumerator];
+    NSString * thisSourcePath;
+    while (  (thisSourcePath = [e nextObject])  ) {
+        NSString * thisSourceLastPart = lastPartOfPath(thisSourcePath);
+        if (  [thisSourceLastPart hasPrefix: sourceDisplayName]  ) {
+            NSString * thisSourceDisplayName = [thisSourceLastPart stringByDeletingPathExtension];
+            NSString * thisSourceDisplayNameAfterSourceDisplayName = [thisSourceDisplayName substringFromIndex: [sourceDisplayName length]];
+            NSString * thisTargetDisplayName = [targetDisplayName stringByAppendingPathComponent: thisSourceDisplayNameAfterSourceDisplayName];
+            NSString * thisTargetPath = [[firstPartOfPath(thisSourcePath)
+                                          stringByAppendingPathComponent: thisTargetDisplayName]
+                                         stringByAppendingPathExtension: @"tblk"];
+            [sourcePaths addObject: thisSourcePath];
+            [targetPaths addObject: thisTargetPath];
+        }
+    }
+
+    if (  [sourcePaths count] == 0  ) {
+
+        NSString * sharedPath  = [L_AS_T_SHARED stringByAppendingPathComponent: targetDisplayName];
+        NSString * privatePath = [[L_AS_T_USERS
+                                   stringByAppendingPathComponent: NSUserName()]
+                                  stringByAppendingPathComponent: targetDisplayName];
+        if (   [gFileMgr fileExistsAtPath: sharedPath]
+            && [gFileMgr fileExistsAtPath: privatePath]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              [NSString stringWithFormat:
+                               NSLocalizedString(@"The '%@' folder already exists.", @"Window text"),
+                               targetDisplayName]);
+            return;
+        }
+
+        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                               sourceDisplayName, @"sourceDisplayName",
+                               targetDisplayName, @"targetDisplayName",
+                               nil];
+
+        [TBOperationQueue addToQueueSelector: @selector(createConfigurationFoldersForDisplayNamesOperation:)
+                                      target: [ConfigurationManager class]
+                                      object: dict
+                                 disableList: [NSArray arrayWithObject: @"*"]];
+        return;
+    }
+
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                           sourcePaths, @"sourcePaths",
+                           targetPaths, @"targetPaths",
+                           @NO,         @"moveNotCopy",
+                           nil];
+
+    [TBOperationQueue addToQueueSelector: @selector(moveOrCopyConfigurationsWithPathsOperation:)
                                   target: [ConfigurationManager class]
                                   object: dict
                              disableList: [NSArray arrayWithObject: @"*"]];

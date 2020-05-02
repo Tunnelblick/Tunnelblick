@@ -413,8 +413,9 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     if (  sourceIsFolder  ) {
 
         // Dragging a folder
-        if (  copy  ) {
-            TBLog(@"DB-D2", @"Copying folders is not currently implemented");
+        if (   copy
+            && ( [sourceDisplayNames count] > 1 )  ) {
+            TBLog(@"DB-D2", @"Copying multiple folders is not currently implemented");
             return nil;
         }
 
@@ -627,7 +628,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
             // Instead of moving source to target, we rename source to target/source
             [ConfigurationManager renameFolderInNewThreadWithDisplayName: sourceDisplayName toDisplayName: targetDisplayName];
         } else {
-            return FALSE;   // TODO: copy folders
+            [ConfigurationManager copyFolderInNewThreadWithDisplayName: sourceDisplayName toDisplayName: targetDisplayName];
         }
 
     } else {
