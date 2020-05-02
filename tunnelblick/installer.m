@@ -1565,6 +1565,22 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 	NSString * sourcePath = [[secondPath copy] autorelease];
 	NSString * targetPath = [[firstPath  copy] autorelease];
 
+    // An empty source path means create a folder at the target path.
+    if (  [sourcePath isEqualToString: @""]  ) {
+        if (  [targetPath hasSuffix: @".tblk"]  ) {
+            appendLog([NSString stringWithFormat: @"When source is '', target cannot be a .tblk: %@", targetPath]);
+            errorExit();
+        }
+
+        if (  [gFileMgr fileExistsAtPath: secondPath]  ) {
+            appendLog([NSString stringWithFormat: @"When source is '', target cannot exist: %@", targetPath]);
+            errorExit();
+        }
+
+        createAndSecureFolder(targetPath);
+        return;
+    }
+
     BOOL sourceIsTblk = [[sourcePath pathExtension] isEqualToString: @"tblk"];
     BOOL targetIsTblk = [[targetPath pathExtension] isEqualToString: @"tblk"];
 
