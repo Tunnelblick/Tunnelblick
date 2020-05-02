@@ -5156,7 +5156,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	if (  [self anyConfigurationFolderContainsDisplayName: targetDisplayName]  ) {
         NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: targetDisplayName];
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists.", @"Window text. '%@' is the name of a configuration or a folder of configurations."), localName]);
+                          [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists.", @"Window text. '%@' is the name of a folder or a configuration."), localName]);
     } else {
 		if (  [ConfigurationManager renameConfigurationFromPath: sourcePath
 														 toPath: targetPath]  ) {
@@ -5206,7 +5206,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     if (  [self anyConfigurationFolderContainsDisplayName: targetDisplayName]  ) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          [NSString stringWithFormat: NSLocalizedString(@"Folder '%@' already exists.", @"Window text. '%@' is the name of a folder of configurations."), [targetDisplayName substringToIndex: [targetDisplayName length] - 1]]);
+                          [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists.", @"Window text. '%@' is the name of a folder or a configuration."), [targetDisplayName substringToIndex: [targetDisplayName length] - 1]]);
     } else {
         [self renameFolderFromDisplayName: sourceDisplayName toDisplayName: targetDisplayName];
     }
@@ -5627,7 +5627,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             && [gFileMgr fileExistsAtPath: privatePath]  ) {
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                               [NSString stringWithFormat:
-                               NSLocalizedString(@"The '%@' folder already exists.", @"Window text"),
+                               NSLocalizedString(@"'%@' already exists.", @"Window text. '%@' is the name of a folder or a configuration."),
                                targetDisplayName]);
             return;
         }
