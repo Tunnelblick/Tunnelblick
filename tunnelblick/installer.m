@@ -763,6 +763,38 @@ NSString * lastPartOfPath(NSString * path) {
 	return nil;
 }
 
+void createAndSecureFolder(NSString * path) {
+
+    // Use to create and secure an empty configurations subfolder (either Shared or a private folder). If it is
+    // a private folder, the secured copy is also created.
+    //
+    // A Shared or secured folder is owned by root; a private folder is owned by the user.
+
+    uid_t  own   = 0;
+    gid_t  grp   = 0;
+    mode_t perms = PERMS_SECURED_FOLDER;
+
+    BOOL private = [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]];
+    if (  private  ) {
+        own   = gRealUserID;
+        grp   = privateFolderGroup(path);
+        perms = privateFolderPermissions(path);
+    }
+    errorExitIfAnySymlinkInPath(path);
+
+    if (  ! createDirWithPermissionAndOwnership(path, perms, own, grp)  ) {
+        errorExit();
+    }
+
+    // If a private folder, create the secure copy, too.
+    if (  private  ) {
+        NSString * lastPart = lastPartOfPath(path);
+        createAndSecureFolder([[L_AS_T_USERS
+                                stringByAppendingPathComponent: NSUserName()]
+                               stringByAppendingPathComponent: lastPart]);
+    }
+}
+
 BOOL tunnelblickTestPrivateOnlyHasTblks(void) {
 	
 	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
@@ -1566,20 +1598,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 
 	// Create the enclosing folder(s) if necessary. Owned by root unless if in gPrivatePath, in which case it is owned by the user
 	NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
-	uid_t  own   = 0;
-	gid_t  grp   = 0;
-	mode_t perms = PERMS_SECURED_FOLDER;
-	
-	if (  [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-		own   = gRealUserID;
-		grp   = privateFolderGroup(enclosingFolder);
-		perms = privateFolderPermissions(enclosingFolder);
-	}
-	errorExitIfAnySymlinkInPath(enclosingFolder);
-	
-	if (  ! createDirWithPermissionAndOwnership(enclosingFolder, perms, own, grp)  ) {
-		errorExit();
-	}
+    createAndSecureFolder(enclosingFolder);
 	
 	// Make sure we can delete the original if we are moving instead of copying
 	if (  moveNotCopy  ) {
