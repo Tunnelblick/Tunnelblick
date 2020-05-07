@@ -1644,7 +1644,7 @@ if ${ARG_TAP} ; then
 				logMessage "Not using DHCP because $dev already has an IP configuration ($hasIp). route_vpn_gateway = '$route_vpn_gateway'"
 			else
 				ROUTE_GATEWAY_IS_DHCP="true"
-				logMessage "Uing DHCP because route_vpn_gateway = '$route_vpn_gateway' and there $dev has no IP configuration"
+				logMessage "Using DHCP because route_vpn_gateway = '$route_vpn_gateway' and there $dev has no IP configuration"
 			fi
 		fi
 		if [ "$ROUTE_GATEWAY_IS_DHCP" == "true" ]; then
