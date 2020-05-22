@@ -98,10 +98,22 @@
 "Delete" = "Kustuta";
 
 /* Button */
+"Disable network access" = "Keela juurdepääs võrgule";
+
+/* Button */
 "Disconnect" = "Katkesta ühendus";
 
 /* Button */
+"Do Not Re-enable Network Access" = "Keela võrgu uut juurdepääsu ";
+
+/* Button */
 "Do not use the plugin" = "Ära kasuta pluginat";
+
+/* Button */
+"Do nothing" = "Ära tee midagi";
+
+/* Button */
+"Export Tunnelblick Setup" = "Eksporti Tunnelblicki seadistust";
 
 /* Button */
 "Help" = "Abi";
@@ -132,6 +144,9 @@
 
 /* Button */
 "Monochrome icon" = "Ühevärviline ikoon";
+
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "Rohkem informatsiooni [%@]";
 
 /* Button */
 "More Info" = "Lisainfo";
@@ -175,6 +190,10 @@
 /* Button */
 "Quit" = "Välju";
 
+/* Button
+   Menu item */
+"Re-enable Network Access" = "Luba uuesti võrgu juurdepääsu";
+
 /* Button */
 "Reinstall" = "Reinstalleerimine";
 
@@ -188,16 +207,28 @@
 "Reset Disabled Warnings" = "Taasta keelatud hoiatused";
 
 /* Button */
+"Reset primary interface" = "Lähtesta esmane liides";
+
+/* Button */
 "Restart connection" = "Taaskäivita ühendus";
 
 /* Button */
 "Restore" = "Taasta";
 
+/* Button text */
+"Retry with manual response" = "Proovi uuesti manuaalse sisestusega";
+
 /* Button */
 "Retry" = "Proovi uuesti";
 
 /* Button */
+"Revert to the Last Secured Copy" = "Naasta viimase turvalise koopia juurde";
+
+/* Button */
 "Revert" = "Ennista";
+
+/* Button */
+"Secure the Configuration" = "Kindlusta konfiguratsiooni";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Kuva vaikimisi ekraanil (%1$u x %2$u)";
@@ -209,7 +240,13 @@
 "Show when connection status changes" = "Kuva ühenduse staatuse muutumisel";
 
 /* Button */
+"Show while connecting and connected" = "Kuva ühendamise ajal";
+
+/* Button */
 "Show while connecting" = "Kuva ühendust luues";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Jäta see värskendus vahele\n";
 
 /* Button */
 "Skip" = "Jäta vahele";
@@ -243,6 +280,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikoon";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Värskenda";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblicki käivitumisel";
@@ -305,9 +345,6 @@
 "Quit Tunnelblick" = "Sulge Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Muuda konfiguratsiooni nime…";
-
-/* Menu Item */
 "Revert Configuration..." = "Ennista konfiguratsioon…";
 
 /* Menu Item */
@@ -323,7 +360,13 @@
 "VPN Details..." = "VPN-i detailid…";
 
 /* Checkbox name */
+"Always show this window" = "Näita alati seda akent";
+
+/* Checkbox name */
 "Apply to all" = "Rakenda kõigile";
+
+/* Checkbox Name */
+"Authenticate before connecting" = "Autentige enne ühendamist";
 
 /* Checkbox name */
 "Check for updates automatically" = "Otsi uuendusi automaatselt";
@@ -536,9 +579,6 @@
 "Log" = "Logi";
 
 /* Window title */
-"Name Required" = "Nimi on puudu";
-
-/* Window title */
 "Name not allowed" = "Lubamatu nimi";
 
 /* Window title */
@@ -708,6 +748,12 @@
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " Hoiatus: Seda Tunnelblick versiooni on muudetud.\n\n";
+
+/* Window text */
+"(Never checked)" = "Pole kunagi kontrollitud";
+
+/* Window text */
+"Add Credentials" = "Lisa ligipääsuandmed";
 
 /* Window text */
 "ZB" = "ZB";

@@ -2,7 +2,7 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Ondoa zote (%1$@) - anwani dhahiri ya IP ya umma%2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Ondoa zote (%1$@) - anwani dhahiri ya Itifaki ya Intaneti(Internet Protocol) ya umma%2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Ondoa Maunganisho Yote (%@)";
@@ -74,6 +74,12 @@
 "Convert Configurations" = "Kubadilisha Usanidi";
 
 /* Button */
+"Copy Console Log to Clipboard" = "Nakili Taariza za Konsolu kwenye Bodiklipu";
+
+/* Button */
+"Copy Diagnostic Info to Clipboard" = "Nakili Taarifa ya Utambuzi kwenye Bodiklipu";
+
+/* Button */
 "Create sample configuration and edit it" = "Unda usanidi wa mfano na uhariri";
 
 /* Button */
@@ -81,6 +87,12 @@
 
 /* Button */
 "Delete Credentials" = "Futa dhamana";
+
+/* Button */
+"Delete saved passphrase and try again" = "Futa manenosiri yaliyohifadhiwa na ujaribu tena";
+
+/* Button */
+"Delete saved password and try again" = "Futa nywila iliyohifadhiwa na jaribu tena";
 
 /* Button */
 "Delete" = "Futa";
@@ -99,6 +111,9 @@
 
 /* Button */
 "Do nothing" = "Usifanye Chochote";
+
+/* Button */
+"Export Tunnelblick Setup" = "Nakili-nje Usanidi wa Tunnelblick";
 
 /* Button */
 "Help" = "Msaada";
@@ -123,6 +138,12 @@
 
 /* Button */
 "Load Tun driver automatically" = "Pakia Tun dereva moja kwa moja";
+
+/* Button */
+"Manually" = "Bila Mashine";
+
+/* Button */
+"Monochrome icon" = "Ikoni ya Monokromu";
 
 /* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "More Info [%@]" = "Maelezo zaidi [%@]";
@@ -158,10 +179,10 @@
 "Open easy-rsa in Terminal" = "Fungua rsa-rahisi katika Temino";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Weka Picha-funzo karibu na Picha-funzo ya Uangalizi";
+"Place Icon Near the Spotlight Icon" = "Weka Ikoni karibu na Ikoni ya Uangalizi";
 
 /* Button */
-"Place Icon Normally" = "Weka Picha-funzo Kawaida";
+"Place Icon Normally" = "Weka Ikoni kwa kawaida";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Ondoa  michakato yote ya OpenVPN";
@@ -191,8 +212,20 @@
 /* Button */
 "Restore" = "Rejesha";
 
+/* Button text */
+"Retry with manual response" = "Jaribu kwa mwitikio wa mkono";
+
 /* Button */
 "Retry" = "Jaribu tena";
+
+/* Button */
+"Revert to the Last Secured Copy" = "Rejea katika Nakala ya Mwisho kuhifadhiwa";
+
+/* Button */
+"Revert" = "Rejea";
+
+/* Button */
+"Secure the Configuration" = "Hifadhi Usanidi";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Onesha katika Skrini mpangoli(%1$u x %2$u)";
@@ -209,8 +242,17 @@
 /* Button */
 "Show while connecting" = "Onesha wakati wa kuunganisha";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Ruka hii Sasisho";
+
+/* Button */
+"Skip" = "Ruka";
+
 /* Button */
 "Speak" = "Ongea";
+
+/* Button */
+"Standard icon" = "Ikoni ya kawaida";
 
 /* Button */
 "Terminate All OpenVPN processes" = "Katisha michakato yote ya OpenVPN";
@@ -219,13 +261,28 @@
 "Terminate" = "Sitisha";
 
 /* Button */
+"This configuration has its own separate credentials" = "Usanidi huu una sifa zake tofauti";
+
+/* Button */
+"This configuration uses %@ credentials" = "Usanidi huu unatumia %@sifa";
+
+/* Button */
+"Try again with saved passphrase" = "Jaribu tena na manenosiri yaliyohifadhiwa";
+
+/* Button */
+"Try again with saved username and password" = "Jaribu tena na jina la mtumiaji na nywila iliyohifadhiwa";
+
+/* Button */
 "Try again" = "Jaribu tena";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 picha-funzo";
+"Tunnelblick 3.3 icon" = "Ikoni ya Tunnelblick 3.3 ";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Sasisha";
+
+/* Button */
+"When Tunnelblick launches" = "Wakati Tunnelblick inaamka";
 
 /* Button */
 "When computer starts" = "Wakati kompyuta inapoanza";
@@ -238,6 +295,9 @@
 
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Futa dhamana ya usanidi katika Cheni-funguo…";
+
+/* Menu item tooltip */
+"Disabled because this setting is being forced" = "Imelemazwa kwa sababu mpangilio huu unalazimishwa";
 
 /* Menu item */
 "Disconnect %@%@" = "Ondoa Maunganisho %@%@";
@@ -260,11 +320,20 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Fanya Usanidi Kutumiwa na wengi...";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Hakuna logia ya OpenVPN or Tunnelblick VPN ";
+
 /* Menu item */
 "No VPN Configurations Available" = "Hakuna Usanidi wa VPN Unapatikana";
 
 /* Menu item */
 "Quit Tunnelblick" = "Katisha Tunnelblick";
+
+/* Menu Item */
+"Revert Configuration..." = "Rejea Usanidi";
+
+/* Menu Item */
+"Show on Tunnelblick Menu" = "Onesha katika Menyu ya Tunnelblick";
 
 /* Menu item */
 "VPN Details..." = "Maelezo ya VPN…";
@@ -276,10 +345,160 @@
 "Check if the apparent public IP address changed after connecting" = "Angalia ikiwa anwani dhahiri ya Itifaki ya Intaneti ya umma ilibadilika baada ya kuunganishwa";
 
 /* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Lemaza IPv6 mpaka seva ya VPN itafikiwa kwa kutumia IPv6";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Ondoa Unganisho wakati kompyuta inakwenda kulala";
+
+/* Checkbox name */
+"Disconnect when user switches out" = "Ondoa wakati mtumiaji anapozima";
+
+/* Checkbox name */
+"Display connection submenus" = "Onesha menyu-ndogo ya uunganisho";
+
+/* Checkbox name */
+"Display connection timers" = "Onesha muda wa uunganisho";
+
+/* Checkbox name */
+"Do not ask again, always 'Ignore'" = "Usiulize tena, kila wakati 'Puuza'";
+
+/* Checkbox name */
+"Do not ask again, always Continue" = "Usiulize tena, kila wakati 'Endelea'";
+
+/* Checkbox name */
+"Do not ask again, always convert" = "Usiulize tena, badilisha kila wakati";
+
+/* Checkbox name */
+"Do not show this type of warning again" = "38/5000\nUsioneshe tena aina hii ya onyo";
+
+/* Checkbox name */
+"Do not warn about this again for this configuration" = "Usionye onyo hili tena kwa usanidi huu";
+
+/* Checkbox name */
+"Enable IPv6 (tap only)" = "Wezesha IPv6(tab tu)";
+
+/* Checkbox name */
+"Keep connected" = "Baki katika Maunganisho";
+
+/* Checkbox name */
+"Monitor network settings" = "Fuatilia mpangilio wa Mtandao";
+
+/* Checkbox name */
+"Place near Spotlight icon" = "Weka Ikoni karibu na Ikoni ya Uangalizi";
+
+/* Checkbox name */
+"Reconnect when user switches in" = "Unganisha tena wakati mtumiaji huingia";
+
+/* Checkbox name */
+"Save in Keychain" = "Hifadhi katika Funguo-mnyororo";
+
+/* Checkbox name */
+"Show when disconnected" = "Onesha maunganisho yakikatwa";
+
+/* Checkbox name */
+"Show when the pointer is over the Tunnelblick icon" = "Onesha wakati pointa ipo juu ya Ikoni ya Tunnelblick";
+
+/* PopUpButton */
+"Do not set nameserver" = "Usiweke jina-seva";
+
+/* PopUpButton */
+"Set nameserver (3.0b10)" = "Weka jina-seva (3.0b10)";
+
+/* PopUpButton */
+"Set nameserver (3.1)" = "Weka jina-seva (3.1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 1)" = "Weka jina-seva (alternate 1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "Weka jina-seva (alternate 2)";
+
+/* PopUpButton *//* System profile item */
+"Set nameserver" = "Weka jina-seva";
+
+/* Text on disk image */
+"Double-click to begin" = "Bofya mara mbili kuanza";
+
+/* Connection status */
+"ASSIGN_IP" = "Gawa anwani ya Itifiki Inteneti (II)"; // Please translate "Assigning IP address"
+
+/* Connection status */
+"AUTH" = "Kuidhinisha"; // Please translate "Authorizing"
+
+/* Connection status */
+"CONNECTED" = "Imeunganishwa"; // Please translate "Connected"
+
+/* Connection status */
+"CONNECTING" = "Inaunganishwa"; // Please translate "Connecting"
+
+/* Connection status */
+"DISCONNECTING" = "Kutounganisha"; // Please translate "Disconnecting"
+
+/* Connection status */
+"EXITING" = "Kukatauunganisho"; // Please translate "Disconnected"
+
+/* Connection status */
+"GET_CONFIG" = "Kupata Usanidi"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "Kusubiria Ufikio wa mtandao"; // Please translate "Waiting for network access"
+
+/* Connection status */
+"PASSWORD_WAIT" = "Kusubiria Nywila"; // Please translate "Waiting for password"
+
+/* Connection status */
+"PRIVATE_KEY_WAIT" = "Kusubiria Manenosiri"; // Please translate "Waiting for password"
+
+/* Connection status */
+"RECONNECTING" = "Kuunganisha tena"; // Please translate ""
+
+/* Connection status */
+"RESOLVE" = "Kutatua jina la kikoa"; // Please translate ""
+
+/* Connection status */
+"TCP_CONNECT" = "Kufanya muunganisho wa TCPF"; // Please translate "Making TCP connection"
+
+/* Connection status */
+"UDP_CONNECT" = "Kufanya muunganisho wa UDP"; // Please translate "Making UDP connection"
+
+/* Connection status */
+"WAIT" = "Kungojea mwitikio wa seva"; // Please translate "Waiting for Server Response"
+
+/* Folder name */
+"Sample Tunnelblick VPN Configuration" = "Usanidi wa Sampuli ya Tunnelblick VPN";
+
+/* System profile item */
+"Configurations" = "Usanidi";
+
+/* Window title */
+" (Deployed)" = "(Imesimikwa)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+
+/* Window title */
+" (Private)" = "(Binafsi)";
+
+/* Window title */
+" (Shared)" = "(kushirikiana)"; // Indicates a shared configuration
+
+/* Window title */
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Usanidi - Tunnelblick";
 
 /* Window title */
 "Active connection" = "Maunganisho Amilifu";
+
+/* Window title */
+"Appearance" = "Mwonekano";
+
+/* Window title */
+"Configuration(s) Ignored" = "Usanidi umepuuzwa";
+
+/* Window title */
+"File not found" = "Faili halionekani";
+
+/* Window title */
+"Info" = "Taarifa";
+
+/* Window title */
+"Install Configuration For All Users?" = "Sanikisha Usanidi kwa Watumiaji Wote";
 
 /* Window title */
 "Installation failed" = "Usanikishaji umeshindwa";
@@ -287,8 +506,23 @@
 /* Window title */
 "Installation or Repair Failed" = "Usanikishaji  au Urekebishaji Umeshindwa";
 
+/* Window title */
+"Name not allowed" = "Jina haliruhusiwi";
+
+/* Window title */
+"No Credentials" = "Hakuna sifa";
+
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: Inahitajika Logia";
+
 /* Window text */
 "Cancelled trying to quit all OpenVPN processes" = "Ghairisha kujaribu kukatisha michakato yote ya OpenVPN";
+
+/* Window text */
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Usanidi umewekwa kutoka kwa mafaili ambayo hutolewa kwako na Meneja wako wa Mtandao au mtoaji wa huduma wa VPN.\n\nFaili za usanidi zina viongezeo .tblk, .ovpn, au .conf.\n\n(Kunaweza kuwa na faili nyingine zinazohusiana na usanidi zenye viongezeo vingine; yapuuze.)\n\nKusasisha faili la usanidi , chagua na kisha dondosha kwenye ikoni ya Tunnelblick kwenye mtambaa wa menyu au kwenye orodha ya usanidi kwenye kichupo cha 'Usanidi' wa dirisha la 'Maelezo ya VPN'.\n\nKusasisha mafaili mengi ya usanidi  kwa wakati mmoja, chagua mafaili yote na kisha buruta na udondoshe yote.";
+
+/* Window text */
+"Icon:" = "Ikoni:";
 
 /* Window text */
 "Installation failed:\n\n%@" = "Usanikishaji umeshindwa:\n\n%@";
@@ -297,7 +531,7 @@
 "Keyboard shortcut:" = "Njia ya mkato ya Bodidota";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Tafadhali ingiza jina na bofya \"Sawa\" au bofya \"Ghairi\"";
+"Symbolic links nested too deeply. Gave up at %@" = "Viungo vya ishara vimewekwa kwa undani sana.Kuinuka kwa%@";
 
 /* Window text */
 "The installation or repair took too long or failed. Try again?" = "Usanikishaji au Urekebishaji ulichukua muda mrefu sana au haukufanikiwa. Jaribu tena?";
@@ -305,8 +539,24 @@
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Usanikishaji, uondoaji, ukifu, au urekebishaji wa sehemu moja au zaidi za Tunnelblick haikufaulu. Tazama Ingizo la Console kwa maelezo.";
 
+/* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "VPN hii inahitaji wewe kujibu swali lakini haijatoa swali.";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p> Tunnelblick ni pamoja na toleo mahsusi la 'rsa-rahisi', ambalo ni seti ya maandishi ya amri yaliyoandaliwa na watengenezaji wa OpenVPN kwa kuunda na kudumisha vyeti na funguo. </p> <p> Bonyeza kitufe hiki kuzindua Temino ya MacOS  tumizi ikiwa na saraka ya kufanya kazi iliyowekwa kwenye folda lenye maandishi. </p> <p> Maandishi ya kawaida huwa kwenye folda kwa ~ / Library / Support Support / Tunnelblick / easy-rsa. Katika 'easy-rsaPath' unaweza kuwa na njia katika folda ambalo Tunnelblick itatumia badala yake. 'easy-rsaPath' lazima iwe njia kamili au anza na '~', na  njia ya  folda mama lazima iwepo. Ikiwa njia ya folda ipo, itatumika; ikiwa haipo, itaundwa na maandishi rahisi-rsa yatasanidiwa na kuwekwa ndani yake wakati Tunnelblick inazinduliwa. </p> <p> Kwa habari juu ya kutumia rahisi-rsa, ona <a href = \"https: / /openvpn.net/index.php/open-source/documentation/howto.html#pki\"> Kuanzisha Mamlaka ya Cheti chako (CA) na kutoa vyeti na funguo za seva ya OpenVPN na wateja wengi </a> [openvpn. net]. </p> <p> Kwa maelezo juu ya kufanya Tunnelblick  kuwa mahsusi kwa rahisi-rsa, tazama faili la KUSOMA liliyopo kwenye folda. </p>";
+
 /* Checkbox text */
 "Check for IP address changes" = "Angalia mabadiliko ya Anwani ya Itifaki ya Inteneti";
 
+/* Toolbar text for 'Lock' icon
+   Toolbar text for 'Lock' item */
+"Enter admin mode" = "Ingiza hali ya Msimamizi";
+
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Dr. Joseph Mbowe";
+
+/* Credit description */
+"Tunnelblick icon" = "Ikoni ya Tunnelblick";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Logia";

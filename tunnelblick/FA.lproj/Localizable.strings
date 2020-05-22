@@ -357,9 +357,6 @@
 "Quit Tunnelblick" = "بستن Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "تغییر اسم پیکربندی…";
-
-/* Menu Item */
 "Revert Configuration..." = "بازگرداندن پیکربندی…";
 
 /* Menu Item */
@@ -646,9 +643,6 @@
 
 /* Window title */
 "Log" = "گزارش‌ها";
-
-/* Window title */
-"Name Required" = "نام مورد نیاز است";
 
 /* Window title */
 "Name not allowed" = "نام مجاز نیست";
@@ -1032,9 +1026,6 @@
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "پیکربندی '%1$@' ('%2$@') رد خواهد شد زیرا نام آن دارای حروف غیر مجاز است.\nاین حروف غیرمجار هستند: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "پیکربندی '%@' در حال حاضر وجود دارد.";
-
-/* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "پیکربندی '%@' شامل یک یا چند کد است که ممکن است اشکالاتی ایجاد کند اگر شما تنظیمات را جایگزین یا حذف کنید زمانی که اتصال برقرار است.\n\nآیا همچنان میخواهید تنظیمات را جایگزین کنید؟";
 
 /* Window text */
@@ -1220,9 +1211,6 @@
 /* Window text */
 "Installation finished successfully." = "نصب با موفقیت پایان یافت.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "در حال نصب و امن کردن Tunnelblick %@…";
-
 /* Window text */
 "Installing configurations is not allowed" = "نصب پیکربندی مجاز نیست";
 
@@ -1392,12 +1380,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "مسیر '%1$@' دارای حروف غیرمجاز است.\n\nحروف غیر مجاز عبارتند از: '%2$s'\n\n";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "لطفا نام را وارد نمایید و کلید \"تایید\" را فشار دهید، در غیر اینصورت کلید \"انصراف\" را فشار دهید.\n\n";
-
-/* Window text */
-"Please enter a new name for '%@'." = "لطفا نام جدیدی برای '%@' وارد نمایید.";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "لطفا علامت رمز \"%@\" را وارد نمایید، سپس کلید \"تایید\" را فشار دهید";
 
 /* Window text */
@@ -1415,9 +1397,6 @@
 /* Window text */
 "Search domain:" = "جستجوی دامنه:";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "ایمن سازی Tunnelblick %@…";
-
 /* Window text */
 "Select a target user for each user whose setup data you wish to import." = "برای هر کاربری که داده های تنظیمات آن را می‌خواهید وارد کنید، یک کاربر هدف انتخاب کنید.";
 
@@ -1429,9 +1408,6 @@
 
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "رونوشت کردن %@ ار قلم انداخته شد زیرا فایلی با همان نام و محتوا قبلا رونوشت شده است.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "آغاز کردن unnelblick %@…";
 
 /* Window text */
 "Startup window:" = "پنجره آغازین:";
@@ -1456,9 +1432,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "با تشکر از کمک مالی شما به Tunnelblick";
-
-/* Window text */
-"That name is being used.\n\n" = "این نام استفاده شده است.\n\n";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "گزینه '%@' OpenVPN هنگام استفاده از Tunnelblick مجاز نیست.";
@@ -1554,9 +1527,6 @@
 "There is not an OpenVPN configuration file in '%@'" = "هیچ پیکربندی OpenVPN در فایل '%@' وجود ندارد";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "مشکلی در راه حذف یک یا چند پیکربندی بوجود آمد. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
-
-/* Window text */
 "There was a problem getting the list of the DNS servers." = "در دریافت لیست سرور‌های DNS مشکلی وجود داشت.";
 
 /* Window text */
@@ -1599,22 +1569,10 @@
 "Too many configuration files in '%@'" = "تعداد زیادی فایل پیکربندی در '%@'";
 
 /* Window text */
-"Too many duplicate configurations already exist." = "تعداد زیادی پیکربندی تکراری وجود دارد.";
-
-/* Window text */
 "Translation by" = "ترجمه شده توسط";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "تلاش برای بستن همه پردازه های OpenVPN…";
-
-/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ با موفقیت امن شد.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ آماده است.";
-
-/* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "حالت مدیر Tunnelblick\n\nاجازه موقت تغییراتی که نیاز به گذرواژه مدیر دارند.\n\nاین جلسه کاری بعد از پنج دقیقه و یا یعد از بستن پنجره 'جزییات VPN' پایان خواهد یافت.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "اینترانت مورد استفاده ی Tunnelblick:";
@@ -1630,9 +1588,6 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick به دلیل ایراد در پیکربندی اجرا نشد. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
-
-/* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick توانست پیکربندی '%@' به طور کامل حذف نماید. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick نتوانست پیکربندی '%@' را رونوشت نماید. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
@@ -1668,9 +1623,6 @@
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick نتوانست پیکربندی '%@' را جایگزین نماید. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
 
 /* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick نتوانست پیکربندی '%@' را حذف نماید. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
-
-/* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick با پیکربندی های %1$lu دچار مشکل شد:\n\n%2$@%3$@%4$@%5$@%6$@";
 
 /* Window text */
@@ -1699,15 +1651,6 @@
 
 /* Window text */
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick برای مشترک سازی پیکربندی '%@' نیاز به اجازه دارد.";
-
-/* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick برای حذف پیکربندی های %ld نیاز به اجازه دارد.\n\nحذف پیکربندی ها دایمی خواهد بود و قایل بازگردانی نیست. همه تنطیمات مرتبط با پیکربندی هم به طور دایمی حذف خواهند شد.";
-
-/* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick برای حذف پیکربندی '%@' نیاز به اجازه دارد.\n\nحذف پیکربندی دایمی خواهد بود و قایل بازگردانی نیست. همه تنطیمات مرتبط با پیکربندی هم به طور دایمی حذف خواهند شد.";
-
-/* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick برای تغییر نام پیکربندی '%1$@' به '%2$@' نیاز به اجازه دارد.";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick نیاز به تغییر تنظیمی دارد که فقط توسط مدیر رایانه قابل تغییر است.";
@@ -1860,15 +1803,6 @@
 "Warning: '%@' is already a named credential." = "هشدار: '%@' یک اعتبار نامه نام دار می باشد.";
 
 /* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "هشدار: یک یا چند تنظیم نکثیر نشدند. برای جزییات بیشتر به میزفرمان گزارشات مراجعه فرمایید.";
-
-/* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "هشدار: نام یک یا چند تنظیم تغییر نکرد. برای جزییات بیشتر به میزفرمان گزارشات مراجعه فرمایید.";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
-"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "هشدار: این وی پی ان در آینده نمی تواند ارتباط برقرار کند.\n\nفایل پیکربندی OpenVPN برای '%1$@' دارای این گزینه ها می باشد:\n\n%2$@\nشما باید پیکربندی را ویرایش نمایید تا بتواند در نسخه های بروز OpenVPN قایل استفاده شود.\n\nTunnelblick از OpenVPN %3$@ برای ارتباط این پیکربندی استفاده خواهد کرد.\n\nبا این حال شما قادر به ارتباط با این وی پی ان در نسخه های آینده Tunnelblick که پذیرای این گزینه های OpenVPN نباشند، نخواهید بود.";
-
-/* Window text */
 "Warnings:" = "هشدارها:";
 
 /* Window text */
@@ -1894,15 +1828,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "شما قادر به خصوصی و یا مشترک ساختن پیکربندی '%@' نیستید زیرا این پیکربندی از نوع ویرایش پذیر می باشد.\n\nتوجه داشته باشید که پیکربندی ویرایش پذیر وی پی ان در Tunnelblick قابل خصوصی و مشترک سازی نمی باشد; فقط تنظیمات درون آن را می توان خصوصی و یا مشترک کرد.";
-
-/* Window text */
-"You cannot rename a Deployed configuration." = "شما نمی توانید نام پیکرندی در حال اجرا را تغییر دهید.";
-
-/* Window text */
-"You cannot rename a configuration unless it is disconnected." = "شما تا زمان قطع شدن یک پیکربندی نمی توانید نام آنرا تغییر دهید.";
-
-/* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "شما نمی توایند نام یک پیکربندی که برای اجرا در حین راه اندازی رایانه تعیین شده است، را تغییر دهید.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "چندین پیکربندی برای OpenVPN موجود است ولی نه برای وی پی ان Tunnelblick.\n\nپیکربندی های OpenVPN برای استفاده، باید به پیکربندی های وی پی ان Tunnelblick تبدیل شوند.\n\n";
@@ -2012,9 +1937,6 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>در صورت انتخاب</strong>، همه پیکربندی ها از یک نام کاربری و گذرواژه و یا کلید خصوصی استفاده خواهند نمود.</p>\n";
 
-/* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "مد مدیر %@ باقی مانده";
-
 /* Credit description */
 "Afrikaans translation" = "ترجمه آفریقایی";
 
@@ -2023,9 +1945,6 @@
 
 /* Credit description */
 "Arabic translation" = "ترجمه عربی";
-
-/* Toolbar text for 'Lock' item */
-"Authenticating..." = "در حال تأیید اعتبار…";
 
 /* Credit description */
 "Azerbaijani translation" = "ترجمه آذربایجانی";

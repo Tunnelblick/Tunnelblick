@@ -351,9 +351,6 @@
 "Quit Tunnelblick" = "Thoát Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Thay đổi tên cấu hình…";
-
-/* Menu Item */
 "Revert Configuration..." = "Khôi phục lại cấu hình về trạng thái ban đầu";
 
 /* Menu Item */
@@ -643,9 +640,6 @@
 
 /* Window title */
 "Log" = "Log";
-
-/* Window title */
-"Name Required" = "Yêu cầu phải nhập tên";
 
 /* Window title */
 "Name not allowed" = "Tên không được phép";
@@ -1053,9 +1047,6 @@
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Cấu hình cho '%1$@' ('%2$@') sẽ bị bỏ qua vì tên của nó có chứa những ký tự không hợp lệ.\n\nCác ký tự không hợp lệ: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Cấu hình '%@' đã có.";
-
-/* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Cấu hình '%@' có một hoặc nhiều scripts có thể gây vấn đề nếu thay thế hoặc gỡ bỏ cài đặt trong khi đang kết nối.\n\nBạn có muốn gỡ bỏ cấu hình không?";
 
 /* Window text */
@@ -1244,9 +1235,6 @@
 /* Window text */
 "Installation finished successfully." = "Cài đặt kết thúc thành công.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Đang cài đặt và bảo mật Tunnelblick %@…";
-
 /* Window text */
 "Installing configurations is not allowed" = "Cài đặt các cấu hình không hợp lệ";
 
@@ -1410,12 +1398,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Đường dẫn '%1$@' có chứa những ký tự không hợp lệ.\n\nCác ký tự không hợp lệ: '%2$s'\n\n";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Vui lòng nhập một tên và nhấn \"OK\" hay nhấn \"Cancel\".\n\n";
-
-/* Window text */
-"Please enter a new name for '%@'." = "Vui lòng nhập một tên mới cho '%@'.";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Vui lòng chèn mã khoá \"%@\", và sau đó nhấn \"OK\"";
 
 /* Window text */
@@ -1433,9 +1415,6 @@
 /* Window text */
 "Search domain:" = "Tìm kiếm tên miền:";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Đang bảo vệ Tunnelblick %@…";
-
 /* Window text */
 "Set DNS/WINS:" = "Đặt DNS/WINS:";
 
@@ -1444,9 +1423,6 @@
 
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Bỏ qua việc sao chép %@ bởi vì có một tập tin có cùng tên và nội dung đã được sao chép.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Đang khởi chạy Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Cửa sổ khởi động:";
@@ -1471,9 +1447,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Cảm ơn về khoản tặng Tunnelblick của bạn";
-
-/* Window text */
-"That name is being used.\n\n" = "Tên này đã được sử dụng.\n\n";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Tuỳ chọn '%@' của OpenVPN không hợp lệ khi sử dụng Tunnelblick.";
@@ -1546,6 +1519,3 @@
 
 /* Window text */
 "Translation by" = "Bản dịch bởi";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ đã sẵn sàng.";

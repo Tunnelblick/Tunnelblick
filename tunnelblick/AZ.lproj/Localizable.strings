@@ -336,9 +336,6 @@
 "Quit Tunnelblick" = "Tunnelblickdən Çıx";
 
 /* Menu Item */
-"Rename Configuration..." = "Konfiqurasiyanın adını dəyişdir…";
-
-/* Menu Item */
 "Revert Configuration..." = "Konfiqurasiyanı döndərmək…";
 
 /* Menu Item */
@@ -610,9 +607,6 @@
 
 /* Window title */
 "Log" = "Loq";
-
-/* Window title */
-"Name Required" = "Ad tələb olunur";
 
 /* Window title */
 "Name not allowed" = "Bu ad istifadə oluna bilməz";
@@ -957,9 +951,6 @@
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "'%1$@' ('%2$@') konfiqurasiyası nəzərə alınmayacaq, çünki onun adında olan simvolları istifadə etmək icazəsizdir.\n\nİcazəsiz simvollar: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "%@ konfiqurasiyası artıq mövcuddur.";
-
-/* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "%@ konfiqurasiyası bir və ya daha artıq skriptdən ibarətdir, hansı ki, Siz qoşulu olduqda konfiqurasiyaları silmək və ya əvəz etmək istədikdə problemlər yarada bilərlər.\n\nKonfiqurasiyanı əvəz etmək istərdiniz?";
 
 /* Window text */
@@ -1136,9 +1127,6 @@
 /* Window text */
 "Installation finished successfully." = "Quraşdırma uğurlu keçdi.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Tunnelblick %@ quraşdırılır və təhlükəsizliyi təmin olunur...";
-
 /* Window text */
 "Installing configurations is not allowed" = "konfiqurasiyaların quraşdırılması icazəli deyil";
 
@@ -1272,12 +1260,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "%1$@ keçiddə icazəsiz simvollar vardır.\n\nİcazəsiz simvollar: %2$s\n\n";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Lütfən ad daxil edib \"OK\" və ya \"Ləğv et\" düyməsini basın.\n\n";
-
-/* Window text */
-"Please enter a new name for '%@'." = "Lütfən %@ üçün yeni ad daxil edin.";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Lütfən %@ tokeni daxil edin və sonra \"OK\" düyməsini basın";
 
 /* Window text */
@@ -1295,9 +1277,6 @@
 /* Window text */
 "Search domain:" = "Domeni axtar:";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "%@ Tunnelblickin təhlükəsizliyi təmin olunur...";
-
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS-i quraşdır:";
 
@@ -1306,9 +1285,6 @@
 
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "%@ surətinin çıxarılması buraxıldı, çünki belə adlı fayl və məzmun artıq köçürülmüşdü.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Tunnelblick %@ başlayır...";
 
 /* Window text */
 "Startup window:" = "Başlama pəncərəsi:";
@@ -1333,9 +1309,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Tunnelblick-ə verdiyiniz ianəyə görə təşəkkürlər";
-
-/* Window text */
-"That name is being used.\n\n" = "Bu ad istifadə olunur.\n\n";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "%@ OpenVPN seçimi Tunnelblicki istifadə etdikdə icazəli deyil.";
@@ -1419,9 +1392,6 @@
 "There is not an OpenVPN configuration file in '%@'" = "Bir OpenVPN konfiqurasiya faylı burada yoxdur: '%@'";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "Bir və ya bəzi konfiqurasiyaların silinməsi ilə bağlı bir problem var idi. Təfərrüatlar üçün konsol jurnalına baxın.";
-
-/* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "OpenVPN konfiqurasiya ilə bir problem var idi. Təfərrüatlar üçün konsol jurnalına baxın.";
 
 /* Window text */
@@ -1440,22 +1410,13 @@
 "Too many configuration files in '%@'" = "%@ içində həddindən artıq konfiqurasiya faylları vardır";
 
 /* Window text */
-"Too many duplicate configurations already exist." = "Həddindən artıq çox dublikat konfiqurasiyalar mövcuddur.";
-
-/* Window text */
 "Translation by" = "Tərcüməçilər";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ istifadəyə hazırdır.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick'in internet istifadəsi:";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick daxil olmaqdan sonra avtomatik başlamaq üçün konfiqurasiya edilə bilməz.\n\nTəfərrüatlar üçün konsol jurnalına baxın.";
-
-/* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick tamamilə '%@' konfiqurasiyanı silə bilmədi. Təfərrüatlar üçün konsol jurnalına baxın.";
 
 /* Window text */
 "Tunnelblick is based on %@." = "Tunnelblick %@ əsaslanır.";
@@ -1534,9 +1495,6 @@
 
 /* Credit description */
 "Arabic translation" = "Ərəb tərcüməsi";
-
-/* Toolbar text for 'Lock' item */
-"Authenticating..." = "Autentikasiya…";
 
 /* Credit description */
 "Azerbaijani translation" = "Azərbaycan tərcüməsi";

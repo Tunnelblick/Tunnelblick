@@ -357,9 +357,6 @@
 "Quit Tunnelblick" = "Afsluiten Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Configuratie hernoemen…";
-
-/* Menu Item */
 "Revert Configuration..." = "Draai configuratie terug…";
 
 /* Menu Item */
@@ -655,9 +652,6 @@
 
 /* Window title */
 "Log" = "Log";
-
-/* Window title */
-"Name Required" = "Naam verplicht";
 
 /* Window title */
 "Name not allowed" = "Naam niet toegestaan";
@@ -1083,9 +1077,6 @@
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuratie '%1$@' ('%2$@') zal genegeerd worden omdat de naam karakters bevat die niet zijn toegestaan.\n\nKarakters die niet zijn toegestaan: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Configuratie '%@' bestaat al.";
-
-/* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuratie ' %@' bevat een of meer scripts die mogelijk problemen kunnen veroorzaken als u de configuratie gaat vervangen of verwijderen, terwijl deze is verbonden. \n\nWilt u de configuratie vervangen?";
 
 /* Window text */
@@ -1274,9 +1265,6 @@
 /* Window text */
 "Installation finished successfully." = "Installatie succesvol afgerond.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Tunnelblick %@ installeren en beveiligen…";
-
 /* Window text */
 "Installing configurations is not allowed" = "Installeren van configuraties is niet toegestaan";
 
@@ -1455,12 +1443,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Pad ' %1$@ \"bevat tekens die niet zijn toegestaan.  \n\nDe tekens die niet worden toegestaan zijn: '%2$s'\n\n";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Voer a.u.b. een naam in en druk op \"OK\" of \"Annuleren\".\n\n";
-
-/* Window text */
-"Please enter a new name for '%@'." = "Voer a.u.b. een nieuwe naam in voor '%@'.";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Sluit a.u.b. het token \"%@\" aan en druk op \"OK\"";
 
 /* Window text */
@@ -1478,9 +1460,6 @@
 /* Window text */
 "Search domain:" = "Zoekdomein:";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Tunnelblick %@ beveiligen…";
-
 /* Window text */
 "Select a target user for each user whose setup data you wish to import." = "Selecteer een doelgebruiker voor elke gebruiker van wie de installatie data geïmporteerd moet worden.";
 
@@ -1492,9 +1471,6 @@
 
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "%@ is niet gekopieerd, omdat een bestand met die naam en inhoud al gekopieerd is.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Tunnelblick %@ starten…";
 
 /* Window text */
 "Startup window:" = "Opstart venster:";
@@ -1519,9 +1495,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Bedankt voor uw Tunnelblick donatie";
-
-/* Window text */
-"That name is being used.\n\n" = "Die naam is in gebruik.\n\n";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "De OpenVPN configuratie voor '%@' is gewijzigd sinds het voor het laatst werd beveiligd.\n\nWilt u de gewijzigde configuratie beveiligen of terugzetten naar de laatst beveiligde configuratie?\n\n";
@@ -1629,9 +1602,6 @@
 "There is not an OpenVPN configuration file in '%@'" = "Er is geen OpenVPN configuratiebestand in ' %@'";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "Er was een probleem tijdens het verwijderen van één of meer configuraties. Zie de console-log voor details.";
-
-/* Window text */
 "There was a problem getting the list of known public DNS servers." = "Er is een probleem opgetreden bij het ophalen van de lijst met bekende openbare DNS-servers.";
 
 /* Window text */
@@ -1680,22 +1650,10 @@
 "Too many configuration files in '%@'" = "Te veel configuratiebestanden in ' %@'";
 
 /* Window text */
-"Too many duplicate configurations already exist." = "Er zijn al te veel dubbele configuraties.";
-
-/* Window text */
 "Translation by" = "Vertaald door";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Proberen te beëindigen van alle OpenVPN processen…";
-
-/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ is successvol beveiligd.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ is gereed.";
-
-/* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick beheermodus\n\n Sta tijdelijk wijzigingen toe die beheerdersrechten vereisen.\n\n De sessie verloopt na vijf minuten of wanneer het 'VPN Details' venster wordt gesloten.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick internet gebruik:";
@@ -1711,9 +1669,6 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kon niet worden gestart wegens een probleem met de configuratie. Controleer a.u.b. het Console Log voor details.";
-
-/* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie ' %@' niet volledig deïnstalleren. Zie het logboek van de console voor meer informatie.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de '%@' configuratie niet kopiëren. Zie het console log voor details.";
@@ -1747,9 +1702,6 @@
 
 /* Window text */
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet vervangen. Zie het console log voor meer details.";
-
-/* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet verwijderen. Zie het console log voor details.";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Er is een fatale fout opgetreden in Tunnelblick.\n\nVoor hulp, gelieve een mail te sturen naar developers@tunnelblick.net met een beschrijving van wat Tunnelblick aan het doen was toen de fout \noptrad.\n\n";
@@ -1786,15 +1738,6 @@
 
 /* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Om alle Tunnelblick-gegevens te kunnen exporteren, heeft Tunnelblick toestemming van een beheerder nodig om de Tunnelblick-gegevens van andere gebruikers op deze computer te kunnen lezen.\n\nHoud er rekening mee dat:\n\n     1. Inloggegevens in de Keychain NIET geëxporteerd worden.\n\n     2. Het exporteren een tijdje kan duren.\n\n";
-
-/* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick heeft autorisatie nodig om %ld configuraties te verwijderen.\n\nHet verwijderen van configuraties is permanent en kan niet ongedaan worden gemaakt. Alle instellingen voor de configuraties worden ook permanent verwijderd.";
-
-/* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick heeft autorisatie nodig om de configuratie '%@' te verwijderen.\n\nHet verwijderen van een configuratie is permanent en kan niet ongedaan worden gemaakt. Alle instellingen voor de configuratie worden ook permanent verwijderd.";
-
-/* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick heeft autorisatie nodig om de '%1$@' configuratie te hernoemen naar '%2$@'.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick heeft toestemming van een beheerder nodig om de geïmporteerde gegevens te beveiligen.";
@@ -1949,17 +1892,8 @@
 /* Window text */
 "Warning: '%@' is already a named credential." = "Waarschuwing: '%@' is al een benoemd aanmeldgegeven.";
 
-/* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Waarschuwing: Een of meerdere instellingen konden niet worden gedupliceerd. Zie het Console Log voor details.";
-
-/* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Waarschuwing: Een of meerdere instellingen konden niet worden hernoemd. Zie het Console Log voor details.";
-
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Waarschuwing: de volgende configuraties, die moeten worden gestart wanneer de computer opstart, zijn niet verbonden:\n\n%@\n";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
-"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Waarschuwing: Deze VPN kan mogelijk in de toekomst geen verbinding maken.\n\nHet OpenVPN-configuratiebestand voor '%1$@' bevat deze OpenVPN-opties:\n\n%2$@\nU dient de configuratie bij te werken zodat het gebruikt kan worden met nieuwere versies van OpenVPN.\n\nTunnelblick zal OpenVPN %3$@ gebruiken om deze configuratie te verbinden.\n\nEchter, u zult niet in staat zijn om met dit VPN te verbinden met toekomstige versies van Tunnelblick welke geen versie van OpenVPN heeft bijgeleverd die deze opties accepteert.";
 
 /* Window text */
 "Warnings:" = "Waarschuwingen:";
@@ -1987,15 +1921,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Het is niet mogelijk om de '%@' configuratie privé of gedeeld te maken, omdat het een dynamische configuratie is.\n\nLet op dat een dynamische Tunnelblick VPN configuratie niet privé of gedeeld gemaakt kan worden; alleen de configuraties binnen deze dynamische configuratie kunnen privé of gedeeld gemaakt worden.";
-
-/* Window text */
-"You cannot rename a Deployed configuration." = "Het is niet toegestaan een reeds gebruikte configuratie te hernoemen.";
-
-/* Window text */
-"You cannot rename a configuration unless it is disconnected." = "U kunt een instelling enkel hernoemen wanneer deze niet verbonden is.";
-
-/* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "Het is niet toegestaan een configuratie te hernoemen indien deze is ingesteld om te starten wanneer de computer start.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "U heeft OpenVPN configuraties,  maar u heeft geen Tunnelblick VPN configuraties.  \n\nDe OpenVPN configuraties moeten worden omgezet in Tunnelblick VPN configuraties als u ze wilt gebruiken.\n\n";
@@ -2267,9 +2192,6 @@
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick is er niet in geslaagd om een systeem-extensie, vereist om te verbinden met %1$@, te laden.</p><p>%2$@</p>";
 
-/* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "Beheer modus %@ resterend";
-
 /* Credit description */
 "Afrikaans translation" = "Afrikaanse vertaling";
 
@@ -2278,9 +2200,6 @@
 
 /* Credit description */
 "Arabic translation" = "Arabische vertaling";
-
-/* Toolbar text for 'Lock' item */
-"Authenticating..." = "Verifiëren…";
 
 /* Credit description */
 "Azerbaijani translation" = "Azerbeidzjaanse vertaling";

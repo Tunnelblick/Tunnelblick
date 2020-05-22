@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "安裝";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "保留兩者";
+
 /* Button */
 "Latest (%@)" = "最新 (%@)";
 
@@ -296,6 +299,13 @@
 /* Menu item */
 "Connect %@%@" = "連接 %@%@";
 
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "將設定檔複製到新的資料夾...";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "將設定檔複製到新的資料夾...";
+
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "刪除此設定檔儲存在鑰匙圈中的認證資訊…";
 
@@ -323,6 +333,13 @@
 /* Menu Item */
 "Make Configuration Shared..." = "將設定檔改為共享…";
 
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "將設定檔移動到新的資料夾...";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "將設定檔移動到新的資料夾...";
+
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "不記錄 OpenVPN 或 Tunnelblick VPN 的歷史";
 
@@ -339,7 +356,7 @@
 "OpenVPN level 11 - extremely verbose output" = "OpenVPN 11 級 —— 非常口語化的輸出";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPN 等級 4 —— 一般輸出";
+"OpenVPN level 3 - normal output" = "OpenVPN 等級 3—— 一般輸出";
 
 /* Menu Item */
 "OpenVPN level 4 - values for all options" = "OpenVPN 4 級 —— 輸出所有選項的值";
@@ -357,7 +374,7 @@
 "Quit Tunnelblick" = "結束 Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "重新命名設定檔...";
+"Rename Configuration" = "重新命名設定檔";
 
 /* Menu Item */
 "Revert Configuration..." = "復原設定檔...";
@@ -372,7 +389,7 @@
 "Suggestion or Bug Report..." = "建議或問題回報⋯⋯";
 
 /* Menu item */
-"VPN Details..." = "VPN 詳情⋯⋯";
+"VPN Details..." = "VPN 詳情⋯";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "允許更動手動設定的網路設定";
@@ -657,9 +674,6 @@
 "Log" = "記錄檔";
 
 /* Window title */
-"Name Required" = "名稱是必需的";
-
-/* Window title */
 "Name not allowed" = "名稱不被允許";
 
 /* Window title */
@@ -696,7 +710,7 @@
 "Sounds" = "音效";
 
 /* Window title */
-"System Requirements Not Met" = "未能達到系統要求";
+"System Requirements Not Met" = "未能滿足系統需求";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 設定錯誤";
@@ -948,6 +962,9 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "「%@」VPN 設定檔中的巢狀層級太深";
 
 /* Window text */
+"A configuration named '%@' already exists in this location.\nDo you want to replace it with the one you're moving or copying?" = "一個名稱為 '%@' 的設定檔在此路徑已存在。\n您是否要用您正在移動或複製的設定檔取代它？";
+
+/* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "需要密語 (私鑰) 或者使用者帳號密碼的設定檔無法在電腦啟動時進行連線。";
 
 /* Window text */
@@ -1009,6 +1026,9 @@
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "在嘗試回復至上一個安全被保護的 (陰影) 副本時發生錯誤。詳情請參見終端機紀錄檔。\n\n";
+
+/* Window text */
+"An error occurred. Please try again." = "發生錯誤，請再試一次。";
 
 /* Window text */
 "An error occurred. See the Console Log for details." = "發生了一個錯誤。詳情請參見控制台日誌。";
@@ -1081,9 +1101,6 @@
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "名為「%1$@」 (「%2$@」) 的設定檔因為含有不被允許的字符將被忽略。\n\n被禁止的字符：「%3$s」\n\n";
-
-/* Window text */
-"Configuration '%@' already exists." = "設定 '%@' 已經存在";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "設定 「%@」含有至少一個程式。如果你在已建立連線的時候取代或移除這個設定檔，有可能會導致問題。\n\n你確定要取代這個設定檔嗎？";
@@ -1277,8 +1294,8 @@
 /* Window text */
 "Installation finished successfully." = "安裝已經成功完成。";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "安裝並且安全配置Tunnelblick%@…";
+/* Window text */
+"Installing and securing Tunnelblick..." = "正在安裝並保護 Tunnelblick...";
 
 /* Window text */
 "Installing configurations is not allowed" = "禁止安裝設定";
@@ -1427,6 +1444,9 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "只有 Tunnelblick VPN 設定檔（.tblk）可以在電腦啟動時啟動。";
 
+/* Window text. The first and second '%@' will each be replaced by a version number such as '3.2'. The third '%@' will be replaced by the name of a configuration. The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"OpenVPN %@ will be used to connect this configuration instead of OpenVPN %@.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "此設定檔將以 OpenVPN %1$@ 連線，而非 OpenVPN %2$@。\n'%3$@' 的 OpenVPN 設定檔包含了以下 OpenVPN 選項：\n\n%4$@\n\n您應該更新設定檔，以使更新版本的 OpenVPN 可以使用此設定檔。";
+
 /* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
 "OpenVPN %@" = "OpenVPN %@";
 
@@ -1458,12 +1478,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "路徑「%1$@」包含不被允許的字元。\n\n不被允許的字元：「%2$s」\n\n";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "請輸入一個名稱，然後點擊 \"確認\" 或 \"取消\" 。\n\n";
-
-/* Window text */
-"Please enter a new name for '%@'." = "請輸入 '%@' 的新名稱。";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "請輸入 \"%@\" 的代號，再點擊 \"確定\"";
 
 /* Window text */
@@ -1481,8 +1495,8 @@
 /* Window text */
 "Search domain:" = "搜索域名：";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "正在對 Tunnelblick 進行安全配置%@…";
+/* Window text */
+"Securing Tunnelblick..." = "正在保護 Tunnelblick...";
 
 /* Window text */
 "Select a target user for each user whose setup data you wish to import." = "為每個使用者選擇一個要匯入設定檔的目標使用者。";
@@ -1496,8 +1510,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "略過複製%@，因為一個相同名稱及內容的檔案已被複製。";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "正在啟動 Tunnelblick %@…";
+/* Window text in the splash screen */
+"Starting Tunnelblick..." = "正在啟動 Tunnelblick...";
 
 /* Window text */
 "Startup window:" = "啟動視窗：";
@@ -1522,9 +1536,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "感謝你對 Tunnelblick 的捐助";
-
-/* Window text */
-"That name is being used.\n\n" = "此名稱已被使用。\n\n";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "%@ VPN 設定檔在上次設定保護後已被更改。\n\n您是否要替修改後的設定檔設定保護，或是還原至上一次受保護的設定檔？\n\n";
@@ -1632,9 +1643,6 @@
 "There is not an OpenVPN configuration file in '%@'" = "在 '%@' 中沒有 OpenVPN 的設定檔案。";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "刪除一個或多個設置不成功。詳情請參見控制台日誌。";
-
-/* Window text */
 "There was a problem getting the list of known public DNS servers." = "獲取已知的公用 DNS 伺服器列表時發生問題。";
 
 /* Window text */
@@ -1664,6 +1672,9 @@
 /* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "這個 VPN 需要你先回答設定問題，但對方還沒有提供該問題為何。";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"This VPN works now, but may not work in a future version of Tunnelblick.\n\nThe OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n%@\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "這個 VPN 目前可用，但可能在未來版本的 Tunnelblick 中無法使用。\n\n'%1$@' OpenVPN 設定檔需要被更新，以便更新版本的 OpenVPN 可以使用該設定檔。它包含了以下 OpenVPN 選項：\n\n%2$@\nTunnelblick 將使用 OpenVPN %3$@ 來連線至此設定檔。\n\n但是，您將無法在未來不包含可使用上述選項的 OpenVPN 版本的 Tunnelblick 中連線到此 VPN 。";
+
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "這台電腦的對外 IP 位址並未因為連接到 %1$@ 而改變。它仍然是 %2$@。\n\n這可能代表您的 VPN 並未設定正確。\n\n";
 
@@ -1683,22 +1694,10 @@
 "Too many configuration files in '%@'" = "在 '%@' 中有太多設定檔案了";
 
 /* Window text */
-"Too many duplicate configurations already exist." = "已有太多設定檔拷貝。";
-
-/* Window text */
 "Translation by" = "翻譯：";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "嘗試終止所有的 OpenVPN 程序⋯⋯";
-
-/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ 的安全配置已經完成.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ 己經就緒。";
-
-/* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick 管理模式\n\n 暫時允許需要電腦管理員准許的更動。。\n\n 連線將會在五分鐘後或「VPN 詳情」視窗關閉後過期。";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick 網路使用";
@@ -1714,9 +1713,6 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "由於設定出現問題 Tunnelblick 未能啟動。詳情請查看控制台日誌。";
-
-/* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法完全將 '%@' 設置移除。詳情請查看控制台日誌。";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法複製 '%@' 設定檔。詳情請參見控制台日誌。";
@@ -1752,9 +1748,6 @@
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法取代 '%@' 設定檔。詳情請參見控制台日誌。";
 
 /* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法移除 '%@' 設定檔。詳情請參見控制台日誌。";
-
-/* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick 遇到一個嚴重的錯誤。\n請 email 到 developers@tunnelblick.net 尋求幫助，並告訴我們錯誤發生時 Tunnelblick 正在做什麼。\n\n";
 
 /* Window text */
@@ -1764,6 +1757,9 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. 詳情請參見控制台日誌";
 
 /* Window text */
+"Tunnelblick has been secured." = "Tunnelblick 已被保護。";
+
+/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "因設定檔被移除 '%@' 將被設定為離線.";
 
 /* Window text */
@@ -1771,6 +1767,12 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick 正在運行中。在繼續進行前將會被關閉。";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick 已準備就緒。";
+
+/* Window text */
+"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick 需要授權以複製或移動設定檔。";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick 需要認證來複製「%@」設定檔。";
@@ -1789,15 +1791,6 @@
 
 /* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick 需要授權才能讀取並會出這臺電腦所有別的使用者所存的 Tunnelblick 資料。\n\n請留意：\n\n1. 存在 Keychain 當中的憑證「不會」被匯出。\n\n2. 匯出可能需要花很長一段時間。\n\n";
-
-/* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick 需要認證來移除 %ld 個設定檔。";
-
-/* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick 需要認證來移除「%@」設定檔。";
-
-/* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick 需要認證來把「%1$@」設定檔重新命名為「%2$@」。";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick 需要授權才能保護匯入的資料。";
@@ -1953,16 +1946,13 @@
 "Warning: '%@' is already a named credential." = "警告：以 '%@' 命名的認證訊息已經存在。";
 
 /* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "警告:  一個或者更多設定無法複製. 詳情請參見控制台日誌";
+"Warning: One or more settings could not be copied. See the Console Log for details." = "警告：一個或多個設定檔無法被複製。詳情請參見控制台日誌。";
 
 /* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "警告: 一個或者更多設定 無法重新明名. 詳情請參見控制台日誌";
+"Warning: One or more settings could not be duplicated. See the Console Log for details." = "警告：一個或多個設定檔無法重複。詳情請參見控制台日誌。";
 
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "警告：下列應該在電腦啟動時連線的設定檔並未連線：\n\n%@\n";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
-"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "警告：這個 VPN 未來可能無法連接。\n\n'%1$@' 的 OpenVPN 配置文件里有以下 OpenVPN 選項：\n\n%2$@\n你應該要修改配置以保證 OpenVPN 的先進版本能夠採用。\n\nTunnelblick 將使用 OpenVPN %3$@ 連接這個配置。\n\n不過，未來的 Tunnelblick 版本不一定包含一個能接受以上選項的 OpenVPN 版本。你將無法用這樣的 Tunnelblick 版本來連接這個 VPN。";
 
 /* Window text */
 "Warnings:" = "警告:";
@@ -1992,13 +1982,13 @@
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "無法將名為 「%@」的設定作為私密或共享的，因為它是一個可更新的設定檔。\n\n注意：可更新的 Tunnelblick VPN 設定檔，無法是私密或共享的。只有內部的設定檔能設為私密或共享。";
 
 /* Window text */
-"You cannot rename a Deployed configuration." = "你不能重新命名一個正在運行中的設定檔。";
+"You cannot rename or move a Deployed configuration." = "您不可以重新命名或移動已佈置的設定檔。";
 
 /* Window text */
-"You cannot rename a configuration unless it is disconnected." = "你不能重新命名設定檔，除非要中斷連線。";
+"You cannot rename or move a configuration unless it is disconnected." = "您不可以重新命名或移動正在連線中的設定檔。";
 
 /* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "你不能重新命名一個被設定會在電腦啟動時自動運行的設定檔。";
+"You cannot rename or move a configuration which is set to start when the computer starts." = "您不可以重新命名或移動被設定為電腦開機時會啟用的設定檔。";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "你有 OpenVPN 的設置文件但你並沒有任何 Tunnelblick VPN 的設置文件。\n\n假如你希望使用 OpenVPN 的設置文件，你必須把他們轉換成 Tunnelblick VPN 的設置文件。\n\n";
@@ -2130,6 +2120,9 @@
 
 /* HTML info for the 'On expected disconnect' button. */
 "<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>指定 VPN <em>故意</em>斷開連接的時候 Tunnelblick 要做什麼。</strong> (比如，點擊「斷開」選單選項或按鈕)。選項是：</p><ul><li><strong>什麼都不做</strong><br></li><li><strong>重置主要藉口</strong>: Tunnelblick 發送 'ipconfig down; ipconfig up' 命令給主要網絡接口以重置該藉口。這個選項有助於配置斷開後不完美地恢復網絡設置的情況。<br></li><li><strong>停止網絡訪問 (\"急停按鈕\")</strong>: Tunnelblick 關閉無線網絡，停用所有其他的網絡服務，來斷開所有網絡訪問（包括局部和互聯網）。這個選項有助保證，除了通過 VPN 以外沒有信息能夠從電腦透露出去。如果 Tunnelblick 已經停止了網絡訪問，菜單行裡的 Tunnelblick 圖標菜單中會出現一個命令，該命令能夠重新打開所有被停用的網絡服務。你也可以在系統選項的網絡選項中重新打開無線網絡或其他的網絡服務。<strong>在多於一個 VPN 同時連接的時候，這個選項可能不能正常工作。</strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>指定 Tunnelblick 應何時連線至 VPN 。</strong></p><p>\"當電腦啟動時\" 只能使用於鑰匙圈中不包含身份驗證資料（使用者名稱/密碼/密鑰）且不無參數使用 OpenVPN 'auth-user-pass' 選項的 \"共享\" 設定檔。</p>";
 
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
@@ -2264,14 +2257,20 @@
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 快取包含 DNS (網域名稱系統) 副本的資訊。</p>\n<p><strong>當勾選</strong>，DNS 快取將會在連線或中斷連線時清除。所有的 DNS 查詢將使用以 VPN 設定中指定的名稱伺服器。</p>\n<p><strong>當未勾選</strong>，DNS 快取將不會被清除。如果有網域名稱在 VPN 指定的名稱伺服器與 VPN 連線前的名稱伺服器快取衝突，這會造成一些問題。</p>";
 
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>Configuration '%@' is set to 'always load tun driver' and/or 'always load tap driver' when connecting.</p>\n<p>This may cause problems using the configuration on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>這個 VPN 目前可使用，但可能在未來版本的 macOS 中無法使用。</p>\n<p>'%@' 設定檔被設定為當連線時 '永遠載入 TUN 驅動程式' 且/或 '永遠載入 TAP 驅動程式'。</p>\n<p>這可能導致在未來版本的 macOS 中使用設定檔將出現問題。</p>\n<p>簡易修復的詳情請參照：<a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net]。</p>\n<p>&nbsp;</p>";
+
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It creates a 'tap' VPN connection.</p>\n<p>Such configurations may not work on a future version of macOS.</p>\n<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n" = "<p>這個 VPN 目前可使用，但可能在未來版本的 macOS 中無法使用。</p>\n<p>'%@' OpenVPN 設定檔需要更新。它建立了一個 'TAP' VPN 連線。</p>\n<p>此類設定檔在未來版本的 macOS 中可能無法使用。</p>\n<p>詳情請參照：<a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net]。</p>";
+
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It includes 'dev-node tun'.</p>\n<p>This is unnecessary and may cause problems connecting on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>這個 VPN 目前可使用，但可能在未來版本的 macOS 中無法使用。</p>\n<p>'%@' OpenVPN 設定檔需要更新。它包含了 'dev-node tun'。</p>\n<p>這是非必要的設定；此類設定檔在未來版本的 macOS 中可能無法使用。</p>\n<p>簡易修復的詳情請參照：<a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net]。</p>\n<p>&nbsp;</p>";
+
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick 包含了一個客製版的 'easy-rsa' ，它是一組由 OpenVPN 開發者所編寫用來建立和維護憑證和密鑰的命令列指令碼。</p><p>點擊此按鈕將啟動 macOS 的終端應用程式並將包含這些指令碼的目錄設置為工作目錄。</p><p>這組指令碼一般放置在 ~/Library/Application Support/Tunnelblick/easy-rsa 資料夾中。如果有設定 'easy-rsaPath'， Tunnelblick 會使用這個設定中的目錄尋找這些指令碼。'easy-rsaPath' 設置必須是絕對路徑或者以 '~' 開頭的路徑， 並且其母目錄必須存在。Tunnelblick 啟動時如果設定包含的路徑中的目錄已經存在，則會被直接使用；如果不存在，則會被創建並將 easy-rsa 指令碼安裝至該目錄。</p><p>關於 easy-rsa 的詳細資訊請參見 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">設置你的數位憑證認證機構 (CA) 並給 OpenVPN 伺服器和用戶端生成憑證和密鑰</a> [openvpn.net]。</p><p>關於 Tunnelblick 的自定義 easy-rsa 信息請參見資料夾中的README檔案。</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick 無法載入連線到 %1$@ 所需要的系統擴充程式。</p><p>%2$@</p>";
-
-/* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "管理模式剩餘 %@";
 
 /* Credit description */
 "Afrikaans translation" = "南非語翻譯";
@@ -2283,7 +2282,7 @@
 "Arabic translation" = "阿拉伯語翻譯";
 
 /* Toolbar text for 'Lock' item */
-"Authenticating..." = "正在驗證…";
+"Authorizing..." = "授權中...";
 
 /* Credit description */
 "Azerbaijani translation" = "阿塞拜疆語翻譯";
@@ -2401,7 +2400,7 @@
 "LANGUAGE_TRANSLATION" = "繁體中文翻譯";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Aming Lau，Pomin Wu 及 Andrew Ying";
+"LEAD_TRANSLATORS" = "Aming Lau，Pomin Wu, Andrew Ying 及Isaac Kwan";
 
 /* Credit description */
 "Latvian translation" = "拉脫維亞語翻譯";
@@ -2450,6 +2449,9 @@
 
 /* Credit description */
 "Spanish translation" = "西班牙語翻譯";
+
+/* Credit description */
+"Swahili (Tanzania) translation" = "史瓦希利語（坦尚尼亞）翻譯";
 
 /* Credit description */
 "Swedish translation" = "瑞典語翻譯";

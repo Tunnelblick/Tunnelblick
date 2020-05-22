@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "Inštalovať";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "Zachovať obidva";
+
 /* Button */
 "Latest (%@)" = "Najnovšia (%@)";
 
@@ -296,6 +299,13 @@
 /* Menu item */
 "Connect %@%@" = "Pripojiť %@%@";
 
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "Skopírovať konfiguráciu do nového adresára...";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "Skopírovať konfigurácie do nového adresára...";
+
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Odstrániť prístupové údaje konfigurácie z Kľúčenky…";
 
@@ -322,6 +332,13 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "Nastaviť konfiguráciu ako zdieľanú…";
+
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "Presunúť konfiguráciu do nového adresára...";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "Presunúť konfigurácie do nového adresára...";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "Žiadne logovanie OpenVPN alebo Tunnelblick VPN";
@@ -357,7 +374,7 @@
 "Quit Tunnelblick" = "Ukončiť Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Premenovať konfiguráciu…";
+"Rename Configuration" = "Premenovať konfiguráciu";
 
 /* Menu Item */
 "Revert Configuration..." = "Vrátiť zmeny konfigurácie…";
@@ -657,9 +674,6 @@
 "Log" = "Záznam";
 
 /* Window title */
-"Name Required" = "Názov je povinný";
-
-/* Window title */
 "Name not allowed" = "Nepovolený názov";
 
 /* Window title */
@@ -948,6 +962,9 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Konfigurácia VPN Tunnelblick je vnorená príliš hlboko v \"%@\"";
 
 /* Window text */
+"A configuration named '%@' already exists in this location.\nDo you want to replace it with the one you're moving or copying?" = "Konfigurácia menom '%@' už existuje.\nPrajete si túto nahradiť tou ktorú presúvate alebo kopírujete?";
+
+/* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Konfiguráciu, ktorá vyžaduje zadanie Passphrase (súkromný kľúč) alebo meno a heslo, nie je možné spustiť automaticky pri štarte počítača.";
 
 /* Window text */
@@ -1009,6 +1026,9 @@
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Pri pokuse o obnovenie bezpečnostnej kópie sa vyskytla chyba. Pre viac informácií si, prosím, prezrite Záznam konzoly.\n\n";
+
+/* Window text */
+"An error occurred. Please try again." = "Vyskytla sa chyba. Skúste znova.";
 
 /* Window text */
 "An error occurred. See the Console Log for details." = "Vyskytla sa chyba. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
@@ -1081,9 +1101,6 @@
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurácia %1$@ (%2$@) bude ignorovaná, nakoľko jej názov obsahuje nepovolené znaky.\n\nZnaky ktoré nie su povolené: %3$s\n\n";
-
-/* Window text */
-"Configuration '%@' already exists." = "Konfigurácia %@ už existuje.";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurácia \"%@\" obsahuje jeden alebo viac skriptov, ktoré môžu spôsobiť problémy v prípade ak  nahradite alebo odinštalujete konfiguráciu, zatiaľ čo je aktívne pripojená.  Prajete si nahradiť konfiguráciu?";
@@ -1277,8 +1294,8 @@
 /* Window text */
 "Installation finished successfully." = "Inštalácia prebehla úspešne.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Inštaluje a zabezpečuje sa Tunnelblick %@…";
+/* Window text */
+"Installing and securing Tunnelblick..." = "Prebieha inštalácia a zabezpečenie Tunnelblick...";
 
 /* Window text */
 "Installing configurations is not allowed" = "Inštalácia konfigurácií nie je povolená";
@@ -1427,6 +1444,9 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Pri štarte systému je možné spustiť len konfiguráciu Tunnelblick VPN (.tblk).";
 
+/* Window text. The first and second '%@' will each be replaced by a version number such as '3.2'. The third '%@' will be replaced by the name of a configuration. The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"OpenVPN %@ will be used to connect this configuration instead of OpenVPN %@.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "OpenVPN %1$@ konfigurácia bude použitá namiesto OpenVPN %2$@.\n\nKonfiguračný spbor OpenVPN pre '%3$@' obsahuje tieto OpenVPN nastavenia:\n\n%4$@\nKonfiguráciu je potrebné upraviť, aby ju bolo možné používať s novými verziami OpenVPN.";
+
 /* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
 "OpenVPN %@" = "OpenVPN %@";
 
@@ -1458,12 +1478,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Cesta \"%1$@\" obsahuje znaky, ktoré nie sú povolené.\n\nZnaky, ktoré nie sú povolené: \"%2$s\"  ";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Zadajte, prosím, meno a kliknite na \"OK\" alebo \"Zrušiť\".\n\n";
-
-/* Window text */
-"Please enter a new name for '%@'." = "Zadajte, prosím, nový názov pre '%@'.";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Vložte, prosím, token pre \"%@\" a kliknite na \"OK\"";
 
 /* Window text */
@@ -1481,8 +1495,8 @@
 /* Window text */
 "Search domain:" = "Doména vyhľadávania:";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Zabezpečuje sa Tunnelblick %@…";
+/* Window text */
+"Securing Tunnelblick..." = "Zabezpečuje sa Tunnelblick...";
 
 /* Window text */
 "Select a target user for each user whose setup data you wish to import." = "Priradte každému užívateľovi cieľového užívateľa ktorého nastavenia chcete importovať.";
@@ -1496,8 +1510,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Kopírovanie %@ zrušené, pretože súbor s rovnakým názvom a obsah už bol skopírovaný.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Spúšťa sa Tunnelblick %@…";
+/* Window text in the splash screen */
+"Starting Tunnelblick..." = "Spúšťa sa Tunnelblick...";
 
 /* Window text */
 "Startup window:" = "Úvodné okno:";
@@ -1522,9 +1536,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Ďakujeme za dar pre Tunnelblick";
-
-/* Window text */
-"That name is being used.\n\n" = "Názov sa používa.\n\n";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "VPN konfiguračný súbor pre '%@' bol zmenený od posledného zabezpečenia.\n\nPrajete si zabezpečiť modifikovanú konfiguráciu alebo vrátiť na poslednú zabezpečenú konfiguráciu?\n\n";
@@ -1632,9 +1643,6 @@
 "There is not an OpenVPN configuration file in '%@'" = "Neexistuje OpenVPN konfiguračný súbor v \"%@\"";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "Vyskytol sa problém požas vymazávania jednej alebo viacerých konfigurácií. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
-
-/* Window text */
 "There was a problem getting the list of known public DNS servers." = "Vyskytol sa problém pri získavaní zoznamu známych verejných DNS serverov.";
 
 /* Window text */
@@ -1664,6 +1672,9 @@
 /* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "Toto spojenie VPN vyžaduje Vašu odpoveď na otázku, ktorú ale neposkytlo.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"This VPN works now, but may not work in a future version of Tunnelblick.\n\nThe OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n%@\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Táto konfigurácia VPN pracuje správne, ale je možné že nebude pracovať správne v budúcich verziách Tunnelblick.\n\nKonfiguráciu pre  '%1$@'  je potrebné upraviť, aby ju bolo možné používať s novými verziami OpenVPN. Obsahuje tieto OpenVPN nastavenia:\n\n%2$@\nTunnelblick použíje OpenVPN %3$@ na pripojenie tejto konfigurácie.\n\nV budúcnosti nebude možné vytvoriť pripojenie VPN verziou Tunnelblick ktorá neobsahuje OpenVPN ktoré akceptuje tieto nastavenia.";
+
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Verejná IP adresa tohto počítača sa po pripojení k %1$@ nezmenila. IP adresa počítača je stále %2$@.\n\nToto môže znamenať, že Vaša VPN nie je správne nastavená.\n\n";
 
@@ -1683,22 +1694,10 @@
 "Too many configuration files in '%@'" = "Priveľa konfiguračných súborov v \"%@\"";
 
 /* Window text */
-"Too many duplicate configurations already exist." = "Existuje príliš veľa duplikátov konfigurácie.";
-
-/* Window text */
 "Translation by" = "Preložil";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Pokúšam sa ukončiť všetky OpenVPN procesy…";
-
-/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ bol úspešne zabezpečený.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ je pripravený.";
-
-/* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Režim správcu Tunnelblick\n\nDočasne umožňuje vykonať zmeny, ktoré vyžadujú prihlasovacie údaje správcu počítača.\n\nTento režim sa automaticky ukončí po piatich minútach alebo po zavretí okna 'Nastavenie VPN'.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick využitie Internetu:";
@@ -1714,9 +1713,6 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Nebolo možné spustiť Tunnelblick kvôli problému s konfiguráciou. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
-
-/* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick nemohol úplne odinštalovať \"%@\" konfigurácie. Pozri Podrobnosti v denníku konzoly.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Aplikácii Tunnelblick sa nepodarilo skopírovať konfiguráciu '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
@@ -1752,9 +1748,6 @@
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick nedokázal nahradiť konfiguráciu '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Aplikácii Tunnelblick sa nepodarilo odinštalovať konfiguráciu '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
-
-/* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "V Tunnelblicku nastala závažná chyba.\n\nProsím napíšte správu o pomoc na developers@tunnelblick.net, s popisom čo sa s Tunnelblickem dialo v okamihu, kedy chyba nastala.\n\n";
 
 /* Window text */
@@ -1764,6 +1757,9 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Aplikácii Tunnelblick sa nepodarilo opraviť problémy s nastavením pre '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly";
 
 /* Window text */
+"Tunnelblick has been secured." = "Tunnelblick bol úspešne zabezpečený.";
+
+/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick odpojil '%@' z dôvodu odstránenia konfiguračného súboru spojenia.";
 
 /* Window text */
@@ -1771,6 +1767,12 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick je momentálne aktívny. Než bude možné pokračovať, dôjde k jeho vypnutiu.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick je pripravený.";
+
+/* Window text */
+"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick vyžaduje povolenie na kopírovanie alebo presun konfigurácie.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick vyžaduje povolenie na vytvorenie kópie %@ konfigurácie.";
@@ -1789,15 +1791,6 @@
 
 /* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick potrebuje autorizáciu pristupu k dátam ostatných uživateľov tohoto počítača, aby mohol vykonať export týchto dát.\n\nPoznámka:\n\n     1. Informácie uložené v Keychain NEBUDÚ exportované.\n\n     2. Je možné že tento export si vyžiada dlhšiu dobu spracovania.\n\n";
-
-/* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick vyžaduje povolenie na vymazanie %ld konfigurácií.";
-
-/* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick vyžaduje povolenie na vymazanie konfigurácie %@.";
-
-/* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick vyžaduje povolenie na zmenu pomenovania konfigurácie %1$@ na %2$@.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick potrebuje autorizáciu, aby zabezpečil importované dáta.";
@@ -1953,16 +1946,13 @@
 "Warning: '%@' is already a named credential." = "Upozornenie: '%@' už existuje medzi vytvorenými prístupovými údajmi.";
 
 /* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Upozornenie: Jedno alebo viacero nastavení nebolo možné duplikovať. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
+"Warning: One or more settings could not be copied. See the Console Log for details." = "Upozornienie: Jedno alebo viaceré nastavenia nebolo možné skopírovať. Podrobnosti zistíte vo výstupe konzoli.";
 
 /* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Upozornenie: Jedno alebo viacero nastavení nebolo možné premenovať. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
+"Warning: One or more settings could not be duplicated. See the Console Log for details." = "Upozornienie: Jedno alebo viaceré nastavenia nebolo možné duplikovať. Podrobnosti zistíte vo výstupe konzoli.";
 
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Varovanie: nasledujúce konfigurácie, ktoré by sa mali pripojiť pri štarte počítača, nie sú pripojené:\n\n%@\n";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
-"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Varovanie: Táto VPN sa v budúcnosti nemusí pripojiť.\n\nKonfiguračný súbor OpenVPN pre '%1$@' obsahuje tieto nastavenia OpenVPN:\n\n%2$@\nMali by ste upraviť konfiguráciu tak, aby bolo možné ju použiť s modernými verziami OpenVPN.\n\nK pripojeniu tejto konfigurácie Tunnelblick použije OpenVPN %3$@.\n\nAvšak, nebudete sa môcť pripojiť k tejto VPN s budúcimi verziami Tunnelblicku, ktoré nezahrňujú verziu OpenVPN podporujúcu tieto nastavenia.";
 
 /* Window text */
 "Warnings:" = "Upozornenia:";
@@ -1992,13 +1982,13 @@
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Nie je možné spraviť konfiguráciu '%@' súkromnou ani zdieľanou, pretože je označená ako \"aktualizovateľná\".\n\nJe potrebné dodať, že VPN konfigurácia Tunnelblick, ktorá je označená ako aktualizovateľná, sa nemôže stať súkromnou ani zdieľanou; vo vnútri takejto VPN konfigurácie však súkromné a zdieľané konfigurácie môžu byť.";
 
 /* Window text */
-"You cannot rename a Deployed configuration." = "Nie je možné premenovať aktuálne aplikovanú konfiguráciu.";
+"You cannot rename or move a Deployed configuration." = "Nie je možné premenovať alebo presunúť aktuálne aplikovanú konfiguráciu.";
 
 /* Window text */
-"You cannot rename a configuration unless it is disconnected." = "Nie je možné premenovať konfiguráciu, ak je pripojená.";
+"You cannot rename or move a configuration unless it is disconnected." = "Nie je možné premenovať alebo presunúť konfiguráciu, ak nie je odpojená.";
 
 /* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "Nie je možné prenemovať konfiguráciu, ktorá je určená k spusteniu pri štarte počítača.";
+"You cannot rename or move a configuration which is set to start when the computer starts." = "Nie je možné prenemovať alebo presunúť konfiguráciu, ktorá je určená k spusteniu pri štarte počítača.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Máte konfigurácie OpenVPN ale nemáte žiadne konfigurácie Tunnelblick VPN.\n\nPokiaľ tieto konfigurácie chcete použiť, musia byt prevedené do formátu Tunnelblick VPN konfigurácie.";
@@ -2130,6 +2120,9 @@
 
 /* HTML info for the 'On expected disconnect' button. */
 "<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Určuje ako sa má Tunnelblick správač v prípade ak sa VPN <em>očakávane</em> odpojí</strong> (napríklad ak zvolíte voľbu \"Odpojiť\" v menu). Dostupné voľby sú: Nerobiť nič</p><ul><li><strong></strong><br></li><li><strong>Resetovanie primárne sietového rozhranie</strong>: Tunnelblick resetuje primárne sieťové rozhranie vykonaním príkazov \"ipconfig down; ipconfig up\". Toto môže byť užitočné v prípade ak po odpojení zlihá správna konfigurácia sietových nastavení.<br></li><li><strong>Vypnúť sieťový prístup (\"Kill Switch\")</strong>: Tunnelblick vypne všetky prístupy do siete (lokálnej a internetovej) vypnutím Wi-Fi a zakázaním všetkých ostatných sieťových služieb. To pomôže zaistiť, aby nedošlo k žiadnemu úniku informácií v prípade ze VPN nie je akívne. Ak Tunnelblick zakázal prístup na sieť, príkaz na povolenie sietového pripojenia bude k dispozícii v ikone Tunnelblick na paneli s ponukami. Takysto môžete opätovne zapnúť Wi-Fi jeho aktivovaním, alebo opätovne zapnúť iné sieťové služby v Nastaveniach Systému: Sieť. <strong>Toto nastavenie nemusí fungovať správne pri viacerých VPN pripojený súčasne.</strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Určuje podmienky kedy má Tunnelblick pripojiť VPN.</strong></p><p>\"Pri štarte počítača\" je možné použiť len pre  \"Zdielané\" konfigurácie, ktorých meno, heslo alebo passphrase nie sú uložené v Keychain a nepoužívajú nastavenie OpenVPN 'auth-user-pass' bez parametra.</p>";
 
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
@@ -2264,14 +2257,20 @@
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Cache DNS obsahuje kópie záznamov DNS (Domain Name System) information.</p>\n<p><strong>Keď je zaškrtnuté</strong>, DNS cache bude vyprázdnená (vyčistená) po pripojení alebo odpojení. Všetky DNS požiadavky budú vykonané menným serverom určeným v nastavení VPN.</p>\n<p><strong>Keď nie je zaškrtnuté</strong>, DNS cache nebude vyprázdnená. To môže spôsobiť problémy v prípade konfliktov medzi menným serverom určeným v konfigurácií VPN a menným serverom z konfigurácie pred VPN - v prípade uloženia položiek serveru pred spustením VPN.</p>";
 
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>Configuration '%@' is set to 'always load tun driver' and/or 'always load tap driver' when connecting.</p>\n<p>This may cause problems using the configuration on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>Toto pripojenie VPN teraz funguje, ale je možné že nebude fungovat v budúcich verziách macOS.</p>\n<p>Konfigurácia '%@' obsahuje nastavenie 'vždy načítať tun ovládač' alebo 'vždy načítač tap ovládač' pri pripojení.</p>\n<p>Toto môže vyvolať problémy v budúcich verziách macOS.</p>\n<p>Oprava je jednoduchá: pozri <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] pre dalšie informácie.</p>\n<p>&nbsp;</p>";
+
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It creates a 'tap' VPN connection.</p>\n<p>Such configurations may not work on a future version of macOS.</p>\n<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n" = "<p>Toto pripojenie VPN teraz funguje, ale je možné že nebude fungovat v budúcich verziách macOS.</p>\n<p>Konfiguráčný súbor pre '%@' je potrebné upraviť. Vytvára spojenie VPN typu 'tap'.</p>\n<p>Tento typ konfigurácie môže vyvolať problémy v budúcich verziách macOS.</p>\n<p>Oprava je jednoduchá: pozri <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] pre dalšie informácie.</p>\n<p>&nbsp;</p>";
+
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It includes 'dev-node tun'.</p>\n<p>This is unnecessary and may cause problems connecting on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>Toto pripojenie VPN teraz funguje, ale je možné že nebude fungovat v budúcich verziách macOS.</p>\n<p>Konfiguráčný súbor pre '%@' je potrebné upraviť. Obsahuje voľbu 'dev-node tun'.</p>\n<p>Toto voľba nie je potrebná a môže vyvolať problémy v budúcich verziách macOS.</p>\n<p>Oprava je jednoduchá: pozri <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] pre dalšie informácie.</p>\n<p>&nbsp;</p>";
+
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick obsahuje upravenú verziu 'easy-rsa', ktorá je sadou skriptov príkazového riadku, napísaných vývojármi OpenVPN pre vytváranie a údržbu certifikátov a kľúčov.</p><p>Stlačením toho tlačítka sa spustí macOS Terminál s prednastaveným priečinkom, obsahujúcim tieto skripty.</p><p>Skripty sú bežne umiestnené v priečinku ~/Library/Application Support/Tunnelblick/easy-rsa. Predvoľba 'easy-rsaPath' môže obsahovať cestu k priečinku, ktorú bude Tunnelblick používať namiesto východiskovej. Cesta 'easy-rsaPath' musí byť úplný odkaz alebo cesta začínajúca '~', a nadradený priečinok tejto cesty musí existovať. Pokiaľ v danej ceste existuje priečinok, bude použitý; pokiaľ neexistuje, bude vytvorený a easy-rsa skripty budú doňho nainštalované pri spustení Tunnelblicku.</p><p>Pre informácie o používaní easy-rsa pozri <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Nastavenie vlastného Certifikátu autority (CA) a generovanie certifikátov a kľúčov pre OpenVPN server a viacero klientov</a> [openvpn.net].</p><p>Informácie o prispôsobení easy-rsa v Tunnelblick nájdete v README súbore umiestnenom v priečinku.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblicku sa nepodarilo nahrať systémové rozšírenie, ktoré je požadované na pripojenie k %1$@.</p><p>%2$@</p>";
-
-/* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "Režim správcu zostáva %@";
 
 /* Credit description */
 "Afrikaans translation" = "Afrikánsky preklad";
@@ -2283,7 +2282,7 @@
 "Arabic translation" = "Arabský preklad";
 
 /* Toolbar text for 'Lock' item */
-"Authenticating..." = "Prebieha autentifikácia…";
+"Authorizing..." = "Autorizuje sa";
 
 /* Credit description */
 "Azerbaijani translation" = "Azerbajdžanský preklad";
@@ -2450,6 +2449,9 @@
 
 /* Credit description */
 "Spanish translation" = "Španielsky preklad";
+
+/* Credit description */
+"Swahili (Tanzania) translation" = "Svahilský (Tanzánia) preklad";
 
 /* Credit description */
 "Swedish translation" = "Švédsky preklad";

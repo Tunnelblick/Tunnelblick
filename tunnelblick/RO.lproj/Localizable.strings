@@ -357,9 +357,6 @@
 "Quit Tunnelblick" = "Închide Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Redenumește configurația…";
-
-/* Menu Item */
 "Revert Configuration..." = "Restaurează configurația…";
 
 /* Menu Item */
@@ -519,7 +516,7 @@
 "CONNECTED" = "Conectat"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Se conectează"; // Please translate "Connecting"
+"CONNECTING" = "În curs de conectare"; // Please translate "Connecting"
 
 /* Connection status */
 "DISCONNECTING" = "Se deconectează"; // Please translate "Disconnecting"
@@ -655,9 +652,6 @@
 
 /* Window title */
 "Log" = "Jurnal";
-
-/* Window title */
-"Name Required" = "Nume necesar";
 
 /* Window title */
 "Name not allowed" = "Nume nepermis";
@@ -1083,9 +1077,6 @@
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configurarea %1$@ (%2$@) va fi ignorată, deoarece numele său conține caractere care nu sunt permise.\n\nCaracterele care nu sunt permise: %3$s\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Configurarea %@ există deja.";
-
-/* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configurarea %@ conține unul sau mai multe script-uri care pot provoca probleme dacă înlocuiți sau dezinstalați configurarea în timp ce acesta este conectat.\n\nDoriți să înlocuiți configurația?";
 
 /* Window text */
@@ -1277,8 +1268,8 @@
 /* Window text */
 "Installation finished successfully." = "Instalare terminată cu succes.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Instalare și securizare Tunnelblick %@…";
+/* Window text */
+"Installing and securing Tunnelblick..." = "Instalând și securizând Tunnelblick...";
 
 /* Window text */
 "Installing configurations is not allowed" = "Instalarea de configurații nu este permisă";
@@ -1458,12 +1449,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Calea %1$@ conține caractere care nu sunt permise.\nCaracterele care nu sunt permise: %2$s\n\n";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Vă rugăm să introduceți un nume și faceți clic pe \"OK\" sau pe \"Anulați\".\n\n";
-
-/* Window text */
-"Please enter a new name for '%@'." = "Vă rugăm să introduceți un nume nou pentru %@.";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Vă rugăm să introduceți token %@, apoi faceți clic pe \"OK\"";
 
 /* Window text */
@@ -1481,8 +1466,8 @@
 /* Window text */
 "Search domain:" = "Domenii de căutare:";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Securizare Tunnelblick %@…";
+/* Window text */
+"Securing Tunnelblick..." = "Securizând Tunnelblick...";
 
 /* Window text */
 "Select a target user for each user whose setup data you wish to import." = "Selecționează un utilizator destinatar pentru fiecare utilizator a cărui configurație vrei să imporți.";
@@ -1496,8 +1481,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Omit copierea %@ deoarece un fișier cu acest nume și conținutul a fost deja copiat.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Pornire Tunnelblick %@…";
+/* Window text in the splash screen */
+"Starting Tunnelblick..." = "Pornind Tunnelblick...";
 
 /* Window text */
 "Startup window:" = "Fereastră de pornire:";
@@ -1522,9 +1507,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Vă mulțumim pentru donația pentru Tunnelblick";
-
-/* Window text */
-"That name is being used.\n\n" = "Acel nume este deja în uz.\n\n";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Configurarea %@ VPN a fost modificată de când a fost securizată ultima dată.\n\nDorești să securizezi configurarea modificată sau să revii la ultima configurare securizată?\n\n";
@@ -1632,9 +1614,6 @@
 "There is not an OpenVPN configuration file in '%@'" = "Nu există un fișier de configurare OpenVPN în %@";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "A apărut o problemă la ștergerea uneia sau a mai multor configurații. Consultați Console Log pentru detalii.";
-
-/* Window text */
 "There was a problem getting the list of known public DNS servers." = "A fost o problemă cu obținerea listei de servere DNS publice cunoscute.";
 
 /* Window text */
@@ -1683,22 +1662,10 @@
 "Too many configuration files in '%@'" = "Prea multe fisiere de configurare in %@";
 
 /* Window text */
-"Too many duplicate configurations already exist." = "Există deja prea multe configurații duplicat.";
-
-/* Window text */
 "Translation by" = "Tradus de";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Se încearca închiderea tuturor proceselor OpenVPN…";
-
-/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ a fost securizat cu succes.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ este gata.";
-
-/* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Modul Administrator \nPermite temporar modificările care necesită autorizeazrea de către administrator. \nSesiunea de expiră după cinci minute sau când fereastra \"VPN Detalii\" este închisă.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Utilizare internet Tunnelblick:";
@@ -1714,9 +1681,6 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nu a putut fi lansat din cauza unei probleme cu configurația. Vă rugăm să examinați Console Log pentru detalii.";
-
-/* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick nu a putut dezinstala complet configurația %@. Consultați Console Log pentru detalii.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick nu a putut copia configurația %@. Consultați Console Log pentru detalii.";
@@ -1752,9 +1716,6 @@
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick nu a putut înlocui configurația %@. Consultați Console Log pentru detalii.";
 
 /* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick nu a putut dezinstala configurația %@. Consultați Console Log pentru detalii.";
-
-/* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick a întâmpinat o eroare fatală.\n\nTrimite un email la developers@tunnelblick.net pentru ajutor, cu o descriere a ce făcea Tunnelblick când a apărut eroarea.\n\n";
 
 /* Window text */
@@ -1764,6 +1725,9 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick nu a reușit să repare problemele cu preferințele pentru %@. Detalii sunt în Console Log";
 
 /* Window text */
+"Tunnelblick has been secured." = "Tunnelblick este securizat.";
+
+/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick a deconectat %@, deoarece fișierul de configurare a fost eliminat.";
 
 /* Window text */
@@ -1771,6 +1735,9 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick rulează. Acesta va fi oprit înainte de a continua.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick este gata.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick are nevoie de autorizație pentru a copia configurația %@.";
@@ -1789,15 +1756,6 @@
 
 /* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick are nevoie de autorizație să acceseze datele Tunnelblick aparținând altor utilizatori ai acestui computer pentru a exporta toate datele Tunnelblick.\n\nVă rugăm să rețineți:\n\n     1. Datele de autentificare salvate în Keychain NU vor fi exportate.\n\n     2. Exportul poate fi destul de lung.\n\n";
-
-/* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick are nevoie de autorizație pentru a elimina %ld configurații. \nÎnlăturarea configurațiilor este definitivă și nu poate fi anulată. Toate setările configurațiilor vor fi eliminate definitiv.";
-
-/* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick are nevoie de autorizație pentru a elimina configurația %@. \nÎnlăturarea configurațiilor este definitivă și nu poate fi anulată. Toate setările configurației vor fi eliminate definitiv.";
-
-/* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick are nevoie de autorizație pentru a redenumi configuratia %1$@ în %2$@.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick are nevoie de autorizație să securizeze datele importate.";
@@ -1952,17 +1910,8 @@
 /* Window text */
 "Warning: '%@' is already a named credential." = "Atenție: %@ este deja o acreditare denumită.";
 
-/* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Atenție: Una sau mai multe preferințe nu au putut fi duplicate. Consultați Console Log pentru detalii.";
-
-/* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Atenție: Una sau mai multe preferințe nu au putut fi redenumite. Consultați Console Log pentru detalii.";
-
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Atenție: Următoarele configurații, ce sunt conectate automat la pornirea sistemului, nu sunt conectate:\n\n%@\n";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
-"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Avertisment: Este posibil ca VPN-ul acesta să nu se conecteze în viitor.\n\nFișierul de configurare OpenVPN pentru '%1$@' conține aceste opțiuni OpenVPN:\n\n%2$@\n\nAr trebui să actualizați configurația astfel încât să poată fi utilizată cu versiunile moderne ale OpenVPN.\n\nTunnelblick va folosi OpenVPN %3$@ pentru a conecta această configurație.\n\nCu toate acestea, nu veți putea să vă conectați la această rețea VPN cu versiuni viitoare ale Tunnelblick care nu includ o versiune OpenVPN care acceptă aceste opțiuni.";
 
 /* Window text */
 "Warnings:" = "Alerte:";
@@ -1990,15 +1939,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Nu puteți face configurația %@ privată sau partajată, deoarece este o configurație actualizabilă. \n \n Rețineți că o configurație Tunnelblick VPN care este actualizabilă nu poate fi privată sau partajată; numai configurațiile din cadrul acesteia pot fi private sau partajate.";
-
-/* Window text */
-"You cannot rename a Deployed configuration." = "Nu puteți redenumi o configurație Distribuită.";
-
-/* Window text */
-"You cannot rename a configuration unless it is disconnected." = "Nu puteți redenumi o configurație cu excepția cazului în care este deconectat.";
-
-/* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "Nu puteți redenumi configurația deoarece este programată să înceapă la pornirea computerului.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Aveți configurații OpenVPN, dar nu aveți nici o configurație Tunnelblick VPN.\n\nConfigurațiile OpenVPN trebuie să fie convertite la configurații Tunnelblick VPN dacă doriți să le utilizați.\n\n";
@@ -2130,6 +2070,9 @@
 
 /* HTML info for the 'On expected disconnect' button. */
 "<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Specifică ce face Tunnelblick când rețeaua VPN se deconectează <em>conform așteptărilor</em></strong> (de exemplu, când e făcut clic pe butonul sau pe comanda din meniu \"Deconectare\"). Opțiunile sunt:</p><ul><li><strong>Nu face nimic</strong><br></li><li><strong>Resetează interfața primară</strong>: Tunnelblick resetează interfața primară de rețea executând comenzile 'ipconfig down; ipconfig up'. Acest lucru poate fi util când o configurație nu reușește să restaureze corect setările de rețea după o deconectare.<br></li><li><strong>Dezactivează accesul la rețea (\"Kill Switch\")</strong>: Tunnelblick taie toate conexiunile rețea (locale și Internet) dezactivând conexiunea Wi-Fi și toate celelalte servicii de rețea. Acest lucru poate fi util pentru a se asigura că nimic nu iese afară din computer în afara rețelei VPN. Dacă Tunnelblick are accesul la rețea dezactivat, o comandă care permite reactivarea accesului total va fi disponibilă la iconița Tunnelblick din bara de meniu. Conexiunea Wi-Fi poate fi restabilită și prin activarea ei, iar celelalte servicii rețea pot fi reactivate în Preferințele Sistem : Rețea. <strong>Această setare poate să nu funcționeze corect când mai multe rețele VPN sunt conectate în același timp.</strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Specifică când Tunnelblick trebuie să se conecteze pe VPN.</strong></p><p>\"Când computerul pornește\" poate fi folosit numai cu configurații \"Shared\" care nu necesită acreditări (username/password/passphrase) salvate în \"Keychain\" și care nu folosesc opțiunea OpenVPN 'auth-user-pass' fara un argument.</p>";
 
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
@@ -2270,9 +2213,6 @@
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick nu a putut să încarce o extensie sistem care e necesară pentru conectare la %1$@.</p><p>%2$@</p>";
 
-/* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "Mod de admin %@ rămas";
-
 /* Credit description */
 "Afrikaans translation" = "Traducere în limba Afrikaans";
 
@@ -2283,7 +2223,7 @@
 "Arabic translation" = "Traducere în limba Arabă";
 
 /* Toolbar text for 'Lock' item */
-"Authenticating..." = "În curs de autentificare…";
+"Authorizing..." = "Autorizând";
 
 /* Credit description */
 "Azerbaijani translation" = "Traducere în limba Azeră";
@@ -2450,6 +2390,9 @@
 
 /* Credit description */
 "Spanish translation" = "Traducere în limba Spaniolă";
+
+/* Credit description */
+"Swahili (Tanzania) translation" = "Translatare Swahili (Tanzania)";
 
 /* Credit description */
 "Swedish translation" = "Traducere în limba Suedeză";

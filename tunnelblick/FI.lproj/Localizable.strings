@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "Asenna";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "Säilytä molemmat";
+
 /* Button */
 "Latest (%@)" = "Viimeisin (%@)";
 
@@ -207,7 +210,7 @@
 "Reset Disabled Warnings" = "Nollaa käytöstä poistetut varoitukset";
 
 /* Button */
-"Reset primary interface" = "Nollaa ensisijainen verkkoliitäntä";
+"Reset primary interface" = "Nollaa ensisijainen verkko";
 
 /* Button */
 "Restart connection" = "Muodosta yhteys uudelleen";
@@ -257,6 +260,9 @@
 /* Button */
 "Standard icon" = "Standardi-ikoni";
 
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "Lopeta";
+
 /* Button */
 "Terminate All OpenVPN processes" = "Lopeta kaikki OpenVPN-prosessit";
 
@@ -296,6 +302,13 @@
 /* Menu item */
 "Connect %@%@" = "Yhdistä %@%@";
 
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "Kopioi asetukset uuteen hakemistoon...";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "Kopioi asetukset uuteen hakemistoon...";
+
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Poista konfiguraation käyttäjätunnukset Avainnipusta…";
 
@@ -322,6 +335,13 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "Jaa asetukset…";
+
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "Siirrä asetukset uuteen hakemistoon...";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "Siirrä asetukset uuteen hakemistoon...";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "Ei OpenVPN- tai Tunnelblick VPN-lokikirjoitusta";
@@ -357,7 +377,7 @@
 "Quit Tunnelblick" = "Lopeta Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Nimeä asetukset uudelleen…";
+"Rename Configuration" = "Nimeä asetukset";
 
 /* Menu Item */
 "Revert Configuration..." = "Peruuta konfiguraatio…";
@@ -590,6 +610,9 @@
 /* Window title */
 "Add a Configuration" = "Lisää konfiguraatio";
 
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "Lisäasetukset%@";
+
 /* Window title */
 "Alert sounds" = "Huomioäänet";
 
@@ -655,9 +678,6 @@
 
 /* Window title */
 "Log" = "Loki";
-
-/* Window title */
-"Name Required" = "Nimi vaaditaan";
 
 /* Window title */
 "Name not allowed" = "Nimi ei ole sallittu";
@@ -893,6 +913,9 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' on jo olemassa Työpöydällä.\n\nHaluatko korvata sen?";
 
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = "'%@' on jo olemassa.";
+
 /* Window text. %@ is the name of a file. */
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "Tiedosto '%@' vaikuttaa olevan UTF-16-enkoodattu. Kaikki OpenVPN:ään liittyvät tiedostot tulee olla joko normaaleja teksti- tai UTF-8 -tiedostoja";
 
@@ -946,6 +969,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblickin VPN-konfiguraatio on upotettu liian syvällte kohteeseen '%@'";
+
+/* Window text */
+"A configuration named '%@' already exists in this location.\nDo you want to replace it with the one you're moving or copying?" = "Asetukset nimellä '%@' on jo tässä paikassa.\nHaluatko korvata sen tällä jota olet siirtämässä tai kopioimassa?";
 
 /* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Konfiguraatiota, joka tarvitsee salasanan (yksityinen avain) tai käyttäjätunnuksen ja salasanan, ei voida käynnistää automaattisesti tietokoneen käynnistyksen yhteydessä.";
@@ -1009,6 +1035,9 @@
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Virhe tapahtui, kun yritettiin palauttaa varmistettu (varjo)kopio. Katso päätelokista lisätietoja.\n\n";
+
+/* Window text */
+"An error occurred. Please try again." = "Tapahtui virhe. Yritä uudelleen.";
 
 /* Window text */
 "An error occurred. See the Console Log for details." = "Tapahtui virhe. Katso lisätietoja konsoli logista.";
@@ -1081,9 +1110,6 @@
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguraatio '%1$@' ('%2$@') jätetään huomioimatta, koska sen nimi sisältää merkkejä, jotka eivät ole sallittuja.\n\nMerkit, jotka eivät ole sallittuja: '%3$s'\n\n";
-
-/* Window text */
-"Configuration '%@' already exists." = "Konfiguraatio '%@' on jo olemassa.";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfiguraatio '%@' sisältää yhden tai useamman skriptin, joka voi aiheuttaa ongelmia, jos korvaat tai poistat konfiguraation, kun yhteys on muodostettuna.\n\nHaluatko korvata konfiguraation?";
@@ -1277,8 +1303,8 @@
 /* Window text */
 "Installation finished successfully." = "Asennus onnistui.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Asentaa ja suojaa Tunnelblickiä %@…";
+/* Window text */
+"Installing and securing Tunnelblick..." = "Asenna ja suojaa Tunnelblick...";
 
 /* Window text */
 "Installing configurations is not allowed" = "Konfiguraatioiden asentaminen ei ole sallittua";
@@ -1427,6 +1453,9 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Vain Tunnelblick VPN-yhteys (.tblk) voi käynnistyä, kun tietokone käynnistyy.";
 
+/* Window text. The first and second '%@' will each be replaced by a version number such as '3.2'. The third '%@' will be replaced by the name of a configuration. The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"OpenVPN %@ will be used to connect this configuration instead of OpenVPN %@.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "OpenVPN %1$@ käytetään tässä määrityksessä OpenVPN %2$@ sijasta.\n\nMääritystiedosto '%3$@' sisältää nämä OpenVPN asetukset:\n\n%4$@\nMääritykset tulee päivittää, että sitä voidaan käyttää nykyisten OpenVPN versioiden kanssa.";
+
 /* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
 "OpenVPN %@" = "OpenVPN %@";
 
@@ -1458,12 +1487,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Polku '%1$@' sisältää merkkejä, joita ei sallita.\n\nEi-sallittuja merkkejä: '%2$s'\n\n";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Kirjoita nimi ja klikkaa \"OK\" tai klikkaa \"Cancel\".\n\n";
-
-/* Window text */
-"Please enter a new name for '%@'." = "Kirjoita uusi nimi kohteelle '%@'.";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Aseta tunniste \"%@\", sitten klikkaa \"OK\"";
 
 /* Window text */
@@ -1481,8 +1504,8 @@
 /* Window text */
 "Search domain:" = "Haku-domain:";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Varmistetaan Tunnelblick %@…";
+/* Window text */
+"Securing Tunnelblick..." = "Suojataan Tunnelblick...";
 
 /* Window text */
 "Select a target user for each user whose setup data you wish to import." = "Valitse käyttäjä jokaiselle käyttäjän asetuksille, jotka haluat tuoda.";
@@ -1496,8 +1519,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Ohitettiin kohteen %@ kopiointi, koska sen niminen ja sisältöinen tiedosto on jo kopioitu.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Käynnistetään Tunnelblick %@…";
+/* Window text in the splash screen */
+"Starting Tunnelblick..." = "Käynnistetään Tunnelblick...";
 
 /* Window text */
 "Startup window:" = "Käynnistysikkuna:";
@@ -1522,9 +1545,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Kiitos Tunnelblick-lahjoituksestasi";
-
-/* Window text */
-"That name is being used.\n\n" = "Tätä nimeä käytetään.\n\n";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "VPN määritystä %@ on muokattu viimeisen suojauksen jälkeen.\n\nHaluatko suojata muokatun version vai palauttaa takaisin viimeksi suojatun version?";
@@ -1632,7 +1652,7 @@
 "There is not an OpenVPN configuration file in '%@'" = "OpenVPN-konfiguraatiotiedostoa ei ole kohteessa '%@'";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "Yhden tai useamman konfiguraation poistaminen epäonnistui. Katso lisätietoja lokista.";
+"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "Yhden tai useamman konfiguraation poistaminen epäonnistui. Katso lisätietoja lokista.";
 
 /* Window text */
 "There was a problem getting the list of known public DNS servers." = "Julkisten DNS palveluiden hakemisessa ilmeni ongelmia.";
@@ -1664,6 +1684,9 @@
 /* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "Tämä VPN vaatii vastauksen kysymykseen muttei ole antanut kysymystä.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"This VPN works now, but may not work in a future version of Tunnelblick.\n\nThe OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n%@\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Tämä VPN toimii nyt, mutta ei ehkä toimi Tunnelblickin tulevissa versiossa.\n\nOpenVPN-määritystiedosto '%1$@' olisi päivitettävä, jotta sitä voidaan käyttää nykyaikaisten OpenVPN-versioiden kanssa. Se sisältää nämä OpenVPN -asetukset:\n\n%2$@\nTunnelblick käyttää OpenVPN %3$@ yhdistämiseen tällä määrityksellä.\n\nEt kuitenkaan voi muodostaa yhteyttä tähän VPN:ään tulevien Tunnelblick-versioiden kanssa, joissa ei ole OpenVPN: n versiota, joka hyväksyy asetukset.\n";
+
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Tämän tietokoneen julkinen IP-osoite ei muuttunut, kun yhteys muodostettin kohteeseen %1$@. Se on edelleen %2$@.\n\nTämä voi tarkoittaa, että VPN:si ei ole oikein konfiguroitu.\n\n";
 
@@ -1682,20 +1705,14 @@
 /* Window text */
 "Too many configuration files in '%@'" = "Liian monia konfiguraatiotiedostoja kohteessa '%@'";
 
-/* Window text */
-"Too many duplicate configurations already exist." = "Liian monta kopiokonfiguraatiota on jo olemassa.";
+/* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
+"Too many copies already exist." = "Liian monta kopiota olemassa";
 
 /* Window text */
 "Translation by" = "Kääntäjä";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Yritetään sulkea kaikkia OpenVPN-prosesseja…";
-
-/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ on varmistettu onnistuneesti.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ on valmis.";
 
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin -tila\n\n Salli väliaikaisesti muutokset jotka vaativat järjestelmänvalvojan oikeuksia.\n \n Sessio vanhenee 5 minuutin jälkeen, tai kun 'VPN-yksityiskohdat' ikkuna suljetaan.";
@@ -1716,7 +1733,10 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblickiä ei voitu käynnistää konfiguraatio-ongelman vuoksi.  Tutki päätelokista lisätietoja.";
 
 /* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt poistamaan täysin konfiguraatiota '%@'. Katso lisätietoja konsolilokista.";
+"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt poistamaan täysin konfiguraatiota '%@'. Katso lisätietoja konsolilokista.";
+
+/* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick ei pysty kopioimaan kansiota '%@'. Katso lokista lisätietoja.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt kopioimaan konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
@@ -1748,11 +1768,11 @@
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt siirtämään konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
 
-/* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pysty korvaamaan konfiguraatiota '%@'. Katso lokista lisätietoja.";
+/* Window text. The '%@' refers to a configuration or a folder of configurations. */
+"Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick ei pysty poistamaan kohdetta '%@'. Katso lokista lisätietoja.";
 
 /* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt poistamaan konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pysty korvaamaan konfiguraatiota '%@'. Katso lokista lisätietoja.";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick kohtasi vakavan virheen.\n\nAuta Tunnelblick kehitystä ja lähetä ystävällisesti sähköposti developers@tunnelblick.net, kuvaile mitä Tunnelblick teki ja miten virhe ilmeni.\n\n";
@@ -1764,6 +1784,9 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick ei onnistunut korjaamaan ongelmia %@':n asetuksissa. Lisätiedot ovat päätelokissa";
 
 /* Window text */
+"Tunnelblick has been secured." = "Tunnelblick on suojattu.";
+
+/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick on katkaissut yhteyden '%@', koska sen konfiguraatiotiedosto on poistettu.";
 
 /* Window text */
@@ -1771,6 +1794,15 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick on tällä hetkellä käynnissä. Se sammutetaan ennen jatkamista.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick on valmis.";
+
+/* Window text */
+"Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick tarvitsee valtuutuksen hakemiston '%@' kopiointiin.";
+
+/* Window text */
+"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick tarvitsee valtuutuksen asetusten kopiointiin tai siirtoon.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick tarvitsee valtuutuksen konfiguraation '%@' monistamiseksi.";
@@ -1788,16 +1820,22 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick tarvitsee valtuutuksen tehdäkseen konfiguraation '%@' jaetuksi.";
 
 /* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick tarvitsee valtuutuksen siirtääkseen kansion '%1$@' kansioon '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@'." = "Tunnelblick tarvitsee valtuutuksen kansion '%@' siirtoon.";
+
+/* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick tarvitsee valtuutuksen lukeakseen Tunnelblick tietoja muilta käyttäjiltä tässä tietokoneessa, siten että tietoja voidaan viedä.\n\nHuomioitavaa:\n\n     1. Avainnippuun tallennettuja käyttäjätunniksia EI viedä.\n\n     2. Tietojen vienti voi kestää pidemmän ajan.\n\n";
 
 /* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick tarvitsee valtuutuksen poistaakseen %ld konfiguraatiota. \n\nKonfiguraatioiden poisto on pysyvä ja sitä ei voi peruuttaa. Myös kaikki konfiguraatioiden asetukset poistetaan pysyvästi.";
+"Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "Tunnelblick tarvitsee valtuutuksen poistaakseen yhden tai useamman konfiguaation tai kansion. \n\nPoisto on pysyvä ja sitä ei voi peruuttaa. Myös kaikki konfiguraation asetukset poistetaan pysyvästi.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick tarvitsee valtuutuksen poistaakseen konfiguraation '%@'. \n\nKonfiguraation poisto on pysyvä ja sitä ei voi peruuttaa. Myös kaikki konfiguraation asetukset poistetaan pysyvästi.";
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "Tunnelblick tarvitsee valtuutuksen nimetäkseen konfiguraation '%1$@' '%2$@':ksi.";
 
 /* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick tarvitsee valtuutuksen uudelleennimetäkseen konfiguraation '%1$@' '%2$@':ksi.";
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick tarvitsee valtuutuksen nimetäkseen kansion '%1$@' kansioksi '%2$@'.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick tarvitsee valtuutuksen tuotujen tietojen suojaamiseen.";
@@ -1953,16 +1991,13 @@
 "Warning: '%@' is already a named credential." = "Varoitus: '%@' on jo nimetty käyttäjätunnus.";
 
 /* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Varoitus: Yhtä tai useampia asetuksia ei pystytty monistamaan. Katso päätelokista lisätietoja.";
+"Warning: One or more settings could not be copied. See the Console Log for details." = "Varoitus: Yksi tai useampia asetuksia ei voitu kopioida. Katso lokista tarkempaa tietoa.";
 
 /* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Varoitus: Yhtä tai useampia asetuksia ei pystytty uudelleennimeämään. Katso päätelokista lisätietoja.";
+"Warning: One or more settings could not be duplicated. See the Console Log for details." = "Varoitus: Yksi tai useampaa asetusta ei voitu monistaa. Katso lokista tarkempaa tietoa.";
 
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Varoitus: Seuraavat yhteysmääritykset, jotka yhdistetään automaattisesti laitteen käynnistyessä, eivät ole yhdistetty:\n\n%@\n";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
-"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Varoitus: Tämä VPN ei välttämättä voi yhdistyä tulevaisuudessa.\n\nOpenVPN:n konfiguraatiotiedosto '%1$@' sisältää nämä OpenVPN-vaihtoehdot:\n\n%2$@\nSinun pitäisi päivittää konfiguraatio, jotta sitä voidaan käyttää OpenVPN:n modernien versioiden kanssa.\n\nTunnelblick tulee käyttämään OpenVPN:n versiota %3$@ yhdistääkseen tämän konfiguraation.\n\nEt silti pysty yhdistämään tätä VPN:ää uudempien Tunnelblickin versioiden kanssa, koska niissä ei tule olemaan sellaista OpenVPN:n versiota joka hyväksyy nämä vaihtoehdot.";
 
 /* Window text */
 "Warnings:" = "Varoitukset:";
@@ -1992,13 +2027,13 @@
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Et voi tehdä konfiguraatiosta '%@' yksityistä tai jaettua, koska se on päivitettävissä oleva konfiguraatio.\n\nHuomaa, että päivitettävissä olevasta Tunnelblick VPN-konfiguraatiosta ei voi tehdä yksityistä tai jaettua; vain sen sisällä olevat konfiguraatiot voi tehdä yksityiseksi tai jaetuksi.";
 
 /* Window text */
-"You cannot rename a Deployed configuration." = "Et voi korvata käytössä olevaa konfiguraatiota.";
+"You cannot rename or move a Deployed configuration." = "Asetuksia, jotka tulevat Tunnelblick asennuksen mukana ei voi nimetä tai siirtää.";
 
 /* Window text */
-"You cannot rename a configuration unless it is disconnected." = "Et voi uudelleennimetä konfiguraatiota, ellei sitä oteta pois käytöstä.";
+"You cannot rename or move a configuration unless it is disconnected." = "Käytössä olevaa konfiguraatiota ei voi nimetä tai siirtää.";
 
 /* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "Et voi uudelleennimetä konfiguraatiota, joka on asetettu käynnistymään tietokoneen käynnistyksen yhteydessä.";
+"You cannot rename or move a configuration which is set to start when the computer starts." = "Et voi uudelleennimetä tai siirtää konfiguraatiota, joka on asetettu käynnistymään tietokoneen käynnistyksen yhteydessä.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Sinulla on OpenVPN-konfiguraatioita, mutta sinulla ei ole yhtään Tunnelblick VPN -konfiguraatiota. \n\nOpenVPN-konfiguraatiot on muunnettava Tunnelblick VPN -konfiguraatioiksi, mikäli haluat käyttää niitä.\n\n";
@@ -2032,6 +2067,9 @@
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Et voi poistaa konfiguraatiota, joka on asetettu käynnistymään tietokoneen käynnistyessä.";
+
+/* Window text */
+"You may not remove a folder unless it is empty." = "Et voi poistaa kansiota, ellei se ole tyhjä.";
 
 /* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Et pysty päivittämään Tunnelblickiä ellet anna pääkäyttäjän käyttäjätunnusta ja salasanaa.\n\nOletko varma, että haluat tarkistaa päivitykset?";
@@ -2130,6 +2168,9 @@
 
 /* HTML info for the 'On expected disconnect' button. */
 "<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Määrittää mitä Tunnelblick tekee, kun VPN yhteys katkaistaan<em>suunnitellusti</em></strong> (esimerkiksi, valittu \"Sulje yhteys\" valikosta tai napista). Vaihtoehdot ovat:</p><ul><li><strong>Älä tee mitään</strong><br></li><li><strong>Alusta ensisijainen verkkoliitäntä</strong>: Tunnelblick alustaa ensisijaisen verkkoliitännän suorittamalla komennot 'ipconfig down; ipconfig up'. Tämä voi auttaa mikäli asetusten paluttaminen ei muutoin onnistu yhteyden katkaisemisen jälkeen.<br></li><li><strong>Katkaise verkkoyhteys (\"tappokytkin\")</strong>: Tunnelblick katkaisee verkkoyhteyden (paikallisen ja Internet) kytkemällä Wi-Fi sekä kaikki muut verkkoyhteydet pois. Tämä auttaa varmistamaan, että mitään ei mene ulos tietokoneesta kuin ainoastaan VPN kautta. Mikäli Tunnelblick on poistanut verkkoyhteydet, valikon komento salli uudelleen kaikki verkkoyhteydet on käytettävissä Tunnelblick ikonissa valikkorivillä. Voit myös sallia Wi-Fi yhteydet asettamalla se päälle uudelleen, tai sallia kaikki muut verkkoyhteydet Järjestelmäasetuksissa: Verkko. <strong>Tämä asetus ei toimi välttämättä oikein, mikäli on käytössä useampi VPN yhteys samaan aikaan.</strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Määrittää milloin Tunnelblickin tulee muodostaa VPN yhteys.</strong></p><p>\"Tietokoneen käynnistyessä\" voidaan käyttää ainoastaan \"jaettuja\" määrityksiä, joissa ei käytetä Avainnippuun tallennetuja käyttövaltuuksia (käyttäjänimi/salasana/salalauseke) ja jotka eivät käytä OpenVPN 'auth-user-pass' määritystä ilman parametria.</p>";
 
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
@@ -2264,13 +2305,22 @@
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS-välimuisti sisältää kopiot DNS-tiedoista (Domain Name System).</p>\n<p><strong>Kun valittu</strong>, DNS-välimuisti poistetaan (tyhjennetään) yhteyden muodostuksen tai katkaisemisen jälkeen. Kaikki DNS-kyselyt suorittaa nimipalvelin, joka on määritetty VPN-asennuksessa.</p>\n<p><strong>Kun ei valittu</strong>, DNS-välimuistia ei tyhjennetä. Time voi aiheuttaa ongelmia, jos on nimikonflikteja VPN-asennuksessa määritetyn nimipalvelimen ja esi-VPN-nimipalvelimen kanssa, ja jos esi-VPN-tiedot ovat välimuistissa. </p>";
 
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>Configuration '%@' is set to 'always load tun driver' and/or 'always load tap driver' when connecting.</p>\n<p>This may cause problems using the configuration on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>Tämä VPN toimii nyt, mutta ei ehkä toimi tulevissa MacOS versiossa.</p>\n<p>Määritys '%@' on asetettu 'lataa aina TUN' ja/tai 'lataa aina TAP' yhteyden muodostamisen yhteydessä.</p>\n<p>Tästä voi aiheuttaa ongelmia käytettäessä määritystä tulevissä MacOS versioissa.</p>\n<p>Helppo korjaus, katso: <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">TUN ja TAP käyttö tulevissa MacOS versioissa</a> [tunnelblick.net] lisätietoja.</p>\n<p>&nbsp;</p>";
+
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It creates a 'tap' VPN connection.</p>\n<p>Such configurations may not work on a future version of macOS.</p>\n<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n" = "<p>Tämä VPN toimii nyt, mutta ei ehkä toimi tulevissa MacOS versiossa. </p>\n<p>OpenVPN-määritystiedosto '%@' olisi päivitettävä. Se luo 'TAP' VPN-yhteyden. </p>\n<p>Tällaiset määritykset eivät välttämättä toimi tulevissa MacOS versiossa. </p>\n<p> Katso <a href=\"https://tunnelblick.net/cTunTapConnections.html\"> TUN ja TAP -VPN tulevaisuus MacOS järjestelmässä.</a> [tunnelblick.net].</p>";
+
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It includes 'dev-node tun'.</p>\n<p>This is unnecessary and may cause problems connecting on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>Tämä VPN toimii nyt, mutta ei ehkä toimi tulevissa MacOS versiossa. </p>\n<p>OpenVPN-määritystiedosto '%@' olisi päivitettävä. Se käyttää 'dev-node TUN'.</p>\n<p>Tämä on tarpeetonta ja voi aiheuttaa ongelmia yhteyden muodostamiseen tulevissa MacOS versiossa. </p>\n<p>Tämä on helppo korjata, katso: <a href=\"https://tunnelblick.net/cTunTapConnections.html\">TUN ja TAP -VPN tulevaisuus MacOS järjestelmässä.</a> [tunnelblick.net]</p>\n<p>&nbsp;</p>";
+
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick sisältää muutetun version 'easy-rsa':sta, joka on joukko OpenVPN kehittäjien tekemiä komentoja avaintiedostojen luontiin ja hallinnointiin.</p><p>Tämä painike käynnistää macOS:n Pääte-ohjelman työkansioon, jossa komennot sijaitsevat.</p><p>Komennot ovat tavallisesti kansiossa ~/Library/Application Support/Tunnelblick/easy-rsa. 'easy-rsaPath' asetus voi sisältää polun kansioon, jota Tunnelblick käyttää oletuksen sijaan. 'easy-rsaPath' polku pitää ollaa riippumaton '~', ja kotikansion polku pitää olla olemassa. Jos kansio sijaitsee polulla, sitä käytetään; Jos sitä ei ole, Se luodaan Tunnelblickin käynnistyksen yhteydessä ja easy-rsa komennot asennetaan sinne.</p><p>Katso lisätietoja easy-rsa:n käyttämisestä <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>Saadaksesi lisätietoja Tunnelblickin tekemistä muutoksista easy-rsa:han, lue kansiossa oleva README tiedosto.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick ei pystynyt lataamaan järjestelmän lisäosaa joka tarvitaan kohteeseen %1$@ yhdistämiseen.</p><p>%2$@</p>";
 
-/* Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Pääkäyttäjän tilaa %@ jäljellä";
 
 /* Credit description */
@@ -2283,7 +2333,7 @@
 "Arabic translation" = "Arabialainen käännös";
 
 /* Toolbar text for 'Lock' item */
-"Authenticating..." = "Autentikoidaan…";
+"Authorizing..." = "Valtuuta...";
 
 /* Credit description */
 "Azerbaijani translation" = "Azerbaidžanialainen käännös";
@@ -2452,6 +2502,9 @@
 "Spanish translation" = "Espanjalainen käännös";
 
 /* Credit description */
+"Swahili (Tanzania) translation" = "Swahili (Tansania) käännös";
+
+/* Credit description */
 "Swedish translation" = "Ruotsalainen käännös";
 
 /* Credit description */
@@ -2492,6 +2545,9 @@
 
 /* Authentication Prompt */
 "authenticate" = "todenna";
+
+/* File name of a newly-created folder */
+"untitled folder" = "Nimeämätön kansio";
 
 /* Button VPNService */
 "Accept" = "Hyväksy";

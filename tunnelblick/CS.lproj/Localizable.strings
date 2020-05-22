@@ -357,9 +357,6 @@
 "Quit Tunnelblick" = "Ukončit Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Přejmenovat konfiguraci…";
-
-/* Menu Item */
 "Revert Configuration..." = "Vrátit konfiguraci…";
 
 /* Menu Item */
@@ -655,9 +652,6 @@
 
 /* Window title */
 "Log" = "Log";
-
-/* Window title */
-"Name Required" = "Vyžadované jméno";
 
 /* Window title */
 "Name not allowed" = "Jméno není povoleno";
@@ -1083,9 +1077,6 @@
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurace '%1$@' ('%2$@') bude ignorována, protože její jméno obsahuje nepovolené znaky.\n\nZnaky, které nejsou povoleny: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Konfigurace '%@' již existuje.";
-
-/* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurace '%@' obsahuje jeden nebo více skriptů, které mohou způsobit potíže v případě, že nahradíte, nebo odinstalujete konfiguraci, která je právě připojená.\n\nPřejete si konfiguraci nahradit?";
 
 /* Window text */
@@ -1277,9 +1268,6 @@
 /* Window text */
 "Installation finished successfully." = "Instalace úspěšně ukončena.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Instalace a zabezpečení Tunnelblicku %@…";
-
 /* Window text */
 "Installing configurations is not allowed" = "Instalace konfigurací není umožněna";
 
@@ -1458,12 +1446,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Cesta '%1$@' obsahuje znaky, které nejsou povoleny.\n\nNepovolené znaky jsou: '%2$s'\n\n";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Zadejte jméno a klikněte na \"OK\" nebo klikněte na \"Zrušit\".\n\n";
-
-/* Window text */
-"Please enter a new name for '%@'." = "Zadejte nové jméno pro '%@'.";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Vložte token \"%@\" a potom klikněte na \"OK\"";
 
 /* Window text */
@@ -1481,9 +1463,6 @@
 /* Window text */
 "Search domain:" = "Prohledávaná doména:";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Zabezpečování Tunnelblicku %@…";
-
 /* Window text */
 "Select a target user for each user whose setup data you wish to import." = "Zvolte cílového uživatele pro každého uživatele, jehož nastavení chcete importovat.";
 
@@ -1495,9 +1474,6 @@
 
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Kopítování %@ bylo přeskočeno, protože soubor soubor tohoto jména a obsahu již byl kopírován.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Tunnelblick startuje %@…";
 
 /* Window text */
 "Startup window:" = "Startovací okno:";
@@ -1522,9 +1498,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Děkujeme za Vaši podporu Tunnelblicku";
-
-/* Window text */
-"That name is being used.\n\n" = "Toto jméno je již použito.\n\n";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Konfigurační soubor %@ byl od posledního zabezpečení změněn.\n\nPřejete si změněnou konfiguraci zabezpečit nebo se vrátíte k poslední zabezpečené konfiguraci?\n\n";
@@ -1632,9 +1605,6 @@
 "There is not an OpenVPN configuration file in '%@'" = "V '%@' není konfigurační soubor OpenVPN";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "Nastal problém při výmazu jedné nebo více konfigurací. Více v logu konzole.";
-
-/* Window text */
 "There was a problem getting the list of known public DNS servers." = "Vyskytl se problém při získávání seznamu známých veřejných DNS serverů.";
 
 /* Window text */
@@ -1683,22 +1653,10 @@
 "Too many configuration files in '%@'" = "V '%@' je příliš mnoho konfiguračních souborů";
 
 /* Window text */
-"Too many duplicate configurations already exist." = "Již existuje příliš mnoho duplicitních konfigurací.";
-
-/* Window text */
 "Translation by" = "Přeloženo";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Pokouším se o ukončení všech OpenVPN procesů…";
-
-/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ byl úspěšně zabezpečen.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ je připraven.";
-
-/* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Administrační režim Tunnelblicku\n\n Dočasně povolit změny vyžadující autorizaci účtem správce počítače.\n\n Relace exspiruje po 5 minutách nebo po uzavření okna \"detaily VPN\".";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Využití internetu Tunnelblickem:";
@@ -1714,9 +1672,6 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Díky problému s konfigurací nelze spustit Tunnelblick. Zkontrolujte detaily v logu konzoly.";
-
-/* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kompletně odinstalovat konfiguraci '%@'. Detaily jsou v logu konzoly.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick nemůže udělat kopii konfigurace '%@'. Detaily v logu konzoly.";
@@ -1750,9 +1705,6 @@
 
 /* Window text */
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick nemohl přepsat konfiguraci '%@'. Více v logu konzole.";
-
-/* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick nemůže odinstalovat konfiguraci '%@'. Detaily v logu konzole.";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "V Tunnelblicku nastala závažná chyba.\n\nProsím napište zprávu o pomoc na developers@tunnelblick.net, s popisem co se s Tunnelblickem dělo v okamžiku, kdy chyba nastala.\n\n";
@@ -1789,15 +1741,6 @@
 
 /* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Aby mohl Tunnelblick vyexportovat všechna data, potřebuje pro přístup k datům jiných uživatelů tohoto počítače vyžaduje autorizaci.\n\nPoznámka:\n\n     1. Informace uložené v klíčence NEBUDOU exportovány.\n\n     2. Export může trvat delší dobu.\n\n";
-
-/* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Pro smazání %ld konfigurací vyžaduje Tunnelblick autorizaci.\n\nOdstanění konfigurací je trvalé a konfigurace poté nemohou být obnoveny. Vščechna nastavení pro konfigurace budou také trvale smazán.";
-
-/* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Pro odstranění konfigurace '%@' vyžaduje Tunnelblick autorizaci.\n\nOdstranění konfigurací je trvalé a konfigurace poté nemohou být obnoveny. Všechna nastavení pro konfigurace budou také trvale smazán.";
-
-/* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Přejmenování konfigurace '%1$@' na '%2$@' vyžaduje Tunnelblick autorizaci.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Pro zajištění importovaných dat potřebuje Tunnelblick administrátorská práva.";
@@ -1952,17 +1895,8 @@
 /* Window text */
 "Warning: '%@' is already a named credential." = "Varování: '%@' je již pojmenované jméno nebo heslo.";
 
-/* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Varování: Jednu nebo více předvoleb není možné zduplikovat. Detaily v logu konzoly.";
-
-/* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Varování: Jednu nebo více předvoleb není možné přejmenovat. Detaily v logu konzoly.";
-
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Varování: následující konfigurace, jež by se měly připojovat při startu počítače, nejsou připojeny:\n\n%@\n";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
-"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Varování: Tato VPN se v budoucnu nemusí připojit.\n\nKonfigurační soubor OpenVPN pro '%1$@' obsahuje tato nastavení OpenVPN:\n\n%2$@\nMěli byste upravit konfiguraci tak, aby bylo možné ji použít s moderními verzemi OpenVPN.\n\nK připojení této konfigurace Tunnelblick použije OpenVPN %3$@.\n\nNicméně v budoucnu se budete moct připojit k této VPN jen těch verzích Tunnelblicku, jež zahrnují verze OpenVPN podporující tato nastavení.";
 
 /* Window text */
 "Warnings:" = "Varování:";
@@ -1990,15 +1924,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Není možné vytvořit konfiguraci '%@' privátních nebo sdílenou, protože je označena jako \"aktualizovatelná\".\n\nJe nutno dodat, že VPN konfigurace Tunnelblick, která je aktualizovatelná nemůže být privátních nebo sdílená. Pouze konfigurace umístěné vevnitř aktualizovatelné VPN konfigurace Tunnelblick, můžou být privátní nebo sdílené.";
-
-/* Window text */
-"You cannot rename a Deployed configuration." = "Není možné přejmenovat aktuálně instalovanou konfiguraci.";
-
-/* Window text */
-"You cannot rename a configuration unless it is disconnected." = "Nelze přejmenovat konfiguraci, pokud je navázané spojení.";
-
-/* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "Není možné přejmenovat konfiguraci, která je určená ke spuštění při startu počítače.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Máte konfigurace OpenVPN, ale nemáte žádné konfigurace Tunnelblick VPN.\n\nPokud je chcete použít, pak musí být konfigurace OpenVPN zkonvertovány do konfigurací Tunnelblick VPN.\n\n";
@@ -2270,9 +2195,6 @@
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblicku se nepodařilo nahrát systémovou příponu, jež je vyžadována pro připojení k %1$@.</p><p>%2$@</p>";
 
-/* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "Zbývá %@ administračního režimu";
-
 /* Credit description */
 "Afrikaans translation" = "Afrikánský překlad";
 
@@ -2281,9 +2203,6 @@
 
 /* Credit description */
 "Arabic translation" = "Arabský překlad";
-
-/* Toolbar text for 'Lock' item */
-"Authenticating..." = "Ověřování…";
 
 /* Credit description */
 "Azerbaijani translation" = "Ázerbajdžánský překlad";
@@ -2401,7 +2320,7 @@
 "LANGUAGE_TRANSLATION" = "Český překlad";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Petr Šrajer";
+"LEAD_TRANSLATORS" = "Petr Šrajer, Adam Černý";
 
 /* Credit description */
 "Latvian translation" = "Lotyšský překlad";

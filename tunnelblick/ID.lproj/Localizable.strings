@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "Pasang";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "Simpan keduanya";
+
 /* Button */
 "Latest (%@)" = "Terbaru (%@)";
 
@@ -296,6 +299,13 @@
 /* Menu item */
 "Connect %@%@" = "Sambungkan %@%@";
 
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "Salin Konfigurasi ke Folder Baru…";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "Salin Konfigurasi ke Folder Baru…";
+
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Hapus Kredensial Konfigurasi dalam Rantai Kunci…";
 
@@ -322,6 +332,13 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "Jadikan Konfigurasi Bersama…";
+
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "Pindahkan Konfigurasi ke Folder Baru…";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "Pindahkan Konfigurasi ke Folder Baru…";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "Tidak ada log OpenVPN atau Tunnelblick VPN";
@@ -357,7 +374,7 @@
 "Quit Tunnelblick" = "Keluar Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Ubah Nama Konfigurasi…";
+"Rename Configuration" = "Ganti nama Konfigurasi";
 
 /* Menu Item */
 "Revert Configuration..." = "Pulihkan Konfigurasi…";
@@ -657,9 +674,6 @@
 "Log" = "Log";
 
 /* Window title */
-"Name Required" = "Nama dibutuhkan";
-
-/* Window title */
 "Name not allowed" = "Nama tidak diperbolehkan";
 
 /* Window title */
@@ -948,6 +962,9 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Sebuah Konfigurasi VPN Tunnelblick bersarang terlalu dalam di '%@'";
 
 /* Window text */
+"A configuration named '%@' already exists in this location.\nDo you want to replace it with the one you're moving or copying?" = "Konfigurasi bernama '%@' sudah ada di lokasi ini.\nApakah Anda ingin menggantinya dengan yang Anda sedang pindahkan atau salin?";
+
+/* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Sebuah konfigurasi yang memerlukan suatu frasa sandi (kunci pribadi) atau sebuah nama pengguna dan kata sandi tidak dapat menyambung ketika komputer mulai berjalan.";
 
 /* Window text */
@@ -1009,6 +1026,9 @@
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Terjadi kesalahan ketika mencoba memulihkan ke salinan yang diamankan (bayangan). Lihat Log Konsol untuk rincian.\n\n";
+
+/* Window text */
+"An error occurred. Please try again." = "Terjadi kesalahan. Silakan coba lagi.";
 
 /* Window text */
 "An error occurred. See the Console Log for details." = "Terjadi kesalahan. Lihat Log Konsol untuk rincian.";
@@ -1081,9 +1101,6 @@
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurasi '%1$@'('%2$@') akan diabaikan karena nama memuat karakter yang tidak diijinkan.\n\nKarakter yang tidak diijinkan: '%3$s'\n\n";
-
-/* Window text */
-"Configuration '%@' already exists." = "Konfigurasi '%@' sudah ada.";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurasi '%@' memuat satu skrip atau lebih yang mungkin menyebabkan masalah jika Anda mengganti atau membongkar konfigurasi ketika sedang tersambung.\n\nApakah Anda hendak menimpa konfigurasi?";
@@ -1277,8 +1294,8 @@
 /* Window text */
 "Installation finished successfully." = "Pemasangan berhasil.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Memasang dan mengamankan Tunnelblick %@…";
+/* Window text */
+"Installing and securing Tunnelblick..." = "Memasang dan mengamankan Tunnelblick…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Memasang konfigurasi tidak diijinkan";
@@ -1427,6 +1444,9 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Hanya suatu Konfigurasi VPN Tunnelblick (.tblk) yang dapat dimulai saat komputer mulai berjalan.";
 
+/* Window text. The first and second '%@' will each be replaced by a version number such as '3.2'. The third '%@' will be replaced by the name of a configuration. The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"OpenVPN %@ will be used to connect this configuration instead of OpenVPN %@.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "OpenVPN %1$@ akan digunakan untuk menghubungkan konfigurasi ini, bukan menggunakan OpenVPN %2$@.\n\nFile konfigurasi OpenVPN untuk '%3$@' berisi opsi OpenVPN sebagai berikut:\n\n%4$@\nAnda harus memperbarui konfigurasi agar dapat digunakan dengan OpenVPN versi modern.";
+
 /* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
 "OpenVPN %@" = "OpenVPN %@";
 
@@ -1458,12 +1478,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' mengandung karakter yang tidak diijinkan.\n\nKarakter yang tidak diijinkan: '%2$s'\n\n";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Harap masukkan suatu nama dan klik \"OK\" atau klik \"Batal\".\n\n";
-
-/* Window text */
-"Please enter a new name for '%@'." = "Harap masukkan suatu nama baru untuk '%@'.";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Harap masukkan token \"%@\", lalu klik \"OK\"";
 
 /* Window text */
@@ -1481,8 +1495,8 @@
 /* Window text */
 "Search domain:" = "Domain pencarian:";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Mengamankan Tunnelblick %@…";
+/* Window text */
+"Securing Tunnelblick..." = "Mengamankan Tunnelblick…";
 
 /* Window text */
 "Select a target user for each user whose setup data you wish to import." = "Pilih suatu pengguna target yang data penyiapannya hendak Anda impor.";
@@ -1496,8 +1510,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Melewati menyalin %@ karena suatu berkas dengan nama itu beserta isinya telah disalin.";
 
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Memulai Tunnelblick %@…";
+/* Window text in the splash screen */
+"Starting Tunnelblick..." = "Memulai Tunnelblick…";
 
 /* Window text */
 "Startup window:" = "Jendela permulaan:";
@@ -1522,9 +1536,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Terima kasih atas donasi Anda untuk Tunnelblick";
-
-/* Window text */
-"That name is being used.\n\n" = "Nama tersebut sedang digunakan.\n\n";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Konfigurasi VPN %@ telah berubah sejak terakhir diamankan.\n\nApakah Anda ingin mengamankan konfigurasi yang diubah atau mengembalikan ke konfigurasi yang terakhir diamankan?\n\n";
@@ -1632,9 +1643,6 @@
 "There is not an OpenVPN configuration file in '%@'" = "Tidak ada berkas konfigurasi OpenVPN dalam '%@'";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "Ada masalah saat menghapus satu konfigurasi atau lebih. Lihat Log Konsol untuk rincian.";
-
-/* Window text */
 "There was a problem getting the list of known public DNS servers." = "Ada masalah saat mengambil daftar dari server DNS publik yang dikenal.";
 
 /* Window text */
@@ -1659,10 +1667,13 @@
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Versi Tunnelblick yang 'Disebarkan' ini tidak dapat diluncurkan atau dipasang karena tidak memiliki suatu Info.plist.\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
-"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%1$@' memuat opsi-opsi OpenVPN ini:\n\n%2$@\nTidak ada versi OpenVPN yang disertakan dalam versi Tunnelblick ini termasuk opsi itu.\n\nAnda mesti memperbarui konfigurasi sehingga itu dapat dipakai dengan versi modern OpenVPN.";
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "VPN ini tidak bisa disambungkan.\n\nBerkas konfigurasi OpenVPN bagi '%1$@' memuat opsi-opsi OpenVPN ini:\n\n%2$@\nTidak ada versi OpenVPN yang disertakan dalam versi Tunnelblick ini termasuk opsi itu.\n\nAnda harus memperbarui konfigurasi agar dapat digunakan dengan OpenVPN versi modern.";
 
 /* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "VPN ini meminta Anda merespon ke suatu pertanyaan tapi belum memberikan pertanyaannya.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"This VPN works now, but may not work in a future version of Tunnelblick.\n\nThe OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n%@\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "VPN ini berfungsi sekarang, tetapi mungkin tidak akan berfungsi di versi Tunnelblick yang akan datang.\n\nFile konfigurasi OpenVPN untuk '%1$@' harus diperbarui sehingga dapat digunakan dengan OpenVPN versi modern. ini berisi opsi OpenVPN sebagai berikut:\n\n%2$@\nTunnelblick akan menggunakan OpenVPN %3$@ untuk menghubungkan konfigurasi ini.\n\nNamun, Anda tidak akan dapat terhubung ke VPN ini dengan versi Tunnelblick yang akan datang yang tidak memiliki versi OpenVPN yang menerima opsi tersebut.";
 
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Alamat yang terlihat sebagai IP publik komputer ini tidak berbeda setelah menyambung ke %1$@. Itu masih %2$@.\n\nIni mungkin berarti bahwa VPN Anda tidak dikonfigurasi secara benar.\n\n";
@@ -1683,22 +1694,10 @@
 "Too many configuration files in '%@'" = "Terlalu banyak file konfigurasi di dalam '%@'";
 
 /* Window text */
-"Too many duplicate configurations already exist." = "Terlalu banyak duplikat konfigurasi yang sudah ada.";
-
-/* Window text */
 "Translation by" = "Terjemahan oleh";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Mencoba keluar dari semua proses OpenVPN…";
-
-/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ telah sukses diamankan.";
-
-/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ siap.";
-
-/* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Mode Admin Tunnelblick\n\nUntuk sementara mengizinkan perubahan yang memerlukan otorisasi administrator.\n\nSesi akan berakhir setelah lima menit atau saat jendela 'Detil VPN' ditutup.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Penggunaan internet oleh Tunnelblick:";
@@ -1714,9 +1713,6 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick tidak bisa memulai karena ada masalah konfigurasi. Silakan periksa Console Log untuk lebih detil.";
-
-/* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak bisa menghapus konfigurasi '%@' secara tuntas. Silakan lihat Console Log untuk lebih detil.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat meniru konfigurasi '%@'. Silakan lihat Console Log untuk lebih detil.";
@@ -1752,9 +1748,6 @@
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat merubah konfigurasi '%@'. Silakan lihat Console Log untuk lebih detil.";
 
 /* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat menghapus konfigurasi '%@'. Lihat Console Log untuk lebih detil.";
-
-/* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick menjumpai sebuah kesalahan fatal.\n\nHaram kirim surel ke developers@tunnelblick.net untuk bantuan, menjuelaskan apa yang sedang dilakukan Tunnelblick ketika kesalah terjadi.\n\n";
 
 /* Window text */
@@ -1764,6 +1757,9 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick gagal memperbaiki masalah dengan preferensi untuk '%@'. Rincian ada dalam Log Konsol";
 
 /* Window text */
+"Tunnelblick has been secured." = "Tunnelblick telah diamankan.";
+
+/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick telah memutus '%@' karena berkas konfigurasinya telah dihapus.";
 
 /* Window text */
@@ -1771,6 +1767,12 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick sedang berjalan. Ini akan dimatikan sebelum melanjutkan.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick siap.";
+
+/* Window text */
+"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick perlu otorisasi untuk menyalin atau memindahkan konfigurasi.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick perlu otorisasi untuk menduplikasi konfigurasi '%@'.";
@@ -1789,15 +1791,6 @@
 
 /* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick memerlukan otorisasi untuk membaca data Tunnelblink milik pengguna lain dari komputer ini sehingga dapat mengekspor semua data Tunnelblick.\n\nHarap perhatikan:\n\n     1. Kredensial yang disimpan dalam Rantai Kunci TIDAK akan diekspor.\n\n     2. Ekspor mungkin memakan waktu lama.\n\n";
-
-/* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick perlu otorisasi untuk menghapus %ld konfigurasi.";
-
-/* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick perlu otorisasi untuk menghapus konfigurasi '%@'.";
-
-/* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick perlu otorisasi untuk mengubah nama konfigurasi '%1$@' menjadi '%2$@'.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick memerlukan otorisasi untuk mengamankan data yang diimpor.";
@@ -1953,16 +1946,13 @@
 "Warning: '%@' is already a named credential." = "Peringatan: '%@' sudah merupakan suatu kredensial yang dinamai.";
 
 /* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Peringatan: Satu preferensi atau lebih tidak dapat diduplikasi. Lihat Log Konsol untuk rincian.";
+"Warning: One or more settings could not be copied. See the Console Log for details." = "Peringatan: Satu atau lebih pengaturan tidak dapat disalin. Lihat Log Konsol untuk rincian.";
 
 /* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Peringatan: Satu preferensi atau lebih tidak dapat diubah nama. Lihat Log Konsol untuk rincian.";
+"Warning: One or more settings could not be duplicated. See the Console Log for details." = "Peringatan: Satu atau lebih pengaturan tidak dapat diduplikasi. Lihat Log Konsol untuk rincian.";
 
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Peringatan: Konfigurasi berikut ini, yang mestinya menyambung ketika komputer dimulai, tidak tersambung:\n\n%@\n";
-
-/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
-"Warning: This VPN may not connect in the future.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN.\n\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Peringatan: VPN ini mungkin tidak bisa menyambung di masa mendatang.\n\nBerkas konfigurasi OpenVPN bagi '%1$@' memuat opsi-opsi OpenVPN ini:\n\n%2$@\nAnda mesti memperbarui konfigurasi sehingga itu dapat dipakai dengan versi modern OpenVPN.\n\nTunnelblick akan memakai OpenVPN %3$@ untuk menyambungkan konfigurasi ini.\n\nNamun, Anda tidak akan bisa menyambung ke VPN ini dengan versi mendatang Tunnelblick yang tidak menyertakan suatu versi OpenVPN yang menerima opsi-opsi tersebut.";
 
 /* Window text */
 "Warnings:" = "Peringatan:";
@@ -1992,13 +1982,13 @@
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Anda tidak bisa membuat konfigurasi '%@' pribadi atau dipakai bersama karena itu konfigurasi yang dapat diperbarui.\n\nCatat bahwa suatu Konfigurasi VPN Tunnelblick yang dapat diperbarui tidak bisa dibuat menjadi pribadi atau dipakai bersama: hanya konfigurasi di dalamnya yang dapat dibuat pribadi atau dipakai bersama.";
 
 /* Window text */
-"You cannot rename a Deployed configuration." = "Anda tidak dapat mengubah nama suatu konfigurasi yang Disebarkan.";
+"You cannot rename or move a Deployed configuration." = "Anda tidak dapat mengganti nama atau memindahkan suatu konfigurasi yang Disebarkan.";
 
 /* Window text */
-"You cannot rename a configuration unless it is disconnected." = "Anda tidak bisa mengubah nama suatu konfigurasi kecuali itu terputus.";
+"You cannot rename or move a configuration unless it is disconnected." = "Anda tidak dapat mengganti nama atau memindahkan suatu konfigurasi kecuali jika terputus.";
 
 /* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "Anda tidak bisa mengubah nama suatu konfigurasi yang ditata agar mulai berjalan ketika komputer mulai menyala.";
+"You cannot rename or move a configuration which is set to start when the computer starts." = "Anda tidak dapat mengganti nama atau memindahkan suatu konfigurasi yang diatur untuk mulai berjalan ketika komputer mulai menyala.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Anda punya konfigurasi OpenVPN tapi Anda tidak punya Konfigurasi VPN Tunnelblick apapun.\n\nKonfigurasi OpenVPN mesti dikonversi ke Konfigurasi VPN Tunnelblick bila Anda ingin memakai mereka.\n\n";
@@ -2130,6 +2120,9 @@
 
 /* HTML info for the 'On expected disconnect' button. */
 "<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Menyatakan apa yang dilakukan Tunnelblick ketika VPN putus <em>seperti yang diharapkan</em></strong> (misalnya, tombol atau butir menu \"Putuskan\" diklik). Pilihannya adalah:</p><ul><li><strong>Tidak lakukan apapun</strong><br></li><li><strong>Mereset antar muka primer</strong>: Tunnelblick mereset antar muka jaringan primer dengan memberikan perintah 'ipconfig down; ipconfig up' ke antar muka tersebut. Ini bisa membantu ketika suatu konfigurasi gagal memulihkan pengaturan jaringan secara benar setelah terputus.<br></li><li><strong>Nonaktifkan akses jaringan (\"Kill Switch\")</strong>: Tunnelblick memutus semua akses jaringan (lokal dan Internet)\n dengan mematikan Wi-Fi dan menonaktifkan semua layanan jaringan lain. Ini dapat membantu memastikan bahwa tidak ada yang bocor keluar komputer kecuali melalui VPN. Bila Tunnelblick telah menonaktifkan akses jaringan, suatu perintah menu untuk memfungsikan ulang semua akses yang dinonaktifkan akan tersedia dari ikon Tunnelblick dalam bilah menu. Anda juga dapat memfungsikan ulang Wi-Fi dengan menyalakannya,\n atau memfungsikan ulang layanan-layanan jaringan lain dalam Preferensi Sistem: Jaringan. <strong>Setelan ini mungkin tidak bekerja dengan benar ketika lebih dari satu VPN tersambung secara simultan. </strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Menentukan kapan Tunnelblick harus terhubung ke VPN.</strong></p><p>\"Ketika komputer mulai\" hanya dapat digunakan dengan konfigurasi \"Dibagi\" yang tidak memiliki kredensial (nama pengguna/kata sandi/frasa sandi) yang disimpan pada Rantai Kunci dan tidak menggunakan opsi 'auth-user-pass' tanpa argumen.</p>";
 
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
@@ -2264,14 +2257,20 @@
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Singgahan DNS memuat salinan informasi DNS (Domain Name System).</p>\n<p><strong>Ketika dicentang</strong>, singgahan DNS akan digelontor (dibersihkan) setelah menyambung atau memutus. Semua pencarian DNS akan dilaksanakan oleh server nama yang dinyatakan oleh penyiapan VPN.</p>\n<p><strong>Ketika tidak dicentang</strong>, singgahan DNS tidak akan digelontor. Ini bisa menyebabkan masalah bila ada konflik nama antara server nama yang dinyatakan oleh penyiapan VPN dan nama server pra VPN dan bila entri pra VPN telah disinggahkan.</p>";
 
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>Configuration '%@' is set to 'always load tun driver' and/or 'always load tap driver' when connecting.</p>\n<p>This may cause problems using the configuration on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>VPN ini berfungsi sekarang, tetapi mungkin tidak akan berfungsi di versi macOS yang akan datang.</p>\n<p>Konfigurasi '%@' diatur ke 'selalu muat driver tun' dan/atau 'selalu muat driver tap' saat menghubungkan.</p>\n<p>Ini mungkin dapat menyebabkan masalah saat menggunakan konfigurasi pada versi macOS yang akan datang.</p>\n<p>Ini mudah diperbaiki: lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">Masa Depan VPN Tun dan Tap pada macOS</a>[tunnelblick.net] untuk detailnya.</p>\n<p>&nbsp;</p>";
+
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It creates a 'tap' VPN connection.</p>\n<p>Such configurations may not work on a future version of macOS.</p>\n<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n" = "<p>VPN ini berfungsi sekarang, tetapi mungkin tidak akan berfungsi di versi macOS yang akan datang.</p>\n<p>File konfigurasi OpenVPN untuk '%@' harus diperbarui. Ini membuat sebuah koneksi VPN 'tap'.</p>\n<p>Konfigurasi seperti itu mungkin tidak akan berfungsi pada versi macOS yang akan datang.</p>\n<p>Lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Masa Depan VPN Tun dan Tap pada macOS</a>[tunnelblick.net] untuk detailnya.</p>\n<p>&nbsp;</p>";
+
+/* HTML for a popup window */
+"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It includes 'dev-node tun'.</p>\n<p>This is unnecessary and may cause problems connecting on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>VPN ini berfungsi sekarang, tetapi mungkin tidak akan berfungsi di versi macOS yang akan datang.</p>\n<p>File konfigurasi OpenVPN untuk '%@' harus diperbarui. Ini termasuk 'dev-node tun'.</p>\n<p>Ini tidak perlu dan mungkin dapat menyebabkan masalah menghubungkan pada versi masOS yang akan datang.</p>\n<p>Ini mudah diperbaiki: lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Masa Depan VPN Tun dan Tap pada macOS</a>[tunnelblick.net] untuk detailnya.</p>\n<p>&nbsp;</p>";
+
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick termasuk suatu versi ubahan dari 'easy-rsa', yang merupakan suatu kumpulan skrip baris perintah yang ditulis oleh para pengembang OpenVPN untuk membuat dan memelihara sertifikat dan kunci.</p><p>Mengklik tombol ini meluncurkan aplikasi Terminal macOS dengan direktori kerja ditata ke folder yang memuat skrip.</p><p>Skrip biasanya terletak dalam folder ~/Library/Application Support/Tunnelblick/easy-rsa. Suatu preferensi 'easy-rsaPath' mesti merupakan suatu path absolut atau diawali dengan '~', dan folder induk dari path mesti ada. Bila suatu folder ada pada path, itu akan dipakai; bila tidak ada, itu akan dibuat dan skrip easy-rsa akan dipasang ke dalamnya ketika Tunnelblick diluncurkan.</p><p>Untuk informasi tentang memakai easy-rsa, lihat <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Menyiapkan Certificate Authority (CA) Anda sendiri dan membuat sertifikan dan kunci bagi suatu server OpenVPN dan banyak klien.</a>[openvpn.net].</p><p>Untuk rincian dari pengubahan Tunnelblick atas easy-rsa, lihat berkas README yang terletak dalam folder.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick tidak bisa memuat suatu ekstensi sistem yang diperlukan untuk menyambung ke %1$@.</p><p>%2$@</p>";
-
-/* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "Mode admin tersisa %@";
 
 /* Credit description */
 "Afrikaans translation" = "Terjemahan bahasa Afrikaans";
@@ -2283,7 +2282,7 @@
 "Arabic translation" = "Terjemahan bahasa Arab";
 
 /* Toolbar text for 'Lock' item */
-"Authenticating..." = "Mengotentikasi…";
+"Authorizing..." = "Mengotorisasi…";
 
 /* Credit description */
 "Azerbaijani translation" = "Terjemahan bahasa Azerbaijan";
@@ -2401,7 +2400,7 @@
 "LANGUAGE_TRANSLATION" = "Terjemahan bahasa Indonesia";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Andika Triwidada";
+"LEAD_TRANSLATORS" = "Andika Triwidada, Gema Megantara";
 
 /* Credit description */
 "Latvian translation" = "Terjemahan bahasa Latvia";
@@ -2450,6 +2449,9 @@
 
 /* Credit description */
 "Spanish translation" = "Terjemahan bahasa Spanyol";
+
+/* Credit description */
+"Swahili (Tanzania) translation" = "Terjemahan Swahili (Tanzania)";
 
 /* Credit description */
 "Swedish translation" = "Terjemahan bahasa Swedia";

@@ -110,7 +110,7 @@
 "Do not use the plugin" = "Moenie die prop gebruik nie";
 
 /* Button */
-"Do nothing" = "Moenie die knoppie druk nie";
+"Do nothing" = "Doen niks nie";
 
 /* Button */
 "Export Tunnelblick Setup" = "Uitvoer Tunnelblick Opstel";
@@ -129,6 +129,9 @@
 
 /* Button */
 "Install" = "Installeer";
+
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "Hou altwee";
 
 /* Button */
 "Latest (%@)" = "Nuutste (%@)";
@@ -355,9 +358,6 @@
 
 /* Menu item */
 "Quit Tunnelblick" = "Sluit Tunnelblick Af";
-
-/* Menu Item */
-"Rename Configuration..." = "Hernoem Konfigurasie…";
 
 /* Menu Item */
 "Revert Configuration..." = "Keer Konfigurasies Terug…";
@@ -655,9 +655,6 @@
 
 /* Window title */
 "Log" = "Log";
-
-/* Window title */
-"Name Required" = "Naam Vereis";
 
 /* Window title */
 "Name not allowed" = "Naam nie toegelaat nie";
@@ -1068,9 +1065,6 @@
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurasie '%1$@' ('%2$@') was geignoreer omdat letters in die naam was nie toegelaat nie.\n\nDie volgende letters word nie toegelaat nie\" '%3$s'";
 
 /* Window text */
-"Configuration '%@' already exists." = "Konfigurasie '%@' bestaan alreeds.";
-
-/* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Een of meer skrifte in die konfigurasie '%@' mag probleme veroorsaak wanneer jy dit verander of verwuider die konfigurasie terwyl die konneksie is  opgestel.\n\nWill jy die konfigurasie vervang?";
 
 /* Window text */
@@ -1221,6 +1215,12 @@
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Daar is geen pad na easy-rsa. Mag wees dat die rede van die probleem met die 'easy-rsaPath' verwysing kan wees";
 
 /* Window text */
+"Not a .ovpn or .conf: %@" = "Nie 'n .ovpn of .conf: %@";
+
+/* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
+"OpenVPN %@" = "OpenVPN %@";
+
+/* Window text */
 "OpenVPN version:" = "OpenVPN weergawe:";
 
 /* Window text */
@@ -1251,10 +1251,10 @@
 "TB/s" = "TB/s";
 
 /* Window text */
-"That name is being used.\n\n" = "Die naam is alreeds gebruik.";
+"The file %@ is empty" = "Die leër %@ het geen data";
 
 /* Window text */
-"The file %@ is empty" = "Die leër %@ het geen data";
+"The file %@ is missing" = "Die file %@ is vermis";
 
 /* Window text */
 "The passphrase was not accepted." = "Die wagwoord was nie aanvaar nie.";
@@ -1269,10 +1269,22 @@
 "Tunnelblick is based on %@." = "Tunnelblick is gebaseerd op %@.";
 
 /* Window text */
+"Tunnelblick is ready." = "Tunnelblick is nou gereed.";
+
+/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick will graag:\n";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick was suksesvol:\n\n";
+
+/* Window text */
+"Updates:" = "Opdaterings:";
+
+/* Window text */
+"VPN log level:" = "VPN log vlak:";
+
+/* Window text */
+"WINS servers:" = "WINS bedieners:";
 
 /* Window text */
 "Warnings:" = "Waarskywings:";
@@ -1283,11 +1295,32 @@
 /* Window text */
 "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Will jy graag\n\n'n voorbeeld konfigurasie lêer op jou Desktop skep\n          en\ndie OpenVPN konfigurasie lêer oopmaak in TextEdit sodat jy die inhoud kan verander vir die verbinding na jou VPN?\n\n";
 
+/* Window text */
+"ZB" = "ZB";
+
+/* Window text */
+"ZB/s" = "ZB/s";
+
+/* Suffix for a duplicate of a file */
+" copy %d" = "kopie %d";
+
+/* Suffix for a duplicate of a file */
+" copy" = "kopie";
+
+/* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
+"%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
+
+/* Tooltip */
+"%d days %d:%02d:%02d" = "%1$d dae %2$d:%3$02d:%4$02d";
+
 /* Credit description */
 "64-bit enabling and testing" = "64-bit toets en instaat stel";
 
 /* Credit description */
 "Button images" = "Knoppie afbeeldinge";
+
+/* Credentials name */
+"Common" = "Algemeen";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Lionel Pinkhard";
@@ -1336,6 +1369,12 @@
 
 /* Window title  VPNService */
 "Failed to load Terms of Service" = "Voorwaardes om diens kon nie opgehaal word nie";
+
+/* Window title  VPNService */
+"Sorry" = "jammer";
+
+/* Window title  VPNService */
+"Welcome!" = "Welkom!";
 
 /* Window text VPNService */
 "Confirm password:" = "Bevestig wagwoord:";
