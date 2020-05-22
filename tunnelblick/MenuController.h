@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen, Jens Ohlig, Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -316,6 +316,10 @@ enum StatusIconPosition {
 -(void) cancelAllIPCheckThreadsForConnection: (VPNConnection *) connection;
 -(BOOL) isOnCancellingListIPCheckThread: (NSString *) threadID;
 -(void) haveFinishedIPCheckThread: (NSString *) threadID;
+
+-(void) renameConfigurationUsingConfigurationManager: (NSDictionary *) dict;
+-(void) renameConfigurationFolderUsingConfigurationManager: (NSDictionary *) dict;
+-(void) moveOrCopyOneConfigurationUsingConfigurationManager: (NSDictionary *) dict;
 
 // AppleScript support
 

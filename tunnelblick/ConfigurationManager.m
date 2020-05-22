@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019 2020 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -3718,7 +3718,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceName];
     if (  ! connection  ) {
-        NSLog(@"renameConfigurationFromPath: No '%@' configuration exists", sourceName);
+        NSLog(@"verifyCanDoMoveOrRenameFromPath: No '%@' configuration exists", sourceName);
         return FALSE;
     }
 
@@ -3806,7 +3806,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return;
     }
 
-    BOOL problemWithSettings = FALSE;
     NSString * sourceName;
     NSEnumerator * e = [displayNames objectEnumerator];
     while (  (sourceName = [e nextObject]  )  ) {
@@ -3818,148 +3817,101 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
 
         NSString * targetPath = [targetFolderPath stringByAppendingPathComponent: [sourcePath lastPathComponent]];
-
-        if (  [ConfigurationManager copyConfigPath: sourcePath
-                                            toPath: targetPath
-                                   usingSystemAuth: auth
-                                        warnDialog: YES
-                                       moveNotCopy: moveNotCopy
-                                           noAdmin: NO]  ) {
-
-            NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
-            NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-
-            if (  ! [self moveOrCopyCredentialsAndSettingsFrom: sourceDisplayName to: targetDisplayName moveNotCopy: moveNotCopy]  ) {
-                problemWithSettings = TRUE;
-            }
-        } else {
-            problemWithSettings = TRUE;
+        NSNumber * moveNotCopyNumber = [NSNumber numberWithBool: moveNotCopy];
+        NSMutableString * result = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+        NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                                sourcePath,        @"sourcePath",
+                                targetPath,        @"targetPath",
+                                auth,              @"auth",
+                                @YES,              @"warnDialog",
+                                moveNotCopyNumber, @"moveNotCopy",
+                                @NO,               @"noAdmin",
+                                result,            @"result",
+                                nil];
+        [(MenuController *)[NSApp delegate]
+         performSelectorOnMainThread: @selector(moveOrCopyOneConfigurationUsingConfigurationManager:) withObject: dict2 waitUntilDone: YES];
+        if ( [result length] != 0  ) {
             break;
         }
     }
 
-    if (  problemWithSettings  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                          NSLocalizedString(@"Warning: One or more settings could not be copied. See the Console Log for details.", @"Window text"));
-    }
-
     [auth release];
 }
 
-+(BOOL) renameConfigurationFromPath: (NSString *) sourcePath
-                             toPath: (NSString *) targetPath {
-	
-	// Returns TRUE if succeeded or FALSE if cancelled or failed (if failed, the user has already been notified)
-    
-    NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
-    NSString * targetName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-    
-    if (  ! [self verifyCanDoMoveOrRenameFromPath: sourcePath name: sourceName]  ) {
-        return FALSE;
++(void) renameConfigurationFolder: (NSDictionary *) dict {
+
+    NSString   * sourceDisplayName = [dict objectForKey: @"sourceDisplayName"];
+    NSString   * targetDisplayName = [dict objectForKey: @"targetDisplayName"];
+    SystemAuth * auth              = [dict objectForKey: @"auth"];
+
+    // Move folders in both Shared and private (installer will copy private to secure if appropriate)
+    NSArray * folders = [NSArray arrayWithObjects: L_AS_T_SHARED, gPrivatePath, nil];
+    NSEnumerator * e = [folders objectEnumerator];
+    NSString * folder;
+    while (  (folder = [e nextObject])  ) {
+        NSString * fullSourcePath = [folder stringByAppendingPathComponent: sourceDisplayName];
+        NSString * fullTargetPath = [folder stringByAppendingPathComponent: targetDisplayName];
+
+        if (   [gFileMgr fileExistsAtPath: fullSourcePath]  ) {
+            if (  ! [gFileMgr fileExistsAtPath: fullTargetPath]  ) {
+                NSArray * arguments = [NSArray arrayWithObjects: fullTargetPath, fullSourcePath, nil];
+                NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_MOVE
+                                                                                extraArguments: arguments
+                                                                               usingSystemAuth: auth
+                                                                                  installTblks: nil];
+                if (  installerResult != 0  ) {
+                    NSLog(@"Could not rename folder '%@' to '%@'", fullSourcePath, fullTargetPath);
+                }
+            } else {
+                NSLog(@"Item exists at '%@'", fullTargetPath);
+            }
+        }
     }
 
-    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename configuration '%@' to '%@'.", @"Window text"), sourceName, [targetName lastPathComponent]];
-    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
-    if (   ! auth ) {
-        return FALSE;
-    }
-	
-    if (  [ConfigurationManager copyConfigPath: sourcePath
-                                        toPath: targetPath
-                               usingSystemAuth: auth
-                                    warnDialog: YES
-                                   moveNotCopy: YES
-                                       noAdmin: NO]  ) {
-
-        [self moveOrCopyCredentialsAndSettingsFrom: sourceName to: targetName moveNotCopy: YES];
-
-    } else {
-		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-						  NSLocalizedString(@"Rename failed; see the Console Log for details.", @"Window text"));
-	}
-    
-    [auth release];
-    return ok;
-}
-
-+(BOOL) renameFolderFromDisplayName: (NSString *) sourceDisplayName
-                      toDisplayName: (NSString *) targetDisplayName {
-
-    // Returns TRUE if succeeded or FALSE if cancelled or failed (if failed, the user has already been notified)
-    //
-    // RENAMES UP TO THREE FOLDERS: shared, private, and secured.
-
-    NSString * prompt;
-    NSString * sourceNameForPrompt = [sourceDisplayName substringToIndex: [sourceDisplayName length] - 1];
-    NSString * folderEnclosingSource = [sourceDisplayName stringByDeletingLastPathComponent];
-    NSString * folderEnclosingTarget = [targetDisplayName stringByDeletingLastPathComponent];
-    if (  [folderEnclosingSource isEqualToString: folderEnclosingTarget]  ) {
-        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename folder '%@' to '%@'.", @"Window text"), [sourceDisplayName lastPathComponent], [targetDisplayName lastPathComponent]];
-    } else if (  [folderEnclosingTarget isEqualToString: @""]  ) {
-        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move folder '%@'.", @"Window text"), sourceNameForPrompt];
-    } else {
-        prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move folder '%@' into folder '%@'.", @"Window text"), sourceNameForPrompt, folderEnclosingTarget];
-    }
-    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
-    if (   ! auth ) {
-        return FALSE;
-    }
-
-    // Move preferences and credentials of configurations that will, in effect, be moved by the rename.
+    // Move preferences and credentials of configurations that have, in effect, been moved by the rename.
 
     BOOL ok = TRUE;
 
     NSArray * configurations = [[(MenuController *)[NSApp delegate] myConfigDictionary] allValues];
-    NSEnumerator * e = [configurations objectEnumerator];
+    e = [configurations objectEnumerator];
     NSString * path;
     while (  (path = [e nextObject])  ) {
-         NSString * thisSourceLastPart = lastPartOfPath(path);
+        NSString * thisSourceLastPart = lastPartOfPath(path);
         if (  [thisSourceLastPart hasPrefix: sourceDisplayName]  ) {
             NSString * thisSourceDisplayName = [thisSourceLastPart stringByDeletingPathExtension];
             NSString * thisSourceDisplayNameAfterSourceDisplayName = [thisSourceDisplayName substringFromIndex: [sourceDisplayName length]];
             NSString * thisTargetDisplayName = [targetDisplayName stringByAppendingPathComponent: thisSourceDisplayNameAfterSourceDisplayName];
-           ok = ok && [self moveOrCopyCredentialsAndSettingsFrom: thisSourceDisplayName to: thisTargetDisplayName moveNotCopy: YES];
+            ok = ok && [self moveOrCopyCredentialsAndSettingsFrom: thisSourceDisplayName to: thisTargetDisplayName moveNotCopy: YES];
         }
     }
 
     // Change the preference *values* that reference the old folder to reference the new one
     [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: sourceDisplayName with: targetDisplayName];
 
-    // Now move the folder(s)
-    if (  ok  ) {
+    [((MenuController *)[NSApp delegate]) configurationsChangedForceLeftNavigationUpdate];
+}
 
-        // Move folders in both Shared and private (installer will copy private to secure if appropriate)
-        NSArray * folders = [NSArray arrayWithObjects: L_AS_T_SHARED, gPrivatePath, nil];
-        NSEnumerator * e = [folders objectEnumerator];
-        NSString * folder;
-        while (  (folder = [e nextObject])  ) {
-            NSString * fullSourcePath = [folder stringByAppendingPathComponent: sourceDisplayName];
-            NSString * fullTargetPath = [folder stringByAppendingPathComponent: targetDisplayName];
++(void) renameConfiguration: (NSDictionary *) dict {
 
-            if (   [gFileMgr fileExistsAtPath: fullSourcePath]  ) {
-                if (  ! [gFileMgr fileExistsAtPath: fullTargetPath]  ) {
-                    NSArray * arguments = [NSArray arrayWithObjects: fullTargetPath, fullSourcePath, nil];
-                    NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_MOVE
-                                                                                    extraArguments: arguments
-                                                                                   usingSystemAuth: auth
-                                                                                      installTblks: nil];
-                    if (  installerResult != 0  ) {
-                        NSLog(@"Could not rename folder '%@' to '%@'", fullSourcePath, fullTargetPath);
-                        ok = FALSE;
-                    }
-                } else {
-                    NSLog(@"Item exists at '%@'", fullTargetPath);
-                    ok = FALSE;
-                }
-            }
-        }
+    NSString   * sourcePath = [dict objectForKey: @"sourcePath"];
+    NSString   * targetPath = [dict objectForKey: @"targetPath"];
+    SystemAuth * auth       = [dict objectForKey: @"auth"];
 
+    if (  [self copyConfigPath: sourcePath
+                        toPath: targetPath
+               usingSystemAuth: auth
+                    warnDialog: YES
+                   moveNotCopy: YES
+                       noAdmin: NO]  ) {
 
-        [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
-    }
+        NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+        NSString * targetName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+        [self moveOrCopyCredentialsAndSettingsFrom: sourceName to: targetName moveNotCopy: YES];
 
-    [auth release];
-    return ok;
+    } else {
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  NSLocalizedString(@"Rename failed; see the Console Log for details.", @"Window text"));
+	}
 }
 
 +(NSArray *) displayNamesFromPaths: (NSArray *) paths {
@@ -5141,10 +5093,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	NSString * sourcePath = [dict objectForKey: @"sourcePath"];
 	NSString * targetPath = [dict objectForKey: @"targetPath"];
 
-    if (  ! [firstPartOfPath(sourcePath) isEqualToString: firstPartOfPath(targetPath)]  ) {
-        NSLog(@"renameConfigurationWithPathsOperation: Cannot rename private to shared or vice-versa.\n"
+    if (  ! [[sourcePath stringByDeletingLastPathComponent] isEqualToString: [targetPath stringByDeletingLastPathComponent]]  ) {
+        NSLog(@"renameConfigurationWithPathsOperation: Cannot rename different paths.\n"
               @"     Source = '%@'\n     Target = '%@'", sourcePath, targetPath);
+        [TBOperationQueue removeDisableList];
+        [TBOperationQueue operationIsComplete];
+        [pool drain];
+        return;
+    }
 
+    NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    if (  ! [self verifyCanDoMoveOrRenameFromPath: sourcePath name: sourceName]  ) {
         [TBOperationQueue removeDisableList];
         [TBOperationQueue operationIsComplete];
         [pool drain];
@@ -5152,26 +5111,31 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 
 	NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-	BOOL didRename = FALSE;
 	if (  [self anyConfigurationFolderContainsDisplayName: targetDisplayName]  ) {
         NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: targetDisplayName];
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists.", @"Window text. '%@' is the name of a folder or a configuration."), localName]);
     } else {
-		if (  [ConfigurationManager renameConfigurationFromPath: sourcePath
-														 toPath: targetPath]  ) {
-			didRename = TRUE;
-		}
+
+        NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename configuration '%@' to '%@'.", @"Window text"), sourceName, [targetPath lastPathComponent]];
+        SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+        if (  auth ) {
+            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   sourcePath, @"sourcePath",
+                                   targetPath, @"targetPath",
+                                   auth,       @"auth",
+                                   nil];
+            [(MenuController *)[NSApp delegate] performSelectorOnMainThread: @selector(renameConfigurationUsingConfigurationManager:) withObject: dict waitUntilDone: YES];
+            [auth release];
+        }
 	}
     
     [TBOperationQueue removeDisableList];
     
-	if (  didRename  ) {
-		[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
-	}
-    
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: YES];
+
     [TBOperationQueue operationIsComplete];
-    
+
     [pool drain];
 }
 
@@ -5208,7 +5172,29 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists.", @"Window text. '%@' is the name of a folder or a configuration."), [targetDisplayName substringToIndex: [targetDisplayName length] - 1]]);
     } else {
-        [self renameFolderFromDisplayName: sourceDisplayName toDisplayName: targetDisplayName];
+        NSString * prompt;
+        NSString * sourceNameForPrompt = [sourceDisplayName substringToIndex: [sourceDisplayName length] - 1];
+        NSString * folderEnclosingSource = [sourceDisplayName stringByDeletingLastPathComponent];
+        NSString * folderEnclosingTarget = [targetDisplayName stringByDeletingLastPathComponent];
+        if (  [folderEnclosingSource isEqualToString: folderEnclosingTarget]  ) {
+            prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename folder '%@' to '%@'.", @"Window text"), [sourceDisplayName lastPathComponent], [targetDisplayName lastPathComponent]];
+        } else if (  [folderEnclosingTarget isEqualToString: @""]  ) {
+            prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move folder '%@'.", @"Window text"), sourceNameForPrompt];
+        } else {
+            prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to move folder '%@' into folder '%@'.", @"Window text"), sourceNameForPrompt, folderEnclosingTarget];
+        }
+        SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+        if (  auth ) {
+
+            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   sourceDisplayName, @"sourceDisplayName",
+                                   targetDisplayName, @"targetDisplayName",
+                                   auth,              @"auth",
+                                   nil];
+            [(MenuController *)[NSApp delegate] performSelectorOnMainThread:@selector(renameConfigurationFolderUsingConfigurationManager:) withObject: dict waitUntilDone: YES];
+            [auth release];
+
+        }
     }
 
     [TBOperationQueue removeDisableList];
@@ -5266,7 +5252,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     [TBOperationQueue removeDisableList];
 
-    NSLog(@"JKB: Scheduling configurationsChangedForceLeftNavigationUpdate in createConfigurationFoldersForDisplayNamesOperation");
     [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 
     [TBOperationQueue operationIsComplete];
@@ -5280,7 +5265,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     NSArray * sourcePaths = [dict objectForKey:  @"sourcePaths"];
     NSArray * targetPaths = [dict objectForKey:  @"targetPaths"];
-    BOOL      moveNotCopy = [[dict objectForKey: @"moveNotCopy"] boolValue];
+    NSNumber * moveNotCopyNumber = [dict objectForKey: @"moveNotCopy"];
 
     if (  [sourcePaths count] != [targetPaths count]  ) {
         NSLog(@"moveOrCopyConfigurationsWithPathsOperation: [sourcePaths count] != [targetPaths count]; sourcePaths = %@\ntargetPaths=%@", sourcePaths, targetPaths);
@@ -5309,26 +5294,22 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  ! targetPath  ) {
             break;
         }
-        
-        BOOL ok = [self copyConfigPath: sourcePath
-                                toPath: targetPath
-                       usingSystemAuth: auth
-                            warnDialog: YES
-                           moveNotCopy: moveNotCopy
-                               noAdmin: NO];
-        if (  ! ok  ) {
+
+        NSMutableString * result = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+        NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                                sourcePath,        @"sourcePath",
+                                targetPath,        @"targetPath",
+                                auth,              @"auth",
+                                @YES,              @"warnDialog",
+                                moveNotCopyNumber, @"moveNotCopy",
+                                @NO,               @"noAdmin",
+                                result,            @"result",
+                                nil];
+        [(MenuController *)[NSApp delegate]
+         performSelectorOnMainThread: @selector(moveOrCopyOneConfigurationUsingConfigurationManager:) withObject: dict2 waitUntilDone: YES];
+        if ( [result length] != 0  ) {
             break;
         }
-
-        NSString * sourceDisplayName = displayNameFromPath(sourcePath);
-        NSString * targetDisplayName = displayNameFromPath(targetPath);
-        if (  ! [gTbDefaults copyPreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
-            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                              NSLocalizedString(@"Warning: One or more settings could not be copied. See the Console Log for details.", @"Window text"));
-            break;
-        }
-
-        copyCredentials(sourceDisplayName, targetDisplayName);
     }
 
     [auth release];
@@ -5340,6 +5321,35 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [TBOperationQueue operationIsComplete];
     
     [pool drain];
+}
+
++(void) moveOrCopyOneConfiguration: (NSDictionary *) dict {
+
+    NSString   *      sourcePath  =  [dict objectForKey: @"sourcePath"];
+    NSString   *      targetPath  =  [dict objectForKey: @"targetPath"];
+    SystemAuth *      auth        =  [dict objectForKey: @"auth"];
+    NSMutableString * result      =  [dict objectForKey: @"result"];
+    BOOL              warnDialog  = [[dict objectForKey: @"warnDialog"]  boolValue];
+    BOOL              moveNotCopy = [[dict objectForKey: @"moveNotCopy"] boolValue];
+    BOOL              noAdmin     = [[dict objectForKey: @"noAdmin"]     boolValue];
+
+    BOOL ok = [self copyConfigPath: sourcePath
+                            toPath: targetPath
+                   usingSystemAuth: auth
+                        warnDialog: warnDialog
+                       moveNotCopy: moveNotCopy
+                           noAdmin: noAdmin];
+    if (  ok  ) {
+        NSString * sourceDisplayName = displayNameFromPath(sourcePath);
+        NSString * targetDisplayName = displayNameFromPath(targetPath);
+        if (  ! [self moveOrCopyCredentialsAndSettingsFrom: sourceDisplayName to: targetDisplayName moveNotCopy: moveNotCopy]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                              NSLocalizedString(@"Warning: One or more settings could not be copied. See the Console Log for details.", @"Window text"));
+            [result appendString: @"/"];
+        }
+    } else {
+        [result appendString: @"/"];
+    }
 }
 
 +(void) installConfigurationsShowMessagesNotifyDelegateOperation: (NSArray *) filePaths {

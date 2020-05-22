@@ -3,7 +3,7 @@
  * Contributions by Dirk Theisen <dirk@objectpark.org>,
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -5317,6 +5317,31 @@ static void signal_handler(int signalNumber)
 	didFinishLaunching = TRUE;
 }
 
+-(void) renameConfigurationUsingConfigurationManager: (NSDictionary *) dict {
+
+    // Invoked on main thread by a secondary thread to avoid creating an instance of ConfigurationManager
+    // (performSelectorOnMainThread invokes an instance method; it cannot invoke a class method.)
+
+    [ConfigurationManager renameConfiguration: dict];
+}
+
+-(void) renameConfigurationFolderUsingConfigurationManager: (NSDictionary *) dict {
+
+    // Invoked on main thread by a secondary thread to avoid creating an instance of ConfigurationManager
+    // (performSelectorOnMainThread invokes an instance method; it cannot invoke a class method.)
+
+    [ConfigurationManager renameConfigurationFolder: dict];
+}
+
+-(void) moveOrCopyOneConfigurationUsingConfigurationManager: (NSDictionary *) dict {
+
+    // Invoked on main thread by a secondary thread to avoid creating an instance of ConfigurationManager
+    // (performSelectorOnMainThread invokes an instance method; it cannot invoke a class method.)
+
+    [ConfigurationManager moveOrCopyOneConfiguration: dict];
+
+    
+}
 -(BOOL) userNotificationCenter: (id) center
      shouldPresentNotification: (id) notification {
     

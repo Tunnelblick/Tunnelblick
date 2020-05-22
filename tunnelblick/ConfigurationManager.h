@@ -75,6 +75,12 @@ typedef enum
 	BOOL multipleConfigurations;
 }
 
+// The following three methods are invoked on the main thread by corresponding instance methods in MenuController
+// that are invoked by the various ...Operations class methods.
++(void) renameConfiguration:        (NSDictionary *) dict;
++(void) renameConfigurationFolder:  (NSDictionary *) dict;
++(void) moveOrCopyOneConfiguration: (NSDictionary *) dict;
+
 +(NSDictionary *)           plistInTblkAtPath:          (NSString *)         path;
 
 +(void)                     editOrExamineConfigurationForConnection: (VPNConnection *) connection;

@@ -257,6 +257,9 @@
 /* Button */
 "Standard icon" = "Standard icon";
 
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "Stop";
+
 /* Button */
 "Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
 
@@ -1346,9 +1349,6 @@
 "Modified configuration file to remove path information" = "Modified configuration file to remove path information";
 
 /* Window text */
-"Move failed; see the Console Log for details." = "Move failed; see the Console Log for details.";
-
-/* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver')";
 
 /* Window text */
@@ -1733,6 +1733,9 @@
 "Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details.";
 
 /* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick could not copy folder '%@'. See the Console Log for details.";
+
+/* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration. See the Console Log for details.";
 
 /* Window text */
@@ -1793,10 +1796,10 @@
 "Tunnelblick is ready." = "Tunnelblick is ready.";
 
 /* Window text */
-"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick needs authorization to copy or move configurations.";
+"Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick needs authorization to copy folder '%@'.";
 
 /* Window text */
-"Tunnelblick needs authorization to copy or move the '%@' configuration." = "Tunnelblick needs authorization to copy or move the '%@' configuration.";
+"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick needs authorization to copy or move configurations.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick needs authorization to duplicate the '%@' configuration.";
@@ -1814,16 +1817,22 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick needs authorization to make the '%@' configuration shared.";
 
 /* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick needs authorization to move folder '%1$@' into folder '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@'." = "Tunnelblick needs authorization to move folder '%@'.";
+
+/* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n";
 
 /* Window text */
 "Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently.";
 
-/* Window text. '%@' is the name of a folder of configurations. */
-"Tunnelblick needs authorization to rename '%@'." = "Tunnelblick needs authorization to rename '%@'.";
+/* Window text */
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "Tunnelblick needs authorization to rename configuration '%1$@' to '%2$@'.";
 
 /* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick needs authorization to rename folder '%1$@' to '%2$@'.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick needs authorization to secure the imported data.";
