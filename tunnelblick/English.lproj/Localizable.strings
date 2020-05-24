@@ -1547,7 +1547,7 @@
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "The %1$@ system folder (%2$@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details." = "The %1$@ system folder (%2$@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option.";

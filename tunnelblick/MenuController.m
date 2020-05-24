@@ -331,7 +331,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 		int result = TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
 									 [NSString stringWithFormat: NSLocalizedString(@"The %@ system folder (%@) is not secure.\n\n"
 																				   @"Tunnelblick and other programs may not work properly until this problem is fixed.\n\n"
-																				   @"The Console log has details.", @"Window text. '%@' is the name of a system folder, e.g. 'Applications'"),
+																				   @"The Console Log has details.", @"Window text. '%@' is the name of a system folder, e.g. 'Applications'"),
 									  [gFileMgr displayNameAtPath: folderPath], folderPath],
 									 NSLocalizedString(@"Quit", @"Button"),
 									 NSLocalizedString(@"Help", @"Button"),
