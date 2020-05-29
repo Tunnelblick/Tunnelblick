@@ -949,7 +949,8 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: folder];
     NSString * file;
     while ( (file = [dirE nextObject])  ) {
-        if (  [file hasSuffix: @".tblk"]  ) {
+        if (   [file hasSuffix: @".tblk"]
+            || [[file lastPathComponent] isEqualToString: @"IconSets"]  ) {
             [dirE skipDescendants];
         } else {
             NSString * fullPath = [folder stringByAppendingPathComponent: file];
