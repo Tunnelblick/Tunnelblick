@@ -612,8 +612,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
 	[keepConnectedCheckbox
 	  setTitle: NSLocalizedString(@"Keep connected", @"Checkbox name")
-	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n"
-														   @"<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n",
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n"
+														   @"<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n",
 														   @"HTML info for the 'Keep connected' checkbox."))];
 	
 	[loadTunAutomaticallyMenuItem setTitle: NSLocalizedString(@"Load Tun driver automatically", @"Button")];
