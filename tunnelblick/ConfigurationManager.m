@@ -53,6 +53,8 @@ extern NSArray              * gProgramPreferences;
 extern NSString             * gPrivatePath;
 extern NSString             * gDeployPath;
 extern NSFileManager        * gFileMgr;
+extern MenuController       * gMC;
+
 extern TBUserDefaults       * gTbDefaults;
 
 extern NSString * lastPartOfPath(NSString * thePath);
@@ -944,7 +946,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSArray * arguments = [NSArray arrayWithObject: targetPath];
     
-    NSInteger result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
+    NSInteger result = [gMC runInstaller: INSTALLER_DELETE
                                                            extraArguments: arguments
                                                           usingSystemAuth: auth
                                                              installTblks: nil];
@@ -955,7 +957,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     NSString * localName = lastPartOfPath(targetPath);
     if (  [localName hasSuffix: @".tblk"]  ) {
-        localName = [((MenuController *)[NSApp delegate])
+        localName = [gMC
                     localizedNameForDisplayName:  [localName stringByDeletingPathExtension]];
     }
 
@@ -979,7 +981,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  bundleId  ) {
         
           // Stop updating any configurations with this bundleId
-		[[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
+		[[gMC myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
 		
         // Delete all master stub .tblk containers with this bundleId
         NSArray * stubTblkPaths = [ConfigurationMultiUpdater pathsForMasterStubTblkContainersWithBundleIdentifier: bundleId];
@@ -987,7 +989,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSEnumerator * e = [stubTblkPaths objectEnumerator];
         while (  (containerPath = [e nextObject])) {
             arguments = [NSArray arrayWithObject: containerPath];
-            result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
+            result = [gMC runInstaller: INSTALLER_DELETE
                                                          extraArguments: arguments
                                                         usingSystemAuth: auth
                                                            installTblks: nil];
@@ -1046,7 +1048,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                                      [NSApp delegate], @selector(haveConfigurations)); // Abort this dialog if we have configurations
                 
                 if (  button == NSAlertAlternateReturn  ) {
-                    [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
+                    [gMC terminateBecause: terminatingBecauseOfQuit];
                     return;
                 } else if (  button == NSAlertErrorReturn  ) {
                     return;
@@ -1357,7 +1359,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				return fullPath;
 			}
 			
-            NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: displayName tblkPath: fullPath];
+            NSString * localName = [gMC localizedNameforDisplayName: displayName tblkPath: fullPath];
 
 			NSString * tbReplaceIdentical = [infoPlistDict objectForKey: @"TBReplaceIdentical"];
 			
@@ -1528,7 +1530,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * tbSharePackage     = [infoPlistDict objectForKey: @"TBSharePackage"];
     NSString * tbReplaceIdentical = [infoPlistDict objectForKey: @"TBReplaceIdentical"];
     
-	NSString * localizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: displayName tblkPath: replacementTblkPath];
+	NSString * localizedName = [gMC localizedNameforDisplayName: displayName tblkPath: replacementTblkPath];
 	
     NSString * sharedOrPrivate;
     if (   replaceShared
@@ -1774,7 +1776,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Warn if the configuration is connected and contains scripts. If the scripts are replaced with new ones, that could cause problems.
     if (  replacingTblkPath  ) {
         BOOL warnConfigurationIsConnected = FALSE;
-        NSDictionary * configDict = [((MenuController *)[NSApp delegate]) myConfigDictionary];
+        NSDictionary * configDict = [gMC myConfigDictionary];
         NSEnumerator * keyEnum = [configDict keyEnumerator];
         NSString * key;
         while (  (key = [keyEnum nextObject])  ) {
@@ -1797,7 +1799,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
         
         if (  warnConfigurationIsConnected  ) {
-            NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: displayName tblkPath: replacingTblkPath];
+            NSString * localName = [gMC localizedNameforDisplayName: displayName tblkPath: replacingTblkPath];
             int result = TBRunAlertPanel(NSLocalizedString(@"VPN Configuration Installation", @"Window title"),
                                          [NSString stringWithFormat:
                                           NSLocalizedString(@"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\n"
@@ -1854,7 +1856,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
 	} else {
 		if (  uninstall  ) {
-            NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: displayName tblkPath: fullPath];
+            NSString * localName = [gMC localizedNameforDisplayName: displayName tblkPath: fullPath];
 			return [NSString stringWithFormat: NSLocalizedString(@"Cannot uninstall configuration '%@' because it is not installed.", @"Window text"), localName];
 		}
     }
@@ -2294,7 +2296,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
         NSLog(@"Could not do 'safeUpdate' of configuration file %@ to %@", sourcePath, targetPath);
         if (  warn  ) {
-			NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
+			NSString * localName = [gMC localizedNameForDisplayName: displayName];
             NSString * title = NSLocalizedString(@"Could Not Replace Configuration", @"Window title");
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not replace the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
             TBShowAlertWindow(title, msg);
@@ -2312,7 +2314,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                          : INSTALLER_COPY);
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
     
-    NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: firstArg
+    NSInteger installerResult = [gMC runInstaller: firstArg
                                                                     extraArguments: arguments
                                                                    usingSystemAuth: auth
                                                                       installTblks: nil];
@@ -2327,7 +2329,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  ! moveInstead  ) {
         NSLog(@"Could not copy configuration file %@ to %@", sourcePath, targetPath);
         if (  warn  ) {
-			NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
+			NSString * localName = [gMC localizedNameForDisplayName: displayName];
             NSString * title = NSLocalizedString(@"Could Not Copy Configuration", @"Window title");
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
             TBShowAlertWindow(title, msg);
@@ -2338,7 +2340,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     } else {
         NSLog(@"Could not move configuration file %@ to %@", sourcePath, targetPath);
         if (  warn  ) {
-			NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
+			NSString * localName = [gMC localizedNameForDisplayName: displayName];
             NSString * title = NSLocalizedString(@"Could Not Move Configuration", @"Window title");
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not move the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
             TBShowAlertWindow(title, msg);
@@ -2361,12 +2363,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * path;
         NSEnumerator * e = [currentList objectEnumerator];
         while (  (path = [e nextObject])  ) {
-            NSDictionary * configDict = [((MenuController *)[NSApp delegate]) myConfigDictionary];
+            NSDictionary * configDict = [gMC myConfigDictionary];
             NSArray * names = [configDict allKeysForObject: path];
             if (  [names count] != 1  ) {
                 return [NSArray array];
             }
-            VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: [names objectAtIndex: 0]];
+            VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: [names objectAtIndex: 0]];
             if (  ! [[connection state] isEqualToString: @"EXITING"]  ) {
                 [list addObject: [names objectAtIndex: 0]];
             }
@@ -2383,7 +2385,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * name;
     NSEnumerator * e = [displayNames objectEnumerator];
     while (  (name = [e nextObject])  ) {
-        NSDictionary * dict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+        NSDictionary * dict = [gMC myVPNConnectionDictionary];
         VPNConnection * connection = [dict objectForKey: name];
         if (  connection  ) {
             if (  ! [[connection state] isEqualToString: @"EXITING"]  ) {
@@ -2398,7 +2400,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Wait for the VPN to be completely disconnected
     e = [displayNames objectEnumerator];
     while (  (name = [e nextObject])  ) {
-        VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: name];
+        VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: name];
         [connection waitUntilCompletelyDisconnected];
      }
 }
@@ -2410,7 +2412,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * name;
     NSEnumerator * e = [displayNames objectEnumerator];
     while (  (name = [e nextObject])  ) {
-        VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: name];
+        VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: name];
         if (  connection  ) {
             NSLog(@"Starting reconnection of '%@'", name);
             [connection performSelector: @selector(connectOnMainThreadUserKnows:) withObject: @YES afterDelay: 1.0];
@@ -2539,7 +2541,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * authMsg = [NSString stringWithFormat: @"%@\n%@%@%@%@%@", NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text"), uninstallMsg, replaceMsg, installMsg, safeMsg, disconnectMsg];
     
     // Get a SystemAuth WITH A RETAIN COUNT OF 1, from MenuController's startupInstallAuth, the lock, or from a user interaction
-    SystemAuth * auth = [[((MenuController *)[NSApp delegate]) startupInstallAuth] retain];
+    SystemAuth * auth = [[gMC startupInstallAuth] retain];
  	if (   ( (nToUninstall + nToInstall + nToReplace) != 0)
         && ( ! auth )  ) {
         auth = [SystemAuth newAuthWithPrompt: authMsg];
@@ -2586,7 +2588,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                                       warnDialog: NO]  ) {
 			nUninstallErrors++;
 			NSString * targetDisplayName   = [lastPartOfPath(target) stringByDeletingPathExtension];
-            NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
+            NSString * targetLocalizedName = [gMC localizedNameforDisplayName: targetDisplayName tblkPath: target];
 			[installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to uninstall the '%@' configuration\n", @"Window text"), targetLocalizedName]];
 		}
 	}
@@ -2604,7 +2606,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                              noAdmin: NO]  ) {
             nInstallErrors++;
             NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
-            NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
+            NSString * targetLocalizedName = [gMC localizedNameforDisplayName: targetDisplayName tblkPath: target];
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to install the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
@@ -2623,17 +2625,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                        moveNotCopy: NO
                                            noAdmin: NO]  ) {
 			
-            NSDictionary * connDict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+            NSDictionary * connDict = [gMC myVPNConnectionDictionary];
             VPNConnection * connection = [connDict objectForKey: targetDisplayName];
             if (  connection  ) {
                 // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
 				[connection reloadPreferencesFromTblk];
-                [[((MenuController *)[NSApp delegate]) logScreen] update];
+                [[gMC logScreen] update];
             }
             
         } else {
             nReplaceErrors++;
-            NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
+            NSString * targetLocalizedName = [gMC localizedNameforDisplayName: targetDisplayName tblkPath: target];
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
@@ -2652,17 +2654,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                        moveNotCopy: NO
                                            noAdmin: YES]  ) {
             
-            NSDictionary * connDict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+            NSDictionary * connDict = [gMC myVPNConnectionDictionary];
             VPNConnection * connection = [connDict objectForKey: targetDisplayName];
             if (  connection  ) {
                 // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
                 [connection reloadPreferencesFromTblk];
-                [[((MenuController *)[NSApp delegate]) logScreen] update];
+                [[gMC logScreen] update];
             }
             
         } else {
             nSafeErrors++;
-            NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
+            NSString * targetLocalizedName = [gMC localizedNameforDisplayName: targetDisplayName tblkPath: target];
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to install or replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
@@ -2714,13 +2716,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                   stringByAppendingPathComponent: targetLast];
         
 		NSArray * arguments = [NSArray arrayWithObjects: target, source, nil];
-		NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_COPY
+		NSInteger installerResult = [gMC runInstaller: INSTALLER_COPY
                                                                         extraArguments: arguments
                                                                        usingSystemAuth: auth
                                                                           installTblks: nil];
 		if (  installerResult == 0  ) {
- 			[[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
-            [[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] performSelectorOnMainThread:@selector(addUpdateCheckingForStubTblkAtPath:) withObject: target waitUntilDone: YES];
+ 			[[gMC myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
+            [[gMC myConfigMultiUpdater] performSelectorOnMainThread:@selector(addUpdateCheckingForStubTblkAtPath:) withObject: target waitUntilDone: YES];
         } else {
             nUpdateErrors++;
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to store updatable configuration stub at %@\n", @"Window text"), target]];
@@ -3129,7 +3131,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  ! [displayName hasSuffix: @"/"]  ) {
 
         // It's a configuration
-        VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+        VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
         if (  ! connection  ) {
             NSLog(@"okToRemoveConfigurationWithDisplayNames: Cannot get VPNConnection object for display name '%@'", displayName);
             return NO;
@@ -3219,7 +3221,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: displayName with: nil];
             
         } else {
-            VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+            VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
             if (  ! connection  ) {
                 NSLog(@"removeConfigurationsOrFoldersWithDisplayNamesWorker: Cannot get VPNConnection object for display name '%@'", displayName);
                 ok = FALSE;
@@ -3280,7 +3282,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
     
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-		NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
+		NSString * localName = [gMC localizedNameForDisplayName: displayName];
         NSString * message = (  shared
                               ? [NSString stringWithFormat: NSLocalizedString(@"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?", @"Window text"), localName]
                               : [NSString stringWithFormat: NSLocalizedString(@"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?", @"Window text"), localName]);
@@ -3301,7 +3303,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              moveNotCopy: YES
                                  noAdmin: NO];
     
-    VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+    VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
     if (  ! connection  ) {
         NSLog(@"changeToSharedFromPath: Internal error: cannot find connection for '%@', unable to ", displayName);
     }
@@ -3316,12 +3318,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSMutableArray * pathsToModify = [[[NSMutableArray alloc] init] autorelease];
     
     // Make sure all of the configurations are either private or shared currently
-    NSDictionary * dict = [((MenuController *)[NSApp delegate]) myConfigDictionary];
+    NSDictionary * dict = [gMC myConfigDictionary];
     NSString * displayName;
     NSEnumerator * e = [displayNames objectEnumerator];
     while (  (displayName = [e nextObject])  ) {
         NSString * path = [dict objectForKey: displayName];
-		NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
+		NSString * localName = [gMC localizedNameForDisplayName: displayName];
 		if (  [path hasPrefix: [L_AS_T_SHARED stringByAppendingPathComponent: @"/"]]  ) {
 			if (  ! shared  ) {
 				if (  [ConfigurationManager isConfigurationSetToConnectWhenComputerStartsAtPath: path]  ) {
@@ -3356,7 +3358,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
 	NSString * localName = nil;
 	if (  [pathsToModify count] == 1  ) {
-		localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: [lastPartOfPath([pathsToModify objectAtIndex: 0]) stringByDeletingPathExtension]];
+		localName = [gMC localizedNameForDisplayName: [lastPartOfPath([pathsToModify objectAtIndex: 0]) stringByDeletingPathExtension]];
 	}
     NSString * prompt = (  ([pathsToModify count] == 1)
                          ? (  shared
@@ -3407,7 +3409,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			break;
 	}
     
-	VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+	VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
 	if (  connection  ) {
 		[connection invalidateConfigurationParse];
 	} else {
@@ -3423,7 +3425,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	NSString * displayName;
 	NSEnumerator * e = [displayNames objectEnumerator];
 	while (  (displayName = [e nextObject])  ) {
-		VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+		VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
 		if (  connection  ) {
 			NSString * source = [connection configPath];
 			if (  [source hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
@@ -3442,7 +3444,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
 	NSString * message = (  ([displayNamesToRevert count] == 1)
 						  ? [NSString stringWithFormat:
-							 NSLocalizedString(@"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n", @"Window text"), [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: [displayNamesToRevert objectAtIndex: 0]]]
+							 NSLocalizedString(@"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n", @"Window text"), [gMC localizedNameForDisplayName: [displayNamesToRevert objectAtIndex: 0]]]
 						  : [NSString stringWithFormat:
 							 NSLocalizedString(@"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n", @"Window text"), (unsigned long)[displayNamesToRevert count]]);
 	
@@ -3451,7 +3453,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 								 NSLocalizedString(@"Revert", @"Button"),
 								 NSLocalizedString(@"Cancel", @"Button"), nil);
 	
-	[((MenuController *)[NSApp delegate]) reactivateTunnelblick];
+	[gMC reactivateTunnelblick];
 	
 	if (  result != NSAlertDefaultReturn  ) {
 		return;
@@ -3466,7 +3468,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	if (  ok  ) {
 		NSString * message = (  ([displayNamesToRevert count] == 1)
 							  ? [NSString stringWithFormat:
-								 NSLocalizedString(@"%@ has been reverted to its last secured (shadow) copy.\n\n", @"Window text"), [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: [displayNamesToRevert objectAtIndex: 0]]]
+								 NSLocalizedString(@"%@ has been reverted to its last secured (shadow) copy.\n\n", @"Window text"), [gMC localizedNameForDisplayName: [displayNamesToRevert objectAtIndex: 0]]]
 							  : [NSString stringWithFormat:
 								 NSLocalizedString(@"%ld configurations have been reverted to their last secured (shadow) copy.\n\n", @"Window text"), (unsigned long)[displayNamesToRevert count]]);
 							  
@@ -3532,7 +3534,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSString * message = (  ( [displayNames count] == 1 )
 							  ? [NSString stringWithFormat:
 								 NSLocalizedString(@"'%@' does not have any credentials (private key or username and password) stored in the Keychain.", @"Window text"),
-								 [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: [displayNames objectAtIndex: 0]]]
+								 [gMC localizedNameForDisplayName: [displayNames objectAtIndex: 0]]]
 							  : [NSString stringWithFormat:
 								 NSLocalizedString(@"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain.", @"Window text"),
 								 (unsigned long)[displayNames count]]);
@@ -3543,7 +3545,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	NSString * message = (  ([displayNamesToProcess count] == 1)
 						  ? (  ([groupNamesToProcess objectAtIndex: 0] != [NSNull null])
 							 ? [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?", @"Window text"), [groupNamesToProcess objectAtIndex: 0]]
-							 : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?", @"Window text"),    [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: [displayNamesToProcess objectAtIndex: 0]]])
+							 : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?", @"Window text"),    [gMC localizedNameForDisplayName: [displayNamesToProcess objectAtIndex: 0]]])
 						  
 						  : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?", @"Window text"), [displayNamesToProcess count]]);
 	
@@ -3599,7 +3601,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                            groupName,
                            errMsg]);
     } else {
-        SettingsSheetWindowController * wc = [[((MenuController *)[NSApp delegate]) logScreen] settingsSheetWindowController];
+        SettingsSheetWindowController * wc = [[gMC logScreen] settingsSheetWindowController];
         [wc performSelectorOnMainThread: @selector(updateStaticContentSetupSettingsAndBringToFront) withObject: nil waitUntilDone: NO];
     }
 }
@@ -3684,7 +3686,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 +(BOOL) createConfigurationFolderAtPath: (NSString *) path usingSystemAuth: (SystemAuth *) auth {
 
     NSArray * arguments = [NSArray arrayWithObjects: path, @"", nil];
-    NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_COPY
+    NSInteger installerResult = [gMC runInstaller: INSTALLER_COPY
                                                                     extraArguments: arguments
                                                                    usingSystemAuth: auth
                                                                       installTblks: nil];
@@ -3716,7 +3718,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(BOOL) verifyCanDoMoveOrRenameFromPath: (NSString *) sourcePath name: (NSString *) sourceName {
 
-    VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceName];
+    VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: sourceName];
     if (  ! connection  ) {
         NSLog(@"verifyCanDoMoveOrRenameFromPath: No '%@' configuration exists", sourceName);
         return FALSE;
@@ -3785,7 +3787,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return;
     }
 
-    NSDictionary * pathsDictionary = [((MenuController *)[NSApp delegate]) myConfigDictionary];
+    NSDictionary * pathsDictionary = [gMC myConfigDictionary];
 
     NSString * firstSourcePath = [pathsDictionary objectForKey: firstDisplayName];
     if (  ! firstSourcePath  ) {
@@ -3828,7 +3830,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                 @NO,               @"noAdmin",
                                 result,            @"result",
                                 nil];
-        [(MenuController *)[NSApp delegate]
+        [gMC
          performSelectorOnMainThread: @selector(moveOrCopyOneConfigurationUsingConfigurationManager:) withObject: dict2 waitUntilDone: YES];
         if ( [result length] != 0  ) {
             break;
@@ -3855,7 +3857,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (   [gFileMgr fileExistsAtPath: fullSourcePath]  ) {
             if (  ! [gFileMgr fileExistsAtPath: fullTargetPath]  ) {
                 NSArray * arguments = [NSArray arrayWithObjects: fullTargetPath, fullSourcePath, nil];
-                NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_MOVE
+                NSInteger installerResult = [gMC runInstaller: INSTALLER_MOVE
                                                                                 extraArguments: arguments
                                                                                usingSystemAuth: auth
                                                                                   installTblks: nil];
@@ -3872,7 +3874,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     BOOL ok = TRUE;
 
-    NSArray * configurations = [[(MenuController *)[NSApp delegate] myConfigDictionary] allValues];
+    NSArray * configurations = [[gMC myConfigDictionary] allValues];
     e = [configurations objectEnumerator];
     NSString * path;
     while (  (path = [e nextObject])  ) {
@@ -3888,7 +3890,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Change the preference *values* that reference the old folder to reference the new one
     [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: sourceDisplayName with: targetDisplayName];
 
-    [((MenuController *)[NSApp delegate]) configurationsChangedForceLeftNavigationUpdate];
+    [gMC configurationsChangedForceLeftNavigationUpdate];
 }
 
 +(void) renameConfiguration: (NSDictionary *) dict {
@@ -4216,7 +4218,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 					return NO;
 				}
 				if (  thenConnect  ) {
-					VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+					VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
 					[connection connectOnMainThreadUserKnows: [NSNumber numberWithBool: userKnows]];
 				}
 				return YES;
@@ -4229,7 +4231,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			if (  updateInfo  ) {
 				TBLog(@"DB-UC",@"Skipping an update for %@", displayName);
 				if (  thenConnect  ) {
-					VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+					VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
 					[connection setSkipConfigurationUpdateCheckOnce: TRUE];
 					[connection connectOnMainThreadUserKnows: [NSNumber numberWithBool: userKnows]];
 				}
@@ -4239,7 +4241,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				BOOL reverted = [ConfigurationManager revertOneConfigurationToShadowWithDisplayName: displayName];
 				if (  reverted  ) {
 					if (  thenConnect  ) {
-						VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+						VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
 						[connection connectOnMainThreadUserKnows: [NSNumber numberWithBool: userKnows]];
 					}
 				}
@@ -4287,7 +4289,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return NO;
     }
     
-    NSString * cfgPath = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: displayName];
+    NSString * cfgPath = [[gMC myConfigDictionary] objectForKey: displayName];
     if (  cfgPath  ) {
         NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
                                  stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
@@ -4364,7 +4366,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
 	if (  [nSecondsS length] > 9  ) {
 		NSLog(@"ASL_KEY_TIME_NSEC is longer than 9 characters!!!");
-		[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		[gMC terminateBecause: terminatingBecauseOfError];
 		return @"";
 	}
 	
@@ -4566,7 +4568,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(NSString *) gitInfo {
     
-    NSDictionary * dict = [((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary];
+    NSDictionary * dict = [gMC tunnelblickInfoDictionary];
     
     NSString * gitMessage;
     NSString * hashValue = [dict objectForKey: @"TBGitHash"];
@@ -4634,13 +4636,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	NSPasteboard * pb = [NSPasteboard generalPasteboard];
 	[pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
 
-	VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+	VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
     if (  connection  ) {
 		
 		[pb setString: @"You pasted too soon! The Tunnelblick diagnostic info was not yet available on the Clipboard when you pasted. Try to paste again.\n" forType: NSStringPboardType];
 
 		// Get OS and Tunnelblick version info
-		NSString * versionContents = [[((MenuController *)[NSApp delegate]) openVPNLogHeader] stringByAppendingString:
+		NSString * versionContents = [[gMC openVPNLogHeader] stringByAppendingString:
                                       (isUserAnAdmin()
                                        ? @"; Admin user"
                                        : @"; Standard user")];
@@ -4839,7 +4841,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
 	if (  sizeof(pid_t) != 4  ) {
 		NSLog(@"sizeof(pid_t) is %lu, not 4!", sizeof(pid_t));
-		[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		[gMC terminateBecause: terminatingBecauseOfError];
 		return;
 	}
 	pid_t pid = [connection pid];
@@ -4884,7 +4886,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 +(void) putConsoleLogOnClipboard {
 
 	// Get OS and Tunnelblick version info
-	NSString * versionContents = [[((MenuController *)[NSApp delegate]) openVPNLogHeader] stringByAppendingString:
+	NSString * versionContents = [[gMC openVPNLogHeader] stringByAppendingString:
 								  (isUserAnAdmin()
 								   ? @"; Admin user"
 								   : @"; Standard user")];
@@ -4924,7 +4926,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 								  stringByAppendingPathComponent: @"Desktop"]
 								 stringByAppendingPathComponent: filename];
 		
-		NSInteger result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_EXPORT_ALL
+		NSInteger result = [gMC runInstaller: INSTALLER_EXPORT_ALL
 															   extraArguments: [NSArray arrayWithObject: targetPath]
 															  usingSystemAuth: auth
 																 installTblks: nil];
@@ -4961,7 +4963,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
 	
     [TBOperationQueue operationIsComplete];
     
@@ -4976,7 +4978,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
 	
     [TBOperationQueue operationIsComplete];
 	
@@ -4991,7 +4993,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 	
     [TBOperationQueue operationIsComplete];
     
@@ -5064,7 +5066,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     [TBOperationQueue removeDisableList];
 
-   [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
+   [gMC performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 
     [TBOperationQueue operationIsComplete];
     
@@ -5079,7 +5081,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     [TBOperationQueue removeDisableList];
 
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 
     [TBOperationQueue operationIsComplete];
     
@@ -5112,7 +5114,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 	NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
 	if (  [self anyConfigurationFolderContainsDisplayName: targetDisplayName]  ) {
-        NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: targetDisplayName];
+        NSString * localName = [gMC localizedNameForDisplayName: targetDisplayName];
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists.", @"Window text. '%@' is the name of a folder or a configuration."), localName]);
     } else {
@@ -5125,14 +5127,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                    targetPath, @"targetPath",
                                    auth,       @"auth",
                                    nil];
-            [(MenuController *)[NSApp delegate] performSelectorOnMainThread: @selector(renameConfigurationUsingConfigurationManager:) withObject: dict waitUntilDone: YES];
+            [gMC performSelectorOnMainThread: @selector(renameConfigurationUsingConfigurationManager:) withObject: dict waitUntilDone: YES];
             [auth release];
         }
 	}
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: YES];
+    [gMC performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: YES];
 
     [TBOperationQueue operationIsComplete];
 
@@ -5191,7 +5193,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                    targetDisplayName, @"targetDisplayName",
                                    auth,              @"auth",
                                    nil];
-            [(MenuController *)[NSApp delegate] performSelectorOnMainThread:@selector(renameConfigurationFolderUsingConfigurationManager:) withObject: dict waitUntilDone: YES];
+            [gMC performSelectorOnMainThread:@selector(renameConfigurationFolderUsingConfigurationManager:) withObject: dict waitUntilDone: YES];
             [auth release];
 
         }
@@ -5216,7 +5218,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 	
     [TBOperationQueue operationIsComplete];
     
@@ -5252,7 +5254,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     [TBOperationQueue removeDisableList];
 
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 
     [TBOperationQueue operationIsComplete];
 
@@ -5305,7 +5307,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                 @NO,               @"noAdmin",
                                 result,            @"result",
                                 nil];
-        [(MenuController *)[NSApp delegate]
+        [gMC
          performSelectorOnMainThread: @selector(moveOrCopyOneConfigurationUsingConfigurationManager:) withObject: dict2 waitUntilDone: YES];
         if ( [result length] != 0  ) {
             break;
@@ -5316,7 +5318,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     [TBOperationQueue removeDisableList];
 
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
 
     [TBOperationQueue operationIsComplete];
     
@@ -5363,7 +5365,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
     
     [TBOperationQueue operationIsComplete];
     
@@ -5381,7 +5383,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-	[[((MenuController *)[NSApp delegate]) logScreen] performSelectorOnMainThread: @selector(indicateNotWaitingForDiagnosticInfoToClipboard) withObject: nil waitUntilDone: NO];
+	[[gMC logScreen] performSelectorOnMainThread: @selector(indicateNotWaitingForDiagnosticInfoToClipboard) withObject: nil waitUntilDone: NO];
 	
     [TBOperationQueue operationIsComplete];
     
@@ -5435,7 +5437,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-	[[((MenuController *)[NSApp delegate]) logScreen] performSelectorOnMainThread: @selector(indicateNotWaitingForConsoleLogToClipboard) withObject: nil waitUntilDone: NO];
+	[[gMC logScreen] performSelectorOnMainThread: @selector(indicateNotWaitingForConsoleLogToClipboard) withObject: nil waitUntilDone: NO];
 	
     [TBOperationQueue operationIsComplete];
     
@@ -5450,7 +5452,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
 	[TBOperationQueue removeDisableList];
 	
-	[[((MenuController *)[NSApp delegate]) logScreen]
+	[[gMC logScreen]
 	 performSelectorOnMainThread: @selector(indicateNotWaitingForUtilitiesExportTunnelblickSetup)
 				      withObject: nil
 	               waitUntilDone: NO];
@@ -5471,7 +5473,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     [TBOperationQueue removeDisableList];
     
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(configurationsChangedForceLeftNavigationUpdate) withObject: nil waitUntilDone: NO];
     
     [TBOperationQueue operationIsComplete];
 	
@@ -5610,7 +5612,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSMutableArray * sourcePaths = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
     NSMutableArray * targetPaths = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
 
-    NSArray * configurations = [[(MenuController *)[NSApp delegate] myConfigDictionary] allValues];
+    NSArray * configurations = [[gMC myConfigDictionary] allValues];
     NSEnumerator * e = [configurations objectEnumerator];
     NSString * thisSourcePath;
     while (  (thisSourcePath = [e nextObject])  ) {
@@ -5726,9 +5728,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                              disallowCommands: YES];
     }
     
-    [((MenuController *)[NSApp delegate]) configurationsChanged];
+    [gMC configurationsChanged];
     
-    [((MenuController *)[NSApp delegate]) startCheckingForConfigurationUpdates];
+    [gMC startCheckingForConfigurationUpdates];
 }
 
 +(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName log: (NSString *) logContents {
@@ -5786,7 +5788,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 +(void) exportTunnelblickSetupInNewThread {
 	
 	// We are exporting everything, so disable ALL configurations
-	NSArray * disableList = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] allKeys];
+	NSArray * disableList = [[gMC myVPNConnectionDictionary] allKeys];
 	
 	[TBOperationQueue addToQueueSelector: @selector(exportTunnelblickSetupOperation)
 								  target: [ConfigurationManager class]
@@ -5814,7 +5816,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     if (  ! [NSThread isMainThread]  ) {
         NSLog(@"installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: not running on main thread");
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
     }
     
     [[ConfigurationManager manager] installConfigurations: paths
@@ -5822,7 +5824,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                            notifyDelegate: NO
                                          disallowCommands: NO];
     
-    [((MenuController *)[NSApp delegate]) configurationsChangedForceLeftNavigationUpdate];
+    [gMC configurationsChangedForceLeftNavigationUpdate];
 }
 
 +(CommandOptionsStatus) commandOptionsInOpenvpnConfigurationAtPath: (NSString *) path

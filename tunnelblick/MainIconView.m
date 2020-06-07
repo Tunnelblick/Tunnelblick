@@ -26,8 +26,9 @@
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 
-extern  TBUserDefaults * gTbDefaults;
+extern MenuController * gMC;
 extern BOOL              gShuttingDownWorkspace;
+extern TBUserDefaults * gTbDefaults;
 
 @implementation MainIconView
 
@@ -42,7 +43,7 @@ extern BOOL              gShuttingDownWorkspace;
         return;
     }
 	
-	[(MenuController *)[NSApp delegate] recreateMainMenuClearCache: NO];
+	[gMC recreateMainMenuClearCache: NO];
     
 	// Detect a triple-click:
 	//        First click comes here and pops up the menu
@@ -50,10 +51,10 @@ extern BOOL              gShuttingDownWorkspace;
 	//        Third click comes here and (if within 1 second of first click) opens VPN Details… window
 	NSTimeInterval thisTime = [theEvent timestamp];
 	if (  (mainIconLastClickTime + 1.0) > thisTime  ) {
-		[((MenuController *)[NSApp delegate]) openPreferencesWindow: self];
+		[gMC openPreferencesWindow: self];
 	} else {
-		NSStatusItem * statusI = [((MenuController *)[NSApp delegate]) statusItem];
-		NSMenu       * menu    = [((MenuController *)[NSApp delegate]) myVPNMenu];
+		NSStatusItem * statusI = [gMC statusItem];
+		NSMenu       * menu    = [gMC myVPNMenu];
 		[statusI popUpStatusItemMenu: menu];
 	}
 	
@@ -86,8 +87,8 @@ extern BOOL              gShuttingDownWorkspace;
 
 -(void) drawRect: (NSRect) rect
 {
-    NSStatusItem * statusI = [((MenuController *)[NSApp delegate]) statusItem];
-    BOOL menuIsOpen = [((MenuController *)[NSApp delegate]) menuIsOpen];
+    NSStatusItem * statusI = [gMC statusItem];
+    BOOL menuIsOpen = [gMC menuIsOpen];
     [statusI drawStatusBarBackgroundInRect: rect withHighlight: menuIsOpen];
     
     [super drawRect: rect];
@@ -115,7 +116,7 @@ extern BOOL              gShuttingDownWorkspace;
     
     [self unregisterDraggedTypes];
 
-    [((MenuController *)[NSApp delegate]) mouseExitedMainIcon: self event: nil];
+    [gMC mouseExitedMainIcon: self event: nil];
     
     [super dealloc];
 }
@@ -154,7 +155,7 @@ extern BOOL              gShuttingDownWorkspace;
     }
     
     TBLog(@"DB-SI", @"Mouse entered tracking rectangle  for MainIconView");
-    [((MenuController *)[NSApp delegate]) mouseEnteredMainIcon: self event: theEvent];
+    [gMC mouseEnteredMainIcon: self event: theEvent];
 }
 
 -(void) mouseExited: (NSEvent *) theEvent
@@ -167,7 +168,7 @@ extern BOOL              gShuttingDownWorkspace;
     }
     
     TBLog(@"DB-SI", @"Mouse exited tracking rectangle for MainIconView");
-    [((MenuController *)[NSApp delegate]) mouseExitedMainIcon: self event: theEvent];
+    [gMC mouseExitedMainIcon: self event: theEvent];
 }
 
 -(void) mouseDown: (NSEvent *) theEvent

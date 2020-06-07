@@ -39,9 +39,10 @@
 #import "NSFileManager+TB.h"
 
 
-extern NSString             * gPrivatePath;
-extern NSFileManager        * gFileMgr;
-extern TBUserDefaults       * gTbDefaults;
+extern NSFileManager  * gFileMgr;
+extern MenuController * gMC;
+extern NSString       * gPrivatePath;
+extern TBUserDefaults * gTbDefaults;
 
 
 @interface SettingsSheetWindowController()    // Private methods
@@ -157,7 +158,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         configurationName = [newName retain];
 		
 		if (  newName  ) {
-			[self setConnection: [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: configurationName]];
+			[self setConnection: [[gMC myVPNConnectionDictionary] objectForKey: configurationName]];
 		} else {
 			[self setConnection: nil];
 		}
@@ -190,8 +191,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         return;
     }
     
-	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
-	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+	BOOL savedDoingSetupOfUI = [gMC doingSetupOfUI];
+	[gMC setDoingSetupOfUI: TRUE];
 	
 	[self setSelectedCredentialsGroupIndexDirect: [NSNumber numberWithUnsignedInteger: NSNotFound]];
 	
@@ -221,7 +222,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	[credentialsGroupButton setEnabled: (   ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"] )
                                          && [gTbDefaults canChangeValueForKey: prefKey])];
 	
-	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
+	[gMC setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 - (void) setupPrependDomainNameCheckbox {
@@ -529,7 +530,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 -(void) initializeSoundPopUpButtons {
 	
-    NSArray * soundsSorted = [((MenuController *)[NSApp delegate]) sortedSounds];
+    NSArray * soundsSorted = [gMC sortedSounds];
     
     // Create an array of dictionaries of sounds. (Don't get the actual sounds, just the names of the sounds)
     NSMutableArray * soundsDictionaryArray = [NSMutableArray arrayWithCapacity: [soundsSorted count]];
@@ -925,8 +926,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 -(void) setupSettingsFromPreferences {
     
-	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
-	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+	BOOL savedDoingSetupOfUI = [gMC doingSetupOfUI];
+	[gMC setDoingSetupOfUI: TRUE];
 	
     NSString * programName;
     if (  [configurationName isEqualToString: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
@@ -939,11 +940,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         || ( ![TBOperationQueue shouldUIBeEnabledForDisplayName: configurationName] )  ) {
         [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"Advanced Settings%@", @"Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick')"), programName]];
         [self disableEverything];
-        [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
+        [gMC setDoingSetupOfUI: savedDoingSetupOfUI];
         return;
     }
 	
-	NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: configurationName];
+	NSString * localName = [gMC localizedNameForDisplayName: configurationName];
 	NSString * privateSharedDeployed = [connection displayLocation];
     [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"%@%@ Disconnected - Advanced Settings%@", @"Window title"), localName, privateSharedDeployed, programName]];
     
@@ -977,7 +978,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     [self setupRunMtuTestCheckbox];
     
-    if (  [[((MenuController *)[NSApp delegate]) logScreen] forceDisableOfNetworkMonitoring]  ) {
+    if (  [[gMC logScreen] forceDisableOfNetworkMonitoring]  ) {
         [monitorNetworkForChangesCheckbox setState: NSOffState];
         [monitorNetworkForChangesCheckbox setEnabled: NO];
     } else {
@@ -1102,16 +1103,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	[self setupSoundPopUpButtons];
 
 	
-	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
+	[gMC setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 -(void) setupMonitoringOptions {
 	
-	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
-	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+	BOOL savedDoingSetupOfUI = [gMC doingSetupOfUI];
+	[gMC setDoingSetupOfUI: TRUE];
 	
     if (   connection
-        && ( ! [[((MenuController *)[NSApp delegate]) logScreen] forceDisableOfNetworkMonitoring] )
+        && ( ! [[gMC logScreen] forceDisableOfNetworkMonitoring] )
         && ( ! [gTbDefaults boolForKey: [configurationName stringByAppendingString: @"-notMonitoringConnection"]] )  ) {
         
         [dnsServersPopUpButton   setEnabled: YES];
@@ -1237,7 +1238,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         [otherworkgroupPopUpButton    setEnabled: NO];
     }
 	
-	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
+	[gMC setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 -(NSInteger) indexForMonitoringOptionButton: (NSPopUpButton *) button
@@ -1345,7 +1346,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
     if (  auth  ) {
-        NSInteger status = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
+        NSInteger status = [gMC runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
                                            extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
                                           usingSystemAuth: auth
                                              installTblks: nil];
@@ -1397,56 +1398,56 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     // This preference is NOT IMPLEMENTED, nor is there a checkbox in the .xib
     
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnUnexpectedDisconnect"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnUnexpectedDisconnect"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
 }
 
 
 -(IBAction) flushDnsCacheCheckboxWasClicked: (NSButton *) sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotFlushCache"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotFlushCache"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
 }
 
 
 -(IBAction) allowManualNetworkSettingsOverrideCheckboxWasClicked: (NSButton *) sender {
-	[((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-allowChangesToManuallySetNetworkSettings"
+	[gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-allowChangesToManuallySetNetworkSettings"
 																						 to: ([sender state] == NSOnState)
 																				   inverted: NO];
 }
 
 
 -(IBAction) keepConnectedCheckboxWasClicked: (NSButton *) sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-keepConnected"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-keepConnected"
                                                                                          to: ([sender state] == NSOnState)
                                                                                    inverted: NO];
 }
 
 
 -(IBAction) enableIpv6OnTapCheckboxWasClicked: (NSButton *) sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-enableIpv6OnTap"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-enableIpv6OnTap"
                                                                                          to: ([sender state] == NSOnState)
                                                                                    inverted: NO];
 }
 
 
 -(IBAction) useRouteUpInsteadOfUpCheckboxWasClicked:(NSButton *)sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-useUpInsteadOfRouteUp"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-useUpInsteadOfRouteUp"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
 }
 
 
 -(IBAction) prependDomainNameCheckboxWasClicked: (NSButton *)sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-prependDomainNameToSearchDomains"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-prependDomainNameToSearchDomains"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: NO];
 }
 
 
 -(IBAction) disconnectOnSleepCheckboxWasClicked: (NSButton *)sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnSleep"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnSleep"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
     [self setupReconnectOnWakeFromSleepCheckbox];
@@ -1454,14 +1455,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 
 -(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked: (NSButton *) sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnWakeFromSleep"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnWakeFromSleep"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
 }
 
 
 -(IBAction) runMtuTestCheckboxWasClicked: (NSButton *) sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-runMtuTest"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-runMtuTest"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: NO];
 }
@@ -1469,12 +1470,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 -(void) setTunTapKey: (NSString *) key
 		 value: (NSString *) value {
     
-	if ( ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+	if ( ! [gMC doingSetupOfUI]  ) {
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 						 value,  @"NewValue",
 						 key,    @"PreferenceName",
 						 nil];
-		[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+		[gMC performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
 	}
 }
 
@@ -1522,14 +1523,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 
 -(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked: (NSButton *) sender  {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnFastUserSwitch"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnFastUserSwitch"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
 }
 
 
 -(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked: (NSButton *) sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnFastUserSwitch"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnFastUserSwitch"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
 }
@@ -1542,7 +1543,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     if (   connection
         && (connection == theConnection)  ) {
-        if (  [[((MenuController *)[NSApp delegate]) logScreen] forceDisableOfNetworkMonitoring]  ) {
+        if (  [[gMC logScreen] forceDisableOfNetworkMonitoring]  ) {
             [monitorNetworkForChangesCheckbox setState: NSOffState];
             [monitorNetworkForChangesCheckbox setEnabled: NO];
         } else {
@@ -1559,13 +1560,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender {
     
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-notMonitoringConnection"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-notMonitoringConnection"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
     
     [self setupMonitoringOptions];
     
-    [[((MenuController *)[NSApp delegate]) logScreen] monitorNetworkForChangesCheckboxChangedForConnection: connection];
+    [[gMC logScreen] monitorNetworkForChangesCheckboxChangedForConnection: connection];
 }
 
 -(void) setDnsWinsIndexTo: (NSNumber *)   newValue
@@ -1591,7 +1592,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                                        ? @"restart"
                                        : @"restore");
             
-			if ( ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+			if ( ! [gMC doingSetupOfUI]  ) {
 				NSString * newStringValue = (  [newSetting isEqualToString: defaultValue]
                                              ? @""
                                              : newSetting
@@ -1600,7 +1601,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                                        newStringValue,  @"NewValue",
                                        key,    @"PreferenceName",
                                        nil];
-				[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+				[gMC performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
 			}
 		}
     }
@@ -1696,12 +1697,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         }
 		
 		if (  groupValue  ) {
-			if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+			if (  ! [gMC doingSetupOfUI]  ) {
 				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 								 groupValue, @"NewValue",
 								 @"-credentialsGroup", @"PreferenceName",
 								 nil];
-				[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+				[gMC performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
 			}
 		}
 		
@@ -1749,12 +1750,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         }
         
         
-        if ( ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+        if ( ! [gMC doingSetupOfUI]  ) {
             NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
                                    newName, @"NewValue",
                                    preference, @"PreferenceName",
                                    nil];
-            [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+            [gMC performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
         }
         if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
             [connection setTunnelUpSound: newSound];
@@ -1820,7 +1821,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 			[gTbDefaults setObject: name forKey: prefKey];
 		}
 		[self setupSettingsFromPreferences];
-        NSDictionary * connections = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+        NSDictionary * connections = [gMC myVPNConnectionDictionary];
         NSEnumerator * e = [connections objectEnumerator];
         VPNConnection * conn;
         while (  (conn = [e nextObject])  ) {

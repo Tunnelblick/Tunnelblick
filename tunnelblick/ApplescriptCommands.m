@@ -27,6 +27,7 @@
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 
+extern MenuController       * gMC;
 extern TBUserDefaults  * gTbDefaults;
 
 
@@ -36,7 +37,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
     NSString * displayName = [self directParameter];
     
-    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
     VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
     
     if (  connection  ) {
@@ -57,7 +58,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
     NSString * displayName = [self directParameter];
     
-    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
     VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
     
     if (  connection  ) {
@@ -78,7 +79,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nConnecting = 0;
@@ -99,7 +100,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nDisconnecting = 0;
@@ -121,7 +122,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nDisconnecting = 0;
@@ -148,7 +149,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(quit:) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(quit:) withObject: nil waitUntilDone: NO];
     return [NSNumber numberWithInt: 0];
 }
 
@@ -161,7 +162,7 @@ extern TBUserDefaults  * gTbDefaults;
 	
 	NSString * displayName = [self directParameter];
 	
-	[(MenuController *)[NSApp delegate] openvpnConfigurationFileChangedForDisplayName: displayName];
+	[gMC openvpnConfigurationFileChangedForDisplayName: displayName];
 	return [NSNumber numberWithInt: 0];
 }
 
@@ -172,7 +173,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation {
 	
-	[(MenuController *)[NSApp delegate] updateMenuAndDetailsWindowForceLeftNavigation: YES];
+	[gMC updateMenuAndDetailsWindowForceLeftNavigation: YES];
 	return [NSNumber numberWithInt: 0];
 }
 
@@ -187,7 +188,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 	NSDictionary * evaluatedArguments = [self evaluatedArguments];
 	NSString * displayName = [evaluatedArguments objectForKey: @"for"];
-	NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+	NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
 	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
 	AuthAgent * authAgent = [connection authAgent];
 
@@ -210,7 +211,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 	NSDictionary * evaluatedArguments = [self evaluatedArguments];
 	NSString * displayName = [evaluatedArguments objectForKey: @"for"];
-	NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+	NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
 	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
 	AuthAgent * authAgent = [connection authAgent];
 
@@ -233,7 +234,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 	NSDictionary * evaluatedArguments = [self evaluatedArguments];
 	NSString * displayName = [evaluatedArguments objectForKey: @"for"];
-	NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+	NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
 	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
 
 	AuthAgent * authAgent = [connection authAgent];
@@ -254,7 +255,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
 	NSString * displayName = [self directParameter];
 
-	NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+	NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
 	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
 	AuthAgent * authAgent = [connection authAgent];
 

@@ -51,18 +51,19 @@
 #import "UIHelper.h"
 #import "VPNConnection.h"
 
-extern NSMutableArray       * gConfigDirs;
-extern NSString             * gPrivatePath;
-extern NSString             * gDeployPath;
-extern NSFileManager        * gFileMgr;
-extern TBUserDefaults       * gTbDefaults;
-extern unsigned               gHookupTimeout;
-extern BOOL                   gShuttingDownTunnelblick;
-extern BOOL                   gShuttingDownOrRestartingComputer;
-extern NSArray              * gRateUnits;
-extern NSArray              * gTotalUnits;
-extern volatile int32_t       gSleepWakeState;
-extern volatile int32_t       gActiveInactiveState;
+extern volatile int32_t   gActiveInactiveState;
+extern NSMutableArray   * gConfigDirs;
+extern NSString         * gDeployPath;
+extern NSFileManager    * gFileMgr;
+extern unsigned           gHookupTimeout;
+extern MenuController   * gMC;
+extern NSString         * gPrivatePath;
+extern NSArray          * gRateUnits;
+extern volatile int32_t   gSleepWakeState;
+extern BOOL               gShuttingDownTunnelblick;
+extern BOOL               gShuttingDownOrRestartingComputer;
+extern TBUserDefaults   * gTbDefaults;
+extern NSArray          * gTotalUnits;
 
 @interface VPNConnection()          // PRIVATE METHODS
 
@@ -169,7 +170,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
             return nil;
         }
         
-		[self setLocalizedName: [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: inDisplayName tblkPath: inPath]];
+		[self setLocalizedName: [gMC localizedNameforDisplayName: inDisplayName tblkPath: inPath]];
 		
         [logDisplay setConnection: self];
 		[logDisplay clear];
@@ -371,7 +372,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     if (  nArgs != OPENVPNSTART_LOGNAME_ARG_COUNT  ) {
         NSLog(@"Program error: Expected %lu arguments but have %lu in '%@' (the 'startArgs' portion of log filename for %@)",
               (long unsigned)OPENVPNSTART_LOGNAME_ARG_COUNT, (long unsigned)nArgs, inStartArgs, [self displayName]);
-		[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+		[gMC terminateBecause: terminatingBecauseOfError];
 		return;
     }
 	
@@ -431,7 +432,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     }
     if (  configPathBad  ) {
         NSLog(@"cfgLocCode in log file for %@ doesn't match configuration path", [self displayName]);
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
     }
     
     BOOL prefsChangedOK = TRUE;
@@ -503,16 +504,16 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     }
     
     if (  ! prefsChangedOK  ) {
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
     }
     
     // Keep track of the number of tun and tap kexts that openvpnstart loaded
     if (  loadedOurTap  ) {
-        [((MenuController *)[NSApp delegate]) incrementTapCount];
+        [gMC incrementTapCount];
     }
     
     if (  loadedOurTun ) {
-        [((MenuController *)[NSApp delegate]) incrementTunCount];
+        [gMC incrementTunCount];
     }
 }
 
@@ -568,7 +569,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 -(void) didHookup
 {
-    MyPrefsWindowController * vpnDetails = [((MenuController *)[NSApp delegate]) logScreen];
+    MyPrefsWindowController * vpnDetails = [gMC logScreen];
     if (  vpnDetails  ) {
         TBLog(@"DB-HU", @"['%@'] didHookup invoked; informing VPN Details window", displayName)
 		[vpnDetails hookedUpOrStartedConnection: self];
@@ -772,7 +773,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         workingDirectory = firstPartOfPath(configPath);
 		if (  ! workingDirectory  ) {
 			NSLog(@"No firstPartOfPath for '%@'", configPath);
-            [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+            [gMC terminateBecause: terminatingBecauseOfError];
 		}
     }
     
@@ -890,7 +891,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 - (void) dealloc
 {
     [self startDisconnectingUserKnows: @NO];
-    [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
+    [gMC cancelAllIPCheckThreadsForConnection: self];
     
     [configPath                       release]; configPath                       = nil;
     [displayName                      release]; displayName                      = nil;
@@ -975,7 +976,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
     NSString * logHeader = [NSString stringWithFormat:@"currentIPInfo(%@)", (useIPAddress ? @"Address" : @"Name")];
 
-    NSURL * url = [((MenuController *)[NSApp delegate]) getIPCheckURL];
+    NSURL * url = [gMC getIPCheckURL];
     if (  ! url  ) {
         NSLog(@"%@: url == nil #1", logHeader);
         return nil;
@@ -1004,7 +1005,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [self setIpCheckLastHostWasIPAddress: [[url host] containsOnlyCharactersInString: @"0123456789."]];
 
     // Create an NSURLRequest
-    NSString * tbVersion = [[((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
+    NSString * tbVersion = [[gMC tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
     
     NSString * userAgent = [NSString stringWithFormat: @"Tunnelblick ipInfoChecker: %@", tbVersion];
     NSMutableURLRequest * req = [[[NSMutableURLRequest alloc] initWithURL: url] autorelease];
@@ -1227,7 +1228,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	[self setServerIPAddress: nil];
     
     NSString * threadID = [NSString stringWithFormat: @"%lu-%llu", (long) self, (long long) nowAbsoluteNanoseconds()];
-    [((MenuController *)[NSApp delegate]) addActiveIPCheckThread: threadID];
+    [gMC addActiveIPCheckThread: threadID];
     [NSThread detachNewThreadSelector:@selector(checkIPAddressBeforeConnectedThread:) toTarget: self withObject: threadID];
 }
 
@@ -1240,7 +1241,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     if (   [self ipAddressBeforeConnect]
         && [self serverIPAddress]  ) {
         NSString * threadID = [NSString stringWithFormat: @"%lu-%llu", (long) self, (long long) nowAbsoluteNanoseconds()];
-        [((MenuController *)[NSApp delegate]) addActiveIPCheckThread: threadID];
+        [gMC addActiveIPCheckThread: threadID];
         [NSThread detachNewThreadSelector:@selector(checkIPAddressAfterConnectedThread:) toTarget: self withObject: threadID];
     } else {
         [self addToLog: [NSString stringWithFormat: @"Could not determine this computer's apparent public IP address before the connection was completed"]];
@@ -1270,7 +1271,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 {
     NSString * before = [dict objectForKey: @"before"];
 	NSString * after  = [dict objectForKey: @"after"];
-	[((MenuController *)[NSApp delegate]) setPublicIPAddress: after];
+	[gMC setPublicIPAddress: after];
     [self checkForChangedIPAddress: before
                       andIPAddress: after];
 }
@@ -1301,9 +1302,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     NSArray * ipInfo = [self currentIPInfoWithIPAddress: NO timeoutInterval: timeoutToUse];
     
     // Stop here if on cancelling list
-    if (   [((MenuController *)[NSApp delegate]) isOnCancellingListIPCheckThread: threadID]
+    if (   [gMC isOnCancellingListIPCheckThread: threadID]
         || [lastState isEqualToString: @"CONNECTED" ]  ) {
-        [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
+        [gMC haveFinishedIPCheckThread: threadID];
         [threadPool drain];
         return;
     }
@@ -1321,7 +1322,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         [self ipInfoErrorDialog];
     }
     
-	[((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
+	[gMC haveFinishedIPCheckThread: threadID];
     [threadPool drain];
 }
 
@@ -1348,9 +1349,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                                                               max: 60.0 * 3.0];
     
     NSArray * ipInfo = [self currentIPInfoWithIPAddress: NO timeoutInterval: timeoutToUse];
-    if (   [((MenuController *)[NSApp delegate]) isOnCancellingListIPCheckThread: threadID]
+    if (   [gMC isOnCancellingListIPCheckThread: threadID]
         || ( ! [lastState isEqualToString: @"CONNECTED" ] )  ) {
-        [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
+        [gMC haveFinishedIPCheckThread: threadID];
         [threadPool drain];
         return;
     }
@@ -1360,7 +1361,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         [self performSelectorOnMainThread: @selector(checkIPAddressGoodResult:)
                                withObject: [NSDictionary dictionaryWithObjectsAndKeys: [self ipAddressBeforeConnect], @"before", [ipInfo objectAtIndex: 0], @"after", nil]
                             waitUntilDone: NO];
-        [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
+        [gMC haveFinishedIPCheckThread: threadID];
         [threadPool drain];
         return;
     }
@@ -1371,9 +1372,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [self addToLog:[NSString stringWithFormat: @"After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's name after connecting.", (double) timeoutToUse]];
 
     ipInfo = [self currentIPInfoWithIPAddress: YES timeoutInterval: timeoutToUse];
-    if (   [((MenuController *)[NSApp delegate]) isOnCancellingListIPCheckThread: threadID]
+    if (   [gMC isOnCancellingListIPCheckThread: threadID]
         || ( ! [lastState isEqualToString: @"CONNECTED" ] )  ) {
-        [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
+        [gMC haveFinishedIPCheckThread: threadID];
         [threadPool drain];
         return;
     }
@@ -1383,7 +1384,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
                                withObject: @"An error occurred fetching IP address information using the ipInfo host's IP address after connecting"
                             waitUntilDone: NO];
-        [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
+        [gMC haveFinishedIPCheckThread: threadID];
         [threadPool drain];
         return;
     }
@@ -1393,7 +1394,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 		[self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
 							   withObject: [NSString stringWithFormat: @"fetched IP address information using the ipInfo host's IP address after connecting."]
 							waitUntilDone: NO];
-        [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
+        [gMC haveFinishedIPCheckThread: threadID];
         [threadPool drain];
         return;
     }
@@ -1401,13 +1402,13 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     // Got IP address, even though DNS isn't working (!)
 	NSString * address = [ipInfo objectAtIndex:0];
     TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", address)
-	[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPublicIPAddress:)
+	[gMC performSelectorOnMainThread: @selector(setPublicIPAddress:)
                                                            withObject: address
                                                         waitUntilDone: NO];
     [self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
                            withObject: [NSString stringWithFormat: @"fetched IP address information using the ipInfo host's IP address after connecting."]
                         waitUntilDone: NO];
-    [((MenuController *)[NSApp delegate]) haveFinishedIPCheckThread: threadID];
+    [gMC haveFinishedIPCheckThread: threadID];
     [threadPool drain];
 }
 
@@ -1438,14 +1439,14 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	[self startCheckingIPAddressBeforeConnected];
 	
 	// Process runOnConnect item
-	NSString * path = [((MenuController *)[NSApp delegate]) customRunOnConnectPath];
+	NSString * path = [gMC customRunOnConnectPath];
 	if (  path  ) {
 		
 		NSMutableArray * arguments = [NSMutableArray arrayWithCapacity: [argumentsUsedToStartOpenvpnstart count] + 1];
 		
 		// First argument to the runOnConnect program is the language code IFF there is a Localization.bundle in Deploy
 		if (  [gFileMgr fileExistsAtPath: [gDeployPath stringByAppendingPathComponent: @"Localization.bundle"]]  ) {
-			[arguments addObject: [((MenuController *)[NSApp delegate]) languageAtLaunch]];
+			[arguments addObject: [gMC languageAtLaunch]];
 		}
 		
 		[arguments addObjectsFromArray: argumentsUsedToStartOpenvpnstart];
@@ -1497,11 +1498,11 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	
 	unsigned bitMask = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 7] unsignedIntValue];
 	if (  (loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT)  ) {
-		[((MenuController *)[NSApp delegate]) incrementTapCount];
+		[gMC incrementTapCount];
 	}
 	
 	if (  (loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT) ) {
-		[((MenuController *)[NSApp delegate]) incrementTunCount];
+		[gMC incrementTunCount];
 	}
 	
 	[self setConnectedSinceDate: [NSDate date]];
@@ -1595,7 +1596,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 			[self addToLog: openvpnstartOutput];
 		}
 		[self setState: @"SLEEP"];
-		[((MenuController *)[NSApp delegate]) addNonconnection: self];
+		[gMC addNonconnection: self];
 		[self connectToManagementSocket];
 	}
 }
@@ -1682,7 +1683,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 	
-	if (  ! [(MenuController *)[NSApp delegate] askAndMaybeReenableNetworkAccessTryingToConnect]  ) {
+	if (  ! [gMC askAndMaybeReenableNetworkAccessTryingToConnect]  ) {
 		NSLog(@"connect: cancelled when asked to re-enabling network access");
 		return;
 	}
@@ -1730,7 +1731,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             numConnectionsWithModifyNameserver = 1;
         }
         VPNConnection * connection;
-        NSEnumerator* e = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectEnumerator];
+        NSEnumerator* e = [[gMC myVPNConnectionDictionary] objectEnumerator];
         while (  (connection = [e nextObject])  ) {
             if (  ! [[connection state] isEqualToString:@"EXITING"]  ) {
                 numConnections++;
@@ -1816,7 +1817,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		[self clearStatisticsIncludeTotals: NO];
 		[self setState: @"NETWORK_ACCESS"];
 		stopWaitForNetworkAvailabilityThread = FALSE;
-		[((MenuController *)[NSApp delegate]) addNonconnection: self];
+		[gMC addNonconnection: self];
 		TBLog(@"DB-CD", @"connect:userKnows: Will wait for network availability in new thread")
 		[NSThread detachNewThreadSelector: @selector(waitForNetworkAvailabilityThread:) toTarget: self withObject: dict];
 		return;
@@ -2174,7 +2175,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	// We first decide what version the user would like, and then try to get as close a match to that version as possible, then adjust that if
 	// the configuration requires a different version (because it contains options that are not included in that version).
 	
-	NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+	NSArray  * versionNames = [gMC openvpnVersionNames];
 
 	// Get info about the version that the user has specified (or defaulted to)
     NSString * prefKey = [[self displayName] stringByAppendingString: @"-openvpnVersion"];
@@ -2767,7 +2768,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		return nil;
 	}
 	
-    NSString * ourOpenVPNVersion = [[((MenuController *)[NSApp delegate]) openvpnVersionNames] objectAtIndex: finalOpenvpnIx];
+    NSString * ourOpenVPNVersion = [[gMC openvpnVersionNames] objectAtIndex: finalOpenvpnIx];
 
     NSArray * args = [NSArray arrayWithObjects:
                       @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, ourOpenVPNVersion, nil];
@@ -3104,7 +3105,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
     // Start disconnecting by killing the OpenVPN process or signaling through the management interface
 	
-    [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
+    [gMC cancelAllIPCheckThreadsForConnection: self];
     
     if (  [self isDisconnected]  ) {
 		NSLog(@"startDisconnectingUserKnows but %@ is already disconnected. Will attempt to rety disconnection.", [self displayName]);
@@ -3160,7 +3161,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		[self expectDisconnect: userKnows];
         [self killProcess];
     } else if (   ALLOW_OPENVPNSTART_KILLALL
-               && (  [(connectedList = [((MenuController *)[NSApp delegate]) connectionsNotDisconnected]) count] == 1  )
+               && (  [(connectedList = [gMC connectionsNotDisconnected]) count] == 1  )
                && (  [connectedList objectAtIndex: 0] == self  )
                && notConnectWhenComputerStarts  ) {
 		[self addToLog: @"Disconnecting using 'killall'"];
@@ -3229,7 +3230,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		[ConfigurationManager terminateOpenVPNWithProcessIdInNewThread: [NSNumber numberWithLong: (long) pid]];
 	} else {
         NSLog(@"killProcess invoked but ALLOW_OPENVPNSTART_KILL = %@ and pid = %lu", (ALLOW_OPENVPNSTART_KILL ? @"TRUE" : @"FALSE"), (unsigned long) pid);
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
     }
 }
 
@@ -3289,9 +3290,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	[self cancelDisplayOfSlowDisconnectionDialog];
     
-    [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
+    [gMC cancelAllIPCheckThreadsForConnection: self];
 
-	[((MenuController *)[NSApp delegate]) setPublicIPAddress: nil];
+	[gMC setPublicIPAddress: nil];
 	
     [self clearStatisticsRatesDisplay];
     
@@ -3320,18 +3321,18 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     tryingToHookup   = FALSE;
 	disconnectWhenStateChanges = FALSE;
     
-    [((MenuController *)[NSApp delegate]) removeConnection:self];
+    [gMC removeConnection:self];
     
     // Unload tun/tap if not used by any other processes
     if (  loadedOurTap  ) {
-        [((MenuController *)[NSApp delegate]) decrementTapCount];
+        [gMC decrementTapCount];
         loadedOurTap = FALSE;
     }
     if (  loadedOurTun  ) {
-        [((MenuController *)[NSApp delegate]) decrementTunCount];
+        [gMC decrementTunCount];
         loadedOurTun = FALSE;
     }
-    [((MenuController *)[NSApp delegate]) unloadKexts];
+    [gMC unloadKexts];
     
 	if (  ! wereWaitingForNetworkAvailability  ) {
 		// Run the post-disconnect script, if any
@@ -3339,9 +3340,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
     
 	if (  ! gShuttingDownTunnelblick  ) {
-		[((MenuController *)[NSApp delegate]) updateUI];
-		[((MenuController *)[NSApp delegate]) updateIconImage];
-        [[((MenuController *)[NSApp delegate]) logScreen] validateDetailsWindowControlsForConnection: self];
+		[gMC updateUI];
+		[gMC updateIconImage];
+        [[gMC logScreen] validateDetailsWindowControlsForConnection: self];
 	}
 	
     if (   ( ! [requestedState isEqualToString: @"EXITING"])
@@ -3399,7 +3400,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     // Cannot be called on the main thread because it will never return
     if (  [NSThread isMainThread]  ) {
         NSLog(@"waitUntilCompletelyDisconnected: on main thread");
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
     }
     
     while (  ! completelyDisconnected  ) {
@@ -3588,7 +3589,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		return;
 	}
 	
-	NSArray * knownPublicDnsServers = [(MenuController *)[NSApp delegate] knownPublicDnsServerAddresses];
+	NSArray * knownPublicDnsServers = [gMC knownPublicDnsServerAddresses];
 	if (  ! knownPublicDnsServers  ) {
 		[self addToLog: @"Warning: An error occurred while trying to get the list of known public DNS servers"];
 		TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
@@ -3708,7 +3709,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
     if ([newState isEqualToString: @"EXITING"]) {
         discardSocketInput = TRUE;
-        [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
+        [gMC cancelAllIPCheckThreadsForConnection: self];
         [self hasDisconnected];                     // Sets lastState and does processing only once
 		if (  [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]  ) {
 			[UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Tunnelblick", @"Window title") msg: NSLocalizedString(@"Network access was disabled when a VPN disconnected.", @"Window text")];
@@ -3735,11 +3736,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self setState: newState];
         
         if ([newState isEqualToString: @"CONNECTED"]) {
-            [((MenuController *)[NSApp delegate]) addConnection:self];
+            [gMC addConnection:self];
             [self startCheckingIPAddressAfterConnected];
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
         } else {
-            [((MenuController *)[NSApp delegate]) addNonconnection: self];
+            [gMC addNonconnection: self];
             if([newState isEqualToString: @"RECONNECTING"]) {
                 [self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
             }
@@ -3755,9 +3756,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		isHookedup = TRUE;
 		tryingToHookup = FALSE;
 		[self didHookup];
-		if (  [((MenuController *)[NSApp delegate]) connectionsToRestoreOnUserActive]  ) {
+		if (  [gMC connectionsToRestoreOnUserActive]  ) {
 			BOOL stillTrying = FALSE;
-			NSEnumerator * e = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectEnumerator];
+			NSEnumerator * e = [[gMC myVPNConnectionDictionary] objectEnumerator];
 			VPNConnection * connection;
 			while (  (connection = [e nextObject])  ) {
 				if (  [connection tryingToHookup]  ) {
@@ -3771,10 +3772,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 				TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp: one or more configurations are still trying to hook up, so NOT yet invoking app delegate's reconnectAfterBecomeActiveUser", displayName)
             } else {
 				TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp: no configurations are still trying to hook up, so invoking app delegate's reconnectAfterBecomeActiveUser", displayName)
-				[((MenuController *)[NSApp delegate]) reconnectAfterBecomeActiveUser];
+				[gMC reconnectAfterBecomeActiveUser];
 			}
 		} else {
-			TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp: '[((MenuController *)[NSApp delegate]) connectionsToRestoreOnUserActive]' is nil", displayName)
+			TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp: '[gMC connectionsToRestoreOnUserActive]' is nil", displayName)
 		}
 		
 		logFilesMayExist = TRUE;
@@ -4584,7 +4585,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     unsigned haveShared   = 0;
     unsigned haveDeployed = 0;
     NSString * path;
-    NSEnumerator * configEnum = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectEnumerator];
+    NSEnumerator * configEnum = [[gMC myConfigDictionary] objectEnumerator];
     while (   ( path = [configEnum nextObject] )
            && ( (havePrivate + haveShared + haveDeployed) < 2) ) {
         if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
@@ -4742,7 +4743,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     if (inSocket==managementSocket) {
 		TBLog(@"DB-CD", @"netsocketDisconnected '%@'", [self displayName]);
         [self setManagementSocket: nil];
-        [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
+        [gMC cancelAllIPCheckThreadsForConnection: self];
 		[self performSelector: @selector(performHasDisconnectedOnMainThread) withObject: nil afterDelay: 1.0];
     }
 }
@@ -4980,7 +4981,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	// Be sure to call this in main thread only
 {
     if (  [newState isEqualToString: @"EXITING"]  ) {
-        [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
+        [gMC cancelAllIPCheckThreadsForConnection: self];
         
         // If the up script created the flag file at DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH but the down script did not delete it,
         // it means the down script did not run, which probably means that OpenVPN crashed.
@@ -5024,7 +5025,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     if (   [newState isEqualToString: @"EXITING"]
         && [requestedState isEqualToString: @"CONNECTED"]
 		&& [self haveConnectedSince]
-        && ( ! [((MenuController *)[NSApp delegate]) terminatingAtUserRequest] )  ) {
+        && ( ! [gMC terminatingAtUserRequest] )  ) {
         if (  speakWhenDisconnected  ) {
             [self speakActivity: @"disconnected"];
         } else {
@@ -5075,8 +5076,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
 
-    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread:@selector(setState:) withObject:newState waitUntilDone:NO];
-    [((MenuController *)[NSApp delegate]) performSelector: @selector(connectionStateDidChange:) withObject: self];
+    [gMC performSelectorOnMainThread:@selector(setState:) withObject:newState waitUntilDone:NO];
+    [gMC performSelector: @selector(connectionStateDidChange:) withObject: self];
 }
 
 -(void) speakActivity: (NSString *) activityName
@@ -5160,7 +5161,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         && (  gActiveInactiveState == active)   ) {
         BOOL okToFade = TRUE;   // Assume OK to fade, but don't fade if any connection is being attempted or any auth failed
         VPNConnection * connection;
-        NSEnumerator * connectionEnum = [[((MenuController *)[NSApp delegate]) connectionArray] objectEnumerator];
+        NSEnumerator * connectionEnum = [[gMC connectionArray] objectEnumerator];
         while (  (connection = [connectionEnum nextObject])  ) {
             if (   ( ! [connection isConnected]    )            // Don't fade if any connection is being  attempted
                 && ( ! [connection isDisconnected] )  ) {
@@ -5172,7 +5173,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 break;
             }
         }
-        if (  [((MenuController *)[NSApp delegate]) mouseIsInsideAnyView]  ) {
+        if (  [gMC mouseIsInsideAnyView]  ) {
             okToFade = FALSE;
         }
         

@@ -26,8 +26,9 @@
 #import "MenuController.h"
 
 
-extern NSArray * gProgramPreferences;
-extern NSArray * gConfigurationPreferences;
+extern NSArray        * gConfigurationPreferences;
+extern MenuController * gMC;
+extern NSArray        * gProgramPreferences;
 
 @implementation TBUserDefaults
 
@@ -388,7 +389,7 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 	}
 
     // Brute force -- try to remove key ending with the suffix for all configurations
-    NSEnumerator * dictEnum = [[((MenuController *)[NSApp delegate]) myConfigDictionary] keyEnumerator];
+    NSEnumerator * dictEnum = [[gMC myConfigDictionary] keyEnumerator];
     NSString * displayName;
     while (  (displayName = [dictEnum nextObject])  ) {
         fullKey = [displayName stringByAppendingString: key];

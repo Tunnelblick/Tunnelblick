@@ -35,6 +35,7 @@
 #import "VPNConnection.h"
 
 extern NSString       * gDeployPath;
+extern MenuController * gMC;
 extern NSString       * gPrivatePath;
 extern TBUserDefaults * gTbDefaults;
 
@@ -100,7 +101,7 @@ haveSameParent: (unsigned)  theLevel {
         } else if ( [displayName length] == 0  ) {
             localName = @"";
         } else  {
-            localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
+            localName = [gMC localizedNameForDisplayName: displayName];
         }
         NSArray * components = [displayName pathComponents];
         unsigned nComponents = [components count];
@@ -178,7 +179,7 @@ displayNameForTableColumn: (NSTableColumn *) tableColumn
     [newRootItem setChildren:    [[[NSMutableArray alloc] initWithCapacity: 20] autorelease]];
     
     // Add all the configurations and empty folders to the new rootItem (i.e., add them as children of the new rootItem)
-    NSArray * sortedNames = [[(MenuController *)[NSApp delegate] logScreen] leftNavDisplayNames];
+    NSArray * sortedNames = [[gMC logScreen] leftNavDisplayNames];
     TBLog(@"DB-PO", @"sortedNames = %@",sortedNames);
     unsigned i = 0;
 	unsigned r = 0;
@@ -265,7 +266,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 {
 	(void) notification;
 	
-	MyPrefsWindowController * mpwc = [((MenuController *)[NSApp delegate]) logScreen];
+	MyPrefsWindowController * mpwc = [gMC logScreen];
     [mpwc performSelectorOnMainThread: @selector(selectedLeftNavListIndexChanged) withObject: nil waitUntilDone: NO];
 }
 
@@ -323,7 +324,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
                                             stringByAppendingString: @"/"];
             [ConfigurationManager renameFolderInNewThreadWithDisplayName: sourceDisplayName toDisplayName: targetDisplayName];
         } else {
-            VPNConnection * connection   = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceDisplayName];
+            VPNConnection * connection   = [[gMC myVPNConnectionDictionary] objectForKey: sourceDisplayName];
             if (  ! connection  ) {
                 NSLog(@"Tried to rename configuration but no configuration has been selected");
                 return;
@@ -425,7 +426,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 
         // Dragging one or more configurations; get the source paths
         sourcePaths = [[[NSMutableArray alloc] initWithCapacity: [sourceDisplayNames count]] autorelease];
-        NSDictionary * configs = [((MenuController *)[NSApp delegate]) myConfigDictionary];
+        NSDictionary * configs = [gMC myConfigDictionary];
 
         for (  i=0; i<[sourceDisplayNames count]; i++  ) {
             NSString * sourceDisplayName = [sourceDisplayNames objectAtIndex: i];

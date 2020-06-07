@@ -34,10 +34,11 @@
 #import "UIHelper.h"
 
 
-extern TBUserDefaults * gTbDefaults;         // Our preferences
+extern MenuController * gMC;
 extern NSArray        * gRateUnits;
-extern NSArray        * gTotalUnits;
 extern BOOL             gShuttingDownWorkspace;
+extern TBUserDefaults * gTbDefaults;
+extern NSArray        * gTotalUnits;
 
 // The following must be small enough that it's square fits in an NSUInteger
 #define NUMBER_OF_STATUS_SCREEN_POSITIONS 4096
@@ -176,7 +177,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     // Adjust the width of the window to fit the complete title
     // But never make it smaller than the original window, or larger than will fit on the screen
-    NSRect screen = [[[NSScreen screens] objectAtIndex: [((MenuController *)[NSApp delegate]) statusScreenIndex]] visibleFrame];   // Use the screen on which we are displaying status windows
+    NSRect screen = [[[NSScreen screens] objectAtIndex: [gMC statusScreenIndex]] visibleFrame];   // Use the screen on which we are displaying status windows
     if (  currentWidth == 0.0  ) {
         currentWidth = [NSWindow minFrameWidthWithTitle: [panel title] styleMask: NSHUDWindowMask];
     }
@@ -232,12 +233,12 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     // Figure out what position number to try to get:
     NSUInteger startPositionNumber;
-    if (   [((MenuController *)[NSApp delegate]) mouseIsInsideAnyView]
+    if (   [gMC mouseIsInsideAnyView]
         && (   [gTbDefaults boolForKey: @"placeIconInStandardPositionInStatusBar"] )
         && ( ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"] )
         && ( ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowBelowIconOnMouseover"] )  ) {
         
-        MainIconView * view = [((MenuController *)[NSApp delegate]) ourMainIconView];
+        MainIconView * view = [gMC ourMainIconView];
 		NSPoint iconOrigin  = [[view window] convertBaseToScreen: NSMakePoint(0.0, 0.0)];
         
         for ( startPositionNumber=0; startPositionNumber<screensWeCanStackVertically * screensWeCanStackHorizontally; startPositionNumber+=screensWeCanStackVertically ) {
@@ -453,17 +454,17 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         [theAnim setFrameRate:7.0];
         [theAnim setDelegate:self];
         
-        for (i=1; i<=[[((MenuController *)[NSApp delegate]) largeAnimImages] count]; i++) {
-            NSAnimationProgress p = ((float)i)/((float)[[((MenuController *)[NSApp delegate]) largeAnimImages] count]);
+        for (i=1; i<=[[gMC largeAnimImages] count]; i++) {
+            NSAnimationProgress p = ((float)i)/((float)[[gMC largeAnimImages] count]);
             [theAnim addProgressMark: p];
         }
 		
         [theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
 		
         if (  [status isEqualToString:@"EXITING"]  ) {
-            [animationIV setImage: [((MenuController *)[NSApp delegate]) largeMainImage]];
+            [animationIV setImage: [gMC largeMainImage]];
         } else if (  [status isEqualToString:@"CONNECTED"]  ) {
-            [animationIV setImage: [((MenuController *)[NSApp delegate]) largeConnectedImage]];
+            [animationIV setImage: [gMC largeConnectedImage]];
 		} else {
 			[theAnim startAnimation];
 		}
@@ -485,7 +486,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 -(void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress
 {
 	if (animation == theAnim) {
-        [animationIV performSelectorOnMainThread:@selector(setImage:) withObject:[[((MenuController *)[NSApp delegate]) largeAnimImages] objectAtIndex:(unsigned) lround(progress * [[((MenuController *)[NSApp delegate]) largeAnimImages] count]) - 1] waitUntilDone:YES];
+        [animationIV performSelectorOnMainThread:@selector(setImage:) withObject:[[gMC largeAnimImages] objectAtIndex:(unsigned) lround(progress * [[gMC largeAnimImages] count]) - 1] waitUntilDone:YES];
 	}
 }
 
@@ -582,7 +583,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 - (IBAction) connectButtonWasClicked: sender
 {
     [sender setEnabled: NO];
-	[((MenuController *)[NSApp delegate]) statusWindowController: self
+	[gMC statusWindowController: self
                           finishedWithChoice: statusWindowControllerConnectChoice
                               forDisplayName: [self name]];
 }
@@ -590,7 +591,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 - (IBAction) disconnectButtonWasClicked: sender
 {
     [sender setEnabled: NO];
-	[((MenuController *)[NSApp delegate]) statusWindowController: self
+	[gMC statusWindowController: self
                           finishedWithChoice: statusWindowControllerDisconnectChoice
                               forDisplayName: [self name]];
 }
@@ -599,7 +600,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 	
     [self stopMouseTracking];
     
-    [((MenuController *)[NSApp delegate]) mouseExitedStatusWindow: self event: nil];
+    [gMC mouseExitedStatusWindow: self event: nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver: self]; 
 	
@@ -650,13 +651,13 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         [configurationNameTFC setTextColor: [NSColor redColor]];
         [statusTFC            setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];
-        [animationIV setImage: [((MenuController *)[NSApp delegate]) largeMainImage]];
+        [animationIV setImage: [gMC largeMainImage]];
         
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
         [configurationNameTFC setTextColor: [NSColor greenColor]];
         [statusTFC            setTextColor: [NSColor greenColor]];
         [theAnim stopAnimation];
-        [animationIV setImage: [((MenuController *)[NSApp delegate]) largeConnectedImage]];
+        [animationIV setImage: [gMC largeConnectedImage]];
 
     } else {
         [configurationNameTFC setTextColor: [NSColor yellowColor]];
@@ -718,7 +719,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, closedByRedDot, setClosedByRedDot)
     // Mouse entered the tracking area of the Tunnelblick icon
 
 	[super mouseEntered: theEvent];
-    [((MenuController *)[NSApp delegate]) mouseEnteredStatusWindow: self event: theEvent];
+    [gMC mouseEnteredStatusWindow: self event: theEvent];
 }
 
 -(void) mouseExited: (NSEvent *) theEvent {
@@ -726,14 +727,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, closedByRedDot, setClosedByRedDot)
     // Mouse exited the tracking area of the Tunnelblick icon
     
 	[super mouseExited: theEvent];
-    [((MenuController *)[NSApp delegate]) mouseExitedStatusWindow: self event: theEvent];
+    [gMC mouseExitedStatusWindow: self event: theEvent];
 }
 
 -(void) NSWindowWillCloseNotification: (NSNotification *) n {
     // Event handler; NOT on MainThread
     
 	if (  [n object] == [self window]  ) {
-		[((MenuController *)[NSApp delegate]) mouseExitedStatusWindow: self event: nil];
+		[gMC mouseExitedStatusWindow: self event: nil];
 	}
 }
 

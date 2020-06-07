@@ -38,6 +38,7 @@
 #import "VPNServiceIntroController.h"
 #import "VPNServiceLoginController.h"
 
+extern MenuController * gMC;
 extern TBUserDefaults * gTbDefaults;
 
 @interface VPNService()   // Private methods
@@ -63,7 +64,7 @@ extern TBUserDefaults * gTbDefaults;
 -(id) init
 {
 	if (  self = [super init]  ) {
-        NSDictionary * infoDict = [((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary];
+        NSDictionary * infoDict = [gMC tunnelblickInfoDictionary];
         
         baseUrlString = [[infoDict objectForKey: @"VPNServiceBaseURL"] retain];
         if (  ! baseUrlString  ) {
@@ -117,7 +118,7 @@ extern TBUserDefaults * gTbDefaults;
             && ( ! [emailAddress isEqualToString: @""] )
             && ( ! [password     isEqualToString: @""] )  ) {
             if (  [gTbDefaults boolForKey: @"Tunnelblick-lastConnectionSucceeded"]  ) {
-                if (  [((MenuController *)[NSApp delegate]) tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
+                if (  [gMC tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
                     return;
                 }
             }
@@ -352,7 +353,7 @@ extern TBUserDefaults * gTbDefaults;
             [self setEmailAddress: [loginScreen emailAddress]];
             [self setPassword:     [loginScreen password    ]];
             [self storeCredentialsInKeychain];
-            if (  [((MenuController *)[NSApp delegate]) tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
+            if (  [gMC tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
                 [[loginScreen window] close];
             }
             break;
@@ -590,7 +591,7 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) quit
 {
-    [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
+    [gMC terminateBecause: terminatingBecauseOfQuit];
 }
 
 -(void) closeAllScreens

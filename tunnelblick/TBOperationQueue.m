@@ -30,7 +30,8 @@
 #import "StatusWindowController.h"
 #import "VPNConnection.h"
 
-extern BOOL gShuttingDownTunnelblick;
+extern MenuController * gMC;
+extern BOOL             gShuttingDownTunnelblick;
 
 static NSMutableArray  * queue = nil; // List of operations waiting to be executed
 
@@ -54,7 +55,7 @@ void get_lock(void) {
             sleep(1);
         } else {
             NSLog(@"TBOperationQueue|get_lock: pthread_mutex_trylock( &queueMutex ) failed; status = %ld, errno = %ld; error = '%s'", (long) status, (long) errno, strerror(errno));
-            [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+            [gMC terminateBecause: terminatingBecauseOfError];
 			return;
         }
     }
@@ -65,7 +66,7 @@ void release_lock(void) {
     int status = pthread_mutex_unlock( &queueMutex );
     if (  status != 0  ) {
         NSLog(@"TBOperationQueue|release_lock: pthread_mutex_unlock( &queueMutex ) failed; status = %ld, errno = %ld; error = '%s'", (long) status, (long) errno, strerror(errno));
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
 		return;
     }
 }
@@ -80,13 +81,13 @@ void validateDetailsAndStatusWindows(void) {
 		return;
 	}
 	
-    id vpnDetails = [((MenuController *)[NSApp delegate]) logScreen];
+    id vpnDetails = [gMC logScreen];
     if (  vpnDetails  ) {
         VPNConnection * connection = [vpnDetails selectedConnection];
         [vpnDetails performSelectorOnMainThread: @selector(validateDetailsWindowControlsForConnection:) withObject: connection waitUntilDone: NO];
     }
     
-    NSDictionary * dict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+    NSDictionary * dict = [gMC myVPNConnectionDictionary];
     NSEnumerator * e = [dict keyEnumerator];
     NSString * key;
     while (  (key = [e nextObject])  ) {
@@ -134,7 +135,7 @@ void start_next(void) {
     
     if (  ! [NSThread isMainThread]  ) {
         NSLog(@"addToQueueSelector:target:object:disableList: invoked but not on main thread");
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
 		return;
     }
 	
@@ -177,7 +178,7 @@ void start_next(void) {
     
     if (  [disableLists count] == 0  ) {
         NSLog(@"TBOperationQueue: operationIsComplete but [disableLists count] == 0");
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
     } else {
 		[disableLists removeObjectAtIndex: 0];
 	}
@@ -191,7 +192,7 @@ void start_next(void) {
     
     if (  ! currentOperation  ) {
         NSLog(@"TBOperationQueue: operationIsComplete but no currentOperation");
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
     } else {
 		validateDetailsAndStatusWindows();
 		

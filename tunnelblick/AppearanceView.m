@@ -30,8 +30,9 @@
 #import "UIHelper.h"
 
 
-extern NSFileManager  * gFileMgr;
 extern NSString       * gDeployPath;
+extern NSFileManager  * gFileMgr;
+extern MenuController * gMC;
 
 
 @interface AppearanceView()  // Private methods
@@ -178,7 +179,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
     // Connection window screen assignment popup
     NSMutableArray * cwsContent = [NSMutableArray arrayWithCapacity: [[NSScreen screens] count] + 1];
     
-    NSArray * screens = [((MenuController *)[NSApp delegate]) screenList];
+    NSArray * screens = [gMC screenList];
     
     NSDictionary * dict = [screens objectAtIndex: 0];
     unsigned width  = [[dict objectForKey: @"DisplayWidth"]  unsignedIntValue];

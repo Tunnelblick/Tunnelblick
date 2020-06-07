@@ -47,6 +47,7 @@
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 
+extern MenuController * gMC;
 extern TBUserDefaults * gTbDefaults;
 
 @implementation TBUIUpdater
@@ -109,7 +110,7 @@ extern TBUserDefaults * gTbDefaults;
         // plus
         //      Connections that have been removed since the last tick
         
-        MenuController * mc = ((MenuController *)[NSApp delegate]);
+        MenuController * mc = gMC;
         NSArray * notDisconnected = [mc nondisconnectedConnections];
         
         NSUInteger maxSize = [notDisconnected count] + [nonDisconnectedConnectionsAtPreviousTick count];

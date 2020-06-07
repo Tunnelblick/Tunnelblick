@@ -51,13 +51,14 @@ BOOL           copyOrMoveCredentials    (NSString * fromDisplayName,
 
 // The following external, global variables are used by functions in this file and must be declared and set elsewhere before the
 // functions in this file are called:
-extern NSMutableArray  * gConfigDirs;
-extern NSString        * gPrivatePath;
-extern NSString        * gDeployPath;
-extern NSFileManager   * gFileMgr;
-extern TBUserDefaults  * gTbDefaults;
-extern NSThread        * gMainThread;
-extern BOOL              gShuttingDownTunnelblick;
+extern NSMutableArray * gConfigDirs;
+extern NSString       * gDeployPath;
+extern NSFileManager  * gFileMgr;
+extern NSThread       * gMainThread;
+extern MenuController * gMC;
+extern NSString       * gPrivatePath;
+extern BOOL             gShuttingDownTunnelblick;
+extern TBUserDefaults * gTbDefaults;
 
 void appendLog(NSString * msg)
 {
@@ -153,7 +154,7 @@ uint64_t nowAbsoluteNanoseconds (void)
 }
 
 BOOL runningABetaVersion (void) {
-    NSString * version = [[((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
+    NSString * version = [[gMC tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
     return ([version rangeOfString: @"beta"].length != 0);
 }
 
@@ -163,7 +164,7 @@ BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
     OSStatus status = getSystemVersion(&major, &minor, &bugFix);
     if (  status != 0) {
         NSLog(@"getSystemVersion() failed");
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
         return FALSE;
     }
     
@@ -221,7 +222,7 @@ BOOL runningOnNewerThanWithBugFix(unsigned majorVersion, unsigned minorVersion, 
 	OSStatus status = getSystemVersion(&major, &minor, &bugFix);
 	if (  status != 0) {
 		NSLog(@"getSystemVersion() failed");
-		[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+		[gMC terminateBecause: terminatingBecauseOfError];
 		return FALSE;
 	}
 	
@@ -470,7 +471,7 @@ NSString * secureTblkPathForTblkPath(NSString * path) {
     }
 
     NSLog(@"secureTblkPathForTblkPath(): bad input path '%@'", path);
-    [(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+    [gMC terminateBecause: terminatingBecauseOfError];
     return nil;
 }
 
@@ -538,7 +539,7 @@ NSString * configPathFromDisplayName(NSString * name) {
     // Otherwise returns nil.
 
     // Return the path if it is a .tblk that appears in the left navigation
-    NSString * path = [[(MenuController *)[NSApp delegate] myConfigDictionary] objectForKey: name];
+    NSString * path = [[gMC myConfigDictionary] objectForKey: name];
     if (  path  ) {
         return path;
     }
@@ -1019,7 +1020,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
             CFRelease(panelRef);
             panelRef = NULL;
         }
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
         return NSAlertErrorReturn; // Make the Xcode code analyzer happy
     }
     
@@ -1374,7 +1375,7 @@ NSString * configLocCodeStringForPath(NSString * configPath) {
     
     } else {
         NSLog(@"configLocCodeStringForPath: unknown path %@", configPath);
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
         return [NSString stringWithFormat: @"%u", CFG_LOC_MAX + 1];
     }
     
@@ -1692,7 +1693,7 @@ NSString * messageIfProblemInLogLine(NSString * line) {
 	
 	if (  [messagesToWarnAbout count] != [correspondingInfo count]  ) {
 		NSLog(@"messageForProblemsSeenInLogLine: messagesToWarnAbout and correspondingInfo do not have the same number of entries");
-		[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		[gMC terminateBecause: terminatingBecauseOfError];
 		return nil;
 	}
 	

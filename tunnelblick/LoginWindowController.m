@@ -30,6 +30,7 @@
 #import "UIHelper.h"
 
 
+extern MenuController * gMC;
 extern TBUserDefaults * gTbDefaults;
 
 @implementation LoginWindowController
@@ -87,7 +88,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
     [iconIV setImage: [NSApp applicationIconImage]];
     
 	NSString * displayName = [[self delegate] displayName];
-    NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
+    NSString * localName = [gMC localizedNameForDisplayName: displayName];
 	NSString * group = credentialsGroupFromDisplayName(displayName);
 	NSString * text;
     if (  group  ) {

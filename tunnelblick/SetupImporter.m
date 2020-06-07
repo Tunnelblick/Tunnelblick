@@ -34,7 +34,8 @@
 #import "MenuController.h"
 #import "SystemAuth.h"
 
-extern NSFileManager * gFileMgr;
+extern NSFileManager  * gFileMgr;
+extern MenuController * gMC;
 
 @implementation SetupImporter
 
@@ -119,7 +120,7 @@ extern NSFileManager * gFileMgr;
 	NSString * message = NSLocalizedString(@"Tunnelblick needs authorization to secure the imported data.", @"Window text");
 	SystemAuth * auth = [[SystemAuth newAuthWithPrompt: message] autorelease];
 	if (  auth  ) {
-		NSInteger result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_IMPORT
+		NSInteger result = [gMC runInstaller: INSTALLER_IMPORT
 															   extraArguments: installerArguments
 															  usingSystemAuth: auth
 																 installTblks: nil];

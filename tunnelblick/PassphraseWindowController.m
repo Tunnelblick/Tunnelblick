@@ -31,6 +31,7 @@
 #import "UIHelper.h"
 
 
+extern MenuController * gMC;
 extern TBUserDefaults * gTbDefaults;
 
 @implementation PassphraseWindowController
@@ -82,7 +83,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,     eyeRedSlash)
 		groupMsg = @"";
 	}
 	
-    NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
+    NSString * localName = [gMC localizedNameForDisplayName: displayName];
     NSString * text = [NSString stringWithFormat:
                        NSLocalizedString(@"A passphrase is required to connect to\n  %@%@", @"Window text"),
                        localName,

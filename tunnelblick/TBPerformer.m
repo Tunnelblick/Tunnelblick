@@ -26,6 +26,8 @@
 #import "MenuController.h"
 #import "NSTimer+TB.h"
 
+extern MenuController * gMC;
+
 @implementation TBPerformer
 
 -(void) test: (NSDictionary *) dict timer: (NSTimer *) timer {
@@ -104,15 +106,15 @@
     
 	if (  ! doArgument  ) {
 		NSLog(@"performSelectorOnMainThread:withObject:whenTrueIsReturnedBySelector:.. doArgument cannot be nil");
-		[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+		[gMC terminateBecause: terminatingBecauseOfError];
 	}
 	if (  ! whenArgument1  ) {
 		NSLog(@"performSelectorOnMainThread:withObject:whenTrueIsReturnedBySelector:.. whenArgument1 cannot be nil");
-		[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+		[gMC terminateBecause: terminatingBecauseOfError];
 	}
 	if (  ! whenArgument2  ) {
 		NSLog(@"performSelectorOnMainThread:withObject:whenTrueIsReturnedBySelector:.. whenArgument2 cannot be nil");
-		[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+		[gMC terminateBecause: terminatingBecauseOfError];
 	}
     if (  interval < 0.1  ) {
         interval = 0.1;

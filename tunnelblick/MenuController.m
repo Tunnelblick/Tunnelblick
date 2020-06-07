@@ -65,6 +65,7 @@
 #endif
 
 // These are global variables rather than class variables to make access to them easier
+MenuController        * gMC = nil;                    // This singleton instance
 NSThread              * gMainThread = nil;            // Used on 10.4 because [NSThread isMainThread] is not available
 NSMutableArray        * gConfigDirs = nil;            // Array of paths to configuration directories currently in use
 NSString              * gPrivatePath = nil;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
@@ -455,7 +456,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 -(id) init
 {	
     if (  (self = [super init])  ) {
-        
+
+        gMC = self;
+
         reasonForTermination = terminatingForUnknownReason;
 
 		haveClearedQuitLog = FALSE;
@@ -3918,7 +3921,7 @@ static void signal_handler(int signalNumber)
                 return;
             } else {
                 NSLog(@"SIGTERM (signal %d) received", signalNumber);
-                [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
+                [gMC terminateBecause: terminatingBecauseOfQuit];
                 return;
             }
     }
@@ -3964,7 +3967,7 @@ static void signal_handler(int signalNumber)
         runUnrecoverableErrorPanel(wroteFile);
         gShuttingDownTunnelblick = TRUE;
         NSLog(@"signal_handler: Starting cleanup.");
-        if (  [((MenuController *)[NSApp delegate]) cleanup]  ) {
+        if (  [gMC cleanup]  ) {
             NSLog(@"signal_handler: Cleanup finished.");
         } else {
             NSLog(@"signal_handler: Cleanup already being done.");
@@ -4734,7 +4737,7 @@ static void signal_handler(int signalNumber)
     
     if (  currentPreferenceValue != newPreferenceValue  ) {
         [gTbDefaults setBool: newPreferenceValue forKey: @"placeIconInStandardPositionInStatusBar"];
-        [((MenuController *)[NSApp delegate]) moveStatusItemIfNecessary];
+        [gMC moveStatusItemIfNecessary];
     }
 }
 
@@ -4796,7 +4799,7 @@ static void signal_handler(int signalNumber)
 	//
 	// Assumes that openvpnVersionNames is sorted from earliest to latest.
 	
-	NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+	NSArray  * versionNames = [gMC openvpnVersionNames];
 
 	BOOL wantLibressl = ([desiredVersion rangeOfString: @"libressl"].length != 0 );
 	NSString * majorMinor = [desiredVersion substringToIndex: 3];
@@ -5612,7 +5615,7 @@ static void signal_handler(int signalNumber)
     
     // This is invoked directly when a checkbox is clicked, so we check we are not doing setup of UI here
 	
-    if ( ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+    if ( ! [gMC doingSetupOfUI]  ) {
 		
 		BOOL state = (  inverted
 					  ? ! newValue
@@ -5855,7 +5858,7 @@ static BOOL runningHookupThread = FALSE;
 							[cfg appendString: @"/"];
 						} else {
 							NSLog(@"deconstructOpenVPNLogPath: invalid log path string has '-%c' (0x%02X) at position %lu in '%@'", c, (unsigned) c, (unsigned long) i, constructedPath);
-							[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+							[gMC terminateBecause: terminatingBecauseOfError];
 						}
 					} else {
 						[cfg appendFormat: @"%c", c];
@@ -5919,7 +5922,7 @@ BOOL warnAboutNonTblks(void)
                                          NSLocalizedString(@"Quit", @"Button"),      // Alternate
                                          nil);
             if (  result == NSAlertAlternateReturn  ) {
-                [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
+                [gMC terminateBecause: terminatingBecauseOfQuit];
             }
             
             gUserWasAskedAboutConvertNonTblks = YES;
@@ -5944,7 +5947,7 @@ BOOL warnAboutNonTblks(void)
 		gUserWasAskedAboutConvertNonTblks = TRUE;
 		if (   (response == NSAlertOtherReturn)
             || (response == NSAlertErrorReturn)  ) {  // Quit if "Quit" or error/cancel
-			[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
+			[gMC terminateBecause: terminatingBecauseOfQuit];
             return NO;
 		} else if (  response == NSAlertDefaultReturn  ) {
 			return YES;
@@ -5957,7 +5960,7 @@ BOOL warnAboutNonTblks(void)
 								   NSLocalizedString(@"Ignore", @"Button"),                 // Alternate return
 								   NSLocalizedString(@"Quit", @"Button"));                  // Other return
 		if (  response == NSAlertOtherReturn  ) {
-			[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
+			[gMC terminateBecause: terminatingBecauseOfQuit];
 		}
 		
 		if (  response == NSAlertDefaultReturn  ) {
@@ -7477,7 +7480,7 @@ void terminateBecauseOfBadConfiguration(void)
     TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Problem", @"Window title"),
                     NSLocalizedString(@"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.", @"Window text"),
                     nil, nil, nil);
-    [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+    [gMC terminateBecause: terminatingBecauseOfError];
 }
 
 -(NSApplicationTerminateReply) applicationShouldTerminate: (NSApplication *) sender
@@ -8087,7 +8090,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 	(void) userData;
 	
     // When the hotKey is pressed, pop up the Tunnelblick menu from the Status Bar
-    MenuController * menuC = ((MenuController *)[NSApp delegate]);
+    MenuController * menuC = gMC;
 	NSStatusBarButton * statusButton = [menuC statusItemButton];
 	if (  statusButton  ) {
 		[statusButton performClick: nil];

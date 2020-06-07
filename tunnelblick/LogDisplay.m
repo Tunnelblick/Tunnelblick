@@ -40,10 +40,11 @@
 #define NUMBER_OF_LINES_TO_KEEP_AT_START_OF_LOG 10
 #define NUMBER_OF_LINES_TO_KEEP_AS_TUNNELBLICK_ENTRIES_AT_START_OF_LOG 3
 
-extern NSFileManager        * gFileMgr;
-extern TBUserDefaults       * gTbDefaults;
-extern BOOL                   gShuttingDownWorkspace;
-extern unsigned               gMaximumLogSize;
+extern NSFileManager  * gFileMgr;
+extern unsigned         gMaximumLogSize;
+extern MenuController * gMC;
+extern BOOL             gShuttingDownWorkspace;
+extern TBUserDefaults * gTbDefaults;
 
 @interface LogDisplay() // PRIVATE METHODS
 
@@ -155,7 +156,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 // BUT only if it is the log for this configuration. (If not, returns nil.)
 -(NSTextStorage *) logStorage
 {
-    MyPrefsWindowController * wc = [((MenuController *)[NSApp delegate]) logScreen];
+    MyPrefsWindowController * wc = [gMC logScreen];
     if (  wc  ) {
         if (  [self connection] == [wc selectedConnection]  ) {
             ConfigurationsView      * cv = [wc configurationsPrefsView];
@@ -312,7 +313,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     //
     // Inserts an entry into the log. If this log is currently being displayed, do it on the main thread.
     
-    MyPrefsWindowController * wc = [((MenuController *)[NSApp delegate]) logScreen];
+    MyPrefsWindowController * wc = [gMC logScreen];
     
     if (  [self connection] == [wc selectedConnection]  ) {
         if (  ! [NSThread isMainThread]  ) {
@@ -482,7 +483,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 	
     NSString * message = (  [self loggingIsDisabled]
                           ? NSLocalizedString(@"(Logging is disabled.)", @"Window text -- appears in log display when logging is disabled\n")
-                          : [[((MenuController *)[NSApp delegate]) openVPNLogHeader] stringByAppendingString: @"\n"]);
+                          : [[gMC openVPNLogHeader] stringByAppendingString: @"\n"]);
 
 	message = [NSString stringWithFormat: @"%@ %@", [[NSDate date] tunnelblickUserLogRepresentation], message];
 	
@@ -645,7 +646,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     NSAttributedString * initialContents               = [dict objectForKey: @"contents"];
     BOOL                 skipToStartOfLineInOpenvpnLog = [[dict objectForKey: @"skip"] boolValue];
     
-    [[((MenuController *)[NSApp delegate]) logScreen] indicateWaitingForLogDisplay: [self connection]];
+    [[gMC logScreen] indicateWaitingForLogDisplay: [self connection]];
     
     // Save, then clear, the current contents of the tbLog
     NSString * tunnelblickString = [[self tbLog] copy];
@@ -847,7 +848,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     
     [tunnelblickString release];
     
-    [[((MenuController *)[NSApp delegate]) logScreen] indicateNotWaitingForLogDisplay: [self connection]];
+    [[gMC logScreen] indicateNotWaitingForLogDisplay: [self connection]];
 }
 
 -(void) loadLogsWithInitialContents: (NSAttributedString *) initialContents

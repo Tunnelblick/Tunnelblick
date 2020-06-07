@@ -30,6 +30,8 @@
 #import "MenuController.h"
 #import "TBPopUpButton.h"
 
+extern MenuController * gMC;
+
 @interface ImportWindowController ()
 
 @end
@@ -49,7 +51,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTableView *,    mainTableView,       setMainTableV
 		return nil;
 	}
 	
-	[(MenuController *)[NSApp delegate] setShowingImportSetupWindow: TRUE];
+	[gMC setShowingImportSetupWindow: TRUE];
 	
 	alreadyAwakened = FALSE;
 	return self;
@@ -75,7 +77,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTableView *,    mainTableView,       setMainTableV
 	
 	(void)notification;
 	
-	[(MenuController *)[NSApp delegate] setShowingImportSetupWindow: FALSE];
+	[gMC setShowingImportSetupWindow: FALSE];
 }
 
 -(void) cancelOperation: (id) sender {
@@ -206,7 +208,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTableView *,    mainTableView,       setMainTableV
 	
 	CGFloat columnWidth = (tvFrame.size.width - 7) / 2; // "7" is width of the NSTableView borders and padding
 	
-	BOOL rtl = [(MenuController *)[NSApp delegate] languageAtLaunchWasRTL];
+	BOOL rtl = [gMC languageAtLaunchWasRTL];
 	
 	// First column has sourceUsernames
 	NSTableColumn * sourceColumn = [[[NSTableColumn alloc] initWithIdentifier: @"source"] autorelease];

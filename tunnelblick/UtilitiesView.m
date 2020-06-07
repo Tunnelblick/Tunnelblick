@@ -32,6 +32,7 @@
 #import "UIHelper.h"
 
 extern NSFileManager  * gFileMgr;
+extern MenuController * gMC;
 extern TBUserDefaults * gTbDefaults;
 
 @implementation UtilitiesView
@@ -66,7 +67,7 @@ extern TBUserDefaults * gTbDefaults;
 	CGFloat newWidth = [utilitiesQuitAllOpenVpnButton frame].size.width;
 	CGFloat widthChange = oldWidth - newWidth;
 	
-	if (  [(MenuController *)[NSApp delegate] languageAtLaunchWasRTL]  ) {
+	if (  [gMC languageAtLaunchWasRTL]  ) {
 		widthChange = -widthChange;
 
 		NSRect f = [utilitiesQuitAllOpenVpnButton frame];	// Shift the button itself

@@ -51,13 +51,14 @@
 #import "UtilitiesView.h"
 #import "VPNConnection.h"
 
-extern NSFileManager  * gFileMgr;
-extern TBUserDefaults * gTbDefaults;
-extern NSString       * gPrivatePath;
-extern NSString       * gDeployPath;
-extern unsigned         gMaximumLogSize;
-extern NSArray        * gProgramPreferences;
 extern NSArray        * gConfigurationPreferences;
+extern NSString       * gDeployPath;
+extern NSFileManager  * gFileMgr;
+extern unsigned         gMaximumLogSize;
+extern MenuController * gMC;
+extern NSString       * gPrivatePath;
+extern NSArray        * gProgramPreferences;
+extern TBUserDefaults * gTbDefaults;
 
 @interface MyPrefsWindowController()
 
@@ -157,7 +158,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
     
     if (  ! [NSThread isMainThread]  ) {
         NSLog(@"lockTheLockIcon invoked but not on main thread; stack trace = %@", callStack());
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
         return;
     }
     
@@ -214,7 +215,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
     
     if (  ! [NSThread isMainThread]  ) {
         NSLog(@"enableLockIcon invoked but not on main thread; stack trace = %@", callStack());
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
         return;
     }
     
@@ -410,7 +411,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  firstTimeShowingWindow  ) {
         // Set the window's position and size from the preferences (saved when window is closed), or center the window
         // Use the preferences only if the preference's version matches the TB version (since window size could be different in different versions of TB)
-        NSString * tbVersion = [[((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
+        NSString * tbVersion = [[gMC tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
         if (  [tbVersion isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrameVersion"]]    ) {
             NSString * mainFrameString  = [gTbDefaults stringForKey: @"detailsWindowFrame"];
             NSString * leftFrameString  = [gTbDefaults stringForKey: @"detailsWindowLeftFrame"];
@@ -491,7 +492,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         leftFrameString = NSStringFromRect([[configurationsPrefsView leftSplitView] frame]);
     }
 	NSString * configurationsTabIdentifier = [[[configurationsPrefsView configurationsTabView] selectedTabViewItem] identifier];
-    NSString * tbVersion = [[((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
+    NSString * tbVersion = [[gMC tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
 	unsigned int viewIx = [toolbarIdentifiers indexOfObject: currentViewName];
     BOOL saveIt = TRUE;
 	unsigned int defaultViewIx = [UIHelper detailsWindowsViewIndexFromPreferencesWithCount: [toolbarIdentifiers count]];
@@ -627,8 +628,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(void) setupConfigurationsView
 {
 	
-	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
-	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+	BOOL savedDoingSetupOfUI = [gMC doingSetupOfUI];
+	[gMC setDoingSetupOfUI: TRUE];
 
     [self setSelectedSetNameserverIndexDirect:           [NSNumber numberWithInteger: NSNotFound]];   // Force a change when first set
     [self setSelectedPerConfigOpenvpnVersionIndexDirect: [NSNumber numberWithInteger: NSNotFound]];
@@ -659,12 +660,12 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self indicateNotWaitingForLogDisplay: connection];
 
         // Set up a timer to update connection times
-        [((MenuController *)[NSApp delegate]) startOrStopUiUpdater];
+        [gMC startOrStopUiUpdater];
     }
     
     [self validateDetailsWindowControlsForConnection: connection];
 	
-	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
+	[gMC setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 
@@ -703,7 +704,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     unsigned arrayCount = [[[configurationsPrefsView setNameserverArrayController] content] count];
     if (  (arrayCount - 1) > MAX_SET_DNS_WINS_INDEX) {
         NSLog(@"MAX_SET_DNS_WINS_INDEX = %u but there are %u entries in the array", (unsigned)MAX_SET_DNS_WINS_INDEX, arrayCount);
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
     }
     
     NSInteger ix = [gTbDefaults unsignedIntForKey: key
@@ -873,7 +874,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * prefVersion = [gTbDefaults stringForKey: key];
     NSUInteger listIx;                              // Default to the first entry -- "Default (x.y.z)"
 
-	NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+	NSArray  * versionNames = [gMC openvpnVersionNames];
 	NSUInteger versionIx = [connection getOpenVPNVersionIxToUseConnecting: NO];
     if (  [prefVersion length] == 0  ) {
 		if (  versionIx == [connection defaultVersionIxFromVersionNames: versionNames]  ) {
@@ -886,7 +887,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 			listIx = 0; // Don't have a version of OpenVPN that will work with this configuration, so display it as using the default version of OpenVPN
 		} else if (  [prefVersion isEqualToString: @"-"]  ) {
 			// Use latest. If we are actually using it, show we are using latest (last entry), otherwise show what we are using
-			NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+			NSArray  * versionNames = [gMC openvpnVersionNames];
 			if (  versionIx == [versionNames count] - 1  ) {
 				listIx = versionIx + 2; // + 2 to skip over the 1st entry (default) and the specific entry, to get to "Latest (version)"
 			} else {
@@ -925,7 +926,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 
     // displayName of each the configurations that may be visible to the user
-    NSArray * displayNames = [[((MenuController *)[NSApp delegate]) myConfigDictionary] allKeys];
+    NSArray * displayNames = [[gMC myConfigDictionary] allKeys];
 
     // This will be our result, and will include the empty folders
     NSMutableArray * allNames = [displayNames mutableCopy];
@@ -997,7 +998,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     // If no display name to select and there are any connections, select the first one
 	if (  ! displayNameToSelect  ) {
-        NSArray * list = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] allKeys];
+        NSArray * list = [[gMC myVPNConnectionDictionary] allKeys];
         if (  [list count] > 0  ) {
             displayNameToSelect = [list objectAtIndex: 0];
         }
@@ -1372,7 +1373,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * displayName;
 	NSEnumerator * e = [displayNames objectEnumerator];
 	while (  (displayName = [e nextObject])  ) {
-		NSString * path = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: displayName];
+		NSString * path = [[gMC myConfigDictionary] objectForKey: displayName];
 		if (  ! path  ) {
 			NSLog(@"isAnySelectedConfigurationPrivate: Internal error: No configuration for '%@'", displayName);
 		}
@@ -1390,7 +1391,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * displayName;
 	NSEnumerator * e = [displayNames objectEnumerator];
 	while (  (displayName = [e nextObject])  ) {
-		NSString * path = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: displayName];
+		NSString * path = [[gMC myConfigDictionary] objectForKey: displayName];
 		if (  ! path  ) {
 			NSLog(@"isAnySelectedConfigurationShared: Internal error: No configuration for '%@'", displayName);
 		}
@@ -1408,7 +1409,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * displayName;
 	NSEnumerator * e = [displayNames objectEnumerator];
 	while (  (displayName = [e nextObject])  ) {
-		NSString * path = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: displayName];
+		NSString * path = [[gMC myConfigDictionary] objectForKey: displayName];
 		if (  ! path  ) {
 			NSLog(@"isAnySelectedConfigurationShared: Internal error: No configuration for '%@'", displayName);
 		}
@@ -1426,7 +1427,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * displayName;
     NSEnumerator * e = [displayNames objectEnumerator];
     while (  (displayName = [e nextObject])  ) {
-        NSString * path = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: displayName];
+        NSString * path = [[gMC myConfigDictionary] objectForKey: displayName];
         if (  ! path  ) {
             NSLog(@"isAnySelectedConfigurationShared: Internal error: No configuration for '%@'", displayName);
         }
@@ -1911,7 +1912,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[gTbDefaults removeObjectForKey: key];
 	}
 	
-	[((MenuController *)[NSApp delegate]) recreateMainMenuClearCache: YES];
+	[gMC recreateMainMenuClearCache: YES];
 }
 
 -(IBAction) doNotShowOnTbMenuMenuItemWasClicked: (id) sender
@@ -1926,7 +1927,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[gTbDefaults setBool: YES forKey: key];
 	}
 	
-	[((MenuController *)[NSApp delegate]) recreateMainMenuClearCache: YES];
+	[gMC recreateMainMenuClearCache: YES];
 }
 
 -(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked: (id) sender
@@ -1983,7 +1984,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
 	[self indicateWaitingForDiagnosticInfoToClipboard];
 
-	NSString * logContents = [[[[[((MenuController *)[NSApp delegate]) logScreen] configurationsPrefsView] logView] textStorage] string];
+	NSString * logContents = [[[[[gMC logScreen] configurationsPrefsView] logView] textStorage] string];
 	[ConfigurationManager putDiagnosticInfoOnClipboardInNewThreadForDisplayName: [[self selectedConnection] displayName] log: logContents];
 }
 
@@ -2066,13 +2067,13 @@ static BOOL firstTimeShowingWindow = TRUE;
             [self setSelectedPerConfigOpenvpnVersionIndexDirect: newValue];
             
             // Set the preference if this isn't just the initialization
-            if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+            if (  ! [gMC doingSetupOfUI]  ) {
                 NSString * newPreferenceValue = [[list objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"];
 				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 									   newPreferenceValue, @"NewValue",
 									   @"-openvpnVersion", @"PreferenceName",
 									   nil];
-				[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+				[gMC performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
 				[self performSelectorOnMainThread: @selector(setupPerConfigOpenvpnVersionAfterDelay) withObject: nil waitUntilDone: NO];
 			}
         }
@@ -2090,8 +2091,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 							 ? @"-disableNetworkAccessAfterUnexpectedDisconnect"
 							 : @"-disableNetworkAccessAfterDisconnect");
 	
-	[((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: resetKey   to: reset   inverted: NO];
-	[((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: disableKey to: disable inverted: NO];
+	[gMC setBooleanPreferenceForSelectedConnectionsWithKey: resetKey   to: reset   inverted: NO];
+	[gMC setBooleanPreferenceForSelectedConnectionsWithKey: disableKey to: disable inverted: NO];
 
 }
 
@@ -2127,7 +2128,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 				VPNConnection * connection = [[(MenuController*)[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
 				if (  ! connection  ) {
 					NSLog(@"Error: no connection for displayName '%@'", displayName);
-					[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+					[gMC terminateBecause: terminatingBecauseOfError];
 					[cancelled appendString: @"X"];
 				} else {
 
@@ -2233,7 +2234,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender
 {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-notMonitoringConnection"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-notMonitoringConnection"
                                                                                          to: ([sender state] == NSOnState)
                                                                                    inverted: YES];
     
@@ -2241,21 +2242,21 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 -(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked: (NSButton *) sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-routeAllTrafficThroughVpn"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-routeAllTrafficThroughVpn"
                                                                                          to: ([sender state] == NSOnState)
                                                                                    inverted: NO];
 }
 
 -(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender
 {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
                                                                                          to: ([sender state] == NSOnState)
                                                                                    inverted: YES];
 }
 
 -(IBAction) disableIpv6OnTunCheckboxWasClicked: (NSButton *) sender
 {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisableIpv6onTun"
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisableIpv6onTun"
                                                                                          to: ([sender state] == NSOnState)
                                                                                    inverted: YES];
 }
@@ -2526,7 +2527,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           [NSString stringWithFormat:
                            NSLocalizedString(@"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log", @"Window text"),
-                           [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName]]);
+                           [gMC localizedNameForDisplayName: displayName]]);
     }
     
     [self performSelectorOnMainThread: @selector(validateWhenToConnect:) withObject: connection waitUntilDone: NO];
@@ -2576,12 +2577,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(void) setSelectedSetNameserverIndex: (NSNumber *) newValue
 {
     if (  [newValue isNotEqualTo: [self selectedSetNameserverIndex]]  ) {
-        if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+        if (  ! [gMC doingSetupOfUI]  ) {
 			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
                                    newValue, @"NewValue",
 								   @"useDNS", @"PreferenceName",
 								   nil];
-			[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+			[gMC performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
 			
 			// Must set the key now (even though setPreferenceForSelectedConfigurationsWithDict: will set it later) so the rest of the code in this method runs with the new setting
             NSString * actualKey = [[[self selectedConnection] displayName] stringByAppendingString: @"useDNS"];
@@ -2610,7 +2611,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         VPNConnection * connection = [self selectedConnection];
         
-        if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+        if (  ! [gMC doingSetupOfUI]  ) {
             NSNumber * preferenceValue = (  [newValue isEqualToNumber: [NSNumber numberWithUnsignedInt: 0]]
                                           ? [NSNumber numberWithUnsignedInt: TUNNELBLICK_NO_LOGGING_LEVEL]
                                           : ( [newValue isEqualToNumber: [NSNumber numberWithUnsignedInt: 1]]
@@ -2620,7 +2621,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                                    preferenceValue,  @"NewValue",
 								   @"-loggingLevel", @"PreferenceName",
 								   nil];
-			[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+			[gMC performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
 			
 			// Must set the key now (even though setPreferenceForSelectedConfigurationsWithDict: will set it later) so the rest of the code in this method runs with the new setting
             NSString * actualKey = [[connection displayName] stringByAppendingString: @"-loggingLevel"];
@@ -2649,7 +2650,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         return nil;
     }
 
-    NSDictionary * dict = [(MenuController *)[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * dict = [gMC myVPNConnectionDictionary];
     VPNConnection * connection = [dict objectForKey: name];
     return connection;
 }
@@ -2740,12 +2741,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     [settingsSheetWindowController setConfigurationName: newName];
 
-    BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
-    [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+    BOOL savedDoingSetupOfUI = [gMC doingSetupOfUI];
+    [gMC setDoingSetupOfUI: TRUE];
 
     [self validateDetailsWindowControlsForConnection: newConnection];
 
-    [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
+    [gMC setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 //***************************************************************************************************************
@@ -2882,9 +2883,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 	[self setupUpdatesCheckboxes];
 	[self setupCheckIPAddress: nil];
 	
-    SUUpdater * updater = [((MenuController *)[NSApp delegate]) updater];
+    SUUpdater * updater = [gMC updater];
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
- 		[((MenuController *)[NSApp delegate]) setupUpdaterAutomaticChecks];
+ 		[gMC setupUpdaterAutomaticChecks];
     } else {
         NSLog(@"'Inhibit automatic update checking and IP address checking' change ignored because the updater does not respond to setAutomaticallyChecksForUpdates:");
 	}
@@ -2921,7 +2922,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
     if (  auth  ) {
-        NSInteger status = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
+        NSInteger status = [gMC runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
                                            extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
                                           usingSystemAuth: auth
                                              installTblks: nil];
@@ -2975,10 +2976,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(IBAction) updatesCheckAutomaticallyCheckboxWasClicked: (NSButton *) sender
 {
-    SUUpdater * updater = [((MenuController *)[NSApp delegate]) updater];
+    SUUpdater * updater = [gMC updater];
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         [gTbDefaults setBool: [sender state] forKey: @"updateCheckAutomatically"];
-		[((MenuController *)[NSApp delegate]) setupUpdaterAutomaticChecks];
+		[gMC setupUpdaterAutomaticChecks];
     } else {
         NSLog(@"'Automatically Check for Updates' change ignored because the updater does not respond to setAutomaticallyChecksForUpdates:");
     }
@@ -2995,7 +2996,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	(void) sender;
 	
-    [((MenuController *)[NSApp delegate]) checkForUpdates: self];
+    [gMC checkForUpdates: self];
     [self updateLastCheckedDate];
 }
 
@@ -3051,7 +3052,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             [gTbDefaults setObject: newValue forKey: @"keyboardShortcutIndex"];
             
             // Set the value we use
-            [((MenuController *)[NSApp delegate]) setHotKeyIndex: [newValue unsignedIntValue]];
+            [gMC setHotKeyIndex: [newValue unsignedIntValue]];
         }
     }
 }    
@@ -3195,16 +3196,16 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
     [self setSelectedAppearanceConnectionWindowScreenIndexDirect: [NSNumber numberWithUnsignedInteger: NSNotFound]];
 	
-    NSArray * screens = [((MenuController *)[NSApp delegate]) screenList];
+    NSArray * screens = [gMC screenList];
     
     if (   ([screens count] < 2)
 		|| ([[self selectedAppearanceConnectionWindowDisplayCriteriaIndex] isEqualTo: [NSNumber numberWithUnsignedInteger: 0u]]  )  ) {
         
 		// Show the default screen, but don't change the preference
-		BOOL wereDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
-		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+		BOOL wereDoingSetupOfUI = [gMC doingSetupOfUI];
+		[gMC setDoingSetupOfUI: TRUE];
         [self setSelectedAppearanceConnectionWindowScreenIndex: [NSNumber numberWithUnsignedInteger: 0u]];
-		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: wereDoingSetupOfUI];
+		[gMC setDoingSetupOfUI: wereDoingSetupOfUI];
 		
         [[appearancePrefsView appearanceConnectionWindowScreenButton] setEnabled: NO];
 		
@@ -3293,13 +3294,13 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (NSButton *) sender
 {
     [gTbDefaults setBool: ! [sender state] forKey:@"doNotShowConnectionSubmenus"];
-    [((MenuController *)[NSApp delegate]) recreateMainMenuClearCache: YES];
+    [gMC recreateMainMenuClearCache: YES];
 }
 
 -(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked: (NSButton *) sender
 {
     [gTbDefaults setBool: [sender state]  forKey:@"showConnectedDurations"];
-    [((MenuController *)[NSApp delegate]) changedDisplayConnectionTimersSettings];
+    [gMC changedDisplayConnectionTimersSettings];
 }
 
 -(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked: (NSButton *) sender
@@ -3311,11 +3312,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     BOOL wantIconNearSpotlightIcon = ! ( [sender state] == NSOffState );
 	[gTbDefaults setBool: ! wantIconNearSpotlightIcon forKey: @"placeIconInStandardPositionInStatusBar"];
-    [((MenuController *)[NSApp delegate]) moveStatusItemIfNecessary];
+    [gMC moveStatusItemIfNecessary];
     if (   wantIconNearSpotlightIcon
         && shouldPlaceIconInStandardPositionInStatusBar()
         ) {
-        [((MenuController *)[NSApp delegate]) showConfirmIconNearSpotlightIconDialog];
+        [gMC showConfirmIconNearSpotlightIconDialog];
     }
 }
 
@@ -3360,9 +3361,9 @@ static BOOL firstTimeShowingWindow = TRUE;
             }
             
             // Start using the new setting
-			if (  ! [((MenuController *)[NSApp delegate]) loadMenuIconSet]  ) {
+			if (  ! [gMC loadMenuIconSet]  ) {
 				NSLog(@"Unable to load the Menu icon set");
-				[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+				[gMC terminateBecause: terminatingBecauseOfError];
 			}
         }
     }
@@ -3407,7 +3408,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             [ac setSelectionIndex: [newValue unsignedIntegerValue]];
             
             // Set the preference if this isn't just the initialization
-            if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+            if (  ! [gMC doingSetupOfUI]  ) {
                 // Set the preference
                 NSNumber * displayNumber = [[list objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"];
 				[gTbDefaults setObject: displayNumber forKey: @"statusDisplayNumber"];

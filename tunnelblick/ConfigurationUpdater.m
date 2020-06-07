@@ -35,9 +35,10 @@
 #import "Sparkle/SUUpdater.h"
 #import "TBUserDefaults.h"
 
-extern NSFileManager        * gFileMgr;
-extern BOOL                   gShuttingDownWorkspace;
-extern TBUserDefaults       * gTbDefaults;
+extern NSFileManager  * gFileMgr;
+extern MenuController * gMC;
+extern BOOL             gShuttingDownWorkspace;
+extern TBUserDefaults * gTbDefaults;
 
 @implementation ConfigurationUpdater
 
@@ -186,7 +187,7 @@ TBSYNTHESIZE_OBJECT(    retain, NSString *,  feedUrlStringForConfigurationUpdate
     BOOL withUI = [withUINumber boolValue];
     
     // Wait until the application is not being updated
-    SUUpdater * appUpdater = [((MenuController *)[NSApp delegate]) updater];
+    SUUpdater * appUpdater = [gMC updater];
     while (  [appUpdater updateInProgress]  ) {
         
 		if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
@@ -256,18 +257,18 @@ TBSYNTHESIZE_OBJECT(    retain, NSString *,  feedUrlStringForConfigurationUpdate
         return NO;
     }
     
-    if (  ! [((MenuController *)[NSApp delegate]) launchFinished]  ) {
+    if (  ! [gMC launchFinished]  ) {
         if (  [NSThread isMainThread]  ) {
             NSLog(@"updaterShouldRelaunchApplication: launchFinished = FALSE but are on the main thread, so not waiting for launchFinished");
         } else {
             // We are not on the main thread, so we make sure that Tunneblick has finished launching and the main thread is ready before we proceed to update the configuration.
-            while (  [((MenuController *)[NSApp delegate]) launchFinished]  ) {
+            while (  [gMC launchFinished]  ) {
                 sleep(1);
             }
         }
     }
     
-	[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPathMainThread:) withObject: [self cfgBundlePath] waitUntilDone: NO];
+	[gMC performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPathMainThread:) withObject: [self cfgBundlePath] waitUntilDone: NO];
 	return NO;
 }
 

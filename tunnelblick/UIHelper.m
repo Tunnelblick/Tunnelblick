@@ -28,13 +28,14 @@
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 
+extern MenuController * gMC;
 extern TBUserDefaults * gTbDefaults;
 
 @implementation UIHelper
 
 +(NSString *) appendRTLIfRTLLanguage: (NSString *) string {
     
-    if (  [((MenuController *)[NSApp delegate]) languageAtLaunchWasRTL]  ) {
+    if (  [gMC languageAtLaunchWasRTL]  ) {
         return [string stringByAppendingString: @"-RTL"];
     }
     
@@ -53,7 +54,7 @@ extern TBUserDefaults * gTbDefaults;
 
 +(BOOL) languageAtLaunchWasRTL {
     
-    return [((MenuController *)[NSApp delegate]) languageAtLaunchWasRTL];
+    return [gMC languageAtLaunchWasRTL];
 }
 
 +(NSString *) imgTagForImageName: (NSString *) imageName
@@ -133,7 +134,7 @@ extern TBUserDefaults * gTbDefaults;
     if (   ( ! theControl )
 		|| ( ! frameHolder )  ) {
         NSLog(@"setTitle:ofControl:shift:setEnabled: control and/or frameControl is nil; title is '%@'", newTitle);
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
         return 0.0; // Make static analyzer happy
     }
     
@@ -185,7 +186,7 @@ extern TBUserDefaults * gTbDefaults;
     
     if (  ! theControl  ) {
         NSLog(@"shift:control:by: control is nil");
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        [gMC terminateBecause: terminatingBecauseOfError];
         return; // Make static analyzer happy
     }
     
@@ -215,7 +216,7 @@ extern TBUserDefaults * gTbDefaults;
 		|| ( ! target )  ) {
 		NSLog(@"Error: performSelectorName: %@ target: %@ withObject: %@ onMainThreadAfterDelay %f",
 			  selectorName, target, object, delay);
-		[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		[gMC terminateBecause: terminatingBecauseOfError];
 		return;
 	}
 	
@@ -262,7 +263,7 @@ extern TBUserDefaults * gTbDefaults;
 				TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: have seen a configuration, so returning NO for '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
 				return NO;
 			}
-			if (  [(MenuController *)[NSApp delegate] showingImportSetupWindow]  ) {
+			if (  [gMC showingImportSetupWindow]  ) {
 				TBLog(@"DB-SI", @"canAcceptFileTypesInPasteboard: already importing a .tblksetup, so returning NO for '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
 				return NO;
 			}

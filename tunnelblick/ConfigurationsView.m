@@ -34,6 +34,7 @@
 #import "UIHelper.h"
 
 extern NSFileManager  * gFileMgr;
+extern MenuController * gMC;
 extern TBUserDefaults * gTbDefaults;
 
 
@@ -174,8 +175,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 
 -(void) awakeFromNib {
 	
-	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
-    [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+	BOOL savedDoingSetupOfUI = [gMC doingSetupOfUI];
+    [gMC setDoingSetupOfUI: TRUE];
 	
 	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
 	
@@ -366,7 +367,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
     
     CGFloat pcovWidthChange = [UIHelper setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text") ofControl: perConfigOpenvpnVersionTFC frameHolder: perConfigOpenvpnVersionTF shift: ( !rtl ) narrow: YES enable: YES];
     
-    NSArray  * versionNames  = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+    NSArray  * versionNames  = [gMC openvpnVersionNames];
     
     NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: [versionNames count] + 2];
     
@@ -486,7 +487,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
     NSOutlineView         * oView = [oVC outlineView];
     [oView registerForDraggedTypes: [NSArray arrayWithObject: TB_LEFT_NAV_ITEMS_DRAG_ID]];
 
-	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
+	[gMC setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 
