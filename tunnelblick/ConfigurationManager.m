@@ -2368,7 +2368,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             if (  [names count] != 1  ) {
                 return [NSArray array];
             }
-            VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: [names objectAtIndex: 0]];
+            VPNConnection * connection = [gMC connectionForDisplayName:  [names objectAtIndex: 0]];
             if (  ! [[connection state] isEqualToString: @"EXITING"]  ) {
                 [list addObject: [names objectAtIndex: 0]];
             }
@@ -2400,7 +2400,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Wait for the VPN to be completely disconnected
     e = [displayNames objectEnumerator];
     while (  (name = [e nextObject])  ) {
-        VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: name];
+        VPNConnection * connection = [gMC connectionForDisplayName: name];
         [connection waitUntilCompletelyDisconnected];
      }
 }
@@ -2412,7 +2412,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * name;
     NSEnumerator * e = [displayNames objectEnumerator];
     while (  (name = [e nextObject])  ) {
-        VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: name];
+        VPNConnection * connection = [gMC connectionForDisplayName: name];
         if (  connection  ) {
             NSLog(@"Starting reconnection of '%@'", name);
             [connection performSelector: @selector(connectOnMainThreadUserKnows:) withObject: @YES afterDelay: 1.0];
@@ -2625,8 +2625,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                        moveNotCopy: NO
                                            noAdmin: NO]  ) {
 			
-            NSDictionary * connDict = [gMC myVPNConnectionDictionary];
-            VPNConnection * connection = [connDict objectForKey: targetDisplayName];
+            VPNConnection * connection = [gMC connectionForDisplayName: targetDisplayName];
             if (  connection  ) {
                 // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
 				[connection reloadPreferencesFromTblk];
@@ -2654,8 +2653,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                        moveNotCopy: NO
                                            noAdmin: YES]  ) {
             
-            NSDictionary * connDict = [gMC myVPNConnectionDictionary];
-            VPNConnection * connection = [connDict objectForKey: targetDisplayName];
+            VPNConnection * connection = [gMC connectionForDisplayName: targetDisplayName];
             if (  connection  ) {
                 // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
                 [connection reloadPreferencesFromTblk];
@@ -3131,7 +3129,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  ! [displayName hasSuffix: @"/"]  ) {
 
         // It's a configuration
-        VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
+        VPNConnection * connection = [gMC connectionForDisplayName: displayName];
         if (  ! connection  ) {
             NSLog(@"okToRemoveConfigurationWithDisplayNames: Cannot get VPNConnection object for display name '%@'", displayName);
             return NO;
@@ -3221,7 +3219,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             [gTbDefaults replacePrefixOfPreferenceValuesThatHavePrefix: displayName with: nil];
             
         } else {
-            VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
+            VPNConnection * connection = [gMC connectionForDisplayName: displayName];
             if (  ! connection  ) {
                 NSLog(@"removeConfigurationsOrFoldersWithDisplayNamesWorker: Cannot get VPNConnection object for display name '%@'", displayName);
                 ok = FALSE;
@@ -3303,7 +3301,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              moveNotCopy: YES
                                  noAdmin: NO];
     
-    VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
+    VPNConnection * connection = [gMC connectionForDisplayName: displayName];
     if (  ! connection  ) {
         NSLog(@"changeToSharedFromPath: Internal error: cannot find connection for '%@', unable to ", displayName);
     }
@@ -3409,7 +3407,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			break;
 	}
     
-	VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
+	VPNConnection * connection = [gMC connectionForDisplayName: displayName];
 	if (  connection  ) {
 		[connection invalidateConfigurationParse];
 	} else {
@@ -3425,7 +3423,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	NSString * displayName;
 	NSEnumerator * e = [displayNames objectEnumerator];
 	while (  (displayName = [e nextObject])  ) {
-		VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
+		VPNConnection * connection = [gMC connectionForDisplayName: displayName];
 		if (  connection  ) {
 			NSString * source = [connection configPath];
 			if (  [source hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
@@ -3718,7 +3716,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(BOOL) verifyCanDoMoveOrRenameFromPath: (NSString *) sourcePath name: (NSString *) sourceName {
 
-    VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: sourceName];
+    VPNConnection * connection = [gMC connectionForDisplayName: sourceName];
     if (  ! connection  ) {
         NSLog(@"verifyCanDoMoveOrRenameFromPath: No '%@' configuration exists", sourceName);
         return FALSE;
@@ -4218,7 +4216,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 					return NO;
 				}
 				if (  thenConnect  ) {
-					VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
+					VPNConnection * connection = [gMC connectionForDisplayName: displayName];
 					[connection connectOnMainThreadUserKnows: [NSNumber numberWithBool: userKnows]];
 				}
 				return YES;
@@ -4231,7 +4229,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			if (  updateInfo  ) {
 				TBLog(@"DB-UC",@"Skipping an update for %@", displayName);
 				if (  thenConnect  ) {
-					VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
+					VPNConnection * connection = [gMC connectionForDisplayName: displayName];
 					[connection setSkipConfigurationUpdateCheckOnce: TRUE];
 					[connection connectOnMainThreadUserKnows: [NSNumber numberWithBool: userKnows]];
 				}
@@ -4241,7 +4239,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				BOOL reverted = [ConfigurationManager revertOneConfigurationToShadowWithDisplayName: displayName];
 				if (  reverted  ) {
 					if (  thenConnect  ) {
-						VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
+						VPNConnection * connection = [gMC connectionForDisplayName: displayName];
 						[connection connectOnMainThreadUserKnows: [NSNumber numberWithBool: userKnows]];
 					}
 				}
@@ -4636,7 +4634,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	NSPasteboard * pb = [NSPasteboard generalPasteboard];
 	[pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
 
-	VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
+	VPNConnection * connection = [gMC connectionForDisplayName: displayName];
     if (  connection  ) {
 		
 		[pb setString: @"You pasted too soon! The Tunnelblick diagnostic info was not yet available on the Clipboard when you pasted. Try to paste again.\n" forType: NSStringPboardType];

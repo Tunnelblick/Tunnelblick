@@ -1725,7 +1725,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     // Returns the connection associated with the currently selected connection or nil on error.
 
-    VPNConnection * connection = [self connectionForName: previouslySelectedNameOnLeftNavList];
+    VPNConnection * connection = [gMC connectionForDisplayName: previouslySelectedNameOnLeftNavList];
     return connection;
 }
 
@@ -2125,7 +2125,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 			if (   ([displayName length] != 0)
                 && ( ! [displayName hasSuffix: @"/"] )  ) {	// Ignore folders; just process configurations
 
-				VPNConnection * connection = [[(MenuController*)[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+				VPNConnection * connection = [gMC connectionForDisplayName: displayName];
 				if (  ! connection  ) {
 					NSLog(@"Error: no connection for displayName '%@'", displayName);
 					[gMC terminateBecause: terminatingBecauseOfError];
@@ -2644,17 +2644,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
--(VPNConnection *) connectionForName: (NSString *) name {
-
-    if ( ! name  ) {
-        return nil;
-    }
-
-    NSDictionary * dict = [gMC myVPNConnectionDictionary];
-    VPNConnection * connection = [dict objectForKey: name];
-    return connection;
-}
-
 -(NSInteger) rowForName: (NSString *) name {
 
     if ( ! name  ) {
@@ -2724,9 +2713,9 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
 
-    VPNConnection * newConnection = [self connectionForName: newName];
+    VPNConnection * newConnection = [gMC connectionForDisplayName: newName];
 
-    VPNConnection * oldConnection = [self connectionForName: previouslySelectedNameOnLeftNavList];
+    VPNConnection * oldConnection = [gMC connectionForDisplayName: previouslySelectedNameOnLeftNavList];
 
     [self setPreviouslySelectedNameOnLeftNavList: newName];
     [gTbDefaults setObject: newName forKey: @"leftNavSelectedDisplayName"];

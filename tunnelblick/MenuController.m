@@ -1915,7 +1915,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 			if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-doNotShowOnTunnelblickMenu"]]  ) {
 				// configure connection object:
 				NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
-				VPNConnection* myConnection = [[self myVPNConnectionDictionary] objectForKey: dispNm];
+				VPNConnection* myConnection = [self connectionForDisplayName: dispNm];
 				
 				// Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem and by uiUpdater
 				[connectionItem setTarget:myConnection];
@@ -2803,6 +2803,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 {
 	[self updateUI];
     [[self logScreen] validateConnectAndDisconnectButtonsForConnection: connection];
+}
+
+-(VPNConnection *) connectionForDisplayName: (NSString *) displayName {
+    return [myVPNConnectionDictionary objectForKey: displayName];
 }
 
 - (void) updateIconImage
@@ -5081,7 +5085,7 @@ static void signal_handler(int signalNumber)
         NSString * dispNm;
         NSEnumerator * listEnum = [restoreList objectEnumerator];
         while (  (dispNm = [listEnum nextObject])  ) {
-            myConnection = [[self myVPNConnectionDictionary] objectForKey: dispNm];
+            myConnection = [self connectionForDisplayName: dispNm];
             if (   myConnection
                 && ( ! [myConnection isConnected] )  ) {
                 [myConnection connect:self userKnows: YES];
@@ -5097,7 +5101,7 @@ static void signal_handler(int signalNumber)
     while (   (dispNm = [e nextObject])
            && (   (! restoreList)
                || ( [restoreList indexOfObject: dispNm] == NSNotFound) )  ) {
-        myConnection = [[self myVPNConnectionDictionary] objectForKey: dispNm];
+        myConnection = [self connectionForDisplayName: dispNm];
         if (  [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"autoConnect"]]  ) {
             if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-onSystemStart"]]  ) {
                 if (  ![myConnection isConnected]  ) {
@@ -5750,7 +5754,7 @@ static BOOL runningHookupThread = FALSE;
                                                              toStartArgs: &openvpnstartArgs];
                     NSString * displayName = displayNameFromPath(cfgPath);
 					if (  displayName  ) {
-						VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+						VPNConnection * connection = [self connectionForDisplayName: displayName];
 						if (  connection  ) {
 							NSDictionary * bestLogInfoSoFar = [logFileInfo objectForKey: displayName];
 							if (   (! bestLogInfoSoFar)
@@ -8167,12 +8171,12 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
         NSString * lastConnectionName = [gTbDefaults stringForKey: @"lastConnectedDisplayName"];
         VPNConnection * lastConnection = nil;
         if (  lastConnectionName  ) {
-            lastConnection = [myVPNConnectionDictionary objectForKey: lastConnectionName];
+            lastConnection = [self connectionForDisplayName: lastConnectionName];
         }
         if (  ! lastConnection  ) {
             NSArray * sortedDisplayNames = [[myConfigDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
             if (  [sortedDisplayNames count] > 0  ) {
-                lastConnection = [myVPNConnectionDictionary objectForKey: [sortedDisplayNames objectAtIndex: 0]];
+                lastConnection = [self connectionForDisplayName: [sortedDisplayNames objectAtIndex: 0]];
             }
         }
         if (  lastConnection  ) {
@@ -8201,7 +8205,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 
 -(void)openvpnConfigurationFileChangedForDisplayName: (NSString *) displayName {
 	
-	VPNConnection * conn = [myVPNConnectionDictionary objectForKey: displayName];
+	VPNConnection * conn = [self connectionForDisplayName: displayName];
 	[conn invalidateConfigurationParse];
 	[logScreen update];
 	
@@ -8442,7 +8446,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(BOOL) tryToConnect: (NSString *) displayName
 {
-    VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: displayName];
+    VPNConnection * connection = [self connectionForDisplayName: displayName];
     if (  connection  ) {
         [self setVPNServiceConnectDisplayName: displayName];
         [connection connect: self userKnows: YES];
@@ -8491,7 +8495,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 {
 	(void) ctl;
 	
-    VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: theName];
+    VPNConnection * connection = [self connectionForDisplayName: theName];
     if (  connection  ) {
         if (  choice == statusWindowControllerDisconnectChoice  ) {
             [connection addToLog: @"Disconnecting; notification window disconnect button pressed"];

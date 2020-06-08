@@ -324,7 +324,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
                                             stringByAppendingString: @"/"];
             [ConfigurationManager renameFolderInNewThreadWithDisplayName: sourceDisplayName toDisplayName: targetDisplayName];
         } else {
-            VPNConnection * connection   = [[gMC myVPNConnectionDictionary] objectForKey: sourceDisplayName];
+            VPNConnection * connection   = [gMC connectionForDisplayName: sourceDisplayName];
             if (  ! connection  ) {
                 NSLog(@"Tried to rename configuration but no configuration has been selected");
                 return;

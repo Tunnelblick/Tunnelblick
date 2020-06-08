@@ -37,8 +37,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
     NSString * displayName = [self directParameter];
     
-    NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
-    VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+    VPNConnection * connection = [gMC connectionForDisplayName: displayName];
     
     if (  connection  ) {
         if (  ! [connection isConnected] ) {
@@ -58,9 +57,8 @@ extern TBUserDefaults  * gTbDefaults;
 {
     NSString * displayName = [self directParameter];
     
-    NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
-    VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
-    
+    VPNConnection * connection = [gMC connectionForDisplayName: displayName];
+
     if (  connection  ) {
         if (  ! [connection isDisconnected]  ) {
             [connection addToLog: @"Disconnecting; AppleScript 'disconnect' invoked"];
@@ -188,8 +186,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 	NSDictionary * evaluatedArguments = [self evaluatedArguments];
 	NSString * displayName = [evaluatedArguments objectForKey: @"for"];
-	NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
-	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+	VPNConnection * connection = [gMC connectionForDisplayName: displayName];
 	AuthAgent * authAgent = [connection authAgent];
 
 	if (  authAgent  ) {
@@ -211,8 +208,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 	NSDictionary * evaluatedArguments = [self evaluatedArguments];
 	NSString * displayName = [evaluatedArguments objectForKey: @"for"];
-	NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
-	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+    VPNConnection * connection = [gMC connectionForDisplayName: displayName];
 	AuthAgent * authAgent = [connection authAgent];
 
 	if (  authAgent  ) {
@@ -234,8 +230,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 	NSDictionary * evaluatedArguments = [self evaluatedArguments];
 	NSString * displayName = [evaluatedArguments objectForKey: @"for"];
-	NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
-	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+    VPNConnection * connection = [gMC connectionForDisplayName: displayName];
 
 	AuthAgent * authAgent = [connection authAgent];
 
@@ -255,8 +250,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
 	NSString * displayName = [self directParameter];
 
-	NSDictionary * myVPNConnectionDictionary = [gMC myVPNConnectionDictionary];
-	VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+    VPNConnection * connection = [gMC connectionForDisplayName: displayName];
 	AuthAgent * authAgent = [connection authAgent];
 
 	if (  authAgent  ) {

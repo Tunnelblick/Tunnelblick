@@ -158,7 +158,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         configurationName = [newName retain];
 		
 		if (  newName  ) {
-			[self setConnection: [[gMC myVPNConnectionDictionary] objectForKey: configurationName]];
+			[self setConnection: [gMC connectionForDisplayName: configurationName]];
 		} else {
 			[self setConnection: nil];
 		}
