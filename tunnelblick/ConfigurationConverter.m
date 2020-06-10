@@ -1485,7 +1485,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	return nil;
 }
 
-+(BOOL) optionIsInWhitelist: (NSString *) option {
++(BOOL) optionIsInSafelist: (NSString *) option {
     
     // String with a list of options that are "safe" in that they do not invoke a command or script.
     
@@ -1789,15 +1789,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"x509-track|"
     @"x509-username-field|";
     
-    BOOL inWhitelist = [allowedOptions rangeOfString: [NSString stringWithFormat: @"|%@|", option]].length != 0;
-    return inWhitelist;
+    BOOL inSafelist = [allowedOptions rangeOfString: [NSString stringWithFormat: @"|%@|", option]].length != 0;
+    return inSafelist;
 }
 
 +(BOOL) optionIsInBlacklist: (NSString *) option {
     
-    NSArray * blackList = OPENVPN_OPTIONS_THAT_ARE_UNSAFE;
+    NSArray * unsafeList = OPENVPN_OPTIONS_THAT_ARE_UNSAFE;
 
-    BOOL inBlacklist = [blackList containsObject: option];
+    BOOL inBlacklist = [unsafeList containsObject: option];
     return inBlacklist;
 }
 
@@ -1880,7 +1880,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 					return CommandOptionsYes;
 				}
 				
-				if (  ! [ConfigurationConverter optionIsInWhitelist: option]  ) {
+				if (  ! [ConfigurationConverter optionIsInSafelist: option]  ) {
 					NSLog(@"Unknown option '%@' found in %@", option, path);
 					haveUnknown = TRUE;
 				}
