@@ -4629,6 +4629,21 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	return [listOfServices stringByAppendingFormat: @"\n%@", wifiPowerStatus];
 }
 
++(id) getForcedPreferencesAtPath: (NSString *) path {
+
+    if (  [gFileMgr fileExistsAtPath: path]  ) {
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: path];
+        if (  dict  ) {
+            return dict;
+        } else {
+            return @"(File cannot be parsed)";
+        }
+    } else {
+        return @"(None)";
+    }
+}
+
+
 +(void) putDiagnosticInfoOnClipboardWithDisplayName: (NSString *) displayName log: (NSString *) logContents {
 	
 	NSPasteboard * pb = [NSPasteboard generalPasteboard];
@@ -4663,8 +4678,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         NSString * programPreferencesContents       = [ConfigurationManager getPreferences: gProgramPreferences       prefix: @""];
         
+        id primaryForcedPreferencesContents = [ConfigurationManager getForcedPreferencesAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+
+        id deployedForcedPreferencesContents = [ConfigurationManager getForcedPreferencesAtPath: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
+
 		if (  ! logContents  ) {
-			logContents = @"(Unavailable)";
+			logContents = @"(Unavailable)\n";
 		}
 
 		// Get list of network services and status of Wi-Fi
@@ -4694,6 +4713,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              @"Configuration preferences:\n\n%@\n%@"
                              @"Wildcard preferences:\n\n%@\n%@"
                              @"Program preferences:\n\n%@\n%@"
+                             @"Forced preferences:\n\n%@\n\n%@"
+                             @"Deployed forced preferences:\n\n%@\n\n%@"
                              @"Tunnelblick Log:\n\n%@\n%@"
 							 @"Down log:\n\n%@\n%@"
 							 @"Previous down log:\n\n%@\n%@"
@@ -4709,6 +4730,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              configurationPreferencesContents, separatorString,
                              wildcardPreferencesContents, separatorString,
                              programPreferencesContents, separatorString,
+                             primaryForcedPreferencesContents, separatorString,
+                             deployedForcedPreferencesContents, separatorString,
                              logContents, separatorString,
 							 downLogContents, separatorString,
 							 previousDownLogContents, separatorString,
