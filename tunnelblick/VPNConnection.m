@@ -3881,27 +3881,33 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 							  stringByAppendingPathComponent: @"Resources"]
 							 stringByAppendingPathComponent: scriptFilename];
 	if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
+        TBLog(@"DB-PM", @"stdoutFromTblkScript: Script exists: %@", scriptPath);
 		NSArray * arguments = [NSArray array];
 		NSString * stdoutString = nil;
 		NSString * stderrString = nil;
 		NSDictionary * additionalEnvironmentEntries = [NSDictionary dictionaryWithObjectsAndKeys:
 													   [self displayName], @"TunnelblickConfigurationName",
 													   nil];
+        TBLog(@"DB-PM", @"stdoutFromTblkScript: Will runToolExtended(%@)", scriptFilename);
 		OSStatus status = runToolExtended(scriptPath, arguments, &stdoutString, &stderrString, additionalEnvironmentEntries);
+        TBLog(@"DB-PM", @"stdoutFromTblkScript: Did  runToolExtended(%@)", scriptFilename);
 
 		if (  status == EXIT_SUCCESS  ) {
 			if (  [stdoutString hasSuffix: @"\n"]  ) {
 				stdoutString = [stdoutString substringToIndex: [stdoutString length] - 1 ];
 			}
 			[self addToLog: [NSString stringWithFormat: @"Received response from %@", scriptFilename]];
+            TBLog(@"DB-PM", @"stdoutFromTblkScript: Received response of length %lu from %@", [stdoutString length], scriptFilename);
 			return stdoutString;
 		}
 
 		[self addToLog: [NSString stringWithFormat: @"Error status %d returned by %@.\nstdout = '%@'\nstderr = '%@'",
 						 (int)status, scriptFilename, stdoutString, stderrString]];
+        TBLog(@"DB-PM", @"stdoutFromTblkScript: Error status %d returned by %@.\nstdout = '%@'\nstderr = '%@'",
+              (int)status, scriptFilename, stdoutString, stderrString);
         *cancelledOrError = TRUE;
 	} else {
-		TBLog(@"DB-AU", @"File does not exist: '%@'", scriptPath);
+		TBLog(@"DB-PM", @"stdoutFromTblkScript: Script does not exist: '%@'", scriptPath);
 	}
 	
 	return nil;
@@ -4407,26 +4413,39 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     BOOL cancelledOrError = FALSE;
 
+    TBLog(@"DB-PM", @"passwordAsModifed: Will run stdoutFromTblkScript for password-replace.user.sh");
     NSString * replaceString = [self stdoutFromTblkScript: @"password-replace.user.sh" cancelledOrErrorPtr: &cancelledOrError];
+    TBLog(@"DB-PM", @"passwordAsModifed: Did  run stdoutFromTblkScript for password-replace.user.sh");
     if (  cancelledOrError  ) {
+        TBLog(@"DB-PM", @"passwordAsModifed: cancelledOrError for password replace");
         return nil;
     }
 
+    TBLog(@"DB-PM", @"passwordAsModifed: Will run stdoutFromTblkScript for password-prepend.user.sh");
 	NSString * prependString = [self stdoutFromTblkScript: @"password-prepend.user.sh" cancelledOrErrorPtr: &cancelledOrError];
+    TBLog(@"DB-PM", @"passwordAsModifed: Did  run stdoutFromTblkScript for password-prepend.user.sh");
     if (  cancelledOrError  ) {
+        TBLog(@"DB-PM", @"passwordAsModifed: cancelledOrError for password prepend");
         return nil;
     }
 
+    TBLog(@"DB-PM", @"passwordAsModifed: passwordAsModifed: Will run stdoutFromTblkScript for password-append.user.sh");
 	NSString * appendString  = [self stdoutFromTblkScript: @"password-append.user.sh"  cancelledOrErrorPtr: &cancelledOrError];
+    TBLog(@"DB-PM", @"passwordAsModifed: Did  run stdoutFromTblkScript for password-append.user.sh");
     if (  cancelledOrError  ) {
+        TBLog(@"DB-PM", @"passwordAsModifed: cancelledOrError for password append");
         return nil;
     }
 
+    TBLog(@"DB-PM", @"passwordAsModifed: have replaceString = %s; have prependString = %s; have appendString = %s",
+          CSTRING_FROM_BOOL((BOOL)replaceString), CSTRING_FROM_BOOL((BOOL)prependString), CSTRING_FROM_BOOL((BOOL)appendString));
 	if (  replaceString  ) {
 		password = [[replaceString retain] autorelease];
+        TBLog(@"DB-PM", @"passwordAsModifed: Replaced password with output from password-replace.user.sh");
 		appendLog(@"Replaced password with output from password-replace.user.sh");
 		if (   prependString
 			|| appendString  ) {
+            TBLog(@"DB-PM", @"passwordAsModifed: Warning: Used output from password-replace.user.sh and ignored password-prepend.user.sh and/or password-append.user.sh");
 			appendLog(@"Warning: Used output from password-replace.user.sh and ignored password-prepend.user.sh and/or password-append.user.sh");
 		}
 	} else {
@@ -4434,17 +4453,20 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			|| appendString  ) {
 			if (  prependString  ) {
 				password = [prependString stringByAppendingString: password];
+                TBLog(@"DB-PM", @"passwordAsModifed: Prepended password with output from password-prepend.user.sh");
 				appendLog(@"Prepended password with output from password-prepend.user.sh");
 			}
 			if (  appendString  ) {
 				password = [password stringByAppendingString: appendString];
+                TBLog(@"DB-PM", @"passwordAsModifed: Appended password with output from password-append.user.sh");
 				appendLog(@"Appended password with output from password-append.user.sh");
 			}
 		} else {
-			TBLog(@"DB-AU", @"None of password-replace.user.sh, password-prepend.user.sh, or password-append.user.sh exist");
+			TBLog(@"DB-PM", @"passwordAsModifed: None of password-replace.user.sh, password-prepend.user.sh, or password-append.user.sh exist");
 		}
 	}
 
+    TBLog(@"DB-PM", @"passwordAsModifed: Returning password of length %lu", [password length]);
 	return password;
 }
 
@@ -4531,8 +4553,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         if(   (myUsername != nil)
            && (myPassword != nil)  ){
 
+            TBLog(@"DB-PM", @"Length of password before manipulation is %lu",[myPassword length]);
 			myPassword = [self passwordAsModifed: myPassword];
+            TBLog(@"DB-PM", @"Length of password after manipulation is %lu",[myPassword length]);
             if (  ! myPassword  ) {
+                TBLog(@"DB-PM", @"Error or user cancelled when asked to replace/prepend/append password");
                 [self addToLog: @"Error or user cancelled when asked to replace/prepend/append password"];
                 [self startDisconnectingUserKnows: @NO];
                 return;
