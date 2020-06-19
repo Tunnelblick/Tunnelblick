@@ -1344,7 +1344,11 @@ OSStatus runToolExtended(NSString     * launchPath,
     // Send stdout and stderr to files in a temporary directory
     
     NSString * tempDir    = [newTemporaryDirectoryPath() autorelease];
-    
+    if (  ! tempDir  ) {
+        appendLog([NSString stringWithFormat: @"Catastrophic error: Could not create a temporary directory"]);
+        exit(EXIT_FAILURE);
+    }
+
     NSString * stdOutPath = [tempDir stringByAppendingPathComponent: @"stdout.txt"];
     NSString * stdErrPath = [tempDir stringByAppendingPathComponent: @"stderr.txt"];
     
