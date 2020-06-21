@@ -1412,14 +1412,14 @@ OSStatus runToolExtended(NSString     * launchPath,
 
         if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
             warnTime = [warnTime dateByAddingTimeInterval: 10.00];
-            appendLog([NSString stringWithFormat: @"Warning: program has not finished after %f seconds: %@",
+            appendLog([NSString stringWithFormat: @"Warning: program has not finished after %.0f seconds: %@",
                        ([[NSDate date] timeIntervalSinceDate: startTime]), launchPath]);
         }
 
         if (  [terminateTime compare: [NSDate date]] == NSOrderedAscending  ) {
             // Try to terminate the task with SIGTERM
-            appendLog([NSString stringWithFormat: @"No response after 60 seconds (main thread = %s); attempting to terminate program: %@",
-                       CSTRING_FROM_BOOL([NSThread isMainThread]), launchPath]);
+            appendLog([NSString stringWithFormat: @"No response after 60 seconds; attempting to terminate program: %@",
+                    launchPath]);
             [task terminate];
             requestedTermination = TRUE;
             terminateTime = nil; // Only terminate once
@@ -1463,14 +1463,29 @@ OSStatus runToolExtended(NSString     * launchPath,
 	if (  reason == NSTaskTerminationReasonUncaughtSignal  ) {
 		message = [NSString stringWithFormat: @"'%@' received an uncaught signal\n%@",
 				   [launchPath lastPathComponent], (message ? message : @"")];
+        if (  requestedTermination  ) {
+            message = [message stringByAppendingString: @"The uncaught signal was probably SIGTERM from terminating the program."];
+        }
+        if (   (0 == [stdOutString length])
+            && (0 == [stdErrString length])  ) {
+            if (  stdErrStringPtr  ) {
+                *stdErrStringPtr = [NSString stringWithString: message];
+            }
+        }
 	}
-	
+
     if (   requestedTermination
         || message  ) {
-        if (  ! message  ) {
+        if (  message  ) {
+            message = [@"\n" stringByAppendingString: message];
+        } else {
             message = @"";
         }
-        appendLog([NSString stringWithFormat: @"'%@' returned status = %ld\n%@", [launchPath lastPathComponent], (long)status, message]);
+        appendLog([NSString stringWithFormat: @"'%@' returned status = %ld%@", [launchPath lastPathComponent], (long)status, message]);
+        if (   (status == EXIT_SUCCESS)
+            && requestedTermination  ) {
+            status = EXIT_FAILURE;
+        }
     }
     
 	return status;
