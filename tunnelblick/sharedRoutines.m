@@ -1409,6 +1409,21 @@ OSStatus runToolExtended(NSString     * launchPath,
 
     while(  [task isRunning]  ) {
 		usleep(100000);
+
+        if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
+            warnTime = [warnTime dateByAddingTimeInterval: 10.00];
+            appendLog([NSString stringWithFormat: @"Warning: program has not finished after %f seconds: %@",
+                       ([[NSDate date] timeIntervalSinceDate: startTime]), launchPath]);
+        }
+
+        if (  [terminateTime compare: [NSDate date]] == NSOrderedAscending  ) {
+            // Try to terminate the task with SIGTERM
+            appendLog([NSString stringWithFormat: @"No response after 60 seconds (main thread = %s); attempting to terminate program: %@",
+                       CSTRING_FROM_BOOL([NSThread isMainThread]), launchPath]);
+            [task terminate];
+            requestedTermination = TRUE;
+            terminateTime = nil; // Only terminate once
+        }
 	}
 	
 	NSTaskTerminationReason reason = [task terminationReason];
@@ -1450,7 +1465,11 @@ OSStatus runToolExtended(NSString     * launchPath,
 				   [launchPath lastPathComponent], (message ? message : @"")];
 	}
 	
-    if (  message  ) {
+    if (   requestedTermination
+        || message  ) {
+        if (  ! message  ) {
+            message = @"";
+        }
         appendLog([NSString stringWithFormat: @"'%@' returned status = %ld\n%@", [launchPath lastPathComponent], (long)status, message]);
     }
     
