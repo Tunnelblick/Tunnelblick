@@ -1384,9 +1384,29 @@ OSStatus runToolExtended(NSString     * launchPath,
     [task setStandardOutput: outFile];
     [task setStandardError:  errFile];
     [task setEnvironment: getSafeEnvironment(nil, 0, additionalEnvironmentEntries)];
-    
-    [task launch];
-    
+
+    // Have seen 'couldn't posix_spawn: Error 8' exceptions when a script starts with "#/bin/bash" instead of "#!/bin/bash". The default exception
+    // handler terminates the run-loop, so [task launch] never returns. Deal with exceptions by indicating the program failed.
+    @try {
+        [task launch];
+    } @catch (NSException * exception) {
+        NSString * errorMessage = [NSString stringWithFormat: @"Exception: '%@'; could not start program %@", exception, launchPath];
+        appendLog(errorMessage);
+        if (  stdErrStringPtr  ) {
+            *stdErrStringPtr = [NSString stringWithString: errorMessage];
+        }
+        if (  stdOutStringPtr  ) {
+            *stdOutStringPtr = [NSString stringWithString: errorMessage];
+        }
+        return EXIT_FAILURE;
+    }
+
+    // Show a warning every ten seconds if the tool has not terminated, and terminate it after 60 seconds.
+    NSDate * startTime     = [NSDate date];
+    NSDate * warnTime      = [startTime dateByAddingTimeInterval: 10.0];
+    NSDate * terminateTime = [startTime dateByAddingTimeInterval: 60.0];
+    BOOL requestedTermination = FALSE;
+
     while(  [task isRunning]  ) {
 		usleep(100000);
 	}
