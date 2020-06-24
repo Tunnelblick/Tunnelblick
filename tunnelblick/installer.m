@@ -2355,7 +2355,7 @@ int main(int argc, char *argv[])
 	unsigned int operation = (arg1 & INSTALLER_OPERATION_MASK);
 	
 	// Note: gSecureTblks will also be set to TRUE later if any private .ovpn or .conf configurations were converted to .tblks
-	BOOL gSecureTblks = (   doCopyApp
+	gSecureTblks = (   doCopyApp
 						 || ( (arg1 & INSTALLER_SECURE_TBLKS) != 0 ) );
 
 	openLog(  doClearLog  );
