@@ -831,13 +831,13 @@ int main(void) {
 		// Process the request by calling tunnelblick-helper and sending its status and output to the client
 		
         // Get the client's username from the client's euid
-        struct passwd *ss = getpwuid(client_euid);
-        NSString * userName = [NSString stringWithCString: ss->pw_name encoding: NSUTF8StringEncoding];
+        struct passwd *pw = getpwuid(client_euid);
+        NSString * userName = [NSString stringWithCString: pw->pw_name encoding: NSUTF8StringEncoding];
 		if (  userName == nil  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret username as UTF-8");
 			goto done;
 		}
-        NSString * userHome = [NSString stringWithCString: ss->pw_dir  encoding: NSUTF8StringEncoding];
+        NSString * userHome = [NSString stringWithCString: pw->pw_dir  encoding: NSUTF8StringEncoding];
 		if (  userHome == nil  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret userhome as UTF-8");
 			goto done;
