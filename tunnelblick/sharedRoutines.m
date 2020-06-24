@@ -1039,7 +1039,7 @@ BOOL itemIsVisible(NSString * path)
 
 BOOL makeOneItemUnlockedAtPath(NSString * path)
 {
-	NSDictionary * curAttributes;
+	NSDictionary * curAttributes = nil;
 	NSDictionary * newAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt:0] forKey: NSFileImmutable];
 	
 	unsigned i;
