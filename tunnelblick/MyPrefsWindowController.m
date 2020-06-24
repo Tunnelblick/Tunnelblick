@@ -887,7 +887,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 			listIx = 0; // Don't have a version of OpenVPN that will work with this configuration, so display it as using the default version of OpenVPN
 		} else if (  [prefVersion isEqualToString: @"-"]  ) {
 			// Use latest. If we are actually using it, show we are using latest (last entry), otherwise show what we are using
-			NSArray  * versionNames = [gMC openvpnVersionNames];
 			if (  versionIx == [versionNames count] - 1  ) {
 				listIx = versionIx + 2; // + 2 to skip over the 1st entry (default) and the specific entry, to get to "Latest (version)"
 			} else {
