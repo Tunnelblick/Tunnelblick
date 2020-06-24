@@ -1114,9 +1114,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     NSInteger row = [self rowForName: name];
     if (  row == -1) {
-        NSString * name = [gTbDefaults stringForKey: @"lastConnectedDisplayName"];
+        NSString * lastConnectedName = [gTbDefaults stringForKey: @"lastConnectedDisplayName"];
         if (  name  ) {
-            row = [self rowForName: name];
+            row = [self rowForName: lastConnectedName];
         }
     }
 
