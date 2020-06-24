@@ -1847,7 +1847,7 @@ void loadKexts(unsigned int bitMask) {
         fprintf(stderr, "Loading tun-notarized.kext\n");
     }
     
-    int status;
+    int status = 0;
     unsigned i;
     for (i=0; i < 5; i++) {
         status = runAsRoot(TOOL_PATH_FOR_KEXTLOAD, arguments, 0755);
