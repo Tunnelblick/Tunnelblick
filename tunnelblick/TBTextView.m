@@ -43,12 +43,12 @@
     return YES;
 }
 
-- (BOOL)performKeyEquivalent:(NSEvent *)e
+- (BOOL)performKeyEquivalent:(NSEvent *)event
 {
 	// Note: Command-Q is not sent to this function
 	
-    if (  ([e modifierFlags] & NSDeviceIndependentModifierFlagsMask) == NSCommandKeyMask  ) {
-        NSString * c = [e charactersIgnoringModifiers];
+    if (  ([event modifierFlags] & NSDeviceIndependentModifierFlagsMask) == NSCommandKeyMask  ) {
+        NSString * c = [event charactersIgnoringModifiers];
 
         if (         [c isEqual: @"c"]  ) {     // Command-C - Copy to pasteboard
             [super copy:nil];
