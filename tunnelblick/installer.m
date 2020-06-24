@@ -1847,16 +1847,8 @@ void pruneFolderAtPath(NSString * path) {
 		[outerEnum skipDescendants];
 		NSString * pruneCandidatePath = [path stringByAppendingPathComponent: outerName];
 		
-		BOOL foundSomething = FALSE;
-		NSString * innerName;
 		NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: pruneCandidatePath];
-		while (  (innerName = [innerEnum nextObject])  ) {
-			[innerEnum skipDescendants];
-			foundSomething = TRUE;
-			break;
-		}
-		
-		if (  ! foundSomething  ) {
+		if (  ! [innerEnum nextObject]  ) {
 			if (  ! [gFileMgr tbRemovePathIfItExists: pruneCandidatePath]  ) {
 				errorExit();
 			}
