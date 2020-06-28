@@ -2780,7 +2780,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 [UIHelper showSuccessNotificationTitle: NSLocalizedString(@"VPN Configuration Installation", @"Window title") msg: msg];
             }
 		} else {
-			msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@", @"Window text"),
+			msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@", @"Window text"),
 				   (unsigned long)nTotalErrors, installerErrorMessages, headerMsg, uninstallMsg, replaceMsg, installMsg, safeMsg];
             TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation", @"Window title"), msg);
 		}
