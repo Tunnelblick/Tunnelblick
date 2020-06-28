@@ -216,6 +216,11 @@ BOOL runningOnCatalinaOrNewer(void)
 	return runningOnNewerThan(10, 14);
 }
 
+BOOL runningOnBigSurOrNewer(void)
+{
+    return runningOnNewerThan(10, 15);
+}
+
 BOOL runningOnNewerThanWithBugFix(unsigned majorVersion, unsigned minorVersion, unsigned bugfixVersion)
 {
 	unsigned major, minor, bugFix;

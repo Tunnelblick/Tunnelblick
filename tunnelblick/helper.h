@@ -153,6 +153,7 @@ BOOL           runningOnSierraOrNewer(void);
 BOOL           runningOnHighSierraOrNewer(void);
 BOOL           runningOnMojaveOrNewer(void);
 BOOL           runningOnCatalinaOrNewer(void);
+BOOL           runningOnBigSurOrNewer(void);
 BOOL           runningOnTen_Fourteen_FiveOrNewer(void);
 
 BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
