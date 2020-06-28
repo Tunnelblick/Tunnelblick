@@ -429,10 +429,10 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         NSDictionary * configs = [gMC myConfigDictionary];
 
         for (  i=0; i<[sourceDisplayNames count]; i++  ) {
-            NSString * sourceDisplayName = [sourceDisplayNames objectAtIndex: i];
-            NSString * sourcePath = [configs objectForKey: sourceDisplayName];
+            NSString * sourceDisplayName2 = [sourceDisplayNames objectAtIndex: i];
+            NSString * sourcePath = [configs objectForKey: sourceDisplayName2];
             if (  ! sourcePath  ) {
-                NSLog(@"infoForDropInfo:item: Could not get path for configuration '%@' from myConfigDictionary = %@", sourceDisplayName, configs);
+                NSLog(@"infoForDropInfo:item: Could not get path for configuration '%@' from myConfigDictionary = %@", sourceDisplayName2, configs);
                 return nil;
             }
 
@@ -474,9 +474,9 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     }
 
     for (  i=0; i<[sourceDisplayNames count]; i++  ) {
-        NSString * sourceDisplayName = [sourceDisplayNames objectAtIndex: i];
-        NSString * folderEnclosingSource = [sourceDisplayName stringByDeletingLastPathComponent];
-        if (  [sourceDisplayName hasSuffix: @"/"]) {
+        NSString * sourceDisplayName3 = [sourceDisplayNames objectAtIndex: i];
+        NSString * folderEnclosingSource = [sourceDisplayName3 stringByDeletingLastPathComponent];
+        if (  [sourceDisplayName3 hasSuffix: @"/"]) {
             folderEnclosingSource = [folderEnclosingSource stringByAppendingString: @"/"];
         }
         if (  [targetDisplayNameWithoutLastComponent isEqualToString: folderEnclosingSource]  ) {
@@ -488,9 +488,9 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     // Append the last path component of the source to the target displayName to get the target displayName
     NSMutableArray * targetDisplayNames = [[[NSMutableArray alloc] initWithCapacity: [sourceDisplayNames count]] autorelease];
     for (  i=0; i<[sourceDisplayNames count]; i++  ) {
-        NSString * sourceDisplayName = [sourceDisplayNames objectAtIndex: i];
+        NSString * sourceDisplayName4 = [sourceDisplayNames objectAtIndex: i];
         targetDisplayName = [[targetDisplayNameWithoutLastComponent
-                              stringByAppendingPathComponent: [sourceDisplayName lastPathComponent]]
+                              stringByAppendingPathComponent: [sourceDisplayName4 lastPathComponent]]
                              stringByAppendingString: (  sourceIsFolder
                                                        ? @"/"
                                                        : @"")];
@@ -506,9 +506,9 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     } else {
         targetPaths = [[[NSMutableArray alloc] initWithCapacity: [sourceDisplayNames count]] autorelease];
         for (  i=0; i<[sourceDisplayNames count]; i++  ) {
-            NSString * targetDisplayName = [targetDisplayNames objectAtIndex: i];
+            NSString * targetDisplayName5 = [targetDisplayNames objectAtIndex: i];
             NSString * targetPath = [[firstPartOfPath([sourcePaths objectAtIndex: i])
-                                      stringByAppendingPathComponent: targetDisplayName]
+                                      stringByAppendingPathComponent: targetDisplayName5]
                                      stringByAppendingPathExtension: @"tblk"];
             [targetPaths addObject: targetPath];
         }
