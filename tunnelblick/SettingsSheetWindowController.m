@@ -1033,19 +1033,19 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	}
 	unsigned i;
 	for (  i=0; i<[removeNamedCredentialsNames count]; i++  ) {
-        NSString * groupName = [removeNamedCredentialsNames objectAtIndex: i];
+        NSString * groupName2 = [removeNamedCredentialsNames objectAtIndex: i];
 		[groupsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
 									 [NSString stringWithFormat:
 											NSLocalizedString(@"This configuration uses %@ credentials", @"Button"),
-											groupName], @"name",
-									 groupName, @"value", nil]];
+											groupName2], @"name",
+									 groupName2, @"value", nil]];
         
-		NSMenuItem * item = [[[NSMenuItem alloc] initWithTitle: groupName
-                                                        action: @selector(removeNamedCredentialsCommand:)
-                                                 keyEquivalent: @""] autorelease];
-        [item setTag: (int) i];
-		[item setTarget: self];
-        [removeCredentialMenu addItem: item];
+		NSMenuItem * item2 = [[[NSMenuItem alloc] initWithTitle: groupName2
+                                                         action: @selector(removeNamedCredentialsCommand:)
+                                                  keyEquivalent: @""] autorelease];
+        [item2 setTag: (int) i];
+		[item2 setTarget: self];
+        [removeCredentialMenu addItem: item2];
 	}
 	
 	NSString * prefKey = [[connection displayName] stringByAppendingString: @"-credentialsGroup"];
