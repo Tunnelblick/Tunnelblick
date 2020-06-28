@@ -1508,11 +1508,11 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
         unsigned numberOfLinesSkippedBackward = 0;
         
         while (  currentLineRng.length != 0  ) {
-            NSComparisonResult result = (  [text length] < (currentLineRng.location + TB_LOG_DATE_TIME_WIDTH)
+            NSComparisonResult result2 = (  [text length] < (currentLineRng.location + TB_LOG_DATE_TIME_WIDTH)
                                          ? NSOrderedAscending
                                          : [lineTime compare: [text substringWithRange: NSMakeRange(currentLineRng.location, TB_LOG_DATE_TIME_WIDTH)]]);
             
-            if (  result == NSOrderedDescending  ) {
+            if (  result2 == NSOrderedDescending  ) {
                 
                 [self insertLogEntry: line atIndex: currentLineRng.location + currentLineRng.length];
                 pthread_mutex_unlock( &logStorageMutex );
@@ -1521,7 +1521,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
                 return;
             }
             
-            if (   (result == NSOrderedSame)
+            if (   (result2 == NSOrderedSame)
                 && ( ! (beforeTunnelblickEntries && beforeOpenVPNEntries) )  ) {
                 BOOL currentFromOpenVPN = TRUE;
                 if ( currentLineRng.length > TB_LOG_DATE_TIME_WIDTH + 1  ) {
