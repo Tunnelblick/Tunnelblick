@@ -3137,9 +3137,9 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	} else if (  (reasonForTermination == terminatingBecauseOfQuit)
 			   || (reasonForTermination == terminatingBecauseOfLogout)  ) {
-		NSEnumerator * e = [disconnectList objectEnumerator];
+		NSEnumerator * e2 = [disconnectList objectEnumerator];
 		VPNConnection * connection;
-		while (  (connection = [e nextObject])  ) {
+		while (  (connection = [e2 nextObject])  ) {
 			NSString * encodedPath = encodeSlashesAndPeriods([[connection configPath] stringByDeletingLastPathComponent]);
 			runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", encodedPath, nil], nil, nil);
 			TBLog(@"DB-SD", @"Set 'expect disconnect 1 %@'", encodedPath);
@@ -3257,9 +3257,9 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
 		TBLog(@"DB-SD", @"Set 'expect disconnect 1 ALL'");
 		
 	} else {
-		NSEnumerator * e = [disconnectList objectEnumerator];
+		NSEnumerator * e3 = [disconnectList objectEnumerator];
 		VPNConnection * connection;
-		while (  (connection = [e nextObject])  ) {
+		while (  (connection = [e3 nextObject])  ) {
 			NSString * encodedPath = encodeSlashesAndPeriods([[connection configPath] stringByDeletingLastPathComponent]);
 			runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", encodedPath, nil], nil, nil);
 			TBLog(@"DB-SD", @"Set 'expect disconnect 1 %@'", encodedPath);
@@ -6836,12 +6836,12 @@ BOOL warnAboutNonTblks(void)
     for (  i=0; ; i++  ) {
         
         if (  i != 0  ) {
-            int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", "Window title"),
-                                         NSLocalizedString(@"The installation or repair took too long or failed. Try again?", "Window text"),
-                                         NSLocalizedString(@"Quit", @"Button"),
-                                         NSLocalizedString(@"Retry", @"Button"),
-                                         nil);
-            if (  result != NSAlertAlternateReturn  ) {   // Quit if "Quit" or error
+            int result2 = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", "Window title"),
+                                          NSLocalizedString(@"The installation or repair took too long or failed. Try again?", "Window text"),
+                                          NSLocalizedString(@"Quit", @"Button"),
+                                          NSLocalizedString(@"Retry", @"Button"),
+                                          nil);
+            if (  result2 != NSAlertAlternateReturn  ) {   // Quit if "Quit" or error
 				NSString * installerLog = @" (none)";
 				if (  [gFileMgr fileExistsAtPath: INSTALLER_LOG_PATH]  ) {
 					NSData * data = [gFileMgr contentsAtPath: INSTALLER_LOG_PATH];
