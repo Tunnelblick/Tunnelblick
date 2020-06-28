@@ -436,7 +436,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	
 	// Warn and offer to quit if the system folders Tunnelblick uses don't exist or aren't secure.
 	
-	gid_t gid_for_tmp = (  runningOnCatalinaOrNewer()
+	gid_t gid_for_tmp = (   runningOnCatalinaOrNewer()
+                         && ( ! runningOnBigSurOrNewer() )
 				   ? ADMIN_GROUP_ID
 				   : 0);
 	[self checkTemporaryFolder: @"/tmp"         requiredPermissions: 00755 requiredOwner: 0 requiredGroupOwner: gid_for_tmp];
