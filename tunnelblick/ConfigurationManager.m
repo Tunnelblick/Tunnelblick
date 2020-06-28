@@ -1614,17 +1614,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         // Convert the .ovpn or .conf to a .tblk
         ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
-        NSString * result = [converter convertConfigPath: path
-                                              outputPath: toPath
-                                       replacingTblkPath: replacingTblkPath
-                                             displayName: theDisplayName
-                                    nameForErrorMessages: nameForErrorMessages
-                                        useExistingFiles: useExistingFiles
-                                                 logFile: NULL
-                                                fromTblk: fromTblk];
+        NSString * result2 = [converter convertConfigPath: path
+                                               outputPath: toPath
+                                        replacingTblkPath: replacingTblkPath
+                                              displayName: theDisplayName
+                                     nameForErrorMessages: nameForErrorMessages
+                                         useExistingFiles: useExistingFiles
+                                                  logFile: NULL
+                                                 fromTblk: fromTblk];
         [converter release];
         
-		return result;
+		return result2;
     } else {
         return [NSString stringWithFormat: NSLocalizedString(@"Not a .ovpn or .conf: %@", @"Window text"), path];
     }
@@ -1683,24 +1683,24 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             NSEnumerator * e = [innerTblkInfoPlist keyEnumerator];
             NSString * key;
             while (  (key = [e nextObject])  ) {
-				id obj = [innerTblkInfoPlist objectForKey: key];
+				id obj2 = [innerTblkInfoPlist objectForKey: key];
                 if (  [key isEqualToString: @"CFBundleIdentifier"]  ) {
-                    innerBundleIdentifier = (NSString *)obj;
-					[mDict setObject: obj forKey: key];
+                    innerBundleIdentifier = (NSString *)obj2;
+					[mDict setObject: obj2 forKey: key];
                 } else if (  [key isEqualToString: @"CFBundleVersion"]  ) {
-                    innerBundleVersion    = (NSString *)obj;
-					[mDict setObject: obj forKey: key];
+                    innerBundleVersion    = (NSString *)obj2;
+					[mDict setObject: obj2 forKey: key];
 				} else if (  [key hasPrefix: @"SU"]  ) {
 					return [NSString stringWithFormat: NSLocalizedString(@"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries.", @"Window text"), key, fullPath];
 				} else 	if (   [allowedInnerPlistReplacementKeys containsObject: key]
 							|| [key hasPrefix: @"TBPreference"]
 							|| [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
-					[mDict setObject: obj forKey: key];
+					[mDict setObject: obj2 forKey: key];
 				} else if (  [key isEqualToString: @"TBMinimumTunnelblickVersion"]  ) {
-					[mDict setObject: obj forKey: key];
+					[mDict setObject: obj2 forKey: key];
 				} else if (  [key isEqualToString: @"TBMaximumTunnelblickVersion"]  ) {
-					[mDict setObject: obj forKey: key];
-				} else if (  ! [[mDict objectForKey: key] isEqualTo: obj ]) {
+					[mDict setObject: obj2 forKey: key];
+				} else if (  ! [[mDict objectForKey: key] isEqualTo: obj2 ]) {
 					return [NSString stringWithFormat: NSLocalizedString(@"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk.", @"Window text"), key, fullPath];
 				}
 			}
@@ -2073,9 +2073,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		}
 		
         // Make sure that the update will be done via https: and that it will be digitally signed
-		id obj = [outerUpdatablePlist objectForKey: @"SUFeedURL"];
-		BOOL doesNotUseHttps = (  ! (   [[obj class] isSubclassOfClass: [NSString class]]
-									 && [(NSString *)obj hasPrefix: @"https://"]  )  );
+		id obj3 = [outerUpdatablePlist objectForKey: @"SUFeedURL"];
+		BOOL doesNotUseHttps = (  ! (   [[obj3 class] isSubclassOfClass: [NSString class]]
+									 && [(NSString *)obj3 hasPrefix: @"https://"]  )  );
 		BOOL willNotBeSigned = ! [outerUpdatablePlist objectForKey: @"SUPublicDSAKey"];
 		if (   doesNotUseHttps
 			|| willNotBeSigned  ) {
@@ -3204,13 +3204,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  isFolder  ) {
             // Do for shared and private folders. (installer will delete secure folder corresponding to private folder)
             NSArray * folders = [NSArray arrayWithObjects: L_AS_T_SHARED, gPrivatePath, nil];
-            NSEnumerator * e = [folders objectEnumerator];
+            NSEnumerator * e2 = [folders objectEnumerator];
             NSString * folder;
             while (   ok
-                   && (folder = [e nextObject])  ) {
-                NSString * path = [folder stringByAppendingPathComponent: displayName];
-                if (   [gFileMgr fileExistsAtPath: path]  ) {
-                    ok = [ConfigurationManager deleteConfigOrFolderAtPath: path
+                   && (folder = [e2 nextObject])  ) {
+                NSString * path2 = [folder stringByAppendingPathComponent: displayName];
+                if (   [gFileMgr fileExistsAtPath: path2]  ) {
+                    ok = [ConfigurationManager deleteConfigOrFolderAtPath: path2
                                                           usingSystemAuth: auth
                                                                warnDialog: YES];
                 }
@@ -3464,13 +3464,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	}
 	
 	if (  ok  ) {
-		NSString * message = (  ([displayNamesToRevert count] == 1)
-							  ? [NSString stringWithFormat:
-								 NSLocalizedString(@"%@ has been reverted to its last secured (shadow) copy.\n\n", @"Window text"), [gMC localizedNameForDisplayName: [displayNamesToRevert objectAtIndex: 0]]]
-							  : [NSString stringWithFormat:
-								 NSLocalizedString(@"%ld configurations have been reverted to their last secured (shadow) copy.\n\n", @"Window text"), (unsigned long)[displayNamesToRevert count]]);
-							  
-		[UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Tunnelblick", @"Window title") msg: message];
+		NSString * message2 = (  ([displayNamesToRevert count] == 1)
+                               ? [NSString stringWithFormat:
+                                  NSLocalizedString(@"%@ has been reverted to its last secured (shadow) copy.\n\n", @"Window text"), [gMC localizedNameForDisplayName: [displayNamesToRevert objectAtIndex: 0]]]
+                               : [NSString stringWithFormat:
+                                  NSLocalizedString(@"%ld configurations have been reverted to their last secured (shadow) copy.\n\n", @"Window text"), (unsigned long)[displayNamesToRevert count]]);
+
+		[UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Tunnelblick", @"Window title") msg: message2];
 	}
 }
 
@@ -5143,12 +5143,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename configuration '%@' to '%@'.", @"Window text"), sourceName, [targetPath lastPathComponent]];
         SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
         if (  auth ) {
-            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   sourcePath, @"sourcePath",
-                                   targetPath, @"targetPath",
-                                   auth,       @"auth",
-                                   nil];
-            [gMC performSelectorOnMainThread: @selector(renameConfigurationUsingConfigurationManager:) withObject: dict waitUntilDone: YES];
+            NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    sourcePath, @"sourcePath",
+                                    targetPath, @"targetPath",
+                                    auth,       @"auth",
+                                    nil];
+            [gMC performSelectorOnMainThread: @selector(renameConfigurationUsingConfigurationManager:) withObject: dict2 waitUntilDone: YES];
             [auth release];
         }
 	}
@@ -5209,12 +5209,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
         if (  auth ) {
 
-            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   sourceDisplayName, @"sourceDisplayName",
-                                   targetDisplayName, @"targetDisplayName",
-                                   auth,              @"auth",
-                                   nil];
-            [gMC performSelectorOnMainThread:@selector(renameConfigurationFolderUsingConfigurationManager:) withObject: dict waitUntilDone: YES];
+            NSDictionary * dict3 = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    sourceDisplayName, @"sourceDisplayName",
+                                    targetDisplayName, @"targetDisplayName",
+                                    auth,              @"auth",
+                                    nil];
+            [gMC performSelectorOnMainThread:@selector(renameConfigurationFolderUsingConfigurationManager:) withObject: dict3 waitUntilDone: YES];
             [auth release];
 
         }
