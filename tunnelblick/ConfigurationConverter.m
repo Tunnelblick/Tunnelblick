@@ -990,17 +990,17 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		
 		NSString * securePath = [self secureConfigurationPathFromConfigurationPath: replacingTblkPath];
 		NSString * existingConfigContainer = [[securePath stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"];
-		NSString * file;
-		NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: existingConfigContainer];
-		while (  (file = [dirEnum nextObject])  ) {
-			NSString * fullPath = [existingConfigContainer stringByAppendingPathComponent: file];
+		NSString * file2;
+		NSDirectoryEnumerator * dirEnum2 = [gFileMgr enumeratorAtPath: existingConfigContainer];
+		while (  (file2 = [dirEnum2 nextObject])  ) {
+			NSString * fullPath = [existingConfigContainer stringByAppendingPathComponent: file2];
 			BOOL isDir;
 			if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
 				&& ( ! isDir)
-				&& ( ! [file hasPrefix: @"."] )
-				&&  [self existingFilesList: useExistingFiles hasAMatchFor: file]  ) {
-				NSString * sourcePath = [existingConfigContainer stringByAppendingPathComponent: file];
-				NSString * targetPath = [resourcesPath           stringByAppendingPathComponent: [file lastPathComponent]];
+				&& ( ! [file2 hasPrefix: @"."] )
+				&&  [self existingFilesList: useExistingFiles hasAMatchFor: file2]  ) {
+				NSString * sourcePath = [existingConfigContainer stringByAppendingPathComponent: file2];
+				NSString * targetPath = [resourcesPath           stringByAppendingPathComponent: [file2 lastPathComponent]];
 				if (  [gFileMgr tbCreateSymbolicLinkAtPath: targetPath pathContent: sourcePath]  ) {
 					appendLog([NSString stringWithFormat: @"Created symlink\n  to %@\n  at %@", sourcePath, targetPath]);
 				} else {
@@ -1314,9 +1314,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                     
                     // copy the file and change the path in the configuration string if necessary
                     if (  ! [[configString substringWithRange: r2] isEqualToString: @"[inline]"]  ) {
-                        NSString * errMsg = [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO okIfNoFile: NO ignorePathInfo: (! outputPath)];
-                        if (  errMsg  ) {
-                            return errMsg;
+                        NSString * errMsg2 = [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO okIfNoFile: NO ignorePathInfo: (! outputPath)];
+                        if (  errMsg2  ) {
+                            return errMsg2;
                         }
                     }
                     tokenIx++;
@@ -1348,9 +1348,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                     r2.length = r3.length;
                     
                     // copy the file and change the path in the configuration string if necessary
-                    NSString * errMsg = [self processPathRange: r2 removeBackslashes: YES needsShExtension: YES okIfNoFile: YES ignorePathInfo: (! outputPath)];
-                    if (  errMsg  ) {
-                        return errMsg;
+                    NSString * errMsg3 = [self processPathRange: r2 removeBackslashes: YES needsShExtension: YES okIfNoFile: YES ignorePathInfo: (! outputPath)];
+                    if (  errMsg3  ) {
+                        return errMsg3;
                     }
                     
                     tokenIx++;
@@ -1416,9 +1416,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     if (  fromTblk  ) {
         // Installing a .tblk (not installing a .ovpn/.conf or converting an existing .ovpn/.conf),
 		// so need to include any other files in the .tblk (pre-connect.sh, etc. -- whatever there is, we include it)
-        NSString * result = [self duplicateOtherFiles];
-        if (  result  ) {
-            return result;
+        NSString * result2 = [self duplicateOtherFiles];
+        if (  result2  ) {
+            return result2;
         }
     }
 
