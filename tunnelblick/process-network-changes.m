@@ -187,9 +187,7 @@ int main (int argc, const char * argv[])
     }
     
     if (  [itemsToRestore count] == 0  ) {
-        if (  [changes length] == 0  ) {
-            appendLog(@"A system configuration change was ignored");
-        } else {
+        if (  [changes length] != 0  ) {
             NSMutableArray * changedItemNames = [[[NSMutableArray alloc] initWithCapacity: 6] autorelease];
             for (i=0; i<[changes length]; i++) {
                 NSString * ch = [changes substringWithRange:NSMakeRange(i, 1)];
