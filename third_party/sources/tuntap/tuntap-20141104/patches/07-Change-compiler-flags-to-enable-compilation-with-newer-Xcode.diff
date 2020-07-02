@@ -1,0 +1,64 @@
+Modified version of a submission to tuntaposx-users <tuntaposx-users@lists.sourceforge.net>
+1. Adjusted because Tunnelblick does a cd to the tuntap directory before patching
+2. Appends to the new -I option instead of replacing it
+
+From 82ca171bfe39eb668cedccdec3d57382b2ea6e0e Mon Sep 17 00:00:00 2001
+From: Charles Celerier <chcl@google.com>
+Date: Wed, 1 Jul 2020 11:07:02 -0700
+Subject: [PATCH 2/5] Change compiler flags to enable compilation with Xcode
+ 11.5 SDK
+
+More recent Xcode versions moved the header files and deprecated
+some of the features used in this kernel extension.
+---
+ src/tap/Makefile | 6 +++---
+ src/tun/Makefile | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git src/tap/Makefile src/tap/Makefile
+index b291349..20b0bb8 100644
+--- src/tap/Makefile
++++ src/tap/Makefile
+@@ -19,14 +19,14 @@ BUNDLE_SIGNATURE = ????
+ BUNDLE_PACKAGETYPE = KEXT
+ BUNDLE_VERSION = $(TAP_KEXT_VERSION)
+ 
+-INCLUDE = -I.. -I/System/Library/Frameworks/Kernel.framework/Headers
+-CFLAGS = -Wall -Werror -mkernel -force_cpusubtype_ALL \
++INCLUDE = -I.. -I/System/Library/Frameworks/Kernel.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Kernel.framework/Headers
++CFLAGS = -Wall -Werror -Wno-deprecated-declarations -mkernel -force_cpusubtype_ALL \
+ 	-nostdinc -fno-builtin -fno-stack-protector -msoft-float -fno-common \
+ 	-arch x86_64 \
+ 	-DKERNEL -DAPPLE -DKERNEL_PRIVATE -DTUNTAP_VERSION=\"$(TUNTAP_VERSION)\" \
+ 	-DTAP_KEXT_VERSION=\"$(TAP_KEXT_VERSION)\"
+ CCFLAGS = $(CFLAGS)
+-LDFLAGS = -Wall -Werror -arch x86_64 -Xlinker -kext -nostdlib -lkmodc++ -lkmod -lcc_kext
++LDFLAGS = -Wall -Werror -Wno-deprecated-declarations -arch x86_64 -Xlinker -kext -nostdlib -lkmodc++ -lkmod -lcc_kext
+ 
+ CCP = clang -x c++
+ CC = clang -x c
+diff --git src/tun/Makefile src/tun/Makefile
+index c51ab7f..7f075e9 100644
+--- src/tun/Makefile
++++ src/tun/Makefile
+@@ -20,14 +20,14 @@ BUNDLE_SIGNATURE = ????
+ BUNDLE_PACKAGETYPE = KEXT
+ BUNDLE_VERSION = $(TUN_KEXT_VERSION)
+ 
+-INCLUDE = -I.. -I/System/Library/Frameworks/Kernel.framework/Headers
+-CFLAGS = -Wall -Werror -mkernel -force_cpusubtype_ALL \
++INCLUDE = -I.. -I/System/Library/Frameworks/Kernel.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Kernel.framework/Headers
++CFLAGS = -Wall -Werror -Wno-deprecated-declarations -mkernel -force_cpusubtype_ALL \
+ 	-nostdinc -fno-builtin -fno-stack-protector -msoft-float -fno-common \
+ 	-arch x86_64 \
+ 	-DKERNEL -DAPPLE -DKERNEL_PRIVATE -DTUNTAP_VERSION=\"$(TUNTAP_VERSION)\" \
+ 	-DTUN_KEXT_VERSION=\"$(TUN_KEXT_VERSION)\"
+ CCFLAGS = $(CFLAGS)
+-LDFLAGS = -Wall -Werror -arch x86_64 -Xlinker -kext -nostdlib -lkmodc++ -lkmod -lcc_kext
++LDFLAGS = -Wall -Werror -Wno-deprecated-declarations -arch x86_64 -Xlinker -kext -nostdlib -lkmodc++ -lkmod -lcc_kext
+ 
+ CCP = clang -x c++
+ CC = clang -x c
+-- 
+2.27.0.212.ge8ba1cc988-goog
+
