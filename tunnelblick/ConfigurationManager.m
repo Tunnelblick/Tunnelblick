@@ -933,11 +933,27 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 +(NSString *)parseConfigurationForConnection: (VPNConnection *) connection
                              hasAuthUserPass: (BOOL *)          hasAuthUserPass
                           authRetryParameter: (NSString **)	    authRetryParameter {
-    
+
     return [self parseConfigurationForConnection: connection
                                  hasAuthUserPass: hasAuthUserPass
                               authRetryParameter: authRetryParameter
                                 allowInteraction: YES];
+}
+
++(NSString *) parseConfigurationForTunTapForConnection: (VPNConnection *) connection {
+
+    // Returns the type of connection the configuration will use: 'tun', 'tap', 'utun'
+    // Returns nil if the the type could not be deterimined.
+    //
+    // Does not interact with the user.
+
+    BOOL hasAuthUserPass;
+    NSString * authRetryParameter;
+
+    return [self parseConfigurationForConnection: connection
+                                 hasAuthUserPass: &hasAuthUserPass
+                              authRetryParameter: &authRetryParameter
+                                allowInteraction: NO];
 }
 
 +(BOOL) deleteConfigOrFolderAtPath: (NSString *)   targetPath

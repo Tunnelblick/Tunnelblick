@@ -92,6 +92,8 @@ typedef enum
 
 +(NSString *) condensedConfigFileContentsFromString: (NSString *) fullString;
 
++(NSString *) parseConfigurationForTunTapForConnection: (VPNConnection *) connection;
+
 +(NSString *) parseConfigurationForConnection: (VPNConnection *) connection
 							  hasAuthUserPass: (BOOL *)          hasAuthUserPass
 						   authRetryParameter: (NSString **)	 authRetryParameter;
