@@ -763,13 +763,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(NSString *)parseConfigurationForConnection: (VPNConnection *) connection
 							 hasAuthUserPass: (BOOL *)          hasAuthUserPass
-						  authRetryParameter: (NSString **)	    authRetryParameter {
+						  authRetryParameter: (NSString **)	    authRetryParameter
+                            allowInteraction: (BOOL)            allowInteraction {
 	
     // Parses the configuration file.
     // Sets *hasAuthUserPass TRUE if configuration has a 'auth-user-pass' option with no arguments; FALSE otherwise
 	// Sets *authRetryParameter (which must be nil) to the first parameter of an 'auth-retry' option if it appears in the file
     // Gives user the option of adding the down-root plugin if appropriate
-    // Returns with device type: "tun", "tap", "utun", "tunOrUtun", or nil if it can't be determined
+    // Returns with device type: "tun", "tap", "utun", or nil if it can't be determined
     // Returns with string "Cancel" if user cancelled
 	
     NSString * doNotParseKey = [[connection displayName] stringByAppendingString: @"-doNotParseConfigurationFile"];
@@ -806,7 +807,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
     NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
     NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutDownroot"];
-    if (   ( ! [gTbDefaults boolForKey: useDownRootPluginKey] )
+    if (   allowInteraction
+        && ( ! [gTbDefaults boolForKey: useDownRootPluginKey] )
         &&     [gTbDefaults canChangeValueForKey: useDownRootPluginKey]
         && ( ! [gTbDefaults boolForKey: skipWarningKey] )  ) {
         
@@ -856,18 +858,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		}
     }
     
-    NSArray * windowsOnlyOptions = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
-    e = [windowsOnlyOptions objectEnumerator];
-    while (  (option = [e nextObject])  ) {
-        NSString * optionValue = [ConfigurationManager parseString: cfgContents forOption: option];
-        if (  optionValue  ) {
-            NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS.", [connection displayName], option);
-            NSString * msg = [NSString stringWithFormat:
-                              NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS.", @"Window text"),
-                              [connection localizedName], option];
-            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
-                              msg);
-		}
+    if (  allowInteraction  ) {
+        NSArray * windowsOnlyOptions = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
+        e = [windowsOnlyOptions objectEnumerator];
+        while (  (option = [e nextObject])  ) {
+            NSString * optionValue = [ConfigurationManager parseString: cfgContents forOption: option];
+            if (  optionValue  ) {
+                NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS.", [connection displayName], option);
+                NSString * msg = [NSString stringWithFormat:
+                                  NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS.", @"Window text"),
+                                  [connection localizedName], option];
+                TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
+                                  msg);
+            }
+        }
     }
     
     // If there is a "dev-node" entry, return that device type (tun, utun, tap)
@@ -897,33 +901,43 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSLog(@"The configuration file for '%@' contains 'dev-type %@'. Ony 'dev-type tun' and 'dev-type tap' are allowed", devTypeOption, [connection displayName]);
     }
     
-    // If there is a "dev" entry, return that device type for 'tap' or 'utun' but for 'tun', return 'tunOrUtun' so that will be decided when connecting (depends on macOS version and OpenVPN version)
+    // If there is a "dev" entry, return that device type for 'tap' or 'utun' but for 'tun', return 'utun'
     NSString * devOption = [ConfigurationManager parseString: cfgContents forOption: @"dev"];
     if (  devOption  ) {
-		if (  [devOption hasPrefix: @"tun"]  ) {
-			return @"tunOrUtun";                    // Uses utun if available (macOS 10.6.8+ and OpenVPN 2.3.3+)
-		}
-		if (  [devOption hasPrefix: @"utun"]  ) {
+		if (   [devOption hasPrefix: @"tun"]
+            || [devOption hasPrefix: @"utun"]  ) {
 			return @"utun";
 		}
 		if (  [devOption hasPrefix: @"tap"]  ) {
 			return @"tap";
 		}
-        
-        NSLog(@"The configuration file for '%@' contains a 'dev' option, but the argument does not begin with 'tun', 'tap', or 'utun'", [connection displayName]);
-        NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
-                          [connection localizedName]];
-        skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutNoTunOrTap"];
-        TBRunAlertPanelExtended(NSLocalizedString(@"No 'dev tun', 'dev utun', or 'dev tap' found", @"Window title"),
-                                msg,
-                                nil, nil, nil,
-                                skipWarningKey,
-                                NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"),
-                                nil,
-                                NSAlertDefaultReturn);
+
+        if (  allowInteraction  ) {
+            NSLog(@"The configuration file for '%@' contains a 'dev' option, but the argument does not begin with 'tun', 'tap', or 'utun'", [connection displayName]);
+            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
+                              [connection localizedName]];
+            skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutNoTunOrTap"];
+            TBRunAlertPanelExtended(NSLocalizedString(@"No 'dev tun', 'dev utun', or 'dev tap' found", @"Window title"),
+                                    msg,
+                                    nil, nil, nil,
+                                    skipWarningKey,
+                                    NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"),
+                                    nil,
+                                    NSAlertDefaultReturn);
+        }
     }
     
     return nil;
+}
+
++(NSString *)parseConfigurationForConnection: (VPNConnection *) connection
+                             hasAuthUserPass: (BOOL *)          hasAuthUserPass
+                          authRetryParameter: (NSString **)	    authRetryParameter {
+    
+    return [self parseConfigurationForConnection: connection
+                                 hasAuthUserPass: hasAuthUserPass
+                              authRetryParameter: authRetryParameter
+                                allowInteraction: YES];
 }
 
 +(BOOL) deleteConfigOrFolderAtPath: (NSString *)   targetPath
