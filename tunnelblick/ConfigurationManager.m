@@ -784,19 +784,23 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	}
     
     // Set hasAuthUserPass TRUE if auth-user-pass appears and has no parameters
-    NSString * authUserPassOption = [ConfigurationManager parseString: cfgContents forOption: @"auth-user-pass" ];
-    *hasAuthUserPass = (  authUserPassOption
-                        ? ([authUserPassOption length] == 0)
-                        : NO);
+    if (  hasAuthUserPass  ) {
+        NSString * authUserPassOption = [ConfigurationManager parseString: cfgContents forOption: @"auth-user-pass" ];
+        *hasAuthUserPass = (  authUserPassOption
+                            ? ([authUserPassOption length] == 0)
+                            : NO);
+    }
 
 	// Set authRetryParameter
-	NSString * theAuthRetryParameter = [ConfigurationManager parseString: cfgContents forOption: @"auth-retry" ];
-	if (  *authRetryParameter  ) {
-		NSLog(@"parseConfigurationForConnection: *authRetryParameter is not nil, so it is not being set to %@", theAuthRetryParameter);
-	} else {
-		*authRetryParameter = theAuthRetryParameter;
-	}
-	
+    if (  authRetryParameter  ) {
+        NSString * theAuthRetryParameter = [ConfigurationManager parseString: cfgContents forOption: @"auth-retry" ];
+        if (  *authRetryParameter  ) {
+            NSLog(@"parseConfigurationForConnection: *authRetryParameter is not nil, so it is not being set to %@", theAuthRetryParameter);
+        } else {
+            *authRetryParameter = theAuthRetryParameter;
+        }
+    }
+    
     NSString * userOption  = [ConfigurationManager parseString: cfgContents forOption: @"user" ];
     if (  [userOption length] == 0  ) {
         userOption = nil;
