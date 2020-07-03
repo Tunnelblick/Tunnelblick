@@ -2565,6 +2565,21 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 }
 
+-(BOOL) mustLoadTunOrTap {
+
+
+    NSString * tunTapOrUtun = (  tunOrTap
+                               ? tunOrTap
+                               : [ConfigurationManager parseConfigurationForTunTapForConnection: self]);
+
+    if (   [tunTapOrUtun isEqualToString: @"tun"]
+        || [tunTapOrUtun isEqualToString: @"tap"]  ) {
+        return YES;
+    }
+
+    return NO;
+}
+
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow userKnows: (BOOL) userKnows {
 	
 	// Returns nil if user cancelled, must revert or secure shadow copy, or an error message has been shown to the user

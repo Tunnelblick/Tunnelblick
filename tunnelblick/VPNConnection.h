@@ -232,6 +232,8 @@ struct Statistics {
 -(BOOL)             tryingToHookup;
 -(BOOL)             isHookedup;
 
+-(BOOL)             mustLoadTunOrTap;
+
 -(BOOL)             isConnected;
 
 -(BOOL)             isDisconnected;

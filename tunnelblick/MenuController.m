@@ -4904,6 +4904,42 @@ static void signal_handler(int signalNumber)
 	[pool drain];
 }
 
+-(BOOL) oneOrMoreConfigurationsMustLoadTunOrTap {
+
+    NSEnumerator * e = [myVPNConnectionDictionary objectEnumerator];
+    VPNConnection * connection;
+    while (  (connection = [e nextObject])  ) {
+        if (  [connection mustLoadTunOrTap]  ) {
+            NSLog(@"Configuration '%@' requires tun or tap", [connection localizedName]);
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+-(void) dealWithBigSur {
+
+    if (   runningOnBigSurOrNewer()
+        && ( ! [gTbDefaults boolForKey: @"skipWarningAboutBigSur"] )  ) {
+
+        BOOL alwaysLoadTap = [[gTbDefaults valuesForPreferencesSuffixedWith: @"-loadTap"] containsObject: @"always"];
+        BOOL alwaysLoadTun = [[gTbDefaults valuesForPreferencesSuffixedWith: @"-loadTun"] containsObject: @"always"];
+        BOOL needTunOrTap = (   alwaysLoadTap
+                             || alwaysLoadTun
+                             || [self oneOrMoreConfigurationsMustLoadTunOrTap]);
+
+        NSAttributedString * message = (  needTunOrTap
+                                        ? attributedStringFromHTML(@"<p>One or more VPN configurations require Tunnelblick to use its 'tun' and/or 'tap' system extensions.</p>"
+                                                                   @"<p>On earlier versions of macOS, Tunnelblick loaded these system extensions when they were needed and unloaded them when they were no longer needed, but that cannot be done on macOS Big Sur.</p>"
+                                                                   @"<p>Please see <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS Big Sur</a> [tunnelblick.net] for more information.")
+
+                                        : attributedStringFromHTML(@"<p>You are running Tunnelblick under macOS 11 Big Sur.</p>"
+                                                                   @"<p>Please see <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS Big Sur</a> [tunnelblick.net] for important information.")  );
+        
+        TBShowAlertWindowExtended(@"Tunnelblick", message, @"skipWarningAboutBigSur", nil, nil, nil, nil, NO);
+    }
+}
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	(void) notification;
@@ -5322,6 +5358,8 @@ static void signal_handler(int signalNumber)
 	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 022 -- LAST")
 	
+    [self dealWithBigSur];
+
 	didFinishLaunching = TRUE;
 }
 
