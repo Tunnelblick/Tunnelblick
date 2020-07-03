@@ -156,6 +156,7 @@
 #define TOOL_PATH_FOR_OSASCRIPT		@"/usr/bin/osascript"
 #define TOOL_PATH_FOR_PLUTIL		@"/usr/bin/plutil"
 #define TOOL_PATH_FOR_PS			@"/bin/ps"
+#define TOOL_PATH_FOR_ROUTE         @"/sbin/route"
 #define TOOL_PATH_FOR_SCUTIL		@"/usr/sbin/scutil"
 #define TOOL_PATH_FOR_SW_VERS		@"/usr/bin/sw_vers"
 #define TOOL_PATH_FOR_TAR			@"/usr/bin/tar"

@@ -3508,46 +3508,38 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	return [[servers copy] autorelease];
 }
 
--(BOOL) isRoutedThroughVpn: (NSString *) address type: (NSString *) type {
+-(BOOL) isRoutedThroughVpn: (NSString *) address {
 	
 	// Returns TRUE if an IP address is routed through the VPN.
 	//
-	// Returns FALSE if there was an error (after logging the error).
+	// Returns FALSE if it is not being routed through the VPN, or if there was an error.
 	//
-	// Uses the "route get" command to get the interface used to send to the address, then returns indicating if it was the correct
-	// "tap", "tun", or "utun" interface, depending on the connection type.
+	// Uses the "route get" command to get the interface used to send to the address, then returns indicating
+	// TRUE if it was a "tap", "tun", or "utun" interface.
 	//
 	// address is the string representation of an IP address (e.g. 1.2.3.4 or 4:44::27)
-	// type    indicates the type of VPN connection; it must start with either "tap" or "tun".
 	
 	NSString * stdOut;
 	NSString * stdErr;
 	
-	NSString * ipv6Flag = (  ([address rangeOfString: @":"].length != 0)
-						   ? @"-inet6"
-						   : @"");
-	OSStatus status = runTool(TOOL_PATH_FOR_BASH,
-							  [NSArray arrayWithObjects:
-							   @"-c",
-							   [NSString stringWithFormat: @"route -n get %@ %@ | grep '  interface: ' | sed -e 's/  interface: //'", ipv6Flag, address],
-							   nil],
-							  &stdOut, &stdErr);
+    NSArray * arguments = (  ([address rangeOfString: @":"].length != 0)
+                           ? [NSArray arrayWithObjects: @"-n", @"get", @"-inet6", address, nil]
+                           : [NSArray arrayWithObjects: @"-n", @"get",            address, nil]);
+
+	OSStatus status = runTool(TOOL_PATH_FOR_ROUTE, arguments, &stdOut, &stdErr);
 	if (  status != 0  ) {
 		NSLog(@"isRoutedThroughVpn: Error status %d; stdout = '%@'\nstderr = '%@'", status, stdOut, stdErr);
 		return FALSE;
-	}
-	
-	if (  [type hasPrefix: @"tun"]  ) {
-		return (   [stdOut hasPrefix: @"tun"]
-				|| [stdOut hasPrefix: @"utun"] );
-	}
-	
-	if (  [type hasPrefix: @"tap"]  ) {
-		return [stdOut hasPrefix: @"tap"];
-	}
-	
-	NSLog(@"isRoutedThroughVpn: Called with type = '%@'; type must start with 'tun' or 'tap'", type);
-	return FALSE;
+    }
+
+    BOOL result = (   ([stdOut rangeOfString: @"interface: utun"].length != 0)
+                   || ([stdOut rangeOfString: @"interface: tap"].length != 0)
+                   || ([stdOut rangeOfString: @"interface: tun"].length != 0));
+    if (  ! result  ) {
+        [self addToLog: [NSString stringWithFormat: @"Routing info stdout:\n%@stderr:\n%@", stdOut, stdErr]];
+    }
+ 
+    return result;
 }
 
 -(BOOL) isNotAPublicIPAddress: (NSString *) address {
@@ -3589,6 +3581,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
 	
+    sleep(1); // Give the up script a chance to finish, so logging comes out nicely
+    
 	NSArray * addresses = [self dnsServers];
 	if (  ! addresses  ) {
 		[self addToLog: @"Warning: An error occurred while trying to get a list of the DNS servers"];
@@ -3636,7 +3630,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 				if (  ! [self isConnected]  ) {
 					break;
 				}
-				if (  [self isRoutedThroughVpn: address type: type]  ) {
+				if (  [self isRoutedThroughVpn: address]  ) {
 					[self addToLog: [NSString stringWithFormat: @"DNS address %@ is being routed through the VPN", address]];
 				} else {
 					if (  [self isNotAPublicIPAddress: address]  ) {
