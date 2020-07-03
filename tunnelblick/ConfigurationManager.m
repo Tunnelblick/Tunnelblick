@@ -951,8 +951,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     //
     // Does not interact with the user.
 
-    BOOL hasAuthUserPass;
-    NSString * authRetryParameter;
+    BOOL hasAuthUserPass = NO;
+    NSString * authRetryParameter = nil;
 
     return [self parseConfigurationForConnection: connection
                                  hasAuthUserPass: &hasAuthUserPass
