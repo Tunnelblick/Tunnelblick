@@ -2347,7 +2347,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 		
 		// Decide what suffix to add
-		BOOL checkBeta = runningABetaVersion();
+		BOOL checkBeta = runningATunnelblickBeta();
 		if (  ! checkBeta  ) {
 			id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
 			checkBeta = (   [obj respondsToSelector: @selector(boolValue)]

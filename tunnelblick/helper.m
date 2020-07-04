@@ -153,7 +153,7 @@ uint64_t nowAbsoluteNanoseconds (void)
     return nowNs;
 }
 
-BOOL runningABetaVersion (void) {
+BOOL runningATunnelblickBeta (void) {
     NSString * version = [[gMC tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
     return ([version rangeOfString: @"beta"].length != 0);
 }

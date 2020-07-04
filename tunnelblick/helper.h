@@ -139,7 +139,7 @@ OSStatus       runOpenvpnstart          (NSArray  * arguments,
 
 BOOL           isUserAnAdmin            (void);
 
-BOOL           runningABetaVersion      (void);
+BOOL           runningATunnelblickBeta  (void);
 
 BOOL           displaysHaveDifferentSpaces(void);
 BOOL           mustPlaceIconInStandardPositionInStatusBar(void);

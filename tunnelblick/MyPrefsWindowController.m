@@ -2741,7 +2741,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setupCheckForBetasCheckbox {
 
-	BOOL forceBeta = runningABetaVersion();
+	BOOL forceBeta = runningATunnelblickBeta();
 	BOOL beta = ( forceBeta
 				 ? YES
 				 : [gTbDefaults boolForKey: @"updateCheckBetas"]);
