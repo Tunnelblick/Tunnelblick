@@ -2504,67 +2504,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return [versionNames indexOfObject: versionToTry];
 }
 
--(BOOL) willAlwaysLoadKext: (NSString *) preferenceSuffix {
-
-    NSString * key = [displayName stringByAppendingString: preferenceSuffix];
-    NSString * value = [gTbDefaults stringForKey: key];
-    BOOL answer = [value isEqualToString: @"always"];
-    return answer;
-}
-
--(void) warnAboutTunTapProblems {
-
-
-    BOOL alwaysLoadTun = [self willAlwaysLoadKext: @"-loadTun"];
-    BOOL alwaysLoadTap = [self willAlwaysLoadKext: @"-loadTap"];
-
-    if (   alwaysLoadTun
-        || alwaysLoadTap  ) {
-
-        NSAttributedString * message = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>This VPN works now, but may not work in a future version of macOS.</p>\n"
-
-                                                                                                              @"<p>Configuration '%@' is set to 'always load tun driver' and/or 'always load tap driver' when connecting.</p>\n"
-
-                                                                                                              @"<p>This may cause problems using the configuration on a future version of macOS.</p>\n"
-
-                                                                                                              @"<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n"
-                                                                                                              @"<p>&nbsp;</p>",
-                                                                                                              @"HTML for a popup window"),
-                                                                 [self localizedName]]);
-        TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"), message, @"skipWarningAboutAlwaysLoadTunAndOrTapOnFutureMacOS", nil, nil, nil, nil, NO);
-    } else {
-
-        if (  ! [tunOrTap isEqualToString: @"utun"]  ) {
-            if (  [tunOrTap isEqualToString: @"tun"]  ) {
-                NSAttributedString * message = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>This VPN works now, but may not work in a future version of macOS.</p>\n"
-
-                                                                                                                      @"<p>The OpenVPN configuration file for '%@' should be updated. It includes 'dev-node tun'.</p>\n"
-
-                                                                                                                      @"<p>This is unnecessary and may cause problems connecting on a future version of macOS.</p>\n"
-
-                                                                                                                      @"<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n"
-                                                                                                                      @"<p>&nbsp;</p>",
-                                                                                                                      @"HTML for a popup window"),
-                                                                         [self localizedName]]);
-                TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"), message, @"skipWarningAboutDevNodeTunOnFutureMacOS", nil, nil, nil, nil, NO);
-                
-            } else 	if ( [tunOrTap isEqualToString: @"tap"]  ) {
-                NSAttributedString * message = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>This VPN works now, but may not work in a future version of macOS.</p>\n"
-
-                                                                                                                      @"<p>The OpenVPN configuration file for '%@' should be updated. It creates a 'tap' VPN connection.</p>\n"
-
-                                                                                                                      @"<p>Such configurations may not work on a future version of macOS.</p>\n"
-
-                                                                                                                      @"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n",
-                                                                                                                      @"HTML for a popup window"),
-                                                                         [self localizedName]]);
-                TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"), message, @"skipWarningAboutTapConnectionOnFutureMacOS", nil, nil, nil, nil, NO);
-            }
-        }
-    }
-
-}
-
 -(BOOL) mustLoad: (NSString *) requirement {
 
     // requirement must be "tun" or "tap". Returns true if the configuration requires the specified kext.
@@ -2636,8 +2575,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 						  NSLocalizedString(@"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file", @"Window text"));
 		return nil;
 	}
-
-    [self warnAboutTunTapProblems];
 
     unsigned useDNSNum = 0;
     unsigned useDNSStat = (unsigned) [self useDNSStatus];
