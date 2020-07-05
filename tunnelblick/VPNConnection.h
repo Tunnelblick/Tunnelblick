@@ -232,7 +232,7 @@ struct Statistics {
 -(BOOL)             tryingToHookup;
 -(BOOL)             isHookedup;
 
--(BOOL)             mustLoadTunOrTap;
+-(BOOL)             mustLoad:                   (NSString *)    requirement;
 
 -(BOOL)             isConnected;
 

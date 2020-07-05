@@ -4904,42 +4904,193 @@ static void signal_handler(int signalNumber)
 	[pool drain];
 }
 
--(BOOL) oneOrMoreConfigurationsMustLoadTunOrTap {
+-(BOOL) oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: (NSString * ) tunOrTap {
 
-    NSEnumerator * e = [myVPNConnectionDictionary objectEnumerator];
-    VPNConnection * connection;
-    while (  (connection = [e nextObject])  ) {
-        if (  [connection mustLoadTunOrTap]  ) {
-            NSLog(@"Configuration '%@' requires tun or tap", [connection localizedName]);
-            return YES;
+    NSString * preferenceSuffix = (  [tunOrTap isEqualToString: @"tun"]
+                                   ? @"-loadTun"
+                                   : @"-loadTap");
+
+    NSArray * displayNames = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
+    NSEnumerator * e = [displayNames objectEnumerator];
+    NSString * displayName;
+    BOOL returnStatus = FALSE;
+    while (  (displayName = [e nextObject])  ) {
+        NSString * key = [displayName stringByAppendingString: preferenceSuffix];
+        NSString * value = [gTbDefaults stringForKey: key];
+        if (  [value isEqualToString: @"always"]  ) {
+            NSLog(@"Configuration '%@' has a setting which requires the '%@' system extension to always be loaded when connecting", displayName, tunOrTap);
+            returnStatus = TRUE;
         }
     }
 
-    return NO;
+    return returnStatus;
 }
 
--(void) dealWithBigSur {
+-(BOOL) oneOrMoreConfigurationsMustLoad: (NSString * ) tunOrTap {
 
-    if (   runningOnBigSurOrNewer()
-        && ( ! [gTbDefaults boolForKey: @"skipWarningAboutBigSur"] )  ) {
+    NSArray * displayNames = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
+    NSEnumerator * e = [displayNames objectEnumerator];
+    NSString * displayName;
+    BOOL returnStatus = FALSE;
+    while (  (displayName = [e nextObject])  ) {
+        VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+        if (  [connection mustLoad: tunOrTap]  ) {
+            NSLog(@"Configuration '%@' requires a '%@' system extension", [connection localizedName], tunOrTap);
+            returnStatus = TRUE;
+        }
+    }
 
-        BOOL alwaysLoadTap = [[gTbDefaults valuesForPreferencesSuffixedWith: @"-loadTap"] containsObject: @"always"];
-        BOOL alwaysLoadTun = [[gTbDefaults valuesForPreferencesSuffixedWith: @"-loadTun"] containsObject: @"always"];
-        BOOL needTunOrTap = (   alwaysLoadTap
-                             || alwaysLoadTun
-                             || [self oneOrMoreConfigurationsMustLoadTunOrTap]);
+    return returnStatus;
+}
 
-        NSAttributedString * message = (  needTunOrTap
-                                        ? attributedStringFromHTML(@"<p>One or more VPN configurations require Tunnelblick to use its 'tun' and/or 'tap' system extensions.</p>"
-                                                                   @"<p>On earlier versions of macOS, Tunnelblick loaded these system extensions when they were needed and unloaded them when they were no longer needed, but that cannot be done on macOS Big Sur.</p>"
-                                                                   @"<p>Please see <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS Big Sur</a> [tunnelblick.net] for more information.")
+-(void) dealWithKextProblem {
 
-                                        : attributedStringFromHTML(@"<p>You are running Tunnelblick under macOS 11 Big Sur.</p>"
-                                                                   @"<p>Please see <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS Big Sur</a> [tunnelblick.net] for important information.")  );
+/*
+    // Generate all possible windows. Windows with identical skip preferences will be suppressed by ShowAlertWindow
+
+    unsigned i;
+    for (  i=0; i<128; i++  ) {
+        [self displayMessageAboutBigSurAndKextsAlwaysLoadTap: 1 & (i >> 0)
+                                               alwaysLoadTun: 1 & (i >> 1)
+                                              configNeedsTap: 1 & (i >> 2)
+                                              configNeedsTun: 1 & (i >> 3)
+                                                    onBigSur: 1 & (i >> 4)
+                                                onBigSurBeta: 1 & (i >> 5)
+                                           onTunnelblickBeta: 1 & (i >> 6)];
+    }
+ */
+
+    // Construct and display messages about kexts and/or Big Sur
+
+    BOOL alwaysLoadTap     = [self oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: @"tap"];
+    BOOL alwaysLoadTun     = [self oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: @"tun"];
+    BOOL configNeedsTap    = [self oneOrMoreConfigurationsMustLoad: @"tap"];
+    BOOL configNeedsTun    = [self oneOrMoreConfigurationsMustLoad: @"tun"];
+    BOOL onBigSur          = runningOnBigSurOrNewer();
+    BOOL onBigSurBeta      = runningOnMacosBeta() && onBigSur;
+    BOOL onTunnelblickBeta = runningATunnelblickBeta();
+
+    [self displayMessageAboutBigSurAndKextsAlwaysLoadTap: alwaysLoadTap
+                                           alwaysLoadTun: alwaysLoadTun
+                                          configNeedsTap: configNeedsTap
+                                          configNeedsTun: configNeedsTun
+                                                onBigSur: onBigSur
+                                            onBigSurBeta: onBigSurBeta
+                                       onTunnelblickBeta: onTunnelblickBeta];
+}
+
+-(void) displayMessageAboutBigSurAndKextsAlwaysLoadTap: (BOOL) alwaysLoadTap
+                                         alwaysLoadTun: (BOOL) alwaysLoadTun
+                                        configNeedsTap: (BOOL) configNeedsTap
+                                        configNeedsTun: (BOOL) configNeedsTun
+                                              onBigSur: (BOOL) onBigSur
+                                          onBigSurBeta: (BOOL) onBigSurBeta
+                                     onTunnelblickBeta: (BOOL) onTunnelblickBeta {
+
+
+    BOOL needTunOrTap = (   alwaysLoadTap
+                         || alwaysLoadTun
+                         || configNeedsTap
+                         || configNeedsTun);
+
+    NSMutableString * htmlMessage = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+
+    NSString * preferenceName = nil; // Will replace with appropriate name for the message that is being displayed
+
+    NSString * bigSurMoreInfo  = NSLocalizedString( @"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n", @"HTML text. May be combined with other paragraphs.");
+
+    if (  needTunOrTap  ) {
+
+        NSString * willNotConnect   = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n"
+                                                        @"<p>The configuration(s) require a system extension but macOS 11 Big Sur does not allow Tunnelblick to use its system extensions.</p>\n",
+                                                        @"HTML text. May be combined with other paragraphs.");
+
+        NSString * futureNotConnect = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n"
+                                                        @"<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n",
+                                                        @"HTML text. May be combined with other paragraphs.");
+
+        NSString * mayModify        = NSLocalizedString(@"<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n",
+                                                        @"HTML text. May be combined with other paragraphs.");
+
+        NSString * seeConsoleLog    = NSLocalizedString(@"<p>The <a href=\"https://tunnelblick.net/cConsoleLog.html\">Console Log</a> [tunnelblick.net] shows which configurations will not be able to connect.</p>\n",
+                                                        @"HTML text. May be combined with other paragraphs.");
+
+        NSString * futureInfo       = NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n",
+                                                        @"HTML text. May be combined with other paragraphs.");
+
+        if (  onBigSur  ) {
+            [htmlMessage appendString: willNotConnect];
+            preferenceName = @"skipWarningAboutBigSur5";
+        } else {
+            [htmlMessage appendString: futureNotConnect];
+            preferenceName = @"skipWarningAboutBigSur6";
+        }
+
+        if (  ! configNeedsTap  ) {
+            [htmlMessage appendString: mayModify];
+            preferenceName = [preferenceName stringByAppendingString: @"m"];
+        }
+
+        [htmlMessage appendString: seeConsoleLog];
+
+        [htmlMessage appendString: (  onBigSur
+                                    ? bigSurMoreInfo
+                                    : futureInfo)];
+
+        NSAttributedString * message = attributedStringFromHTML(htmlMessage);
+
+        TBShowAlertWindowExtended(@"Tunnelblick", message, preferenceName, nil, nil, nil, nil, NO);
+
+        [htmlMessage setString: @""];
+    }
+
+    if (  onBigSur  ) {
+        NSString * betaOnBeta      = NSLocalizedString(@"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n"
+                                                       @"<p>Only the latest beta version of Tunnelblick</strong> should be used on macOS 11 Big Sur Beta.</p>\n"
+                                                       @"<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n",
+                                                       @"HTML text. May be combined with other paragraphs.");
+
+        NSString * stableOnBeta    = NSLocalizedString(@"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on macOS 11 Big Sur Beta.</p>\n"
+                                                       @"<p>You are using a stable version of Tunnelblick. Please update to or download and install the latest beta version."
+                                                       @" It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n",
+                                                       @"HTML text. May be combined with other paragraphs.");
+
+        NSString * bigSurImportant = NSLocalizedString( @"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n", @"HTML text. May be combined with other paragraphs.");
         
-        TBShowAlertWindowExtended(@"Tunnelblick", message, @"skipWarningAboutBigSur", nil, nil, nil, nil, NO);
+        if ( onBigSurBeta) {
+            if (  onTunnelblickBeta  ) {
+                if (  [gTbDefaults boolWithDefaultYesForKey: @"updateCheckAutomatically"]  ) {
+
+                    // Running a beta version of Tunnelblick on Big Sur beta and checking for updates: show link to important info
+                    [htmlMessage appendString: bigSurImportant];
+                    preferenceName = @"skipWarningAboutBigSur1";
+                } else {
+
+                    // Running a beta version of Tunnelblick on Big Sur beta and NOT checking for updates: remind to use latest beta version of Tunnelblick
+                    [htmlMessage appendString: betaOnBeta];
+                    [htmlMessage appendString: bigSurMoreInfo];
+                    preferenceName = @"skipWarning5AboutBigSur2";
+                }
+            } else {
+
+                // Running a stable version of Tunnelblick on Big Sur beta: warn that should use latest beta version of Tunnelblick
+                [htmlMessage appendString: stableOnBeta];
+                [htmlMessage appendString: bigSurMoreInfo];
+                preferenceName = @"skipWarningAboutBigSur3";
+            }
+        } else {
+
+            // Running on Big Sur stable: show link to important info
+            [htmlMessage appendString: bigSurImportant];
+            preferenceName = @"skipWarningAboutBigSur4";
+        }
+
+        NSAttributedString * message = attributedStringFromHTML(htmlMessage);
+
+        TBShowAlertWindowExtended(@"Tunnelblick", message, preferenceName, nil, nil, nil, nil, NO);
     }
 }
+
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	(void) notification;
@@ -5358,7 +5509,7 @@ static void signal_handler(int signalNumber)
 	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 022 -- LAST")
 	
-    [self dealWithBigSur];
+    [self dealWithKextProblem];
 
 	didFinishLaunching = TRUE;
 }

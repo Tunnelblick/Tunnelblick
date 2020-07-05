@@ -2565,15 +2565,16 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 }
 
--(BOOL) mustLoadTunOrTap {
+-(BOOL) mustLoad: (NSString *) requirement {
+
+    // requirement must be "tun" or "tap". Returns true if the configuration requires the specified kext.
 
 
     NSString * tunTapOrUtun = (  tunOrTap
                                ? tunOrTap
                                : [ConfigurationManager parseConfigurationForTunTapForConnection: self]);
 
-    if (   [tunTapOrUtun isEqualToString: @"tun"]
-        || [tunTapOrUtun isEqualToString: @"tap"]  ) {
+    if (   [tunTapOrUtun isEqualToString: requirement]  ) {
         return YES;
     }
 
