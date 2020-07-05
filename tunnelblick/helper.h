@@ -156,6 +156,8 @@ BOOL           runningOnCatalinaOrNewer(void);
 BOOL           runningOnBigSurOrNewer(void);
 BOOL           runningOnTen_Fourteen_FiveOrNewer(void);
 
+BOOL           runningOnMacosBeta(void);
+
 BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
 BOOL           tunnelblickTestAppInApplications(void);
 BOOL           tunnelblickTestDeployed(void);
