@@ -4943,7 +4943,7 @@ static void signal_handler(int signalNumber)
     return returnStatus;
 }
 
--(void) dealWithKextProblem {
+-(void) dealWithKextProblemsAndBigSur {
 
 /*
     // Generate all possible windows. Windows with identical skip preferences will be suppressed by ShowAlertWindow
@@ -5002,7 +5002,7 @@ static void signal_handler(int signalNumber)
     if (  needTunOrTap  ) {
 
         NSString * willNotConnect   = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n"
-                                                        @"<p>The configuration(s) require a system extension but macOS 11 Big Sur does not allow Tunnelblick to use its system extensions.</p>\n",
+                                                        @"<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
         NSString * futureNotConnect = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n"
@@ -5012,7 +5012,7 @@ static void signal_handler(int signalNumber)
         NSString * mayModify        = NSLocalizedString(@"<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
-        NSString * seeConsoleLog    = NSLocalizedString(@"<p>The <a href=\"https://tunnelblick.net/cConsoleLog.html\">Console Log</a> [tunnelblick.net] shows which configurations will not be able to connect.</p>\n",
+        NSString * seeConsoleLog    = NSLocalizedString(@"<p>The Console Log shows which configurations will not be able to connect.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
         NSString * futureInfo       = NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n",
@@ -5020,10 +5020,10 @@ static void signal_handler(int signalNumber)
 
         if (  onBigSur  ) {
             [htmlMessage appendString: willNotConnect];
-            preferenceName = @"skipWarningAboutBigSur5";
+            preferenceName = @"skipWarningAboutBigSur1";
         } else {
             [htmlMessage appendString: futureNotConnect];
-            preferenceName = @"skipWarningAboutBigSur6";
+            preferenceName = @"skipWarningAboutBigSur2";
         }
 
         if (  ! configNeedsTap  ) {
@@ -5046,12 +5046,11 @@ static void signal_handler(int signalNumber)
 
     if (  onBigSur  ) {
         NSString * betaOnBeta      = NSLocalizedString(@"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n"
-                                                       @"<p>Only the latest beta version of Tunnelblick</strong> should be used on macOS 11 Big Sur Beta.</p>\n"
+                                                       @"<p>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS.</p>\n"
                                                        @"<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n",
                                                        @"HTML text. May be combined with other paragraphs.");
 
-        NSString * stableOnBeta    = NSLocalizedString(@"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on macOS 11 Big Sur Beta.</p>\n"
-                                                       @"<p>You are using a stable version of Tunnelblick. Please update to or download and install the latest beta version."
+        NSString * stableOnBeta    = NSLocalizedString(@"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS."
                                                        @" It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n",
                                                        @"HTML text. May be combined with other paragraphs.");
 
@@ -5063,26 +5062,26 @@ static void signal_handler(int signalNumber)
 
                     // Running a beta version of Tunnelblick on Big Sur beta and checking for updates: show link to important info
                     [htmlMessage appendString: bigSurImportant];
-                    preferenceName = @"skipWarningAboutBigSur1";
+                    preferenceName = @"skipWarningAboutBigSur3";
                 } else {
 
                     // Running a beta version of Tunnelblick on Big Sur beta and NOT checking for updates: remind to use latest beta version of Tunnelblick
                     [htmlMessage appendString: betaOnBeta];
                     [htmlMessage appendString: bigSurMoreInfo];
-                    preferenceName = @"skipWarning5AboutBigSur2";
+                    preferenceName = @"skipWarning5AboutBigSur4";
                 }
             } else {
 
                 // Running a stable version of Tunnelblick on Big Sur beta: warn that should use latest beta version of Tunnelblick
                 [htmlMessage appendString: stableOnBeta];
                 [htmlMessage appendString: bigSurMoreInfo];
-                preferenceName = @"skipWarningAboutBigSur3";
+                preferenceName = @"skipWarningAboutBigSur5";
             }
         } else {
 
             // Running on Big Sur stable: show link to important info
             [htmlMessage appendString: bigSurImportant];
-            preferenceName = @"skipWarningAboutBigSur4";
+            preferenceName = @"skipWarningAboutBigSur6";
         }
 
         NSAttributedString * message = attributedStringFromHTML(htmlMessage);
@@ -5509,7 +5508,7 @@ static void signal_handler(int signalNumber)
 	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 022 -- LAST")
 	
-    [self dealWithKextProblem];
+    [self dealWithKextProblemsAndBigSur];
 
 	didFinishLaunching = TRUE;
 }
