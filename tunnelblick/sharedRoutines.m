@@ -384,7 +384,7 @@ OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix)
                 int majorI  = [majorS  intValue];
                 int minorI  = [minorS  intValue];
                 int bugFixI = [bugFixS intValue];
-                if (   (majorI  == 10)
+                if (   (majorI  >= 10)
                     && (minorI  >= 0)
                     && (bugFixI >= 0)
                     ) {
