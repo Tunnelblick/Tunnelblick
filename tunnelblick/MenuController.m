@@ -5037,7 +5037,7 @@ static void signal_handler(int signalNumber)
                                     ? bigSurMoreInfo
                                     : futureInfo)];
 
-        NSAttributedString * message = attributedStringFromHTML(htmlMessage);
+        NSAttributedString * message = attributedStringFromHTML([htmlMessage stringByAppendingString: @"<p>&nbsp;</p>\n"]);
 
         TBShowAlertWindowExtended(@"Tunnelblick", message, preferenceName, nil, nil, nil, nil, NO);
 
