@@ -155,13 +155,14 @@ float heightForStringDrawing(NSString *myString,
     CGFloat newHeight = heightForStringDrawing(msgWithLfLfX, font, tvFrame.size.width);
 	
 	CGFloat heightChange = newHeight - tvFrame.size.height;
-	
+    CGFloat heightChangePlus = 1.1 * heightChange;
+
 	// Adjust the window for the new height
 	NSWindow * w = [self window];
 	[w setShowsResizeIndicator: NO];
 	NSRect wFrame = [w frame];
-	wFrame.size.height += heightChange;
-	wFrame.origin.y -= heightChange;
+	wFrame.size.height += heightChangePlus;
+	wFrame.origin.y -= heightChangePlus;
 	[w setFrame: wFrame display: NO];
 	
 	// Adjust the scroll view for the new height
@@ -169,10 +170,11 @@ float heightForStringDrawing(NSString *myString,
 	[sv setBorderType: NSNoBorder];
 	[sv setHasVerticalScroller: NO];
 	NSRect svFrame = [sv frame];
-	svFrame.size.height += heightChange;
-	svFrame.origin.y    -= heightChange;
+	svFrame.size.height += heightChangePlus;
+	svFrame.origin.y    -= heightChangePlus;
 	[sv setFrame: svFrame];
-	
+
+
 	// Adjust the text view for the new height
 	tvFrame.size.height = newHeight;
 	tvFrame.origin.y -= heightChange;
