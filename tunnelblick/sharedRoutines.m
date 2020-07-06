@@ -359,9 +359,32 @@ BOOL needToReplaceLaunchDaemon(void) {
 
 OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix) {
     
-    // There seems to be no good way to do this because Gestalt() was deprecated in 10.8 and although it can give correct
-    // results in 10.10, it displays an annoying message in the Console log. So we do it this way, suggested in
-    // a comment by Jonathan Grynspan at
+    if (  NSClassFromString(@"NSProcessInfo")  ) {
+        if (  [NSProcessInfo respondsToSelector: @selector(processInfo)]) {
+            NSProcessInfo * info = [NSProcessInfo processInfo];
+            if (  [info respondsToSelector: @selector(operatingSystemVersion)]  ) {
+                NSOperatingSystemVersion version = [info operatingSystemVersion];
+                if (  version.majorVersion > 9  ) {
+                    *major = version.majorVersion;
+                    *minor = version.minorVersion;
+                    *bugFix = version.patchVersion;
+                    return EXIT_SUCCESS;
+                } else {
+                    NSLog(@"operatingSystemVersion has majorVersion < 10! (%ld.%ld.%ld)", (long)version.majorVersion, (long)version.minorVersion, (long)version.patchVersion);
+                    return EXIT_FAILURE;
+                }
+            } else {
+                NSLog(@"[NSProcessInfo processInfo] does not respond to operatingSystemVersion; not using it to obtain OS version");
+            }
+        } else {
+            NSLog(@"NSProcessInfo does not respond to processInfo; not using it to obtain OS version");
+        }
+    } else {
+        NSLog(@"NSProcessInfo does not exist; not using it to obtain OS version");
+    }
+
+    // The following works for 10.7.5 through 10.15.5 (perhaps higher).
+    // It was inspired by comments by Jonathan Grynspan and others at
     // https://stackoverflow.com/questions/11072804/how-do-i-determine-the-os-version-at-runtime-in-os-x-or-ios-without-using-gesta
     
     // Get the version as a string, e.g. "10.8.3"
