@@ -5046,7 +5046,7 @@ static void signal_handler(int signalNumber)
 
     if (  onBigSur  ) {
         NSString * betaOnBeta      = NSLocalizedString(@"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n"
-                                                       @"<p>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS.</p>\n"
+                                                       @"<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n"
                                                        @"<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n",
                                                        @"HTML text. May be combined with other paragraphs.");
 
