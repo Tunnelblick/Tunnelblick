@@ -213,6 +213,17 @@
                                                                    @"down", @"ipchange", @"iproute", @"learn-address", \
                                                                    @"plugin", @"route-pre-down", @"route-up", @"tls-verify",  @"up"]
 
+#define OPENVPN_OPTIONS_DEPRECATED_AND_REMOVED @[ \
+                            @[@"2.1", @"2.5",  @"ifconfig-pool-linear"], \
+                            @[@"2.3", @"2.4",  @"tls-remote"], \
+                            @[@"2.3", @"2.5",  @"compat-names", @"no-name-remapping"], \
+                            @[@"2.4", @"2.4",  @"tun-ipv6"], \
+                            @[@"2.4", @"2.5",  @"client-cert-not-required", @"key-method", @"no-iv", @"no-replay", @"ns-cert-type"], \
+                            @[@"2.4", @"2.5?", @"comp-lzo", @"dhcp-release", @"max-routes", @"secret"], \
+                            @[@"2.4", @"2.6",  @"keysize"], \
+                            @[@"2.5", @"2.6?", @"compress", @"ncp-disable"] \
+                            ];
+
 //*************************************************************************************************
 // Tunnelblick and OpenVPN logging levels, stored in the per-configuration "-loggingLevel" preference.
 // Levels from 0...11 are passed to OpenVPN in the --verb option and Tunnelblick does logging
