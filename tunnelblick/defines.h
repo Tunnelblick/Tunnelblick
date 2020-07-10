@@ -184,34 +184,34 @@
 //*************************************************************************************************
 // Extensions that (for private configurations) require 640 permissions and ownership by Admin group
 // (Shared, Deploy, and alternate configurations are 0:0/600)
-#define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"unknown", nil]
+#define KEY_AND_CRT_EXTENSIONS @[@"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"unknown"]
 
 //*************************************************************************************************
 // Extensions for files that should be copied when installing a .tblk
-#define TBLK_INSTALL_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"sh", @"lproj", @"unknown", nil]
+#define TBLK_INSTALL_EXTENSIONS @[@"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"sh", @"lproj", @"unknown"]
 
 //*************************************************************************************************
 // Extensions that indicate that a file is in non-binary format -- ASCII, not binary
 // OpenVPN configuration files and script files may have binary characters in comments, single- and double-quotes, and after backslashes.
-#define NONBINARY_CONTENTS_EXTENSIONS [NSArray arrayWithObjects: @"crt", @"key", @"pem", @"crl", nil]
+#define NONBINARY_CONTENTS_EXTENSIONS @[@"crt", @"key", @"pem", @"crl"]
 
 //*************************************************************************************************
 // Extensions for non-configuration files that may have the CR in CR-LF sequences removed, and other CR characters changed to LF
-#define CONVERT_CR_CHARACTERS_EXTENSIONS [NSArray arrayWithObjects: @"crt", @"key", @"pem", @"crl", @"sh", nil]
+#define CONVERT_CR_CHARACTERS_EXTENSIONS @[@"crt", @"key", @"pem", @"crl", @"sh"]
 
 //*************************************************************************************************
 // OpenVPN options that are not allowed because they conflict with the operation of Tunnelblick
-#define OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK [NSArray arrayWithObjects: @"log", @"log-append", @"syslog", @"config", nil]
+#define OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK @[@"log", @"log-append", @"syslog", @"config"]
 
 //*************************************************************************************************
 // OpenVPN options that are not allowed on macOS
-#define OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY [NSArray arrayWithObjects: @"allow-nonadmin", @"cryptoapicert", @"dhcp-release", @"dhcp-renew", @"pause-exit", @"register-dns", @"service", @"show-adapters", @"show-net", @"show-net-up", @"show-valid-subnets", @"tap-sleep", @"win-sys", nil]
+#define OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY @[@"allow-nonadmin", @"cryptoapicert", @"dhcp-release", @"dhcp-renew", @"pause-exit", @"register-dns", @"service", @"show-adapters", @"show-net", @"show-net-up", @"show-valid-subnets", @"tap-sleep", @"win-sys"]
 
 //*************************************************************************************************
 // OpenVPN options that cannot appear in a "safe" configuration
-#define OPENVPN_OPTIONS_THAT_ARE_UNSAFE [NSArray arrayWithObjects: @"auth-user-pass-verify", @"config", @"client-connect", @"client-disconnect", \
+#define OPENVPN_OPTIONS_THAT_ARE_UNSAFE @[@"auth-user-pass-verify", @"config", @"client-connect", @"client-disconnect", \
                                                                    @"down", @"ipchange", @"iproute", @"learn-address", \
-                                                                   @"plugin", @"route-pre-down", @"route-up", @"tls-verify",  @"up", nil]
+                                                                   @"plugin", @"route-pre-down", @"route-up", @"tls-verify",  @"up"]
 
 //*************************************************************************************************
 // Tunnelblick and OpenVPN logging levels, stored in the per-configuration "-loggingLevel" preference.
