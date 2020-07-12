@@ -5068,7 +5068,7 @@ static void signal_handler(int signalNumber)
                     // Running a beta version of Tunnelblick on Big Sur beta and NOT checking for updates: remind to use latest beta version of Tunnelblick
                     [htmlMessage appendString: betaOnBeta];
                     [htmlMessage appendString: bigSurMoreInfo];
-                    preferenceName = @"skipWarning5AboutBigSur4";
+                    preferenceName = @"skipWarningAboutBigSur4";
                 }
             } else {
 

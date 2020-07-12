@@ -644,7 +644,11 @@ name = newValue;                                    \
 @"skipWarningAboutAlwaysLoadTunAndOrTapOnFutureMacOS", \
 @"skipWarningAboutDevNodeTunOnFutureMacOS", \
 @"skipWarningAboutTapConnectionOnFutureMacOS", \
-@"skipWarningAboutBigSur", \
+@"skipWarningAboutBigSur1", \
+@"skipWarningAboutBigSur2", \
+@"skipWarningAboutBigSur3", \
+@"skipWarningAboutBigSur4", \
+@"skipWarningAboutBigSur5", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\
