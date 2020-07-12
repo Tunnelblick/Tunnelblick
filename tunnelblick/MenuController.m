@@ -5079,9 +5079,11 @@ static void signal_handler(int signalNumber)
             }
         } else {
 
-            // Running on Big Sur stable: show link to important info
-            [htmlMessage appendString: bigSurImportant];
-            preferenceName = @"skipWarningAboutBigSur6";
+            if ( ! needTunOrTap  )  {
+                // Running on Big Sur stable and haven't shown a message about tun/tap on Big Sur: show link to important info
+                [htmlMessage appendString: bigSurImportant];
+                preferenceName = @"skipWarningAboutBigSur6";
+            }
         }
 
         NSAttributedString * message = attributedStringFromHTML(htmlMessage);
