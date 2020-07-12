@@ -649,6 +649,7 @@ name = newValue;                                    \
 @"skipWarningAboutBigSur3", \
 @"skipWarningAboutBigSur4", \
 @"skipWarningAboutBigSur5", \
+@"skipWarningAboutBigSur6", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\
