@@ -23,6 +23,7 @@
 
 #import <CoreServices/CoreServices.h>
 #import <Foundation/Foundation.h>
+#import <IOKit/kext/KextManager.h>
 #import <sys/acl.h>
 #import <sys/mount.h>
 #import <sys/param.h>
@@ -812,13 +813,6 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
                         )
                     )
                 ) {
-                notOk = FALSE;
-            }
-
-		} else if (  [path hasPrefix: @"/s"]  ) {
-			if (   [path isEqualToString: TOOL_PATH_FOR_KEXTLOAD    ]
-		   	 	|| [path isEqualToString: TOOL_PATH_FOR_KEXTUNLOAD  ]
-			    ) {
                 notOk = FALSE;
             }
 
@@ -1816,78 +1810,90 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
 
 //**************************************************************************************************************************
 
-void loadKexts(unsigned int bitMask) {
-	//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
-	
-    if (  ( bitMask & (OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_OUR_TUN_KEXT) ) == 0  ) {
-        return;
+void loadOneKext(NSString * filename) {
+
+    NSString * path = [gResourcesPath stringByAppendingPathComponent: filename];
+
+    NSURL * url = [NSURL fileURLWithPath: path];
+    if (  ! url  ) {
+        appendLog([NSString stringWithFormat: @"Could not create file URL from '%@'", path]);
+        exitOpenvpnstart(OPENVPNSTART_COULD_NOT_LOAD_KEXT);
     }
-    
-    NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 2];
-    if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
-        NSString * tapPath = [gResourcesPath stringByAppendingPathComponent: @"tap-notarized.kext"];
-        BOOL isDir;
-        if (   ! (   [[NSFileManager defaultManager] fileExistsAtPath: tapPath isDirectory: &isDir]
-                  && isDir)  ) {
-            fprintf(stderr, "tap-notarized.kext not found\n");
-            exitOpenvpnstart(224);
-        }
-        [arguments addObject: tapPath];
-        fprintf(stderr, "Loading tap-notarized.kext\n");
-    }
-    if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
-        NSString * tunPath = [gResourcesPath stringByAppendingPathComponent: @"tun-notarized.kext"];
-        BOOL isDir;
-        if (   ! (   [[NSFileManager defaultManager] fileExistsAtPath: tunPath isDirectory: &isDir]
-                  && isDir)  ) {
-            fprintf(stderr, "tun-notarized.kext not found\n");
-            exitOpenvpnstart(225);
-        }
-        [arguments addObject: tunPath];
-        fprintf(stderr, "Loading tun-notarized.kext\n");
-    }
-    
-    int status = 0;
+
+    // Loading kexts sometimes fails temporarily, so we try up to five times, waiting one second between tries
     unsigned i;
     for (i=0; i < 5; i++) {
-        status = runAsRoot(TOOL_PATH_FOR_KEXTLOAD, arguments, 0755);
-        if (  status == 0  ) {
+        becomeRoot(@"Load a kext");
+        OSReturn status = KextManagerLoadKextWithURL((CFURLRef)url, (CFArrayRef)@[]);
+        stopBeingRoot();
+
+        if (  status == kOSReturnSuccess  ) {
+            appendLog([NSString stringWithFormat: @"The system reported that kext '%@' was loaded successfully", filename]);
             break;
         }
+
+        appendLog([NSString stringWithFormat: @"Failed to load '%@'; status = %d\n", filename, status]);
         sleep(1);
     }
-    if (  status != 0  ) {
-        fprintf(stderr, "Unable to load net.tunnelblick.tun and/or net.tunnelblick.tap kexts in 5 tries. Status = %d\n", status);
-        exitOpenvpnstart(OPENVPNSTART_COULD_NOT_LOAD_KEXT);
+
+    unsigned mask = getLoadedKextsMask();
+    BOOL actuallyLoaded = FALSE;
+    if (  [filename hasPrefix: @"tap"]  ) {
+        actuallyLoaded = (0 != (mask & OPENVPNSTART_OUR_TAP_KEXT));
+    } else if (  [filename hasPrefix: @"tun"]  ) {
+        actuallyLoaded = (0 != (mask & OPENVPNSTART_OUR_TUN_KEXT));
+    } else {
+        NSLog(@"loadOneKext: filename '%@' does not start with 'tun' or 'tap'", filename);
+    }
+
+    if (  actuallyLoaded  ) {
+        return;
+    }
+
+    appendLog(@"Unable to load net.tunnelblick.tun and/or net.tunnelblick.tap kexts in 5 tries."
+              @" (It was not loaded even though the system said it was loaded.)");
+    exitOpenvpnstart(OPENVPNSTART_COULD_NOT_LOAD_KEXT);
+}
+
+void loadKexts(unsigned int bitMask) {
+
+	//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
+	
+    if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
+        loadOneKext(@"tap-notarized.kext");
+    }
+
+    if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
+        loadOneKext(@"tun-notarized.kext");
+    }
+}
+
+void unloadOneKext(NSString * bundleIdentifier) {
+
+    becomeRoot(@"Unload a kext");
+    OSReturn status = KextManagerUnloadKextWithIdentifier((CFStringRef)bundleIdentifier);
+    stopBeingRoot();
+
+    if (  status == kOSReturnSuccess  ) {
+        appendLog([NSString stringWithFormat: @"Successfully unloaded kext '%@'", bundleIdentifier]);
+    } else {
+        appendLog([NSString stringWithFormat: @"Error %d: Could not unload kext '%@'", status, bundleIdentifier]);
     }
 }
 
 void unloadKexts(unsigned int bitMask) {
-	// Tries to UNload kexts. Will complain and exit if can't become root
-	// We ignore errors because this is a non-critical function, and the unloading fails if a kext is in use
+
+	// Tries to UNload kexts. Ignores errors because this is a non-critical function, and the unloading fails if a kext is in use
 	
-    if (  ( bitMask & (OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_OUR_TUN_KEXT | OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT) ) == 0  ) {
-        return;
-    }
-    
-    NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 10];
-    
-    [arguments addObject: @"-q"];
-    
     if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
-        [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"net.tunnelblick.tap", nil]];
+        unloadOneKext(@"net.tunnelblick.tap");
+        unloadOneKext(@"foo.tap");
     }
+
     if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
-        [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"net.tunnelblick.tun", nil]];
+        unloadOneKext(@"net.tunnelblick.tun");
+        unloadOneKext(@"foo.tun");
     }
-    if (  (bitMask & OPENVPNSTART_FOO_TAP_KEXT) != 0  ) {
-        [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tap", nil]];
-    }
-    if (  (bitMask & OPENVPNSTART_FOO_TUN_KEXT) != 0  ) {
-        [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tun", nil]];
-    }
-    
-    runAsRoot(TOOL_PATH_FOR_KEXTUNLOAD, arguments, 0755);
 }
 
 BOOL forceCopyFileAsRoot(NSString * sourceFullPath, NSString * targetFullPath) {
