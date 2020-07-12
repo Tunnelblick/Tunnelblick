@@ -169,6 +169,7 @@
 		63C2E19C18846D2A00ED0003 /* LeaseWatch.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */; };
 		63C2E19E18846D3800ED0003 /* LeaseWatch3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */; };
 		63C2E1A018846D4600ED0003 /* ProcessNetworkChanges.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */; };
+		63C2E2E824AB8D6C00F79628 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C2E2E724AB8D6C00F79628 /* IOKit.framework */; };
 		63C375751A4510CA00D51E81 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
 		63C375761A4510D000D51E81 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		63C375791A4510F600D51E81 /* tunnelblick-helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C375781A4510F600D51E81 /* tunnelblick-helper.m */; };
@@ -553,6 +554,7 @@
 		63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LeaseWatch.plist; sourceTree = "<group>"; };
 		63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LeaseWatch3.plist; sourceTree = "<group>"; };
 		63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProcessNetworkChanges.plist; sourceTree = "<group>"; };
+		63C2E2E724AB8D6C00F79628 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		63C374391A4510AA00D51E81 /* tunnelblick-helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "tunnelblick-helper"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C375781A4510F600D51E81 /* tunnelblick-helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "tunnelblick-helper.m"; sourceTree = "<group>"; };
 		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -723,6 +725,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C2E2E824AB8D6C00F79628 /* IOKit.framework in Frameworks */,
 				6329EA051A9B003700A0BFA8 /* SystemConfiguration.framework in Frameworks */,
 				63C375761A4510D000D51E81 /* Foundation.framework in Frameworks */,
 				63C375751A4510CA00D51E81 /* CoreServices.framework in Frameworks */,
@@ -889,6 +892,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63C2E2E724AB8D6C00F79628 /* IOKit.framework */,
 				A425AA572380E5C7000686E7 /* LocalAuthentication.framework */,
 				63AB7CFF1D930BCE008ED621 /* QuartzCore.framework */,
 				6329EA031A9AF7B700A0BFA8 /* CFNetwork.framework */,
