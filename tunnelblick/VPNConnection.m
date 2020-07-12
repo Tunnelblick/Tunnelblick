@@ -2623,6 +2623,16 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	NSString * preferenceKey = [displayName stringByAppendingString: @"-loadTap"];
 	NSString * preference = [gTbDefaults stringForKey: preferenceKey];
+    if (  ! [preference isEqualToString: @"never"]  ) {
+        if (   runningOnBigSurOrNewer()  ) {
+            if (  [gTbDefaults boolForKey: @"bigSurCanLoadKexts"]  ) {
+                NSLog(@"Will try to load kexts on Big Sur, so allowing '%@' for '%@'", preference, preferenceKey);
+            } else {
+                NSLog(@"Will not try to load kexts on Big Sur, so ignoring '%@' for '%@'", preference, preferenceKey);
+                preference = @"never";
+            }
+        }
+    }
 	if (  [preference isEqualToString: @"always"]  ) {
 		bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
 	} else if (   (! preference)
@@ -2638,6 +2648,16 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
 	preferenceKey = [displayName stringByAppendingString: @"-loadTun"];
 	preference = [gTbDefaults stringForKey: preferenceKey];
+    if (  ! [preference isEqualToString: @"never"]  ) {
+        if (   runningOnBigSurOrNewer()  ) {
+            if (  [gTbDefaults boolForKey: @"bigSurCanLoadKexts"]  ) {
+                NSLog(@"Will try to load kexts on Big Sur, so allowing '%@' for '%@'", preference, preferenceKey);
+            } else {
+                NSLog(@"Will not try to load kexts on Big Sur, so ignoring '%@' for '%@'", preference, preferenceKey);
+                preference = @"never";
+            }
+        }
+    }
 	if (  [preference isEqualToString: @"always"]  ) {
 		bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
 	} else if (   (! preference)

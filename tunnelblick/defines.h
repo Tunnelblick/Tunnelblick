@@ -684,6 +684,7 @@ name = newValue;                                    \
 @"doNotEjectTunnelblickVolume",	\
 @"doNotCheckThatOpenvpnVersionIsCompatibleWithConfiguration",	\
 @"openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting",	\
+@"bigSurCanLoadKexts",	\
 \
 @"disableAdvancedButton",	\
 @"disableCheckNowButton",	\

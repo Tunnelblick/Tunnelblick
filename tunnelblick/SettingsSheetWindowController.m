@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -360,18 +360,34 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
 	NSString * key   = [configurationName stringByAppendingString: rawPreferenceKey];
 	NSString * value = [gTbDefaults stringForKey: key];
-	
-	if (   ( ! value)
-		|| ( [value length] == 0 )  ) {
-		[button selectItemAtIndex: 0];
+
+    NSInteger index;
+	if (  [value length] == 0  ) {
+		index = 0;
 	} else if (  [value isEqualToString: @"always"]  ) {
-		[button selectItemAtIndex: 1];
+		index = 1;
 	} else if (  [value isEqualToString: @"never"]  ) {
-		[button selectItemAtIndex: 2];
+		index = 2;
 	} else {
 		NSLog(@"setupTunTapButton: Value '%@' for preference '%@' is invalid; assuming 'always'", value, key);
-		[button selectItemAtIndex: 1];
+		index = 1;
 	}
+
+    BOOL enabled = TRUE;
+    BOOL donotLoadKext = (   runningOnBigSurOrNewer()
+                           && ( ! [gTbDefaults boolForKey: @"bigSurCanLoadKexts"] )  );
+
+    if (  donotLoadKext  ) {
+        if (  index != 2  ) {
+            NSLog(@"Not loading kexts on Big Sur, so showing 'never' and ignoring '%@' for '%@' for '%@' and disabling the button", value, rawPreferenceKey, key);
+            index = 2;
+        }
+
+        enabled = FALSE;
+    }
+
+    [button selectItemAtIndex: index];
+    [button setEnabled: enabled];
 }
 
 -(void) setupTunTapButtons {
