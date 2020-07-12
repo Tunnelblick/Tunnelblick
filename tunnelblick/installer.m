@@ -1070,12 +1070,14 @@ void doInitialWork(void) {
 												permissions, gRealUserID, group)  ) {
 		errorExit();
 	}
-	
+    appendLog([NSString stringWithFormat: @"Created or checked '%@'; owner = %u:%u; permissions = %hu", userL_AS_T_Path, gRealUserID, group, permissions]);
+
 	if (  ! createDirWithPermissionAndOwnership([userL_AS_T_Path stringByAppendingPathComponent: @"Configurations"],
 												permissions, gRealUserID, group)  ) {
 		errorExit();
 	}
-	
+    appendLog([NSString stringWithFormat: @"Created or checked '%@'; owner = %u:%u; permissions = %hu", [userL_AS_T_Path stringByAppendingPathComponent: @"Configurations"], gRealUserID, group, permissions]);
+
 	convertOldUpdatableConfigurations();
 	
 	// Rename /Library/LaunchDaemons/net.tunnelblick.startup.*
