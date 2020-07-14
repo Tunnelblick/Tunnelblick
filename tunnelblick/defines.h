@@ -211,6 +211,13 @@
                                                                    @"down", @"ipchange", @"iproute", @"learn-address", \
                                                                    @"plugin", @"route-pre-down", @"route-up", @"tls-verify",  @"up"]
 
+//*************************************************************************************************
+// Array of arrays with info about deprecated and removed options. Each array entry is an array with:
+//		OpenVPN version the option(s) were deprecated in,
+//		OpenVPN version the option(s) were removed in (if has a '?' suffix, the removal version has not been decided)
+//		Option name...
+//
+// These entries are based on version 31 (modified 2020-07-10) of https://community.openvpn.net/openvpn/wiki/DeprecatedOptions
 #define OPENVPN_OPTIONS_DEPRECATED_AND_REMOVED @[ \
                             @[@"2.1", @"2.5",  @"ifconfig-pool-linear"], \
                             @[@"2.3", @"2.4",  @"tls-remote"], \

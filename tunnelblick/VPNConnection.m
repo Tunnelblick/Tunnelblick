@@ -1989,12 +1989,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	//
 	// If there are no deprecated or removed options in the configuration file, returns nil.
 
-	// Dictionary with info about deprecated and removed options:
+    // Array of arrays with info about deprecated and removed options. Each array entry is an array with:
 	//		OpenVPN version the option(s) were deprecated in,
 	//		OpenVPN version the option(s) were removed in (if has a '?' suffix, the removal version has not been decided)
 	//		Option name...
-	//
-	// These entries are based on version 31 (modified 2020-07-10) of https://community.openvpn.net/openvpn/wiki/DeprecatedOptions
 	
 	NSArray * removedOptions = OPENVPN_OPTIONS_DEPRECATED_AND_REMOVED;
 	
