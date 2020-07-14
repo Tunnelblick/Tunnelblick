@@ -463,12 +463,13 @@ BOOL isOnRemoteVolume(NSString * path) {
     
     if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
         // If a parent directory exists, see if it is on a remote volume
-        NSString * parent = [[[path copy] autorelease] stringByDeletingLastPathComponent];
+        NSString * parent = [path stringByDeletingLastPathComponent];
         while (   ( [parent length] > 1 )
                && ( ! [[NSFileManager defaultManager] fileExistsAtPath: parent] )  ) {
             parent = [parent stringByDeletingLastPathComponent];
         }
         if ([  parent length] > 1  ) {
+            appendLog([NSString stringWithFormat: @"isOnRemoteVolume: will check parent of '%@'", path]);
             return isOnRemoteVolume(parent);
         }
         appendLog(@"isOnRemoteVolume: No parents for path");
@@ -480,6 +481,7 @@ BOOL isOnRemoteVolume(NSString * path) {
     
     if (  0 == statfs(pathC, &stats_buf)  ) {
         if (  (stats_buf.f_flags & MNT_LOCAL) == 0  ) {
+            appendLog([NSString stringWithFormat: @"Not mounted locally: '%s'", pathC]);
             return TRUE;
         }
     } else {
