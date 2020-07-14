@@ -641,17 +641,18 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	[loadTapAlwaysMenuItem        setTitle: NSLocalizedString(@"Always load Tap driver",        @"Button")];
 	[loadTapNeverMenuItem         setTitle: NSLocalizedString(@"Never load Tap driver",         @"Button")];
 	
-	[loadTunPopUpButton setTitle: nil
-					   infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used,"
-																				@" but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n"
-																				@"<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n"
-																				@"<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n"
-																				@"<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed."
-																				@" (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n"
-																				@"<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n"
-																				@"<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n"
-																				@"<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>",
-																				@"HTML info for the 'Load Tun driver' popdown list."))];
+    [loadTunPopUpButton setTitle: nil
+                       infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used,"
+                                                                             @" but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n"
+                                                                             @"<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n"
+                                                                             @"<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n"
+                                                                             @"<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed."
+                                                                             @" (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n"
+                                                                             @"<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n"
+                                                                             @"<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n"
+                                                                             @"<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver."
+                                                                             @" For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>",
+                                                                             @"HTML info for the 'Load Tun driver' popdown list."))];
 	[UIHelper setTitle: nil
 			 ofControl: loadTunPopUpButton
 				 shift: [UIHelper languageAtLaunchWasRTL]
@@ -665,7 +666,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 																			 @"<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n"
 																			 @"<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n"
 																			 @"<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n"
-																			 @"<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>",
+                                                                             @"<p><strong>This checkbox is disabled</strong> for Tun configurations and on versions of macOS which do not allow Tunnelblick to load its Tap driver."
+                                                                             @" For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>",
 																			 @"HTML info for the 'Load Tap driver' popdown list."))];
 	[UIHelper setTitle: nil
 			 ofControl: loadTapPopUpButton
