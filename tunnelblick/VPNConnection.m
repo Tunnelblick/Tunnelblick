@@ -2351,8 +2351,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                                                      @" The first and second '%@' will each be replaced by a version number such as '3.2'."
                                                      @" The third '%@' will be replaced by the name of a configuration."
                                                      @" The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed."),
-                                   versionWanted, versionToTry, [self displayName], problematicOptions]);
+                                   versionToTry, versionWanted, [self displayName], problematicOptions]);
                 alreadyWarnedAboutUsingDifferentVersionOfOpenVPN = TRUE;
+
+                [gTbDefaults setObject: versionToTry forKey: [[self displayName] stringByAppendingString: @"-openvpnVersion"]];
             }
         }
 	}
@@ -2432,25 +2434,27 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				NSLog(@"Connecting %@ using OpenVPN %@ which has deprecated options. To see them, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
 					  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry));
 			}
-			NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
-			warningMessage1 = [NSString stringWithFormat:
-							   NSLocalizedString(@"This VPN works now, but may not work in a future version of Tunnelblick.\n\n"
-												 
-												 @"The OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n"
-												 
-												 @"%@\n"
-												 
-												 @"Tunnelblick will use OpenVPN %@ to connect this configuration.\n\n"
-												 
-												 @"However, you will not be able to connect to this VPN with future versions of"
-												 @" Tunnelblick that do not include a version of OpenVPN that accepts the options.",
-												 
-												 @"Window text."
-												 @" The first '%@' will be replaced by the name of a configuration."
-												 @" The second '%@' will be replaced by a list of names of OpenVPN options, one on each line."
-												 @" The third '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
-							   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry, versionToTry)];
-            alreadyWarnedAboutUsingDifferentVersionOfOpenVPN = TRUE;
+            if (  ! alreadyWarnedAboutUsingDifferentVersionOfOpenVPN  ) {
+                NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
+                warningMessage1 = [NSString stringWithFormat:
+                                   NSLocalizedString(@"This VPN works now, but may not work in a future version of Tunnelblick.\n\n"
+                                                     
+                                                     @"The OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n"
+                                                     
+                                                     @"%@\n"
+                                                     
+                                                     @"Tunnelblick will use OpenVPN %@ to connect this configuration.\n\n"
+                                                     
+                                                     @"However, you will not be able to connect to this VPN with future versions of"
+                                                     @" Tunnelblick that do not include a version of OpenVPN that accepts the options.",
+                                                     
+                                                     @"Window text."
+                                                     @" The first '%@' will be replaced by the name of a configuration."
+                                                     @" The second '%@' will be replaced by a list of names of OpenVPN options, one on each line."
+                                                     @" The third '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
+                                   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry, versionToTry)];
+                alreadyWarnedAboutUsingDifferentVersionOfOpenVPN = TRUE;
+            }
 		}
 	}
 
