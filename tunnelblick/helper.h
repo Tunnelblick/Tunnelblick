@@ -92,6 +92,9 @@ static inline NSString * LocalizationNotNeeded(NSString *s) {
 AlertWindowController * TBShowAlertWindow(NSString * title,
                                           id         msg); // NSString or NSAttributedString only
 
+AlertWindowController * TBShowAlertWindowOnce(NSString * title,
+                                              id         msg); // NSString or NSAttributedString only
+
 AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 												  id				   msg, // NSString or NSAttributedString only
 												  NSString			 * preferenceToSetTrue,

@@ -730,14 +730,21 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	// If user has previously checked "Do not warn about this again", or if the window for this preference has already been shown,
     // then don't do anything and return nil
 	if (  preferenceToSetTrue  ) {
-		if (  [gTbDefaults boolForKey: preferenceToSetTrue]  ) {
-			return nil;
-		}
-
+        if (  [preferenceToSetTrue isEqualToString: @"-NotAnActualPreference"]  ) {
+            // Special case: create a fake preference prefixed with a hash of the message. This lets us show each window only once.
+            const char * msgC = [msg UTF8String];
+            NSData * data = [NSData dataWithBytes: msgC length: strlen(msgC)];
+            NSString * hash = sha256HexStringForData(data);
+            preferenceToSetTrue = [hash stringByAppendingString: @"-NotAnActualPreference"];
+        }
         if (  [showAlertWindowAlreadyShownWindowPreferencesCache containsObject: preferenceToSetTrue]  ) {
             return nil;
         }
 
+        if (  [gTbDefaults boolForKey: preferenceToSetTrue]  ) {
+            return nil;
+        }
+        
         if ( ! showAlertWindowAlreadyShownWindowPreferencesCache  ) {
             showAlertWindowAlreadyShownWindowPreferencesCache = [[NSMutableArray alloc] initWithCapacity: 10];
         }
@@ -798,6 +805,13 @@ AlertWindowController * TBShowAlertWindow (NSString * title,
 	
 	return TBShowAlertWindowExtended(title, msg, nil, nil, nil, nil, nil, NO);
 
+}
+
+AlertWindowController * TBShowAlertWindowOnce (NSString * title,
+                                               id         msg) {
+
+    return TBShowAlertWindowExtended(title, msg, @"-NotAnActualPreference", nil, nil, nil, nil, NO);
+    
 }
 
 // Alow several alert panels to be open at any one time, keeping track of them in AlertRefs.

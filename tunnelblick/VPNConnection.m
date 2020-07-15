@@ -2401,19 +2401,18 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 						  [self displayName]);
 				}
 				NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
-				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								  [NSString stringWithFormat:
-								   NSLocalizedString(@"This VPN cannot be connected.\n\n"
-													 @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
-													 @"%@\n"
-													 @"None of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\n"
-													 @"You should update the configuration so it can be used with modern versions of OpenVPN.",
-													 
-													 @"Window text."
-													 @" The first '%@' will be replaced by the name of a configuration."
-													 @" The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed."),
-								   [self displayName], problematicOptions]);
-				
+                TBShowAlertWindowOnce(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                      [NSString stringWithFormat:
+                                       NSLocalizedString(@"This VPN cannot be connected.\n\n"
+                                                         @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
+                                                         @"%@\n"
+                                                         @"None of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\n"
+                                                         @"You should update the configuration so it can be used with modern versions of OpenVPN.",
+
+                                                         @"Window text."
+                                                         @" The first '%@' will be replaced by the name of a configuration."
+                                                         @" The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed."),
+                                       [self displayName], problematicOptions]);
 				return NSNotFound;
 			}
 		}

@@ -85,10 +85,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, okButton)
     (void) notification;
 
 	if (  [doNotWarnAgainCheckbox state] == NSOnState  ) {
-		if (  preferenceToSetTrue  ) {
+		if (   preferenceToSetTrue
+            && ( ! [preferenceToSetTrue hasSuffix: @"-NotAnActualPreference"] )  ) {
 			[gTbDefaults setBool: TRUE forKey: preferenceToSetTrue];
 		}
-		
+
 		if (   preferenceName
 			&& preferenceValue  ) {
 			[gTbDefaults setObject: preferenceValue forKey: preferenceName];
@@ -207,7 +208,9 @@ float heightForStringDrawing(NSString *myString,
 
 -(void) setupCheckboxWithHeightChange: (CGFloat) heightChange {
 	
-	if (   ( ! preferenceToSetTrue )
+	if (   (   (! preferenceToSetTrue)
+            || (! [preferenceToSetTrue hasSuffix: @"-NotAnActualPreference"] )
+            )
 		&& ( ! (   preferenceName
 				&& preferenceValue))) {
 		[doNotWarnAgainCheckbox setHidden: TRUE];
