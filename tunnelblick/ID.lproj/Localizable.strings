@@ -260,6 +260,9 @@
 /* Button */
 "Standard icon" = "Ikon standar";
 
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "Stop";
+
 /* Button */
 "Terminate All OpenVPN processes" = "Hentikan semua proses OpenVPN";
 
@@ -607,6 +610,9 @@
 /* Window title */
 "Add a Configuration" = "Tambah Konfigurasi";
 
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "Pengaturan Lanjutan";
+
 /* Window title */
 "Alert sounds" = "Suara peringatan";
 
@@ -906,6 +912,9 @@
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "%@ sudah ada di Desktop.\n\nApakah anda mau menggantikannya?";
+
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = "\"%s\" sudah ada.";
 
 /* Window text. %@ is the name of a file. */
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' tampaknya adalah sebuah berkas dengan enkoding UTF-16. Semua berkas terkait OpenVPN harus berupa teks polos atau UTF-8";
@@ -1541,7 +1550,7 @@
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Konfigurasi VPN %@ telah berubah sejak terakhir diamankan.\n\nApakah Anda ingin mengamankan konfigurasi yang diubah atau mengembalikan ke konfigurasi yang terakhir diamankan?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Folder sistem %1$@ (%2$@) tidak aman.\n\nTunnelblick dan program-program lain mungkin tidak bekerja dengan benar sampai masalah ini diperbaiki.\n\nLog Konsol menyimpan rinciannya.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details." = "Folder sistem %1$@ (%2$@) tidak aman.\n\nTunnelblick dan program-program lain mungkin tidak bekerja dengan benar sampai masalah ini diperbaiki.\n\nLog Konsol memiliki rincian lebih lanjut.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "Opsi '%@' OpenVPN tidak diperbolehkan untuk macOS. Opsi ini hanya untuk Windows.";
@@ -1643,6 +1652,9 @@
 "There is not an OpenVPN configuration file in '%@'" = "Tidak ada berkas konfigurasi OpenVPN dalam '%@'";
 
 /* Window text */
+"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "Ada masalah saat menghapus satu atau lebih konfigurasi atau folder. Lihat Log Konsol untuk rincian lebih lanjut.";
+
+/* Window text */
 "There was a problem getting the list of known public DNS servers." = "Ada masalah saat mengambil daftar dari server DNS publik yang dikenal.";
 
 /* Window text */
@@ -1693,11 +1705,17 @@
 /* Window text */
 "Too many configuration files in '%@'" = "Terlalu banyak file konfigurasi di dalam '%@'";
 
+/* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
+"Too many copies already exist." = "Sudah terlalu banyak salinan.";
+
 /* Window text */
 "Translation by" = "Terjemahan oleh";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Mencoba keluar dari semua proses OpenVPN…";
+
+/* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Mode Admin Tunnelblick\n\nUntuk sementara mengizinkan perubahan yang memerlukan otorisasi administrator.\n\nSesi akan berakhir setelah lima menit atau saat jendela 'Detil VPN' ditutup.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Penggunaan internet oleh Tunnelblick:";
@@ -1713,6 +1731,12 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick tidak bisa memulai karena ada masalah konfigurasi. Silakan periksa Console Log untuk lebih detil.";
+
+/* Window text */
+"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak bisa menghapus konfigurasi '%@' secara tuntas. Silakan lihat Console Log untuk rincian lebih lanjut.";
+
+/* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick tidak dapat menyalin folder '%@'. Silakan lihat Console Log untuk rincian lebih lanjut.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat meniru konfigurasi '%@'. Silakan lihat Console Log untuk lebih detil.";
@@ -1744,6 +1768,9 @@
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat memindahkan konfigurasi '%@'. Lihat Console Log untuk lebih detil.";
 
+/* Window text. The '%@' refers to a configuration or a folder of configurations. */
+"Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick tidak dapat menghapus '%@'. Silakan lihat Console Log untuk rincian lebih lanjut.";
+
 /* Window text */
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat merubah konfigurasi '%@'. Silakan lihat Console Log untuk lebih detil.";
 
@@ -1751,7 +1778,7 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick menjumpai sebuah kesalahan fatal.\n\nHaram kirim surel ke developers@tunnelblick.net untuk bantuan, menjuelaskan apa yang sedang dilakukan Tunnelblick ketika kesalah terjadi.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick menjumpai kesalahan dengan %1$lu konfigurasi:\n\n%2$@%3$@%4$@%5$@%6$@";
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "Tunnelblick mengalami kesalahan dengan konfigurasi %1$lu:";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick gagal memperbaiki masalah dengan preferensi untuk '%@'. Rincian ada dalam Log Konsol";
@@ -1772,6 +1799,9 @@
 "Tunnelblick is ready." = "Tunnelblick siap.";
 
 /* Window text */
+"Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick memerlukan otorisasi untuk menyalin ke folder '%@'.";
+
+/* Window text */
 "Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick perlu otorisasi untuk menyalin atau memindahkan konfigurasi.";
 
 /* Window text */
@@ -1790,7 +1820,22 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick perlu otorisasi untuk membuat konfigurasi '%@' dipakai bersama.";
 
 /* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick memerlukan otorisasi untuk memindahkan folder '%1$@' ke folder '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@'." = "Tunnelblick memerlukan otorisasi untuk memindahkan folder '%@'.";
+
+/* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick memerlukan otorisasi untuk membaca data Tunnelblink milik pengguna lain dari komputer ini sehingga dapat mengekspor semua data Tunnelblick.\n\nHarap perhatikan:\n\n     1. Kredensial yang disimpan dalam Rantai Kunci TIDAK akan diekspor.\n\n     2. Ekspor mungkin memakan waktu lama.\n\n";
+
+/* Window text */
+"Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "Tunnelblick memerlukan otorisasi untuk menghapus satu atau lebih konfgurasi atau folder.\n\n Penghapusan bersifat permanen dan tidak dapat dibatalkan. Pengaturan untuk konfigurasi yang dihapus juga akan dihapus secara permanen.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "Tunnelblick memerlukan otorisasi untuk mengganti konfigurasi '%1$@' menjadi '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick memerlukan otorisasi untuk mengganti folder '%1$@' menjadi '%2$@'.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick memerlukan otorisasi untuk mengamankan data yang diimpor.";
@@ -2024,6 +2069,9 @@
 "You may not remove a configuration which is set to start when the computer starts." = "Anda tidak bisa menghapus suatu konfigurasi yang ditata agar mulai berjalan ketika komputer mulai menyala.";
 
 /* Window text */
+"You may not remove a folder unless it is empty." = "Anda tidak bisa menghapus folder sebelum dikosongkan.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Anda tidak akan bisa memperbarui Tunnelblick kecuali Anda memberikan otorisasi administrator komputer.\n\nApakah Anda yakin hendak memeriksa pembaruan?";
 
 /* Window text */
@@ -2109,6 +2157,18 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>bukan-Tunnelblick</strong>' versi OpenVPN tidak dibuat oleh proyek Tunnelblick dan bukan merupakan bagian dari Tunnelblick. Mereka telah dipasang oleh administrator komputer.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Satu atau lebih dari konfigurasi Anda tidak akan dapat terhubung.</strong></p>\n<p>Konfigurasi membutuhkan ekstensi sistem tetapi versi macOS ini tidak mengizinkan Tunnelblick menggunakan ekstensi sistem tersebut.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Satu atau lebih dari konfigurasi Anda tidak akan dapat terhubung</strong> pada versi macOS yang akan datang.</p>\n<p>Konfigurasi membutuhkan ekstensi sistem tetapi versi macOS yang akan datang tidak akan mengizinkan Tunnelblick menggunakan ekstensi sistem tersebut.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p><strong>Hanya versi beta terbaru dari Tunnelblick</strong> yang dapat digunakan pada versi macOS ini. Dapat diunduh dari <a href=\"https://tunnelblick.net/downloads.html\">Unduhan Tunnelblick</a> [tunnelblick.net] dan pasang secara normal.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p><strong>Harap selalu perbarui Tunnelblick</strong> dengan secara otomatis memeriksa pembaruan.</p>\n<p>Hanya versi beta terbaru dari Tunnelblick yang dapat digunakan pada versi macOS ini.</p>\n<p>Anda dapat mengatur untuk secara otomatis memeriksa pembaruan pada panel \"Preferensi\" dari jendela \"Rincian VPN\" Tunnelblick.</p>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Menyatakan versi perangkat lunak SSL dan OpenVPN yang mesti dipakai untuk menyambungkan VPN.</strong><ul><li><strong>Pengaturan \"Baku\"</strong> akan memakai versi OpenVPN baku dengan OpenSSL yang disertakan dalam versi Tunnelblick ini. Nilai baku mungkin berbeda dalam versi lain dari Tunnelblick.<br></li><li><strong>Pengaturan \"Terbaru\"</strong> akan memakai versi OpenVPN terbaru dengan LibreSSL yang disertakan dalam versi Tunnelblick ini. Nilai terbaru mungkin berbeda dalam versi lain dari Tunnelblick.<br></li><li><strong>Sebarang setelan lain</strong> akan memakai versi perangkat lunak SSL dan OpenVPN yang dinyatakan bila mereka tersedia dalam versi Tunnelblick ini. Bila tidak tersedia, kecocokan paling dekat akan dipakai.<br></li></ul>";
 
@@ -2171,7 +2231,7 @@
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Ketika dicentang</strong>, konfigurasi yang ada di dalam folder ditampilkan dalam submenu dari menu Tunnelblick.</p>\n<p><strong>Ketika tidak dicentang</strong>, konfigurasi yang ada di dalam folder ditampilkan dalam menu Tunnelblick.</p>";
 
 /* HTML info for the 'Keep connected' checkbox. */
-"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Ketika dicentang</strong>, bila VPN terputus tak terduga, Tunnelblick akan mencoba menyambung ulang.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick tidak akan mencoba menyambung ulang suatu VPN bila terputus tak terduga.</p>\n";
+"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong>Saat dicentang</strong>, Jika OpenVPN berhenti tanpa sengaja (crash), Tunnelblick akan mengupayakan untuk menghubungkan koneksi VPN lagi.</p>\n<p><strong>Saat tidak dicentang</strong>, Tunnelblick tidak akan mencoba untuk menghubungkan  koneksi VPN jika OpenVPN berhenti tanpa sengaja.</p>";
 
 /* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Ketika dicentang</strong>, pengaturan jaringan yang ditata secara manual boleh diubah ketika VPN menyambung. Ini hanya akan terjadi bila perubahan dinyatakan oleh opsi dalam berkas konfigurasi OpenVPN atau dari server OpenVPN.</p>\n<p><strong>Ketika tidak dicentang</strong>, pengaturan jaringan yang ditata secara manual tidak akan diubah ketak VPN menyambung.</p>";
@@ -2206,11 +2266,14 @@
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Ketika dicentang</strong>, Anda akan diminta untuk otentikasi diri Anda sebelum menyambung. Anda dapat otentikasi diri Anda dengan menggunakan kata sandi Anda atau, jika tersedia, TouchID atau FaceID.</p>\n<p><strong>Ketika tidak dicentang</strong>, otentikasi tidak diperlukan sebelum menyambung.</p>\n<p><strong>Kotak centang ini dimatikan</strong> jika Anda menggunakan versi macOS yang tidak mendukungnya.</p><p><strong>Catatan: Otorisasi administrator komputer diperlukan untuk mengubah pengaturan ini.</strong></p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Anda dapat memodifikasi konfigurasi sehingga mereka dapat terhubung.</strong></p>";
+
 /* HTML info for the 'Load Tap driver' popdown list. */
-"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>Suatu driver perangkat 'tap' diperlukan bagi koneksi Tap. Tunnelblick menyertakan driver Tap-nya sendiri karena sistem tidak memilikinya. Bila Anda telah memasang driver Tap lain, Tunnelblick mungkin tidak bisa memuat drivernya.</p><p>Anda dapat memilih bila dan kapan Tunnelblick memuat drivernya:</p>\n<p><strong>Muat driver Tap secara otomatis</strong>: Tunnelblick memuat drivernya bila itu diperlukan dan membongkarnya ketika tidak lagi diperlukan.</p>\n<p><strong>Selalu muat driver Tap</strong>: Tunnelblick memuat drivernya ketika menghubungkan konfigurasi ini, dan membongkarnya ketika tak lagi diperlukan.</p>\n<p><strong>Jangan pernah muat driver Tap</strong>: Tunnelblick tak pernah memuat drivernya.</p>\n<p><strong>Kotak centang ini dimatikan</strong> untuk konfigurasi Tun.</p>";
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations and on versions of macOS which do not allow Tunnelblick to load its Tap driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Driver perangkat 'tap' diperlukan untuk koneksi Tap. Tunnelblick menyertakan driver Tap-nya sendiri karena sistem tidak menyertakannya. Jika Anda telah memasang driver Tap lain, Tunnelblick mungkin tidak dapat memuat drivernya.</p><p>Anda dapat memilih bila dan kapan Tunnelblick memuat drivernya:</p>\n<p><strong>Muat driver Tap secara otomatis</strong>: Tunnelblick memuat drivernya ketika diperlukan dan membongkarnya ketika tidak diperlukan lagi.</p>\n<p><strong>Selalu muat driver Tap</strong>: Tunnelblick memuat drivernya ketika menghubungkan konfigurasi ini, dan membongkarnya ketika tidak diperlukan lagi.</p>\n<p><strong>Jangan pernah muat driver Tap</strong>: Tunnelblick tidak pernah memuat drivernya.</p>\n<p><strong>Kotak centang ini dinonaktifkan</strong> untuk konfigurasi Tun dan pada versi macOS yang tidak mengizinkan Tunnelblick memuat driver Tap-nya. Untuk informasi lebih lanjut, lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html\">VPN Tun dan Tap pada macOS [tunnelblick.net]</a>.</p>";
 
 /* HTML info for the 'Load Tun driver' popdown list. */
-"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>Suatu driver perangkat 'tun' diperlukan bagi koneksi Tun. Biasanya driver Tun sistem dipakai, tapi Tunnelblick juga menyertakan driver Tun-nya sendiri. Bila Anda telah memasang driver Tun lain, Tunnelblick mungkin tidak bisa memuat drivernya.</p>\n<p>OpenVPN akan memakai driver sistem kecuali konfigurasi OpenVPN mengandung opsi 'dev-type tun'.</p>\n<p>Anda dapat memilih bila dan kapan Tunnelblick memuat driver Tun-nya:</p>\n<p><strong>Muat driver Tun secara otomatis</strong>: Tunnelblick memuat drivernya bila itu diperlukan dan membongkarnya ketika tidak lagi diperlukan. (Tunnelblick hanya akan memuat drivernya bila konfigurasi OpenVPN mengandung opsi 'dev-type tun'.)</p>\n<p><strong>Selalu muat driver Tun</strong>: Tunnelblick memuat drivernya ketika menghubungkan konfigurasi ini, dan membongkarnya ketika tak lagi diperlukan.</p>\n<p><strong>Jangan pernah muat driver Tun</strong>: Tunnelblick tak pernah memuat drivernya.</p>\n<p><strong>Kotak centang ini dimatikan</strong> untuk konfigurasi Tap.</p>";
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Driver perangkat 'tun' diperlukan untuk koneksi Tun. Biasanya driver Tun sistem digunakan, tetapi Tunnelblick juga menyertakan driver Tun-nya sendiri. Jika Anda telah memasang driver Tun lain, Tunnelblick mungkin tidak dapat memuat drivernya.</p>\n</p>OpenVPN akan menggunakan driver sistem kecuali konfigurasi OpenVPN menyertakan opsi 'dev-type tun'.</p>\n<p>Anda dapat memilih bila dan kapan Tunnelblick memuat driver Tun-nya:</p>\n<p><strong>Muat driver Tun secara otomatis</strong>: Tunnelblick memuat drivernya ketika diperlukan dan membongkarnya ketika tidak diperlukan lagi. (Tunnelblick hanya akan memuat drivernya jika konfigurasi OpenVPN menyertakan opsi 'dev-type tun'.)</p>\n<p><strong>Selalu muat driver Tun</strong>: Tunnelblick memuat drivernya ketika menghubungkan konfigurasi ini, dan membongkarnya ketika tidak diperlukan lagi.</p>\n<p><strong>Jangan pernah muat driver Tun</strong>: Tunnelblick tidak pernah memuat drivernya.</p>\n<p><strong>Kotak centang ini dinonaktifkan</strong> untuk konfigurasi Tap dan pada versi macOS yang tidak mengizinkan Tunnelblick memuat driver Tun-nya. Untuk informasi lebih lanjut, lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html\">VPN Tun dan Tap pada macOS [tunnelblick.net]</a>.</p>\n";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Memeriksa pembaruan atas aplikasi Tunnelblick.</p><p>Mengakses situs web Tunnelblick; untuk rincian lebih lanjut lihat <a href=\"https://tunnelblick.net/cPrivacy.html\">Privasi dan Keamanan</a>[tunnelblick.net].</p><p>Juga memeriksa pembaruan ke konfigurasi bila penyedia layanan VPN Anda mengimplementasikan fitur itu.</p>";
@@ -2236,6 +2299,15 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Memulihkan peringatan yang telah dicegah oleh kotak centang 'Jangan ingatkan tentang hal ini lagi'.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>Lihat <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick pada macOS 11 Big Sur</a>[tunnelblick.net] untuk informasi penting.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Lihat <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick pada macOS 11 Big Sur</a>[tunnelblick.net] untuk informasi lebih lanjut.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Masa depan VPN Tun dan Tap  pada macOS</a>[tunnelblick.net] untuk informasi lebih lanjut.</p>";
+
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Menyatakan banyaknya catatan log yang dilakukan oleh Tunnelblick dan OpenVPN.</p>";
 
@@ -2254,23 +2326,20 @@
 /* HTML info for the 'VPN status windows' button. */
 "<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>Menyatakan kapan Tunnelblick mesti menampilkan jendela status VPN.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>The Console Log shows which configurations will not be able to connect.</p>\n" = "<p>Log Konsol menunjukkan konfigurasi mana yang tidak dapat terhubung.</p>";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Singgahan DNS memuat salinan informasi DNS (Domain Name System).</p>\n<p><strong>Ketika dicentang</strong>, singgahan DNS akan digelontor (dibersihkan) setelah menyambung atau memutus. Semua pencarian DNS akan dilaksanakan oleh server nama yang dinyatakan oleh penyiapan VPN.</p>\n<p><strong>Ketika tidak dicentang</strong>, singgahan DNS tidak akan digelontor. Ini bisa menyebabkan masalah bila ada konflik nama antara server nama yang dinyatakan oleh penyiapan VPN dan nama server pra VPN dan bila entri pra VPN telah disinggahkan.</p>";
-
-/* HTML for a popup window */
-"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>Configuration '%@' is set to 'always load tun driver' and/or 'always load tap driver' when connecting.</p>\n<p>This may cause problems using the configuration on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>VPN ini berfungsi sekarang, tetapi mungkin tidak akan berfungsi di versi macOS yang akan datang.</p>\n<p>Konfigurasi '%@' diatur ke 'selalu muat driver tun' dan/atau 'selalu muat driver tap' saat menghubungkan.</p>\n<p>Ini mungkin dapat menyebabkan masalah saat menggunakan konfigurasi pada versi macOS yang akan datang.</p>\n<p>Ini mudah diperbaiki: lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">Masa Depan VPN Tun dan Tap pada macOS</a>[tunnelblick.net] untuk detailnya.</p>\n<p>&nbsp;</p>";
-
-/* HTML for a popup window */
-"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It creates a 'tap' VPN connection.</p>\n<p>Such configurations may not work on a future version of macOS.</p>\n<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n" = "<p>VPN ini berfungsi sekarang, tetapi mungkin tidak akan berfungsi di versi macOS yang akan datang.</p>\n<p>File konfigurasi OpenVPN untuk '%@' harus diperbarui. Ini membuat sebuah koneksi VPN 'tap'.</p>\n<p>Konfigurasi seperti itu mungkin tidak akan berfungsi pada versi macOS yang akan datang.</p>\n<p>Lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Masa Depan VPN Tun dan Tap pada macOS</a>[tunnelblick.net] untuk detailnya.</p>\n<p>&nbsp;</p>";
-
-/* HTML for a popup window */
-"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It includes 'dev-node tun'.</p>\n<p>This is unnecessary and may cause problems connecting on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>VPN ini berfungsi sekarang, tetapi mungkin tidak akan berfungsi di versi macOS yang akan datang.</p>\n<p>File konfigurasi OpenVPN untuk '%@' harus diperbarui. Ini termasuk 'dev-node tun'.</p>\n<p>Ini tidak perlu dan mungkin dapat menyebabkan masalah menghubungkan pada versi masOS yang akan datang.</p>\n<p>Ini mudah diperbaiki: lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Masa Depan VPN Tun dan Tap pada macOS</a>[tunnelblick.net] untuk detailnya.</p>\n<p>&nbsp;</p>";
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick termasuk suatu versi ubahan dari 'easy-rsa', yang merupakan suatu kumpulan skrip baris perintah yang ditulis oleh para pengembang OpenVPN untuk membuat dan memelihara sertifikat dan kunci.</p><p>Mengklik tombol ini meluncurkan aplikasi Terminal macOS dengan direktori kerja ditata ke folder yang memuat skrip.</p><p>Skrip biasanya terletak dalam folder ~/Library/Application Support/Tunnelblick/easy-rsa. Suatu preferensi 'easy-rsaPath' mesti merupakan suatu path absolut atau diawali dengan '~', dan folder induk dari path mesti ada. Bila suatu folder ada pada path, itu akan dipakai; bila tidak ada, itu akan dibuat dan skrip easy-rsa akan dipasang ke dalamnya ketika Tunnelblick diluncurkan.</p><p>Untuk informasi tentang memakai easy-rsa, lihat <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Menyiapkan Certificate Authority (CA) Anda sendiri dan membuat sertifikan dan kunci bagi suatu server OpenVPN dan banyak klien.</a>[openvpn.net].</p><p>Untuk rincian dari pengubahan Tunnelblick atas easy-rsa, lihat berkas README yang terletak dalam folder.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick tidak bisa memuat suatu ekstensi sistem yang diperlukan untuk menyambung ke %1$@.</p><p>%2$@</p>";
+
+/* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
+"Admin mode %@ remaining" = "Mode admin tersisa %@";
 
 /* Credit description */
 "Afrikaans translation" = "Terjemahan bahasa Afrikaans";
@@ -2494,6 +2563,9 @@
 
 /* Authentication Prompt */
 "authenticate" = "otentikasi";
+
+/* File name of a newly-created folder */
+"untitled folder" = "folder nirnama";
 
 /* Button VPNService */
 "Accept" = "Setuju";

@@ -1469,9 +1469,6 @@
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Tunnelblick에 기부해줘서 고맙습니다.";
 
-/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "시스템 폴더 %1$@ (%2$@) 는 안전하지 않습니다.\n\n이 문제가 해결될 때까지 Tunnelblick과 다른 프로그램이 정상적으로 동작하지 않을 수 있습니다.\n\n자세한 사항은 콘솔 로그를 참고하십시오.";
-
 /* Window text */
 "The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "'%@' OpenVPN 옵션은 macOS에서 허용되지 않습니다. 그것은 'Windows 전용' 옵션입니다.";
 
@@ -2006,9 +2003,6 @@
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>체크되었을 때</strong>, 폴더 안의 구성이 Tunnelblick의 메뉴의 서브메뉴에 나타납니다.</p>\n<p><strong>체크되지 않았을 때</strong>, 폴더 안의 구성이 Tunnelblick의 메뉴에 나타납니다.</p>";
 
-/* HTML info for the 'Keep connected' checkbox. */
-"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>체크되었을 때</strong>, 만약 VPN이 예기치 않게 연결이 해제되었다면, Tunnelblick이 다시 연결을 시도합니다.</p>\n<p><strong>체크되지 않았을 때</strong>, 예기치 않게 연결이 해제되어도 Tunnelblick이 다시 연결을 시도하지 않습니다.</p>\n";
-
 /* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>체크되었을 때</strong>, 수동으로 설정된 네트워크 설정들이 VPN이 연결될 때 변경될 수도 있습니다. 이런 일은 OpenVPN 설정 파일이나 OpenVPN서버에서 지정된 옵션들의 변화에만 영향을 받습니다.</p>\n<p><strong>체크되지 않았을 때</strong>, 수동으로 설정된 네트워크 설정들은 VPN이 연결될 때에 변경되지 않습니다. </p>";
 
@@ -2038,12 +2032,6 @@
 
 /* HTML info for the 'Display connection timers' checkbox. */
 "<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>체크되었을 때,</strong>Tunnelblick 메뉴와 VPN 세부 창의 제목 안에 연결이 성립된 후 시간이 표시됩니다.</p>";
-
-/* HTML info for the 'Load Tap driver' popdown list. */
-"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>Tap 연결을 위해서는 'tap' 장치 드라이버가 필요합니다. 시스템이 Tap 드라이버를 포함하고 있지 않기에 Tunnelblick은 자체적으로 Tap 드라이버를 보유하고 있습니다. 만약 다른 Tap 드라이버를 설치했다면, Tunnelblick이 자체 드라이버를 불러오지 못할 수 있습니다.</p><p>Tunnelblick이 자체 Tun 드라이버를 언제 불러올 지를 선택할 수 있습니다:</p>\n<p><strong>Tap 드라이버를 자동으로 불러옴</strong>: Tunnelblick은 필요할 때마다 드라이버를 불러오고 더 이상 필요가 없을 때 해제합니다.</p>\n<p><strong>항상 Tap 드라이버 불러옴</strong>: Tunnelblick은 이 구성에 연결할 때 자체 드라이버를 불러오고, 더 이상 필요가 없을 때 해제합니다.</p>\n<p><strong>Tap 드라이버를 사용 안함</strong>: Tunnelblick가 자체 드라이버를 불러오지 않습니다.</p>\n<p>Tun 구성에 대해 <strong>이 체크상자는 사용이 불가합니다.</strong></p>";
-
-/* HTML info for the 'Load Tun driver' popdown list. */
-"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>Tun 연결을 위해서는 'tun' 장치 드라이버가 필요합니다. 일반적으로 시스템의 Tun 드라이버를 사용하지만 Tunnelblick도 자체적으로 Tun 드라이버를 보유하고 있습니다. 만약 다른 Tun 드라이버를 설치했다면, Tunnelblick이 자체 드라이버를 불러오지 못할 수 있습니다.</p>\n<p>OpenVPN 구성이 'dev-type tun' 옵션을 포함하고 있지 않다면, OpenVPN은 시스템의 드라이버를 사용할 것입니다.</p>\n<p>Tunnelblick이 자체 Tun 드라이버를 언제 불러올 지를 선택할 수 있습니다:</p>\n<p><strong>Tun 드라이버를 자동으로 불러옴</strong>: Tunnelblick은 필요할 때마다 드라이버를 불러오고 더 이상 필요가 없을 때 해제합니다.(Tunnelblick은 오직 OpenVPN 구성이 'dev-type tun' 옵션을 포함할 경우에만 자체 드라이버를 불러올 것입니다.)</p>\n<p><strong>항상 Tun 드라이버 불러옴</strong>: Tunnelblick은 이 구성에 연결할 때 자체 드라이버를 불러오고, 더 이상 필요가 없을 때 해제합니다.</p>\n<p><strong>Tun 드라이버를 사용 안함</strong>: Tunnelblick가 자체 드라이버를 불러오지 않습니다.</p>\n<p>Tap 구성에 대해 <strong>이 체크상자는 사용이 불가합니다.</strong></p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Tunnelblick 어플리케이션에 대한 업데이트를 확인합니다.</p><p>Tunnelblick 웹사이트에 접속합니다; 자세한 사항은 [tunnelblick.net]의 <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a>를 확인하십시오.</p><p>또한 당신의 VPN 서비스 제공자가 구성을 위한 업데이트를 제공하는지 확인하십시오.</p>";

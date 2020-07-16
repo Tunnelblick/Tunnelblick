@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "Sakinisha";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "Weka zote mbili";
+
 /* Button */
 "Latest (%@)" = "Mpya(%@)";
 
@@ -254,6 +257,9 @@
 /* Button */
 "Standard icon" = "Ikoni ya kawaida";
 
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "Acha";
+
 /* Button */
 "Terminate All OpenVPN processes" = "Katisha michakato yote ya OpenVPN";
 
@@ -293,6 +299,13 @@
 /* Menu item */
 "Connect %@%@" = "Unganisha %@%@";
 
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "Nakili Usanidi kwenye folda mpya…";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "Nakili Usanidi kwenye folda mpya…";
+
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Futa dhamana ya usanidi katika Cheni-funguo…";
 
@@ -320,11 +333,24 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Fanya Usanidi Kutumiwa na wengi...";
 
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "Sogeza Usanidi kwenye folda mpya…";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "Sogeza Usanidi kwenye folda mpya…";
+
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "Hakuna logia ya OpenVPN or Tunnelblick VPN ";
 
 /* Menu item */
 "No VPN Configurations Available" = "Hakuna Usanidi wa VPN Unapatikana";
+
+/* Menu Item */
+"OpenVPN level %lu" = "Kiwango cha OpenVPN% lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "Kiwango cha OpenVPN 0 - hakuna pato isipokuwa makosa ya kutisha";
 
 /* Menu item */
 "Quit Tunnelblick" = "Katisha Tunnelblick";

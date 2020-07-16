@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "Instalează";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "Păstrează ambele fișiere";
+
 /* Button */
 "Latest (%@)" = "Cea mai recentă (%@)";
 
@@ -257,6 +260,9 @@
 /* Button */
 "Standard icon" = "Iconiță standard";
 
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "Oprire";
+
 /* Button */
 "Terminate All OpenVPN processes" = "Închide toate procesele OpenVPN";
 
@@ -296,6 +302,13 @@
 /* Menu item */
 "Connect %@%@" = "Conexiune %@%@";
 
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "Copiere Configurație într-un dosar nou...";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "Copiere Configurații într-un dosar nou...";
+
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Șterge datele de autentificare din Keychain…";
 
@@ -322,6 +335,13 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "Faceți conexiunea partajată…";
+
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "Mutare Configurație într-un dosar nou...";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "Mutare Configurații într-un dosar nou...";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "Nu există loguri VPN pentru OpenVPN sau Tunnelblick";
@@ -355,6 +375,9 @@
 
 /* Menu item */
 "Quit Tunnelblick" = "Închide Tunnelblick";
+
+/* Menu Item */
+"Rename Configuration" = "Redenumește configurația";
 
 /* Menu Item */
 "Revert Configuration..." = "Restaurează configurația…";
@@ -586,6 +609,9 @@
 
 /* Window title */
 "Add a Configuration" = "Adaugă o conexiune";
+
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "Setări Avansate%@";
 
 /* Window title */
 "Alert sounds" = "Sunet alerta";
@@ -887,6 +913,9 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' deja există pe Desktop.\n\nDoriți să înlocuiți?";
 
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = " '%@' există deja.";
+
 /* Window text. %@ is the name of a file. */
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' pare a fi un fișier în formatul UTF-16. Toate fișierele OpenVPN trebuie să fie de tip text sau în format UTF-8";
 
@@ -940,6 +969,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "O configurare Tunnelblick VPN este imbricată prea adânc în '%@'";
+
+/* Window text */
+"A configuration named '%@' already exists in this location.\nDo you want to replace it with the one you're moving or copying?" = "O configurație intitulată '%@' există deja în această locație.\nDoriți să o înlocuiți cu cea pe care o mutați sau copiați? ";
 
 /* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "O configurație care necesită o parolă (cheie privată) sau un nume de utilizator și o parolă nu se poate conecta atunci când pornește calculatorul.";
@@ -1003,6 +1035,9 @@
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "A apărut o eroare în timp ce se încearcă revenirea la copia securizată. Consultați Console Log pentru detalii.\n\n";
+
+/* Window text */
+"An error occurred. Please try again." = "A avut loc o eroare. Vă rugăm să încercați din nou.";
 
 /* Window text */
 "An error occurred. See the Console Log for details." = "S-a produs o eroare. Consultați Console Log pentru detalii.";
@@ -1170,7 +1205,7 @@
 "Do you wish to delete the %@ credentials?" = "Doriți să ștergeți credențialele %@?";
 
 /* Window text */
-"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Doriți să instalați configurația %@, astfel încât toți utilizatorii sa o poata folosi, sau astfel încât numai dumneavoastră să o puteți utiliza?\n\n";
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Doriți să instalați configurația %@, astfel încât toți utilizatorii sa o poată folosi, sau astfel încât numai dumneavoastră să o puteți utiliza?\n\n";
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Doriți să reinstalați %1$@ versiunea %2$@?";
@@ -1418,6 +1453,9 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Numai o Configurare VPN Tunnelblick (.tblk) poate porni atunci când pornește calculatorul.";
 
+/* Window text. The first and second '%@' will each be replaced by a version number such as '3.2'. The third '%@' will be replaced by the name of a configuration. The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"OpenVPN %@ will be used to connect this configuration instead of OpenVPN %@.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "În locul OpenVPN %2$@ va fi folosit %1$@ pentru conexiunea acestei configurații.\nFișierul de configurare pentru '%3$@' conține următoarele opțiuni OpenVPN:\n%4$@\nActualizați configurația pentru a putea fi folosită cu versiunile noi de OpenVPN.";
+
 /* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
 "OpenVPN %@" = "OpenVPN %@";
 
@@ -1512,7 +1550,7 @@
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Configurarea %@ VPN a fost modificată de când a fost securizată ultima dată.\n\nDorești să securizezi configurarea modificată sau să revii la ultima configurare securizată?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Folder-ul sistem %1$@ (%2$@) nu e securizat.\n\nTunnelblick și alte programe nu pot funcționa în mod corespunzător până când această problemă nu e rezolvată.\n\nConsultați Console Log pentru detalii.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details." = "Dosarul de sistem %1$@ (%2$@) nu e securizat.\n\nE posibil ca Tunnelblick și alte programe să nu funcționeze în mod corespunzător până când această problemă nu e rezolvată.\n\nConsultați consola de log pentru detalii.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "Opțiunea OpenVPN '%@' nu este permisă pe macOS. Este o opțiune specifică pentru Windows.";
@@ -1614,6 +1652,9 @@
 "There is not an OpenVPN configuration file in '%@'" = "Nu există un fișier de configurare OpenVPN în %@";
 
 /* Window text */
+"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "A apărut o problemă la ștergerea uneia sau mai multor configurații sau dosare. Consultați consola de log pentru detalii.";
+
+/* Window text */
 "There was a problem getting the list of known public DNS servers." = "A fost o problemă cu obținerea listei de servere DNS publice cunoscute.";
 
 /* Window text */
@@ -1643,6 +1684,9 @@
 /* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "Acest VPN vă cere să răspundeți la o întrebare, dar întrebarea nu este pusă la dispozitie.";
 
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"This VPN works now, but may not work in a future version of Tunnelblick.\n\nThe OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n%@\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Acest  VPN funcționează acum dar ar putea să nu funcționeze cu versiunile viitoare de Tunneblick.\nFișierul de configurare pentru '%1$@' trebuie actualizat pentru a putea fi folosit cu noile versiuni de OpenVPN. Fișierul conține următoarele opțiuni:\n%2$@\nTunnelblick va folosi OpenVPN %3$@ pentru a conecta această configurație.\n În orice caz, nu vă veți mai putea conecta la acest VPN în noile versiuni de Tunnelbick care nu conțin o versiune de OpenVPN care acceptă aceste opțiuni.";
+
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Adresa IP aparent public al acestui computer nu a fost diferit după conectarea la %1$@. Este încă %2$@.\n\nAcest lucru poate însemna că rețeaua VPN nu este configurată corect.\n\n";
 
@@ -1661,11 +1705,17 @@
 /* Window text */
 "Too many configuration files in '%@'" = "Prea multe fisiere de configurare in %@";
 
+/* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
+"Too many copies already exist." = "Există deja prea multe copii.";
+
 /* Window text */
 "Translation by" = "Tradus de";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "Se încearca închiderea tuturor proceselor OpenVPN…";
+
+/* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Modul Administrator \nPermite temporar modificările care necesită autorizare de către un administrator. \nSesiunea expiră după cinci minute sau când fereastra \"Detalii VPN\" este închisă.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Utilizare internet Tunnelblick:";
@@ -1681,6 +1731,12 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nu a putut fi lansat din cauza unei probleme cu configurația. Vă rugăm să examinați Console Log pentru detalii.";
+
+/* Window text */
+"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick nu a putut elimina în totalitate configurația '%@'. Consultați consola de log pentru mai multe detalii.";
+
+/* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick nu a putut copia dosarul '%@'. Consultați consola de log pentru mai multe detalii. ";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick nu a putut copia configurația %@. Consultați Console Log pentru detalii.";
@@ -1712,6 +1768,9 @@
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick nu a putut muta configurația %@. Consultați Console Log pentru detalii.";
 
+/* Window text. The '%@' refers to a configuration or a folder of configurations. */
+"Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick nu a putut elimina %@. Consultați consola de log pentru mai multe detalii.";
+
 /* Window text */
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick nu a putut înlocui configurația %@. Consultați Console Log pentru detalii.";
 
@@ -1719,7 +1778,7 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick a întâmpinat o eroare fatală.\n\nTrimite un email la developers@tunnelblick.net pentru ajutor, cu o descriere a ce făcea Tunnelblick când a apărut eroarea.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick a întâmpinat erori cu %1$lu configurații:\n\n%2$@%3$@%4$@%5$@%6$@";
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "Tunnelblick a întâlnit erori în %1$lu configurații:\n\n%2$@%3$@%4$@%5$@%6$@%7$@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick nu a reușit să repare problemele cu preferințele pentru %@. Detalii sunt în Console Log";
@@ -1740,6 +1799,12 @@
 "Tunnelblick is ready." = "Tunnelblick este gata.";
 
 /* Window text */
+"Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick are nevoie de autorizație pentru a copia dosarul '%@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick are nevoie de autorizație pentru a copia sau deplasa configurații.";
+
+/* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick are nevoie de autorizație pentru a copia configurația %@.";
 
 /* Window text */
@@ -1755,7 +1820,22 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick are nevoie de autorizație pentru a face configuratia %@ partajată.";
 
 /* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick are nevoie de autorizație pentru a copia dosarul '%1$@' în dosarul '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@'." = "Tunnelblick are nevoie de autorizație pentru a deplasa dosarul '%@'.";
+
+/* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick are nevoie de autorizație să acceseze datele Tunnelblick aparținând altor utilizatori ai acestui computer pentru a exporta toate datele Tunnelblick.\n\nVă rugăm să rețineți:\n\n     1. Datele de autentificare salvate în Keychain NU vor fi exportate.\n\n     2. Exportul poate fi destul de lung.\n\n";
+
+/* Window text */
+"Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "Tunnelblick are nevoie de autorizație pentru a elimina una sau mai multe configurații sau dosare.\nEliminarea acestora este definitivă și nu poate fi anulată.Vor fi eliminate definitiv și setările configurațiilor eliminate.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "Tunnelblick are nevoie de autorizație pentru a redenumi cofigurația '%1$@' în '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick are nevoie de autorizație pentru a redenumi dosarul '%1$@' în '%2$@'.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick are nevoie de autorizație să securizeze datele importate.";
@@ -1910,6 +1990,12 @@
 /* Window text */
 "Warning: '%@' is already a named credential." = "Atenție: %@ este deja o acreditare denumită.";
 
+/* Window text */
+"Warning: One or more settings could not be copied. See the Console Log for details." = "Atenție: Una sau mai multe setări nu au putut fi copiate. Consultați consola de log pentru mai multe detalii.";
+
+/* Window text */
+"Warning: One or more settings could not be duplicated. See the Console Log for details." = "Atenție: Una sau mai multe setări nu au putut fi duplicate. Consultați consola de log pentru mai multe detalii.";
+
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Atenție: Următoarele configurații, ce sunt conectate automat la pornirea sistemului, nu sunt conectate:\n\n%@\n";
 
@@ -1939,6 +2025,15 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Nu puteți face configurația %@ privată sau partajată, deoarece este o configurație actualizabilă. \n \n Rețineți că o configurație Tunnelblick VPN care este actualizabilă nu poate fi privată sau partajată; numai configurațiile din cadrul acesteia pot fi private sau partajate.";
+
+/* Window text */
+"You cannot rename or move a Deployed configuration." = "Nu puteți redenumi sau deplasa o configurație deja lansată.";
+
+/* Window text */
+"You cannot rename or move a configuration unless it is disconnected." = "Nu puteți redenumi sau deplasa o configurație decât dacă este deconectată.";
+
+/* Window text */
+"You cannot rename or move a configuration which is set to start when the computer starts." = "Nu puteți redenumi sau deplasa o configurație care e setată sa pornească odată cu pornirea calculatorului.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Aveți configurații OpenVPN, dar nu aveți nici o configurație Tunnelblick VPN.\n\nConfigurațiile OpenVPN trebuie să fie convertite la configurații Tunnelblick VPN dacă doriți să le utilizați.\n\n";
@@ -1972,6 +2067,9 @@
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Nu puteți şterge o configurație care este programată să înceapă la pornirea computerului.";
+
+/* Window text */
+"You may not remove a folder unless it is empty." = "Nu puteți deplasa un dosar decât dacă este gol.";
 
 /* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Nu veți putea să actualizați Tunnelblick dacă nu furnizați autorizație de administrator de computer.\n\nSigur doriți să verificați actualizările?";
@@ -2059,6 +2157,18 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "Versiunile <p>'<strong>non-Tunnelblick</strong>' de OpenVPN nu au fost create de proiectul Tunnelblick și nu fac parte din Tunnelblick. Elle au fost instalate de administratorul computerului.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Una sau mai multe din configurările tale nu se vor putea conecta.</strong></p>\n<p>Configurarea sau configurările necesită o extensie a sistemului dar această versiune de macOS nu permite Tunnelblick să folosească extensiile sistemului.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Una sau mai multe din configurările tale nu se vor putea conecta</strong> în versiunile viitoare ale macOS.</p>\n<p>Configurarea sau configurările necesită o extensie a sistemului dar versiunile viitoare de macOS nu vor permite Tunnelblick să folosească extensiile sistemului.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p><strong>Numai cea mai recentă versiune beta de Tunnelblick</strong> trebuie folosită pe această versiune de macOS. Poate fi descărcată de pe <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] și instalată ca de obicei.</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p><strong>Vă rugăm să păstrați Tunnelblick actualizat</strong> verificând actualizările în mod automat.</p>\n<p>Numai cea mai recentă versiune beta de Tunnelblick trebuie folosită pe această versiune de macOS.</p>\n<p>Poți seta Verificarea actualizărilor în mod automat în panoul \"Preferințe\" din fereastra \"Detalii VPN\" în Tunnelblick.</p>\n";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Specifică versiunea aplicațiilor OpenVPN și SSL care trebuiesc folosite pentru conectarea la rețeaua VPN.</strong><ul><li><strong>Opțiunea \"Implicit\"</strong> va folosi versiunea implicită a aplicației OpenVPN cu OpenSSL care este inclusă în această versiune a aplicației Tunnelblick. Versiunea implicită poate fi diferită în diferite versiuni ale aplicației Tunnelblick.<br></li><li><strong>Opțiunea \"Recent\"</strong> va folosi cea mai recentă versiune a aplicației OpenVPN cu LibreSSL care este inclusă în această versiune a aplicației Tunnelblick. Cea mai recentă versiune poate fi diferită în diferite versiuni ale aplicației Tunnelblick.<br></li><li><strong>Toate celelalte opțiuni</strong> vor folosi versiunea aleasă a aplicațiilor OpenVPN și SSL dacă ele sunt disponibile în această versiune a aplicației Tunnelblick. Dacă nu sunt disponibile, alternativele cele mai apropiate vor fi folosite.<br></li></ul>";
 
@@ -2121,7 +2231,7 @@
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Când este bifată</strong>, configurațiile din interiorul directoarelor sunt afișate în sub-meniuri alre meniului Tunnelblick.</p>\n<p><strong>Când nu este bifată</strong>, configurațiile din interiorul directoarelor sunt afișate în meniul Tunnelblick.</p>";
 
 /* HTML info for the 'Keep connected' checkbox. */
-"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong> Când e bifată </strong>, în cazul în care în mod neașteptat VPN-ul se deconectează, Tunnelblick va încerca să-l reconecteze. </p>\n<p><strong> Atunci când nu este bifată </strong>, Tunnelblick nu va încerca să se reconecteze la VPN în cazul în care se deconectează în mod neașteptat. </p>\n";
+"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong> Când e bifată </strong>, în cazul în care în mod neașteptat OpenVPN se blochează, Tunnelblick va încerca să reconecteze VPN-ul din nou. </p>\n<p><strong> Atunci când nu este bifată </strong>, Tunnelblick nu va încerca să conecteze VPN-ul în cazul în care OpenVPN se blochează în mod neașteptat. </p>\n";
 
 /* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong> Când este bifată </strong>, setările de rețea setate manual pot fi modificate atunci când VPN se conectează. Acest lucru se va întâmpla numai dacă modificările sunt specificate de opțiunile din fișierul de configurare OpenVPN sau de pe serverul OpenVPN.</p>\n<p><strong> Dacă nu este bifată </strong> setările de rețea setate manual nu vor fi modificate atunci când VPN-ul se conectează. </p>";
@@ -2156,11 +2266,14 @@
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p> <strong>Când este bifată</strong>, va fi necesară autentificarea înainte de conectare. Autentificarea se poate face cu parolă sau, dacă sunt disponibile, TouchID sau FaceID</p>\n<p> <strong>Când nu este bifată</strong>, conectarea se va face fără a cere autentificare. </p>\n<p><strong>Este dezactivată</strong> dacă e folosită o versiune de macOS care nu suportă funcționalitatea.</p><p><strong>Notă: Este necesară autentificarea ca administrator pentru a modifica această opțiune.</strong></p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Poți modifica configurările ca să se poată conecta.</strong></p>";
+
 /* HTML info for the 'Load Tap driver' popdown list. */
-"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p> Un driver \"Tap\" este necesar pentru conexiuni Tap. Tunnelblick include propriul său driver \"Tap\", deoarece sistemul nu include unul. Dacă ați instalat un driver \"Tap\" diferit, Tunnelblick poate să nu fie în măsură să utilizeze acest driver </p><p> Puteți alege dacă și când Tunnelblick încarcă driverul său:. </p>\n<p><strong> Încărcare driver \"Tap\" automat </strong>: Tunnelblick încarca driverul în cazul în care este necesar și îl evacuează atunci când nu mai este nevoie de el </p>\n<p><strong> Întotdeauna încărcati driverul Tap </strong>:. Tunnelblick încarca driverul atunci când se conectează la această configurație, și-l descarcă atunci când nu mai este nevoie de </p>\n<p><strong> Nu încărcați niciodată driverul </strong>: Tunnelblick nu încarcă niciodată driverul său </p>.\n<p><strong> Această casetă de selectare este dezactivată </strong> pentru configurații Tun. </p>";
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations and on versions of macOS which do not allow Tunnelblick to load its Tap driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p> Un driver \"Tap\" este necesar pentru conexiuni Tap. Tunnelblick include propriul său driver \"Tap\", deoarece sistemul nu include unul. Dacă ați instalat un driver \"Tap\" diferit, Tunnelblick poate să nu fie în măsură să utilizeze acest driver </p><p> Puteți alege dacă și când Tunnelblick încarcă driverul său:. </p>\n<p><strong> Încărcare driver \"Tap\" automat </strong>: Tunnelblick încarca driverul în cazul în care este necesar și îl evacuează atunci când nu mai este nevoie de el </p>\n<p><strong> Întotdeauna încărcați driverul Tap </strong>:. Tunnelblick încarca driverul atunci când se conectează la această configurație, și-l descarcă atunci când nu mai este nevoie de </p>\n<p><strong> Nu încărcați niciodată driverul </strong>: Tunnelblick nu încarcă niciodată driverul său </p>.\n<p><strong> Această casetă de selectare este dezactivată </strong> pentru configurații Tun și pe versiuni macOS care nu permit Tunnelblick să încarce driverul său Tap. Pentru informații suplimentare, consultă <a href=\"https://tunnelblick.net/cTunTapConnections.html\">VPN-uri Tun și Tap VPNs pe macOS [tunnelblick.net]</a>. </p>";
 
 /* HTML info for the 'Load Tun driver' popdown list. */
-"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p> Un driver de dispozitiv \"Tun\" este necesară pentru conexiuni Tun. De obicei, driverul Tun al sistemului este utilizat, dar Tunnelblick include, de asemenea propriul driver Tun. Dacă ați instalat un alt driver Tun, Tunnelblick poate să nu fie în măsură să încarce acest driver. </p>\n<p> OpenVPN va utiliza driverul sistemului cu excepția cazului în configurația OpenVPN include opțiunea 'dev-type tun'. </p>\n<p> Puteți alege dacă și când Tunnelblick încarcă driverul său Tun: </p>\n<p> <strong> Încarcă driverul Tun automat </strong>: Tunnelblick incarca driverul sãu în cazul în care este necesar și îl evacueazã atunci când acesta nu mai este necesar. (Tunnelblick va încărca driverul său numai în cazul în care configurația OpenVPN include opțiunea 'dev-type tun'.) </p>\n<p> <strong> Încărcați întotdeauna driverul Tun </strong>:. Tunnelblick incarca driverul atunci când se conectează această configurație, și-l descarcă atunci când nu mai este nevoie de el</p>\n<p> <strong> Nu încărcați niciodată driverul Tun </strong>: Tunnelblick nu încarcă niciodată driverul său </p>.\n<p> <strong> Această casetă de selectare este dezactivată </strong> pentru configurații Tap. </p>";
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p> Un driver de dispozitiv \"Tun\" este necesară pentru conexiuni Tun. De obicei, driverul Tun al sistemului este utilizat, dar Tunnelblick include, de asemenea propriul driver Tun. Dacă ați instalat un alt driver Tun, Tunnelblick poate să nu fie în măsură să încarce acest driver. </p>\n<p> OpenVPN va utiliza driverul sistemului cu excepția cazului în configurația OpenVPN include opțiunea 'dev-type tun'. </p>\n<p> Puteți alege dacă și când Tunnelblick încarcă driverul său Tun: </p>\n<p> <strong> Încarcă driverul Tun automat </strong>: Tunnelblick incarca driverul sãu în cazul în care este necesar și îl evacuează atunci când acesta nu mai este necesar. (Tunnelblick va încărca driverul său numai în cazul în care configurația OpenVPN include opțiunea 'dev-type tun'.) </p>\n<p> <strong> Încărcați întotdeauna driverul Tun </strong>:. Tunnelblick incarca driverul atunci când se conectează această configurație, și-l descarcă atunci când nu mai este nevoie de el</p>\n<p> <strong> Nu încărcați niciodată driverul Tun </strong>: Tunnelblick nu încarcă niciodată driverul său </p>.\n<p> <strong> Această casetă de selectare este dezactivată </strong> pentru configurații Tap și pe versiuni macOS care nu permit Tunnelblick să încarce driverul său Tun. Pentru informații suplimentare, consultă <a href=\"https://tunnelblick.net/cTunTapConnections.html\">VPN-uri Tun și Tap VPNs pe macOS [tunnelblick.net]</a>.</p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Caută versiuni actualizate a aplicației Tunnelblick.</p><p>Se conectează la site-ul Tunnelblick; pentru mai multe detalii vizitați <a href=\"https://tunnelblick.net/cPrivacy.html\">Securitate și Intimitate</a> [tunnelblick.net].</p><p>De asemenea caută actualizări a configurațiilor, dacă furnizorul de servicii VPN suportă această funcționalitate.</p>";
@@ -2186,6 +2299,15 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Restaurează toate atenționările care au fost oprite folosind opțiunea 'Nu avertiza despre asta din nou'.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>Consultați <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick pentru macOS 11 Big Sur</a> [tunnelblick.net] pentru informații importante.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Consultați <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick pentru macOS 11 Big Sur</a> [tunnelblick.net] pentru informații suplimentare.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Consultați <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Viitorul VPN-urilor Tun și Tap pe macOS</a> [tunnelblick.net] pentru informații suplimentare.</p>";
+
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Specifică cantitatea de log produsă de Tunnelblick și OpenVPN.</p>";
 
@@ -2204,6 +2326,9 @@
 /* HTML info for the 'VPN status windows' button. */
 "<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>Specifică când Tunnelblick trebuie să afișeze ferestrele cu starea rețelei VPN.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>The Console Log shows which configurations will not be able to connect.</p>\n" = "<p>Log-ul din consolă arată ce configurări nu se vor putea conecta.</p>";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p> Memoria cache DNS conține copii ale informațiilor DNS (Domain Name System). </p>\n<p> <strong> Când e bifată </strong>, cache-ul DNS va fi eliminat (șters) după conectare sau deconectare. Toate căutarile în DNS vor fi efectuate după numele de server specificat de configurarea VPN. </p>\n<p> <strong> Atunci când nu a fost bifat </strong>, cache-ul DNS nu va fi eliminat. Acest lucru poate cauza probleme în cazul în care există un conflict de nume între serverul de nume specificat de configurarea VPN și serverul de nume de pre-VPN și dacă intrările de pre-VPN au fost memorate în cache. </p>";
 
@@ -2212,6 +2337,9 @@
 
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick nu a putut să încarce o extensie sistem care e necesară pentru conectare la %1$@.</p><p>%2$@</p>";
+
+/* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
+"Admin mode %@ remaining" = "Timp rămas în mod administrator %@";
 
 /* Credit description */
 "Afrikaans translation" = "Traducere în limba Afrikaans";
@@ -2435,6 +2563,9 @@
 
 /* Authentication Prompt */
 "authenticate" = "autentificare";
+
+/* File name of a newly-created folder */
+"untitled folder" = "dosar fără nume";
 
 /* Button VPNService */
 "Accept" = "Acceptă";

@@ -260,6 +260,9 @@
 /* Button */
 "Standard icon" = "標準圖示";
 
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "停止";
+
 /* Button */
 "Terminate All OpenVPN processes" = "中止所有 OpenVPN 程序";
 
@@ -607,6 +610,9 @@
 /* Window title */
 "Add a Configuration" = "新增一個設定檔";
 
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "進階設定";
+
 /* Window title */
 "Alert sounds" = "提示音";
 
@@ -906,6 +912,9 @@
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' 已經存在在桌面裡。\n\n你要取代它嗎?";
+
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = "%s已存在";
 
 /* Window text. %@ is the name of a file. */
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "「%@」似乎是 UTF-16 編碼的檔案。所有 OpenVPN 相關的檔案都必須是「純文字」或是「UTF-8 編碼」的檔案。";
@@ -1541,7 +1550,7 @@
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "%@ VPN 設定檔在上次設定保護後已被更改。\n\n您是否要替修改後的設定檔設定保護，或是還原至上一次受保護的設定檔？\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "%1$@ 系統資料夾 (%2$@) 不安全。\nTunnelblick 和其他程式在這個問題被修復之前可能無法正常使用。\n如需更多細節，請參照系統監視程式紀錄。";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details." = "%1$@ 系統資料夾 (%2$@) 不安全。\nTunnelblick 和其他程式在這個問題被修復之前可能無法正常使用。\n如需更多細節，請參照系統監視程式紀錄。";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "OpenVPN「%@」 選項是一個僅適用於 Windows的選項，在 macOS上是不允許。";
@@ -1643,6 +1652,9 @@
 "There is not an OpenVPN configuration file in '%@'" = "在 '%@' 中沒有 OpenVPN 的設定檔案。";
 
 /* Window text */
+"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "刪除一個或多個設定或資料夾時發生問題。細節請查閱控制台日誌。";
+
+/* Window text */
 "There was a problem getting the list of known public DNS servers." = "獲取已知的公用 DNS 伺服器列表時發生問題。";
 
 /* Window text */
@@ -1693,11 +1705,17 @@
 /* Window text */
 "Too many configuration files in '%@'" = "在 '%@' 中有太多設定檔案了";
 
+/* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
+"Too many copies already exist." = "已存放過多設定檔 ";
+
 /* Window text */
 "Translation by" = "翻譯：";
 
 /* Window text */
 "Trying to quit all OpenVPN processes..." = "嘗試終止所有的 OpenVPN 程序⋯⋯";
+
+/* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick 管理模式\n\n 暫時允許需要電腦管理員授權的更動。\n\n 連線將會在五分鐘後或「VPN 詳情」視窗關閉後過期。";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick 網路使用";
@@ -1713,6 +1731,12 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "由於設定出現問題 Tunnelblick 未能啟動。詳情請查看控制台日誌。";
+
+/* Window text */
+"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法完全將 '%@' 設置移除。詳情請查看控制台日誌。";
+
+/* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick 無法複製 '%@' 目錄。詳情請參見控制台日誌。";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法複製 '%@' 設定檔。詳情請參見控制台日誌。";
@@ -1744,6 +1768,9 @@
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法移動 '%@' 設定檔。詳情請參見控制台日誌。";
 
+/* Window text. The '%@' refers to a configuration or a folder of configurations. */
+"Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick 無法移除 '%@' 。詳情請參見控制台日誌。";
+
 /* Window text */
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法取代 '%@' 設定檔。詳情請參見控制台日誌。";
 
@@ -1751,7 +1778,7 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick 遇到一個嚴重的錯誤。\n請 email 到 developers@tunnelblick.net 尋求幫助，並告訴我們錯誤發生時 Tunnelblick 正在做什麼。\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick 在 %1$lu 設定中發生錯誤：\n\n%2$@%3$@%4$@%5$@%6$@";
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "Tunnelblick 在 %1$lu 設定中發生錯誤：\n\n%2$@%3$@%4$@%5$@%6$@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. 詳情請參見控制台日誌";
@@ -1772,6 +1799,9 @@
 "Tunnelblick is ready." = "Tunnelblick 已準備就緒。";
 
 /* Window text */
+"Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick 需要授權才能複製目錄 '%@'。";
+
+/* Window text */
 "Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick 需要授權以複製或移動設定檔。";
 
 /* Window text */
@@ -1790,7 +1820,22 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick 需要認證來把「%@」設定檔設為私密。";
 
 /* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick 需要授權才能將目錄 '%1$@' 移動到 '%2$@'。";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@'." = "Tunnelblick 需要授權才能移動目錄 '%@'。";
+
+/* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick 需要授權才能讀取並會出這臺電腦所有別的使用者所存的 Tunnelblick 資料。\n\n請留意：\n\n1. 存在 Keychain 當中的憑證「不會」被匯出。\n\n2. 匯出可能需要花很長一段時間。\n\n";
+
+/* Window text */
+"Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "Tunnelblick 需要授權以移除一個或多個設定檔或目錄。\n\n 移除為永久且不可逆之動作，且該設定檔之相關設定亦會被永遠移除。";
+
+/* Window text */
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "Tunnelblick 需要授權才能將設定檔「%1$@」重新命名為「%2$@」。";
+
+/* Window text */
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick 需要授權才能將目錄「%1$@」重新命名為「%2$@」。";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick 需要授權才能保護匯入的資料。";
@@ -2024,6 +2069,9 @@
 "You may not remove a configuration which is set to start when the computer starts." = "你不能刪除電腦啟動時會自動執行的設定。";
 
 /* Window text */
+"You may not remove a folder unless it is empty." = "您不可以移除內有資料的目錄。";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "你必須提供電腦管理員的用戶名和密碼，才能繼續升級 Tunnelblick。\n\n你確定想要查找更新嗎？";
 
 /* Window text */
@@ -2109,6 +2157,18 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非 Tunnelblick</strong>' 版本的 OpenVPN 並非由 Tunnelblick 計畫所建立且不屬於 Tunnelblick 的一部分。它們已由系統管理員安裝完成。</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>您的一個或多個設定檔將無法連線。</strong></p>\n<p>這些設定檔需要系統延伸功能，但此版本的 macOS 不允許 Tunnelblick 使用系統延伸功能。</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p>在未來版本的 macOS，<strong>您的一個或多個設定檔將無法連線。</strong></p>\n<p>這些設定檔需要系統延伸功能，但未來版本的 macOS 將不允許 Tunnelblick 使用系統延伸功能。</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p><strong>只有最新的測試版 Tunnelblick</strong> 能在這個版本的 macOS 上使用。您可以在此<a href=\"https://tunnelblick.net/downloads.html\">下載 Tunnelblick</a> [tunnelblick.net] 並按一般流程安裝。</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p>請開啟自動檢查更新，<strong>將 Tunnelblick 保持在最新狀態</strong></p>\n<p>這個版本的 macOS 上只應使用最新的測試版 Tunnelblick 。</p>\n<p>您可以在 Tunnelblick「偏好設定」面板中的「VPN 詳情」視窗設定自動檢查更新。</p>\n";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>指定連接 VPN 應該使用的 OpenVPN 和 SSL 軟件版本。</strong><ul><li><strong>「默認」選項</strong>將使用這個 Tunnelblick 版本包含的默認 OpenVPN 與 OpenSSL 版本。不同的 Tunnelblick 版本的默認可能不一樣。<br></li><li><strong>「最新」選項</strong>將使用這個 Tunnelblick 版本包含的最新 OpenVPN 與 LibreSSL 版本。不同的 Tunnelblick 版本的最新版本可能不一樣。<br></li><li><strong>任何其他的選項</strong>將使用指定的 OpenVPN 與 SSL 軟件，只要這個 Tunnelblick 版本有包含。如果沒有包含的話，最接近的搭配將被使用。<br></li></ul>";
 
@@ -2171,7 +2231,7 @@
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>若勾選</strong>，對子資料夾中的設定將顯示在 Tunnelblick 選單列的子選單上.</p><p><strong>若未勾選</strong>，對子資料夾中的設定則顯示在 Tunnelblick 選單列。</p>";
 
 /* HTML info for the 'Keep connected' checkbox. */
-"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>若勾選</strong>，如果 VPN 無預期斷線，Tunnelblick 會試著重新連線。</p>\n<p><strong>若未勾選</strong>，如果 VPN 無預期斷線，Tunnelblick 將不會試著重新連線。</p>\n";
+"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong>若勾選</strong>，當 OpenVPN 意外斷線（崩潰）時， Tunnelblick 會嘗試重新連線。</p>\n<p><strong>若未勾選</strong>，當 OpenVPN 意外斷線（崩潰）時， Tunnelblick 不會嘗試重新連線。</p>\n";
 
 /* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>已勾選</strong>，當 VPN 連線時，手動設定的網路設定可能會被更改。這只會發生在 OpenVPN 設定檔或 OpenVPN 伺服器的選項更改時。</p>\n<p><strong>未勾選</strong>，當 VPN 連線時，手動設定的網路設定不會被更改</p>";
@@ -2206,11 +2266,14 @@
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>當勾選時</strong>，你需要在連線前進行身份驗證。你可以使用你的密碼、 TouchID 或 FaceID (如果支援的話) 進行驗證。</p>\n<p><strong>當未勾選時</strong>，連線前不需進行身份驗證。</p>\n<p>如果你使用的 macOS 版本不支援時，<strong>此選項將被禁用</strong>。</p><p><strong>注意：變更此項設定需要系統管理者權限。</strong></p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>您可以修改設定檔使它們可以成功連線。</strong></p>\n";
+
 /* HTML info for the 'Load Tap driver' popdown list. */
-"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>由於 Tap 連線需要 「tap」裝置驅動程式。因為，系統不會包含 Tap 驅動程式，所以，Tunnelblick 會包含自身的 Tap 驅動程式。</p><p>如果當 Tunnelblick 載入本身的驅動程式，你可以選擇：</p>\n<p><strong>自動載入 Tap 驅動程式</strong>：Tunnelblick 會在需要的時候載入驅動程式，並在不再使用時卸載它。</p>\n<p><strong>總是載入 Tap 驅動程式</strong>：unnelblick 會在連線到設定時，載入驅動程式，並在不再使用時卸載它。</p>\n<p><strong>永不載入 Tun 驅動程式</strong>：Tunnelblick 會在連線到設定時，載入驅動程式，並在不再使用時卸載它。</p>\n<p>由於 Tun 設定，<strong>這個核取方塊會被停用</strong>。</p>";
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations and on versions of macOS which do not allow Tunnelblick to load its Tap driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Tap 連線需要 「tap」裝置驅動程式。由於系統本身不包含 Tap 驅動程式，所以 Tunnelblick 會內建 Tap 驅動程式。如果您安裝了不同的 Tap 驅動程式， Tunnelblick 可能會無法載入內建的驅動程式。</p><p>您可以選擇 Tunnelblick 如何載入內建的驅動程式：</p>\n<p><strong>自動載入 Tap 驅動程式</strong>：Tunnelblick 會在需要的時候載入驅動程式，並在不再使用時卸載它。</p>\n<p><strong>總是載入 Tap 驅動程式</strong>：Tunnelblick 會在連線到設定時載入驅動程式，並在不再使用時卸載它。</p>\n<p><strong>永不載入 Tap 驅動程式</strong>：Tunnelblick 永不載入內建的驅動程式。</p>\n<p>在 Tun 設定以及不允許 Tunnelblick 載入內建 Tap 驅動程式的 macOS 版本中，<strong>這個核取方塊將無法使用</strong>。更多資訊請參照 <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>。</p>";
 
 /* HTML info for the 'Load Tun driver' popdown list. */
-"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>Tun 連線需要 「tun」裝置驅動程式。通常會使用系統的 Tun 驅動程式，但是 Tunnelblick 本身也會包含 Tun 驅動程式。如果你要安裝不同的 Tun 驅動程式，Tunnelblick 可能無法載入你所安裝的驅動程式。</p>\n<p>除非 OpenVPN 設定包含了 「dev-type」選項，不然，OpenVPN 會使用系統的驅動程式。</p>\n<p>你可以選擇 Tunnelblock 是否及何時載入 Tun 驅動程式</p>\n<p><strong>自動載入 Tun 驅動程式</strong>：Tunnelblick 會在需要的時候載入驅動程式，並在不再使用時卸載它。(如果 OpenVPN 設定包含了 「dev-type tun」選項，Tunnelblick 將只載入本身的驅動程式)</p>\n<p><strong>總是載入 Tun 驅動程式</strong>：Tunnelblick 會在連線到設定時，載入驅動程式，並在不再使用時卸載它。</p>\n<p><strong>永不載入 Tun 驅動程式</strong>：Tunnelblick 永遠不載入此驅動程式。</p>\n<p>對於 Tap 設定會<strong>停用這個核取方塊</strong></p>";
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Tun 連線需要 「tun」裝置驅動程式。通常會使用系統的 Tun 驅動程式，但 Tunnelblick 也有內建自己的 Tun 驅動程式。如果您安裝了不同的 Tun 驅動程式， Tunnelblick 可能會無法載入自身內建的驅動程式。</p>\n<p>OpenVPN 會使用系統的驅動程式，除非 OpenVPN 設定檔中包含 'dev-type tun' 選項。</p>\n<p>您可以選擇 Tunnelblick 如何載入內建的 Tun 驅動程式：</p>\n<p><strong>自動載入 Tun 驅動程式</strong>：Tunnelblick 會在需要的時候載入內建的驅動程式，並在不再使用時卸載它。(Tunnelblick 將只會在 OpenVPN 設定包含 'dev-type tun' 選項時載入內建的驅動程式)</p>\n<p><strong>總是載入 Tun 驅動程式</strong>：Tunnelblick 會在連線到設定時載入驅動程式，並在不再使用時卸載它。</p>\n<p><strong>永不載入 Tun 驅動程式</strong>：Tunnelblick 永不載入內建的驅動程式。</p>\n<p>在 Tap 設定以及不允許 Tunnelblick 載入內建 Tun 驅動程式的 macOS 版本中，<strong>這個核取方塊將無法使用</strong>。更多資訊請參照 <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>。</p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>檢查Tunnelblick應用程式的更新。</p><p>詳情請參考Tunnelblick網站中的<a href=\"https://tunnelblick.net/cPrivacy.html\">隱私和安全</a> [tunnelblick.net]。</p><p>如果你的VPN服務供應商實現了這個特徵，也检查配置的更新。</p>";
@@ -2236,6 +2299,15 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>重新顯示因為勾選 \"不要再顯示關於此的警告“ 而停止顯示的警告。</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>重點資訊請參見 <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net]。</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>更多資訊請參見 <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net]。</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>更多資訊請參見 <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net]。</p>\n";
+
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>指定 Tunnelblick 和 OpenVPN 的日記輸出量。</p>";
 
@@ -2254,23 +2326,20 @@
 /* HTML info for the 'VPN status windows' button. */
 "<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>指定 Tunnelblick 應該要在什麼時候顯示 VPN 狀態視窗。</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>The Console Log shows which configurations will not be able to connect.</p>\n" = "<p>控制台紀錄會顯示無法連線的設定檔。</p>\n";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 快取包含 DNS (網域名稱系統) 副本的資訊。</p>\n<p><strong>當勾選</strong>，DNS 快取將會在連線或中斷連線時清除。所有的 DNS 查詢將使用以 VPN 設定中指定的名稱伺服器。</p>\n<p><strong>當未勾選</strong>，DNS 快取將不會被清除。如果有網域名稱在 VPN 指定的名稱伺服器與 VPN 連線前的名稱伺服器快取衝突，這會造成一些問題。</p>";
-
-/* HTML for a popup window */
-"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>Configuration '%@' is set to 'always load tun driver' and/or 'always load tap driver' when connecting.</p>\n<p>This may cause problems using the configuration on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>這個 VPN 目前可使用，但可能在未來版本的 macOS 中無法使用。</p>\n<p>'%@' 設定檔被設定為當連線時 '永遠載入 TUN 驅動程式' 且/或 '永遠載入 TAP 驅動程式'。</p>\n<p>這可能導致在未來版本的 macOS 中使用設定檔將出現問題。</p>\n<p>簡易修復的詳情請參照：<a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net]。</p>\n<p>&nbsp;</p>";
-
-/* HTML for a popup window */
-"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It creates a 'tap' VPN connection.</p>\n<p>Such configurations may not work on a future version of macOS.</p>\n<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n" = "<p>這個 VPN 目前可使用，但可能在未來版本的 macOS 中無法使用。</p>\n<p>'%@' OpenVPN 設定檔需要更新。它建立了一個 'TAP' VPN 連線。</p>\n<p>此類設定檔在未來版本的 macOS 中可能無法使用。</p>\n<p>詳情請參照：<a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net]。</p>";
-
-/* HTML for a popup window */
-"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It includes 'dev-node tun'.</p>\n<p>This is unnecessary and may cause problems connecting on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>這個 VPN 目前可使用，但可能在未來版本的 macOS 中無法使用。</p>\n<p>'%@' OpenVPN 設定檔需要更新。它包含了 'dev-node tun'。</p>\n<p>這是非必要的設定；此類設定檔在未來版本的 macOS 中可能無法使用。</p>\n<p>簡易修復的詳情請參照：<a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net]。</p>\n<p>&nbsp;</p>";
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick 包含了一個客製版的 'easy-rsa' ，它是一組由 OpenVPN 開發者所編寫用來建立和維護憑證和密鑰的命令列指令碼。</p><p>點擊此按鈕將啟動 macOS 的終端應用程式並將包含這些指令碼的目錄設置為工作目錄。</p><p>這組指令碼一般放置在 ~/Library/Application Support/Tunnelblick/easy-rsa 資料夾中。如果有設定 'easy-rsaPath'， Tunnelblick 會使用這個設定中的目錄尋找這些指令碼。'easy-rsaPath' 設置必須是絕對路徑或者以 '~' 開頭的路徑， 並且其母目錄必須存在。Tunnelblick 啟動時如果設定包含的路徑中的目錄已經存在，則會被直接使用；如果不存在，則會被創建並將 easy-rsa 指令碼安裝至該目錄。</p><p>關於 easy-rsa 的詳細資訊請參見 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">設置你的數位憑證認證機構 (CA) 並給 OpenVPN 伺服器和用戶端生成憑證和密鑰</a> [openvpn.net]。</p><p>關於 Tunnelblick 的自定義 easy-rsa 信息請參見資料夾中的README檔案。</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick 無法載入連線到 %1$@ 所需要的系統擴充程式。</p><p>%2$@</p>";
+
+/* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
+"Admin mode %@ remaining" = "管理模式剩餘時間 %@";
 
 /* Credit description */
 "Afrikaans translation" = "南非語翻譯";
@@ -2494,6 +2563,9 @@
 
 /* Authentication Prompt */
 "authenticate" = "認證";
+
+/* File name of a newly-created folder */
+"untitled folder" = "未命名資料夾";
 
 /* Button VPNService */
 "Accept" = "接受";

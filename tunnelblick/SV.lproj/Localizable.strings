@@ -260,6 +260,9 @@
 /* Button */
 "Standard icon" = "Standardikon";
 
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "Avsluta";
+
 /* Button */
 "Terminate All OpenVPN processes" = "Avsluta alla OpenVPN-processer";
 
@@ -607,6 +610,9 @@
 /* Window title */
 "Add a Configuration" = "Lägg till en konfiguration";
 
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "Avancerade inställningar";
+
 /* Window title */
 "Alert sounds" = "Varningsljud";
 
@@ -906,6 +912,9 @@
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' existerar redan på skrivbordet.\n\nVill du ersätta den?";
+
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = "'%@' finns redan.";
 
 /* Window text. %@ is the name of a file. */
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' verkar vara formaterad enligt formatet UTF-16. Alla OpenVPN-relaterade filer måste antingen vara i klartext eller i UTF-8 format";
@@ -1541,7 +1550,7 @@
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "%@ VPN konfigurationen har ändrats sedan den senast säkrades.\n\nVill du säkra den modifierade konfigurationen eller återgå till den senast säkrade konfigurationen?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Systemmappen %1$@ (%2$@) är inte säker.\n\nTunnelblick och andra program kan vara ostabila om inte problemet åtgärdas.\n\nKonsolloggen har mer information.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details." = "Systemkatalogen %1$@ (%2$@) är inte säker.\n\nTunnelblick och andra program kanske inte fungerar korrekt om problemet inte åtgärdas.\n\nKonsolloggen har mer information.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "Alternativet \"%@\" i OpenVPN är inte tillåtet på macOS. Det kan endast användas i Windows-miljö.";
@@ -1643,6 +1652,9 @@
 "There is not an OpenVPN configuration file in '%@'" = "Det finns inte en OpenVPN konfigurationsfil i \"%@\"";
 
 /* Window text */
+"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "Det uppstod ett problem när en eller flera konfigurationer eller kataloger skulle tas bort. Se Konsol-loggen för fler detaljer.";
+
+/* Window text */
 "There was a problem getting the list of known public DNS servers." = "Det uppstod ett problem med att hämta listan av kända publika DNS-servrar.";
 
 /* Window text */
@@ -1692,6 +1704,9 @@
 
 /* Window text */
 "Too many configuration files in '%@'" = "Det finns för många konfigurationsfiler i \"%@\"";
+
+/* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
+"Too many copies already exist." = "Det finns redan för många kopior.";
 
 /* Window text */
 "Translation by" = "Översättningar av";
@@ -1749,9 +1764,6 @@
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick upptäckte ett allvarligt fel.\n\nSkicka ett e-postmeddelande till developers@tunnelblick.net med en beskrivning av vad Tunnelblick gjorde då felet uppstod.\n\n";
-
-/* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick stötte på problem med %1$lu konfigurationer:\n\n%2$@%3$@%4$@%5$@%6$@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick misslyckades med att åtgärda problemen med inställningarna för '%@'. Detaljer finns i konsolloggen";
@@ -2170,9 +2182,6 @@
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>När vald</strong>, kommer konfigurationer som är inne i mappar visas i undermenyer till Tunnelblick-menyn.</p><p><strong>När inte vald</strong>, kommer konfigurationer som är inne i mappar visas i Tunnelblick-menyn.</p>";
 
-/* HTML info for the 'Keep connected' checkbox. */
-"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Om markerad</strong>, i det fall då VPN avbryts oväntat, kommer Tunnelblick att försöka att återansluta den. </p>\n<p><strong>Om ej markerad</strong>, kommer Tunnelblick inte försöka att återansluta en VPN om den avbryts oväntat.</p>\n";
-
 /* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>När vald</strong>, kan nätverksinställningar som ställdes in manuellt komma att ändras när VPN ansluts. Detta kommer endast att ske om ändringarna är specificerade genom val i OpenVPN konfigurationensfilen eller från OpenVPN servern.</p>\n<p><strong>När inte vald</strong>, kommer nätverksinställningar som ställdes in manuellt inte att ändras när VPN ansluts.</p>";
 
@@ -2205,12 +2214,6 @@
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>När markerad</strong>, måste du verifiera din identitet före förbindelse upprättas. Du kan verifiera din identitet genom att använda ditt lösenord, eller om det är tillgängligt, TouchID eller FaceID.</p>\n<p><strong>Om ej markerad</strong>, behövs ingen verifiering av din identitet före förbindelse upprättas.</p>\n<p><strong>Denna kryssruta är inaktiverad</strong> om du använder en version av macOS som inte stödjer den.</p><p><strong>Observera: Godkännande från datorns administratör behövs för att ändra den här inställningen.</strong></p>";
-
-/* HTML info for the 'Load Tap driver' popdown list. */
-"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>En 'tap' drivrutin är nödvändig för Tap anslutningar. Tunnelblick inkluderar sin egen Tap drivrutin eftersom systemet inte inkluderar någon. Om du har installerat en annan Tap drivrutin, kommer Tunnelblick eventuellt inte att kunna ladda dess drivrutin.</p><p>Du kan välja om och när Tunnelblick laddar sin drivrutin:</p>\n<p><strong>Ladda Tap drivrutin automatiskt</strong>: Tunnelblick laddar sin drivrutin om den behövs och laddar av den när den inte längre är behövs.</p>\n<p><strong>Ladda alltid Tap drivrutin</strong>: Tunnelblick laddar sin drivrutin när den här konfigurationen ansluts, och laddar av den när den inte längre behövs.</p>\n<p><strong>Ladda aldrig Tap drivrutin</strong>: Tunnelblick laddar aldrig sin drivrutin.</p>\n<p><strong>Denna ruta är inaktiverad </strong> för Tun konfigurationer.</p>";
-
-/* HTML info for the 'Load Tun driver' popdown list. */
-"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>En 'tun' drivrutin är nödvändig för Tun anslutningar. Systemets Tun drivturin används vanligtvis, men Tunnelblick indkluderar också sin egen Tun drivrutin. Om du har installerat en annan Tun drivrutin, kommer Tunnelblick eventuellt inte kunna ladda dess drivrutin.</p>\n<p>OpenVPN kommer att använda systemets drivrutin om inte OpenVPN konfigurationen inkluderar 'dev-type tun' alternativet.</p>\n<p>Du kan välja om och när Tunnelblick laddar sin Tun drivrutin:</p>\n<p><strong>Ladda Tun drivrutin automatiskt</strong>: Tunnelblick laddar sin drivrutin om den behövs och laddar av den när den inte längre behövs. (Tunnelblick kommer bara att ladda sin drivrutin om OpenVPN konfigurationen inkluderar 'dev-type tun' alternativet.)</p>\n<p><strong>Ladda alltid Tun drivrutin</strong>: Tunnelblick laddar sin drivrutin när den ansluter den här konfigurationen, och laddar av den när den inte längre behövs.</p>\n<p><strong>Ladda aldrig Tun drivrutin</strong>: Tunnelblick laddar aldrig sin drivrutin.</p>\n<p><strong>Denna ruta är inaktiverad</strong> för Tap konfigurationer.</p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Sök efter uppdateringar till Tunnelblick-applikationen.</p><p>Ansluter till Tunnelblicks hemsida; för mer information se <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Söker också efter uppdateringar till konfigurationer om din VPN-leverantör erbjuder denna tjänst.</p>";
@@ -2256,15 +2259,6 @@
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS cache innehåller kopior av svar från DNS (Domain Name System) servrar.</p>\n<p><strong>Om markerad</strong>, kommer DNS cache att rensas vid anslutning och nedkoppling. Alla DNS förfrågningar sker med den server som anges av VPN-konfigurationen..</p>\n<p><strong>Om ej markerad</strong> rensas INTE cache vid anslutning och nerkoppling. Detta kan orsaka problem om det finns namnkonflikter mellan olika DNS servrar, när ett svar från den ena servern finns i cache. Om du normalt använder publika DNS servrar både när du är och inte är ansluten till VPN orsakar detta oftast inga problem, och undviker att göra onödiga uppslagningar för namn som redan finns i cache.</p>";
-
-/* HTML for a popup window */
-"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>Configuration '%@' is set to 'always load tun driver' and/or 'always load tap driver' when connecting.</p>\n<p>This may cause problems using the configuration on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>VPN fungerar nu, men riskerar att inte fungera i framtida versioner av macOS.</p>\n<p>Konfigurationen %@ är inställd att 'alltid ladda tun driver' och/eller 'alltid ladda tap driver' vid uppkoppling.</p>\n<p>Detta kan orsaka problem i denna konfiguration i framtida versioner av macOS. </p>\n<p>Det är lätt att fixa: se <a href=\"https://tunnelblick.net/cTunTapConnections.html#always-load-tun-or-always-load-tap\">Framtiden för Tun och Tap VPN:er på macOS</a>[tunnelblick.net] för detaljer.\n</p>\n<p>&nbsp;</p>";
-
-/* HTML for a popup window */
-"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It creates a 'tap' VPN connection.</p>\n<p>Such configurations may not work on a future version of macOS.</p>\n<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n" = "<p>Denna VPN fungerar nu, men riskerar att inte fungera i framtida versioner av macOS.</p>\n<p>OpenVPN-konfigurationsfilen för %@ bör uppdateras. Den skapar en 'tap'-VPN-uppkoppling.</p>\n<p>Sådana konfigurationer riskerar att inte fungera i framtida versioner av macOS.</p>\n<p>Se <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Framtiden för Tun och Tap VPN:er i macOS</a>[tunnelblick.net] för detaljer.</p>";
-
-/* HTML for a popup window */
-"<p>This VPN works now, but may not work in a future version of macOS.</p>\n<p>The OpenVPN configuration file for '%@' should be updated. It includes 'dev-node tun'.</p>\n<p>This is unnecessary and may cause problems connecting on a future version of macOS.</p>\n<p>This is easy to fix: see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for details.</p>\n<p>&nbsp;</p>" = "<p>Denna VPN fungerar nu, men riskerar att inte fungera i framtida versioner av macOS.</p>\n<p>OpenVPN-konfigurationsfilen för %@ bör uppdateras. Den innehåller 'dev-node tun'.</p>\n<p>Det är onödigt och riskerar att skapa problem vid uppkoppling i framtida versioner av macOS.</p>\n<p>Det är lätta att fixa: se <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Framtiden för Tun och Tap VPN:er på macOS</a>[tunnelblick.net] för detaljer.</p>\n<p>&nbsp;</p>";
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p> Tunnelblick innehåller en anpassad version av \"easy-rsa\", som är en uppsättning kommandoradsskript skrivna av OpenVPN-utvecklarna för att skapa och behålla certifikat och nycklar. </p>\n<p> Genom att klicka på den här knappen startas OS X Terminal-applikationen med den mappen som innehåller skripten som aktuell katalog. </p>\n<p> Skripten finns normalt i mappen ~ /Library/Application Support/ Tunnelblick/easy-rsa. En \"easy-rsaPath\" -inställning kan innehålla sökvägen till en mapp som Tunnelblick ska använda istället. 'Easy-rsaPath' måste vara en absolut sökväg eller börja med '~', och den överordnade mappen på sökvägen måste existera. Om en mapp finns i sökvägen kommer den att användas; Om den inte existerar kommer den att skapas och Easy-RSA-skript installeras i den när Tunnelblick startas. </p>\n<p> För information om hur du använder easy-rsa, se \n<a href=\"https://openvpn.net/index.php/opensource/documentation/howto.html#pki\">Sätt upp din egen certifikatutfärdare(CA) och generera certifikat och nycklar för en OpenVPN-server och flera klienter </a> [openvpn.net]. </p>\n<p> För detaljer om Tunnelblick anpassningar av easy-rsa, se README-filen i mappen. </p>";

@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "تثبيت";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "احفظ الملفين معا";
+
 /* Button */
 "Latest (%@)" = "آخر(%@)";
 
@@ -257,6 +260,9 @@
 /* Button */
 "Standard icon" = "الأيقونة الافتراضية";
 
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "إيقاف";
+
 /* Button */
 "Terminate All OpenVPN processes" = "انهاء جميع عمليات OpenVPN";
 
@@ -296,6 +302,13 @@
 /* Menu item */
 "Connect %@%@" = "انشاء اتصال %@%@";
 
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "نسخ الإعدادت إلى مجلد جديد";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "نسخ الإعدادات إلى مجلد جديد";
+
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "حذف وثائق الثبوتية للإعداد من سلسلة مفاتيح النظام...";
 
@@ -322,6 +335,13 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "اجعل الإعدادات مشتركة...";
+
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "نقل الإعدادت إلى مجلد جديد";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "نقل الإعدادت إلى مجلد جديد";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "ليس هناك تسجيل في OpenVPN او Tunnelblick VPN";
@@ -355,6 +375,9 @@
 
 /* Menu item */
 "Quit Tunnelblick" = "إغلاق تُنلـبليك";
+
+/* Menu Item */
+"Rename Configuration" = "إعادة تسمية الإعدادات";
 
 /* Menu Item */
 "Revert Configuration..." = "أعد الإعدادات...";
@@ -1478,9 +1501,6 @@
 /* Window text */
 "Thanks for your Tunnelblick donation" = "شكرا لتبرعكم ل تُنلـبليك";
 
-/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "ال %1$@ ملف النظام (%2$@) غير محمي.\n\nتُنلـبليك و برامج أخرى ممكن أن لا تعمل بشكل جيد حتى تحل هذه المشكلة.\n\nتوجد التفاصيل في سجل وحدة التحكم -Console-.";
-
 /* Window text */
 "The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "خاصية '%@' لـ OpenVPN غير مسموحة في نظام macOS. هذه الخاصة متوفرة في Windows فقط.";
 
@@ -2064,9 +2084,6 @@
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>عند تفعيل هذا الخيار</strong>، سيتم إظهار الإعدادات الموجودة ضمن مجلدات في قوائم فرعية في قائمة تانلبليك.</p>\n<p><strong>عند عدم تفعيل هذا الخيار</strong>، سيتم إظهار الإعدادات الموجودة ضمن مجلدات في قائمة تانلبليك.</p>";
 
-/* HTML info for the 'Keep connected' checkbox. */
-"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>عند التفعيل</strong>, اذا انقطع اتصال ال VPN بصورة غير متوقعة، تُنلـبليك سيحاول اعادة الاتصال.</p>\n<p><strong>عند عدم التفعيل</strong> تُنلـبليك لن يعاود الاتصال، اذا انقطع اتصال ال VPN بصورة غير متوقعة.</p>\n";
-
 /* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>عند تفعيل هذا الخيار</strong>، قد يتم تغيير إعدادات الشبكة المدخلة يدوياً عند اتصال ال VPN. هذا سيحدث فقط إذا كانت التغييرات محددة ضمن قائمة الخيارات في إعدادات ملف OpenVPN أو من مخدم OpenVPN.</p>\n<p><strong>عند عدم تفعيل هذا الخيار</strong>، لن يتم تغيير إعدادات الشبكة المدخلة يدوياً عند اتصال ال VPN.</p>";
 
@@ -2096,12 +2113,6 @@
 
 /* HTML info for the 'Display connection timers' checkbox. */
 "<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>عند تفعيل هذا الخيار</strong>، سيتم إظهار المدة الزمنية منذ بداية الإتصال في قائمة تانلبليك وفي عنوان نافذة تفاصيل ال VPN.</p>";
-
-/* HTML info for the 'Load Tap driver' popdown list. */
-"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p> وهناك حاجة إلى \"حنفية\" برنامج تشغيل الجهاز للاتصالات الحنفية. يشمل Tunnelblick سائق الحنفية الخاص بها لأنه لا يتضمن نظام واحد. إذا كنت قد قمت بتثبيت برنامج تشغيل الحنفية مختلفة، Tunnelblick قد لا تكون قادرة على تحميل سائقها </ P> <P> يمكنك اختيار إذا وعندما يقوم بتحميل Tunnelblick سائقها:. </ P>\n<P> <strong> تحميل سائق الحنفية تلقائيا </ strong>: لTunnelblick يحمل سائقها إذا لزم الأمر وافرغت منه وهو لم يعد هناك حاجة </ P>.\n<P> <strong> دائما سائق تحميل الحنفية </ strong>: ل. Tunnelblick يحمل سائقها وعندما يصل هذا التكوين، وافرغت منه وهو لم يعد هناك حاجة </ P>\n<P> على <strong> أبدا تحميل برنامج تشغيل الحنفية </ strong>: في Tunnelblick أبدا يحمل سائقها </ P>.\n<P> <strong> هو خانة الاختيار هذه تعطيل </ strong> بالنسبة تكوينات تون. </ P>";
-
-/* HTML info for the 'Load Tun driver' popdown list. */
-"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p> وهناك حاجة إلى \"تون\" برنامج تشغيل الجهاز للاتصالات تون. عادة سائق تون النظام هو استخدامها، ولكن يشمل أيضا Tunnelblick سائق تون الخاص بها. إذا كنت قد قمت بتثبيت برنامج تشغيل تون مختلفة، Tunnelblick قد لا تكون قادرة على تحميل برنامج التشغيل الخاص به. </ P>\n<p> والمسنجر سوف تستخدم سائق النظام ما لم يتضمن التكوين المسنجر خيار dev-type tun\". </ P>\n<p> ويمكنك اختيار ما إذا وعندما يقوم بتحميل Tunnelblick سائق تون بها: </ P>\n<P> على <strong> تحميل تون السائق تلقائيا </ strong>: في Tunnelblick يحمل سائقها إذا لزم الأمر وافرغت عندما لم يعد هناك حاجة إليها. (Tunnelblick سيتم تحميل فقط سائقها إذا تضمن التكوين المسنجر خيار 'من نوع ديف تون.) </ P>\n<P> <strong> تحميل دائما تون سائق </ strong>: ل. Tunnelblick يحمل سائقها وعندما يصل هذا التكوين، وافرغت منه وهو لم يعد هناك حاجة </ P>\n<P> <strong> أبدا تحميل تون سائق </ strong>: لTunnelblick أبدا يحمل سائقها </ P>.\n<P> <strong> هو خانة الاختيار هذه تعطيل </ قوي> تكوينات الحنفية. </ P>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>تحقق من تحديثات التطبيق Tunnelblick.</p><p>هذا يستوجب الولوج إلى موقع Tunnelblick. لمزيد من التفاصيل، أنظر <a href=\"https://tunnelblick.net/cPrivacy.html\">الخصوصية والسلامة</a> [tunnelblick.net].</p><p>تحقق أيضاً من تحديثات الإعدادات إذا كان مزودكم بخدمة ال VPN يسمح بذلك.</p>";

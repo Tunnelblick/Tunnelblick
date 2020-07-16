@@ -356,19 +356,19 @@
 "OpenVPN level 0 - no output except fatal errors" = "OpenVPN с уровнем 0 – не выводить ничего, кроме фатальных ошибок";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN уровень 11 - максимально подробный вывод";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN с уровнем 11 - максимально подробный вывод";
 
 /* Menu Item */
 "OpenVPN level 3 - normal output" = "OpenVPN с уровнем 3 – обычный вывод";
 
 /* Menu Item */
-"OpenVPN level 4 - values for all options" = "OpenVPN уровень 4 - значения для всех параметров";
+"OpenVPN level 4 - values for all options" = "OpenVPN с уровнем 4 - выводит значения для всех параметров";
 
 /* Menu Item */
-"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN уровень 5 - \"R\" или \"W\" для каждого пакета";
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN с уровнем 5 - \"R\" или \"W\" для каждого пакета";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN уровень 6 - очень подробный вывод";
+"OpenVPN level 6 - very verbose output" = "OpenVPN с уровнем 6 – очень подробный вывод";
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Уровень логирования OpenVPN задаётся конфигурацией";
@@ -518,7 +518,7 @@
 "Set nameserver (alternate 1)" = "Установка DNS сервера (вариант 1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 2)" = "Установка DNS сервера (вариант 2)";
+"Set nameserver (alternate 2)" = "Cервер имён (вариант 2)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Установка DNS сервера";
@@ -1034,13 +1034,13 @@
 "An error occurred while trying to launch %@" = "В процессе запуска %@ произошла ошибка";
 
 /* Window text */
-"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "При попытке отката к безопасной (теневой) копии произошла ошибка . Посмотрите Журнал Событий для более подробной информации.\n\n";
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Произошла ошибка при попытке вернуться к защищенной (теневой) копии. Подробности в журнале Консоли.";
 
 /* Window text */
 "An error occurred. Please try again." = "Произошла ошибка. Попробуйте еще раз.";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Произошла ошибка. Обратитесь к журналу Консоли за подробностями.";
+"An error occurred. See the Console Log for details." = "Произошла ошибка. Подробности в журнале Консоли.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Произошла внутренняя ошибка Tunnelblick %1$@%2$@";
@@ -1187,7 +1187,7 @@
 "Could not get modification date of %@" = "Невозможно определить дату изменения %@";
 
 /* Window text. */
-"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Не возможно получить обновленную версию конфигурации '%@'. Подробности - в журнале приложения Консоль.";
+"Could not obtain the updated version of configuration '%@'. See the Console Log for details." = "Не удалось получить обновленную версию конфигурации '% @'. Подробности в журнале Консоли.";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "Не удалось преобразовать символическую ссылку %@";
@@ -1442,7 +1442,7 @@
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Одно или более соединений VPN подключено в данный момент. Пожалуйста, отключите все VPN, прежде чем продолжать.";
 
 /* Window text */
-"One or more configurations are being ignored. See the Console Log for details." = "Одна или более конфигураций были проигнорированы. Обратитесь к Журналу Событий для более подробной информации.";
+"One or more configurations are being ignored. See the Console Log for details." = "Одна или несколько конфигураций были проигнорированы. Подробности в журнале Консоли.";
 
 /* Window text */
 "One or more possible problems with DNS were found: \n\n%@" = "Одна или более возможных проблем с DNS были обнаруженны:\n\n%@";
@@ -1452,6 +1452,9 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Только конфигуация Tunnelblick VPN (.tblk) может стартовать при запуске компьютера.";
+
+/* Window text. The first and second '%@' will each be replaced by a version number such as '3.2'. The third '%@' will be replaced by the name of a configuration. The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"OpenVPN %@ will be used to connect this configuration instead of OpenVPN %@.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "OpenVPN %1$@ будет использоваться для подключения этой конфигурации вместо OpenVPN %2$@.\n\nФайл конфигурации OpenVPN для '%3$@' содержит следующие параметры OpenVPN:\n\n%4$@\nВам следует обновить конфигурацию, чтобы ее можно было использовать с современными версиями OpenVPN.";
 
 /* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
 "OpenVPN %@" = "OpenVPN %@";
@@ -1493,7 +1496,7 @@
 "Program error, please see the Console log." = "Ошибка программы, см. лог консоли.";
 
 /* Window text */
-"Rename failed; see the Console Log for details." = "Переименование не удалось; детали могут быть найдены в журнале Консоли.";
+"Rename failed; see the Console Log for details." = "Переименование не удалось; подробности в журнале Консоли.";
 
 /* Window text */
 "Resolved symbolic link at '%@' to '%@'" = "Символическая ссылка '%1$@' преобразована в '%2$@'";
@@ -1547,7 +1550,7 @@
 "The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "Конфигурация %@ VPN была изменена с момента последней защиты.\n\nХотите защитить измененную конфигурацию или вернуться к последней защищенной конфигурации?\n\n";
 
 /* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console log has details." = "Системная папка %1$@ (%2$@) небезопасна.\n\nTunnelblick и другие программы не смогут полноценно работать, пока эта проблема не будет устранена.\n\nПодробности в журнале Консоли.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details." = "Системная папка% 1 $ @ (% 2 $ @) не защищена.\n\nTunnelblick и другие программы могут работать некорректно, пока эта проблема не будет устранена.\n\nПодробности в журнале Консоли.";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "Опция OpenVPN '%@' недоступна в macOS. Эта опция только для Windows.";
@@ -1580,7 +1583,7 @@
 "The OpenVPN log does not yet exist or has been deleted." = "Журнал событий OpenVPN не существует или был удален.";
 
 /* Window text */
-"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Настройки Tunnelblick были повреждены и очищены. (Старые настройки были переименованы).\n\nПодробности смотрите в журнале консоли.";
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Настройки Tunnelblick были повреждены и очищены. (Старые настройки были переименованы).\n\nПодробности в журнале Консоли.";
 
 /* Window text */
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "Попытка соединения с %1$@ была отменена: сценарий runOnConnect вернул статус: %2$ld.";
@@ -1622,7 +1625,7 @@
 "The installation or repair took too long or failed. Try again?" = "Установка или восстановление заняло слишком много времени, либо не удалось. Попробовать снова?";
 
 /* Window text */
-"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Процесс установки, удаления или восстановления одного или нескольких компонентов Tunnelblick прошёл неудачно. Подробности в Журнале Событий.";
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Ошибка установки, удаления или восстановления одного или нескольких компонентов Tunnelblick. Подробности в журнале Консоли.";
 
 /* Window text */
 "The passphrase was not accepted." = "Ключевая фраза не была принята.";
@@ -1649,7 +1652,7 @@
 "There is not an OpenVPN configuration file in '%@'" = "Это не файл конфигурации OpenVPN в '%@'";
 
 /* Window text */
-"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "При удалении одной или нескольких конфигураций возникли проблемы. Детали могут быть найдены в журнале Консоли.";
+"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "Возникла проблема при удалении одной или нескольких конфигураций или папок. Подробности в журнале Консоли.";
 
 /* Window text */
 "There was a problem getting the list of known public DNS servers." = "Возникла проблема при получении списка известных публичных DNS серверов.";
@@ -1658,7 +1661,7 @@
 "There was a problem getting the list of the DNS servers." = "Возникла проблема при получении списка DNS серверов.";
 
 /* Window text */
-"There was a problem with the OpenVPN configuration. See the Console Log for details." = "С конфигурацией OpenVPN возникла проблема. Детали могут быть найдены в журнале Консоли.";
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "Возникла проблема с конфигурацией OpenVPN. Подробности в журнале Консоли.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "Тут проблемы были с\n\n%1$@:\n\n%2$@";
@@ -1680,6 +1683,9 @@
 
 /* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "Этот VPN требует ответа на вопрос, однако сам вопрос не был предоставлен.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"This VPN works now, but may not work in a future version of Tunnelblick.\n\nThe OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n%@\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Этот VPN работает сейчас, но может не работать в будущей версии Tunnelblick.\n\nФайл конфигурации OpenVPN для '%1$@' должен быть обновлен, чтобы его можно было использовать с современными версиями OpenVPN. Он содержит следующие параметры OpenVPN:\n\n%2$@\nTunnelblick будет использовать OpenVPN %3$@ для подключения этой конфигурации.\n\nОднако вы не сможете подключиться к этой VPN с будущими версиями Tunnelblick, которые не включают эту версию OpenVPN.";
 
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Внешний публичный IP адрес этого компьютера не изменился после подключения к %1$@. Он по прежнему %2$@.\n\nЭто может означать, что ваш VPN настроен некорректно.\n\n";
@@ -1709,6 +1715,9 @@
 "Trying to quit all OpenVPN processes..." = "Попытка закрыть все процессы OpenVPN…";
 
 /* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Режим администрирования Tunnelblick\n\n Временно разрешите изменения, требующие авторизации администратора компьютера.\n\n Сеанс истекает через пять минут или после закрытия окна «Детали VPN».";
+
+/* Window text */
 "Tunnelblick Internet Use:" = "Использование интернета Tunnelblick'ом:";
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
@@ -1718,13 +1727,19 @@
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick может обращаться к %@ каждый раз после подключения к VPN, чтобы проверять, меняется ли внешний IP-адрес.\n\n";
 
 /* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Настроить Tunnelblick на автоматический запуск после входа в систему не удалось. Смотрите подробности в журнале Консоли.";
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Не удалось настроить Tunnelblick для автоматического запуска после входа в систему. Подробности в журнале Консоли.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Из-за проблем с конфигурацией Tunnelblick не может быть запущен. Подробности в Журнале Событий.";
 
 /* Window text */
-"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick не смог скопировать конфигурацию '%@'. Подробности в Журнале Событий.";
+"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick не смог полностью удалить конфигурацию '%@'. Подробности в журнале Консоли.";
+
+/* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick не удалось скопировать папку '% @'. Подробности в журнале Консоли.";
+
+/* Window text */
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick не может скопировать конфигурацию '%@'. Подробности в журнале Консоли.";
 
 /* Window text */
 "Tunnelblick could not create the empty configuration folder" = "Tunnelblick не смог создать пустую папку для конфигурации";
@@ -1745,22 +1760,25 @@
 "Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick не смог найти свободный порт для коммуникации с OpenVPN";
 
 /* Window text */
-"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick не удалось найти файл конфигурации или не удалось удалить чувствительную информацию из файла конфигурации. См. подробности в журнале Консоли.";
+"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick не может найти файл конфигурации или файл конфигурации не может быть обработан. Подробности в журнале Консоли.";
 
 /* Window text */
 "Tunnelblick could not load a kext" = "Tunnelblick не смог загрузить драйвер устройства (кекст)";
 
 /* Window text */
-"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick не смог переместить конфигурацию '%@'. Подробности в Журнале Событий.";
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick не может переместить конфигурацию '%@'. Подробности в журнале Консоли.";
+
+/* Window text. The '%@' refers to a configuration or a folder of configurations. */
+"Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick не может удалить %@. Подробности в журнале Консоли.";
 
 /* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick не может заменить конфигурацию '%@'. Детали могут быть найдены в логах Консоли.";
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick не может заменить конфигурацию '%@'. Подробности в журнале Консоли.";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Серьезная ошибка Tunnelblick.\n\nПожалуйста, отправьте письмо на адрес developers@tunnelblick.net, и опишите, что просиходило с приложением Tunnelblick перед тем, как произошла ошибка. Мы постараемся Вам помочь.\n\n";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick обнаружил ошибки с конфигурациями (%1$lu):\n\n%2$@%3$@%4$@%5$@%6$@";
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "Tunnelblick обнаружил ошибки в конфигурациях (%1$lu):\n\n%2$@%3$@%4$@%5$@%6$@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick не смог разрешить проблемы с предпочтениями '%@'. Подробности в Журнале Событий";
@@ -1784,6 +1802,9 @@
 "Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick нужно разрешение, чтобы скопировать папку '%@'.";
 
 /* Window text */
+"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick требуется авторизация для копирования или перемещения конфигураций.";
+
+/* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick требуется авторизация для дублирования конфигурации '%@'.";
 
 /* Window text */
@@ -1799,6 +1820,9 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Для Tunnelblick требуется подтверждение входа, чтобы сделать конфигурацию '%@' общей.";
 
 /* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick требуется авторизация для перемещения папки '%1$@' в папку '%2$@'.";
+
+/* Window text */
 "Tunnelblick needs authorization to move folder '%@'." = "Tunnelblick нужно разрешение, чтобы переместить папку '%@'.";
 
 /* Window text */
@@ -1806,6 +1830,12 @@
 
 /* Window text */
 "Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "Для Tunnelblick требуется подтверждение входа, чтобы удалить одну или несколько конфигураций или папок.\n\nУдаление конфигурации окончательное, и не может быть отменено. Все настройки для удалённой конфигурации также будут удалены навсегда.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "Tunnelblick требуется авторизация для переименования конфигурации '%1$@' в '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick требуется авторизация для переименования папки '%1$@' в '%2$@'.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick требуется авторизация для того, чтобы обезопасить импортируемые данные.";
@@ -1961,7 +1991,10 @@
 "Warning: '%@' is already a named credential." = "Предупреждение: '%@' уже является именованными учётными данными.";
 
 /* Window text */
-"Warning: One or more settings could not be duplicated. See the Console Log for details." = "Предупреждение: Не удалось дублировать одну или несколько настроек. Подробности в Журнале Событий.";
+"Warning: One or more settings could not be copied. See the Console Log for details." = "Предупреждение: одна или несколько настроек не могут быть скопированы. Подробности в журнале Консоли.";
+
+/* Window text */
+"Warning: One or more settings could not be duplicated. See the Console Log for details." = "Предупреждение: не удалось дублировать одну или несколько настроек. Подробности в журнале Консоли.";
 
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Предупреждение: следующие конфигурации должны быть подключены во время старта компьютера, однако они не были подключены:\n\n%@";
@@ -1991,7 +2024,7 @@
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Конфигурация '%@' запускается вместе с компьютером, поэтому вы не можете сделать её приватной.";
 
 /* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Конфигурация '%@' изменяемая (может быть автоматически обновлена), поэтому вы не можете сделать её приватной.\n\nЗаметьте, что изменяемые конфигурации VPN Tunnelblick не могут быть приватными или общими; такими можно сделать только конфигурации, которые находятся внутри них.";
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Вы не можете сделать конфигурацию '%@' частной или общей, потому что это обновляемая конфигурация.\n\nПримечание: обновляемая конфигурация Tunnelblick VPN не может быть частной или общей; только конфигурации внутри нее могут быть сделаны частными или общими.";
 
 /* Window text */
 "You cannot rename or move a Deployed configuration." = "Вы не можете переименовывать или перемещать распространяемую конфигурацию.";
@@ -2124,6 +2157,18 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>non-Tunnelblick</strong>' версии OpenVPN не были созданы проектом Tunnelblick и не являются его частью. Они были установлены администратором компьютера.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Одна или несколько ваших конфигураций не смогут подключиться.</strong></p>\n<p>Конфигурации(ям) требуется расширение системы, но эта версия macOS не позволяет Tunnelblick использовать системные расширения.</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Одна или несколько ваших конфигураций не смогут подключиться</strong> в будущих версиях macOS.</p>\n<p>Конфигурация(ии) требует расширения системы, но будущие версии macOS не позволят Tunnelblick использовать свои системные расширения.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p><strong>Толко последняя бета-версия Tunnelblick</strong> может быть использована на этойверсии macOS. Её можно загрузить по ссылке <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] и установить, как обычно.</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p><strong>Пожалуйста, поддерживайте Tunnelblick обновленным</strong>, используя автоматическую проверку обновлений.</p>\n<p>В этой версии macOS следует использовать только последнюю бета-версию Tunnelblick.</p>\n<p>Вы можете настроить автоматическую проверку обновлений в панели Tunnelblick's окна \"Настройки\", вызванного при помощи меню \"VPN Детали\".</p>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Определяет версию OpenVPN и SSL программ которые следует использовать при соединение VPN.</strong><ul><li><strong>Настройка \"по умолчанию\"</strong> будет использовать версию OpenVPN с версией OpenSSL включенной с этой версией программы Tunnelblick. Версия \"по умолчанию\" может отличаться в разных версиях Tunnelblick.<br></li><li><strong>Настройка \"Последняя доступная\"</strong> будет использовать последнюю доступную версию OpenVPN с LibreSSL включенной с этой версией программы Tunnelblick.<br></li><li><strong>Любые другие настройки</strong> будут использовать указанные версии OpenVPN и SSL программ, если они доступны в этой версии Tunnelblick. При отсутствии указанной версии, будет использоваться самая ближайшая подходящая версия.<br></li></ul>";
 
@@ -2186,7 +2231,7 @@
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Когда отмечено</strong>, конфигурации, сохраненные в папках, показаны в подменю меню Tunnelblick.</p>\n<p><strong>Когда не отмечено</strong>, конфигурации, сохраненные в папках, показаны непосредственно в меню Tunnelblick.</p>";
 
 /* HTML info for the 'Keep connected' checkbox. */
-"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Когда отмечено</strong>, Tunnelblick попытается переподключиться, если VPN неожиданно разъединится.</p>\n<p><strong>Когда не отмечено</strong>, Tunnelblick не будет пытаться переподключаться к VPN, если он неожиданно разъединится.</p>\n";
+"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong>Когда отмечено</strong>, Tunnelblick попытается переподключиться, если OpenVPN неожиданно завершится (в том числе аварийно).</p>\n<p><strong>Когда не отмечено</strong>, Tunnelblick не будет пытаться переподключаться, если OpenVPN неожиданно завершится (в том числе аварийно).</p>\n";
 
 /* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Когда отмечено</strong>, установленные вручную настройки сети могут быть изменены при VPN соединении. Это произойдёт только если изменения определяются опциями файла конфигурации OpenVPN или сервером OpenVPN.</p>\n<p><strong>Когда не отмечено</strong>, установленные вручную настройки сети не будут изменены при VPN соединении.</p>";
@@ -2221,11 +2266,14 @@
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Когда отмечено</strong>, вам нужно будет аутентифицироваться перед подключением. Вы можете аутентифицироваться с помощью пароля или, если доступно, TouchID или FaceID.</p>\n<p><strong>Когда не отмечено</strong>, аутентификация перед подключением не нужна.</p>\n<p><strong>Флажок не доступен</strong> если вы используете версию macOS, которая это не поддерживает.</p><p><strong> Замечание: Требуется авторизация администратора компьютера, чтобы изменить эту настройку.</strong></p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Вы можете изменить конфигурации так, чтобы они смогли подключиться.</strong></p>";
+
 /* HTML info for the 'Load Tap driver' popdown list. */
-"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>Драйвер 'tap' требуется для Tap-соединений. Tunnelblick включает в себя собственный Tap-драйвер, так как он не входит в состав операционной системы. Если у вас установлен иной Tap-драйвер, возможно, что Tunnelblick не сможет загрузить свой.</p><p>Вы можете выбрать, при каких условиях Tunnelblick будет загружать свой драйвер:</p>\n<p><strong>Загружать Tap-драйвер автоматически</strong>: Tunnelblick загрузит свой драйвер при необходимости и выгрузит его, как только необходимость в нем исчезнет.</p>\n<p><strong>Всегда загружать Tap-драйвер</strong>: Tunnelblick загрузит свой драйвер при подключении с использованием этой конфигурации и выгрузит его, как только необходимость в нем исчезнет.</p>\n<p><strong>Никогда не загружать Tap-драйвер</strong>: Tunnelblick никогда не будет загружать свой драйвер.</p>\n<p><strong>Этот вариант недоступен</strong> для настроек Tun.</p>";
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations and on versions of macOS which do not allow Tunnelblick to load its Tap driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Драйвер 'tap' требуется для Tap-соединений. Tunnelblick включает собственный Tap-драйвер, так как он не входит в состав операционной системы. Если у вас установлен иной Tap-драйвер, возможно, что Tunnelblick не сможет загрузить свой.</p><p>Вы можете выбрать, при каких условиях Tunnelblick будет загружать свой драйвер:</p>\n<p><strong>Загружать Tap-драйвер автоматически</strong>: Tunnelblick при необходимости загрузит свой драйвер и выгрузит его, когда потребность в нем исчезнет.</p>\n<p><strong>Всегда загружать Tap-драйвер</strong>: Tunnelblick загрузит свой драйвер при подключении с использованием этой конфигурации и выгрузит его, когда потребность в нем исчезнет.</p>\n<p><strong>Никогда не загружать Tap-драйвер</strong>: Tunnelblick никогда не будет загружать свой драйвер.</p>\n<p><strong>Этот вариант недоступен</strong> для конфигураций Tun и в тех версиях macOS, которые не позволяют Tunnelblick загружать свой Tap-драйвер. Дополнительная информация здесь — <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Драйверы Tun и Tap для VPNs на macOS [tunnelblick.net]</a>.</p>";
 
 /* HTML info for the 'Load Tun driver' popdown list. */
-"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>Драйвер 'tun' требуется для Tun-соединений. Обычно используется системный Tun-драйвер, но в состав Tunnelblick также входит собственный Tun-драйвер.Если у вас установлен иной Tun-драйвер, возможно, что Tunnelblick не сможет загрузить свой.</p>\n<p>OpenVPN будет использовать системный драйвер кроме случаев, когда в конфигурацию OpenVPN входит 'dev-type tun'.</p>\n<p>Вы можете выбрать, при каких условиях Tunnelblick будет загружать свой Tun-драйвер:</p>\n<p><strong>Загружать Tun-драйвер автоматически</strong>: Tunnelblick загрузит свой драйвер при необходимости и выгрузит его, как только необходимость в нем исчезнет. (Tunnelblick будет загружать свой драйвер только при условии, что в конфигурацию OpenVPN входит 'dev-type tun'.)</p>\n<p><strong>Всегда загружать Tun-драйвер</strong>: Tunnelblick загрузит свой драйвер при подключении с использованием этой конфигурации и выгрузит его, как только необходимость в нем исчезнет.</p>\n<p><strong>Никогда не загружать Tun-драйвер</strong>: Tunnelblick никогда не будет загружать свой драйвер.</p>\n<p><strong>Этот вариант недоступен</strong> для настроек Tap.</p>";
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Драйвер 'tun' требуется для Tun-соединений. Обычно используется системный Tun-драйвер, но в состав Tunnelblick также входит собственный Tun-драйвер. Если у вас установлен иной Tun-драйвер, возможно, что Tunnelblick не сможет загрузить свой.</p>\n<p>OpenVPN будет использовать системный драйвер кроме тех случаев, когда конфигурация OpenVPN содержит опцию 'dev-type tun'.</p>\n<p>Вы можете выбрать, при каких условиях Tunnelblick будет загружать свой Tun-драйвер:</p>\n<p><strong>Загружать Tun-драйвер автоматически</strong>: Tunnelblick при необходимости загрузит свой драйвер и выгрузит его, когда потребность в нем исчезнет. (Tunnelblick будет загружать свой драйвер только при условии, что конфигурация OpenVPN содержит опцию 'dev-type tun'.)</p>\n<p><strong>Всегда загружать Tun-драйвер</strong>: Tunnelblick загрузит свой драйвер при подключении с использованием этой конфигурации и выгрузит его, когда потребность в нем исчезнет.</p>\n<p><strong>Никогда не загружать Tun-драйвер</strong>: Tunnelblick никогда не будет загружать свой драйвер.</p>\n<p><strong>Этот вариант недоступен</strong> для конфигураций Tap и в тех версиях macOS, которые не позволяют Tunnelblick загружать свой Tun-драйвер. Дополнительная информация здесь — <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Драйверы Tun и Tap для VPNs на macOS [tunnelblick.net]</a>.</p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Происходит проверка на наличие обновлений для программы Tunnelblick.</p><p>Соединение с веб-страницей Tunnelblick; подробную информацию смотри <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security (Защита и безопасность данных)</a> [tunnelblick.net].</p><p>Также происходит проверка на наличие обновлений для конфигураций, если провайдер услуг VPN поддерживает такую функцию.</p>";
@@ -2251,8 +2299,17 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Восстанавливает предупреждения, которые были запрещены в поле 'Больше не предупреждать'.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>Смотрите <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick на macOS 11 Big Sur</a> [tunnelblick.net] для получения важной информации.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Смотрите <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick на macOS 11 Big Sur</a> [tunnelblick.net] для получения большей информации.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Смотрите <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Будущее Tun и Tap VPNs на macOS</a> [tunnelblick.net] для получения большей информации.</p>";
+
 /* HTML info for the 'VPN log level' button. */
-"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Определяет уровень логирования для OpenVPN</p>";
+"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Определяет уровень логирования для Tunnelblick и OpenVPN.</p>";
 
 /* HTML info for the 'Icon' button. */
 "<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Определяет иконку, которую Tunnelblick должен отображать в строке меню</p>";
@@ -2268,6 +2325,9 @@
 
 /* HTML info for the 'VPN status windows' button. */
 "<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>Определяет, когда Tunnelblick должен отображать окно статуса VPN</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>The Console Log shows which configurations will not be able to connect.</p>\n" = "<p>Журнал консоли показывает, какие конфигурации не смогут подключиться.</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS-кэш содержит копии DNS (система доменных имён).</p>\n<p><strong>Когда отмечено</strong>, DNS-кэш будет удален (очищен) после соединения или отключения. Все запросы DNS будут сделаны используя сервер доменных имен, указанный в настройке VPN.</p>\n<p><strong>Когда не отмечено</strong>, DNS-кэш не будет удален. Это может вызвать проблемы, если есть конфликты между сервером доменных имен указанным в настройке VPN и пред-VPN указанным сервером, если пред-VPN записи были кэшированы.</p>";
@@ -2550,7 +2610,7 @@
 "Password entries must match" = "Введённые пароли должны совпадать";
 
 /* Window title  VPNService */
-"Prove You are Human" = "Докажите, что вы Человек";
+"Prove You are Human" = "Докажите, что вы человек";
 
 /* Window title  VPNService */
 "Register with Tunnelblick" = "Зарегистрироваться через Tunnelblick";

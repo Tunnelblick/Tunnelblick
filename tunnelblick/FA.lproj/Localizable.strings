@@ -1623,9 +1623,6 @@
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick نتوانست پیکربندی '%@' را جایگزین نماید. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@" = "Tunnelblick با پیکربندی های %1$lu دچار مشکل شد:\n\n%2$@%3$@%4$@%5$@%6$@";
-
-/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick نتوانست ایرادات با تنظیمات '%@' را ترمیم نماید. جزییات بیشت در میزفرمان گزارشات";
 
 /* Window text */

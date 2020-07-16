@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "Cài đặt";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "Giữ lại cả 2";
+
 /* Button */
 "Latest (%@)" = "Mới nhất (%@)";
 
@@ -245,6 +248,9 @@
 /* Button */
 "Show while connecting" = "Hiển thị khi đang kết nối";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Bỏ qua cập nhật";
+
 /* Button */
 "Skip" = "Bỏ qua";
 
@@ -253,6 +259,9 @@
 
 /* Button */
 "Standard icon" = "Icon tiêu chuẩn";
+
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "Dừng lại";
 
 /* Button */
 "Terminate All OpenVPN processes" = "Kết thúc tất cả tiến trình OpenVPN";
@@ -278,6 +287,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Biểu tượng Tunnelblick 3.3";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Cập nhật";
+
 /* Button */
 "When Tunnelblick launches" = "Ngay khi chạy Tunnelblick";
 
@@ -289,6 +301,13 @@
 
 /* Menu item */
 "Connect %@%@" = "Kết nối %@%@";
+
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "Sao chép cấu hình tới thư mục mới";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "Sao chép tất cả cấu hình tới tới thư mục mới";
 
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Xoá cấu hình Credentials trong Keychain...";
@@ -316,6 +335,13 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "Tạo cấu hình Shared...";
+
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "Di chuyển cấu hình tới thư mục mới";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "Di chuyển tất cả cấu hình tới thư mục mới";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "Không hiển thị log của OpenVPN hoặc Tunnelblick VPN";
@@ -351,6 +377,9 @@
 "Quit Tunnelblick" = "Thoát Tunnelblick";
 
 /* Menu Item */
+"Rename Configuration" = "Đổi tên cấu hình";
+
+/* Menu Item */
 "Revert Configuration..." = "Khôi phục lại cấu hình về trạng thái ban đầu";
 
 /* Menu Item */
@@ -373,6 +402,9 @@
 
 /* Checkbox name */
 "Apply to all" = "Áp dụng cho tất cả";
+
+/* Checkbox Name */
+"Authenticate before connecting" = "Xác thực trước khi kết nối";
 
 /* Checkbox name */
 "Check for updates automatically" = "Tự động kiểm tra phiên bản mới";
@@ -451,6 +483,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Kết nối lại khi chuyển người dùng";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "Yêu cầu quyền quản lý để cài đật tất cả cấu hình";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Chuyển tất cả lưu lượng IPv4 qua VPN";
@@ -574,6 +609,9 @@
 
 /* Window title */
 "Add a Configuration" = "Thêm cấu hình";
+
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "Cài đặt nâng cao";
 
 /* Window title */
 "Alert sounds" = "Âm thanh cảnh báo";
@@ -860,6 +898,9 @@
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' đã tồn tại ở của sổ làm việc.\n\nBạn có muốn thay thế không?";
 
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = "\"%s\" đã tồn tại.";
+
 /* Window text. %@ is the name of a file. */
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' dường như là một tệp được mã hóa bằng UTF-16. Tất cả tập tin liên quan đến OpenVPN phải là tệp văn bản thuần túy hoặc UTF-8";
 
@@ -913,6 +954,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Cấu hình VPN Tunnelblick bị lồng vào quá sâu tại '%@'";
+
+/* Window text */
+"A configuration named '%@' already exists in this location.\nDo you want to replace it with the one you're moving or copying?" = "Cấu hình '%@' đã tồn tại ở đây.\nBạn có muốn thay thế?";
 
 /* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Một cấu hình mà yêu cầu một cụm mật khẩu (khóa cá nhân) hoặc tên đăng nhập và mật khẩu không thể kết nối khi máy tính khởi động.";
@@ -978,6 +1022,9 @@
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Đã xảy ra lỗi khi thử đảo ngược lại bản sao chép (được che) đã được bảo mật. Xem Console Log để biết chi tiết hơn.\n\n";
 
 /* Window text */
+"An error occurred. Please try again." = "Đã có lỗi xảy ra. Vui lòng thử lại.";
+
+/* Window text */
 "An error occurred. See the Console Log for details." = "Đã xảy ra lỗi. Xem Console Log để biết chi tiết hơn.";
 
 /* Window text */
@@ -997,6 +1044,9 @@
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Đã xảy ra lỗi của Tunnelblick: fileIsReasonableSize: đường dẫn không có giá trị";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Đã có bản cập nhật cấu hình VPN %@\nBạn có muốn cập nhật cấu hình mới này?";
 
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Bạn có chắc rằng không muốn chuyển đổi cấu hình từ OpenVPN thành cấu hình Tunnelblick  VPN không?";
@@ -1236,6 +1286,9 @@
 "Installation finished successfully." = "Cài đặt kết thúc thành công.";
 
 /* Window text */
+"Installing and securing Tunnelblick..." = "Đang cài đặt và bảo mật Tunnelblick %@…";
+
+/* Window text */
 "Installing configurations is not allowed" = "Cài đặt các cấu hình không hợp lệ";
 
 /* Window text */
@@ -1424,6 +1477,9 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Bỏ qua việc sao chép %@ bởi vì có một tập tin có cùng tên và nội dung đã được sao chép.";
 
+/* Window text in the splash screen */
+"Starting Tunnelblick..." = "Đang chạy ứng dụng Tunnelblick…";
+
 /* Window text */
 "Startup window:" = "Cửa sổ khởi động:";
 
@@ -1519,3 +1575,9 @@
 
 /* Window text */
 "Translation by" = "Bản dịch bởi";
+
+/* Window text */
+"VPN status windows:" = "Cửa sổ trạng thái VPN";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Giá trị '%1$@' cho '%2$@' không đúng định dạng URL trong %3$@";

@@ -1,3 +1,82 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+
+/* Textbox name */
+"Username:" = "Uporabniško ime:";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"Advanced..." = "Napredno ...";
+
+/* Button */
+"All Users" = "Vsi Uporabniki";
+
+/* Button */
+"Cancel" = "Preklič\n";
+
+/* Menu item */ /* Button */
+"Check For Updates Now" = "Preveri posodobitve";
+
+/* Button */
+"Check Now" = "Preveri takoj";
+
+/* Button */
+"Help" = "Pomoč";
+
+/* Button */
+"Ignore" = "Prezri";
+
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "Več informacij";
+
+/* Button */
+"Quit" = "Končaj";
+
+/* Button */
+"Try again" = "Poskusi ponovno";
+
+/* Button */
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikona";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Posodobitev";
+
+/* Button */
+"When Tunnelblick launches" = "Z zagonom Tunnelblick-a";
+
+/* Button */
+"When computer starts" = "Z zagonom računalnika";
+
+/* Menu item */
+"Add a VPN..." = "Dodaj VPN";
+
+/* Menu item */
+"Connect %@%@" = "Poveži %@%@";
+
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "Kopiraj konfiguracije v Novo Mapo";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "Kopiraj konfiguracije v Novo Mapo";
+
+/* Menu Item */
+"Delete Configuration's Credentials in Keychain..." = "Brisanje poverilnic konfiguracije v Keychain...";
+
+/* Menu item tooltip */
+"Disabled because this setting is being forced" = "Onemogočeno, ker je nastavitev prisiljena";
+
+/* Menu item */
+"Disconnect %@%@" = "Prekini povezavo %@%@";
