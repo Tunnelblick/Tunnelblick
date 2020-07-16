@@ -4943,22 +4943,9 @@ static void signal_handler(int signalNumber)
     return returnStatus;
 }
 
--(void) dealWithKextProblemsAndBigSur {
+-(void) dealWithKextProblemsAndBigSurThread {
 
-/*
-    // Generate all possible windows. Windows with identical skip preferences will be suppressed by ShowAlertWindow
-
-    unsigned i;
-    for (  i=0; i<128; i++  ) {
-        [self displayMessageAboutBigSurAndKextsAlwaysLoadTap: 1 & (i >> 0)
-                                               alwaysLoadTun: 1 & (i >> 1)
-                                              configNeedsTap: 1 & (i >> 2)
-                                              configNeedsTun: 1 & (i >> 3)
-                                                    onBigSur: 1 & (i >> 4)
-                                                onBigSurBeta: 1 & (i >> 5)
-                                           onTunnelblickBeta: 1 & (i >> 6)];
-    }
- */
+    NSAutoreleasePool * pool = [NSAutoreleasePool new];
 
     // Construct and display messages about kexts and/or Big Sur
 
@@ -4977,6 +4964,8 @@ static void signal_handler(int signalNumber)
                                                 onBigSur: onBigSur
                                             onBigSurBeta: onBigSurBeta
                                        onTunnelblickBeta: onTunnelblickBeta];
+
+    [pool drain];
 }
 
 -(void) displayMessageAboutBigSurAndKextsAlwaysLoadTap: (BOOL) alwaysLoadTap
@@ -5509,8 +5498,8 @@ static void signal_handler(int signalNumber)
 	[self askAndMaybeReenableNetworkAccessAtLaunch: YES];
 	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 022 -- LAST")
-	
-    [self dealWithKextProblemsAndBigSur];
+
+    [NSThread detachNewThreadSelector: @selector(dealWithKextProblemsAndBigSurThread) toTarget: self withObject: nil];
 
 	didFinishLaunching = TRUE;
 }
