@@ -32,13 +32,15 @@ TOPDIR = $(PWD)
 #######################################################################################
 # Define names of folders in third_party/sources that contain programs to build:
 # Names of OpenVPN folders are determined by examining third_party/sources/openvpn
+#
+# IMPORTANT: When an program version changes, change the name of any corresponding folder in patches
 
 LZO_NAME         = lzo-2.10
 
 LZ4_NAME         = lz4-1.8.1.2
 LZ4_TARGET_ARCHS = x86_64
 
-# IMPORTANT: When an SSL version changes, change the name of any corresponding folder in patches/ssl
+SPARKLE_NAME     = Sparkle-077c64419f9460263bad99ab24dff962a103b1e2
 
 OPENSSL_1_0_NAME = openssl-1.0.2u
 OPENSSL_1_1_NAME = openssl-1.1.1g

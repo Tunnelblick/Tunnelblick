@@ -19,46 +19,51 @@
 #  distribution); if not, write to the Free Software Foundation, Inc.,
 #  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #  or see http://www.gnu.org/licenses/.
+#
+#
+# NOTE: unzip creates a __MACOSX folder in BUILD_DIR (not in SPARKLE_BUILD_DIR).
+#       That folder is not needed, so it is deleted after the unzip and at other
+#       times it could exist (if the build was interrupted between the unzip and rm).
+#
 
 TB_SPARKLE_DEPRECATED_HANDLING = GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS=NO
 SPARKLE_BUILD_DIR = $(BUILD_DIR)/sparkle
 SPARKLE_PRODUCTS_DIR = $(PRODUCTS_DIR)/sparkle
 
 built-sparkle-prepare:
-	@echo "THIRD_PARTY: Expanding Sparkle.framework..."
-	cd "$(SOURCES_DIR)" ; \
-	sparkle_archive=`ls *parkle*` ; \
-	sparkle_archive_ext="$${sparkle_archive##*.}" ; \
-	rm -f -r "$(BUILD_DIR)/temp" ; \
-	mkdir "$(BUILD_DIR)/temp" ; \
-	cd "$(BUILD_DIR)/temp" ; \
-	if [ "zip" = "$${sparkle_archive_ext}" ] ; then \
-		unzip -q "$(SOURCES_DIR)/$${sparkle_archive}" ; \
-	else \
-		tar -x -f "$(SOURCES_DIR)/$${sparkle_archive}" ; \
-	fi ; \
-	rm -f -r "$(SPARKLE_BUILD_DIR)" ; \
-	if [ -d "Extras" ] ; then \
-		mv "$(BUILD_DIR)/temp/Extras/Source Code" "$(SPARKLE_BUILD_DIR)" ; \
-	else \
-		if [ -d sparkle.xcodeproj ] ; then \
-			mv "$(BUILD_DIR)/temp"  "$(SPARKLE_BUILD_DIR)" ; \
-		else \
-			sparkle_expanded_name=`ls -d *parkle*` ; \
-			mv "$(BUILD_DIR)/temp/$${sparkle_expanded_name}" "$(SPARKLE_BUILD_DIR)" ; \
-		fi \
-	fi
-	cd "$(SPARKLE_BUILD_DIR)" ; \
-	if [ -d "$(BUILD_DIR)/temp" ] ; then \
-		rm -f -r "$(BUILD_DIR)/temp" ; \
+	mkdir -p build ;                                                                    \
+	rm -f -r "$(SPARKLE_BUILD_DIR)" ;                                                   \
+	rm -f -r "$(BUILD_DIR)/__MACOSX" ;                                                  \
+	if [ -d "$(SOURCES_DIR)/$(SPARKLE_NAME)" ] ; then                                   \
+		echo "THIRD_PARTY: Using already-expanded $(SPARKLE_NAME)" ;                    \
+		mkdir "$(SPARKLE_BUILD_DIR)" ;                                                  \
+		cp -a -f -R "$(SOURCES_DIR)/$(SPARKLE_NAME)"/* "$(SPARKLE_BUILD_DIR)" ;         \
+	else                                                                                \
+		if [ -f "$(SOURCES_DIR)/$(SPARKLE_NAME).tar.gz" ] ; then                        \
+			echo "THIRD_PARTY: Expanding $(SPARKLE_NAME).tar.gz..." ;                   \
+			tar -x -C "$(BUILD_DIR)" -f "$(SOURCES_DIR)/$(SPARKLE_NAME).tar.gz" ;       \
+			mv "$(BUILD_DIR)/$(SPARKLE_NAME)" "$(BUILD_DIR)/sparkle" ;                  \
+		else                                                                            \
+			if [ -f "$(SOURCES_DIR)/$(SPARKLE_NAME).zip" ] ; then                       \
+				echo "THIRD_PARTY: Expanding $(SPARKLE_NAME).zip..." ;                  \
+				cd "$(BUILD_DIR)";                                                      \
+				unzip -q "$(SOURCES_DIR)/$(SPARKLE_NAME).zip" ;                         \
+				mv "$(BUILD_DIR)/Sparkle"      "$(BUILD_DIR)/sparkle_temp" ;            \
+				mv "$(BUILD_DIR)/sparkle_temp" "$(BUILD_DIR)/sparkle" ;                 \
+				rm -f -r "$(BUILD_DIR)/__MACOSX" ;                                      \
+			else                                                                        \
+				echo "THIRD_PARTY: No '$(SPARKLE_NAME)', '$(SPARKLE_NAME).tar.gz', or $(SPARKLE_NAME).zip" ;  \
+				exit 123 ;                                                              \
+			fi ;                                                                        \
+		fi ;                                                                            \
 	fi
 	@echo "THIRD_PARTY: Patching Sparkle.framework..."
-	if [ -d $(PATCHES_DIR)/sparkle ]; then \
+	if [ -d "$(PATCHES_DIR)/sparkle" ]; then \
 		cd "$(SPARKLE_BUILD_DIR)"; \
-		patches="`ls $(PATCHES_DIR)/sparkle/*.diff`" ; \
+		patches="`ls "$(PATCHES_DIR)/sparkle/"*.diff`" ; \
 		for patch_file in $${patches}; do \
 			patch_name="$$(basename "$${patch_file}")" ; \
-			patch -p1 -N --dry-run -i $$patch_file > /dev/null; \
+			patch -p1 -N --dry-run -i "$$patch_file" > /dev/null; \
 			if [ $$? == 0 ]; then \
 				patch -p1 -N -i $$patch_file; \
 				if [ $$? == 0 ]; then \
@@ -111,10 +116,10 @@ built-sparkle: built-sparkle-prepare
 			   GCC_TREAT_WARNINGS_AS_ERRORS=NO         \
 			   build ;                                 \
 	cd $(TOPDIR) ;
-	rm -f -r $(SPARKLE_PRODUCTS_DIR)/Sparkle.framework
-	mkdir -p $(SPARKLE_PRODUCTS_DIR)/Sparkle.framework
+	rm -f -r "$(SPARKLE_PRODUCTS_DIR)/Sparkle.framework"
+	mkdir -p "$(SPARKLE_PRODUCTS_DIR)/Sparkle.framework"
 	cp -X -f -R "$(SPARKLE_BUILD_DIR)/build/Release/Sparkle.framework/" \
-	            $(SPARKLE_PRODUCTS_DIR)/Sparkle.framework
+	            "$(SPARKLE_PRODUCTS_DIR)/Sparkle.framework"
 	touch built-sparkle
 	@echo "THIRD_PARTY: Built Sparkle.framework"
 
@@ -122,6 +127,7 @@ built-sparkle-clean:
 	@echo "THIRD_PARTY: Cleaning Sparkle.framework..."
 	rm -f -R "$(SPARKLE_BUILD_DIR)"
 	rm -f -R "$(SPARKLE_PRODUCTS_DIR)"
+	rm -f -r "$(BUILD_DIR)/__MACOSX"
 	rm -f built-sparkle
 	rm -f build-sparkle-prepare
 	@echo "THIRD_PARTY: Cleaned Sparkle.framework"
