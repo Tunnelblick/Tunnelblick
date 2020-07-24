@@ -584,7 +584,7 @@
 "Configurations" = "Konfigurácie";
 
 /* Window title */
-" (Deployed)" = " (Centrálne spravovaná)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (Centrálne spravovaná)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
 
 /* Window title */
 " (Private)" = " (Súkromná)";

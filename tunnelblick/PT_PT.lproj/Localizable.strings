@@ -584,7 +584,7 @@
 "Configurations" = "Configurações";
 
 /* Window title */
-" (Deployed)" = " (Customizada)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (Customizada)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
 
 /* Window title */
 " (Private)" = " (Privado)";
@@ -959,7 +959,7 @@
 "<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Mais informações</a> [tunnelblick.net]";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Baseado no Tunnelblick, software livre disponível em <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN é marca registada da OpenVPN Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Baseado no Tunnelblick, software livre disponível em <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN é marca registada da OpenVPN Inc.";
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>A definições de rede não foram restauradas corretamente depois de desligar de %@.</p><p>Este problema é por norma causado por utilizar 'user nobody' e/ou o 'group nobody' nas opções OpenVPN.</p><p>Para restaurar as definições de rede é necessário reiniciar o computador.</p><p>Para evitar este problema no futuro, remova as linhas 'user nobody' e 'group nobody' do ficheiro de configuração OpenVPN.</p><p>Veja <a href=\"Opções OpenVPN User e Group OpenVPN\">Opções OpenVPN User e Group OpenVPN</a> [tunnelblick.net] para mais informações</p></font>\n\n";

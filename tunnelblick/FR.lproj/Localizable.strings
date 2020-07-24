@@ -479,7 +479,7 @@
 "Prepend domain name to search domains" = "Ajouter le nom de domaine avant les autres domaines de recherche";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Se reconnecter lorsque l'ordinateur sort de veille";
+"Reconnect when computer wakes up" = "Reconnecter à la sortie de veille";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Rétablir la connexion lors du retour au compte d'utilisateur original";
@@ -584,7 +584,7 @@
 "Configurations" = "Configurations";
 
 /* Window title */
-" (Deployed)" = " (Déployée)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (Déployée)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
 
 /* Window title */
 " (Private)" = " (Privée)";

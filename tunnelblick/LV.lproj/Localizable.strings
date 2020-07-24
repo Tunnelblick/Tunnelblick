@@ -581,7 +581,7 @@
 "Configurations" = "Konfigurācijas";
 
 /* Window title */
-" (Deployed)" = " (Izvietots)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (Izvietots)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
 
 /* Window title */
 " (Private)" = " (Privāts)";

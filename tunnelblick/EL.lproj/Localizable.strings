@@ -249,7 +249,7 @@
 "Show while connecting" = "Δείξε κατα την σύνδεση";
 
 /* Button. 'Update' refers to the update of a configuration. */
-"Skip this Update" = "Παράβλεψη αυτής της ενημέρωσης";
+"Skip this Update" = "Παράκαμψη αυτής της ενημέρωσης";
 
 /* Button */
 "Skip" = "Παράβλεψη";
@@ -446,7 +446,7 @@
 "Do not show this type of warning again" = "Να μην εμφανιστεί ξανά αυτού του είδους η προειδοποίηση";
 
 /* Checkbox name */
-"Do not warn about DNS problems again for any configuration" = "Να μην προειδοποιηθώ ξανά για προβλήματα DNS για κανένα σετ ρυθμίσεων";
+"Do not warn about DNS problems again for any configuration" = "Να μην ειδοποιηθώ ξανά για προβλήματα DNS για κανένα σετ ρυθμίσεων";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "Να μην ειδοποιηθώ ξανά για οποιαδήποτε παράμετρο";
@@ -584,7 +584,7 @@
 "Configurations" = "Παράμετροι";
 
 /* Window title */
-" (Deployed)" = " (Ανάπτυξη)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (Ανάπτυξη)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
 
 /* Window title */
 " (Private)" = " (Ιδιωτικό)";
@@ -959,7 +959,7 @@
 "<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Περισσότερες πληροφορίες</a> [tunnelblick.net]";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Βασισμένο στο Tunnelblick, ελεύθερο λογισμικό διαθέσιμο στο <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>. Το OpenVPN είναι κατοχυρωμένο σήμα κατατεθέν της OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Βασισμένο στο Tunnelblick, ελεύθερο λογισμικό διαθέσιμο στο <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>. Το OpenVPN είναι κατοχυρωμένο σήμα κατατεθέν της OpenVPN Inc.";
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>H ρύθμιση δικτύου δεν έχει επαναφερθεί σωστά μετά την αποσύνδεση από το %@.</p><p>Αυτό το πρόβλημα προκαλείται συνήθως από τη χρήση των «user nobody» ή/και «group nobody» OpenVPN επιλογών.</p><p>Για να επαναφέρετε τη ρύθμιση του δικτύου, πρέπει να επανεκκινήσετε τον υπολογιστή σας.</p><p>Για να αποτρέψετε αυτό το σφάλμα στο μέλλον, αφαιρέστε τις γραμμές «user nobody» και «group nobody» από το αρχείο OpenVPN παραμέτρων.</p><p>Δείτε <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">τις OpenVPN επιλογές χρηστών και ομάδας </a> του [tunnelblick.net] για περισσότερες πληροφορίες.</p></font>\n\n";
@@ -1775,6 +1775,9 @@
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Το Tunnelblick αντιμετώπισε ένα σφάλμα.\n\nΠαρακαλώ στείλτε ένα email στο developers@tunnelblick.net για βοήθεια, περιγράφοντας τα βήματα που προκάλεσαν το σφάλμα.\n\n";
 
 /* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "Το Tunnelblick αντιμετώπισε σφάλματα με τις %1$lu παραμέτρους: \n\n%2$@%3$@%4$@%5$@%6$@";
+
+/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Το Tunnelblick απέτυχε να επιδιορθώσει προβλήματα με επιλογές για '%@'. Λεπτομέρειες στο ημερολόγιο Κονσόλας.";
 
 /* Window text */
@@ -2245,6 +2248,9 @@
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Όταν έχει επιλεχεθει</strong>, θα απαιτείται αυθεντικοποίηση πριν την σύνδεση. Η αυθεντικοποίηση μπορεί να γίνει με την χρήση κωδικού ή, εαν είναι διαθέσιμο, TouchID ή FaceID.</p>\n<p><strong>Όταν δεν έχει επιλεχεθει</strong>, δεν θα απαιτείται αυθεντικοποίηση πριν την σύνδεση.</p>\n<p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> όταν χρησιμοποιείται έκδοση του macOS που δεν το υποστηρίζει.</p><p><strong>Σημέιωση: Απαιτείται η εξουσιοδότηση του διαχειρηστή του ηλεκτρονικού υπολογιστή για την αλλαγή αυτής της ρύθμισης.</strong></p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Είναι δυνατή η τροποποίηση των ρυθμίσεων, για να μπορούν να συνδεθούν</strong></p>";
+
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p> Έλεγχοι για ενημερώσεις στην εφαρμογή Tunnelblick. </p> <p> Πρόσβαση στον ιστότοπο Tunnelblick. για περισσότερες λεπτομέρειες, ανατρέξτε στο <a href=\"https://tunnelblick.net/cPrivacy.html\"> Απόρρητο και Ασφάλεια </a> [tunnelblick.net]. </p> <p> Επίσης, ελέγχεται για ενημερώσεις σε διαμορφώσεις, εάν ο πάροχος υπηρεσιών VPN υλοποιεί τη συγκεκριμένη λειτουργία. </p>";
 
@@ -2269,6 +2275,9 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Επαναφέρει τις προειδοποιήσεις που έχουν ανασταλεί από το πλαίσιο ελέγχου \"Μην προειδοποιείτε για αυτό ξανά\".</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Δείτε το <a href=\"https://tunnelblick.net/cTunTapConnections.html\">το μέλλον Tun/Tap συνδέσεων στο macOS</a> [tunnelblick.net] για περισσότερες πληροφορίες.</p>";
+
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Καθορίζει την ποσότητα καταγραφής που γίνεται από το Tunnelblick και το OpenVPN.</p>";
 
@@ -2286,6 +2295,9 @@
 
 /* HTML info for the 'VPN status windows' button. */
 "<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>Καθορίζει πότε θα πρέπει το Tunnelblick να εμφανίζει τα παράθυρα κατάστασης VPN.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>The Console Log shows which configurations will not be able to connect.</p>\n" = "<p>Το ημερολόγιο της κονσόλας δείχνει ποιές ρυθμίσεις δεν είναι συνδέσιμες</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Η προσωρινή μνήμη DNS περιέχει αντίγραφα πληροφοριών DNS (Σύστημα Ονομάτων Τομέων).</p>\n<p><strong>Όταν είναι ενεργή η επιλογή</strong>, η προσωρινή μνήμη DNS θα εκκαθαρίζεται μετά από κάθε σύνδεση ή αποσύνδεση. Όλες οι επιλύσεις διευθύνσεων DNS θα εκτελούνται από τον εξυπηρετητή ονομάτων που έχει δηλωθεί στις ρυθμίσεις του VPN.</p>\n<p><strong>Όταν είναι ανενεργή η επιλογή</strong>, η προσωρινή μνήμη DNS δεν θα εκκαθαρίζεται. Αυτό μπορεί να δημιουργήσει προβλήματα αν υπάρχουν διενέξεις ονομάτων μεταξύ του εξυπηρετητή ονομάτων που έχει δηλωθεί στις ρυθμίσεις του προ-VPN και του εξυπηρετητή ονοματών και αν οι προ-VPN καταχωρήσεις ονομάτων έχουν αποθηκευτεί στην προσωρινή μνήμη.</p>";

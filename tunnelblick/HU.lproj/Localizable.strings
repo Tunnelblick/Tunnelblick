@@ -584,7 +584,7 @@
 "Configurations" = "Konfigurációk";
 
 /* Window title */
-" (Deployed)" = " (Telepített)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (Telepített)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
 
 /* Window title */
 " (Private)" = " (Személyes)";
@@ -1442,7 +1442,7 @@
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Egy vagy több VPN jelenleg is kapcsolódik. Kérjük szakítsa meg az összes VPN kapcsolatot és lépjen ki a Tunnelblickből mielőtt továbblép.";
 
 /* Window text */
-"One or more configurations are being ignored. See the Console Log for details." = "Egy vagy több konfiguráció mellőzve lett, részletekért kérem tekintse meg a Konzol Log-ot.";
+"One or more configurations are being ignored. See the Console Log for details." = "Egy vagy több konfiguráció mellőzve lett, részletekért kérem tekintse meg a Konzol naplót.";
 
 /* Window text */
 "One or more possible problems with DNS were found: \n\n%@" = "Egy vagy több lehetséges DNS hibát találtunk:\n\n%@";

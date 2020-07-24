@@ -581,7 +581,7 @@
 "Configurations" = "إعدادات";
 
 /* Window title */
-" (Deployed)" = " (مُوزعة)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (مُوزعة)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
 
 /* Window title */
 " (Private)" = " (خاص)";

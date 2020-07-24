@@ -584,7 +584,7 @@
 "Configurations" = "配置";
 
 /* Window title */
-" (Deployed)" = " (已经部署)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (已经部署)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
 
 /* Window title */
 " (Private)" = " (私人的)";
@@ -959,7 +959,7 @@
 "<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">更多信息</a> [tunnelblick.net]";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>基于 Tunnelblick, 可在 <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a> 下载到的自由软件. <br><br>OpenVPN 是 OpenVPN 有限责任公司的注册商标.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>基于 Tunnelblick, 可在 <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a> 下载到的自由软件. <br><br>OpenVPN 是 OpenVPN 有限责任公司的注册商标.";
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>断开 %@ 的连接后，网络设置并未正确恢复。</p><p>这个问题通常是由使用 'user nobody' 和/或 'group nobody' 的 OpenVPN 配置引起的。</p><p>要恢复网络设置，您需要重启计算机。</p><p>避免以后再出现此错误，请从 OpenVPN 配置文件中删除 “user nobody” 和 “group nobody” 行。</p><p>详情请参看<a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">OpenVPN 配置：用户与组</a>[tunnelblick.net]\n\n";

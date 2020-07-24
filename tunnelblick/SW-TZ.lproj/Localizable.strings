@@ -497,7 +497,7 @@
 "Configurations" = "Usanidi";
 
 /* Window title */
-" (Deployed)" = "(Imesimikwa)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = "(Imesimikwa)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
 
 /* Window title */
 " (Private)" = "(Binafsi)";
