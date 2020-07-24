@@ -4696,7 +4696,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         NSString * gitInfo = [self gitInfo];
 		
-		// Get contents of configuration file
+         NSString * translationInfo = (  processIsTranslated()
+                                      ? @"The Tunnelblick.app process is being translated"
+                                      : @"The Tunnelblick.app process is not being translated");
+
+        // Get contents of configuration file
         NSString * condensedConfigFileContents = [connection condensedSanitizedConfigurationFileContents ];
 		if (  ! condensedConfigFileContents  ) {
 			condensedConfigFileContents = @"(No configuration file found or configuration file could not be sanitized. See the Console Log for details.)";
@@ -4740,7 +4744,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
-							 @"%@\n%@\n\n"  // Version info
+							 @"%@\n%@\n%@\n\n"  // Version info
                              @"Configuration %@\n\n"
                              @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
                              @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
@@ -4757,7 +4761,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							 @"Non-Apple kexts that are loaded:\n\n%@\n%@"
 							 @"Quit Log:\n\n%@\n%@"
 							 @"Console Log:\n\n%@\n",
-                             versionContents, gitInfo,
+                             versionContents, gitInfo, translationInfo,
                              [connection localizedName],
 							 [connection configPath], condensedConfigFileContents, separatorString,
                              tblkFileList, separatorString,

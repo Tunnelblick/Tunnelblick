@@ -1172,6 +1172,24 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
     }
 }
 
+BOOL processIsTranslated(void) {
+
+    // Adapted from https://developer.apple.com/documentation/apple_silicon/about_the_rosetta_translation_environment
+
+    int ret = 0;
+    size_t size = sizeof(ret);
+    if (  sysctlbyname("sysctl.proc_translated", &ret, &size, NULL, 0) == -1  ) {
+        if (errno == ENOENT) {
+            return NO;
+        }
+
+        NSLog(@"Error from sysctlbyname: %d", ret);
+        return NO;
+    }
+    
+    return (BOOL) ret;
+}
+
 BOOL isUserAnAdmin(void)
 {
     // Run "id -Gn" to get a list of names of the groups the user is a member of
