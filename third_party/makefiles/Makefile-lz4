@@ -18,24 +18,54 @@
 #  distribution); if not, write to the Free Software Foundation, Inc.,
 
 built-lz4:
-	@echo "THIRD_PARTY: Expanding LZ4..."
 	mkdir -p build
-	tar -x -f sources/$(LZ4_NAME).tar.gz -C build
+	if [ -d sources/$(LZ4_NAME) ] ; then                            \
+		echo "THIRD_PARTY: Using already-expanded $(LZ4_NAME)" ;    \
+		rm -f -r build/$(LZ4_NAME) ;                                \
+		cp -a -f -R sources/$(LZ4_NAME) build/$(LZ4_NAME) ;         \
+	else                                                            \
+		echo "THIRD_PARTY: Expanding LZ4..." ;                      \
+		tar -x -f sources/$(LZ4_NAME).tar.gz -C build ;             \
+	fi                                                              \
+
 	@echo "THIRD_PARTY: Building LZ4..."
-	for a in $(LZ4_TARGET_ARCHS); do \
-		cd $(LZ4_BUILD_DIR) ; \
-		echo "Clean LZ4 for $$a" ; \
-		$(MAKE) clean; \
-		echo "Build LZ4 for $$a" ; \
-		CC=$(CC) \
-		CFLAGS="$(CFLAGS) -arch $$a" \
-		PREFIX=$(LZ4_STAGING_DIR)_$$a/ \
-		$(MAKE); \
-		echo "Install LZ4 to $(LZ4_STAGING_DIR)_$$a" ; \
-		PREFIX=$(LZ4_STAGING_DIR)_$$a/ \
-		$(MAKE) install; \
-		cd "$(TOPDIR)"; \
-		done
+	mkdir -p $(LZ4_STAGING_DIR)
+	for a in $(LZ4_TARGET_ARCHS); do                                \
+                                                                    \
+		cd $(LZ4_BUILD_DIR) ;                                       \
+                                                                    \
+		echo "THIRD_PARTY: Cleaning LZ4 for $$a" ;                  \
+		$(MAKE) clean;                                              \
+                                                                    \
+		rm -f -R $(LZ4_STAGING_DIR)_$$a ;                           \
+		mkdir $(LZ4_STAGING_DIR)_$$a ;                              \
+                                                                    \
+		echo "THIRD_PARTY: Building LZ4 for $$a:" ;                 \
+		echo "THIRD_PARTY:      CC=$(CC)" ;                         \
+		echo "THIRD_PARTY:      CFLAGS=$(CFLAGS) -arch $$a" ;       \
+		echo "THIRD_PARTY:      PREFIX=$(LZ4_STAGING_DIR)_$$a" ;    \
+		echo "THIRD_PARTY:      $(MAKE)" ;                          \
+                                                                    \
+		CC=$(CC)                                                    \
+		CFLAGS="$(CFLAGS) -arch $$a"                                \
+		PREFIX=$(LZ4_STAGING_DIR)_$$a                               \
+		$(MAKE);                                                    \
+                                                                    \
+		echo "THIRD_PARTY: Installing LZ4 for $$a:" ;               \
+                                                                    \
+		if [ -n "$(INSTALL_DIR)" ] ; then                           \
+			echo "THIRD_PARTY:      INSTALL_DIR is '$(INSTALL_DIR)', but lz4 needs to use it, so we unset it" ; \
+			unset INSTALL_DIR ;                                     \
+		fi ;                                                        \
+                                                                    \
+		echo "THIRD_PARTY:      PREFIX=$(LZ4_STAGING_DIR)_$$a" ;    \
+		echo "THIRD_PARTY:      $(MAKE)  install;" ;                \
+		PREFIX=$(LZ4_STAGING_DIR)_$$a                               \
+		$(MAKE) install;                                            \
+                                                                    \
+		cd "$(TOPDIR)";                                             \
+    done
+	@echo "THIRD_PARTY: Lipo-ing LZ4 ..."
 	cp -a $(LZ4_STAGING_DIR)_*/include $(LZ4_STAGING_DIR)/
 	mkdir -p $(LZ4_STAGING_DIR)/lib
 	lipo $(LZ4_STAGING_DIR)_*/lib/liblz4.a -create -output $(LZ4_STAGING_DIR)/lib/liblz4.a

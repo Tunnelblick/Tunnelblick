@@ -37,7 +37,7 @@ TOPDIR = $(PWD)
 
 LZO_NAME         = lzo-2.10
 
-LZ4_NAME         = lz4-1.8.1.2
+LZ4_NAME         = lz4-1.9.2
 LZ4_TARGET_ARCHS = x86_64
 
 SPARKLE_NAME     = Sparkle-077c64419f9460263bad99ab24dff962a103b1e2
