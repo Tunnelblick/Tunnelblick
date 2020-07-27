@@ -203,13 +203,15 @@
 
 //*************************************************************************************************
 // OpenVPN options that are not allowed on macOS
-#define OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY @[@"allow-nonadmin", @"cryptoapicert", @"dhcp-release", @"dhcp-renew", @"pause-exit", @"register-dns", @"service", @"show-adapters", @"show-net", @"show-net-up", @"show-valid-subnets", @"tap-sleep", @"win-sys"]
+#define OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY @[@"allow-nonadmin", @"cryptoapicert", @"dhcp-release", @"dhcp-renew", @"pause-exit", \
+                                                @"register-dns", @"service", @"show-adapters", @"show-net", @"show-net-up", \
+                                                @"show-valid-subnets", @"tap-sleep", @"win-sys"]
 
 //*************************************************************************************************
 // OpenVPN options that cannot appear in a "safe" configuration
 #define OPENVPN_OPTIONS_THAT_ARE_UNSAFE @[@"auth-user-pass-verify", @"config", @"client-connect", @"client-disconnect", \
-                                                                   @"down", @"ipchange", @"iproute", @"learn-address", \
-                                                                   @"plugin", @"route-pre-down", @"route-up", @"tls-verify",  @"up"]
+                                          @"down", @"ipchange", @"iproute", @"learn-address", \
+                                          @"plugin", @"route-pre-down", @"route-up", @"tls-verify",  @"up"]
 
 //*************************************************************************************************
 // Array of arrays with info about deprecated and removed options. Each array entry is an array with:
