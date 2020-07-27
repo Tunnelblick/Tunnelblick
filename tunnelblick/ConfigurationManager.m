@@ -4691,14 +4691,18 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		// Get OS and Tunnelblick version info
 		NSString * versionContents = [[gMC openVPNLogHeader] stringByAppendingString:
                                       (isUserAnAdmin()
-                                       ? @"; Admin user"
-                                       : @"; Standard user")];
+                                       ? @"; Admin user\n"
+                                       : @"; Standard user\n")];
         
         NSString * gitInfo = [self gitInfo];
 		
          NSString * translationInfo = (  processIsTranslated()
-                                      ? @"The Tunnelblick.app process is being translated"
-                                      : @"The Tunnelblick.app process is not being translated");
+                                      ? @"The Tunnelblick.app process is being translated\n"
+                                      : @"The Tunnelblick.app process is not being translated\n");
+
+        NSString * sipStatusInfo = (  runningWithSIPDisabled()
+                                    ? @"System Integrity Protection is DISABLED\n"
+                                    : @"System Integrity Protection is enabled\n");
 
         // Get contents of configuration file
         NSString * condensedConfigFileContents = [connection condensedSanitizedConfigurationFileContents ];
@@ -4744,7 +4748,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
-							 @"%@\n%@\n%@\n\n"  // Version info
+							 @"%@%@%@%@\n"  // Version info
                              @"Configuration %@\n\n"
                              @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
                              @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
@@ -4761,7 +4765,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							 @"Non-Apple kexts that are loaded:\n\n%@\n%@"
 							 @"Quit Log:\n\n%@\n%@"
 							 @"Console Log:\n\n%@\n",
-                             versionContents, gitInfo, translationInfo,
+                             versionContents, gitInfo, translationInfo, sipStatusInfo,
                              [connection localizedName],
 							 [connection configPath], condensedConfigFileContents, separatorString,
                              tblkFileList, separatorString,
