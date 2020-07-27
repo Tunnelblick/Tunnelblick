@@ -146,6 +146,8 @@ BOOL           isUserAnAdmin            (void);
 
 BOOL           runningATunnelblickBeta  (void);
 
+BOOL           runningWithSIPDisabled   (void);
+
 BOOL           displaysHaveDifferentSpaces(void);
 BOOL           mustPlaceIconInStandardPositionInStatusBar(void);
 BOOL           shouldPlaceIconInStandardPositionInStatusBar(void);

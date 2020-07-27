@@ -159,6 +159,39 @@ BOOL runningATunnelblickBeta(void) {
     return ([version rangeOfString: @"beta"].length != 0);
 }
 
+BOOL runningWithSIPDisabled(void) {
+
+    if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_CSRUTIL]  ) {
+        NSLog(@"Assuming SIP is disabled (i.e., is not in effect) because '%@' does not exist", TOOL_PATH_FOR_CSRUTIL);
+        return YES;
+    }
+
+    NSString * stdOutString = nil;
+    NSString * stdErrString = nil;
+    OSStatus status = runTool(TOOL_PATH_FOR_CSRUTIL, @[@"status"], &stdOutString, &stdErrString);
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"Error status %d from '%@ status'; assuming SIP is enabled. stdout = '%@'; stderr = '%@'",
+              status, TOOL_PATH_FOR_ID, stdOutString, stdErrString);
+        return NO;
+    }
+
+    BOOL result = FALSE;
+    BOOL disabled = ([stdOutString rangeOfString: @"System Integrity Protection status: disabled"].length != 0);
+    BOOL enabled  = ([stdOutString rangeOfString: @"System Integrity Protection status: enabled"].length  != 0);
+    if (   disabled
+        && ( ! enabled)  ) {
+        result = TRUE;
+    } else if (   enabled
+               && ( ! disabled) ) {
+        result = FALSE;
+    } else {
+        NSLog(@"Cannot determine SIP status; assuming SIP is enabled. stdout from '%@ status' = '%@'", TOOL_PATH_FOR_CSRUTIL, stdOutString);
+        result = FALSE;
+    }
+
+    return result;
+}
+
 BOOL runningOnMacosBeta(void) {
 
     NSString * stdOutString = nil;
