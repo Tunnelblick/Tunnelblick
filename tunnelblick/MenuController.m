@@ -4953,17 +4953,20 @@ static void signal_handler(int signalNumber)
     BOOL alwaysLoadTun     = [self oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: @"tun"];
     BOOL configNeedsTap    = [self oneOrMoreConfigurationsMustLoad: @"tap"];
     BOOL configNeedsTun    = [self oneOrMoreConfigurationsMustLoad: @"tun"];
-    BOOL onBigSur          = runningOnBigSurOrNewer();
-    BOOL onBigSurBeta      = runningOnMacosBeta() && onBigSur;
+    BOOL onBigSurOrNewer   = runningOnBigSurOrNewer();
+    BOOL onBigSurBeta      = (   runningOnMacosBeta()
+                              && onBigSurOrNewer );
     BOOL onTunnelblickBeta = runningATunnelblickBeta();
+    BOOL sipIsDisabled     = runningWithSIPDisabled();
 
     [self displayMessageAboutBigSurAndKextsAlwaysLoadTap: alwaysLoadTap
                                            alwaysLoadTun: alwaysLoadTun
                                           configNeedsTap: configNeedsTap
                                           configNeedsTun: configNeedsTun
-                                                onBigSur: onBigSur
+                                         onBigSurOrNewer: onBigSurOrNewer
                                             onBigSurBeta: onBigSurBeta
-                                       onTunnelblickBeta: onTunnelblickBeta];
+                                       onTunnelblickBeta: onTunnelblickBeta
+                                           sipIsDisabled: sipIsDisabled];
 
     [pool drain];
 }
@@ -4972,10 +4975,10 @@ static void signal_handler(int signalNumber)
                                          alwaysLoadTun: (BOOL) alwaysLoadTun
                                         configNeedsTap: (BOOL) configNeedsTap
                                         configNeedsTun: (BOOL) configNeedsTun
-                                              onBigSur: (BOOL) onBigSur
+                                       onBigSurOrNewer: (BOOL) onBigSurOrNewer
                                           onBigSurBeta: (BOOL) onBigSurBeta
-                                     onTunnelblickBeta: (BOOL) onTunnelblickBeta {
-
+                                     onTunnelblickBeta: (BOOL) onTunnelblickBeta
+                                         sipIsDisabled: (BOOL) sipIsDisabled{
 
     BOOL needTunOrTap = (   alwaysLoadTap
                          || alwaysLoadTun
@@ -4994,6 +4997,10 @@ static void signal_handler(int signalNumber)
                                                         @"<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
+        NSString * needToDisableSIP = NSLocalizedString(@"<p><strong>You can change a setting in macOS so it will allow Tunnelblick"
+                                                        @" to use its system extensions.</p>\n",
+                                                        @"HTML text. May be combined with other paragraphs.");
+
         NSString * futureNotConnect = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n"
                                                         @"<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
@@ -5007,8 +5014,10 @@ static void signal_handler(int signalNumber)
         NSString * futureInfo       = NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
-        if (  onBigSur  ) {
+        if (   onBigSurOrNewer
+            && ( ! sipIsDisabled)  ) {
             [htmlMessage appendString: willNotConnect];
+            [htmlMessage appendString: needToDisableSIP];
             preferenceName = @"skipWarningAboutBigSur1";
         } else {
             [htmlMessage appendString: futureNotConnect];
@@ -5022,7 +5031,7 @@ static void signal_handler(int signalNumber)
 
         [htmlMessage appendString: seeConsoleLog];
 
-        [htmlMessage appendString: (  onBigSur
+        [htmlMessage appendString: (  onBigSurOrNewer
                                     ? bigSurMoreInfo
                                     : futureInfo)];
 
@@ -5033,7 +5042,7 @@ static void signal_handler(int signalNumber)
         [htmlMessage setString: @""];
     }
 
-    if (  onBigSur  ) {
+    if (  onBigSurOrNewer  ) {
         NSString * betaOnBeta      = NSLocalizedString(@"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n"
                                                        @"<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n"
                                                        @"<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n",
