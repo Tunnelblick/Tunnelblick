@@ -144,7 +144,7 @@ NSData * base64Decode(NSString * input) {
 	return output;
 }
 
-uint64_t nowAbsoluteNanoseconds (void)
+uint64_t nowAbsoluteNanoseconds(void)
 {
     // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
     mach_timebase_info_data_t info;
@@ -153,7 +153,8 @@ uint64_t nowAbsoluteNanoseconds (void)
     return nowNs;
 }
 
-BOOL runningATunnelblickBeta (void) {
+BOOL runningATunnelblickBeta(void) {
+
     NSString * version = [[gMC tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
     return ([version rangeOfString: @"beta"].length != 0);
 }
@@ -238,7 +239,6 @@ BOOL runningOnBigSurOrNewer(void)
 }
 
 BOOL runningOn__Big__Sur__Successor__OrNewer(void) {
-
 
     // tldr; runningOnNewerThan(10, 16) won't work because Big Sur can be version 11.0 in some circumstances.
     //
