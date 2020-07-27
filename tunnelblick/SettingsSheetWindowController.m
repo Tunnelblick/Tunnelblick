@@ -375,7 +375,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
     BOOL enabled = TRUE;
     BOOL donotLoadKext = (   runningOnBigSurOrNewer()
-                           && ( ! [gTbDefaults boolForKey: @"bigSurCanLoadKexts"] )  );
+                          && ( ! (   runningWithSIPDisabled()
+                                  || [gTbDefaults boolForKey: @"bigSurCanLoadKexts"] ) )  );
 
     if (  donotLoadKext  ) {
         if (  index != 2  ) {
