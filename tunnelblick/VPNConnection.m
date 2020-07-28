@@ -2056,21 +2056,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	//		"problematicOptions"    a localized string listing the problematic options and in which OpenVPN version each was added.
 	//
 	// If all options in the configuration file are included in all versions of OpenVPN, returns nil.
-	
-	// Dictionary with info about added options:
-	//		OpenVPN version the option(s) first appeared in,
-	//		Option name...
 
-	NSArray * addedOptions = @[
-							   @[@"2.4",
-								 @"auth-gen-token", @"compat-names", @"compress", @"ecdh-curve", @"http-proxy-user-pass", @"ip-remote-hint",
-								 @"keying-material-exporter", @"machine-readable-output", @"management-external-cert", @"msg-channel",
-								 @"ncp-ciphers", @"ncp-disable", @"preresolve", @"pull-filter", @"push-remove", @"show-curves", @"tls-crypt",
-								 @"verify-client-cert",],
-							   
-							   @[@"2.5",
-								 @"tls-cert-profile", @"tls-crypt-v2", @"tls-crypt-v2-verify"],
-							   ];
+	NSArray * addedOptions = OPENVPN_OPTIONS_ADDED;
 	
 	NSString * lowestAddedInOpenvpnVersion = nil;
 	NSMutableString * optionsThatAreProblematic = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];

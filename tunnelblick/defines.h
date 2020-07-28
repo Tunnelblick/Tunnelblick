@@ -235,6 +235,20 @@
                             ];
 
 //*************************************************************************************************
+// Array of arrays with info about options added to OpenVPN. Each array entry is an array with:
+//		OpenVPN version the option(s) first appeared in,
+//		Option name...
+#define OPENVPN_OPTIONS_ADDED @[ \
+                        @[@"2.4", \
+                             @"auth-gen-token", @"compat-names", @"compress", @"ecdh-curve", @"http-proxy-user-pass", @"ip-remote-hint", \
+                             @"keying-material-exporter", @"machine-readable-output", @"management-external-cert", @"msg-channel", \
+                             @"ncp-ciphers", @"ncp-disable", @"preresolve", @"pull-filter", @"push-remove", @"show-curves", @"tls-crypt", \
+                             @"verify-client-cert",], \
+\
+                        @[@"2.5", \
+                             @"tls-cert-profile", @"tls-crypt-v2", @"tls-crypt-v2-verify"], \
+                        ];
+//*************************************************************************************************
 // Tunnelblick and OpenVPN logging levels, stored in the per-configuration "-loggingLevel" preference.
 // Levels from 0...11 are passed to OpenVPN in the --verb option and Tunnelblick does logging
 // At TUNNELBLICK_CONFIG_LOGGING_LEVEL, Tunnelblick does logging but does not set --verb, so the OpenVPN default or the configuration file setting is used
