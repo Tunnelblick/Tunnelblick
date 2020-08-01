@@ -114,7 +114,6 @@
 		6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */; };
 		6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */; };
 		6375FB4B1387F0E20034CB78 /* SettingsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */; };
-		63780E9724C06BC20026027C /* SW-KE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63780E9624C06BC20026027C /* SW-KE.lproj */; };
 		637A871913B74B81003C1871 /* SplashWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A871813B74B81003C1871 /* SplashWindowController.m */; };
 		637A871C13B74DFB003C1871 /* SplashWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 637A871B13B74DFB003C1871 /* SplashWindow.xib */; };
 		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
@@ -137,6 +136,7 @@
 		63903D18145EAD49006627C9 /* HU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63903D12145EAD49006627C9 /* HU.lproj */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
 		6395C2321E37B90000E3C176 /* TBButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6395C2311E37B90000E3C176 /* TBButton.m */; };
+		6397D39E24D5A6AB00BE00C5 /* SW-KE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6397D39D24D5A6AB00BE00C5 /* SW-KE.lproj */; };
 		6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */; };
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
 		639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639A10EA132AC74B00754C2A /* StatusWindow.xib */; };
@@ -497,7 +497,6 @@
 		6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSheetWindowController.m; sourceTree = "<group>"; };
 		6375FB471387F0270034CB78 /* SettingsSheetWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsSheetWindowController.h; sourceTree = "<group>"; };
 		6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSheet.xib; sourceTree = "<group>"; };
-		63780E9624C06BC20026027C /* SW-KE.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "SW-KE.lproj"; path = "../../../../../Volumes/SharedFolders/Home/Documents/Development/Tunnelblick/TBReleasePrep/0-TB-Repositories/TB/tunnelblick/SW-KE.lproj"; sourceTree = "<group>"; };
 		637A871713B74B81003C1871 /* SplashWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashWindowController.h; sourceTree = "<group>"; };
 		637A871813B74B81003C1871 /* SplashWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashWindowController.m; sourceTree = "<group>"; };
 		637A871B13B74DFB003C1871 /* SplashWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashWindow.xib; sourceTree = "<group>"; };
@@ -521,6 +520,7 @@
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
 		6395C2301E37B90000E3C176 /* TBButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBButton.h; sourceTree = "<group>"; };
 		6395C2311E37B90000E3C176 /* TBButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBButton.m; sourceTree = "<group>"; };
+		6397D39D24D5A6AB00BE00C5 /* SW-KE.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "SW-KE.lproj"; sourceTree = "<group>"; };
 		6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.tunnelblick.sh; sourceTree = "<group>"; };
 		6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.tunnelblick.sh; sourceTree = "<group>"; };
 		639A10EA132AC74B00754C2A /* StatusWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusWindow.xib; sourceTree = "<group>"; };
@@ -1138,7 +1138,7 @@
 				635497FE1FABD9E10009E149 /* SQ.lproj */,
 				63E5276920C2DA7E00963456 /* SR_Latn.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
-				63780E9624C06BC20026027C /* SW-KE.lproj */,
+				6397D39D24D5A6AB00BE00C5 /* SW-KE.lproj */,
 				632AA70024211D2900C7860D /* SW-TZ.lproj */,
 				6308EEE8222701E8003D974C /* TA.lproj */,
 				63A6F032236B93CF002762D9 /* TH.lproj */,
@@ -1716,7 +1716,7 @@
 				63ED903A1A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist in Resources */,
 				639B6119205BE7FD00BC2FF5 /* HE.lproj in Resources */,
 				6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */,
-				63780E9724C06BC20026027C /* SW-KE.lproj in Resources */,
+				6397D39E24D5A6AB00BE00C5 /* SW-KE.lproj in Resources */,
 				635713A61A6709D800709670 /* AR.lproj in Resources */,
 				632AA70124211D2A00C7860D /* SW-TZ.lproj in Resources */,
 				63206BC41D273CBD00019DFB /* info-icon-on-right-360x40.png in Resources */,
