@@ -15,12 +15,25 @@ The "third_party" folder contains programs that originate outside of the Tunnelb
 project. It includes a "Makefile" that builds them for use by Tunnelblick. See "THE THIRD
 PARTY PROGRAMS", below, for a description of the programs.
 
-Changing the third party programs involves replacing or adding additional source code and,
-for some programs, modifying Makefile (or the files it "includes") to reflect the name of
-the new or replacement program. See "CHANGING THIRD PARTY PROGRAMS", below.
+Although it is common for software projects that include third-party software to download
+the source code at compile time, Tunnelblick does not do that. Instead, all source code is
+included in the Tunnelblick source. This is done for several reasons, among them:
+
+ * To ensure that the software combinations work together correctly.
+
+ * To allow older versions of some components (openssl, libressl) to be used with older
+   copies of OpenVPN that are included in Tunnelblick to be compatible with older VPN servers. 
+
+ * To protect against a compromise of the network or the servers containing the source
+   code or other "supply chain attacks".
+
+Changing the third party programs involves replacing or adding the source code, and,
+for some programs, creating patches for the program and/or modifying Makefile (or the
+files it "includes") to reflect the name of the new or replacement program. See
+"CHANGING THIRD PARTY PROGRAMS", below.
 
 The process of building the third party programs is controlled by an Xcode "Run Script"
-that is the first operation performed by Xcode when building the Tunnelblick application.
+that is among the first operation performed by Xcode when building the Tunnelblick application.
 (Several Tunnelblick components are built before the application itself is built, so the
 third-party programs are not the first binaries that are built.)
 
@@ -58,13 +71,10 @@ There may be several different versions of OpenVPN in the third_party/tunnelblic
 Each copy is created with the Tunnelblick OpenVPN Xor Patch (see
 https://tunnelblick.net/cOpenvpn_xorpatch.html).
 
-There are several different versions of the tun and tap kexts created for use with different
-versions of macOS.
-
 Two programs are used slightly differently:
 
     Sparkle:   This program creates the Sparkle.framework, which Tunnelblick uses to
-               manage updates to VPN configurations and to the Tunnelblick application.
+               manage some updates to VPN configurations and to the Tunnelblick application.
 
     easy-rsa:  This is a collection of shell scripts which can be used to manage a public
                key infrastructure (PKI). They are "installed" by copying them into a
@@ -73,12 +83,17 @@ Two programs are used slightly differently:
                facility for updating the scripts when a new version of Tunnelblick is
                installed.
 
+Two system extensions (kexts) are included both as the source code and as a notarized binary.
+The notarized binaries will be used unless they have been deleted. They are included because
+macOS requires that kexts be signed with a special "kext signing" certificate which is not
+available to most developers.
+
 Four programs are built as libraries and statically linked to OpenVPN:
 
     LZO:           A compression/decompression library
     LZ4:           A compression/decompression library
     OpenSSL:       A TLS/SSL library
-    LibreSSL:	    A TLS/SSL library
+    LibreSSL:      A TLS/SSL library
     pkcs11-helper: A library for dealing with PKCS#11 devices
 
 
@@ -100,6 +115,19 @@ The third_party folder contains the following files and folders:
         This folder contains the source code for each of the third party programs. See
         "SOURCES FOLDER DETAILS", below.
 
+	tun-notarized.kext and tap-notarized.kext
+		These files are pre-built, signed and notarized binaries, included for the
+		convenience of developers who do not have a "kext signing certificate" from
+		Apple. If they have been deleted, the build process will use unsigned binaries
+		built from the source code.
+
+	ShellScriptToInstallAutotools.sh
+		A script to download and install the "autotools" as described above in PREREQUISITES.
+
+	README.txt
+		This document.
+
+
 The build process results in the creation of the following files and folders in third_party:
 
     do-not-clean
@@ -108,8 +136,8 @@ The build process results in the creation of the following files and folders in 
         created. If this file does not exist when Tunnelblick goes to build the third
         party programs, then the "Run Script" performs a "make clean" before building the
         third party programs to ensure that build is done from a known state. So you can
-        cause a clean build of the third party programs by deleting this file and then
-        building Tunnelblick.
+        cause a clean build of all of the third party programs by deleting this file and
+        then building Tunnelblick.
 
     built-*
         Files with names starting with "built-" are created as part of the build process
@@ -130,9 +158,9 @@ The build process results in the creation of the following files and folders in 
 
 SOURCES FOLDER DETAILS
 
-The "sources" folder contains the source code for each of the third party programs. Note
+The "sources" folder contains the source code for each of the third party programs. _Note
 that the version numbers in this document may not match the versions included in the
-current Tunnelblick source code.
+current Tunnelblick source code._
 
     libressl-2.5.5.tar.gz
         This is an archive of the source code for LibreSSL 2.5.5, as downloaded from
@@ -154,12 +182,14 @@ current Tunnelblick source code.
         This is an archive of the source code for pkcs11-helper 1.22, as downloaded from
         https://github.com/OpenSC/pkcs11-helper on 2017-08-11.
 
-    Sparkle-077c64419f9460263bad99ab24dff962a103b1e2.zip
-        This is an archive of the source code for Sparkle 077c644, as downloaded from
-        https://github.com/sparkle-project/Sparkle in 2016.
+    Sparkle-1.23.0-with-submodules.tar.gz
+        This is an archive of the source code for Sparkle release 1.23.0, as downloaded
+        from https://github.com/sparkle-project/Sparkle. See "To replace Sparkle", below,
+        for details about how the downloaded source code has been supplemented with the
+        submodules which it requires.
 
     patches
-        This folder contains patches for OpenSSL and Sparkle. tuntap and OpenVPN each have
+        This folder may contain patches for OpenSSL and Sparkle. tuntap and OpenVPN each have
         a similar folder of patches for each version. The process of creating the third
         party programs expands the source code into the third_party/build folder, patches
         the source code, and then builds the patched source code. As of 2016-07-31, only
@@ -269,11 +299,36 @@ To add a new version of tuntap:
 
 To replace Sparkle:
 
-    Note: Replacing Sparkle is complicated because of the extensive patches that are made
-    to Sparkle to implement extensions used by Tunnelblick. That said:
+	Note: Using the .tar.gz or .zip of a Sparkle release does not work because of a
+	bug/feature of GitHub. The problem is that the downloaded archive does not include
+	the source code of the ed25519 submodule. So getting a .tar.gz with the full Sparkle
+	source code for a branch is a multi-step process.
 
-    1. Download an archive containing the source code and copy it to the "sources"
-       subfolder. Download the archive as a ".zip" file or a ".tar.gz" file.
-    2. Delete the archive of the older version.
-    3. Create or modify the .diff file for each patch that is needed and copy the .diff
-       file into third_party/patches/sparkle.
+	Here is an example of getting the source of Sparkle release 1.23.0:
+
+	First, in Terminal, cd to a folder in which to work. Then execute the following commands:
+
+		git clone --depth 1 --branch 1.23.0 --recursive https://github.com/sparkle-project/Sparkle
+		mv Sparkle Sparkle-1.23.0-with-submodules
+		tar -czf Sparkle-1.23.0-with-submodules.tar.gz Sparkle-1.23.0-with-submodules
+		rm -fr Sparkle-1.23.0-with-submodules
+
+	Second, copy the new .tar.gz into the third_party/sources folder.
+
+	Third, remove the old Sparkle .tar.gz or .zip file.
+
+	Finally, change SPARKLE_NAME in third_party/Makefile to the name of the newly created .tar.gz but
+	without the ".tag.gz". In the example above, set SPARKLE_NAME to Sparkle-1.23.0-with-submodules.
+
+	Detailed explanation of the commands:
+		git clone... downloads a clone of the source code from GitHub.
+					"--depth 1" causes the clone to include only the last revision .
+					"--branch 1.23.0" causes the commit with tag "1.23.0" to be cloned.
+					"--recursive" causes all submodule source code to be included.
+					"https://github.com/sparkle-project/Sparkle" is the GitHub URL for the Sparkle project.
+
+		tar -czf...	creates the .tar.gz
+					"-czf Sparkle-1.23.0-with-submodules.tar.gz" causes tar to create a new .tar.gz archive with that name
+					"Sparkle" specifies the folder from which the .tar.gz is to be made
+
+		rm -fr Sparkle removes the downloaded source code
