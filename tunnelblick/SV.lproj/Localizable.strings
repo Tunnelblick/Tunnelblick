@@ -1715,6 +1715,9 @@
 "Trying to quit all OpenVPN processes..." = "Försöker att avsluta alla OpenVPN processer…";
 
 /* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Administratörsläge\n\n Tillåt temporärt att göra ändringar som kräver ett administratörslösenord.\n\n Administratörsläget avslutas efter fem minuter eller när fönstret 'VPN-inställningar' stängs.";
+
+/* Window text */
 "Tunnelblick Internet Use:" = "Internetanvändning för Tunnelblick:";
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
@@ -1728,6 +1731,12 @@
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kunde inte startas på grund av ett problem med konfigurationen. Var god undersök konsolloggen för detaljer.";
+
+/* Window text */
+"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick kunde inte avinstallera konfigurationen \"%@\". Öppna konsolloggen för mer detaljer.";
+
+/* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick kunde inte kopiera mappen '%@' . Se konsolloggen för detaljer.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick kunde inte kopiera konfigurationen '%@' . Se konsolloggen för detaljer.";
@@ -1759,11 +1768,17 @@
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick kunde inte flytta konfigurationen '%@' . Se konsolloggen för detaljer.";
 
+/* Window text. The '%@' refers to a configuration or a folder of configurations. */
+"Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick kunde inte ta bort '%@'. Se konsolloggen för detaljer.";
+
 /* Window text */
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick kunde inte ersätta konfigurationen \"%@\". Se Konsol-loggen för fler detaljer.";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick upptäckte ett allvarligt fel.\n\nSkicka ett e-postmeddelande till developers@tunnelblick.net med en beskrivning av vad Tunnelblick gjorde då felet uppstod.\n\n";
+
+/* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "Tunnelblick stötte på problem med %1$lu konfigurationer:\n\n%2$@%3$@%4$@%5$@%6$@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick misslyckades med att åtgärda problemen med inställningarna för '%@'. Detaljer finns i konsolloggen";
@@ -1784,6 +1799,9 @@
 "Tunnelblick is ready." = "Tunnelblick är redo.";
 
 /* Window text */
+"Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick behöver rättigheter för att kopiera mappen '%@'";
+
+/* Window text */
 "Tunnelblick needs authorization to copy or move configurations." = "Tunneblick behöver tillåtelse att kopiera eller flytta konfigurationer.";
 
 /* Window text */
@@ -1802,7 +1820,22 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick behöver tillåtelse att göra konfigurationen '%@' delad.";
 
 /* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick behöver rättigheter för att flytta mappen %1$@ till mapp %2$@";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@'." = "Tunnelblick behöver rättigheter för att flytta mappen '%@'";
+
+/* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick behöver tillåtelse att läsa Tunnelblick-data som hör till andra användare av den  här datorn, så att all Tunnelblick-data kan exporteras.\n\nObservera:\n\n     1. Användaruppgifter som har sparats i Nyckelhanteraren kommer INTE att exporteras. \n\n     2. Exporten kan ta lång tid.\n\n";
+
+/* Window text */
+"Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "Tunnelblick behöver tillåtelse att ta bort en eller flera konfigurationer eller mappar.\n\nBorttagning är permanent och kan inte göras ogjort. Inställningar för borttagna konfigurationer tas också bort permanent.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "Tunnelblick behöver tillåtelse att döpa om konfigurationen \"%1$@\" till \"%2$@\".";
+
+/* Window text */
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick behöver tillåtelse att döpa om mappen \"%1$@\" till \"%2$@\".";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick behöver tillåtelse för att säkra den importerade datan.";
@@ -2036,6 +2069,9 @@
 "You may not remove a configuration which is set to start when the computer starts." = "Du kan inte radera en konfiguration som är inställd att starta när datorn startas.";
 
 /* Window text */
+"You may not remove a folder unless it is empty." = "Du kan inte ta bort en mapp om den inte är tom.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Du kommer inte att kunna uppdatera Tunnelblick om du inte kan få ett godkännande från en av datorns administratörer.\n\nÄr du säker på att du vill fortsätta?";
 
 /* Window text */
@@ -2121,6 +2157,18 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>icke-Tunnelblick</strong>' versioner av OpenVPN har inte skapats av TunnelBlick projektet och ingår inte i Tunnelblick. De har installerats av en datoradministratör.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>En eller fler av dina konfigurationer kommer inte att kunna ansluta.</strong></p>\n<p>Konfigurationen/(rna) kräver en system-utökning men denna version av macOS tillåter inte Tunnelblick att använda dess system-utökningar. </p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>En eller fler av dina konfigurationer kommer inte att kunna ansluta </strong> i framtida versioner av macOS.</p>\n<p>Konfigurationen/(rna) kräver en system-utökning men framtida versioner av macOS kommer inte att tillåta Tunnelblick att använda dess system-utökningar. </p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p><strong>Bara den senaste beta-versionen av Tunnelblick</strong> ska användas i denna version av macOS. Den kan laddas ner från <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick nedladdningar</a>[tunnelblick.net] och installeras normalt.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p><strong>Vänligen håll Tunnelblick uppdaterat </strong> genom att automatiskt leta efter uppdateringar.</p>\n<p>Bara den senaste beta-versionen av Tunnelblick bör användas i denna version av macOS.</p>\n<p>Du kan ställa in automatiska sökningar efter uppdateringar i \"Preferences\"-panelen i Tunnelblicks \"VPN details\"-fönster. </p>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Anger vilken version av OpenVPN och SSL-programvaran som ska användas för att ansluta VPN.</strong><ul><li><strong>Inställningen \"Standard\"</strong> använder standardversionen av OpenVPN med OpenSSL som ingår i denna version av Tunnelblick. Denna version kan skilja sig mellan olika versioner av Tunnelblick.<br></li><li><strong>Inställningen \"Senaste\"</strong> använder den senaste versionen av OpenVPN med LibreSSL som ingår i denna version av Tunnelblick. Den senaste versionen kan skilja sig mellan olika versioner av Tunnelblick.<br></li><li><strong>Alla andra inställningar</strong> använder den angivna versionen av OpenVPN och SSL-programvaran om de är tillgängliga i den här versionen av Tunnelblick. Om inte, kommer den närmaste versionen att användas.<br></li></ul>";
 
@@ -2182,6 +2230,9 @@
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>När vald</strong>, kommer konfigurationer som är inne i mappar visas i undermenyer till Tunnelblick-menyn.</p><p><strong>När inte vald</strong>, kommer konfigurationer som är inne i mappar visas i Tunnelblick-menyn.</p>";
 
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong>Om markerad</strong>, i det fall OpenVPN oväntat avslutas (kraschar), kommer Tunnelblick att försöka återansluta VPN igen.</p>\n<p><strong>Om inte markerad</strong>, kommer Tunnelblick inte att försöka återansluta VPN om OpenVPN oväntat avslutas. ";
+
 /* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>När vald</strong>, kan nätverksinställningar som ställdes in manuellt komma att ändras när VPN ansluts. Detta kommer endast att ske om ändringarna är specificerade genom val i OpenVPN konfigurationensfilen eller från OpenVPN servern.</p>\n<p><strong>När inte vald</strong>, kommer nätverksinställningar som ställdes in manuellt inte att ändras när VPN ansluts.</p>";
 
@@ -2214,6 +2265,9 @@
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>När markerad</strong>, måste du verifiera din identitet före förbindelse upprättas. Du kan verifiera din identitet genom att använda ditt lösenord, eller om det är tillgängligt, TouchID eller FaceID.</p>\n<p><strong>Om ej markerad</strong>, behövs ingen verifiering av din identitet före förbindelse upprättas.</p>\n<p><strong>Denna kryssruta är inaktiverad</strong> om du använder en version av macOS som inte stödjer den.</p><p><strong>Observera: Godkännande från datorns administratör behövs för att ändra den här inställningen.</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Du kan ändra konfigurationerna så att de kan koppla upp. </strong></p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Sök efter uppdateringar till Tunnelblick-applikationen.</p><p>Ansluter till Tunnelblicks hemsida; för mer information se <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Söker också efter uppdateringar till konfigurationer om din VPN-leverantör erbjuder denna tjänst.</p>";
