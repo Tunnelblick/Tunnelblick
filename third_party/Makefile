@@ -46,7 +46,7 @@ OPENSSL_1_0_NAME = openssl-1.0.2u
 OPENSSL_1_1_NAME = openssl-1.1.1g
 LIBRESSL_NAME	 = libressl-2.7.1
 
-PKCS11_NAME      = pkcs11-helper-1.22
+PKCS11_NAME      = pkcs11-helper-1.26.0
 
 EASY_RSA_3_NAME  = easy-rsa-3.0.1
 
