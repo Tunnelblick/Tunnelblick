@@ -4998,7 +4998,7 @@ static void signal_handler(int signalNumber)
                                                         @"HTML text. May be combined with other paragraphs.");
 
         NSString * needToDisableSIP = NSLocalizedString(@"<p><strong>You can change a setting in macOS so it will allow Tunnelblick"
-                                                        @" to use its system extensions.</p>\n",
+                                                        @" to use its system extensions.</strong></p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
         NSString * futureNotConnect = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n"
