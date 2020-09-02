@@ -1,1 +1,1 @@
---enable-static=yes --enable-shared --enable-crypto --enable-ssl --disable-debug --disable-plugin-auth-pam --disable-dependency-tracking --enable-password-save
+--enable-static=yes --enable-shared --enable-crypto --enable-ssl --disable-debug --disable-plugin-auth-pam --disable-dependency-tracking
