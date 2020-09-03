@@ -818,6 +818,12 @@
 "    • Install one configuration\n" = "    התקן קונפיגורציה אחת\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "להתקין או להחליף קונפיגורציות %lu \"בטוחות\" (ללא צורך בהרשאות אדמיניסטרטור)";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "להתקין או להחליף קונפיגורציה %lu \"בטוחה\" אחת (ללא צורך בהרשאות אדמיניסטרטור)";
+
+/* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    החלף %lu קונפיגורציות\n\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
@@ -1447,11 +1453,20 @@
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "ניתן להפעיל אוטומטית עם עליית המחשב אך ורק קונפיגורציית Tunnelblick (סיומת .tblk).";
 
+/* Window text. The first and second '%@' will each be replaced by a version number such as '3.2'. The third '%@' will be replaced by the name of a configuration. The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"OpenVPN %@ will be used to connect this configuration instead of OpenVPN %@.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "נשתמש בOpenVPN %1$@ לשם חיבור לקונפיגורציה זו במקום OpenVPN %2$@.\n\nהקובץ קונפיגורציה לOpenVPN עבור '%3$@' מכיל האופציות הבאות:\n\nכדאי לעדכן את הקונפיגורציה כדי שיהיה אפשר להשתמש בו עם גרסאות מתקדמות של OpenVPN.\n";
+
 /* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
 "OpenVPN %@" = "OpenVPN %@";
 
 /* Window text. The %@ is an OpenVPN version number, e.g. '2.3 - OpenSSL v1.0.2n'. */
 "OpenVPN %@, which is not available in this version of Tunnelblick" = "OpenVPN %@, אשר לא זמינה בגרסא זו של Tunnelblick";
+
+/* Window text */
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN אינה מגיבה לבקשות ניתוק.\n\nTunnelblick תתנתק בעת שOpenVPN תתחיל להגיב לבקשות ניתוק.\n\nזה יכול לקחת עד שתי דקות במקרים מסויימים.\n\nהחיבור יהיה לא זמין עד שינותק.";
+
+/* Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3') */
+"OpenVPN version %@ is not available. Using %@ as the default." = "גרסת OpenVPN %1$@ אינו זמין. משתמש ב%2$@ כברירת מחדל.";
 
 /* Window text */
 "OpenVPN version:" = "גרסת OpenVPN:";
@@ -1469,16 +1484,37 @@
 "Password:" = "סיסמא:";
 
 /* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "נתיב '%1$@' מכיל תווים לא חוקיים. \n\nתווים לא חוקיים: '%2$s'";
+
+/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "אנא הכנס\\י אסימון %@, והקש המשך";
+
+/* Window text */
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "קונפיגורציות פרטיות אינן יכולות להתחבר בעת אתחול המחשב.\n\nהפוך אותן קודם למשותפות, ואז תשנה את הגדרה זו.";
+
+/* Window text */
+"Program error, please see the Console log." = "שגיאת תוכנה. ראה בConsole log.";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "שינוי שם נכשל; אנא התייחס ללוג על מנת לקבל יותר מידע.";
 
 /* Window text */
+"Search domain:" = "תחום חיפוש";
+
+/* Window text */
 "Securing Tunnelblick..." = "מאבטח את Tunnelblick...";
 
 /* Window text */
+"Select a target user for each user whose setup data you wish to import." = "תבחר יעד לכל משתמש עבורו תרצו לייבא הגדרות";
+
+/* Window text */
 "Set DNS/WINS:" = "קבע DNS/WINS:";
+
+/* Window text */
+"Single-quote missing in line %u" = "חסר גרש יחיד בשורה %u";
+
+/* Window text */
+"Skipped copying %@ because a file with that name and contents has already been copied." = "דלגנו על העתקת %@ בגלל שקובץ בעל אותו שם ותוכן כבר הועתק";
 
 /* Window text in the splash screen */
 "Starting Tunnelblick..." = "מתחיל את Tunnelblick...";
@@ -1503,6 +1539,12 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "תודה על תרומתכם לTunnelblick";
+
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "קונפגורציית VPN %@ עבר עריכה מאז הצפנתו האחרונה";
+
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details." = "תיקיית סיסטם %1$@ (%2$@) לא מאובטח.\n\nייתכן שTunnelblick ותוכנות אחרים לא יפעלו באופן תקין עד שבעייה זו פותרה.\n\nראה פרטים console log";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "הלוג עבור OpenVPN איננו קיים יותר או שנמחק ";

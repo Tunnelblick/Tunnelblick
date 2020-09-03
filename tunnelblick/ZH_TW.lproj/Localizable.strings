@@ -2267,6 +2267,9 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>當勾選時</strong>，你需要在連線前進行身份驗證。你可以使用你的密碼、 TouchID 或 FaceID (如果支援的話) 進行驗證。</p>\n<p><strong>當未勾選時</strong>，連線前不需進行身份驗證。</p>\n<p>如果你使用的 macOS 版本不支援時，<strong>此選項將被禁用</strong>。</p><p><strong>注意：變更此項設定需要系統管理者權限。</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>您可以變更 macOS 設定以允許 Tunnelblick 使用系統延伸功能。</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>您可以修改設定檔使它們可以成功連線。</strong></p>\n";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
