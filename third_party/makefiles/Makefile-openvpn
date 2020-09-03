@@ -88,15 +88,15 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 			if [ "$$ssl_name" = "$(OPENSSL_1_0_NAME)" ] ; then \
 				ssl_staging_dir="$(OPENSSL_1_0_STAGING_DIR)" ; \
 				ssl_target_files="$(OPENSSL_1_0_TARGET_FILES)" ; \
-				pkcs11_enable="--enable-pkcs11" ; \
+				pkcs11_enable="" ; \
 			elif [ "$$ssl_name" = "$(OPENSSL_1_1_NAME)" ] ; then \
 				ssl_staging_dir="$(OPENSSL_1_1_STAGING_DIR)" ; \
 				ssl_target_files="$(OPENSSL_1_1_TARGET_FILES)" ; \
-				pkcs11_enable="" ; \
+				pkcs11_enable="--enable-pkcs11" ; \
 			elif [ "$$ssl_name" = "$(LIBRESSL_NAME)"    ] ; then \
 				ssl_staging_dir="$(LIBRESSL_STAGING_DIR)" ; \
 				ssl_target_files="$(OPENSSL_1_0_TARGET_FILES)" ; \
-				pkcs11_enable="--enable-pkcs11" ; \
+				pkcs11_enable="" ; \
 			else \
 				echo "error: do not know how to build OpenVPN $$openvpn_major_minor with '$$ssl_name'" ; \
 				exit -1 ; \
