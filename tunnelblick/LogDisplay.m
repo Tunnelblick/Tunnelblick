@@ -250,7 +250,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 	BOOL useRedHighlighting    = [line rangeOfString: @"ERROR:" options: NSCaseInsensitiveSearch].length != 0;
 	BOOL useYellowHighlighting = (  useRedHighlighting
 								  ? NO
-								  : [line rangeOfString: @"WARNING:" options: NSCaseInsensitiveSearch].length != 0);
+								  : (   ([line rangeOfString: @"WARNING:"           options: NSCaseInsensitiveSearch].length != 0)
+                                     || ([line rangeOfString: @"DEPRECATED OPTION:" options: NSCaseInsensitiveSearch].length != 0)));
 	BOOL useBlueHighlighting   = (  (   useRedHighlighting
 									 || useYellowHighlighting)
 								  ? NO
