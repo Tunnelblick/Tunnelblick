@@ -73,7 +73,7 @@ TUNTAP_CURRENT_TARGZ  = tuntap_20141104_src.tar.gz
 # Each test compares a bash variable ($$ssl_name) with one or more make variables ( e.g., $(OPENSSL_1_0_NAME) )
 
 OPENVPN_2_3_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_0_NAME) -o $$ssl_name = $(LIBRESSL_NAME)
-OPENVPN_2_4_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_0_NAME) -o $$ssl_name = $(OPENSSL_1_1_NAME)
+OPENVPN_2_4_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_1_NAME)
 OPENVPN_2_5_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_1_NAME)
 
 #######################################################################################
