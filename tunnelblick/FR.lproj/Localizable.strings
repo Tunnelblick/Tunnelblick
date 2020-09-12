@@ -782,7 +782,7 @@
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • L'adresse de DNS %@ n'est pas l'adresse d'un DNS public connu de Tunnelblick et n'est pas routée à travers le VPN.\n\n";
 
 /* Window text */
-"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • L'adresse IP du serveur DNS %@ est privée et n'est pas routée via le VPN.\n\n";
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • L'adresse de DNS %@ n'est pas une adresse IP publique et n'est pas routée via le VPN.";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installé %lu configurations\n\n";
@@ -794,7 +794,7 @@
 "     • Installed or replaced %lu \"safe\" configurations\n\n" = "     • %lu configurations \"sures\" installées ou remplacées\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed or replaced one \"safe\" configuration\n\n" = "     • Une configuration \"sure\" installée ou remplacée\n\n";
+"     • Installed or replaced one \"safe\" configuration\n\n" = "     • Installer ou remplacer une configuration \"sûre\"";
 
 /* Window text */
 "     • No DNS servers have been specified.\n\n" = "     • Aucun serveur DNS n'a été spécifié.\n\n";
@@ -818,10 +818,10 @@
 "    • Install one configuration\n" = "    • Installé une configuration\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    • %lu configurations \"sures\" installées ou remplacées (autorisation de l'administrateur non requise)\n\n";
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    • Installer ou remplacer %lu configurations \"sûres\" (autorisation de l'administrateur non requise)";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "    • Une configuration \"sure\" installée ou remplacée (autorisation de l'administrateur non requise)\n";
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "    • Installer ou remplacer une configuration \"sûre\" (autorisation de l'administrateur non requise)\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    • Remplacé %lu configurations\n\n";
@@ -971,7 +971,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Une configuration VPN Tunnelblick est imbriquée trop profondément dans '%@'";
 
 /* Window text */
-"A configuration named '%@' already exists in this location.\nDo you want to replace it with the one you're moving or copying?" = "Une configuration appelée '%@' existe déjà à cet endroit. \nVoulez-vous la remplacer avec celle que vous déplacez ou copiez?";
+"A configuration named '%@' already exists in this location.\nDo you want to replace it with the one you're moving or copying?" = "Une configuration appelée '%@' existe déjà à cet endroit. \nVoulez-vous la remplacer avec celle que vous déplacez ou copiez ?";
 
 /* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Une configuration qui nécessite un mot de passe (clé privée) ou un nom d'utilisateur et un mot de passe ne peut pas se connecter au lancement de l'ordinateur.";
@@ -1025,7 +1025,7 @@
 "All configurations use %@ credentials" = "Toutes les configurations utilisent l’authentification %@";
 
 /* Window text */
-"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Merci de joindre également à votre e-mail le fichier 'Tunnelblick Error Data.txt' qui se trouve sur votre bureau. Il contient des informations à propos de l'erreur. Vous pouvez double-cliquer le fichier pour voir l'information.\n\n";
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Merci de joindre également à votre e-mail le fichier 'Tunnelblick Error Data.txt' qui se trouve sur votre bureau. Il contient des informations à propos de l'erreur. Vous pouvez double-cliquer sur le fichier pour voir l'information.\n\n";
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Une erreur (statut %1$ld) est survenue lors de la vérification de la sécurité de la configuration %2$@.\n\nMerci de quitter et de relancer Tunnelblick. Si le problème persiste, merci de réinstaller Tunnelblick.";
@@ -1127,7 +1127,7 @@
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "La configuration '%1$@' nécessite Tunnelblick %2$@ ou supérieur&nbsp;; vous utilisez Tunnelblick %3$@.\n\nVous devez mettre à jour Tunnelblick pour installer cette configuration.";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "La configuration '%1$@' nécessite Tunnelblick %2$@ ou inférieur&nbsp;; vous utilisez Tunnelblick %3$@.";
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "La configuration '%1$@' nécessite Tunnelblick %2$@ ou inférieur ; vous utilisez actuellement Tunnelblick %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "La configuration '%1$@' va être ignorée car son nom contient des caractères non autorisés.\n\nCaractères non autorisés : '%2$s'\n\n";
@@ -1304,7 +1304,7 @@
 "Installation finished successfully." = "L’installation a réussie.";
 
 /* Window text */
-"Installing and securing Tunnelblick..." = "Tunnelblick s’installe et se sécurise…";
+"Installing and securing Tunnelblick..." = "Installation et sécurisation de Tunnelblick en cours…";
 
 /* Window text */
 "Installing configurations is not allowed" = "L'installation de configurations n'est pas autorisée";
@@ -1373,7 +1373,7 @@
 "Network access was disabled when a VPN disconnected." = "L'accès réseau a été désactivé lorsqu'un VPN s'est déconnecté.";
 
 /* Window text */
-"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "L'accès réseau a été désactivé lors de la déconnexion d'un VPN\n\nVoulez-vous réactiver l'accès réseau ?\n\n";
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "L'accès réseau a été désactivé lors de la déconnexion d'un VPN.\n\nVoulez-vous réactiver l'accès réseau ?\n\n";
 
 /* Window text */
 "Network setting" = "Paramètres réseau";
@@ -1412,7 +1412,7 @@
 "On expected disconnect:" = "En cas de déconnexion attendue :";
 
 /* Window text */
-"On unexpected disconnect:" = "En cas de déconnexion inopinéee :";
+"On unexpected disconnect:" = "En cas de déconnexion inopinée :";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Un ou plusieurs processus OpenVPN tournent mais sont inconnus pour Tunnelblick. Si vous ne faites pas fonctionner OpenVPN en dehors de Tunnelblick, cela signifie généralement que le lancement précédent de Tunnelblick n’a pu les couper proprement et vous devriez les tuer. Ils risquent d’interférer avec le fonctionnement de Tunnelblick. Voulez vous tuer tous les processus OpenVPN ?";
@@ -2265,6 +2265,9 @@
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Lorsque cette option est cochée</strong>, vous devrez vous identifier avant la connexion. Vous pouvez vous identifier à l'aide d'un mot de passe ou, si ces méthodes sont disponibles, ToucheID ou FaceID</p>\n<p><strong>Lorsque cette option n'est pas cochée</strong>, aucune identification ne sera demandée avant la connexion. </p>\n<p><strong>Cette option est indisponible</strong> si vous utilisez une version de macOS qui ne la supporte pas.</p>\n<p><strong>Note: L'autorisation d'un administrateur est requise pour modifier ce réglage.</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Vous pouvez modifier un paramètre dans macOS afin de permettre à Tunnelblick d'utiliser ses extensions système.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Vous pouvez modifier les configurations pour qu'elles puissent se connecter.</strong></p>\n";

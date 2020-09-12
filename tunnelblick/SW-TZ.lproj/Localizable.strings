@@ -210,6 +210,9 @@
 "Reset Disabled Warnings" = "Rudisha maonyo yaliyo Lemazwa";
 
 /* Button */
+"Reset primary interface" = "Weka upya kiolesura cha msingi";
+
+/* Button */
 "Restart connection" = "Anzisha upya maunganisho";
 
 /* Button */
@@ -351,6 +354,21 @@
 
 /* Menu Item */
 "OpenVPN level 0 - no output except fatal errors" = "Kiwango cha OpenVPN 0 - hakuna pato isipokuwa makosa ya kutisha";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "Kiwango cha OpenVPN 11 - taarifa ya verbose sana";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "Kiwango cha OpenVPN 3 - taarifa ya kawaida";
+
+/* Menu Item */
+"OpenVPN level 4 - values for all options" = "Kiwango cha OpenVPN 4 - taarifa ya kawaida";
+
+/* Menu Item */
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "Kiwango cha OpenVPN 4 - \"R\" or \"W\" kwa kila pakiti";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "Kiwango cha OpenVPN 6 - maadili kwa chaguzi zote";
 
 /* Menu item */
 "Quit Tunnelblick" = "Katisha Tunnelblick";
@@ -567,6 +585,12 @@
 
 /* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "VPN hii inahitaji wewe kujibu swali lakini haijatoa swali.";
+
+/* HTML info for the 'On unexpected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p> <strong> Inabainisha kile Tunnelblick inafanya wakati VPN <em> bila kutarajia </em> ikikatika </strong> (kwa mfano, ikiwa OpenVPN itaanguka au inapoteza muunganisho wake na VPN na imewekwa ili kusimamisha wakati hiyo itatokea) . Chaguzi ni: </p> <ul> <li> <strong> Usifanye chochote </strong> <br> </ li> <li> <strong> Weka upya kiolesura cha msingi </strong> <br> </ li> Tunnelblick inarudisha upya mtandao kiolesura kwa kutoa amri  'ipconfig chini; ipconfig juu ' kwa kiolesura. Hii inaweza kusaidia wakati usanidi ukishindwa kurejesha mipangilio ya mtandao vizuri baada ya kukatwa. (ya ndani na ya mtandao) kwa kuzima Wi-Fi na kuzima huduma zingine zote za mtandao. Hii inaweza kusaidia kuhakikisha kuwa hakuna kinachovuja kutoka kwa kompyuta isipokuwa kupitia VPN. Ikiwa Tunnelblick imelemaza ufikiaji wa mtandao amri ya menyu ili kuwezesha ufikiaji wote ambao ulilemazwa utapatikana kutoka kwa ikoni ya Tunnelblick kwenye menyu ya menyu. Unaweza pia kuwezesha tena Wi-Fi kwa kuiwasha, au kuwezesha tena huduma zingine za mtandao katika Mapendeleo ya Mfumo: Mtandao. <strong> Mipangilio hii haiwezi kufanya kazi vizuri wakati VPN zaidi ya moja imeunganishwa kwa wakati mmoja. </strong> </li> </ul>";
+
+/* HTML info for the 'On expected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p> <strong> Inabainisha kile Tunnelblick inafanya wakati VPN <em> bila kutarajia </em> ikikatika </strong> (kwa mfano, ikiwa OpenVPN itaanguka au inapoteza muunganisho wake na VPN na imewekwa ili kusimamisha wakati hiyo itatokea) . Chaguzi ni: </p> <ul> <li> <strong> Usifanye chochote </strong> <br> </ li> <li> <strong> Weka upya kiolesura </strong> <br> </ li> Tunnelblick inarudisha upya mtandao kiolesura kwa kutoa amri  'ipconfig chini; ipconfig juu ' kwa kiolesura. Hii inaweza kusaidia wakati usanidi ukishindwa kurejesha mipangilio ya mtandao vizuri baada ya kukatwa. (ya ndani na ya mtandao) kwa kuzima Wi-Fi na kuzima huduma zingine zote za mtandao. Hii inaweza kusaidia kuhakikisha kuwa hakuna kinachovuja kutoka kwa kompyuta isipokuwa kupitia VPN. Ikiwa Tunnelblick imelemaza ufikiaji wa mtandao amri ya menyu ili kuwezesha ufikiaji wote ambao ulilemazwa utapatikana kutoka kwa ikoni ya Tunnelblick kwenye menyu ya menyu. Unaweza pia kuwezesha tena Wi-Fi kwa kuiwasha, au kuwezesha tena huduma zingine za mtandao katika Mapendeleo ya Mfumo: Mtandao. <strong> Mipangilio hii haiwezi kufanya kazi vizuri wakati VPN zaidi ya moja imeunganishwa kwa wakati mmoja. </strong> </li> </ul>";
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p> Tunnelblick ni pamoja na toleo mahsusi la 'rsa-rahisi', ambalo ni seti ya maandishi ya amri yaliyoandaliwa na watengenezaji wa OpenVPN kwa kuunda na kudumisha vyeti na funguo. </p> <p> Bonyeza kitufe hiki kuzindua Temino ya MacOS  tumizi ikiwa na saraka ya kufanya kazi iliyowekwa kwenye folda lenye maandishi. </p> <p> Maandishi ya kawaida huwa kwenye folda kwa ~ / Library / Support Support / Tunnelblick / easy-rsa. Katika 'easy-rsaPath' unaweza kuwa na njia katika folda ambalo Tunnelblick itatumia badala yake. 'easy-rsaPath' lazima iwe njia kamili au anza na '~', na  njia ya  folda mama lazima iwepo. Ikiwa njia ya folda ipo, itatumika; ikiwa haipo, itaundwa na maandishi rahisi-rsa yatasanidiwa na kuwekwa ndani yake wakati Tunnelblick inazinduliwa. </p> <p> Kwa habari juu ya kutumia rahisi-rsa, ona <a href = \"https: / /openvpn.net/index.php/open-source/documentation/howto.html#pki\"> Kuanzisha Mamlaka ya Cheti chako (CA) na kutoa vyeti na funguo za seva ya OpenVPN na wateja wengi </a> [openvpn. net]. </p> <p> Kwa maelezo juu ya kufanya Tunnelblick  kuwa mahsusi kwa rahisi-rsa, tazama faili la KUSOMA liliyopo kwenye folda. </p>";

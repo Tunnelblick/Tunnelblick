@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "설치";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "둘 다 유지";
+
 /* Button */
 "Latest (%@)" = "최신 (%@)";
 
@@ -257,6 +260,9 @@
 /* Button */
 "Standard icon" = "일반 아이콘";
 
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "중지";
+
 /* Button */
 "Terminate All OpenVPN processes" = "모든 OpenVPN 프로세스를 중지";
 
@@ -296,6 +302,13 @@
 /* Menu item */
 "Connect %@%@" = "%@%@ 연결하기";
 
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "설정을 새 폴더로 복사";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "설정들을 새 폴더로 복사";
+
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "키체인에서 설정의 인증 삭제…";
 
@@ -322,6 +335,13 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "공유 설정으로 변경…";
+
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "설정을 새 폴더로 이동";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "설정들을 새 폴더로 이동";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "OpenVPN 또는 Tunnelblick VPN 로그를 기록하지 않음";
@@ -355,6 +375,9 @@
 
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick 종료";
+
+/* Menu Item */
+"Rename Configuration" = "설정 이름 변경";
 
 /* Menu Item */
 "Revert Configuration..." = "설정 복원…";
@@ -586,6 +609,9 @@
 
 /* Window title */
 "Add a Configuration" = "설정 추가";
+
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "고급 설정";
 
 /* Window title */
 "Alert sounds" = "경고음";

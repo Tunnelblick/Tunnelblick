@@ -2267,6 +2267,9 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>选中时，</strong>需要身份验证方可连接VPN。您可以使用密码，或者在受支持的机型上使用TouchID或FaceID。</p>\n<p><strong>当不选中时，</strong>无需身份验证即可连接。</p>\n<p><strong>如果您的macOS不支持此功能</strong>，此选项不可用。</p><p><strong>注意：修改此项需要管理员权限。</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>你可以更改一个macOS配置，允许Tunnelblick使用系统扩展。</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>您可以修改这些设置文件，使它们能够正常连接。</strong></p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */

@@ -2276,6 +2276,12 @@
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Επαναφέρει τις προειδοποιήσεις που έχουν ανασταλεί από το πλαίσιο ελέγχου \"Μην προειδοποιείτε για αυτό ξανά\".</p>";
 
 /* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>Δείτε σημαντικές πληροφορίες εδώ <a href=\"https://tunnelblick.net/cBigSur.html\"> Tunnelblick σε macOS 11 Big Sur</a> [tunnelblick.net].</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Δείτε περισσότερες πληροφορίες εδώ <a href=\"https://tunnelblick.net/cBigSur.html\"> Tunnelblick σε macOS 11 Big Sur</a> [tunnelblick.net].</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Δείτε το <a href=\"https://tunnelblick.net/cTunTapConnections.html\">το μέλλον Tun/Tap συνδέσεων στο macOS</a> [tunnelblick.net] για περισσότερες πληροφορίες.</p>";
 
 /* HTML info for the 'VPN log level' button. */

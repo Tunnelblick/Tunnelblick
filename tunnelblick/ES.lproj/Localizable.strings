@@ -1304,13 +1304,13 @@
 "Installation finished successfully." = "La instalación terminó exitosamente.";
 
 /* Window text */
-"Installing and securing Tunnelblick..." = "Instalando y asegurnado Tunnelblick…";
+"Installing and securing Tunnelblick..." = "Instalando y asegurando Tunnelblick…";
 
 /* Window text */
 "Installing configurations is not allowed" = "No está permitido instalar configuraciones";
 
 /* Window text */
-"Internal error: commentOutLines: line %lu does not exist" = "Error interno: commentOutLines: la línea %lu no existe";
+"Internal error: commentOutLines: line %lu does not exist" = "Error interno: commentOutLines: la linea %lu no existe";
 
 /* Window text */
 "Invalid value '%@' for '%@' in %@" = "Valor inválido ' %1$@' para ' %2$@' en %3$@";
@@ -1367,13 +1367,13 @@
 "NetBIOS name:" = "Nombre NetBIOS:";
 
 /* Window text; the %@ will be replaced by a list of configuration names. */
-"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "El acceso a la red no puede ser deshabilitado después de desconectarse de alguna o todas las configuraciones seleccionadas, porque incluyen opciones de 'usuario' y/o 'grupo'. Estas opciones causarán que OpenVPN no tenga privilegios administrativos durante la desconexión, por lo que no le será posible deshabilitar el acceso a la red.\n\nLas configuraciones que contienen 'usuario' y/o 'grupo' son:\n\n%@\n\n";
+"Network access cannot be disabled after disconnecting for some or all of the selected configurations because they include 'user' and/or 'group' options. Those options will cause OpenVPN to not be running as root during disconnection, so it will not be able to disable network access.\n\nThe configurations that contain 'user' and/or 'group' are:\n\n%@\n\n" = "El acceso a la red no puede ser deshabilitado después de desconectarse de alguna o todas las configuraciones seleccionadas, porque incluyen opciones de 'usuario' y/o 'grupo'. Esas opciones causarán que OpenVPN no tenga privilegios administrativos durante la desconexión, por lo que no le será posible deshabilitar el acceso a la red.\n\nLas configuraciones que contienen 'usuario' y/o 'grupo' son:\n\n%@\n\n";
 
 /* Window text */
-"Network access was disabled when a VPN disconnected." = "El acceso de red fue deshabilitado cuando la VPN se desconectó.";
+"Network access was disabled when a VPN disconnected." = "El acceso de red fue deshabilitado cuando una VPN se desconectó.";
 
 /* Window text */
-"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "El acceso a la red se deshabilitó cuando la VPN se desconectó.\n\nDesea habilitar nuevamente el acceso a la red?\n\n";
+"Network access was disabled when a VPN disconnected.\n\nDo you wish to re-enable network access?\n\n" = "El acceso a la red se deshabilitó cuando la VPN se desconectó.\n\n¿Desea habilitar nuevamente el acceso a la red?\n\n";
 
 /* Window text */
 "Network setting" = "Preferencias de red";
@@ -1772,7 +1772,7 @@
 "Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick no pudo eliminar la carpeta '%@'. Detalles en los protocolos de la Consola.";
 
 /* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick no pudo reemplazar la configuración '%@'. Revise el registro de la Consola para más detalles.";
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick no pudo cambiar la configuración '%@'. Revise el registro de la Consola para mas detalles.";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick encontró un error fatal.\n\nPor favor envíe un correo electrónico a developers@tunnelblick.net para solicitar ayuda, describiendo lo que Tunnelblick estaba haciendo cuando ocurrió el error.\n\n";
@@ -2114,7 +2114,7 @@
 "\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nEl ajuste de Tunnelblick 'Configurar servidor de nombres' solamente funciona con una única conexión VPN. Utilizarlo con más de una conexión VPN al mismo tiempo puede dañar sus ajustes de red o provocar la pérdida de conectividad.";
 
 /* Window text */
-"\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ne instalar %ld Configuraciones VPN Tunnelblick";
+"\n\nand install %ld Tunnelblick VPN Configurations" = "\n\ne instalar %ld configuraciones VPN de Tunnelblick";
 
 /* Window text */
 "\nusing %@ credentials." = "\nusando %@ credenciales.";
@@ -2265,6 +2265,9 @@
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Cuando se selecciona</strong>, se le requerirá autenticarse antes de conectarse. Ud. puede autenticarse utilizando su contraseña o, si está disponible, TouchID o FaceID.</p>\n<p><strong>Cuando no se selecciona</strong>, no se requerirá autenticación antes de conectarse.</p>\n<p><strong>Este checkbox está deshabilitado</strong> si Ud. está utilizando una versión de macOS que no lo soporta.</p><p><strong>Nota: Se requiere la autorización de un administrador de la computadora para cambiar este ajuste.</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Ud. puede cambiar un ajuste en macOS de modo que permita a Tunnelblick utilizar sus extensiones del sistema</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Puede modificar las configuraciones de modo que puedan conectarse.</strong></p>\n";

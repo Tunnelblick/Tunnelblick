@@ -92,7 +92,7 @@
 "Delete saved passphrase and try again" = "Usuń zapisaną frazę hasła i spróbuj ponownie";
 
 /* Button */
-"Delete saved password and try again" = "Usuń zachowane hasło i spróbuj ponownie";
+"Delete saved password and try again" = "Usuń zapisane hasło i spróbuj ponownie";
 
 /* Button */
 "Delete" = "Usuń";
@@ -249,7 +249,7 @@
 "Show while connecting" = "Pokaż podczas łączenia";
 
 /* Button. 'Update' refers to the update of a configuration. */
-"Skip this Update" = "Pomiń tę aktualizację";
+"Skip this Update" = "Pomiń tą aktualizację";
 
 /* Button */
 "Skip" = "Pomiń";
@@ -449,7 +449,7 @@
 "Do not warn about DNS problems again for any configuration" = "Nie ostrzegaj o problemach DNS dla żadnej konfiguracji";
 
 /* Checkbox name */
-"Do not warn about this again for any configuration" = "Nie ostrzegaj ponownie dla żadnej konfiguracji";
+"Do not warn about this again for any configuration" = "Nie ostrzegaj ponownie w przypadku każdej konfiguracji";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Nie ostrzegaj ponownie dla tej konfiguracji";
@@ -473,13 +473,13 @@
 "Monitor network settings" = "Monitoruj ustawienia sieci";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Umieść w pobliżu Spotlight";
+"Place near Spotlight icon" = "Umieść obok ikony Spotlight";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Dopisz nazwę domeny do domen wyszukiwania";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Połącz ponownie po obudzeniu komputera";
+"Reconnect when computer wakes up" = "Połącz ponownie po wybudzeniu komputera";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Połącz ponownie po zalogowaniu użytkownika";
@@ -713,7 +713,7 @@
 "Settings" = "Ustawienia";
 
 /* Window title */
-"Sounds" = "Dżwięki";
+"Sounds" = "Dźwięki";
 
 /* Window title */
 "System Requirements Not Met" = "Wymagania systemowe nie zostały spełnione";
@@ -1070,10 +1070,10 @@
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Czy jesteś pewny, że chcesz usunąć poświadczenia (klucz prywatny i/lub nazwę użytkownika oraz hasło) dla konfiguracji %ld przechowywanych w Pęku Kluczy?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Czy jesteś pewny, że chcesz usunąć poświadczenia (klucz prywanty i/lub nazwę użytkownika oraz hasło) dla '%@' przechowywanych w Pęku Kluczy?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Na pewno usunąć poświadczenia (klucz prywatny i/lub nazwę użytkownika oraz hasło) dla '%@' przechowywane w Pęku Kluczy?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Czy jesteś pewny, że chcesz usunąć poświadczenia (klucz prywatny i/lub nazwę użytkownika oraz hasło) przechowywane w Pęku Kluczy dla poświadczeń '%@'?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Czy na pewno usunąć poświadczenia (klucz prywatny i/lub nazwę użytkownika oraz hasło) przechowywane w Pęku Kluczy dla poświadczeń '%@'?";
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Czy na pewno chcesz zainstalować konfiguracje które MOGĄ PRZEJĄĆ KONTROLĘ NAD TWOIM KOMPUTEREM?\n\n";
@@ -1772,7 +1772,7 @@
 "Tunnelblick could not remove %@. See the Console Log for details." = "Tunneblick nie mógł usunąć %@. Po szczegóły sprawdź logi w Konsoli.";
 
 /* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick nie może zastąpić konfiguracji '%@'. Zobacz szczegóły w logu konsoli.";
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick nie może zastąpić konfiguracji '%@'. Zobacz szczegóły w dzienniku konsoli.";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick napotkał krytyczny błąd.\n\nW celu uzyskania pomocy skontaktuj się z developers@tunnelblick.net, opisując akcje wykonywane w Tunnelblick w momencie wystąpienia błędu.\n\n";
@@ -2265,6 +2265,9 @@
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kiedy zaznaczone</strong>, będzie wymagana autentykacja przed uzyskaniem połączenia. Możesz autentykować się za pomocą swojego hasła, lub gdy dostępne, TouchID lub FaceID.</p>\n<p><strong>Kiedy nie zaznaczone</strong>, połączenie się nie wymaga autentykacji.</p>\n<p><strong>Ten checkbox jest wyłączony</strong> gdy używasz nie wspieranej wersji macOS'a.</p><p><strong>Uwaga: Zmiana tego ustawienia wymaga poświadczeń administratora komputera.</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Można zmienić ustawienie w systemie macOS, które zezwoli aplikacji Tunnelblick na użycie jej rozszerzeń systemu.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Możesz zmienić swoje konfiguracje tak, by mogły mieć możliwość nawiązania połączenia.</strong></p>";

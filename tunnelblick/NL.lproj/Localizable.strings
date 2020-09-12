@@ -2267,6 +2267,9 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Indien aangevinkt</strong>, moet je jezelf authenticeren voor dat je verbinding maakt. Je kan jezelf authenticeren met een wachtwoord of, indien beschikbaar TouchID of FaceIDyou.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, geen authenthicatie is benodigd voordat je kan verbinden.</p>\n<p><strong>Deze keuze mogelijkheid is niet mogelijk</strong> als je een versie van macOS gebruikt die niet ondersteunt.</p><p><strong>Let op: Een computer beheerders autorisatie is noodzakelijk om deze installeren aan te passen.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Je kunt de instellingen wijzigen in macOS om de systeemextensies te accepteren voor Tunnelblick.</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Je kunt de configuraties aanpassen zodat ze verbinding kunnen maken.</strong></p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */

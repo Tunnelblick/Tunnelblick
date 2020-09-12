@@ -1400,7 +1400,7 @@
 "Non-string value for an item in '%@' in %@" = "Значение для элемента в '%1$@' в %2$@ не является строкой (Non-string)";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Ни одна из выбранных конфигураций %ld не имеет никаких учётных данных (приватного ключа или имени пользователя и пароля), сохранённых в Связке ключей.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Ни одна из выбранных конфигураций %ld не имеет учётных данных (приватного ключа или имени пользователя и пароля), сохранённых в Связке ключей.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Файл %@ не является файлом конфигурации (.ovpn или .conf)";
@@ -2265,6 +2265,9 @@
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Когда отмечено</strong>, вам нужно будет аутентифицироваться перед подключением. Вы можете аутентифицироваться с помощью пароля или, если доступно, TouchID или FaceID.</p>\n<p><strong>Когда не отмечено</strong>, аутентификация перед подключением не нужна.</p>\n<p><strong>Флажок не доступен</strong> если вы используете версию macOS, которая это не поддерживает.</p><p><strong> Замечание: Требуется авторизация администратора компьютера, чтобы изменить эту настройку.</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Вы можете изменить настройку в macOS, это позволит Tunnelblick использовать системные расширения.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Вы можете изменить конфигурации так, чтобы они смогли подключиться.</strong></p>";

@@ -11,10 +11,10 @@
 "Disconnect All (%d Connections) - apparent public IP address %@" = "قطع جميع (%1$d اتصالات) - عنوان جهاز الكمبيوتر الظاهر %2$@";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "قطع كافة الإتصالات (وصلات%d)";
+"Disconnect All (%d Connections)" = "فصل كافة الإتصالات ال (%d)";
 
 /* Status message */
-"No Active Connections" = "لا يوجد اتصالات نشطة";
+"No Active Connections" = "لا توجد إتصالات نشطة";
 
 /* Textbox name */
 "Username:" = "اسم المستخدم:";
@@ -674,7 +674,7 @@
 "Log" = "سجل";
 
 /* Window title */
-"Name not allowed" = "الإسم غير مطلوب";
+"Name not allowed" = "الاسم غير مسموح";
 
 /* Window title */
 "No 'dev tun', 'dev utun', or 'dev tap' found" = "لا يوجد 'جهاز تون','جهاز يوتون' أو 'جهاز تاب'";
