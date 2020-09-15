@@ -4943,7 +4943,7 @@ static void signal_handler(int signalNumber)
     return returnStatus;
 }
 
--(void) dealWithKextProblemsAndBigSurThread {
+-(void) postLaunchThread {
 
     NSAutoreleasePool * pool = [NSAutoreleasePool new];
 
@@ -5508,7 +5508,7 @@ static void signal_handler(int signalNumber)
 	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 022 -- LAST")
 
-    [NSThread detachNewThreadSelector: @selector(dealWithKextProblemsAndBigSurThread) toTarget: self withObject: nil];
+    [NSThread detachNewThreadSelector: @selector(postLaunchThread) toTarget: self withObject: nil];
 
 	didFinishLaunching = TRUE;
 }
