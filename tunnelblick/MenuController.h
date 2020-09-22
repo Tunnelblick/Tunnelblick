@@ -255,6 +255,7 @@ enum StatusIconPosition {
 															 inverted: (BOOL)		inverted;
 -(BOOL)				askAndMaybeReenableNetworkAccessTryingToConnect;
 -(void)             showConfirmIconNearSpotlightIconDialog;
+-(void)             recreateMenu;
 -(void)             recreateMainMenuClearCache:				(BOOL)				clearCache;
 -(void)             changedDisplayConnectionTimersSettings;
 -(void)             checkForUpdates:                        (id)                sender;

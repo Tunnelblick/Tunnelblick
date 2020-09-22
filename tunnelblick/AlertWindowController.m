@@ -30,6 +30,7 @@
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 
+extern MenuController  * gMC;
 extern TBUserDefaults  * gTbDefaults;
 
 @implementation AlertWindowController
@@ -94,9 +95,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, okButton)
 			&& preferenceValue  ) {
 			[gTbDefaults setObject: preferenceValue forKey: preferenceName];
 		}
-		
+
+        [gMC recreateMenu];
 	}
-	
 	[self autorelease];
 }
 
