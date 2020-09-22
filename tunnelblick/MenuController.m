@@ -5076,13 +5076,6 @@ static void signal_handler(int signalNumber)
                          || configNeedsTap
                          || configNeedsTun);
 
-    NSMutableString * htmlMessage = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
-
-    NSString * preferenceName = nil; // Will replace with appropriate name for the message that is being displayed
-
-    NSString * bigSurMoreInfo  = NSLocalizedString( @"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n", @"HTML text. May be combined with other paragraphs.");
-
-    if (  needTunOrTap  ) {
 
         NSString * willNotConnect   = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n"
                                                         @"<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n",
@@ -5102,8 +5095,13 @@ static void signal_handler(int signalNumber)
         NSString * seeConsoleLog    = NSLocalizedString(@"<p>The Console Log shows which configurations will not be able to connect.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
+        NSString * bigSurMoreInfo  = NSLocalizedString( @"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n", @"HTML text. May be combined with other paragraphs.");
+        
         NSString * futureInfo       = NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
+
+        NSMutableString * htmlMessage = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+        NSString * preferenceName = nil; // Will replace with appropriate name for the message that is being displayed
 
         if (   onBigSurOrNewer
             && ( ! sipIsDisabled)  ) {
