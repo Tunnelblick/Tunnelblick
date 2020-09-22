@@ -57,6 +57,7 @@
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 #import "VPNConnection.h"
+#import "WarningNote.h"
 #import "WelcomeController.h"
 
 
@@ -821,6 +822,65 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
     }
     
     return self;
+}
+
+-(void) addWarningNote: (NSDictionary *) dict {
+
+    [self addWarningNoteWithHeadline: nilIfNSNull([dict objectForKey: @"headline"])
+                             message: nilIfNSNull([dict objectForKey: @"message"])
+                       preferenceKey: nilIfNSNull([dict objectForKey: @"preferenceKey"])];
+}
+
+-(void) addWarningNoteWithHeadline: (NSString *)            headline
+                           message: (NSAttributedString *)  message
+                     preferenceKey: (NSString *)            preferenceKey {
+
+    // Adds a warning note to warningNotes. Does not add if a note with the same preferenceKey already exists.
+    //
+    // warningNotes is an NSDictionary with keys that are integers and objects that are WarningNotes
+    // It is a dictionary instead of an array so entries can be efficiently removed out of order.
+
+    static unsigned long notificationIndex = 0;
+
+    if (  ! [NSThread isMainThread]  ) {
+        NSDictionary * dict = @{@"headline"      : NSNullIfNil(headline),
+                                @"message"       : NSNullIfNil(message),
+                                @"preferenceKey" : NSNullIfNil(preferenceKey)};
+        [self performSelectorOnMainThread:@selector(addWarningNote:) withObject: dict waitUntilDone: NO];
+        return;
+    }
+
+    NSEnumerator * e = [warningNotes keyEnumerator];
+    NSString * key;
+    while (  (key = [e nextObject])  )  {
+        WarningNote * note = [warningNotes objectForKey: key];
+        if (  [preferenceKey isEqualToString: [note preferenceKey]]  ) {
+            return;
+        }
+    }
+
+    if (  ! warningNotes) {
+        warningNotes = [[NSMutableDictionary dictionaryWithCapacity: 10] retain];
+    }
+
+    NSString * index = [NSString stringWithFormat: @"%lu", notificationIndex++];
+
+    WarningNote * note = [[[WarningNote alloc] initWithHeadline: headline
+                                                        message: message
+                                                  preferenceKey: preferenceKey
+                                                          index: index]
+                          autorelease];
+
+    [warningNotes setObject: note forKey: index];
+
+    [self recreateMenu];
+}
+
+-(void) removeWarningNoteAtIndex: (NSString *) index {
+
+    [warningNotes removeObjectForKey: index];
+
+    [self recreateMenu];
 }
 
 -(BOOL) setUpUserDefaults {

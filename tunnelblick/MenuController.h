@@ -148,7 +148,9 @@ enum StatusIconPosition {
     
     NSMutableArray          * activeIPCheckThreads;         // List of threadIDs of active IPCheck threads that have not been queued for cancellation
     NSMutableArray          * cancellingIPCheckThreads;     // List of threadIDs of IPCheck threads that have been queued for cancellation
-    
+
+    NSMutableDictionary     * warningNotes;                 // One entry for each pending warning, keys are strings with integers
+
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
 	NSString                * publicIPAddress;				// Apparent public IP address
@@ -237,6 +239,12 @@ enum StatusIconPosition {
 -(IBAction)         contactTunnelblickWasClicked:           (id)                sender;
 -(IBAction)         openPreferencesWindow:                  (id)                sender;
 -(IBAction)         quit:                                   (id)                sender;
+
+-(void)             addWarningNoteWithHeadline:             (NSString *)            headline
+                                       message:             (NSAttributedString *)  message
+                                 preferenceKey:             (NSString *)            preferenceKey;
+
+-(void)             removeWarningNoteAtIndex:               (NSString *)        index;
 
 // General methods
 -(void)             addConnection:                          (VPNConnection *)   connection;
