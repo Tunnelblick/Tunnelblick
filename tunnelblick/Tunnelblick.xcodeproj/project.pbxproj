@@ -150,6 +150,7 @@
 		639EC33E1C0E16A9001FE378 /* StatusWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */; };
 		639F0FBA1960EFA100A3090E /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
+		63A66B7C2518F537002B1D9D /* WarningNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A66B7B2518F537002B1D9D /* WarningNote.m */; };
 		63A6F033236B93CF002762D9 /* TH.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63A6F032236B93CF002762D9 /* TH.lproj */; };
 		63AA8E5F1492C77700C791C9 /* process-network-changes.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AA8E5E1492C77700C791C9 /* process-network-changes.m */; };
 		63AB7D001D930BCE008ED621 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AB7CFF1D930BCE008ED621 /* QuartzCore.framework */; };
@@ -532,6 +533,8 @@
 		639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StatusWindow-RTL.xib"; sourceTree = "<group>"; };
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
+		63A66B7A2518F537002B1D9D /* WarningNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WarningNote.h; sourceTree = "<group>"; };
+		63A66B7B2518F537002B1D9D /* WarningNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WarningNote.m; sourceTree = "<group>"; };
 		63A6F032236B93CF002762D9 /* TH.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TH.lproj; sourceTree = "<group>"; };
 		63AA8E581492C75200C791C9 /* process-network-changes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "process-network-changes"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA8E5E1492C77700C791C9 /* process-network-changes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "process-network-changes.m"; sourceTree = "<group>"; };
@@ -963,6 +966,8 @@
 			children = (
 				635971401C06736B0055FBC5 /* UIHelper.h */,
 				635971411C06736B0055FBC5 /* UIHelper.m */,
+				63A66B7A2518F537002B1D9D /* WarningNote.h */,
+				63A66B7B2518F537002B1D9D /* WarningNote.m */,
 				63CC72F61928C58600F81220 /* UI Updater */,
 				635ECCF71378886E00F67F8D /* Preferences */,
 				63C374521D281EBD004758A3 /* InfoButton */,
@@ -1886,6 +1891,7 @@
 				634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */,
 				6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */,
 				635971421C06736B0055FBC5 /* UIHelper.m in Sources */,
+				63A66B7C2518F537002B1D9D /* WarningNote.m in Sources */,
 				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,
 				637A871913B74B81003C1871 /* SplashWindowController.m in Sources */,
 				63097CDF22323E2B005F94CF /* NSDate+TB.m in Sources */,
