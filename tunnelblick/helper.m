@@ -860,6 +860,7 @@ void TBShowAlertWindowClearCache(void) {
 
     [showAlertWindowAlreadyShownWindowPreferencesCache release];
     showAlertWindowAlreadyShownWindowPreferencesCache = nil;
+    [gMC recreateMenu];
 }
 
 void TBShowAlertWindowRemoveFromCache(NSString * preferenceKey, NSString * msg) {
