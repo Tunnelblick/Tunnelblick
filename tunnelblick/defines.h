@@ -670,10 +670,8 @@ name = newValue;                                    \
 @"skipWarningAboutTapConnectionOnFutureMacOS", \
 @"skipWarningAboutBigSur1", \
 @"skipWarningAboutBigSur2", \
-@"skipWarningAboutBigSur3", \
-@"skipWarningAboutBigSur4", \
-@"skipWarningAboutBigSur5", \
-@"skipWarningAboutBigSur6", \
+@"skipWarningAboutBigSur1m", \
+@"skipWarningAboutBigSur2m", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\
