@@ -2472,14 +2472,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								 );
  
 	if (  warningMessage  ) {
-        TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                  warningMessage,
-                                  key,
-                                  nil,
-                                  nil,
-                                  nil,
-                                  nil,
-                                  NO);
+        [gMC addWarningNoteWithHeadline: NSLocalizedString(@"Problem using future versions of Tunnelblick",
+                                                           @"Menu item. Translate it to be as short as possible. When clicked, will display the full warning.")
+                                message: [[[NSAttributedString alloc ] initWithString: warningMessage] autorelease]
+                          preferenceKey: key];
 	}
 	
 	return [versionNames indexOfObject: versionToTry];
