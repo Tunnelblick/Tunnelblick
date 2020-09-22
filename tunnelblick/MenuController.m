@@ -1890,6 +1890,41 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	[reenableInternetItem setTarget: self];
 	[reenableInternetItem setAction: @selector(reEnableInternetAccess:)];
 
+    [warningsItem release];
+
+    warningsItem = [[NSMenuItem alloc] init];
+    [warningsItem setTitle: NSLocalizedString(@"Warnings", @"Menu item")];
+    NSMenu * warningsSubmenu = [[[NSMenu alloc] initWithTitle: NSLocalizedString(@"Tunnelblick", @"Window title")] autorelease];
+
+    // Add up to 20 warnings to the submenu
+    NSEnumerator * notesKeysEnum = [warningNotes keyEnumerator];
+    NSString * warningIndex;
+    NSInteger warningItemsAdded = 0;
+    while (   (warningItemsAdded < 20)
+           && (warningIndex = [notesKeysEnum nextObject])  ) {
+
+        WarningNote * warningNote = [warningNotes objectForKey: warningIndex];
+        NSString * preferenceKey = (NSString *)nilIfNSNull( (id)[warningNote preferenceKey] );
+        if (   ( ! preferenceKey )
+            || ( ! [gTbDefaults boolForKey: preferenceKey])  ) {
+
+            NSMenuItem * item = [[[NSMenuItem alloc] init] autorelease];
+            [item setTarget: warningNote];
+            [item setAction: @selector(showWarning:)];
+            [item setTitle: [warningNote headline]];
+
+            [warningsSubmenu addItem: item];
+            warningItemsAdded++;
+        }
+    }
+
+    if (  warningItemsAdded != 0  ) {
+        [warningsItem setSubmenu: warningsSubmenu];
+        [warningsItem setHidden: NO];
+    } else {
+        [warningsItem setHidden: YES];
+    }
+
     [vpnDetailsItem release];
     vpnDetailsItem = [[NSMenuItem alloc] init];
     [vpnDetailsItem setTitle: NSLocalizedString(@"VPN Details...", @"Menu item")];
@@ -1942,7 +1977,10 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 	
     [myVPNMenu addItem:[NSMenuItem separatorItem]];
-    
+
+    [myVPNMenu addItem: warningsItem];
+    [myVPNMenu addItem: [NSMenuItem separatorItem]];
+
 	BOOL showVpnDetailsAtTop = (   ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
 								&& ( ! [gTbDefaults boolForKey:@"putVpnDetailsAtBottom"] ) );
     if (  showVpnDetailsAtTop  ) {
@@ -1956,8 +1994,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 						 sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
 	NSEnumerator * e = [keyArray objectEnumerator];
 	NSUInteger itemsToSkip = (  showVpnDetailsAtTop
-							  ? 4
-							  : 2);
+							  ? 6   // status, separator, warnings, separator, vpn details, separator
+							  : 4); // status, separator, warnings, separator
 
 	NSUInteger itemsBeforeInsertingConfigurations = [myVPNMenu numberOfItems];
 	TBLog(@"DB-MC", @"itemsBeforeInsertingConfigurations = %lu", (unsigned long)itemsBeforeInsertingConfigurations);
