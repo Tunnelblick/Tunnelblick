@@ -862,6 +862,12 @@ void TBShowAlertWindowClearCache(void) {
     showAlertWindowAlreadyShownWindowPreferencesCache = nil;
 }
 
+void TBShowAlertWindowRemoveFromCache(NSString * preferenceKey, NSString * msg) {
+
+    preferenceKey = TBShowWindowCacheKeyConverter(preferenceKey, msg);
+    [showAlertWindowAlreadyShownWindowPreferencesCache removeObject: preferenceKey];
+}
+
 NSString * TBShowWindowCacheKeyConverter(NSString * key, NSString * msg) {
 
     if (  [key isEqualToString: @"-NotAnActualPreference"]  ) {
