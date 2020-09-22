@@ -48,6 +48,7 @@ void           localizableStrings       (void);
 BOOL           copyOrMoveCredentials    (NSString * fromDisplayName,
                                          NSString * toDisplayName,
                                          BOOL       moveNotCopy);
+NSString     * TBShowWindowCacheKeyConverter(NSString * key, NSString * msg);
 
 // The following external, global variables are used by functions in this file and must be declared and set elsewhere before the
 // functions in this file are called:
@@ -797,13 +798,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	// If user has previously checked "Do not warn about this again", or if the window for this preference has already been shown,
     // then don't do anything and return nil
 	if (  preferenceToSetTrue  ) {
-        if (  [preferenceToSetTrue isEqualToString: @"-NotAnActualPreference"]  ) {
-            // Special case: create a fake preference prefixed with a hash of the message. This lets us show each window only once.
-            const char * msgC = [msg UTF8String];
-            NSData * data = [NSData dataWithBytes: msgC length: strlen(msgC)];
-            NSString * hash = sha256HexStringForData(data);
-            preferenceToSetTrue = [hash stringByAppendingString: @"-NotAnActualPreference"];
-        }
+        preferenceToSetTrue = TBShowWindowCacheKeyConverter(preferenceToSetTrue, msg);
         if (  [showAlertWindowAlreadyShownWindowPreferencesCache containsObject: preferenceToSetTrue]  ) {
             return nil;
         }
@@ -865,6 +860,19 @@ void TBShowAlertWindowClearCache(void) {
 
     [showAlertWindowAlreadyShownWindowPreferencesCache release];
     showAlertWindowAlreadyShownWindowPreferencesCache = nil;
+}
+
+NSString * TBShowWindowCacheKeyConverter(NSString * key, NSString * msg) {
+
+    if (  [key isEqualToString: @"-NotAnActualPreference"]  ) {
+        // Special case: create a fake preference prefixed with a hash of the message. This lets us show each window only once.
+        const char * msgC = [msg UTF8String];
+        NSData * data = [NSData dataWithBytes: msgC length: strlen(msgC)];
+        NSString * hash = sha256HexStringForData(data);
+        key = [hash stringByAppendingString: @"-NotAnActualPreference"];
+    }
+
+    return key;
 }
 
 AlertWindowController * TBShowAlertWindow (NSString * title,
