@@ -2163,12 +2163,6 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Yksi tai useampi konfiguraatiosi ei pysty muodostamaan yhteyttä</strong> käytettäessä macOS:n tulevia versioita.</p>\n<p>Konfiguraatio(i)lle tarvitaan järjestelmälaajennus, mutta macOS:n tulevat versiot, eivät salli Tunnelblickin käyttää järjestelmälaajennuksiaan.</p>\n";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p><strong>Vain Tunnelblickin viimeisintä betaversiota</strong> pitäisi käyttää tämän macOS:n version kanssa. Se voidaan  ladata osoitteesta <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] ja asentaa normaalisti.</p>\n";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p><strong>Pidä Tunnelblick ajan tasalla</strong> tarkistamalla automaattisesti päivitykset.</p>\n<p>Vain Tunnelblickin viimeisintä betaversiota pitäisi käyttää tämän macOS:n version kanssa.</p>\n<p>Voit asettaa automaattisen päivitysten tarkistuksen Tunnelblickin \"Asetukset\"-paneelista \"VPN-Tiedot\"-ikkunasta.</p>\n";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Määrittää OpenVPN sekä SSL ohjelmistojen versiot, joita käytetään VPN yhteyden muodostamiseen.</strong><ul><li><strong>\"Oletus\"</strong> käyttää OpenVPN ohjelmiston oletusversiota ja OpenSSL kirjastoa joka sisältyy tähän Tunnelblick versioon. Oletus voi vaihdella eri Tunnelblick versioiden välillä.<br></li><li><strong>\"Viimeisin\"</strong> käyttää OpenVPN ohjelmiston viimeisintä versiota LibreSSL kirjastolla, joka sisältyy tähän Tunnelblick versioon. Viimeisin versio voi vaihdella eri Tunnelblick versioissa.<br></li><li><strong>Mikä muu tahansa</strong> määritettyä versiota OpenVPN ohjelmistosta sekä SSL kirjastosta, mikäli ne ovat saatavilla tässä Tunnelblick versiossa. Mikäli eivät ole saatavissa, käytetään lähintä mahdollista versiota.<br></li></ul>";
 
@@ -2298,9 +2292,6 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Palauttaa varoitukset, jotka on estetty 'Älä varoita enään' valinnalla.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>Katso <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick macOS 11 Big Sur:ssa</a> [tunnelblick.net] tärkeiden tietojen saamiseksi.</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Katso <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick macOS 11 Big Sur:ssa</a> [tunnelblick.net] lisätietojen saamiseksi.</p>\n";

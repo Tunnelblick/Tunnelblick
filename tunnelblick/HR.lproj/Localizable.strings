@@ -11,10 +11,10 @@
 "Disconnect All (%d Connections) - apparent public IP address %@" = "Prekini sve (%1$d konekcije) - vidljiva javna IP adresa %2$@";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Prekini sve (%d konekcije)";
+"Disconnect All (%d Connections)" = "Prekini sve veze (%d veza)";
 
 /* Status message */
-"No Active Connections" = "Nema aktivnih konekcija";
+"No Active Connections" = "Nema aktivnih veza";
 
 /* Textbox name */
 "Username:" = "Korisničko ime:";
@@ -65,7 +65,7 @@
 "Check Now" = "Provjeri sada";
 
 /* Button */
-"Connect" = "Povezivanje";
+"Connect" = "Spoji se";
 
 /* Button */
 "Continue" = "Nastavi";
@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN razina prijave postavljena";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick" = "Problem u korištenju budućih verzija Tunnelblick-a";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS" = "Problem u korištenju budućih verzija macOS-a";
+
 /* Menu item */
 "Quit Tunnelblick" = "Zatvori Tunnelblick";
 
@@ -393,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN detalji…";
+
+/* Menu item. When selected (by mouseover, arrow keys, etc.) this will show a submenu with a list of one or more warnings. Similar to the way that "Sort By" in Finder's "View" menu shows a list of ways to sort a list of files in a window. */
+"Warnings" = "Upozorenja";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Dozvoli ručno podešavanje mrežnih postavki";
@@ -2163,12 +2172,6 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Jedna ili više konfiguracija neće moći da ostvare konekciju.</strong></p>\n<p>Konfiguracija(e) zahtevaju dodatnu sistemsku ekstenziju, ali trenutna verzija macOS sistema ne dozvoljava Tunnelblick-u upotrebu te sistemske ekstenzije.</p>\n";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p><strong>Isključivo poslednja verzija Tunnelblick-a</strong> treba da se koristi na ovoj verziji macOS sistema. Poslednju dostupnu verziju možete preuzeti sa <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net].</p>\n";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p><strong>Molimo vas da redovno ažurirate Tunnelblick</strong> korišćenjem opcije za automatsko ažuriranje aplikacije.</p>\n<p>Isključivo poslednja dostupna verzcija Tunnelblick aplikacije može da se koristi na trenutnoj verziji macOS sistema.</p>\n<p>AUtomatsko ažuriranje aplikacije možete podesiti ako posetite \"Preferences\" sekciju u okviru \"VPN Details\" prozora.</p>\n";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Precizira verziju OpenVPN-a i SSL softvera koji će se koristiti prilikom povezivanja na VPN.</strong><ul><li><strong>\"Podrazumevano\" podešavanje</strong> će koristiti podrazumevanu verziju OpenVPN-a sa OpenSSL-om koji su uključeni u ovu verziju Tunnelblick-a. Podrazumevana verzija se može razlikovati između verzija Tunnelblick-a. <br></li><li><strong>\"Najnovije\" podešavanje</strong> će koristiti najnoviju verziju OpenVPN-a sa LibreSSL-om koja je uključena u ovoj verziji Tunnelblick-a. Najnovija verzija se može razlikovati između verzija Tunnelblick-a.<br></li><li><strong>Bilo koje drugo podešavanje </strong> će koristiti odabranu verziju OpenVPN-a i SSL softvera ukoliko su dostupne u ovoj verziji Tunnelblicka. Ukoliko nisu, odabraće se najsličnije.<br></li></ul>";
 
@@ -2267,6 +2270,9 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kada je aktivirano</strong>, bićete u obaveti da se autentifikujete pre konektovanja. Autentifikacija je moguća korišćenjem lozinke ili, ukoliko su dostupni, putem TouchID ili FaceID sistema.</p>\n<p><strong>Kada nije aktivirano</strong>, autentifikacija neće biti neophodna pre konektovanja.</p>\n<p><strong>Ovaj opcija nije dostupna</strong> ukoliko koristite verziju macOS sistema koji nema adekvatnu podršku.</p><p><strong>Napomena: autorizacija od strane administratora sistema je neophodna za promenu ovog podešavanja.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "Moguće je je podesiti macOS da omogućava Tunnelblick-u korištenje sistemskih ekstenzija.";
+
+/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Možete izvršiti izmenu jedne ili više VPN konfiguracija kako bi mogli da ostvarite konekciju.</strong></p>\n";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2298,9 +2304,6 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Vraća upozorenja koja su bila ukinuta \"Ne upozoravaj me o ovome opet\" opcijom.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>Posetite  <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick na macOS 11 Big Sur</a> [tunnelblick.net] za više informacija.</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Posetite  <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick na macOS 11 Big Sur</a> [tunnelblick.net] za više informacija.</p>\n";

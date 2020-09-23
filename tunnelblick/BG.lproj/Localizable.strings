@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN ниво на логове зададено от конфигурацията";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick" = "Проблем при използване на бъдещи версии на Tunnelblick";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS" = "Проблем при използване на бъдещи версии на macOS";
+
 /* Menu item */
 "Quit Tunnelblick" = "Излез от Tunnelblick";
 
@@ -393,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN детайли…";
+
+/* Menu item. When selected (by mouseover, arrow keys, etc.) this will show a submenu with a list of one or more warnings. Similar to the way that "Sort By" in Finder's "View" menu shows a list of ways to sort a list of files in a window. */
+"Warnings" = "Предупреждения";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Разреши промени на ръчно зададени мрежови настройки";
@@ -2163,12 +2172,6 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Една или повече от конфигурациите няма да може да се свърже на бъдещи версии на macOS.</strong></p>\n<p>Конфигурация изисква разширение, но бъдещи версии на macOS не позволяват на Tunnelblick да използва своята система с разширения.</p>\n";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p><strong>Само последна beta версия на Tunnelblick</strong> трябва да се ползва на тази версия на macOS. Може да бъде свалена от <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] и инсталирана нормално.</p>\n";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p><strong>Моля, поддържайте Tunnelblick актуална</strong> с автоматична проверка за актуализации.</p>\n<p>Само актуалните версии на Tunnelblick трябва да се ползват на тази версия на macOS.</p>\n<p>Може да активирате автоматична проверка за актуализации от панел \"Настройки\" на \"VPN Детайли\" прозореца.</p>\n";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Определя версията на OpenVPN и SSL софтуера, които да се ползват за свързване с VPN.</strong><ul><li><strong>Опцията \"По подразбиране\" </strong> ще използва подразбиращата се версия на OpenVPN и OpenSSL която е включена в тази версия на Tunnelblick. Това може да е различна версия в различните версии на Tunnelblick.<br></li><li><strong>Опция \"Последна\"</strong> ще използва най-новата (последна) версия на OpenVPN и LibreSSL, която е включена в тази версия на Tunnelblick. Последната версия може да е различна в различните версии на Tunnelblick.<br></li><li><strong>Всяка друга настройка</strong> ще използва конретно избраната версия на OpenVPN и SSL ако са налични в тази версия на Tunnelblick. Ако не са налични - най-близката налична версия ще бъде използвана.<br></li></ul>";
 
@@ -2301,9 +2304,6 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Възстановява предупрежденията когато са били подтиснати с маркирането на отметка 'Не предупреждавай за това отново'.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] за важна информация.</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Виж <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick за macOS 11 Big Sur</a> [tunnelblick.net] fза повече инфо.</p>\n";

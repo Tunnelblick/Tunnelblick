@@ -210,6 +210,9 @@
 "Reset Disabled Warnings" = "Rādīt atslēgtos brīdinājumus";
 
 /* Button */
+"Reset primary interface" = "Atiestatīt galveno interfeisu";
+
+/* Button */
 "Restart connection" = "Pārstartēt savienojumu";
 
 /* Button */
@@ -370,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN žurnāla detalizācijas līmenis no konfigurācijas";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick" = "Nākotnes Tunnelblick versiju izmantošanas problēma";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS" = "Nākotnes macOS versiju izmantošanas problēma";
+
 /* Menu item */
 "Quit Tunnelblick" = "Aizvērt Tunnelblick";
 
@@ -390,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN iestatījumi…";
+
+/* Menu item. When selected (by mouseover, arrow keys, etc.) this will show a submenu with a list of one or more warnings. Similar to the way that "Sort By" in Finder's "View" menu shows a list of ways to sort a list of files in a window. */
+"Warnings" = "Brīdinājumi";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Atļaut izmaiņas manuāli ievadītos tīkla iestatījumos";
@@ -917,6 +929,9 @@
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' datne šķietami ir UTF-16 kodējumā. Visām OpenVPN datnēm ir jābūt neformatēta teksta formātā vai UTF-8 kodējumā";
 
 /* Window text */
+"'%@' at line %u was not terminated properly" = "Sekcija '%1$@', sākta rindiņā Nr. %2$u, nav korekti pabeigta";
+
+/* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "%@ nesatur piekļuves datus (privātās atslēgas vai lietotājvārds un parole), kas saglabāti Keychain.";
 
 /* Window text. %@ is the name of a file. */
@@ -924,6 +939,9 @@
 
 /* Window text */
 "'%@' was not terminated." = "tags %@ netika pabeigts.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' pieslēgsies ar OpenVPN versiju %2$@, nevis ar pieprasīto (%3$@).";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' parametrs ignorēts; tas nenorāda uz mapi";
@@ -946,8 +964,14 @@
 /* Window text */
 "(if connected when user switched out)" = "(ja ir aktīvs savienojums, kad lietotājs pārslēdzas uz citu kontu)";
 
+/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
+"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Papildu informācija</a> [tunnelblick.net]";
+
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Bāzēts uz Tunnelblick, bezmaksas programmatūra pieejama:<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN ir reģistrēta OpenVPN Technologies, Inc. preču zīme.";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Tīkla uzstādījumi netika korekti atgriezti, atslēdzoties no %@.</p><p>Šīs problēmas cēlonis parasti ir ūser nobody' un/vai 'group nobody' OpenVPN konfigurācijā.</p><p>Lai atgrieztu tīkla iestatījumus, jums vajadzēs pārstartēt datoru.</p><p>Lai novērstu šo kļūdu nākotnē, izņemiet 'user nobody' un 'group nobody' rindiņas no jūsu OpenVPN konfigurācijas faila.</p><p>Vairāk informācijas skat. <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Lietotāju un grupu OpenVPN konfigurācija</a> [tunnelblick.net].</p></font>\n\n";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference vai TBAlwaysSetPreference atslēga atsaucas uz nezināmu izvēli '%1$@' iekš %2$@";

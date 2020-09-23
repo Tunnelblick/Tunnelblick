@@ -1574,7 +1574,25 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Đã xảy ra sự cố khi nhập cài đặt Tunnelblick.\n\nXem Console log để biết chi tiết.";
 
 /* Window text */
+"Too many configuration files in '%@'" = "Có quá nhiều tập tin cấu hình trong '%@'";
+
+/* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
+"Too many copies already exist." = "Tồn tại quá nhiều phiên bản sao chép.";
+
+/* Window text */
 "Translation by" = "Bản dịch bởi";
+
+/* Window text */
+"Trying to quit all OpenVPN processes..." = "Đang thoát tất cả ứng dụng OpenVPN đang chạy....";
+
+/* Window text */
+"Tunnelblick has been secured." = "Tunnelblick đã được bảo vệ.";
+
+/* Window text */
+"Tunnelblick is based on %@." = "Tunnelblick dựa trên %@";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick đã sẵn sàng.";
 
 /* Window text */
 "VPN status windows:" = "Cửa sổ trạng thái VPN";

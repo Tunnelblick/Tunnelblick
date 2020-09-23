@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Úroveň logování OpenVPN nastavena v konfiguraci";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick" = "Problém s používáním budoucích verzí Tunnelblick";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS" = "Problém s používáním budoucích verzí macOS";
+
 /* Menu item */
 "Quit Tunnelblick" = "Ukončit Tunnelblick";
 
@@ -393,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "Detaily VPN…";
+
+/* Menu item. When selected (by mouseover, arrow keys, etc.) this will show a submenu with a list of one or more warnings. Similar to the way that "Sort By" in Finder's "View" menu shows a list of ways to sort a list of files in a window. */
+"Warnings" = "Varování";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Povolit změny ručně nastavených předvoleb sítě";
@@ -2163,12 +2172,6 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Jedna nebo více konfigurací nebude schopná se připojit</strong> v budoucích verzích macOS.</p><p>Konfigurace vyžadují systémová rozšíření, která v budoucích verzích macOS nebude moct Tunnelblick využívat.</p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p>V této verzi macOS byste měli využívat pouze <strong>nejnovější beta verzi Tunnelblicku.</strong> Stáhnout ji lze z <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a>[tunnelblick.net] a instalovat běžným způsobem.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p><strong>Prosím udržujte Tunnelblick aktualizovaný</strong> nechte si aktualizace kontrolovat automaticky.</p>\n<p>V této verzi MacOS by měla být použita pouze poslední beta verze Tunnelblick.</p>\n<p>Automatickou kontrolu aktualizací nastavíte v záložce \"Předvolby\" v okně \"Detaily VPN\".</p>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Specifikuje verzi OpenVPN a SSL software, který by měl být použit pro VPN spojení.</strong><ul><li><strong>Nastavení Default</strong> použije defaultní verzi OpenVPN a OpenSSL, které jsou obsaženy v této verzi Tunnelblicku. Default se mezi verzemi Tunnelblicku může lišit.<br></li><li><strong>Nastavení Poslední</strong> bude používat poslední verzi OpenVPN s LibreSSL, které je obsaženo v této verzi Tunnelblicku. Poslední verze se mezi různými verzemi Tunnelblicku může lišit.<br></li><li><strong>Jiné nastavení</strong> bude použita specifikovaná verze OpenVPN a SSL, pokud jsou dostupné v této verzi Tunnelblicku. Pokud dostupné nejsou, tak je použita nejbližší verze.<br></li></ul>";
 
@@ -2301,9 +2304,6 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Obnoví varovná hlášení, která byla zakázána zatržítky 'Toto upozornění příště nezobrazovat'</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>Na <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick v macOS 11 Big Sur</a> [tunnelblick.net] naleznete důležité informace.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Navštivte <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick v macOS 11 Big Sur</a> [tunnelblick.net] pro více informací.</p>";

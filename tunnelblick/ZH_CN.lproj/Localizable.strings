@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "由配置文件设置 OpenVPN 的日志等级";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick" = "使用未来 Tunnelblick 版本时的问题";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS" = "使用未来 macOS 版本时的问题";
+
 /* Menu item */
 "Quit Tunnelblick" = "退出 Tunnelblick";
 
@@ -393,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN 详情…";
+
+/* Menu item. When selected (by mouseover, arrow keys, etc.) this will show a submenu with a list of one or more warnings. Similar to the way that "Sort By" in Finder's "View" menu shows a list of ways to sort a list of files in a window. */
+"Warnings" = "警告";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "允许更改手动设置的网络设置";
@@ -2163,12 +2172,6 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>至少一个以上的配置文件将会无法在未来版本的 macOS 中正常使用。</strong></p>\n<p>这些配置文件需要一个系统插件，但是未来版本的 macOS 将会不允许 Tunnelblick 使用其系统插件。</p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p>请在当前 macOS 版本中使用<strong>最新的Tunnelblick测试版本</strong>，打开<a href=\"https://tunnelblick.net/downloads.html\">此链接</a>以下载并安装其版本[tunnelblick.net]。";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p>请启用自动更新，<strong>以保证Tunnelblick一直处于最新版本</strong>。</p><p>只有最新的 Tunnelblick 测试版可以在此 macOS 上运行。</p><p>您可以在“VPN详情”窗口中的“偏好设置”栏里开启自动更新。</p>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>指定连接 VPN 应该使用的 OpenVPN 和 SSL 软件版本。</strong><ul><li><strong>“默认”选项</strong>将使用这个 Tunnelblick 版本包含的默认 OpenVPN 与 OpenSSL 版本。不同的 Tunnelblick 版本的默认可能不一样。<br></li><li><strong>“最新”选项</strong>将使用这个 Tunnelblick 版本包含的最新 OpenVPN 与 LibreSSL 版本。不同的 Tunnelblick 版本的最新版本可能不一样。<br></li><li><strong>任何其他的选项</strong>将使用指定的 OpenVPN 与 SSL 软件，只要这个 Tunnelblick 版本有包含。如果没有包含的话，最接近的搭配将被使用。<br></li></ul>";
 
@@ -2301,9 +2304,6 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>重置被‘不再显示这个警告’ 复选框阻挡了的警告。</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>请在<a href=\"https://tunnelblick.net/cBigSur.html\"> “macOS 11 Big Sur 上的Tunnelblick”</a>[tunnelblick.net]页面查看其重要信息。</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>请在<a href=\"https://tunnelblick.net/cBigSur.html\">“macOS 11 Big Sur上的Tunnelblick”</a>[tunnelblick.net]页面查看更多信息。</p>";

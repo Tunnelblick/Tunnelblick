@@ -2,7 +2,7 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Afbryd alle (%1$@) – registreret offentlige IP-adresse %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Afbryd alle (%1$@) - registrerede offentlige IP adresse %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Afbryd Alle (%@)";
@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN log niveau sat af konfigurationen";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick" = "Problem ved fremtidige versioner af Tunnelblick";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS" = "Problem ved fremtidige versioner af macOS";
+
 /* Menu item */
 "Quit Tunnelblick" = "Afslut Tunnelblick";
 
@@ -393,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN Detaljer…";
+
+/* Menu item. When selected (by mouseover, arrow keys, etc.) this will show a submenu with a list of one or more warnings. Similar to the way that "Sort By" in Finder's "View" menu shows a list of ways to sort a list of files in a window. */
+"Warnings" = "Advarsler";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Tillad ændringer til manuelle netværksindstillinger";
@@ -2163,12 +2172,6 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p>I fremtidige versioner af macOS  <strong>vil en eller flere af dine konfigurationer ikke være i stand til at oprette forbindelse.</strong></p>\n<p>Konfigurationen (-erne) kræver en systemudvidelse, men fremtidige versioner af macOS vil ikke tillade Tunnelblick at bruge dets systemudvidelser.</p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p><strong>Kun den seneste betaversion af Tunnelblick</strong> bør bruges på denne version af macOS. Det kan downloades fra <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a>[tunnelblick.net] og installeret normalt.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p><strong>Hold venligst Tunnelblick opdateret</strong> ved automatisk at kontrollere for opdateringer.</p>\n<p>Kun den seneste betaversion af Tunnelblick bør bruges på denne version af macOS.</p>\n<p>Du kan indstille til automatisk at se efter opdateringer i panelet \"Præferencer\" i Tunnelblicks vindue \"VPN-detaljer\".</p>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Angiver den version af OpenVPN og den SSL-software, der skal bruges til at forbinde VPN.</strong><ul><li><strong>\"Standard\" indstillingen</strong>vil bruge standardversionen af OpenVPN med OpenSSL, der er inkluderet i denne version af Tunnelblick. Standarden kan være anderledes i forskellige versioner af Tunnelblick.<br></li><li><strong>Den \"Nyeste\" indstilling</strong>vil bruge den nyeste version af OpenVPN med LibreSSL, der er inkluderet i denne version af Tunnelblick. Den nyeste version kan være anderledes i forskellige versioner af Tunnelblick.<br></li><li><strong>En hvilken som helst anden indstilling</strong>vil bruge den specificerede version af OpenVPN og SSL software, hvis de er tilgængelige i denne version af Tunnelblick. Hvis ikke tilgængelig, vil det nærmeste match blive brugt.<br></li></ul>";
 
@@ -2301,9 +2304,6 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Gendan advarsler der er deaktiveret via 'Advar mig ikke ikke om dette igen' afkrydsningsfelt.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>Se <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for vigtig information.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Se <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for mere information.</p>";

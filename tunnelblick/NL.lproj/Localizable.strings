@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN log niveau is ingesteld door de configuratie";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick" = "Probleem bij toekomstige versies van Tunnelblick";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS" = "Probleem bij toekomstige versies van macOS";
+
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick Afsluiten";
 
@@ -393,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN Details…";
+
+/* Menu item. When selected (by mouseover, arrow keys, etc.) this will show a submenu with a list of one or more warnings. Similar to the way that "Sort By" in Finder's "View" menu shows a list of ways to sort a list of files in a window. */
+"Warnings" = "Waarschuwingen";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Sta wijzigingen voor handmatige ingestelde netwerk instellingen toe";
@@ -2163,12 +2172,6 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Een of meerdere configuraties kunnen geen verbinding maken</strong> op toekomstige versies van MacOS.</p>\n<p>De configuratie(s) vereisen een systeemextensie, maar toekomstige versies van macOS zullen weigeren Tunnelblick deze systeemextensies te laten gebruiken. </p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Only the latest beta version of Tunnelblick</strong> should be used on this version of macOS. It can be downloaded from <a href=\"https://tunnelblick.net/downloads.html\">Tunnelblick Downloads</a> [tunnelblick.net] and installed normally.</p>\n" = "<p><strong>Alleen de laatste bètaversie van Tunnelblick</strong>moet worden gebruikt in deze versie van macOS. Deze is te downloaden via de <a href=\"https://tunnelblick.net/downloads.html\"> Tunnelblick Downloads</a> [tunnelblick.net] en kan op de normale manier geïnstalleerd worden. ";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>Please keep Tunnelblick updated</strong> by automatically checking for updates.</p>\n<p>Only the latest beta version of Tunnelblick should be used on this version of macOS.</p>\n<p>You can set up to automatically check for updates on the \"Preferences\" panel of Tunnelblick's \"VPN Details\" window.</p>\n" = "<p><strong>Houd Tunnelblick bijgewerkt</strong> door automatisch te controleren op updates.</p>\n<p>Alleen de laatste bètaversie van Tunnelblick moet worden gebruik bij deze versie van macOS. </p>\n<p>Automatische controleren voor updates kan aangezet worden in het tabblad “Voorkeuren” via Tunnelblick’s “VPN Details” menu.</p>";
-
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Geeft aan welke versies van OpenVPN en de SSL-software gebruikt dienen te worden om te verbinden met VPN.</strong><ul><li><strong>De \"Standaard\" instellingen</strong> zullen gebruik maken van de standaardversie van OpenVPN en OpenSSL die met Tunnelblick wordt meegeleverd. De versie van OpenVPN en OpenSSL kan per versie van Tunnelblick verschillen.<br></li><li><strong>De \"Laatste\" instellingen</strong> maken gebruik van de laatste versie van OpenVPN met LibreSSL die wordt meegeleverd met Tunnelblick. Deze versies kunnen per versie van Tunnelblick verschillen.<br></li><li><strong>Overige instellingen</strong> maken gebruik van de opgegeven versie van OpenVPN en de SSL-software mits beschikbaar in deze versie van Tunnelblick. Als de opgegeven versie niet beschikbaar is, wordt de meest geschikte versie gebruikt.<br></li></ul>";
 
@@ -2267,7 +2270,7 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Indien aangevinkt</strong>, moet je jezelf authenticeren voor dat je verbinding maakt. Je kan jezelf authenticeren met een wachtwoord of, indien beschikbaar TouchID of FaceIDyou.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, geen authenthicatie is benodigd voordat je kan verbinden.</p>\n<p><strong>Deze keuze mogelijkheid is niet mogelijk</strong> als je een versie van macOS gebruikt die niet ondersteunt.</p><p><strong>Let op: Een computer beheerders autorisatie is noodzakelijk om deze installeren aan te passen.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Je kunt de instellingen wijzigen in macOS om de systeemextensies te accepteren voor Tunnelblick.</strong></p>";
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Je kan een instelling in macOS wijzigen zodat Tunnelblick de systeem-extensies mag gebruiken.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Je kunt de configuraties aanpassen zodat ze verbinding kunnen maken.</strong></p>";
@@ -2301,9 +2304,6 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Herstel waarschuwingen welke zijn verborgen door het aanvinken van 'Waarschuw mij niet nog een keer'.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for important information.</p>\n" = "<p>Zie <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick voor macOS 11 Big Sur</a>[tunnelblick.net] voor belangrijke informatie. </p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Zie <a href=\"https://tunnelblick.net/cBigSur.html\"> Tunnelblick voor macOS 11 Big Sur</a> [tunnelblick.net] voor meer informatie.</p>";
