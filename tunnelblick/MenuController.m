@@ -2982,11 +2982,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                                       : animImages)
                                    );
         NSImage * img = [images objectAtIndex: (unsigned) (lround(progress * [images count]) - 1)];
-        NSImage * badgedImg = [self badgedImageIfWarnings: img];
 		if (  statusItemButton  ) {
-			[statusItemButton performSelectorOnMainThread:@selector(setImage:) withObject: badgedImg waitUntilDone:YES];
+			[statusItemButton performSelectorOnMainThread:@selector(setImage:) withObject: img waitUntilDone:YES];
 		} else {
-			[[self ourMainIconView] performSelectorOnMainThread: @selector(setImage:) withObject: badgedImg waitUntilDone: YES];
+			[[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:img waitUntilDone:YES];
 		}
 	}
 }
@@ -5096,6 +5095,7 @@ static void signal_handler(int signalNumber)
                          || configNeedsTap
                          || configNeedsTun);
 
+    if (  needTunOrTap  ) {
 
         NSString * willNotConnect   = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n"
                                                         @"<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n",
