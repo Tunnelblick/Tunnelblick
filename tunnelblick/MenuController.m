@@ -2063,7 +2063,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [myVPNMenu addItem: quitItem];
     
     if (  statusItemButton  ) {
-        [statusItemButton setImage: mainImage];
+        [statusItemButton setImage: [self badgedImageIfWarnings: mainImage]];
         [statusItem setMenu: myVPNMenu];
     }
 	
@@ -2926,26 +2926,25 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 	} else
 	{
         //we have a new connection, or error, so stop animating and show the correct icon
-		if ([theAnim isAnimating])
-		{
+		if (  [theAnim isAnimating]  ) {
 			[theAnim stopAnimation];
 		}
         
 		if (  statusItemButton  ) {
 			if (  [lastState isEqualToString:@"CONNECTED"]  ) {
-				[statusItemButton setImage: connectedImage];
+				[statusItemButton setImage: [self badgedImageIfWarnings: connectedImage]];
 			} else {
-				[statusItemButton setImage: mainImage];
+				[statusItemButton setImage: [self badgedImageIfWarnings: mainImage]];
 			}
 		} else {
 			if (  [lastState isEqualToString:@"CONNECTED"]  ) {
-				[[self ourMainIconView] setImage: (  menuIsOpen
+				[[self ourMainIconView] setImage: [self badgedImageIfWarnings: (  menuIsOpen
 												   ? highlightedConnectedImage
-												   : connectedImage)];
+												   : connectedImage)]];
 			} else {
-				[[self ourMainIconView] setImage: (  menuIsOpen
+				[[self ourMainIconView] setImage: [self badgedImageIfWarnings: (  menuIsOpen
 												   ? highlightedMainImage
-												   : mainImage)];
+												   : mainImage)]];
 			}
 		}
 	}
@@ -2983,12 +2982,33 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                                       : animImages)
                                    );
         NSImage * img = [images objectAtIndex: (unsigned) (lround(progress * [images count]) - 1)];
+        NSImage * badgedImg = [self badgedImageIfWarnings: img];
 		if (  statusItemButton  ) {
-			[statusItemButton performSelectorOnMainThread:@selector(setImage:) withObject: img waitUntilDone:YES];
+			[statusItemButton performSelectorOnMainThread:@selector(setImage:) withObject: badgedImg waitUntilDone:YES];
 		} else {
-			[[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:img waitUntilDone:YES];
+			[[self ourMainIconView] performSelectorOnMainThread: @selector(setImage:) withObject: badgedImg waitUntilDone: YES];
 		}
 	}
+}
+
+-(NSImage *) badgedImageIfWarnings: (NSImage *) image {
+
+    if (  [warningsItem isHidden]  ) {
+        return image;
+    }
+
+    NSString * fileType = NSFileTypeForHFSTypeCode(kAlertCautionIcon);
+    NSImage  * alertBadge = [[NSWorkspace sharedWorkspace] iconForFileType: fileType];
+    NSImage  * badgedImage = [[image copy] autorelease]; // Copy to avoid modifying the original.
+    NSSize imageSize = image.size;
+    [badgedImage lockFocus];
+    [alertBadge drawInRect: NSMakeRect(0,0, imageSize.width * 0.6, imageSize.height * 0.6)
+                  fromRect: NSZeroRect // Draws full image.
+                 operation: NSCompositeSourceOver
+                  fraction: 1.0];
+    [badgedImage unlockFocus];
+    [badgedImage setTemplate: NO];
+    return badgedImage;
 }
 
 -(NSString *) extractItemFromSwVersWithOption: (NSString *) option {
