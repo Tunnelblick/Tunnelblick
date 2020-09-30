@@ -1204,6 +1204,9 @@ configureOpenVpnDns()
 			"dhcp-option DOMAIN "* )
 				sDomainName="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DOMAIN /}" )"
 				;;
+			"dhcp-option ADAPTER_DOMAIN_SUFFIX "* )
+				sDomainName="$( trim "${vOptions[nOptionIndex-1]//dhcp-option ADAPTER_DOMAIN_SUFFIX /}" )"
+				;;
 			"dhcp-option DNS "*    )
 				aNameServers[nNameServerIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DNS /}" )"
 				(( nNameServerIndex++ ))
