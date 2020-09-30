@@ -242,18 +242,28 @@ default_openssl_version_prefix="openssl-1.1.1"
 
 for d in `ls "../third_party/products/openvpn"`
 do
-  mkdir -p "${app_path}/Contents/Resources/openvpn/${d}"
-  cp "../third_party/products/openvpn/${d}/openvpn-executable" "${app_path}/Contents/Resources/openvpn/${d}/openvpn"
-  cp "../third_party/products/openvpn/${d}/openvpn-down-root.so" "${app_path}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
-  chmod 744 "${app_path}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
-  if [ "${d}" \< "${default_openvpn}" ] ; then
-    if [ "${d}" != "${d/$default_openssl_version_prefix/xx}" ] ; then
-	  dovp_len=${#default_openvpn_version_prefix}
-	  if [ "${d:0:$dovp_len}" = "$default_openvpn_version_prefix" ] ; then
-		echo "Setting default OpenVPN version to $d"
-		default_openvpn="${d}"
-	  fi
+  # Include this version of OpenVPN if it is not a beta, rc, or git version, or it's a debug build of Tunnelblick, or it is a Tunnelblick beta
+  # In other words, remove beta/rc/git versions of OpenVPN from stable releases of Tunnelblick.
+  t="${d/_beta/}"
+  t="${t/_git/}"
+  t="${t/_rc/}"
+  u="${tbvs/beta/}"
+  if [ "$d" == "$t" ] || [ "${CONFIGURATION}" = "Debug" ] || [ "$u" != "$tbvs" ] ; then
+    mkdir -p "${app_path}/Contents/Resources/openvpn/${d}"
+    cp "../third_party/products/openvpn/${d}/openvpn-executable" "${app_path}/Contents/Resources/openvpn/${d}/openvpn"
+    cp "../third_party/products/openvpn/${d}/openvpn-down-root.so" "${app_path}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
+    chmod 744 "${app_path}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
+    if [ "${d}" \< "${default_openvpn}" ] ; then
+      if [ "${d}" != "${d/$default_openssl_version_prefix/xx}" ] ; then
+	    dovp_len=${#default_openvpn_version_prefix}
+	    if [ "${d:0:$dovp_len}" = "$default_openvpn_version_prefix" ] ; then
+		  echo "Setting default OpenVPN version to $d"
+          default_openvpn="${d}"
+	    fi
+      fi
     fi
+  else
+    echo "warning: Not including '$d' because it is not a stable release and this is not a Debug build and this is not a Tunnelblick beta"
   fi
 done
 
