@@ -817,7 +817,9 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	AlertWindowController * awc = [[[AlertWindowController alloc] init] autorelease];
 
 	[awc setHeadline:			 title];
-	[awc setPreferenceToSetTrue: preferenceToSetTrue];
+	[awc setPreferenceToSetTrue: (  [preferenceToSetTrue hasSuffix: @"-NotAnActualPreference"]
+                                  ? nil
+                                  : preferenceToSetTrue)];
 	[awc setPreferenceName:      preferenceName];
 	[awc setPreferenceValue:     preferenceValue];
 	[awc setCheckboxTitle:       checkboxTitle];
