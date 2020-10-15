@@ -850,12 +850,14 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         return;
     }
 
-    NSEnumerator * e = [warningNotes keyEnumerator];
-    NSString * key;
-    while (  (key = [e nextObject])  )  {
-        WarningNote * note = [warningNotes objectForKey: key];
-        if (  [preferenceKey isEqualToString: [note preferenceKey]]  ) {
-            return;
+    if (  warningNotes) {
+        NSEnumerator * e = [warningNotes keyEnumerator];
+        NSString * key;
+        while (  (key = [e nextObject])  )  {
+            WarningNote * note = [warningNotes objectForKey: key];
+            if (  [preferenceKey isEqualToString: [note preferenceKey]]  ) {
+                return;
+            }
         }
     }
 
