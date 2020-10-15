@@ -1671,7 +1671,6 @@ void localizableStrings(void)
     NSLocalizedString(@"ADD_ROUTES",    @"Connection status");
     NSLocalizedString(@"ASSIGN_IP",     @"Connection status");
     NSLocalizedString(@"AUTH",          @"Connection status");
-//  NSLocalizedString(@"AUTH_PENDING",  @"Connection status, translate as 'Authorizing'");  // We change this to @"AUTH" before processing it, so we don't need the translation
     NSLocalizedString(@"CONNECTED",     @"Connection status");
     NSLocalizedString(@"CONNECTING",    @"Connection status");
     NSLocalizedString(@"EXITING",       @"Connection status");
