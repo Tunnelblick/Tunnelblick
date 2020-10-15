@@ -871,11 +871,15 @@ void TBShowAlertWindowRemoveFromCache(NSString * preferenceKey, NSString * msg) 
     [showAlertWindowAlreadyShownWindowPreferencesCache removeObject: preferenceKey];
 }
 
-NSString * TBShowWindowCacheKeyConverter(NSString * key, NSString * msg) {
+NSString * TBShowWindowCacheKeyConverter(NSString * key, id msg) {
+
+    // msg must be an NSString* or an NSAttributedString*
 
     if (  [key isEqualToString: @"-NotAnActualPreference"]  ) {
         // Special case: create a fake preference prefixed with a hash of the message. This lets us show each window only once.
-        const char * msgC = [msg UTF8String];
+        const char * msgC = (  [[msg class] isSubclassOfClass: [NSAttributedString class]]
+                             ? [[msg string] UTF8String]
+                             : [msg UTF8String]);
         NSData * data = [NSData dataWithBytes: msgC length: strlen(msgC)];
         NSString * hash = sha256HexStringForData(data);
         key = [hash stringByAppendingString: @"-NotAnActualPreference"];
