@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN-asetusten määrittämä lokitaso";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick" = "Ongelmia tulevien Tunnelblick versioiden kanssa";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS" = "Ongelmia tulevien macOS versioiden kanssa";
+
 /* Menu item */
 "Quit Tunnelblick" = "Lopeta Tunnelblick";
 
@@ -393,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN-yksityiskohdat…";
+
+/* Menu item */
+"Warnings" = "Varoitukset";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Salli manuaaliset muutokset verkkoasetuksiin";
@@ -963,6 +972,9 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Verkkoasetukset eivät palautuneet normaaleiksi yhteyden sulkemisen jälkeen kohteesta %@.</p><p>Tämä ongelma johtuu yleensä 'user nobody' ja/tai 'group nobody' OpenVPN asetuksissa.</p><p>Palauttaaksesi verkkoasetukset, tulee tietokone käynnistää uudelleen.</p><p>Jatkossa tämä virhe voidaan välttää, poistamalla 'user nobody' ja 'group nobody' OpenVPN asetustiedostosta.</p><p>Katso <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Käyttäjä ja ryhmä OpenVPN asetuksissa</a> [tunnelblick.net] lisätietoja.</p></font>\n\n";
+
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number. */
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Tämän tietokoneen oletettu julkinen IP-osoite on muuttunut tähän VPN:ään  yhdistämisen jälkeen kulloinkin %u kertaa, kun se tarkistettiin.</p>\n<p>Tämä todennäköisesti merkitsee, että VPN on asennettu oikein, eikä lisätarkistuksia tarvita, joten tarkistus on otettu pois käytöstä tälle VPN:lle tunnelblick.net-palvelimien kuormituksen vähentämiseksi.</p>\n<p>Voit aktivoida tarkistuksen uudelleen \"Asetukset-välilehdeltä\" Tunnelblickin \"VPN-tiedot\"-ikkunasta. Jos teet niin, harkitse <a href=\"https://tunnelblick.net/donate.html\">lahjoitusta Tunnelblick-projektille</a> [tunnelblick.net] auttamaan palvelinkustannusten maksamisessa.</p>\n";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Avain TBPreference tai TBAlwaysSetPreference viittaa tuntemattomaan asetukseen '%1$@' kohteessa %2$@";
@@ -2259,6 +2271,9 @@
 
 /* HTML info for the 'Authenticate before connecting' checkbox. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kun valittu</strong>, sinun täytyy todentaa käyttöoikeutesi ennen yhdistämistä. Voit todentaa itsesi salasanaa tai, jos mahdollista, TouchID: tä tai FaceID: tä käyttämällä.</p><p><strong>Kun kohtaa ei olla valittu</strong>, mitään käyttöoikeuden todennusta ei tarvita ennen yhdistämistä.</p><p><strong>Tämä kohta on pois käytöstä</strong>, jos käyttämäsi macOS-versio ei tue sitä.</p><p><strong>Huomio: Tietokoneen ylläpitäjän lupa vaaditaan tämän asetuksen muuttamiseen.</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Voit muuttaa asetuksen macOS:ssä, jotta se sallii Tunnelblickin käyttää järjestelmälaajennuksiaan.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Voit muokata konfiguraatioita niin, että ne voivat muodostaa yhteyden uudelleen.</strong></p>\n";

@@ -400,7 +400,7 @@
 /* Menu item */
 "VPN Details..." = "VPN Detayları...";
 
-/* Menu item. When selected (by mouseover, arrow keys, etc.) this will show a submenu with a list of one or more warnings. Similar to the way that "Sort By" in Finder's "View" menu shows a list of ways to sort a list of files in a window. */
+/* Menu item */
 "Warnings" = "Uyarılar";
 
 /* Checkbox name */
@@ -972,6 +972,9 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Bağlantı kesildikten sonra %@'dan ağ ayaları düzgün bir şekilde geri yüklenemedi.</p><p>OpenVPN ayarları göre, bu problem genellikle 'kullanıcı nobody' ve/veya 'grup nobody' kaynaklanıyor.</p><p>Ağ ayarlarını geri yüklemek için bilgisayarınızı yeniden başlatmalısınız.</p><p>OpenVPN yapılandırma dosyasından ileride aynı hata almayı önlemek için, 'kullanıcı nobody' ve 'grup nobody' satırları silmelisiniz.</p><p>Daha fazla bilgi için <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Kullanıcı ve Grup OpenVPN Ayarlarına</a> [tunnelblick.net] bakınız.</p></font>\n\n";
+
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number. */
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Bu bilgisayarın görünen dış IP adresi, yapılan son %u kontrolün her birinde bu VPN'e bağlandıktan sonra değişti.</p>\n<p>Bu, VPN'in doğru kurulduğu ve bundan sonraki kontrollerin gerekli olmayabileceği anlamına geliyor,\n bu yüzden tunnelblick.net sunucuları üzerindeki yükü hafifletmek için bu VPN'in kontrolü devre dışı bırakıldı.</p>\n<p>Tunnelblick'in \"VPN Detayları\" penceresindeki \"Ayarlar sekmesi\"nden kontrolü tekrar etkinleştirebilirsiniz. Eğer bunu yaparsanız, sunucu maliyetlerine destek olmak için lütfen <a href=\"https://tunnelblick.net/donate.html\">Tunnelblick projesine bağış yapmayı</a>[tunnelblick.net] da düşünün.</p>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference ya da TBAlwaysSetPreference anahtarı %2$@ içerisinde bilinmeyen '%1$@' ayarına gönderme yapıyor";

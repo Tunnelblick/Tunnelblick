@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Tingkat log OpenVPN yang ditata oleh konfigurasi";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick" = "Masalah saat memakai versi mendatang dari Tunneliblick";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS" = "Masalah saat memakai versi mendatang dari macOS";
+
 /* Menu item */
 "Quit Tunnelblick" = "Keluar Tunnelblick";
 
@@ -393,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "Rincian VPN…";
+
+/* Menu item */
+"Warnings" = "Peringatan";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Izinkan perubahan ke pengaturan jaringan yang ditata secara manual";

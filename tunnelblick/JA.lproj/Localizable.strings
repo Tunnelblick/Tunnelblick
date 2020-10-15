@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "設定ファイルによるOpenVPNログレベル";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick" = "Tunnelblickを更新する際の問題";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS" = "macOSを更新する際の問題";
+
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick を終了";
 
@@ -393,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN の詳細…";
+
+/* Menu item */
+"Warnings" = "警告";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "手動でセットされたネットワーク設定への変更を許可する";

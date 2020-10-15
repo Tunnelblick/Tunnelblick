@@ -400,7 +400,7 @@
 /* Menu item */
 "VPN Details..." = "Деталі VPN…";
 
-/* Menu item. When selected (by mouseover, arrow keys, etc.) this will show a submenu with a list of one or more warnings. Similar to the way that "Sort By" in Finder's "View" menu shows a list of ways to sort a list of files in a window. */
+/* Menu item */
 "Warnings" = "Попередження";
 
 /* Checkbox name */
@@ -972,6 +972,9 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Мережеві налаштування не були коректно відновлені після роз'єднання від %@.</p><p>Зазвичай проблема визвана використовуванням користувача 'user nobody' та/або користувацької групи 'group nobody' в опціях OpenVPN.</p><p>Для відновлення мережевих налаштувань необхідно перезавантажити комп'ютер.</p><p>Для запобігання помилки в майбутньому, потрібно видалити рядки із 'user nobody' та 'group nobody' з вашого файла конфігурації OpenVPN.</p><p> Більше інформації за посиланням <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Опції OpenVPN - Користувачі та користувацькі групи</a> [tunnelblick.net].</p></font>\n\n";
+
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number. */
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Зовнішня IP адреса цього комп'ютера змінювалась при підключенні до VPN кожого разу під час %u останніх перевірок.</p>\n<p>Це ймовірно означає, що налаштування VPN коректні та не потребують подальших перевірок,\n таким чином перевірки для цього VPN було вимкнуто для полегшення навантажень на сервери tunnelblick.net.</p>\n<p>Ви можете повторно активувати перевірку в вкладці \"Налаштування\" вікна \"Деталі VPN\" Tunnelblick. Якщо це робитимете, будьласка розгляньте можливість зробити  <a href=\"https://tunnelblick.net/donate.html\">добровільний внесок проекту Tunnelblick</a> [tunnelblick.net] щоб допомогти оплачувати затрати на підтримку серверів.</p>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Ключ TBPreference або TBAlwaysSetPreference має посилання на невідомий параметр '%1$@' в %2$@";
