@@ -3633,6 +3633,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  [parameters count] > 1  ) {
             NSString *stateString = [parameters objectAtIndex:1];
             if (  [stateString length] > 3  ) {
+                if (  [stateString isEqualToString: @"AUTH_PENDING"]  ) {
+                    stateString = @"AUTH";
+                }
                 NSArray * validStates = [NSArray arrayWithObjects:
                                          @"ADD_ROUTES", @"ASSIGN_IP", @"AUTH", @"CONNECTED",  @"CONNECTING",
                                          @"EXITING", @"GET_CONFIG", @"RECONNECTING", @"RESOLVE", @"SLEEP", @"TCP_CONNECT", @"UDP_CONNECT", @"WAIT", nil];
