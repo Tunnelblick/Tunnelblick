@@ -2251,6 +2251,16 @@ static BOOL firstTimeShowingWindow = TRUE;
     [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
                                                                                          to: ([sender state] == NSOnState)
                                                                                    inverted: YES];
+
+    // If turning on IP address checking, clear the number of successful IP address checks.
+    NSArray * names = [self displayNamesOfSelection];
+    NSString * name;
+    NSEnumerator * e = [names objectEnumerator];
+    while (  (name = [e nextObject])  ) {
+        if (  ([sender state] == NSOnState)  ) {
+            [gTbDefaults removeObjectForKey: [name stringByAppendingString: @"-consecutiveSuccessfulIPAddressChanges"]];
+        }
+    }
 }
 
 -(IBAction) disableIpv6OnTunCheckboxWasClicked: (NSButton *) sender

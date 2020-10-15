@@ -1249,14 +1249,51 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     }
 }
 
+-(void) IPAddressChangeSucceeded: (NSNumber *) success {
+
+    NSString * key = [displayName stringByAppendingString: @"-consecutiveSuccessfulIPAddressChanges"];
+    
+    if (  [success boolValue]  ) {
+        unsigned int successes = [gTbDefaults unsignedIntForKey: key default: 0 min: 0 max: UINT_MAX - 1]; // (Prevent overflow when incremented)
+        successes++;
+        [gTbDefaults setObject: [NSNumber numberWithUnsignedInt: successes] forKey: key];
+
+        if (  successes == 5  ) {
+            key = [displayName stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+            [gTbDefaults setBool: YES forKey: key];
+            [[gMC logScreen] validateDetailsWindowControlsForConnection: self];
+            NSString * warningMessageBase =  NSLocalizedString(@"<p>This computer's apparent public IP address has changed after connecting to this VPN each"
+                                                               @" of the last %u times it was checked.</p>\n"
+                                                               @"<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n"
+                                                               @" so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n"
+                                                               @"<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window."
+                                                               @" If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to"
+                                                               @" the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n",
+                                                               @"Window text. The '%u' will be replaced with 5 or a similar small positive number");
+            TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                      attributedStringFromHTML([NSString stringWithFormat: warningMessageBase, successes]),
+                                      @"skipWarningAboutNotCheckingIPAddressChanges",
+                                      nil,
+                                      nil,
+                                      NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
+                                      nil,
+                                      NO);
+        }
+    } else {
+        [gTbDefaults removeObjectForKey: key];
+    }
+}
+
 -(BOOL) checkForChangedIPAddress: (NSString *) beforeConnect andIPAddress: (NSString *) afterConnect
 {
 	if (  [beforeConnect isEqualToString: afterConnect]  ) {
 		[self addToLog: [NSString stringWithFormat: @"This computer's apparent public IP address (%@) was unchanged after the connection was made", beforeConnect]];
 		[self ipInfoNoChangeDialogBefore: beforeConnect];
+        [self performSelectorOnMainThread: @selector(IPAddressChangeSucceeded:) withObject: @NO waitUntilDone: NO];
 		return FALSE;
 	} else {
 		[self addToLog: [NSString stringWithFormat: @"This computer's apparent public IP address changed from %@ before connection to %@ after connection", beforeConnect, afterConnect]];
+        [self performSelectorOnMainThread: @selector(IPAddressChangeSucceeded:) withObject: @YES waitUntilDone: NO];
 		return TRUE;
 	}
 }	

@@ -672,6 +672,7 @@ name = newValue;                                    \
 @"skipWarningAboutBigSur2", \
 @"skipWarningAboutBigSur1m", \
 @"skipWarningAboutBigSur2m", \
+@"skipWarningAboutNotCheckingIPAddressChanges", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\
@@ -893,6 +894,7 @@ name = newValue;                                    \
 @"-disableNetworkAccessAfterDisconnect",	\
 @"-disableNetworkAccessAfterUnexpectedDisconnect",	\
 @"-alwaysShowLoginWindow", \
+@"-consecutiveSuccessfulIPAddressChanges", \
 \
 @"-changeDNSServersAction",	\
 @"-changeDomainAction",	\
