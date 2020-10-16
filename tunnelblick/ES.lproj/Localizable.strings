@@ -2685,7 +2685,7 @@
 "The Terms of Service could not be loaded:" = "Los Términos de Servicio no pudieron cargarse:";
 
 /* Window text VPNService */
-"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "La dirección de correo no ha sido verificada\n\nNo será posible iniciar la sesión y usar VPN hasta que la dirección de correo haya sido verificada siguiendo las instrucciones en el correo que Tunnelblick le mandó cuando se registró al servicio.";
+"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "La dirección de correo no ha sido verificada\n\nNo será posible iniciar la sesión y usar VPN hasta que la dirección de correo haya sido verificada, siguiendo las instrucciones en el correo que Tunnelblick le mandó al registrarse.";
 
 /* Window text VPNService */
 "The email address you entered was not a valid email address." = "La dirección de email que ingresó no es una dirección válida.";
@@ -2712,7 +2712,7 @@
 "Unable to check account status:\n     %@" = "Incapaz de chequear estatus de cuenta:\n     %@";
 
 /* Window text VPNService */
-"Unable to check registration for empty email address" = "Imposible comprobar el registro porque la dirección de correo electrónico está vacía";
+"Unable to check registration for empty email address" = "Imposible terminar el registro porque falta la dirección de correo electrónico";
 
 /* Window text VPNService */
 "Unable to connect to server" = "Incapaz de conectarse al servidor";
