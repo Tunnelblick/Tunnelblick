@@ -1,6 +1,6 @@
-diff -u -r -x .DS_Store openvpn-2.5_git_5757831.old/src/openvpn/options.c openvpn-2.5_git_5757831.new/src/openvpn/options.c
---- a/src/openvpn/options.c	2020-08-12 08:34:04.000000000 -0400
-+++ b/src/openvpn/options.c	2020-08-15 10:39:45.000000000 -0400
+diff -u -r -x .DS_Store openvpn-2.5_rc3.old/src/openvpn/options.c openvpn-2.5_rc3.new/src/openvpn/options.c
+--- openvpn-2.5_rc3.old/src/openvpn/options.c	2020-10-19 13:38:17.000000000 -0400
++++ openvpn-2.5_rc3.new/src/openvpn/options.c	2020-10-19 13:38:17.000000000 -0400
 @@ -821,6 +821,9 @@
      o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
      o->resolve_in_advance = false;
@@ -18,7 +18,7 @@ diff -u -r -x .DS_Store openvpn-2.5_git_5757831.old/src/openvpn/options.c openvp
 +    setenv_int_i(es, "xormethod", e->xormethod, i);
 +    setenv_str_i(es, "xormask", e->xormask, i);
 +    setenv_int_i(es, "xormasklen", e->xormasklen, i);
-
+ 
      if (e->http_proxy_options)
      {
 @@ -1452,6 +1458,9 @@
@@ -28,10 +28,10 @@ diff -u -r -x .DS_Store openvpn-2.5_git_5757831.old/src/openvpn/options.c openvp
 +    SHOW_INT (xormethod);
 +    SHOW_STR (xormask);
 +    SHOW_INT (xormasklen);
-
+ 
      if (o->http_proxy_options)
      {
-@@ -6229,6 +6238,46 @@
+@@ -6260,6 +6269,46 @@
          }
          options->proto_force = proto_force;
      }
