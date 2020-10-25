@@ -448,6 +448,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	[self checkSystemFolder: @"/Applications"];
 	[self checkSystemFolder: @"/Library"];
 	[self checkSystemFolder: @"/Library/Application Support"];
+	[self checkSystemFolder: @"/Library/LaunchDaemons"];
 	[self checkSystemFolder: @"/Users"];
 	[self checkSystemFolder: @"/usr"];
 	[self checkSystemFolder: @"/usr/bin"];
