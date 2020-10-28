@@ -774,7 +774,7 @@ void createAndSecureFolder(NSString * path) {
     gid_t  grp   = 0;
     mode_t perms = PERMS_SECURED_FOLDER;
 
-    BOOL private = [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]];
+    BOOL private = [path hasPrefix: [[gPrivatePath stringByDeletingLastPathComponent] stringByAppendingString: @"/"]];
     if (  private  ) {
         own   = gRealUserID;
         grp   = privateFolderGroup(path);
