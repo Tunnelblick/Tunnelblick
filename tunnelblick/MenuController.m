@@ -157,11 +157,9 @@ BOOL needToConvertNonTblks(void);
 -(void)             checkSymbolicLink;
 -(NSString *)       menuNameFromFilename:                   (NSString *)        inString;
 -(void)             removeConnectionWithDisplayName:        (NSString *)        theName
-                                           fromMenu:        (NSMenu *)          theMenu
-                                         afterIndex:        (int)               theIndex;
+                                           fromMenu:        (NSMenu *)          theMenu;
 -(void)             removeConnectionWithDisplayName:        (NSString *)        theName
                                            fromMenu:        (NSMenu *)          theMenu
-                                         afterIndex:        (int)               theIndex
                                         workingName:        (NSString *)        workingName;
 -(void)             runCustomMenuItem:                      (NSMenuItem *)      item;
 -(BOOL)             setupHookupWatchdogTimer;
@@ -1856,6 +1854,34 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
     }
 }
 
+-(int) indexOfFirstConnectionItemInMenu: (NSMenu *) theMenu {
+    
+    // Find the first connection item
+    int i;
+    for (  i=0; i<[theMenu numberOfItems]; i++  ) {
+        id menuItem = [theMenu itemAtIndex: i];
+        if (  [[[menuItem target] class] isSubclassOfClass: [VPNConnection class]]  ) {
+            return i;
+        }
+    }
+    
+    NSLog(@"indexOfFirstConnectionItemInMenu: No connection item found");
+    return [theMenu numberOfItems];
+}
+
+-(int) indexOfWhereFirstConnectionItemShouldGoInTunnelblickMenu {
+    
+    // Calculate the index of where the first connection item should go.
+    // FRAGILE, and has broken before!
+    
+    BOOL showEnableNetworkServices = [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH];
+    BOOL showVpnDetailsAtTop = (   ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
+                                && ( ! [gTbDefaults boolForKey:@"putVpnDetailsAtBottom"] ) );
+    return (4 // status, separator, warnings, separator
+            + (showVpnDetailsAtTop ? 2 : 0 )
+            + (showEnableNetworkServices ? 1 : 0));
+}
+
 // Lock this to change myVPNMenu
 static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -1996,10 +2022,6 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     NSArray *keyArray = [[[self myConfigDictionary] allKeys]
 						 sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
 	NSEnumerator * e = [keyArray objectEnumerator];
-	NSUInteger itemsToSkip = (  showVpnDetailsAtTop
-							  ? 6   // status, separator, warnings, separator, vpn details, separator
-							  : 4); // status, separator, warnings, separator
-
 	NSUInteger itemsBeforeInsertingConfigurations = [myVPNMenu numberOfItems];
 	TBLog(@"DB-MC", @"itemsBeforeInsertingConfigurations = %lu", (unsigned long)itemsBeforeInsertingConfigurations);
 	
@@ -2024,7 +2046,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 				[connectionItem setAction:@selector(toggle:)];
 				
 				NSString * menuItemName = [myConnection localizedName];
-				[self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: itemsToSkip withName: menuItemName];
+				[self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: itemsBeforeInsertingConfigurations withName: menuItemName];
 				
 				[myConnection setMenuItem: connectionItem];
 			}
@@ -2515,15 +2537,13 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) removeConnectionWithDisplayName: (NSString *) theName
                                fromMenu: (NSMenu *)   theMenu
-                             afterIndex: (int)        theIndex
 {
 	NSString * localName = [self localizedNameForDisplayName: theName];
-    [self removeConnectionWithDisplayName: theName fromMenu: theMenu afterIndex: theIndex workingName: localName];
+    [self removeConnectionWithDisplayName: theName fromMenu: theMenu workingName: localName];
 }
 
 -(void) removeConnectionWithDisplayName: (NSString *) theName
                                fromMenu: (NSMenu *)   theMenu
-                             afterIndex: (int)        theIndex
                             workingName: (NSString *) workingName
 {
     int i;
@@ -2531,7 +2551,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     if (   (slashRange.length == 0)
         || [gTbDefaults boolForKey: @"doNotShowConnectionSubmenus"]  ) {
         // The item is directly in the menu
-        for (  i=theIndex; i < [theMenu numberOfItems]; i++  ) {
+        i = [self indexOfFirstConnectionItemInMenu: theMenu];
+        for (  ; i < [theMenu numberOfItems]; i++  ) {
             id menuItem = [theMenu itemAtIndex: i];
             NSString * menuItemTitle;
             if (  [menuItem isSeparatorItem]  ) {
@@ -2556,7 +2577,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     // The item is on a submenu
     NSString * subMenuName = [workingName substringWithRange: NSMakeRange(0, slashRange.location + 1)];
     NSString * restOfName = [workingName substringFromIndex: slashRange.location + 1];
-    for (  i=theIndex; i < [theMenu numberOfItems]; i++  ) {
+    for (  i=0; i < [theMenu numberOfItems]; i++  ) {
         id menuItem = [theMenu itemAtIndex: i];
         if (  [menuItem isSeparatorItem]  ) {
             break; // A separator marks the end of list of connection items
@@ -2567,7 +2588,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
                 NSString * menuItemTitle = [menuItem title];
                 if (  [menuItemTitle caseInsensitiveCompare: subMenuName] == NSOrderedSame  ) {
                     // Have found correct submenu, so remove this item from it
-                    [self removeConnectionWithDisplayName: theName fromMenu: subMenu afterIndex: 0 workingName: restOfName];
+                    [self removeConnectionWithDisplayName: theName fromMenu: subMenu workingName: restOfName];
                     if (  [subMenu numberOfItems] == 0  ) {
                         // No more items on the submenu, so delete it, too
                         [theMenu removeItemAtIndex: i];
@@ -2790,11 +2811,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         [myVPNMenu removeItemAtIndex: itemIx];
     }
     
-	BOOL showVpnDetailsAtTop = ( ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
-								&& ( ! [gTbDefaults boolForKey:@"putVpnDetailsAtBottom"] ) );
-	NSUInteger itemsToSkip = (  showVpnDetailsAtTop
-							  ? 4
-							  : 2);
+    NSUInteger itemsToSkip = [self indexOfWhereFirstConnectionItemShouldGoInTunnelblickMenu];
     [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: itemsToSkip withName: [[connectionItem target] localizedName]];
     
     // Add connection to myConfigDictionary
@@ -2859,10 +2876,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setMyVPNConnectionDictionary: [[tempVPNConnectionDictionary copy] autorelease]];
     [tempVPNConnectionDictionary release];
 	
-	BOOL showVpnDetailsAtTop = (   ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
-								&& ( ! [gTbDefaults boolForKey:@"putVpnDetailsAtBottom"] ) );
-	int itemsToSkip = ( showVpnDetailsAtTop ? 4 : 2 );
-    [self removeConnectionWithDisplayName: dispNm fromMenu: myVPNMenu afterIndex: itemsToSkip];
+    [self removeConnectionWithDisplayName: dispNm fromMenu: myVPNMenu];
 
     // Remove connection from myConfigDictionary
     NSMutableDictionary * tempConfigDictionary = [myConfigDictionary mutableCopy];
