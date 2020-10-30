@@ -4712,7 +4712,23 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		
         // Get list of files in .tblk or message explaining why cannot get list
         NSString * tblkFileList = [ConfigurationManager listOfFilesInTblkForConnection: connection];
-        
+
+		// Get contents of kext policy database if available
+		NSString * kextPolicyData = @"Kext Policy database not available (available only on macOS High Sierra and later)";
+		if (  runningOnHighSierraOrNewer()  ) {
+			NSString * stdOut = @"";
+			NSString * stdErr = @"";
+			int status = runOpenvpnstart(@[@"printTunnelblickKextPolicy"], &stdOut, &stdErr);
+			if (   (status == 0)
+				&& [stdErr length] == 0  ) {
+				kextPolicyData = stdOut;
+			} else {
+				kextPolicyData = [NSString stringWithFormat:
+								  @"Error status %d attempting to access the Kext Policy database\nstdout =\n%@\nstderr =\n%@",
+								  status, stdOut, stdErr];
+			}
+		}
+
         // Get relevant preferences
         NSString * configurationPreferencesContents = [ConfigurationManager getPreferences: gConfigurationPreferences prefix: [connection displayName]];
         
@@ -4752,6 +4768,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              @"Configuration %@\n\n"
                              @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
                              @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
+							 @"Tunnelblick Kext Policy Data:\n\n%@\n%@"
                              @"Configuration preferences:\n\n%@\n%@"
                              @"Wildcard preferences:\n\n%@\n%@"
                              @"Program preferences:\n\n%@\n%@"
@@ -4769,6 +4786,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              [connection localizedName],
 							 [connection configPath], condensedConfigFileContents, separatorString,
                              tblkFileList, separatorString,
+							 kextPolicyData, separatorString,
                              configurationPreferencesContents, separatorString,
                              wildcardPreferencesContents, separatorString,
                              programPreferencesContents, separatorString,
