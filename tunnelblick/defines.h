@@ -157,6 +157,7 @@
 #define TOOL_PATH_FOR_PS			@"/bin/ps"
 #define TOOL_PATH_FOR_ROUTE         @"/sbin/route"
 #define TOOL_PATH_FOR_SCUTIL		@"/usr/sbin/scutil"
+#define TOOL_PATH_FOR_SQLITE3		@"/usr/bin/sqlite3"
 #define TOOL_PATH_FOR_SW_VERS		@"/usr/bin/sw_vers"
 #define TOOL_PATH_FOR_TAR			@"/usr/bin/tar"
 

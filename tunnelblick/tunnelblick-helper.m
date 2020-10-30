@@ -91,7 +91,7 @@ const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 void exitOpenvpnstart(OSStatus returnValue) {
 	
-	// returnValue: have used 162-246, plus the values in define.h (247-254)
+	// returnValue: have used 162-245, plus the values in define.h (247-254)
 
 	if (  gTemporaryDirectory  ) {
 		[[NSFileManager defaultManager] tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
@@ -136,7 +136,15 @@ void printUsageMessageAndExitOpenvpnstart(void) {
 			"               * Creates a file at /Library/Application Support/Tunnelblick/shutting-down-computer.txt\n"
 			"               * Creates a file at /Library/Application Support/Tunnelblick/expect-disconnect/ALL\n\n"
 
-			"./openvpnstart re-enable-network-services\n"
+            "./openvpnstart printTunnelblickKextPolicy\n"
+            "               Prints to stdout the output from the following command run as root:\n"
+			"                      /usr/bin/sqlite3 -separator \"|\" -list /private/var/db/SystemPolicyConfiguration/KextPolicy \\\n"
+			"                      \"select bundle_id, team_id, developer_name, allowed, flags from kext_policy where bundle_id like 'net.tunnelblick."
+
+			// A '%' character is inserted here"
+			"%c' ;\"\n\n"
+
+            "./openvpnstart re-enable-network-services\n"
 			"               to run Tunnelblick's re-enable-network-services.sh script\n\n"
 			
             "./openvpnstart route-pre-down  flags configName  cfgLocCode\n"
@@ -311,7 +319,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "Tunnelblick must have been installed before openvpnstart can be used.\n\n"
             
             "For more information on using Deploy, see the Deployment wiki at https://tunnelblick.net/cCusDeployed.html\n"
-            , killStringC, killAllStringC);
+            , killStringC, killAllStringC, '%');
     exitOpenvpnstart(OPENVPNSTART_RETURN_SYNTAX_ERROR);      // This exit code is used in the VPNConnection connect: method to inhibit display of this long syntax error message because it means there is an internal Tunnelblick error
 }
 
@@ -897,11 +905,15 @@ NSString * newTemporaryDirectoryPathInTunnelblickHelper(void) {
 
 //**************************************************************************************************************************
 
-int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode) {
+int runAsRootWithConfigNameAndLocCodeReturnOutput(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode, NSString ** stdOut, NSString ** stdErr) {
+
 	// Runs a program as root
 	//
 	// If a configuration name and location code are given, set the TUNNELBLICK_CONFIG_FOLDER environment variable
 	// to point to the folder containing the .ovpn configuration file
+    //
+    // If "stdOut" and/or "stdErr" are not nil, they are set to the output from stdout and stderr, respectively.
+    // Otherwise stdout and/or stderr are both printed, with headers, to stderr.
 	//
 	// Returns program's termination status
 	
@@ -995,7 +1007,11 @@ int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments
 	}
     stdOutput = [stdOutput stringByTrimmingCharactersInSet: trimCharacterSet];
 	if (  [stdOutput length] != 0  ) {
-		fprintf(stderr, "stdout from %s: %s\n", [[thePath lastPathComponent] UTF8String], [stdOutput UTF8String]);
+        if (  stdOut  ) {
+            *stdOut = stdOutput;
+        } else {
+            fprintf(stderr, "stdout from %s: %s\n", [[thePath lastPathComponent] UTF8String], [stdOutput UTF8String]);
+        }
 	}
 	
 	NSString * errOutput = [[[NSString alloc] initWithData: errData encoding: NSUTF8StringEncoding] autorelease];
@@ -1004,16 +1020,33 @@ int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments
 	}
     errOutput = [errOutput stringByTrimmingCharactersInSet: trimCharacterSet];
 	if (  [errOutput length] != 0  ) {
-		fprintf(stderr, "stderr from %s: %s\n", [[thePath lastPathComponent] UTF8String], [errOutput UTF8String]);
+        if (  stdErr  ) {
+            *stdErr = errOutput;
+        } else {
+            fprintf(stderr, "stderr from %s: %s\n", [[thePath lastPathComponent] UTF8String], [errOutput UTF8String]);
+        }
 	}
 	
     return [task terminationStatus];
 }
 
 //**************************************************************************************************************************
+int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode) {
+    
+    return runAsRootWithConfigNameAndLocCodeReturnOutput(thePath, theArguments, permissions, configName, configLocCode, nil, nil);
+    
+}
+
+//**************************************************************************************************************************
 
 int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
 	return runAsRootWithConfigNameAndLocCode(thePath, theArguments, permissions, nil, 0);
+}
+
+//**************************************************************************************************************************
+
+int runAsRootReturnOutput(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString ** stdOut, NSString ** stdErr) {
+    return runAsRootWithConfigNameAndLocCodeReturnOutput(thePath, theArguments, permissions, nil, 0, stdOut, stdErr);
 }
 
 //**************************************************************************************************************************
@@ -1659,6 +1692,31 @@ void shuttingDownComputer (void) {
 
 	expectDisconnect(1, @"ALL");
 }
+
+void printTunnelblickKextPolicy(void) {
+    
+    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: TOOL_PATH_FOR_SQLITE3]) {
+        appendLog([NSString stringWithFormat: @"'sqlite3 not found at %@\n", TOOL_PATH_FOR_SQLITE3]);
+        exitOpenvpnstart(245);
+    }
+    
+    NSArray * arguments = @[@"-separator", @"|",
+							@"-list",
+							@"/private/var/db/SystemPolicyConfiguration/KextPolicy",
+							@"select bundle_id, team_id, developer_name, allowed, flags from kext_policy where bundle_id like 'net.tunnelblick.%' ;"];
+    NSString * stdOut = @"";
+    NSString * stdErr = @"";
+    int status = runAsRootReturnOutput(TOOL_PATH_FOR_SQLITE3, arguments, 0755, &stdOut, &stdErr);
+
+	fprintf(stdout, "%s", [stdOut UTF8String]);
+	fprintf(stderr, "%s", [stdErr UTF8String]);
+
+    if (  status != 0  ) {
+		fprintf(stderr, "/usr/bin/sqlite3 returned error %d\n", status);
+		exitOpenvpnstart(245);
+	}
+}
+
 //**************************************************************************************************************************
 
 void compareShadowCopy (NSString * fileName) {
@@ -3246,6 +3304,12 @@ int main(int argc, char * argv[]) {
 				shuttingDownComputer();
 				syntaxError = FALSE;
 			}
+            
+        } else if (  strcmp(command, "printTunnelblickKextPolicy") == 0  ) {
+            if (  argc == 2  ) {
+                printTunnelblickKextPolicy();
+                syntaxError = FALSE;
+            }
             
         } else if (  strcmp(command, "re-enable-network-services") == 0  ) {
             if (  argc == 2  ) {
