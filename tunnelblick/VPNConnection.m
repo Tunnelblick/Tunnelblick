@@ -1465,6 +1465,82 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	[self hasDisconnected];
 }
 
+-(void) getKextPolicy: (BOOL *) policyFound
+		   tapEnabled: (BOOL *) tapEnabled
+		  tapDisabled: (BOOL *) tapDisabled
+		   tunEnabled: (BOOL *) tunEnabled
+		  tunDisabled: (BOOL *) tunDisabled  {
+
+	*policyFound = FALSE;
+
+	if (  ! runningOnHighSierraOrNewer()  ) {
+		return;
+	}
+
+	NSString * stdOut = @"";
+	NSString * stdErr = @"";
+	int status = runOpenvpnstart(@[@"printTunnelblickKextPolicy"], &stdOut, &stdErr);
+	if (   (status == 0)
+		&& [stdErr length] == 0  ) {
+
+		// Typical output from printTunnelblickKextPolicy:
+		//
+		// net.tunnelblick.tun|Z2SG5H3HC8|Jonathan Bullard|1|8
+		// net.tunnelblick.tap|Z2SG5H3HC8|Jonathan Bullard|0|4
+
+		*policyFound = TRUE;
+		*tapEnabled  = [stdOut hasPrefix: @"net.tunnelblick.tap|Z2SG5H3HC8|Jonathan Bullard|1|"];
+		*tapDisabled = [stdOut hasPrefix: @"net.tunnelblick.tap|Z2SG5H3HC8|Jonathan Bullard|0|"];
+		*tunEnabled  = [stdOut hasPrefix: @"net.tunnelblick.tun|Z2SG5H3HC8|Jonathan Bullard|1|"];
+		*tunDisabled = [stdOut hasPrefix: @"net.tunnelblick.tun|Z2SG5H3HC8|Jonathan Bullard|0|"];
+
+	} else {
+		NSLog(@"Error status %d attempting to access the Kext Policy database\nstdout =\n%@\nstderr =\n%@",
+			  status, stdOut, stdErr);
+	}
+}
+
+-(NSString *) messageAboutKextLoadPermissionStatus {
+
+	BOOL kextPolicyFound;
+	BOOL tapEnabled;
+	BOOL tapDisabled;
+	BOOL tunEnabled;
+	BOOL tunDisabled;
+
+	[self getKextPolicy: &kextPolicyFound tapEnabled: &tapEnabled tapDisabled: &tapDisabled tunEnabled: &tunEnabled tunDisabled: &tunDisabled];
+
+	NSMutableString * message = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+
+	(void)tapEnabled;
+	(void)tunEnabled;
+
+	if (  kextPolicyFound  ) {
+		if (  tapDisabled  ) {
+			if (  tunDisabled  ) {
+				[message appendString:
+				 NSLocalizedString(@"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>",
+								   @"HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded.")];
+			} else {
+				[message appendString:
+				 NSLocalizedString(@"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>",
+								   @"HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded.")];
+			}
+		} else if (  tunDisabled) {
+			[message appendString:
+			 NSLocalizedString(@"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>",
+							   @"HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded.")];
+		}
+	}
+
+	[message appendString: NSLocalizedString(@"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'."
+						@" You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>",
+
+						@"HTML text.")];
+
+	return message;
+}
+
 -(void) finishMakingConnection: (NSDictionary *) dict {
 
 	
@@ -1589,16 +1665,19 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 								  ? @"https://tunnelblick.net/cKextNotarization.html"
 								  : @"https://tunnelblick.net/cKextLoadErrorHighSierra.html")
 							   : @"https://tunnelblick.net/cKextLoadError.html");
-			NSString * linkMsg = [NSString stringWithFormat: NSLocalizedString(@"<a href=\"%@\">More information</a> [tunn" @"elblick.n" @"et]",
-																			   @"Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html"),
+			NSString * linkMsg = [NSString stringWithFormat:
+								  NSLocalizedString(@"<p><a href=\"%@\">More information</a> [tunn" @"elblick.n" @"et]</p>",
+													@"HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL"
+													@" such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net."),
 								  link];
-			
-			NSString * htmlString = [NSString stringWithFormat:
-									 NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>"
-													   @"<p>%@</p>",
-													   
-													   @"HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated."),
-									 [self displayName], linkMsg];
+
+			NSString * htmlString = [NSString stringWithFormat: @"%@%@%@",
+									 [NSString stringWithFormat:
+									  NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>",
+														@"HTML error message. The '%@' is a configuration name."),
+									  [self displayName]],
+									 [self messageAboutKextLoadPermissionStatus],
+									 linkMsg];
 			NSAttributedString * msg = attributedLightDarkStringFromHTML(htmlString);
 			if (  ! msg  ) {
 				NSLog(@"connect:userKnows: msg = nil");
