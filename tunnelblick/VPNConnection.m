@@ -4697,7 +4697,16 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             locationMessage =  NSLocalizedString(@" (Private)", @"Window title");
         }
     }
-    
+
+	NSString * tuntapType = [self tapOrTun];
+	NSString * tuntapMessage;
+	if (         [tuntapType isEqualToString: @"tun"]  ) tuntapMessage = @" - TUN -";
+	else if (    [tuntapType isEqualToString: @"tap"]  ) tuntapMessage = @" - TAP -";
+	else if (    [tuntapType isEqualToString: @"utun"] ) tuntapMessage = @" - UTUN -";
+	else												 tuntapMessage = @"";
+
+	locationMessage = [tuntapMessage stringByAppendingString: locationMessage];
+
     return locationMessage;
 }
 
