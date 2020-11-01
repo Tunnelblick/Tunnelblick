@@ -2166,6 +2166,9 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非Tunnelblick</strong>' 的 OpenVPN版本不在Tunnelblick项目中，也不是Tunnelblick创建的。您的系统管理员安装了这些软件。</p>";
 
+/* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
+"<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">更多信息</a> [tunnelblick.net]</p>";
+
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>至少一个以上的配置文件将会无法正常使用。</strong></p><p>这些配置文件需要一个系统插件，但是此版本的 macOS 不允许 Tunnelblick 使用其系统插件。</p>";
 
@@ -2335,8 +2338,23 @@
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 缓存包含了 DNS （域名系统）的信息的副本。</p>\n<p><strong>当勾选时</strong>，在连接时或者断开连接时，DNS 缓存将会被刷新（清除）。将会使用 VPN 设置中的域名服务器去执行所有的 DNS 查询。</p>\n<p><strong>当没有被勾选时</strong>，DNS 缓存不会被刷新。这样会造成一些问题，如果由 VPN 设置的域名服务器与拨通 VPN 之前的域名服务器查询出来的结果不一样，而之前的结果被缓存起来了。</p>";
 
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>" = "<p>因为你告诉macOS不要允许Tunnelblick载入它的由开发者“Jonathan  Bullard”签字的“tap”和“tun”系统扩展所以该系统扩展无法载入。</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "<p>因为你告诉macOS不要允许Tunnelblick载入它的由开发者“Jonathan  Bullard”签字的“tap”系统扩展所以该系统扩展无法载入。</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>" = "<p>因为你告诉macOS不要允许Tunnelblick载入它的由开发者“Jonathan  Bullard”签字的“tun”系统扩展所以该系统扩展无法载入。你应该修改你的Tunnelblick设置和/或你的OpenVPN设置文件以让Tunnelblick不需要再入它的“tun”系统扩展，此后你将能够联系。</p>";
+
+/* HTML text. */
+"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'. You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>" = "<p>如果要允许Tunnelblick安装它的系统扩展，你需要允许载入由开发者“Jonathan Bullard”开发的系统软件。你可以在“系统喜好”中的“安全与隐私”上的“一般”页面做到。</p>";
+
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick包含一个经过定制的“easy-rsa”，它是一系列由OpenVPN的开发者们编写的用于创建和维护证书和私钥的命令行脚本。</p><p>点击这个按钮启动MacOS终端并将工作目录指定在包含这些脚本的目录中。</p><p>这些脚本通常位于 ~/Library/Application Support/Tunnelblick/easy-rsa。“easy-rsaPath” 偏好可以设置 Tunnelblick 使用的替代目录位置。“easy-rsaPath”必须是绝对路径或以 “~” 开始，并且其父目录必须存在。如果对应路径目录存在，将会被使用，否则将会在Tunnelblick启动的时候创建并将easy-rsa脚本安装到其中。</p><p>欲了解更多使用easy-rsa的信息，请参见 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">创建您自己的证书颁发机构 (CA) 并生成用于OpenVPN服务器以及客户端的证书和私钥</a> [openvpn.net].</p><p>欲了解更多关于 Tunnelblick 对 easy-rsa 的定制，请参见目录中的 README 文件。</p>";
+
+/* HTML error message. The '%@' is a configuration name. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick无法载入一个联系到%@需要的系统扩展。</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "管理模式剩余 %@";
