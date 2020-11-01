@@ -131,7 +131,7 @@
 "Install" = "Installera";
 
 /* Button. In a dialog that says a file already exists in a new location. */
-"Keep Both" = "Knapp. I en meddelanderuta som meddelar att en fil redan existerar på en ny plats. Ordet \"båda\" refererar till \"filerna\" så denna sträng är en kortform av \"Behåll båda filerna\".";
+"Keep Both" = "Spara båda";
 
 /* Button */
 "Latest (%@)" = "Senaste (%@)";
@@ -225,7 +225,7 @@
 "Retry" = "Försök igen";
 
 /* Button */
-"Revert to the Last Secured Copy" = "Återställ senaste säkerhetskopia";
+"Revert to the Last Secured Copy" = "Återställ senaste säkra konfiguration";
 
 /* Button */
 "Revert" = "Ångra";
@@ -964,14 +964,14 @@
 /* Window text */
 "(if connected when user switched out)" = "(om ansluten när användare byts)";
 
-/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
-"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Mer information</a> [tunnelblick.net]";
-
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Baserat på Tunnelblick, gratis mjukvara som finns på<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN är ett registrerat varumärke av OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Baserat på Tunnelblick, fri mjukvara som finns på<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN är ett registrerat varumärke av OpenVPN Technologies, Inc.";
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Nätverksinställningen kunde inte återställas korrekt efter frånkopplingen från %@.</p><p>Det här problemet orsakas vanligtvis vid användande av \"ingen användare\" och/eller \"ingen grupp\" OpenVPN alternativen.</p><p>För att återställa nätverksinställningen måste du starta om din dator.</p><p>För att förhindra det här felet i framtiden kan du ta bort \"ingen användare\" och \"ingen grupp\" linjerna från din OpenVPN konfigurationsfil.</p><p>Se <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Användare och grupp OpenVPN alternativ</a> [tunnelblick.net] för mer information.</p></font>\n\n";
+
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Denna dators synliga publika IP-adress har ändrats efter uppkoppling till denna VPN var %u gång den kontrollerades.</p>\n<p>Detta betyder sannolikt att VPN är inställd korrekt och att ytterligare kontroller inte behövs, så kontrollerna har stängts av för denna VPN för att minska lasten på tunnelblick.net:s servrar. </p>\n<p>Du kan återaktivera kontroller i \"Settings-fliken\" i Tunnelblicks \"VPN Details\"-fönster. Om du gör det, överväg att också <a href=\"https://tunnelblick.net/donate.html\"> donera till Tunnelblick-projektet</a>[tunnelblick.net] för att hjälpa till att betala för server-kostnader.</p>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "En TBPreference eller TBAlwaysSetPreference nyckel refererar till en okänd inställning '%1$@' i %2$@";
@@ -2166,6 +2166,9 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>icke-Tunnelblick</strong>' versioner av OpenVPN har inte skapats av TunnelBlick projektet och ingår inte i Tunnelblick. De har installerats av en datoradministratör.</p>";
 
+/* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
+"<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<a href=\"%@\">Mer information</a> [tunnelblick.net]";
+
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>En eller fler av dina konfigurationer kommer inte att kunna ansluta.</strong></p>\n<p>Konfigurationen/(rna) kräver en system-utökning men denna version av macOS tillåter inte Tunnelblick att använda dess system-utökningar. </p>";
 
@@ -2335,11 +2338,23 @@
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS cache innehåller kopior av svar från DNS (Domain Name System) servrar.</p>\n<p><strong>Om markerad</strong>, kommer DNS cache att rensas vid anslutning och nedkoppling. Alla DNS förfrågningar sker med den server som anges av VPN-konfigurationen..</p>\n<p><strong>Om ej markerad</strong> rensas INTE cache vid anslutning och nerkoppling. Detta kan orsaka problem om det finns namnkonflikter mellan olika DNS servrar, när ett svar från den ena servern finns i cache. Om du normalt använder publika DNS servrar både när du är och inte är ansluten till VPN orsakar detta oftast inga problem, och undviker att göra onödiga uppslagningar för namn som redan finns i cache.</p>";
 
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>" = "<p>Systemtillägget kan inte laddas in eftersom du inte tillåter Tunnelblick att ladda in 'tap'- och 'tun'-tillägg. Dessa är signerade av utvecklaren 'Jonathan Bullard'</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "<p>Systemtillägget kan inte laddas in eftersom du inte tillåter Tunnelblick att ladda in 'tap'-tillägg. Detta tillägg är signerat av utvecklaren 'Jonathan Bullard'</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>" = "<p>Systemtillägget kunde inte laddas in, eftersom du inte tillåter att Tunnelblick laddar in tun-tillägget. Tillägget är signerat av utvecklaren ''Jonathan Bullard'. Du behöver ändra konfigurationsfilen och/eller OpenVPN-konfigurationen så att Tunnelblick inte behöver ladda tun-tillägget, då kommer du kunna ansluta.</p>";
+
+/* HTML text. */
+"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'. You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>" = "<p>För att tillåtta Tunnelblick att installera sitt systemtillägg, måste du tillåta appar utvecklade av 'Jonathan Bullard'. Du kan göra detta under 'Allmänt', i 'Säkerhet och integritet' som du hittar i Systeminställningar. </p>";
+
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p> Tunnelblick innehåller en anpassad version av \"easy-rsa\", som är en uppsättning kommandoradsskript skrivna av OpenVPN-utvecklarna för att skapa och behålla certifikat och nycklar. </p>\n<p> Genom att klicka på den här knappen startas OS X Terminal-applikationen med den mappen som innehåller skripten som aktuell katalog. </p>\n<p> Skripten finns normalt i mappen ~ /Library/Application Support/ Tunnelblick/easy-rsa. En \"easy-rsaPath\" -inställning kan innehålla sökvägen till en mapp som Tunnelblick ska använda istället. 'Easy-rsaPath' måste vara en absolut sökväg eller börja med '~', och den överordnade mappen på sökvägen måste existera. Om en mapp finns i sökvägen kommer den att användas; Om den inte existerar kommer den att skapas och Easy-RSA-skript installeras i den när Tunnelblick startas. </p>\n<p> För information om hur du använder easy-rsa, se \n<a href=\"https://openvpn.net/index.php/opensource/documentation/howto.html#pki\">Sätt upp din egen certifikatutfärdare(CA) och generera certifikat och nycklar för en OpenVPN-server och flera klienter </a> [openvpn.net]. </p>\n<p> För detaljer om Tunnelblick anpassningar av easy-rsa, se README-filen i mappen. </p>";
 
-/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick kunde inte ladda ett systemtillägg som är nödvändigt för att skapa en förbindelse till %1$@.</p><p>%2$@</p>";
+/* HTML error message. The '%@' is a configuration name. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick kunde inte ladda ett systemtillägg som är nödvändigt för att skapa en förbindelse till %@.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Administratörsläge %@ kvarstår";

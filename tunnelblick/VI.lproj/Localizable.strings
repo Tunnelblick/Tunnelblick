@@ -940,9 +940,6 @@
 /* Window text */
 "(if connected when user switched out)" = "(Nếu đã kết nối khi chuyển sang người dùng khác)";
 
-/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
-"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">Thêm thông tin</a> [tunnelblick.net]";
-
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Được cung cấp bởi Tunnelblick, phần mềm này có thể sử dụng miễn phí tại<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN là một nhẫn hiệu đã được đăng ký của OpenVPN, Inc.";
 

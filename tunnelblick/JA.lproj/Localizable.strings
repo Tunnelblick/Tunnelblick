@@ -353,13 +353,13 @@
 "OpenVPN level %lu" = "OpenVPNレベル%lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPNレベル０（致命的エラーのみ）";
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPNレベル0 - 致命的エラーのみ";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPNレベル１１（非常に冗長出力）";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPNレベル11 - 極度に冗長な出力";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPNレベル３（通常出力）";
+"OpenVPN level 3 - normal output" = "OpenVPNレベル3 - 通常出力";
 
 /* Menu Item */
 "OpenVPN level 4 - values for all options" = "OpenVPNレベル4 - 全オプションの値も出力";
@@ -368,10 +368,10 @@
 "OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPNレベル5 - パケットごとにRかWも出力";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPNレベル６（大変冗長出力）";
+"OpenVPN level 6 - very verbose output" = "OpenVPNレベル6 - 非常に冗長な出力";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "設定ファイルによるOpenVPNログレベル";
+"OpenVPN logging level set by the configuration" = "OpenVPNの設定によるログレベル";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
 "Problem using future versions of Tunnelblick" = "Tunnelblickを更新する際の問題";
@@ -964,9 +964,6 @@
 /* Window text */
 "(if connected when user switched out)" = "(切り替え前に接続していた時のみ)";
 
-/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
-"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">その他の情報</a> [tunnelblick.net]";
-
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Tunnelblickに基づき、フリーのソフトウェアは<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a>でご利用になれます。<br><br>OpenVPNは OpenVPN Inc. の登録商標です。";
 
@@ -1007,7 +1004,7 @@
 "Add Credentials" = "認証情報を追加";
 
 /* Window text */
-"Added '.sh' extension to %@ so it will be secured properly" = "%@ が保護されるように拡張しに.shを追加しました";
+"Added '.sh' extension to %@ so it will be secured properly" = "%@ が保護されるように拡張子に.shを追加しました";
 
 /* Window text */
 "Added a '.unknown' extension to %@ so it will be secured properly" = "%@ が保護されるように拡張子に.unkownを追加しました";
@@ -2164,13 +2161,16 @@
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Tunnelblick setupをユーザーアカウント数が%u以上のあるコンピューターにインポートするには, インポートするデータを説明するテキストファイルの作成が必要です</p>\n<p>もっと知りたいなら、 <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>をご覧ください。</p></font>";
 /* HTML info for the 'OpenVPN version' button. */
-"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>Tunnelblickでない</strong>OpenVPNバージョンがTunnelblickプロジェクトより作成された物ではない、又はTunnelblickの一部ではありません。コンピュータ管理者によりインストールされた物です。";
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>Tunnelblickでない</strong>バージョンのOpenVPNは、Tunnelblickプロジェクトで作成したものではなくTunnelblickには含まれません。コンピュータ管理者によりインストールされたものです。";
+
+/* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
+"<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">追加の情報</a> [tunnelblick.net]</p>";
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>このVPNに接続するときに使うOpenVPNとSSLのバージョンを指定してください。</strong><ul><li><strong>デフォルトの設定</strong> はこのTunnelBlickバージョンで提供されたOpenSSLのバージョンを使ったOpenVPNのデフォルト設定を使います。デフォルト設定はTunnelBlickのバージョンによって変わることがあります。<br></li><li><strong>「最新」設定</strong>はこのTunnelBlickのバージョンで提供されたLibreSSLのバージョンを使っている最新版のOpenVPNを使います。「最新」の設定はTunnelBlickのバージョンによって変わることがあります。<br></li><li><strong>他の設定</strong> は指定されたOpenVPNとSSLのバージョンを使います。 （このTunnelBlickのバージョンで利用可能な場合）。利用可能でなければ、選択の設定に一番近い利用可能の設定を利用してVPNに接続します。<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
-"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "VPN接続中に、TunnelblickがDNS設定を変更するために何を行うかを指定します（もしあれば）。選択肢としては、\n・ネームサーバを設定しない：何もされません。\n・ネームサーバの設定：Tunnelblickは、標準スクリプトを使用してDNSおよびWINS設定を処理します。 通常、これがベストの選択となります。 OpenVPNの指示に従い、DNSおよびWINS設定を変更します。 手動で設定されたDNSおよびWINS設定は、[詳細設定] 設定ウィンドウの[手動で設定されたネットワーク設定への変更を許可する] が選択されていない限り変更されません。\n・ネームサーバ（3.1）の設定：Tunnelblickは、Tunnelblick 3.1のスクリプトを使用して、DNSおよびWINS設定を処理します。\n・ネームサーバ（3.0b10）の設定：Tunnelblickは、Tunnelblick 3.0b10のスクリプトを使用して、DNSおよびWINS設定を処理します。\n・ネームサーバ（代替 1）の設定：Tunnelblickは、代替スクリプトを使用して、DNSおよびWINS設定を処理します。";
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>VPN接続中に、TunnelblickがDNS設定を変更するために何を行うかを指定します（もしあれば）。</strong>選択肢としては、<ul><li><strong>ネームサーバーを変更しない</strong>: 何もしません。<br></li><li><strong>ネームサーバーを設定</strong>: 標準スクリプトを使用してDNSおよびWINS設定を処理します。 通常はこれがベストの選択となります。 OpenVPNの指示に従い、DNSおよびWINS設定を変更します。 手動で設定されたDNSおよびWINS設定は、[詳細設定]ウィンドウの[手動でセットされたネットワーク設定への変更を許可する]が選択されていない限り変更されません。<br></li><li><strong>ネームサーバーを設定 (3.1)</strong>: Tunnelblick 3.1のスクリプトを使用して、DNSおよびWINS設定を処理します。<br></li><li><strong>ネームサーバーを設定 (3.0b10)</strong>: Tunnelblick 3.0b10のスクリプトを使用して、DNSおよびWINS設定を処理します。<br></li><li><strong>ネームサーバーを設定 (alternate 1)</strong>: 代替スクリプトを使用して、DNSおよびWINS設定を処理します。<br></li></ul>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>チェックした場合</strong>、IPv6は無効化されます。</p>\n<p><strong>チェックしなかった場合</strong>、IPv6は無効化されません。</p>\n<p>多くの場合、IPv6を無効化することを推奨します。何故ならば、多くのVPN設定はIPv6使用による情報漏洩の防衛がありません。ほとんどのインターネットはIPv6を使用しなくてもアクセスできます。</p>\n<p>設定を調整すると、<strong>このチェックボックスは無効化できません</strong>。</p>\n";
@@ -2205,6 +2205,12 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>「次回からこの警告を表示しない」 のチェックを解除すると警告が再び表示されます。</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>詳しくは、<a href=\"https://tunnelblick.net/cBigSur.html\">macOS 11 Big SurのTunnelblick</a> [tunnelblick.net]をご覧ください。</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>詳しくは、<a href=\"https://tunnelblick.net/cTunTapConnections.html\">macOS上でのTunとTap VPNの見通し</a> [tunnelblick.net]をご覧ください。</p>\n";
+
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>TunnelblickおよびOpenVPNによって行われるログの書き込み量を指定します</p>";
 
@@ -2223,11 +2229,29 @@
 /* HTML info for the 'VPN status windows' button. */
 "<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>TunnelblickがVPNステータスウィンドウを表示するタイミングを指定します</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>The Console Log shows which configurations will not be able to connect.</p>\n" = "<p>コンソールログには、どの接続先に接続できないか表示されています。</p>";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNSキャッシュはDNS (名前解決システム) 情報のコピーを含みます。</p>\n<p><strong>チェックを入れた場合</strong>、DNSキャッシュは接続・切断時に削除されます。 全ての名前解決はVPNのセットアップに指定されたネームサーバーより実行されます。</p>\n<p><strong>チェックを入れなかった場合</strong>、DNSキャッシュは削除されません。VPN割り当てのネームサーバーがVPNに接続される前に、ドメイン名がネームサーバーキャッシュと競合すると、問題が発生することがあります。</p>";
 
-/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblickは%1$@に接続するために必要な設定を読み込むことができませんでした。</p><p>%2$@</p>";
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>" = "<p>開発者「Jonathan Bullard」によって署名された「tap」と「tun」システム拡張機能が許可されていないため、システム拡張機能が読み込めませんでした。</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "<p>開発者「Jonathan Bullard」によって署名された「tap」システム拡張機能が許可されていないため、システム拡張機能が読み込めませんでした。</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>" = "<p>開発者「Jonathan Bullard」によって署名された「tun」システム拡張機能が許可されていないため、システム拡張機能が読み込めませんでした。接続するためには、「tun」システム拡張機能を読み込まなくてもよいようにTunnelblickの設定とOpenVPNの設定ファイルを修正する必要があります。</p>";
+
+/* HTML text. */
+"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'. You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>" = "<p>Tunnelblickのシステム拡張機能をインストールするには、開発者 'Jonathan Bullard' の拡張機能を許可する必要があります。「システム環境設定」の中にある「セキュリティとプライバシー」の「一般」タブから許可してください。</p>";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblickは証明書と鍵を発行し維持するために、OpenVPN開発者が作成したコマンドラインスクリプトである 'easy-rsa' をカスタマイズしたバージョンを使用しています。</p><p>このボタンをクリックすることで、スクリプトが保存されているフォルダをワーキングディレクトリにしてmacOSのターミナルアプリが起動します。</p><p>スクリプトは通常 ~/Library/Application Support/Tunnelblick/easy-rsa に保存されています。 'easy-rsaPath' を設定することによってこのフォルダを変更できます。 'easy-rsaPath' は絶対パスか '~' から始まらなければならず、かつ親フォルダまでは存在しなければいけません。もしフォルダが存在すればそれが使われます。もし存在しなければ、Tunnelblickが起動した時にフォルダが作られて 'easy-rsa' スクリプトがインストールされます。</p><p>easy-rsa の使い方については次のリンクをご参照下さい。 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">自己認証局（CA）をセットアップし、証明書と鍵をOpenVPNのサーバーや複数のクライアントに発行する方法</a> [openvpn.net]</p><p>Tunnelblickのeasy-rsaのカスタマイズについてもっと知りたいときは上のフォルダにあるREADMEをお読み下さい。</p>";
+
+/* HTML error message. The '%@' is a configuration name. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblickは、%@に接続するために必要なシステム拡張機能を読み込むことができませんでした。</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "管理者モードはあと %@ です";
@@ -2339,7 +2363,7 @@
 "Hungarian translation" = "ハンガリー語翻訳";
 
 /* Credit description */
-"Icelandic translation" = "アイスランドの翻訳";
+"Icelandic translation" = "アイスランド語翻訳";
 
 /* Credit description */
 "Icon set including Retina images" = "Retina用画像を含むアイコンセット";
@@ -2402,7 +2426,7 @@
 "Russian translation" = "ロシア語翻訳";
 
 /* Credit description */
-"Serbian (Latin) translation" = "セルビア (ラテン語) 翻訳";
+"Serbian (Latin) translation" = "セルビア語 (ラテン文字) 翻訳";
 
 /* Credit description */
 "Slovak translation" = "スロバキア語翻訳";
@@ -2411,7 +2435,7 @@
 "Spanish translation" = "スペイン語翻訳";
 
 /* Credit description */
-"Swahili (Tanzania) translation" = "スワヒリ語（タンザニア）訳";
+"Swahili (Tanzania) translation" = "スワヒリ語（タンザニア）翻訳";
 
 /* Credit description */
 "Swedish translation" = "スウェーデン語翻訳";
@@ -2456,7 +2480,7 @@
 "authenticate" = "認証";
 
 /* File name of a newly-created folder */
-"untitled folder" = "無題のフォルダ...";
+"untitled folder" = "名称未設定フォルダ";
 
 /* Button VPNService */
 "Accept" = "了解";

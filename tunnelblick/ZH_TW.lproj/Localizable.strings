@@ -964,16 +964,13 @@
 /* Window text */
 "(if connected when user switched out)" = "(假如當使用者切換時已連線)";
 
-/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
-"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">更多資訊</a> [tunnelblick.net]";
-
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>基於 Tunnelblick，一個可於 <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a> 取得的自由軟體<br><br>OpenVPN 是 OpenVPN Inc. 的註冊商標。";
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>在與 %@ 中斷連線後，並未正確地恢復網路設定。</p><p>這個問題通常是由於在 OpenVPN 選項中使用了「user nobody」或「group nobody」。</p><p>為了正確恢復網路設定，您應該重新啟動電腦。</p><p>要想避免這個問題再次發生，請在 OpenVPN 設定中移除「user nobody」或「group nobody」。</p><p>更多資訊可於<a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">OpenVPN 的使用者和群組選項</a> [tunnelblick.net] 取得。</p></font>\n\n";
 
-/* Window text. The '%u' will be replaced with 5 or a similar small positive number. */
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>這台電腦的對外公共 IP 已經在過去 %u 次連線到此 VPN 的檢查中確認已變更。</p>\n<p>這通常表示 VPN 已正確設定且不需再額外檢查；為了減輕 tunnelblick.net 伺服器的負擔，此 VPN 的檢查已被停用。</p>\n<p>您可以在 Tunnelblick \"VPN 詳情\" 中的 \"設定\" 分頁重新啟用檢查。如果您這麼做，請同時考慮 <a href=\"https://tunnelblick.net/donate.html\">向 Tunnelblick 專案捐款</a> [tunnelblick.net] 以協助負擔伺服器開銷。</p>\n";
 
 /* Window text */
@@ -2169,6 +2166,9 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非 Tunnelblick</strong>' 版本的 OpenVPN 並非由 Tunnelblick 計畫所建立且不屬於 Tunnelblick 的一部分。它們已由系統管理員安裝完成。</p>";
 
+/* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
+"<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "更多資訊";
+
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>您的一個或多個設定檔將無法連線。</strong></p>\n<p>這些設定檔需要系統延伸功能，但此版本的 macOS 不允許 Tunnelblick 使用系統延伸功能。</p>\n";
 
@@ -2338,11 +2338,14 @@
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 快取包含 DNS (網域名稱系統) 副本的資訊。</p>\n<p><strong>當勾選</strong>，DNS 快取將會在連線或中斷連線時清除。所有的 DNS 查詢將使用以 VPN 設定中指定的名稱伺服器。</p>\n<p><strong>當未勾選</strong>，DNS 快取將不會被清除。如果有網域名稱在 VPN 指定的名稱伺服器與 VPN 連線前的名稱伺服器快取衝突，這會造成一些問題。</p>";
 
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>" = "無法加載系統擴展，因為您已指示 macOS 不允許 Tunnelblick 加載其 “tap” 和 “tun” 系統擴展，這些擴展皆由開發人員 “Jonathan Bullard” 簽署。";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "無法加載系統擴展，因為您已指示 macOS 不允許 Tunnelblick 加載其 “tap” 系統擴展，這擴展由開發人員 “Jonathan Bullard” 簽署。";
+
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick 包含了一個客製版的 'easy-rsa' ，它是一組由 OpenVPN 開發者所編寫用來建立和維護憑證和密鑰的命令列指令碼。</p><p>點擊此按鈕將啟動 macOS 的終端應用程式並將包含這些指令碼的目錄設置為工作目錄。</p><p>這組指令碼一般放置在 ~/Library/Application Support/Tunnelblick/easy-rsa 資料夾中。如果有設定 'easy-rsaPath'， Tunnelblick 會使用這個設定中的目錄尋找這些指令碼。'easy-rsaPath' 設置必須是絕對路徑或者以 '~' 開頭的路徑， 並且其母目錄必須存在。Tunnelblick 啟動時如果設定包含的路徑中的目錄已經存在，則會被直接使用；如果不存在，則會被創建並將 easy-rsa 指令碼安裝至該目錄。</p><p>關於 easy-rsa 的詳細資訊請參見 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">設置你的數位憑證認證機構 (CA) 並給 OpenVPN 伺服器和用戶端生成憑證和密鑰</a> [openvpn.net]。</p><p>關於 Tunnelblick 的自定義 easy-rsa 信息請參見資料夾中的README檔案。</p>";
-
-/* HTML error message. The first %@ is a configuration name. The second %@ is 'More info' link which has already been translated. */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@</p>" = "<p>Tunnelblick 無法載入連線到 %1$@ 所需要的系統擴充程式。</p><p>%2$@</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "管理模式剩餘時間 %@";

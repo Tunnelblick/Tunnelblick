@@ -955,9 +955,6 @@
 /* Window text */
 "(if connected when user switched out)" = "(במידה ומחובר כאשר המשתמש התנתק)";
 
-/* Window text. The %@ is a URL such as https://tunnelblick.net/kextLoadError.html */
-"<a href=\"%@\">More information</a> [tunnelblick.net]" = "<a href=\"%@\">מידע נוסף</a> [tunnelblick.net]";
-
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>מבוסס על Tunnelblick, תוכנה חופשית אשר זמינה ב-<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN הוא סימן מסחר של OpenVPN Inc.";
 
