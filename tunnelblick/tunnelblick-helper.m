@@ -829,6 +829,7 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
                 || [path isEqualToString: TOOL_PATH_FOR_CODESIGN ]
 		   	 	|| [path isEqualToString: TOOL_PATH_FOR_KEXTSTAT ]
                 || [path isEqualToString: TOOL_PATH_FOR_KILLALL  ]
+				|| [path isEqualToString: TOOL_PATH_FOR_SQLITE3  ]
 			    ) {
                 notOk = FALSE;
             }
