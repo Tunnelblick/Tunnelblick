@@ -47,7 +47,7 @@
 "Always load Tap driver" = "tap-stuurprogramma altijd laden";
 
 /* Button */
-"Always load Tun driver" = "Altijd Tun driver laden";
+"Always load Tun driver" = "tun-stuurprogramma altijd laden";
 
 /* Button */
 "Always use the plugin" = "Altijd de plugin gebruiken";
