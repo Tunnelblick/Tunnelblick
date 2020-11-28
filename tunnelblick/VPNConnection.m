@@ -2729,7 +2729,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                 || runningWithSIPDisabled()  ) {
                 NSLog(@"Will try to load kexts on Big Sur, so allowing '%@' for '%@'", preference, preferenceKey);
             } else {
-                NSLog(@"Will not try to load kexts on Big Sur, so ignoring '%@' for '%@'", preference, preferenceKey);
+				if (  preference  ) {
+                	NSLog(@"Will not try to load kexts on Big Sur, so ignoring '%@' for '%@'", preference, preferenceKey);
+				}
                 preference = @"never";
             }
         }
@@ -2755,7 +2757,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                 || runningWithSIPDisabled()  ) {
                 NSLog(@"Will try to load kexts on Big Sur, so allowing '%@' for '%@'", preference, preferenceKey);
             } else {
-                NSLog(@"Will not try to load kexts on Big Sur, so ignoring '%@' for '%@'", preference, preferenceKey);
+				if (  preference  ) {
+               		NSLog(@"Will not try to load kexts on Big Sur, so ignoring '%@' for '%@'", preference, preferenceKey);
+				}
                 preference = @"never";
             }
         }

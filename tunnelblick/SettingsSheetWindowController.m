@@ -380,7 +380,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
     if (  donotLoadKext  ) {
         if (  index != 2  ) {
-            NSLog(@"Not loading kexts on Big Sur, so showing 'never' and ignoring '%@' for '%@' for '%@' and disabling the button", value, rawPreferenceKey, key);
+			if (  value  ) {
+            	NSLog(@"Not loading kexts on Big Sur, so showing 'never' and ignoring '%@' for '%@' for '%@' and disabling the button", value, rawPreferenceKey, key);
+			}
             index = 2;
         }
 
