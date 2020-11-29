@@ -653,7 +653,7 @@ for user in $( dscl . list /users ) ; do
     done
 
 	# run the per-user routine to delete keychain items
-    if [ "root" = $( echo "${user}" | tr '[:upper:]' '[:lower:]' ) ] ; then
+    if [ "root" = "$( echo "${user}" | tr '[:upper:]' '[:lower:]' )" ] ; then
 	  log "Problem: Can not delete Keychain items for user '$user'. If there are such items, they must be removed manually."
 	else
 	  uninstall_log "     >>> Will do  /usr/bin/su ${user} -c '/bin/bash -c uninstall_tb_user_keychain_items'"
