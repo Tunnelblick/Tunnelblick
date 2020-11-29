@@ -2727,10 +2727,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         if (   runningOnBigSurOrNewer()  ) {
             if (   [gTbDefaults boolForKey: @"bigSurCanLoadKexts"]
                 || runningWithSIPDisabled()  ) {
-                NSLog(@"Will try to load kexts on Big Sur, so allowing '%@' for '%@'", preference, preferenceKey);
+                NSLog(@"Will try to load kexts on Big Sur or later, so allowing '%@' for '%@'", preference, preferenceKey);
             } else {
 				if (  preference  ) {
-                	NSLog(@"Will not try to load kexts on Big Sur, so ignoring '%@' for '%@'", preference, preferenceKey);
+                	NSLog(@"Will not try to load kexts on Big Sur or later, so ignoring '%@' for '%@'", preference, preferenceKey);
 				}
                 preference = @"never";
             }
@@ -2755,10 +2755,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         if (   runningOnBigSurOrNewer()  ) {
             if (   [gTbDefaults boolForKey: @"bigSurCanLoadKexts"]
                 || runningWithSIPDisabled()  ) {
-                NSLog(@"Will try to load kexts on Big Sur, so allowing '%@' for '%@'", preference, preferenceKey);
+                NSLog(@"Will try to load kexts on Big Sur or later, so allowing '%@' for '%@'", preference, preferenceKey);
             } else {
 				if (  preference  ) {
-               		NSLog(@"Will not try to load kexts on Big Sur, so ignoring '%@' for '%@'", preference, preferenceKey);
+               		NSLog(@"Will not try to load kexts on Big Sur or later, so ignoring '%@' for '%@'", preference, preferenceKey);
 				}
                 preference = @"never";
             }
