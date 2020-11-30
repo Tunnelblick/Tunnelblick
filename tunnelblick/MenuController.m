@@ -5161,7 +5161,7 @@ static void signal_handler(int signalNumber)
                                     ? bigSurMoreInfo
                                     : futureInfo)];
 
-        [self addWarningNoteWithHeadline: NSLocalizedString(@"Problem using future versions of macOS",
+        [self addWarningNoteWithHeadline: NSLocalizedString(@"Problem using future versions of macOS...",
                                                             @"Menu item. Translate it to be as short as possible. When clicked, will display the full warning.")
                                  message: attributedLightDarkStringFromHTML(htmlMessage)
                            preferenceKey: preferenceName];

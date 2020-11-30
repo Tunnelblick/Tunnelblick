@@ -2588,7 +2588,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								 );
  
 	if (  warningMessage  ) {
-        [gMC addWarningNoteWithHeadline: NSLocalizedString(@"Problem using future versions of Tunnelblick",
+        [gMC addWarningNoteWithHeadline: NSLocalizedString(@"Problem using future versions of Tunnelblick...",
                                                            @"Menu item. Translate it to be as short as possible. When clicked, will display the full warning.")
                                 message: [[[NSAttributedString alloc ] initWithString: warningMessage] autorelease]
                           preferenceKey: key];
