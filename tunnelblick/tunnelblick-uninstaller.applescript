@@ -425,7 +425,7 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 		set blessOutput to do shell script "bless --info --getboot"
 	on error errorMessage number errorNumber
 		set blessOutput to ""
-		set ssdDetectionErrorMessage to "The uninstaller could not determine whether the boot volume is an SSD or an HDD, which can happen on Hackintoshes and on systems with corrupt NVRAM.\nBecause of this, 'secure' erase will be used (files will be overwritten before they are deleted), which will take a long time.\nThe error message from 'bless --info --getboot' was '" & errorMessage & "'.\n\n" Â
+		set ssdDetectionErrorMessage to "The uninstaller could not determine whether the boot volume is an SSD or an HDD, which can happen on Hackintoshes and on systems with corrupt NVRAM.\n\nBecause of this, 'secure' erase will be used (files will be overwritten before they are deleted), which will take a long time.\n\nThe error message from 'bless --info --getboot' was '" & errorMessage & "'.\n\n"
 	end try
 	
 	if blessOutput = "" then
