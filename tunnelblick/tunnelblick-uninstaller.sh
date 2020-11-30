@@ -283,7 +283,9 @@ uninstall_log "==========================================================="
 
 usage_message="Usage:
 
-      tunnelblick-uninstaller.sh  [ -u | -t ]   [ -s | -i ]   app-name bundle-id [app-path]
+      tunnelblick-uninstaller.sh  [ -a ]  [ -u | -t ]   [ -s | -i ]   app-name bundle-id [app-path]
+
+		   -a:        Causes the script to not require the Tunnelblick application to be quit.
 
            -t:        Causes the script to perform a TEST, or \"dry run\": the program logs to
                       stdout what it would do if run with the -u option, but NO DATA IS REMOVED.
@@ -367,6 +369,9 @@ if [ $# != 0 ] ; then
 		log "Only one -t or -u option may be specified"
 		show_usage_message="true"
 	  fi
+
+	elif [ "$1" = "-a" ] ; then
+		readonly allow_app_to_be_running="true"
 
 	elif [ "$1" = "-i" ] ; then
 	  if [ "${uninstall_secure_or_insecure}" = "" ] ; then
@@ -457,18 +462,21 @@ fi
 
 ####################################################################################
 #
-# Finished processing arguments. Make sure no process exists that contains the name of
-# the application or 'openvpn' (including 'openvpnstart')
+# Finished processing arguments. Make sure no process exists that contains 'openvpn' (including
+# 'openvpnstart') or (optionally) the name of the application.
 #
 ####################################################################################
 
-readonly app_instances="$(ps -x | grep ".app/Contents/MacOS/${uninstall_tb_app_name}" | grep -x grep)"
-if [ "${app_instances}" != "" ] ; then
-  log "Error: ${uninstall_tb_app_name} cannot be uninstalled while it is running"
-  exit 0
+if [ "$allow_app_to_be_running" = "" ] ; then
+  readonly app_instances="$(ps -x | grep ".app/Contents/MacOS/${uninstall_tb_app_name}" | grep -x grep)"
+  if [ "${app_instances}" != "" ] ; then
+    log "Error: ${uninstall_tb_app_name} cannot be uninstalled while it is running"
+    exit 0
+  fi
+  uninstall_log "     >>> Checked for instances of the application"
+else
+  uninstall_log "     >>> Not checking for instances of the application"
 fi
-
-uninstall_log "     >>> Checked instances of the application"
 
 readonly openvpn_instances="$(ps -x | grep "openvpn" | grep -x grep)"
 if [ "${openvpn_instances}" != "" ] ; then
