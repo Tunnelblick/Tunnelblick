@@ -281,7 +281,7 @@ uninstall_log "==========================================================="
 uninstall_log "==========================================================="
 uninstall_log "==========================================================="
 
-usage_message="Usage:
+usage_message="Error: Usage:
 
       tunnelblick-uninstaller.sh  [ -a ]  [ -u | -t ]   [ -s | -i ]   app-name bundle-id [app-path]
 
