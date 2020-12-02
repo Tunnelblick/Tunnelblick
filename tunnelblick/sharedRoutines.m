@@ -1426,31 +1426,35 @@ OSStatus runToolExtended(NSString     * launchPath,
         return EXIT_FAILURE;
     }
 
-    // Show a warning every ten seconds if the tool has not terminated, and terminate it after 60 seconds.
-    NSDate * startTime     = [NSDate date];
-    NSDate * warnTime      = [startTime dateByAddingTimeInterval: 10.0];
-    NSDate * terminateTime = [startTime dateByAddingTimeInterval: 60.0];
+    // If this is not an Applescript, show a warning every ten seconds if the tool has not terminated, and terminate it after 60 seconds.
     BOOL requestedTermination = FALSE;
+    if (  [launchPath isEqualToString: TOOL_PATH_FOR_OSASCRIPT]  ) {
+        [task waitUntilExit];
+    } else {
+        NSDate * startTime     = [NSDate date];
+        NSDate * warnTime      = [startTime dateByAddingTimeInterval: 10.0];
+        NSDate * terminateTime = [startTime dateByAddingTimeInterval: 60.0];
 
-    while(  [task isRunning]  ) {
-		usleep(100000);
+        while(  [task isRunning]  ) {
+            usleep(100000);
 
-        if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
-            warnTime = [warnTime dateByAddingTimeInterval: 10.00];
-            appendLog([NSString stringWithFormat: @"Warning: program has not finished after %.0f seconds: %@",
-                       ([[NSDate date] timeIntervalSinceDate: startTime]), launchPath]);
+            if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
+                warnTime = [warnTime dateByAddingTimeInterval: 10.00];
+                appendLog([NSString stringWithFormat: @"Warning: program has not finished after %.0f seconds: %@",
+                           ([[NSDate date] timeIntervalSinceDate: startTime]), launchPath]);
+            }
+
+            if (  [terminateTime compare: [NSDate date]] == NSOrderedAscending  ) {
+                // Try to terminate the task with SIGTERM
+                appendLog([NSString stringWithFormat: @"No response after 60 seconds; attempting to terminate program: %@",
+                        launchPath]);
+                [task terminate];
+                requestedTermination = TRUE;
+                terminateTime = nil; // Only terminate once
+            }
         }
+    }
 
-        if (  [terminateTime compare: [NSDate date]] == NSOrderedAscending  ) {
-            // Try to terminate the task with SIGTERM
-            appendLog([NSString stringWithFormat: @"No response after 60 seconds; attempting to terminate program: %@",
-                    launchPath]);
-            [task terminate];
-            requestedTermination = TRUE;
-            terminateTime = nil; // Only terminate once
-        }
-	}
-	
 	NSTaskTerminationReason reason = [task terminationReason];
     
 	OSStatus status = [task terminationStatus];
