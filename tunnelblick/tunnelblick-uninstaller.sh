@@ -328,19 +328,20 @@ usage_message="Error: Usage:
 show_usage_message="false"
 
 # Complain and exit if not running as root
+id_u="$(id -u)"
 if [ "$EUID" != "" ] ; then
   if [ "$EUID" != "0" ] ; then
-    log "Error: This program must be run as root"
+    log "Error: This program must be run as root; \$EUID = '$EUID'; \$(id -u) = '$id_u'"
     exit 0
   fi
 else
-  if [ "$(id -u)" != "" ]; then
-    if [ "$(id -u)" != "0" ]; then
-      log "Error: This program must be run as root"
+  if [ "$id_u" != "" ]; then
+    if [ "$id_u" != "0" ]; then
+      log "Error: This program must be run as root; \$EUID = '$EUID'; \$(id -u) = '$id_u'"
       exit 0
     fi
   else
-    log "Error: This program must be run as root. Unable to determine if it is running as root"
+    log "Error: This program must be run as root. Unable to determine if it is running as root; \$EUID = '$EUID'; \$(id -u) = '$id_u'"
     exit 0
   fi
 fi
