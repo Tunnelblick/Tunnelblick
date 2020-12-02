@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2017, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -114,10 +114,13 @@ extern TBUserDefaults * gTbDefaults;
 														   @"<li>The export may take a long time.</li></ul>",
 														   @"HTML info for the 'Export Tunnelblick Setup' button."))];
 	
-	[utilitiesOpenUninstallInstructionsButton
-	  setTitle: NSLocalizedString(@"Open Uninstall Instructions in Browser", @"Button")
-	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>",
-														   @"HTML info for the 'Open Uninstall Instructions in Browser' button."))];
+	[utilitiesUninstallButton
+	  setTitle: NSLocalizedString(@"Uninstall Tunnelblick...", @"Button")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Click to uninstall Tunnelblick.</p>\n\n"
+                                                           @"<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>",
+														   @"HTML info for the 'Uninstall Tunnelblick...' button."))];
+    BOOL tunnelblickIsInApplicationsFolder = [[[NSBundle mainBundle] bundlePath] isEqualToString: @"/Applications/Tunnelblick.app"];
+    [utilitiesUninstallButton setEnabled: tunnelblickIsInApplicationsFolder];
 	
 	[utilitiesRunEasyRsaButton
 	  setTitle: NSLocalizedString(@"Open easy-rsa in Terminal", @"Button")
@@ -184,7 +187,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, consoleLogToClipboardProg
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            utilitiesExportTunnelblickSetupButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, utilitiesExportTunnelblickSetupProgressIndicator)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesOpenUninstallInstructionsButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesUninstallButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesRunEasyRsaButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   utilitiesEasyRsaPathTFC)

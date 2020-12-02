@@ -3443,11 +3443,11 @@ static BOOL firstTimeShowingWindow = TRUE;
     openTerminalWithEasyRsaFolder(userPath);
 }
 
--(IBAction) utilitiesOpenUninstallInstructionsButtonWasClicked: (id) sender
+-(IBAction) utilitiesUninstallButtonWasClicked: (id) sender
 {
 	(void) sender;
 	
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.tunnelblick.net/uninstall.html"]];
+	[gMC performSelectorOnMainThread: @selector(uninstall) withObject: nil waitUntilDone: NO];
 }
 
 -(void) notifyAboutOpenvpnProcessesQuit: (NSString *) message {

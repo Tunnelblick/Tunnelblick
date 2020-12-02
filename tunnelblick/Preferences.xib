@@ -1222,7 +1222,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="utilitiesOpenUninstallInstructionsButtonWasClicked:" target="-2" id="1151"/>
+                        <action selector="utilitiesUninstallButtonWasClicked:" target="-2" id="1151"/>
                         <outlet property="nextKeyView" destination="1009" id="1145"/>
                     </connections>
                 </button>
@@ -1302,7 +1302,7 @@
                 <outlet property="utilitiesExportTunnelblickSetupButton" destination="JUC-iF-ElE" id="FBY-gt-kgS"/>
                 <outlet property="utilitiesExportTunnelblickSetupProgressIndicator" destination="jie-fd-46h" id="LsF-Ft-Rlg"/>
                 <outlet property="utilitiesHelpButton" destination="861" id="996"/>
-                <outlet property="utilitiesOpenUninstallInstructionsButton" destination="1137" id="1152"/>
+                <outlet property="utilitiesUninstallButton" destination="1137" id="1152"/>
                 <outlet property="utilitiesQuitAllOpenVpnButton" destination="981" id="997"/>
                 <outlet property="utilitiesQuitAllOpenVpnStatusTF" destination="PcD-Dg-BVP" id="mar-DF-Cf1"/>
                 <outlet property="utilitiesQuitAllOpenVpnStatusTFC" destination="gPh-eo-Riq" id="rPe-jJ-Jnc"/>

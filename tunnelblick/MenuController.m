@@ -5595,6 +5595,60 @@ static void signal_handler(int signalNumber)
 	didFinishLaunching = TRUE;
 }
 
+-(void) uninstall {
+
+    NSString * message = NSLocalizedString(@"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\n"
+                                           @"There may be a delay of a few seconds before the first uninstaller window appears.\n\n"
+                                           @"If you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and"
+                                           @" export the Tunnelblick setup first.\n\n",
+                                           @"Window text");
+    int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                 message,
+                                 NSLocalizedString(@"OK",     @"Button"), // Default button
+                                 NSLocalizedString(@"Cancel", @"Button"), // Alternate button
+                                 nil);
+    if (  button != NSAlertDefaultReturn  ) {
+        return;   // Cancelled or error
+    }
+
+	// Start terminating Tunnelblick
+
+    if (  [theAnim isAnimating]  ) {
+		[self quitLog: @"uninstall: stopping icon animation." toNSLog: YES];
+		[theAnim stopAnimation];
+	}
+
+	if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
+		[updater setAutomaticallyChecksForUpdates: NO];
+	}
+
+    [myConfigMultiUpdater stopAllUpdateChecking];
+
+	if (  ! [self cleanup]  ) {
+		[self quitLog: @"Could not uninstall because a cleanup was already started." toNSLog: YES];
+		exit(0);
+	}
+
+    NSArray * arguments = @[@"/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.applescript"];
+    runTool(TOOL_PATH_FOR_OSASCRIPT, arguments, nil, nil);
+
+    if (  ! [gFileMgr fileExistsAtPath: @"/Applications/Tunnelblick.app"]  ) {
+        // Remove from Dock
+        // Slightly modifed version of code from http://www.danandcheryl.com/2011/02/how-to-modify-the-dock-or-login-items-on-os-x
+        NSUserDefaults * defaults = [[[NSUserDefaults alloc] init] autorelease];
+        NSDictionary * domain = [defaults persistentDomainForName:@"com.apple.dock"];
+        NSArray * apps = [domain objectForKey:@"persistent-apps"];
+        NSArray *newApps = [apps filteredArrayUsingPredicate: [NSPredicate predicateWithFormat: @"not %K CONTAINS %@", @"tile-data.file-data._CFURLString", @"/Applications/Tunnelblick.app/"]];
+        if (  ! [apps isEqualToArray:newApps]  ) {
+            NSMutableDictionary * newDomain = [[domain mutableCopy] autorelease];
+            [newDomain setObject: newApps forKey: @"persistent-apps"];
+            [defaults setPersistentDomain: newDomain forName: @"com.apple.dock"];
+            runTool(TOOL_PATH_FOR_KILLALL, @[@"-u", NSUserName(),@"Dock"], nil, nil);
+        }
+    }
+    exit(0);
+}
+
 -(void) renameConfigurationUsingConfigurationManager: (NSDictionary *) dict {
 
     // Invoked on main thread by a secondary thread to avoid creating an instance of ConfigurationManager

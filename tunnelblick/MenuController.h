@@ -307,6 +307,7 @@ enum StatusIconPosition {
 -(void)             setupUpdaterAutomaticChecks;
 -(NSArray *)        sortedSounds;
 -(unsigned)         statusScreenIndex;
+-(void)				uninstall;
 -(void)             unloadKexts;
 -(void)				updateMenuAndDetailsWindowForceLeftNavigation: (BOOL) forceLeftNavigationUpdate;
 -(BOOL)             userIsAnAdmin;

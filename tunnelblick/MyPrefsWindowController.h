@@ -193,7 +193,7 @@
 
 -(IBAction) utilitiesHelpButtonWasClicked:                (id) sender;
 
--(IBAction) utilitiesOpenUninstallInstructionsButtonWasClicked: (id) sender;
+-(IBAction) utilitiesUninstallButtonWasClicked: (id) sender;
 
 // Getters & Setters
 

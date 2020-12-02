@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2015, 2017, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015, 2017, 2018, 2020 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -36,7 +36,7 @@
 	IBOutlet TBButton            * utilitiesExportTunnelblickSetupButton;
 	IBOutlet NSProgressIndicator * utilitiesExportTunnelblickSetupProgressIndicator;
 	
-    IBOutlet TBButton           * utilitiesOpenUninstallInstructionsButton;
+    IBOutlet TBButton           * utilitiesUninstallButton;
 	
     IBOutlet TBButton           * utilitiesRunEasyRsaButton;
     IBOutlet NSTextFieldCell    * utilitiesEasyRsaPathTFC;
@@ -60,7 +60,7 @@ TBPROPERTY_READONLY(NSProgressIndicator *, consoleLogToClipboardProgressIndicato
 TBPROPERTY_READONLY(TBButton *,            utilitiesExportTunnelblickSetupButton)
 TBPROPERTY_READONLY(NSProgressIndicator *, utilitiesExportTunnelblickSetupProgressIndicator)
 
-TBPROPERTY_READONLY(TBButton *,        utilitiesOpenUninstallInstructionsButton)
+TBPROPERTY_READONLY(TBButton *,        utilitiesUninstallButton)
 
 TBPROPERTY_READONLY(TBButton *,        utilitiesRunEasyRsaButton)
 
