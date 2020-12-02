@@ -610,7 +610,8 @@ for user in $( dscl . list /users ) ; do
     if [ "${uninstall_tb_app_name}" != "" ] ; then
       uninstall_tb_remove_item_at_path "/Users/${user}/Library/Application Support/${uninstall_tb_app_name}"
 	  tunnelblick_dock_prefs="$( sudo -n -u "${user}" defaults read com.apple.dock | grep "/Applications/${uninstall_tb_app_name}" )"
-	  if [ "$tunnelblick_dock_prefs" != "" ] ; then
+	  if [ "$tunnelblick_dock_prefs" != "" ] \
+      && [ "$user" != "$USER" ] ; then
 		remove_dock_items="${remove_dock_items}You need to manually remove one or more ${uninstall_tb_app_name} items from the Dock for user ${user}
 "
 	  fi

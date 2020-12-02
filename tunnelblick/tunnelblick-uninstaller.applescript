@@ -2,7 +2,7 @@
 --
 --     This is the Uninstaller for Tunnelblick. It is compiled into an application.
 --
---     Copyright © 2013, 2015, 2018 Jonathan K. Bullard. All rights reserved
+--     Copyright © 2013, 2015, 2018, 2020 Jonathan K. Bullard. All rights reserved
 --
 --     This AppleScript is compiled into an application. The application includes the
 --     'tunnelblick-uninstaller.sh' bash script. This AppleScript acts as a "front end" for that
@@ -439,39 +439,60 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 			set secureEraseOption to "-i"
 		end if
 	end if
-	
-	if testFlag then
+
+    if myScriptPath = "/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
+        set osascriptMessage to localized string of "\n\nThe authorization request will be made by the macOS program 'osascript' because that program is being used to run the uninstaller."
+    else
+        set osascriptMessage to ""
+    end if
+
+    if testFlag then
 		
-		display dialog LocalizedFormattedString("Although the next window will ask for authorization from a computer administrator and say \"Tunnelblick Uninstaller wants to make changes\",\n\nNO CHANGES WILL BE MADE.\n\nThe uninstaller needs administrator authorization so it can read the %s preferences of other users.", Â
-												{theName})
+		display dialog LocalizedFormattedString("Although the next window will ask for a one-time authorization from a computer administrator and say \"%s Uninstaller wants to make changes\",\n\nNO CHANGES WILL BE MADE; the authorization is needed to read the %s preferences of other users.%s", Â
+												{theName, theName, osascriptMessage})
 		
 	else
 		if secureEraseOption = "-s" then
 			
-			display dialog LocalizedFormattedString("The next window will ask for authorization from a computer administrator.\n\nThe uninstaller needs the authorization so it can make the changes required to uninstall %s.\n\nUninstalling may take SEVERAL MINUTES because files will be overwritten before being deleted.\n\nWhile the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", Â
-													{theName})
+			display dialog LocalizedFormattedString("The next window will ask for a one-time authorization from a computer administrator.\n\nThe authorization is needed to make the changes required to uninstall %s.%s\n\nUninstalling may take SEVERAL MINUTES because files will be overwritten before being deleted.\n\nWhile the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", Â
+													{theName, osascriptMessage})
 			
 		else
-			display dialog LocalizedFormattedString("The next window will ask for authorization from a computer administrator.\n\nThe uninstaller needs the authorization so it can make the changes required to uninstall %s.\n\nWhile the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", Â
-													{theName})
+			display dialog LocalizedFormattedString("The next window will ask for a one-time authorization from a computer administrator.\n\nThe authorization is needed to make the changes required to uninstall %s.%s\n\nWhile the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", Â
+													{theName, osascriptMessage})
 			
 		end if
 	end if
-	
-	-- Start the uninstaller script, using the -t or -u option as directed by the user
-	if testFlag then
-		set argumentString to " " & secureEraseOption & " -t " & quoted form of theName & " " & quoted form of theBundleId
-	else
-		set argumentString to " " & secureEraseOption & " -u " & quoted form of theName & " " & quoted form of theBundleId
-	end if
+
+	-- Prepare arguments for the uninstaller script
+    -- Use the -t or -u option as directed by the user.
+    -- If the script is located inside of Tunnelblick.app, use the -a and -i options
+    --    * Use the -a option to allow the script to run while Tunnelblick is running.
+    --    * Use the -i option to force the script to use the 'rm' command without the '-P' option, so it will only unlink the file. That's necessary
+    --      because if the -P option is used an error with code 2 occurs when Tunnelblick.app is erased.
+    if testFlag then
+        set executionOption to " -t "
+    else
+        set executionOption to " -u "
+    end if
+    if myScriptPath = "/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
+        set allowTunnelblickToBeRunningOption to " -a "
+        set secureEraseOption to " -i  "
+    else
+        set allowTunnelblickToBeRunningOption to " "
+    end if
+
+ 	set argumentString to allowTunnelblickToBeRunningOption & secureEraseOption & executionOption & quoted form of theName & " " & quoted form of theBundleId
 	if FileOrFolderExists(thePath) then
 		set argumentString to argumentString & " " & quoted form of thePath
 	end if
 	
 	try
 		set scriptOutput to do shell script (quoted form of myScriptPath) & argumentString with administrator privileges
-	on error
-		display alert "Error in shell script: " & (quoted form of myScriptPath) & argumentString & "with administrator privileges.\n\nPlease email developers@tunnelblick.net for help."
+	on error errorMessage number errorNumber
+        if errorNumber ­ -128 then
+            display alert "Error " & errorNumber &  " (" & errorMessage & ") in shell script: " & (quoted form of myScriptPath) & argumentString & " with administrator privileges.\n\nPlease email developers@tunnelblick.net for help."
+        end if
 		return
 	end try
 	
@@ -555,8 +576,16 @@ on ProcessFile(fullPath) -- (POSIX path)
 		set TBIdentifier to "net.tunnelblick.tunnelblick"
 	end if
 	
-	if not QuitApplication(TBName) then
-		return
+    set scriptPath to GetMyScriptPath()
+
+    if scriptPath = "" then
+        return
+    end if
+    
+    if scriptPath ­ "/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
+        if not QuitApplication(TBName) then
+            return
+        end if
 	end if
 	
 	if not QuitOpenVPN(TBName) then
@@ -591,15 +620,10 @@ on ProcessFile(fullPath) -- (POSIX path)
 		end if
 	end if
 	
-	set scriptPath to GetMyScriptPath()
-	if scriptPath = "" then
-		return
-	end if
-	
 	try
 		DoProcessing(TBName, TBIdentifier, fullPath, testFlag, scriptPath)
 	on error errorMessage number errorNumber
-        if errorNumber ï¿½ -128 then
+        if errorNumber ­ -128 then
             display alert "Error in DoProcessing(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
         end if
 	end try
@@ -666,7 +690,7 @@ if not IsDefined then
 	try
 		ProcessFile(POSIX path of "/Applications/Tunnelblick.app")
 	on error errorMessage number errorNumber
-        if errorNumber ï¿½ -128 then
+        if errorNumber ­ -128 then
             display alert "Error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
         end if
 	end try
