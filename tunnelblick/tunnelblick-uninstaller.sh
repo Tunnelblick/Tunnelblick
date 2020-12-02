@@ -503,13 +503,9 @@ if [ "${uninstall_remove_data}" != "true" ] ; then
   log ""
 fi
 
-if [ "${uninstall_use_insecure_rm}" = "true" ] ; then
+if [ "${uninstall_use_insecure_rm}" ≠ "true" ] ; then
   log ""
-  log "Secure erase ('rm -P') will not be used to delete files because you are uninstalling from an SSD, and secure erase is not effective on SSDs."
-  log ""
-else
-  log ""
-  log "Secure erase ('rm -P') will be used to delete files because you are not uninstalling from an SSD."
+  log "Secure erase ('rm -P') will be used to delete files."
   log ""
 fi
 
