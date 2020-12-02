@@ -7437,6 +7437,8 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	NSString *openvpnFolderPath         = [resourcesPath stringByAppendingPathComponent: @"openvpn"                             ];
 	NSString *atsystemstartPath         = [resourcesPath stringByAppendingPathComponent: @"atsystemstart"                       ];
 	NSString *installerPath             = [resourcesPath stringByAppendingPathComponent: @"installer"                           ];
+    NSString *uninstallerScriptPath     = [resourcesPath stringByAppendingPathComponent: @"tunnelblick-uninstaller.sh"          ];
+    NSString *uninstallerAppleSPath     = [resourcesPath stringByAppendingPathComponent: @"tunnelblick-uninstaller.applescript" ];
 	NSString *ssoPath                   = [resourcesPath stringByAppendingPathComponent: @"standardize-scutil-output"           ];
 	NSString *leasewatchPath            = [resourcesPath stringByAppendingPathComponent: @"leasewatch"                          ];
 	NSString *leasewatch3Path           = [resourcesPath stringByAppendingPathComponent: @"leasewatch3"                         ];
@@ -7576,7 +7578,8 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	}
     
 	// check files which should be owned by root with 644 permissions
-	NSArray *root644Objects = [NSArray arrayWithObjects: infoPlistPath, pncPlistPath, leasewatchPlistPath, leasewatch3PlistPath, launchAtLoginPlistPath, tunnelblickdPlistPath, freePublicDnsServersPath, nil];
+	NSArray *root644Objects = [NSArray arrayWithObjects: infoPlistPath, pncPlistPath, leasewatchPlistPath, leasewatch3PlistPath, launchAtLoginPlistPath,
+                               tunnelblickdPlistPath, freePublicDnsServersPath, uninstallerAppleSPath, nil];
 	e = [root644Objects objectEnumerator];
 	while (  (currentPath = [e nextObject])  ) {
         if (  ! checkOwnerAndPermissions(currentPath, 0, 0, PERMS_SECURED_READABLE)  ) {
@@ -7591,7 +7594,10 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     if (  ! checkOwnerAndPermissions(reactivateTunnelblickPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
         return YES; // NSLog already called
     }
-	
+    if (  ! checkOwnerAndPermissions(uninstallerScriptPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
+        return YES; // NSLog already called
+    }
+
     // check that log directory exists and has proper ownership and permissions
     if (  ! (   [gFileMgr fileExistsAtPath: L_AS_T_LOGS isDirectory: &isDir]
              && isDir )  ) {

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2015, 2016, 2018 by Jonathan K. Bullard. All rights reserved.
+# Copyright (c) 2015, 2016, 2018, 2020 by Jonathan K. Bullard. All rights reserved.
 #
 # This file is part of Tunnelblick.
 #
@@ -82,6 +82,10 @@ fi
   rm -rf "${app_path}/Contents/Resources/easy-rsa-tunnelblick/.svn"
   rm -rf "${app_path}/Contents/Resources/easy-rsa-tunnelblick/.svn"
   find   "${app_path}/Contents/Resources/easy-rsa-tunnelblick"   -name .DS_Store -exec rm -f  '{}' ';'
+
+# Copy the uninstaller scripts into Resources
+  cp -p -f tunnelblick-uninstaller.sh          "${app_path}/Contents/Resources/tunnelblick-uninstaller.sh"
+  cp -p -f tunnelblick-uninstaller.applescript "${app_path}/Contents/Resources/tunnelblick-uninstaller.applescript"
 
 # Index the help files
   hiutil -Caf "${app_path}/Contents/Resources/help/help.helpindex" "${app_path}/Contents/Resources/help"
