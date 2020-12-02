@@ -599,7 +599,9 @@ on ProcessFile(fullPath) -- (POSIX path)
 	try
 		DoProcessing(TBName, TBIdentifier, fullPath, testFlag, scriptPath)
 	on error errorMessage number errorNumber
-		display alert "Error in DoProcessing(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
+        if errorNumber � -128 then
+            display alert "Error in DoProcessing(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
+        end if
 	end try
 	
 end ProcessFile
@@ -664,6 +666,8 @@ if not IsDefined then
 	try
 		ProcessFile(POSIX path of "/Applications/Tunnelblick.app")
 	on error errorMessage number errorNumber
-		display alert "Error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
+        if errorNumber � -128 then
+            display alert "Error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
+        end if
 	end try
 end if
