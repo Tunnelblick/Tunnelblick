@@ -3749,6 +3749,10 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  startupInstallAuth  ) {
         [self setStartupInstallAuth: nil];
     }
+
+    [[logScreen settingsSheetWindowController] close];
+
+    [logScreen close];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
 	[self quitLog: @"synchronized user defaults"  toNSLog: YES];
