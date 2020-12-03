@@ -5646,6 +5646,37 @@ static void signal_handler(int signalNumber)
             runTool(TOOL_PATH_FOR_KILLALL, @[@"-u", NSUserName(),@"Dock"], nil, nil);
         }
     }
+
+    // Send the contents of the uninstall log file to the system log and delete the file
+
+    NSData * data = [[[NSData alloc] initWithContentsOfFile: UNINSTALL_DETAILS_PATH] autorelease];
+    if (  ! data  ) {
+        NSLog(@"Tunnelblick Uninstaller: Cannot read file: %@", UNINSTALL_DETAILS_PATH);
+        return;
+    }
+
+    NSString * logContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    if (  ! logContents  ) {
+        NSLog(@"Tunnelblick Uninstaller: Cannot parse as UTF-8: %@", UNINSTALL_DETAILS_PATH);
+        return;
+    }
+
+    [gFileMgr tbRemoveFileAtPath: UNINSTALL_DETAILS_PATH handler: nil];
+
+    BOOL failed = (   ([logContents rangeOfString: @"Error:"].length != 0)
+                   || ([logContents rangeOfString: @"Problem:"].length != 0)  );
+    BOOL testOnly = [logContents rangeOfString: @"Testing only -- NOT removing or unloading anything"].length != 0;
+
+    NSString * headline = (  failed
+                           ? (  testOnly
+                              ? NSLocalizedString(@"TEST OF UNINSTALL OF TUNNELBLICK FAILED", @"Window title")
+                              : NSLocalizedString(@"UNINSTALL OF TUNNELBLICK FAILED", @"Window title"))
+                           : (  testOnly
+                              ? NSLocalizedString(@"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED", @"Window title")
+                              : NSLocalizedString(@"UNINSTALL OF TUNNELBLICK SUCCEEDED",      @"Window title")));
+    logContents = [NSString stringWithFormat: @"%@\n\n%@", headline, logContents];
+    NSLog(@"%@", logContents);
+
     exit(0);
 }
 

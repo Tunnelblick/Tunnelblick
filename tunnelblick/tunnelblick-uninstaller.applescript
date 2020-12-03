@@ -409,6 +409,47 @@ on UserConfirmation(fullPath, TBName, TBIdentifier) -- (String, String, String) 
 end UserConfirmation
 
 ------------------------------------------------------------------------------------------------------------------
+-- WriteTextToFile: Function writes text to a file
+--
+-- Adapted from https://developer.apple.com/library/archive/documentation/LanguagesUtilities/Conceptual/MacAutomationScriptingGuide/ReadandWriteFiles.html
+------------------------------------------------------------------------------------------------------------------
+on WriteTextToFile(theText, theFile)
+    try
+
+        -- Convert the file to a string
+        set theFile to theFile as string
+
+        -- Open the file for writing
+        set theOpenedFile to open for access file theFile with write permission
+
+        -- Clear the file
+        set eof of theOpenedFile to 0
+
+        -- Write the new content to the file
+        write theText to theOpenedFile starting at eof
+
+        -- Close the file
+        close access theOpenedFile
+
+        -- Return a boolean indicating that writing was successful
+        return true
+
+    -- Handle a write error
+    on error errorMessage number errorNumber
+
+        -- Close the file
+        try
+            close access file theFile
+        end try
+
+        display alert "Error " & errorNumber &  " (" & errorMessage & ") writing to /tmp/UninstallDetails.txt\n\nPlease email developers@tunnelblick.net for help."
+        return false
+    end try
+end WriteTextToFile
+
+
+
+------------------------------------------------------------------------------------------------------------------
 -- ProcessFile: Function uninstalls one Tunnelblick.app and displays results to the user
 ------------------------------------------------------------------------------------------------------------------
 on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (String, String, String, Boolean, String)
@@ -464,6 +505,12 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 		end if
 	end if
 
+    if myScriptPath = "/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
+        set uninstallingFromWithinTunnelblick to true
+    else
+        set uninstallingFromWithinTunnelblick to false
+    end if
+
 	-- Prepare arguments for the uninstaller script
     -- Use the -t or -u option as directed by the user.
     -- If the script is located inside of Tunnelblick.app, use the -a and -i options
@@ -475,7 +522,7 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
     else
         set executionOption to " -u "
     end if
-    if myScriptPath = "/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
+    if uninstallingFromWithinTunnelblick then
         set allowTunnelblickToBeRunningOption to " -a "
         set secureEraseOption to " -i  "
     else
@@ -500,7 +547,7 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 	if (ssdDetectionErrorMessage ­ "") then
 		set scriptOutput to ssdDetectionErrorMessage & scriptOutput
 	end if
-	
+
 	-- Inform the user about errors (indicated by "Error: " or "Problem: " anywhere in the shell script's stdout)
 	-- and successful tests or uninstalls
 	
@@ -509,39 +556,42 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 	
 	activate me
 	
-	if (scriptOutput contains "Problem: ") Â
-	or (scriptOutput contains "Error: ") then
-		if testFlag then
-			set alertResult to display dialog Â
-				LocalizedFormattedString("One or more errors occurred during the %s uninstall test.", {theName}) Â
-				with title (localized string of "Tunnelblick Uninstaller TEST FAILED") Â
-				with icon stop Â
-				buttons {localized string of "Details", localized string of "OK"} Â
-				giving up after timeoutValue
-		else
-			set alertResult to display dialog Â
-				LocalizedFormattedString("One or more errors occurred while uninstalling %s.", {theName}) Â
-				with title (localized string of "Tunnelblick Uninstaller FAILED") Â
-				with icon stop Â
-				buttons {localized string of "Details", localized string of "OK"} Â
-				giving up after timeoutValue
-		end if
-		
-	else
-		if testFlag then
-			set alertResult to display dialog Â
-				LocalizedFormattedString("The %s uninstall test succeeded.", {theName}) Â
-				with title (localized string of "Tunnelblick Uninstall test succeeded") Â
-				buttons {localized string of "Details", localized string of "OK"} Â
-				giving up after timeoutValue
-		else
-			set alertResult to display dialog Â
-				LocalizedFormattedString("%s was uninstalled successfully", {theName}) Â
-				with title (localized string of "Tunnelblick was Uninstalled") Â
-				buttons {localized string of "Details", localized string of "OK"} Â
-				giving up after timeoutValue
-		end if
-	end if
+    if (scriptOutput contains "Problem: ") Â
+    or (scriptOutput contains "Error: ") then
+        set failed to true
+    else
+        set failed to false
+    end if
+
+    if failed then
+        if testFlag then
+            set theMessage to LocalizedFormattedString("The test of uninstalling %s FAILED.", {theName})
+        else
+            set theMessage to LocalizedFormattedString("Uninstall of %s FAILED.", {theName})
+        end if
+    else
+        if testFlag then
+            set theMessage to LocalizedFormattedString("The test of uninstalling %s succeeded.", {theName})
+        else
+            set theMessage   to LocalizedFormattedString("%s was uninstalled.", {theName})
+        end if
+    end if
+
+    -- If uninstalling from within Tunnelblick, store the script output in a file and tell user to see details in the Console log.
+    -- (The Tunnelblick application that invoked this script will put the contents of the file into the system log and delete the file.)
+    if uninstallingFromWithinTunnelblick then
+        WriteTextToFile(scriptOutput, posix file "/tmp/UninstallDetails.txt")
+        set theButtons to {localized string of "OK"}
+        set theMessage to theMessage & "\n\nSee the Console Log for details."
+    else
+        set theButtons  to {localized string of "Details", localized string of "OK"}
+    end if
+
+    if failed then
+        set alertResult to display dialog theMessage with title theName buttons theButtons giving up after timeoutValue with icon stop
+    else
+        set alertResult to display dialog theMessage with title theName buttons theButtons giving up after timeoutValue
+    end if
 
 	-- If the user asked for details, open the log in TextEdit
 	if the button returned of alertResult = (localized string of "Details") then

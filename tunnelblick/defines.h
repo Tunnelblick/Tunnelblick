@@ -128,6 +128,7 @@
 #define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
 #define DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH @"/Library/Application Support/Tunnelblick/downscript-needs-to-be-run.txt"
 #define INSTALLER_LOG_PATH      @"/tmp/tunnelblick-installer-log.txt"
+#define UNINSTALL_DETAILS_PATH  @"/tmp/UninstallDetails.txt"
 
 // NOTE: net.tunnelblick.tunnelblick.tunnelblickd.plist and tunnelblick-uninstaller.sh refer to the tunnelblickd log path without using this header file
 // NOTE: The "_C" strings are C-strings, not NSStrings
