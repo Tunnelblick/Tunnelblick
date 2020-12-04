@@ -278,9 +278,10 @@ else
   echo "error: Could not find a version of OpenVPN to use by default; default_openvpn_version_prefix = '$default_openvpn_version_prefix'"
 fi
 
-# Copy English.lproj/Localizable.strings (It isn't copied in Debug builds using recent versions of Xcode, probably because it is the primary language)
-if test ! -f "${app_path}/Contents/Resources/English.lproj/Localizable.strings" ; then
-  cp -p -f "English.lproj/Localizable.strings" "${app_path}/Contents/Resources/English.lproj/Localizable.strings"
+# Copy en.lproj/Localizable.strings (It isn't copied in Debug builds using recent versions of Xcode, probably because it is the primary language)
+if test ! -f "${app_path}/Contents/Resources/en.lproj/Localizable.strings" ; then
+  cp -p -f "en.lproj/Localizable.strings" "${app_path}/Contents/Resources/en.lproj/Localizable.strings"
+  echo "warning: Copied en.lproj/Localizable.strings from source code into .app"
 fi
 
 # Rename the .plist files if this is a rebranded version of Tunnelblick
