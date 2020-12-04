@@ -30,6 +30,9 @@
 
 #import "VPNService.h"
 
+#import "MenuController.h"
+extern MenuController * gMC;
+
 @interface VPNServiceLoginController() // Private methods
 
 -(NSTextFieldCell *) emailAddressTFC;
@@ -83,7 +86,7 @@
     [[self passwordTF]     setStringValue: [[self delegate] password    ]];
     
     [[self window] center];
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
     [[self window] makeKeyAndOrderFront: self];
 }
 
@@ -142,14 +145,14 @@
                                               @" following the instructions in an email sent to you by Tunnelblick"
                                               @" when you registered for the service.", @"Window text VPNService"),
                             nil,nil,nil);
-            [NSApp activateIgnoringOtherApps:YES];
+            [gMC activateIgnoringOtherApps];
             return NO;
         }
         
         TBRunAlertPanel(NSLocalizedString(@"Email not verified", @"Window title  VPNService"),
                         [NSString stringWithFormat: NSLocalizedString(@"Your account status could not be verified:\n     %@.", @"Window text VPNService"), msg],
                         nil,nil,nil);
-        [NSApp activateIgnoringOtherApps:YES];
+        [gMC activateIgnoringOtherApps];
         return NO;
     }
     
@@ -170,7 +173,7 @@
         TBRunAlertPanel(NSLocalizedString(@"Entries required", @"Window title  VPNService"),
                         NSLocalizedString(@"You must enter an email address and password to login.", @"Window text VPNService"),
                         nil,nil,nil);
-        [NSApp activateIgnoringOtherApps:YES];
+        [gMC activateIgnoringOtherApps];
     }
 }
 

@@ -229,6 +229,14 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, publicIPAddress,           setPublic
 TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnelblickVersionString)
 
 
+-(void) activateIgnoringOtherApps {
+    if (  [NSThread isMainThread]  ) {
+        [NSApp activateIgnoringOtherApps: YES];
+    } else {
+        [self performSelectorOnMainThread: @selector(activateIgnoringOtherApps) withObject: nil waitUntilDone: NO];
+    }
+}
+
 -(NSString *) localizedString: (NSString *) key
 				   fromBundle: (NSBundle *) bundle {
 	
@@ -3626,7 +3634,7 @@ BOOL anyNonTblkConfigs(void)
     }
 
 	[logScreen showWindow: nil];
-	[NSApp activateIgnoringOtherApps:YES];
+    [self activateIgnoringOtherApps];
 }
 
 -(IBAction) reEnableInternetAccess:(id)sender {
@@ -8821,7 +8829,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
                                        "Try reinstalling Tunnelblick from a disk image.", @"Window text VPNService"),
                      [self localizedNameForDisplayName: displayName]],
                     nil,nil,nil);
-    [NSApp activateIgnoringOtherApps:YES];
+    [self activateIgnoringOtherApps];
     return NO;
 }
 

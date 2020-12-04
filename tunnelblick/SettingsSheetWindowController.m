@@ -474,9 +474,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         showingSettingsSheet = TRUE;
     }
     
-   [[self window] display];
+    [[self window] display];
     [[self window] makeKeyAndOrderFront: self];
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
 }
 
 -(void) endSettingsSheet:  (id) sender {
@@ -1807,7 +1807,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 -(void) bringToFront2
 {
-	[NSApp activateIgnoringOtherApps: YES];
+    [gMC activateIgnoringOtherApps];
 	[[self window] display];
 	[self showWindow: self];
 	[[self window] makeKeyAndOrderFront: self];

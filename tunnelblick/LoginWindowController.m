@@ -180,7 +180,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
     [[self window] center];
     [[self window] display];
     [self showWindow: self];
-    [NSApp activateIgnoringOtherApps: YES];
+    [gMC activateIgnoringOtherApps];
     [[self window] makeKeyAndOrderFront: self];
 	
 	NSTextField * itemToSelect = (  ([usernameLocal length] == 0)

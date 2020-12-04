@@ -29,6 +29,7 @@
 #import "UIHelper.h"
 
 extern TBUserDefaults  * gTbDefaults;
+extern MenuController * gMC;
 
 @interface WelcomeController() // Private methods
 
@@ -99,8 +100,8 @@ showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox
 	
 	
     [[self window] center];
-    [NSApp activateIgnoringOtherApps:YES];
-    [[self window] makeKeyAndOrderFront: self];
+    [gMC activateIgnoringOtherApps];
+   [[self window] makeKeyAndOrderFront: self];
 }
 
 -(void) webView: (WebView *) wv didStartProvisionalLoadForFrame: (WebFrame *) wf
@@ -132,7 +133,7 @@ showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox
     if (  wv == welcomeWV  ) {
         NSLog(@"Failed to load welcome message; error = %@", [error description]);
         [progressIndicator stopAnimation: self];
-        [NSApp activateIgnoringOtherApps:YES];
+        [gMC activateIgnoringOtherApps];
     }
 }
 

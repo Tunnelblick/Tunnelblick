@@ -4063,8 +4063,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 				: [[[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)] autorelease]);
 	[alert setAccessoryView: input];
 	[[alert window] setInitialFirstResponder: input];
-	[NSApp activateIgnoringOtherApps: YES];
-	
+    [gMC activateIgnoringOtherApps];
+
 	NSModalResponse buttonValue = [alert runModal];
 	
 	if (  buttonValue == NSAlertDefaultReturn  ) {

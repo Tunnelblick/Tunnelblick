@@ -30,6 +30,9 @@
 
 #import "VPNService.h"
 
+#import "MenuController.h"
+extern MenuController * gMC;
+
 @interface VPNServiceCreateAccountController() // Private methods
 
 -(NSTextFieldCell *) createAccountTFC;
@@ -88,7 +91,7 @@
     [[self passwordConfirmTF] setStringValue: [[self delegate] password]];
     
     [[self window] center];
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
     [[self window] makeKeyAndOrderFront: self];
 }
 
@@ -155,19 +158,19 @@
                 TBRunAlertPanel(NSLocalizedString(@"Cannot register", @"Window title  VPNService"),
                                 reason,
                                 nil,nil,nil);
-                [NSApp activateIgnoringOtherApps:YES];
+                [gMC activateIgnoringOtherApps];
             }
         } else {
             TBRunAlertPanel(NSLocalizedString(@"Password entries must match", @"Window title  VPNService"),
                             NSLocalizedString(@"The password entries must match to proceed.", @"Window text VPNService"),
                             nil,nil,nil);
-            [NSApp activateIgnoringOtherApps:YES];
+            [gMC activateIgnoringOtherApps];
         }
     } else {
         TBRunAlertPanel(NSLocalizedString(@"Entries required", @"Window title  VPNService"),
                         NSLocalizedString(@"You must enter an email address, password, and password confirmation to proceed.", @"Window text VPNService"),
                         nil,nil,nil);
-        [NSApp activateIgnoringOtherApps:YES];
+        [gMC activateIgnoringOtherApps];
     }
 }
 

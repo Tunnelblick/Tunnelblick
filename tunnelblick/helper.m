@@ -854,7 +854,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
     [win center];
 	[awc showWindow:  nil];
 	[win makeKeyAndOrderFront: nil];
-    [NSApp activateIgnoringOtherApps: YES];
+    [gMC activateIgnoringOtherApps];
 	return awc;
 }
 
@@ -1104,7 +1104,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
 		}
     }
     
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
     
     CFUserNotificationRef panelRef = CFUserNotificationCreate(NULL, 0.0, checkboxesChecked, &error, (CFDictionaryRef) dict);
 

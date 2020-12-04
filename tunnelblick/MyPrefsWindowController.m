@@ -235,13 +235,14 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
         if (  ! [[self window] isVisible]  ) {
             NSLog(@"enableLockIcon: displaying 'VPN Details' window because an authorization was obtained.");
             [self showWindow: nil];
-            [NSApp activateIgnoringOtherApps:YES];
+            [gMC activateIgnoringOtherApps];
+
         }
         
         TBLog(@"DB-AA", @"enableLockIcon: Unlocked the lock icon, set lockSystemAuth, and set a timer to relock the lock icon in five minutes");
     } else {
         [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' item")];
-        [NSApp activateIgnoringOtherApps:YES];
+        [gMC activateIgnoringOtherApps];
     }
     
     TBLog(@"DB-AA", @"enableLockIcon: Enabling the lock icon");

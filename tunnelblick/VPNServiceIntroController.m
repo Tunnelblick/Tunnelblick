@@ -30,6 +30,9 @@
 
 #import "VPNService.h"
 
+#import "MenuController.h"
+extern MenuController * gMC;
+
 @interface VPNServiceIntroController() // Private methods
 
 -(NSTextFieldCell *) introTFC;
@@ -66,7 +69,7 @@
     [[self introTFC] setStringValue: NSLocalizedString(@"Tunnelblick allows you to explore the Internet freely without restrictions "
                                                        "while simultaneously securing your Internet connection.", @"Window text VPNService")];
     [[self window] center];
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
     [[self window] makeKeyAndOrderFront: self];
 }
 

@@ -30,6 +30,9 @@
 
 #import "VPNService.h"
 
+#import "MenuController.h"
+extern MenuController * gMC;
+
 @interface VPNServiceWelcomeController() // Private methods
 
 -(NSTextFieldCell *) welcomeTFC;
@@ -64,7 +67,7 @@
                                                          " Follow the instructions in the email to verify your"
                                                          " email address and then click 'Next'.", @"Window text VPNService")];
     [[self window] center];
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
     [[self window] makeKeyAndOrderFront: self];
 }
 

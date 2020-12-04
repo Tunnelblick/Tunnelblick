@@ -30,6 +30,9 @@
 
 #import "VPNService.h"
 
+#import "MenuController.h"
+extern MenuController * gMC;
+
 @interface VPNServiceTermsOfServiceController() // Private methods
 
 -(NSTextFieldCell *) termsOfServiceHeaderTFC;
@@ -77,7 +80,7 @@
     [acceptButton setEnabled: NO];
     
     [[self window] center];
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
     [[self window] makeKeyAndOrderFront: self];
 }
 
@@ -128,7 +131,7 @@
                      [[error userInfo] objectForKey: @"NSLocalizedDescription"]],
                     nil,nil,nil);
     [progressIndicator stopAnimation: self];
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
 }
 
 - (void) dealloc {

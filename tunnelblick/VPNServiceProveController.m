@@ -30,6 +30,9 @@
 
 #import "VPNService.h"
 
+#import "MenuController.h"
+extern MenuController * gMC;
+
 @interface VPNServiceProveController() // Private methods
 
 -(void)      setTitle:        (NSString *) newTitle ofControl: (id) theControl;
@@ -60,7 +63,7 @@
                         obj,
                         nil,nil,nil);
         [self autorelease];
-        [NSApp activateIgnoringOtherApps:YES];
+        [gMC activateIgnoringOtherApps];
         return nil;
     }
     
@@ -77,7 +80,7 @@
             TBRunAlertPanel(NSLocalizedString(@"Cannot obtain image", @"Window title  VPNService"),
                             obj,
                             nil,nil,nil);
-            [NSApp activateIgnoringOtherApps:YES];
+            [gMC activateIgnoringOtherApps];
             return nil;
         }
         
@@ -124,7 +127,7 @@
     [[self captchaImageView] setImage: [self captchaImage]];
     
     [[self window] center];
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
     [[self window] makeKeyAndOrderFront: self];
 }
 
@@ -167,8 +170,8 @@
         TBRunAlertPanel(NSLocalizedString(@"You Must Type the Characters", @"Window title  VPNService"),
                         NSLocalizedString(@"You must type the characters in the image to proceed.", @"Window text VPNService"),
                         nil,nil,nil);
-        [NSApp activateIgnoringOtherApps:YES];
-        return;
+        [gMC activateIgnoringOtherApps];
+       return;
     }
 	[[self delegate] vpnServiceProve: self finishedWithChoice: VPNServiceCreateAccountNextChoice];
 }
@@ -188,7 +191,7 @@
     TBRunAlertPanel(NSLocalizedString(@"Cannot obtain image", @"Window title  VPNService"),
                     obj,
                     nil,nil,nil);
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
 }
 
 -(NSString *) captcha

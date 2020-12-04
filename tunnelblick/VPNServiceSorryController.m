@@ -30,6 +30,9 @@
 
 #import "VPNService.h"
 
+#import "MenuController.h"
+extern MenuController * gMC;
+
 @interface VPNServiceSorryController() // Private methods
 
 -(NSTextFieldCell *) sorryTFC;
@@ -65,7 +68,7 @@
     [[self sorryTFC] setStringValue: [NSString stringWithFormat: NSLocalizedString(@"Sorry, but your request for an account could not be processed:\n     %@", @"Window text VPNService"),
                                       [self vpnServiceReasonForRegistrationFailure]]];
     [[self window] center];
-    [NSApp activateIgnoringOtherApps:YES];
+    [gMC activateIgnoringOtherApps];
     [[self window] makeKeyAndOrderFront: self];
 }
 

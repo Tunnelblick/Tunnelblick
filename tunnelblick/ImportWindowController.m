@@ -146,8 +146,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTableView *,    mainTableView,       setMainTableV
 	[w display];
 	[self showWindow: self];
 	
-	[NSApp activateIgnoringOtherApps: YES];
-	
+    [gMC activateIgnoringOtherApps];
+
 	[w makeKeyAndOrderFront: self];
 }
 

@@ -263,8 +263,8 @@ float heightForStringDrawing(NSString *myString,
     [w display];
     [self showWindow: self];
     
-	[NSApp activateIgnoringOtherApps: YES];
-	
+    [gMC activateIgnoringOtherApps];
+
     [w makeKeyAndOrderFront: self];
 }
 @end
