@@ -1079,7 +1079,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                                      NSLocalizedString(@"Quit", @"Button"),                              // Alternate button
                                                      NSLocalizedString(@"I DO NOT have configuration files", @"Button"), // Other button
                                                      nil, nil, nil, FALSE,
-                                                     [NSApp delegate], @selector(haveConfigurations)); // Abort this dialog if we have configurations
+                                                     gMC, @selector(haveConfigurations)); // Abort this dialog if we have configurations
                 
                 if (  button == NSAlertAlternateReturn  ) {
                     [gMC terminateBecause: terminatingBecauseOfQuit];

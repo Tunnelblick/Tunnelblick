@@ -310,7 +310,7 @@ extern TBUserDefaults * gTbDefaults;
 	if ( [[pboard types] containsObject: NSFilenamesPboardType] ) {
 		NSArray * files = [pboard propertyListForType:NSFilenamesPboardType];
 			
-			[self performSelectorName:@"openFiles:" target: [NSApp delegate] withObject: files onMainThreadAfterDelay: 0.5];
+			[self performSelectorName:@"openFiles:" target: gMC withObject: files onMainThreadAfterDelay: 0.5];
 		
 		TBLog(@"DB-SI", @"performDragOperation: returning YES");
 		return YES;
