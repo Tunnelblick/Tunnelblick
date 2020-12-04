@@ -991,6 +991,14 @@ static BOOL firstTimeShowingWindow = TRUE;
     return TRUE;
 }
 
+-(void) reloadDataFor: (NSOutlineView *) oView {
+    
+    if (  [NSThread isMainThread]  ) {
+        [oView reloadData];
+    } else {
+        [self performSelectorOnMainThread: @selector(reloadDataFor:) withObject: oView waitUntilDone: NO];
+    }
+}
 
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect
 {
@@ -1050,7 +1058,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSOutlineView         * oView = [oVC outlineView];
     LeftNavDataSource     * oDS = [[self configurationsPrefsView] leftNavDataSrc];
     [oDS reload];
-    [oView reloadData];
+    [self reloadDataFor: oView];
     
     // Expand items that were left expanded previously and get row # we should select (that matches displayNameToSelect)
     
