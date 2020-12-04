@@ -2251,7 +2251,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	}
     
     if (  notifyDelegate  ) {
-        [NSApp replyToOpenOrPrint: delegateNotifyValue];
+        [gMC replyToOpenOrPrint: [NSNumber numberWithInt: delegateNotifyValue]];
     }
 }
 
@@ -2886,7 +2886,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     if (  [filePaths count] == 0) {
         if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplySuccess];
+            [gMC replyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplySuccess]];
         }
         
         return;
@@ -2894,7 +2894,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     if (  ! [self checkFilesAreReasonable: filePaths]  ) {
         if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+            [gMC replyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
         }
         
         return;
@@ -2905,7 +2905,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  ! [NSThread isMainThread]  ) {
             NSLog(@"installConfigurations...disallowCommands: YES but not on main thread; stack trace: %@", callStack());
             if (  notifyDelegate  ) {
-                [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+                [gMC replyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
             }
             
             return;
@@ -2913,7 +2913,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         CommandOptionsStatus status = [ConfigurationManager commandOptionsInConfigurationsAtPaths: filePaths];
         if (  status == CommandOptionsError  ) {
             if (  notifyDelegate  ) {
-                [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+                [gMC replyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
             }
             
             return;
@@ -2968,7 +2968,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			}
 			
 			if (  notifyDelegate  ) {
-                [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+                [gMC replyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
             }
 				
             return;
@@ -2996,7 +2996,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
                           NSLocalizedString(@"Installing configurations is not allowed", "Window text"));
         if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+            [gMC replyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
         }
         return;
     }
@@ -3020,14 +3020,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
         NSLog(@"Unable to delete %@", path);
         if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+            [gMC replyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
         }
         return;
     }
     if (  createDir(path, privateFolderPermissions(path)) == -1  ) {
         NSLog(@"Unable to create %@", path);
         if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+            [gMC replyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
         }
         return;
     }

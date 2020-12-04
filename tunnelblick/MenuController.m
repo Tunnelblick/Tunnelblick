@@ -237,6 +237,14 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
     }
 }
 
+-(void) replyToOpenOrPrint: (NSNumber *) delegateNotifyValue {
+    if (  [NSThread isMainThread]  ) {
+        [NSApp replyToOpenOrPrint: (enum NSApplicationDelegateReply)[delegateNotifyValue intValue]];
+    } else {
+        [self performSelectorOnMainThread: @selector(replyToOpenOrPrint:) withObject: delegateNotifyValue waitUntilDone: NO];
+    }
+}
+
 -(NSString *) localizedString: (NSString *) key
 				   fromBundle: (NSBundle *) bundle {
 	
@@ -4282,7 +4290,7 @@ static void signal_handler(int signalNumber)
     if (  [self shouldInstallConfigurations: filePaths withTunnelblick: NO]  ) {
         [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
     } else {
-        [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+        [gMC replyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
     }
 }
 
@@ -4309,9 +4317,10 @@ static void signal_handler(int signalNumber)
 	
 	BOOL ok = [self openFiles: filePaths];
 	
-	[NSApp replyToOpenOrPrint: (  ok
-								? NSApplicationDelegateReplySuccess
-								: NSApplicationDelegateReplyFailure)];
+    [gMC replyToOpenOrPrint: [NSNumber numberWithInt:
+                              ( ok
+                              ? NSApplicationDelegateReplySuccess
+                              : NSApplicationDelegateReplyFailure)]];
 	return ok;
 }
 
