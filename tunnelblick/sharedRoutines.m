@@ -229,9 +229,10 @@ NSData * tunnelblickdPlistDataToUse(void) {
         return nil;
     }
     
-    NSData * data = [NSPropertyListSerialization dataFromPropertyList: plistContents
+    NSData * data = [NSPropertyListSerialization dataWithPropertyList: plistContents
                                                                format: NSPropertyListXMLFormat_v1_0
-                                                     errorDescription: nil];
+                                                              options: 0
+                                                                error: nil];
     return data;
 }
 
