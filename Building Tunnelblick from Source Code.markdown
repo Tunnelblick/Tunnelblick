@@ -13,6 +13,25 @@ with sufficient technical skills and resources can create their own
 binary and use it as they see fit under the terms of the license. This
 document describes how to do that.
 
+Tunnelblick works on macOS 10.10 and higher and the Tunnelblick
+application itself and all supporting programs are 64-bit Intel
+programs. The application runs on Apple Silicon under Rosetta 2.
+
+On recent versions of macOS, Tunnelblick's tun and tap system extensions
+are restricted:
+
+ * On macOS Catalina, the computer must be restarted after loading the
+   system extensions for the first time.  
+
+ * On macOS Big Sur on Intel, Tunnelblick's tun and tap system extensions
+   can only be loaded with SIP disabled.
+
+ * On macOS Big Sur on Apple Silicon, Tunnelblick's tun and tap system
+   Extensions CANNOT be used.
+
+See [The Future of Tun and Tap VPNs on macOS](https://tunnelblick.net/cTunTapConnections.html)
+For details.
+
 To build Tunnelblick from the source code:
 
  1. You need a supported version of macOS and Xcode;
@@ -42,36 +61,11 @@ recommended for Parallels.
 
 **1. Supported Versions of macOS and Xcode**
 
-The current version of Tunnelblick should be built using Xcode 7.3.1 on
-macOS 10.11.6.
+This version of Tunnelblick should be built using Xcode 12.2 on
+macOS 10.15.7.
 
-Older versions (such as the "3.5" branch of the source code) should be
-built using Xcode 3.2.2 on macOS 10.6.8 (do not use Xcode 3.2.3).
-
-Other versions of Xcode and macOS create Tunnelblick binaries that crash
+Other versions of Xcode and macOS may create Tunnelblick binaries that crash
 or have other unpredictable behavior.
-
-Which platform you build on determines what platforms can run the
-Tunnelblick application you build:
-
- * When Tunnelblick is built using Xcode 7.3.1 ("master" branch of the
- source code):
-
-   ⁃ The Tunnelblick application and all supporting programs
-     are 64-bit Intel programs.
-   ⁃ Tunnelblick works on macOS 10.8 and higher
-     and on macOS 10.7.5 and higher when running a 64-bit kernel.
-
- * When Tunnelblick is built using Xcode 3.2.2 ("3.5" branch of the
- source code):
-
-   ⁃ Tunnelblick works on macOS 10.4 - 10.10 using PowerPC
-     or Intel processors.
-   ⁃ Tunnelblick and most of its supporting programsare 32-bit
-     PowerPC/Intel programs.
-   ⁃ OpenVPN and the tun and tap kexts are 32/64-bit
-     PowerPC/Intel programs.
-
 
 **2. Getting the Tunnelblick Source Code**
 
@@ -129,20 +123,9 @@ indicated in the progress bar at the top of the Xcode window. Allow the
 indexing to complete, which usually takes a minute or two. Xcode does
 indexing at various times, and if you click a button while Xcode is
 indexing it will often crash. (This is an Xcode problem, not a
-Tunnelblick problem.) The safest way to proceed if Xcode crashes is to
-download the source code again, because Xcode creates caches which can
-be corrupted when Xcode crashes and cause even more crashes.
+Tunnelblick problem.)
 
-To build Tunnelblick using Xcode 7.3.1, Xcode needs to be set up to use
-"legacy" locations for build products:
-
- 1. Launch Xcode.
- 2. Click "File" > "Project Settings..."
- 3. Click the "Advanced" button.
- 4. Click on the "Legacy" radio button (for "Build Location").
- 5. Click the "Done" button.
-
-Xcode 7.3.1 also needs to have the command line tools installed. You can
+Xcode 12.2 need to have the command line tools installed. You can
 do that in Terminal with the following command:
 ```xcode-select&nbsp;--install```
 
@@ -152,10 +135,7 @@ There are two different types of builds. Unfortunately Xcode defaults to
 using the one you shouldn't use, "Debug". You should use the "Release"
 build instead.
 
-To select the type of build in Xcode 3.2.2, change it in the drop-down
-list to "Unsigned Release".
-
-To select the type of build in Xcode 7.3.1:
+To select the type of build in Xcode 12.2:
 
  1. Click Product > Scheme > Edit Scheme…
  2. Select "Run Tunnelblick" in the list on the left of the window that
@@ -167,7 +147,7 @@ To select the type of build in Xcode 7.3.1:
 
 **Finally, Build Tunnelblick!**
 
-Do a "Clean" before building.
+Do a "Clean build folder" before building.
 
 Finally! You are ready to build Tunnelblick. Go ahead!
 
