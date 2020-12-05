@@ -1,7 +1,7 @@
 # Makefile to build Sparkle.framework for Tunnelblick
 #
 # Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
-# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018. All rights reserved.
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020. All rights reserved.
 #
 #  This file is part of Tunnelblick.
 #
@@ -26,7 +26,7 @@
 #       times it could exist (if the build was interrupted between the unzip and rm).
 #
 
-TB_SPARKLE_DEPRECATED_HANDLING = GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS=NO
+TB_SPARKLE_DEPRECATED_HANDLING = GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS=NO -UseModernBuildSystem=NO
 SPARKLE_BUILD_DIR = $(BUILD_DIR)/sparkle
 SPARKLE_PRODUCTS_DIR = $(PRODUCTS_DIR)/sparkle
 
