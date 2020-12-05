@@ -2663,7 +2663,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             if (  connection  ) {
                 // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
 				[connection reloadPreferencesFromTblk];
-                [[gMC logScreen] update];
+                [[gMC logScreen] performSelectorOnMainThread: @selector(update) withObject: nil waitUntilDone: NO];
             }
             
         } else {
@@ -2691,7 +2691,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             if (  connection  ) {
                 // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
                 [connection reloadPreferencesFromTblk];
-                [[gMC logScreen] update];
+                [[gMC logScreen] performSelectorOnMainThread: @selector(update) withObject: nil waitUntilDone: NO];
             }
             
         } else {
