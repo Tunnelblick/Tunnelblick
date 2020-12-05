@@ -81,7 +81,7 @@
 	id				delegate;			// Gets messages about changes instead of notification center, if specified.
 	id				delegateProxy;		// Proxy object to which we send messages so they reach delegate on the main thread.
 	BOOL			alwaysNotify;		// Send notifications even if we have a delegate? Defaults to NO.
-	BOOL			keepThreadRunning;	// Termination criterion of our thread.
+	int volatile	keepThreadRunning;	// Termination criterion of our thread 0 = no, 1 = yes
 }
 
 +(id)	sharedFileWatcher;      // Returns a singleton, a shared kqueue object Handy if you're subscribing to the notifications. Use this, or just create separate objects using alloc/init. Whatever floats your boat.

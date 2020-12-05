@@ -111,7 +111,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 		watchedFDs = [[NSMutableArray alloc] init];
 		
 		// Start new thread that fetches and processes our events:
-		keepThreadRunning = YES;
+		keepThreadRunning = 0;
 		[NSThread detachNewThreadSelector:@selector(watcherThread:) toTarget:self withObject:nil];
 	}
 	
@@ -134,8 +134,9 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
     AT_SYNCHRONIZED(self)
     {
         //NSLog(@"%@ (%d)", self, [self retainCount]);
-        if( [self retainCount] == 2 && keepThreadRunning )
-            keepThreadRunning = NO;
+        if( [self retainCount] == 2  ) {
+            OSAtomicCompareAndSwapIntBarrier(1, 0, &keepThreadRunning);
+        }
     }
     
     [super release];
@@ -154,8 +155,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 	delegate = nil;
 	[delegateProxy release];
 	
-	if( keepThreadRunning )
-		keepThreadRunning = NO;
+    OSAtomicCompareAndSwapIntBarrier(1, 0, &keepThreadRunning);
 	
 	// Close all our file descriptors so the files can be deleted:
 	NSEnumerator*	enny = [watchedFDs objectEnumerator];
@@ -327,6 +327,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 //      To terminate this method (and its thread), set keepThreadRunning to NO.
 //
 //	REVISIONS:
+//      2020-12-05  JB  Changed to use OSAtomicCompareAndSwapIntBarrier() for keepThreadRunning
 //		2005-08-27	UK	Changed to use keepThreadRunning instead of kqueueFD
 //						being -1 as termination criterion, and to close the
 //						queue in this thread so the main thread isn't blocked.
