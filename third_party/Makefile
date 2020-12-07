@@ -1,7 +1,7 @@
 # Makefile to build all of the third-party software included in Tunnelblick
 #
 # Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
-# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018. All rights reserved.
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020. All rights reserved.
 #
 #  This file is part of Tunnelblick.
 #
@@ -18,9 +18,7 @@
 #  along with this program (see the file COPYING included with this
 #  distribution); if not, write to the Free Software Foundation, Inc.,
 
-ifeq "$(XCODE_VERSION_MAJOR)" "0300"
-		$(error error: Tunnelblick must be built with Xcode 4 or higher)
-endif
+TARGET_ARCHS             = x86_64 arm64
 
 
 TARGET_ARCHS = x86_64
