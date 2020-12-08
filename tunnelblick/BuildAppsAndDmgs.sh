@@ -247,7 +247,7 @@ default_openssl_version_prefix="openssl-1.1.1"
 for d in `ls "../third_party/products/openvpn"`
 do
   # Include this version of OpenVPN if it is not a beta, rc, or git version, or it's a debug build of Tunnelblick, or it is a Tunnelblick beta
-  # In other words, remove beta/rc/git versions of OpenVPN from stable releases of Tunnelblick.
+  # In other words, remove beta/rc/git versions of OpenVPN from non-debug builds of stable releases of Tunnelblick.
   t="${d/_beta/}"
   t="${t/_git/}"
   t="${t/_rc/}"
