@@ -113,6 +113,12 @@ Notes:
   your password at one point in the process. (You must install as an
   "administrator" user, not as a "standard" user.)
 
+  If you installed the autotools using an older version of the above
+  script, you should update automake to version 1.16.3 using the script at
+
+  **TunnelblickSource**/third_party/ShellScriptToInstallAutomake1.16.3.sh
+
+
 **4. Setting up Xcode to Build Tunnelblick**
 
 Double-click **TunnelblickSource**/tunnelblick/Tunnelblick.xcodeproj to
