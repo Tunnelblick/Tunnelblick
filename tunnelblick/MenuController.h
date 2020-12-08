@@ -254,7 +254,7 @@ enum StatusIconPosition {
 																   to: (BOOL)       newValue
 															 inverted: (BOOL)		inverted;
 -(void)             activateIgnoringOtherApps;
--(void)             replyToOpenOrPrint:                     (NSNumber *)        delegateNotifyValue;
+-(void)             myReplyToOpenOrPrint:                   (NSNumber *)        delegateNotifyValue;
 -(BOOL)				askAndMaybeReenableNetworkAccessTryingToConnect;
 -(void)             showConfirmIconNearSpotlightIconDialog;
 -(void)             recreateMenu;
