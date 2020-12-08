@@ -111,7 +111,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 		watchedFDs = [[NSMutableArray alloc] init];
 		
 		// Start new thread that fetches and processes our events:
-		keepThreadRunning = 0;
+		keepThreadRunning = 1;
 		[NSThread detachNewThreadSelector:@selector(watcherThread:) toTarget:self withObject:nil];
 	}
 	
