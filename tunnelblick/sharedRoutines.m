@@ -94,7 +94,7 @@ BOOL networkIsReachable(void) {
 		return NO;
 	}
  
-	BOOL isReachable = flags & kSCNetworkFlagsReachable;
+	BOOL isReachable = ((flags & kSCNetworkFlagsReachable) != 0);
 	
 	return isReachable;
 	
