@@ -18,11 +18,31 @@
 #  along with this program (see the file COPYING included with this
 #  distribution); if not, write to the Free Software Foundation, Inc.,
 
-TARGET_ARCHS             = x86_64 arm64
+# Target architectures. Use a space-separated list of architectures.
+# For Intel, use "x86_64" for all but OpenSSL, which must use "darwin64-x86_64-cc"
+# For Apple Silicon, use "arm64" for all but OpenSSL, which must use "darwin64-arm64-cc"
+#
+#
+# IMPORTANT: Only Intel works currently; Apple Silicon does not yet work!!!
+#
+LZ4_TARGET_ARCHS         = x86_64
+LZO_TARGET_ARCHS         = x86_64
+PKCS11_TARGET_ARCHS      = x86_64
+SPARKLE_TARGET_ARCHS     = x86_64
+TUNTAP_TARGET_ARCHS      = x86_64
 
+# Used to build OpenSSL and LibreSSL:
+# Only OpenSSL 1.1 can be built for Apple Silicon
+LIBRESSL_TARGET_ARCHS     = x86_64
+OPENSSL_1_0_TARGET_ARCHS = darwin64-x86_64-cc
+OPENSSL_1_1_TARGET_ARCHS = darwin64-x86_64-cc
 
-TARGET_ARCHS = x86_64
-OPENSSL_TARGET_ARCHS = darwin64-x86_64-cc
+# Used to build OpenVPN
+# Only versions of OpenVPN that are built with OpenSSL 1.1 can be built for Apple Silicon
+OPENVPN_LIBRESSL_TARGET_ARCHS    = x86_64
+OPENVPN_OPENSSL_1_0_TARGET_ARCHS = x86_64
+OPENVPN_OPENSSL_1_1_TARGET_ARCHS = x86_64
+
 CC = gcc
 
 TOPDIR = $(PWD)
@@ -36,7 +56,6 @@ TOPDIR = $(PWD)
 LZO_NAME         = lzo-2.10
 
 LZ4_NAME         = lz4-1.9.3
-LZ4_TARGET_ARCHS = x86_64
 
 SPARKLE_NAME     = Sparkle-077c64419f9460263bad99ab24dff962a103b1e2
 
@@ -142,10 +161,10 @@ DOWN_ROOT_ARCH_2_2=$(foreach f, $(TARGET_ARCHS), -arch $f)
 #######################################################################################
 # Define the make rules:
 
-all: built-easy-rsa-tunnelblick \
+all: 	built-sparkle \
+	built-easy-rsa-tunnelblick \
 	built-tuntap               \
-	built-openvpn              \
-	built-sparkle
+	built-openvpn
 	@echo "THIRD_PARTY: Made all third_party for Tunnelblick" ; \
 
 clean:

@@ -98,8 +98,9 @@ built-sparkle-prepare:
 
 built-sparkle: built-sparkle-prepare
 	@echo "THIRD_PARTY: Building Sparkle.framework for '$(ARCHS)' with deploy-target '$(MACOSX_DEPLOYMENT_TARGET)' and SDK path '$(SDK_DIR)'" ;
+	SPARKLE_ARCHS="$(foreach f, $(SPARKLE_TARGET_ARCHS), -arch $f)" ; \
 	SPARKLE_FLAGS="$(TB_SPARKLE_DEPRECATED_HANDLING) \
-		               -arch $(TARGET_ARCHS) \
+		               $$SPARKLE_ARCHS \
 		               -sdk $(SDK_DIR) \
 		               BUILD_NAME=build \
 		               MACOSX_DEPLOYMENT_TARGET=$(MACOSX_DEPLOYMENT_TARGET)" ; \

@@ -1,7 +1,7 @@
 # Makefile to build (Open|Libre)SSL for Tunnelblick
 #
 # Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
-# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018. All rights reserved.
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020. All rights reserved.
 #
 #  This file is part of Tunnelblick.
 #
@@ -17,10 +17,6 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program (see the file COPYING included with this
 #  distribution); if not, write to the Free Software Foundation, Inc.,
-
-export openssl_BUILD_ARCH= $(OPENSSL_TARGET_ARCHS)
-
-export libressl_BUILD_ARCH= $(TARGET_ARCHS)
 
 built-allssl-prepare:
 	@echo "THIRD_PARTY: Extracting all SSL variants..."
@@ -55,8 +51,22 @@ built-allssl: built-allssl-prepare
 	for ssldir in $(shell find -xsE $(BUILD_DIR) -depth 1 -type d -iregex ".*/(libre|open){1}ssl-.*" ); do \
 		sslversion=$${ssldir##*/}; \
 		sslvariant=$${sslversion%-*}; \
-		BUILDARCH=$${sslvariant}_BUILD_ARCH; \
-		for a in $${!BUILDARCH}; do \
+		if [ "$${sslvariant:0:8}" = "libressl" ] ; then \
+			buildarch="$(LIBRESSL_TARGET_ARCHS)" ; \
+		elif [ "$${sslvariant:0:7}" = "openssl" ] ; then \
+			if [ "$${sslversion:0:11}" = "openssl-1.0" ] ; then \
+				buildarch="$(OPENSSL_1_0_TARGET_ARCHS)" ; \
+			elif [ "$${sslversion:0:11}" = "openssl-1.1" ] ; then \
+				buildarch="$(OPENSSL_1_1_TARGET_ARCHS)" ; \
+			else \
+				echo "error: Unknown OpenSSL version '$${sslversion}'. Must begin with 'openssl-1.0' or 'openssl-1.1'" ; \
+				exit 255 ; \
+			fi ; \
+		else \
+			echo "error: Unknown SSL variant '$${sslvariant}'. Must be 'openssl' or 'libressl'" ; \
+			exit 255 ; \
+		fi ; \
+		for a in $${buildarch}; do \
 			cd $${ssldir}; \
 			a=$${a#\"*}; \
 			a=$${a%*\"}; \

@@ -1,7 +1,7 @@
 # Makefile to build openvpn for Tunnelblick
 #
 # Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
-# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018. All rights reserved.
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2020. All rights reserved.
 #
 #  This file is part of Tunnelblick.
 #
@@ -89,22 +89,25 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                 if [ "$$ssl_name" = "$(OPENSSL_1_0_NAME)" ] ; then \
                     ssl_staging_dir="$(OPENSSL_1_0_STAGING_DIR)" ; \
                     ssl_target_files="$(OPENSSL_1_0_TARGET_FILES)" ; \
+		    target_archs="$(OPENVPN_OPENSSL_1_0_TARGET_ARCHS)" ; \
                     pkcs11_enable="" ; \
                 elif [ "$$ssl_name" = "$(OPENSSL_1_1_NAME)" ] ; then \
                     ssl_staging_dir="$(OPENSSL_1_1_STAGING_DIR)" ; \
                     ssl_target_files="$(OPENSSL_1_1_TARGET_FILES)" ; \
+		    target_archs="$(OPENVPN_OPENSSL_1_1_TARGET_ARCHS)" ; \
                     pkcs11_enable="--enable-pkcs11" ; \
                 elif [ "$$ssl_name" = "$(LIBRESSL_NAME)"    ] ; then \
                     ssl_staging_dir="$(LIBRESSL_STAGING_DIR)" ; \
                     ssl_target_files="$(OPENSSL_1_0_TARGET_FILES)" ; \
+		    target_archs="$(OPENVPN_LIBRESSL_TARGET_ARCHS)" ; \
                     pkcs11_enable="" ; \
                 else \
                     echo "error: do not know how to build OpenVPN $$openvpn_major_minor with '$$ssl_name'" ; \
-                    exit -1 ; \
+                    exit 255 ; \
                 fi ; \
-                if [ "$$build_it" = true \
-                     -a -e "$$ssl_staging_dir" ] ; then \
-                    for a in $(TARGET_ARCHS); do \
+                if [ "$$build_it" = true ] \
+                && [ -e "$$ssl_staging_dir" ] ; then \
+                    for a in $$target_archs ; do \
                         echo "Making $$openvpn_name with $$ssl_name for $$a" ; \
                         mwd="$$(pwd)" ; \
                         $(MAKE) clean; \
@@ -112,8 +115,8 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                         if [ -f "$(OPENVPN_SOURCE_DIR)/$$openvpn_name/configure-options.txt" ] ; then \
                             configure_options="$$(cat $(OPENVPN_SOURCE_DIR)/$$openvpn_name/configure-options.txt)" ; \
                         else \
-                            echo "error: configure-options.txt misssing in $(OPENVPN_SOURCE_DIR)/$$openvpn_name" ; \
-                            exit -1 ; \
+                            echo "error: configure-options.txt missing in $(OPENVPN_SOURCE_DIR)/$$openvpn_name" ; \
+                            exit 255 ; \
                         fi ; \
                         \
                         mwd="$$(pwd)" ; \
@@ -176,7 +179,7 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                                       -llz4" \
                                       $(OPENVPN_DEPRECATED_GCC_MAKE_OPTION) ; \
                         \
-                        echo "Making down-root plugin" ; \
+                        echo "Making down-root plugin for $$a" ; \
                         $(MAKE) -C src/plugins/down-root clean ; \
                         $(MAKE) LDFLAGS="-bundle \
                                          -Wl,-dylib_install_name,openvpn-down-root.so" \
@@ -191,6 +194,7 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                         else \
                             echo "warning: No file at $$mwd/src/plugins/down-root/.libs/openvpn-plugin-down-root.so" ; \
                         fi ; \
+                        echo "Finished making down-root plugin for $$a" ; \
                     done; \
                     mkdir -p "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name" ; \
                     lipo ../openvpn-plugin-down-root.so_tblk_* -create -output "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so"; \
@@ -201,7 +205,7 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                         cd openvpn ; \
                         rm -f -R "$(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name" ; \
                         echo "error: removed $$openvpn_name-$$ssl_name folder because it did not contain both openvpn-executable and openvpn-down-root.so" ; \
-                        exit -1; \
+                        exit 255; \
                     fi ; \
                     cd openvpn ; \
                 else \
