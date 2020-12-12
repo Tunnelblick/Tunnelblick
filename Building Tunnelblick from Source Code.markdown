@@ -61,8 +61,8 @@ recommended for Parallels.
 
 **1. Supported Versions of macOS and Xcode**
 
-This version of Tunnelblick should be built using Xcode 12.2 on
-macOS 10.15.7.
+The current version of Tunnelblick should be built using Xcode 7.3.1 on
+macOS 10.11.6.
 
 Other versions of Xcode and macOS may create Tunnelblick binaries that crash
 or have other unpredictable behavior.
@@ -117,7 +117,6 @@ Notes:
   script, you should update automake to version 1.16.3 using the script at
 
   **TunnelblickSource**/third_party/ShellScriptToInstallAutomake1.16.3.sh
-
 
 **4. Setting up Xcode to Build Tunnelblick**
 
