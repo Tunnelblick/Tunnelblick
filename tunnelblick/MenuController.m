@@ -5686,11 +5686,11 @@ static void signal_handler(int signalNumber)
 
     NSString * headline = (  failed
                            ? (  testOnly
-                              ? NSLocalizedString(@"TEST OF UNINSTALL OF TUNNELBLICK FAILED", @"Window title")
-                              : NSLocalizedString(@"UNINSTALL OF TUNNELBLICK FAILED", @"Window title"))
+                              ? NSLocalizedString(@"TEST OF UNINSTALL OF TUNNELBLICK FAILED", @"Window text acting as a headline. Please translate as ALL CAPS if possible.")
+                              : NSLocalizedString(@"UNINSTALL OF TUNNELBLICK FAILED", @"Window text acting as a headline. Please translate as ALL CAPS if possible."))
                            : (  testOnly
-                              ? NSLocalizedString(@"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED", @"Window title")
-                              : NSLocalizedString(@"UNINSTALL OF TUNNELBLICK SUCCEEDED",      @"Window title")));
+                              ? NSLocalizedString(@"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED", @"Window text acting as a headline. Please translate as ALL CAPS if possible.")
+                              : NSLocalizedString(@"UNINSTALL OF TUNNELBLICK SUCCEEDED",      @"Window text acting as a headline. Please translate as ALL CAPS if possible.")));
     logContents = [NSString stringWithFormat: @"%@\n\n%@", headline, logContents];
     NSLog(@"%@", logContents);
 
