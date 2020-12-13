@@ -210,7 +210,7 @@ float heightForStringDrawing(NSString *myString,
 -(void) setupCheckboxWithHeightChange: (CGFloat) heightChange {
 	
 	if (   (   (! preferenceToSetTrue)
-            || (! [preferenceToSetTrue hasSuffix: @"-NotAnActualPreference"] )
+            || [preferenceToSetTrue hasSuffix: @"-NotAnActualPreference"]
             )
 		&& ( ! (   preferenceName
 				&& preferenceValue))) {
