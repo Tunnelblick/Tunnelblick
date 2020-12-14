@@ -44,11 +44,11 @@ extern TBUserDefaults * gTbDefaults;
 }
 
 -(void) dealloc {
-	
+
 	[logo release];           logo        = nil;
 	[scrollTimer invalidate];
 	[scrollTimer release];    scrollTimer = nil;
-	
+
 	[super dealloc];
 }
 
@@ -67,37 +67,37 @@ extern TBUserDefaults * gTbDefaults;
             withString: (NSString *)                  newString
              urlString: (NSString *)                  urlString
                     in: (NSMutableAttributedString *) target {
-    
+
     // Create the new string with a link in it
     NSMutableAttributedString* newAttrString = [[[NSMutableAttributedString alloc] initWithString: LocalizationNotNeeded(newString)] autorelease];
-    
+
     NSURL * aURL = [NSURL URLWithString: urlString];
     if (  ! aURL  ) {
         NSLog(@"Invalid URL '%@'", urlString);
         return;
     }
-    
+
     NSRange range = NSMakeRange(0, [newAttrString length]);
-    
+
     [newAttrString beginEditing];
-    
+
     [newAttrString addAttribute: NSLinkAttributeName value: [aURL absoluteString] range: range];
-    
+
     // make the text appear in blue
     [newAttrString addAttribute: NSForegroundColorAttributeName value: [NSColor blueColor] range: range];
-    
+
     // next make the text appear with an underline
     [newAttrString addAttribute: NSUnderlineStyleAttributeName value: [NSNumber numberWithInt: NSSingleUnderlineStyle] range: range];
-    
+
     [newAttrString endEditing];
-    
+
     // Now substitute that string for the old string
     range = [[target string] rangeOfString: oldString];
     if (  range.length == 0  ) {
         NSLog(@"Unable to find '%@' in '%@'", oldString, [target string]);
         return;
     }
-    
+
     [target deleteCharactersInRange: range];
     [target insertAttributedString: newAttrString atIndex: range.location];
 }
@@ -110,7 +110,7 @@ extern TBUserDefaults * gTbDefaults;
         logo = [[NSImage alloc] initWithContentsOfFile: logoPath];
         [infoLogoIV setImage: logo];
     }
-    
+
     // If Resources has an "about.html", use that as the base for the license description
     // Using [[NSBundle mainBundle] pathForResource: @"about" ofType: @"html"] doesn't always work -- it is apparently cached by macOS.
     // If it is used immediately after the installer creates and populates Resources/Deploy, nil is returned instead of the path
@@ -135,36 +135,36 @@ extern TBUserDefaults * gTbDefaults;
 		[description addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [description length])];
         [[infoDescriptionTV textStorage] setAttributedString: description];
     } else {
-        
+
         // Create the base string with localized content (the leading space is needed to keep the prefix from becoming a link; it is removed if the prefix is not needed)
 		NSString * localizedContent = NSLocalizedString(@" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc.", @"Window text");
         NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithString: localizedContent] autorelease];
-        
+
         // Replace the placeholders in the localized content with links
         [self replaceString: @"%1$@"
                  withString: @"Tunnel" @"blick"
                   urlString: @"https://www.tunnelblick.net"
                          in: descriptionString];
-        
+
         [self replaceString: @"%2$@"
                  withString: @"GNU General Public License version 2"
                   urlString: @"https://www.gnu.org/licenses/gpl-2.0.html"
                          in: descriptionString];
-        
+
         [self replaceString: @"%3$@"
                  withString: @"Free Software Foundation"
                   urlString: @"https://fsf.org"
                          in: descriptionString];
-        
+
         [self replaceString: @"%4$@"
                  withString: @"OpenVPN"
                   urlString: @"https://openvpn.net/"
                          in: descriptionString];
-		
+
         [infoDescriptionTV setEditable: NO];
         [infoDescriptionSV setHasHorizontalScroller: NO];
         [infoDescriptionSV setHasVerticalScroller:   NO];
-        
+
         // If Tunnelblick has been globally replaced with XXX, prefix the license description with "XXX is based on Tunnelblick."
         if (   ( ! [gTbDefaults boolForKey: @"doNotUnrebrandLicenseDescription"]  )
 			&& ( ! [@"Tunnelblick" isEqualToString: @"Tunnel" @"blick"]  )
@@ -176,29 +176,29 @@ extern TBUserDefaults * gTbDefaults;
         } else {
 			[descriptionString deleteCharactersInRange: NSMakeRange(0, 1)];	// Remove leading space
         }
-		
+
 		[descriptionString addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: NSMakeRange(0, [descriptionString length])];
 		[descriptionString addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [descriptionString length])];
         NSDictionary * attributes = [NSDictionary dictionaryWithObject: NSRTFTextDocumentType forKey: NSDocumentTypeDocumentAttribute];
         [infoDescriptionTV replaceCharactersInRange: NSMakeRange( 0, [[infoDescriptionTV string] length] )
                                             withRTF: [descriptionString RTFFromRange: NSMakeRange( 0, [descriptionString length] ) documentAttributes: attributes]];
     }
-	
+
 	// Credits: create HTML, convert to an NSMutableAttributedString, substitute localized strings, and display
 	//
     // Credits data comes from the following arrays:
-    
+
     NSArray * mainCredits = @[
                              @[@"Angelo Laub",      NSLocalizedString(@"Founder, original program and documentation",  @"Credit description")],
                              @[@"James Yonan",      @"OpenVPN"],
                              @[@"Dirk Theisen",     NSLocalizedString(@"Contributed much to the early code",           @"Credit description")],
                              @[@"Jonathan Bullard", NSLocalizedString(@"Program and documentation enhancements and maintenance after version 3.0b10", @"Credit description")],
-                             
+
                              @[
                               NSLocalizedString(@"LEAD_TRANSLATORS",      @"Names of lead translators"),
                               NSLocalizedString(@"LANGUAGE_TRANSLATION",  @"[name of your language] translation")]
 							 ];
-    
+
     NSArray * pgmCredits = @[
                             @[@"Dave Batton",                  @"DBPrefsWindowController"],
                             @[@"Michael Schloh von Bennewit",  NSLocalizedString(@"64-bit enabling and testing",           @"Credit description")],
@@ -224,7 +224,7 @@ extern TBUserDefaults * gTbDefaults;
                             @[@"Michael Williams",             NSLocalizedString(@"Multiple configuration folders",        @"Credit description")],
                             @[@"Nick Williams",                NSLocalizedString(@"Up and Down scripts",                   @"Credit description")]
 							];
-    
+
     NSArray * locCredits = @[
 							@[@"Sobhi Abufool",                 NSLocalizedString(@"Arabic translation",                   @"Credit description")],
                             @[@"Khalid Alhumud",                NSLocalizedString(@"Arabic translation",                   @"Credit description")],
@@ -351,6 +351,7 @@ extern TBUserDefaults * gTbDefaults;
                             @[@"Nicolas Rodriguez (Tupaca)",    NSLocalizedString(@"Spanish translation",                  @"Credit description")],
 							@[@"Minho Ryang",                   NSLocalizedString(@"Korean translation",                   @"Credit description")],
 							@[@"Darek Rzeźnicki",               NSLocalizedString(@"Polish translation",                   @"Credit description")],
+							@[@"Murat Salma",               	NSLocalizedString(@"Turkish translation",                  @"Credit description")],
 							@[@"Michoel Samuels",               NSLocalizedString(@"Hebrew translation",                   @"Credit description")],
                             @[@"Saulo Santos",                  NSLocalizedString(@"Portuguese translation",               @"Credit description")],
                             @[@"Ranal Saron",                   NSLocalizedString(@"Estonian translation",                 @"Credit description")],
@@ -401,9 +402,9 @@ extern TBUserDefaults * gTbDefaults;
                             @[@"Nikolay Zhelev",                NSLocalizedString(@"Bulgarian translation",                @"Credit description")],
 							@[@"Zozzi",                         NSLocalizedString(@"Slovak translation",                   @"Credit description")]
                             ];
-	
+
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
-    
+
     // Construct an HTML page with the dummy credits, consisting of a table.
     NSString * htmlHead = (@"<font face=\"Arial, Georgia, Garamond\">"
                            @"<table width=\"100%\">"
@@ -411,7 +412,7 @@ extern TBUserDefaults * gTbDefaults;
                            @"<tr><td colspan=\"2\"><strong><center>"
                            @"@@STRING@@"  // "TUNNELBLICK is brought to you by"
                            @"</center></strong></td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
-    
+
     NSString * htmlMainTb = (  rtl
                              ? (@"<tr><td width=\"60%\" align=\"right\" valign=\"top\">"
                                 @"@@STRING@@&nbsp;&nbsp;"                   // What the person contributed
@@ -424,14 +425,14 @@ extern TBUserDefaults * gTbDefaults;
                                 @"</td><td width=\"60%\" valign=\"top\">"
                                 @"@@STRING@@"                               // What the person contributed
                                 @"</td></tr>\n"));
-    
+
     NSString * htmlAfterMain = (@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
                                 @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
                                 @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
                                 @"<tr><td colspan=\"2\"><strong><center>"
                                 @"@@STRING@@"  // "Additional contributions by"
                                 @"</center></strong></td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
-    
+
     NSString * htmlPgmTb = (  rtl
                             ? (@"<tr><td width=\"60%\" align=\"right\" valign=\"top\">"
                                @"@@STRING@@&nbsp;&nbsp;"                    // What the person contributed
@@ -444,14 +445,14 @@ extern TBUserDefaults * gTbDefaults;
                                @"<td width=\"60%\" valign=\"top\">"
                                @"@@STRING@@"                                // What the person contributed
                                @"</td></tr>\n"));
-    
+
     NSString * htmlAfterPgm = (@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
                                @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
                                @"<tr><td colspan=\"2\">"
                                @"<strong><center>@@STRING@@</center></strong>"  // "Localization by"
                                @"</td></tr>\n"
                                @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
-    
+
     NSString * htmlLocTb = (  rtl
                             ? (@"<tr><td width=\"60%\" align=\"right\" valign=\"top\">"
                                @"@@STRING@@&nbsp;&nbsp;"                    // <Language> localization
@@ -465,58 +466,58 @@ extern TBUserDefaults * gTbDefaults;
                                @"<td width=\"60%\" valign=\"top\">"
                                @"@@STRING@@"                                // <Language> localization
                                @"</td></tr>\n"));
-    
+
     NSString * htmlTail = @"</table></font>";
 
     NSMutableString * creditsHTML = [NSMutableString stringWithCapacity:1000];
 
     unsigned i;
-    
+
     // Create HTML containing @@STRING@@ dummies
-    
+
     [creditsHTML appendString: htmlHead];
-    
+
     for (  i=0; i<[mainCredits count]; i++  ) {
         [creditsHTML appendString: htmlMainTb];
     }
-    
+
     [creditsHTML appendString: htmlAfterMain];
-    
+
     for (  i=0; i<[pgmCredits count]; i++  ) {
         [creditsHTML appendString: htmlPgmTb];
     }
-    
+
     [creditsHTML appendString: htmlAfterPgm];
-    
+
     for (  i=0; i<[locCredits count]; i++  ) {
         [creditsHTML appendString: htmlLocTb];
     }
-    
+
     [creditsHTML appendString: htmlTail];
-    
+
     // Create an NSMutableAttributedString from the HTML
     const char * bytes = [creditsHTML UTF8String];
     NSData * htmlData = [[[NSData alloc] initWithBytes: bytes length: strlen(bytes)] autorelease];
     NSMutableAttributedString * creditsString = [[[NSMutableAttributedString alloc] initWithHTML: htmlData documentAttributes: nil] autorelease];
-    
+
     // Make substitutions in the NSMutableAttributedString
 
     [self substitute: NSLocalizedString(@"TUNNELBLICK is brought to you by", @"Window text") in: creditsString];
-    
+
     NSEnumerator * e = [mainCredits objectEnumerator];
     NSArray * row;
     while (  (row = [e nextObject])  ) {
-        
+
         NSString * name = [row objectAtIndex: 0];
         NSString * role = [row objectAtIndex: 1];
-        
+
         if (  [name isEqualToString: @"LEAD_TRANSLATORS"]  ) {
             name = @" ";
             role = @" ";
         } else if (  [role isEqualToString: @"LANGUAGE_TRANSLATION"]  ) {
             role = @"Translation leaders";
         }
-        
+
 		if (  [UIHelper languageAtLaunchWasRTL]  ) {
 			[self substitute: role in: creditsString];
 			[self substitute: name in: creditsString];
@@ -525,9 +526,9 @@ extern TBUserDefaults * gTbDefaults;
 			[self substitute: role in: creditsString];
 		}
     }
-    
+
     [self substitute: NSLocalizedString(@"Additional contributions by", @"Window text") in: creditsString];
-    
+
     e = [pgmCredits objectEnumerator];
     while (  (row = [e nextObject])  ) {
         NSString * name = [row objectAtIndex: 0];
@@ -540,9 +541,9 @@ extern TBUserDefaults * gTbDefaults;
 			[self substitute: role in: creditsString];
 		}
     }
-    
+
     [self substitute: NSLocalizedString(@"Translation by", @"Window text") in: creditsString];
-    
+
     e = [locCredits objectEnumerator];
 	NSString * previousName = nil;
     while (  (row = [e nextObject])  ) {
@@ -561,7 +562,7 @@ extern TBUserDefaults * gTbDefaults;
 			[self substitute: role in: creditsString];
 		}
     }
-    
+
 	[creditsString addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: NSMakeRange(0, [creditsString length])];
 	[creditsString addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [creditsString length])];
 
@@ -569,11 +570,11 @@ extern TBUserDefaults * gTbDefaults;
     NSDictionary * attributes = [NSDictionary dictionaryWithObject: NSRTFTextDocumentType forKey: NSDocumentTypeDocumentAttribute];
     NSData * rtfData = [creditsString RTFFromRange: NSMakeRange(0, [creditsString length])
                                 documentAttributes: attributes];
-    
+
     // Display the RTF
     [infoCreditSV setHasHorizontalScroller: NO];
     [infoCreditSV setHasVerticalScroller:   NO];
-    
+
     [infoCreditTV setEditable:              NO];
     [infoCreditTV replaceCharactersInRange: NSMakeRange( 0, 0 ) withRTF: rtfData];
 
@@ -584,7 +585,7 @@ extern TBUserDefaults * gTbDefaults;
 {
 	(void) view;
 	(void) identifier;
-	
+
     [scrollTimer invalidate];
     [self setScrollTimer: nil];
 }
@@ -593,13 +594,13 @@ extern TBUserDefaults * gTbDefaults;
 -(void) newViewDidAppear: (NSView *) view
 {
 	(void) view;
-	
+
     requestedPosition = 0.0;
     restartAtTop = YES;
     startTime = [NSDate timeIntervalSinceReferenceDate] + 2.0;  // Time between initial display and start of scrolling (but it also
                                                                 // takes time to scroll to the bottom of the display before moving the text)
     [infoCreditTV scrollPoint:NSMakePoint( 0.0, 0.0 )];
-    
+
     [scrollTimer invalidate];
     [self setScrollTimer: [NSTimer scheduledTimerWithTimeInterval: 0.03
                                                            target: self
@@ -613,28 +614,28 @@ extern TBUserDefaults * gTbDefaults;
 -(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
 {
     (void) identifier;
-    
+
     [self newViewDidAppear: view];
 }
 
 - (void)scrollCredits:(NSTimer *)timer
 {
 	(void) timer;
-    
+
     if (  lastPosition != [[infoCreditSV contentView] bounds].origin.y  ) {
         // Manual scroll has occurred. Pause the auto-scroll for at least a second.
         startTime = [NSDate timeIntervalSinceReferenceDate] + 1.0;
-        
+
         requestedPosition = lastPosition;
         restartAtTop = NO;
     }
-	
+
     if ([NSDate timeIntervalSinceReferenceDate] >= startTime) {
         if (  restartAtTop  ) {
             // Reset the startTime
             startTime = [NSDate timeIntervalSinceReferenceDate] + 1.0;  // Time to allow for fade in at top before scrolling
             restartAtTop = NO;
-            
+
             // Fade back in
             if (   [infoCreditSV respondsToSelector: @selector(animator)]
                 && [[infoCreditSV animator] respondsToSelector: @selector(setAlphaValue:)]  ) {
@@ -645,11 +646,11 @@ extern TBUserDefaults * gTbDefaults;
         } else if (  requestedPosition > [infoCreditTV bounds].size.height + 200.0  ) {
             // Reset the startTime
             startTime = [NSDate timeIntervalSinceReferenceDate] + 1.0;  // Time from fading out at end to fade in at top
-            
+
             // Reset the position
             requestedPosition = 0.0;
             restartAtTop = YES;
-            
+
             // Fade out quietly
             if (   [infoCreditSV respondsToSelector: @selector(animator)]
                 && [[infoCreditSV animator] respondsToSelector: @selector(setAlphaValue:)]  ) {
@@ -658,12 +659,12 @@ extern TBUserDefaults * gTbDefaults;
         } else {
             // Scroll to the position
             [infoCreditTV scrollPoint:NSMakePoint( 0.0, requestedPosition )];
-            
+
             // Increment the scroll position
             requestedPosition += 1.0;
         }
     }
-    
+
     lastPosition = [[infoCreditSV contentView] bounds].origin.y;
 }
 
