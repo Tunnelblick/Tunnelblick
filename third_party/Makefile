@@ -43,7 +43,7 @@ LZ4_TARGET_ARCHS = x86_64
 SPARKLE_NAME     = Sparkle-077c64419f9460263bad99ab24dff962a103b1e2
 
 OPENSSL_1_0_NAME = openssl-1.0.2u
-OPENSSL_1_1_NAME = openssl-1.1.1h
+OPENSSL_1_1_NAME = openssl-1.1.1i
 LIBRESSL_NAME	 = libressl-2.7.1
 
 PKCS11_NAME      = pkcs11-helper-1.26.0
