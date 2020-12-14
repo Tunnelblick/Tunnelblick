@@ -176,9 +176,6 @@
 "Only Me" = "Vain minulle";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Avaa asennuksen poisto-ohjeet selaimessa";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Avaa easy-rsa Päätteessä";
 
 /* Button */
@@ -287,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 -ikoni";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Poista Tunnelblick...";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Päivitä";
 
@@ -372,12 +372,6 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN-asetusten määrittämä lokitaso";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Ongelmia tulevien Tunnelblick versioiden kanssa";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Ongelmia tulevien macOS versioiden kanssa";
 
 /* Menu item */
 "Quit Tunnelblick" = "Lopeta Tunnelblick";
@@ -2295,9 +2289,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Vie Tunnelblick asetukset, sisältäen kaikki määritykset ja asetukset kaikille käyttäjille tässä tietokoneessa, pakattuna tiedostona työpöydälle.</p><ul><li>Avainnippuun tallennettuja käyttäjätunnuksia <strong>ei</strong> viedä.</li><li>Vienti voi kestää pidemmän ajan.</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Avaa selaimen ikkunaan ohjeet Tunnelblick:in kotisivulta Tunnelblick:in poistamiseksi.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Avaa lisäasetusten ikkunan.</p><p>Kaikki muutokset tulevat voimaan kaikissa kokoonpanoissa, jotka ovat valittuna 'VPN Yksityiskohdat' ikkunassa.</p>";

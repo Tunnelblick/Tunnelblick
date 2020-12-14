@@ -176,9 +176,6 @@
 "Only Me" = "나만";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "삭제 설명을 브라우저에서 열기";
-
-/* Button */
 "Open easy-rsa in Terminal" = "터미널에서 easy-rsa 열기";
 
 /* Button */
@@ -372,12 +369,6 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "구성에 의해 설정된 OpenVPN 로그 기록 레벨";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "미래 버전의 Tunnelblick 사용 문제";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "미래 버전의 macOS Tunnelblick 사용 문제";
 
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick 종료";
@@ -2133,9 +2124,6 @@
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>콘솔 로그의 마지막 부분을 클립보드로 복사해서 이메일 또는 다른 문서에 붙여넣을 수 있습니다.</p><p>로그는 Tunnelblick과 OpenVPN 운영의 세부 사항을 포함합니다. 일반 상태 메시지와 너무 길어서 일반 대화 상자에서 사용자에게 표현하기 힘든 세부 에러 메시지를 포함합니다.</p>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Tunnelblick를 제거하는 방법에 대한 정보를 포함하는 Tunnelblick 웹사이트 창을 엽니다.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>추가 설정을 위한 창을 엽니다.</p><p>변동사항은 'VPN 상세' 창에 선택된 모든 구성에 적용됩니다.</p>";

@@ -176,9 +176,6 @@
 "Only Me" = "只是我";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "在浏览器中打开卸载说明";
-
-/* Button */
 "Open easy-rsa in Terminal" = "在终端打开 Tunnelblick 的 easy-rsa 目录";
 
 /* Button */
@@ -287,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 图标";
 
+/* Button */
+"Uninstall Tunnelblick..." = "卸载 Tunnelblick";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "刷新";
 
@@ -374,10 +374,10 @@
 "OpenVPN logging level set by the configuration" = "由配置文件设置 OpenVPN 的日志等级";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "使用未来 Tunnelblick 版本时的问题";
+"Problem using future versions of Tunnelblick..." = "使用未来 Tunnelblick 版本时的问题";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "使用未来 macOS 版本时的问题";
+"Problem using future versions of macOS..." = "使用未来 macOS 版本时的问题";
 
 /* Menu item */
 "Quit Tunnelblick" = "退出 Tunnelblick";
@@ -1113,6 +1113,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "无法卸载 '%@' 配置文件，因为它就没被安装过";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "点击 \"OK\" 来断连所有 VPN，退出 Tunnelblick，然后对其进行重新安装。\n\n您可能需要等上几秒才能看见第一个卸载窗口。\n\n如果说您想要保留一份您的 VPN 配置和所有 Tunnelblick 配置的话，先取消此操作；在导出 Tunnelblick 布局后再尝试卸载。";
 
 /* Window text */
 "Computer sleep/wake" = "计算机睡眠/唤醒";
@@ -2287,6 +2290,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>检查Tunnelblick程序的更新。</p><p>详情请参考Tunnelblick网站中的<a href=\"https://tunnelblick.net/cPrivacy.html\">隐私和安全</a> [tunnelblick.net]。</p><p>如果你的VPN服务商实现了这个特性也请检查配置的更新。</p>";
 
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>点击来卸载 Tunnelblick 。</p>\n\n<p><strong>此动作已被禁用</strong>，如果 Tunnelblick 没有被安装到 “/应用程序” 文件夹下。</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>复制信息到剪贴板以帮助诊断问题。</p><p>这些信息中包含软件版本和设置，OpenVPN配置文件，网络设置等。</p><p>不会包含敏感的信息，但是诸如IP和URL等<em>可能</em>私密的信息将会被包含。您应该在通过电子邮件发送或公开发表它们之前仔细检查这些信息并移除任何您希望保持保密的信息。</p>";
 
@@ -2295,9 +2301,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>将 Tunnelblick 设置（包括此计算机的所有用户的所有配置和设置）导出到桌面上的一个压缩文件。</p><ul><li>保存在钥匙串中的用户验证信息（用户名/密码，或密钥等）<strong>不会</strong>导出。</li><li>这个导出过程可能需要很长时间。</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>打开浏览器查看Tunnelblick网站上关于卸载Tunnelblick的信息。</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>打开更多设置的窗口。</p><p>任何设置都会对‘VPN详情’ 窗口中选中的配置生效。</p>";

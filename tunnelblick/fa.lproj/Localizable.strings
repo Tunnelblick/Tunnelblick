@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "نصب";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "هر دو را نگه دار ";
+
 /* Button */
 "Latest (%@)" = "آخرین (%@)";
 
@@ -171,9 +174,6 @@
 
 /* Button */
 "Only Me" = "تنها من";
-
-/* Button */
-"Open Uninstall Instructions in Browser" = "باز کردن دستورالعمل حذف نرم افزار در مرورگر";
 
 /* Button */
 "Open easy-rsa in Terminal" = "باز کردن easy-rsa در پایانه";
@@ -257,6 +257,9 @@
 /* Button */
 "Standard icon" = "آیکون استاندارد";
 
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "توقف";
+
 /* Button */
 "Terminate All OpenVPN processes" = "خاتمه تمامی پردازه های OpenVPN";
 
@@ -296,6 +299,13 @@
 /* Menu item */
 "Connect %@%@" = "اتصال %@%@";
 
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "تنظیمات را در یک فولدر جدید کپی کن...";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "تنظیمات را در یک فولدر جدید کپی کن...";
+
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "پاک کردن اعتبارنامه پیکربندی از Keychain…";
 
@@ -322,6 +332,13 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "مشترک کردن پیکربندی…";
+
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "تنظیمات را به یک فولدر جدید منتقل کن...";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "تنظیمات را به یک فولدر جدید منتقل کن...";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "بدون واقع نگاری برای اپن وی‌پی‌ان یا تونل بلیکک وی‌پی‌ان";
@@ -370,6 +387,9 @@
 
 /* Menu item */
 "VPN Details..." = "جزییات VPN…";
+
+/* Menu item */
+"Warnings" = "اخطارها";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "پذیرفتن تغییرات جدید به تنظیمات دستی شبکه";
@@ -577,6 +597,9 @@
 
 /* Window title */
 "Add a Configuration" = "اضافه کردن پیکربندی";
+
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "تنظیمات پیشرفته%@";
 
 /* Window title */
 "Alert sounds" = "هشدار صوتی";
@@ -856,6 +879,9 @@
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' در حال حاضر روی میزکاری موجود است. \n\nآیا مایل به جایگزینی آن هستید؟";
+
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = "«%@» در حال حاظر وجود دارد.";
 
 /* Window text */
 "'%@' at line %u was not terminated properly" = "'%1$@' در خط %2$u به درستی پایان نیافته است";
@@ -1398,6 +1424,9 @@
 "Search domain:" = "جستجوی دامنه:";
 
 /* Window text */
+"Securing Tunnelblick..." = "ایمن سازی Tunnelblick…";
+
+/* Window text */
 "Select a target user for each user whose setup data you wish to import." = "برای هر کاربری که داده های تنظیمات آن را می‌خواهید وارد کنید، یک کاربر هدف انتخاب کنید.";
 
 /* Window text */
@@ -1408,6 +1437,9 @@
 
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "رونوشت کردن %@ ار قلم انداخته شد زیرا فایلی با همان نام و محتوا قبلا رونوشت شده است.";
+
+/* Window text in the splash screen */
+"Starting Tunnelblick..." = "آغاز کردن Tunnelblick…";
 
 /* Window text */
 "Startup window:" = "پنجره آغازین:";
@@ -1567,6 +1599,9 @@
 
 /* Window text */
 "Too many configuration files in '%@'" = "تعداد زیادی فایل پیکربندی در '%@'";
+
+/* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
+"Too many copies already exist." = "کپی های زیادی وجود دارد.";
 
 /* Window text */
 "Translation by" = "ترجمه شده توسط";

@@ -176,9 +176,6 @@
 "Only Me" = "Iba ja";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Otvoriť inštrukcie k odinštalovaniu v okne Internetového prehliadača";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Otvoriť easy-rsa v termináli";
 
 /* Button */
@@ -287,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Ikona Tunnelblick 3.3";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Odinštalovať Tunnelblick...";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Aktualizovať";
 
@@ -374,10 +374,10 @@
 "OpenVPN logging level set by the configuration" = "Úroveň logovania OpenVPN nastavená podľa konfigurácie";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Problém s používaním budúcich verzií Tunnelblicku";
+"Problem using future versions of Tunnelblick..." = "Problém s používaním budúcich verzií Tunnelblicku...";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Problém s používaním budúcich verzií macOS";
+"Problem using future versions of macOS..." = "Problém s používaním budúcich verzií macOS...";
 
 /* Menu item */
 "Quit Tunnelblick" = "Ukončiť Tunnelblick";
@@ -727,6 +727,14 @@
 /* Window title */
 "System Requirements Not Met" = "Systémové požiadavky programu neboli naplnené";
 
+/* A "test uninstall" failed.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "TEST ODINŠTALOVANIA TUNNELBLICKU ZLYHAL";
+
+/* A "test uninstall" succeeded.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TEST ODINŠTALOVANIA TUNNELBLICKU SA PODARIL";
+
 /* Window title */
 "Tunnelblick Configuration Problem" = "Chyba konfigurácie Tunnelblick";
 
@@ -741,6 +749,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Vyžaduje sa identifikačné slovo";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK FAILED" = "ODINŠTALOVANIE TUNNELBLICKU ZLYHALO";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "ODINŠTALOVANIE TUNNELBLICKU SA PODARILO";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Nepodarilo sa spustiť Tunnelblick";
@@ -2295,9 +2309,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exportovať nastavenia Tunnelbick do komprimovaného súboru na poloch, vrátane všetkych konfigurácií a nastavení všetkých uživateľov tohoto počítaša</p><ul><li>Údaje uložené v Keychain <strong>nebudú</strong> exportované.</li><li>Tento export si môže vyžiadať dlhší čas spracovania.</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Otvorí okno internetového prehliadača, obsahujúce informácie z Tunnelblick webovej stránky ohľadom odinštalovania Tunnelblicku.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Otvorí okno s ďalšími nastaveniami.</p><p>Akékoľvek zmeny budú aplikované na všetky konfigurácie zvolené v okne 'Detaily VPN'.</p>";

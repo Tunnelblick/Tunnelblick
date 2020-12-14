@@ -176,9 +176,6 @@
 "Only Me" = "Tikai man";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Atvērt atinstalēšanas instrukcijas pārlūkā";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Atvērt easy-rsa komandrindā";
 
 /* Button */
@@ -372,12 +369,6 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN žurnāla detalizācijas līmenis no konfigurācijas";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Nākotnes Tunnelblick versiju izmantošanas problēma";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Nākotnes macOS versiju izmantošanas problēma";
 
 /* Menu item */
 "Quit Tunnelblick" = "Aizvērt Tunnelblick";

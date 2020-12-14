@@ -176,9 +176,6 @@
 "Only Me" = "個人用";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "アンインストールの仕方をブラウザで表示する";
-
-/* Button */
 "Open easy-rsa in Terminal" = "ターミナルで easy-rsa を開く";
 
 /* Button */
@@ -287,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 アイコン";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Tunnelblickをアンインストールする…";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "アップデート";
 
@@ -374,10 +374,10 @@
 "OpenVPN logging level set by the configuration" = "OpenVPNの設定によるログレベル";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Tunnelblickを更新する際の問題";
+"Problem using future versions of Tunnelblick..." = "Tunnelblickを更新する際の問題…";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "macOSを更新する際の問題";
+"Problem using future versions of macOS..." = "macOSを更新する際の問題…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick を終了";
@@ -727,6 +727,14 @@
 /* Window title */
 "System Requirements Not Met" = "必要なシステムがありません";
 
+/* A "test uninstall" failed.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "Tunnelblickのアンインストールのテストに失敗しました";
+
+/* A "test uninstall" succeeded.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Tunnelblickのアンインストールのテストに成功しました";
+
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 接続先に問題があります";
 
@@ -741,6 +749,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: パスフレーズが必要です";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK FAILED" = "Tunnelblickのアンインストールに失敗しました";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Tunnelblickのアンインストールに成功しました";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Tunnelblick を起動することができません";
@@ -1113,6 +1127,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "設定 %@ はインストールされてないから削除できないです";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "「OK」をクリックすると、全てのVPNが切断され、Tunnelblickが終了し、Tunnelblickのアンインストールが始まります。\n\nアンインストールのウィンドウが表示されるまでに数秒かかることがあります。\n\nもし、VPNとTunnelblickの設定全てのコピーを保存しておきたいときには、一旦「キャンセル」をクリックし、先に「Tunnelblick設定をエクスポート」してください。\n";
 
 /* Window text */
 "Computer sleep/wake" = "コンピューターのスリープ後／復帰後";
@@ -2216,9 +2233,6 @@
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>問題解決のための診断情報をクリップボードにコピーします。</p><p>その情報には、ソフトウェアのバージョンと設定、OpenVPN設定ファイル、ネットワーク設定などを含みます。</p><p>また、認証情報は含みませんがIPアドレスやURLなど秘密<em>かもしれない</em>情報は含みます。この情報をメールで送信したり公開情報として投稿したりする前には、内容をチェックして秘密にしておきたい情報は削除してください。</p>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p> OpenVPNをアンインストールする方法を案内するページをウェブブラウザで開く </p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>追加設定の画面を新しいウィンドウで開きます。</p><p>「VPN の詳細…」ウィンドウで選択した全ての接続先に変更が適用されます。</p>";

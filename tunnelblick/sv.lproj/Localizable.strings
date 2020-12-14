@@ -176,9 +176,6 @@
 "Only Me" = "Bara jag";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Visa intruktioner för avinstallation i webbläsaren";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Öppna easy-rsa i Terminal";
 
 /* Button */
@@ -287,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikon";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Radera Tunnelblick";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Uppdatera";
 
@@ -374,10 +374,10 @@
 "OpenVPN logging level set by the configuration" = "OpenVPN loggnivå bestäms via konfigurationen";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Problem med att använda framtida versioner av Tunnelblick";
+"Problem using future versions of Tunnelblick..." = "Problem med att använda framtida versioner av Tunnelblick";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Problem med att använda framtida versioner av macOS";
+"Problem using future versions of macOS..." = "Problem med att använda framtida versioner av macOS";
 
 /* Menu item */
 "Quit Tunnelblick" = "Avsluta Tunnelblick";
@@ -425,7 +425,7 @@
 "Check if the apparent public IP address changed after connecting" = "Kontrollera om den synliga IP-adressen har förändrats";
 
 /* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6" = "Inaktivera IPv6 om inte VPN-servern ansluts via IPv6 (gäller endast tun)";
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Inaktivera IPv6 om inte VPN-servern ansluts via IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Koppla bort när datorn försätts i vila";
@@ -494,7 +494,7 @@
 "Reconnect when user switches in" = "Återanslut när användare byter tillbaka";
 
 /* Checkbox name */
-"Require administrator authorization to install all configurations" = "Bergär verifikation av en administratör för att installera alla konfigurationer";
+"Require administrator authorization to install all configurations" = "Begär verifikation av en administratör för att installera alla konfigurationer";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Vidarebefordra alla IPv4-trafik genom VPN";
@@ -727,6 +727,14 @@
 /* Window title */
 "System Requirements Not Met" = "Systemkrav uppfylls ej";
 
+/* A "test uninstall" failed.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "Försöket att avinstallera Tunnelblick misslyckades";
+
+/* A "test uninstall" succeeded.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Försöket att avinstallera Tunnelblick lyckades";
+
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblickkonfigurationsproblem";
 
@@ -741,6 +749,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Lösenordsfras krävs";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK FAILED" = "Avinstallation av Tunnelblick kunde inte genomföras";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Avinstallation av Tunnelblick slutförd";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Kunde inte starta Tunnelblick";
@@ -1113,6 +1127,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Kan inte avinstallera konfiguration \"%@\" eftersom den inte är installerad.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Klicka \"OK\" för att koppla ned alla anslutningar, avsluta Tunnelblick, och påbörja avinstallationen.\n\nDet kan ta några sekunder innan fönstret öppnas.\n\nOm du vill spara en kopia av din VPN-konfiguration och alla inställningar, tryck \"Avbryt\" och exportera först alla inställningar.";
 
 /* Window text */
 "Computer sleep/wake" = "När datorn vilar/vaknar";
@@ -2287,6 +2304,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Sök efter uppdateringar till Tunnelblick-applikationen.</p><p>Ansluter till Tunnelblicks hemsida; för mer information se <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Söker också efter uppdateringar till konfigurationer om din VPN-leverantör erbjuder denna tjänst.</p>";
 
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klicka för att avinstallera Tunnelblick.</p>\n\n<p><strong>Ej tillgängligt</strong> om Tunnelblick inte är installerat i /Applications.</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopierar information till Utklippshanteraren för att underlätta felsökning av problem.</p><p>Informationen inkluderar versioner av mjukvara, inställningar, konfigurationsfilen för OpenVPN, nätverksinställningar och annat.</p><p>Känslig information om certifikat inkluderas inte, men data som IP-adresser och URL: er som <em>kan</em> vara konfidentiella inkluderas. Du bör gå igenom informationen och ta bort allt som du vill hålla hemligt innan du skickar den per e-post eller postar den offentligt.</p>";
 
@@ -2295,9 +2315,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exporterar Tunnelblick-inställningen, inklusive alla konfigurationer och inställningar för samtliga användare av den här datorn, till en komprimerad fil på skrivbordet.</p><ul><li>Användaruppgifter som har sparats i nyckelhanteraren har <strong>not</strong> exporterats.</li><li>Exporten kan ta lång tid.</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Öppnar ett webbläsarfönster med information från Tunnelblicks hemsida om avinstallation av Tunnelblick.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Öppnar ett fönster med ytterligare inställningar.</p><p>Alla ändringar görs på alla konfigurationer som är valda i fönstret 'VPN-detaljer'.</p>";

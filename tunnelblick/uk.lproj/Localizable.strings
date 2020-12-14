@@ -176,9 +176,6 @@
 "Only Me" = "Тільки Я";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Відкрити інструкцію з деінсталяції у браузері";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Відкрити easy-rsa в терміналі";
 
 /* Button */
@@ -372,12 +369,6 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Рівень звітності OpenVPN встановлено конфігурацією";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Можливі проблеми з використанням в наступних версіях Tunnelblick";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Можливі проблеми з використанням в наступних версіях macOS";
 
 /* Menu item */
 "Quit Tunnelblick" = "Вийти з Tunnelblick";
@@ -2295,9 +2286,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Екпортує налаштування Tunnelblick, включно із конфігураціями та налаштуваннями для всіх користувачів цього комп'ютера, в запакований файл на Робочий стіл.</p><ul><li>Облікові данні, які зберігаються в Ключарі <strong>не</strong> експортуються.</li><li>Експортування може зайняти істотний час.</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Відкриває вікно браузера на сайті Tunnelblick з інформацією про видалення програми.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Відкриває вікно з додатковими налаштуваннями.</p><p>Будь-які зміни буде застосовано до всіх конфигурацій, що відмічені у вікні 'Деталі VPN'.</p>";

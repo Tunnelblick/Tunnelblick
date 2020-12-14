@@ -176,9 +176,6 @@
 "Only Me" = "Samo za mene";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Otvori uputstvo za uklanjanje u veb pregledaču";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Otvori easy-rsa alat u konzoli";
 
 /* Button */
@@ -372,12 +369,6 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN nivo ispisivanja logova definisan u konfiguraciji";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Problem sa korišćenjem budućih verzija Tunnelblick-a";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Problem sa korišćenjem budućih verzija macOS-a";
 
 /* Menu item */
 "Quit Tunnelblick" = "Ugasi Tunnelblick";
@@ -2295,9 +2286,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Vrši izvoz Tunnelblick podešavanja u vidu kompresovane datoteke na vašem Desktop-u, i uključuje sve konfiguracije i podešavanja za sve korisnike ovog računara.</p><ul><li>Kredencijali koji se nalaze u Keychain servisu <strong>neće</strong> biti izveženi.</li><li>Izvoz podataka može dugo da potraje.</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Otvara veb-pregledač koji sadrži informacije na Tunnelblick-ovom sajtu oko deinstalacije Tunnelblick-a.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Otvara prozor sa dodatnim podešavanjima.</p><p>Bilo koje promene će se primeniti na sve konfiguracije koje su odabrane u \"VPN Detalji\" prozoru.</p>";

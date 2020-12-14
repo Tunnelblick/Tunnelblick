@@ -176,9 +176,6 @@
 "Only Me" = "只有我";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "在瀏覽器中開啟移除說明";
-
-/* Button */
 "Open easy-rsa in Terminal" = "在終端機中開啟 easy-rsa";
 
 /* Button */
@@ -287,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 圖示";
 
+/* Button */
+"Uninstall Tunnelblick..." = "解除安裝 Tunnelblick...";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "更新";
 
@@ -374,10 +374,10 @@
 "OpenVPN logging level set by the configuration" = "OpenVPN 日誌等級依設定檔";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "使用未來版本 Tunnelblick 的問題";
+"Problem using future versions of Tunnelblick..." = "使用未來版本 Tunnelblick 的問題...";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "使用未來版本 macOS 的問題";
+"Problem using future versions of macOS..." = "使用未來版本 macOS 的問題...";
 
 /* Menu item */
 "Quit Tunnelblick" = "結束 Tunnelblick";
@@ -727,6 +727,14 @@
 /* Window title */
 "System Requirements Not Met" = "未能滿足系統需求";
 
+/* A "test uninstall" failed.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "測試解除安裝 Tunnelblick 失敗";
+
+/* A "test uninstall" succeeded.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "測試解除安裝 Tunnelblick 成功";
+
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 設定錯誤";
 
@@ -741,6 +749,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick：需要密匙";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK FAILED" = "解除安裝 Tunnelblick 失敗";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "解除安裝 Tunnelblick 成功";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "未能啟動 Tunnelblick";
@@ -1113,6 +1127,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "由於它未被安裝，無法移除「%@」配置";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "點擊 \"確定\" 以中斷所有 VPN 連線，退出 Tunnelblick，並開始解除安裝。\n\n在第一個解除安裝視窗出現前可能會有數秒鐘的延遲。\n\n如果您希望保存一份 VPN 設定以及所有的 Tunnelblick 設定，點擊 \"取消\" 並先匯出 Tunnelblick 安裝設定。";
 
 /* Window text */
 "Computer sleep/wake" = "電腦睡眠/喚醒";
@@ -2287,6 +2304,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>檢查Tunnelblick應用程式的更新。</p><p>詳情請參考Tunnelblick網站中的<a href=\"https://tunnelblick.net/cPrivacy.html\">隱私和安全</a> [tunnelblick.net]。</p><p>如果你的VPN服務供應商實現了這個特徵，也检查配置的更新。</p>";
 
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>點擊以解除安裝 Tunnelblick。</p>\n\n<p>如果 Tunnelblick 並非被安裝在 /Applications 將<strong>被停用</strong> 。</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>複製有助診斷問題的訊息到剪貼簿。</p><p>該訊息包括軟體版本與選項、OpenVPN 設定檔、網路選項…等等。</p><p>敏感的的憑證訊息不會包含在內，但是<em>也許</em>會包含一些機密的訊息：例如 IP 位址和網址。你應該在寄送電子郵件或公開發佈前檢查這個訊息，並去除需要保密的部分。</p>";
 
@@ -2295,9 +2315,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>匯出 Tunnelblick 安裝（包含所有設定檔及這台電腦所有使用者的設定）到桌面上的一個壓縮檔。</p><ul><li>鑰匙圈存取中的資料將<strong>不會</strong>被匯出。</li><li>匯出可能需要一段時間。</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>打開瀏覽器視窗，來瀏覽 Tunnelblick 上的關於解除安裝 Tunnelblick。</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>打開額外設定的視窗。</p><p>任何變更將會套用到在「VPN 詳情」視窗中所選擇的設定。</p>";

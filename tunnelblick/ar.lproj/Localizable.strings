@@ -176,9 +176,6 @@
 "Only Me" = "أنا فقط";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "فتح تعليمات ازالة التثبيت في المتصفح";
-
-/* Button */
 "Open easy-rsa in Terminal" = "فتح easy-rsa في نافذة طرفية";
 
 /* Button */
@@ -394,6 +391,9 @@
 /* Menu item */
 "VPN Details..." = "تفاصيل شبكة VPN...";
 
+/* Menu item */
+"Warnings" = "التحذيرات";
+
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "السماح بالتغييرات لتعيين اعدادات الشبكة بشكل يدوي";
 
@@ -483,6 +483,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "إعادة الاتصال عند تبديل المستخدم";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "يتطلب صلاحيات إدارية لتثبيت جميع الإعدادات";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "تحويل حركة سير المعلومات عبر الشبكة الخاصة الافتراضية VPN";
@@ -606,6 +609,9 @@
 
 /* Window title */
 "Add a Configuration" = "اضف إعداد";
+
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "إعدادات متقدمة";
 
 /* Window title */
 "Alert sounds" = "تنبيه صوتي";
@@ -784,6 +790,12 @@
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     تم تحميل الاعداد الاول";
 
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "تم تثبيت أو إستبدال %lu الإعدادات الآمنة";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = "تم تثبيت أو إستبدال أحد الإعدادات الآمنة";
+
 /* Window text */
 "     • No DNS servers have been specified.\n\n" = "     • لم يتم تحديد خوادم DNS.\n\n";
 
@@ -877,6 +889,9 @@
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " تحذير: لقد تم  التلاعب فى هذه النسخة من  تُنلـبليك";
 
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (ليس Tunnelblick)";
+
 /* Window text */
 "%@ exists but is not a folder" = "%@  موجود ولكنه ليس مجلد";
 
@@ -891,6 +906,9 @@
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' موجود مسبقا على سطح المكتب.\nهل ترغب في استبداله؟";
+
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = "'%@' موجود مسبقا";
 
 /* Window text. %@ is the name of a file. */
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "%@  يبدو انه ملف مشفر بطريقة UTF-16. جميع الملفات المتعلقة ب OpenVPN يجب ان تكون ملفات نص عادي -plain text- او UTF-8";
@@ -1005,6 +1023,9 @@
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "حدث خطأ أثناء محاولة العودة إلى المضمون (نسخة الظل) . اطلع على وحدة التحكم للحصول على المزيد من التفاصيل.\n\n";
+
+/* Window text */
+"An error occurred. Please try again." = "حدث خطأ، حاول مرة أخرى";
 
 /* Window text */
 "An error occurred. See the Console Log for details." = "حدث خطا.";
@@ -1645,6 +1666,9 @@
 /* Window text */
 "Too many configuration files in '%@'" = "العديد من ملفات الإعدادات في \"%@\"";
 
+/* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
+"Too many copies already exist." = "توجد عدة نسخ";
+
 /* Window text */
 "Translation by" = "تمت الترجمة من قبل ";
 
@@ -1706,6 +1730,9 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "تعذر اصلاح خطأ في الخيارات لـ ‘%@‘. راجع السجل للتفاصيل";
 
 /* Window text */
+"Tunnelblick has been secured." = "Tunnelblick آمن";
+
+/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "قام تُنلـبليك بقطع الاتصال عن ‎'%@'‎ لأن ملف الاعدادات الخاص به قد تمت إزالته.";
 
 /* Window text */
@@ -1713,6 +1740,9 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "تُنلـبليك قيد التشغيل. سيتم إغلاقه قبل الإستمرار.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick جاهز";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "تُنلـبليك بحاجة لإذن لكي يتمكن من نسخ الإعداد ‎'%@'‎.";
@@ -2122,9 +2152,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>قم بتصدير إعدادات تُنلـبليك ، بما في ذلك كافة التكوينات والإعدادات لجميع مستخدمي هذا الكمبيوتر ، إلى ملف مضغوط على سطح المكتب.</p><ul><li>بيانات الاعتماد المحفوظة في Keychain <strong>لا</strong> يتم تصديرها.</li><li>قد يستغرق التصدير وقتًا طويلاً.</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>يقوم بفتح صفحة موقع برنامج Tunnelblick في متصفح الانترنت تحتوي على معلومات عن طريقة إلغاء تثبيت البرنامج.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>يقوم هذا الزر بفتح نافذة تحوي إعدادات إضافية.</p><p>أي تغييرات هنا سيتم تطبيقها على كل الإعدادات التي تم اختيارها في نافذة \"تفاصيل ال VPN \".</p>";

@@ -176,9 +176,6 @@
 "Only Me" = "Somente Eu";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Abrir as Instruções de Desinstalação no Navegador";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Abrir easy-rsa no Terminal";
 
 /* Button */
@@ -287,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Ícone do Tunnelblick 3.3";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Desinstalar Tunnelblick…";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Atualizar";
 
@@ -374,10 +374,10 @@
 "OpenVPN logging level set by the configuration" = "Nível do registro OpenVPN definido pela configuração";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Problema ao utilizar versões futuras do Tunnelblick";
+"Problem using future versions of Tunnelblick..." = "Problema ao utilizar versões futuras do Tunnelblick…";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Problema ao utilizar versões futuras do macOS";
+"Problem using future versions of macOS..." = "Problema ao utilizar versões futuras do macOS…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Encerrar o Tunnelblick";
@@ -727,6 +727,14 @@
 /* Window title */
 "System Requirements Not Met" = "Requisitos de Sistema Não São Suficientes";
 
+/* A "test uninstall" failed.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "TESTE DE DESINSTALAÇÃO DO TUNNELBLICK FALHOU";
+
+/* A "test uninstall" succeeded.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TESTE DE DESINSTALAÇÃO DO TUNNELBLICK DEU CERTO";
+
 /* Window title */
 "Tunnelblick Configuration Problem" = "Problema de Configuração do Tunnelblick";
 
@@ -741,6 +749,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Frase-senha Exigida";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK FAILED" = "DESINSTALAÇÃO DO TUNNELBLICK FALHOU";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "DESINSTALAÇÃO DO TUNNELBLICK DEU CERTO";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Não é possível iniciar o Tunnelblick";
@@ -827,7 +841,7 @@
 "    • Install one configuration\n" = "    • Instalar uma configuração\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    Configurações \"seguras\" instaladas ou substituídas %lu (não precisam de autorização do administrador)\n\n";
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    • Instale ou substitua %lu configurações \"seguras\" (não é necessária a autorização do administrador)\n\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "    Configuração \"segura\" instalada ou substituída %lu (não precisa de autorização do administrador)\n";
@@ -1113,6 +1127,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Não é possível desinstalar a configuração ' %@' porque a mesma não está instalada.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Clique em \"OK\" para desconectar todas as VPNs, sair do Tunnelblick e começar a sua desinstalação.\n\nPode existir um atraso de alguns segundos até que a primeira janela de desinstalação apareça.\n\nSe você quiser salvar uma cópia das suas configurações de VPN e todas as configurações do Tunnelblick, clique em \"Cancelar\" e exporte as configurações do Tunnelblick primeiro.\n\n";
 
 /* Window text */
 "Computer sleep/wake" = "Computador repouso/acordar";
@@ -2144,7 +2161,7 @@
 " • '%@' was deprecated in OpenVPN %@ and has been or may be removed in a later version\n\n" = " '%1$@' foi descontinuada no OpenVPN %2$@ e já foi ou será removida em uma versão futura\n\n";
 
 /* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
-" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • A opção '%1$@' foi descontinuada na versão %2$@ da OpenVPN e removida na versão %3$@\n\n";
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • A opção '%1$@' foi descontinuada e removida na versão %2$@, %3$@ da OpenVPN\n\n";
 
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
@@ -2237,7 +2254,7 @@
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Quando marcada</strong>, configurações que estão dentro de pastas serão exibidas em submenus do menu do Tunnelblick.</p>\n<p><strong>Quando não marcada</strong>, configurações que estão dentro de pastas serão exibidas no menu do Tunnelblick.</p>";
 
 /* HTML info for the 'Keep connected' checkbox. */
-"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong>Quando marcado</strong>, se o OpenVPN fechar inesperadamente (erros), o Tunnelblick tentará conectar automaticamente a VPN novamente.</p>\n<p><strong>Quando não marcado</strong>, Tunnelblick não tentará conectar a VPN se o OpenVPN fechar inesperadamente.</p>";
+"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong>Quando marcado</strong>, se o OpenVPN fechar inesperadamente (erros), o Tunnelblick tentará conectar automaticamente a VPN novamente.</p>\n<p><strong>Quando não marcado</strong>, o Tunnelblick não tentará conectar a VPN se o OpenVPN fechar inesperadamente.</p>";
 
 /* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Quando selecionado</strong>, configurações de rede que foram feitas manualmente podem ser alteradas quando a VPN se conecta. Somente acontecerá se as alterações forem especificadas por opções no arquivo de configuração do OpenVPN ou do servidor OpenVPN.</p>\n<p><strong>Quando não selecionado</strong>, configurações de rede que foram feitas manualmente não serão alteradas quando a VPN se conecta.</p>";
@@ -2287,6 +2304,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Procura por atualizações do aplicativo Tunnelblick.</p><p>Acessa o site do Tunnelblick; para mais detalhes veja <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacidade e Segurança</a> [tunnelblick.net].</p><p>Também procura atualizações das configurações se o seu provedor de serviço VPN implementar esta funcionalidade.</p>";
 
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Clique para desinstalar o Tunnelblick.</p>\n\n<p><strong>Desabilitado</strong> se o Tunnelblick não estiver instalado em /Aplicativos.</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Copiar informações para a Área de Transferência para ajudar a diagnosticar problemas.</p><p>As informações incluem versões de software e configurações, o arquivo de configuração do OpenVPN, configurações de rede e mais.</p><p>Informações sensíveis como certificado não estão inclusas, mas dados como endereços IP e URLs que <em>podem</em>podem informações confidenciais estão inclusas. Você deve examinar as informações e remover qualquer coisa que deseja manter seguro antes de enviá-las por e-mail ou postá-las publicamente.</p>";
 
@@ -2295,9 +2315,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exporta a configuração do Tunnelblick, incluindo todas as configurações e ajustes para todos os usuários deste computador, para um arquivo comprimido na Mesa.</p><ul><li>Credenciais salvas no Acesso à Chaves <strong>não</strong> serão exportadas.</li><li>A exportação pode levar um bom tempo.</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Abre uma janela do navegador contendo informações no website do Tunnelblick sobre como desinstalar o Tunnelblick.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Abre uma janela com configurações adicionais.</p><p>Qualquer mudança será aplicada para todas as configurações que estão selecionadas na janela 'Detalhes VPN'.</p>";
@@ -2312,7 +2329,7 @@
 "<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Veja <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick no macOS 11 Big Sur</a> [tunnelblick.net] para mais informações.</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Veja <a href=\"https://tunnelblick.net/cTunTapConnections.html\">O Futuro das VPNs Tun e Tap no macOS</a> [tunnelblick.net] para mais informações.</p>\n";
+"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Veja <a href=\"https://tunnelblick.net/cTunTapConnections.html\">O Futuro das Tun e Tap VPNs no macOS</a> [tunnelblick.net] para mais informações.</p>\n";
 
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Especifica o tamanho dos logs gerados pelo Tunnelblick e OpenVPN.</p>";
@@ -2345,10 +2362,10 @@
 "<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "<p>A extensão de sistema não pode ser carregada porque você informou ao macOS para não permitir que o Tunnelblick carregue sua extensão de sistema 'tap', que são assinadas pelo desenvolvedor 'Jonathan Bullard'.</p>";
 
 /* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
-"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>" = "<p>A extensão de sistema não pode ser carregada porque você informou ao macOS para não permitir que o Tunnelblick carregue sua extensão de sistema 'tun', que são assinadas pelo desenvolvedor 'Jonathan Bullard'. Você deve modificar suas configurações do Tunnelblick e/ou seu arquivo de configuração OpenVPN para que o Tunnelblick não precise carregar suas extensões de sistema 'tun', após isso você deverá poder se conectar.</p>";
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>" = "<p>A extensão de sistema não pode ser carregada porque você informou ao macOS para não permitir que o Tunnelblick carregue sua extensão de sistema 'tun', que são assinadas pelo desenvolvedor 'Jonathan Bullard'. Você deve modificar suas configurações do Tunnelblick e/ou seu arquivo de configuração OpenVPN para que o Tunnelblick não precise carregar suas extensões de sistema 'tun', após isso você poderá se conectar.</p>";
 
 /* HTML text. */
-"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'. You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>" = "<p>Para permitir que o Tunnelblick instale suas extensões de sistema, você precisa permitir o carregamento de software de sistema do desenvolvedor  'Jonathan Bullard'. Você pode fazer isso através da aba 'Geral'  de 'Segurança & Privacidade' em 'Preferências do Sistema'.</p>";
+"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'. You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>" = "<p>Para permitir que o Tunnelblick instale suas extensões de sistema, você precisa permitir o carregamento de software de sistema do desenvolvedor  'Jonathan Bullard'. Você pode fazer isso através da aba 'Geral' de 'Segurança & Privacidade' em 'Preferências do Sistema'.</p>";
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>O Tunnelblick incluiu uma versão personalizada do 'easy-rsa', que é um conjunto de linhas de comando de rotinas escritas pelos desenvolvedores do OpenVPN para criar e manter certificados e chaves.</p><p>Ao clicar neste botão é iniciado a aplicativo Terminal do macOS com o diretório de trabalho configurado para a pasta contendo das rotinas.</p><p>As rotinas estão normalmente localizadas na pasta em ~/Library/Application Support/Tunnelblick/easy-rsa. Uma preferência 'easy-rsaPath' pode conter o caminho para uma pasta que o Tunnelblick utilizará alternativamente. 'easy-rsaPath' deve ser um caminho absoluto ou iniciar com um '~', e a pasta parente do caminho deve existir. Se a pasta existir no caminho, ela será utilizada; se não existir, ela será criada e as rotinas easy-rsa serão instaladas nela quando o Tunnelblick for iniciado.</p><p>Para informações sobre a utilização do easy-rsa, veja <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Configurando sua própria Autoridade Certificadora (CA) e gerando certificados e chaves para um servidor e múltiplos clientes OpenVPN</a> [openvpn.net].</p><p>Para detalhes das personalizações do easy-rsa do Tunnelblick, veja o arquivo README localizado na pasta.</p>";
@@ -2369,7 +2386,7 @@
 "Arabic translation" = "Tradução para Árabe";
 
 /* Toolbar text for 'Lock' item */
-"Authorizing..." = "Autorizando";
+"Authorizing..." = "Autorizando…";
 
 /* Credit description */
 "Azerbaijani translation" = "Tradução para Azerbaijano";

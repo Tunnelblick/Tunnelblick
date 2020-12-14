@@ -176,9 +176,6 @@
 "Only Me" = "Hanya Saya";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Buka Instruksi Pencopotan dalam Peramban";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Buka easy-rsa pada Terminal";
 
 /* Button */
@@ -372,12 +369,6 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Tingkat log OpenVPN yang ditata oleh konfigurasi";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Masalah saat memakai versi mendatang dari Tunneliblick";
-
-/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Masalah saat memakai versi mendatang dari macOS";
 
 /* Menu item */
 "Quit Tunnelblick" = "Keluar Tunnelblick";
@@ -2295,9 +2286,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Ekspor pengaturan Tunnelblick, termasuk semua konfigurasi dan pengaturan bagi semua pengguna pada komputer ini, ke sebuah berkas terkompresi pada Desktop.</p><ul><li>Kredensial yang disimpan dalam Rantai Kunci <strong>tidak</strong> diekspor.</li><li>Ekspor mungkin memakan waktu lama.</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Membuka suatu jendela peramban yang memuat informasi pada situs web Tunnelblick tentang membongkar Tunnelblick.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Membuka suat jendela dengan pengaturan tambahan.</p><p>Sebarang perubahan akan diterapkan pada semua konfigurasi yang dipilih dalam jendela 'Rincian VPN'.</p>";

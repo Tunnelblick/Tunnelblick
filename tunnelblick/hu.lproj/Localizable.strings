@@ -176,9 +176,6 @@
 "Only Me" = "Csak én";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Eltávolításhoz szükséges információk megnyitása a böngészőben";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Easy-rsa megnyitása a Terminalban";
 
 /* Button */
@@ -287,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick v3.3 ikon";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Tunnelblick eltávolítása…";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Frissítés";
 
@@ -374,10 +374,10 @@
 "OpenVPN logging level set by the configuration" = "OpenVPN naplózási szint a konfiguráció alapján beállítva";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Probléma a Tunnelblick jövőbeli verzióinak használatában";
+"Problem using future versions of Tunnelblick..." = "Probléma a Tunnelblick jövőbeli verzióinak használatában…";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Probléma a macOS jövőbeli verzióinak használatában";
+"Problem using future versions of macOS..." = "Probléma a macOS jövőbeli verzióinak használatában…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Kilépés a Tunnelblick-ből";
@@ -727,6 +727,14 @@
 /* Window title */
 "System Requirements Not Met" = "A rendszerkövetelmények nem teljesültek";
 
+/* A "test uninstall" failed.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "A TUNNELBLICK ELTÁVOLÍTÁSÁNAK TESZTJE MEGHIÚSULT";
+
+/* A "test uninstall" succeeded.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "A TUNNELBLICK ELTÁVOLÍTÁSÁNAK TESZTJE SIKERES VOLT";
+
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick konfigurációs probléma";
 
@@ -741,6 +749,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: jelmondat szükséges";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK FAILED" = "A TUNNELBLICK ELTÁVOLÍTÁSA MEGHIÚSULT";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "A TUNNELBLICK SIKERESEN ELTÁVOLÍTÁSRA KERÜLT";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Nem indítható a Tunnelblick";
@@ -1113,6 +1127,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "A(z) '%@' nem távolítható el, mert nem is lett telepítve.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Kattintson az \"OK\"-re az összes VPN-ről történő lecsatlakozáshoz, a Tunnelblick-ből való kilépéshez és az eltávolítás megkezdéséhez.\n\nPár másodperc késedelem lehetséges, amíg az első eltávolító ablak megjelenik.\n\nAmennyiben szeretne menteni egy másolatot a VPN konfigurációiból és a Tunnelblick beállításaiból, kattintson a \"Mégse\" gombra és először exportálja a Tunnelblick beállításait.";
 
 /* Window text */
 "Computer sleep/wake" = "Számítógép elalvása/felébredése";
@@ -2287,6 +2304,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Ellenőrzi a frissítéseket a Tunnelblick alkalmazáshoz. </p><p> Hozzáférést biztosít a Tunnelblick honlapján; További részleteket lásd <a href=\"https://tunnelblick.net/cPrivacy.html\"> adatvédelem és biztonság </a> [tunnelblick.net]. </p><p> ellenőrzi a frissítéseket a konfigurációkhoz ha a VPN szolgáltató alkalmazza ezt a funkciót. </p>";
 
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Kattintson ide a Tunnelblick eltávolításához.</p>\n\n<p><strong>Inaktív</strong>, amennyiben a Tunnelblick nem az /Alkalmazások mappában került telepítésre</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Információk másolása a vágólapra a probléma diagnosztizálásának segítéséhez.</p><p>Az információ tartalmazza a software verzióját és beállításait, az OpenVPN konfigurációs fájlt, hálózati beállításokat stb.</p><p>Érzékeny tanúsítvány információkat nem tartalmaz, de IP címeket és URL-eket, amik <em>esetlegesen</em> bizalmas adatok, tartalmazhat. Mielőtt elküldi e-mailben, vagy nyilvánossá teszi, át kell néznie és törölnie azokat, amiket titokban kíván tartani.</p>";
 
@@ -2295,9 +2315,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Egy tömörített fájlba exportálja a Tunnelblick beállításait az Asztalra, beleértve az összes konfigurációt és ezen számítógép összes felhasználójának beállításait. </p><ul><li>A Kulcskarikában tárolt Hitelesítő adatok <strong>nem</strong> kerülnek exportálásra.</li><li>Ez a művelet hosszabb időt vehet igénybe.</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Megnyitja a böngésző ablakot a Tunnelblick honlapján, amelyik információkat tartalmaz a Tunnelblick eltávolításáról.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Megnyitja az ablakot a további beállításokkal. </p><p> Minden módosítás vonatkozik mindegyik konfigurációra ami be van jelölve a \"VPN részletei\" ablakban.</p>";

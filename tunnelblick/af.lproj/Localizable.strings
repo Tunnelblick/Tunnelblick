@@ -176,9 +176,6 @@
 "Only Me" = "Slegs Ek";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Beopen Verwyder Instruksies in Blaaier";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Beopen easy-rsa in Terminal";
 
 /* Button */
@@ -287,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikoon";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Deïnstalleer Tunnelblick…";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Opdateer";
 
@@ -304,7 +304,7 @@
 
 /* Menu item
    Menu Item */
-"Copy Configuration into a New Folder..." = "Kopieer konfigurasie in 'n nuwe gids...";
+"Copy Configuration into a New Folder..." = "Kopieer konfigurasie in 'n nuwe gids…";
 
 /* Menu item */
 "Copy Configurations into a New Folder..." = "Kopieer konfigurasies in 'n nuwe gids…";
@@ -338,10 +338,10 @@
 
 /* Menu item
    Menu Item */
-"Move Configuration into a New Folder..." = "Skuif konfigurasie in 'n nuwe gids...";
+"Move Configuration into a New Folder..." = "Skuif konfigurasie in 'n nuwe gids…";
 
 /* Menu item */
-"Move Configurations into a New Folder..." = "Skakel konfigurasies in 'n nuwe gids...";
+"Move Configurations into a New Folder..." = "Skakel konfigurasies in 'n nuwe gids…";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "Geen OpenVPN of Tunnelblick Skynprivaatnetwerk melding";
@@ -374,10 +374,10 @@
 "OpenVPN logging level set by the configuration" = "OpenVPN meldingsvlak gestel deur die konfigurasie";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Probleem met die gebruik van toekomstige weergawes van Tunnelblick";
+"Problem using future versions of Tunnelblick..." = "Probleem met die gebruik van toekomstige weergawes van Tunnelblick…";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Probleem met die gebruik van toekomstige weergawes van macOS";
+"Problem using future versions of macOS..." = "Probleem met die gebruik van toekomstige weergawes van macOS…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Sluit Tunnelblick Af";
@@ -401,7 +401,7 @@
 "VPN Details..." = "VPN Besonderhede…";
 
 /* Menu item */
-"Warnings" = "waarskuwings";
+"Warnings" = "Waarskuwings";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Laat veranderinge toe in handgestelde netwerkstellings";
@@ -727,6 +727,14 @@
 /* Window title */
 "System Requirements Not Met" = "Stelselvereistes nie bereik";
 
+/* A "test uninstall" failed.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "TOETS VAN ONINSTALLEERING VAN TUNNELBLICK MISLUK";
+
+/* A "test uninstall" succeeded.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TOETS VAN ONINSTALLEER VAN TUNNELBLICK SUKSES";
+
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick opset probleem";
 
@@ -741,6 +749,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Wagwoord benodig";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK FAILED" = "ONTSTEL VAN TUNNELBLICK MISLUK";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "ONINSTALLEER VAN TUNNELBLICK SUKSES";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Kan nie Tunnelblick van stapel te stuur";
@@ -971,7 +985,7 @@
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<p> <font face=\"Helvetica,Arial,sans-serif\">Die netwerkopstelling is nie behoorlik herstel na ontkoppeling van% @ nie.</font> </p><p> <font face=\"Helvetica,Arial,sans-serif\">Hierdie probleem word meestal veroorsaak deur die gebruiker van die 'user niemand' en / of 'groep niemand' OpenVPN opsies.</font> </p><p> <font face=\"Helvetica,Arial,sans-serif\">Om die netwerkopstelling te herstel, moet u u rekenaar herbegin.</font> </p><p> <font face=\"Helvetica,Arial,sans-serif\">Om hierdie fout in die toekoms te voorkom, verwyder die 'gebruikers niemand' en 'groep niemand' reëls uit u OpenVPN-konfigurasielêer.</font> </p><p> <font face=\"Helvetica,Arial,sans-serif\">Raadpleeg <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">OpenVPN-opsies</a> vir <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">gebruikers en groepe</a> [tunnelblick.net] vir meer inligting.</font> </p>\n";
 
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
-"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Die skynbare openbare IP-adres van hierdie rekenaar het verander nadat dit die afgelope %u keer gekoppel is aan hierdie Skynprivaatnetwerk. </p>\n<p>Dit beteken waarskynlik dat die Skynprivaatnetwerk korrek ingestel is en dat verdere ondersoek nie nodig is nie,\n  dus is die kontrolering vir hierdie VPN uitgeskakel om die las op tunnelblick.net-bedieners te verlig. </p>\n<p> U kan die keuring weer inskakel op die \"Instellings-oortjie\" van Tunnelblick se \"Skynprivaatnetwerkbesonderhede\" -venster. As u dit doen, oorweeg dit ook om <a href=\"https://tunnelblick.net/donate.html\"> te skenk aan die Tunnelblick-projek </a> [tunnelblick.net] om te help om die bedieneruitgawes te betaal. </p>";
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Die skynbare openbare IP-adres van hierdie rekenaar het verander nadat dit die afgelope %u keer gekoppel is aan hierdie Skynprivaatnetwerk. </p>\n<p>Dit beteken waarskynlik dat die Skynprivaatnetwerk korrek ingestel is en dat verdere ondersoek nie nodig is nie,\n  dus is die kontrolering vir hierdie VPN uitgeskakel om die las op tunnelblick.net-bedieners te verlig. </p>\n<p> U kan die keuring weer inskakel op die \"Instellings-oortjie\" van Tunnelblick se \"Skynprivaatnetwerkbesonderhede\" -venster. As u dit doen, oorweeg dit ook om <a href=\"https://tunnelblick.net/donate.html\"> te skenk aan die Tunnelblick-projek </a> [tunnelblick.net] om te help om die bedieneruitgawes te betaal. </p>\n";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "'n TBPreference of TBAlwaysSetPreference sleutel verwys na 'n onbekende keuse '%1$@' in %2$@\n \nContext | Request Context";
@@ -1113,6 +1127,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Kon die konfigurasie '%@' nie deïnstalleer nie, want dit is nie geïnstalleer nie.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Klik op \"OK\" om alle VPN's te ontkoppel, Tunnelblick te stop en dit te verwyder.\n\nDaar kan 'n paar sekondes vertraag voordat die eerste verwyderingsvenster verskyn.\n\nAs u 'n kopie van u VPN-konfigurasies en alle Tunnelblick-instellings wil stoor, klik op \"Kanselleer\" en voer eers die Tunnelblick-opstelling uit.\n\n";
 
 /* Window text */
 "Computer sleep/wake" = "Rekenaar slaap/wakker word";
@@ -1313,7 +1330,7 @@
 "Installation finished successfully." = "Instalasie was suksesfol klaar gemaak.";
 
 /* Window text */
-"Installing and securing Tunnelblick..." = "Installeer en beveilig Tunnelblick...";
+"Installing and securing Tunnelblick..." = "Installeer en beveilig Tunnelblick…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Konfigurasie Installasie word nie toegelaat nie";
@@ -1529,7 +1546,7 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Kopiëring van% @ oorgeslaan omdat 'n lêer met die naam en inhoud alreeds gekopieër is.";
 
 /* Window text in the splash screen */
-"Starting Tunnelblick..." = "Begin Tunnelblick\n...";
+"Starting Tunnelblick..." = "Begin Tunnelblick…";
 
 /* Window text */
 "Startup window:" = "Opstartvenster:";
@@ -1721,7 +1738,7 @@
 "Translation by" = "Vertaling deur";
 
 /* Window text */
-"Trying to quit all OpenVPN processes..." = "Probeer om alle OpenVPN-prosesse te stop...";
+"Trying to quit all OpenVPN processes..." = "Probeer om alle OpenVPN-prosesse te stop…";
 
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick-beheermodus\n\n Laat veranderinge tydelik toe wat toestemming van 'n rekenaaradministrateur benodig.\n\n Die sessie verloop na vyf minute of wanneer die 'VPN Details'-venster gesluit is.";
@@ -2105,10 +2122,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"% 1 $ @\" in die Info.plist vir\n\n% 2 $ @\n\nword nie toegelaat in 'n \"innerlike\" .tblk of konflik met dieselfde inskrywing in 'n \"buitenste\" .tblk nie.";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "WAARSKUWING: Daar is met hierdie kopie van Tunnelblick gepeuter.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\nWAARSKUWING: Daar is met hierdie kopie van Tunnelblick gepeuter.\n";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "WAARSKUWING: Hierdie kopie van Tunnelblick maak u rekenaar onveilig. Dit is slegs vir ontfoutingsdoeleindes.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\nWAARSKUWING: Hierdie kopie van Tunnelblick maak u rekenaar onveilig. Dit is slegs vir ontfoutingsdoeleindes.\n";
 
 /* Window text */
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nOPMERKING: Een of meer van die konfigurasies is tans gekoppel. Dit sal ontkoppel word, installasies / vervangings / verwyderings word uitgevoer en die konfigurasies sal weer gekoppel word, tensy dit verwyder is.\n\n";
@@ -2273,7 +2290,7 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p> <strong>As dit gemerk is</strong> , sal u moet verifieer voordat u aansluit. U kan uself verifieer deur u wagwoord te gebruik, of, indien beskikbaar, TouchID of FaceID. </p><p> <strong>As dit nie gemerk is nie</strong> , sal geen verifikasie nodig wees voordat u dit verbind nie. </p><p> <strong>Hierdie merkblokkie is gedeaktiveer</strong> as u 'n weergawe van macOS gebruik wat dit nie ondersteun nie. </p><p> <strong>Opmerking: 'n rekenaaradministrateur se toestemming is nodig om hierdie instelling te verander.</strong> </p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>U    kan 'n instelling in macOS verander, sodat Tunnelblick sy stelseluitbreidings kan gebruik.</strong></p>";
+"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>U kan 'n instelling in macOS verander, sodat Tunnelblick sy stelseluitbreidings kan gebruik.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p> <strong>U kan die konfigurasies verander sodat hulle kan inskakel.</strong> </p>\n";
@@ -2287,6 +2304,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p> Kontroleer na opdaterings van die Tunnelblick-toepassing. </p><p> Gaan na die Tunnelblick-webwerf; Raadpleeg <a href=\"https://tunnelblick.net/cPrivacy.html\">Privaatheid en Sekuriteit</a> [tunnelblick.net] vir meer besonderhede. </p><p> Kyk ook na opdaterings vir konfigurasies as u VPN-diensverskaffer die funksie implementeer. </p>";
 
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klik om Tunnelblick te verwyder.</p><p>\n\n<strong>Deaktiveer</strong> as Tunnelblick nie in /Applications geïnstalleer is nie.</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p> Kopieer inligting na die klembord om probleme te diagnoseer. </p><p> Die inligting bevat sagteware weergawes en instellings, die OpenVPN-konfigurasielêer, netwerkinstellings en meer. </p><p> Informasie oor sensitiewe sertifikate is nie ingesluit nie, maar data soos IP-adresse en URL's wat vertroulik <em>mag</em> wees, is ingesluit. U moet die inligting ondersoek en alles verwyder wat u geheim wil hou voordat u dit in 'n e-pos of in die openbaar stuur. </p>";
 
@@ -2295,9 +2315,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p> Voer die Tunnelblick-opstelling, insluitend alle konfigurasies en instellings vir alle gebruikers van hierdie rekenaar, uit na 'n saamgeperste lêer op die tafelblad. </p><ul><li> Bewyse wat in die Sleutelhanger gestoor is, word <strong>nie</strong> uitgevoer nie. </li><li> Die uitvoer kan lank duur. </li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p> Maak 'n blaaiervenster oop met inligting op die Tunnelblick-webwerf oor die verwydering van Tunnelblick. </p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p> Maak 'n venster oop met addisionele instellings. </p><p> Enige veranderinge sal toegepas word op alle konfigurasies wat in die 'VPN Details' venster gekies word. </p>";
@@ -2338,8 +2355,23 @@
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p> Die DNS-kas bevat kopieë van DNS-inligting (Domain Name System). </p><p> <strong>As dit gemerk is</strong> , word die DNS-kas gespoel (skoongemaak) nadat dit gekoppel of ontkoppel is. Alle DNS-opsoeke sal uitgevoer word deur die naambediener wat deur die VPN-opstelling gespesifiseer word. </p><p> <strong>As dit nie gemerk is nie</strong> , sal die DNS-kas nie gespoel word nie. Dit kan probleme veroorsaak as daar naamkonflik is tussen die naambediener wat gespesifiseer is deur die VPN-opstelling en die pre-VPN-naambediener en as pre-VPN-inskrywings geberg is. </p>";
 
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>" = "<p>Die stelseluitbreiding kon nie gelaai word nie omdat u MacOS aangesê het om nie toe te laat dat Tunnelblick sy 'tik'- en' tun'-stelseluitbreidings laai nie, wat deur die ontwikkelaar 'Jonathan Bullard' onderteken is.</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "<p>Die stelseluitbreiding kon nie gelaai word nie omdat u MacOS aangesê het om nie toe te laat dat Tunnelblick sy 'tik'-stelseluitbreiding laai nie, wat deur die ontwikkelaar' Jonathan Bullard 'onderteken is.</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>" = "<p>Die stelseluitbreiding kon nie gelaai word nie omdat u MacOS aangesê het om nie toe te laat dat Tunnelblick sy 'tun' -stelseluitbreiding laai nie, wat deur die ontwikkelaar 'Jonathan Bullard' onderteken is. U moet u Tunnelblick-instellings en / of u OpenVPN-konfigurasielêer verander, sodat Tunnelblick nie sy 'tun' -stelseluitbreiding hoef te laai nie, waarna u kan koppel.</p>";
+
+/* HTML text. */
+"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'. You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>" = "<p>Om Tunnelblick toe te laat om sy stelseluitbreidings te installeer, moet u die laai van stelselsagteware deur ontwikkelaar ‘Jonathan Bullard’ toelaat. U kan dit doen op die ‘Algemeen’ tabblad in ‘Veiligheid en privaatheid’ in ‘Stelselvoorkeure’.</p>";
+
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p> Tunnelblick bevat 'n aangepaste weergawe van 'easy-rsa', wat 'n stel opdragreëlskripte is wat geskryf is deur die OpenVPN-ontwikkelaars vir die skep en instandhouding van sertifikate en sleutels. </p><p> As u op hierdie knoppie klik, word die macOS Terminal-toepassing van stapel gestuur met die werkgids ingestel op die lêergids wat die skrifte bevat. </p><p> Die skrifte is normaalweg in die lêergids by ~ / Library / Application Support / Tunnelblick / easy-rsa geleë. 'N' Easy-rsaPath'-voorkeur kan die pad na 'n gids bevat wat Tunnelblick in plaas daarvan sal gebruik. 'easy-rsaPath' moet 'n absolute pad wees of met 'n '~' begin, en die ouermap van die pad moet bestaan. As 'n gids op die pad bestaan, sal dit gebruik word; as dit nie bestaan nie, sal dit geskep word en die maklik-rsa-skrifte sal daarin geïnstalleer word wanneer Tunnelblick bekendgestel word. </p><p> Vir inligting oor die gebruik van easy-rsa, sien <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Die instelling van u eie Certificate Authority (CA) en die opwekking van sertifikate en sleutels vir 'n OpenVPN-bediener en verskeie kliente</a> [openvpn.net]. </p><p> Raadpleeg die README-lêer in die lêergids vir besonderhede oor die aanpassings van Tunnelblick van easy-rsa. </p>";
+
+/* HTML error message. The '%@' is a configuration name. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick kon nie 'n stelseluitbreiding laai wat nodig is om aan %@ te koppel nie.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Beheermodus% @ oor";
@@ -2354,7 +2386,7 @@
 "Arabic translation" = "Arabiese vertaling";
 
 /* Toolbar text for 'Lock' item */
-"Authorizing..." = "Magtig...";
+"Authorizing..." = "Magtig…";
 
 /* Credit description */
 "Azerbaijani translation" = "Azerbeidjans vertaling";

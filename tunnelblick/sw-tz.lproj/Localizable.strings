@@ -176,9 +176,6 @@
 "Only Me" = "Mimi tu";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Fungua Maelekezo ya Kuondoa katika Kivinjari";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Fungua rsa-rahisi katika Temino";
 
 /* Button */
@@ -370,20 +367,50 @@
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "Kiwango cha OpenVPN 6 - maadili kwa chaguzi zote";
 
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "Kiwango cha Log cha OpenVPN kilichowekwa na usanidi";
+
 /* Menu item */
 "Quit Tunnelblick" = "Katisha Tunnelblick";
+
+/* Menu Item */
+"Rename Configuration" = "Badili jina la Usanidi";
 
 /* Menu Item */
 "Revert Configuration..." = "Rejea Usanidi";
 
 /* Menu Item */
+"Show OpenVPN Log in Finder" = "Onyesha OpenVPN log atika Kitafutaji";
+
+/* Menu Item */
 "Show on Tunnelblick Menu" = "Onesha katika Menyu ya Tunnelblick";
+
+/* Menu item */
+"Suggestion or Bug Report..." = "Mapendekezo au Ripoti ya Bug…";
 
 /* Menu item */
 "VPN Details..." = "Maelezo ya VPN…";
 
+/* Menu item */
+"Warnings" = "Maonyo";
+
+/* Checkbox name */
+"Allow changes to manually-set network settings" = "Ruhusu mabadiliko ya kuweka mipangilio ya mtandao kwa mikono";
+
+/* Checkbox name */
+"Always show this window" = "Onyesha dirisha hili kila wakati";
+
+/* Checkbox name */
+"Apply to all" = "Tumia kwa wote";
+
 /* Checkbox Name */
 "Authenticate before connecting" = "Thibitisha kabla ya kuunganishwa";
+
+/* Checkbox name */
+"Check for updates automatically" = "Angalia sasisho kiotomatiki";
+
+/* Checkbox name */
+"Check for updates to beta versions" = "Angalia visasisho vya matoleo ya beta";
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Angalia ikiwa anwani dhahiri ya Itifaki ya Intaneti ya umma ilibadilika baada ya kuunganishwa";
@@ -404,6 +431,9 @@
 "Display connection timers" = "Onesha muda wa uunganisho";
 
 /* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Onyesha dirisha wakati Tunnelblick inaanza";
+
+/* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Usiulize tena, kila wakati 'Puuza'";
 
 /* Checkbox name */
@@ -416,10 +446,22 @@
 "Do not show this type of warning again" = "38/5000\nUsioneshe tena aina hii ya onyo";
 
 /* Checkbox name */
+"Do not warn about DNS problems again for any configuration" = "Usionye juu ya shida za DNS tena kwa usanidi wowote";
+
+/* Checkbox name */
+"Do not warn about this again for any configuration" = "Usionye juu ya hili tena kwa usanidi wowote";
+
+/* Checkbox name */
 "Do not warn about this again for this configuration" = "Usionye onyo hili tena kwa usanidi huu";
 
 /* Checkbox name */
+"Do not warn about this again" = "Usionye juu ya hili tena";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Wezesha IPv6(tab tu)";
+
+/* Checkbox name */
+"Flush DNS cache after connecting or disconnecting" = "Ondoa log-mficho wa DNS baada ya kuunganisha au kukatiza";
 
 /* Checkbox name */
 "Keep connected" = "Baki katika Maunganisho";
@@ -551,6 +593,9 @@
 "Installation or Repair Failed" = "Usanikishaji  au Urekebishaji Umeshindwa";
 
 /* Window title */
+"Log" = "Log";
+
+/* Window title */
 "Name not allowed" = "Jina haliruhusiwi";
 
 /* Window title */
@@ -558,6 +603,63 @@
 
 /* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Inahitajika Logia";
+
+/* Window title */
+"Utilities" = "Huduma";
+
+/* Window title */
+"VPN Configuration Installation Error" = "Kosa la Usanidi wa VPN";
+
+/* Window title */
+"Warning!" = "Onyo!";
+
+/* Window title */
+"Warning" = "Onyo";
+
+/* Window title */
+"Warning: Unknown OpenVPN processes" = "Onyo: michakato isiyojulikana ya OpenVPN";
+
+/* Window title */
+"Welcome to Tunnelblick" = "Karibu Tunnelblick";
+
+/* Window title */
+"Welcome" = "Karibu";
+
+/* Window title */
+"While Connected" = "Wakati Umeunganishwa";
+
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "Kutoka kwa seva ya VPN kwa% 1 $ @:\n\n% 2 $ @";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "• Anuani ya seva ya DNS% @ ni seva ya DNS ya umma inayojulikana kwa Tunnelblick lakini hapitishwi VPN.";
+
+/* Window text */
+"     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "• Anwani ya seva ya DNS% @ sio seva ya DNS ya umma inayojulikana kwa Tunnelblick na haipitishwi VPN.";
+
+/* Window text */
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "• Anwani ya seva ya DNS% @ sio anwani ya IP ya umma na haipitishwi VPN.";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed %lu configurations\n\n" = "• Sanikisha % lu usanidi";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed one configuration\n\n" = "• Sanikisha usanidi mmoja";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "• Sanikisha au kubadilisha usanidi wa% lu \"salama\"";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed or replaced one \"safe\" configuration\n\n" = "• Sanikisha au kubadilishwa usanidi mmoja \"salama\"";
+
+/* Window text */
+"     • No DNS servers have been specified.\n\n" = "• Hakuna seva za DNS zilizoainishwa.";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Replaced %lu configurations\n\n" = "• Imebadilisha mipangilio ya% lu";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Replaced one configuration\n\n" = "• Imebadilisha usanidi mmoja";
 
 /* Window text */
 "Cancelled trying to quit all OpenVPN processes" = "Ghairisha kujaribu kukatisha michakato yote ya OpenVPN";

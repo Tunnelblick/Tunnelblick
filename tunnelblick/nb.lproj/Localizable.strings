@@ -176,9 +176,6 @@
 "Only Me" = "Kun meg";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Åpne avinnstalleringsinstruksjoner i nettleser";
-
-/* Button */
 "Open easy-rsa in Terminal" = "Åpne enkel-rsa i Terminal";
 
 /* Button */
@@ -287,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3-ikonet";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Avinstaller Tunnelblick…";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Oppdater";
 
@@ -374,10 +374,10 @@
 "OpenVPN logging level set by the configuration" = "OpenVPN loggføringsnivå satt ifølge konfigurasjonen";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick" = "Problem med fremtidig Tunnelblick-versjon";
+"Problem using future versions of Tunnelblick..." = "Problem med bruk av fremtidig versjon av Tunnelblick…";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS" = "Problem med fremtidig macOS-versjon";
+"Problem using future versions of macOS..." = "Problem med bruk av fremtidig versjon av macOS…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Avslutte Tunnelblick";
@@ -727,6 +727,14 @@
 /* Window title */
 "System Requirements Not Met" = "Systemkrav ikke tilfredstilt";
 
+/* A "test uninstall" failed.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "TEST AV AVINSTALLERING AV TUNNELBLICK FEILET";
+
+/* A "test uninstall" succeeded.
+Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TEST AV AVINSTALLERING AV TUNNELBLICK UTFØRT";
+
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick Konfigurasjonsproblem";
 
@@ -741,6 +749,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Passordfrase behøves";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK FAILED" = "AVINSTALLERING AV TUNNELBLICK FEILET";
+
+/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "AVINSTALLERING AV TUNNELBLICK UTFØRT";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Klarer ikke starte Tunnelblick";
@@ -1113,6 +1127,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Kan ikke avinstallere konfigurasjonen '%@' fordi den er ikke installert.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Trykk \"OK\" for å avbryte alle VPN-forbindelser, avslutt Tunnelblick, og start avinstallering.\n\nDet kan ta noen sekunder før det første skjermbildet for avinstallering vises.\n\nHvis du vil lagre en kopi av dine VPN-konfigurasjoner, og alle Tunnelblick innstillinger, trykk \"Avbryt\" og eksporter Tunnelblick oppsett først.\n";
 
 /* Window text */
 "Computer sleep/wake" = "Dvale/oppvåkning av datamaskinen";
@@ -2287,6 +2304,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Sjekk for oppdateringer av Tunnelblick-applikasjonen.</p><p>Besøk nettsidene til Tunnelblick; for mer informasjon, se <a href=\"https://tunnelblick.net/cPrivacy.html\">Personvern og sikkerhet</a> [tunnelblick.net].</p><p>Sjekk også for konfigurasjonsoppdateringer hvis din VPN-serviceleverandør har implementert denne funksjonaliteten.</p>";
 
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klikk for å avinstallere Tunnelblick.</p>\n\n<p><strong>Ikke tilgjengelig</strong> hvis Tunnelblick ikke er installert under /Applikasjoner.</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopierer informasjon til utklippstavlen for å hjelpe å diagnostisere problemer.</p><p>Informasjonen inkluderer programvareversjoner og innstillinger, OpenVPN-konfigurasjonsfilen, nettverksinnstillingene og mer.</p><p>Sensitiv sertifikatinformasjon er ikke inkludert, men data som IP-adresser og nettadresser som <em>kan</em> være konfidensielle, er inkludert. Du bør undersøke informasjonen og fjerne alt du vil holde hemmelig før du sender den i en e-post eller legger den ut offentlig.</p>";
 
@@ -2295,9 +2315,6 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Eksporterer Tunnelblick-oppsettet, inkludert alle konfigurasjoner og innstillinger for alle brukere på denne datamaskinen, til en komprimert fil på Skrivebordet.</p><ul><li>Brukeropplysninger som er lagret i nøkkelringen blir <strong>ikke</strong> eksportert.</li><li>Eksporten kan ta lang tid.</li></ul>";
-
-/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Åpner et nettleservindu som inneholder informasjon på Tunnelblick nettsiden om avinstallering av Tunnelblick.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Åpner et vindu med flere innstillinger.</p><p>Eventuelle endringer vil bli tillagt alle konfigurasjoner som er valgt i 'VPN Detaljer' vinduet.</p>";
