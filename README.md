@@ -3,6 +3,8 @@ Tunnelblick
 
 The official Tunnelblick website is at https://tunnelblick.net
 
+A snapshot copy of the website is at https://tunnelblick.github.io. It is recreated at each release and when significant changes are made to the website.
+
 The official Tunnelblick source code respository is at https://github.com/Tunnelblick/Tunnelblick
 
 What is Tunnelblick?
