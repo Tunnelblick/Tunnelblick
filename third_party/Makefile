@@ -25,23 +25,23 @@
 #
 # IMPORTANT: Only Intel works currently; Apple Silicon does not yet work!!!
 #
-LZ4_TARGET_ARCHS         = x86_64
-LZO_TARGET_ARCHS         = x86_64
-PKCS11_TARGET_ARCHS      = x86_64
-SPARKLE_TARGET_ARCHS     = x86_64
+LZ4_TARGET_ARCHS         = x86_64 arm64
+LZO_TARGET_ARCHS         = x86_64 arm64
+PKCS11_TARGET_ARCHS      = x86_64 arm64
+SPARKLE_TARGET_ARCHS     = x86_64 arm64
 TUNTAP_TARGET_ARCHS      = x86_64
 
 # Used to build OpenSSL and LibreSSL:
 # Only OpenSSL 1.1 can be built for Apple Silicon
-LIBRESSL_TARGET_ARCHS     = x86_64
+LIBRESSL_TARGET_ARCHS    = x86_64
 OPENSSL_1_0_TARGET_ARCHS = darwin64-x86_64-cc
-OPENSSL_1_1_TARGET_ARCHS = darwin64-x86_64-cc
+OPENSSL_1_1_TARGET_ARCHS = darwin64-x86_64-cc darwin64-arm64-cc
 
 # Used to build OpenVPN
 # Only versions of OpenVPN that are built with OpenSSL 1.1 can be built for Apple Silicon
 OPENVPN_LIBRESSL_TARGET_ARCHS    = x86_64
 OPENVPN_OPENSSL_1_0_TARGET_ARCHS = x86_64
-OPENVPN_OPENSSL_1_1_TARGET_ARCHS = x86_64
+OPENVPN_OPENSSL_1_1_TARGET_ARCHS = x86_64 arm64
 
 CC = gcc
 

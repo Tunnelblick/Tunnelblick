@@ -23,6 +23,10 @@ built-openvpn-prepare:
 	mkdir -p $(OPENVPN_BUILD_DIR)
 	cd "$(SOURCES_DIR)" ; \
 	for openvpn_folder_name in $$(ls openvpn) ; do \
+        if [ "$${openvpn_folder_name:0:11}" = "openvpn-2.3" ] && [ "$(OPENVPN_OPENSSL_1_1_TARGET_ARCHS)" = "arm64" ] ; then \
+            echo "THIRD_PARTY: SKIP openvpn-2.3 for arm64"; \
+            continue; \
+        fi ; \
 		cd "$(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name" ; \
 		openvpn_tar_gz_name=$$(ls openvpn*.tar.?z) ; \
 		cd ../../ ; \
@@ -144,6 +148,10 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                             autoreconf -i -v; \
                         \
                         mwd="$$(pwd)" ; \
+                        case "$$a" in \
+                         arm64) BUILD_STR="arm-apple-darwin" ;; \
+                             *) BUILD_STR="$$a-apple-darwin" ;; \
+                        esac ; \
                         CC="$(CC)" \
                             CFLAGS="$(CFLAGS) \
                                     -arch $$a \
@@ -166,7 +174,7 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                                                 -lpkcs11-helper" \
                             OS_VERSION=$$(uname -r) \
                             ./configure \
-                                --build=$$a-apple-darwin \
+                                --build=$$BUILD_STR \
                                 $$pkcs11_enable \
                                 $$configure_options ; \
                         \

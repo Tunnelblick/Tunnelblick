@@ -28,9 +28,13 @@ built-lzo:
 		echo "Clean LZO for $$a" ; \
 		$(MAKE) clean; \
 		echo "Configure LZO for $$a" ; \
+		case "$$a" in \
+		 arm64) BUILD_STR="arm-apple-darwin" ;; \
+		     *) BUILD_STR="$$a-apple-darwin" ;; \
+		esac ; \
 		CC=$(CC) \
 		CFLAGS="$(CFLAGS) -arch $$a" \
-		./configure --build=$$a-apple-darwin \
+		./configure --build=$$BUILD_STR \
 		            --prefix=$(LZO_STAGING_DIR)_$$a/ \
 		            --includedir=$(LZO_STAGING_DIR)/include/ \
 		            --disable-dependency-tracking \
@@ -46,7 +50,7 @@ built-lzo:
 	ranlib $(LZO_STAGING_DIR)/lib/liblzo2.a
 	touch built-lzo
 	@echo "THIRD_PARTY: Built LZO"
-	
+
 built-lzo-clean:
 	@echo "THIRD_PARTY: Cleaning LZO..."
 	rm -f -R $(LZO_BUILD_DIR)
