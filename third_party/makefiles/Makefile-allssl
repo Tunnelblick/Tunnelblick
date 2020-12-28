@@ -103,20 +103,23 @@ built-allssl: built-allssl-prepare
 		if [ -e "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" ] ; then \
 			mv "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" "$(STAGING_DIR)/$${sslversion}/x86_64" ; \
 		fi ; \
+		if [ -e "$(STAGING_DIR)/$${sslversion}/darwin64-arm64-cc" ] ; then \
+			mv "$(STAGING_DIR)/$${sslversion}/darwin64-arm64-cc" "$(STAGING_DIR)/$${sslversion}/arm64" ; \
+		fi ; \
 		mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
 		if [ "$${sslversion}" = "$(OPENSSL_1_0_NAME)" ] ; then \
 			for t in $(OPENSSL_1_0_TARGET_FILES); do \
-				lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
+				lipo $(STAGING_DIR)/$${sslversion}/*/lib/$$(basename $$t) -create -output $$t; \
 				ranlib $$t; \
 			done ; \
 		elif [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] ; then \
 			for t in $(OPENSSL_1_1_TARGET_FILES); do \
-				lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
+				lipo $(STAGING_DIR)/$${sslversion}/*/lib/$$(basename $$t) -create -output $$t; \
 				ranlib $$t; \
 			done ; \
 		elif [ "$${sslversion}" = "$(LIBRESSL_NAME)" ] ; then \
 			for t in $(LIBRESSL_TARGET_FILES); do \
-				lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
+				lipo $(STAGING_DIR)/$${sslversion}/*/lib/$$(basename $$t) -create -output $$t; \
 				ranlib $$t; \
 			done ; \
 		else \

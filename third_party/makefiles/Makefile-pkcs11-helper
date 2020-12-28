@@ -27,6 +27,10 @@ built-pkcs11-helper: built-allssl
 		echo "Clean PKCS11-Helper for $$a" ; \
 		$(MAKE) clean; \
 		echo "Configure PKCS11-Helper for $$a" ; \
+    case "$$a" in \
+     arm64) BUILD_STR="arm-apple-darwin" ;; \
+         *) BUILD_STR="$$a-apple-darwin" ;; \
+    esac ; \
 		CC=$(CC) \
 		CFLAGS="$(CFLAGS) -arch $$a" \
 		OPENSSL_CFLAGS="-I$(OPENSSL_1_1_STAGING_DIR)/$$a/include" \
@@ -34,7 +38,7 @@ built-pkcs11-helper: built-allssl
 		              -lssl \
 		              -lcrypto \
 		              -lz" \
-		./configure --build=$$a-apple-darwin \
+		./configure --build=$$BUILD_STR \
 		            --prefix=$(PKCS11_STAGING_DIR)_$$a \
 		            --includedir=$(PKCS11_STAGING_DIR)/include \
 		            --enable-static \
