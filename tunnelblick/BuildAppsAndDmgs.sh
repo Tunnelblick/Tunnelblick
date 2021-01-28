@@ -30,6 +30,7 @@ touch build
 
 # Set paths in the build folder
 readonly         app_path="build/${CONFIGURATION}/${PROJECT_NAME}.app"
+readonly         dmg_path="build/${CONFIGURATION}/${PROJECT_NAME}.dmg"
 readonly uninstaller_path="build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app"
 
 # If Xcode has built Tunnelblick.app in somewhere unexpected, complain and quit
@@ -410,8 +411,8 @@ if [ "${CONFIGURATION}" != "Debug" ]; then
 	SetFile -a V "$TMPDMG/.DS_Store"
 
 	# Remove any existing .dmg and create a new one. Specify "-noscrub" so that .DS_Store is copied to the image
-	rm -r -f "build/${CONFIGURATION}/${PROJECT_NAME}.dmg"
-	hdiutil create -noscrub -srcfolder "$TMPDMG" "build/${CONFIGURATION}/${PROJECT_NAME}.dmg"
+	rm -r -f "$dmg_path"
+	hdiutil create -noscrub -srcfolder "$TMPDMG" "$dmg_path"
     status=$?
     if [ "${status}" -ne "0" ]; then
         echo "ERROR creating .dmg"
@@ -446,7 +447,7 @@ if [ "${CONFIGURATION}" != "Debug" ]; then
 	# Leave the staging folder so customized .dmgs can be easily created
 
     touch "build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg"
-    touch "build/${CONFIGURATION}/${PROJECT_NAME}.dmg"
+    touch "$dmg_path"
 fi
 
 touch "${uninstaller_path}"
