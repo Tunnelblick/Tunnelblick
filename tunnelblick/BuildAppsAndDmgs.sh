@@ -191,6 +191,8 @@ changeEntry()
 	if [ -e "$1" ] ; then
 		sed -e "s|${2}|${3}|g" "${1}" > "${1}.tmp"
 		mv -f "${1}.tmp" "${1}"
+    else
+        printf "warning: cannot change '$2' to '$3' because '$1' does not exist\n"
 	fi
 }
 
@@ -305,6 +307,8 @@ fi
 readonly updaterIcons="${app_path}/Contents/Frameworks/Sparkle.framework/Resources/TunnelblickUpdater.app/Contents/Resources/AppIcon.icns"
 if [ -e "${updaterIcons}" ] ; then
 	cp -f -p -R "${app_path}/Contents/Resources/tunnelblick.icns" "${updaterIcons}"
+else
+    echo "warning: No Sparkle AutoUpdater app icons to replace (missing ${updaterIcons})"
 fi
 
 # Remove extra files that are not needed
