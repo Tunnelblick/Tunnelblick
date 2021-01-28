@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -4696,9 +4696,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         NSString * gitInfo = [self gitInfo];
 		
-         NSString * translationInfo = (  processIsTranslated()
-                                      ? @"The Tunnelblick.app process is being translated\n"
-                                      : @"The Tunnelblick.app process is not being translated\n");
+        NSString * translationInfo = (  processIsTranslated()
+                                      ? [NSString stringWithFormat: @"The Tunnelblick.app process is being translated (%@)\n", architectureBeingUsed()]
+                                      : [NSString stringWithFormat: @"The Tunnelblick.app process is not being translated (%@)\n", architectureBeingUsed()]);
 
         NSString * sipStatusInfo = (  runningWithSIPDisabled()
                                     ? @"System Integrity Protection is DISABLED\n"
