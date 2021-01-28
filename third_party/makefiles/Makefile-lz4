@@ -1,6 +1,6 @@
 # Makefile to build lz4 for Tunnelblick
 #
-# Copyright 2015, 2016 by Jonathan K. Bullard. All rights reserved.
+# Copyright 2015, 2016, 2021 by Jonathan K. Bullard. All rights reserved.
 #
 #  This file is part of Tunnelblick.
 #
@@ -29,7 +29,6 @@ built-lz4:
 	fi                                                              \
 
 	@echo "THIRD_PARTY: Building LZ4..."
-	mkdir -p $(LZ4_STAGING_DIR)
 	for a in $(LZ4_TARGET_ARCHS); do                                \
                                                                     \
 		cd $(LZ4_BUILD_DIR) ;                                       \
@@ -63,19 +62,16 @@ built-lz4:
 		PREFIX=$(LZ4_STAGING_DIR)_$$a                               \
 		$(MAKE) install;                                            \
                                                                     \
+        rm -fR $(LZ4_STAGING_DIR)_$$a/lib/*.dylib ;                 \
+                                                                    \
 		cd "$(TOPDIR)";                                             \
     done
-	@echo "THIRD_PARTY: Lipo-ing LZ4 ..."
-	cp -a $(LZ4_STAGING_DIR)_*/include $(LZ4_STAGING_DIR)/
-	mkdir -p $(LZ4_STAGING_DIR)/lib
-	lipo $(LZ4_STAGING_DIR)_*/lib/liblz4.a -create -output $(LZ4_STAGING_DIR)/lib/liblz4.a
-	ranlib $(LZ4_STAGING_DIR)/lib/liblz4.a
 	touch built-lz4
 	@echo "THIRD_PARTY: Built LZ4"
 
 built-lz4-clean:
 	@echo "THIRD_PARTY: Cleaning LZ4..."
 	rm -f -R $(LZ4_BUILD_DIR)
-	rm -f -R $(LZ4_STAGING_DIR)
+	rm -f -R $(LZ4_STAGING_DIR)*
 	rm -f built-lz4
 	@echo "THIRD_PARTY: Cleaned LZ4"

@@ -1,7 +1,7 @@
 # Makefile to build all of the third-party software included in Tunnelblick
 #
 # Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
-# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020. All rights reserved.
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2021. All rights reserved.
 #
 #  This file is part of Tunnelblick.
 #
@@ -17,35 +17,6 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program (see the file COPYING included with this
 #  distribution); if not, write to the Free Software Foundation, Inc.,
-
-# Target architectures. Use a space-separated list of architectures.
-# For Intel, use "x86_64" for all but OpenSSL, which must use "darwin64-x86_64-cc"
-# For Apple Silicon, use "arm64" for all but OpenSSL, which must use "darwin64-arm64-cc"
-#
-#
-# IMPORTANT: Only Intel works currently; Apple Silicon does not yet work!!!
-#
-LZ4_TARGET_ARCHS         = x86_64 arm64
-LZO_TARGET_ARCHS         = x86_64 arm64
-PKCS11_TARGET_ARCHS      = x86_64 arm64
-SPARKLE_TARGET_ARCHS     = x86_64 arm64
-TUNTAP_TARGET_ARCHS      = x86_64
-
-# Used to build OpenSSL and LibreSSL:
-# Only OpenSSL 1.1 can be built for Apple Silicon
-LIBRESSL_TARGET_ARCHS    = x86_64
-OPENSSL_1_0_TARGET_ARCHS = darwin64-x86_64-cc
-OPENSSL_1_1_TARGET_ARCHS = darwin64-x86_64-cc darwin64-arm64-cc
-
-# Used to build OpenVPN
-# Only versions of OpenVPN that are built with OpenSSL 1.1 can be built for Apple Silicon
-OPENVPN_LIBRESSL_TARGET_ARCHS    = x86_64
-OPENVPN_OPENSSL_1_0_TARGET_ARCHS = x86_64
-OPENVPN_OPENSSL_1_1_TARGET_ARCHS = x86_64 arm64
-
-CC = gcc
-
-TOPDIR = $(PWD)
 
 #######################################################################################
 # Define names of folders in third_party/sources that contain programs to build:
@@ -84,8 +55,67 @@ TUNTAP_CURRENT_TARGZ  = tuntap_20141104_src.tar.gz
 #######################################################################################
 #######################################################################################
 
+#######################################################################################
+# Target architectures. Use a space-separated list of architectures.
+#
+#	For Intel,         use "x86_64" for all EXCEPT OpenSSL, which must use "darwin64-x86_64-cc"; and
+#	For Apple Silicon, use "arm64" for all EXCEPT OpenSSL, which must use "darwin64-arm64-cc".
+
+TB_COMMON_X86_ARCH  = x86_64
+TB_COMMON_ARM_ARCH  = arm64
+
+TB_OPENSSL_X86_ARCH = darwin64-x86_64-cc
+TB_OPENSSL_ARM_ARCH = darwin64-arm64-cc
+
+ifeq ($(TB_CAN_BUILD_ARM),0)
+
+    # Build with an Xcode which cannot build for Apple Silicon (ARM architecture)
+
+    LZ4_TARGET_ARCHS         = $(TB_COMMON_X86_ARCH)
+    LZO_TARGET_ARCHS         = $(TB_COMMON_X86_ARCH)
+    PKCS11_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH)
+    SPARKLE_TARGET_ARCHS     = $(TB_COMMON_X86_ARCH)
+    TUNTAP_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH)
+
+    # Used to build OpenSSL and LibreSSL:
+    LIBRESSL_TARGET_ARCHS    = $(TB_COMMON_X86_ARCH)
+    OPENSSL_1_0_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
+    OPENSSL_1_1_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
+
+    # Used to build OpenVPN
+    OPENVPN_LIBRESSL_TARGET_ARCHS    = $(TB_COMMON_X86_ARCH)
+    OPENVPN_OPENSSL_1_0_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
+    OPENVPN_OPENSSL_1_1_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
+
+else
+
+    # Build with an Xcode which can build for Apple Silicon (ARM architecture)
+
+    LZ4_TARGET_ARCHS         = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+    LZO_TARGET_ARCHS         = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+    PKCS11_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+    SPARKLE_TARGET_ARCHS     = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+    TUNTAP_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+
+    # Used to build OpenSSL and LibreSSL:
+    # OpenSSL 1.0 cannot be built for Apple Silicon (ARM architecture)
+    #             because it tries to install to /usr/local and fails
+    LIBRESSL_TARGET_ARCHS    = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+    OPENSSL_1_0_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
+    OPENSSL_1_1_TARGET_ARCHS = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+
+    # Used to build OpenVPN
+    # Only versions of OpenVPN that are built with LibreSSL and OpenSSL 1.1
+    # can be built for Apple Silicon (ARM architecture) because OpenSSL 1.0
+    # cannot be build for Apple Silicon (ARM architecture); see above
+    OPENVPN_LIBRESSL_TARGET_ARCHS    = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+    OPENVPN_OPENSSL_1_0_TARGET_ARCHS = $(TB_COMMON_X86_ARCH)
+    OPENVPN_OPENSSL_1_1_TARGET_ARCHS = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+
+endif
 
 #######################################################################################
+# For use in Makefile-openvpn
 # Define tests (inside bash [ ]) which determine which SSL libraries to link to for each major.minor version of OpenVPN
 # Each test compares a bash variable ($$ssl_name) with one or more make variables ( e.g., $(OPENSSL_1_0_NAME) )
 
@@ -102,6 +132,10 @@ OPENVPN_DEPRECATED_GCC_MAKE_OPTION = GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS=NO
 #######################################################################################
 # Define other make variables:
 
+CC = gcc
+
+TOPDIR = $(PWD)
+
 SDKROOT=$(SDK_DIR)
 
 CFLAGS=-isysroot $(SDKROOT) -Os -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET)
@@ -113,13 +147,10 @@ PRODUCTS_DIR = $(TOPDIR)/products
 STAGING_DIR = $(BUILD_DIR)/staging
 
 OPENSSL_1_0_STAGING_DIR = $(STAGING_DIR)/$(OPENSSL_1_0_NAME)
-OPENSSL_1_0_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(OPENSSL_1_0_STAGING_DIR)/lib/$(f))
 
 OPENSSL_1_1_STAGING_DIR = $(STAGING_DIR)/$(OPENSSL_1_1_NAME)
-OPENSSL_1_1_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(OPENSSL_1_1_STAGING_DIR)/lib/$(f))
 
 LIBRESSL_STAGING_DIR = $(STAGING_DIR)/$(LIBRESSL_NAME)
-LIBRESSL_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(LIBRESSL_STAGING_DIR)/lib/$(f))
 
 LZO_BUILD_DIR = $(BUILD_DIR)/$(LZO_NAME)
 LZO_STAGING_DIR = $(STAGING_DIR)/$(LZO_NAME)
@@ -136,6 +167,7 @@ EASY_RSA_PRODUCTS_DIR = $(PRODUCTS_DIR)/easy-rsa-tunnelblick
 TUNTAP_SOURCE_DIR = $(SOURCES_DIR)/tuntap
 TUNTAP_BUILD_DIR = $(BUILD_DIR)/tuntap
 TUNTAP_PRODUCTS_DIR = $(PRODUCTS_DIR)/tuntap
+TUNTAP_ARCH_ARGS = "$(foreach f, $(TUNTAP_TARGET_ARCHS), -arch $f)"
 
 # If both of the following files exist
 # then

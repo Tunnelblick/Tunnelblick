@@ -1,7 +1,7 @@
 # Makefile to build (Open|Libre)SSL for Tunnelblick
 #
 # Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
-# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020. All rights reserved.
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2021. All rights reserved.
 #
 #  This file is part of Tunnelblick.
 #
@@ -67,64 +67,52 @@ built-allssl: built-allssl-prepare
 			exit 255 ; \
 		fi ; \
 		for a in $${buildarch}; do \
+			if [ "$${sslvariant:0:7}" = "openssl" ] ; then \
+				if [ "$$a" = "$(TB_COMMON_X86_ARCH)" ] ; then \
+					ssl_arch="$(TB_OPENSSL_X86_ARCH)" ; \
+				elif [ "$$a" = "$(TB_COMMON_ARM_ARCH)" ] ; then \
+					ssl_arch="$(TB_OPENSSL_ARM_ARCH)" ; \
+				else \
+					echo "error: Unknown architecture '$$a' cannot be translated to a triple for building OpenSSL" ; \
+					exit 255; \
+				fi ; \
+			fi; \
+            if [ "$${a:0:3}" = "arm" ] ; then \
+                TB_CONFIGURE_BUILD="arm-apple-darwin" ; \
+            else \
+                TB_CONFIGURE_BUILD="$$a-apple-darwin" ; \
+            fi ; \
 			cd $${ssldir}; \
-			a=$${a#\"*}; \
-			a=$${a%*\"}; \
-			echo "Clean $${sslversion} for $$a" ; \
+			staging="$(STAGING_DIR)/$${sslversion}_$$a"; \
+			echo "Clean $${sslversion} for $$a ($$ssl_arch)" ; \
 			$(MAKE) clean; \
-			echo "Make $${sslversion} for $$a" ; \
-			echo "PREFIX: $(STAGING_DIR)/$${sslversion}/$${a}"; \
+			echo "Make $${sslversion} for $$a ($$ssl_arch)" ; \
 			echo "CC: $(CC)"; \
 			echo "CFLAGS: $(CFLAGS)"; \
 			if [ "$${sslversion}" = "$(OPENSSL_1_0_NAME)" ] ; then \
-				CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure no-shared zlib no-zlib-dynamic no-asm no-krb5 --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./Configure no-shared zlib no-zlib-dynamic no-asm no-krb5 --prefix="$$staging" $$ssl_arch; \
 				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
-				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
+				echo "Install $${sslversion} for $$a to $$staging" ; \
 				$(MAKE) install_sw; \
 			elif [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] ; then \
-				CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure no-shared zlib no-asm --openssldir="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./Configure no-shared zlib no-asm --openssldir="$$staging" $$ssl_arch; \
 				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
-				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
-				$(MAKE) DESTDIR="$(STAGING_DIR)/$${sslversion}/$$a" install_sw; \
-				mv "$(STAGING_DIR)/$${sslversion}/$$a/usr/local/bin" "$(STAGING_DIR)/$${sslversion}/$$a/bin" ;\
-				mv "$(STAGING_DIR)/$${sslversion}/$$a/usr/local/lib" "$(STAGING_DIR)/$${sslversion}/$$a/lib" ; \
-				mv "$(STAGING_DIR)/$${sslversion}/$$a/usr/local/include" "$(STAGING_DIR)/$${sslversion}/$$a/include" ; \
-				rm -f -r "$(STAGING_DIR)/$${sslversion}/$$a/usr" ; \
+				echo "Install $${sslversion} for $$a to $$staging" ; \
+				$(MAKE) DESTDIR="$$staging" install_sw; \
+				mv "$$staging/usr/local/bin"     "$$staging/bin" ;\
+				mv "$$staging/usr/local/lib"     "$$staging/lib" ; \
+				mv "$$staging/usr/local/include" "$$staging/include" ; \
+				rm -fr "$$staging/usr" ; \
 			elif [ "$${sslversion}" = "$(LIBRESSL_NAME)" ] ; then \
-				CC=$(CC) CFLAGS="$(CFLAGS)" ./configure --disable-shared --disable-asm --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --disable-shared --disable-asm --prefix="$$staging" --build="$$TB_CONFIGURE_BUILD" --host="$(TB_CONFIGURE_HOST)" $$ssl_arch; \
 				$(MAKE) check; \
-				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
+				echo "Install $${sslversion} for $$a to $$staging" ; \
 				$(MAKE) install; \
 			else \
 				echo "error: do not know how to build '$${sslvariant}' ($${sslversion})" ; \
 			fi ; \
 			cd .. ; \
 		done ; \
-		if [ -e "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" ] ; then \
-			mv "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" "$(STAGING_DIR)/$${sslversion}/x86_64" ; \
-		fi ; \
-		if [ -e "$(STAGING_DIR)/$${sslversion}/darwin64-arm64-cc" ] ; then \
-			mv "$(STAGING_DIR)/$${sslversion}/darwin64-arm64-cc" "$(STAGING_DIR)/$${sslversion}/arm64" ; \
-		fi ; \
-		mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
-		if [ "$${sslversion}" = "$(OPENSSL_1_0_NAME)" ] ; then \
-			for t in $(OPENSSL_1_0_TARGET_FILES); do \
-				lipo $(STAGING_DIR)/$${sslversion}/*/lib/$$(basename $$t) -create -output $$t; \
-				ranlib $$t; \
-			done ; \
-		elif [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] ; then \
-			for t in $(OPENSSL_1_1_TARGET_FILES); do \
-				lipo $(STAGING_DIR)/$${sslversion}/*/lib/$$(basename $$t) -create -output $$t; \
-				ranlib $$t; \
-			done ; \
-		elif [ "$${sslversion}" = "$(LIBRESSL_NAME)" ] ; then \
-			for t in $(LIBRESSL_TARGET_FILES); do \
-				lipo $(STAGING_DIR)/$${sslversion}/*/lib/$$(basename $$t) -create -output $$t; \
-				ranlib $$t; \
-			done ; \
-		else \
-			echo "error: do not know how to lipo '$${sslvariant}' ($${sslversion})" ; \
-		fi ; \
 	done
 	cd $(TOPDIR)
 	touch built-allssl

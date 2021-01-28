@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2016 by Jonathan K. Bullard. All rights reserved.
+# Copyright (c) 2016, 2021 by Jonathan K. Bullard. All rights reserved.
 #
 # This file is part of Tunnelblick.
 #
@@ -45,6 +45,23 @@ if [ "$path_to_build_folder" != "${path_to_build_folder/ /}" ] ; then
 	echo "error: There should not be any spaces in the path to the 'tunnelblick' and 'third_party' folders"
 	exit -1
 fi
+
+# Check if this version of Xcode can build for the arm64 architecture
+if [ "${ARCHS_STANDARD/arm64/}" = "${ARCHS_STANDARD}"  ] ; then
+    TB_CAN_BUILD_ARM=0
+    echo “Not building for Apple Silicon. ARCHS_STANDARD = ‘${ARCHS_STANDARD}’”
+else
+    TB_CAN_BUILD_ARM=1
+fi
+export TB_CAN_BUILD_ARM
+
+# Set the host (that is, the current build environment)
+# If building on x86_64 natively, it will be "x86_64..."
+# If building on ARM natively, it will be "arm64..."
+# If building on ARM and being translated (i.e., running under Rosetta 2), it will be "x86_64..."
+TB_CURRENT_ARCH="$( uname -m )"
+TB_CONFIGURE_HOST="$TB_CURRENT_ARCH-apple-darwin"
+export TB_CONFIGURE_HOST
 
 cd ../third_party/
 
