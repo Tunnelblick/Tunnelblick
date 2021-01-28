@@ -103,6 +103,15 @@ kext_products_folder="$( cd ../third_party/products/tuntap ; pwd )"
 	tun_name="tun.kext"
   fi
 
+# Copy helpers into Resources
+  cp -a "build/${CONFIGURATION}/atsystemstart"              "${app_path}/Contents/Resources/"
+  cp -a "build/${CONFIGURATION}/installer"                  "${app_path}/Contents/Resources/"
+  cp -a "build/${CONFIGURATION}/openvpnstart"               "${app_path}/Contents/Resources/"
+  cp -a "build/${CONFIGURATION}/process-network-changes"    "${app_path}/Contents/Resources/"
+  cp -a "build/${CONFIGURATION}/standardize-scutil-output"  "${app_path}/Contents/Resources/"
+  cp -a "build/${CONFIGURATION}/tunnelblickd"               "${app_path}/Contents/Resources/"
+  cp -a "build/${CONFIGURATION}/tunnelblick-helper"         "${app_path}/Contents/Resources/"
+
 # Copy tun & tap kexts into the Resources folder
   cp -a "$kext_products_folder/$tap_name" "${app_path}/Contents/Resources/"
   cp -a "$kext_products_folder/$tun_name" "${app_path}/Contents/Resources/"

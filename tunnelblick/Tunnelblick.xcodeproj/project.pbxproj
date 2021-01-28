@@ -29,8 +29,6 @@
 		61BC4D8A0E2FA20800F24255 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61BC4D880E2FA20800F24255 /* CoreFoundation.framework */; };
 		61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4D9D0E2FA2F300F24255 /* installer.m */; };
 		61BC4DA00E2FA31F00F24255 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
-		61BC4DAB0E2FA33C00F24255 /* installer in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 61BC4D6B0E2FA06900F24255 /* installer */; };
-		61BC4DAD0E2FA34100F24255 /* openvpnstart in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 61BC4BC10E2F9FE900F24255 /* openvpnstart */; };
 		61BC4DB40E2FA3C300F24255 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4DB20E2FA3C300F24255 /* MainMenu.xib */; };
 		61C03B990ED4E42A00175F22 /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* nb.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
@@ -52,7 +50,6 @@
 		631494A519FA7B9E009057D1 /* pt_pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631494A219FA7B9E009057D1 /* pt_pt.lproj */; };
 		63179444118D7EC20057ACAF /* atsystemstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 63179443118D7EC20057ACAF /* atsystemstart.m */; };
 		6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
-		631795FC118DC79B0057ACAF /* atsystemstart in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 6317943E118D7E820057ACAF /* atsystemstart */; };
 		631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 631BC42F1FC4496300730786 /* TBPopUpButton.m */; };
 		631C2F211DF1A74B00DB1AE4 /* az.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631C2F201DF1A74B00DB1AE4 /* az.lproj */; };
 		63206BC31D273CBD00019DFB /* info-icon-on-left-360x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 63206BC11D273CBD00019DFB /* info-icon-on-left-360x40.png */; };
@@ -122,7 +119,6 @@
 		638164DE1C145CC100B59958 /* reactivate-tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */; };
 		638222211E287C0500A2BD87 /* updates_create_signature in Resources */ = {isa = PBXBuildFile; fileRef = 638222201E287C0500A2BD87 /* updates_create_signature */; };
 		638613271492C88B00C3DCCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
-		638613511492CF1800C3DCCE /* process-network-changes in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 63AA8E581492C75200C791C9 /* process-network-changes */; };
 		6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6387F0F4135604240021E41B /* tunnelblick.sdef */; };
 		6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */; };
 		638856A0134B8056008DF8C1 /* PassphraseWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6388569F134B8056008DF8C1 /* PassphraseWindow.xib */; };
@@ -130,7 +126,6 @@
 		6389ADBD1AE4265100E2FAD8 /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6389ADBC1AE4265100E2FAD8 /* tr.lproj */; };
 		638A2003135CC3CF00FB932C /* standardize-scutil-output.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A1FE0135CB82500FB932C /* standardize-scutil-output.m */; };
 		638A2005135CC41C00FB932C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
-		638A2029135CC6A300FB932C /* standardize-scutil-output in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 638A1FFC135CC35100FB932C /* standardize-scutil-output */; };
 		638C64181EC3946900E56000 /* nn_no.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 638C64171EC3946900E56000 /* nn_no.lproj */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
 		63903D18145EAD49006627C9 /* hu.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63903D12145EAD49006627C9 /* hu.lproj */; };
@@ -178,7 +173,6 @@
 		63C3757A1A45111700D51E81 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63C3757B1A45112500D51E81 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63C3757C1A45113000D51E81 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
-		63C3757D1A45116200D51E81 /* tunnelblick-helper in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 63C374391A4510AA00D51E81 /* tunnelblick-helper */; };
 		63C504291178E21100340D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
@@ -218,7 +212,6 @@
 		63EA676C13DF326600E77443 /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63EA676913DF326600E77443 /* sv.lproj */; };
 		63ED902C1A1E84E40045D34E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		63ED902D1A1E84E40045D34E /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
-		63ED902E1A1E85180045D34E /* tunnelblickd in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 63ED8EE61A1E84560045D34E /* tunnelblickd */; };
 		63ED903A1A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63ED90391A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist */; };
 		63EEBD93137EF4C3001BFFD8 /* help in Resources */ = {isa = PBXBuildFile; fileRef = 63EEBD8C137EF4C3001BFFD8 /* help */; };
 		63EED3071E0466A40068D328 /* updates_generate_keys in Resources */ = {isa = PBXBuildFile; fileRef = 63EED3041E0466A40068D328 /* updates_generate_keys */; };
@@ -337,13 +330,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				631795FC118DC79B0057ACAF /* atsystemstart in Copy Helpers */,
-				61BC4DAB0E2FA33C00F24255 /* installer in Copy Helpers */,
-				61BC4DAD0E2FA34100F24255 /* openvpnstart in Copy Helpers */,
-				638613511492CF1800C3DCCE /* process-network-changes in Copy Helpers */,
-				638A2029135CC6A300FB932C /* standardize-scutil-output in Copy Helpers */,
-				63ED902E1A1E85180045D34E /* tunnelblickd in Copy Helpers */,
-				63C3757D1A45116200D51E81 /* tunnelblick-helper in Copy Helpers */,
 			);
 			name = "Copy Helpers";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1762,7 +1748,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = ./BuildThirdPartyItems.sh;
+			shellScript = "./BuildThirdPartyItems.sh\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1984,6 +1970,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -2010,6 +1997,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -2037,6 +2025,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -2088,6 +2077,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -2167,6 +2157,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2202,6 +2193,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2226,6 +2218,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2251,6 +2244,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2282,6 +2276,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2313,6 +2308,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -2333,6 +2329,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/bin;
 				PRODUCT_NAME = "process-network-changes";
@@ -2349,6 +2346,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -2372,6 +2370,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
@@ -2391,6 +2390,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -2413,6 +2413,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
@@ -2431,6 +2432,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
