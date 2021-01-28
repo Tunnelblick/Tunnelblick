@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright (c) 2014, 2021 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -141,7 +141,8 @@ extern TBUserDefaults * gTbDefaults;
 				NSString * privateSharedDeployed = [connection displayLocation];
 				NSString * state = localizeNonLiteral([connection state], @"Connection status");
 				NSString * timeString = [connection connectTimeString];
-				if (  vpnDetailsWindow  ) {
+				if (   vpnDetailsWindow
+                    && ( ! runningOnBigSurOrNewer() )  ) {
 					NSString * statusMsg = [NSString stringWithFormat: @"%@%@: %@%@ - Tunnelblick",
 											name, privateSharedDeployed, state, timeString];
 					[vpnDetailsWindow setTitle: statusMsg];

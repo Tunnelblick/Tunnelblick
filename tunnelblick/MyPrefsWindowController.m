@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -1626,9 +1626,12 @@ static BOOL firstTimeShowingWindow = TRUE;
         appName = [appName substringToIndex: [appName length] - 4];
     }
     
-    NSString * windowLabel = [NSString stringWithFormat: @"%@ - Tunnelblick", localizeNonLiteral(currentViewName, @"Window title")];
+    NSString * windowLabel = (  runningOnBigSurOrNewer()
+                              ? localizeNonLiteral(currentViewName, @"Window title")
+                              : [NSString stringWithFormat: @"%@ - Tunnelblick", localizeNonLiteral(currentViewName, @"Window title")]);
 
-    if (  [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]  ) {
+    if (   [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]
+        && ( ! runningOnBigSurOrNewer() )  ) {
         VPNConnection * connection = [self selectedConnection];
         if (  connection  ) {
             NSString * status = localizeNonLiteral([connection state], @"Connection status");
