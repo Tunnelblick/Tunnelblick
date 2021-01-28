@@ -15,11 +15,11 @@
 	<key>CFBundlePackageType</key>
 	<string>KEXT</string>
 	<key>CFBundleShortVersionString</key>
-	<string>20141104 (Tunnelblick build 5300)</string>
+	<string>20141104 (Tunnelblick tun kext version 4.0; Tunnelblick build 5621)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>5300.3</string>
+	<string>4.0</string>
 	<key>OSBundleLibraries</key>
 	<dict>
 		<key>com.apple.kpi.mach</key>

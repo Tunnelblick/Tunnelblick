@@ -1,0 +1,43 @@
+--- Makefile	2014-11-03 18:48:49.000000000 -0500
++++ Makefile	2020-12-29 07:35:28.000000000 -0500
+@@ -76,7 +76,7 @@
+ 	-rm -f tuntap_$(TUNTAP_VERSION)_src.tar.gz
+ 
+ %.kext:
+-	cd src/$* && make TUNTAP_VERSION=$(TUNTAP_VERSION) -f Makefile all
++	cd src/$* && make TUNTAP_VERSION=$(TUNTAP_VERSION) TUNTAP_ARCH_ARGS=$(TUNTAP_ARCH_ARGS) -f Makefile all
+ 	if test -s ".signing_identity"; then \
+ 		codesign -fv --keychain net.sf.tuntaposx.tmp -s "$$(cat .signing_identity)" \
+ 			$*.kext ; \
+--- src/tap/Makefile	2020-12-29 00:44:36.000000000 -0500
++++ src/tap/Makefile	2020-12-29 07:49:31.000000000 -0500
+@@ -22,11 +22,11 @@
+ INCLUDE = -I.. -I/System/Library/Frameworks/Kernel.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Kernel.framework/Headers
+ CFLAGS = -Wall -Werror -Wno-deprecated-declarations -mkernel -force_cpusubtype_ALL \
+ 	-nostdinc -fno-builtin -fno-stack-protector -msoft-float -fno-common \
+-	-arch x86_64 \
++	$(TUNTAP_ARCH_ARGS) \
+ 	-DKERNEL -DAPPLE -DKERNEL_PRIVATE -DTUNTAP_VERSION=\"$(TUNTAP_VERSION)\" \
+ 	-DTAP_KEXT_VERSION=\"$(TAP_KEXT_VERSION)\"
+ CCFLAGS = $(CFLAGS)
+-LDFLAGS = -Wall -Werror -Wno-deprecated-declarations -arch x86_64 -Xlinker -kext -nostdlib -lkmodc++ -lkmod -lcc_kext
++LDFLAGS = -Wall -Werror -Wno-deprecated-declarations $(TUNTAP_ARCH_ARGS) -Xlinker -kext -nostdlib -lkmodc++ -lkmod -lcc_kext
+ 
+ CCP = clang -x c++
+ CC = clang -x c
+--- src/tun/Makefile	2020-12-29 00:44:36.000000000 -0500
++++ src/tun/Makefile	2020-12-29 07:49:08.000000000 -0500
+@@ -23,11 +23,11 @@
+ INCLUDE = -I.. -I/System/Library/Frameworks/Kernel.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Kernel.framework/Headers
+ CFLAGS = -Wall -Werror -Wno-deprecated-declarations -mkernel -force_cpusubtype_ALL \
+ 	-nostdinc -fno-builtin -fno-stack-protector -msoft-float -fno-common \
+-	-arch x86_64 \
++	$(TUNTAP_ARCH_ARGS) \
+ 	-DKERNEL -DAPPLE -DKERNEL_PRIVATE -DTUNTAP_VERSION=\"$(TUNTAP_VERSION)\" \
+ 	-DTUN_KEXT_VERSION=\"$(TUN_KEXT_VERSION)\"
+ CCFLAGS = $(CFLAGS)
+-LDFLAGS = -Wall -Werror -Wno-deprecated-declarations -arch x86_64 -Xlinker -kext -nostdlib -lkmodc++ -lkmod -lcc_kext
++LDFLAGS = -Wall -Werror -Wno-deprecated-declarations $(TUNTAP_ARCH_ARGS) -Xlinker -kext -nostdlib -lkmodc++ -lkmod -lcc_kext
+ 
+ CCP = clang -x c++
+ CC = clang -x c

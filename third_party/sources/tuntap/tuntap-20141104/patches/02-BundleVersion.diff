@@ -13,12 +13,12 @@ Sdiff -u -r -x .DS_Store src/tap/Info.plist src_/tap/Info.plist
  	<string>@@CFBUNDLEPACKAGETYPE@@</string>
  	<key>CFBundleShortVersionString</key>
 -	<string>@@CFBUNDLEVERSION@@</string>
-+	<string>@@CFBUNDLEVERSION@@ (Tunnelblick build TBBUILDNUMBER)</string>
++	<string>@@CFBUNDLEVERSION@@ (Tunnelblick tap kext version TBKEXTBUILDNUMBER; Tunnelblick build TBBUILDNUMBER)</string>
  	<key>CFBundleSignature</key>
  	<string>@@CFBUNDLESIGNATURE@@</string>
  	<key>CFBundleVersion</key>
 -	<string>1.0</string>
-+	<string>TBBUILDNUMBER.3</string>
++	<string>TBKEXTBUILDNUMBER</string>
  	<key>OSBundleLibraries</key>
  	<dict>
  		<key>com.apple.kpi.mach</key>
@@ -27,7 +27,6 @@ Sdiff -u -r -x .DS_Store src/tap/Info.plist src_/tap/Info.plist
  </dict>
  </plist>
 -
-diff -u -r -x .DS_Store src/tun/Info.plist src_/tun/Info.plist
 --- src/tun/Info.plist	2014-08-10 16:47:35.000000000 -0400
 +++ src_/tun/Info.plist	2015-10-26 09:45:50.000000000 -0400
 @@ -1,5 +1,5 @@
@@ -42,12 +41,12 @@ diff -u -r -x .DS_Store src/tun/Info.plist src_/tun/Info.plist
  	<string>@@CFBUNDLEPACKAGETYPE@@</string>
  	<key>CFBundleShortVersionString</key>
 -	<string>@@CFBUNDLEVERSION@@</string>
-+	<string>@@CFBUNDLEVERSION@@ (Tunnelblick build TBBUILDNUMBER)</string>
++	<string>@@CFBUNDLEVERSION@@ (Tunnelblick tun kext version TBKEXTBUILDNUMBER; Tunnelblick build TBBUILDNUMBER)</string>
  	<key>CFBundleSignature</key>
  	<string>@@CFBUNDLESIGNATURE@@</string>
  	<key>CFBundleVersion</key>
 -	<string>1.0</string>
-+	<string>TBBUILDNUMBER.3</string>
++	<string>TBKEXTBUILDNUMBER</string>
  	<key>OSBundleLibraries</key>
  	<dict>
  		<key>com.apple.kpi.mach</key>

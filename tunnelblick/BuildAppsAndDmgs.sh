@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2015, 2016, 2018, 2020 by Jonathan K. Bullard. All rights reserved.
+# Copyright (c) 2015, 2016, 2018, 2020, 2021 by Jonathan K. Bullard. All rights reserved.
 #
 # This file is part of Tunnelblick.
 #
@@ -60,7 +60,7 @@ fi
 
   # Add the Uninstaller .app's Info.plist and its icon, script, and localization resources
   cp -p -f "tunnelblick-uninstaller.Info.plist"   "${uninstaller_path}/Contents/Info.plist"
- 
+
   cp -p "tunnelblick-uninstaller.icns"               "${uninstaller_path}/Contents/Resources/droplet.icns"
   cp -p "tunnelblick-uninstaller.sh"                 "${uninstaller_path}/Contents/Resources/tunnelblick-uninstaller.sh"
 
@@ -199,25 +199,25 @@ changeEntry "${app_path}/Contents/Info.plist" TBCONFIGURATION "${tbconfig}"
 readonly tbvs="$(cat TBVersionString.txt)"
 changeEntry "${app_path}/Contents/Info.plist" TBVERSIONSTRING "${tbvs}"
 
-# Set the build number (CFBundleVersion0 from TBBuildNumber.txt (inside CFBundleShortVersionString) in the app and uninstaller
+# Set the build number (CFBundleVersion) from TBBuildNumber.txt (inside CFBundleShortVersionString) in the app and uninstaller
 readonly tbbn="$(cat TBBuildNumber.txt)"
 changeEntry "${app_path}/Contents/Info.plist"         TBBUILDNUMBER "${tbbn}"
 changeEntry "${uninstaller_path}/Contents/Info.plist" TBBUILDNUMBER "${tbbn}"
 
-# Set the CFBundleVersion from TBBuildNumber.txt in any kexts that have not been notarized
-# Kexts must have small numbers as the second and optional 3rd part of CFBundleVersion
-# So we change a Tunnelblick build # of (for example) 1234.5678 to just 5678 for use in the kexts.
-# Since the kexts have TBBUILDNUMBER.1, TBBUILDNUMBER.2, or TBBUILDNUMBER.3, they will be 5678.1, 5678.2, and 5678.3
-readonly kextbn="${tbbn##*.}"
+# Set the CFBundleVersion from TBKextVersionNumber.txt in any kexts that have not been notarized
+# Kexts must have small numbers as the second and optional 3rd part of CFBundleVersion.
+readonly kextbn="$(cat TBKextVersionNumber.txt)"
 for k in "${app_path}/Contents/Resources/"*.kext ; do
   if [ -e "$k" ] ; then
 	f="$(basename "$k" )"
 	if [ "$f" != "tap-notarized.kext" ] \
 	&& [ "$f" != "tun-notarized.kext" ] ; then
-		changeEntry "${app_path}/Contents/Resources/tun.kext/Contents/Info.plist" TBBUILDNUMBER "${kextbn}"
+		changeEntry "${app_path}/Contents/Resources/$f/Contents/Info.plist" TBBUILDNUMBER     "${tbbn}"
+        changeEntry "${app_path}/Contents/Resources/$f/Contents/Info.plist" TBKEXTBUILDNUMBER "${kextbn}"
 	fi
   fi
 done
+
 # Copy git information into Info.plist: the hash and the git status (uncommitted changes)
 # Warn about uncommitted changes except for Debug builds
 if [ -e "../.git" -a  "$(which git)" != "" ] ; then
