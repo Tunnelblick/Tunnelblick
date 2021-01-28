@@ -3,7 +3,7 @@
  * Contributions by Dirk Theisen <dirk@objectpark.org>,
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -4754,9 +4754,16 @@ static void signal_handler(int signalNumber)
             NSArray * parts = [versionWithSslSuffix componentsSeparatedByString: @"-"];
 			NSString * versionWithoutSslSuffix = [parts objectAtIndex: 0];
             
-            // Use ./openvpn --version to get the version information
             NSString * openvpnPath = [[openvpnDirPath stringByAppendingPathComponent: dirName ]
                                       stringByAppendingPathComponent: @"openvpn"];
+            
+            // Skip this binary if it cannot be run on this processor
+            if (  ! thisArchitectureSupportsBinaryAtPath(openvpnPath)) {
+                NSLog(@"This Mac cannot run the program at '%@'", openvpnPath);
+                continue;
+            }
+            
+            // Use ./openvpn --version to get the version information
             NSString * stdoutString = @"";
             NSString * stderrString = @"";
             OSStatus status = runTool(openvpnPath, [NSArray arrayWithObject: @"--version"], &stdoutString, &stderrString);
