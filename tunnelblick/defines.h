@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -147,6 +147,7 @@
 #define TOOL_PATH_FOR_CODESIGN		@"/usr/bin/codesign"
 #define TOOL_PATH_FOR_CSRUTIL		@"/usr/bin/csrutil"
 #define TOOL_PATH_FOR_DISKUTIL		@"/usr/sbin/diskutil"
+#define TOOL_PATH_FOR_FILE          @"/usr/bin/file"
 #define TOOL_PATH_FOR_ID			@"/usr/bin/id"
 #define TOOL_PATH_FOR_IFCONFIG		@"/sbin/ifconfig"
 #define TOOL_PATH_FOR_KEXTSTAT		@"/usr/sbin/kextstat"
@@ -161,6 +162,11 @@
 #define TOOL_PATH_FOR_SQLITE3		@"/usr/bin/sqlite3"
 #define TOOL_PATH_FOR_SW_VERS		@"/usr/bin/sw_vers"
 #define TOOL_PATH_FOR_TAR			@"/usr/bin/tar"
+
+// Strings returned by architecturesForExecutable() for supported architectures
+#define ARCH_X86 @"x86_64"
+#define ARCH_ARM @"arm64"
+#define ARCH_ALL @"x86_64 arm64"
 
 // The number of characters in each line of output from "ps -A" that are before the process' command line
 #define PS_CHARACTERS_BEFORE_COMMAND  25

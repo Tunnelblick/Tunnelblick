@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -422,6 +422,73 @@ NSString * rgbValues(BOOL foreground) {
 						 );
 	
 	return result;
+}
+
+NSString * architectureBeingUsed(void) {
+    
+    char return_string[1000];
+    size_t size = 1000;
+    if (  sysctlbyname("machdep.cpu.brand_string", &return_string, &size, NULL, 0) == -1  ) {
+        NSLog(@"architectureBeingUsed(): Error from sysctlbyname(\"machdep.cpu.brand_string\"): %d (%s), assuming '%@'",
+              errno, strerror(errno), ARCH_X86);
+        return ARCH_X86;
+    }
+
+    BOOL isIntel = (  strstr(return_string, "Intel") != 0  );
+    return (  isIntel
+            ? ARCH_X86
+            : ARCH_ARM);
+    
+/* Using the sysctl command
+    NSString * stdOutString = nil;
+    NSString * stdErrString = nil;
+    OSStatus status = runTool(TOOL_PATH_FOR_SYSCTL, @[@"-n", @"machdep.cpu.brand_string"], &stdOutString, &stdErrString);
+    if (   (status == EXIT_SUCCESS)
+        && ([stdOutString length] > 0)  ) {
+        return ([stdOutString rangeOfString: @"Intel"].length != 0);
+    }
+
+    NSLog(@"Error status %d from 'sysctl -a'; stdout = '%@'; stderr = '%@'", status, stdOutString, stdErrString);
+    return NO;
+*/
+
+}
+
+NSString * architecturesForExecutable(NSString * path) {
+    
+    // Run "file <path>" to get a list of architectures that can run the executable at <path>
+    NSString * stdoutString = nil;
+    OSStatus status = runTool(TOOL_PATH_FOR_FILE, @[path], &stdoutString, nil);
+    if (  status != 0  ) {
+        NSLog(@"Assuming '%@' can run on '%@' because 'file' returned error status %ld", path, ARCH_ALL, (long)status);
+        return ARCH_ALL ;
+    }
+    
+    NSString * archs = @"";
+    
+    BOOL haveX86 = [stdoutString rangeOfString: @"Mach-O 64-bit executable x86_64"].length != 0;
+    BOOL haveArm = [stdoutString rangeOfString: @"Mach-O 64-bit executable arm64"].length != 0;
+    if (  haveX86  ) {
+        if (  haveArm  ) {
+            archs = ARCH_ALL;
+        } else {
+            archs = ARCH_X86;
+        }
+    } else if (  haveArm  ) {
+        archs = ARCH_ARM;
+    }
+    
+    return archs;
+}
+
+BOOL thisArchitectureSupportsBinaryAtPath(NSString * path) {
+    
+    NSString * requiredArch = architectureBeingUsed();
+    
+    NSString * archs = architecturesForExecutable(path);
+
+    BOOL supports = ([archs rangeOfString: requiredArch].length != 0);
+    return supports;
 }
 
 NSAttributedString * attributedStringFromHTML(NSString * html) {
