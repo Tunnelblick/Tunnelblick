@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -57,6 +57,7 @@
 		63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */; };
 		63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */; };
 		6322DFAB2429185D002F3958 /* tb-icon-64x64.v1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6322DFAA2429185D002F3958 /* tb-icon-64x64.v1.png */; };
+		632496F125C0D4A6004A3E9A /* SignTunnelblickAppOrDmg.sh in Resources */ = {isa = PBXBuildFile; fileRef = 632496F025C0D4A5004A3E9A /* SignTunnelblickAppOrDmg.sh */; };
 		6329EA021A9AF6EF00A0BFA8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */; };
 		6329EA051A9B003700A0BFA8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */; };
 		632AA70124211D2A00C7860D /* sw-tz.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 632AA70024211D2900C7860D /* sw-tz.lproj */; };
@@ -151,6 +152,7 @@
 		63AB7D001D930BCE008ED621 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AB7CFF1D930BCE008ED621 /* QuartzCore.framework */; };
 		63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ABFE9B1349E435003DEB64 /* LoginWindowController.m */; };
 		63ABFE9F1349F086003DEB64 /* LoginWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63ABFE9E1349F086003DEB64 /* LoginWindow.xib */; };
+		63AE127F25C239500008379F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63AE8599116CCF7A00D36CB1 /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* pl.lproj */; };
 		63AF2CAE15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */; };
 		63B16B511E204D37002958D0 /* updates_sign_with_v2_signature in Resources */ = {isa = PBXBuildFile; fileRef = 63B16B4F1E204D37002958D0 /* updates_sign_with_v2_signature */; };
@@ -173,7 +175,6 @@
 		63C3757A1A45111700D51E81 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63C3757B1A45112500D51E81 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63C3757C1A45113000D51E81 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
-		63C504291178E21100340D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
 		63D893F32124E5FE000E20E5 /* SetupImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F22124E5FE000E20E5 /* SetupImporter.m */; };
@@ -419,6 +420,7 @@
 		63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.down.tunnelblick.sh; sourceTree = "<group>"; };
 		63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.up.tunnelblick.sh; sourceTree = "<group>"; };
 		6322DFAA2429185D002F3958 /* tb-icon-64x64.v1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tb-icon-64x64.v1.png"; sourceTree = "<group>"; };
+		632496F025C0D4A5004A3E9A /* SignTunnelblickAppOrDmg.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = SignTunnelblickAppOrDmg.sh; sourceTree = "<group>"; };
 		6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6329EA031A9AF7B700A0BFA8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		632AA70024211D2900C7860D /* sw-tz.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "sw-tz.lproj"; sourceTree = "<group>"; };
@@ -741,12 +743,12 @@
 				6329EA021A9AF6EF00A0BFA8 /* SystemConfiguration.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				61BC4D8A0E2FA20800F24255 /* CoreFoundation.framework in Frameworks */,
-				63C504291178E21100340D13 /* Security.framework in Frameworks */,
 				6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */,
 				635CA9A012F9DCE300287298 /* AppKit.framework in Frameworks */,
 				63B9CFA5132C73DD009EC6D0 /* WebKit.framework in Frameworks */,
 				63432573140D7F5A00015CE0 /* CoreServices.framework in Frameworks */,
 				637B0A1E1A81DC2100210900 /* Sparkle.framework in Frameworks */,
+				63AE127F25C239500008379F /* Security.framework in Frameworks */,
 				634616871A9B85C60049C16C /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -839,6 +841,7 @@
 				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
 				634827BA1D7DBFBB0046703C /* BuildThirdPartyItems.sh */,
 				633E55621BB0F16600A6B8FB /* BuildAppsAndDmgs.sh */,
+				632496F025C0D4A5004A3E9A /* SignTunnelblickAppOrDmg.sh */,
 				63E6A8A31D9FBBDB006F1211 /* third_party */,
 				63E6A8A01D9FBBBF006F1211 /* Building Tunnelblick from Source Code.markdown */,
 				63E6A8A11D9FBBBF006F1211 /* COPYING */,
@@ -1540,8 +1543,8 @@
 				638A200F135CC4C000FB932C /* PBXTargetDependency */,
 				63AA8E651492C7CC00C791C9 /* PBXTargetDependency */,
 				63ED8EF51A1E84A70045D34E /* PBXTargetDependency */,
-				63C375871A4513A700D51E81 /* PBXTargetDependency */,
 				635BF1A01501CDAF00D87717 /* PBXTargetDependency */,
+				63C375871A4513A700D51E81 /* PBXTargetDependency */,
 			);
 			name = Tunnelblick;
 			productInstallPath = "$(HOME)/Applications";
@@ -1685,6 +1688,7 @@
 				637A871C13B74DFB003C1871 /* SplashWindow.xib in Resources */,
 				63379F8813F695D700F2554D /* TBBuildNumber.txt in Resources */,
 				63B16B511E204D37002958D0 /* updates_sign_with_v2_signature in Resources */,
+				632496F125C0D4A6004A3E9A /* SignTunnelblickAppOrDmg.sh in Resources */,
 				635BF1AF1501CE4E00D87717 /* ExternalBuildCleanScript.sh in Resources */,
 				63AF2CAE15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh in Resources */,
 				63FFD6541D0E9C8B00D4FFD9 /* Lock.png in Resources */,
@@ -1723,6 +1727,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		610AEAE70E2FE63900EA3C79 /* Create the Applications and .dmgs */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1738,6 +1743,7 @@
 		};
 		616A49200E38D17500477476 /* Build Third Party Items */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -2160,9 +2166,9 @@
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Z2SG5H3HC8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../third_party\"",
 					"\"$(SRCROOT)/../third_party/products/sparkle\"",
 				);
 				GCC_MODEL_TUNING = G5;
@@ -2178,6 +2184,10 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.tunnelblick.tunnelblick;
 				PRODUCT_NAME = Tunnelblick;
 				WARNING_CFLAGS = (
@@ -2437,7 +2447,6 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../third_party\"",
 					"\"$(SRCROOT)/../third_party/products/sparkle\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2455,6 +2464,11 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
+				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.tunnelblick.tunnelblick;
 				PRODUCT_NAME = Tunnelblick;
 				WARNING_CFLAGS = (

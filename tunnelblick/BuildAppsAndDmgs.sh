@@ -33,6 +33,9 @@ readonly         app_path="build/${CONFIGURATION}/${PROJECT_NAME}.app"
 readonly         dmg_path="build/${CONFIGURATION}/${PROJECT_NAME}.dmg"
 readonly uninstaller_path="build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app"
 
+readonly signed_app_path="build/${CONFIGURATION}/Signed/${PROJECT_NAME}.app"
+readonly signed_dmg_path="build/${CONFIGURATION}/Signed/${PROJECT_NAME}.dmg"
+
 # If Xcode has built Tunnelblick.app in somewhere unexpected, complain and quit
 if [ ! -d "${app_path}" ] ; then
   if [ "$ACTION" = "install" ] ; then
@@ -385,6 +388,12 @@ chmod 744 "${app_path}/Contents/Resources/client.4.up.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/client.4.down.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/re-enable-network-services.sh"
 
+# Create a signed copy of the Tunnelblick.app
+rm -r -f $( dirname "$signed_app_path" )
+mkdir -p $( dirname "$signed_app_path" )
+cp -a -f "$app_path" "$signed_app_path"
+./SignTunnelblickAppOrDmg.sh "$signed_app_path"
+
 # Create the Tunnelblick .dmg and the Uninstaller .dmg except if Debug
 if [ "${CONFIGURATION}" != "Debug" ]; then
 
@@ -418,6 +427,18 @@ if [ "${CONFIGURATION}" != "Debug" ]; then
         echo "ERROR creating .dmg"
 		exit ${status}
     fi
+
+    # Create a signed copy of the .dmg that contains the signed copy of the .app
+    rm -r -f "$TMPDMG/${PROJECT_NAME}.app"
+    cp -p -R -f "${signed_app_path}" "$TMPDMG"
+    rm -r -f "$dmg_path"
+    hdiutil create -noscrub -srcfolder "$TMPDMG" "$signed_dmg_path"
+    status=$?
+    if [ "${status}" -ne "0" ]; then
+        echo "ERROR creating signed .dmg"
+        exit ${status}
+    fi
+    ./SignTunnelblickAppOrDmg.sh "$signed_dmg_path"
 
 	# Leave the staging folder so customized .dmgs can be easily created
 
