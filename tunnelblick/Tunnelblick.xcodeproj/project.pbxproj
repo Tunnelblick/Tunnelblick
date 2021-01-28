@@ -175,7 +175,7 @@
 		63C3757A1A45111700D51E81 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63C3757B1A45112500D51E81 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63C3757C1A45113000D51E81 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
-		63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */; };
+		63CC72F91928C5CB00F81220 /* TBUIUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.m */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
 		63D893F32124E5FE000E20E5 /* SetupImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F22124E5FE000E20E5 /* SetupImporter.m */; };
 		63D893F821258FAE000E20E5 /* ImportWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F621258FAE000E20E5 /* ImportWindowController.m */; };
@@ -551,7 +551,7 @@
 		63C375781A4510F600D51E81 /* tunnelblick-helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "tunnelblick-helper.m"; sourceTree = "<group>"; };
 		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		63CC72F71928C5CB00F81220 /* TBUIUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUIUpdater.h; sourceTree = "<group>"; };
-		63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUIUpdater.h.m; sourceTree = "<group>"; };
+		63CC72F81928C5CB00F81220 /* TBUIUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUIUpdater.m; sourceTree = "<group>"; };
 		63D39B4614F9860E002D1297 /* UtilitiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilitiesView.h; sourceTree = "<group>"; };
 		63D39B4714F9860E002D1297 /* UtilitiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilitiesView.m; sourceTree = "<group>"; };
 		63D893F12124E5F1000E20E5 /* SetupImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupImporter.h; sourceTree = "<group>"; };
@@ -991,7 +991,7 @@
 			isa = PBXGroup;
 			children = (
 				63CC72F71928C5CB00F81220 /* TBUIUpdater.h */,
-				63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */,
+				63CC72F81928C5CB00F81220 /* TBUIUpdater.m */,
 			);
 			name = "UI Updater";
 			sourceTree = "<group>";
@@ -1902,7 +1902,7 @@
 				B86D13091811859000FDFB3B /* ListingWindowController.m in Sources */,
 				B82DF4D8182704D800A121DE /* TBPerformer.m in Sources */,
 				B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */,
-				63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */,
+				63CC72F91928C5CB00F81220 /* TBUIUpdater.m in Sources */,
 				63D893F32124E5FE000E20E5 /* SetupImporter.m in Sources */,
 				632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */,
 				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
