@@ -58,14 +58,20 @@ TUNTAP_CURRENT_TARGZ  = tuntap_20141104_src.tar.gz
 #######################################################################################
 # Target architectures. Use a space-separated list of architectures.
 #
-#	For Intel,         use "x86_64" for all EXCEPT OpenSSL, which must use "darwin64-x86_64-cc"; and
-#	For Apple Silicon, use "arm64" for all EXCEPT OpenSSL, which must use "darwin64-arm64-cc".
+#	For Intel,         use "x86_64" for all
+#						   EXCEPT OpenSSL, which must use "darwin64-x86_64-cc"
+#
+#	For Apple Silicon, use "arm64" for all
+#						   EXCEPT OpenSSL, which must use "darwin64-arm64-cc"
+#						   and    Tuntap, which must use arm64e.
 
 TB_COMMON_X86_ARCH  = x86_64
 TB_COMMON_ARM_ARCH  = arm64
 
 TB_OPENSSL_X86_ARCH = darwin64-x86_64-cc
 TB_OPENSSL_ARM_ARCH = darwin64-arm64-cc
+
+TB_TUNTAP_ARM_ARCH = arm64e
 
 ifeq ($(TB_CAN_BUILD_ARM),0)
 
@@ -95,7 +101,7 @@ else
     LZO_TARGET_ARCHS         = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
     PKCS11_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
     SPARKLE_TARGET_ARCHS     = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
-    TUNTAP_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH) $(TB_COMMON_ARM_ARCH)
+    TUNTAP_TARGET_ARCHS      = $(TB_COMMON_X86_ARCH) $(TB_TUNTAP_ARM_ARCH)
 
     # Used to build OpenSSL and LibreSSL:
     # OpenSSL 1.0 cannot be built for Apple Silicon (ARM architecture)
