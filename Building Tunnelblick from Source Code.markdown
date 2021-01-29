@@ -13,21 +13,17 @@ with sufficient technical skills and resources can create their own
 binary and use it as they see fit under the terms of the license. This
 document describes how to do that.
 
-Tunnelblick works on macOS 10.10 and higher and the Tunnelblick
-application itself and all supporting programs are 64-bit Intel
-programs. The application runs on Apple Silicon under Rosetta 2.
+Tunnelblick runs on macOS 10.10 and higher.
 
 On recent versions of macOS, Tunnelblick's tun and tap system extensions
 are restricted:
 
  * On macOS Catalina, the computer must be restarted after loading the
-   system extensions for the first time.  
+   system extensions for the first time.
 
- * On macOS Big Sur on Intel, Tunnelblick's tun and tap system extensions
-   can only be loaded with SIP disabled.
-
- * On macOS Big Sur on Apple Silicon, Tunnelblick's tun and tap system
-   Extensions CANNOT be used.
+ * On macOS Big Sur , Tunnelblick's tun and tap system extensions can be
+   used only after being installed; the installation process involves
+   restarting the computer three times.
 
 See [The Future of Tun and Tap VPNs on macOS](https://tunnelblick.net/cTunTapConnections.html)
 For details.
@@ -61,11 +57,18 @@ recommended for Parallels.
 
 **1. Supported Versions of macOS and Xcode**
 
-The current version of Tunnelblick should be built using Xcode 7.3.1 on
-macOS 10.11.6.
+The current version of Tunnelblick should be built using:
+ * Xcode 7.3.1 on macOS 10.11.6; or
+ * Xcode 12.3  on macOS 10.15.7
 
-Other versions of Xcode and macOS may create Tunnelblick binaries that crash
-or have other unpredictable behavior.
+When built on Xcode 7.3.1, Tunnelblick will run on Intel processors, or
+on Apple M1 processors using Rosetta 2.
+
+When built on Xcode 12.3, Tunnelblick will be a Universal binary and run
+natively on Intel or M1 processors.
+
+Other versions of Xcode and macOS may fail to build Tunnelblick, or create
+Tunnelblick binaries that crash or have other unpredictable behavior.
 
 **2. Getting the Tunnelblick Source Code**
 
@@ -130,9 +133,9 @@ indexing at various times, and if you click a button while Xcode is
 indexing it will often crash. (This is an Xcode problem, not a
 Tunnelblick problem.)
 
-Xcode 12.2 need to have the command line tools installed. You can
+Xcode 12 needs to have the command line tools installed. You can
 do that in Terminal with the following command:
-```xcode-select&nbsp;--install```
+```xcode-select --install```
 
 **5. Selecting  the Type of Build You Want to Create**
 
