@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -24,6 +24,7 @@
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 #import <sys/stat.h>
+#import <sys/time.h>
 #import <sys/xattr.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <Security/SecRandom.h>
@@ -76,6 +77,7 @@
 //          Converts old entries in L_AS_T_TBLKS to the new format, with a bundleId_edition folder enclosing a .tblk
 //          Renames /Library/LaunchDaemons/net.tunnelblick.startup.*
 //               to                        net.tunnelblick.tunnelblick.startup.*
+//          Updates Tunnelblick kexts in /Library/Extensions
 //
 //      (2) if INSTALLER_MOVE_LIBRARY_OPENVPN is set, moves the contents of the old configuration folder
 //          at ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
@@ -106,6 +108,8 @@
 //	   (12) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
 //
 //	   (13) If requested, import settings from the .tblkSetup at targetPath
+//
+//     (14) If requested, install kexts
 
 // When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
 
@@ -666,7 +670,9 @@ void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL
 	errorExitIfAnySymlinkInPath(targetPath);
 	if ( [gFileMgr fileExistsAtPath:targetPath]  ) {
 		makeUnlockedAtPath(targetPath);
-		[gFileMgr tbRemoveFileAtPath:targetPath handler: nil];
+        if (  ! [gFileMgr tbRemoveFileAtPath:targetPath handler: nil]  ) {
+            errorExit();
+        }
 	}
 	int status = rename([dotTempPath fileSystemRepresentation], [targetPath fileSystemRepresentation]);
 	if (  status != 0 ) {
@@ -972,6 +978,96 @@ void secureOpenvpnBinariesFolder(NSString * enclosingFolder) {
 	}
 }
 
+BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath,
+                            NSString * kextInAppPath,
+                            NSString * finalNameOfKext,
+                            BOOL       forceInstall) {
+
+    // Installs a kext (if forceInstall) or updates an existing kext if it exists and is not identical to the copy in this application.
+    //
+    // Will update the filename of the kext to finalNameOfKext. (This is done because the initial testing of kexts on
+    // Apple Silicon (M1) Macs installed kexts named "tun-notarized.kext" and "tap-notarized.kext", which do not contain "tunnelblick"
+    // in their names. Including "tunnelblick" in the name of the kexts makes it easier for people to identify them.
+
+    BOOL initialKextExists = [gFileMgr fileExistsAtPath: initialKextInLibraryExtensionsPath];
+
+    if (  ! forceInstall  ) {
+        
+        if ( ! initialKextExists  ) {
+            return NO;
+        }
+         
+        NSString * initialNameOfKext = [initialKextInLibraryExtensionsPath lastPathComponent];
+
+        if (   [initialNameOfKext isEqualToString: finalNameOfKext]
+            && [gFileMgr contentsEqualAtPath: initialKextInLibraryExtensionsPath andPath: kextInAppPath]  ) {
+            return NO;
+        }
+    }
+    
+    if (  initialKextExists  ) {
+        if (  ! deleteThingAtPath(initialKextInLibraryExtensionsPath)  ) {
+            errorExit();
+        }
+    }
+    
+    NSString * finalPath = [[initialKextInLibraryExtensionsPath stringByDeletingLastPathComponent]
+                            stringByAppendingPathComponent: finalNameOfKext];
+
+    // safeCopyPathToPath will replace any existing kext
+    safeCopyPathToPath(kextInAppPath, finalPath);
+    
+    if ( ! checkSetOwnership(finalPath, YES, 0, 0)  ) {
+        errorExit();
+    }
+    
+    NSString * verb = (  initialKextExists
+                       ? @"Updated"
+                       : @"Installed");
+    appendLog([NSString stringWithFormat: @"%@ %@ in %@", verb, finalNameOfKext, [finalPath stringByDeletingLastPathComponent]]);
+
+    return YES;
+}
+
+void installOrUpdateKexts(BOOL forceInstall) {
+
+    // Update or install the kexts at most once each time installer is invoked
+    static BOOL haveUpdatedKexts = FALSE;
+    
+    if (  haveUpdatedKexts  ) {
+        return;
+    }
+    
+    BOOL updateKextCaches = FALSE;
+    
+    NSString * thisAppPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+    NSString * resourcesPath = [[thisAppPath stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"];
+
+    if (   [gFileMgr fileExistsAtPath: @"/Library/Extensions/tun-notarized.kext"]
+        || [gFileMgr fileExistsAtPath: @"/Library/Extensions/tap-notarized.kext"]  ) {
+
+        // Replace the original kexts used for testing on M1 Macs, changing their names to the new names
+        updateKextCaches = installOrUpdateOneKext(@"/Library/Extensions/tun-notarized.kext",   [resourcesPath stringByAppendingPathComponent: @"tun-notarized.kext"], @"tunnelblick-tun.kext", forceInstall) || updateKextCaches;
+        updateKextCaches = installOrUpdateOneKext(@"/Library/Extensions/tap-notarized.kext",   [resourcesPath stringByAppendingPathComponent: @"tap-notarized.kext"], @"tunnelblick-tap.kext", forceInstall) || updateKextCaches;
+    } else {
+
+        // Update the standard kexts
+        updateKextCaches = installOrUpdateOneKext(@"/Library/Extensions/tunnelblick-tun.kext", [resourcesPath stringByAppendingPathComponent: @"tun-notarized.kext"], @"tunnelblick-tun.kext", forceInstall) || updateKextCaches;
+        updateKextCaches = installOrUpdateOneKext(@"/Library/Extensions/tunnelblick-tap.kext", [resourcesPath stringByAppendingPathComponent: @"tap-notarized.kext"], @"tunnelblick-tap.kext", forceInstall) || updateKextCaches;
+    }
+    
+    if (  updateKextCaches  ) {
+        
+        // According to the man page for kextcache, kext caches should be updated by executing 'touch /Library/Extensions'; the following is the equivalent:the 
+        if (  utimes([gFileMgr fileSystemRepresentationWithPath: @"/Library/Extensions"], NULL) != 0  ) {
+            appendLog([NSString stringWithFormat: @"utimes(\"/Library/Extensions\", NULL) failed with error %d ('%s')", errno, strerror(errno)]);
+            errorExit();
+        }
+        
+        haveUpdatedKexts = TRUE;
+    }
+}
+
 void doInitialWork(void) {
 	
 	if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
@@ -1103,6 +1199,8 @@ void doInitialWork(void) {
 			
 		}
 	}
+    
+    installOrUpdateKexts(NO);
 }
 
 void moveLibOpenVPN() {
@@ -2001,7 +2099,10 @@ void safeCopyPathToPathAndSetUidAndGid(NSString * sourcePath, NSString * targetP
 					   ? @"Overwrote"
 					   : @"Copied to");
 	safeCopyPathToPath(sourcePath, targetPath);
-	checkSetOwnership(targetPath, YES, newUid, newGid);
+    if ( ! checkSetOwnership(targetPath, YES, newUid, newGid)  ) {
+        errorExit();
+    }
+    
 	appendLog([NSString stringWithFormat: @"%@ and set ownership to %@: %@", verb, formattedUserGroup(newUid, newGid), targetPath]);
 }
 
@@ -2229,7 +2330,9 @@ void createImportInfoFile(NSString * tblkSetupPath) {
 	NSString * importInfoFilePath = [L_AS_T stringByAppendingPathComponent: importInfoFilename];
 	if (  ! [gFileMgr fileExistsAtPath: importInfoFilePath]  ) {
 		if (  [gFileMgr createFileAtPath: importInfoFilePath contents: nil attributes: nil]  ) {
-			checkSetOwnership(importInfoFilePath, NO, 0, 0);
+            if (  ! checkSetOwnership(importInfoFilePath, NO, 0, 0)  ) {
+                errorExit();
+            }
 			appendLog([NSString stringWithFormat: @"Created and set ownership to   %@: %@", formattedUserGroup(0, 0), importInfoFilePath]);
 		} else {
 			appendLog([NSString stringWithFormat: @"Could not create %@", importInfoFilePath]);
@@ -2358,7 +2461,8 @@ int main(int argc, char *argv[])
 	BOOL doConvertNonTblks        = (arg1 & INSTALLER_CONVERT_NON_TBLKS) != 0;
 	BOOL doMoveLibOpenvpn         = (arg1 & INSTALLER_MOVE_LIBRARY_OPENVPN) != 0;
     BOOL doForceLoadLaunchDaemon  = (arg1 & INSTALLER_REPLACE_DAEMON) != 0;
-	
+    BOOL doInstallKexts           = (arg1 & INSTALLER_INSTALL_KEXTS) != 0;
+
 	unsigned int operation = (arg1 & INSTALLER_OPERATION_MASK);
 	
 	// Note: gSecureTblks will also be set to TRUE later if any private .ovpn or .conf configurations were converted to .tblks
@@ -2560,6 +2664,12 @@ int main(int argc, char *argv[])
 		importSetup(firstPath, secondPath);
 	}
 	
+    //**************************************************************************************************************************
+    // (14) If requested, install kexts
+    if (   doInstallKexts  ) {
+        installOrUpdateKexts(YES);
+    }
+    
     //**************************************************************************************************************************
     // DONE
     

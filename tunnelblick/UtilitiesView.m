@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2020 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2020, 2021 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -122,6 +122,14 @@ extern TBUserDefaults * gTbDefaults;
     BOOL tunnelblickIsInApplicationsFolder = [[[NSBundle mainBundle] bundlePath] isEqualToString: @"/Applications/Tunnelblick.app"];
     [utilitiesUninstallButton setEnabled: tunnelblickIsInApplicationsFolder];
 	
+    [utilitiesInstallKextsButton
+      setTitle: NSLocalizedString(@"Install tun and tap system extensions...", @"Button")
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Click to install Tunnelblick's tun and tap system extensions.</p>\n\n"
+                                                           @"<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p>"
+                                                           @"<p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>",
+                                                           @"HTML info for the 'Install tun and tap system extensions...' button."))];
+    [utilitiesUninstallButton setEnabled: runningOnBigSurOrNewer()];
+    
 	[utilitiesRunEasyRsaButton
 	  setTitle: NSLocalizedString(@"Open easy-rsa in Terminal", @"Button")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p>"
@@ -188,6 +196,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            utilitiesExportTunnelblic
 TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, utilitiesExportTunnelblickSetupProgressIndicator)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesUninstallButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesInstallKextsButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesRunEasyRsaButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   utilitiesEasyRsaPathTFC)

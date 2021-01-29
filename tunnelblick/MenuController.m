@@ -462,6 +462,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	[self checkSystemFolder: @"/Applications"];
 	[self checkSystemFolder: @"/Library"];
 	[self checkSystemFolder: @"/Library/Application Support"];
+    [self checkSystemFolder: @"/Library/Extensions"];
 	[self checkSystemFolder: @"/Library/LaunchDaemons"];
 	[self checkSystemFolder: @"/Users"];
 	[self checkSystemFolder: @"/usr"];
@@ -5702,6 +5703,20 @@ static void signal_handler(int signalNumber)
     NSLog(@"%@", logContents);
 
     exit(0);
+}
+
+-(void) installKexts {
+    
+    NSString * message = NSLocalizedString(@"Tunnelblick needs authorization to install its tun and tap system extensions.", @"Window text");
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
+    if (  auth  ) {
+        NSInteger result = [self runInstaller: INSTALLER_INSTALL_KEXTS extraArguments: nil usingSystemAuth: auth installTblks: nil];
+        [auth release];
+        if (  result != EXIT_SUCCESS  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"Failed to install Tunnelblick's tun and tap system extensions.", @"Window text"));
+        }
+    }
 }
 
 -(void) renameConfigurationUsingConfigurationManager: (NSDictionary *) dict {

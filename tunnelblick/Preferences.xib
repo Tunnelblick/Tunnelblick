@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G22010" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
@@ -602,12 +601,11 @@
             <connections>
                 <outlet property="addConfigurationButton" destination="584" id="614"/>
                 <outlet property="advancedButton" destination="536" id="649"/>
-                <outlet property="c_o_p_yConfigurationsIntoNewFolderMenuItem" destination="605" id="YcK-sU-RZD"/>
+                <outlet property="c_o_p_yConfigurationsIntoNewFolderMenuItem" destination="605" id="6mN-28-V7x"/>
                 <outlet property="checkIPAddressAfterConnectOnAdvancedCheckbox" destination="5Fj-8t-plZ" id="pXJ-Ov-vBo"/>
                 <outlet property="configurationsHelpButton" destination="525" id="679"/>
                 <outlet property="configurationsTabView" destination="522" id="738"/>
                 <outlet property="connectButton" destination="526" id="727"/>
-                <outlet property="c_o_p_yConfigurationsIntoNewFolderMenuItem" destination="605" id="6mN-28-V7x"/>
                 <outlet property="diagnosticInfoToClipboardButton" destination="1203" id="1287"/>
                 <outlet property="diagnosticInfoToClipboardProgressIndicator" destination="1283" id="1285"/>
                 <outlet property="disableIpv6OnTunCheckbox" destination="MQw-BI-NTg" id="yhh-Ex-sbR"/>
@@ -1199,23 +1197,23 @@
                     </buttonCell>
                     <connections>
                         <action selector="utilitiesQuitAllOpenVpnButtonWasClicked:" target="-2" id="987"/>
-                        <outlet property="nextKeyView" destination="1085" id="1146"/>
+                        <outlet property="nextKeyView" destination="xmS-0T-tQv" id="U9l-Ry-hbX"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" id="1085" customClass="TBButton">
-                    <rect key="frame" x="301" y="265" width="167" height="32"/>
+                <button verticalHuggingPriority="750" id="xmS-0T-tQv" customClass="TBButton">
+                    <rect key="frame" x="301" y="275" width="118" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="push" title="Copy Console Log$" bezelStyle="rounded" alignment="left" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1086">
+                    <buttonCell key="cell" type="push" title="InstallKexts$" bezelStyle="rounded" alignment="left" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fxC-oh-LBN">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="consoleLogToClipboardButtonWasClicked:" target="-2" id="1290"/>
-                        <outlet property="nextKeyView" destination="1137" id="1147"/>
+                        <action selector="utilitiesInstallKextsButtonWasClicked:" target="-2" id="Rci-Y3-tjX"/>
+                        <outlet property="nextKeyView" destination="1085" id="9hw-fV-zRQ"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" id="1137" customClass="TBButton">
-                    <rect key="frame" x="301" y="204" width="290" height="32"/>
+                    <rect key="frame" x="301" y="175" width="290" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Open Uninstall Instructions in Browser$" bezelStyle="rounded" alignment="left" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1138">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1239,7 +1237,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="1023">
-                    <rect key="frame" x="312" y="130" width="591" height="14"/>
+                    <rect key="frame" x="312" y="114" width="591" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Path to easy-rsa" id="1024">
                         <font key="font" metaFont="smallSystem"/>
@@ -1250,8 +1248,8 @@
                         <outlet property="nextKeyView" destination="861" id="1150"/>
                     </connections>
                 </textField>
-                <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="1288">
-                    <rect key="frame" x="310" y="274" width="16" height="16"/>
+                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="1288">
+                    <rect key="frame" x="307" y="235" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
                 <textField verticalHuggingPriority="750" id="PcD-Dg-BVP">
@@ -1275,7 +1273,7 @@
                     </buttonCell>
                     <connections>
                         <action selector="utilitiesExportTunnelblickSetupButtonWasClicked:" target="-2" id="09x-6J-8Wr"/>
-                        <outlet property="nextKeyView" destination="1009" id="I6f-rk-3Ep"/>
+                        <outlet property="nextKeyView" destination="861" id="qgZ-3b-eka"/>
                     </connections>
                 </button>
                 <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="jie-fd-46h">
@@ -1283,7 +1281,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
                 <button verticalHuggingPriority="750" id="1009" customClass="TBButton">
-                    <rect key="frame" x="301" y="145" width="236" height="32"/>
+                    <rect key="frame" x="301" y="125" width="236" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Open easy-rsa in Terminal$" bezelStyle="rounded" alignment="left" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1010">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1291,7 +1289,19 @@
                     </buttonCell>
                     <connections>
                         <action selector="utilitiesRunEasyRsaButtonWasClicked:" target="-2" id="1015"/>
-                        <outlet property="nextKeyView" destination="861" id="1148"/>
+                        <outlet property="nextKeyView" destination="jie-fd-46h" id="TX1-Bi-xsw"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" id="1085" customClass="TBButton">
+                    <rect key="frame" x="301" y="226" width="167" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Copy Console Log$" bezelStyle="rounded" alignment="left" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1086">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="consoleLogToClipboardButtonWasClicked:" target="-2" id="1290"/>
+                        <outlet property="nextKeyView" destination="1137" id="1147"/>
                     </connections>
                 </button>
             </subviews>
@@ -1302,11 +1312,12 @@
                 <outlet property="utilitiesExportTunnelblickSetupButton" destination="JUC-iF-ElE" id="FBY-gt-kgS"/>
                 <outlet property="utilitiesExportTunnelblickSetupProgressIndicator" destination="jie-fd-46h" id="LsF-Ft-Rlg"/>
                 <outlet property="utilitiesHelpButton" destination="861" id="996"/>
-                <outlet property="utilitiesUninstallButton" destination="1137" id="1152"/>
+                <outlet property="utilitiesInstallKextsButton" destination="xmS-0T-tQv" id="4wq-p8-GYX"/>
                 <outlet property="utilitiesQuitAllOpenVpnButton" destination="981" id="997"/>
                 <outlet property="utilitiesQuitAllOpenVpnStatusTF" destination="PcD-Dg-BVP" id="mar-DF-Cf1"/>
                 <outlet property="utilitiesQuitAllOpenVpnStatusTFC" destination="gPh-eo-Riq" id="rPe-jJ-Jnc"/>
                 <outlet property="utilitiesRunEasyRsaButton" destination="1009" id="1016"/>
+                <outlet property="utilitiesUninstallButton" destination="1137" id="1152"/>
             </connections>
             <point key="canvasLocation" x="627" y="810"/>
         </customView>

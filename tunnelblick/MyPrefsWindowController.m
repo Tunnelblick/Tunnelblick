@@ -3462,6 +3462,13 @@ static BOOL firstTimeShowingWindow = TRUE;
 	[gMC performSelectorOnMainThread: @selector(uninstall) withObject: nil waitUntilDone: NO];
 }
 
+-(IBAction) utilitiesInstallKextsButtonWasClicked: (id) sender
+{
+    (void) sender;
+    
+    [gMC performSelectorOnMainThread: @selector(installKexts) withObject: nil waitUntilDone: NO];
+}
+
 -(void) notifyAboutOpenvpnProcessesQuit: (NSString *) message {
 	
 	[utilitiesPrefsView setUtilitiesQuitAllOpenvpnStatusText: message];

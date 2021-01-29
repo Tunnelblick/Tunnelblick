@@ -460,8 +460,8 @@
 // ~/Library/Application Support/Tunnelblick
 #define INSTALLER_MOVE_LIBRARY_OPENVPN       0x0040u
 
-// UNUSED
-// WAS INSTALLER_INSTALL_FORCED_PREFERENCES  0x0008u
+// Set to install kexts to /Library/Extensions
+#define INSTALLER_INSTALL_KEXTS              0x0200u
 
 // Set to replace tunnelblickd
 #define INSTALLER_REPLACE_DAEMON             0x0100u
