@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014, 2015, 2016, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2015, 2016, 2018, 2021 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -650,7 +650,6 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
 			changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, NO) || changedDeep;
 			if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
 				changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, YES) || changedDeep;
-			} else {
 			}
         }
     }
