@@ -1043,17 +1043,29 @@ void installOrUpdateKexts(BOOL forceInstall) {
     NSString * thisAppPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
     NSString * resourcesPath = [[thisAppPath stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"];
 
-    if (   [gFileMgr fileExistsAtPath: @"/Library/Extensions/tun-notarized.kext"]
-        || [gFileMgr fileExistsAtPath: @"/Library/Extensions/tap-notarized.kext"]  ) {
+    NSString * tunKextInAppPath = [resourcesPath stringByAppendingPathComponent:@"tun-notarized.kext"];
+    NSString * tapKextInAppPath = [resourcesPath stringByAppendingPathComponent:@"tap-notarized.kext"];
+    
+    NSString * tunKextInstallName = @"tunnelblick-tun.kext";
+    NSString * tapKextInstallName = @"tunnelblick-tap.kext";
+
+    NSString * tunKextInstallPath = [@"/Library/Extensions" stringByAppendingPathComponent: tunKextInstallName];
+    NSString * tapKextInstallPath = [@"/Library/Extensions" stringByAppendingPathComponent: tapKextInstallName];
+
+    NSString * oldTunKextInstallPath = [@"/Library/Extensions" stringByAppendingPathComponent: @"tun-notarized.kext"];
+    NSString * oldTapKextInstallPath = [@"/Library/Extensions" stringByAppendingPathComponent: @"tap-notarized.kext"];
+
+    if (   [gFileMgr fileExistsAtPath: oldTunKextInstallPath]
+        || [gFileMgr fileExistsAtPath: oldTapKextInstallPath]  ) {
 
         // Replace the original kexts used for testing on M1 Macs, changing their names to the new names
-        updateKextCaches = installOrUpdateOneKext(@"/Library/Extensions/tun-notarized.kext",   [resourcesPath stringByAppendingPathComponent: @"tun-notarized.kext"], @"tunnelblick-tun.kext", forceInstall) || updateKextCaches;
-        updateKextCaches = installOrUpdateOneKext(@"/Library/Extensions/tap-notarized.kext",   [resourcesPath stringByAppendingPathComponent: @"tap-notarized.kext"], @"tunnelblick-tap.kext", forceInstall) || updateKextCaches;
+        updateKextCaches = installOrUpdateOneKext(oldTunKextInstallPath, tunKextInAppPath, tunKextInstallName, forceInstall) || updateKextCaches;
+        updateKextCaches = installOrUpdateOneKext(oldTapKextInstallPath, tapKextInAppPath, tapKextInstallName, forceInstall) || updateKextCaches;
     } else {
 
         // Update the standard kexts
-        updateKextCaches = installOrUpdateOneKext(@"/Library/Extensions/tunnelblick-tun.kext", [resourcesPath stringByAppendingPathComponent: @"tun-notarized.kext"], @"tunnelblick-tun.kext", forceInstall) || updateKextCaches;
-        updateKextCaches = installOrUpdateOneKext(@"/Library/Extensions/tunnelblick-tap.kext", [resourcesPath stringByAppendingPathComponent: @"tap-notarized.kext"], @"tunnelblick-tap.kext", forceInstall) || updateKextCaches;
+        updateKextCaches = installOrUpdateOneKext(tunKextInstallPath, tunKextInAppPath, tunKextInstallName, forceInstall) || updateKextCaches;
+        updateKextCaches = installOrUpdateOneKext(tapKextInstallPath, tapKextInAppPath, tapKextInstallName, forceInstall) || updateKextCaches;
     }
     
     if (  updateKextCaches  ) {
