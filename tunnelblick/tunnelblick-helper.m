@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Angelo Laub
  * Contributions by Dirk Theisen
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2019. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2019, 2021. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -161,7 +161,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
 			"./openvpnstart expectDisconnect flag filename\n"
 			"               creates (flag = 1) or removes (flag = 0) file at /Library/Application Support/Tunnelblick/expect-disconnect/FILENAME\n\n"
 			
-            "./openvpnstart loadKexts     [bitMask]\n"
+            "./openvpnstart loadKexts     bitMask\n"
             "               to load .tun and .tap kexts\n\n"
             
             "./openvpnstart unloadKexts   [bitMask]\n"
@@ -273,6 +273,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
 			"                            bit 22 is 1 to indicate that network access should be disabled after disconnecting\n"
 			"                            bit 23 is 1 to indicate that the primary network service should be reset after disconnecting unexpectedly\n"
 			"                            bit 24 is 1 to indicate that network access should be disabled after disconnecting unexpectedly\n"
+            "                            bit 24 is 1 to indicate that the program is running on macOS Big Sur or newer\n"
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
 
             "leasewatchOptions is a string containing characters indicating options for leasewatch.\n\n"
@@ -1869,9 +1870,11 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
 
 //**************************************************************************************************************************
 
-void loadOneKext(NSString * filename) {
+void loadOneKext(NSString * tunOrTap, BOOL onBigSurOrNewer) {
 
-    NSString * path = [gResourcesPath stringByAppendingPathComponent: filename];
+    NSString * path = (  onBigSurOrNewer
+                       ? [NSString stringWithFormat: @"/Library/Extensions/tunnelblick-%@.kext",tunOrTap]
+                       : [gResourcesPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@-notarized.kext", tunOrTap]]);
 
     NSURL * url = [NSURL fileURLWithPath: path];
     if (  ! url  ) {
@@ -1887,24 +1890,18 @@ void loadOneKext(NSString * filename) {
         stopBeingRoot();
 
         if (  status == kOSReturnSuccess  ) {
-            appendLog([NSString stringWithFormat: @"The system reported that kext '%@' was loaded successfully", filename]);
+            appendLog([NSString stringWithFormat: @"The system reported that the %@ kext was loaded successfully", tunOrTap]);
             break;
         }
 
-        appendLog([NSString stringWithFormat: @"Failed to load '%@'; status = %d\n", filename, status]);
+        appendLog([NSString stringWithFormat: @"Failed to load the %@ kext; status = %d\n", tunOrTap, status]);
         sleep(1);
     }
 
     unsigned mask = getLoadedKextsMask();
-    BOOL actuallyLoaded = FALSE;
-    if (  [filename hasPrefix: @"tap"]  ) {
-        actuallyLoaded = (0 != (mask & OPENVPNSTART_OUR_TAP_KEXT));
-    } else if (  [filename hasPrefix: @"tun"]  ) {
-        actuallyLoaded = (0 != (mask & OPENVPNSTART_OUR_TUN_KEXT));
-    } else {
-        NSLog(@"loadOneKext: filename '%@' does not start with 'tun' or 'tap'", filename);
-    }
-
+    BOOL actuallyLoaded = (  [tunOrTap isEqualToString: @"tap"]
+                           ? (0 != (mask & OPENVPNSTART_OUR_TAP_KEXT))
+                           : (0 != (mask & OPENVPNSTART_OUR_TUN_KEXT)));
     if (  actuallyLoaded  ) {
         return;
     }
@@ -1914,16 +1911,16 @@ void loadOneKext(NSString * filename) {
     exitOpenvpnstart(OPENVPNSTART_COULD_NOT_LOAD_KEXT);
 }
 
-void loadKexts(unsigned int bitMask) {
+void loadKexts(unsigned int bitMask, BOOL onBigSurOrNewer) {
 
 	//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
 	
     if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
-        loadOneKext(@"tap-notarized.kext");
+        loadOneKext(@"tap", onBigSurOrNewer);
     }
 
     if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
-        loadOneKext(@"tun-notarized.kext");
+        loadOneKext(@"tun", onBigSurOrNewer);
     }
 }
 
@@ -2843,7 +2840,8 @@ int startVPN(NSString * configFile,
         loadMask = loadMask & ( ~ OPENVPNSTART_OUR_TUN_KEXT );
     }
     if (  loadMask != 0  ) {
-        loadKexts(loadMask);
+        BOOL onBigSurOrNewer = ((bitMask & OPENVPNSTART_ON_BIG_SUR_OR_NEWER) != 0);
+        loadKexts(loadMask, onBigSurOrNewer);
     }
     
     if (  tblkPath  ) {
@@ -3360,16 +3358,15 @@ int main(int argc, char * argv[]) {
 				}
 			}
 		} else if (  strcmp(command, "loadKexts") == 0  ) {
-			if (  argc == 2  ) {
-                loadKexts(OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT);
-				syntaxError = FALSE;
-            } else if (  argc == 3  ) {
-                unsigned int kextMask = cvt_atou(argv[2], @"kext mask");
+            if (  argc == 3  ) {
+                unsigned int bitMask = cvt_atou(argv[2], @"bitMask");
+                BOOL onBigSurOrNewer = ((bitMask & OPENVPNSTART_ON_BIG_SUR_OR_NEWER) != 0);
+                unsigned int kextMask = bitMask & ( ~ OPENVPNSTART_ON_BIG_SUR_OR_NEWER);
                 if (  kextMask <= OPENVPNSTART_KEXTS_MASK_LOAD_MAX  ) {
                     if (  kextMask == 0  ) {
                         kextMask = OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT;
                     }
-                    loadKexts(kextMask);
+                    loadKexts(kextMask, onBigSurOrNewer);
                     syntaxError = FALSE;
                 }
 			}

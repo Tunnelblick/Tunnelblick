@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -2813,6 +2813,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  [gTbDefaults boolForKey: @"DB-UP"] || [gTbDefaults boolForKey: @"DB-ALL"]  ) {
         bitMask = bitMask | OPENVPNSTART_EXTRA_LOGGING;
+    }
+    
+    if (  runningOnBigSurOrNewer()  ) {
+        bitMask = bitMask | OPENVPNSTART_ON_BIG_SUR_OR_NEWER;
     }
     
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
