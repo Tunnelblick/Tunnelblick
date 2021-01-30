@@ -1029,6 +1029,27 @@ BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath,
     return YES;
 }
 
+BOOL secureOneKext(NSString * path) {
+    
+    // Everything inside a kext should have 0755 permissions except Info.plist, CodeResources, and all contents of _CodeSignature, which should have 0644 permissions
+
+    NSString * itemName;
+    NSDirectoryEnumerator * kextEnum = [gFileMgr enumeratorAtPath: path];
+    BOOL okSoFar = TRUE;
+    while (  (itemName = [kextEnum nextObject])  ) {
+        NSString * fullPath = [path stringByAppendingPathComponent: itemName];
+        if (   [fullPath hasSuffix: @"/Info.plist"]
+            || [fullPath hasSuffix: @"/CodeResources"]
+            || [[[fullPath stringByDeletingLastPathComponent] lastPathComponent] isEqualToString: @"_CodeSignature"]  ) {
+            okSoFar = checkSetPermissions(fullPath, PERMS_SECURED_READABLE, YES) && okSoFar;
+        } else {
+            okSoFar = checkSetPermissions(fullPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
+        }
+    }
+    
+    return okSoFar;
+}
+
 void installOrUpdateKexts(BOOL forceInstall) {
 
     // Update or install the kexts at most once each time installer is invoked
@@ -1045,6 +1066,11 @@ void installOrUpdateKexts(BOOL forceInstall) {
 
     NSString * tunKextInAppPath = [resourcesPath stringByAppendingPathComponent:@"tun-notarized.kext"];
     NSString * tapKextInAppPath = [resourcesPath stringByAppendingPathComponent:@"tap-notarized.kext"];
+    
+    if (   ( ! secureOneKext(tunKextInAppPath) )
+        || ( ! secureOneKext(tapKextInAppPath))  ) {
+        errorExit();
+    }
     
     NSString * tunKextInstallName = @"tunnelblick-tun.kext";
     NSString * tapKextInstallName = @"tunnelblick-tap.kext";
@@ -1438,29 +1464,12 @@ void secureTheApp(NSString * appResourcesPath) {
 	}
 	
 	// Secure kexts
-	// Everything inside the kext should have 0755 permissions except Info.plist, CodeResources, and all contents of _CodeSignature, which should have 0644 permissions
 	dirEnum = [gFileMgr enumeratorAtPath: appResourcesPath];
 	while (  (file = [dirEnum nextObject])  ) {
 		[dirEnum skipDescendents];
 		if (  [file hasSuffix: @".kext"]  ) {
 			NSString * kextPath = [appResourcesPath stringByAppendingPathComponent: file];
-			if (   [gFileMgr fileExistsAtPath: kextPath isDirectory: &isDir]
-				&& isDir  ) {
-				NSString * itemName;
-				NSDirectoryEnumerator * kextEnum = [gFileMgr enumeratorAtPath: kextPath];
-				while (  (itemName = [kextEnum nextObject])  ) {
-					NSString * fullPath = [kextPath stringByAppendingPathComponent: itemName];
-					if (   [fullPath hasSuffix: @"/Info.plist"]
-						|| [fullPath hasSuffix: @"/CodeResources"]
-						|| [[[fullPath stringByDeletingLastPathComponent] lastPathComponent] isEqualToString: @"_CodeSignature"]  ) {
-						okSoFar = okSoFar && checkSetPermissions(fullPath, PERMS_SECURED_READABLE, YES);
-					} else {
-						okSoFar = okSoFar && checkSetPermissions(fullPath, PERMS_SECURED_EXECUTABLE, YES);
-					}
-				}
-			} else {
-				appendLog([NSString stringWithFormat: @"Warning: kext has disappeared (!) or is not a directory: %@", kextPath]);
-			}
+            okSoFar = secureOneKext(kextPath) & okSoFar;
 		}
 	}
 	
