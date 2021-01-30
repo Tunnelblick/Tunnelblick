@@ -1346,7 +1346,7 @@ void secureTheApp(NSString * appResourcesPath) {
 		NSString * fullPath = [tunnelblickPath stringByAppendingPathComponent: file];
 		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
 			&& isDir  ) {
-			okSoFar = okSoFar && checkSetPermissions(fullPath, PERMS_SECURED_FOLDER, YES);
+			okSoFar = checkSetPermissions(fullPath, PERMS_SECURED_FOLDER, YES) && okSoFar;
 		} else {
 			NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: fullPath traverseLink: NO];
 			unsigned long  perms = [atts filePosixPermissions];
@@ -1369,47 +1369,47 @@ void secureTheApp(NSString * appResourcesPath) {
 		}
 	}
 
-	okSoFar = okSoFar && checkSetPermissions(infoPlistPath,             PERMS_SECURED_READABLE,   YES);
+	okSoFar = checkSetPermissions(infoPlistPath,             PERMS_SECURED_READABLE,   YES) && okSoFar;
 	
-	okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,          PERMS_SECURED_EXECUTABLE, YES);
+	okSoFar = checkSetPermissions(openvpnstartPath,          PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 	
-	okSoFar = okSoFar && checkSetPermissions(launchAtLoginScriptPath,   PERMS_SECURED_EXECUTABLE, YES);
+	okSoFar = checkSetPermissions(launchAtLoginScriptPath,   PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 
-    okSoFar = okSoFar && checkSetPermissions(uninstallerAppleSPath,     PERMS_SECURED_READABLE, YES);
-    okSoFar = okSoFar && checkSetPermissions(uninstallerScriptPath,     PERMS_SECURED_EXECUTABLE, YES);
+    okSoFar = checkSetPermissions(uninstallerAppleSPath,     PERMS_SECURED_READABLE, YES) && okSoFar;
+    okSoFar = checkSetPermissions(uninstallerScriptPath,     PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 
-	okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,         PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(installerPath,             PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(leasewatchPath,            PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(leasewatch3Path,           PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(pncPath,                   PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(ssoPath,                   PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(tunnelblickdPath,          PERMS_SECURED_ROOT_EXEC,  YES);
+    okSoFar = checkSetPermissions(atsystemstartPath,         PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(installerPath,             PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(leasewatchPath,            PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(leasewatch3Path,           PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(pncPath,                   PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(ssoPath,                   PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(tunnelblickdPath,          PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
 	
-	okSoFar = okSoFar && checkSetPermissions(pncPlistPath,              PERMS_SECURED_READABLE,   YES);
-	okSoFar = okSoFar && checkSetPermissions(leasewatchPlistPath,       PERMS_SECURED_READABLE,   YES);
-	okSoFar = okSoFar && checkSetPermissions(leasewatch3PlistPath,      PERMS_SECURED_READABLE,   YES);
-	okSoFar = okSoFar && checkSetPermissions(launchAtLoginPlistPath,    PERMS_SECURED_READABLE,   YES);
-	okSoFar = okSoFar && checkSetPermissions(tunnelblickdPlistPath,     PERMS_SECURED_READABLE,   YES);
-	okSoFar = okSoFar && checkSetPermissions(freePublicDnsServersPath,  PERMS_SECURED_READABLE,   YES);
+	okSoFar = checkSetPermissions(pncPlistPath,              PERMS_SECURED_READABLE,   YES) && okSoFar;
+    okSoFar = checkSetPermissions(leasewatchPlistPath,       PERMS_SECURED_READABLE,   YES) && okSoFar;
+	okSoFar = checkSetPermissions(leasewatch3PlistPath,      PERMS_SECURED_READABLE,   YES) && okSoFar;
+	okSoFar = checkSetPermissions(launchAtLoginPlistPath,    PERMS_SECURED_READABLE,   YES) && okSoFar;
+	okSoFar = checkSetPermissions(tunnelblickdPlistPath,     PERMS_SECURED_READABLE,   YES) && okSoFar;
+	okSoFar = checkSetPermissions(freePublicDnsServersPath,  PERMS_SECURED_READABLE,   YES) && okSoFar;
 	
-	okSoFar = okSoFar && checkSetPermissions(clientUpPath,              PERMS_SECURED_ROOT_EXEC,  NO);
-	okSoFar = okSoFar && checkSetPermissions(clientDownPath,            PERMS_SECURED_ROOT_EXEC,  NO);
-	okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,         PERMS_SECURED_ROOT_EXEC,  NO);
-	okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath,       PERMS_SECURED_ROOT_EXEC,  NO);
-	okSoFar = okSoFar && checkSetPermissions(clientNewUpPath,           PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(clientNewDownPath,         PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(clientNewRoutePreDownPath, PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(clientNewAlt1UpPath,       PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(clientNewAlt1DownPath,     PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(clientNewAlt2UpPath,       PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(clientNewAlt2DownPath,     PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(clientNewAlt3UpPath,       PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(clientNewAlt3DownPath,     PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(clientNewAlt4UpPath,       PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(clientNewAlt4DownPath,     PERMS_SECURED_ROOT_EXEC,  YES);
-	okSoFar = okSoFar && checkSetPermissions(reactivateTunnelblickPath, PERMS_SECURED_EXECUTABLE, YES);
-	okSoFar = okSoFar && checkSetPermissions(reenableNetworkServicesPath, PERMS_SECURED_ROOT_EXEC, YES);
+	okSoFar = checkSetPermissions(clientUpPath,              PERMS_SECURED_ROOT_EXEC,  NO) && okSoFar;
+	okSoFar = checkSetPermissions(clientDownPath,            PERMS_SECURED_ROOT_EXEC,  NO) && okSoFar;
+	okSoFar = checkSetPermissions(clientNoMonUpPath,         PERMS_SECURED_ROOT_EXEC,  NO) && okSoFar;
+	okSoFar = checkSetPermissions(clientNoMonDownPath,       PERMS_SECURED_ROOT_EXEC,  NO) && okSoFar;
+	okSoFar = checkSetPermissions(clientNewUpPath,           PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(clientNewDownPath,         PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(clientNewRoutePreDownPath, PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+    okSoFar = checkSetPermissions(clientNewAlt1UpPath,       PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(clientNewAlt1DownPath,     PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(clientNewAlt2UpPath,       PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(clientNewAlt2DownPath,     PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(clientNewAlt3UpPath,       PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(clientNewAlt3DownPath,     PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(clientNewAlt4UpPath,       PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(clientNewAlt4DownPath,     PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+	okSoFar = checkSetPermissions(reactivateTunnelblickPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
+	okSoFar = checkSetPermissions(reenableNetworkServicesPath, PERMS_SECURED_ROOT_EXEC, YES) && okSoFar;
 	
 	// Check/set each OpenVPN binary inside Tunnelblick.app and its corresponding openvpn-down-root.so
 	secureOpenvpnBinariesFolder(openvpnPath);
@@ -1421,7 +1421,7 @@ void secureTheApp(NSString * appResourcesPath) {
 		dirEnum = [gFileMgr enumeratorAtPath: codeSigPath];
 		while (  (file = [dirEnum nextObject])  ) {
 			NSString * itemPath = [codeSigPath stringByAppendingPathComponent: file];
-			okSoFar = okSoFar && checkSetPermissions(itemPath, PERMS_SECURED_READABLE, YES);
+			okSoFar = checkSetPermissions(itemPath, PERMS_SECURED_READABLE, YES) && okSoFar;
 		}
 	}
 	
@@ -1467,7 +1467,7 @@ void secureTheApp(NSString * appResourcesPath) {
 		okSoFar = okSoFar && secureOneFolder(gDeployPath, NO, 0);
 	}
 	
-	okSoFar = okSoFar && checkSetPermissions(tunnelblickHelperPath, PERMS_SECURED_EXECUTABLE, YES);
+	okSoFar = checkSetPermissions(tunnelblickHelperPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 	
 	if (  ! okSoFar  ) {
 		appendLog(@"Unable to secure Tunnelblick.app");
