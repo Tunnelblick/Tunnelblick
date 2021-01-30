@@ -100,85 +100,88 @@ extern TBUserDefaults * gTbDefaults;
 	[timer fire];
 }
 
--(void) timerTickHandler: (NSTimer *) theTimer {
-    if (  timer == theTimer  ) {
-        
-        TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler invoked");
-        
-        // Make a list of connections to update, consisting of
-        //      Connections that are not currrently disconnected
-        // plus
-        //      Connections that have been removed since the last tick
-        
-        MenuController * mc = gMC;
-        NSArray * notDisconnected = [mc nondisconnectedConnections];
-        
-        NSUInteger maxSize = [notDisconnected count] + [nonDisconnectedConnectionsAtPreviousTick count];
-        NSMutableArray * connectionsToUpdate = [NSMutableArray arrayWithCapacity: maxSize];
-        [connectionsToUpdate addObjectsFromArray: notDisconnected];
-        NSEnumerator * oldListEnum = [nonDisconnectedConnectionsAtPreviousTick objectEnumerator];
-        VPNConnection * connection;
-        while (  (connection = [oldListEnum nextObject])  ) {
-            if (  ! [notDisconnected containsObject: connection]  ) {
-                [connectionsToUpdate addObject: connection];
+-(void) timerTickOnMainThread {
+    
+    TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler invoked");
+    
+    // Make a list of connections to update, consisting of
+    //      Connections that are not currrently disconnected
+    // plus
+    //      Connections that have been removed since the last tick
+    
+    MenuController * mc = gMC;
+    NSArray * notDisconnected = [mc nondisconnectedConnections];
+    
+    NSUInteger maxSize = [notDisconnected count] + [nonDisconnectedConnectionsAtPreviousTick count];
+    NSMutableArray * connectionsToUpdate = [NSMutableArray arrayWithCapacity: maxSize];
+    [connectionsToUpdate addObjectsFromArray: notDisconnected];
+    NSEnumerator * oldListEnum = [nonDisconnectedConnectionsAtPreviousTick objectEnumerator];
+    VPNConnection * connection;
+    while (  (connection = [oldListEnum nextObject])  ) {
+        if (  ! [notDisconnected containsObject: connection]  ) {
+            [connectionsToUpdate addObject: connection];
+        }
+    }
+    
+    // Remember the non-disconnected connections for next time through
+    [self setNonDisconnectedConnectionsAtPreviousTick: notDisconnected];
+    
+    // Update the VPN Details... window and the Advanced window if one of the connections to update is selected
+    MyPrefsWindowController       * vpnDetailsWc = [mc logScreen];
+    SettingsSheetWindowController * advancedWc   = [vpnDetailsWc settingsSheetWindowController];
+    connection = [vpnDetailsWc selectedConnection];
+    if (   [connectionsToUpdate containsObject: connection]  ) {
+        NSWindow * vpnDetailsWindow = [vpnDetailsWc window];
+        NSWindow * advancedWindow   = [advancedWc window];
+        BOOL showingAdvancedWindow  = [advancedWc showingSettingsSheet];
+        if (   vpnDetailsWindow
+            || showingAdvancedWindow  ) {
+            NSString * name = [connection localizedName];
+            NSString * privateSharedDeployed = [connection displayLocation];
+            NSString * state = localizeNonLiteral([connection state], @"Connection status");
+            NSString * timeString = [connection connectTimeString];
+            if (   vpnDetailsWindow
+                && ( ! runningOnBigSurOrNewer() )  ) {
+                NSString * statusMsg = [NSString stringWithFormat: @"%@%@: %@%@ - Tunnelblick",
+                                        name, privateSharedDeployed, state, timeString];
+                [vpnDetailsWindow setTitle: statusMsg];
+                TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler: set title of VPN Details... window to '%@'", statusMsg);
+            }
+            if (   advancedWindow
+                && showingAdvancedWindow  ) {
+                NSString * statusMsg = [NSString stringWithFormat: @"%@%@: %@%@ - Advanced - Tunnelblick",
+                                        name, privateSharedDeployed, state, timeString];
+                [advancedWindow setTitle: statusMsg];
+                TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler: set title of Advanced       window to '%@'", statusMsg);
             }
         }
-        
-        // Remember the non-disconnected connections for next time through
-        [self setNonDisconnectedConnectionsAtPreviousTick: notDisconnected];
-        
-        // Update the VPN Details... window and the Advanced window if one of the connections to update is selected
-        MyPrefsWindowController       * vpnDetailsWc = [mc logScreen];
-        SettingsSheetWindowController * advancedWc   = [vpnDetailsWc settingsSheetWindowController];
-        connection = [vpnDetailsWc selectedConnection];
-        if (   [connectionsToUpdate containsObject: connection]  ) {
-            NSWindow * vpnDetailsWindow = [vpnDetailsWc window];
-            NSWindow * advancedWindow   = [advancedWc window];
-			BOOL showingAdvancedWindow  = [advancedWc showingSettingsSheet];
-			if (   vpnDetailsWindow
-				|| showingAdvancedWindow  ) {
-				NSString * name = [connection localizedName];
-				NSString * privateSharedDeployed = [connection displayLocation];
-				NSString * state = localizeNonLiteral([connection state], @"Connection status");
-				NSString * timeString = [connection connectTimeString];
-				if (   vpnDetailsWindow
-                    && ( ! runningOnBigSurOrNewer() )  ) {
-					NSString * statusMsg = [NSString stringWithFormat: @"%@%@: %@%@ - Tunnelblick",
-											name, privateSharedDeployed, state, timeString];
-					[vpnDetailsWindow setTitle: statusMsg];
-					TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler: set title of VPN Details... window to '%@'", statusMsg);
-				}
-				if (   advancedWindow
-					&& showingAdvancedWindow  ) {
-					NSString * statusMsg = [NSString stringWithFormat: @"%@%@: %@%@ - Advanced - Tunnelblick",
-											name, privateSharedDeployed, state, timeString];
-					[advancedWindow setTitle: statusMsg];
-					TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler: set title of Advanced       window to '%@'", statusMsg);
-				}
-			}
-		}
-        
-        // Update status windows and menu items for the connections to update
-        NSEnumerator * e = [connectionsToUpdate objectEnumerator];
-        while (  (connection = [e nextObject])  ) {
-			
-			StatusWindowController * swc = [connection statusScreen];
-			if (  [swc isOpen]  ) {
-				TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler: updating status window for            '%@'", [connection displayName]);
-				[connection updateStatisticsDisplay];
-			}
-			
-			if (  [mc menuIsOpen]  ) {
-				TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler: updating menu item                    '%@'", [connection displayName]);
-				NSMenuItem * menuItem = [connection menuItem];
-				[connection validateMenuItem: menuItem];
-			}
-		}
-		
-		if (  invalidateAfterNextTickFlag  ) {
-			[timer invalidate];
-		}
     }
+    
+    // Update status windows and menu items for the connections to update
+    NSEnumerator * e = [connectionsToUpdate objectEnumerator];
+    while (  (connection = [e nextObject])  ) {
+        
+        StatusWindowController * swc = [connection statusScreen];
+        if (  [swc isOpen]  ) {
+            TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler: updating status window for            '%@'", [connection displayName]);
+            [connection updateStatisticsDisplay];
+        }
+        
+        if (  [mc menuIsOpen]  ) {
+            TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler: updating menu item                    '%@'", [connection displayName]);
+            NSMenuItem * menuItem = [connection menuItem];
+            [connection validateMenuItem: menuItem];
+        }
+    }
+    
+    if (  invalidateAfterNextTickFlag  ) {
+        [timer invalidate];
+    }
+}
+
+-(void) timerTickHandler: (NSTimer *) theTimer {
+    
+    [NSThread performSelectorOnMainThread: @selector(timerTickOnMainThread) withObject: nil waitUntilDone: NO];
 }
 
 TBSYNTHESIZE_OBJECT(retain, NSArray *, nonDisconnectedConnectionsAtPreviousTick, setNonDisconnectedConnectionsAtPreviousTick)
