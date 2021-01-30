@@ -22,6 +22,23 @@
 #
 # This script is the final step in creating Tunnelblick. It creates Tunnelblick.app, Tunnelblick Uninstaller.app, and the disk images for each of them.
 
+changeEntry()
+{
+    # Changes a string in an Info.plist (or other file)
+    # Replaces all occurances of $2 to $3 in file $1
+    #
+    # @param String, path to Info.plist or other file that should be modified
+    # @param String, name of variable to be replaced (TBVERSIONSTRING, TBBUILDNUMBER, or TBCONFIGURATION)
+    # @param String, version or build number
+
+    if [ -e "$1" ] ; then
+        sed -e "s|${2}|${3}|g" "${1}" > "${1}.tmp"
+        mv -f "${1}.tmp" "${1}"
+    else
+        printf "warning: cannot change '$2' to '$3' because '$1' does not exist\n"
+    fi
+}
+
 # Save the working directory so we can cd to it easily
 original_wd="$( pwd )"
 
@@ -120,6 +137,39 @@ kext_products_folder="$( cd ../third_party/products/tuntap ; pwd )"
   cp -a "$kext_products_folder/$tap_name" "${app_path}/Contents/Resources/"
   cp -a "$kext_products_folder/$tun_name" "${app_path}/Contents/Resources/"
 
+# Set the type of configuration ("Debug" or "Unsigned") (inside CFBundleShortVersionString) for the app (only the app; the uninstaller has its own versioning)
+if [ "${CONFIGURATION}" = "Debug" ]; then
+    readonly tbconfig="Debug"
+elif [ "${CONFIGURATION}" = "Release" ]; then
+    readonly tbconfig="Unsigned"
+else
+    readonly tbconfig="unknown configuration"
+fi
+changeEntry "${app_path}/Contents/Info.plist" TBCONFIGURATION "${tbconfig}"
+
+# Set the version number (e.g. '3.6.2beta02') from TBVersionString.txt (inside CFBundleShortVersionString) for the app (only the app; the uninstaller has its own versioning)
+readonly tbvs="$(cat TBVersionString.txt)"
+changeEntry "${app_path}/Contents/Info.plist" TBVERSIONSTRING "${tbvs}"
+
+# Set the build number (CFBundleVersion) from TBBuildNumber.txt (inside CFBundleShortVersionString) in the app and uninstaller
+readonly tbbn="$(cat TBBuildNumber.txt)"
+changeEntry "${app_path}/Contents/Info.plist"         TBBUILDNUMBER "${tbbn}"
+changeEntry "${uninstaller_path}/Contents/Info.plist" TBBUILDNUMBER "${tbbn}"
+
+# Set the CFBundleVersion from TBKextVersionNumber.txt in any kexts that have not been notarized
+# Kexts must have small numbers as the second and optional 3rd part of CFBundleVersion.
+readonly kextbn="$(cat TBKextVersionNumber.txt)"
+for k in "${app_path}/Contents/Resources/"*.kext ; do
+  if [ -e "$k" ] ; then
+    f="$(basename "$k" )"
+    if [ "$f" != "tap-notarized.kext" ] \
+    && [ "$f" != "tun-notarized.kext" ] ; then
+        changeEntry "${app_path}/Contents/Resources/$f/Contents/Info.plist" TBBUILDNUMBER     "${tbbn}"
+        changeEntry "${app_path}/Contents/Resources/$f/Contents/Info.plist" TBKEXTBUILDNUMBER "${kextbn}"
+    fi
+  fi
+done
+
 # Create a tuntap .pkg in the build folder
 
   # Set up source and target folders
@@ -182,56 +232,6 @@ kext_products_folder="$( cd ../third_party/products/tuntap ; pwd )"
   cp -a "$pkg_target_dir/tuntap_$tuntap_version.pkg" "tuntap_$tuntap_version.pkg"
   tar czf "$pkg_target_dir/../tunnelblick_tuntap_$tuntap_version.tar.gz" .
   cd "$original_wd"
-
-changeEntry()
-{
-    # Changes a string in an Info.plist (or other file)
-    # Replaces all occurances of $2 to $3 in file $1
-    #
-    # @param String, path to Info.plist or other file that should be modified
-    # @param String, name of variable to be replaced (TBVERSIONSTRING, TBBUILDNUMBER, or TBCONFIGURATION)
-    # @param String, version or build number
-
-	if [ -e "$1" ] ; then
-		sed -e "s|${2}|${3}|g" "${1}" > "${1}.tmp"
-		mv -f "${1}.tmp" "${1}"
-    else
-        printf "warning: cannot change '$2' to '$3' because '$1' does not exist\n"
-	fi
-}
-
-# Set the type of configuration ("Debug" or "Unsigned") (inside CFBundleShortVersionString) for the app (only the app; the uninstaller has its own versioning)
-if [ "${CONFIGURATION}" = "Debug" ]; then
-    readonly tbconfig="Debug"
-elif [ "${CONFIGURATION}" = "Release" ]; then
-    readonly tbconfig="Unsigned"
-else
-    readonly tbconfig="unknown configuration"
-fi
-changeEntry "${app_path}/Contents/Info.plist" TBCONFIGURATION "${tbconfig}"
-
-# Set the version number (e.g. '3.6.2beta02') from TBVersionString.txt (inside CFBundleShortVersionString) for the app (only the app; the uninstaller has its own versioning)
-readonly tbvs="$(cat TBVersionString.txt)"
-changeEntry "${app_path}/Contents/Info.plist" TBVERSIONSTRING "${tbvs}"
-
-# Set the build number (CFBundleVersion) from TBBuildNumber.txt (inside CFBundleShortVersionString) in the app and uninstaller
-readonly tbbn="$(cat TBBuildNumber.txt)"
-changeEntry "${app_path}/Contents/Info.plist"         TBBUILDNUMBER "${tbbn}"
-changeEntry "${uninstaller_path}/Contents/Info.plist" TBBUILDNUMBER "${tbbn}"
-
-# Set the CFBundleVersion from TBKextVersionNumber.txt in any kexts that have not been notarized
-# Kexts must have small numbers as the second and optional 3rd part of CFBundleVersion.
-readonly kextbn="$(cat TBKextVersionNumber.txt)"
-for k in "${app_path}/Contents/Resources/"*.kext ; do
-  if [ -e "$k" ] ; then
-	f="$(basename "$k" )"
-	if [ "$f" != "tap-notarized.kext" ] \
-	&& [ "$f" != "tun-notarized.kext" ] ; then
-		changeEntry "${app_path}/Contents/Resources/$f/Contents/Info.plist" TBBUILDNUMBER     "${tbbn}"
-        changeEntry "${app_path}/Contents/Resources/$f/Contents/Info.plist" TBKEXTBUILDNUMBER "${kextbn}"
-	fi
-  fi
-done
 
 # Copy git information into Info.plist: the hash and the git status (uncommitted changes)
 # Warn about uncommitted changes except for Debug builds
