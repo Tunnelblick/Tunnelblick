@@ -58,8 +58,11 @@ recommended for Parallels.
 **1. Supported Versions of macOS and Xcode**
 
 The current version of Tunnelblick should be built using:
- * Xcode 7.3.1 on macOS 10.11.6; or
- * Xcode 12.3  on macOS 10.15.7
+ * Xcode 7.3.1 on macOS 10.11.6 on an Intel Mac; or
+ * Xcode 12.3  on macOS 10.15.7 on an Intel Mac.
+
+Tunnelblick cannot be built yet on an Apple Silicon (M1) Mac, but there
+are plans to be able to do so. 
 
 When built on Xcode 7.3.1, Tunnelblick will run on Intel processors, or
 on Apple M1 processors using Rosetta 2.
