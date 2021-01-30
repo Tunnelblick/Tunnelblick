@@ -2,7 +2,7 @@
 #
 # tunnelblick-uninstaller.sh
 #
-# Copyright © 2013, 2015, 2018, 2020 Jonathan K. Bullard. All rights reserved
+# Copyright © 2013, 2015, 2018, 2020, 2021 Jonathan K. Bullard. All rights reserved
 
 ####################################################################################
 #
@@ -545,6 +545,14 @@ if [ -f "${path}" ] ; then
 fi
 path="/var/run/${uninstall_tb_bundle_identifier}.tunnelblickd.socket"
 uninstall_tb_remove_item_at_path "${path}"
+
+# Remove Tunnelblick kexts (on Big Sur and newer)
+uninstall_tb_remove_item_at_path "/Library/Extensions/tunnelblick-tun.kext"
+uninstall_tb_remove_item_at_path "/Library/Extensions/tunnelblick-tap.kext"
+
+# Remove original Tunnelblick kexts on Big Sur and newer
+uninstall_tb_remove_item_at_path "/Library/Extensions/tun-notarized.kext"
+uninstall_tb_remove_item_at_path "/Library/Extensions/tap-notarized.kext"
 
 # Remove tunnelblickd log(s)
 uninstall_tb_remove_item_at_path "/var/log/${uninstall_tb_app_name}"
