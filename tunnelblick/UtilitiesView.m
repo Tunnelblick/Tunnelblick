@@ -128,7 +128,7 @@ extern TBUserDefaults * gTbDefaults;
                                                            @"<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p>"
                                                            @"<p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>",
                                                            @"HTML info for the 'Install tun and tap system extensions...' button."))];
-    [utilitiesUninstallButton setEnabled: runningOnBigSurOrNewer()];
+    [utilitiesInstallKextsButton setEnabled: runningOnBigSurOrNewer()];
     
 	[utilitiesRunEasyRsaButton
 	  setTitle: NSLocalizedString(@"Open easy-rsa in Terminal", @"Button")
