@@ -388,10 +388,11 @@ chmod 744 "${app_path}/Contents/Resources/client.4.up.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/client.4.down.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/re-enable-network-services.sh"
 
-# Create a signed copy of the Tunnelblick.app
-rm -r -f $( dirname "$signed_app_path" )
-mkdir -p $( dirname "$signed_app_path" )
+# Create a signed copy of the Tunnelblick.app after changing " Unsigned" to " Signed (local)" in the version number
+rm -r -f $( dirname  "$signed_app_path" )
+mkdir -p $( dirname  "$signed_app_path" )
 cp -a -f "$app_path" "$signed_app_path"
+changeEntry "$signed_app_path/Contents/Info.plist" " Unsigned</string>" " Signed (local)</string>"
 ./SignTunnelblickAppOrDmg.sh "$signed_app_path"
 
 # Create the Tunnelblick .dmg and the Uninstaller .dmg except if Debug
