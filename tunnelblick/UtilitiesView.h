@@ -52,6 +52,8 @@
 
 -(void) setUtilitiesQuitAllOpenvpnStatusText: (NSString *) text;
 
+-(void) setupInstallOrUninstallKextsButton;
+
 TBPROPERTY_READONLY(TBButton *,            utilitiesQuitAllOpenVpnButton)
 TBPROPERTY_READONLY(NSTextFieldCell *,	   utilitiesQuitAllOpenVpnStatusTFC)
 TBPROPERTY_READONLY(NSTextField *,		   utilitiesQuitAllOpenVpnStatusTF)

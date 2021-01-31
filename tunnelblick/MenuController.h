@@ -274,7 +274,7 @@ enum StatusIconPosition {
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
--(void)             installKexts;
+-(void)             installOrUninstallKexts;
 -(BOOL)             loadMenuIconSet;
 -(BOOL)             loadMenuIconSet:                        (NSString *)        iconSetName
                                main:                        (NSImage **)        ptrMainImage

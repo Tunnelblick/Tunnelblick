@@ -333,6 +333,13 @@ BOOL runningOnTen_Fourteen_FiveOrNewer(void)
 	return result;
 }
 
+BOOL bothKextsAreInstalled(void) {
+    
+    BOOL result = (   [gFileMgr fileExistsAtPath: @"/Library/Extensions/tunnelblick-tun.kext"]
+                   && [gFileMgr fileExistsAtPath: @"/Library/Extensions/tunnelblick-tap.kext"]  );
+    return result;
+}
+
 BOOL okToUpdateConfigurationsWithoutAdminApproval(void) {
     BOOL answer = (   [gTbDefaults boolForKey: @"allowNonAdminSafeConfigurationReplacement"]
 				   && ( ! [gTbDefaults canChangeValueForKey: @"allowNonAdminSafeConfigurationReplacement"] )

@@ -77,7 +77,7 @@
 //          Converts old entries in L_AS_T_TBLKS to the new format, with a bundleId_edition folder enclosing a .tblk
 //          Renames /Library/LaunchDaemons/net.tunnelblick.startup.*
 //               to                        net.tunnelblick.tunnelblick.startup.*
-//          Updates Tunnelblick kexts in /Library/Extensions
+//          Updates Tunnelblick kexts in /Library/Extensions (unless kexts are being uninstalled)
 //
 //      (2) if INSTALLER_MOVE_LIBRARY_OPENVPN is set, moves the contents of the old configuration folder
 //          at ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
@@ -109,7 +109,7 @@
 //
 //	   (13) If requested, import settings from the .tblkSetup at targetPath
 //
-//     (14) If requested, install kexts
+//     (14) If requested, install or uninstall kexts
 
 // When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
 
@@ -1050,6 +1050,53 @@ BOOL secureOneKext(NSString * path) {
     return okSoFar;
 }
 
+void updateTheKextCaches(void) {
+
+    // According to the man page for kextcache, kext caches should be updated by executing 'touch /Library/Extensions'; the following is the equivalent:
+    if (  utimes([gFileMgr fileSystemRepresentationWithPath: @"/Library/Extensions"], NULL) != 0  ) {
+        appendLog([NSString stringWithFormat: @"utimes(\"/Library/Extensions\", NULL) failed with error %d ('%s')", errno, strerror(errno)]);
+        errorExit();
+    }
+}
+
+BOOL uninstallOneKext(NSString * path) {
+    
+    if (  ! [gFileMgr fileExistsAtPath: path]  ) {
+        return NO;
+    }
+    
+    if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
+        errorExit();
+    }
+    
+    return YES;
+}
+
+void uninstallKexts(void) {
+    
+    BOOL shouldUpdateKextCaches = uninstallOneKext(@"/Library/Extensions/tunnelblick-tun.kext");
+    
+    shouldUpdateKextCaches = uninstallOneKext(@"/Library/Extensions/tunnelblick-tap.kext") || shouldUpdateKextCaches;
+
+    if (  shouldUpdateKextCaches  ) {
+        updateTheKextCaches();
+    }
+}
+
+NSString * kextPathThatExists(NSString * resourcesPath, NSString * nameOne, NSString * nameTwo) {
+    
+    NSString * nameOnePath = [resourcesPath stringByAppendingPathComponent: nameOne];
+    if ( [gFileMgr fileExistsAtPath: nameOnePath]  ) {
+        return nameOnePath;
+    }
+
+    NSString * nameTwoPath = [resourcesPath stringByAppendingPathComponent: nameTwo];
+    if ( [gFileMgr fileExistsAtPath: nameTwoPath]  ) {
+        return nameTwoPath;
+    }
+
+    return nil;
+}
 void installOrUpdateKexts(BOOL forceInstall) {
 
     // Update or install the kexts at most once each time installer is invoked
@@ -1059,13 +1106,19 @@ void installOrUpdateKexts(BOOL forceInstall) {
         return;
     }
     
-    BOOL updateKextCaches = FALSE;
+    BOOL shouldUpdateKextCaches = FALSE;
     
     NSString * thisAppPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
     NSString * resourcesPath = [[thisAppPath stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"];
 
-    NSString * tunKextInAppPath = [resourcesPath stringByAppendingPathComponent:@"tun-notarized.kext"];
-    NSString * tapKextInAppPath = [resourcesPath stringByAppendingPathComponent:@"tap-notarized.kext"];
+    NSString * tunKextInAppPath = kextPathThatExists(resourcesPath, @"tun-notarized.kext", @"tun.kext");
+    NSString * tapKextInAppPath = kextPathThatExists(resourcesPath, @"tap-notarized.kext", @"tap.kext");
+    
+    if (   ( ! tunKextInAppPath)
+        || ( ! tapKextInAppPath)  ) {
+        appendLog(@"Tun or tap kext not found");
+        errorExit();
+    }
     
     if (   ( ! secureOneKext(tunKextInAppPath) )
         || ( ! secureOneKext(tapKextInAppPath))  ) {
@@ -1085,28 +1138,23 @@ void installOrUpdateKexts(BOOL forceInstall) {
         || [gFileMgr fileExistsAtPath: oldTapKextInstallPath]  ) {
 
         // Replace the original kexts used for testing on M1 Macs, changing their names to the new names
-        updateKextCaches = installOrUpdateOneKext(oldTunKextInstallPath, tunKextInAppPath, tunKextInstallName, forceInstall) || updateKextCaches;
-        updateKextCaches = installOrUpdateOneKext(oldTapKextInstallPath, tapKextInAppPath, tapKextInstallName, forceInstall) || updateKextCaches;
+        shouldUpdateKextCaches = installOrUpdateOneKext(oldTunKextInstallPath, tunKextInAppPath, tunKextInstallName, forceInstall) || shouldUpdateKextCaches;
+        shouldUpdateKextCaches = installOrUpdateOneKext(oldTapKextInstallPath, tapKextInAppPath, tapKextInstallName, forceInstall) || shouldUpdateKextCaches;
     } else {
 
         // Update the standard kexts
-        updateKextCaches = installOrUpdateOneKext(tunKextInstallPath, tunKextInAppPath, tunKextInstallName, forceInstall) || updateKextCaches;
-        updateKextCaches = installOrUpdateOneKext(tapKextInstallPath, tapKextInAppPath, tapKextInstallName, forceInstall) || updateKextCaches;
+        shouldUpdateKextCaches = installOrUpdateOneKext(tunKextInstallPath, tunKextInAppPath, tunKextInstallName, forceInstall) || shouldUpdateKextCaches;
+        shouldUpdateKextCaches = installOrUpdateOneKext(tapKextInstallPath, tapKextInAppPath, tapKextInstallName, forceInstall) || shouldUpdateKextCaches;
     }
     
-    if (  updateKextCaches  ) {
+    if (  shouldUpdateKextCaches  ) {
         
-        // According to the man page for kextcache, kext caches should be updated by executing 'touch /Library/Extensions'; the following is the equivalent:the 
-        if (  utimes([gFileMgr fileSystemRepresentationWithPath: @"/Library/Extensions"], NULL) != 0  ) {
-            appendLog([NSString stringWithFormat: @"utimes(\"/Library/Extensions\", NULL) failed with error %d ('%s')", errno, strerror(errno)]);
-            errorExit();
-        }
-        
-        haveUpdatedKexts = TRUE;
+        updateTheKextCaches();
+		haveUpdatedKexts = TRUE;
     }
 }
 
-void doInitialWork(void) {
+void doInitialWork(BOOL updateKexts) {
 	
 	if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
 												PERMS_SECURED_FOLDER, 0, 0)  ) {
@@ -1238,7 +1286,9 @@ void doInitialWork(void) {
 		}
 	}
     
-    installOrUpdateKexts(NO);
+    if (  updateKexts  ) {
+        installOrUpdateKexts(NO);
+    }
 }
 
 void moveLibOpenVPN() {
@@ -2482,7 +2532,11 @@ int main(int argc, char *argv[])
 	BOOL doConvertNonTblks        = (arg1 & INSTALLER_CONVERT_NON_TBLKS) != 0;
 	BOOL doMoveLibOpenvpn         = (arg1 & INSTALLER_MOVE_LIBRARY_OPENVPN) != 0;
     BOOL doForceLoadLaunchDaemon  = (arg1 & INSTALLER_REPLACE_DAEMON) != 0;
-    BOOL doInstallKexts           = (arg1 & INSTALLER_INSTALL_KEXTS) != 0;
+    BOOL doUninstallKexts         = (arg1 & INSTALLER_UNINSTALL_KEXTS) != 0;
+    
+    // Uinstall kexts overrides install kexts
+    BOOL doInstallKexts           = (   ( ! doUninstallKexts )
+                                     && ((arg1 & INSTALLER_INSTALL_KEXTS) != 0)  );
 
 	unsigned int operation = (arg1 & INSTALLER_OPERATION_MASK);
 	
@@ -2560,8 +2614,9 @@ int main(int argc, char *argv[])
     //**************************************************************************************************************************
     // (1) Create directories or repair their ownership/permissions as needed
     //        and convert old entries in L_AS_T_TBLKS to the new format, with an bundleId_edition folder enclosing a .tblk
+    //        and do other things that are done each time installer is run
 	
-	doInitialWork();
+	doInitialWork( ! doUninstallKexts );
 	
     //**************************************************************************************************************************
     // (2) Deal with migration to new configuration path
@@ -2686,11 +2741,15 @@ int main(int argc, char *argv[])
 	}
 	
     //**************************************************************************************************************************
-    // (14) If requested, install kexts
+    // (14) If requested, install or uninstall kexts
     if (   doInstallKexts  ) {
         installOrUpdateKexts(YES);
     }
     
+    if (   doUninstallKexts  ) {
+        uninstallKexts();
+    }
+
     //**************************************************************************************************************************
     // DONE
     

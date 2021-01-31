@@ -461,11 +461,17 @@
 // ~/Library/Application Support/Tunnelblick
 #define INSTALLER_MOVE_LIBRARY_OPENVPN       0x0040u
 
-// Set to install kexts to /Library/Extensions
-#define INSTALLER_INSTALL_KEXTS              0x0200u
+// UNUSED
+//                                           0x0080u
 
 // Set to replace tunnelblickd
 #define INSTALLER_REPLACE_DAEMON             0x0100u
+
+// Set to install kexts to /Library/Extensions
+#define INSTALLER_INSTALL_KEXTS              0x0200u
+
+// Set to uninstall kexts from /Library/Extensions
+#define INSTALLER_UNINSTALL_KEXTS            0x0400u
 
 //********************************************
 // PRIMARY OPERATION CODES

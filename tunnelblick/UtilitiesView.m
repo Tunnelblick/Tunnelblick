@@ -80,6 +80,21 @@ extern TBUserDefaults * gTbDefaults;
 	[utilitiesQuitAllOpenVpnStatusTF setFrame: f];
 }
 
+-(void) setupInstallOrUninstallKextsButton {
+    
+    NSString * kextsButtonName = ( bothKextsAreInstalled()
+                       ? NSLocalizedString(@"Uninstall tun and tap system extensions...", @"Button")
+                       : NSLocalizedString(@"Install tun and tap system extensions...", @"Button")  );
+    
+    [utilitiesInstallKextsButton
+     setTitle: kextsButtonName
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n"
+                                                           @"<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p>"
+                                                           @"<p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>",
+                                                           @"HTML info for the 'Install tun and tap system extensions...' button."))];
+    [utilitiesInstallKextsButton setEnabled: runningOnBigSurOrNewer()];
+}
+
 -(void) awakeFromNib
 {
 	[utilitiesQuitAllOpenVpnStatusTFC setTitle: @""];
@@ -122,13 +137,7 @@ extern TBUserDefaults * gTbDefaults;
     BOOL tunnelblickIsInApplicationsFolder = [[[NSBundle mainBundle] bundlePath] isEqualToString: @"/Applications/Tunnelblick.app"];
     [utilitiesUninstallButton setEnabled: tunnelblickIsInApplicationsFolder];
 	
-    [utilitiesInstallKextsButton
-      setTitle: NSLocalizedString(@"Install tun and tap system extensions...", @"Button")
-     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Click to install Tunnelblick's tun and tap system extensions.</p>\n\n"
-                                                           @"<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p>"
-                                                           @"<p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>",
-                                                           @"HTML info for the 'Install tun and tap system extensions...' button."))];
-    [utilitiesInstallKextsButton setEnabled: runningOnBigSurOrNewer()];
+    [self setupInstallOrUninstallKextsButton];
     
 	[utilitiesRunEasyRsaButton
 	  setTitle: NSLocalizedString(@"Open easy-rsa in Terminal", @"Button")

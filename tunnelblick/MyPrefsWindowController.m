@@ -3441,6 +3441,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 }
 
+-(void) setupInstallOrUninstallKextsButton {
+    
+    [utilitiesPrefsView setupInstallOrUninstallKextsButton];
+}
+
 -(IBAction) utilitiesRunEasyRsaButtonWasClicked: (id) sender
 {
 	(void) sender;
@@ -3466,7 +3471,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     (void) sender;
     
-    [gMC performSelectorOnMainThread: @selector(installKexts) withObject: nil waitUntilDone: NO];
+    [gMC performSelectorOnMainThread: @selector(installOrUninstallKexts) withObject: nil waitUntilDone: NO];
 }
 
 -(void) notifyAboutOpenvpnProcessesQuit: (NSString *) message {

@@ -5719,6 +5719,31 @@ static void signal_handler(int signalNumber)
     }
 }
 
+-(void) uninstallKexts {
+    
+    NSString * message = NSLocalizedString(@"Tunnelblick needs authorization to uninstall its tun and tap system extensions.", @"Window text");
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
+    if (  auth  ) {
+        NSInteger result = [self runInstaller: INSTALLER_UNINSTALL_KEXTS extraArguments: nil usingSystemAuth: auth installTblks: nil];
+        [auth release];
+        if (  result != EXIT_SUCCESS  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"Failed to uninstall Tunnelblick's tun and tap system extensions.", @"Window text"));
+        }
+    }
+}
+
+-(void) installOrUninstallKexts {
+    
+    if (  bothKextsAreInstalled()  ) {
+        [self uninstallKexts];
+    } else {
+        [self installKexts];
+    }
+    
+    [logScreen setupInstallOrUninstallKextsButton];
+}
+
 -(void) renameConfigurationUsingConfigurationManager: (NSDictionary *) dict {
 
     // Invoked on main thread by a secondary thread to avoid creating an instance of ConfigurationManager
