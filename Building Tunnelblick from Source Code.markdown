@@ -23,7 +23,7 @@ are restricted:
 
  * On macOS Big Sur , Tunnelblick's tun and tap system extensions can be
    used only after being installed; the installation process involves
-   restarting the computer three times.
+   restarting the computer.
 
 See [The Future of Tun and Tap VPNs on macOS](https://tunnelblick.net/cTunTapConnections.html)
 For details.
