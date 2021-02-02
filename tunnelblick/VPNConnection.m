@@ -2724,13 +2724,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSString * preferenceKey = [displayName stringByAppendingString: @"-loadTap"];
 	NSString * preference = [gTbDefaults stringForKey: preferenceKey];
     if (  ! [preference isEqualToString: @"never"]  ) {
-        if (   runningOnBigSurOrNewer()  ) {
-            if (   [gTbDefaults boolForKey: @"bigSurCanLoadKexts"]
-                || runningWithSIPDisabled()  ) {
-                NSLog(@"Will try to load kexts on Big Sur or later, so allowing '%@' for '%@'", preference, preferenceKey);
+        if (   runningOn__Big__Sur__Successor__OrNewer()  ) {
+            if (  [gTbDefaults boolForKey: @"bigSurSuccesssorCanLoadKexts"]  ) {
+                NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
             } else {
 				if (  preference  ) {
-                	NSLog(@"Will not try to load kexts on Big Sur or later, so ignoring '%@' for '%@'", preference, preferenceKey);
+                	NSLog(@"Will not try to load kexts on this version of macOS, so ignoring '%@' for '%@'", preference, preferenceKey);
 				}
                 preference = @"never";
             }
@@ -2752,13 +2751,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	preferenceKey = [displayName stringByAppendingString: @"-loadTun"];
 	preference = [gTbDefaults stringForKey: preferenceKey];
     if (  ! [preference isEqualToString: @"never"]  ) {
-        if (   runningOnBigSurOrNewer()  ) {
-            if (   [gTbDefaults boolForKey: @"bigSurCanLoadKexts"]
-                || runningWithSIPDisabled()  ) {
-                NSLog(@"Will try to load kexts on Big Sur or later, so allowing '%@' for '%@'", preference, preferenceKey);
+        if (   runningOn__Big__Sur__Successor__OrNewer()  ) {
+            if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
+                NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
             } else {
 				if (  preference  ) {
-               		NSLog(@"Will not try to load kexts on Big Sur or later, so ignoring '%@' for '%@'", preference, preferenceKey);
+               		NSLog(@"Will not try to load kexts on this version of macOS, so ignoring '%@' for '%@'", preference, preferenceKey);
 				}
                 preference = @"never";
             }

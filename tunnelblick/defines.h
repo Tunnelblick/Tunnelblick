@@ -728,6 +728,7 @@ name = newValue;                                    \
 @"doNotCheckThatOpenvpnVersionIsCompatibleWithConfiguration",	\
 @"openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting",	\
 @"bigSurCanLoadKexts",	\
+@"tryToLoadKextsOnThisVersionOfMacOS",    \
 \
 @"disableAdvancedButton",	\
 @"disableCheckNowButton",	\

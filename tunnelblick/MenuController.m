@@ -5116,14 +5116,14 @@ static void signal_handler(int signalNumber)
     BOOL alwaysLoadTun     = [self oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: @"tun"];
     BOOL configNeedsTap    = [self oneOrMoreConfigurationsMustLoad: @"tap"];
     BOOL configNeedsTun    = [self oneOrMoreConfigurationsMustLoad: @"tun"];
-    BOOL onBigSurOrNewer   = runningOnBigSurOrNewer();
+    BOOL onBigSurSucessorOrNewer = runningOn__Big__Sur__Successor__OrNewer();
     BOOL sipIsDisabled     = runningWithSIPDisabled();
 
     [self displayMessageAboutBigSurAndKextsAlwaysLoadTap: alwaysLoadTap
                                            alwaysLoadTun: alwaysLoadTun
                                           configNeedsTap: configNeedsTap
                                           configNeedsTun: configNeedsTun
-                                         onBigSurOrNewer: onBigSurOrNewer
+                                 onBigSurSucessorOrNewer: onBigSurSucessorOrNewer
                                            sipIsDisabled: sipIsDisabled];
 
     [pool drain];
@@ -5133,7 +5133,7 @@ static void signal_handler(int signalNumber)
                                          alwaysLoadTun: (BOOL) alwaysLoadTun
                                         configNeedsTap: (BOOL) configNeedsTap
                                         configNeedsTun: (BOOL) configNeedsTun
-                                       onBigSurOrNewer: (BOOL) onBigSurOrNewer
+                               onBigSurSucessorOrNewer: (BOOL) onBigSurSucessorOrNewer
                                          sipIsDisabled: (BOOL) sipIsDisabled{
 
     BOOL needTunOrTap = (   alwaysLoadTap
@@ -5147,8 +5147,7 @@ static void signal_handler(int signalNumber)
                                                         @"<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
-        NSString * needToDisableSIP = NSLocalizedString(@"<p><strong>You can change a setting in macOS so it will allow Tunnelblick"
-                                                        @" to use its system extensions.</strong></p>\n",
+        NSString * fixWillNotConnect = NSLocalizedString(@"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
         NSString * futureNotConnect = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n"
@@ -5161,18 +5160,16 @@ static void signal_handler(int signalNumber)
         NSString * seeConsoleLog    = NSLocalizedString(@"<p>The Console Log shows which configurations will not be able to connect.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
-        NSString * bigSurMoreInfo  = NSLocalizedString( @"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n", @"HTML text. May be combined with other paragraphs.");
-        
         NSString * futureInfo       = NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
         NSMutableString * htmlMessage = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
         NSString * preferenceName = nil; // Will replace with appropriate name for the message that is being displayed
 
-        if (   onBigSurOrNewer
-            && ( ! sipIsDisabled)  ) {
+        if (   runningOn__Big__Sur__Successor__OrNewer()
+            && ( ! [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"] )  ) {
             [htmlMessage appendString: willNotConnect];
-            [htmlMessage appendString: needToDisableSIP];
+            [htmlMessage appendString: fixWillNotConnect];
             preferenceName = @"skipWarningAboutBigSur1";
         } else {
             [htmlMessage appendString: futureNotConnect];
@@ -5186,9 +5183,7 @@ static void signal_handler(int signalNumber)
 
         [htmlMessage appendString: seeConsoleLog];
 
-        [htmlMessage appendString: (  onBigSurOrNewer
-                                    ? bigSurMoreInfo
-                                    : futureInfo)];
+        [htmlMessage appendString: futureInfo];
 
         [self addWarningNoteWithHeadline: NSLocalizedString(@"Problem using future versions of macOS...",
                                                             @"Menu item. Translate it to be as short as possible. When clicked, will display the full warning.")

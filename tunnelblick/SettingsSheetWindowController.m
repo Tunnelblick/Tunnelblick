@@ -373,15 +373,17 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 		index = 1;
 	}
 
+    // Assume that the next version of macOS will not allow installing or loading our kexts.
+    // But let users change that assumption by setting the "tryToLoadKextsOnThisVersionOfMacOS" preference to true
+
     BOOL enabled = TRUE;
-    BOOL donotLoadKext = (   runningOnBigSurOrNewer()
-                          && ( ! (   runningWithSIPDisabled()
-                                  || [gTbDefaults boolForKey: @"bigSurCanLoadKexts"] ) )  );
+    BOOL donotLoadKext = (   runningOn__Big__Sur__Successor__OrNewer()
+                          && ( ! [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"] )  );
 
     if (  donotLoadKext  ) {
         if (  index != 2  ) {
 			if (  value  ) {
-            	NSLog(@"Not loading kexts on Big Sur or later, so showing 'never' and ignoring '%@' for '%@' for '%@' and disabling the button", value, rawPreferenceKey, key);
+            	NSLog(@"Not loading kexts on this version of macOS, so showing 'never' and ignoring '%@' for '%@' for '%@' and disabling the button", value, rawPreferenceKey, key);
 			}
             index = 2;
         }
