@@ -302,7 +302,7 @@ BOOL runningOn__Big__Sur__Successor__OrNewer(void) {
         return runningOnNewerThan(10, 16);
     }
 
-    return runningOnNewerThan(11, 0);
+    return runningOnNewerThan(11, 99999);
 }
 
 BOOL runningOnNewerThanWithBugFix(unsigned majorVersion, unsigned minorVersion, unsigned bugfixVersion)
