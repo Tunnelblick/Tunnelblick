@@ -432,7 +432,7 @@ if [ "${CONFIGURATION}" != "Debug" ]; then
     # Create a signed copy of the .dmg that contains the signed copy of the .app
     rm -r -f "$TMPDMG/${PROJECT_NAME}.app"
     cp -p -R -f "${signed_app_path}" "$TMPDMG"
-    rm -r -f "$dmg_path"
+    rm -r -f "$signed_dmg_path"
     hdiutil create -noscrub -srcfolder "$TMPDMG" "$signed_dmg_path"
     status=$?
     if [ "${status}" -ne "0" ]; then
@@ -469,6 +469,7 @@ if [ "${CONFIGURATION}" != "Debug" ]; then
 	# Leave the staging folder so customized .dmgs can be easily created
 
     touch "build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg"
+    touch "$app_path"
     touch "$dmg_path"
 fi
 
