@@ -1535,7 +1535,6 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 	[message appendString: NSLocalizedString(@"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'."
 						@" You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>",
-
 						@"HTML text.")];
 
 	return message;
@@ -1662,8 +1661,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 			
 			NSString * link = (  runningOnHighSierraOrNewer()
 							   ? (  runningOnTen_Fourteen_FiveOrNewer()
-								  ? @"https://tunnelblick.net/cKextNotarization.html"
-								  : @"https://tunnelblick.net/cKextLoadErrorHighSierra.html")
+								  ? @"https://tunnelblick.net/cCatalina.html"
+								  : @"https://tunnelblick.net/cHighSierraMojave.html")
 							   : @"https://tunnelblick.net/cKextLoadError.html");
 			NSString * linkMsg = [NSString stringWithFormat:
 								  NSLocalizedString(@"<p><a href=\"%@\">More information</a> [tunn" @"elblick.n" @"et]</p>",
