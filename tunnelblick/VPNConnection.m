@@ -1537,6 +1537,11 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 						@" You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>",
 						@"HTML text.")];
 
+    if (  [architectureBeingUsed() isEqualToString: ARCH_ARM]  ) {
+        [message appendString: NSLocalizedString(@"<p>On this Apple Silicon Mac, you need to a change another system setting, too. See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net]</p>",
+                            @"HTML text.")];
+    }
+    
 	return message;
 }
 
