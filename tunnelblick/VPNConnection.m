@@ -1500,49 +1500,62 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	}
 }
 
--(NSString *) messageAboutKextLoadPermissionStatus {
-
-	BOOL kextPolicyFound;
-	BOOL tapEnabled;
-	BOOL tapDisabled;
-	BOOL tunEnabled;
-	BOOL tunDisabled;
-
-	[self getKextPolicy: &kextPolicyFound tapEnabled: &tapEnabled tapDisabled: &tapDisabled tunEnabled: &tunEnabled tunDisabled: &tunDisabled];
+-(NSString *) messageAfterKextLoadFailure {
 
 	NSMutableString * message = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
 
-	(void)tapEnabled;
-	(void)tunEnabled;
+   if (   runningOnBigSurOrNewer()
+        && ( ! bothKextsAreInstalled() )  ) {
 
-	if (  kextPolicyFound  ) {
-		if (  tapDisabled  ) {
-			if (  tunDisabled  ) {
-				[message appendString:
-				 NSLocalizedString(@"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>",
-								   @"HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded.")];
-			} else {
-				[message appendString:
-				 NSLocalizedString(@"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>",
-								   @"HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded.")];
-			}
-		} else if (  tunDisabled) {
-			[message appendString:
-			 NSLocalizedString(@"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>",
-							   @"HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded.")];
-		}
-	}
+       [message appendString: NSLocalizedString(@"<p>You need to install Tunnelblick's system extensions to use this configuration.</p>"
+                                                @"<p>You can do that from Tunnelblick's 'Utilities' panel.</p>"
+                                                @"<p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>", @"HTML text.")];
 
-	[message appendString: NSLocalizedString(@"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'."
-						@" You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>",
-						@"HTML text.")];
+       if (  [architectureBeingUsed() isEqualToString: ARCH_ARM]  ) {
+           [message appendString: NSLocalizedString(@"<p>'Allowing' the system extensions may require a change to a system security setting that can be done only in Recovery mode, which will include two additional restarts of your computer.</p>", @"HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS.")];
+       }
+      
+       [message appendString: NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>", @"HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net.")];
 
-    if (  [architectureBeingUsed() isEqualToString: ARCH_ARM]  ) {
-        [message appendString: NSLocalizedString(@"<p>On this Apple Silicon Mac, you need to a change another system setting, too. See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net]</p>",
+    } else if (  runningOnTen_Fourteen_FiveOrNewer()  ) {
+
+        BOOL kextPolicyFound;
+        BOOL tapEnabled;
+        BOOL tapDisabled;
+        BOOL tunEnabled;
+        BOOL tunDisabled;
+
+        (void)tapEnabled;
+        (void)tunEnabled;
+
+        [self getKextPolicy: &kextPolicyFound tapEnabled: &tapEnabled tapDisabled: &tapDisabled tunEnabled: &tunEnabled tunDisabled: &tunDisabled];
+
+        if (  kextPolicyFound  ) {
+            if (  tapDisabled  ) {
+                if (  tunDisabled  ) {
+                    [message appendString:
+                     NSLocalizedString(@"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>",
+                                       @"HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded.")];
+                } else {
+                    [message appendString:
+                     NSLocalizedString(@"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>",
+                                       @"HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded.")];
+                }
+            } else if (  tunDisabled) {
+                [message appendString:
+                 NSLocalizedString(@"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>",
+                                   @"HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded.")];
+            }
+        }
+
+        [message appendString: NSLocalizedString(@"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'."
+                            @" You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>",
+                            @"HTML text.")];
+        [message appendString: NSLocalizedString(@"<p>If you do not see a button allowing you to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>",
                             @"HTML text.")];
     }
-    
-	return message;
+
+    return message;
 }
 
 -(void) finishMakingConnection: (NSDictionary *) dict {
@@ -1680,7 +1693,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 									  NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>",
 														@"HTML error message. The '%@' is a configuration name."),
 									  [self displayName]],
-									 [self messageAboutKextLoadPermissionStatus],
+									 [self messageAfterKextLoadFailure],
 									 linkMsg];
 			NSAttributedString * msg = attributedLightDarkStringFromHTML(htmlString);
 			if (  ! msg  ) {
