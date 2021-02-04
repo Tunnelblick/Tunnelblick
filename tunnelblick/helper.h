@@ -169,6 +169,7 @@ BOOL           runningOnTen_Fourteen_FiveOrNewer(void);
 BOOL           runningOnMacosBeta(void);
 
 BOOL           bothKextsAreInstalled(void);
+BOOL           anyKextsAreLoaded(void);
 
 BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
 BOOL           tunnelblickTestAppInApplications(void);

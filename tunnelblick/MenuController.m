@@ -5729,7 +5729,23 @@ static void signal_handler(int signalNumber)
 }
 
 -(void) installOrUninstallKexts {
+
+    if ( [connectionArray count] != 0  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString( @"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions.", @"Window text"));
+        return;
+    }
+
+    unsigned int bitMask = getLoadedKextsMask() & ( ~ (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT)  );
+    NSString * arg1 = [NSString stringWithFormat: @"%u", bitMask];
+    runOpenvpnstart([NSArray arrayWithObjects:@"unloadKexts", arg1, nil], nil, nil);
     
+    if (  anyKextsAreLoaded()  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"There is a problem. Please quit Tunnelblick, then relaunch it and try to install or uninstall Tunnelblick's system extensions again.", @"Window text"));
+        return;
+    }
+
     if (  bothKextsAreInstalled()  ) {
         [self uninstallKexts];
     } else {

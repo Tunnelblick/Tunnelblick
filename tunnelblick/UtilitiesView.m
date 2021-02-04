@@ -82,10 +82,11 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) setupInstallOrUninstallKextsButton {
     
-    NSString * kextsButtonName = ( bothKextsAreInstalled()
-                       ? NSLocalizedString(@"Uninstall tun and tap system extensions...", @"Button")
-                       : NSLocalizedString(@"Install tun and tap system extensions...", @"Button")  );
-    
+    NSString * kextsButtonName = (   bothKextsAreInstalled()
+                                  || anyKextsAreLoaded()
+                                  ? NSLocalizedString(@"Uninstall tun and tap system extensions...", @"Button")
+                                  : NSLocalizedString(@"Install tun and tap system extensions...", @"Button")  );
+
     [utilitiesInstallKextsButton
      setTitle: kextsButtonName
      infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n"

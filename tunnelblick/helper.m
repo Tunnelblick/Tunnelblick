@@ -340,6 +340,22 @@ BOOL bothKextsAreInstalled(void) {
     return result;
 }
 
+BOOL anyKextsAreLoaded(void) {
+    
+    NSString * stdoutString = nil;
+    NSString * stderrString = nil;
+    OSStatus status = runTool(TOOL_PATH_FOR_KEXTSTAT, @[], &stdoutString, &stderrString);
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"Error returned by kextstat = %d; stdout =\n%@\nstderr=\%@", status, stdoutString, stderrString);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString( @"An error occured getting the list of loaded system extensions.", @"Window text"));
+        return NO;
+    }
+    
+    BOOL result = ([stdoutString rangeOfString: @"net.tunnelblick."].length != 0);
+    return result;
+}
+
 BOOL okToUpdateConfigurationsWithoutAdminApproval(void) {
     BOOL answer = (   [gTbDefaults boolForKey: @"allowNonAdminSafeConfigurationReplacement"]
 				   && ( ! [gTbDefaults canChangeValueForKey: @"allowNonAdminSafeConfigurationReplacement"] )
