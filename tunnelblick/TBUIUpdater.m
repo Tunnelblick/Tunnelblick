@@ -181,7 +181,7 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) timerTickHandler: (NSTimer *) theTimer {
     
-    [NSThread performSelectorOnMainThread: @selector(timerTickOnMainThread) withObject: nil waitUntilDone: NO];
+    [self performSelectorOnMainThread: @selector(timerTickOnMainThread) withObject: nil waitUntilDone: NO];
 }
 
 TBSYNTHESIZE_OBJECT(retain, NSArray *, nonDisconnectedConnectionsAtPreviousTick, setNonDisconnectedConnectionsAtPreviousTick)
