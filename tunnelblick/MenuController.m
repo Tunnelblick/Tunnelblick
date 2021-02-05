@@ -3436,7 +3436,7 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // Unloads our loaded tun/tap kexts if tunCount/tapCount is zero.
--(void) unloadKexts
+-(void) unloadKextsForce: (BOOL) force
 {
     OSStatus status = pthread_mutex_trylock( &unloadKextsMutex );
     if (  status != EXIT_SUCCESS  ) {
@@ -3444,27 +3444,40 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-    unsigned bitMask = getLoadedKextsMask() & ( ~ (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT)  );    // Don't unload foo.tun/tap
+    unsigned bitMask = getLoadedKextsMask() & (OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_OUR_TUN_KEXT);    // Don't unload foo.tun/tap
     
-    if (  bitMask != 0  ) {
-        if (  tapCount != 0  ) {
+    // Don't unload if there are kexts in use unless the unload is being forced
+    
+    if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
+        
+        if (   ( ! force )
+            && (tapCount != 0)  ) {
             bitMask = bitMask & ( ~OPENVPNSTART_OUR_TAP_KEXT);
-        }
-        
-        if (  tunCount != 0  ) {
-            bitMask = bitMask & ( ~OPENVPNSTART_OUR_TUN_KEXT);
-        }
-        
-        if (  bitMask != 0  ) {
-            NSString * arg1 = [NSString stringWithFormat: @"%d", bitMask];
-            runOpenvpnstart([NSArray arrayWithObjects:@"unloadKexts", arg1, nil], nil, nil);
         }
     }
     
-    status = pthread_mutex_unlock( &unloadKextsMutex );
-    if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_unlock( &unloadKextsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
-    }    
+    if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
+        if (   ( ! force )
+            && (  tunCount != 0)  ) {
+            bitMask = bitMask & ( ~OPENVPNSTART_OUR_TUN_KEXT);
+        }
+    }
+        
+    if (  bitMask != 0  ) {
+        NSString * arg1 = [NSString stringWithFormat: @"%d", bitMask];
+        status = runOpenvpnstart(@[@"unloadKexts", arg1], nil, nil);
+
+        unsigned bitMaskAfter = getLoadedKextsMask();
+        if (   (status != EXIT_SUCCESS)
+            || ( (bitMaskAfter & (OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_OUR_TUN_KEXT)) != 0)  ) {
+            NSLog(@"unloadKexts failed: status = %u; bitMask = 0x%x; bitMaskAfter = 0x%x", status, bitMask, bitMaskAfter);
+        }
+        
+        status = pthread_mutex_unlock( &unloadKextsMutex );
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"pthread_mutex_unlock( &unloadKextsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        }
+    }
 }
 
 -(NSArray *) connectionsNotDisconnected {
@@ -3796,7 +3809,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         NSLog(@"Not unloading kexts and not deleting logs because tunnelblickd is not loaded.");
 	} else {
         TBLog(@"DB-SD", @"cleanup: Unloading kexts")
-        [self unloadKexts];
+        [self unloadKextsForce: YES];
         TBLog(@"DB-SD", @"cleanup: Deleting logs")
         [self deleteLogs];
     }
@@ -5736,13 +5749,11 @@ static void signal_handler(int signalNumber)
         return;
     }
 
-    unsigned int bitMask = getLoadedKextsMask() & ( ~ (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT)  );
-    NSString * arg1 = [NSString stringWithFormat: @"%u", bitMask];
-    runOpenvpnstart([NSArray arrayWithObjects:@"unloadKexts", arg1, nil], nil, nil);
-    
+    [self unloadKextsForce: YES];
+
     if (  anyKextsAreLoaded()  ) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"There is a problem. Please quit Tunnelblick, then relaunch it and try to install or uninstall Tunnelblick's system extensions again.", @"Window text"));
+                          NSLocalizedString(@"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again.", @"Window text"));
         return;
     }
 

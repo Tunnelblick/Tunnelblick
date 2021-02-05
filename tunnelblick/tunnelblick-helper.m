@@ -24,6 +24,7 @@
 #import <CoreServices/CoreServices.h>
 #import <Foundation/Foundation.h>
 #import <IOKit/kext/KextManager.h>
+#import <libkern/OSKextLib.h>
 #import <sys/acl.h>
 #import <sys/mount.h>
 #import <sys/param.h>
@@ -1924,6 +1925,52 @@ void loadKexts(unsigned int bitMask, BOOL onBigSurOrNewer) {
     }
 }
 
+NSString * kOSKextReturnStringFromCode(int code) {
+    
+	NSDictionary * dict = @{
+							@kOSKextReturnInternalError:	@"kOSKextReturnInternalError",
+							@kOSKextReturnNoMemory:			@"kOSKextReturnNoMemory",
+							@kOSKextReturnNoResources:		@"kOSKextReturnNoResources",
+							@kOSKextReturnNotPrivileged:	@"kOSKextReturnNotPrivileged",
+							@kOSKextReturnInvalidArgument:	@"kOSKextReturnInvalidArgument",
+							@kOSKextReturnNotFound:			@"kOSKextReturnNotFound",
+							@kOSKextReturnBadData:			@"kOSKextReturnBadData",
+							@kOSKextReturnSerialization:	@"kOSKextReturnSerialization",
+							@kOSKextReturnUnsupported:		@"kOSKextReturnUnsupported",
+							@kOSKextReturnDisabled:			@"kOSKextReturnDisabled",
+							@kOSKextReturnNotAKext:			@"kOSKextReturnNotAKext",
+							@kOSKextReturnValidation:		@"kOSKextReturnValidation",
+							@kOSKextReturnAuthentication:	@"kOSKextReturnAuthentication",
+							@kOSKextReturnDependencies:		@"kOSKextReturnDependencies",
+							@kOSKextReturnArchNotFound:		@"kOSKextReturnArchNotFound",
+							@kOSKextReturnCache:			@"kOSKextReturnCache",
+							@kOSKextReturnDeferred:			@"kOSKextReturnDeferred",
+							@kOSKextReturnBootLevel:		@"kOSKextReturnBootLevel",
+							@kOSKextReturnNotLoadable:		@"kOSKextReturnNotLoadable",
+							@kOSKextReturnLoadedVersionDiffers: @"kOSKextReturnLoadedVersionDiffers",
+							@kOSKextReturnDependencyLoadError: @"kOSKextReturnDependencyLoadError",
+							@kOSKextReturnLinkError:		@"kOSKextReturnLinkError",
+							@kOSKextReturnStartStopError:	@"kOSKextReturnStartStopError",
+							@kOSKextReturnInUse:			@"kOSKextReturnInUse",
+							@kOSKextReturnTimeout:			@"kOSKextReturnTimeout",
+							@kOSKextReturnStopping:			@"kOSKextReturnStopping",
+#if 0
+							// The following are not defined in the 10.11 SDK used by Xcode 7.3.1 and are probably not needed
+							@kOSKextReturnSystemPolicy:		@"kOSKextReturnSystemPolicy",
+							@kOSKextReturnKCLoadFailure:	@"kOSKextReturnKCLoadFailure",
+							@kOSKextReturnKCLoadFailureSystemKC: @"kOSKextReturnKCLoadFailureSystemKC",
+							@kOSKextReturnKCLoadFailureAuxKC:	@kOSKextReturnKCLoadFailureAuxKC"
+#endif
+						   };
+
+	NSString * result = [dict objectForKey: [NSNumber numberWithInt: code]];
+	if (  ! result  ) {
+		result = @"<error not known by Tunnelblick>";
+	}
+
+	return result;
+}
+
 void unloadOneKext(NSString * bundleIdentifier) {
 
     becomeRoot(@"Unload a kext");
@@ -1933,7 +1980,7 @@ void unloadOneKext(NSString * bundleIdentifier) {
     if (  status == kOSReturnSuccess  ) {
         appendLog([NSString stringWithFormat: @"Successfully unloaded kext '%@'", bundleIdentifier]);
     } else {
-        appendLog([NSString stringWithFormat: @"Error %d: Could not unload kext '%@'", status, bundleIdentifier]);
+        appendLog([NSString stringWithFormat: @"Could not unload kext '%@'; error %d (%@)", bundleIdentifier, status, kOSKextReturnStringFromCode(status)]);
     }
 }
 

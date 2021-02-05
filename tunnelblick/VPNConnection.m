@@ -3423,7 +3423,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [gMC decrementTunCount];
         loadedOurTun = FALSE;
     }
-    [gMC unloadKexts];
+    [gMC unloadKextsForce: NO];
     
 	if (  ! wereWaitingForNetworkAvailability  ) {
 		// Run the post-disconnect script, if any
