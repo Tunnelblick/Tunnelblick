@@ -4812,6 +4812,16 @@ static void signal_handler(int signalNumber)
 	return TRUE;
 }
 
+-(void) replace: (NSString *) old with: (NSString *) new in: (NSMutableArray *) names {
+    
+    NSUInteger ix;
+    for (  ix=0; ix<[names count]; ix++  ) {
+        NSMutableString * name = [[[names objectAtIndex: ix] mutableCopy] autorelease];
+        [name replaceOccurrencesOfString: old withString: new options: 0 range: NSMakeRange(0, [name length])];
+        [names replaceObjectAtIndex: ix withObject: [NSString stringWithString: name]];
+    }
+}
+
 -(BOOL) setUpOpenVPNNames {
 
 	// The names are the folder names in Tunnelblick.app/Contents/Resources/openvpn and /Library/Application Support/Tunnelblick/Openvpn
@@ -4838,24 +4848,13 @@ static void signal_handler(int signalNumber)
 		[self terminateBecause: terminatingBecauseOfError];
 		return FALSE;
 	}
+    
+    // Sort the array but so OpenSSL comes before LibreSSL
+    [self replace: @"openssl" with: @"OPENSSL" in: nameArray];
+    [nameArray sortUsingSelector:@selector(compare:)];
+    [self replace: @"OPENSSL" with: @"openssl" in: nameArray];
 
-	// Sort the array but so OpenSSL comes before LibreSSL
-	NSMutableArray * sortedNames = [[[NSMutableArray alloc] initWithCapacity: [nameArray count]] autorelease];
-	NSUInteger ix;
-	[nameArray sortUsingSelector:@selector(compare:)];
-	for (  ix=0; ix<[nameArray count]; ix++  ) {
-		if (   (ix != [nameArray count]-1)
-			&& ([[nameArray objectAtIndex: ix]     rangeOfString: @"libressl"].length != 0)
-			&& ([[nameArray objectAtIndex: ix + 1] rangeOfString: @"openssl"].length  != 0)  ) {
-			[sortedNames addObject: [nameArray objectAtIndex: ix + 1]];
-			[sortedNames addObject: [nameArray objectAtIndex: ix]];
-			ix++;
-		} else {
-			[sortedNames addObject: [nameArray objectAtIndex: ix]];
-		}
-	}
-
-    [self setOpenvpnVersionNames: [NSArray arrayWithArray: sortedNames]];
+    [self setOpenvpnVersionNames: [NSArray arrayWithArray: nameArray]];
 
     return TRUE;
 }
