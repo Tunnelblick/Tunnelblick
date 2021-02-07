@@ -21,9 +21,13 @@ are restricted:
  * On macOS Catalina, the computer must be restarted after loading the
    system extensions for the first time.
 
- * On macOS Big Sur , Tunnelblick's tun and tap system extensions can be
-   used only after being installed; the installation process involves
-   restarting the computer.
+ * On macOS Big Sur, Tunnelblick's tun and tap system extensions can be
+   used only after being installed and approved by an administrator;
+   the installation process involves restarting the computer.
+
+ * On Apple Silicon (M1) Macs, installing Tunnelblick's system extensions
+   requires a change to the default security settings, which requires two
+   additional computer restarts.
 
 See [The Future of Tun and Tap VPNs on macOS](https://tunnelblick.net/cTunTapConnections.html)
 For details.
@@ -62,7 +66,7 @@ The current version of Tunnelblick should be built using:
  * Xcode 12.3  on macOS 10.15.7 on an Intel Mac.
 
 Tunnelblick cannot be built yet on an Apple Silicon (M1) Mac, but there
-are plans to be able to do so. 
+are plans to be able to do so.
 
 When built on Xcode 7.3.1, Tunnelblick will run on Intel processors, or
 on Apple M1 processors using Rosetta 2.
@@ -139,6 +143,10 @@ Tunnelblick problem.)
 Xcode 12 needs to have the command line tools installed. You can
 do that in Terminal with the following command:
 ```xcode-select --install```
+
+Xcode 12 also needs to have "parallelized builds" turned off. This can be done
+on the Build tab of the window that appears when you click Product >> Scheme
+>> Edit Scheme.
 
 **5. Selecting  the Type of Build You Want to Create**
 
