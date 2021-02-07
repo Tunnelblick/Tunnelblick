@@ -1512,7 +1512,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                                                 @"<p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>", @"HTML text.")];
 
        if (  [architectureBeingUsed() isEqualToString: ARCH_ARM]  ) {
-           [message appendString: NSLocalizedString(@"<p>'Allowing' the system extensions may require a change to a system security setting that can be done only in Recovery mode, which will include two additional restarts of your computer.</p>", @"HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS.")];
+		   [message appendString: NSLocalizedString(@"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>", @"HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS.")];
        }
       
        [message appendString: NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>", @"HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net.")];
@@ -1551,7 +1551,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         [message appendString: NSLocalizedString(@"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'."
                             @" You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>",
                             @"HTML text.")];
-        [message appendString: NSLocalizedString(@"<p>If you do not see a button allowing you to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>",
+        [message appendString: NSLocalizedString(@"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>",
                             @"HTML text.")];
     }
 

@@ -348,7 +348,7 @@ BOOL anyKextsAreLoaded(void) {
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"Error returned by kextstat = %d; stdout =\n%@\nstderr=\%@", status, stdoutString, stderrString);
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString( @"An error occured getting the list of loaded system extensions.", @"Window text"));
+                          NSLocalizedString( @"An error occurred getting the list of loaded system extensions.", @"Window text"));
         return NO;
     }
     
