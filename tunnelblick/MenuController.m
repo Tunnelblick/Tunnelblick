@@ -5148,6 +5148,8 @@ static void signal_handler(int signalNumber)
                                onBigSurSucessorOrNewer: (BOOL) onBigSurSucessorOrNewer
                                          sipIsDisabled: (BOOL) sipIsDisabled{
 
+	(void)sipIsDisabled;
+
     BOOL needTunOrTap = (   alwaysLoadTap
                          || alwaysLoadTun
                          || configNeedsTap

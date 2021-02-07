@@ -180,7 +180,9 @@ extern TBUserDefaults * gTbDefaults;
 }
 
 -(void) timerTickHandler: (NSTimer *) theTimer {
-    
+
+	(void)theTimer;
+	
     [self performSelectorOnMainThread: @selector(timerTickOnMainThread) withObject: nil waitUntilDone: NO];
 }
 
