@@ -3472,11 +3472,11 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
             || ( (bitMaskAfter & (OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_OUR_TUN_KEXT)) != 0)  ) {
             NSLog(@"unloadKexts failed: status = %u; bitMask = 0x%x; bitMaskAfter = 0x%x", status, bitMask, bitMaskAfter);
         }
-        
-        status = pthread_mutex_unlock( &unloadKextsMutex );
-        if (  status != EXIT_SUCCESS  ) {
-            NSLog(@"pthread_mutex_unlock( &unloadKextsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
-        }
+    }
+    
+    status = pthread_mutex_unlock( &unloadKextsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &unloadKextsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
     }
 }
 

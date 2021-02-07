@@ -860,7 +860,9 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
 					)  ) {
 					notOk = FALSE;
 				}
-		}
+        } else if (  [path isEqualToString: TOOL_PATH_FOR_KEXTUNLOAD]  ) {
+            notOk = FALSE;
+        }
 	}
 	
     if (  notOk  ) {
@@ -1973,11 +1975,9 @@ NSString * kOSKextReturnStringFromCode(int code) {
 
 void unloadOneKext(NSString * bundleIdentifier) {
 
-    becomeRoot(@"Unload a kext");
-    OSReturn status = KextManagerUnloadKextWithIdentifier((CFStringRef)bundleIdentifier);
-    stopBeingRoot();
-
-    if (  status == kOSReturnSuccess  ) {
+	NSArray * arguments = @[@"-b", bundleIdentifier];
+	OSStatus status = runAsRoot(TOOL_PATH_FOR_KEXTUNLOAD, arguments, 0755);
+	if (  status == EXIT_SUCCESS  ) {
         appendLog([NSString stringWithFormat: @"Successfully unloaded kext '%@'", bundleIdentifier]);
     } else {
         appendLog([NSString stringWithFormat: @"Could not unload kext '%@'; error %d (%@)", bundleIdentifier, status, kOSKextReturnStringFromCode(status)]);

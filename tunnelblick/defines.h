@@ -151,6 +151,7 @@
 #define TOOL_PATH_FOR_ID			@"/usr/bin/id"
 #define TOOL_PATH_FOR_IFCONFIG		@"/sbin/ifconfig"
 #define TOOL_PATH_FOR_KEXTSTAT		@"/usr/sbin/kextstat"
+#define TOOL_PATH_FOR_KEXTUNLOAD    @"/sbin/kextunload"
 #define TOOL_PATH_FOR_KILLALL		@"/usr/bin/killall"
 #define TOOL_PATH_FOR_LAUNCHCTL		@"/bin/launchctl"
 #define TOOL_PATH_FOR_NETWORKSETUP	@"/usr/sbin/networksetup"
