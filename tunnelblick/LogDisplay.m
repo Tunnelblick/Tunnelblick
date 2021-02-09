@@ -295,6 +295,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 	NSString * message = messageIfProblemInLogLine(line);
 	if (  message  ) {
 		[connection addMessageToDisplayIfConnectionFails: message];
+        if (   [line containsString: @"certificate"]
+            && ( ! [gTbDefaults boolForKey: @"doNotDisconnectForCertificateProblems"] )  ) {
+            [connection performSelector: @selector(startDisconnectingUserKnows:) withObject: @NO afterDelay: 0.1];
+        }
 	}
 }
 

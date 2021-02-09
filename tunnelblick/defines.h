@@ -730,6 +730,7 @@ name = newValue;                                    \
 @"openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting",	\
 @"bigSurCanLoadKexts",	\
 @"tryToLoadKextsOnThisVersionOfMacOS",    \
+@"doNotDisconnectForCertificateProblems", \
 \
 @"disableAdvancedButton",	\
 @"disableCheckNowButton",	\
