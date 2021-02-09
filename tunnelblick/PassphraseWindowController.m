@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2015, 2016, 2019 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015, 2016, 2019, 2021 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -150,6 +150,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,     eyeRedSlash)
 {
 	(void) sender;
 	
+	// If the passphrase is exposed, copy it from the NSTextBox to the NSSecureTextBox
+	if (  [[eyeButton image] isEqual: eyeRedSlash]  ) {
+		[[self passphrase] setStringValue: [visiblePassphrase stringValue]];
+	}
+
     const char * passphraseC = [escaped(  [[self passphrase] stringValue]  ) UTF8String];
     if (   (strlen(passphraseC) == 0)
         || (strlen(passphraseC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)  ) {
