@@ -739,10 +739,10 @@
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: aðgangsorð þarf";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK FAILED" = "EKKI TÓKST AÐ FJARLÆGJA TUNNELBLICK";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TÓKST AÐ FJARLÆGJA TUNNELBLICK";
 
 /* Window title */

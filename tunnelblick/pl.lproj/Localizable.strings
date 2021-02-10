@@ -128,10 +128,13 @@
 "Ignore" = "Ignoruj";
 
 /* Button */
+"Install tun and tap system extensions..." = "\nZainstaluj rozszerzenia systemu TUN i TAP…";
+
+/* Button */
 "Install" = "Zainstaluj";
 
 /* Button. In a dialog that says a file already exists in a new location. */
-"Keep Both" = "Zachowaj Oba";
+"Keep Both" = "Zachowaj oba";
 
 /* Button */
 "Latest (%@)" = "Najnowsza (%@)";
@@ -286,6 +289,9 @@
 
 /* Button */
 "Uninstall Tunnelblick..." = "Odinstaluj Tunnelblicka…";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Odinstaluj rozszerzenia systemu TUN i TAP…";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Aktualizuj";
@@ -727,12 +733,10 @@
 /* Window title */
 "System Requirements Not Met" = "Wymagania systemowe nie zostały spełnione";
 
-/* A "test uninstall" failed.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "PRÓBNE ODINSTALOWANIE TUNNELBLICKA ZAKOŃCZONE NIEPOWODZENIEM";
 
-/* A "test uninstall" succeeded.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "PRÓBNE ODINSTALOWANIE TUNNELBLICKA ZAKOŃCZONE POMYŚLNIE";
 
 /* Window title */
@@ -750,10 +754,10 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Wymagane hasło";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK FAILED" = "NIEUDANE ODINSTALOWANIE TUNNELBLICKA";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TUNNELBLICK POMYŚLNIE ODINSTALOWANY";
 
 /* Window title */
@@ -1054,6 +1058,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Wystąpił błąd (status %1$ld) podczas weryfikacji bezpieczeństwa konfiguracji: %2$@.\n\nUruchom Tunnelblick ponownie. Jeśli problem nie został rozwiązany spróbuj zainstalować Tunnelblick jeszcze raz.";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "Wystąpił błąd podczas pobierania listy załadowanych rozszerzeń systemu.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Wystąpił błąd podczas uruchamiania %@";
 
 /* Window text */
@@ -1276,7 +1283,13 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Failed to create symlink\n  to %@\n  at %@" = "Nie udało się utworzyć dowiązania symbolicznego do %1$@ w %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Nie udało się zainstalować rozszerzeń systemu TUN i TAP od Tunnelblicka.";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Nie można ustawić uprawnień dla %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Nie udało się odinstalować rozszerzeń systemu TUN i TAP od Tunnelblicka.";
 
 /* Window text */
 "Fast User Switching" = "Szybkie przełączanie użytkownika";
@@ -1834,6 +1847,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick potrzebuje autoryzacji w celu powielenia konfiguracji '%@'.";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick wymaga autoryzacji do zainstalowania rozszerzeń systemu TUN i TAP.";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick potrzebuje autoryzacji w celu zmiany konfiguracji '%ld' na prywatne.";
 
 /* Window text */
@@ -1867,6 +1883,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick wymaga autoryzacji, aby zabezpieczyć importowane dane.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick wymaga autoryzacji do odinstalowania rozszerzeń systemu TUN i TAP.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick potrzebuje zmienić ustawienia dostępne jedynie dla administratora komputera.";
 
 /* Window text */
@@ -1883,6 +1902,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick pomyślnie:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick nie był w stanie zwolnić swoich rozszerzeń systemu. Uruchom ponownie komputer i spróbuj ponownie odinstalować rozszerzenia systemu od Tunnelblicka.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick został zainstalowany i zainstalowano bądź zastąpiono %ld konfiguracje.";
@@ -2098,6 +2120,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "You may not remove a folder unless it is empty." = "Nie możesz usunąć katalogu, jeśli nie jest pusty.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Należy rozłączyć wszystkie połączenia VPN, zanim będzie można zainstalować lub odinstalować rozszerzenia systemu od Tunnelblicka.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Uaktualnienie Tunnelblicka nie będzie możliwe bez zgody administratora komputera.\n\nCzy na pewno sprawdzić dostępność uaktualnień?";
 
 /* Window text */
@@ -2182,6 +2207,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Aby zaimportować konfigurację Tunnelblicka na komputerze, na którym liczba kont użytkowników jest większa niż %u, musisz utworzyć plik tekstowy wskazujący dane do zaimportowania.</p><p>Więcej informacji znajdziesz na stronie <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Wersje OpenVPN „<strong>inne niż z Tunnelblicka</strong>” nie zostały stworzone przez projekt Tunnelblick i nie są częścią aplikacji Tunnelblick. Zostały zainstalowane przez administratora systemu.</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>„Zezwolenie” na używanie rozszerzeń systemu może wymagać zmiany ustawień bezpieczeństwa systemu. Te ustawienia można zmienić tylko w trybie odzyskiwania systemu (Recovery). Konieczne może być ponowne uruchomienie komputera w trybie odzyskiwania, wprowadzenie zmiany, a następnie uruchomienie systemu w normalny sposób. macOS powinien poprowadzić Cię przez ten proces.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Więcej informacji</a> [tunnelblick.net]</p>";
@@ -2290,9 +2318,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kiedy zaznaczone</strong>, będzie wymagana autentykacja przed uzyskaniem połączenia. Możesz autentykować się za pomocą swojego hasła, lub gdy dostępne, TouchID lub FaceID.</p>\n<p><strong>Kiedy nie zaznaczone</strong>, połączenie się nie wymaga autentykacji.</p>\n<p><strong>Ten checkbox jest wyłączony</strong> gdy używasz nie wspieranej wersji macOS'a.</p><p><strong>Uwaga: Zmiana tego ustawienia wymaga poświadczeń administratora komputera.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Można zmienić ustawienie w systemie macOS, które zezwoli aplikacji Tunnelblick na użycie jej rozszerzeń systemu.</strong></p>\n";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Możesz zmienić swoje konfiguracje tak, by mogły mieć możliwość nawiązania połączenia.</strong></p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2304,8 +2329,11 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Sprawdza uaktualnienia aplikacji Tunnelblick.</p><p>Więcej informacji na stronie internetowej Tunnelblick<a href=\"https://tunnelblick.net/cPrivacy.html\">Prywatność i bezpieczeństwo</a> [tunnelblick.net].</p><p>Sprawdza także uaktualnienia konfiguracji jeśli twój dostawca VPN je udostępnia.</p>";
 
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Kliknij, aby zainstalować bądź usunąć rozszerzenia systemu TUN i TAP od Tunnelblicka.</p>\n\n<p>Więcej informacji: <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net].</p><p><strong>Nieaktywne</strong>, jeśli Tunnelblick jest uruchomiony na systemie starszym od macOS Big Sur.</p>";
+
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Kliknij, aby odinstalować Tunnelblick.</p>\n\n<p><strong>Wyłączone</strong>, jeśli Tunnelblick nie jest zainstalowany w /Applications.</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Kliknij, aby odinstalować Tunnelblicka.</p>\n\n<p><strong>Nieaktywne</strong>, jeśli Tunnelblick nie jest zainstalowany w Aplikacjach (folder /Applications).</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopiuje informacje do schowka w celu zdiagnozowania problemów.</p><p>Zostanie skopiowana wersja programu i ustawienia, plik konfiguracyjny OpenVPN, ustawienia sieci i inne szczegóły.</p><p>Poufne dane certyfikatów będą pominięte, ale informacje takie jak adresy IP i linki które <em>mogą</em> być poufne będą skopiowane. Pamiętaj aby przed wysłaniem tych informacji w mailu lub ich opublikowaniem sprawdzić czy nie zawierają one poufnych danych.</p>";
@@ -2316,6 +2344,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Eksportuje konfigurację Tunnelblick, w tym wszystkie konfiguracje i ustawienia dla wszystkich użytkowników tego komputera, do skompresowanego pliku na pulpicie.</p><ul><li>Hasła i inne dane zapisane w pęku kluczy <strong>nie</strong> będą wyeksportowane.</li><li>Eksport może zająć dużo czasu.</li></ul>";
 
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Jeśli nie widzisz przycisku umożliwiającego załadowanie oprogramowania systemowego od twórcy „Jonathan Bullard”, spróbuj nawiązać połączenie z użyciem tej konfiguracji VPN (co się nie powiedzie), a następnie ponownie otwórz kartę „Ogólne” obszaru „Bezpieczeństwo i prywatność” w „Preferencjach systemowych”. </p>";
+
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Otwiera okno z dodatkowymi ustawieniami.</p><p>Jakiekolwiek zmiany będą miały zastosowanie do wszystkich konfiguracji, które zostały zaznaczone w oknie 'Właściwości VPN'.</p>";
 
@@ -2325,8 +2356,8 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Przywraca ostrzeżenia, które zostały wyłączone przez zaznaczone \"Nie ostrzegaj o tym ponownie\" pole wyboru</p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Zobacz <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick dla macOS 11 Big Sur</a> [tunnelblick.net] po więcej informacji.</p>";
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Więcej informacji: <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net].</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Zobacz <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Przyszłość Tun i Tap VPN na macOS</a> [tunnelblick.net] po więcej informacji.</p>";
@@ -2372,6 +2403,12 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick nie był w stanie załadować rozszerzenia systemu potrzebnego do połączenia z %@.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Możesz tak ustawić preferencje Tunnelblicka, aby próbował ładować rozszerzenia systemu.</p>";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>W celu użycia tej konfiguracji, musisz zainstalować rozszerzenia systemu od Tunnelblicka.</p><p>Możesz to zrobić w panelu „Narzędzia” Tunnelblicka.</p><p>Po zainstalowaniu rozszerzeń systemu macOS poprowadzi Cię przez proces nadania im zezwoleń, co będzie wymagać ponownego uruchomienia komputera.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Tryb Administratora, pozostało %@";

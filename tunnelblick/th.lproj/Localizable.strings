@@ -130,6 +130,9 @@
 /* Button */
 "Install" = "ติดตั้ง";
 
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "คงไว้ทั้งหมด";
+
 /* Button */
 "Latest (%@)" = "ล่าสุด (%@)";
 
@@ -242,6 +245,9 @@
 /* Button */
 "Show while connecting" = "แสดงขณะกำลังเชื่อมต่อ";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "ข้ามอัปเดตนี้";
+
 /* Button */
 "Skip" = "ข้าม";
 
@@ -250,6 +256,9 @@
 
 /* Button */
 "Standard icon" = "ไอคอนมาตรฐาน";
+
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "หยุด";
 
 /* Button */
 "Terminate All OpenVPN processes" = "จบทุกโพรเซสของ OpenVPN";
@@ -276,6 +285,12 @@
 "Tunnelblick 3.3 icon" = "ไอคอน Tunnelblick 3.3";
 
 /* Button */
+"Uninstall Tunnelblick..." = "ถอนการติดตั้ง Tunnelblick...";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "อัปเดต";
+
+/* Button */
 "When Tunnelblick launches" = "เมื่อ Tunnelblick เริ่มทำงาน";
 
 /* Button */
@@ -286,6 +301,13 @@
 
 /* Menu item */
 "Connect %@%@" = "เชื่อมต่อกับ %@%@";
+
+/* Menu item
+   Menu Item */
+"Copy Configuration into a New Folder..." = "คัดลอกการตั้งค่าไปยังโฟลเดอร์ใหม่…";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "คัดลอกการตั้งค่าไปยังโฟลเดอร์ใหม่...";
 
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "ลบข้อมูลยืนยันตัวตนของคอนฟิกเกอเรชั่นออกจาก Keychain";
@@ -313,6 +335,13 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "ทำให้คอนฟิกเกอเรชั่นสามารถแบ่งปันได้…";
+
+/* Menu item
+   Menu Item */
+"Move Configuration into a New Folder..." = "ย้ายการตั้งค่าไปยังโฟลเดอร์ใหม่…";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "ย้ายการตั้งค่าไปยังโฟลเดอร์ใหม่…";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "ไม่เก็บล็อกไฟล์สำหรับ OpenVPN หรือ Tunnelblick VPN";
@@ -344,8 +373,17 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "ระดับล็อกไฟล์ของ OpenVPN ถูกตั้งโดยคอนฟิกเกอเรชั่น";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "ปัญหาของเวอร์ชั่นถัดไปในอนาคตของ Tunnelblick…";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "ปัญหาของเวอรชั่นถัดไปในอนาคตของ macOS…";
+
 /* Menu item */
 "Quit Tunnelblick" = "ปิด Tunnelblick";
+
+/* Menu Item */
+"Rename Configuration" = "แก้ไขชื่อการตั้งค่า";
 
 /* Menu Item */
 "Revert Configuration..." = "แก้คอนฟิกเกอเรชั่นกลับเหมือนเดิม...";
@@ -361,6 +399,9 @@
 
 /* Menu item */
 "VPN Details..." = "รายละเอียด VPN";
+
+/* Menu item */
+"Warnings" = "คำเตือน";
 
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "อนุญาตให้มีการตั้งค่าเครือข่ายเองได้";
@@ -445,6 +486,348 @@
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "ต่อชื่อ domain ไว้ข้างหน้า search domains";
+
+/* Checkbox name */
+"Reconnect when computer wakes up" = "เชื่อมต่ออีกครั้งเมื่อคอมพิวเตอร์ตื่นขึ้น";
+
+/* Checkbox name */
+"Reconnect when user switches in" = "เชื่อมต่อใหม่อีกครั้งเมื่อสลับผู้ใช้กลับมา";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "ต้องการสิทธิ์ผู้ดูแลระบบในการติดตั้งการตั้งค่า";
+
+/* Checkbox name */
+"Route all IPv4 traffic through the VPN" = "เปลี่ยนเส้นทางของ IPv4 ให้วิ่งผ่าน VPN ทั้งหมด";
+
+/* Checkbox name */
+"Run MTU maximum size test after connecting" = "ทำการทดสอบขนาดสูงสุดของค่า MTU หลังจากเชื่อมต่อ";
+
+/* Checkbox name */
+"Save in Keychain" = "บันทึกลงใน Keychain";
+
+/* Checkbox name */
+"Set DNS after routes are set" = "ตั้ง DNS เมื่อ routes ถูกตั้งแล้ว";
+
+/* Checkbox name */
+"Show when disconnected" = "แสดงเมื่อตัดการเชื่อมต่อ";
+
+/* Checkbox name */
+"Show when the pointer is over the Tunnelblick icon" = "แสดงเมื่อเมาส์ชี้บนไอคอนของ Tunnelblick";
+
+/* PopUpButton */
+"Do not set nameserver" = "ไม่ต้องตั้ง nameserver";
+
+/* PopUpButton */
+"Set nameserver (3.0b10)" = "ตั้ง nameserver (3.0b10)";
+
+/* PopUpButton */
+"Set nameserver (3.1)" = "ตั้ง nameserver (3.1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 1)" = "ตั้ง nameserver (ทางเลือกที่ 1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 2)" = "ตั้ง nameserver (ทางเลือกที่ 2)";
+
+/* PopUpButton *//* System profile item */
+"Set nameserver" = "ตั้ง nameserver";
+
+/* Text on disk image */
+"Double-click to begin" = "ดับเบิ้ลคลิกเพื่อเริ่มต้น";
+
+/* Connection status */
+"ADD_ROUTES" = "กำลังเพิ่ม routes"; // Please translate "Adding routes"
+
+/* Connection status */
+"ASSIGN_IP" = "กำลังทำการกำหนด IP address"; // Please translate "Assigning IP address"
+
+/* Connection status */
+"AUTH" = "กำลังขออนุญาติ"; // Please translate "Authorizing"
+
+/* Connection status */
+"CONNECTED" = "เชื่อมต่อแล้ว"; // Please translate "Connected"
+
+/* Connection status */
+"CONNECTING" = "กำลังเชื่อมต่อ"; // Please translate "Connecting"
+
+/* Connection status */
+"DISCONNECTING" = "กำลังตัดการเชื่อมต่อ"; // Please translate "Disconnecting"
+
+/* Connection status */
+"EXITING" = "ตัดการเชื่อมต่อแล้ว"; // Please translate "Disconnected"
+
+/* Connection status */
+"GET_CONFIG" = "กำลังรับข้อมูลคอนฟิกเกอเรชั่น"; // Please translate ""
+
+/* Connection status */
+"NETWORK_ACCESS" = "กำลังรอการเชื่อมต่อ"; // Please translate "Waiting for network access"
+
+/* Connection status */
+"PASSWORD_WAIT" = "กำลังรอรหัสผ่าน"; // Please translate "Waiting for password"
+
+/* Connection status */
+"PRIVATE_KEY_WAIT" = "กำลังรอรหัสผ่าน"; // Please translate "Waiting for password"
+
+/* Connection status */
+"RECONNECTING" = "กำลังเชื่อมต่ออีกครั้ง"; // Please translate ""
+
+/* Connection status */
+"RESOLVE" = "กำลังเรียกชื่อโดนเมน"; // Please translate ""
+
+/* Connection status */
+"SLEEP" = "กำลังรอโพรเซสทำงาน"; // Please translate "Waiting for daemon process"
+
+/* Connection status */
+"TCP_CONNECT" = "กำลังสร้างการเชื่อมต่อ TCP"; // Please translate "Making TCP connection"
+
+/* Connection status */
+"UDP_CONNECT" = "กำลังสร้างการเชื่อมต่อ UDP"; // Please translate "Making UDP connection"
+
+/* Connection status */
+"WAIT" = "กำลังรอการตอบกลับของเซิร์ฟเวอร์"; // Please translate "Waiting for Server Response"
+
+/* Folder name */
+"Sample Tunnelblick VPN Configuration" = "ตัวอย่าง คอนฟิกเกอเรชั่นของ Tunnelblick VPN";
+
+/* System profile item */
+"Configurations" = "คอนฟิกเกอเรชั่น";
+
+/* Window title */
+" (Deployed)" = "(ปรับใช้)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+
+/* Window title */
+" (Private)" = "(ส่วนตัว)";
+
+/* Window title */
+" (Shared)" = "(แชร์แล้ว)"; // Indicates a shared configuration
+
+/* Window title */
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN คอนฟิกเกอเรชั่น - Tunnelblick";
+
+/* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ ไม่ได้เชื่อมต่อ - การตั้งค่าขั้นสูง%3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
+
+/* Window title */
+"'%@' has been disconnected" = "'%@' ได้ถูกตัดการเชื่อมต่อแล้ว";
+
+/* Window title */
+"Active connection" = "การเชื่อมต่อที่ใช้งาน";
+
+/* Window title */
+"Add a Configuration" = "เพิ่มคอนฟิกเกอเรชั่น";
+
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "การตั้งค่าขั้นสูง%@";
+
+/* Window title */
+"Alert sounds" = "เสียงเตือน";
+
+/* Window title */
+"Alert" = "การแจ้งเตือน";
+
+/* Window title */
+"All configuration files removed" = "ลบไฟล์คอนฟิกเกอเรชั่นทั้งหมดแล้ว";
+
+/* Window title */
+"Appearance" = "การแสดงผล";
+
+/* Window title */
+"Authentication failed" = "การยืนยันตัวตนล้มเหลว";
+
+/* Window title */
+"Configuration(s) Ignored" = "คอนฟิดเกอเรชั่นถูกมองข้าม";
+
+/* Window title */
+"Connecting & Disconnecting" = "การเชื่อมต่อ และ การตัดการเชื่อมต่อ";
+
+/* Window title */
+"Could Not Copy Configuration" = "ไม่สามารถคัดลอกคอนฟิดเกอเรชั่นได้";
+
+/* Window title */
+"Could Not Move Configuration" = "ไม่สามารถย้ายคอนฟิกเกอเรชั่นได้่";
+
+/* Window title */
+"Could Not Replace Configuration" = "ไม่สามารถแทนที่คอนฟิกเกอเรชั่นได้";
+
+/* Window title */
+"Could Not Uninstall Configuration" = "ไม่สามารถถอนการติดตั้งคอนฟิกเกอเรชั่นได้";
+
+/* Window title */
+"Create and Edit a Sample Configuration?" = "สร้างและแก้ไขตัวอย่างคอนฟิกเกอเรชั่น?";
+
+/* Window title */
+"Details - Tunnelblick" = "รายละเอียด - Tunnelblick";
+
+/* Window title */
+"Do you wish to connect?" = "คุณต้องการเชื่อมต่อหรือไม่?";
+
+/* Window title */
+"File not found" = "ไม่พบไฟล์";
+
+/* Window title */
+"Import a Tunnelblick Setup" = "นำเข้าการตั้งค่า Tunnelblick";
+
+/* Window title */
+"Info" = "ข้อมูล";
+
+/* Window title */
+"Install Configuration For All Users?" = "ติดตั้งคอนฟิกเกอเรชั่นสำหรับผู้ใช้ทุกคน?";
+
+/* Window title */
+"Installation failed" = "การติดตั้งล้มเหลว";
+
+/* Window title */
+"Installation or Repair Failed" = "การติดตั้งหรือซ่อมแซมล้มเหลว";
+
+/* Window title */
+"Installation succeeded" = "การติดตั้งเสร็จสมบูรณ์";
+
+/* Window title */
+"Log" = "บันทึกเหตุการณ์";
+
+/* Window title */
+"Name not allowed" = "ไม่อนุญาตให้ใช้ชื่อนี้";
+
+/* Window title */
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "ไม่พบ 'devtun', 'dev utun' หรือ 'dev tap'";
+
+/* Window title */
+"No Credentials" = "ไม่มีข้อมูลยืนยันตัวตน";
+
+/* Window title */
+"Only computer administrators should update Tunnelblick" = "มีเพียงผู้ดูแลระบบของเครื่องนี้เท่านั้นที่สามารถอัปเดต Tunnelblick ได้";
+
+/* Window title */
+"OpenVPN is Not Responding" = "OpenVPN ไม่ตอบสนอง";
+
+/* Window title */
+"Please insert token" = "โปรดใส่ token";
+
+/* Window title */
+"Preferences" = "การปรับแต่ง";
+
+/* Window title */
+"Replace Existing File?" = "แทนที่ไฟล์ปัจจุบัน?";
+
+/* Window title */
+"Replace VPN Configuration?" = "แทนที่คอนฟิกเกอเรชั่น VPN?";
+
+/* Window title */
+"Sample Configuration Created" = "สร้างคอนฟิกเกอเรชั่นตัวอย่างแล้ว";
+
+/* Window title */
+"Settings" = "การตั้งค่า";
+
+/* Window title */
+"Sounds" = "เสียง";
+
+/* Window title */
+"System Requirements Not Met" = "ไม่ผ่านข้อกำหนดของระบบขั้นต่ำ";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "การทดสอบถอนการติดตั้ง TUNNELBLICK ล้มเหลว";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "การทดสอบถอนการติดตั้ง TUNNELBLICK เสร็จสมบูรณ์";
+
+/* Window title */
+"Tunnelblick Configuration Problem" = "พบปัญหาในของฟิกเกอเรชั่นของ Tunnelblick";
+
+/* Window title */
+"Tunnelblick Error" = "พบข้อผิดพลาดใน Tunnelblick";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: โปรดเข้าสู่ระบบ";
+
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: ต้องการรหัสผ่าน";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "การถอนการติดตั้ง TUNNELBLICK ล้มเหลว";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "การถอนการติดตั้ง TUNNELBLICK เสร็จสมบูรณ์";
+
+/* Window title */
+"Unable to launch Tunnelblick" = "ไม่สามารถเริ่มการทำงาน Tunnelblick ได้";
+
+/* Window title */
+"Unavailable" = "ไม่พร้อมใช้งาน";
+
+/* Window title */
+"Use 'down-root' plugin for OpenVPN?" = "ใช้ปลั๊กอิน ‘down-root’ สำหรับ OpenVPN? ";
+
+/* Window title */
+"Utilities" = "ยูทิลิตี้";
+
+/* Window title */
+"VPN Configuration Installation Error" = "พบข้อผิดพลาดในการติดตั้งคอนฟิก VPN ";
+
+/* Window title */
+"VPN Configuration Installation" = "การติดตั้งคอนฟิกเกอเรชั่น VPN";
+
+/* Window title */
+"VPN Credentials" = "ข้อมูลยืนยันตัวตน VPN";
+
+/* Window title */
+"Warning!" = "คำเตือน!";
+
+/* Window title */
+"Warning" = "คำเตือน";
+
+/* Window text */
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' มีอยู่แล้วบนเดสก์ท็อป\n\nต้องการแทนที่หรือไม่?";
+
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = "'%@' มีอยู่แล้ว";
+
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' เหมือนจะถูกเข้ารหัสด้วย UTF-16 ซึ่งไฟล์ที่เกี่ยวข้องกับ OpenVPN จะต้องเป็นไฟล์ตัวอักษรธรรมดาหรือ UTF-8 เท่านั้น";
+
+/* Window text */
+"'%@' at line %u was not terminated properly" = "'%1$@' ที่บรรทัด %2$u ไม่ถูกปิดอย่างถูกต้อง";
+
+/* Window text */
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' ไม่พบข้อมูลยืนยันตัวตน (private key หรือ ชื่อผู้ใช้และรหัสผ่าน) เก็บอยู่ใน Keychain";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@' ไม่ใช่ไฟล์ข้อความธรรมดาหรือ UTF-8";
+
+/* Window text */
+"'%@' was not terminated." = "'%@' ไม่ถูกปิดอย่างถูกต้อง";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' จะเชื่อมต่อโดยใช้ OpenVPN %2$@ แทนเวอร์ชั่น (%3$@) ที่ร้องขอ";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "การตั้งค่า 'easy-rsaPath' จะถูกมองข้าม เนื่องจากไม่ได้ระบุโฟลเดอร์";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "การตั้งค่า 'easy-rsaPath' จะถูกมองข้าม จะต้องเป็น path เต็มหรือเริ่มต้นด้วย  '~'";
+
+/* Window text -- appears in log display when logging is disabled\n */
+"(Logging is disabled.)" = "(การบันทึกเหตุการถูกปิด)";
+
+/* Window text */
+"(Never checked)" = "(ยังไม่เคยตรวจสอบ)";
+
+/* Window text */
+"(The 'easy-rsaPath' preference is invalid.)" = "(การตั้งค่า 'easy-rsaPath' ไม่ถูกต้อง)";
+
+/* Window text */
+"(if connected when computer went to sleep)" = "(หากเชื่อมต่ออยู่ในขณะคอมพิวเตอร์เข้าโหมด sleep)";
+
+/* Window text */
+"(if connected when user switched out)" = "(หากเชื่อมต่ออยู่ในขณะที่สลับผู้ใช้)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>บนพื้นฐานของ Tunnelblick, ฟรีซอฟท์แวร์พร้อมใช้งานที่ <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN เป็นเครื่องหมายการค้าลงทะเบียนของ OpenVPN Inc.";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Teerapap Changwichukarn";

@@ -128,6 +128,9 @@
 "Ignore" = "Игнорирай";
 
 /* Button */
+"Install tun and tap system extensions..." = "Инсталирай 'tun' и 'tap' системни разширения";
+
+/* Button */
 "Install" = "Инсталиране";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -284,6 +287,12 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 икона";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Деинсталиране на Tunnelblick ...";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Деинсталирай 'tun' и 'tap' системните разширения";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Актуализация";
 
@@ -369,6 +378,12 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN ниво на логове зададено от конфигурацията";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "Проблем при използването на бъдещи версии на Tunnelblick...";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "Проблем при използване на бъдещи версии на macOS...";
 
 /* Menu item */
 "Quit Tunnelblick" = "Излез от Tunnelblick";
@@ -719,6 +734,12 @@
 "System Requirements Not Met" = "Системни изисквания не са изпълнени";
 
 /* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "ТЕСТОВОТО деинсталиране на Tunnelblick НЕУСПЕШНО";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "ТЕСТОВОТО деинсталиране на Tunnelblick е УСПЕШНО";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Проблем с конфигурацията на Tunnelblick";
 
 /* Window title */
@@ -732,6 +753,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Фраза за достъп се изисква";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "Деинсталирането на Tunnelblick НЕУСПЕШНО";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Деинсталирането на Tunnelblick е УСПЕШНО";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Не може се стартира Tunnelblick";
@@ -1031,6 +1058,9 @@
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Грешка (статус %1$ld) настъпи при опит за проверка на сигурността на %2$@ конфигурацията. \n\nМоля, затворете и стартирайте наново Tunnelblick. Ако проблемът продължава, преинсталирайте Tunnelblick.";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "Грешка при вземането на списък със заредените системни разширения.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Възникнала е грешка при опит да се стартира %@";
 
 /* Window text */
@@ -1104,6 +1134,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Не може да деинсталирате конфигурация '%@' защото не е инсталирана.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Избери \"OK\" за да прекрати всички VPN-и, излезе от Tunnelblick, и да запозне деинсталиране на Tunnelblick.\n\nМоже да има забавяне от няколко секунди преди да се появи първият прозорец от прогреса по деинсталиране.\n\nАко искате да запазите копие на VPN конфигурациите си и всички настройки на Tunnelblick, избертете \"Cancel\" и експортирайте първо (преди деинсталирането) настройките на Tunnelblick.\n\n";
 
 /* Window text */
 "Computer sleep/wake" = "Заспиване/събуждане на компютъра";
@@ -1250,7 +1283,13 @@
 "Failed to create symlink\n  to %@\n  at %@" = "Не може да се създаде symlink\n  към %1$@\n  в %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Неуспешно инсталиране на 'tun' и 'tap' системните разширения.";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Не може да зададе резрешения на %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Неуспешно дееинсталиране на 'tun' и 'tap' системните разширения.";
 
 /* Window text */
 "Fast User Switching" = "Бързо превключване на потребители";
@@ -1808,6 +1847,9 @@
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick се нуждае от оторизация, за да дублира '%@' конфигурация.";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick изисква оторизации за инсталиране на 'tun' и 'tap' системни разширения.";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick се нуждае от оторизация, за да направи %ld конфигурация лична.";
 
 /* Window text */
@@ -1841,6 +1883,9 @@
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick се нуждае от оторизации, за да защити импортираните данни.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick изисква оторизации за деинсталиране на 'tun' и 'tap' системните разширения.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick трябва да промени настройка, която може да се променя само от администратора на компютъра.";
 
 /* Window text */
@@ -1857,6 +1902,9 @@
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick успешно:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick не успя да зареди системните си разширения. Моля, рестартирайте компютъра си и опитайте да деинсталирате системните разширения отново.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick беше успешно инсталиран и %ld конфигурации бяха инсталирани или заменени.";
@@ -2072,6 +2120,9 @@
 "You may not remove a folder unless it is empty." = "Не може да премахвате папка докато не е празна.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Трябва да изключите всички VPN връзки преди да инсталирате или деинсталирате системни разширения.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Няма да можете да използвате Tunnelblick след актуализиране, освен ако не дадете администраторско потребителско име и парола.\n\nНаистина ли желаете да проверите за актуализации?";
 
 /* Window text */
@@ -2156,6 +2207,9 @@
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>За да импортирате настройки за Tunnelblick на компютър, който има повече от %u потр.акаунта, трябва да създадете текстов файл с данните, който да се импортират.</p>\n<p>За повече информация вижте <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>Не-Tunnelblick</strong>' версии на OpenVPN не са създадени от Tunnelblick и не са част от Tunnelblick. Те са били инсталирани от администратор.</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Разрешаването' на системните разширения може да изисква промяна на системните настройки за сигурността. Тази настройка може да се промени само в Recovery mode. Може да се наложи да рестарирате в Recovery mode, да направите промяната, и да рестартирате към нормален режим. macOS би трябвало да ви води в този процес.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Още информация</a> [tunnelblick.net]</p>";
@@ -2264,9 +2318,6 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Маркирано</strong>, ще се изисква удостоверяване преди свързване. Може да се удостоверите с потр. име и парола или, ако е наличен, TouchID или FaceID.</p>\n<p><strong>Немаркирано</strong>, не се изисква удостоверяване преди свързване.</p>\n<p><strong>Неактивна опция</strong> ако използвате версия на macOS, която не я поддържа.</p><p><strong>Забележка: Изискват се права на администратор за да се промени тази настройка.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Може да промените настройката в macOS, за да позволите на Tunnelblick да използва системните разширения.</strong></p>\n";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Може да промените конфигурациите, за да могат да се свържат.</strong></p>\n";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2278,6 +2329,12 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Провери за актуализации на приложение Tunnelblick.</p><p>Достъпва се сайта на Tunnelblick; за повече детайли виж <a href=\"https://tunnelblick.net/cPrivacy.html\">Лични данни и поверителност</a> [tunnelblick.net].</p><p>Също така проверете за актуализации на конфигурацията на вашия VPN.</p>";
 
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Изберете за да инсталирате/деинсталирате 'tun' и 'tap' системни разширения.</p>\n\n<p>Виж <a href=\"https://tunnelblick.net/cInstallKexts\">Инсталиране на 'tun' и 'tap' системни разширения.</a> [tunnelblick.net] за повече детайли.</p><p><strong>Неактивно</strong> ако Tunnelblick е инсталиран на macOS Big Sur или по-нова версия.</p>";
+
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Натиснете за да деинсталирате Tunnelblick.</p>\n\n<p><strong>Неактивна опция</strong> ако Tunnelblick не е инсталиран в /Applications.</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Копира информация в клипборда, за да се помогне анализа на проблеми.</p><p>Информацията включва версия на софтуера и настройките му, конфигурационният файл на OpenVPN, мрежови настройки и други.</p><p>Чувствителна информация за сертификата не се включва, но данни като IP адреси и URL, които <em>може</em> да са конфиденциални се включват. Добре е да прегледате информацията и да премахнете информация, която искате да запазите в тайна преди да изпратите email или да публикувате публично.</p>";
 
@@ -2286,6 +2343,9 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Експортира настройките на Tunnelblick, включително всички конфигурации и настройки за всички потребители на този компютър в компресиран файл на Десктопа.</p><ul><li>Детайлите за оторизиране <strong>Не Се</strong> експортират.</li><li>Експортът може да отнеме дълго време.</li></ul>";
+
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Ако не виждате бутон за зареждане на системен софтуер от 'Jonathan Bullard', опитайте се да заредите тази конфигурация (ще даде грешка), и тогава опитайте пак в 'General' таб на 'Security & Privacy' на 'Системни настройки'.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Отваря прозорец с допълнителни настройки.</p><p>Настройките избрани в прозорец 'VPN Details' ще бъдат запазени.</p>";
@@ -2296,8 +2356,8 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Възстановява предупрежденията когато са били подтиснати с маркирането на отметка 'Не предупреждавай за това отново'.</p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Виж <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick за macOS 11 Big Sur</a> [tunnelblick.net] fза повече инфо.</p>\n";
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Виж <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Инсталиране на системни разширения</a> [tunnelblick.net] за повече информация.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Виж <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Вижте Tun и Tap VPN за macOS</a> [tunnelblick.net] за повече информация.</p>\n";
@@ -2343,6 +2403,12 @@
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick не успя да зареди системно разширение, което е необходимо за връзка с %@.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Може да зададете настройка на Tunnelblick да се опита да зареди системните си разширения..</p>\n";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Трябва да инсталирате системните разширения на Tunnelblick, за да използвате тази конфигурация.</p><p>Може да направите това от панел 'Инструменти'.</p><p>След инсталирането на системните разширения macOS ще ви води през прооцеса на разрешаването им, което включва и рестартиране на компютъра ви.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Администраторски режим %@ остават";

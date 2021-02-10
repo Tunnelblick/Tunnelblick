@@ -2264,9 +2264,6 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kada je aktivirano</strong>, bićete u obaveti da se autentifikujete pre konektovanja. Autentifikacija je moguća korišćenjem lozinke ili, ukoliko su dostupni, putem TouchID ili FaceID sistema.</p>\n<p><strong>Kada nije aktivirano</strong>, autentifikacija neće biti neophodna pre konektovanja.</p>\n<p><strong>Ovaj opcija nije dostupna</strong> ukoliko koristite verziju macOS sistema koji nema adekvatnu podršku.</p><p><strong>Napomena: autorizacija od strane administratora sistema je neophodna za promenu ovog podešavanja.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Možete promeniti podešavanja u macOS-u kako bi dozvolili Tunnelblick-u da koristi svoje sistemske ektenzije.</strong></p>\n";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Možete izvršiti izmenu jedne ili više VPN konfiguracija kako bi mogli da ostvarite konekciju.</strong></p>\n";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2295,9 +2292,6 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Vraća upozorenja koja su bila ukinuta \"Ne upozoravaj me o ovome opet\" opcijom.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Posetite  <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick na macOS 11 Big Sur</a> [tunnelblick.net] za više informacija.</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Posetite <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Budućnost Tun i Tap VPN konekcija na macOS sistemu</a> [tunnelblick.net] za više informacija.</p>\n";

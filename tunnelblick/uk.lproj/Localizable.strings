@@ -128,6 +128,9 @@
 "Ignore" = "Ігнорувати";
 
 /* Button */
+"Install tun and tap system extensions..." = "Встановити системні розширення tap та tun";
+
+/* Button */
 "Install" = "Встановити";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -204,7 +207,7 @@
 "Replace" = "Замінити";
 
 /* Button */
-"Reset Disabled Warnings" = "Скинути відмінені зауваження";
+"Reset Disabled Warnings" = "Скинути відключені попередження";
 
 /* Button */
 "Reset primary interface" = "Скинути основний інтерфейс";
@@ -283,6 +286,12 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Іконка Tunnelblick 3.3";
+
+/* Button */
+"Uninstall Tunnelblick..." = "Видалити Tunnelblick…";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Видалити системні розширення tap та tun";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Оновити";
@@ -369,6 +378,12 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Рівень звітності OpenVPN встановлено конфігурацією";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "Проблеми з використанням майбутніх версій Tunnelblick…";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "Проблеми з використанням майбутніх версій macOS…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Вийти з Tunnelblick";
@@ -698,7 +713,7 @@
 "Please insert token" = "Будь ласка, вставте токен";
 
 /* Window title */
-"Preferences" = "Преференції";
+"Preferences" = "Налаштування";
 
 /* Window title */
 "Replace Existing File?" = "Замінити існуючий файл?";
@@ -719,6 +734,12 @@
 "System Requirements Not Met" = "Системні вимоги незадоволені";
 
 /* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "ПОМИЛКА ТЕСТУ ВИДАЛЕННЯ TUNNELBLICK";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "ТЕСТ ВИДАЛЕННЯ TUNNELBLICK УСПІШНИЙ";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Помилка конфігурації Tunnelblick";
 
 /* Window title */
@@ -732,6 +753,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Потрібно ввести фразу-пароль";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "ПОМИЛКА ВИДАЛЕННЯ TUNNELBLICK";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TUNNELBLICK  УСПІШНО ВИДАЛЕНО";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Неможливо запустити Tunnelblick";
@@ -1031,6 +1058,9 @@
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Сталася помилка (статус %1$ld) під час перевірки безпеки конфігурації %2$@.\n\nБудь ласка, закрийте та перезапустіть Tunnelblick. Якщо ця помилка повториться, перевстановіть Tunnelblick.";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "Виникла помилка при отриманні переліку завантаженних системних розширень";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Сталася помилка під час спроби запуску %@";
 
 /* Window text */
@@ -1104,6 +1134,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Не вдається видалити конфігурацію '%@', оскільки вона не встановлена.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Натисніть \"OK\" щоб відключити всі з'єднання VPN, завершити Tunnelblick, та почати його видалення.\n\nПерше вікно деінсталятора може затриматись на декілька секунд.\n\nЯкщо Ви хочете зберегти копію своїх конфігурацій VPN та всіх налаштувань Tunnelblick, натисніть \"Скасувати\" та спершу експортуйте налаштування Tunnelblick.";
 
 /* Window text */
 "Computer sleep/wake" = "Налаштування режиму сну";
@@ -1250,7 +1283,13 @@
 "Failed to create symlink\n  to %@\n  at %@" = "Не вдалося створити символічне посилання\n до %1$@\n в %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Не вдалося встановити системні розширення Tunnelblick для tap і tun";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Не вдалося установити дозволи для %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Не вдалося видалити системні розширення Tunnelblick для tap і tun";
 
 /* Window text */
 "Fast User Switching" = "Швидке перемикання користувачів";
@@ -1808,6 +1847,9 @@
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick вимагає авторизації для створення дублікату конфігурації '%@'.";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick вимагає авторизації щоб встановити системні розширення tap і tun";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick вимагає авторизації, щоб зробити конфігурації %ld приватними.";
 
 /* Window text */
@@ -1841,6 +1883,9 @@
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick потребує авторизації для збереження імпортованих даних.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick вимагає авторизації щоб видалити системні розширення tap і tun";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick необхідно змінити налаштування, редагування якого доступне лише адміністратору.";
 
 /* Window text */
@@ -1857,6 +1902,9 @@
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick успішно:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick не зміг вигрузити свої системні розширення. Будьласка перезавантажте комп'ютер і спробуйте видалити системні розширення Tunnelblick  ще раз.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick було успішно встановлено і конфігурації %ld були встановлені або замінені.";
@@ -2072,6 +2120,9 @@
 "You may not remove a folder unless it is empty." = "Видалити папку не можна, якщо вона не порожня.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Ви повинні від'єднатись від всіх VPN з'єднань для встановлення або видалення системних розширень Tunnelblick.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Ви не зможете оновити Tunnelblick без авторизації адміністратора цього комп'ютера.\n\nВи впевнені, що бажаєте перевіряти наявність оновлень?";
 
 /* Window text */
@@ -2264,9 +2315,6 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Якщо позначено</strong>, автентифікація вимагатиметься перед встановленням з'єднання. Ви зможете автентифікуватись за допомогою пароля або, за наявності, TouchID чи FaceID.</p>\n<p><strong>Якщо не позначено</strong>, автентифікація для встановлення з'єднання не вимагатиметься.</p>\n<p><strong>Ця опція не доступна</strong> якщо версія macOS її не підтримує.</p><p><strong>Примітка: Для зміни цього налаштування потрібна авторизація адміністратора комп'ютера.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Ви можете змінити налаштування в macOS, це дозволить Tunnelblick використовувати системні розширення.</strong></p>";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Ви можете змінити конфігурації щоб вони змогли під'єднатись.</strong></p>\n";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2277,6 +2325,9 @@
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Перевіряє наявність оновлень для Tunnelblick.</p><p>З'єднується з веб-сторінкою Tunnelblick; більш детально за посиланням <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security (Захист та безпека даних)</a> [tunnelblick.net].</p><p>Також перевіряє наявність оновлень для конфигурацій, якщо провайдер послуг VPN підтримує цю функцію.</p>";
+
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Натисніть для видалення Tunnelblick.</p>\n\n<p><strong>Не активно</strong> якщо Tunnelblick не встановлено в /Applications.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Копіює інформацію в Буферу обміну для допомоги в діагностуванні проблем.</p><p>Інформація містить версію программи та її налаштування, файл конфігурації OpenVPN, мережеві налаштування та інше.</p><p>Чуттєва інформація сертифікату виключена, проте IP адреса та URL, які <em>можуть</em> бути конфіденційними присутні. Ви повинні перевірити інформацію та видалити те, що бажаєте залишити в секреті перед відправкою електронною поштою або оприлюдненням.</p>";
@@ -2295,9 +2346,6 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Відновлює попередження, що було відмінено опцією 'Більше не попереджати'.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Дивись <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] для отримання додаткової інформації.</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Дивись <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] для отримання додаткової інформації.</p>\n";

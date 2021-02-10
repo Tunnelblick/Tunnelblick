@@ -284,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "أيقونة تُنلـبليك 3.3";
 
+/* Button */
+"Uninstall Tunnelblick..." = "حذف تطبيق Tunnelblick";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "تحديث";
 

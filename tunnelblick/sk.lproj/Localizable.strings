@@ -128,6 +128,9 @@
 "Ignore" = "Ignorovať";
 
 /* Button */
+"Install tun and tap system extensions..." = "Inštalovať tun a tap systémové rozšírenia...";
+
+/* Button */
 "Install" = "Inštalovať";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -286,6 +289,9 @@
 
 /* Button */
 "Uninstall Tunnelblick..." = "Odinštalovať Tunnelblick...";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Odinštalovať tun a tap systémové rozšírenia...";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Aktualizovať";
@@ -727,12 +733,10 @@
 /* Window title */
 "System Requirements Not Met" = "Systémové požiadavky programu neboli naplnené";
 
-/* A "test uninstall" failed.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "TEST ODINŠTALOVANIA TUNNELBLICKU ZLYHAL";
 
-/* A "test uninstall" succeeded.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TEST ODINŠTALOVANIA TUNNELBLICKU SA PODARIL";
 
 /* Window title */
@@ -750,10 +754,10 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Vyžaduje sa identifikačné slovo";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK FAILED" = "ODINŠTALOVANIE TUNNELBLICKU ZLYHALO";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK SUCCEEDED" = "ODINŠTALOVANIE TUNNELBLICKU SA PODARILO";
 
 /* Window title */
@@ -1054,6 +1058,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Počas kontroly bezpečnosti sa v konfigurácii %2$@ vyskytla chyba (stav %1$ld).";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "Vyskytol sa problém pri získavaní zoznamu načítaných systémových rozšírení.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Pri spúšťaní %@ sa vyskytla chyba";
 
 /* Window text */
@@ -1127,6 +1134,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Nemôžete odinštalovať konfiguráciu \"%@\" pretože táto nie je nainštalovaná.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Kliknite \"OK\" pre odpojenie všetkých VPN, ukončenie Tunnelblicku a začatie odinštalovávania.";
 
 /* Window text */
 "Computer sleep/wake" = "Režim spánku / zobudenia";
@@ -1273,7 +1283,13 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Failed to create symlink\n  to %@\n  at %@" = "Nepodarilo sa vytvoriť symbolický odkaz na %1$@ v %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Nepodarilo sa nainštalovať Tunnelblick tun a tap systémové rozšírenia.";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Nepodarilo sa nastaviť povolenia pre %@ ";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Nepodarilo sa odinštalovať Tunnelblick tun a tap systémové rozšírenia.";
 
 /* Window text */
 "Fast User Switching" = "Rýchle prepínanie aktívneho uživateľa";
@@ -1831,6 +1847,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick vyžaduje povolenie na vytvorenie kópie %@ konfigurácie.";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick potrebuje autorizáciu pre nainštalovanie jeho tun a tap systémových rozšírení.";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick vyžaduje povolenie na zmenu %ld konfigurácií na súkromné konfigurácie.";
 
 /* Window text */
@@ -1864,6 +1883,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick potrebuje autorizáciu, aby zabezpečil importované dáta.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick potrebuje autorizáciu pre odinštalovanie jeho tun a tap systémových rozšírení.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick musí zmeniť konfiguráčné nastavenia ktorá môže zmeniť len správca počítača.";
 
 /* Window text */
@@ -1880,6 +1902,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick bol úspešne:  ";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblicku sa nepodarilo odinštalovať jeho systémové rozšírenia. Prosím reštartujte svoj počítač a pokúste sa odinštalovať Tunneblick systémové rozšírenia ešte raz.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick bol úspešne nainštalovaný a boli nainštalované alebo nahradená %ld konfigurácie.";
@@ -2095,6 +2120,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "You may not remove a folder unless it is empty." = "Adresár nie je možné vymazať pokým nie je prázdny.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Musíte odpojiť všetky VPN predtým ako budete môcť nainštalovať alebo odinštalovať Tunnelblick systémové rozšírenia.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Nemôžete aktualizovať Tunnelblick, kým nezadáte prihlasovacie údaje administrátora.\n\nNaozaj chcete skontrolovať aktualizácie?";
 
 /* Window text */
@@ -2179,6 +2207,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Aby bolo možné importovať nastavenia Tunnelblick na počítači s viac ako %u uživateľskými účtami, je potrebné vytvoriť textový súbor obsahujúci dáta ktoré sa majú importovať.</p>\n<p>Viacej informácií na <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>ne-Tunnelblick</strong>' verzie OpenVPN neboli vytvorené Tunnelblick projektom a nie sú súčasťou Tunnelblicku. Boli nainštalované administrátorom.</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Povolenie' systémových rozšírení môže vyžadovať zmenu systémového bezpečnostného nastavenia. Nastavenie môže byť zmenené iba v režime obnovenia. Budete sa musieť reštartovať do režimu obnovenia, spraviť zmenu, následne reštartovať normálne. macOS by Vás mal sprevádzať týmto procesom.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Viac informacií</a>[tunnelblick.net]</p>";
@@ -2287,9 +2318,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Ak zaškrtnuté</strong>, budete povinný sa autentifikovať pred spojením. Môžete sa autentifikovať použitím hesla alebo, ak možné, použitím TouchID alebo FaceID.</p>\n<p><strong>Ak nezaškrtnuté</strong>, žiadna autentifikácia nie je potrebná pred spojením.</p>\n<p><strong>Toto políčko je neaktívne</strong>, ak používate verziu macOS, ktorá to nepodporuje.</p><p><strong>Ponzámka: Je potrebná autorizácia administrátora počítača na zmenu tohoto nastavenia.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Môžete zmeniť nastavenie v macOS tak, aby mohol Tunnelblick použiť svoj systémový format (príponu).</strong></p>";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Môžete upraviť konfigurácie tak, aby ich bolo možné pripojiť.</strong></p>\n";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2301,6 +2329,12 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Skontroluje aktualizácie pre aplikáciu Tunnelblick.</p><p>Navštívi stránku Tunnelblick; pre detailné informácie pozri <a href=\"https://tunnelblick.net/cPrivacy.html\">Súkromie a bezpečnosť</a>[tunnelblick.net]</p><p>Tiež skontroluje aktualizácie konfigurácií v prípade, že poskytovateľ služby VPN túto funkciu podporuje.</p>";
 
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Kliknutím nainštalujete alebo odinštalujete Tunnelblick tun a tap systémové rozšírenia.</p>\n\n<p>Viď <a href=\"https://tunnelblick.net/cInstallKexts\">Inštalovanie Tunnelblick Tun a Tap systémových rozšírení</a> [tunnelblick.net] pre viac informácií.</p><p><strong>Zablokované</strong> pokiaľ Tunnelblick beží na Big Sur alebo neskorších verziách.</p>";
+
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Kliknite na odinštalovanie Tunnelblicku.</p>\n\n<p><strong>Zablokované</strong> pokiaľ Tunnelblick nie je nainštalovaný v /Applications.</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Informácie budú skopírované do schránky, aby bolo možné diagnostikovať problém.</p><p>Skopírované informácie obsahujú verzie nainštalovaného softwaru, nastavenia a configuračné súbory OpenVPN, nastavenia siete a ďalšie informácie.</p><p>Senzitívne informácie ako certifikáty nie sú skopírované, je ale možné že informácie ako IP a URL adresy ktoré skopírované sú, <em>môžu</em> byť považované za dôverné. Prosím skontrolujte skopírované informácie a odstránte všetky vaše dôverné alebo tajné informácie predtým ako pošlete text alebo ho zverejníte.</p>";
 
@@ -2309,6 +2343,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exportovať nastavenia Tunnelbick do komprimovaného súboru na poloch, vrátane všetkych konfigurácií a nastavení všetkých uživateľov tohoto počítaša</p><ul><li>Údaje uložené v Keychain <strong>nebudú</strong> exportované.</li><li>Tento export si môže vyžiadať dlhší čas spracovania.</li></ul>";
+
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Ak nevidíte tlačidlo na povolenie načítania systémového softvéru od 'Jonathan Bullard', pokúste sa  pripojiť túto konfiguráciu (ktorej pripojenie sa nepodarí) a potom sa pozrite do záložky 'Všeobecné' v 'Bezpečnosť a súkromie' v rámci 'Systémové nastavenia'.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Otvorí okno s ďalšími nastaveniami.</p><p>Akékoľvek zmeny budú aplikované na všetky konfigurácie zvolené v okne 'Detaily VPN'.</p>";
@@ -2319,8 +2356,8 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Obnoví upozornenia, ktoré boli potlačené voľbou 'Viac na toto neupozorňovať'.</p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Klikni na <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick na macOS 11 Big Sur</a> [tunnelblick.net] pre ďalšie informácie.</p>\n";
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Viď <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Inštalovanie systémových rozšírení</a> [tunnelblick.net] pre viac informácií.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Klikni na <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] pre ďalšie informácie.</p>\n";
@@ -2366,6 +2403,12 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblicku sa nepodarilo načítať systémové rozšírenie, ktoré je požadované na pripojenie k %@.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Môžete nastaviť Tunnelblick nastavenie tak, aby sa pokúsil načítat jeho systémové rozšírenia.</p>";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Musíte nainštalovať Tunnelblick systémové rozšírenia, aby ste mohli použiť túto konfiguráciu.</p><p>Môžete tak urobiť v záložke 'Nástroje'.</p><p>Po nainštalovaní systémových rozšírení Vás macOS prevedie procesom ich povolenia, čo zahŕňa aj reštart Vášho počítača.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Režim správcu, zostáva %@";

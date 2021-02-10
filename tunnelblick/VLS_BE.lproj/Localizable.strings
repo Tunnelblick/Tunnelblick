@@ -727,12 +727,10 @@
 /* Window title */
 "System Requirements Not Met" = "Systeemvereisten niet voldaan";
 
-/* A "test uninstall" failed.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "TEST VOOR HET VERWIJDEREN VAN TUNNELBLICK IS MISLUKT";
 
-/* A "test uninstall" succeeded.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TEST VOOR HET VERWIJDEREN VAN TUNNELBLICK WAS SUCCESVOL";
 
 /* Window title */
@@ -750,10 +748,10 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: wachtwoordzin vereist";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK FAILED" = "VERWIJDEREN VAN TUNNELBLICK IS MISLUKT";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TUNNELBLICK IS MET SUCCES VERWIJDERD";
 
 /* Window title */
@@ -2290,9 +2288,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Indien aangevinkt</strong>, moet je jezelf authenticeren voor dat je verbinding maakt. Je kan jezelf authenticeren met een wachtwoord of, indien beschikbaar TouchID of FaceIDyou.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, geen authenthicatie is benodigd voordat je kan verbinden.</p>\n<p><strong>Deze keuze mogelijkheid is niet mogelijk</strong> als je een versie van macOS gebruikt die niet ondersteunt.</p><p><strong>Let op: Een computer beheerders autorisatie is noodzakelijk om deze installeren aan te passen.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Het is mogelijk om een instelling van MacOS te wijzigen zodat het Tunnelblick toelaat zijn systeem extensies te gebruiken.</strong></p>\n";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Het is mogelijk om de configuraties aan te passen zodat ze de mogelijkheid hebben om te verbinden.</strong></p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2324,9 +2319,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Herstel waarschuwingen welke zijn verborgen door het aanvinken van 'Waarschuw mij niet nog een keer'.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Zie <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick op macOS 11 Big Sur</a> [tunnelblick.net] voor meer informatie.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Zie <a href=\"https://tunnelblick.net/cTunTapConnections.html\">De toekomst van Tun en Tap VPNs in macOS</a> [tunnelblick.net] voor meer informatie.</p>";

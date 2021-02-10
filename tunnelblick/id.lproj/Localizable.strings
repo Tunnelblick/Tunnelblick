@@ -128,6 +128,9 @@
 "Ignore" = "Abaikan";
 
 /* Button */
+"Install tun and tap system extensions..." = "Memasang ekstensi sistem tun dan tap";
+
+/* Button */
 "Install" = "Pasang";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -167,10 +170,10 @@
 "No keyboard shortcut" = "Tidak ada pintasan papan ketik";
 
 /* Button */
-"No sound" = "Hening";
+"No sound" = "Tanpa suara";
 
 /* Button */
-"OK" = "OKE";
+"OK" = "OK";
 
 /* Button */
 "Only Me" = "Hanya Saya";
@@ -258,7 +261,7 @@
 "Standard icon" = "Ikon standar";
 
 /* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
-"Stop" = "Stop";
+"Stop" = "Hentikan";
 
 /* Button */
 "Terminate All OpenVPN processes" = "Hentikan semua proses OpenVPN";
@@ -284,8 +287,14 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Ikon Tunnelblick 3.3";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Uninstal Tunnelblick…";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Membongkar pemasangan ekstensi sistem tun dan tap";
+
 /* Button. 'Update' refers to the update of a configuration. */
-"Update" = "Pembaruan";
+"Update" = "Update";
 
 /* Button */
 "When Tunnelblick launches" = "Ketika Tunnelblick dijalankan";
@@ -369,6 +378,12 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Tingkat log OpenVPN yang ditata oleh konfigurasi";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "Masalah saat memakai versi mendatang dari Tunneliblick…";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "Masalah saat memakai versi mendatang dari macOS…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Keluar Tunnelblick";
@@ -719,6 +734,12 @@
 "System Requirements Not Met" = "Persyaratan Sistem Tidak Dipenuhi";
 
 /* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "UJI UNINSTAL TUNNELBLICK GAGAL";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "UJI UNINSTAL TUNNELBLICK SUKSES";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Masalah Konfigurasi Tunnelblick";
 
 /* Window title */
@@ -732,6 +753,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Perlu Frasa Sandi Tunnelblick";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "UNINSTAL TUNNELBLICK GAGAL";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TUNNELBLICK SUKSES DI-UNINSTAL";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Tidak bisa meluncurkan Tunnelblick";
@@ -842,7 +869,7 @@
 "  • Change ownership and permissions of the program to secure it\n" = "  • Ubah kepemilikan dan hak program untuk mengamankannya\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  • Melengkapi pembaruan\n";
+"  • Complete the update\n" = "  • Menyelesaikan update ini\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Konversikan konfigurasi OpenVPN\n";
@@ -902,7 +929,7 @@
 "%@ exists but is not a folder" = "%@ ada tetapi bukan folder";
 
 /* Window text */
-"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ telah dikembalikan kepada simpanan terakhir(bayangan).\n\n";
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ telah dipulihkan ke simpanan aman terakhir (salinan bayangan).\n\n";
 
 /* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
 "%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Catatan: Tunnelblick ada dalam mode administrator, sehingga otorisasi administrator komputer tidak diperlukan.";
@@ -1031,6 +1058,9 @@
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Terjadi kesalahan (status %1$ld) ketika mencoba memeriksa keamanan konfigurasi %2$@.\n\nHarap keluar dan meluncurkan ulang Tunnelblick. Bila masalah masih terjadi, harap pasang ulang Tunnelblick.";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "Terjadi kesalahan saat mengambil daftar ekstensi sistem yang dimuat.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Terjadi kesalahan ketika mencoba membuka %@";
 
 /* Window text */
@@ -1106,6 +1136,9 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Tidak bisa membongkar konfigurasi '%@' karena itu tidak terpasang.";
 
 /* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Klik \"OK\" untuk memutus semua VPN, keluar Tunnelblick, dan mulai membongkarnya.\n\nMungkin ada tundaan beberapa detik sebelum jendela pembongkaran pertama muncul.\n\nBila Anda ingin menyimpan suatu salinan konfigurasi VPN Anda dan semua pengaturan Tunnelblick, klik \"Batal\" dan ekspor penyiapan Tunnelblick terlebih dahulu.";
+
+/* Window text */
 "Computer sleep/wake" = "Komputer tidur/bangun";
 
 /* Window text */
@@ -1115,19 +1148,19 @@
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurasi '%@' memuat satu skrip atau lebih yang mungkin menyebabkan masalah jika Anda mengganti atau membongkar konfigurasi ketika sedang tersambung.\n\nApakah Anda hendak menimpa konfigurasi?";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Konfigurasi '%@' tidak aman. Itu mesti dipasang ulang.";
+"Configuration '%@' is not secure. It should be reinstalled." = "Konfigurasi '%@' tidak aman. Silahkan di-instal ulang.";
 
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfigurasi '%@' tidak aman. Harap pasang ulang Tunnelblick.";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurasi '%@' tidak dapat dimutakhirkan karena tidak dapat ditandai sebagai 'dapat dimutakhirkan'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurasi '%@' tidak dapat di-update karena tidak dapat ditandai sebagai 'dapat di-update'.\n";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
 "Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Konfigurasi '%1$@' memerlukan Tunnelblick %2$@ atau lebih tinggi; Anda sedang memakai Tunnelblick %3$@.\n\nAnda harus memperbarui Tunnelblick untuk memasang konfigurasi ini.";
 
 /* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
-"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfigurasi '%1$@' memerlukan Tunnelblick %2$@ atau lebih rendah; Anda sedang memakai Tunnelblick %3$@.";
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Konfigurasi '%1$@' memerlukan Tunnelblick versi %2$@ atau lebih rendah; Anda sedang memakai Tunnelblick versi %3$@.";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurasi '%1$@' akan diabaikan karena nama memuat karakter yang tidak diijinkan.\n\nKarakter yang tidak diijinkan: '%2$s'\n\n";
@@ -1250,7 +1283,13 @@
 "Failed to create symlink\n  to %@\n  at %@" = "Gagal membuat taut simbolik\n ke %1$@\n pada %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Gagal memasang ekstensi sistem tun dan tap Tunnelblick.";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Gagal menata ijin pada %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Gagal membongkar pemasangan ekstensi sistem tun dan tap Tunnelblick.";
 
 /* Window text */
 "Fast User Switching" = "Penggantian User Cepat";
@@ -1490,7 +1529,7 @@
 "Please insert token \"%@\", then click \"OK\"" = "Harap masukkan token \"%@\", lalu klik \"OK\"";
 
 /* Window text */
-"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Konfigurasi pribadi tidak bisa menyambung saat komputer dimulai.\n\nPertama buatlah jadi konfigurasi bersama, lalu ubah setelah ini.";
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Konfigurasi pribadi tidak bisa menyambung saat komputer dimulai.\n\nPertama buatlah jadi konfigurasi bersama, lalu ubah pengaturan ini.";
 
 /* Window text */
 "Program error, please see the Console log." = "Kesalahan program, harap lihat log Konsol.";
@@ -1808,6 +1847,9 @@
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick perlu otorisasi untuk menduplikasi konfigurasi '%@'.";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick membutuhkan otorisasi untuk memasang ekstensi sistem tun dan tap.";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick perlu otorisasi untuk membuat %ld konfigurasi pribadi.";
 
 /* Window text */
@@ -1841,6 +1883,9 @@
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick memerlukan otorisasi untuk mengamankan data yang diimpor.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick membutuhkan otorisasi untuk membongkar pemasangan ekstensi sistem tun dan tap.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick perlu mengubah suatu pengaturan yang hanya dapat diubah oleh administrator komputer.";
 
 /* Window text */
@@ -1857,6 +1902,9 @@
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick telah sukses:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick tidak dapat membongkar ekstensi sistemnya. Harap mulai ulang komputer Anda dan coba bongkar pemasangan ekstensi sistem Tunnelblick lagi.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick sukses dipasang dan %ld konfigurasi dipasang atau diganti.";
@@ -2072,6 +2120,9 @@
 "You may not remove a folder unless it is empty." = "Anda tidak bisa menghapus folder sebelum dikosongkan.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Anda harus memutuskan semua VPN sebelum Anda dapat memasang atau membongkar pemasangan ekstensi sistem Tunnelblick.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Anda tidak akan bisa memperbarui Tunnelblick kecuali Anda memberikan otorisasi administrator komputer.\n\nApakah Anda yakin hendak memeriksa pembaruan?";
 
 /* Window text */
@@ -2156,6 +2207,9 @@
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Untuk mengimpor sebuah setup Tunnelblick pada suatu komputer yang memiliki lebih dari %u akun pengguna, Anda mesti membuat sebuah berkas teks yang menyatakan data yang akan diimpor.</p>\n<p>Untuk informasi lebih lanjut, lihat <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a></p></font>";
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>bukan-Tunnelblick</strong>' versi OpenVPN tidak dibuat oleh proyek Tunnelblick dan bukan merupakan bagian dari Tunnelblick. Mereka telah dipasang oleh administrator komputer.</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Mengizinkan' ekstensi sistem mungkin membutuhkan perubahan pada pengaturan sistem keamanan. Pengaturan hanya dapat diubah pada mode Pemulihan. Anda mungkin perlu memulai ulang pada mode Pemulihan, membuat perubahan, lalu memulai ulang kembali secara normal. macOS akan memandu Anda melalui proses ini.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Informasi lebih lanjut</a>[tunnelblick.net]</p>";
@@ -2264,9 +2318,6 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Ketika dicentang</strong>, Anda akan diminta untuk otentikasi diri Anda sebelum menyambung. Anda dapat otentikasi diri Anda dengan menggunakan kata sandi Anda atau, jika tersedia, TouchID atau FaceID.</p>\n<p><strong>Ketika tidak dicentang</strong>, otentikasi tidak diperlukan sebelum menyambung.</p>\n<p><strong>Kotak centang ini dimatikan</strong> jika Anda menggunakan versi macOS yang tidak mendukungnya.</p><p><strong>Catatan: Otorisasi administrator komputer diperlukan untuk mengubah pengaturan ini.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Anda dapat mengubah pengaturan di macOS sehingga mengizinkan Tunnelblick menggunakan ekstensi sistemnya</strong></p>";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Anda dapat memodifikasi konfigurasi sehingga mereka dapat terhubung.</strong></p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2278,6 +2329,12 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Memeriksa pembaruan atas aplikasi Tunnelblick.</p><p>Mengakses situs web Tunnelblick; untuk rincian lebih lanjut lihat <a href=\"https://tunnelblick.net/cPrivacy.html\">Privasi dan Keamanan</a>[tunnelblick.net].</p><p>Juga memeriksa pembaruan ke konfigurasi bila penyedia layanan VPN Anda mengimplementasikan fitur itu.</p>";
 
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Klik untuk memasang atau membongakar pemasangan ekstensi sistem tun dan tap Tunnelblick</p>\n\n<p>Lihat <a href=\"https://tunnelblick.net/cInstallKexts\">Memasang Ekstensi Sistem Tun dan Tap Tunnelblick </a> [tunnelblick.net] untuk detailnya.</p> <p> <strong>Dinonaktifkan</strong> kecuali Tunnelblick berjalan di macOS Big Sur atau lebih baru.</p>";
+
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klik untuk membongkar Tunnelblick.</p>\n\n<p><strong>Dinonaktifkan</strong> bila Tunnelblick tidak terpasang dalam /Applications.</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Menyalin informasi ke Papan Klip untuk membantu diagnosa masalah.</p><p>Informasi termasuk versi perangkat lunak dan pengaturan, berkas konfigurasi OpenVPN, pengaturan jaringan, dan lainnya.</p><p>Informasi sertifikat yang sensitif tidak disertakan, tapi data seperti alamat IP dan URL yang <em>mungkin</em> konfidensial disertakan. Anda mesti memeriksa informasi dan menghapus apapun yang ingin tetap Anda rahasiakan sebelum mengirimnya dalam suatu surel atau mengeposkannya secara publik.</p>";
 
@@ -2286,6 +2343,9 @@
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Ekspor pengaturan Tunnelblick, termasuk semua konfigurasi dan pengaturan bagi semua pengguna pada komputer ini, ke sebuah berkas terkompresi pada Desktop.</p><ul><li>Kredensial yang disimpan dalam Rantai Kunci <strong>tidak</strong> diekspor.</li><li>Ekspor mungkin memakan waktu lama.</li></ul>";
+
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Jika Anda tidak melihat tombol untuk mengizinkan memuat sistem perangkat lunak oleh pengembang 'Jonathan Bullard', coba hubungkan konfigurasi ini (yang akan gagal), kemudian lihat tab 'Umum' di 'Keamanan & Privasi' di 'Preferensi Sistem' lagi.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Membuka suat jendela dengan pengaturan tambahan.</p><p>Sebarang perubahan akan diterapkan pada semua konfigurasi yang dipilih dalam jendela 'Rincian VPN'.</p>";
@@ -2296,8 +2356,8 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Memulihkan peringatan yang telah dicegah oleh kotak centang 'Jangan ingatkan tentang hal ini lagi'.</p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Lihat <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick pada macOS 11 Big Sur</a>[tunnelblick.net] untuk informasi lebih lanjut.</p>";
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Lihat <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Memasang Ekstensi Sistem</a> [tunnelblick.net] untuk informasi lebih lanjut.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Lihat <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Masa depan VPN Tun dan Tap  pada macOS</a>[tunnelblick.net] untuk informasi lebih lanjut.</p>";
@@ -2343,6 +2403,12 @@
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick tidak dapat memuat ekstensi sistem yang diperlukan untuk terhubung ke %@</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Anda dapat menyetel preferensi Tunnelblick sehingga akan mencoba untuk memuat ekstensi sistemnya.</p>";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Anda harus memasang ekstensi sistem Tunnelblick untuk dapat menggunakan konfigurasi ini.</p><p>Anda dapat melakukannya dari panel 'Utilitas' Tunnelblick.</p><p>Setelah anda memasang ekstensi sistem, macOS akan memandu anda melalui proses untuk 'mengizinkan' mereka, yang akan mencakup memulai ulang komputer Anda.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Mode admin tersisa %@";

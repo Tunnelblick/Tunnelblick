@@ -131,7 +131,7 @@
 "Install" = "インストール";
 
 /* Button. In a dialog that says a file already exists in a new location. */
-"Keep Both" = "両方をキープ";
+"Keep Both" = "両方残す";
 
 /* Button */
 "Latest (%@)" = "最新 (%@)";
@@ -179,7 +179,7 @@
 "Open easy-rsa in Terminal" = "ターミナルで easy-rsa を開く";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Spotlight アイコンの隣に配置する";
+"Place Icon Near the Spotlight Icon" = "Spotlight アイコンの側にアイコンを配置";
 
 /* Button */
 "Place Icon Normally" = "適当な位置に配置される";
@@ -258,7 +258,7 @@
 "Standard icon" = "標準アイコン";
 
 /* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
-"Stop" = "停止";
+"Stop" = "中止";
 
 /* Button */
 "Terminate All OpenVPN processes" = "全ての OpenVPN プロセスを停止";
@@ -288,7 +288,7 @@
 "Uninstall Tunnelblick..." = "Tunnelblickをアンインストールする…";
 
 /* Button. 'Update' refers to the update of a configuration. */
-"Update" = "アップデート";
+"Update" = "更新する";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblick 起動時に接続";
@@ -304,10 +304,10 @@
 
 /* Menu item
    Menu Item */
-"Copy Configuration into a New Folder..." = "設定を新しいフォルダーへコピー";
+"Copy Configuration into a New Folder..." = "設定を新しいフォルダーにコピー";
 
 /* Menu item */
-"Copy Configurations into a New Folder..." = "設定を新しいフォルダーへコピー";
+"Copy Configurations into a New Folder..." = "設定を新しいフォルダーにコピー";
 
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "接続先の認証をキーチェーンから削除…";
@@ -338,13 +338,13 @@
 
 /* Menu item
    Menu Item */
-"Move Configuration into a New Folder..." = "設定を新しいフォルダーへ移動";
+"Move Configuration into a New Folder..." = "設定を新しいフォルダーに移動";
 
 /* Menu item */
-"Move Configurations into a New Folder..." = "設定を新しいフォルダーへ移動";
+"Move Configurations into a New Folder..." = "設定を新しいフォルダーに移動";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "OpenVPNもTunnelblickVPNもログ無し";
+"No OpenVPN or Tunnelblick VPN logging" = "OpenVPNまたはTunnelblickVPNのログは作成しない";
 
 /* Menu item */
 "No VPN Configurations Available" = "VPN 接続先なし";
@@ -353,37 +353,37 @@
 "OpenVPN level %lu" = "OpenVPNレベル%lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPNレベル0 - 致命的エラーのみ";
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPNレベル0 - 致命的エラーのみログ作成";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPNレベル11 - 極度に冗長な出力";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPNレベル11 - 非常に詳細なログを作成";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPNレベル3 - 通常出力";
+"OpenVPN level 3 - normal output" = "OpenVPNレベル3 - 通常のログを作成";
 
 /* Menu Item */
 "OpenVPN level 4 - values for all options" = "OpenVPNレベル4 - 全オプションの値も出力";
 
 /* Menu Item */
-"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPNレベル5 - パケットごとにRかWも出力";
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPNレベル5 - 各パケットごとにRかWも出力";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPNレベル6 - 非常に冗長な出力";
+"OpenVPN level 6 - very verbose output" = "OpenVPNレベル6 - とても詳細なログを作成";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "OpenVPNの設定によるログレベル";
+"OpenVPN logging level set by the configuration" = "構成によって設定されたOpenVPNログレベル";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick..." = "Tunnelblickを更新する際の問題…";
+"Problem using future versions of Tunnelblick..." = "今後のTunnelblickバージョンを使用する際の問題…";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS..." = "macOSを更新する際の問題…";
+"Problem using future versions of macOS..." = "今後のmacOSバージョンを使用する際の問題…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick を終了";
 
 /* Menu Item */
-"Rename Configuration" = "接続先を名前変更…";
+"Rename Configuration" = "構成の名前を変更する";
 
 /* Menu Item */
 "Revert Configuration..." = "接続先の変更を取り消す…";
@@ -407,13 +407,13 @@
 "Allow changes to manually-set network settings" = "手動でセットされたネットワーク設定への変更を許可する";
 
 /* Checkbox name */
-"Always show this window" = "このウインドウでは常に表示";
+"Always show this window" = "このウインドウを常に表示";
 
 /* Checkbox name */
 "Apply to all" = "全員に適用";
 
 /* Checkbox Name */
-"Authenticate before connecting" = "接続前認証";
+"Authenticate before connecting" = "接続する前に認証する";
 
 /* Checkbox name */
 "Check for updates automatically" = "更新を自動的にチェックする";
@@ -425,7 +425,7 @@
 "Check if the apparent public IP address changed after connecting" = "接続後に見かけ上のグローバルIPアドレスが変わったかチェックする";
 
 /* Checkbox name */
-"Disable IPv6 unless the VPN server is accessed using IPv6" = "VPNサーバへIPv6で接続できる場合を除き、IPv6を無効にする";
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "IPv6でVPNサーバに接続している場合を除き、IPv6を無効にする";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "スリープ時に接続を切断する";
@@ -455,7 +455,7 @@
 "Do not show this type of warning again" = "今後はこの種類の警告を表示しない";
 
 /* Checkbox name */
-"Do not warn about DNS problems again for any configuration" = "今後はDNSの問題に関する警告を表示しない";
+"Do not warn about DNS problems again for any configuration" = "どの構成でもDNSの問題について再度警告しない";
 
 /* Checkbox name */
 "Do not warn about this again for any configuration" = "次回から環境設定についての警告を表示しない";
@@ -494,7 +494,7 @@
 "Reconnect when user switches in" = "ユーザスイッチから戻った時に再接続する";
 
 /* Checkbox name */
-"Require administrator authorization to install all configurations" = "全ての設定をインストールするために管理者権限が必要";
+"Require administrator authorization to install all configurations" = "全ての構成をインストールするには、管理者権限が必要です";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "すべてのトラフィックをVPN経由で接続する";
@@ -560,7 +560,7 @@
 "GET_CONFIG" = "設定を取得しています"; // Please translate ""
 
 /* Connection status */
-"NETWORK_ACCESS" = "ネットワークアクセスを待ち"; // Please translate "Waiting for network access"
+"NETWORK_ACCESS" = "ネットワーク接続を待っています"; // Please translate "Waiting for network access"
 
 /* Connection status */
 "PASSWORD_WAIT" = "パスワードを待っています"; // Please translate "Waiting for password"
@@ -620,7 +620,7 @@
 "Add a Configuration" = "接続先を追加します";
 
 /* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
-"Advanced Settings%@" = "拡張設定";
+"Advanced Settings%@" = "詳細設定";
 
 /* Window title */
 "Alert sounds" = "警告音";
@@ -727,12 +727,10 @@
 /* Window title */
 "System Requirements Not Met" = "必要なシステムがありません";
 
-/* A "test uninstall" failed.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "Tunnelblickのアンインストールのテストに失敗しました";
 
-/* A "test uninstall" succeeded.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Tunnelblickのアンインストールのテストに成功しました";
 
 /* Window title */
@@ -750,11 +748,11 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: パスフレーズが必要です";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK FAILED" = "Tunnelblickのアンインストールに失敗しました";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
-"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Tunnelblickのアンインストールに成功しました";
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "無事にTunnelblickをアンインストールしました";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Tunnelblick を起動することができません";
@@ -811,13 +809,13 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "     • Installed %lu configurations\n\n" = "     • %lu つの設定がインストールされました\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed one configuration\n\n" = "     • 設定をインストールしました\n\n";
+"     • Installed one configuration\n\n" = "     • 1個の設定をインストールしました\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed or replaced %lu \"safe\" configurations\n\n" = "インストールされた、または差し替えられた%luつの安全な設定\n\n";
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "％lu個の安全な構成をインストール、または置換しました\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed or replaced one \"safe\" configuration\n\n" = "インストールされた、または差し替えられた1つの安全な設定\n\n";
+"     • Installed or replaced one \"safe\" configuration\n\n" = "一個の安全な構成をインストール、または置換しました。\n\n";
 
 /* Window text */
 "     • No DNS servers have been specified.\n\n" = "     • DNSサーバが指定されていません。\n\n";
@@ -841,10 +839,10 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "    • Install one configuration\n" = "    • 設定をインストール\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    インストールされた、または差し替えられた%luの安全な設定（管理者権限は不要）\n\n";
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "    %lu個の安全な構成をインストール、または置換する（管理者権限は不要）\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "インストールされた、または差し替えられた1つの安全な設定（管理者権限は不要）\n";
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "    一個の安全な構成をインストール、または置換する（管理者権限は不要）\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    設定を%luつ上書き\n\n";
@@ -856,7 +854,7 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "    • Uninstall %lu configurations\n\n" = "    • %lu個の設定を削除\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall one configuration\n" = "    • 1個の設定を削除\n";
+"    • Uninstall one configuration\n" = "    • 1個の構成を削除\n";
 
 /* Window text */
 "  • Be installed in /Applications as Tunnelblick\n" = "  •  「 /アプリケーション」に「Tunnelblick」という名前でインストール\n";
@@ -871,7 +869,7 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "  • Convert OpenVPN configurations\n" = "  • OpenVPN 設定ファイルを変換します\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Copy a configuration\n" = "  • 設定をコピー\n";
+"  • Copy a configuration\n" = "  • 構成をコピー\n";
 
 /* Window text */
 "  • Install forced preferences\n" = "  • 強制的に設定をインストール\n";
@@ -880,13 +878,13 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "  • Install or update configuration(s)\n" = "  • 接続先をインストールまたは更新します\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Move a configuration\n" = "  • 設定を移動\n";
+"  • Move a configuration\n" = "  • 構成を移動\n";
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • 個人用設定フォルダに移動します\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Remove a configuration\n" = "  • 設定を削除\n";
+"  • Remove a configuration\n" = "  • 構成を削除\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • 接続先設定ファイルを安全にします\n";
@@ -949,7 +947,7 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "「%@」に対応する認証情報(秘密鍵、またはユーザー名とパスワード)がありません。";
 
 /* Window text. %@ is the name of a file. */
-"'%@' is not a plain text or UTF-8 file." = "'%@'のファイルはプレインテキストまたはUTF-8ではありません。";
+"'%@' is not a plain text or UTF-8 file." = "'%@'のファイルはプレーンテキストまたはUTF-8ファイルではありません。";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' が正しく終端されていません。";
@@ -1015,7 +1013,7 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "A username and password are required to connect to\n  %@" = "%@ への接続にはユーザ名とパスワードが必要です\n  ";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "%1$@ への接続にはユーザ名とパスワードが必要です(クレデンシャル '%2$@' を使用)\n  ";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "%1$@ への接続にはユーザ名とパスワードが必要です(認証情報 '%2$@' を使用)\n  ";
 
 /* Window text */
 "Add Credentials" = "認証情報を追加";
@@ -1024,7 +1022,7 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Added '.sh' extension to %@ so it will be secured properly" = "%@ が保護されるように拡張子に.shを追加しました";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "%@ が保護されるように拡張子に.unkownを追加しました";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "%@ が保護されるよう、拡張子に.unknownを追加しました";
 
 /* Window text */
 "Additional contributions by" = "貢献した人々";
@@ -1084,7 +1082,7 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Tunnelblickの内部エラーが発生しました: fileIsReasonableSize: パスが空です";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
-"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "VPN設定 \"%@\" のアップデートが利用可能です。\n\n設定をアップデートしますか？\n\n";
+"An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "VPN構成 \"%@\" のアップデートが利用可能です。\n\n構成をアップデートしますか？\n\n";
 
 /* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "本当に OpenVPN 設定ファイルを Tunnelblick VPN 設定ファイルへ変換しなくてよいですか？\n\n変換しない限りこれらの接続先は利用できません！\n\n";
@@ -1129,7 +1127,7 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Cannot uninstall configuration '%@' because it is not installed." = "設定 %@ はインストールされてないから削除できないです";
 
 /* Window text */
-"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "「OK」をクリックすると、全てのVPNが切断され、Tunnelblickが終了し、Tunnelblickのアンインストールが始まります。\n\nアンインストールのウィンドウが表示されるまでに数秒かかることがあります。\n\nもし、VPNとTunnelblickの設定全てのコピーを保存しておきたいときには、一旦「キャンセル」をクリックし、先に「Tunnelblick設定をエクスポート」してください。\n";
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "「OK」をクリックすると、全てのVPNが切断され、Tunnelblickが終了し、Tunnelblickのアンインストールが始まります。\n\nアンインストールのウィンドウが表示されるまでに数秒かかることがあります。\n\nもし、全てのVPN構成及びTunnelblick設定のコピーを保存しておきたい場合は、一旦「キャンセル」をクリックし、先に「Tunnelblick設定をエクスポート」してください。\n";
 
 /* Window text */
 "Computer sleep/wake" = "コンピューターのスリープ後／復帰後";
@@ -2198,6 +2196,19 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>VPN接続中に、TunnelblickがDNS設定を変更するために何を行うかを指定します（もしあれば）。</strong>選択肢としては、<ul><li><strong>ネームサーバーを変更しない</strong>: 何もしません。<br></li><li><strong>ネームサーバーを設定</strong>: 標準スクリプトを使用してDNSおよびWINS設定を処理します。 通常はこれがベストの選択となります。 OpenVPNの指示に従い、DNSおよびWINS設定を変更します。 手動で設定されたDNSおよびWINS設定は、[詳細設定]ウィンドウの[手動でセットされたネットワーク設定への変更を許可する]が選択されていない限り変更されません。<br></li><li><strong>ネームサーバーを設定 (3.1)</strong>: Tunnelblick 3.1のスクリプトを使用して、DNSおよびWINS設定を処理します。<br></li><li><strong>ネームサーバーを設定 (3.0b10)</strong>: Tunnelblick 3.0b10のスクリプトを使用して、DNSおよびWINS設定を処理します。<br></li><li><strong>ネームサーバーを設定 (alternate 1)</strong>: 代替スクリプトを使用して、DNSおよびWINS設定を処理します。<br></li></ul>";
 
+/* HTML info for the 'On unexpected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p> <strong> VPNが<em>予期せず</em>切断されたときにTunnelblickが行うことを指定します</strong>（たとえば、OpenVPNがクラッシュするかVPNへの接続を失い、そのときに停止するように設定されている場合） 。選択肢は次のとおりです。</p> <ul> <li> <strong>何もしない</strong> <br> </li> <li> <strong>プライマリインターフェースをリセットする</strong>：Tunnelblickはインターフェースに［ipconfigdown;ipconfigup］コマンドを発行して、プライマリネットワークインターフェースをリセットします。これは、切断後に構成がネットワーク設定を適切に復元できない場合に役立ちます。<br> </li> <li> <strong>ネットワークアクセスを無効にする（「キルスイッチ」）</strong>：TunnelblickはWi-Fiをオフにし、他のすべてのネットワークサービスを無効にすることで、すべてのネットワークアクセス（ローカルおよびインターネット）を遮断します。これにより、VPNを介する場合を除いて、コンピューターから何も漏れないようにすることができます。 Tunnelblickがネットワークアクセスを無効にしている場合、無効にされたすべてのアクセスを再度有効にするメニューコマンドは、メニューバーのTunnelblickアイコンから利用できます。 Wi-Fiをオンにして再度有効にするか、[システム環境設定：ネットワーク]で他のネットワークサービスを再度有効にすることもできます。 <strong>複数のVPNが同時に接続されている場合、この設定は正しく機能しない可能性があります。</strong> </li> </ul>";
+
+/* HTML info for the 'On expected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p> <strong> VPNが<em>期待どおりに</em> </strong>（たとえば、[切断]メニュー項目またはボタンがクリックされた場合）切断したときのTunnelblickの動作を指定します。選択肢は次のとおりです。</p> <ul> <li> <strong>何もしない</strong> <br> </li> <li> <strong>プライマリインターフェースをリセットする</strong>：Tunnelblickでは、[ipconfig down; ipconfig up]を使ってプライマリネットワークインターフェースをリセットします。これは、接続が切断された際にネットワーク設定を適切に復元できない場合に役立ちます。<br> </li> <li> <strong>ネットワークアクセスを無効にする（「キルスイッチ」）</strong>：TunnelblickはWi-Fiをオフにし、その他全てのネットワークサービスを無効にすることで、全てのネットワークアクセス（ローカルおよびインターネット）を遮断します。これにより、VPNを介する場合を除いて、コンピューターから何も漏れないようにすることができます。 Tunnelblickがネットワークアクセスを無効にしている場合、無効にされたすべてのアクセスを再度有効にするメニューコマンドは、メニューバーのTunnelblickアイコンから利用できます。また、Wi-Fiをオンにして再度有効にするか、[システム環境設定：ネットワーク]で他のネットワークサービスを再度有効にすることもできます。 <strong>複数のVPNが同時に接続されている場合、この設定は正しく機能しない可能性があります。</strong> </li> </ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p> <strong> TunnelblickがVPNにいつ接続するべきか指定します。</strong> </p> <p>「コンピューターの起動時」は、資格情報（ユーザー名/パスワード/パスフレーズ）がキーチェーンに保存されておらず、かつ、引数なしでOpenVPNの「auth-user-pass」オプションを使用していない場合においてのみ「共有」構成が使用できます。</p>";
+
+
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>チェックした場合</strong>、 IPv6経由でOpenVPNサーバーがアクセスされていない場合にはIPv6が無効化されます。</p>\n<p>VPN設定の多くはIPv6使用による情報漏洩への対策がなされていないため、IPv6を無効化することを多くの場合推奨します。ほとんどの場合IPv6を使用しなくてもインターネットはアクセスできます。</p>\n<p><strong>チェックしなかった場合</strong>、 IPv6は無効化されません。</p>\n<p>”タップ”接続は強制できないので、”タップ”接続を使用すると<strong>このチェックボックスは無効化されます。</strong></p>";
+
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>チェックした場合</strong>、IPv6は無効化されます。</p>\n<p><strong>チェックしなかった場合</strong>、IPv6は無効化されません。</p>\n<p>多くの場合、IPv6を無効化することを推奨します。何故ならば、多くのVPN設定はIPv6使用による情報漏洩の防衛がありません。ほとんどのインターネットはIPv6を使用しなくてもアクセスできます。</p>\n<p>設定を調整すると、<strong>このチェックボックスは無効化できません</strong>。</p>\n";
 
@@ -2213,11 +2224,68 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* HTML info for the 'Check for updates automatically' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>チェックされている場合</strong>、Tunnelblickは起動時及びその後に定期的にアップデートを確認しに行きます、</p><p>自動アップデートを無効にし、IPアドレスをチェックするオプションがチェックされている場合、<strong>このチェックボックスは無効になり</strong>、またチェックが外されます。</p>";
 
+/* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p> <strong>チェックすると</ strong>、TunnelblickはVPNが接続される前後のコンピューターの見かけのパブリックIPアドレスを判別し、IPアドレスが変更されない場合は警告します。</p>\n<p>この機能を実行するには、tunnelblick.netWebサイトにアクセスします。 アクセスは通常、https：を介してtunnelblick.net名を使用して行われます。ただし、そのアクセスが失敗した場合は、http：とWebサイトのIPアドレスを使用してアクセスが試行されます。</p>\n<p> <strong>チェックされていない場合</strong>、TunnelblickはIPアドレスの変更をチェックせず、また、VPN接続後にIPアドレスが変更されない場合は警告しません。</p>";
+
+/* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p> <strong>チェックすると</strong>、TunnelblickはOpenVPNにすべてのIPv4トラフィックをVPNサーバー経由でルーティングするように指示します。</p>\n<p> <strong>チェックされていない場合</strong>、標準設定では、OpenVPNはVPNのネットワーク宛てのトラフィックにのみVPNを使用します。 その他のトラフィックは、全てVPNを経由せずに通常のインターネット接続を使用します。 OpenVPNのデフォルトの動作は、OpenVPN構成またはVPNサーバーによって変更され、このチェックボックスがオンになっているかのように、すべてのIPv4トラフィックがVPNサーバーを介してルーティングされる可能性があります。 </p>";
+
+/* HTML info for the 'Do not warn about this again' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>チェックすると</strong>、次回以降この警告をTunnelblickは表示しません。\n<p><strong>チェックされていない場合には</strong>、Tunnelblickはこの警告を次回以降も表示します。";
+
+/* HTML info for the 'Require administrator authorization to install all configurations' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to install or replace all configurations.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to install or replace \"restricted\" configurations.</p><p>A \"restricted\" configuration is one which does not contain or change commands or scripts or references to commands or scripts. Configurations with commands or scripts can enable <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertical privilege escalation</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Details</a> [tunnelblick.net].</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>チェックすると</strong>、すべての構成をインストールまたは置換するために、Tunnelblickはコンピューター管理者の許可を必要とします。</p>\n<p><strong>チェックされていない場合</strong>、標準ユーザーは「制限付き」構成をインストールまたは置換できます。</p><p>「制限付き」構成とは、コマンドまたはスクリプト、あるいはコマンドまたはスクリプトへの参照を含まない、または変更しない構成です。 コマンドまたはスクリプトを使用した構成により、<a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">垂直権限昇格</a>が可能となります。 [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">詳細</a> [tunnelblick.net].</p><p><strong>注：この設定を変更するには、コンピューター管理者の許可が必要です。</strong></p>\n\n";
+
+/* HTML info for the 'Monitor network settings' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>チェックすると</strong>、Tunnelblickは、ネットワーク設定の変更（DHCPの更新やインターネット接続の切替えによる変更など）を監視して対応し、VPN接続を維持しようとします。 ネットワーク設定が変更されたときのTunnelblickのデフォルトのアクションは通常は正常に機能しますが、[詳細設定]ウィンドウの[接続中]タブで別のアクションを指定できます。</P>\n<p><strong>チェックされていない場合</strong>、Tunnelblickはネットワークの変更を無視します。</p>\n<p>「DNS / WINSの設定」が「ネームサーバーの設定」または「ネームサーバー(3.1)の設定」に設定されていない場合、<strong>このチェックボックスは無効になります</strong>。</p>\n";
+
+/* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
+"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>チェックすると</strong>、ポインタがTunnelblickアイコンの上にある場合、すべての「アクティブ」構成のVPNステータスウィンドウが表示されます。</p><p>「アクティブ」な構成とは、Tunnelblickの起動以降に接続を試みた構成です。</p><p>上で[表示しない]が選択されている場合、<strong>このチェックボックスは無効になっています</strong>。</p>\n";
+
+/* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
+"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>チェックすると</strong>、起動中のTunnelblickの進行状況がウィンドウに表示されます。</p>";
+
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>チェックを入れた時</strong>、全ての設定は同じユーザー名、パスワードと/もしくは秘密鍵を共有します。</p>\n";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>macOSの設定を変更することでTunnelblickのシステム拡張機能を許可することができます。</strong></p>\n";
+/* HTML info for the 'Display connection submenus' checkbox. */
+"<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>チェックすると</strong>、フォルダ内の構成は、Tunnelblickメニューのサブメニューに表示されます。</p>\n<p><strong>チェックされていない場合</strong>、フォルダ内の構成は、Tunnelblickメニューに表示されます。</p>";
+
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong>チェックすると</strong>、OpenVPNが予期せず終了した場合（クラッシュ）にTunnelblickはVPNへの接続を再試行します。</p>\n<p><strong>チェックされていない場合</strong>、OpenVPNが予期せず終了した場合（クラッシュ）にTunnelblickはVPNへの接続を再試行しません。</p>";
+
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>チェックすると</strong>、手動で設定したネットワーク設定は、VPN接続時に変更される場合があります。 これは、OpenVPN構成ファイルのオプションまたはOpenVPNサーバーからの変更が指定されている場合にのみ発生します。</p>\n<p><strong>チェックされていない場合</strong>、手動で設定したネットワーク設定は、VPN接続時に変更されません。</p>";
+
+/* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
+"<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p> <strong>チェックすると</strong>、他の設定に関係なく、更新の自動チェックやIPアドレスの変更のチェックは行われません。 注：これらのアクティビティはいずれもTunnelblickWebサイトにアクセスします。</p>\n<p> <strong>チェックされていない場合</strong>、以下で有効にすると更新の自動チェックが実行され、構成の設定が有効になっている場合は、構成の接続時にIPアドレスの変更のチェックが実行されます。</p> <p>詳細については、<a href=\"https://tunnelblick.net/cPrivacy.html\">プライバシーとセキュリティ</a> [tunnelblick.net]を参照してください。</p> <p>＆nbsp; </p>";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p> <strong>チェックすると</strong>、TunnelblickアイコンはSpotlightアイコンの近くに配置されます：</p>\n<p>％1$@</p>\n<p> <strong>チェックされていない場合</ strong>、Tunnelblickアイコンは正常に配置されます：</p>\n<p>％2$@</p>\n<p> <strong>このチェックボックスは、macOS Sierra以降では不要であるため無効になっています</strong>。また、問題を引き起こすことがわかっているシステムでは無効になっています。</p>\n<p> <a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">詳細</a> </p>";
+
+/* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
+"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>チェックすると</strong>、構成が切断されている場合でもVPNステータスウィンドウが表示されます。</p><p> 上で[表示しない]が選択されている場合、<strong>このチェックボックスは無効になっています</strong>。</p>";
+
+/* HTML info for the 'Disconnect when user switches out' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p> <strong>チェックすると</strong>、別のユーザーに切り替える際にVPNが切断されます。</p>\n<p> <strong>チェックされていない場合</strong>、別のユーザーに切り替えてもVPNは切断されません。</p>";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p> <strong>チェックすると</strong>、コンピューターがスリープ状態になるとVPNが切断されます。</p>\n<p> <strong>チェックされていない場合</strong>、コンピューターがスリープ状態になってもVPNは接続され続けます。</p>";
+
+/* HTML info for the 'Reconnect when user switches in' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p> <strong>チェックすると</strong>、VPNは、別のユーザーへの切り替えが行われたときに切断された場合、現在のユーザーに切り替えるときに再接続されます。</p>\n<p> <strong>チェックされていない場合</strong>、別のユーザーから現在のユーザーに切り替えたときにVPNは再接続されません。</p>";
+
+/* HTML info for the 'Reconnect when computer wakes up' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p> <strong>チェックすると</strong>、コンピューターがスリープ状態になったときに切断された場合、コンピューターがウェイクアップした際にVPNが再接続されます。</p>\n<p> <strong>チェックされていない場合</strong>、コンピューターが起動した際にVPNは再接続されません。</p>";
+
+/* HTML info for the 'Prepend domain name to search domains' checkbox. */
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p> <strong>チェックすると</strong>、VPNで指定されたドメイン名が検索ドメインリストの冒頭に追加されます。</p>\n<p> <strong>チェックされていない場合</strong>、検索ドメインリストはVPNで指定されたドメイン名に置き換えられます。</p>";
+
+/* HTML info for the 'Display connection timers' checkbox. */
+"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p> <strong>チェックすると</strong>、接続が確立されてからの経過時間が、Tunnelblickメニューと[VPNの詳細]ウィンドウのタイトルに表示されます。</p>";
+
+/* HTML info for the 'Authenticate before connecting' checkbox. */
+"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p> <strong>チェックした場合</strong>、接続する前に自分自身を認証する必要があります。 パスワード、或いはTouchIDまたはFaceIDがあればそれらを使用して自分自身を認証できます。</p>\n<p> <strong>チェックされていない場合</strong>、接続する前に認証は必要ありません。</p>\n<p> <strong>このチェックボックスをサポートしていないバージョンのmacOSを使用している場合、このチェックボックスは無効になります</strong>。</p> <p> <strong>注：この設定を変更するには、コンピューター管理者の承認が必要です</strong>。 </p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>接続できるように設定を変更することができます。</strong></p>\n";
@@ -2231,17 +2299,26 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Tunnelblickのアップデートを確認します。</p><p>Tunnelblickのウェブサイトにて、<a href=\"https://tunnelblick.net/cPrivacy.html\">プライバシーとセキュリティー</a>をご覧になれます。[tunnelblick.net]</p><p>また、VPN接続業者側のVPN設定がこのバージョンをサポートしているかもご確認ください。</p>";
 
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Tunnelblickをアンインストールするには、クリックして下さい。</p>\n\n<p>Tunnelblickが /Applications にインストールされていない場合は<strong>無効</strong>。</p>\n\n\n";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>問題解決のための診断情報をクリップボードにコピーします。</p><p>その情報には、ソフトウェアのバージョンと設定、OpenVPN設定ファイル、ネットワーク設定などを含みます。</p><p>また、認証情報は含みませんがIPアドレスやURLなど秘密<em>かもしれない</em>情報は含みます。この情報をメールで送信したり公開情報として投稿したりする前には、内容をチェックして秘密にしておきたい情報は削除してください。</p>";
+
+/* HTML info for the 'Copy Console Log to Clipboard' button. */
+"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>コンソールログの最後の部分をクリップボードにコピーして、電子メールやその他のドキュメントに貼り付けることができるようにします。</p> <p>ログには、TunnelblickとOpenVPNの操作の詳細が含まれています。 これには、通常のダイアログウィンドウでユーザーに表示するには長すぎる通常のステータスメッセージと詳細なエラーメッセージが含まれます。</p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>このコンピューターの全ユーザーのすべての構成と設定を含むTunnelblickセットアップを、圧縮ファイルでデスクトップ上にエクスポートします。</p> <ul> <li>キーチェーンに保存された資格情報はエクスポート<strong>されません</strong>。</li> <li>エクスポートするには時間がかかる場合があります。</li> </ul>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>追加設定の画面を新しいウィンドウで開きます。</p><p>「VPN の詳細…」ウィンドウで選択した全ての接続先に変更が適用されます。</p>";
 
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Tunnelblickにより実行されていないプロセスも含め、全てのOpenVPNプロセスを終了します。 Tunnelblickの '切断'または '全て切断' ボタンとメニューコマンドを使用して、Tunnelblickを使用して接続されたVPN通信を終了して下さい。</p><p>このボタンを押すことによって、'SIGTERM' 信号が全ての 'openvpn' と名付けられたプロセスに送信されます。 通常、これにより全てのVPN接続が切断され、OpenVPNを終了させます。 もし全てのOpenVPNプロセスが終了されなかった場合、macOSのアクティビティーモニターを使用してプロセスを強制終了する必要があります。</p>";
+
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>「次回からこの警告を表示しない」 のチェックを解除すると警告が再び表示されます。</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>詳しくは、<a href=\"https://tunnelblick.net/cBigSur.html\">macOS 11 Big SurのTunnelblick</a> [tunnelblick.net]をご覧ください。</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>詳しくは、<a href=\"https://tunnelblick.net/cTunTapConnections.html\">macOS上でのTunとTap VPNの見通し</a> [tunnelblick.net]をご覧ください。</p>\n";
@@ -2377,7 +2454,7 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Finnish translation" = "フィンランド語翻訳";
 
 /* Credit description */
-"Flemish translation" = "フランス語翻訳";
+"Flemish translation" = "フラマン語翻訳";
 
 /* Credit description */
 "Founder, original program and documentation" = "創始者、オリジナルプログラムとドキュメント";

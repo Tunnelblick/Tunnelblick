@@ -128,6 +128,9 @@
 "Ignore" = "Ignorera";
 
 /* Button */
+"Install tun and tap system extensions..." = "Installera tun och tap systemtillägg…";
+
+/* Button */
 "Install" = "Installera";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -286,6 +289,9 @@
 
 /* Button */
 "Uninstall Tunnelblick..." = "Radera Tunnelblick";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Avinstallera tun och tap systemtillägg…";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Uppdatera";
@@ -727,12 +733,10 @@
 /* Window title */
 "System Requirements Not Met" = "Systemkrav uppfylls ej";
 
-/* A "test uninstall" failed.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "Försöket att avinstallera Tunnelblick misslyckades";
 
-/* A "test uninstall" succeeded.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Försöket att avinstallera Tunnelblick lyckades";
 
 /* Window title */
@@ -750,10 +754,10 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Lösenordsfras krävs";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK FAILED" = "Avinstallation av Tunnelblick kunde inte genomföras";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Avinstallation av Tunnelblick slutförd";
 
 /* Window title */
@@ -1054,6 +1058,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Ett fel (status %1$ld) uppstod under säkerhetskontrollen av konfiguration %2$@.\n\nVänligen starta om Tunnelblick. Om problemet kvarstår, prova att ominstallera Tunnelblick.";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "Ett fel inträffade när lista över systemtillägg hämtades.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Ett fel uppstod under försöket att starta %@";
 
 /* Window text */
@@ -1276,7 +1283,13 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Failed to create symlink\n  to %@\n  at %@" = "Gick inte att skapa symlänk\ntill %1$@\nfrån %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Det gick inte att installera Tunnelblicks tun och tap systemtillägg.";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Kunde inte sätta behörigheter på %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Det gick inte att avinstallera Tunnelblicks tun och tap systemtillägg.";
 
 /* Window text */
 "Fast User Switching" = "Snabbt användarbyte";
@@ -1834,6 +1847,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick behöver tillåtelse för att kopiera konfigurationen \"%@\".";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick behöver auktorisation för att installera tun och tap systemtillägg.";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick behöver tillåtelse att göra %ld konfigurationer privata.";
 
 /* Window text */
@@ -1867,6 +1883,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick behöver tillåtelse för att säkra den importerade datan.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick behöver auktorisation för att avinstallera tun och tap systemtillägg.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick behöver ändra en inställning som bara kan ändras av en administratör.";
 
 /* Window text */
@@ -1883,6 +1902,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick lyckades med att:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick kunde inte inaktivera systemtillägg. Testa att starta om din dator och försök sedan att inaktivera systemtilläggen igen.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick har installerats och %ld konfigurationer installerades eller ersattes.";
@@ -2098,6 +2120,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "You may not remove a folder unless it is empty." = "Du kan inte ta bort en mapp om den inte är tom.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Du måste koppla ned alla VPN-anslutningar innan du kan installera eller avinstallera Tunnelblicks tillägg.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Du kommer inte att kunna uppdatera Tunnelblick om du inte kan få ett godkännande från en av datorns administratörer.\n\nÄr du säker på att du vill fortsätta?";
 
 /* Window text */
@@ -2290,9 +2315,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>När markerad</strong>, måste du verifiera din identitet före förbindelse upprättas. Du kan verifiera din identitet genom att använda ditt lösenord, eller om det är tillgängligt, TouchID eller FaceID.</p>\n<p><strong>Om ej markerad</strong>, behövs ingen verifiering av din identitet före förbindelse upprättas.</p>\n<p><strong>Denna kryssruta är inaktiverad</strong> om du använder en version av macOS som inte stödjer den.</p><p><strong>Observera: Godkännande från datorns administratör behövs för att ändra den här inställningen.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Du kan ändra en inställningar i macOS så att Tunnelblick får tillåtelse att använda systemtilläggen.</strong></p>";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Du kan ändra konfigurationerna så att de kan koppla upp. </strong></p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2324,9 +2346,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Återställer varningar som har hindrats av en 'Varna inte om detta igen' kryssruta.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Se <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick på macOS 11 Big Sur</a> [tunnelblick.net] för mer information.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Se <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPN-anslutningar på macOS</a> [tunnelblick.net] för mer information.</p>";

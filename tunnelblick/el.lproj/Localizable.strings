@@ -727,12 +727,10 @@
 /* Window title */
 "System Requirements Not Met" = "Μη συμβατό με απαιτήσεις του συστήματος";
 
-/* A "test uninstall" failed.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "ΑΠΟΤΥΧΙΑ ΔΟΚΙΜΑΣΤΙΚΗΣ ΑΠΕΓΚΑΤΑΣΤΑΣΗΣ TUNNELBLICK";
 
-/* A "test uninstall" succeeded.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "ΕΠΙΤΥΧΙΑ ΔΟΚΙΜΑΣΤΙΚΗΣ ΑΠΕΓΚΑΤΑΣΤΑΣΗΣ TUNNELBLICK";
 
 /* Window title */
@@ -750,10 +748,10 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Απαιτείτε κωδικός-φράση";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK FAILED" = "ΑΠΟΤΥΧΙΑ ΑΠΕΓΚΑΤΑΣΤΑΣΗΣ TUNNELBLICK";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK SUCCEEDED" = "ΕΠΙΤΥΧΙΑ ΑΠΕΓΚΑΤΑΣΤΑΣΗΣ TUNNELBLICK";
 
 /* Window title */
@@ -2290,9 +2288,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Όταν έχει επιλεχεθει</strong>, θα απαιτείται αυθεντικοποίηση πριν την σύνδεση. Η αυθεντικοποίηση μπορεί να γίνει με την χρήση κωδικού ή, εαν είναι διαθέσιμο, TouchID ή FaceID.</p>\n<p><strong>Όταν δεν έχει επιλεχεθει</strong>, δεν θα απαιτείται αυθεντικοποίηση πριν την σύνδεση.</p>\n<p><strong>Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> όταν χρησιμοποιείται έκδοση του macOS που δεν το υποστηρίζει.</p><p><strong>Σημέιωση: Απαιτείται η εξουσιοδότηση του διαχειρηστή του ηλεκτρονικού υπολογιστή για την αλλαγή αυτής της ρύθμισης.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Μπορείτε να αλλάξετε μια ρύθμιση στο macOS ώστε να επιτραπεί στο Tunnelblick να χρησιμοποιήσει τις επεκτάσεις του συστήματος.</strong></p>\n";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Είναι δυνατή η τροποποίηση των ρυθμίσεων, για να μπορούν να συνδεθούν</strong></p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2324,9 +2319,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Επαναφέρει τις προειδοποιήσεις που έχουν ανασταλεί από το πλαίσιο ελέγχου \"Μην προειδοποιείτε για αυτό ξανά\".</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Δείτε περισσότερες πληροφορίες εδώ <a href=\"https://tunnelblick.net/cBigSur.html\"> Tunnelblick σε macOS 11 Big Sur</a> [tunnelblick.net].</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Δείτε το <a href=\"https://tunnelblick.net/cTunTapConnections.html\">το μέλλον Tun/Tap συνδέσεων στο macOS</a> [tunnelblick.net] για περισσότερες πληροφορίες.</p>";

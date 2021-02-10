@@ -128,6 +128,9 @@
 "Ignore" = "忽略";
 
 /* Button */
+"Install tun and tap system extensions..." = "安裝 tun 及 tap 系統擴展．．．";
+
+/* Button */
 "Install" = "安裝";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -286,6 +289,9 @@
 
 /* Button */
 "Uninstall Tunnelblick..." = "解除安裝 Tunnelblick...";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "移除 tun 及 tap 系統擴展．．．";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "更新";
@@ -727,12 +733,10 @@
 /* Window title */
 "System Requirements Not Met" = "未能滿足系統需求";
 
-/* A "test uninstall" failed.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "測試解除安裝 Tunnelblick 失敗";
 
-/* A "test uninstall" succeeded.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "測試解除安裝 Tunnelblick 成功";
 
 /* Window title */
@@ -750,10 +754,10 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick：需要密匙";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK FAILED" = "解除安裝 Tunnelblick 失敗";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK SUCCEEDED" = "解除安裝 Tunnelblick 成功";
 
 /* Window title */
@@ -1054,6 +1058,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "在嘗試檢查 %2$@ 的安全設定時發生了問題（狀態 %1$ld）。\n請退出並重新啟動 Tunnelblick。如果問題依舊會發生，請重新安裝 Tunnelblick。";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "獲取已載入的系統擴展列表時發生錯誤。 ";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "當嘗試啟動 %@ 時發生錯誤";
 
 /* Window text */
@@ -1276,7 +1283,13 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Failed to create symlink\n  to %@\n  at %@" = "無法在 %2$@ 建立連往 %1$@ 的符號連結";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "安裝 Tunnelblick 的 tun 和 tap 系統擴展時失敗。";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "未能在 %@ 上設定權限\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "移除 Tunnelblick 的 tun 和 tap 系統擴展時失敗。";
 
 /* Window text */
 "Fast User Switching" = "快速切換使用者";
@@ -1834,6 +1847,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick 需要認證來複製「%@」設定檔。";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick 需要獲得授權才能安裝其 tun 和 tap 系統擴展。";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick 需要認證來把 %ld 個設定檔設為私密。";
 
 /* Window text */
@@ -1867,6 +1883,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick 需要授權才能保護匯入的資料。";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick 需要獲得授權才能移除其 tun 和 tap 系統擴展。";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick 將要改變的設置需要管理員權限。";
 
 /* Window text */
@@ -1883,6 +1902,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick 成功地：\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick 無法卸載其系統擴展。 請重新啟動你的電腦，並再次嘗試移除 Tunnelblick 的系統擴展。";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick 已被成功安裝，%ld 個設定檔已被安裝或取代。";
@@ -2098,6 +2120,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "You may not remove a folder unless it is empty." = "您不可以移除內有資料的目錄。";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "你必須先中斷所有 VPN 的連接，然後才能安裝或移除 Tunnelblick 的系統擴展。";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "你必須提供電腦管理員的用戶名和密碼，才能繼續升級 Tunnelblick。\n\n你確定想要查找更新嗎？";
 
 /* Window text */
@@ -2182,6 +2207,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>要在有超過 %u 個使用者帳號的電腦中匯入 Tunnelblick 設定前，您必須建立一個文字檔以指定要匯入的資料。</p>\n<p>更多資訊請參閱： <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>。</p></font>";
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非 Tunnelblick</strong>' 版本的 OpenVPN 並非由 Tunnelblick 計畫所建立且不屬於 Tunnelblick 的一部分。它們已由系統管理員安裝完成。</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>「允許」系統擴充功能可能需要更動系統安全設定。此設定僅能在恢復模式下變更。您可能需要重新開機進入恢復模式，進行權限更動，再重新開機回到正常模式。 macOS 會引導您完成整個流程。</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "更多資訊";
@@ -2290,9 +2318,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>當勾選時</strong>，你需要在連線前進行身份驗證。你可以使用你的密碼、 TouchID 或 FaceID (如果支援的話) 進行驗證。</p>\n<p><strong>當未勾選時</strong>，連線前不需進行身份驗證。</p>\n<p>如果你使用的 macOS 版本不支援時，<strong>此選項將被禁用</strong>。</p><p><strong>注意：變更此項設定需要系統管理者權限。</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>您可以變更 macOS 設定以允許 Tunnelblick 使用系統延伸功能。</strong></p>";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>您可以修改設定檔使它們可以成功連線。</strong></p>\n";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2303,6 +2328,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>檢查Tunnelblick應用程式的更新。</p><p>詳情請參考Tunnelblick網站中的<a href=\"https://tunnelblick.net/cPrivacy.html\">隱私和安全</a> [tunnelblick.net]。</p><p>如果你的VPN服務供應商實現了這個特徵，也检查配置的更新。</p>";
+
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>點擊以安裝或解除安裝 Tunnelblick 的 tun 及 tap 系統擴充功能。</p>\n\n<p>詳情請見 <a href=\"https://tunnelblick.net/cInstallKexts\">安裝 Tunnelblick 的 Tun 及 Tap 系統擴充功能</a> [tunnelblick.net] 。</p><p>除非 Tunnelblick 執行在 macOS Big Sur 或之後的版本否則此按鈕將被<strong>停用</strong>。</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>點擊以解除安裝 Tunnelblick。</p>\n\n<p>如果 Tunnelblick 並非被安裝在 /Applications 將<strong>被停用</strong> 。</p>";
@@ -2316,6 +2344,9 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>匯出 Tunnelblick 安裝（包含所有設定檔及這台電腦所有使用者的設定）到桌面上的一個壓縮檔。</p><ul><li>鑰匙圈存取中的資料將<strong>不會</strong>被匯出。</li><li>匯出可能需要一段時間。</li></ul>";
 
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>如果您沒有看到允許載入由開發者 'Jonathan Bullard' 開發的系統軟體的按鈕，試著連線到這個設定檔（會失敗），然後再檢查一次「系統偏好設定」裡「安全性與隱私權」中的「一般」頁面。</p>";
+
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>打開額外設定的視窗。</p><p>任何變更將會套用到在「VPN 詳情」視窗中所選擇的設定。</p>";
 
@@ -2325,8 +2356,8 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>重新顯示因為勾選 \"不要再顯示關於此的警告“ 而停止顯示的警告。</p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>更多資訊請參見 <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net]。</p>\n";
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>更多資訊請參考 <a href=\"https://tunnelblick.net/cKextsInstallation.html\">安裝系統擴充功能</a> [tunnelblick.net] 。</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>更多資訊請參見 <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net]。</p>\n";
@@ -2372,6 +2403,12 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick 無法載入連線到 %@ 所需要的系統擴充程式。</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>你可以設定 Tunnelblick 偏好設定以嘗試載入系統擴充功能。</p>\n";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>您需要安裝 Tunnelblick 的系統擴充功能以使用這個設定檔。</p><p>您可以從 Tunnelblick 的「工具」選單進行安裝。</p><p>在您安裝系統擴充功能之後， macOS 將引導您至「允許」功能的流程，並包含重新啟動您的電腦。</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "管理模式剩餘時間 %@";

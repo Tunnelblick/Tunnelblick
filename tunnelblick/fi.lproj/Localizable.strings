@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN-asetusten määrittämä lokitaso";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "Ongelma tulevien Tunnelblick-versioiden kanssa";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "Ongelma tulevien macOS-versioiden kanssa";
+
 /* Menu item */
 "Quit Tunnelblick" = "Lopeta Tunnelblick";
 
@@ -722,6 +728,12 @@
 "System Requirements Not Met" = "Järjestelmävaatimukset eivät täyty";
 
 /* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "TUNNELBLICKIN POISTOTESTI EPÄONNISTUI";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TUNNELBLICKIN POISTOTESTI ONNISTUI";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick-konfiguraatio-ongelma";
 
 /* Window title */
@@ -735,6 +747,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: salasana vaaditaan";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "TUNNELBLICKIN POISTO EPÄONNISTUI";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TUNNELBLICKIN POISTO ONNISTUI";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Tunnelblickin käynnistys epäonnistui";
@@ -1107,6 +1125,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Konfiguraation '%@' poistaminen ei onnistu, koska sitä ei ole asennettu.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Klikkaa ”OK\" katkaistaksesi kaikki VPN-yhteydet, poistuaksesi Tunnelblickistä ja aloittaaksesi sen poiston.\n\nVoi olla muutaman sekunnin viive, ennen kuin ensimmäinen poistoikkuna ilmaantuu.\n\nJos haluat tallentaa kopion VPN-konfiguraatioistasi ja kaikki Tunnelblick-asetukset, klikkaa ”Peruuta” ja vie Tunnelblick-asetukset ensin.\n\n";
 
 /* Window text */
 "Computer sleep/wake" = "Tietokone lepotila/herätys";
@@ -2267,9 +2288,6 @@
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Kun valittu</strong>, sinun täytyy todentaa käyttöoikeutesi ennen yhdistämistä. Voit todentaa itsesi salasanaa tai, jos mahdollista, TouchID: tä tai FaceID: tä käyttämällä.</p><p><strong>Kun kohtaa ei olla valittu</strong>, mitään käyttöoikeuden todennusta ei tarvita ennen yhdistämistä.</p><p><strong>Tämä kohta on pois käytöstä</strong>, jos käyttämäsi macOS-versio ei tue sitä.</p><p><strong>Huomio: Tietokoneen ylläpitäjän lupa vaaditaan tämän asetuksen muuttamiseen.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Voit muuttaa asetuksen macOS:ssä, jotta se sallii Tunnelblickin käyttää järjestelmälaajennuksiaan.</strong></p>\n";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Voit muokata konfiguraatioita niin, että ne voivat muodostaa yhteyden uudelleen.</strong></p>\n";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2280,6 +2298,9 @@
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Tarkista Tunnelblick ohjelman päivitykset.</p><p>Käy Tunnelblick sivustolla; lisätietoja saadaksesi katso <a href=\"https://tunnelblick.net/cPrivacy.html\">Yksityisyys ja Turvallisuus</a> [tunnelblick.net].</p><p>Tarkistaa myös päivitykset VPN yhteyden asetuksiin, jos palveluntarjoajalla on tämä ominaisuus käytössä.</p>";
+
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klikkaa poistaaksesi Tunnelblickin</p>\n\n<p><strong>Poissa käytöstä</strong> jos Tunnelblickiä ei ole asennettu kansioon /Applications.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopioi tiedot Leikepöydälle, jotta voit diagnosoida ongelmia.</p><p>Tiedot sisältävät ohjelmistoversioita ja asetuksia, OpenVPN-kokoonpanotiedoston, verkkoasetuksia ja paljon muuta.</p><p>Herkkiä varmenteita koskevia tietoja ei ole, mutta tiedot, kuten IP-osoitteet ja URL-osoitteet, jotka <em>voivat</em> olla luottamuksellisia, on sisällytetty. Sinun pitäisi tutkia tiedot ja poistaa ne asiat, jotka haluat pitää salassa, ennen lähettämistä sähköpostissa tai sen julkaisemista.</p>";
@@ -2298,9 +2319,6 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Palauttaa varoitukset, jotka on estetty 'Älä varoita enään' valinnalla.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Katso <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick macOS 11 Big Sur:ssa</a> [tunnelblick.net] lisätietojen saamiseksi.</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Katso <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun- and Tap-VPN:ien tulevaisuus on macOS:ssä</a> [tunnelblick.net] lisätietojen saamiseksi.</p>\n";

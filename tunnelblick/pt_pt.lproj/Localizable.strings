@@ -727,12 +727,10 @@
 /* Window title */
 "System Requirements Not Met" = "Requisitos de Sistema Não São Suficientes";
 
-/* A "test uninstall" failed.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "A DESINSTALAÇÃO TESTE DO TUNNELBLICK FALHOU";
 
-/* A "test uninstall" succeeded.
-Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "A DESINSTALAÇÃO TESTE DO TUNNELBLICK FOI BEM SUCEDIDA";
 
 /* Window title */
@@ -750,10 +748,10 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Frase-senha Obrigatória";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK FAILED" = "A DESINSTALAÇÃO DO TUNNELBLICK FALHOU";
 
-/* Window text acting as a headline. Please translate as ALL CAPS if possible. */
+/* Window title */
 "UNINSTALL OF TUNNELBLICK SUCCEEDED" = "A DESINSTALAÇÃO DO TUNNELBLICK FOI BEM SUCEDIDA";
 
 /* Window title */
@@ -2290,9 +2288,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 "<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Quando selecionado</strong>, você precisará se autenticar antes de conectar. Você pode se autenticar usando sua senha ou, se disponível, TouchID ou FaceID.</p>\n<p><strong>Quando não selecionado</strong>, nenhuma autenticação será necessária antes da conexão.</p>\n<p><strong>Este checkbox esta desabilitado</strong> se você estiver usando uma versão do macOS que não dê suporte a este recurso.</p><p><strong>Nota: É necessária uma autorização do administrador do computador para alterar esta configuração.</strong></p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p><strong>You can change a setting in macOS so it will allow Tunnelblick to use its system extensions.</strong></p>\n" = "<p><strong>Você pode alterar uma configuração do macOS para permitir que o Tunnelblick utilize extensões do sistema.</strong></p>";
-
-/* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Pode alterar as configurações para que estas possam fazer a ligação.</strong></p>\n";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
@@ -2324,9 +2319,6 @@ Window text acting as a headline. Please translate as ALL CAPS if possible. */
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Restaura alertas que foram inibidos por uma seleção 'Não avisar sobre isto novamente'.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>See <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick on macOS 11 Big Sur</a> [tunnelblick.net] for more information.</p>\n" = "<p>Veja <a href=\"https://tunnelblick.net/cBigSur.html\">Tunnelblick no macOS 11 Big Sur</a> [tunnelblick.net] para mais informações.</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Veja <a href=\"https://tunnelblick.net/cTunTapConnections.html\">O Futuro dos VPNs Tun and Tap no macOS</a> [tunnelblick.net] para mais informações.</p>\n";
