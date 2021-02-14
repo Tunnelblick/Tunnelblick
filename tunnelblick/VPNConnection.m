@@ -1685,7 +1685,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 			NSString * linkMsg = [NSString stringWithFormat:
 								  NSLocalizedString(@"<p><a href=\"%@\">More information</a> [tunn" @"elblick.n" @"et]</p>",
 													@"HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL"
-													@" such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net."),
+													@" such as https://tunnelblick.net/cKextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net."),
 								  link];
 
 			NSString * htmlString = [NSString stringWithFormat: @"%@%@%@",
