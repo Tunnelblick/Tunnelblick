@@ -1515,7 +1515,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 		   [message appendString: NSLocalizedString(@"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>", @"HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS.")];
        }
       
-       [message appendString: NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>", @"HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net.")];
+       [message appendString: NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>", @"HTML text. The '[tunnelblick.net]' is to show the user that the link is to tunnelblick.net.")];
 
     } else if (  runningOnTen_Fourteen_FiveOrNewer()  ) {
 
