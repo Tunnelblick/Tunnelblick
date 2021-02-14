@@ -143,7 +143,7 @@ extern TBUserDefaults * gTbDefaults;
         // Replace the placeholders in the localized content with links
         [self replaceString: @"%1$@"
                  withString: @"Tunnel" @"blick"
-                  urlString: @"https://www.tunnelblick.net"
+                  urlString: @"https://tunnelblick.net"
                          in: descriptionString];
 
         [self replaceString: @"%2$@"

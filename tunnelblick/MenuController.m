@@ -3632,7 +3632,7 @@ BOOL anyNonTblkConfigs(void)
 
 -(NSURL *) contactURL
 {
-    NSString * string = [NSString stringWithFormat: @"https://www.tunnelblick.net/contact?v=%@", tunnelblickVersion([NSBundle mainBundle])];
+    NSString * string = [NSString stringWithFormat: @"https://tunnelblick.net/contact?v=%@", tunnelblickVersion([NSBundle mainBundle])];
     string = [string stringByAddingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
     NSURL * url = [NSURL URLWithString: string];
     if (  ! url  ) {
@@ -4945,7 +4945,7 @@ static void signal_handler(int signalNumber)
                                          &checkboxResult,
                                          NSAlertDefaultReturn);
         if (  result == NSAlertAlternateReturn  ) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.tunnelblick.net/cIconPlacement.html"]];
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://tunnelblick.net/cIconPlacement.html"]];
         }
     } while (  result == NSAlertAlternateReturn  );
     
