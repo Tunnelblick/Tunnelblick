@@ -544,7 +544,8 @@
 /* Connection status */
 "CONNECTING" = "جارٍ الاتصال"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "جار قطع الاتصال"; // Please translate "Disconnecting"
 
 /* Connection status */

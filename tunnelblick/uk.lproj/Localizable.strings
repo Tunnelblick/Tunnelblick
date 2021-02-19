@@ -65,7 +65,7 @@
 "Check Now" = "Перевірити зараз";
 
 /* Button */
-"Connect" = "Під’єднатися";
+"Connect" = "З'єднати";
 
 /* Button */
 "Continue" = "Продовжити";
@@ -556,8 +556,9 @@
 /* Connection status */
 "CONNECTING" = "З'єднання"; // Please translate "Connecting"
 
-/* Connection status */
-"DISCONNECTING" = "Від’єднання"; // Please translate "Disconnecting"
+/* Connection status
+Please translate "Disconnecting" */
+"DISCONNECTING" = "Роз’єднання"; // Please translate "Disconnecting"
 
 /* Connection status */
 "EXITING" = "Роз'єднано"; // Please translate "Disconnected"
@@ -977,10 +978,10 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(Преференція 'easy-rsaPath' є невірною.)";
 
 /* Window text */
-"(if connected when computer went to sleep)" = "(якщо підключено при переході в режим сну)";
+"(if connected when computer went to sleep)" = "(за наявності з'єднання при переході в режим сну)";
 
 /* Window text */
-"(if connected when user switched out)" = "(за умови підключення на момент виходу користувача)";
+"(if connected when user switched out)" = "(за наявності з'єднання на момент виходу користувача)";
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Безкоштовне програмне забезпечення на основі Tunnelblick доступне за адресою<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN є зареєстрованим товарним знаком OpenVPN Inc.";
@@ -1022,7 +1023,7 @@
 "A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Потрібні ім'я користувача та пароль для підключення до\n %1$@\n(використовуючи облікові дані '%2$@')";
 
 /* Window text */
-"Add Credentials" = "Додати обліковий запис";
+"Add Credentials" = "Додати облікові дані";
 
 /* Window text */
 "Added '.sh' extension to %@ so it will be secured properly" = "Розширення '.sh' додано до %@, таким чином це буде належно збережено";
@@ -1037,10 +1038,10 @@
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "Після %1$.1f секунд відмовився від спроби отримати IP-адресу.\n\nTunnelblick не буде перевіряти зміну IP-адреси цього комп'ютера коли підключений до %2$@.\n\n";
 
 /* Window text */
-"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Після підключення до %@, DNS, здається, не працює.\n\nЦе може означати, що ваш VPN неправильно налаштовано.\n\n";
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Після з'єднання з %@, DNS, здається, не працює.\n\nЦе може означати, що ваш VPN неправильно налаштовано.\n\n";
 
 /* Window text */
-"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Після підключення до %@, Інтернет, здається, недоступний.\n\nЦе може означати, що ваш VPN неправильно налаштовано.\n\n";
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Після з'єднання з %@, Інтернет, здається, недоступний.\n\nЦе може означати, що ваш VPN неправильно налаштовано.\n\n";
 
 /* Window text */
 "All OpenVPN processes have quit" = "Всі процеси OpenVPN завершено";
@@ -1145,7 +1146,7 @@
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Конфігурацію '%1$@' ('%2$@') буде проігноровано, тому що її ім'я містить недопустимі символи.\n\nНедопустимі символи: '%3$s'";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Конфігурація '%@' містить один або кілька скриптів, які можуть викликати проблеми, якщо ви замінете або видалите конфігурацію, поки встановлений зв'язок.\n\nВи хочете замінити конфігурацію?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Конфігурація '%@' містить один або кілька скриптів, які можуть викликати проблеми, якщо ви заміните або видалите конфігурацію, поки встановлений зв'язок.\n\nВи хочете замінити конфігурацію?";
 
 /* Window text */
 "Configuration '%@' is not secure. It should be reinstalled." = "Конфігурація '%@' не надійна. Її необхідно перевстановити.";
@@ -1598,7 +1599,7 @@
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN опція '%@' не дозволена при використанні Tunnelblick.";
 
 /* Window text */
-"The '%@' credentials may not be added because the list of named credentials is being forced." = "Неможливо видалити облікові дані '%@', оскільки список йменованих облікових даних використовується примусово.";
+"The '%@' credentials may not be added because the list of named credentials is being forced." = "Облікові дані '%@', неможливо додати, оскільки список іменованих облікових даних використовується примусово.";
 
 /* Window text */
 "The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "Неможливо видалити облікові дані '%@', оскільки одна або кілька конфігурацій змушені використовувати їх.";
@@ -1649,7 +1650,7 @@
 "The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Конфігураційний файл посилається на файл\n\n%1$@\n\nякий повинен бути розміщений у\n\n%2$@\n\nале цей файл не існує.";
 
 /* Window text */
-"The credentials named %@ could not be added:\n\n%@" = "Не вдалося додати облікові дані з ім'ям %1$@:\n\n%2$@";
+"The credentials named %@ could not be added:\n\n%@" = "Не вдалося додати облікові дані %1$@ з ім'ям:\n\n%2$@";
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Облікові дані з ім'ям %1$@ не можуть бути видалені:\n\n%2$@";
@@ -2208,6 +2209,9 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>не-Tunnelblick</strong>' версії OpenVPN не були створені проектом Tunnelblick і не є його частиною. Вони були встановлені адміністратором комп'ютера.</p>";
 
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Дозвіл' системних розширень потребує зміни налаштувань безпеки системи. Такі налаштування можна змінити тільки в режимі відновлення (Recovery mode). Може знадобитись перезавантаження в режим відновлення, зміна налаштувань, та перезавантаження в нормальному режимі. macOS має супроводити вас крізь цей процес.</p>";
+
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Додаткова інформація</a> [tunnelblick.net]</p>";
 
@@ -2230,7 +2234,7 @@
 "<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Вказує що робить Tunnelblick коли VPN роз'єднано <em> заплановано</em></strong> (наприклад, вибрано меню \"Роз'єднати\"). Варіанти вибору:</p><ul><li><strong>Нічого не робити</strong><br></li><li><strong>Скинути основний інтерфейс</strong>: Tunnelblick скидає налаштування основного інтерфейсу за допомогою команд 'ipconfig down; ipconfig up'. Це корисно за умови, коли конфігурація не здатна відновити мережеві налаштування після роз'єднання.<br></li><li><strong>Заборонити доступ до мережі (\"Kill Switch\")</strong>: Tunnelblick відключає мережевий доступ (локальний та інтернет) вимикаючи Wi-Fi та забороняючи всі інші мережеві сервіси. Це допомагає забезпечити витік інформації поза VPN. Якщо Tunnelblick заборонив доступ до мережі, команда меню для відновлення забороненого доступу знаходитиметься в меню іконки Tunnelblick на головному системному меню. Ви також можете повторно активувати Wi-Fi увімкнувши його, або активувавши мережеві сервіси в \"Системні параметри\": Мережі. <strong>Такі налаштування можуть працювати не коректно, за умови одночасного підключення до більш ніж одного VPN.</strong></li></ul>";
 
 /* HTML info for the 'Connect' button. */
-"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Вказує коли Tunnelblick повинен під'єднуватись до VPN.</strong></p><p>\"При запуску комп'ютера\" може бути використана тільки для \"Спільних\" конфігурацій які не містять облікових даних (username/password/passphrase) що зберігаються в Ключарі та не використовують OpenVPN 'auth-user-pass' опцію без аргументів.</p>";
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Вказує коли Tunnelblick повинен під'єднуватись до VPN.</strong></p><p>\"При запуску комп'ютера\" може бути використана тільки для \"Спільних\" конфігурацій які не містять облікових даних (приватний ключ або ім'я користувача та пароль) що зберігаються в Ключарі та не використовують OpenVPN 'auth-user-pass' опцію без аргументів.</p>";
 
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
@@ -2326,6 +2330,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Перевіряє наявність оновлень для Tunnelblick.</p><p>З'єднується з веб-сторінкою Tunnelblick; більш детально за посиланням <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security (Захист та безпека даних)</a> [tunnelblick.net].</p><p>Також перевіряє наявність оновлень для конфигурацій, якщо провайдер послуг VPN підтримує цю функцію.</p>";
 
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Натисніть щоб встановити або видалити системні розширення Tunnelblick tun і tap.</p>\n\n<p>Для додаткової інформації дивись <a href=\"https://tunnelblick.net/cInstallKexts.html\">Встановлення системних розширень Tunnelblick's Tun і Tap</a> [tunnelblick.net]</p><p><strong>Не активні</strong> поки Tunnelblick не запущений в середовищі macOS Big Sur або новіше.</p>";
+
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Натисніть для видалення Tunnelblick.</p>\n\n<p><strong>Не активно</strong> якщо Tunnelblick не встановлено в /Applications.</p>";
 
@@ -2338,6 +2345,9 @@
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Екпортує налаштування Tunnelblick, включно із конфігураціями та налаштуваннями для всіх користувачів цього комп'ютера, в запакований файл на Робочий стіл.</p><ul><li>Облікові данні, які зберігаються в Ключарі <strong>не</strong> експортуються.</li><li>Експортування може зайняти істотний час.</li></ul>";
 
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Якщо Ви не бачите кнопку дозволу загрузки системних програм від розробника 'Jonathan Bullard', спробуйте під'єднатись до цієї конфігурації (що не вдасться), потім знову перегляньте закладку \"Загальні\" налаштувань \"Захист і безпека\" в \"Системні параметри\".</p>";
+
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Відкриває вікно з додатковими налаштуваннями.</p><p>Будь-які зміни буде застосовано до всіх конфигурацій, що відмічені у вікні 'Деталі VPN'.</p>";
 
@@ -2346,6 +2356,9 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Відновлює попередження, що було відмінено опцією 'Більше не попереджати'.</p>";
+
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Для додаткової інформації дивись <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Встановлення системних розширень</a> [tunnelblick.net].</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Дивись <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] для отримання додаткової інформації.</p>\n";
@@ -2391,6 +2404,12 @@
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick не зміг завантажити системне розширення, необхідне для з'єднання з %@.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Ви можете налаштувати Tunnelblick таким чином, що він намагатиметься завантажити власні системні розширення.</p>\n";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Для використання цієї конфігурації потрібно встановити системні розширення Tunnelblick.</p><p>Це можна зробити на закладці 'Інструменти'.</p><p>Після встановлення системних розширень, macOS супроводить вас через процес їх активації, що вимагатиме перезавантаження компьютера.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Режим адміністратора, залишилось %@";

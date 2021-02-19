@@ -128,6 +128,9 @@
 "Ignore" = "Bỏ qua";
 
 /* Button */
+"Install tun and tap system extensions..." = "Cài đặt tun và nhấn vào phần mở rộng hệ thống…";
+
+/* Button */
 "Install" = "Cài đặt";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -286,6 +289,9 @@
 
 /* Button */
 "Uninstall Tunnelblick..." = "Gỡ cài đặt Tunnelblick...";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Gỡ cài đặt tun và nhấn vào phần mở rộng hệ thống…";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Cập nhật";
@@ -550,7 +556,8 @@
 /* Connection status */
 "CONNECTING" = "Đang kết nối"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "Đang ngắt kết nối"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -599,7 +606,7 @@
 " (Private)" = "(Riêng tư)";
 
 /* Window title */
-" (Shared)" = "Shared"; // Indicates a shared configuration
+" (Shared)" = " (Đã chia sẻ)"; // Indicates a shared configuration
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ - Cấu hình OpenVPN - Tunnelblick";
@@ -1052,6 +1059,9 @@
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Một lỗi (%1$ld) xuất hiện trong khi kiểm tra bảo mật của cấu hình %2$@.\n\nXin hãy khở động lại Tunnelblick. Nếu vấn đề không được khắc phục, xin hãy cài đặt lại Tunnelblick.";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "Đã xảy ra lỗi khi nhận danh sách các tiện ích mở rộng hệ thống đã tải.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Một lỗi xuất hiện trong khi cố gắng khởi động %@";
 
 /* Window text */
@@ -1274,7 +1284,13 @@
 "Failed to create symlink\n  to %@\n  at %@" = "Có lỗi khi tạo liên kết tượng trưng\n  đến %1$@\n  tại %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Không cài đặt được tun của Tunnelblick và nhấn vào mục mở rộng hệ thống";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Có lỗi khi thiết lập quyền trên %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Không thể gỡ cài đặt tun của Tunnelblick và nhấn vào phần tiện ích mở rộng hệ thống.";
 
 /* Window text */
 "Fast User Switching" = "Chuyển Đổi Nhanh Người Dùng";
@@ -1832,6 +1848,9 @@
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick cần được ủy quyền để sao chép cấu hình '%@'.";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick cần được ủy quyền để cài đặt các tiện ích mở rộng hệ thống của nó.";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick cần ủy quyền để đặt cấu hình %ld ở chế độ riêng tư.";
 
 /* Window text */
@@ -1865,6 +1884,9 @@
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick cần được ủy quyền để bảo mật dữ liệu đã nhập.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick cần được ủy quyền để gỡ cài đặt tun và nhấn vào các tiện ích mở rộng hệ thống.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick cần thay đổi cài đặt mà chỉ quản trị viên máy tính mới có thể thay đổi.";
 
 /* Window text */
@@ -1881,6 +1903,9 @@
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick đã thành công thực hiện:";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick không thể gỡ bỏ các tiện ích mở rộng hệ thống của nó. Vui lòng khởi động lại máy tính và thử gỡ cài đặt lại các tiện ích mở rộng hệ thống của Tunnelblick.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick đã được cài đặt thành công và các cấu hình %ld đã được cài đặt hoặc thay thế.";
@@ -2096,6 +2121,9 @@
 "You may not remove a folder unless it is empty." = "Bạn không thể xóa một thư mục trừ khi nó trống.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Bạn phải ngắt kết nối tất cả các VPN trước khi có thể cài đặt hoặc gỡ cài đặt các tiện ích mở rộng hệ thống của Tunnelblick.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Bạn sẽ không thể cập nhật Tunnelblick trừ khi bạn cung cấp ủy quyền của quản trị viên máy tính.\n\nBạn có chắc chắn muốn kiểm tra các bản cập nhật không?";
 
 /* Window text */
@@ -2175,3 +2203,451 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "Kích hoạt và thử nghiệm 64-bit";
+
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Để thiết lập Tunnelblick trên máy tính có nhiều hơn %u tài khoản người dùng, bạn phải tạo một tệp văn bản chỉ định dữ liệu sẽ được nhập.</p>\n<p>Để biết thêm chi tiết, xem <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>non-Tunnelblick</strong>' các phiên bản của OpenVPN không được tạo bởi dự án Tunnelblick và không phải là một phần của Tunnelblick. Chúng đã được cài đặt bởi quản trị viên máy tính.</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Hành động cho phép' các tiện ích mở rộng hệ thống có thể yêu cầu thay đổi cài đặt bảo mật hệ thống. Chỉ có thể thay đổi cài đặt trong chế độ Khôi phục. Bạn có thể cần phải khởi động lại ở chế độ Khôi phục, thực hiện thay đổi, sau đó khởi động lại bình thường. macOS sẽ hướng dẫn bạn thực hiện quá trình này.</p>";
+
+/* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
+"<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Thông tin thêm</a> [tunnelblick.net]</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Một hoặc nhiều cấu hình của bạn sẽ không thể kết nối.</strong></p>\n<p>(Các) cấu hình yêu cầu phần mở rộng hệ thống nhưng phiên bản macOS này không cho phép Tunnelblick sử dụng phần mở rộng hệ thống của nó.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Một hoặc nhiều cấu hình của bạn sẽ không thể kết nối</strong>trên các phiên bản macOS trong tương lai.</p>\n<p>(Các) cấu hình yêu cầu phần mở rộng hệ thống nhưng các phiên bản macOS trong tương lai sẽ không cho phép Tunnelblick sử dụng phần mở rộng hệ thống của nó.</p>";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Chỉ định phiên bản OpenVPN và phần mềm SSL sẽ được sử dụng để kết nối VPN.</strong><ul><li><strong>Cài đặt \"Mặc định\"</strong> sẽ sử dụng phiên bản mặc định của OpenVPN với OpenSSL có trong phiên bản Tunnelblick này. Mặc định có thể khác trong các phiên bản khác nhau của Tunnelblick.<br></li><li><strong>Cài đặt \"Mới nhất\"</strong> sẽ sử dụng phiên bản OpenVPN mới nhất với LibreSSL được bao gồm trong phiên bản Tunnelblick này. Phiên bản mới nhất có thể khác nhau tùy theo các phiên bản khác nhau của Tunnelblick.<br></li><li><strong>Bất kỳ cài đặt nào khác</strong> sẽ sử dụng phiên bản được chỉ định của phần mềm OpenVPN và SSL nếu chúng có sẵn trong phiên bản Tunnelblick này. Nếu không có sẵn, kết quả phù hợp nhất sẽ được sử dụng.<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Chỉ định những gì (nếu có) Tunnelblick thực hiện để sửa đổi cài đặt DNS trong khi VPN được kết nối.</strong>Các lựa chọn sau:<ul><li><strong>Không đặt máy chủ định danh</strong>: Không làm gì.<br></li><li><strong>Đặt máy chủ định danh</strong>: Tunnelblick sử dụng tập lệnh chuẩn của nó để xử lý các cài đặt DNS và WINS. Đây thường là sự lựa chọn tốt nhất. Nó thay đổi cài đặt DNS và WINS theo hướng dẫn được cung cấp bởi OpenVPN. Cài đặt DNS và WINS đã được đặt theo cách thủ công sẽ không bị thay đổi trừ khi \"Cho phép thay đổi đối với cài đặt mạng được đặt theo cách thủ công\" được chọn trong cửa sổ cài đặt \"Nâng cao\"<br></li><li><strong>Đặt máy chủ định danh (3.1)</strong>: Tunnelblick sử dụng tập lệnh từ Tunnelblick 3.1 để xử lý cài đặt DNS và WINS.<br></li><li><strong>Đặt máy chủ định danh (3.0b10)</strong>: Tunnelblick sử dụng tập lệnh từ Tunnelblick 3.0b10 để xử lý cài đặt DNS và WINS.<br></li><li><strong>Đặt máy chủ định danh (luân phiên 1)</strong>: Tunnelblick sử dụng tập lệnh thay thế để xử lý cài đặt DNS và WINS.<br></li></ul>";
+
+/* HTML info for the 'On unexpected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Chỉ định những gì Tunnelblick thực hiện khi VPN <em> bất ngờ </em> ngắt kết nối</strong> (ví dụ: nếu OpenVPN gặp sự cố hoặc mất kết nối với VPN và được thiết lập để dừng khi điều đó xảy ra). Các lựa chọn là:</p><ul><li><strong> làm gì</strong><br></li><li><strong>Đặt lại giao diện chính</strong>: Tunnelblick đặt lại giao diện mạng chính bằng cách cấp 'ipconfig down; ipconfig up 'vào giao diện. Điều này có thể hữu ích khi một cấu hình không thể khôi phục cài đặt mạng đúng cách sau khi ngắt kết nối.<br></li><li><strong>Tắt quyền truy cập mạng (\"Kill Switch\")</strong>: Tunnelblick cắt tất cả truy cập mạng (cục bộ và Internet) bằng cách tắt Wi-Fi và tắt tất cả các dịch vụ mạng khác. Điều này có thể giúp đảm bảo rằng không có gì bị rò rỉ ra khỏi máy tính ngoại trừ thông qua VPN. Nếu Tunnelblick đã vô hiệu hóa quyền truy cập mạng, một lệnh menu để bật lại tất cả quyền truy cập đã bị vô hiệu hóa sẽ có sẵn từ biểu tượng Tunnelblick trong thanh menu. Bạn cũng có thể bật lại Wi-Fi bằng cách bật hoặc bật lại các dịch vụ mạng khác trong Tùy chọn hệ thống: Mạng.<strong>Cài đặt này có thể không hoạt động bình thường khi nhiều VPN được kết nối đồng thời.</strong></li></ul>";
+
+/* HTML info for the 'On expected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Chỉ định những gì Tunnelblick thực hiện khi VPN ngắt kết nối <em> như mong đợi</em></strong> (ví dụ: một mục hoặc nút menu \"Ngắt kết nối\" được nhấp vào). Các lựa chọn là:</p><ul><li><strong>Không làm gì</strong><br></li><li><strong>Đặt lại giao diện chính</strong>: Tunnelblick đặt lại giao diện mạng chính bằng cách cấp 'ipconfig xuống; lệnh ipconfig up 'vào giao diện. Điều này có thể hữu ích khi một cấu hình không thể khôi phục cài đặt mạng đúng cách sau khi ngắt kết nối.<br></li><li><strong>Tắt quyền truy cập mạng (\"Kill Switch\")</strong>: Tunnelblick cắt tất cả truy cập mạng (cục bộ và Internet) bằng cách tắt Wi-Fi và tắt tất cả các dịch vụ mạng khác. Điều này có thể giúp đảm bảo rằng không có gì bị rò rỉ ra khỏi máy tính ngoại trừ thông qua VPN. Nếu Tunnelblick đã vô hiệu hóa quyền truy cập mạng, một lệnh menu để bật lại tất cả quyền truy cập đã bị vô hiệu hóa sẽ có sẵn từ biểu tượng Tunnelblick trong thanh menu. Bạn cũng có thể bật lại Wi-Fi bằng cách bật hoặc bật lại các dịch vụ mạng khác trong Tùy chọn hệ thống: Mạng. <strong>Cài đặt này có thể không hoạt động bình thường khi nhiều VPN được kết nối đồng thời.</strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Chỉ định thời điểm Tunnelblick nên kết nối với VPN. </strong></p><p> \"Khi máy tính khởi động\" chỉ có thể được sử dụng với các cấu hình \"Chia sẻ\" không có thông tin đăng nhập (tên người dùng / mật khẩu / cụm mật khẩu) được lưu trữ trong Chuỗi khóa và không sử dụng tùy chọn OpenVPN 'auth-user-pass' mà không có đối số.</p>";
+
+
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Khi được chọn</strong>, IPv6 sẽ bị tắt trừ khi máy chủ OpenVPN đang được truy cập qua địa chỉ IPv6.</p>\n<p>Việc vô hiệu hóa IPv6 thường được khuyến nghị vì nhiều cấu hình VPN không bảo vệ chống rò rỉ thông tin do sử dụng IPv6. Hầu hết truy cập Internet hoạt động tốt mà không cần IPv6.</p>\n<p><strong>Khi không được chọn</strong>, IPv6 sẽ không bị tắt.</p>\n<p><strong> Checkbox này bị tắt</strong> khi sử dụng kết nối 'chạm' vì không thể thực thi checkbox này khi đang trong chế độ 'chạm' để kết nối.</p>";
+
+/* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Khi được chọn</strong>, IPv6 sẽ được bật.</p>\n<p><strong>Khi không được chọn</strong>, IPv6 sẽ không được kích hoạt.</p>\n<p>Việc vô hiệu hóa IPv6 thường được khuyến nghị vì nhiều cấu hình VPN không bảo vệ chống rò rỉ thông tin do sử dụng IPv6. Hầu hết truy cập Internet hoạt động tốt mà không cần IPv6.</p>\n<p><strong>Khi checkbox này đã được tắt</strong> cho cấu hình Tun.</p>\n";
+
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Khi được chọn</strong>, OpenVPN sẽ sửa đổi DNS và các cài đặt khác sau khi thiết lập định tuyến cho VPN thay vì trước khi thiết lập định tuyến.</p>\n<p><strong>Khi không được chọn</strong>, OpenVPN sẽ sửa đổi DNS và các cài đặt khác trước khi thiết lập định tuyến cho VPN, thay vì sau khi thiết lập định tuyến. Điều này có thể gây ra lỗi hoặc chậm trễ DNS nếu các tuyến mất nhiều thời gian để thiết lập - ví dụ: nếu có nhiều tuyến để thiết lập.</p>";
+
+/* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Khi được chọn</strong>, OpenVPN sẽ chạy thử nghiệm để xác định kích thước MTU tối đa cho kết nối. Quá trình kiểm tra bắt đầu mỗi khi kết nối được thực hiện và có thể mất vài phút. Kết quả kiểm tra xuất hiện trong nhật ký Tunnelblick.</p>";
+
+/* HTML info for the 'Check for updates to beta versions' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Khi được chọn</strong>, Tunnelblick sẽ kiểm tra các bản cập nhật cho các phiên bản beta.</p>\n<p><strong>Khi không được chọn</strong>, Tunnelblick sẽ kiểm tra các bản cập nhật cho các phiên bản ổn định.</p><p><strong>Checkbox này hiện đang bị vô hiệu hóa</strong> và sẽ được chọn khi sử dụng phiên bản beta.</p>";
+
+/* HTML info for the 'Check for updates automatically' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Khi được chọn</strong>, Tunnelblick sẽ kiểm tra các bản cập nhật khi khởi chạy và định kỳ sau đó.</p><p><strong>Checkbox này bị tắt</strong> và bỏ chọn khi chọn 'Cấm kiểm tra cập nhật tự động và kiểm tra Địa chỉ IP'.</p>";
+
+/* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Khi được chọn</strong>, Tunnelblick sẽ xác định địa chỉ IP công khai rõ ràng của máy tính trước và sau khi kết nối VPN và cảnh báo nếu địa chỉ IP không thay đổi.</p>\n<p>Trang web tunnelblick.net sẽ được truy cập để thực hiện chức năng này. Việc truy cập thường được thực hiện qua https: sử dụng tên tunnelblick.net, trong trường hợp truy cập không thành công, việc truy cập sẽ được thực hiện bằng cách sử dụng http: và địa chỉ IP của trang web.</p>\n<p><strong>Khi không được chọn</strong>, Tunnelblick không kiểm tra các thay đổi địa chỉ IP và không cảnh báo nếu địa chỉ IP không thay đổi sau khi kết nối VPN.</p>";
+
+/* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Khi được chọn</strong>, Tunnelblick sẽ hướng dẫn OpenVPN định tuyến tất cả lưu lượng IPv4 thông qua máy chủ VPN.</p>\n<p><strong>Khi không được chọn</strong>, theo mặc định OpenVPN sẽ chỉ sử dụng VPN cho lưu lượng truy cập dành cho mạng của VPN. Tất cả các lưu lượng khác sẽ sử dụng kết nối Internet bình thường mà không cần thông qua VPN. Hành vi mặc định của OpenVPN có thể bị thay đổi bởi cấu hình OpenVPN hoặc máy chủ VPN và khiến tất cả lưu lượng IPv4 được định tuyến qua máy chủ VPN như thể hộp kiểm này đã được chọn.</p>";
+
+/* HTML info for the 'Do not warn about this again' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will not show this warning again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will show this warning again.</p>\n" = "<p><strong>Khi được chọn</strong>, Tunnelblick sẽ không hiển thị lại cảnh báo này.</p>\n<p><strong>Khi không được chọn</strong>, Tunnelblick sẽ hiển thị lại cảnh báo này.</p>";
+
+/* HTML info for the 'Require administrator authorization to install all configurations' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to install or replace all configurations.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to install or replace \"restricted\" configurations.</p><p>A \"restricted\" configuration is one which does not contain or change commands or scripts or references to commands or scripts. Configurations with commands or scripts can enable <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertical privilege escalation</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Details</a> [tunnelblick.net].</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Khi được chọn</strong>, Tunnelblick sẽ yêu cầu ủy quyền của quản trị viên máy tính để cài đặt hoặc thay thế tất cả các cấu hình.</p>\n<p><strong>Khi không được chọn</strong>, người dùng tiêu chuẩn sẽ được phép cài đặt hoặc thay thế các cấu hình \"bị hạn chế\".</p><p>Cấu hình \"bị hạn chế\" là cấu hình không chứa hoặc thay đổi lệnh hoặc tập lệnh hoặc tham chiếu đến lệnh hoặc tập lệnh. Các cấu hình với lệnh hoặc tập lệnh có thể bật <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">leo thang đặc quyền theo chiều dọc</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Chi tiết</a> [tunnelblick.net].</p><p><strong>Lưu ý: Cần có ủy quyền của quản trị viên máy tính để thay đổi cài đặt này.</strong></p>";
+
+/* HTML info for the 'Monitor network settings' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Khi được chọn</strong>, Tunnelblick sẽ theo dõi và phản ứng với những thay đổi trong cài đặt mạng (ví dụ: những thay đổi do gia hạn DHCP hoặc chuyển đổi kết nối Internet) để cố gắng giữ kết nối VPN. Các hành động mặc định của Tunnelblick khi cài đặt mạng thay đổi thường hoạt động tốt, nhưng bạn có thể chỉ định các hành động khác nhau trên tab 'Trong khi kết nối' của cửa sổ cài đặt 'Nâng cao'.</p>\n<p><strong>Khi không được chọn</strong>, Tunnelblick sẽ bỏ qua các thay đổi về mạng.</p>\n<p><strong>Khi checkbox này bị tắt</strong> khi 'Đặt DNS / WINS' không được đặt thành 'Đặt máy chủ định danh' hoặc 'Đặt máy chủ định danh (3.1)'.</p>";
+
+/* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
+"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Khi được chọn</strong>, Cửa sổ trạng thái VPN cho tất cả các cấu hình 'hoạt động' được hiển thị khi con trỏ ở trên biểu tượng Tunnelblick.</p><p>'Kích hoạt' cấu hình là cấu hình mà bạn đã cố gắng kết nối kể từ khi Tunnelblick được khởi chạy.</p><p><strong>Khi checkbox này bị tắt</strong> khi 'Không bao giờ hiển thị' được chọn ở phía trên.</p>";
+
+/* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
+"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Khi được chọn</strong>, một cửa sổ sẽ hiển thị tiến trình của Tunnelblick trong khi khởi động.</p>";
+
+/* HTML info for the 'All configurations use ___ credentials' checkbox. */
+"<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Khi được chọn</strong>, tất cả các cấu hình sẽ chia sẻ cùng một tên người dùng, mật khẩu và / hoặc khóa riêng tư.</p>";
+
+/* HTML info for the 'Display connection submenus' checkbox. */
+"<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Khi được chọn</strong>, cấu hình bên trong các thư mục được hiển thị trong menu con của menu Tunnelblick.</p>\n<p><strong>Khi được chọn</strong>, cấu hình bên trong các thư mục được hiển thị trong menu Tunnelblick.</p>";
+
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong>Khi được chọn</strong>, nếu OpenVPN thoát đột ngột (do sự cố), Tunnelblick sẽ cố gắng kết nối lại VPN.</p>\n<p><strong>Khi không được chọn</strong>, Tunnelblick sẽ không cố kết nối VPN nếu OpenVPN thoát đột ngột.</p>";
+
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Khi được chọn</strong>, các cài đặt mạng được đặt theo cách thủ công có thể bị thay đổi khi VPN kết nối. Điều này sẽ chỉ xảy ra nếu các thay đổi được chỉ định bởi các tùy chọn trong tệp cấu hình OpenVPN hoặc từ máy chủ OpenVPN.</p>\n<p><strong>Khi không được chọn</strong>, cài đặt mạng được đặt thủ công sẽ không bị thay đổi khi VPN kết nối.</p>";
+
+/* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
+"<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Khi được chọn</strong>, sẽ không tự động kiểm tra các bản cập nhật hoặc kiểm tra các thay đổi địa chỉ IP, bất kể các cài đặt khác. Lưu ý: cả hai hoạt động này đều truy cập trang web Tunnelblick.</p>\n<p><strong>Khi không được chọn</strong>, việc tự động kiểm tra các bản cập nhật sẽ được thực hiện nếu được bật bên dưới và kiểm tra các thay đổi địa chỉ IP sẽ được thực hiện khi kết nối cấu hình nếu cài đặt của cấu hình để làm như vậy được bật.</p><p>Xem <a href=\"https://tunnelblick.net/cPrivacy.html\">Quyền riêng tư và Bảo mật</a> [tunnelblick.net] để biết thêm chi tiết.</p><p>&nbsp;</p>";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Khi được chọn</strong>, biểu tượng Tunnelblick được đặt gần biểu tượng Spotlight:</p>\n<p>%1$@</p>\n<p><strong>Khi không được chọn</strong>, biểu tượng Tunnelblick được định vị bình thường:</p>\n<p>%2$@</p>\n<p><strong>Checkbox này bị tắt</strong> trên macOS Sierra trở lên vì nó không cần thiết và trên các hệ thống mà nó được biết là gây ra sự cố.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Thông tin thêm</a></p>";
+
+/* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
+"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Khi được chọn</strong>, cửa sổ trạng thái VPN được hiển thị ngay cả khi cấu hình bị ngắt kết nối.</p><p><strong>Checkbox này tắt</strong> khi 'Không bao giờ hiển thị' được chọn ở phía trên.</p>";
+
+/* HTML info for the 'Disconnect when user switches out' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>Khi được chọn</strong>, VPN sẽ bị ngắt kết nối khi chuyển sang người dùng khác.</p>\n<p><strong>Khi không được chọn</strong>, VPN sẽ không bị ngắt kết nối khi chuyển sang người dùng khác.</p>";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>Khi được chọn</strong>, VPN sẽ bị ngắt kết nối khi máy tính chuyển sang chế độ ngủ.</p>\n<p><strong>Khi không được chọn</strong>, VPN sẽ duy trì kết nối khi máy tính chuyển sang chế độ ngủ.</p>";
+
+/* HTML info for the 'Reconnect when user switches in' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>Khi được chọn</strong>, VPN sẽ được kết nối lại khi chuyển trở lại người dùng hiện tại nếu nó bị ngắt kết nối khi chuyển sang người dùng khác.</p>\n<p><strong>Khi không được chọn</strong>, VPN sẽ không được kết nối lại khi chuyển trở lại người dùng hiện tại.</p>";
+
+/* HTML info for the 'Reconnect when computer wakes up' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>Khi được chọn</strong>, VPN sẽ được kết nối lại khi máy tính thức dậy nếu nó bị ngắt kết nối khi máy tính chuyển sang chế độ ngủ.</p>\n<p><strong>Khi không được chọn</strong>, VPN sẽ không được kết nối lại khi máy tính thức dậy.</p>";
+
+/* HTML info for the 'Prepend domain name to search domains' checkbox. */
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Khi được chọn</strong>, tên miền do VPN chỉ định sẽ được thêm vào đầu danh sách miền tìm kiếm.</p>\n<p><strong>Khi không được chọn</strong>, danh sách miền tìm kiếm sẽ được thay thế bằng tên miền do VPN chỉ định.</p>";
+
+/* HTML info for the 'Display connection timers' checkbox. */
+"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Khi được chọn</strong>, thời gian kể từ khi kết nối được thiết lập được hiển thị trong menu Tunnelblick và trong tiêu đề của cửa sổ Chi tiết VPN.</p>";
+
+/* HTML info for the 'Authenticate before connecting' checkbox. */
+"<p><strong>When checked</strong>, you will be required to authenticate yourself before connecting. You can authenticate yourself by using your password or, if available, TouchID or FaceID.</p>\n<p><strong>When not checked</strong>, no authentication will be required before connecting.</p>\n<p><strong>This checkbox is disabled</strong> if you are using a version of macOS that does not support it.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Khi được chọn</strong>, bạn sẽ được yêu cầu xác thực bản thân trước khi kết nối. Bạn có thể tự xác thực bằng mật khẩu của mình hoặc TouchID hoặc FaceID nếu có.</p>\n<p><strong>Khi không được chọn</strong>, không cần xác thực trước khi kết nối.</p>\n<p><strong>Checkbox này bị tắt</strong> nếu bạn đang sử dụng phiên bản macOS không hỗ trợ nó.</p><p><strong>Lưu ý: Cần có ủy quyền của quản trị viên máy tính để thay đổi cài đặt này.</strong></p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Bạn có thể sửa đổi cấu hình để chúng có thể kết nối.</strong></p>";
+
+/* HTML info for the 'Load Tap driver' popdown list. */
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations and on versions of macOS which do not allow Tunnelblick to load its Tap driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Trình điều khiển thiết bị 'chạm' là cần thiết cho các kết nối Chạm. Tunnelblick bao gồm trình điều khiển Tap của riêng nó vì hệ thống không có sẵn. Nếu bạn đã cài đặt một trình điều khiển Tap khác, Tunnelblick có thể không tải được trình điều khiển của nó.</p><p>Bạn có thể chọn nếu và khi nào Tunnelblick tải trình điều khiển của nó:</p>\n<p><strong>Tải trình điều khiển Tap tự động</strong>: Tunnelblick tải trình điều khiển của nó nếu cần và dỡ nó khi không còn cần thiết nữa.</p>\n<p><strong>Luôn tải trình điều khiển Tap</strong>: Tunnelblick tải trình điều khiển của nó khi nó kết nối cấu hình này và dỡ nó ra khi nó không còn cần thiết nữa.</p>\n<p><strong>Không bao giờ tải trình điều khiển Tap</strong>: Tunnelblick không bao giờ tải trình điều khiển của nó.</p>\n<p><strong>Checkbox này tắt</strong> cho các cấu hình Tun và trên các phiên bản macOS không cho phép Tunnelblick tải trình điều khiển Tap của nó. Để biết thêm thông tin, hãy xem <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun và Tap VPN trên macOS [tunnelblick.net]</a>.</p>";
+
+/* HTML info for the 'Load Tun driver' popdown list. */
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Trình điều khiển thiết bị 'tun' là cần thiết cho các kết nối Tun. Thông thường trình điều khiển Tun của hệ thống được sử dụng, nhưng Tunnelblick cũng bao gồm trình điều khiển Tun của riêng nó. Nếu bạn đã cài đặt trình điều khiển Tun khác, Tunnelblick có thể không tải được trình điều khiển của nó.</p>\n<p>OpenVPN sẽ sử dụng trình điều khiển của hệ thống trừ khi cấu hình OpenVPN bao gồm tùy chọn 'dev-type tun'.</p>\n<p>Bạn có thể chọn nếu và khi nào Tunnelblick tải trình điều khiển Tun của nó:</p>\n<p><strong>Tải trình điều khiển Tun tự động</strong>: Tunnelblick tải trình điều khiển của nó nếu cần và dỡ nó khi không còn cần thiết nữa. (Tunnelblick sẽ chỉ tải trình điều khiển của nó nếu cấu hình OpenVPN bao gồm tùy chọn 'dev-type tun'.)</p>\n<p><strong>Luôn tải trình điều khiển Tun</strong>: Tunnelblick tải trình điều khiển của nó khi nó kết nối cấu hình này và dỡ nó khi không còn cần thiết nữa.</p>\n<p><strong>Không bao giờ tải trình điều khiển Tun</strong>: Tunnelblick không bao giờ tải trình điều khiển của nó.</p>\n<p><strong>Checkbox này tắt</strong> đối với cấu hình Tap và trên các phiên bản macOS không cho phép Tunnelblick tải trình điều khiển Tun của nó. Để biết thêm thông tin, hãy xem <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun và Tap VPN trên macOS [tunnelblick.net]</a>.</p>";
+
+/* HTML info for the 'Check Now' button. */
+"<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Kiểm tra các bản cập nhật cho ứng dụng Tunnelblick.</p><p>Truy cập trang web Tunnelblick; để biết thêm chi tiết xem<a href=\"https://tunnelblick.net/cPrivacy.html\">Quyền riêng tư và Bảo mật</a> [tunnelblick.net].</p><p>Đồng thời kiểm tra các bản cập nhật cho cấu hình nếu nhà cung cấp dịch vụ VPN của bạn triển khai tính năng này.</p>";
+
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Nhấp để cài đặt hoặc gỡ cài đặt Tun của Tunnelblick và nhấn vào tiện ích mở rộng hệ thống.</p>\n\n<p>Xem <a href=\"https://tunnelblick.net/cInstallKexts.html\">Cài đặt Tiện ích mở rộng hệ thống Tun và Tap của Tunnelblick</a> [tunnelblick.net]  để biết chi tiết.</p><p><strong>Tắt</strong> trừ khi Tunnelblick đang chạy trên macOS Big Sur trở lên.</p>";
+
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Nhấp để gỡ cài đặt Tunnelblick.</p>\n\n<p><strong>Tắt</strong> nếu Tunnelblick không được cài đặt trong /Ứng dụng.</p>";
+
+/* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Sao chép thông tin vào Clipboard để giúp chẩn đoán sự cố.</p><p>Thông tin bao gồm các phiên bản và cài đặt phần mềm, tệp cấu hình OpenVPN, cài đặt mạng và hơn thế nữa.</p><p>Thông tin chứng chỉ nhạy cảm không được bao gồm, nhưng dữ liệu như địa chỉ IP và URL <em>có thể</em> được bảo mật. Bạn nên kiểm tra thông tin và xóa bất kỳ thứ gì bạn muốn giữ bí mật trước khi gửi nó trong email hoặc đăng công khai.</p>";
+
+/* HTML info for the 'Copy Console Log to Clipboard' button. */
+"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Sao chép phần cuối cùng của Nhật ký Điều khiển vào Clipboard để nó có thể được dán vào email hoặc tài liệu khác.</p><p>Nhật ký chứa thông tin chi tiết về hoạt động của Tunnelblick và OpenVPN. Nó bao gồm các thông báo trạng thái bình thường và thông báo lỗi chi tiết quá dài để hiển thị cho người dùng trong cửa sổ hộp thoại bình thường.</p>";
+
+/* HTML info for the 'Export Tunnelblick Setup' button. */
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Xuất thiết lập Tunnelblick, bao gồm tất cả các cấu hình và cài đặt cho tất cả người dùng máy tính này, sang tệp nén trên màn hình.</p><ul><li>Thông tin đăng nhập được lưu trong chuỗi khóa là <strong>không</strong> được xuất.</li><li>Quá trình xuất có thể mất nhiều thời gian.</li></ul>";
+
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>INếu bạn không thấy nút cho phép tải phần mềm hệ thống của nhà phát triển 'Jonathan Bullard', hãy thử kết nối cấu hình này (sẽ không thành công), sau đó xem trên tab 'Chung' của 'Bảo mật & Quyền riêng tư' trong 'Tùy chọn Hệ thống' lần nữa.</p>";
+
+/* HTML info for the 'Advanced...' button. */
+"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Mở cửa sổ có cài đặt bổ sung.</p><p>Mọi thay đổi sẽ được áp dụng cho tất cả các cấu hình được chọn trong cửa sổ 'Chi tiết VPN'.</p>";
+
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Thoát tất cả các quy trình OpenVPN, bao gồm cả những quy trình không được khởi động bởi Tunnelblick. Bạn nên sử dụng các nút 'Ngắt kết nối' hoặc 'Ngắt kết nối tất cả' và lệnh menu của Tunnelblick để ngắt kết nối các cấu hình đã được kết nối bằng Tunnelblick.</p><p>Nhấp vào nút này sẽ gửi tín hiệu 'SIGTERM' đến tất cả các quy trình có tên 'openvpn'. Thông thường, điều này sẽ khiến OpenVPN đóng tất cả các kết nối và thoát. Nếu nút này không thoát khỏi tất cả các quy trình OpenVPN, bạn có thể cần sử dụng ứng dụng Giám sát hoạt động macOS để 'Buộc thoát' quy trình.</p>";
+
+/* HTML info for the 'Reset Disabled Warnings' button. */
+"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Khôi phục các cảnh báo đã bị ngăn chặn bởi hộp kiểm 'Không cảnh báo lại về điều này'.</p>";
+
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Xem<a href=\"https://tunnelblick.net/cKextsInstallation.html\">Cài đặt tiện ích mở rộng hệ thống</a> [tunnelblick.net] để biết thêm chi tiết.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Xem<a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tương lai của VPN Tun và Tap trên macOS</a> [tunnelblick.net] để biết thêm chi tiết.</p>\n";
+
+/* HTML info for the 'VPN log level' button. */
+"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>Chỉ định số lượng ghi nhật ký được thực hiện bởi Tunnelblick và OpenVPN.</p>";
+
+/* HTML info for the 'Icon' button. */
+"<p>Specifies the icon which Tunnelblick should display in the menu bar.</p>" = "<p>Chỉ định biểu tượng mà Tunnelblick sẽ hiển thị trong thanh menu.</p>\n";
+
+/* HTML info for the 'Keyboard shortcut' button. */
+"<p>Specifies the keys to press to invoke Tunnelblick's main menu.</p>" = "<p>Chỉ định các phím cần nhấn để gọi menu chính của Tunnelblick.</p>";
+
+/* HTML info for the 'Maximum log display size' button. */
+"<p>Specifies the maximum amount of storage to use to display the VPN log.</p>" = "<p>Chỉ định dung lượng lưu trữ tối đa sẽ sử dụng để hiển thị nhật ký VPN.</p>";
+
+/* HTML info for the button for selecting which screen to show status windows. */
+"<p>Specifies the screen on which Tunnelblick should display VPN status windows.</p>" = "<p>Chỉ định màn hình mà Tunnelblick sẽ hiển thị các cửa sổ trạng thái VPN.</p>";
+
+/* HTML info for the 'VPN status windows' button. */
+"<p>Specifies when Tunnelblick should display VPN status windows.</p>" = "<p>Chỉ định khi nào Tunnelblick sẽ hiển thị các cửa sổ trạng thái VPN.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>The Console Log shows which configurations will not be able to connect.</p>\n" = "<p>Nhật ký Điều khiển hiển thị cấu hình nào sẽ không thể kết nối.</p>";
+
+/* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Bộ nhớ cache DNS chứa các bản sao của thông tin DNS (Hệ thống tên miền).</p>\n<p><strong> Khi được chọn</strong>, bộ nhớ cache DNS sẽ được xóa (xóa) sau khi kết nối hoặc ngắt kết nối. Tất cả các tra cứu DNS sẽ được thực hiện bởi máy chủ định danh do thiết lập VPN chỉ định.</p>\n<p><strong> Khi không được chọn</strong>, bộ nhớ cache DNS sẽ không được xóa. Điều này có thể gây ra sự cố nếu có xung đột tên giữa máy chủ định danh được chỉ định bởi thiết lập VPN và máy chủ định danh trước VPN và nếu các mục nhập trước VPN đã được lưu vào bộ nhớ đệm.</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>" = "<p>Không thể tải tiện ích mở rộng hệ thống vì bạn đã yêu cầu macOS không cho phép Tunnelblick tải tiện ích mở rộng hệ thống 'tap' và 'tun', được ký bởi nhà phát triển 'Jonathan Bullard'.</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "<p>Không thể tải tiện ích mở rộng hệ thống vì bạn đã yêu cầu macOS không cho phép Tunnelblick tải tiện ích mở rộng hệ thống 'chạm', được ký bởi nhà phát triển 'Jonathan Bullard'.</p>";
+
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>" = "<p>Không thể tải tiện ích mở rộng hệ thống vì bạn đã yêu cầu macOS không cho phép Tunnelblick tải tiện ích mở rộng hệ thống 'tun', được ký bởi nhà phát triển 'Jonathan Bullard'. Bạn nên sửa đổi cài đặt Tunnelblick và / hoặc tệp cấu hình OpenVPN của mình để Tunnelblick không cần tải tiện ích mở rộng hệ thống 'tun', sau đó bạn có thể kết nối.</p>";
+
+/* HTML text. */
+"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'. You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>" = "<p>Để cho phép Tunnelblick cài đặt các tiện ích mở rộng hệ thống, bạn phải cho phép tải phần mềm hệ thống của nhà phát triển 'Jonathan Bullard'. Bạn có thể làm điều đó trên tab 'Chung' của 'Bảo mật & Quyền riêng tư' trong 'Tùy chọn Hệ thống'.</p>";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick bao gồm một phiên bản tùy chỉnh của 'easy-rsa', là một tập hợp các tập lệnh dòng lệnh được viết bởi các nhà phát triển OpenVPN để tạo và duy trì các chứng chỉ và khóa.</p><p>Nhấp vào nút này sẽ khởi chạy ứng dụng MacOS Terminal với thư mục làm việc được đặt thành thư mục chứa các tập lệnh.</p><p>Các tập lệnh thường được đặt trong thư mục tại ~/Library/Application Support/Tunnelblick/easy-rsa. Tùy chọn 'easy-rsaPath' có thể chứa đường dẫn đến thư mục mà Tunnelblick sẽ sử dụng thay thế. 'easy-rsaPath' phải là một đường dẫn tuyệt đối hoặc bắt đầu bằng dấu '~', và thư mục mẹ của đường dẫn phải tồn tại. Nếu một thư mục tồn tại ở đường dẫn, nó sẽ được sử dụng; nếu nó không tồn tại, nó sẽ được tạo và các tập lệnh easy-rsa sẽ được cài đặt vào nó khi Tunnelblick được khởi chạy.</p><p>Để biết thông tin về cách sử dụng easy-rsa, hãy xem <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Thiết lập Tổ chức phát hành chứng chỉ (CA) của riêng bạn và tạo chứng chỉ và khóa cho máy chủ OpenVPN và nhiều máy khách</a> [openvpn.net].</p><p>Để biết chi tiết về các tùy chỉnh của easy-rsa của Tunnelblick, hãy xem tệp README nằm trong thư mục.</p>";
+
+/* HTML error message. The '%@' is a configuration name. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick không thể tải tiện ích mở rộng hệ thống cần kết nối với %@.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Bạn có thể đặt tùy chọn Tunnelblick để nó sẽ cố gắng tải các tiện ích mở rộng hệ thống của mình.</p>";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Bạn cần cài đặt các tiện ích mở rộng hệ thống của Tunnelblick để sử dụng cấu hình này.</p><p>Bạn có thể thực hiện việc đó từ bảng điều khiển 'Tiện ích' của Tunnelblick.</p><p>Sau khi bạn cài đặt các tiện ích mở rộng hệ thống, macOS sẽ hướng dẫn bạn thực hiện quá trình 'cho phép' chúng, bao gồm việc khởi động lại máy tính của bạn.</p>";
+
+/* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
+"Admin mode %@ remaining" = "Chế độ quản trị viên %@ còn lại\n";
+
+/* Credit description */
+"Afrikaans translation" = "Bản dịch tiếng Afrikaans";
+
+/* Credit description */
+"Animation and icon sets code" = "Hoạt ảnh và biểu tượng đặt mã";
+
+/* Credit description */
+"Arabic translation" = "Bản dịch tiếng Ả Rập";
+
+/* Toolbar text for 'Lock' item */
+"Authorizing..." = "Ủy quyền…\n";
+
+/* Credit description */
+"Azerbaijani translation" = "Bản dịch tiếng Azerbaijan";
+
+/* Credit description */
+"Bulgarian translation" = "Bản dịch tiếng Bungari";
+
+/* Credit description */
+"Button images" = "Nút hình ảnh";
+
+/* Credit description */
+"Catalan translation" = "Bản dịch tiếng Catalan";
+
+/* Checkbox text */
+"Check for IP address changes" = "Kiểm tra các thay đổi địa chỉ IP";
+
+/* Checkbox text */
+"Check for updates" = "Kiểm tra cập nhật";
+
+/* Credit description */
+"Chinese (simplified) translation" = "Bản dịch tiếng Trung (giản thể)";
+
+/* Credit description */
+"Chinese (traditional) translation" = "Bản dịch tiếng Trung (phồn thể)";
+
+/* Credentials name */
+"Common" = "Chung";
+
+/* Speak string */
+"Connected to %@" = "Kết nối với %@\n";
+
+/* Credit description */
+"Contributed much to the early code" = "Đã đóng góp nhiều cho quá trình lập trình sơ khai";
+
+/* Credit description */
+"Contributed to early code" = "Đã đóng góp cho quá trình lập trình sơ khai";
+
+/* Credit description */
+"Croatian translation" = "Bản dịch tiếng Croatia";
+
+/* Credit description */
+"Czech translation" = "Bản dịch tiếng Séc";
+
+/* Credit description */
+"Danish translation" = "Bản dịch tiếng Đan Mạch";
+
+/* Speak string */
+"Disconnected from %@" = "Đã ngắt kết nối khỏi %@\n";
+
+/* Checkbox */
+"Do not show this again" = "Không hiện lại lần nữa";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when connecting" = "Đừng cảnh báo về điều này nữa;\nluôn bật lại khi kết nối";
+
+/* Checkbox text */
+"Do not warn about this again;\nalways re-enable when quitting Tunnelblick" = "Đừng cảnh báo về điều này nữa;\nluôn bật lại khi thoát khỏi Tunnelblick";
+
+/* Checkbox text */
+"Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "Đừng cảnh báo về điều này nữa;\nkhông bao giờ bật lại khi khởi động Tunnelblick";
+
+/* Credit description */
+"Dutch translation" = "Bản dịch tiếng Hà Lan";
+
+/* Toolbar text for 'Lock' icon
+   Toolbar text for 'Lock' item */
+"Enter admin mode" = "Vào chế độ quản trị viên";
+
+/* Credit description */
+"Estonian translation" = "Bản dịch tiếng Estonia";
+
+/* Credit description */
+"Finnish translation" = "Bản dịch tiếng Phần Lan";
+
+/* Credit description */
+"Flemish translation" = "Bản dịch tiếng Flemish";
+
+/* Credit description */
+"Founder, original program and documentation" = "Người sáng lập, chương trình gốc và tài liệu";
+
+/* Credit description */
+"French translation" = "Bản dịch tiếng Pháp";
+
+/* Credit description */
+"German translation" = "Bản dịch tiếng Đức";
+
+/* Credit description */
+"Greek translation" = "Bản dịch tiếng Hy Lạp";
+
+/* Credit description */
+"Hebrew translation" = "Bản dịch tiếng Do Thái";
+
+/* Credit description */
+"Hungarian translation" = "Bản dịch tiếng Hungary";
+
+/* Credit description */
+"Icelandic translation" = "Bản dịch tiếng Iceland";
+
+/* Credit description */
+"Icon set including Retina images" = "Bộ biểu tượng bao gồm hình ảnh Retina";
+
+/* Credit description */
+"Indonesian translation" = "Bản dịch tiếng Indonesia";
+
+/* Credit description */
+"Italian translation" = "Bản dịch tiếng Ý";
+
+/* Credit description */
+"Japanese translation" = "Bản dịch tiếng Nhật";
+
+/* Credit description */
+"Korean translation" = "Bản dịch tiếng hàn";
+
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "Bản dịch tiếng Việt";
+
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Chau Trang ";
+
+/* Credit description */
+"Latvian translation" = "Bản dịch tiếng Latvia";
+
+/* Credit description */
+"Localization code tweaks" = "Chỉnh sửa mã bản địa hóa";
+
+/* Credit description */
+"Multiple configuration folders" = "Nhiều thư mục cấu hình";
+
+/* Credit description */
+"Norwegian translation" = "Bản dịch tiếng Nauy";
+
+/* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "Tích hợp OpenVPN 2.3 và 64-bit";
+
+/* Credit description */
+"PKCS#11 support" = "Hỗ trợ PKCS # 11";
+
+/* Credit description */
+"Persian translation" = "Bản dịch tiếng Ba Tư";
+
+/* Credit description */
+"Polish translation" = "Bản dịch tiếng Ba Lan";
+
+/* Credit description */
+"Portuguese (Brazilian) translation" = "Bản dịch tiếng Bồ Đào Nha (Braxin)";
+
+/* Credit description */
+"Portuguese translation" = "Bản dịch tiếng Bồ Đào Nha";
+
+/* Credit description */
+"Program and documentation enhancements and maintenance after version 3.0b10" = "Cải tiến lập trình và tài liệu và bảo trì sau phiên bản 3.0b10";
+
+/* Credit description */
+"Romanian translation" = "Bản dịch tiếng Rumani";
+
+/* Credit description */
+"Russian translation" = "Bản dịch tiếng Nga";
+
+/* Credit description */
+"Serbian (Latin) translation" = "Bản dịch tiếng Serbia (Latinh)";
+
+/* Credit description */
+"Slovak translation" = "Bản dịch tiếng Slovak";
+
+/* Credit description */
+"Spanish translation" = "Bản dịch tiếng Tây Ban Nha";
+
+/* Credit description */
+"Swahili (Tanzania) translation" = "Bản dịch tiếng Swahili (Tanzania)";
+
+/* Credit description */
+"Swedish translation" = "Bản dịch tiếng Thụy Điển";
+
+/* Credit description */
+"Thai translation" = "Bản dịch tiếng Thái";
+
+/* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
+"Tunnelblick Setup %@" = "Thiết lập Tunnelblick %@";
+
+/* Credit description */
+"Tunnelblick icon" = "Biểu tượng Tunnelblick";
+
+/* Credit description */
+"Turkish translation" = "Bản dịch tiếng Thổ Nhĩ Kỳ";
+
+/* Credit description */
+"UKKQueue and UKLoginItemRegistry" = "UKKQueue và UKLoginItemRegistry";
+
+/* Credit description */
+"Ukrainian translation" = "Bản dịch tiếng Ukraina";
+
+/* Credit description */
+"Up and Down scripts" = "Kết nối và Ngắt kết nối scripts";
+
+/* Notification text */
+"Updated to %@." = "Đã cập nhật thành %@.";
+
+/* Column heading in a table. The \"setup data\" is data from a Tunnelblick installation (configurations and settings) created by the \"Export Tunnelblick Setup\" button on the \"Utilities\" panel of the \"VPN Details\" window. */
+"User in setup data" = "Người dùng trong dữ liệu thiết lập";
+
+/* Column heading in a table */
+"User on this computer" = "Người dùng trên máy tính này";
+
+/* Window text VPNService */
+"Unable to check registration for empty email address" = "Không thể kiểm tra đăng ký cho địa chỉ email trống";
+
+/* Window text VPNService */
+"Unable to connect to server" = "Không thể kết nối đến máy chủ";
+
+/* Window text VPNService */
+"You have already registered but not yet confirmed your email address." = "Bạn đã đăng ký nhưng chưa xác nhận địa chỉ email của mình.";
+
+/* Window text VPNService */
+"You have already registered." = "Bạn đã đăng ký.";
+
+/* Window text VPNService */
+"You must enter an email address and password to login." = "Bạn phải nhập địa chỉ email và mật khẩu để đăng nhập.";
+
+/* Window text VPNService */
+"You must enter an email address, password, and password confirmation to proceed." = "Bạn phải nhập địa chỉ email, mật khẩu và xác nhận mật khẩu để tiếp tục.";
+
+/* Window text VPNService */
+"You must type the characters in the image to proceed." = "Bạn phải nhập các ký tự trong hình để tiếp tục.";
+
+/* Window text VPNService */
+"Your account status could not be verified:\n     %@." = "Không thể xác minh trạng thái tài khoản của bạn:\n     %@.\n";

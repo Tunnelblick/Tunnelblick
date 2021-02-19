@@ -53,7 +53,8 @@
 /* Connection status */
 "CONNECTING" = "இணைக்கப்படுகிறது"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "இணை துண்டிக்கப்படுகிறது"; // Please translate "Disconnecting"
 
 /* Connection status */

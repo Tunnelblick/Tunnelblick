@@ -556,7 +556,8 @@
 /* Connection status */
 "CONNECTING" = "Connectant"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "Desconnectant"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -2208,7 +2209,7 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Les versions de l'OpenVPN '<strong>no-Tunnelblick</strong>' no han estat creades pel projecte Tunnelblick i no formen part de Tunnelblick. Han estat instal·lades per l'administrador de l’ordinador.</p>";
 
-/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. */
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Permetre' les extensions de sistema pot requerir d'un canvi en un paràmetre de seguretat del sistema. El paràmetre només es pot canviar en Mode de recuperació. Potser haureu de reiniciar el sistema en Mode de recuperació, fer el canvi, i reiniciar normalment. macOS t'hauria de guiar en aquest procés.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
@@ -2330,7 +2331,7 @@
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Comprov si hi ha actualitzacions de l'aplicació Tunnelblick.</p><p>Accedeix a la pàgina de Tunnelblick; per a més detalls consulta <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacitat i seguretat</a> [tunnelblick.net].</p><p>També comprova actualitzacions de les configuracions VPN si el teu proveïdor té aquesta característica habilitada.</p>";
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
-"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Feu clic per instal·lar o desinstal·lar les extensions del sistema tun i tap de Tunnelblick.</p>\n\n<p>Consulteu <a href=\"https://tunnelblick.net/cInstallKexts\">Instal·lació de les Extensions del Sistema Tun i Tap de Tunnelblick</a> [tunnelblick.net] per obtenir més informació.</p><p><strong>Desactivat</strong> tret que Tunnelblick s’executi a macOS Big Sur o versions posteriors.</p>\n";
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Feu clic per instal·lar o desinstal·lar les extensions del sistema tun i tap de Tunnelblick.</p>\n\n<p>Consulteu <a href=\"https://tunnelblick.net/cInstallKexts.html\"> Instal·lació de les extensions del sistema Tun i Tap de Tunnelblick</a> [tunnelblick.net] per obtenir més informació.</p><p><strong>Desactivat</strong> tret que Tunnelblick s'executi a macOS Big Sur o posterior.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Feu clic per desinstal·lar Tunnelblick.</p>\n\n<p><strong>Desactivat</strong> si Tunnelblick no està instal·lat a /Aplicacions.</p>";

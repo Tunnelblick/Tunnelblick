@@ -437,7 +437,8 @@
 /* Connection status */
 "CONNECTING" = "Duke u lidhur"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "Duke u shkëputur"; // Please translate "Disconnecting"
 
 /* Connection status */

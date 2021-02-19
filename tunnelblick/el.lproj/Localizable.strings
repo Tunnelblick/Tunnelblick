@@ -128,6 +128,9 @@
 "Ignore" = "Αγνόησε";
 
 /* Button */
+"Install tun and tap system extensions..." = "Εγκαταστήσετε τις επεκτάσεις  του συστήματος για tun και tap";
+
+/* Button */
 "Install" = "Εγκατάσταση";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -550,7 +553,8 @@
 /* Connection status */
 "CONNECTING" = "Συνδέετε"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "Αποσύνδεση"; // Please translate "Disconnecting"
 
 /* Connection status */

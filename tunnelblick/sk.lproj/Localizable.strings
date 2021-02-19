@@ -556,7 +556,8 @@
 /* Connection status */
 "CONNECTING" = "Pripájanie"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "Odpája sa"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -2208,7 +2209,7 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>ne-Tunnelblick</strong>' verzie OpenVPN neboli vytvorené Tunnelblick projektom a nie sú súčasťou Tunnelblicku. Boli nainštalované administrátorom.</p>";
 
-/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. */
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Povolenie' systémových rozšírení môže vyžadovať zmenu systémového bezpečnostného nastavenia. Nastavenie môže byť zmenené iba v režime obnovenia. Budete sa musieť reštartovať do režimu obnovenia, spraviť zmenu, následne reštartovať normálne. macOS by Vás mal sprevádzať týmto procesom.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
@@ -2330,7 +2331,7 @@
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Skontroluje aktualizácie pre aplikáciu Tunnelblick.</p><p>Navštívi stránku Tunnelblick; pre detailné informácie pozri <a href=\"https://tunnelblick.net/cPrivacy.html\">Súkromie a bezpečnosť</a>[tunnelblick.net]</p><p>Tiež skontroluje aktualizácie konfigurácií v prípade, že poskytovateľ služby VPN túto funkciu podporuje.</p>";
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
-"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Kliknutím nainštalujete alebo odinštalujete Tunnelblick tun a tap systémové rozšírenia.</p>\n\n<p>Viď <a href=\"https://tunnelblick.net/cInstallKexts\">Inštalovanie Tunnelblick Tun a Tap systémových rozšírení</a> [tunnelblick.net] pre viac informácií.</p><p><strong>Zablokované</strong> pokiaľ Tunnelblick beží na Big Sur alebo neskorších verziách.</p>";
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Kliknutím nainštalujete alebo odinštalujete Tunnelblick tun a tap systémové rozšírenia.</p>\n\n<p>Viď <a href=\"https://tunnelblick.net/cInstallKexts.html\">Inštalovanie Tunnelblick Tun a Tap systémových rozšírení</a> [tunnelblick.net] pre viac informácií.</p><p><strong>Zablokované</strong> pokiaľ Tunnelblick beží na macOS Big Sur alebo neskorších verziách.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Kliknite na odinštalovanie Tunnelblicku.</p>\n\n<p><strong>Zablokované</strong> pokiaľ Tunnelblick nie je nainštalovaný v /Applications.</p>";

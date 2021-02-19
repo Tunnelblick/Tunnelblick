@@ -517,7 +517,8 @@
 /* Connection status */
 "CONNECTING" = "Inaunganishwa"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "Kutounganisha"; // Please translate "Disconnecting"
 
 /* Connection status */

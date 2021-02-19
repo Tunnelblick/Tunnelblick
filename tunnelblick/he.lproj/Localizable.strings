@@ -538,7 +538,8 @@
 /* Connection status */
 "CONNECTING" = "מתחבר"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "מתנתק"; // Please translate "Disconnecting"
 
 /* Connection status */

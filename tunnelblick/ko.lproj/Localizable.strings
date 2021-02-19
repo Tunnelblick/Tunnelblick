@@ -284,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 아이콘";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Tunnelblick 제거하기";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "업데이트";
 
@@ -541,7 +544,8 @@
 /* Connection status */
 "CONNECTING" = "연결 중"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "연결 해제하기"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -732,6 +736,9 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: 암호가 필요합니다";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "TUNNELBLICK 제거 실패";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Tunnelblick을 실행할 수 없습니다";

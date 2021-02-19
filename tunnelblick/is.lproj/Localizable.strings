@@ -547,7 +547,8 @@
 /* Connection status */
 "CONNECTING" = "Tengist"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "Aftengist"; // Please translate "Disconnecting"
 
 /* Connection status */

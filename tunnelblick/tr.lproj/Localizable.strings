@@ -556,7 +556,8 @@
 /* Connection status */
 "CONNECTING" = "Bağlanıyor"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "Bağlantı kesiliyor"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -2208,7 +2209,7 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "OpenVPN'in <p>'<strong>non-Tunnelblick</strong>' versiyonu Tunnelblick projesi tarafindan yaratılmamış ve projenin orjinal komponenti değildir. Bu versiyon sistem yoneticiniz </p> tarafindan kurulmuştur";
 
-/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. */
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Sistem genişletmerine 'İzin verme' işlemi, sistem güvenlik ayarında bir değişiklik gerektirebilir. Bu ayar sadece Kurtarma modunda değiştirilebilir. Bilgisayarınızı Kurtarma modunda yeniden başlatıp, değişikliği yapıp, sonra tekrar normal olarak yeniden başlatmanız gerekebilir. macOS bu işlem boyunca size yol gösterecektir.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
@@ -2330,7 +2331,7 @@
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Tunnelblick uygulamasının güncellemelerini kontrol eder.</p><p>Daha fazla detayı görmek için Tunnelblick websitesine erişir<a href=\"https://tunnelblick.net/cPrivacy.html\">Gizlilik ve Güvenlik</a>[tunnelblick.net]</p><p>Ayrıca eğer VPN servis sağlayıcınız bu özelliği uygularsa; konfigürasyon güncellemelerini kontrol eder.</p>";
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
-"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Tunnelblick'in tun ve tap sistem genişletmelerini yüklemek veya kaldırmak için tıklayın.</p>\n\n<p>Ayrıntılar için <a href=\"https://tunnelblick.net/cInstallKexts\">Tunnelblick'in Tun ve Tap Sistem Genişletmelerini yükleme</a> [tunnelblick.net]'ye göz atın</p><p>Tunnelblick, macOS Big Sur veya sonrası üzerinde çalışmadığı sürece <strong>Devre dışıdır</strong></p>";
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Tunnelblick'in tun ve tap sistem genişletmelerini kurmak veya kaldırmak için tıklayın.</p>\n\n<p>Ayrıntılı bilgi için <a href=\"https://tunnelblick.net/cInstallKexts.html\">Tunnelblick'in Tap ve Tun Sistem Genişletmelerini Yükleme</a> [tunnelblick.net]'ye bakın.</p><p>Tunnelblick macOS Big Sur veya sonrasında çalışmadığı sürece <strong>Devre dışıdır</strong>.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Tunnelblick'i kaldırmak için tıklayın.</p>\n\n<p>Eğer Tunnelblick /Uygulamalar içinde kurulu değilse <strong>devre dışıdır</strong>.</p>";

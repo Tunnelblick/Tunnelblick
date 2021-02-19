@@ -556,7 +556,8 @@
 /* Connection status */
 "CONNECTING" = "正在連線"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "正在中斷連線"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -2208,7 +2209,7 @@
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非 Tunnelblick</strong>' 版本的 OpenVPN 並非由 Tunnelblick 計畫所建立且不屬於 Tunnelblick 的一部分。它們已由系統管理員安裝完成。</p>";
 
-/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. */
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>「允許」系統擴充功能可能需要更動系統安全設定。此設定僅能在恢復模式下變更。您可能需要重新開機進入恢復模式，進行權限更動，再重新開機回到正常模式。 macOS 會引導您完成整個流程。</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
@@ -2330,7 +2331,7 @@
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>檢查Tunnelblick應用程式的更新。</p><p>詳情請參考Tunnelblick網站中的<a href=\"https://tunnelblick.net/cPrivacy.html\">隱私和安全</a> [tunnelblick.net]。</p><p>如果你的VPN服務供應商實現了這個特徵，也检查配置的更新。</p>";
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
-"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>點擊以安裝或解除安裝 Tunnelblick 的 tun 及 tap 系統擴充功能。</p>\n\n<p>詳情請見 <a href=\"https://tunnelblick.net/cInstallKexts\">安裝 Tunnelblick 的 Tun 及 Tap 系統擴充功能</a> [tunnelblick.net] 。</p><p>除非 Tunnelblick 執行在 macOS Big Sur 或之後的版本否則此按鈕將被<strong>停用</strong>。</p>";
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>點擊以安裝或解除安裝 Tunnelblick 的 tun 及 tap 系統擴充功能。</p>\n\n<p>詳情請見 <a href=\"https://tunnelblick.net/cInstallKexts.html\">安裝 Tunnelblick 的 Tun 及 Tap 系統擴充功能</a> [tunnelblick.net] 。</p><p>除非 Tunnelblick 執行在 macOS Big Sur 或之後的版本否則此按鈕將被<strong>停用</strong>。</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>點擊以解除安裝 Tunnelblick。</p>\n\n<p>如果 Tunnelblick 並非被安裝在 /Applications 將<strong>被停用</strong> 。</p>";

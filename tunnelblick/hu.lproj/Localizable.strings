@@ -128,6 +128,9 @@
 "Ignore" = "Mellőz";
 
 /* Button */
+"Install tun and tap system extensions..." = "Tun és Tap rendszerkiegészítő telepítése (korábbi néven kext)…";
+
+/* Button */
 "Install" = "Telepítés";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -286,6 +289,9 @@
 
 /* Button */
 "Uninstall Tunnelblick..." = "Tunnelblick eltávolítása…";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Tun és Tap rendszerkiegészítő eltávolítása…";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Frissítés";
@@ -550,7 +556,8 @@
 /* Connection status */
 "CONNECTING" = "Csatlakozás"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "Szétkapcsolás"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -1052,6 +1059,9 @@
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Hiba történt (státusz: %1$ld) a(z) %2$@ konfiguráció biztonsági ellenőrzése során.\n\nKérem zárja be és indítsa újra a Tunnelblicket. Ha a probléma továbbra is fennáll kérem telepítse újra a Tunnelblicket.";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "Hiba történt a betöltött rendszerkiegészítők lekérdezése közben.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Hiba történt az indítás során %@";
 
 /* Window text */
@@ -1274,7 +1284,13 @@
 "Failed to create symlink\n  to %@\n  at %@" = "Nem sikerült létrehozni a szimbolikus linket:\n   innen: %1$@ \n   ide: %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "A Tunnelblick tun és tap rendszerkiegészítőinek telepítése sikertelen.";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Jogosultságok beállítása sikertelen a következőn: %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "A Tunnelblick tun és tap rendszerkiegészítőinek eltávolítása sikertelen.";
 
 /* Window text */
 "Fast User Switching" = "Gyors felhasználó váltás";
@@ -1832,6 +1848,9 @@
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "A Tunnelblicknek engedélyre van szüksége a '%@' konfiguráció másolásához.";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "A Tunnelblicknek engedélyre van szüksége a tun és tap rendszerkiegészítők telepítéséhez.";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "A Tunnelblicknek engedélyre van szüksége, hogy %ld konfigurációt privátra változtassa.";
 
 /* Window text */
@@ -1865,6 +1884,9 @@
 "Tunnelblick needs authorization to secure the imported data." = "A Tunnelblicknek adminisztrátori jogosultságra van szüksége az importált adat védelméhez.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "A Tunnelblicknek engedélyre van szüksége a tun és tap rendszerkiegészítők eltávolításához.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "A Tunnelblicknek meg kell változtatnia egy beállítást, amit csak egy rendszergazda tud megváltoztatni.";
 
 /* Window text */
@@ -1881,6 +1903,9 @@
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick sikeresen:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "A Tunnelblick nem tudta eltávolítani a betöltött rendszerkiegészítőit. Kérjük, indítsa újra a számítógépet és próbálja meg ismét eltávolítani a Tunnelblick rendszerkiegészítőit.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "A Tunnelblick sikeresen telepítve és %ld konfiguráció telepítve vagy felülírva.";
@@ -2096,6 +2121,9 @@
 "You may not remove a folder unless it is empty." = "Nem távolíthat el addig egy mappát, amíg nem üres.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Bontania kell minden VPN kapcsolatot mielőtt telepítheti vagy eltávolíthatja a Tunnelblick rendszerkiegészítőit.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "A frissítés után addig nem tudja használni a Tunnelblick-et amíg meg nem ad egy adminisztrátor jogú felhasználónevet és jelszót.\n\nBiztosan ellenőrizni szeretné a frissítéseket?";
 
 /* Window text */
@@ -2180,6 +2208,9 @@
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Amennyiben több mint %u felhasználóval rendelkező számítógépre szeretne Tunnelblick beállításokat importálni, egy kiegészítő szöveges fájlra van szüksége az importálandó felhasználói adatok összerendeléséhez.</p>\n<p>További információt az <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">Exporting and Importing Tunnelblick Setups</a> dokumentumban talál.</p></font>";
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "Az OpenVPN <p><strong>nem Tunnelblick</strong> verzióit nem a Tunneblick projekt tagjai hozták létre és nem képezik a Tunnelblick részeit. Ezeket a számítógép egy adminisztrátora telepítette.</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>A rendszerkiegészítők 'Engedélyezése' szükségessé teheti a rendszer biztonsági beállításainak módosítását. A beállítás csak helyreállítási módban lehetséges. Szükséges lehet a számítógép helyreállítási módban történő újraindítása, ezután a rendes újraindítása. A macOS végig fogja vezetni a folyamaton.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">További információ:</a>[tunnelblick.net]</p>";
@@ -2299,6 +2330,9 @@
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Ellenőrzi a frissítéseket a Tunnelblick alkalmazáshoz. </p><p> Hozzáférést biztosít a Tunnelblick honlapján; További részleteket lásd <a href=\"https://tunnelblick.net/cPrivacy.html\"> adatvédelem és biztonság </a> [tunnelblick.net]. </p><p> ellenőrzi a frissítéseket a konfigurációkhoz ha a VPN szolgáltató alkalmazza ezt a funkciót. </p>";
 
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Kattintson a Tunnelblick tun és tap rendszerkiegészítőinek telepítéséhez vagy eltávolításához</p>\n\n<p>Nézze meg a <a href=\"https://tunnelblick.net/cInstallKexts.html\">Tunnelblick Tun és Tap Rendszerkiegészítők telepítése</a>[tunnelblick.net] linket a részletekért. </p><p><strong>Kikapcsolva</strong>kivéve ha a Tunnelblick a macOS Big Sur vagy későbbi verzióján fut.</p>";
+
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Kattintson ide a Tunnelblick eltávolításához.</p>\n\n<p><strong>Inaktív</strong>, amennyiben a Tunnelblick nem az /Alkalmazások mappában került telepítésre</p>";
 
@@ -2311,6 +2345,9 @@
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Egy tömörített fájlba exportálja a Tunnelblick beállításait az Asztalra, beleértve az összes konfigurációt és ezen számítógép összes felhasználójának beállításait. </p><ul><li>A Kulcskarikában tárolt Hitelesítő adatok <strong>nem</strong> kerülnek exportálásra.</li><li>Ez a művelet hosszabb időt vehet igénybe.</li></ul>";
 
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Ha nem látja a gombot, ami engedélyezi a 'Jonathan Bullard' által fejlesztett rendszerszoftver betöltését, akkor próbáljon meg csatlakozni ehhez a konfigurációhoz (ami nem fog sikerülni), és utána nézze meg a 'Rendszerbeállítások' 'Biztonság és adatvédelem' moduljának 'Általános' fülét ismét.</p>";
+
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Megnyitja az ablakot a további beállításokkal. </p><p> Minden módosítás vonatkozik mindegyik konfigurációra ami be van jelölve a \"VPN részletei\" ablakban.</p>";
 
@@ -2319,6 +2356,9 @@
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Visszaállítja a figyelmeztetéseket, amiket figyelmen kívül hagyott a 'Ne figyelmeztessen erről ismét' jelölőnégyzetet kiválasztva.</p>";
+
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>További információt a <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Rendszerbővítmények telepítése</a> [tunnelblick.net] oldalon találhat.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Lásd a <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] cikket bővebb információért.</p>";
@@ -2364,6 +2404,12 @@
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>A Tunnelblick nem tudta betölteni a rendszerbővítményt, ami szükséges a %@-hoz való csatlakozáshoz.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Megadhat egy Tunnelblick beállítást, hogy a szoftver megpróbálja betölteni a rendszerbővítményeit.</p>";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Ahhoz, hogy ezt a konfigurációt használni tudja, telepíteni kell a Tunnelblick rendszerbővítményeit.</p><p>Ezt megteheti a Tunnelblick 'Segédprogramok' részénél.</p><p>A rendszerbővítmények telepítése után a macOS rendszer végig fogja Önt vezetni a bővítmények engedélyezésének folyamatán, melyhez a Mac eszközének újraindítása is szükséges.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Adminisztrátori módból hátralevő idő: %@";

@@ -529,7 +529,8 @@
 /* Connection status */
 "CONNECTING" = "در حال اتصال"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "در حال قطع اتصال"; // Please translate "Disconnecting"
 
 /* Connection status */

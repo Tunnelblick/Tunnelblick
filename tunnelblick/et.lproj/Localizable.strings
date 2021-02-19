@@ -461,7 +461,8 @@
 /* Connection status */
 "CONNECTING" = "Ühendamine"; // Please translate "Connecting"
 
-/* Connection status */
+/* Connection status
+Please translate "Disconnecting" */
 "DISCONNECTING" = "Ühenduse katkestamine"; // Please translate "Disconnecting"
 
 /* Connection status */
