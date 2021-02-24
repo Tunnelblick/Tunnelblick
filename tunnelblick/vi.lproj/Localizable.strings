@@ -2628,6 +2628,156 @@ Please translate "Disconnecting" */
 /* Column heading in a table */
 "User on this computer" = "Người dùng trên máy tính này";
 
+/* Credit description */
+"Vietnamese translation" = "Bản dịch tiếng việt";
+
+/* Credit description */
+"Xcode help and OpenSSL integration" = "Trợ giúp Xcode và tích hợp OpenSSL";
+
+/* Authentication Prompt */
+"authenticate" = "xác thực";
+
+/* File name of a newly-created folder */
+"untitled folder" = "thư mục không có tiêu đề";
+
+/* Button VPNService */
+"Accept" = "Chấp nhận";
+
+/* Button VPNService */
+"Create a Free Account" = "Tạo một tài khoản miễn phí";
+
+/* Button VPNService */
+"Get Different Image" = "Nhận Hình ảnh Khác";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Đăng nhập";
+
+/* Button VPNService */
+"Next" = "Kế tiếp";
+
+/* Button VPNService */
+"Reject" = "Từ chối";
+
+/* Menu item VPNService */
+"Register for Tunnelblick..." = "Đăng ký Tunnelblick…\n";
+
+/* Window title  VPNService */
+"Cannot obtain image" = "Không thể lấy hình ảnh";
+
+/* Window title  VPNService */
+"Cannot register" = "Không thể đăng ký";
+
+/* Window title  VPNService */
+"Email not verified" = "Email chưa được xác minh";
+
+/* Window title  VPNService */
+"Entries required" = "Mục nhập bắt buộc";
+
+/* Window title  VPNService */
+"Failed to load Terms of Service" = "Không tải được Điều khoản dịch vụ";
+
+/* Window title VPNService */
+"No configuration available" = "Không có cấu hình";
+
+/* Window title  VPNService */
+"Password entries must match" = "Các mục nhập mật khẩu phải khớp";
+
+/* Window title  VPNService */
+"Prove You are Human" = "Chứng minh bạn là con người";
+
+/* Window title  VPNService */
+"Register with Tunnelblick" = "Đăng ký với Tunnelblick";
+
+/* Window title  VPNService */
+"Sorry" = "Rất tiếc";
+
+/* Window title  VPNService */
+"Terms of Service" = "Điều khoản dịch vụ";
+
+/* Window title  VPNService */
+"Tunnelblick - Free VPN" = "Tunnelblick - VPN miễn phí\n";
+
+/* Window title  VPNService */
+"Welcome!" = "Chào mừng!";
+
+/* Window title  VPNService */
+"You Must Type the Characters" = "Bạn phải nhập các ký tự";
+
+/* Window text VPNService */
+"Confirm password:" = "Xác nhận mật khẩu:";
+
+/* Window text VPNService */
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Xin chúc mừng! Tài khoản của bạn đã được tạo. Bạn sẽ sớm nhận được email từ Tunnelblick. Làm theo hướng dẫn trong email để xác minh địa chỉ email của bạn và sau đó nhấp vào 'Tiếp theo'.";
+
+/* Window text VPNService */
+"Could not check registration" = "Không thể kiểm tra đăng ký";
+
+/* Window text VPNService */
+"Could not get a captcha image" = "Không thể lấy hình ảnh xác thực";
+
+/* Window text VPNService */
+"Could not get a session token" = "Không thể nhận mã thông báo phiên";
+
+/* Window text VPNService */
+"Email address %@ is already registered for an account" = "Địa chỉ email %@ đã được đăng ký cho một tài khoản khác\n";
+
+/* Window text VPNService */
+"Email address:" = "Địa chỉ email:";
+
+/* Window text VPNService */
+"Invalid URL: %@" = "URL không hợp lệ: %@\n";
+
+/* Window text VPNService */
+"No valid session token." = "Không có mã thông báo phiên hợp lệ.";
+
+/* Window text VPNService */
+"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Vui lòng đọc Điều khoản dịch vụ của chúng tôi và cho biết bạn chấp nhận hoặc từ chối chúng.";
+
+/* Window text VPNService */
+"Please type the characters in the image and click next." = "Vui lòng nhập các ký tự trong hình ảnh và nhấp vào tiếp theo.";
+
+/* Window text VPNService */
+"Session token requires encoding" = "Mã thông báo phiên yêu cầu mã hóa";
+
+/* Window text VPNService */
+"Session token too long" = "Mã thông báo phiên quá dài";
+
+/* Window text VPNService */
+"Sorry, but your request for an account could not be processed:\n     %@" = "Rất tiếc, nhưng yêu cầu của bạn cho một tài khoản không thể được xử lý:\n     %@";
+
+/* Window text VPNService */
+"Terms of service are unavailable." = "Điều khoản dịch vụ không có sẵn.";
+
+/* Window text VPNService */
+"The Terms of Service could not be loaded:" = "Không thể tải Điều khoản Dịch vụ:";
+
+/* Window text VPNService */
+"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "Địa chỉ email chưa được xác minh.\n\nBạn sẽ không thể đăng nhập và sử dụng VPN cho đến khi địa chỉ email đã được xác minh bằng cách làm theo hướng dẫn trong email mà Tunnelblick gửi cho bạn khi bạn đăng ký dịch vụ.";
+
+/* Window text VPNService */
+"The email address you entered was not a valid email address." = "Địa chỉ email bạn đã nhập không phải là địa chỉ email hợp lệ.";
+
+/* Window text VPNService */
+"The password entries must match to proceed." = "Các mục nhập mật khẩu phải khớp để tiếp tục.";
+
+/* Window text VPNService */
+"The text you entered did not match the text in the Captcha image." = "Văn bản bạn đã nhập không khớp với văn bản trong hình ảnh Captcha.";
+
+/* Window text VPNService */
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Không có cấu hình nào có tên '%@' được cài đặt.\nThử cài đặt lại Tunnelblick từ ảnh đĩa.";
+
+/* Window text VPNService */
+"To create your free Tunnelblick account we need your email address and a password of your choosing." = "Để tạo tài khoản Tunnelblick miễn phí của bạn, chúng tôi cần địa chỉ email và mật khẩu do bạn chọn.";
+
+/* Window text VPNService */
+"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick cho phép bạn khám phá Internet một cách tự do mà không bị hạn chế đồng thời đảm bảo kết nối Internet của bạn.";
+
+/* Window text VPNService */
+"Type the characters above:" = "Nhập các ký tự ở trên:";
+
+/* Window text VPNService */
+"Unable to check account status:\n     %@" = "Không thể kiểm tra trạng thái tài khoản:\n     %@";
+
 /* Window text VPNService */
 "Unable to check registration for empty email address" = "Không thể kiểm tra đăng ký cho địa chỉ email trống";
 
