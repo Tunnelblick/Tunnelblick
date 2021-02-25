@@ -11,7 +11,7 @@
 //  This work is licensed under a Creative Commons license:
 //  http://creativecommons.org/licenses/by/3.0/
 //
-//  Modifications copyright 2016 by Jonathan K. Bullard.
+//  Modifications copyright 2016, 2021 by Jonathan K. Bullard.
 
 #import "DBPrefsWindowController.h"
 
@@ -99,7 +99,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		return;
 	}
 	
-    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 920.0, 390.0)
+    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 920.0, 430.0)
 												    styleMask:(NSTitledWindowMask |
 															   NSClosableWindowMask |
                                                                NSResizableWindowMask |
@@ -114,7 +114,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     [contentSubview setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable | NSViewHeightSizable)];
 	[[[self window] contentView] addSubview:contentSubview];
 	[[self window] setShowsToolbarButton:NO];
-    [[self window] setContentMinSize: NSMakeSize(760.0, 390.0)];
+    [[self window] setContentMinSize: NSMakeSize(760.0, 430.0)];
 	
 	windowHasLoaded = TRUE;
 }
@@ -429,28 +429,14 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		[viewAnimation setDuration:0.25];
 	}
 	
-	NSDictionary *fadeOutDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       oldView, NSViewAnimationTargetKey,
-                                       NSViewAnimationFadeOutEffect, NSViewAnimationEffectKey,
-                                       nil];
-    
-	NSDictionary *fadeInDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      newView, NSViewAnimationTargetKey,
-                                      NSViewAnimationFadeInEffect, NSViewAnimationEffectKey,
-                                      nil];
-    
-	NSDictionary *resizeDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      [self window], NSViewAnimationTargetKey,
-                                      [NSValue valueWithRect:[[self window] frame]], NSViewAnimationStartFrameKey,
-                                      [NSValue valueWithRect:[self frameForView:newView]], NSViewAnimationEndFrameKey,
-                                      nil];
-	
-	NSArray *animationArray = [NSArray arrayWithObjects:
-                               fadeOutDictionary,
-                               fadeInDictionary,
-                               resizeDictionary,
-                               nil];
-	
+    NSDictionary * fadeOutDictionary = @{NSViewAnimationTargetKey: NSNullIfNil(oldView),
+                                        NSViewAnimationEffectKey: NSViewAnimationFadeOutEffect};
+
+    NSDictionary * fadeInDictionary = @{NSViewAnimationTargetKey: newView,
+                                       NSViewAnimationEffectKey: NSViewAnimationFadeInEffect};
+
+    NSArray * animationArray = @[fadeOutDictionary, fadeInDictionary];
+
     [viewAnimation setViewAnimations:animationArray];
 	[viewAnimation startAnimation];
 }

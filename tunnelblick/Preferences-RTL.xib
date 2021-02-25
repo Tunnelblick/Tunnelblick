@@ -17,7 +17,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="493" userLabel="Configurations" customClass="ConfigurationsView">
-            <rect key="frame" x="0.0" y="0.0" width="920" height="430"/>
+            <rect key="frame" x="0.0" y="0.0" width="920" height="470"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <splitView focusRingType="none" dividerStyle="paneSplitter" vertical="YES" id="518">
@@ -697,7 +697,7 @@
             </declaredKeys>
         </arrayController>
         <customView id="1" userLabel="General" customClass="GeneralView">
-            <rect key="frame" x="0.0" y="0.0" width="920" height="430"/>
+            <rect key="frame" x="0.0" y="0.0" width="920" height="470"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <userGuides>
                 <userLayoutGuide location="612.04296875" affinity="minX"/>
@@ -935,7 +935,7 @@
             </declaredKeys>
         </arrayController>
         <customView id="44" userLabel="Appearance" customClass="AppearanceView">
-            <rect key="frame" x="0.0" y="0.0" width="920" height="430"/>
+            <rect key="frame" x="0.0" y="0.0" width="920" height="470"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <userGuides>
                 <userLayoutGuide location="671" affinity="minX"/>
@@ -1171,7 +1171,7 @@
             </declaredKeys>
         </arrayController>
         <customView id="856" userLabel="Utilities" customClass="UtilitiesView">
-            <rect key="frame" x="0.0" y="0.0" width="920" height="430"/>
+            <rect key="frame" x="0.0" y="0.0" width="920" height="470"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <userGuides>
                 <userLayoutGuide location="589.5" affinity="minY"/>
@@ -1309,7 +1309,7 @@
             <point key="canvasLocation" x="532" y="926"/>
         </customView>
         <customView id="117" userLabel="Info" customClass="InfoView">
-            <rect key="frame" x="0.0" y="0.0" width="920" height="430"/>
+            <rect key="frame" x="0.0" y="0.0" width="920" height="470"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="120">
