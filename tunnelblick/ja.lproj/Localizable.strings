@@ -128,7 +128,7 @@
 "Ignore" = "無視";
 
 /* Button */
-"Install tun and tap system extensions..." = "システム拡張機能 tunとtap をインストールします…";
+"Install tun and tap system extensions..." = "システム拡張機能 tunとtap をインストールする…";
 
 /* Button */
 "Install" = "インストール";
@@ -182,7 +182,7 @@
 "Open easy-rsa in Terminal" = "ターミナルで easy-rsa を開く";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Spotlight アイコンの側にアイコンを配置";
+"Place Icon Near the Spotlight Icon" = "アイコンを Spotlight の近くに配置する";
 
 /* Button */
 "Place Icon Normally" = "適当な位置に配置される";
@@ -291,10 +291,10 @@
 "Uninstall Tunnelblick..." = "Tunnelblickをアンインストールする…";
 
 /* Button */
-"Uninstall tun and tap system extensions..." = "システム拡張機能 tunとtap をアンインストールします… ";
+"Uninstall tun and tap system extensions..." = "システム拡張機能 tunとtap をアンインストールする… ";
 
 /* Button. 'Update' refers to the update of a configuration. */
-"Update" = "更新する";
+"Update" = "更新";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblick 起動時に接続";
@@ -350,7 +350,7 @@
 "Move Configurations into a New Folder..." = "設定を新しいフォルダーに移動";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "OpenVPNまたはTunnelblickVPNのログは作成しない";
+"No OpenVPN or Tunnelblick VPN logging" = "OpenVPNやTunnelblickVPNのログは作成しない";
 
 /* Menu item */
 "No VPN Configurations Available" = "VPN 接続先なし";
@@ -371,7 +371,7 @@
 "OpenVPN level 4 - values for all options" = "OpenVPNレベル4 - 全オプションの値も出力";
 
 /* Menu Item */
-"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPNレベル5 - 各パケットごとにRかWも出力";
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPNレベル5 - パケットごとにRやWも出力";
 
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPNレベル6 - とても詳細なログを作成";
@@ -500,7 +500,7 @@
 "Reconnect when user switches in" = "ユーザスイッチから戻った時に再接続する";
 
 /* Checkbox name */
-"Require administrator authorization to install all configurations" = "全ての構成をインストールするには、管理者権限が必要です";
+"Require administrator authorization to install all configurations" = "全ての構成をインストールするために管理者権限を要求する";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "すべてのトラフィックをVPN経由で接続する";
@@ -759,7 +759,7 @@ Please translate "Disconnecting" */
 "UNINSTALL OF TUNNELBLICK FAILED" = "Tunnelblickのアンインストールに失敗しました";
 
 /* Window title */
-"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "無事にTunnelblickをアンインストールしました";
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Tunnelblickのアンインストールに成功しました";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Tunnelblick を起動することができません";
@@ -810,7 +810,7 @@ Please translate "Disconnecting" */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNSサーバのIPアドレス「%@」はパブリックDNSサーバではありませんが、経路がVPNへ向いていません。\n\n";
 
 /* Window text */
-"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNSサーバのアドレス %@ は公開されているIPアドレスでなく、VPNでルーティングされません。\n\n";
+"     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNSサーバのアドレス %@ は公開されているIPアドレスはないため、VPNでルーティングされません。\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu つの設定がインストールされました\n\n";
@@ -819,10 +819,10 @@ Please translate "Disconnecting" */
 "     • Installed one configuration\n\n" = "     • 1個の設定をインストールしました\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed or replaced %lu \"safe\" configurations\n\n" = "％lu個の安全な構成をインストール、または置換しました\n\n";
+"     • Installed or replaced %lu \"safe\" configurations\n\n" = "％lu個の安全な構成がインストールあるいは置換されました。\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed or replaced one \"safe\" configuration\n\n" = "一個の安全な構成をインストール、または置換しました。\n\n";
+"     • Installed or replaced one \"safe\" configuration\n\n" = "1個の安全な構成がインストールあるいは置換されました。\n\n";
 
 /* Window text */
 "     • No DNS servers have been specified.\n\n" = "     • DNSサーバが指定されていません。\n\n";
@@ -861,7 +861,7 @@ Please translate "Disconnecting" */
 "    • Uninstall %lu configurations\n\n" = "    • %lu個の設定を削除\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall one configuration\n" = "    • 1個の構成を削除\n";
+"    • Uninstall one configuration\n" = "    • 1個の構成をアンインストールする\n";
 
 /* Window text */
 "  • Be installed in /Applications as Tunnelblick\n" = "  •  「 /アプリケーション」に「Tunnelblick」という名前でインストール\n";
@@ -870,13 +870,13 @@ Please translate "Disconnecting" */
 "  • Change ownership and permissions of the program to secure it\n" = "  • アプリケーションの所有者とアクセス権限を安全にする\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  • 更新を完成する\n";
+"  • Complete the update\n" = "  • 更新を完了する\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • OpenVPN 設定ファイルを変換します\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Copy a configuration\n" = "  • 構成をコピー\n";
+"  • Copy a configuration\n" = "  • 構成をコピーする\n";
 
 /* Window text */
 "  • Install forced preferences\n" = "  • 強制的に設定をインストール\n";
@@ -885,13 +885,13 @@ Please translate "Disconnecting" */
 "  • Install or update configuration(s)\n" = "  • 接続先をインストールまたは更新します\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Move a configuration\n" = "  • 構成を移動\n";
+"  • Move a configuration\n" = "  • 構成を移動する\n";
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • 個人用設定フォルダに移動します\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Remove a configuration\n" = "  • 構成を削除\n";
+"  • Remove a configuration\n" = "  • 構成を削除する\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • 接続先設定ファイルを安全にします\n";
@@ -2209,7 +2209,7 @@ Please translate "Disconnecting" */
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>Tunnelblickでない</strong>バージョンのOpenVPNは、Tunnelblickプロジェクトで作成したものではなくTunnelblickには含まれません。コンピュータ管理者によりインストールされたものです。";
 
-/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. That message uses the term 'allowing' the system extension, so we use that term here, too. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>システム拡張を許可するには、システムセキュリティ設定の変更が必要となる場合があります。 設定はリカバリモードでのみ変更できます。 リカバリモードで再起動し、変更を加えてから、通常どおり再起動する必要がある場合があります。 macOSがこのプロセスをガイドします。 </p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */

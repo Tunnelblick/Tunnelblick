@@ -284,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "آیکون Tunnelblick 3.3";
 
+/* Button */
+"Uninstall Tunnelblick..." = "حذف برنامه تانلبلیک";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "به‌روزرسانی";
 
@@ -370,8 +373,17 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "سطح گزارش دهی OpenVPN با توجه به تنظیمات پیکربندی";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "ایراد در اجرای نسخه های آتی تانلبلیک";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "ایراد در اجرای نسخه‌های آتی مک‌اُ‌اس";
+
 /* Menu item */
 "Quit Tunnelblick" = "بستن Tunnelblick";
+
+/* Menu Item */
+"Rename Configuration" = "تغییر نام پیکربندی";
 
 /* Menu Item */
 "Revert Configuration..." = "بازگرداندن پیکربندی…";
@@ -474,6 +486,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "اتصال دوباره بعداز ورود دوباره کاربر";
+
+/* Checkbox name */
+"Require administrator authorization to install all configurations" = "برای نصب همه پیکربندی‌ها نیاز به دسترسی ادمین می‌باشد ";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "تمامی ترافیک IPv4 را از طریق وی پی ان انتقال بده";

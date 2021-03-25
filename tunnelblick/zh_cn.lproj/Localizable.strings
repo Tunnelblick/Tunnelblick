@@ -2127,7 +2127,7 @@ Please translate "Disconnecting" */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "你必须提供计算机管理员的用户名和密码, 才能继续升级 Tunnelblick.\n\n你确定想要查找更新吗?";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "您的计算机或许无法保证 Tunnelblick 图标能在搜索图标附近显示。\n\n该选项或许导致 Tunnelblick 图标有时从菜单栏消失。\n\n您确定要设定 Tunnelblick 图标置于搜索图标附近吗？\n\n";
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "您的计算机或许无法保证 Tunnelblick 图标能在“聚焦”搜索图标附近显示。\n\n该选项或许导致 Tunnelblick 图标有时从菜单栏消失。\n\n您确定要设定 Tunnelblick 图标置于搜索图标附近吗？\n\n";
 
 /* Window text */
 "Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "您将会帮助到所有Tunnelblick的用户。\n\n如果可以，请不要在完成电子邮件发送前点击“退出”。";
@@ -2209,7 +2209,7 @@ Please translate "Disconnecting" */
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非Tunnelblick</strong>' 的 OpenVPN版本不在Tunnelblick项目中，也不是Tunnelblick创建的。您的系统管理员安装了这些软件。</p>";
 
-/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. That message uses the term 'allowing' the system extension, so we use that term here, too. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>‘允许’系统扩展有可能需要改动系统的一个安全设置。这个设置只能在恢复模式改动。您有可能需要重启到恢复模式，做好改动，然后正常重启。macOS应该会指导您完成这个过程。</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
@@ -2292,7 +2292,7 @@ Please translate "Disconnecting" */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>选中时</strong>，自动检测更新和IP地址检查的相关修改都不会生效，无视其他相关设置。提示：这两项修改都会访问Tunnelblick网站。</p>\n<p><strong>不选中时</strong>，如果下面开启了，会开启自动更新，并且如果配置中开启了检查IP地址的设置，在连接配置的时候会进行IP地址检查。</p><p>参见 <a href=\"https://tunnelblick.net/cPrivacy.html\">隐私和安全</a> [tunnelblick.net] 获取详细说明。</p><p>&nbsp;</p>";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>若打勾</strong>，Tunnelblick 图标位于搜索图标附近：</p>\n<p>%1$@</p>\n<p><strong>未打勾</strong>，Tunnelblick 图标位于正常的位置：</p>\n<p>%2$@</p>\n<p>macOS Sierra 或更高版本并不需要该选项，而且有的计算机已发现该选项会导致故障，两者情况下<strong>该复选框已被禁用</strong>。</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">了解详情</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>若打勾</strong>，Tunnelblick 图标位于“聚焦”搜索图标附近：</p>\n<p>%1$@</p>\n<p><strong>未打勾</strong>，Tunnelblick 图标位于正常的位置：</p>\n<p>%2$@</p>\n<p>macOS Sierra 或更高版本并不需要该选项，而且有的计算机已发现该选项会导致故障，两者情况下<strong>该复选框已被禁用</strong>。</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">了解详情</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>选中时</strong>，配置连接断开的时候也将展示VPN状态窗口。</p><p>如果选择了上面的‘永不显示’<strong>此复选框被禁用</strong>。</p>";
@@ -2329,6 +2329,9 @@ Please translate "Disconnecting" */
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>检查Tunnelblick程序的更新。</p><p>详情请参考Tunnelblick网站中的<a href=\"https://tunnelblick.net/cPrivacy.html\">隐私和安全</a> [tunnelblick.net]。</p><p>如果你的VPN服务商实现了这个特性也请检查配置的更新。</p>";
+
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>点击以安装或卸载Tunnelblick的tun和tap系统扩展。</p>\n\n<p>另见<a href=\"https://tunnelblick.net/cInstallKexts.html\">安装Tunnelblick的tun和tap系统扩展</a> [tunnelblick.net] 的详情。</p><p><strong>禁用</strong>除非Tunnelblick在macOS Big Sur或以后版本上运行。</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>点击来卸载 Tunnelblick 。</p>\n\n<p><strong>此动作已被禁用</strong>，如果 Tunnelblick 没有被安装到 “/应用程序” 文件夹下。</p>";

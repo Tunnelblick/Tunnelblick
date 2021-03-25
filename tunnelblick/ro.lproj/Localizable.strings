@@ -44,7 +44,7 @@
 "All Users" = "Toţi utilizatorii";
 
 /* Button */
-"Always load Tap driver" = "Încarcă întotdeauna driver-ul Tap";
+"Always load Tap driver" = "Întotdeauna incarcă driver-ul Tap";
 
 /* Button */
 "Always load Tun driver" = "Încarcă întotdeauna driver-ul Tun";
@@ -98,13 +98,13 @@
 "Delete" = "Șterge";
 
 /* Button */
-"Disable network access" = "Dezactivați accesul la rețea";
+"Disable network access" = "Dezactivează accesul la rețea";
 
 /* Button */
 "Disconnect" = "Deconectare";
 
 /* Button */
-"Do Not Re-enable Network Access" = "Nu re-activați accesul la rețea";
+"Do Not Re-enable Network Access" = "Nu reactiva accesul la rețea";
 
 /* Button */
 "Do not use the plugin" = "Nu folosi plugin-ul";
@@ -128,13 +128,16 @@
 "Ignore" = "Ignoră";
 
 /* Button */
+"Install tun and tap system extensions..." = "Instalează extensiile de sistem tun și tap ";
+
+/* Button */
 "Install" = "Instalează";
 
 /* Button. In a dialog that says a file already exists in a new location. */
 "Keep Both" = "Păstrează ambele fișiere";
 
 /* Button */
-"Latest (%@)" = "Cea mai recentă (%@)";
+"Latest (%@)" = "Ultima versiune (%@)";
 
 /* Button */
 "Load Tap driver automatically" = "Încarcă automat driver-ul Tap";
@@ -286,6 +289,9 @@
 
 /* Button */
 "Uninstall Tunnelblick..." = "Dezinstaleaza Tunnelblick";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Dezinstalează extensiile de sistem tun și tap";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Actualizare";
@@ -1053,6 +1059,9 @@ Please translate "Disconnecting" */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "O eroare (statusul %1$ld) s-a întâmplat în timp ce se încerca verificarea securității configurării %2$@. \n \n Vă rugăm să închideți și să relansați Tunnelblick. Dacă problema persistă, vă rugăm să reinstalați Tunnelblick.";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "Ai întâmpinat o eroarea în încercarea de accesa lista extensiilor de sistem încărcate.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "A apărut o eroare în timp ce se încerca lansarea %@";
 
 /* Window text */
@@ -1275,7 +1284,13 @@ Please translate "Disconnecting" */
 "Failed to create symlink\n  to %@\n  at %@" = "Nu a reușit să creeze symlink\n   până la %1$@\n   la %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Încercare eșuată de a instala extensiile de sistem tun și tap pentru Tunnelblick.";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Nu s-au putut seta permisiunile pentru %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Încercare eșuată de dezinstalare a extensiilor de sistem tun și tap pentru Tunnelblick.";
 
 /* Window text */
 "Fast User Switching" = "Comutarea rapidă între utilizatori";
@@ -1833,6 +1848,9 @@ Please translate "Disconnecting" */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick are nevoie de autorizație pentru a copia configurația %@.";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Este necesară autorizarea instalării extensiilor de sistem tun și tap pentru Tunnelblick.";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick are nevoie de autorizație pentru a face %ld configuratii private.";
 
 /* Window text */
@@ -1866,6 +1884,9 @@ Please translate "Disconnecting" */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick are nevoie de autorizație să securizeze datele importate.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Este necesară autorizarea dezinstalării extensiilor de sistem tun și tap pentru Tunnelblick.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick trebuie să se schimbe o setare care poate fi schimbată numai de către un administrator al computerului.";
 
 /* Window text */
@@ -1882,6 +1903,9 @@ Please translate "Disconnecting" */
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick a efectuat cu succes:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick nu a reușit să își descarce extensiile de sistem. Este necesară repornirea stației de lucru, apoi încearcă să dezinstalezi extensiile de sistem ale Tunnelblick.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick a fost instalat cu succes și %ld configurații au fost instalate sau înlocuite.";
@@ -2097,6 +2121,9 @@ Please translate "Disconnecting" */
 "You may not remove a folder unless it is empty." = "Nu puteți deplasa un dosar decât dacă este gol.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Este necesar să deconectezi toate conexiunile VPN înainte de a instala sau dezinstala extensiile de sistem Tunnelblick.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Nu veți putea să actualizați Tunnelblick dacă nu furnizați autorizație de administrator de computer.\n\nSigur doriți să verificați actualizările?";
 
 /* Window text */
@@ -2181,6 +2208,9 @@ Please translate "Disconnecting" */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Pentru a importa configurația Tunnelblick pe un computer care are mai mult de %u conturi de utilizatori, trebuie creat un fișier text specificând informațiile ce trebuiesc importate.</p>\n<p>Pentru informații suplimentare, consultați <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "Versiunile <p>'<strong>non-Tunnelblick</strong>' de OpenVPN nu au fost create de proiectul Tunnelblick și nu fac parte din Tunnelblick. Elle au fost instalate de administratorul computerului.</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. That message uses the term 'allowing' the system extension, so we use that term here, too. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p> Permiterea extensiilor de sistem ar putea necesita o schimbare a configurației de securitate a sistemului. Această configurație poate fi schimbată doar în modul 'Recovery'. Pentru aceasta, repornește sistemul în modul 'Recovery', fă schimbarea după care repornește din nou sistemul în modul normal. macOS te va ghida cu informații suplimentare în cadrul acestui proces.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Alte informații</a> [tunnelblick.net]</p>";
@@ -2300,6 +2330,9 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Caută versiuni actualizate a aplicației Tunnelblick.</p><p>Se conectează la site-ul Tunnelblick; pentru mai multe detalii vizitați <a href=\"https://tunnelblick.net/cPrivacy.html\">Securitate și Intimitate</a> [tunnelblick.net].</p><p>De asemenea caută actualizări a configurațiilor, dacă furnizorul de servicii VPN suportă această funcționalitate.</p>";
 
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Click pentru a instala sau dezinstala extensiile tun și tap ale Tunnelblick.</p> \n\n<p>Vezi <a href=\"https://tunnelblick.net/cInstallKexts.html\">Instalarea extensiilor de sistem tun și tap ale Tunnelblick</a> [tunnelblick.net] pentru detalii.</p> <p> <strong>Dezactivat</strong> pentru versiuni mai vechi de macOS Big Sur</p>";
+
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Apăsați pentru a dezinstala Tunnelblick.</p>\n\n<p><strong>Dezactivat</strong> dacă Tunnelblick nu e instalat în /Aplicatii.</p>";
 
@@ -2312,6 +2345,9 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exportă configurația Tunnelblick, cu toate configurațiile și setările tuturor utilizatorilor acestui computer, într-un fișier comprimat pe Desktop.</p><ul><li>Datele de autentificare salvate în Keychain <strong>nu</strong> sunt exportate.</li><li>Exportul poate fi destul de lung.</li></ul>";
 
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Dacă nu vizualizezi opțiunea (butonul) care permite încărcarea aplicației dezvoltate de 'Jonathan Bullard', încearcă conectarea acestei configurații (care va eșua), apoi urmărește în tab-ul 'General' din secțiunea 'Security & Privacy' din 'Preferințe Sistem'.</p>";
+
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Deschide o fereastră nouă cu setări suplimentare.</p><p>Modificările vor fi aplicate tuturor configurațiilor selectate în fereastra 'Detalii VPN'.</p>";
 
@@ -2320,6 +2356,9 @@ Please translate "Disconnecting" */
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Restaurează toate atenționările care au fost oprite folosind opțiunea 'Nu avertiza despre asta din nou'.</p>";
+
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Vezi <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Instalarea extensiilor de sistem</a> [tunnelblick.net] pentru mai multe informații.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Consultați <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Viitorul VPN-urilor Tun și Tap pe macOS</a> [tunnelblick.net] pentru informații suplimentare.</p>";
@@ -2365,6 +2404,12 @@ Please translate "Disconnecting" */
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick nu a putut să încarce o extensie sistem necesară pentru conectare la %@.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Poți seta o opțiune Tunnelblick pentru a încerca să încarce extensiile sale de sistem.</p>";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Pentru a utiliza această configurație, este necesară instalarea extensiilor de sistem necesare Tunnelblick.</p><p>Poți efectua această operațiune din panoul 'Utilități' din cadrul Tunnelblick.</p><p>Ulterior realizării procesului de instalare a extensiilor de sistem, macOS te va ghida în procesul de acordare permisiuni pentru respectivele extensii de sistem care poate presupune și reinițializarea (repornirea) sistemului.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Timp rămas în mod administrator %@";

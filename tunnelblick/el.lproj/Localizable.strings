@@ -290,6 +290,9 @@
 /* Button */
 "Uninstall Tunnelblick..." = "Απεγκατάσταση Tunnelblick…";
 
+/* Button */
+"Uninstall tun and tap system extensions..." = "Απεγκαταστήσετε τις επεκτάσεις συστήματος 'tun' και 'tap'…";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Ενημέρωση";
 
@@ -1056,6 +1059,9 @@ Please translate "Disconnecting" */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Παρουσιάστηκε ένα σφάλμα (κατάσταση %1$ld) καθώς ελεγχόταν η ασφάλεια της παραμέτρου %2$@.\n\nΠαρακαλούμε τερματίστε το Tunnelblick και εκκινήστε πάλι. Αν παραμείνει το πρόβλημα εγκαταστήστε το εκ νέου το Tunnelblick.";
 
 /* Window text */
+"An error occurred getting the list of loaded system extensions." = "Σφάλμα κατά την ανάκτηση της λίστας των ενεργών επεκτάσεων συστήματος.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Παρουσιάστηκε σφάλμα κατά την εκκίνηση του %@";
 
 /* Window text */
@@ -1278,7 +1284,13 @@ Please translate "Disconnecting" */
 "Failed to create symlink\n  to %@\n  at %@" = "Αποτυχία δημιουργίας symlink \n   στο %1$@ \n   στο %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Αποτυχία κατά την εγκατάσταση των επεκτάσεων συστήματος 'tun' και 'tap' του Tunnelblick.";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Αποτυχία ορισμού δικαιωμάτων στο %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Αποτυχία κατά την απεγκατάσταση των επεκτάσεων συστήματος 'tun' και 'tap' του Tunnelblick.";
 
 /* Window text */
 "Fast User Switching" = "Γρήγορη αλλαγή χρηστών";
@@ -1836,6 +1848,9 @@ Please translate "Disconnecting" */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Το Tunnelblick χρειάζεται εξουσιοδότηση για να δημιουργήσει τη διπλότυπη ρύθμιση '%@'.";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Το Tunnelblick χρειάζεται άδεια για την εγκατάσταση των δικών του επεκτάσεων 'tun' και 'tap'.";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Το Tunnelblick χρειάζεται εξουσιοδότηση για να δημιουργήσει %ld ιδιωτικές ρυθμίσεις.";
 
 /* Window text */
@@ -1869,6 +1884,9 @@ Please translate "Disconnecting" */
 "Tunnelblick needs authorization to secure the imported data." = "Το Tunnelblick χρειάζεται εξουσιοδότηση για να εξασφαλίσει τα εισαχθέντα δεδομένα.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Το Tunnelblick χρειάζεται άδεια για την απεγκατάσταση των δικών του επεκτάσεων 'tun' και 'tap'.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Το Tunnelblick χρειάζεται να αλλάξει μια επιλογή, η οποία μπορεί να αλλαχθεί μόνο από ένα διαχειριστή του υπολογιστή.";
 
 /* Window text */
@@ -1885,6 +1903,9 @@ Please translate "Disconnecting" */
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Το Tunnelblick πραγματοποίησε επιτυχώς:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Το Tunnelblick δεν μπόρεσε να ξεφορτώσει τις δικές του επεκτάσεις συστήματος. Κάντε επανεκκίνηση και προσπαθήστε πάλι να απεγκαταστήσετε τις επεκτάσεις συστήματος του Tunnelblick.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Το Tunnelblick εγκατέστάθηκε με επιτυχία και %ld ρυθμίσεις εγκαταστάθηκαν ή αντικαταστάθηκαν.";
@@ -2100,6 +2121,9 @@ Please translate "Disconnecting" */
 "You may not remove a folder unless it is empty." = "Δεν μπορείτε να διαγράψετε ένα φάκελο εκτός αν είναι άδειος.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Πρέπει να αποσυνδεθείτε από όλα τα VPNs πριν εγκαταστήσετε ή απεγκαταστήσετε τις επεκτάσεις συστήματος του Tunnelblick.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Δεν θα μπορείτε να ενημερώσετε το Tunnelblick εκτός αν έχετε δώσει την εξουσιοδότηση του διαχειριστή του υπολογιστή.\n\nΕίστε βέβαιοι ότι θέλετε να ελέγξετε για ενημερώσεις;";
 
 /* Window text */
@@ -2185,6 +2209,9 @@ Please translate "Disconnecting" */
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p> Οι εκδόσεις του OpenVPN <strong> εκτός Tunnelblick </strong> δεν δημιουργήθηκαν από το έργο Tunnelblick και δεν αποτελούν μέρος του Tunnelblick. Έχουν εγκατασταθεί από τον διαχειριστή του υπολογιστή. </p>";
 
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. That message uses the term 'allowing' the system extension, so we use that term here, too. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Η 'αποδοχή' των επεκτάσεων συστήματος ίσως απαιτεί αλλαγή των ρυθμίσεων ασφάλειας του υπολογιστή σας. Η αλλαγή αυτή μπορεί να γίνει μόνο σε λειτουργία Aνάκτησης. Ίσως πρέπει να κάνετε επανεκκίνηση σε λειτουργία Ανάκτησης, να κάνετε την αλλαγή αυτή και να εκκινήσετε πάλι τον υπολογιστή σας φυσιολογικά. Το MacOS θα πρέπει να σας καθοδηγήσει στην διαδικασία αυτή.</p>";
+
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Περισσότερες πληροφορίες</a>[tunnelblick.net]</p>";
 
@@ -2229,7 +2256,7 @@ Please translate "Disconnecting" */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το Tunnelblick θα ελέγξει για τυχόν ενημερώσεις στην εκκίνηση και στη συνέχεια περιοδικά.</p><p><strong>Αυτό το πλαίσιο πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> και μη επιλεγμένο όταν είναι επιλεγμένο το «Αναστολή ελέγχου αυτόματης ενημέρωσης και ελέγχου διεύθυνσης IP».</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το Tunnelblick θα αποφασίσει την δημόσια διεύθυνση IP του υπολογιστή πριν και μετά την σύνδεση του VPN και θα ειδοποιήσει εάν η διεύθυνση IP δεν αλλαζει.</p>\n<p>Η ιστοσελίδα tunnelblick.net θα χρησιμοποιηθεί για να εκτελεστεί αυτή η λειτουργία. Η πρόσβαση γίνεται συνήθως μέσω https: χρησιμοποιώντα το ονομα tunnelblick.net, στην περίπτωση που η προσβαση αποτύχει γίνετε προσπάθει με χρήση http: και τη διεύθυνση IP της ιστοσελίδας</p> <p><strong>Όταν δεν είναι επιλεγμένο</strong>, το Tunnelblick δεν ελέγχει τις αλλαγές της διεύθυνση IP και δεν ειδοποιεί για αλλαγές της διεύθυνσης IP μετα την σύνδεση στο VPN.</p>\n";
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το Tunnelblick θα διαπιστώσει τη δημόσια IP διεύθυνση του υπολογιστή πριν και μετά τη σύνδεση στο VPN και θα ειδοποιήσει εάν η IP διεύθυνση δεν αλλάξει.</p>\n<p>Η ιστοσελίδα tunnelblick.net θα χρησιμοποιηθεί για την εκτέλεση αυτής της λειτουργίας. Η πρόσβαση γίνεται συνήθως μέσω https: χρησιμοποιώντας το όνομα tunnelblick.net. Αν η πρόσβαση αποτύχει γίνεται προσπάθεια με χρήση http: και την IP διεύθυνση της ιστοσελίδας.</p>\n <p><strong>Όταν δεν είναι επιλεγμένο</strong>, το Tunnelblick δεν ελέγχει για αλλαγές στην IP διεύθυνση και δεν προειδοποιεί αν δεν αλλάξει η IP διεύθυνση μετά τη σύνδεση στο VPN.</p>\n";
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Όταν επιλεγεί</strong>, Το Tunnelblick θα δώσει εντολή στο OpenVPN να δρομολογήσει όλη την κυκλοφορία IPv4 μέσω του διακομιστή VPN.</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, από προεπιλογή το OpenVPN θα χρησιμοποιεί το VPN μόνο για κίνηση που προορίζεται για το δίκτυο VPN. Όλη η άλλη κυκλοφορία θα χρησιμοποιήσει την κανονική σύνδεση στο Internet χωρίς να περάσει από το VPN. Η προεπιλεγμένη συμπεριφορά του OpenVPN ενδέχεται να αλλάξει από τη διαμόρφωση OpenVPN ή από τον διακομιστή VPN και να προκαλέσει τη δρομολόγηση όλη τη κυκλοφορία IPv4 μέσω του διακομιστή VPN σαν να είχε ελεγχθεί αυτό το πλαίσιο ελέγχου.</p>\n";
@@ -2303,6 +2330,9 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p> Έλεγχοι για ενημερώσεις στην εφαρμογή Tunnelblick. </p> <p> Πρόσβαση στον ιστότοπο Tunnelblick. για περισσότερες λεπτομέρειες, ανατρέξτε στο <a href=\"https://tunnelblick.net/cPrivacy.html\"> Απόρρητο και Ασφάλεια </a> [tunnelblick.net]. </p> <p> Επίσης, ελέγχεται για ενημερώσεις σε διαμορφώσεις, εάν ο πάροχος υπηρεσιών VPN υλοποιεί τη συγκεκριμένη λειτουργία. </p>";
 
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Πατήστε εδώ για την εγκατάσταση ή απεγκατάσταση των επεκτάσεων συστήματος 'tun' και 'tap' του Tunnelblick.</p>\n\n<p>Δείτε το άρθρο <a href=\"https://tunnelblick.net/cInstallKexts.html\">Εγκαθιστώντας τις Επεκτάσεις Συστήματος 'Tun' και 'Tap΄ του Tunnelblick</a> [tunnelblick.net] για λεπτομέρειες.</p><p>Η επιλογή αυτή είναι<strong>απενεργοποιημένη</strong> σε εκδόσεις του macOS παλιαότερες της Big Sur.</p>";
+
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Κλικ για απεγκατάσταση Tunnelblick.</p>\n<p><strong>Απενεργοποιημένο</strong> αν το Tunnelblick δεν είναι εγκατεστημένο στο /Applications.</p>";
 
@@ -2315,6 +2345,9 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Εξάγει τις Tunnelblick ρυθμίσεις, συμπεριλαμβανομένων όλων των παραμετροποιήσεων για όλους τους χρήστες αυτού του υπολογστή, σε ένα συμπιεσμένο αρχείο στην Επιφάνεια Εργασίας.</p><ul><li>Συνθηματικά αποθηκευμένα στο Keychain <strong>δεν</strong> εξάγονται.</li><li>Η εξαγωγή μπορεί να πάρει αρκετή ώρα.</li></ul>";
 
+/* HTML text. */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Εάν δεν μπορείτε να δείτε κάποιο κουμπί για να επιτρέψετε την φόρτωση λογισμικού συστήματος από τον προγραμματιστή 'Jonathan Bullard', προσπαθήστε να συνδεθείτε με την συγκεκριμένη διαμόρφωση VPN (πράγμα που θα αποτύχει), και ξανα-ανοίξτε την καρτέλα 'Γενικά' της ενότητας 'Ασφάλεια και Απόρρητο' στις 'Προτιμήσεις Συστήματος'.</p>";
+
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p> Ανοίγει ένα παράθυρο με πρόσθετες ρυθμίσεις. </p> <p> Οποιεσδήποτε αλλαγές θα εφαρμοστούν σε όλες τις διαμορφώσεις που έχουν επιλεγεί στο παράθυρο \"Λεπτομέρειες VPN\". </p>";
 
@@ -2323,6 +2356,9 @@ Please translate "Disconnecting" */
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Επαναφέρει τις προειδοποιήσεις που έχουν ανασταλεί από το πλαίσιο ελέγχου \"Μην προειδοποιείτε για αυτό ξανά\".</p>";
+
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Δείτε το άρθρο <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Εγκαθιστώντας Επεκτάσεις Συστήματος</a> [tunnelblick.net] για περισσότερες πληροφορίες.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Δείτε το <a href=\"https://tunnelblick.net/cTunTapConnections.html\">το μέλλον Tun/Tap συνδέσεων στο macOS</a> [tunnelblick.net] για περισσότερες πληροφορίες.</p>";
@@ -2368,6 +2404,12 @@ Please translate "Disconnecting" */
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Το Tunnelblick δεν μπόρεσε να φορτώσει μια επέκταση του συστήματος που απαιτείται για τη σύνδεση με %@.</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "Μπορείτε να ρυθμίσετε το Tunnelblick ώστε να προσπαθήσει να φορτώσει τις επεκτάσεις συστήματος.";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Πρέπει να εγκαταστήσετε τις επεκτάσεις συστήματος του Tunnelblick για να χρησιμοποιήσετε αυτή τη διαμόρφωση.</p><p>Αυτό μπορεί να γίνει από τον πίνακα 'Βοηθήματα' του Tunnelblick.</p><p>Αφού εγκαταστήσετε τις επεκτάσεις συστήματος, το macOS θα σας καθοδηγήσει στη διαδικασία 'αποδοχής' τους, πράγμα που θα απαιτήσει επανεκκίνηση στον υπολογιστή σας.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Λειτουργία Διαχειριστή  %@ απομένουν";
