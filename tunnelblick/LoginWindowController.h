@@ -33,15 +33,19 @@
     IBOutlet NSTextField        * username;
     IBOutlet NSSecureTextField  * password;
     IBOutlet NSTextField        * visiblePassword;
+    IBOutlet NSSecureTextField  * securityToken;
+	  IBOutlet NSTextField				* visibleSecurityToken;
 
     IBOutlet NSTextFieldCell    * usernameTFC;
     IBOutlet NSTextFieldCell    * passwordTFC;
 
     IBOutlet NSButton           * eyeButton;
-    
+		IBOutlet NSButton           * securityEyeButton;
+
     IBOutlet NSButton           * saveUsernameInKeychainCheckbox;
     IBOutlet NSButton           * savePasswordInKeychainCheckbox;
-	IBOutlet NSButton           * alwaysShowLoginWindowCheckbox;
+  	IBOutlet NSButton           * useSecurityTokenCheckbox;
+	  IBOutlet NSButton           * alwaysShowLoginWindowCheckbox;
 
     id                            delegate;
 
@@ -55,15 +59,19 @@
 -(IBAction) cancelButtonWasClicked: (id)            sender;
 -(IBAction) OKButtonWasClicked:     (id)            sender;
 -(IBAction) eyeButtonWasClicked:    (id)            sender;
+-(IBAction) securityEyeButtonWasClicked:    (id)            sender;
 
 -(IBAction) saveUsernameInKeychainCheckboxWasClicked: (id) sender;
+-(IBAction) useSecurityTokenCheckboxWasClicked: (id) sender;
 
 -(BOOL)     isSaveUsernameInKeychainChecked;
 -(BOOL)     isSavePasswordInKeychainChecked;
+-(BOOL)     useSecurityTokenChecked;
 
 TBPROPERTY_READONLY(NSTextField *,       username)
 TBPROPERTY_READONLY(NSSecureTextField *, password)
 TBPROPERTY_READONLY(NSTextField *,       visiblePassword)
+TBPROPERTY_READONLY(NSTextField *,       securityToken)
 
 TBPROPERTY_READONLY(NSButton *,    eyeButton)
 

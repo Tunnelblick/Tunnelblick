@@ -38,12 +38,16 @@ extern TBUserDefaults * gTbDefaults;
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField       *, username)
 TBSYNTHESIZE_OBJECT_GET(retain, NSSecureTextField *, password)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField       *, visiblePassword)
+TBSYNTHESIZE_OBJECT_GET(retain, NSSecureTextField *, securityToken)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField       *, visibleSecurityToken)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, saveUsernameInKeychainCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, useSecurityTokenCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, alwaysShowLoginWindowCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, eyeButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, securityEyeButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeNormal)
 TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
@@ -106,7 +110,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
     [saveUsernameInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain",        @"Checkbox name")];
     [savePasswordInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain",        @"Checkbox name")];
-	[alwaysShowLoginWindowCheckbox  setTitle: NSLocalizedString(@"Always show this window", @"Checkbox name")];
+    [useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Security Token",            		@"Checkbox name")];
+	  [alwaysShowLoginWindowCheckbox  setTitle: NSLocalizedString(@"Always show this window", @"Checkbox name")];
 
     [savePasswordInKeychainCheckbox setState:   NSOffState];
     [savePasswordInKeychainCheckbox setEnabled: NO];
@@ -174,6 +179,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 													 ? NSOnState
 													 : NSOffState)];
 	[[self alwaysShowLoginWindowCheckbox] setEnabled: TRUE];
+	
+	key = [[delegate displayName] stringByAppendingString: @"-useSecurityToken"];
+	[[self useSecurityTokenCheckbox] setState:( [gTbDefaults boolForKey:key] ? NSOnState : NSOffState)];
+	[[self securityToken] setEnabled:[gTbDefaults boolForKey:key]];
+	[self setInputBoxAndSecurityToken:@"" exposed: FALSE];
 
     [cancelButton setEnabled: YES];
     [OKButton setEnabled: YES];
@@ -210,16 +220,22 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
     const char * usernameC = [escaped(  [[self username] stringValue]  ) UTF8String];
     const char * passwordC = [escaped(  [[self password] stringValue]  ) UTF8String];
+    const char * securityTockenC = [self useSecurityTokenChecked] ?
+			[escaped(  [[self securityToken] stringValue]  ) UTF8String] : "";
+
     if (   (strlen(usernameC) == 0)
         || (strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)
-        || (strlen(passwordC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)) {
+        || ((strlen(passwordC) + strlen(securityTockenC)) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)
+				|| ([self useSecurityTokenChecked] && strlen(securityTockenC) == 0)) {
         [UIHelper shakeWindow: self.window];
         return;
     }
 
 	NSString * key = [[delegate displayName] stringByAppendingString: @"-alwaysShowLoginWindow"];
 	[gTbDefaults setBool: [self isAlwaysShowLoginWindowChecked] forKey: key];
-	
+	key = [[delegate displayName] stringByAppendingString: @"-useSecurityToken"];
+	[gTbDefaults setBool: [self useSecurityTokenChecked] forKey: key];
+
     [cancelButton setEnabled: NO];
     [OKButton setEnabled: NO];
     [NSApp stopModal];
@@ -237,6 +253,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 		[[self savePasswordInKeychainCheckbox] setState:   NSOffState];
 		[[self savePasswordInKeychainCheckbox] setEnabled: NO];
 	}
+}
+
+-(IBAction) useSecurityTokenCheckboxWasClicked: (id) sender {
+    (void) sender;
+
+    [securityToken setEnabled:[useSecurityTokenCheckbox state] == NSOnState];
+    [[self securityToken] setStringValue:@""];
 }
 
 -(void) exposePasswordAndSetImage {
@@ -276,6 +299,21 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
     }
 }
 
+-(void) setInputBoxAndSecurityToken: (NSString *) token exposed: (BOOL) exposed {
+
+		if (  exposed  ) {
+				[[self visibleSecurityToken] setStringValue: token];
+  			[[self securityEyeButton] setImage: eyeRedSlash];
+		} else {
+				[[self securityToken] setStringValue: token];
+        [[self securityEyeButton] setImage: eyeNormal];
+		}
+    [[self securityToken] setHidden: exposed];
+		[[self securityToken] setEnabled: !exposed];
+    [[self visibleSecurityToken] setHidden: !exposed];
+	  [[self visibleSecurityToken] setEnabled: exposed];
+}
+
 -(IBAction) eyeButtonWasClicked: (id) sender {
 
     if (  [[eyeButton image] isEqual: eyeNormal]  ) {
@@ -292,6 +330,24 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
     }
     
     (void) sender;
+}
+
+-(IBAction) securityEyeButtonWasClicked: (id) sender {
+
+		if (  [[securityEyeButton image] isEqual: eyeNormal]  ) {
+
+				// Make password visible and swap the eye image
+				NSString * token = [[self securityToken] stringValue];
+				[self setInputBoxAndSecurityToken: token exposed: YES];
+
+		} else {
+
+				// Make password invisible and swap the eye image
+				NSString * token = [[self visibleSecurityToken] stringValue];
+        [self setInputBoxAndSecurityToken: token exposed: NO];
+		}
+		
+		(void) sender;
 }
 
 -(void) applicationDidChangeScreenParametersNotificationHandler: (NSNotification *) n
@@ -338,6 +394,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 -(BOOL) isSavePasswordInKeychainChecked
 {
     return (  [savePasswordInKeychainCheckbox state] == NSOnState  );
+}
+
+-(BOOL) useSecurityTokenChecked
+{
+	return (  [useSecurityTokenCheckbox state] == NSOnState  );
 }
 
 -(BOOL) isAlwaysShowLoginWindowChecked
