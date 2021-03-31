@@ -1489,13 +1489,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     
     // String with a list of options that are "safe" in that they do not invoke a command or script.
     
-    // Option list was last updated from options.c in Openvpn 2.4.4 (2017-09-26)
-	//
-	// Added 2018-07-26:
-	//		route-ipv6-gateway (for Tunnelblick commit ed2e1d5bcdbfb8d2b0c56825021fdc5c2c7160a1)
-    
+    // Option list was last updated from options.c in OpenVPN master commit d11c273b0 (2021-03-29)
+
     static NSString * allowedOptions =
     @"|"
+	@"allow-compression|"
     @"allow-nonadmin|"
     @"allow-pull-fqdn|"
 	@"allow-recursive-routing|"
@@ -1508,8 +1506,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 //  @"auth-user-pass-verify|"
     @"auth-user-pass|"
     @"auth|"
+	@"auth-gen-token-secret|"
     @"bcast-buffers|"
     @"bind|"
+	@"bind-dev|"
+	@"block-ipv6|"
     @"block-outside-dns|"
     @"ca|"
     @"capath|"
@@ -1538,6 +1539,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"crl-verify|"
     @"cryptoapicert|"
     @"daemon|"
+	@"data-ciphers|"
+	@"data-ciphers-fallback|"
     @"dev-node|"
     @"dev-type|"
     @"dev|"
@@ -1598,6 +1601,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"key-direction|"
     @"key-method|"
     @"key|"
+	@"key-derivation|"
     @"keying-material-exporter|"
     @"keysize|"
 //  @"learn-address|"
@@ -1652,7 +1656,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"parameter|"
     @"passtos|"
     @"pause-exit|"
-    @"peer-id|"
+	@"peer-fingerprint|"
+	@"peer-id|"
     @"persist-key|"
     @"persist-local-ip|"
     @"persist-remote-ip|"
@@ -1732,6 +1737,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"show-digests|"
     @"show-engines|"
     @"show-gateway|"
+	@"show-groups|"
     @"show-net-up|"
     @"show-net|"
     @"show-pkcs11-ids|"
@@ -1753,12 +1759,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"tcp-queue-limit|"
     @"test-crypto|"
     @"tls-auth|"
+	@"tls-cert-profile|"
     @"tls-cipher|"
+	@"tls-ciphersuites|"
     @"tls-client|"
     @"tls-crypt|"
 	@"tls-crypt-v2|"
+	@"tls-crypt-v2-verify|"
     @"tls-exit|"
     @"tls-export-cert|"
+	@"tls-groups|"
     @"tls-remote|"
     @"tls-server|"
     @"tls-timeout|"
@@ -1784,6 +1794,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"verify-hash|"
     @"verify-x509-name|"
     @"version|"
+	@"vlan-accept|"
+	@"vlan-pvid|"
+	@"vlan-tagging|"
+	@"windows-driver|"
     @"win-sys|"
     @"writepid|"
     @"x509-track|"
