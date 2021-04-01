@@ -695,6 +695,10 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
 	
+    if (  [self selectedConnection] != connection  ) {
+        return;
+    }
+
     // Set up setNameserverPopUpButton with localized content that varies with the connection
     NSArray * content = [connection modifyNameserverOptionList];
     [[configurationsPrefsView setNameserverArrayController] setContent: content];
@@ -714,7 +718,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                                     max: MAX_SET_DNS_WINS_INDEX];
     
     [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
-    [self setSelectedSetNameserverIndex: [NSNumber numberWithInteger: ix]];
+    [self setSelectedSetNameserverIndexDirect: [NSNumber numberWithInteger: ix]];
     [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
     [settingsSheetWindowController setupSettingsFromPreferences];
 }
