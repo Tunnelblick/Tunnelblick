@@ -2742,15 +2742,16 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     VPNConnection * oldConnection = [gMC connectionForDisplayName: previouslySelectedNameOnLeftNavList];
 
+    [oldConnection stopMonitoringLogFiles];
+
     [self setPreviouslySelectedNameOnLeftNavList: newName];
     [gTbDefaults setObject: newName forKey: @"leftNavSelectedDisplayName"];
 
-    if (   [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]
-        && [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
-        [oldConnection stopMonitoringLogFiles];
+    BOOL showingLogTab = (   [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]
+                          && [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]);
+
+    if (  showingLogTab  ) {
         [newConnection startMonitoringLogFiles];
-    } else {
-        [newConnection stopMonitoringLogFiles];
     }
 
     [settingsSheetWindowController setConfigurationName: newName];

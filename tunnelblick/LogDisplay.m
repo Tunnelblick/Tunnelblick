@@ -589,7 +589,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 -(void) stopMonitoringLogFiles
 {
     if (  ! [self monitorQueue]  ) {
-        return;
+        if (  savedLog  ) {
+            return;
+        }
     }
 
     [self setMonitorQueue: nil];
@@ -607,9 +609,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     ignoreChangeRequests = TRUE;
     
     NSTextStorage * logStore = [self logStorage];
-    NSRange  r = NSMakeRange(0, [logStore length]);
-    [self setSavedLog: [logStore attributedSubstringFromRange: r]];
-    
+    if (  logStore  ) {
+        NSRange  r = NSMakeRange(0, [logStore length]);
+        [self setSavedLog: [logStore attributedSubstringFromRange: r]];
+    }
+
     pthread_mutex_unlock( &makingChangesMutex );
 }
 
