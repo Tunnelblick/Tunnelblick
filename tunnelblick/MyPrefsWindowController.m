@@ -420,7 +420,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             if (   mainFrameString != nil  ) {
                 
                 // Set the new frame for the window
-                [[self window] setMinSize: NSMakeSize(760.0, 412.0)]; // WINDOW size, not view size
+                [[self window] setMinSize: NSMakeSize(760.0, 452.0)]; // WINDOW size, not view size
                 [[self window] setMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
                 NSRect mainFrame = NSRectFromString(mainFrameString);
                 [[self window] setFrame: mainFrame display: YES];     // display: YES so stretches properly
