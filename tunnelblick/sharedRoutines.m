@@ -1316,7 +1316,7 @@ NSString * newTemporaryDirectoryPath(void)
     // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
     // Modified to check for malloc returning NULL, use strlcpy, and use more readable length for stringWithFileSystemRepresentation
     
-    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"Tunnelblick-XXXXXX"];
+    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick-XXXXXX"];
     const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
     
     size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
