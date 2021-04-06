@@ -5118,11 +5118,7 @@ static void signal_handler(int signalNumber)
     return returnStatus;
 }
 
--(void) postLaunchThread {
-
-    NSAutoreleasePool * pool = [NSAutoreleasePool new];
-
-    // Construct and display messages about kexts and/or Big Sur
+-(void) displayMessagesAboutKextsAndBigSur {
 
     BOOL alwaysLoadTap     = [self oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: @"tap"];
     BOOL alwaysLoadTun     = [self oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: @"tun"];
@@ -5137,6 +5133,13 @@ static void signal_handler(int signalNumber)
                                           configNeedsTun: configNeedsTun
                                  onBigSurSucessorOrNewer: onBigSurSucessorOrNewer
                                            sipIsDisabled: sipIsDisabled];
+}
+
+-(void) postLaunchThread {
+
+    NSAutoreleasePool * pool = [NSAutoreleasePool new];
+
+    [self displayMessagesAboutKextsAndBigSur];
 
     [pool drain];
 }
