@@ -4085,18 +4085,21 @@ NSString * fatalErrorData(const char * siglist, int signalNumber, NSString * sta
 
 static void signal_handler(int signalNumber)
 {
+    // Deal with SIGTERM and SIGPIPE (SIGPIPE (SIGPIPE sometimes happens on the management interface when OpenVPN exits)
+    // For other errors, create a simple error data dump and ask the user to email it the the developers, then exit
+
     if (  signalNumber == SIGTERM ) {
         if (   gShuttingDownTunnelblick
             && (   (reasonForTermination == terminatingBecauseOfLogout)
                 || (reasonForTermination == terminatingBecauseOfRestart)
                 || (reasonForTermination == terminatingBecauseOfShutdown) )  ) {
                 NSLog(@"Ignoring SIGTERM (signal %d) because Tunnelblick is already terminating", signalNumber);
-                return;
             } else {
                 NSLog(@"SIGTERM (signal %d) received", signalNumber);
                 [gMC terminateBecause: terminatingBecauseOfQuit];
-                return;
             }
+
+        return;
     }
     
 	if (   (signalNumber == SIGPIPE)
@@ -4156,18 +4159,29 @@ static void signal_handler(int signalNumber)
     action.sa_handler = signal_handler;
     sigemptyset(&action.sa_mask);
     action.sa_flags = 0;
-    
-    if (sigaction(SIGHUP,  &action, NULL) || 
-        sigaction(SIGQUIT, &action, NULL) || 
-        sigaction(SIGTERM, &action, NULL) ||
-        sigaction(SIGBUS,  &action, NULL) ||
-        sigaction(SIGSEGV, &action, NULL) ||
+
+    // Always catch SIGTERM and SIGPIPE and handle them specially (SIGPIPE sometimes happens on the management interface when OpenVPN exits)
+    if (sigaction(SIGTERM, &action, NULL) ||
+        sigaction(SIGPIPE, &action, NULL)  ) {
+        NSLog(@"Warning: setting signal handler failed: '%s'", strerror(errno));
+    }
+
+    // If running a beta version of Tunnelblick, don't catch other errors: let Tunnelblick crash and have macOS create a full crash report
+    // A later launch of Tunnelblick will see the full crash report and ask the user to email it to the developers
+     if (  runningATunnelblickBeta()  ) {
+        return;
+    }
+
+    // Running a stable version of Tunnelblick, so catch other errors: if one happens, notify the user, create our own, less informative, report, and quit
+   if (sigaction(SIGHUP,  &action, NULL) ||
 #ifndef TBDebug
         sigaction(SIGTRAP, &action, NULL) ||
 #endif
-        sigaction(SIGPIPE, &action, NULL)) {
+        sigaction(SIGQUIT, &action, NULL) ||
+        sigaction(SIGBUS,  &action, NULL) ||
+        sigaction(SIGSEGV, &action, NULL)  ) {
         NSLog(@"Warning: setting signal handler failed: '%s'", strerror(errno));
-    }	
+    }
 }
 
 // Invoked by Tunnelblick modifications to Sparkle with the path to a .bundle with updated configurations to install
