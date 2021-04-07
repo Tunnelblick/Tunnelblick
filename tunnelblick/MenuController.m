@@ -5114,11 +5114,13 @@ static void signal_handler(int signalNumber)
 
     NSAttributedString * msg = attributedStringFromHTML([NSString stringWithFormat:
                                                          NSLocalizedString(@"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n"
-                                                                           @"<p>Please email <a href=\"mailto:developers@tunnelblick.net\">developers@tunnelblick.net</a> and attach the<br>"
+                                                                           @"<p>Please email %@ and attach the<br>"
                                                                            "'%@' file that has been created on your Desktop.</p>\n\n"
                                                                            @"<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n"
                                                                            @"<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n"
-                                                                           @"<p>Your help in this will benefit all users of Tunnelblick.</p>", @"Window text. the '%@' will be replaced with the name of a file"),
+                                                                           @"<p>Your help in this will benefit all users of Tunnelblick.</p>",
+                                                                           @"Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file"),
+                                                         @"<a href=\"mailto:developers@tunnelblick.net\">developers@tunnelblick.net</a>",
                                                          @"Tunnelblick Error Data.tar.gz"]);
 
     TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
