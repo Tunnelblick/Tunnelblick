@@ -4348,7 +4348,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString* parameterString = [line substringFromIndex: separatorRange.location+1];
     TBLog(@"DB-ALL", @"Found command '%@' with parameters: %@", command, parameterString);
 
-    if ([command isEqualToString: @"STATE"]) {
+    if (         [command isEqualToString: @"STATE"]) {
         [self processStateWithLine: line parameterString: parameterString];
 
     } else if (  [command isEqualToString: @"PASSWORD"]  ) {
@@ -4357,10 +4357,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     } else if (  [command isEqualToString: @"PASSPHRASE"]  ) {
         [self processPasswordOrPassphraseWithLine: line parameterString: parameterString command: command];
 
-    } else if ([command isEqualToString:@"NEED-OK"]) {
+    } else if (  [command isEqualToString: @"NEED-OK"]) {
         [self processNeedOkWithLine: line parameterString: parameterString];
 
-    } else if ([command isEqualToString:@"INFO"]) {
+    } else if (  [command isEqualToString: @"INFO"]) {
         [self addToLog: line];
 
     } else {
