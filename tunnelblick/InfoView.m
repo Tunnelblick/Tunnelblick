@@ -192,7 +192,7 @@ extern TBUserDefaults * gTbDefaults;
                              @[@"Angelo Laub",      NSLocalizedString(@"Founder, original program and documentation",  @"Credit description")],
                              @[@"James Yonan",      @"OpenVPN"],
                              @[@"Dirk Theisen",     NSLocalizedString(@"Contributed much to the early code",           @"Credit description")],
-                             @[@"Jonathan Bullard", NSLocalizedString(@"Program and documentation enhancements and maintenance after version 3.0b10", @"Credit description")],
+                             @[@"Jonathan Bullard", NSLocalizedString(@"Program and documentation enhancements and maintenance since 2010", @"Credit description")],
 
                              @[
                               NSLocalizedString(@"LEAD_TRANSLATORS",      @"Names of lead translators"),
