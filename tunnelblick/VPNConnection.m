@@ -4169,6 +4169,205 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	return;
 }
 
+-(void) processStateWithLine: (NSString *) line parameterString: (NSString *) parameterString {
+
+    NSArray* parameters = [parameterString componentsSeparatedByString: @","];
+    if (  [parameters count] < 2  ) {
+        NSLog(@"processStateLine: Error parsing parameters; ignoring line '%@'; stack trace = %@", line, callStack());
+        return;
+    }
+    NSString* state = [parameters objectAtIndex: 1];
+    [self processState: state dated: nil];
+}
+
+-(void) processPasswordOrPassphraseWithLine: (NSString *) line parameterString: parameterString command: (NSString *) command {
+
+    TBLog(@"DB-AU", @"processPasswordOrPassphrase: %@ command received; line = '%@'", command, line);
+    if (   [line rangeOfString: @"Failed"].length
+        || [line rangeOfString: @"failed"].length  ) {
+
+        if (  [line hasPrefix: @">PASSWORD:Verification Failed: 'Auth' ['CRV1:"]  ) {
+
+            // Do not process this as an actual auth failure. OpenVPN deals with the failure by restarting the connection and we
+            // will use the info saved from this request in the reconnection.
+
+            [self parseAndSaveDynamicChallengeResponseInfo: line];
+            return;
+        }
+
+        TBLog(@"DB-AU", @"processPasswordOrPassphrase: Failed: %@", line);
+
+        // Set the "private message" sent by the server (if there is one)
+        NSString * privateMessage = @"";
+        NSRange rngQuote = [line rangeOfString: @"'"];
+        if (  rngQuote.length != 0  ) {
+            NSString * afterQuoteMark = [line substringFromIndex: rngQuote.location + 1];
+            rngQuote = [afterQuoteMark rangeOfString: @"'"];
+            if (  rngQuote.length != 0) {
+                NSString * failedMessage = [afterQuoteMark substringToIndex: rngQuote.location];
+                if (   [failedMessage isNotEqualTo: @"Private Key"]
+                    && [failedMessage isNotEqualTo: @"Auth"]  ) {
+                    privateMessage = [NSString stringWithFormat: @"\n\n%@", failedMessage];
+                }
+            }
+        }
+
+        authFailed = TRUE;
+        userWantsState = userWantsUndecided;
+        credentialsAskedFor = FALSE;
+
+        BOOL isPassphraseCommand = [command isEqualToString: @"PASSPHRASE"];
+
+        NSString * message;
+        if (  isPassphraseCommand  ) {
+            message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The passphrase was not accepted.", @"Window text"), privateMessage];
+        } else {
+            message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The username and password were not accepted by the remote VPN server.", @"Window text"), privateMessage];
+        }
+        NSString * deleteAndTryAgainButton = nil;
+        NSString * tryAgainButton = NSLocalizedString(@"Try again", @"Button");;
+        if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
+            if (  isPassphraseCommand  ) {
+                if (  [myAuthAgent keychainHasPassphrase]  ) {
+                    deleteAndTryAgainButton = NSLocalizedString(@"Delete saved passphrase and try again", @"Button");
+                    tryAgainButton = NSLocalizedString(@"Try again with saved passphrase", @"Button");
+                }
+            } else {
+                if (  [myAuthAgent keychainHasUsernameAndPassword]  ) {
+                    deleteAndTryAgainButton = NSLocalizedString(@"Delete saved password and try again", @"Button");
+                    tryAgainButton = NSLocalizedString(@"Try again with saved username and password", @"Button");
+                }
+            }
+        }
+        int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self localizedName], NSLocalizedString(@"Authentication failed", @"Window title")],
+                                       message,
+                                       tryAgainButton,							 // Default
+                                       deleteAndTryAgainButton,                  // Alternate
+                                       NSLocalizedString(@"Cancel", @"Button")); // Other
+        if (alertVal == NSAlertDefaultReturn) {
+            userWantsState = userWantsRetry;                // User wants to retry
+
+        } else if (alertVal == NSAlertAlternateReturn) {
+            if (  isPassphraseCommand  ) {
+                [myAuthAgent deletePassphrase];
+            } else {
+                [myAuthAgent deletePassword];
+            }
+            userWantsState = userWantsRetry;
+        } else {
+            userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
+            [self addToLog: @"Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
+            [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
+        }
+
+        TBLog(@"DB-AU", @"processPasswordOrPassphrase: queuing afterFailureHandler: for execution in 0.5 seconds");
+        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
+                                                           target: self
+                                                         selector: @selector(afterFailureHandler:)
+                                                         userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    parameterString, @"parameterString",
+                                                                    line, @"line", nil]
+                                                          repeats: NO];
+        [timer tbSetTolerance: -1.0];
+    } else {
+        TBLog(@"DB-AU", @"processPasswordOrPassphrase: PASSWORD request from server");
+        if ([parameterString hasPrefix:@"Auth-Token:"]) {
+            TBLog(@"DB-AU", @"processPasswordOrPassphrase: Ignoring Auth-Token from server");
+        } else if (  authFailed  ) {
+            if (  userWantsState == userWantsUndecided  ) {
+                // We don't know what to do yet: repeat this again later
+                TBLog(@"DB-AU", @"processPasswordOrPassphrase: authFailed and userWantsUndecided, queuing credentialsHaveBeenAskedForHandler for execution in 0.5 seconds");
+                credentialsAskedFor = TRUE;
+                NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for user to make decision
+                                                                   target: self
+                                                                 selector: @selector(credentialsHaveBeenAskedForHandler:)
+                                                                 userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                            parameterString, @"parameterString",
+                                                                            line, @"line", nil]
+                                                                  repeats: NO];
+                [timer tbSetTolerance: -1.0];
+            } else if (  userWantsState == userWantsRetry  ) {
+                // User wants to retry; send the credentials
+                TBLog(@"DB-AU", @"processPasswordOrPassphrase: authFailed and userWantsRetry, so requesting credentials again");
+                [self provideCredentials: parameterString line: line];
+            } // else user wants to abandon, so just ignore the request for credentials
+            TBLog(@"DB-AU", @"processPasswordOrPassphrase: authFailed and user wants to abandon, so ignoring the request");
+        } else {
+            TBLog(@"DB-AU", @"processPasswordOrPassphrase: auth succeeded so requesting credentials");
+            [self provideCredentials: parameterString line: line];
+        }
+    }
+}
+
+-(void) processNeedOkWithLine: (NSString *) line parameterString: (NSString *) parameterString {
+
+    // NEED-OK: MSG:Please insert TOKEN
+    if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
+        TBLog(@"DB-AU", @"Server wants token.");
+        NSRange tokenNameRange = [parameterString rangeOfString: @"MSG:"];
+        NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
+        int needButtonReturn = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
+                                                [self localizedName],
+                                                NSLocalizedString(@"Please insert token", @"Window title")],
+                                               [NSString stringWithFormat:NSLocalizedString(@"Please insert token \"%@\", then click \"OK\"", @"Window text"), tokenName],
+                                               nil,
+                                               NSLocalizedString(@"Cancel", @"Button"),
+                                               nil);
+        if (needButtonReturn == NSAlertDefaultReturn) {
+            TBLog(@"DB-AU", @"Write need ok.");
+            [self sendStringToManagementSocket: @"needok token-insertion-request ok\r\n" encoding: NSASCIIStringEncoding];
+        } else {
+            TBLog(@"DB-AU", @"Write need cancel.");
+            [self sendStringToManagementSocket: @"needok token-insertion-request cancel\r\n" encoding: NSASCIIStringEncoding];
+        }
+    }
+}
+
+-(void) processRealTimeOpenvpnOutput: (NSString *) line {
+
+    if (  [line hasPrefix: @">HOLD:Waiting for hold release"]  ) {
+        [self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
+        return;
+    }
+    
+    if (   [line isEqualToString: @">FATAL:Error: private key password verification failed"]
+        || [line rangeOfString: @"RECONNECTING,private-key-password-failure"].length) {
+        // Private key verification failed. Rewrite the message to be similar to the regular password failed message so we can use the same code
+        line = @">PASSPHRASE:Verification Failed";
+        TBLog(@"DB-AU", @"Rewriting private key password verification failed message to be '>PASSPHRASE:Verification Failed' for '%@'", [self localizedName]);
+    }
+
+    NSRange separatorRange = [line rangeOfString: @":"];
+    if (  separatorRange.length == 0  ) {
+        NSLog(@"processRealTimeOpenvpnOutput: No ':' in '%@'", line);
+        return;
+    }
+
+    NSRange commandRange = NSMakeRange(1, separatorRange.location-1);
+    NSString* command = [line substringWithRange: commandRange];
+    NSString* parameterString = [line substringFromIndex: separatorRange.location+1];
+    TBLog(@"DB-ALL", @"Found command '%@' with parameters: %@", command, parameterString);
+
+    if ([command isEqualToString: @"STATE"]) {
+        [self processStateWithLine: line parameterString: parameterString];
+
+    } else if (  [command isEqualToString: @"PASSWORD"]  ) {
+        [self processPasswordOrPassphraseWithLine: line parameterString: parameterString command: command];
+
+    } else if (  [command isEqualToString: @"PASSPHRASE"]  ) {
+        [self processPasswordOrPassphraseWithLine: line parameterString: parameterString command: command];
+
+    } else if ([command isEqualToString:@"NEED-OK"]) {
+        [self processNeedOkWithLine: line parameterString: parameterString];
+
+    } else if ([command isEqualToString:@"INFO"]) {
+        [self addToLog: line];
+
+    } else {
+        NSLog(@"Ignored unrecognized message from management interface for %@: %@", [self displayName], line);
+    }
+}
+
 - (void) processLine: (NSString*) line
 {
     if (  discardSocketInput  ) {
@@ -4181,7 +4380,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     } else {
 		TBLog(@"DB-AU", @"['%@'] invoked processLine:; line = '%@'", displayName, line)
 	}
-
     
     if (  ! [line hasPrefix: @">"]  ) {
         // Output in response to command to OpenVPN
@@ -4190,180 +4388,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		return;
 	}
 
-    // "Real time" output from OpenVPN.
-	if (   [line isEqualToString: @">FATAL:Error: private key password verification failed"]
-		|| [line rangeOfString: @"RECONNECTING,private-key-password-failure"].length) {
-		// Private key verification failed. Rewrite the message to be similar to the regular password failed message so we can use the same code
-		line = @">PASSPHRASE:Verification Failed";
-		TBLog(@"DB-AU", @"Rewriting private key password verification failed message to be '>PASSPHRASE:Verification Failed' for '%@'", [self localizedName]);
-	}
-	
-	if (  [line hasPrefix: @">HOLD:Waiting for hold release"]  ) {
-		[self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
-		return;
-	}
-	
-     NSRange separatorRange = [line rangeOfString: @":"];
-    if (separatorRange.length) {
-        NSRange commandRange = NSMakeRange(1, separatorRange.location-1);
-        NSString* command = [line substringWithRange: commandRange];
-        NSString* parameterString = [line substringFromIndex: separatorRange.location+1];
-        TBLog(@"DB-ALL", @"Found command '%@' with parameters: %@", command, parameterString);
-        
-        if ([command isEqualToString: @"STATE"]) {
-            NSArray* parameters = [parameterString componentsSeparatedByString: @","];
-			if (  [parameters count] < 2  ) {
-				NSLog(@"processLine: Error parsing parameters; ignoring line '%@'; stack trace = %@", line, callStack());
-				return;
-			}
-            NSString* state = [parameters objectAtIndex: 1];
-            [self processState: state dated: nil];
-            
-        } else if (   [command isEqualToString: @"PASSWORD"]
-				   || [command isEqualToString: @"PASSPHRASE"]  ) {
-			TBLog(@"DB-AU", @"processLine: %@ command received; line = '%@'", command, line);
-            if (   [line rangeOfString: @"Failed"].length
-                || [line rangeOfString: @"failed"].length  ) {
-                
-				if (  [line hasPrefix: @">PASSWORD:Verification Failed: 'Auth' ['CRV1:"]  ) {
-
-					// Do not process this as an actual auth failure. OpenVPN deals with the failure by restarting the connection and we
-					// will use the info saved from this request in the reconnection.
-					
-					[self parseAndSaveDynamicChallengeResponseInfo: line];
-					return;
-				}
-				
-				TBLog(@"DB-AU", @"processLine: Failed: %@", line);
-                
-                // Set the "private message" sent by the server (if there is one)
-                NSString * privateMessage = @"";
-                NSRange rngQuote = [line rangeOfString: @"'"];
-                if (  rngQuote.length != 0  ) {
-                    NSString * afterQuoteMark = [line substringFromIndex: rngQuote.location + 1];
-                    rngQuote = [afterQuoteMark rangeOfString: @"'"];
-                    if (  rngQuote.length != 0) {
-                        NSString * failedMessage = [afterQuoteMark substringToIndex: rngQuote.location];
-                        if (   [failedMessage isNotEqualTo: @"Private Key"]
-                            && [failedMessage isNotEqualTo: @"Auth"]  ) {
-                            privateMessage = [NSString stringWithFormat: @"\n\n%@", failedMessage];
-                        }
-                    }
-                }
-                
-                authFailed = TRUE;
-                userWantsState = userWantsUndecided;
-                credentialsAskedFor = FALSE;
-                
-                BOOL isPassphraseCommand = [command isEqualToString: @"PASSPHRASE"];
-                
-                NSString * message;
-                if (  isPassphraseCommand  ) {
-                    message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The passphrase was not accepted.", @"Window text"), privateMessage];
-                } else {
-                    message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The username and password were not accepted by the remote VPN server.", @"Window text"), privateMessage];
-                }
-                NSString * deleteAndTryAgainButton = nil;
-                NSString * tryAgainButton = NSLocalizedString(@"Try again", @"Button");;
-                if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
-                    if (  isPassphraseCommand  ) {
-                        if (  [myAuthAgent keychainHasPassphrase]  ) {
-                            deleteAndTryAgainButton = NSLocalizedString(@"Delete saved passphrase and try again", @"Button");
-                            tryAgainButton = NSLocalizedString(@"Try again with saved passphrase", @"Button");
-                        }
-                    } else {
-                        if (  [myAuthAgent keychainHasUsernameAndPassword]  ) {
-                            deleteAndTryAgainButton = NSLocalizedString(@"Delete saved password and try again", @"Button");
-                            tryAgainButton = NSLocalizedString(@"Try again with saved username and password", @"Button");
-                        }
-                    }
-                }
-                int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self localizedName], NSLocalizedString(@"Authentication failed", @"Window title")],
-                                               message,
-                                               tryAgainButton,							 // Default
-                                               deleteAndTryAgainButton,                  // Alternate
-                                               NSLocalizedString(@"Cancel", @"Button")); // Other
-                if (alertVal == NSAlertDefaultReturn) {
-                    userWantsState = userWantsRetry;                // User wants to retry
-                    
-                } else if (alertVal == NSAlertAlternateReturn) {
-                    if (  isPassphraseCommand  ) {
-                        [myAuthAgent deletePassphrase];
-                    } else {
-                        [myAuthAgent deletePassword];
-                    }
-                    userWantsState = userWantsRetry;
-                } else {
-                    userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
-                    [self addToLog: @"Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
-                    [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
-                }
-                
-				TBLog(@"DB-AU", @"processLine: queuing afterFailureHandler: for execution in 0.5 seconds");
-                NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
-                                                                   target: self
-                                                                 selector: @selector(afterFailureHandler:)
-                                                                 userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                                            parameterString, @"parameterString",
-                                                                            line, @"line", nil]
-                                                                  repeats: NO];
-                [timer tbSetTolerance: -1.0];
-            } else {
-				TBLog(@"DB-AU", @"processLine: PASSWORD request from server");
-                if ([parameterString hasPrefix:@"Auth-Token:"]) {
-                    TBLog(@"DB-AU", @"processLine: Ignoring Auth-Token from server");
-                } else if (  authFailed  ) {
-                    if (  userWantsState == userWantsUndecided  ) {
-                        // We don't know what to do yet: repeat this again later
-						TBLog(@"DB-AU", @"processLine: authFailed and userWantsUndecided, queuing credentialsHaveBeenAskedForHandler for execution in 0.5 seconds");
-                        credentialsAskedFor = TRUE;
-                        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for user to make decision
-                                                                           target: self
-                                                                         selector: @selector(credentialsHaveBeenAskedForHandler:)
-                                                                         userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                    parameterString, @"parameterString",
-                                                                                    line, @"line", nil]
-                                                                          repeats: NO];
-                        [timer tbSetTolerance: -1.0];
-                    } else if (  userWantsState == userWantsRetry  ) {
-                        // User wants to retry; send the credentials
-						TBLog(@"DB-AU", @"processLine: authFailed and userWantsRetry, so requesting credentials again");
-                        [self provideCredentials: parameterString line: line];
-                    } // else user wants to abandon, so just ignore the request for credentials
-					TBLog(@"DB-AU", @"processLine: authFailed and user wants to abandon, so ignoring the request");
-                } else {
-					TBLog(@"DB-AU", @"processLine: auth succeeded so requesting credentials");
-                    [self provideCredentials: parameterString line: line];
-                }
-            }
-            
-        } else if ([command isEqualToString:@"NEED-OK"]) {
-            // NEED-OK: MSG:Please insert TOKEN
-            if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
-               TBLog(@"DB-AU", @"Server wants token.");
-                NSRange tokenNameRange = [parameterString rangeOfString: @"MSG:"];
-                NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
-                int needButtonReturn = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
-                                                        [self localizedName],
-                                                        NSLocalizedString(@"Please insert token", @"Window title")],
-                                                       [NSString stringWithFormat:NSLocalizedString(@"Please insert token \"%@\", then click \"OK\"", @"Window text"), tokenName],
-                                                       nil,
-                                                       NSLocalizedString(@"Cancel", @"Button"),
-                                                       nil);
-                if (needButtonReturn == NSAlertDefaultReturn) {
-                    TBLog(@"DB-AU", @"Write need ok.");
-                    [self sendStringToManagementSocket: @"needok token-insertion-request ok\r\n" encoding: NSASCIIStringEncoding];
-                } else {
-                    TBLog(@"DB-AU", @"Write need cancel.");
-                    [self sendStringToManagementSocket: @"needok token-insertion-request cancel\r\n" encoding: NSASCIIStringEncoding];
-                }
-            }
-		} else if ([command isEqualToString:@"INFO"]) {
-			[self addToLog: line];
-		} else {
-			TBLog(@"DB-AU", @"Ignored unrecognized message from management interface for %@: %@", [self displayName], line);
-        }
-    }
+    [self processRealTimeOpenvpnOutput: line];
 }
 
 -(void) afterFailureHandler: (NSTimer *) timer
