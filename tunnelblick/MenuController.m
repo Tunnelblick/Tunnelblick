@@ -5079,6 +5079,121 @@ static void signal_handler(int signalNumber)
 	[pool drain];
 }
 
+-(NSArray *) tunnelblickCrashReportPaths {
+
+    NSMutableArray * crashReportPaths = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
+
+    NSString * reportsPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Logs/DiagnosticReports"];
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: reportsPath];
+    NSString * file;
+    while (  (file = [dirE nextObject])  ) {
+        [dirE skipDescendants];
+        if (   [file containsString: @"Tunnelblick"]  ) {
+            [crashReportPaths addObject: [reportsPath stringByAppendingPathComponent: file]];
+        }
+    }
+
+    return crashReportPaths;
+}
+
+-(void) askAboutSendingCrashReportsOnMainThread {
+
+    NSAttributedString * msg = attributedStringFromHTML([NSString stringWithFormat:
+                                                         NSLocalizedString(@"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n"
+                                                                           @"<p>Please email <a href=\"mailto:developers@tunnelblick.net\">developers@tunnelblick.net</a> and attach the<br>"
+                                                                           "'%@' file that has been created on your Desktop.</p>\n\n"
+                                                                           @"<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n"
+                                                                           @"<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n"
+                                                                           @"<p>Your help in this will benefit all users of Tunnelblick.</p>", @"Window text. the '%@' will be replaced with the name of a file"),
+                                                         @"Tunnelblick Error Data.tar.gz"]);
+
+    TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
+                      msg);
+}
+
+-(void) writeCrashReportsTarGzToTheDesktop: (NSArray *) paths {
+
+    NSString * tarGzPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Desktop/Tunnelblick Error Data.tar.gz"];
+
+    // Remove the output file if it already exists
+    // (We do this so user doesn't do something with it before we're finished).
+    if (  ! [gFileMgr tbRemovePathIfItExists: tarGzPath]  ) {
+        return;
+    }
+
+    // Create a temporary folder, and a folder within that to hold the crash files
+    NSString * temporaryDirectoryPath = [newTemporaryDirectoryPath() autorelease];
+    NSString * tunnelblickErrorDataFolderPath = [temporaryDirectoryPath stringByAppendingPathComponent: @"Tunnelblick Error Data"];
+    if (  ! [gFileMgr createDirectoryAtPath: tunnelblickErrorDataFolderPath withIntermediateDirectories: NO attributes: nil error: nil] ) {
+        NSLog(@"Unable to create folder to contain crash reports at %@", tunnelblickErrorDataFolderPath);
+        return;
+    }
+
+    // Copy some of the crash reports
+    NSUInteger maxCrashReportsToSend = 10;
+    NSEnumerator * e = [paths objectEnumerator];
+    NSString * path;
+    while (  (path = [e nextObject])  ) {
+        NSString * targetPath = [tunnelblickErrorDataFolderPath stringByAppendingPathComponent: [path lastPathComponent]];
+        if (  ! [gFileMgr tbCopyPath: path toPath: targetPath handler: nil]  ) {
+            NSLog(@"Unable to copy crash report %@ to %@", path, targetPath);
+            return;
+        }
+        if (  --maxCrashReportsToSend == 0 ) {
+            break;
+        }
+    }
+
+    // Create the .tar.gz
+    NSArray * arguments = @[@"-cz",
+                            @"-f", tarGzPath,
+                            @"-C", temporaryDirectoryPath,
+                            @"--exclude", @".*",
+                            [tunnelblickErrorDataFolderPath lastPathComponent]];
+    if (  EXIT_SUCCESS != runToolExtended(TOOL_PATH_FOR_TAR, arguments, nil, nil, nil)  ) {
+        NSLog(@"Unable to create .tar.gz of crash reports folder at %@", tunnelblickErrorDataFolderPath);
+        return;
+    }
+
+    // Delete all of the crash reports (including those that are not sent because there are too many)
+    e = [paths objectEnumerator];
+    while (  (path = [e nextObject])  ) {
+        if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
+            NSLog(@"Unable to delete crash report at %@", path);
+            return;
+        }
+    }
+
+
+    // Delete the temporary folder
+    if (  ! [gFileMgr tbRemoveFileAtPath: temporaryDirectoryPath handler: nil]  ) {
+        NSLog(@"Unable to remove temporary folder for crash reports at %@", temporaryDirectoryPath);
+    }
+}
+
+-(void) askAboutSendingCrashReports {
+
+    NSArray * paths = [self tunnelblickCrashReportPaths];
+    if (  paths.count !=  0  ) {
+
+        // Limit to requesting an email from the user to once every 24 hours
+
+        NSDate * lastRequestDate = [gTbDefaults dateForKey: @"dateLastRequestedEmailCrashReports"];
+        if (  lastRequestDate  ) {
+            NSDate * nextRequestDate = [lastRequestDate dateByAddingTimeInterval: 24*60*60];
+            NSComparisonResult result = [[NSDate date] compare: nextRequestDate];
+            if (  result == NSOrderedAscending  ) {
+                return;
+            }
+        }
+
+        [gTbDefaults setObject: [NSDate date] forKey: @"dateLastRequestedEmailCrashReports"];
+
+        [self writeCrashReportsTarGzToTheDesktop: paths];
+        [self performSelectorOnMainThread: @selector(askAboutSendingCrashReportsOnMainThread) withObject: nil waitUntilDone: NO];
+    }
+}
+
 -(BOOL) oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: (NSString * ) tunOrTap {
 
     NSString * preferenceSuffix = (  [tunOrTap isEqualToString: @"tun"]
@@ -5138,6 +5253,8 @@ static void signal_handler(int signalNumber)
 -(void) postLaunchThread {
 
     NSAutoreleasePool * pool = [NSAutoreleasePool new];
+
+    [self askAboutSendingCrashReports];
 
     [self displayMessagesAboutKextsAndBigSur];
 

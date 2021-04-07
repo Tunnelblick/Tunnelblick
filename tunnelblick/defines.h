@@ -769,6 +769,7 @@ name = newValue;                                    \
 @"doNotShowWelcomeDoNotShowAgainCheckbox",	\
 @"skipWelcomeScreen",	\
 @"lastLanguageAtLaunchWasRTL",	\
+@"dateLastRequestedEmailCrashReports", \
 \
 @"openvpnVersion",	\
 @"maximumNumberOfTabs",	\
