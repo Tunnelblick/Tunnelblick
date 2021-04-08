@@ -56,6 +56,7 @@
 	// Returns yyyy-mm-dd hh:mm:ss (example: "2019-03-08 07:28:20")
 	
 	NSDateFormatter * df = [[[NSDateFormatter alloc] init] autorelease];
+    [df setLocale: [NSLocale localeWithLocaleIdentifier: @"en_US_POSIX"]];
 	[df setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
 	NSString * date = [df stringFromDate: self];
 	
