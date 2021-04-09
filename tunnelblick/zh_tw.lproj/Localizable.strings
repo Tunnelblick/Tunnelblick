@@ -255,7 +255,7 @@
 "Skip" = "略過";
 
 /* Button */
-"Speak" = "說話";
+"Speak" = "朗讀";
 
 /* Button */
 "Standard icon" = "標準圖示";
@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "正在連線"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "正在中斷連線"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -989,6 +988,9 @@ Please translate "Disconnecting" */
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>在與 %@ 中斷連線後，並未正確地恢復網路設定。</p><p>這個問題通常是由於在 OpenVPN 選項中使用了「user nobody」或「group nobody」。</p><p>為了正確恢復網路設定，您應該重新啟動電腦。</p><p>要想避免這個問題再次發生，請在 OpenVPN 設定中移除「user nobody」或「group nobody」。</p><p>更多資訊可於<a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">OpenVPN 的使用者和群組選項</a> [tunnelblick.net] 取得。</p></font>\n\n";
 
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>最近 Tunnelblick 經歷到一個或多個嚴重錯誤。</p>\n<p>請發送電子郵件至 %1$@ 並附帶上創建於您的桌面上的這個文件 <br>'%2$@'</p>\n<p>該文件包含的信息將幫助 Tunnelblick 開發人員修復導致此類錯誤的問題。它並不包括關於您的個人資料或關於您的 VPN 的資料。</p>\n<p>如果可以的話，請描述發生錯誤時 Tunnelblick 正在進行何種操作。</p>\n<p>您的幫助將裨益 Tunnelblick 的所有用戶。</p>";
+
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>這台電腦的對外公共 IP 已經在過去 %u 次連線到此 VPN 的檢查中確認已變更。</p>\n<p>這通常表示 VPN 已正確設定且不需再額外檢查；為了減輕 tunnelblick.net 伺服器的負擔，此 VPN 的檢查已被停用。</p>\n<p>您可以在 Tunnelblick \"VPN 詳情\" 中的 \"設定\" 分頁重新啟用檢查。如果您這麼做，請同時考慮 <a href=\"https://tunnelblick.net/donate.html\">向 Tunnelblick 專案捐款</a> [tunnelblick.net] 以協助負擔伺服器開銷。</p>\n";
 
@@ -1196,8 +1198,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "複製了 %@，並刪除 CR 字元";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "版權所有 © 2004-%@ Angelo Laub 及其他人。";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub、Jonathan Bullard 及其他人士。";
 
 /* Window text */
 "Could not copy %@ to %@" = "未能將 %1$@ 複製到 %2$@";
@@ -2388,10 +2390,10 @@ Please translate "Disconnecting" */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 快取包含 DNS (網域名稱系統) 副本的資訊。</p>\n<p><strong>當勾選</strong>，DNS 快取將會在連線或中斷連線時清除。所有的 DNS 查詢將使用以 VPN 設定中指定的名稱伺服器。</p>\n<p><strong>當未勾選</strong>，DNS 快取將不會被清除。如果有網域名稱在 VPN 指定的名稱伺服器與 VPN 連線前的名稱伺服器快取衝突，這會造成一些問題。</p>";
 
 /* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
-"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>" = "無法加載系統擴展，因為您已指示 macOS 不允許 Tunnelblick 加載其 “tap” 和 “tun” 系統擴展，這些擴展皆由開發人員 “Jonathan Bullard” 簽署。";
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>" = "無法載入系統擴展，因為您已指示 macOS 不允許 Tunnelblick 加載其 “tap” 和 “tun” 系統擴展，這些擴展皆由開發人員 “Jonathan Bullard” 簽署。";
 
 /* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
-"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "無法加載系統擴展，因為您已指示 macOS 不允許 Tunnelblick 加載其 “tap” 系統擴展，這擴展由開發人員 “Jonathan Bullard” 簽署。";
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "無法載入系統擴展，因為您已指示 macOS 不允許 Tunnelblick 加載其 “tap” 系統擴展，這擴展由開發人員 “Jonathan Bullard” 簽署。";
 
 /* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
 "<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>" = "<p>因您要求 macOS 拒絕 Tunnelblick 載入由開發者 'Jonathan Bullard' 簽署的 'tun' 系統擴充程式，故系統擴充程式並未載入。您應該修改您的 Tunnelblick 設定和/或您的 OpenVPN 設定檔，以使 Tunnelblick 不需要載入 'tun' 系統擴充程式；修正完成後您即可以連線。</p>";
@@ -2574,8 +2576,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "葡萄牙文翻譯";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "3.0b10 版本後對程式及說明文件的改進";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "自 2010 年以來程式及文檔的增強與維護";
 
 /* Credit description */
 "Romanian translation" = "羅馬尼亞語翻譯";

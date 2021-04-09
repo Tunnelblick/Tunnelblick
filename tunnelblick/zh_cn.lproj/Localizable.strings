@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "正在建立连接"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "正在断开连接"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -1195,9 +1194,6 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Copied %@, removing CR characters" = "复制了 %@，删除 CR 字符";
-
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "版权属于 (c) 2004-%@ Angelo Laub 及其他.";
 
 /* Window text */
 "Could not copy %@ to %@" = "不能将 %1$@ 复制到 %2$@";
@@ -2209,7 +2205,7 @@ Please translate "Disconnecting" */
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非Tunnelblick</strong>' 的 OpenVPN版本不在Tunnelblick项目中，也不是Tunnelblick创建的。您的系统管理员安装了这些软件。</p>";
 
-/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. That message uses the term 'allowing' the system extension, so we use that term here, too. */
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>‘允许’系统扩展有可能需要改动系统的一个安全设置。这个设置只能在恢复模式改动。您有可能需要重启到恢复模式，做好改动，然后正常重启。macOS应该会指导您完成这个过程。</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
@@ -2573,9 +2569,6 @@ Please translate "Disconnecting" */
 
 /* Credit description */
 "Portuguese translation" = "葡萄牙语翻译";
-
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "3.0b10 版本后对程序和文档的改进";
 
 /* Credit description */
 "Romanian translation" = "罗马尼亚语翻译";

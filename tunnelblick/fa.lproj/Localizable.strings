@@ -544,8 +544,7 @@
 /* Connection status */
 "CONNECTING" = "در حال اتصال"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "در حال قطع اتصال"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -1117,9 +1116,6 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Copied %@, removing CR characters" = "%@ کپی شد٬ در حال حذف کردن کاراکتر CR";
-
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "حق چاپ © 2004-%@ Angelo Laub و دیگران.";
 
 /* Window text */
 "Could not copy %@ to %@" = "%1$@ به %2$@ رونوشت نشد";
@@ -2132,9 +2128,6 @@ Please translate "Disconnecting" */
 
 /* Credit description */
 "Portuguese translation" = "ترجمه پرتغالی";
-
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "بهبود سازی و نگهداری برنامه و اسناد بعد از نسخه 3.0b10";
 
 /* Credit description */
 "Romanian translation" = "ترجمه رومانیایی";

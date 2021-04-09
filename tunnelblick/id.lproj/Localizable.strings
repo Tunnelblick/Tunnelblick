@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "Menghubungkan"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Memutuskan"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -1195,9 +1194,6 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Copied %@, removing CR characters" = "Menyalin %@, menghapus karakter CR";
-
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub dan lainnya.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Tidak dapat menyalin %1$@ ke %2$@";
@@ -2573,9 +2569,6 @@ Please translate "Disconnecting" */
 
 /* Credit description */
 "Portuguese translation" = "Terjemahan bahasa Portugis";
-
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Perbaikan dan pemeliharaan program dan dokumentasi setelah versi 3.0b10";
 
 /* Credit description */
 "Romanian translation" = "Terjemahan bahasa Rumania";

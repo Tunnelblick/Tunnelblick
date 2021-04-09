@@ -128,6 +128,9 @@
 "Ignore" = "Ignoriši";
 
 /* Button */
+"Install tun and tap system extensions..." = "Instaliraj tun i tap sistemske ekstenzije";
+
+/* Button */
 "Install" = "Instaliraj";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -284,6 +287,12 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikonica";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Deinstaliraj Tunnelblick";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Obriši tun i tap sistemske ekstenzije";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Ažuriraj";
 
@@ -369,6 +378,12 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN nivo ispisivanja logova definisan u konfiguraciji";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "Problem sa korišćenjem budućih verzija Tunnelblick-a";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "Problem sa korišćenjem budućih verzija macOS-a";
 
 /* Menu item */
 "Quit Tunnelblick" = "Ugasi Tunnelblick";
@@ -541,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "Povezivanje"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Prekidanje konekcije"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -720,6 +734,12 @@ Please translate "Disconnecting" */
 "System Requirements Not Met" = "Sistemski zahtevi nisu ispunjeni";
 
 /* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "TEST POKUŠAJ BRISANJA TUNNELBLICK-A NIJE USPEO";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TEST POKUŠAJ BRISANJA TUNNELBLICK-A JE USPEO";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Problem sa Tunnelblick konfiguracijom";
 
 /* Window title */
@@ -733,6 +753,12 @@ Please translate "Disconnecting" */
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: neophodna tajna sekvenca";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "BRISANJE TUNNELBLICK-A NIJE USPELO";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "BRISANJE TUNNELBLICK-A JE USPELO";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Tunnelblick se nije uspešno pokrenuo";
@@ -962,6 +988,9 @@ Please translate "Disconnecting" */
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Mrežna podešavanja nisu uredno vraćena na prethodno stanje nakon prekida konekcije sa %@.</p><p>Ovaj problem se obično javlja ukoliko se koristi korisnik 'nobody' i/ili grupa 'nobody' u OpenVPN opcijama. </p><p>Za povraćaj prethodne konfiguracije mrežne potrebno je da restartujete računar.</p><p>Ukoliko želite da sprečite pojavu ovog problema u budućnosti, uklonite 'user nobody' i 'group nobody' linije iz vaše OpenVPN konfiguracije .</p><p>Za više informacija posetite stranu <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">korisnici i grupe u OpenVPN opcijama</a> [tunnelblick.net].</p></font>\n\n";
 
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick je u skorijoj prošlosti doživeo jedan ili više ozbiljnih problema.</p>\n\n<p>Molimo vas da pošaljete email na adresu  %1$@ i prikačite <br>'%2$@' fajl koji se nalazi na vašem Desktop-u..</p>\n\n<p>Fajl sadrži informaciju koja će pomoći Tunnelblick razvojnom timu da ustanovi razloge za greške i reši probleme. Fajl ne sadrži privatne informacije ili bilo kakve informacije o VPN serverima.</p>\n\n<p>Ukoliko ste u mogućnosti molimo vas da dodatno opišete šta je Tunnelblick radio u momentu kada se greška dogodila..</p>\n\n<p>Vaša pomoć će biti od koristi svim korisnicima Tunnelblick-a.</p>";
+
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Javna IP adresa ovog računara se promenila nakon ostvarene konekcije ka ovom VPN-u svaki put (%u puta) kada je provera izvršena.</p>\n<p>To znači da je VPN konekcija verovatno ispravno konfigurisana i da dalje provere nisu potrebne, kako bi se smanjilo opterećenje tunnelblick.net servera.</p>\n<p>Ovu proveru možete naknadno ponovno uključiti u okviru \"Settings taba\" koji je deo Tunnelblick-ovog \"VPN Details\" prozora. Ukoliko to učinite, molimo vas da razmotrite <a href=\"https://tunnelblick.net/donate.html\">donaciju Tunnelblick projektu</a> [tunnelblick.net] kako bi isplatili troškove servera.</p>\n";
 
@@ -1030,6 +1059,9 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Greška (status %1$ld) je nastala tokom bezbednosne provere %2$@ konfiguracije.\n\nMolimo vas da ugasite i ponovo pokrenete Tunnelblick. Ako se problem nastavi, reinstalirajte Tunnelblick.";
+
+/* Window text */
+"An error occurred getting the list of loaded system extensions." = "Dogodila se greška prilikom učitanja sistemske ekstenzije. ";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Došlo je do greške tokom pokretanja %@";
@@ -1107,6 +1139,9 @@ Please translate "Disconnecting" */
 "Cannot uninstall configuration '%@' because it is not installed." = "Ne mogu da deinstaliram konfiguraciju '%@' jer nije instalirana.";
 
 /* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Kliknite \"OK\" kako bi prekinuli vezu sa VPN-om, ugasili Tunnelblick i započeli sa njegovm brisanjem.\n\nImajte u vidu da može doći do kraćeg kašnjenja između ove akcije i momenta kada se prozor za brisanje pojavi.\n\nUkoliko želite da sačuvate kopiju vaših VPN konfiguracija i svih Tunnelblick podešavanja, kliknite na \"Cancel\", a zatim izvezite Tunnleblick podešavanja. ";
+
+/* Window text */
 "Computer sleep/wake" = "Kompjuter radi/u sleep modu";
 
 /* Window text */
@@ -1163,8 +1198,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "Kopirao %@, uklonio CR karaktere";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Autorska prava © 2004-%@ Angelo Laub i drugi.";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Autorska prava © 2004-%@ Angelo Laub, Jonathan Bullard, i drugi.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Neuspešno kopiranje %1$@ u %2$@";
@@ -1251,7 +1286,13 @@ Please translate "Disconnecting" */
 "Failed to create symlink\n  to %@\n  at %@" = "Neuspešno kreiranje simboličkog linka\n na %1$@\n u %2$@";
 
 /* Window text */
+"Failed to install Tunnelblick's tun and tap system extensions." = "Tunnelblick nije uspeo da instalira neophodne tun i tap sistemske ekstenzije. ";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Neuspešno setovanje dozvola na %@\n";
+
+/* Window text */
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Brisanje Tunnelblick tun i tap ekstenzija nije uspelo. ";
 
 /* Window text */
 "Fast User Switching" = "Brza promena korisnika";
@@ -1809,6 +1850,9 @@ Please translate "Disconnecting" */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblicku je neophodna autorizacija za dupliranje '%@' konfiguracije.";
 
 /* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick zahteva dodatnu autorizaciju kako bi instalirao tun i tap sistemske ekstenzije. ";
+
+/* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblicku je neophodna autorizacija da postavi %ld konfiguracije kao privatne.";
 
 /* Window text */
@@ -1842,6 +1886,9 @@ Please translate "Disconnecting" */
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick zahteva autorizaciju kako bi mogao da obezbedi uvežene podatke.";
 
 /* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblicku je potrebna autorizacija za deinstalaciju tun i tap sistemskih ekstenzija.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick mora da promeni podešavanje za koje je poteban administratorski status.";
 
 /* Window text */
@@ -1858,6 +1905,9 @@ Please translate "Disconnecting" */
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick je uspešno:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick nije mogao da deaktivira svoje sistemske ekstenzije. Molim vas restartujte vaš računar i pokušajte ponovo.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick je uspešno instaliran i %ld konfiguracija je instalirano ili zamenjeno.";
@@ -2073,6 +2123,9 @@ Please translate "Disconnecting" */
 "You may not remove a folder unless it is empty." = "Ne možete ukloniti folder osim ako je prazan.";
 
 /* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Morate diskonektovati sve VPNove pre nego instalirate ili deinstalirate Tunnelblickove sistemske ekstenzije.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Ažuriranje Tunnelblick nije moguće bez autorizacije administratora.\n\nDa li ste sigurni da želite da proverite dostupna ažuriranja?";
 
 /* Window text */
@@ -2157,6 +2210,9 @@ Please translate "Disconnecting" */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Ukoliko želite da uvezete Tunnelblick konfiguraciju na računaru koji poseduje više od %u korisnička naloga, prvo je potrebno da kreirate datoteku sa specifikacijom podataka koji treba da budu uveženi. </p>\n<p>Za više informacija posetite <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>ne-Tunnelblick</strong>' verzije OpenVPN nisu kreirane od strane Tunnelblick projekta i nisu dio Tunnelblick-a. One su instalirane od strane administratora.</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Dozvoljavanje sistemskih ekstenzija može zahtevati dodatne sigurnosne promene u sistemu. Ovo podešavanje može da se promeni isključivo u Recovery modu. Potrebno je da restartujete sistem u Recovery mod, izvršite promenu, a zatim restartujete računar. macOS bi trebao da vas vodi kroz ovaj proces.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<a href=\"%@\">Više informacija</a> [tunnelblick.net]";
@@ -2276,6 +2332,12 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Proverava postojanje novije verzije Tunnelblick programa.</p><p>Pristupa Tunnelblick veb sajtu; za više detalja pogledajte <a href=\"https://tunnelblick.net/cPrivacy.html\">Privatnost i bezbednost</a> [tunnelblick.net].</p><p>Takođe provereva za osveženja konfiguracija ukoliko vaš VPN servis omogućava tu opciju.</p>";
 
+/* HTML info for the 'Install tun and tap system extensions...' button. */
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Klikni kako bi instalirao ili obrisao Tunnelblick tun i tap sistemske ekstenzije.</p>\n\n<p>Posetite <a href=\"https://tunnelblick.net/cInstallKexts.html\">Instaliranje Tunnelblick Tun i Tap System ekstenzija</a> [tunnelblick.net] za dodatne informacije.</p><p><strong>Onemogućeno</strong> sve dok se Tunnelblickne bude izvršavao na macOS Big Sur sistemu.</p>";
+
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klikni kako bi obrisao Tunnelblick.</p>\n\n<p><strong>Onemogućeno</strong> ukoliko Tunnelblick nije instaliran u /Applications.</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Vrši kopiranje informacija u Clipboard zarad dijagnostike problema.</p><p>Informacije ukuljučuju verziju softvera i konfiguraciju, OpenVPN konfiguracioni fajl, podešavanja mreže i drugo.</p><p>Poverljive informacije o sertifikactu neće biti uključene, ali podaci poput IP adrese i adrese koje <em>mogu</em> biti od poverljive prirode će biti uključene. Pre nego što pošaljete e-mail ili omogućite javni pristup, potrebno je da izvršite proveru kopiranih informacija i uklonite ono što ne želite da podelite.</p>";
 
@@ -2285,6 +2347,9 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Vrši izvoz Tunnelblick podešavanja u vidu kompresovane datoteke na vašem Desktop-u, i uključuje sve konfiguracije i podešavanja za sve korisnike ovog računara.</p><ul><li>Kredencijali koji se nalaze u Keychain servisu <strong>neće</strong> biti izveženi.</li><li>Izvoz podataka može dugo da potraje.</li></ul>";
 
+/* HTML text. Although Apple uses the term "system extension" in most places, this string refers to a macOS setting that uses the term "system software". */
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Ukoliko ne vidite dugme koje omogućava učitavanje sistemskog softvera od strane programera 'Jonathan Bullard', pokušajte da se konektujete koristeći ovu konfiguraciju (koja neće uspeti), a zatim proverite  'General' tab u okviru  'Security & Privacy' u 'System Preferences' sistema.</p>";
+
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Otvara prozor sa dodatnim podešavanjima.</p><p>Bilo koje promene će se primeniti na sve konfiguracije koje su odabrane u \"VPN Detalji\" prozoru.</p>";
 
@@ -2293,6 +2358,9 @@ Please translate "Disconnecting" */
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Vraća upozorenja koja su bila ukinuta \"Ne upozoravaj me o ovome opet\" opcijom.</p>";
+
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Pogledajte <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] za više informacija.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p>See <a href=\"https://tunnelblick.net/cTunTapConnections.html\">The Future of Tun and Tap VPNs on macOS</a> [tunnelblick.net] for more information.</p>\n" = "<p>Posetite <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Budućnost Tun i Tap VPN konekcija na macOS sistemu</a> [tunnelblick.net] za više informacija.</p>\n";
@@ -2338,6 +2406,12 @@ Please translate "Disconnecting" */
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick nije bio u mogućnosti da učita sistemsku ekstenziju koja je neophonda kako bi se ostvarila konekcija ka %1$@.</p><p>%2$@</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Možete podesiti Tunnelblick kako bi pokušao da učita sistemske ekstenzije.</p>\n";
+
+/* HTML text. */
+"<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Morate da instalirate Tunnelblick sistemske ekstenzije kako biste mogli da koristite ovu konfiguraciju.</p><p>To možete učiniti iz  'Utilities' panela.</p><p>Nakon što instalirate sistemske ekstenzije, macOS će vas sprovesti kroz proces njihovog omogućavanja koji uključuje restart računara.</p>";
 
 /* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
 "Admin mode %@ remaining" = "Admin režim traje još %@";
@@ -2502,8 +2576,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "Portugalski prevod";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Unapređenja i održavanje aplikacije i dokumentacije nakon verzije 3.0b10";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "Unapređenja i održavanje aplikacije i dokumentacije od 2010.";
 
 /* Credit description */
 "Romanian translation" = "Rumunski prevod";

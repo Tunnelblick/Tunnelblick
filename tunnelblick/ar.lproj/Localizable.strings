@@ -86,7 +86,7 @@
 "Default (%@)" = "الوضع الافتراضي (%@)";
 
 /* Button */
-"Delete Credentials" = "حذف الوثائق الثبوتية";
+"Delete Credentials" = "حذف بيانات الدخول";
 
 /* Button */
 "Delete saved passphrase and try again" = "إحذف جملة السرالمحفوظة سابقاً وأعد المحاولة";
@@ -373,6 +373,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "مستوى تسجيل الOpenVPN تم تعريفه في التثبيت";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "توجد مشكلة في استخدام الإصدارات المستقبلية من تُنلـبليك...";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "غير متوافق مع إصدارات macOS القادمة ";
+
 /* Menu item */
 "Quit Tunnelblick" = "إغلاق تُنلـبليك";
 
@@ -544,8 +550,7 @@
 /* Connection status */
 "CONNECTING" = "جارٍ الاتصال"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "جار قطع الاتصال"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -1154,8 +1159,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "تم نسخ %@, يتم الان مسح أحرف 'الإعادة الى السطر'";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "ملتزم البرمجة لـ © 2004-%@ Angelo Laub وغيرهم.";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "الحقوق محفوظة  © 2004 - ٪@  أنجيلو لوب و جوناثان بولارد و اخرين.";
 
 /* Window text */
 "Could not copy %@ to %@" = "لايمكن نسخ %1$@ إلى %2$@";
@@ -1291,6 +1296,9 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Installation finished successfully." = "التثبيت انتهى بنجاح.";
+
+/* Window text */
+"Installing and securing Tunnelblick..." = "جارى تثبيت و تأمين حماية تُنلـبليك …";
 
 /* Window text */
 "Installing configurations is not allowed" = "تثبيت الإعدادات غير مسموح";
@@ -1488,6 +1496,9 @@ Please translate "Disconnecting" */
 "Search domain:" = "نطاق البحث :";
 
 /* Window text */
+"Securing Tunnelblick..." = "تأمين حماية تُنلـبليك...";
+
+/* Window text */
 "Select a target user for each user whose setup data you wish to import." = "اختر اسم مستخدم مستهدف لكل مستخدم تود استيراد بيانات اعداده.";
 
 /* Window text */
@@ -1498,6 +1509,9 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "تخطي نسخ %@ بسبب نسخة مسبقة للملف تحمل نفس الاسم والمحتوى.";
+
+/* Window text in the splash screen */
+"Starting Tunnelblick..." = "تُنلـبليك يبدأ...";
 
 /* Window text */
 "Startup window:" = "نافذة البداية :";
@@ -1623,6 +1637,9 @@ Please translate "Disconnecting" */
 "There is not an OpenVPN configuration file in '%@'" = "لا يوجد أي ملف إعدادات خاصة ب OpenVPN في '%@'";
 
 /* Window text */
+"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "حصل خطأ في عملية حذف احد اعدادات الاتصال او الفهارس. راجع السجل للتفاصيل.";
+
+/* Window text */
 "There was a problem getting the list of known public DNS servers." = "كانت هناك مشكلة في الحصول على قائمة خوادم DNS العامة المعروفة.";
 
 /* Window text */
@@ -1695,6 +1712,12 @@ Please translate "Disconnecting" */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "تعذر اقلاع برنامج تُنلـبليك نتيجة مشكلة في الاعدادات. تفحص السجل للتفاصيل.";
 
 /* Window text */
+"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "تعذر ازالة اعدادات ‘%@‘ بشكل كامل. راجع السجل للتفاصيل.";
+
+/* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "تعذر نسخ اعدادات الاتصال ‘%@‘. راجع السجل للتفاصيل.";
+
+/* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "تعذر نسخ اعدادات الاتصال ‘%@‘. راجع السجل للتفاصيل.";
 
 /* Window text */
@@ -1724,11 +1747,17 @@ Please translate "Disconnecting" */
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "تعذر نقل اعدادات الاتصال ‘%@‘. راجع السجل للتفاصيل.";
 
+/* Window text. The '%@' refers to a configuration or a folder of configurations. */
+"Tunnelblick could not remove %@. See the Console Log for details." = "تعذر ازالة اعدادات الاتصال ‘%@‘. راجع السجل للتفاصيل.";
+
 /* Window text */
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "تعذر تبديل اعدادات الاتصال ‘%@‘. راجع السجل للتفاصيل.";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "واجه Tunnelblick خطئا كارثيا.\n\nللمساعدة، المرجو مراسلة developers@tunnelblick.net مع تحديد ما كان Tunnelblick يقوم به عند وقوع الخطء.\n\n";
+
+/* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "تُنلـبليك واجه اخطاء في اعدادات اتصال %1$lu:\n\n%2$@%3$@%4$@%5$@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "تعذر اصلاح خطأ في الخيارات لـ ‘%@‘. راجع السجل للتفاصيل";
@@ -1764,7 +1793,22 @@ Please translate "Disconnecting" */
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "تونلبليك بحاجة لإذن لكي يتمكن من جعل الإعداد ‎'%@'‎ مشتركا.";
 
 /* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "تُنلـبليك بحاجة لإذن لنقل الفهرس من ‎'%1$@'‎ إلى ‎'%2$@'‎.";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@'." = "تُنلـبليك بحاجة لإذن لكي ينقل الفهرس من ‎'%@'‎‎.";
+
+/* Window text */
 "Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "تُنلـبليك يحتاج الى الصلاحية ليقوم بقراءة البيانات اللتي تنتمي إلى مستتخدمين اخرين لهذا الكمبيوتر ليقوم بتصدير جميع بيانات تُنلـبليك.\n\nيرجى الملاحظة:\n\n     ١. الأسماء و كلمات السر المحفوظة في Keychain لن يقام بتصديرها.\n\n     ٢. عملية التصدير يمكن أن تأخذ وقت طويل.\n\n";
+
+/* Window text */
+"Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "تُنلـبليك بحاجة لإذن لكي يزيل احد الإعدادات ‎او الفهارس.\n\nالازالة نهائية ولا يمكن الرجوع فيها. كل الضبط المتعلق بالإعدادات سيتم مسحه نهائيا كذلك.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "تُنلـبليك بحاجة لإذن لكي يغير إسم الإعداد من ‎'%1$@'‎ إلى ‎'%2$@'‎.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "تُنلـبليك بحاجة لإذن لكي يغير إسم الفهرس من ‎'%1$@'‎ إلى ‎'%2$@'‎.";
 
 /* Window text */
 "Tunnelblick needs authorization to secure the imported data." = "تُنلـبليك يريد الصلاحية لحماية البيانات المستوردة.";
@@ -1831,6 +1875,9 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Unable to create %@ owned by %ld:%ld with %lo permissions" = "غير قادر على انشاء %1$@ للمالك %2$ld:%3$ld مع اذونات %4$lo";
+
+/* Window text */
+"Unable to install or replace the '%@' configuration\n" = "غير قادر على تثبيت او استبدال اعدادات %@";
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "غير قادر على تحميل %@ الاعدادات";
@@ -1916,6 +1963,12 @@ Please translate "Disconnecting" */
 /* Window text */
 "Warning: '%@' is already a named credential." = "تحذير: ‘%@‘ وثيقة ثبوتية تم تسميتها مسبقا (مستخدمة).";
 
+/* Window text */
+"Warning: One or more settings could not be copied. See the Console Log for details." = "تحذير: تعذر نسخ بعض الاختيارات. راجع السجل للتفاصيل.";
+
+/* Window text */
+"Warning: One or more settings could not be duplicated. See the Console Log for details." = "تحذير: تعذر نسخ بعض الاختيارات. راجع السجل للتفاصيل.";
+
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "تحذير: الإعدادات التالية، التي يجب أن تتصل عند بدء تشغيل الكمبيوتر ، غير متصلة: \n\n%@\n";
 
@@ -1945,6 +1998,15 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "لا يمكنك تخصيص أو مشاركة اعدادات الاتصال ‘%@‘ لأنها اعدادات يتم تحديثها تلقائيا.\n\nيجب التنويه ان اعدادات تُنلـبليك للاتصال التي يتم تحديثها تلقائيا لا يمكن تخصيصها أو مشاركتها؛ فقط يمكن تخصيص أو مشاركة الاعدادات المحتواه داخلها.";
+
+/* Window text */
+"You cannot rename or move a Deployed configuration." = "لا يمكن تعديل اعدادات مفعلة.";
+
+/* Window text */
+"You cannot rename or move a configuration unless it is disconnected." = "لا يمكن تغيير اعدادات اتصال قبل انهاء الاتصال.";
+
+/* Window text */
+"You cannot rename or move a configuration which is set to start when the computer starts." = "لا يمكن تعديل اعدادات تُفعل تلقائيا لدى تشغيل الحاسوب.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "اعدادات اتصال OpenVPN فقط متوفرة ولا يوجد اعدادات اتصال تُنلـبليك.\n\nيتوجب تحويل اعدادات اتصال OpenVPN الى اعدادات اتصال تُنلـبليك قبل استخدامها.\n\n";
@@ -1978,6 +2040,9 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "لا يمكن حذف اعدادات اتصال تم تعيينها للعمل تلقائيا عند بدء تشغيل الجهاز.";
+
+/* Window text */
+"You may not remove a folder unless it is empty." = "لا يمكن حذف فهرس غير فارغ";
 
 /* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "لن تتمكن من تحديث Tunnelblick إلا إذا قمت بتقديم تفويض مشرف الكمبيوتر.\n\nهل أنت متأكد من رغبتك في البحث عن التحديثات؟";
@@ -2115,6 +2180,9 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>عند تفعيل هذا الخيار</strong>، سيتم إظهار الإعدادات الموجودة ضمن مجلدات في قوائم فرعية في قائمة تانلبليك.</p>\n<p><strong>عند عدم تفعيل هذا الخيار</strong>، سيتم إظهار الإعدادات الموجودة ضمن مجلدات في قائمة تانلبليك.</p>";
 
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if OpenVPN exits unexpectedly (crashes), Tunnelblick will attempt to connect the VPN again.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to connect the VPN if OpenVPN exits unexpectedly.</p>\n" = "<p><strong>عند التفعيل</strong>, اذا انقطع اتصال ال OpenVPN بصورة غير متوقعة، تُنلـبليك سيحاول اعادة الاتصال ب VPN مرة اخري  .</p>\n<p><strong>عند عدم التفعيل</strong> تُنلـبليك لن يعاود الاتصال ب VPN ، اذا انقطع اتصال ال OpenVPN بصورة غير متوقعة.</p>\n";
+
 /* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>عند تفعيل هذا الخيار</strong>، قد يتم تغيير إعدادات الشبكة المدخلة يدوياً عند اتصال ال VPN. هذا سيحدث فقط إذا كانت التغييرات محددة ضمن قائمة الخيارات في إعدادات ملف OpenVPN أو من مخدم OpenVPN.</p>\n<p><strong>عند عدم تفعيل هذا الخيار</strong>، لن يتم تغيير إعدادات الشبكة المدخلة يدوياً عند اتصال ال VPN.</p>";
 
@@ -2166,6 +2234,9 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>استعادة التحذيرات التي تم منعها من خلال مربع الاختيار \"عدم التحذير من هذا مرة أخرى\"</p>";
 
+/* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
+"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>قم بزيارة <a href=\"https://tunnelblick.net/cKextsInstallation.html\">تثبيت اضافات النظام الضرورية </a> [tunnelblick.net] لمزيد من المعلومات</p>";
+
 /* HTML info for the 'VPN log level' button. */
 "<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>" = "<p>يقوم بتحديد مقدار التسجيل الذي يتم بواسطة تُنلـبليك و OpenVPN.</p>";
 
@@ -2190,6 +2261,12 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>	 Tunnelblick يتضمن نسخة مخصصة من 'easy-rsa' و التي هي مجموعة من الرموز على واجهة سطر الأوامر مكتوبة من مجموعة من مطوري OpenVPN، والتي تمكن من إنشاء وصيانة الشهادات والمفاتيح.</p><p>النقر على هذا الزر يشغل برنامج ال macOS Terminal مع ملف الدليل العامل المضبوط الذي يحتوي على الرموز.</p><p>الرموز موجودة عادة داخل الملف ~/Library/Application Support/Tunnelblick/easy-rsa. من الممكن أن تحتوي إعدادات 'easy-rsaPath' الطريق نحو ملف يستعمله تُنلـبليك عوضا عن الملف المفترض. 'easy-rsaPath' يجب أن يكون طريقاً مطلقا أو يبدأ ب '~'، والملف الأم للطريق يجب أن يكون موجوداً. إذا كان هناك ملف في الطريق المعين فسوف يستعمل، وإذا لا يكون موجوداً, سيتم إنشاؤه و ستثبت فيه رموز easy-rsa عندما يشغل Tunnelblick.</p><p> للمزيد من المعلومات حول easy-rsa، أنظر <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">أعدّ (Certificate Authority (CA خاصتك و اِستحدث شهادات والمفاتيح لخادم OpenVPN و عملاء متعددون.</a> [openvpn.net].</p><p>لمزيد من المعلومات حول تخصيص easy-rsa ل Tunnelblick، أنظر ملف README المتواجد داخل ملف التطبيق.</p>";
 
+/* HTML error message. The '%@' is a configuration name. */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p> تُنلـبليك غير قادر على تحميل إضافة النظام الضرورية لربط الإتصال ب ٪@ </p>";
+
+/* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
+"Admin mode %@ remaining" = "وضع الادمن : باقي من الزمن %@";
+
 /* Credit description */
 "Afrikaans translation" = "الترجمة الأفريقانية";
 
@@ -2198,6 +2275,9 @@ Please translate "Disconnecting" */
 
 /* Credit description */
 "Arabic translation" = "الترجمة العربية";
+
+/* Toolbar text for 'Lock' item */
+"Authorizing..." = "التفويض...";
 
 /* Credit description */
 "Azerbaijani translation" = "الترجمة الأذربيجانية";
@@ -2347,8 +2427,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "الترجمة البرتغالية";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "التحسينات والصيانة التي تمت للبرنامج ومستند التوثيق بعد الإصدار 3.0b10";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "تحسينات و صيانة و توثيق البرنامج تتم منذ 2010 ";
 
 /* Credit description */
 "Romanian translation" = "الترجمة الرومانية";
@@ -2366,7 +2446,13 @@ Please translate "Disconnecting" */
 "Spanish translation" = "الترجمة الاسبانية";
 
 /* Credit description */
+"Swahili (Tanzania) translation" = "الترجمة السواحيلي (تنزانيا)";
+
+/* Credit description */
 "Swedish translation" = "الترجمة السويدية";
+
+/* Credit description */
+"Thai translation" = "الترجمة التايلاندية";
 
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "إعداد Tunnelblick %@";
@@ -2403,6 +2489,9 @@ Please translate "Disconnecting" */
 
 /* Authentication Prompt */
 "authenticate" = "مصادقة";
+
+/* File name of a newly-created folder */
+"untitled folder" = "مجلد بلا عنوان";
 
 /* Button VPNService */
 "Accept" = "قبول";

@@ -550,8 +550,7 @@
 /* Connection status */
 "CONNECTING" = "กำลังเชื่อมต่อ"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "กำลังตัดการเชื่อมต่อ"; // Please translate "Disconnecting"
 
 /* Connection status */

@@ -319,7 +319,7 @@
 "Delete Configuration's Credentials in Keychain..." = "Yapılandırmanın Kimlik Bilgilerini Anahtar Zincirinden sil...";
 
 /* Menu item tooltip */
-"Disabled because this setting is being forced" = "Etkin değil çünkü bu ayar zorla uygulanıyor";
+"Disabled because this setting is being forced" = "Etkin değil çünkü bu ayar zorunlu";
 
 /* Menu item */
 "Disconnect %@%@" = "Bağlantıyı kes: %@%@";
@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "Bağlanıyor"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Bağlantı kesiliyor"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -879,7 +878,7 @@ Please translate "Disconnecting" */
 "  • Copy a configuration\n" = "  • Bir yapılandırmanın kopyalanması\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  Mecburi ayarları yükle\n";
+"  • Install forced preferences\n" = "  Zorunlu ayarları yükle\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Yapılandırma(ları) kur ya da güncelle\n";
@@ -906,7 +905,7 @@ Please translate "Disconnecting" */
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Do you wish to replace\n%2$@ \n   içerisindeki \n %1$@\n %3$@%4$@ ile değiştirilsin mi?\n\n";
 
 /* Window text */
-" Forced preferences will also be installed or replaced.\n\n" = " Kullanılmaya zorlanan ayarlar ayrıca yüklenecek veya değiştirilecek.\n\n";
+" Forced preferences will also be installed or replaced.\n\n" = "Zorunlu ayarlar ayrıca yüklenecek veya değiştirilecek.\n\n";
 
 /* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Not: OpenVPN yapılandırmaları Tunnelblick VPN Yapılandırmalarına dönüştürülecek.\n\n";
@@ -988,6 +987,9 @@ Please translate "Disconnecting" */
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Bağlantı kesildikten sonra %@'dan ağ ayaları düzgün bir şekilde geri yüklenemedi.</p><p>OpenVPN ayarları göre, bu problem genellikle 'kullanıcı nobody' ve/veya 'grup nobody' kaynaklanıyor.</p><p>Ağ ayarlarını geri yüklemek için bilgisayarınızı yeniden başlatmalısınız.</p><p>OpenVPN yapılandırma dosyasından ileride aynı hata almayı önlemek için, 'kullanıcı nobody' ve 'grup nobody' satırları silmelisiniz.</p><p>Daha fazla bilgi için <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Kullanıcı ve Grup OpenVPN Ayarlarına</a> [tunnelblick.net] bakınız.</p></font>\n\n";
+
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick bir veya daha fazla önemli hata ile karşılaştı.</p>\n\n<p>Lütfen %1$@ adresine masaüstünüzde<br>'%2$@' adıyla oluşturulan dosyayı da ekleyerek bir eposta gönderin.</p>\n\n<p>Bu dosya, Tunnelblick geliştiricilerinin bu hatalara sebep olan sorunları çözmelerine yardımcı olabilecek bilgileri içermektedir. Hakkınızda kişisel bir veri veya kullandığınız VPN ile ilgili bir bilgi içermemektedir.</p>\n\n<p>Eğer mümkünse, bu hata oluştuğu sırada Tunnelblick'in ne yaptığını da ekleyin.</p>\n\n<p>Bu konudaki yardımınızdan tüm Tunnelblick kullanıcıları faydalanacaktır.</p>";
 
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Bu bilgisayarın görünen dış IP adresi, yapılan son %u kontrolün her birinde bu VPN'e bağlandıktan sonra değişti.</p>\n<p>Bu, VPN'in doğru kurulduğu ve bundan sonraki kontrollerin gerekli olmayabileceği anlamına geliyor,\n bu yüzden tunnelblick.net sunucuları üzerindeki yükü hafifletmek için bu VPN'in kontrolü devre dışı bırakıldı.</p>\n<p>Tunnelblick'in \"VPN Detayları\" penceresindeki \"Ayarlar sekmesi\"nden kontrolü tekrar etkinleştirebilirsiniz. Eğer bunu yaparsanız, sunucu maliyetlerine destek olmak için lütfen <a href=\"https://tunnelblick.net/donate.html\">Tunnelblick projesine bağış yapmayı</a>[tunnelblick.net] da düşünün.</p>";
@@ -1196,8 +1198,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "%@ kopyalandı, satırbaşı karakterleri kaldırılıyor";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and diğerleri.";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, ve diğerleri.";
 
 /* Window text */
 "Could not copy %@ to %@" = "%1$@ %2$@'e kopyalanamıyor";
@@ -2574,8 +2576,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "Portekizce çeviri";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "3.0b10 sürümünden sonraki yazılım ve doküman iyileştirme ve bakım çalışmaları";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "2010'dan beri program ve dokümantasyon geliştirmeleri ve bakımı";
 
 /* Credit description */
 "Romanian translation" = "Romence çeviri";

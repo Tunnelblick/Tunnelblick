@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "Aanskakeling"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Afskakeling"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -989,6 +988,9 @@ Please translate "Disconnecting" */
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<p> <font face=\"Helvetica,Arial,sans-serif\">Die netwerkopstelling is nie behoorlik herstel na ontkoppeling van% @ nie.</font> </p><p> <font face=\"Helvetica,Arial,sans-serif\">Hierdie probleem word meestal veroorsaak deur die gebruiker van die 'user niemand' en / of 'groep niemand' OpenVPN opsies.</font> </p><p> <font face=\"Helvetica,Arial,sans-serif\">Om die netwerkopstelling te herstel, moet u u rekenaar herbegin.</font> </p><p> <font face=\"Helvetica,Arial,sans-serif\">Om hierdie fout in die toekoms te voorkom, verwyder die 'gebruikers niemand' en 'groep niemand' reëls uit u OpenVPN-konfigurasielêer.</font> </p><p> <font face=\"Helvetica,Arial,sans-serif\">Raadpleeg <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">OpenVPN-opsies</a> vir <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">gebruikers en groepe</a> [tunnelblick.net] vir meer inligting.</font> </p>\n";
 
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Onlangs het Tunnelblick een of meer ernstige foute ondervind</p>\n\n<p>Stuur 'n e-pos aan %1$@ en heg die<br>'%2$@' lêer wat op u lessenaar geskep is.</p>\n\n<p>Die lêer bevat inligting wat die Tunnelblick-ontwikkelaars kan help om die probleme op te los wat sulke foute veroorsaak. Dit bevat nie persoonlike inligting oor u of inligting oor u VPN's nie.</p>\n\n<p>As jy kan, kan jy ook beskryf wat Tunnelblick doen wanneer die fout gebeur.</p>\n\n<p>Jou hulp in hierdie sal tot voordeel van al die gebruikers van Tunnelblick.</p>";
+
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Die skynbare openbare IP-adres van hierdie rekenaar het verander nadat dit die afgelope %u keer gekoppel is aan hierdie Skynprivaatnetwerk. </p>\n<p>Dit beteken waarskynlik dat die Skynprivaatnetwerk korrek ingestel is en dat verdere ondersoek nie nodig is nie,\n  dus is die kontrolering vir hierdie VPN uitgeskakel om die las op tunnelblick.net-bedieners te verlig. </p>\n<p> U kan die keuring weer inskakel op die \"Instellings-oortjie\" van Tunnelblick se \"Skynprivaatnetwerkbesonderhede\" -venster. As u dit doen, oorweeg dit ook om <a href=\"https://tunnelblick.net/donate.html\"> te skenk aan die Tunnelblick-projek </a> [tunnelblick.net] om te help om die bedieneruitgawes te betaal. </p>\n";
 
@@ -1196,8 +1198,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "%@ is gekopieerd, CR karakters word op die oomblik verwyderd";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Kopiereg © 2004-%@ Angelo Laub en andere.";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Kopiereg © 2004-%@ Angelo Laub, Jonathan Bullard, en andere.";
 
 /* Window text */
 "Could not copy %@ to %@" = "%1$@ kon nie na %2$@ gekopieerd word nie";
@@ -2574,8 +2576,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "Portugese vertaling";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Verbeterings en onderhoud van program en dokumentasie na weergawe 3.0b10";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "Program en dokumentasie verbeterings en onderhoud sedert 2010";
 
 /* Credit description */
 "Romanian translation" = "Roemeense vertaling";

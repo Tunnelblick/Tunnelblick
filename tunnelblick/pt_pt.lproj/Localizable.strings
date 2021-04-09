@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "A conectar"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "A desconectar"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -989,6 +988,9 @@ Please translate "Disconnecting" */
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>A definições de rede não foram restauradas corretamente depois de desligar de %@.</p><p>Este problema é por norma causado por utilizar 'user nobody' e/ou o 'group nobody' nas opções OpenVPN.</p><p>Para restaurar as definições de rede é necessário reiniciar o computador.</p><p>Para evitar este problema no futuro, remova as linhas 'user nobody' e 'group nobody' do ficheiro de configuração OpenVPN.</p><p>Veja <a href=\"Opções OpenVPN User e Group OpenVPN\">Opções OpenVPN User e Group OpenVPN</a> [tunnelblick.net] para mais informações</p></font>\n\n";
 
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>O Tunnelblick obteve um ou mais erros sérios recentemente.</p>\n\n<p>Envie email para %1$@ e anexe o ficheiro <br>'%2$@' que foi criado no Desktop.</p>\n\n<p>O ficheiro contém informação que vai ajudar os programadores do Tunnelblick a corrigir os problemas que causam estes erros. Não inclui informação pessoal sobre si ou informação sobre os seus VPNs.</p>\n\n<p>Se possível, descreva que tarefa estava a ser feita pelo Tunnelblick quando o erro ocorreu.</p>\n\n<p>A sua colaboração vai ajudar todos os utilizadores do Tunnelblick.</p>";
+
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Aparentemente o endereço IP público deste computador foi alterado depois de se ligar a esta VPN cada umas das últimas %u vezes que foram verificadas.</p>\n<p>Isto quer dizer que a VPN deverá estar configurada correctamente e não será necessária nenhuma validação adicional, por isso esta verificação foi desligada, de forma a aliviar a carga nos servidores tunnelblick.net.</p>\n<p>Pode voltar a ligar esta verificação no Tunnelblick, na tab \"Configurações\" da janela \"Detalhes da VPN\". Se fizer isso, por favor, considere também fazer uma <a href=\"https://tunnelblick.net/donate.html\">doação ao projecto Tunnelblick</a> [tunnelblick.net] para ajudar a pagar as despesas com o servidor.</p>";
 
@@ -1196,8 +1198,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "Copiado %@, a remover carateres CR";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Todos os direitos reservados © 2004-%@ Angelo Laub e outros.";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, e outros.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Não foi possível copiar %1$@ para %2$@";
@@ -2574,8 +2576,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "Tradução para Português";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Melhorias no programa, documentação e manutenção após a versão 3.0b10";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "Melhorias no programa, documentação e manutenção desde 2010";
 
 /* Credit description */
 "Romanian translation" = "Tradução para Romeno";

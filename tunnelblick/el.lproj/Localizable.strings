@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "Συνδέετε"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Αποσύνδεση"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -989,6 +988,9 @@ Please translate "Disconnecting" */
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>H ρύθμιση δικτύου δεν έχει επαναφερθεί σωστά μετά την αποσύνδεση από το %@.</p><p>Αυτό το πρόβλημα προκαλείται συνήθως από τη χρήση των «user nobody» ή/και «group nobody» OpenVPN επιλογών.</p><p>Για να επαναφέρετε τη ρύθμιση του δικτύου, πρέπει να επανεκκινήσετε τον υπολογιστή σας.</p><p>Για να αποτρέψετε αυτό το σφάλμα στο μέλλον, αφαιρέστε τις γραμμές «user nobody» και «group nobody» από το αρχείο OpenVPN παραμέτρων.</p><p>Δείτε <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">τις OpenVPN επιλογές χρηστών και ομάδας </a> του [tunnelblick.net] για περισσότερες πληροφορίες.</p></font>\n\n";
 
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p> Πρόσφατα το Tunnelblick αντιμετώπισε ένα ή περισσότερα σοβαρά σφάλματα. </p>\n\n<p> Στείλτε email στο %1$@ και επισυνάψτε το αρχείο<br>\"%2$@' που έχει δημιουργηθεί στην επιφάνεια εργασίας σας. </p>\n\n<p> Το αρχείο περιέχει πληροφορίες που θα βοηθήσουν τους προγραμματιστές του Tunnelblick να διορθώσουν τα προβλήματα που προκαλούν τέτοια σφάλματα. Δεν περιλαμβάνει προσωπικά στοιχεία για εσάς ή πληροφορίες για τα VPN σας. </p>\n\n<p> Εάν μπορείτε, περιγράψτε επίσης τι έκανε το Tunnelblick όταν συνέβη το σφάλμα. </p>\n\n<p> Η βοήθειά σας σε αυτό θα ωφελήσει όλους τους χρήστες του Tunnelblick. </p> ";
+
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Η δημόσια διεύθυνση IP αυτού του υπολογιστή έχει αλλάξει μετά από τη σύνδεση σε αυτό το VPN για κάθε μία από τις τελευταίες %u φορές που ελέγχθηκε.</p>\n<p>Αυτό πιθανότατα σημαίνει ότι το VPN αυτό έχει ρυθμιστεί σωστά και δεν απαιτείται περαιτέρω έλεγχος, έτσι δεν θα πραγματοποιηθεί ξανά για να μην επιβαρύνονται οι διακομιστές του tunnelblick.net.</p>\n<p>Μπορείτε να επαναενεργοποιήσετε τους ελέγχους από την καρτέλα \"Ρυθμίσεις\" στο παράθυρο \"Λεπτομέρειες VPN\" του Tunnelblick. Αν το κάνετε, παρακαλώ σκεφτείτε αν θέλετε να <a href=\"https://tunnelblick.net/donate.html\">κάνετε μια δωρεά στο Tunnelblick project</a> [tunnelblick.net] για να βοηθήσετε με το κόστος της υποδομής.</p>\n";
 
@@ -1196,8 +1198,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "Αντιγραφή %@, αφαίρεση χαρακτήρων CR";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Δικαιώματα © 2004-%@ Angelo Laub και άλλοι.";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Πνευματικά δικαιώματα © 2004-%@ Angelo Laub, Jonathan Bullard και άλλοι.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Αδυναμία αντιγραφής %1$@ στο %2$@";
@@ -2209,7 +2211,7 @@ Please translate "Disconnecting" */
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p> Οι εκδόσεις του OpenVPN <strong> εκτός Tunnelblick </strong> δεν δημιουργήθηκαν από το έργο Tunnelblick και δεν αποτελούν μέρος του Tunnelblick. Έχουν εγκατασταθεί από τον διαχειριστή του υπολογιστή. </p>";
 
-/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. That message uses the term 'allowing' the system extension, so we use that term here, too. */
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Η 'αποδοχή' των επεκτάσεων συστήματος ίσως απαιτεί αλλαγή των ρυθμίσεων ασφάλειας του υπολογιστή σας. Η αλλαγή αυτή μπορεί να γίνει μόνο σε λειτουργία Aνάκτησης. Ίσως πρέπει να κάνετε επανεκκίνηση σε λειτουργία Ανάκτησης, να κάνετε την αλλαγή αυτή και να εκκινήσετε πάλι τον υπολογιστή σας φυσιολογικά. Το MacOS θα πρέπει να σας καθοδηγήσει στην διαδικασία αυτή.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
@@ -2345,7 +2347,7 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Εξάγει τις Tunnelblick ρυθμίσεις, συμπεριλαμβανομένων όλων των παραμετροποιήσεων για όλους τους χρήστες αυτού του υπολογστή, σε ένα συμπιεσμένο αρχείο στην Επιφάνεια Εργασίας.</p><ul><li>Συνθηματικά αποθηκευμένα στο Keychain <strong>δεν</strong> εξάγονται.</li><li>Η εξαγωγή μπορεί να πάρει αρκετή ώρα.</li></ul>";
 
-/* HTML text. */
+/* HTML text. Although Apple uses the term "system extension" in most places, this string refers to a macOS setting that uses the term "system software". */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Εάν δεν μπορείτε να δείτε κάποιο κουμπί για να επιτρέψετε την φόρτωση λογισμικού συστήματος από τον προγραμματιστή 'Jonathan Bullard', προσπαθήστε να συνδεθείτε με την συγκεκριμένη διαμόρφωση VPN (πράγμα που θα αποτύχει), και ξανα-ανοίξτε την καρτέλα 'Γενικά' της ενότητας 'Ασφάλεια και Απόρρητο' στις 'Προτιμήσεις Συστήματος'.</p>";
 
 /* HTML info for the 'Advanced...' button. */
@@ -2574,8 +2576,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "Πορτογαλική μετάφραση";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Βελτιωμένο πρόγραμμα και εγχειρίδια όπως και συντήρηση μετά την έκδοση 3.0b10";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "Βελτιώσεις και συντήρηση προγραμμάτων και τεκμηρίωσης από το 2010";
 
 /* Credit description */
 "Romanian translation" = "Ρουμάνικη μετάφραση";

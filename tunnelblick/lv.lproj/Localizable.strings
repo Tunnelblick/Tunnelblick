@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "Savienojas"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Atvienojas"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -1195,9 +1194,6 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Copied %@, removing CR characters" = "Nokopēts %@, dzēstas rakstatgriezes rakstzīmes";
-
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Autortiesības © 2004-%@ Angelo Laub un citi.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Nevarēja nokopēt %1$@ uz %2$@";
@@ -2270,9 +2266,6 @@ Please translate "Disconnecting" */
 
 /* Credit description */
 "Portuguese translation" = "Tulkojums portugāļu valodā";
-
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Programmas un dokumentācijas uzlabojumi pēc versijas 3.0b10";
 
 /* Credit description */
 "Romanian translation" = "Tulkojums rumāņu valodā";

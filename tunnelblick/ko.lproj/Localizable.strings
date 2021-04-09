@@ -544,8 +544,7 @@
 /* Connection status */
 "CONNECTING" = "연결 중"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "연결 해제하기"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -1168,9 +1167,6 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Copied %@, removing CR characters" = "%@ 복사함, CR 문자 제거";
-
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "저작권 © 2004-%@ Angelo Laub 등";
 
 /* Window text */
 "Could not copy %@ to %@" = "%1$@를 %2$@로 복사할 수 없습니다";
@@ -2303,9 +2299,6 @@ Please translate "Disconnecting" */
 
 /* Credit description */
 "Portuguese translation" = "포르투갈어 번역";
-
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "버전 3.0b10 이후 프로그램과 문서 강화";
 
 /* Credit description */
 "Romanian translation" = "루마니아어 번역";

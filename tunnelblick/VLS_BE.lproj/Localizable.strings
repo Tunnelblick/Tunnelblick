@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "Verbinding maken"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Verbinding aan het verbreken"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -989,6 +988,9 @@ Please translate "Disconnecting" */
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>De netwerkinstallatie kon niet succesvol hersteld worden nadat de verbinding verbroken werd met %@.</p><p>Meestal wordt dit probleem veroorzaakt door het gebruik van de OpenVPN-opties 'user nobody' en/of 'group nobody'.</p><p>Om de netwerkinstallatie te herstellen, dient u uw computer te herstarten.</p><p>Om deze fout in de toekomst te voorkomen, verwijder de lijnen met 'user nobody' en 'group nobody' uit het OpenVPN-configuratiebestand.</p><p>Ga naar <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] voor meer informatie.</p></font>\n\n";
 
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick ondervond één of meer serieuze problemen.</p>\n\n<p>Stuur een e-mail naar %1$@ en voeg daaraan het bestand <br>'%2$@' toe, dat op de desktop is aangemaakt.</p>\n\n<p>Het bestand kan de Tunnelblick-ontwikkelaars helpen om de oorzaak van deze problemen op te lossen. Het bestand bevat geen persoonlijke gegevens of informatie over je VPNs.</p>\n\n<p>Probeer, indien mogelijk, ook te beschrijven waar Tunnelblick mee bezig was, toen de problemen optraden.</p>\n\n<p>Dankzij uw hulp zullen alle Tunnelblick-gebruikers hiervan profiteren.</p>";
+
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p> Het van buitenaf zichtbare IP-adres van deze computer is gewijzigd na het opzetten van deze VPN-verbinding, elk van de laatste %u keren dat het werd gecontroleerd.</p>\n<p>Dit betekent waarschijnlijk dat de VPN correct is ingesteld en dat verdere controle niet nodig is, dus de controle is uitgeschakeld voor deze VPN om de belasting op tunnelblick.net servers te verminderen.</p>\n<p>De optie kan weer aangezet worden onder het tabblad \"Instellingen\" in Tunnelblicks \"VPN-Details\" scherm. Als u dat doet, overweeg dan een donatie te doen<a href=\"https://tunnelblick.net/donate.html\">aan het Tunnelblick project</a> [tunnelblick.net] om te helpen bij het betalen van de serverkosten </p>";
 
@@ -1196,8 +1198,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "Gekopieerd %@, CR tekens verwijderen";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub en anderen.";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, en anderen.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Kon %1$@ niet naar %2$@ kopiëren";
@@ -2345,7 +2347,7 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exporteert de Tunnelblick-instellingen, inclusief alle configuraties en instellingen voor alle gebruikers van deze computer. Deze export wordt opgeslagen in een gecomprimeerd bestand op het bureaublad.</p><ul><li>Inloggegevens opgeslagen in de Keychain worden <strong>niet</strong> geëxporteerd.</li><li>Het maken van het exportbestand kan een tijdje duren.</li></ul>";
 
-/* HTML text. */
+/* HTML text. Although Apple uses the term "system extension" in most places, this string refers to a macOS setting that uses the term "system software". */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Als je geen knop ziet om toestemming te geven voor het installeren van systeemsoftware door ontwikkelaar 'Jonathan Bullard ', probeer dan deze configuratie te verbinden (wat zal mislukken) en ga opnieuw naar het tabblad 'Algemeen' bij 'Beveiliging en privacy'.</p>";
 
 /* HTML info for the 'Advanced...' button. */
@@ -2574,8 +2576,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "Portugese vertaling";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Programmatuur en documentatie verbeteringen sinds versie 3.0b10";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "Programma,  documentatie verbeteringen en onderhoud sinds 2010";
 
 /* Credit description */
 "Romanian translation" = "Roemeense vertaling";

@@ -538,8 +538,7 @@
 /* Connection status */
 "CONNECTING" = "מתחבר"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "מתנתק"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -1156,9 +1155,6 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Copied %@, removing CR characters" = "%@ הועתקו, מסיר תווי CR";
-
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "כל הזכויות שמורות © %@-2004 Angelo Laub ואחרים.";
 
 /* Window text */
 "Could not copy %@ to %@" = "התגלתה שגיעה במהלך העתקת %1$@ ל%2$@";

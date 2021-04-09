@@ -547,8 +547,7 @@
 /* Connection status */
 "CONNECTING" = "Tengist"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Aftengist"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -1096,9 +1095,6 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Copied %@, removing CR characters" = "Afritaði %@ og fjarlægði CR-stafi";
-
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Höfundarréttur © 2004-%@ Angelo Laub og fleiri.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Tókst ekki að afrita %1$@ í %2$@";
@@ -1928,9 +1924,6 @@ Please translate "Disconnecting" */
 
 /* Credit description */
 "Portuguese translation" = "Portúgölsk þýðing";
-
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Betrumbætur í forriti og hjálpargögnum og viðhald frá útgáfu 3.0b10";
 
 /* Credit description */
 "Romanian translation" = "Rúmensk þýðing";

@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "Ansluter"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Kopplar ifrån"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -1196,8 +1195,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "Kopierade %@, tog bort radbrytningar (CR-tecken)";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub och andra.";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard med flera.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Kunde inte kopiera %1$@ till %2$@";
@@ -2345,7 +2344,7 @@ Please translate "Disconnecting" */
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exporterar Tunnelblick-inställningen, inklusive alla konfigurationer och inställningar för samtliga användare av den här datorn, till en komprimerad fil på skrivbordet.</p><ul><li>Användaruppgifter som har sparats i nyckelhanteraren har <strong>not</strong> exporterats.</li><li>Exporten kan ta lång tid.</li></ul>";
 
-/* HTML text. */
+/* HTML text. Although Apple uses the term "system extension" in most places, this string refers to a macOS setting that uses the term "system software". */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Om du inte ser någon knapp för att tillåta appar utvecklade av \"Jonathan Bullard\", försök ansluta den här konfigurationen (vilket kommer att misslyckas). Kontrollera därefter fliken \"Allmänt\", i \"Säkerhet och integritet\" som du hittar i \"Systeminställningar\" igen.</p>";
 
 /* HTML info for the 'Advanced...' button. */
@@ -2574,8 +2573,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "Portugisisk översättning";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Program- och dokumentationsförbättringar efter version 3.0b10";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "Program- och dokumentationsförbättringar samt underhåll sedan 2010";
 
 /* Credit description */
 "Romanian translation" = "Rumänsk översättning";

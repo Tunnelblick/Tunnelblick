@@ -182,7 +182,7 @@
 "Open easy-rsa in Terminal" = "Obrir easy-rsa al Terminal";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Posa-la al costat de la icona de l'Spotlight";
+"Place Icon Near the Spotlight Icon" = "Posa la icona propera a la de l'Spotlight";
 
 /* Button */
 "Place Icon Normally" = "Posa la icona de manera normal";
@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "Connectant"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Desconnectant"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -989,6 +988,9 @@ Please translate "Disconnecting" */
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica, Arial, sans-serif\"><p>La configuració de la xarxa no s'ha restaurat correctament després d'haver-se desconnectat de %@.</p><p>Aquest problema sol produir-se usant l'usuari \"ningú\" i / o el grup \"ningú\" de les opcions d'OpenVPN.</p><p>Per restaurar la configuració de la xarxa, haureu de reiniciar l'equip.</p><p>Per evitar aquest error en el futur, elimineu l'usuari \"ningú\" i el grup \"ningú\" del vostre fitxer de configuració d'OpenVPN.</p><p>Vegeu <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Opcions d'usuari i grup OpenVPN</a> [tunnelblick.net] per obtenir més informació.</p></font>\n\n";
 
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick ha experimentat un o més errors seriosos recentment.</p>\n\n<p>Si us plau, envia un correu a %1$@ i adjunta-hi el fitxer<br>'%2$@' que s'ha creat al teu escriptori.</p>\n\n<p>L'arxiu conté informació que ajudarà als desenvolupadors de Tunnelblick a arreglar els problemes que han causat aquests errors. No conté informació personal sobre tu o les teves VPN.</p>\n\n<p>Si pots, si us plau descriu també el que Tunnelblick feia quan l'error ha ocorregut.</p>\n\n<p>La teva ajuda beneficiarà tots els usuaris de Tunnelblick.</p>";
+
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>L'adreça IP pública aparent d'aquest equip ha canviat després de connectar-se a aquesta VPN cada una de les darreres %u vegades que es va comprovar.</p>\n<p>Això probablement significa que la VPN està configurada correctament i que no cal fer cap comprovació addicional.\n de manera que s'ha desactivat la comprovació d'aquesta VPN per alleugerir la càrrega als servidors tunnelblick.net.</p>\n<p>Podeu tornar a activar la comprovació a la \"Pestanya Configuració\" de la finestra \"Detalls de VPN\" de Tunnelblick. Si ho feu, també tingueu en compte <a href=\"https://tunnelblick.net/donate.html\">fer una donació al projecte Tunnelblick</a> [tunnelblick.net] per ajudar a pagar les despeses dels servidors.</p>";
 
@@ -1196,8 +1198,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "Copiat %@, eliminant caràcters CR";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub i altres.";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, i altres.";
 
 /* Window text */
 "Could not copy %@ to %@" = "No s'ha pogut copiar %1$@ a %2$@";
@@ -2209,7 +2211,7 @@ Please translate "Disconnecting" */
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Les versions de l'OpenVPN '<strong>no-Tunnelblick</strong>' no han estat creades pel projecte Tunnelblick i no formen part de Tunnelblick. Han estat instal·lades per l'administrador de l’ordinador.</p>";
 
-/* HTML text, displayed after a message about getting Tunnelblick's system extensions 'allowed' by macOS. That message uses the term 'allowing' the system extension, so we use that term here, too. */
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
 "<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>'Permetre' les extensions de sistema pot requerir d'un canvi en un paràmetre de seguretat del sistema. El paràmetre només es pot canviar en Mode de recuperació. Potser haureu de reiniciar el sistema en Mode de recuperació, fer el canvi, i reiniciar normalment. macOS t'hauria de guiar en aquest procés.</p>";
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
@@ -2574,8 +2576,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "Traducció al Portuguès";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Millores en l'aplicació i documentació des de la versió 3.0b10";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "Millores al programa i a la documentació i manteniment des de 2010";
 
 /* Credit description */
 "Romanian translation" = "Traducció al Romanès";

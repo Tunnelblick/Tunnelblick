@@ -556,8 +556,7 @@
 /* Connection status */
 "CONNECTING" = "Đang kết nối"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Đang ngắt kết nối"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -989,6 +988,9 @@ Please translate "Disconnecting" */
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Thiết lập mạng không được khôi phục đúng cách sau khi ngắt kết nối từ %@.</p><p>Vấn đề này thường xảy ra do sử dụng các tùy chọn OpenVPN là 'user nobody' và/hoặc 'group nobody'.</p><p>Để khôi phục thiết lập mạng, bạn nên khởi động lại máy tính của mình.</p><p>Để ngăn chặn lỗi này xảy ra trong tương lai, hãy bỏ tùy chọn 'user nobody' và 'group nobody' trong tập tin cấu hình OpenVPN của bạn.</p><p>Hãy xem <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] để biết thêm thông tin.</p></font>\n\n";
 
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Gần đây Tunnelblick đã gặp một hoặc nhiều lỗi nghiêm trọng.</p>\n\n<p>Vui lòng email đến %1$@ và đính kèm <br>'%2$@' tệp đã được tạo trên Desktop của bạn.</p>\n\n<p>Tệp chứa thông tin sẽ giúp các nhà phát triển Tunnelblick khắc phục các sự cố gây ra lỗi. Nó không bao gồm thông tin cá nhân về bạn hoặc thông tin về các VPN của bạn.</p>\n\n<p>Nếu có thể, vui lòng mô tả những gì Tunnelblick đang làm khi lỗi xảy ra.</p>\n\n<p>Sự giúp đỡ của bạn trong việc này sẽ mang lại lợi ích cho tất cả người dùng Tunnelblick.</p>";
+
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p> Địa chỉ IP công khai của máy tính này đã thay đổi sau khi kết nối với VPN mỗi lần từ lần kiểm tra cuối thứ %u.</p> \n<p> Điều này có nghĩa là VPN được thiết lập xong và không cần thiết phải kiểm tra lại,\n  vì vậy việc kiểm tra đã bị vô hiệu hóa đối với VPN này để giảm tải trên các máy chủ của tunnelblick.net. </p>\n<p> Bạn có thể kích hoạt lại việc kiểm tra trên \"tab Cài đặt\" trong cửa sổ \"Chi tiết VPN\" của Tunnelblick. Nếu thực hiện thao tác này, xin vui lòng xem xét <a href=\"https://tunnelblick.net/donate.html\"> quyên góp cho dự án Tunnelblick </a> [tunnelblick.net] để giúp thanh toán các chi phí cho máy chủ. </p>";
 
@@ -1196,8 +1198,8 @@ Please translate "Disconnecting" */
 /* Window text */
 "Copied %@, removing CR characters" = "Sao chép %@, bỏ ký tự CR";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Bản quyền © 2004-%@ của Angelo Laub và những người khác.";
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Bản quyền © 2004 -%@ Angelo Laub, Jonathan Bullard và những người khác.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Không thể sao chép %1$@ tới %2$@";
@@ -2574,8 +2576,8 @@ Please translate "Disconnecting" */
 /* Credit description */
 "Portuguese translation" = "Bản dịch tiếng Bồ Đào Nha";
 
-/* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Cải tiến lập trình và tài liệu và bảo trì sau phiên bản 3.0b10";
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "Cải tiến và bảo trì chương trình và tài liệu kể từ năm 2010";
 
 /* Credit description */
 "Romanian translation" = "Bản dịch tiếng Rumani";

@@ -476,8 +476,7 @@
 /* Connection status */
 "CONNECTING" = "Qoşulur"; // Please translate "Connecting"
 
-/* Connection status
-Please translate "Disconnecting" */
+/* Connection status */
 "DISCONNECTING" = "Bağlantı dayandırılır"; // Please translate "Disconnecting"
 
 /* Connection status */
@@ -992,9 +991,6 @@ Please translate "Disconnecting" */
 
 /* Window text */
 "Copied %@, removing CR characters" = "%@ surəti çıxarıldı, CR simvolları silinir";
-
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Müəlliflik Hüququ © 2004-%@ Angelo Laub və başqaları.";
 
 /* Window text */
 "Could not copy %@ to %@" = "%1$@ %2$@ köçürülmədi";
