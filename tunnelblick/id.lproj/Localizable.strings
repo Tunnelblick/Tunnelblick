@@ -988,6 +988,9 @@
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Setup jaringan tidak dipulihkan secara benar setelah putus dari %@.</p><p>Masalah ini biasanya disebabkan oleh penggunaan opsi OpenVPN 'user nobody' dan/atau 'group nobody'.</p><p>Untuk memulihkan setup jaringan, Anda mesti memulai ulang komputer Anda.</p><p>Untuk mencegah kesalahan ini di masa mendatang, hapus baris-baris 'user nobody' dan 'group nobody' dari berkas konfigurasi OpenVPN Anda.</p><p>Lihat <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Opsi OpenVPN Pengguna dan Grup</a> [tunnelblick.net] untuk informasi lebih lanjut.</p></font>\n\n";
 
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Baru-baru ini Tunnelblick mengalami satu atau beberapa kesalahan serius.</p>\n\n<p>Harap kirim email ke %1$@ dan lampirkan file <br>'%2$@' yang telah dibuat di Desktop Anda.</p>\n\n<p>File tersebut berisi informasi yang akan membantu pengembang Tunnelblick memperbaiki masalah yang menyebabkan kesalahan tersebut. Ini tidak termasuk informasi pribadi tentang Anda atau informasi tentang VPN Anda.</p>\n\n<p>Jika Anda bisa, jelaskan juga apa yang dilakukan Tunnelblick saat kesalahan terjadi.</p>\n\n<p>Bantuan Anda dalam hal ini akan menguntungkan semua pengguna Tunnelblick.</p>";
+
 /* Window text. The '%u' will be replaced with 5 or a similar small positive number */
 "<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Alamat IP publik dari komputer ini telah berubah setelah tersambung ke VPN ini sebanyak %u  kali.</p>\n<p>Ini mungkin berarti VPN sudah diatur dengan benar dan pemeriksaan lebih lanjut tidak diperlukan, jadi pemeriksaan VPN ini telah dinonaktifkan untuk meringankan beban di server tunnelblick.net.</p>\n<p>Anda dapat mengaktifkan kembali pemeriksaan di \"tab Pengaturan\" dari jendela \"Rincian VPN\" Tunnelblick. Jika Anda melakukan itu, harap pertimbangkan juga <a href=\"https://tunnelblick.net/donate.html\">menyumbang ke proyek Tunnelblick</a>[tunnelblick.net] untuk membantu membayar biaya server.</p>";
 
@@ -1194,6 +1197,9 @@
 
 /* Window text */
 "Copied %@, removing CR characters" = "Menyalin %@, menghapus karakter CR";
+
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Hak Cipta © 2004-%@ Angelo Laub, Jonathan Bullard, dan lainnya.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Tidak dapat menyalin %1$@ ke %2$@";
@@ -2341,7 +2347,7 @@
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Ekspor pengaturan Tunnelblick, termasuk semua konfigurasi dan pengaturan bagi semua pengguna pada komputer ini, ke sebuah berkas terkompresi pada Desktop.</p><ul><li>Kredensial yang disimpan dalam Rantai Kunci <strong>tidak</strong> diekspor.</li><li>Ekspor mungkin memakan waktu lama.</li></ul>";
 
-/* HTML text. */
+/* HTML text. Although Apple uses the term "system extension" in most places, this string refers to a macOS setting that uses the term "system software". */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Jika Anda tidak melihat tombol untuk mengizinkan memuat sistem perangkat lunak oleh pengembang 'Jonathan Bullard', coba hubungkan konfigurasi ini (yang akan gagal), kemudian cek tab 'Umum' dibawah 'Keamanan & Privasi' di 'Preferensi Sistem' lagi.</p>";
 
 /* HTML info for the 'Advanced...' button. */
@@ -2569,6 +2575,9 @@
 
 /* Credit description */
 "Portuguese translation" = "Terjemahan bahasa Portugis";
+
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "Peningkatan dan pemeliharaan program dan dokumentasi sejak 2010";
 
 /* Credit description */
 "Romanian translation" = "Terjemahan bahasa Rumania";

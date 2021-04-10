@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Від'єднати усі (%1$@) - видима публічна IP-адреса %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Роз'єднати всі (%1$@) - видима публічна IP-адреса %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Роз'єднати всі (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Від'єднати усі (%1$d підключення) - видима публічна IP адреса %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Роз'єднати всі (%1$d Підключення) - видима публічна IP адреса %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Роз'єднати всі (%d З'єднання)";
@@ -1198,6 +1198,9 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Скопійовано %@, видалення символів переводу рядків (CR)";
 
+/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Авторське право © 2004-%@ Angelo Laub, Jonathan Bullard, та інші.";
+
 /* Window text */
 "Could not copy %@ to %@" = "Неможливо скопіювати %1$@ до %2$@";
 
@@ -2344,7 +2347,7 @@
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Екпортує налаштування Tunnelblick, включно із конфігураціями та налаштуваннями для всіх користувачів цього комп'ютера, в запакований файл на Робочий стіл.</p><ul><li>Облікові данні, які зберігаються в Ключарі <strong>не</strong> експортуються.</li><li>Експортування може зайняти істотний час.</li></ul>";
 
-/* HTML text. */
+/* HTML text. Although Apple uses the term "system extension" in most places, this string refers to a macOS setting that uses the term "system software". */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Якщо Ви не бачите кнопку дозволу загрузки системних програм від розробника 'Jonathan Bullard', спробуйте під'єднатись до цієї конфігурації (що не вдасться), потім знову перегляньте закладку \"Загальні\" налаштувань \"Захист і безпека\" в \"Системні параметри\".</p>";
 
 /* HTML info for the 'Advanced...' button. */
@@ -2572,6 +2575,9 @@
 
 /* Credit description */
 "Portuguese translation" = "Португальський переклад";
+
+/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+"Program and documentation enhancements and maintenance since 2010" = "Покращення та підтримка програми та документації з 2010 року";
 
 /* Credit description */
 "Romanian translation" = "Румунський переклад";

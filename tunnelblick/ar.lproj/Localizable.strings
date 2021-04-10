@@ -128,6 +128,9 @@
 "Ignore" = "تجاهل";
 
 /* Button */
+"Install tun and tap system extensions..." = "ثبت التطبيق واضغط على ملحقات النظام";
+
+/* Button */
 "Install" = "تثبيت";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -286,6 +289,9 @@
 
 /* Button */
 "Uninstall Tunnelblick..." = "حذف تطبيق Tunnelblick";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "قم بإزالة التطبيق واضغط على ملحقات النظام";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "تحديث";
@@ -728,6 +734,12 @@
 "System Requirements Not Met" = "متطلبات النظام لم تتحقق";
 
 /* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "فشل في اختبار إزالة التطبيق";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "نجاح اختبار إزالة التطبيق";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "خطأ في إعدادات تُنلـبليك";
 
 /* Window title */
@@ -741,6 +753,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "تنلبلك: كلمة السر مطلوبة";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "فشل في إزالة التطبيق";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "تمت إزالة التطبيق بنجاح";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "لم نستطع تشغيل تنلبلك";
@@ -825,6 +843,12 @@
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install one configuration\n" = "    حمل الاعداد الاول\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "قم بتثبت أو استبدال %lu \"آمن\" تخصيصات (إذن مسؤول النظام غير مطلوب)";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "قم بتثبت أو استبدال أحد التخصيصات الـ \"آمن\" (إذن مسؤول النظام غير مطلوب)";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    •استبدل %lu الإعدادات";
@@ -963,6 +987,9 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>لم تتم إستعادة إعدادات الشبكة بشكل صحيح بعد قطع الاتصال ب %@.</p><p>تحدث هذه المشكلة عادةً عند استخدام خيارات OpenVPN 'user nobody' و / أو 'group nobody'.</p><p>لإعادة إعدادات الشبكة, يجب عليك إعادة تشغيل الكمبيوتر.</p><p>لمنع هذا الخطأ في المستقبل, قم بحذف أسطر 'user nobody' و 'group nobody' من ملف إعدادات OpenVPN.</p>\n<p>أنظر<a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">مستخدم و مجموعة خيارات OpenVPN</a>[tunnelblick.net] للمزيد من المعلومات.</p></font>\n\n";
+
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>لقد واجه التطبيق مؤخراً خطأً هاماً أو أكثر.</p>\n\n<p>يرجى إرسال رسالة بالبريد الالكتروني %1$@ وإرفاق ملف الـ<br>\n%2$@ الذي تم حفظه على سطح المكتب الخاص بك.</p>\n\n<p>يحتوي الملف على معلومات سوف تساعدنا على تطوير وإصلاح المشاكل التي تسبب أخطاء كهذه. وهي لا تحتوي على معلومات شخصية عنك أو معلومات عن خدمات الـ VPN الخاصة بك.</p>\n\n<p>إذا كان بإمكانك، يرجى أيضاً إخبارنا عمّا كان يقوم به التطبيق عندما حصل الخطأ.</p>\n\n<p>مساعدتك هنا سوف تعود بالنفع على كافة مستخدمي التطبيق.</p>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "يشير المفتاح TBAlways او ListPreference إلى اختيارغير معروف '%1$@' في %2$@";
