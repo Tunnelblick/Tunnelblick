@@ -220,19 +220,20 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
     const char * usernameC = [escaped(  [[self username] stringValue]  ) UTF8String];
     const char * passwordC = [escaped(  [[self password] stringValue]  ) UTF8String];
-    const char * securityTockenC = [self useSecurityTokenChecked] ?
+    const char * securityTokenC = [self useSecurityTokenChecked] ?
 			[escaped(  [[self securityToken] stringValue]  ) UTF8String] : "";
 
     if (   (strlen(usernameC) == 0)
         || (strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)
-        || ((strlen(passwordC) + strlen(securityTockenC)) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)
-				|| ([self useSecurityTokenChecked] && strlen(securityTockenC) == 0)) {
+        || ((strlen(passwordC) + strlen(securityTokenC)) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)
+				|| ([self useSecurityTokenChecked] && strlen(securityTokenC) == 0)) {
         [UIHelper shakeWindow: self.window];
         return;
     }
 
 	NSString * key = [[delegate displayName] stringByAppendingString: @"-alwaysShowLoginWindow"];
 	[gTbDefaults setBool: [self isAlwaysShowLoginWindowChecked] forKey: key];
+	
 	key = [[delegate displayName] stringByAppendingString: @"-useSecurityToken"];
 	[gTbDefaults setBool: [self useSecurityTokenChecked] forKey: key];
 
@@ -336,13 +337,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
 		if (  [[securityEyeButton image] isEqual: eyeNormal]  ) {
 
-				// Make password visible and swap the eye image
+				// Make token visible and swap the eye image
 				NSString * token = [[self securityToken] stringValue];
 				[self setInputBoxAndSecurityToken: token exposed: YES];
 
 		} else {
 
-				// Make password invisible and swap the eye image
+				// Make token invisible and swap the eye image
 				NSString * token = [[self visibleSecurityToken] stringValue];
         [self setInputBoxAndSecurityToken: token exposed: NO];
 		}

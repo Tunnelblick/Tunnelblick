@@ -34,18 +34,18 @@
     IBOutlet NSSecureTextField  * password;
     IBOutlet NSTextField        * visiblePassword;
     IBOutlet NSSecureTextField  * securityToken;
-	  IBOutlet NSTextField				* visibleSecurityToken;
+    IBOutlet NSTextField        * visibleSecurityToken;
 
     IBOutlet NSTextFieldCell    * usernameTFC;
     IBOutlet NSTextFieldCell    * passwordTFC;
 
     IBOutlet NSButton           * eyeButton;
-		IBOutlet NSButton           * securityEyeButton;
+    IBOutlet NSButton           * securityEyeButton;
 
     IBOutlet NSButton           * saveUsernameInKeychainCheckbox;
     IBOutlet NSButton           * savePasswordInKeychainCheckbox;
-  	IBOutlet NSButton           * useSecurityTokenCheckbox;
-	  IBOutlet NSButton           * alwaysShowLoginWindowCheckbox;
+    IBOutlet NSButton           * useSecurityTokenCheckbox;
+    IBOutlet NSButton           * alwaysShowLoginWindowCheckbox;
 
     id                            delegate;
 
