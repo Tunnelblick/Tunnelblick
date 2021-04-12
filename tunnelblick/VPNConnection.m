@@ -4323,7 +4323,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
--(void) processRealTimeOpenvpnOutput: (NSString *) line {
+-(void) processRealTimeOpenvpnOutputWithLine: (NSString *) line {
 
     if (  [line hasPrefix: @">HOLD:Waiting for hold release"]  ) {
         [self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
@@ -4339,7 +4339,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     NSRange separatorRange = [line rangeOfString: @":"];
     if (  separatorRange.length == 0  ) {
-        NSLog(@"processRealTimeOpenvpnOutput: No ':' in '%@'", line);
+        NSLog(@"processRealTimeOpenvpnOutputWithLine: No ':' in '%@'", line);
         return;
     }
 
@@ -4388,7 +4388,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		return;
 	}
 
-    [self processRealTimeOpenvpnOutput: line];
+    [self processRealTimeOpenvpnOutputWithLine: line];
 }
 
 -(void) afterFailureHandler: (NSTimer *) timer
