@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2015, 2016, 2019 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015, 2016, 2019, 2021 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -227,8 +227,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
     const char * usernameC = [escaped(  [[self username] stringValue]  ) UTF8String];
     const char * passwordC = [escaped(  [[self password] stringValue]  ) UTF8String];
-    const char * securityTokenC = [self useSecurityTokenChecked] ?
-			[escaped(  [[self securityToken] stringValue]  ) UTF8String] : "";
+    const char * securityTokenC = (  [self useSecurityTokenChecked]
+                                   ? [escaped(  [[self securityToken] stringValue]  ) UTF8String]
+                                   : "" );
 
     if (   (strlen(usernameC) == 0)
         || (strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)
@@ -314,13 +315,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
 -(void) setInputBoxAndSecurityToken: (NSString *) token exposed: (BOOL) exposed {
 
-		if (  exposed  ) {
-				[[self visibleSecurityToken] setStringValue: token];
-  			[[self securityEyeButton] setImage: eyeRedSlash];
-		} else {
-				[[self securityToken] setStringValue: token];
+    if (  exposed  ) {
+        [[self visibleSecurityToken] setStringValue: token];
+        [[self securityEyeButton] setImage: eyeRedSlash];
+    } else {
+        [[self securityToken] setStringValue: token];
         [[self securityEyeButton] setImage: eyeNormal];
-		}
+    }
     [[self securityToken] setHidden: exposed];
 		[[self securityToken] setEnabled: !exposed];
     [[self visibleSecurityToken] setHidden: !exposed];
