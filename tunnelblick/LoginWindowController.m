@@ -334,10 +334,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
         [[self securityToken] setStringValue: token];
         [[self securityEyeButton] setImage: eyeNormal];
     }
+    BOOL useToken = [self useSecurityTokenChecked];
     [[self securityToken] setHidden: exposed];
-		[[self securityToken] setEnabled: !exposed];
+    [[self securityToken] setEnabled: !exposed && useToken];
     [[self visibleSecurityToken] setHidden: !exposed];
-	  [[self visibleSecurityToken] setEnabled: exposed];
+    [[self visibleSecurityToken] setEnabled: exposed && useToken];
 }
 
 -(IBAction) eyeButtonWasClicked: (id) sender {
