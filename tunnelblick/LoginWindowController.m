@@ -229,10 +229,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 {
 	(void) sender;
 	
-	// If the password is exposed, copy it from the NSTextBox to the NSSecureTextBox
+	// If the password or token is exposed, copy it from the NSTextBox to the NSSecureTextBox
 	if (  [[eyeButton image] isEqual: eyeRedSlash]  ) {
 		[[self password] setStringValue: [visiblePassword stringValue]];
 	}
+    if (  [[securityEyeButton image] isEqual: eyeRedSlash]  ) {
+        [[self securityToken] setStringValue: [visibleSecurityToken stringValue]];
+    }
 
     const char * usernameC = [escaped(  [[self username] stringValue]  ) UTF8String];
     const char * passwordC = [escaped(  [[self password] stringValue]  ) UTF8String];
