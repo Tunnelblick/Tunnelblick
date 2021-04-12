@@ -110,12 +110,23 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
     [saveUsernameInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain",        @"Checkbox name")];
     [savePasswordInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain",        @"Checkbox name")];
-    [useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Token", @"Checkbox name")
-														 infoTitle: attributedStringFromHTML(NSLocalizedString(
-																												  @"<p>Allows for the additional entry of a security token when checked.</p>\n"
-																												  @"<p>This token is appended to the password during the authentication process. This enables the simultaneous use of authentication devices (dongels) together with the the keychain to secure the password.</p>\n",
-																												  @"HTML Info for security token checkbox"))];
-	  [alwaysShowLoginWindowCheckbox  setTitle: NSLocalizedString(@"Always show this window", @"Checkbox name")];
+
+    CGFloat oldUseSecurityTokenCheckboxWidth = [useSecurityTokenCheckbox frame].size.width;
+    [useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Token:", @"Checkbox name")
+                             infoTitle: attributedStringFromHTML(NSLocalizedString(
+                                                                                   @"<p>Allows for the additional entry of a security token when checked.</p>\n"
+                                                                                   @"<p>This token is appended to the password during the authentication process. This enables the simultaneous use of authentication devices (dongels) together with the the keychain to secure the password.</p>\n",
+                                                                                   @"HTML Info for security token checkbox"))];
+    if (  ! [UIHelper languageAtLaunchWasRTL]  ) {
+        NSRect frame = [useSecurityTokenCheckbox frame];
+        CGFloat widthChange = oldUseSecurityTokenCheckboxWidth - frame.size.width;
+        if (  widthChange > 0.0  ) {
+            frame.origin.x += widthChange;
+            [useSecurityTokenCheckbox setFrame: frame];
+        }
+    }
+
+    [alwaysShowLoginWindowCheckbox  setTitle: NSLocalizedString(@"Always show this window", @"Checkbox name")];
 
     [savePasswordInKeychainCheckbox setState:   NSOffState];
     [savePasswordInKeychainCheckbox setEnabled: NO];
