@@ -254,11 +254,11 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         }
     }
 
-    NSString * key = [[self displayName] stringByAppendingString: @"-alwaysShowLoginWindow"];
-    NSString * tokenKey = [[self displayName] stringByAppendingString: @"-useSecurityToken"];
+    NSString * alwaysShowKey = [[self displayName] stringByAppendingString: @"-alwaysShowLoginWindow"];
+    NSString * tokenKey = [[self displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
     if (   (! passwordLocal)
         || (! usernameLocal)
-				|| [gTbDefaults boolForKey: key]
+        || [gTbDefaults boolForKey: alwaysShowKey]
         || [gTbDefaults boolForKey: tokenKey]  ) {
         
         // Ask for password and username
