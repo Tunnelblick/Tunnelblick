@@ -197,8 +197,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 	
 	key = [[delegate displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
 	[[self useSecurityTokenCheckbox] setState:( [gTbDefaults boolForKey:key] ? NSOnState : NSOffState)];
-	[[self securityToken] setEnabled:[gTbDefaults boolForKey:key]];
-	[[self visibleSecurityToken] setEnabled:[gTbDefaults boolForKey:key]];
 	[[self securityEyeButton] setEnabled:[gTbDefaults boolForKey:key]];
 	[[self securityEyeButton] setHidden:![gTbDefaults boolForKey:key]];
 	[self setInputBoxAndSecurityToken:@"" exposed: FALSE];
