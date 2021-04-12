@@ -135,10 +135,10 @@
                                     <outlet property="nextKeyView" destination="TLH-Cp-GnI" id="GRt-CA-kYV"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJA-CF-S99">
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJA-CF-S99" customClass="TBButton">
                                 <rect key="frame" x="17" y="96" width="129" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="SecurityToken" bezelStyle="regularSquare" imagePosition="left" inset="2" id="eAY-fP-3b3">
+                                <buttonCell key="cell" type="check" title="Token" bezelStyle="regularSquare" imagePosition="left" inset="2" id="eAY-fP-3b3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>

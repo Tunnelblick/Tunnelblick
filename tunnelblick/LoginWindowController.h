@@ -20,6 +20,7 @@
  */
 
 #include "defines.h"
+#import "TBButton.h"
 
 @interface LoginWindowController : NSWindowController <NSWindowDelegate>
 {
@@ -44,7 +45,7 @@
 
     IBOutlet NSButton           * saveUsernameInKeychainCheckbox;
     IBOutlet NSButton           * savePasswordInKeychainCheckbox;
-    IBOutlet NSButton           * useSecurityTokenCheckbox;
+    IBOutlet TBButton           * useSecurityTokenCheckbox;
     IBOutlet NSButton           * alwaysShowLoginWindowCheckbox;
 
     id                            delegate;

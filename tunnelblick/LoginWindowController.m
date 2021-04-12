@@ -43,7 +43,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextField       *, visibleSecurityToken)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, saveUsernameInKeychainCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, useSecurityTokenCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *, useSecurityTokenCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, alwaysShowLoginWindowCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, eyeButton)
@@ -110,7 +110,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
     [saveUsernameInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain",        @"Checkbox name")];
     [savePasswordInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain",        @"Checkbox name")];
-    [useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Security Token",            		@"Checkbox name")];
+    [useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Token", @"Checkbox name")
+														 infoTitle: attributedStringFromHTML(NSLocalizedString(
+																												  @"<p>Allows for the additional entry of a security token when checked.</p>\n"
+																												  @"<p>This token is appended to the password during the authentication process. This enables the simultaneous use of authentication devices (dongels) together with the the keychain to secure the password.</p>\n",
+																												  @"HTML Info for security token checkbox"))];
 	  [alwaysShowLoginWindowCheckbox  setTitle: NSLocalizedString(@"Always show this window", @"Checkbox name")];
 
     [savePasswordInKeychainCheckbox setState:   NSOffState];
@@ -180,9 +184,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 													 : NSOffState)];
 	[[self alwaysShowLoginWindowCheckbox] setEnabled: TRUE];
 	
-	key = [[delegate displayName] stringByAppendingString: @"-useSecurityToken"];
+	key = [[delegate displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
 	[[self useSecurityTokenCheckbox] setState:( [gTbDefaults boolForKey:key] ? NSOnState : NSOffState)];
 	[[self securityToken] setEnabled:[gTbDefaults boolForKey:key]];
+	[[self visibleSecurityToken] setEnabled:[gTbDefaults boolForKey:key]];
+	[[self securityEyeButton] setEnabled:[gTbDefaults boolForKey:key]];
+	[[self securityEyeButton] setHidden:![gTbDefaults boolForKey:key]];
 	[self setInputBoxAndSecurityToken:@"" exposed: FALSE];
 
     [cancelButton setEnabled: YES];
@@ -234,7 +241,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 	NSString * key = [[delegate displayName] stringByAppendingString: @"-alwaysShowLoginWindow"];
 	[gTbDefaults setBool: [self isAlwaysShowLoginWindowChecked] forKey: key];
 	
-	key = [[delegate displayName] stringByAppendingString: @"-useSecurityToken"];
+	key = [[delegate displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
 	[gTbDefaults setBool: [self useSecurityTokenChecked] forKey: key];
 
     [cancelButton setEnabled: NO];
@@ -258,9 +265,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
 -(IBAction) useSecurityTokenCheckboxWasClicked: (id) sender {
     (void) sender;
+    BOOL isEnabled = [useSecurityTokenCheckbox state] == NSOnState;
 
-    [securityToken setEnabled:[useSecurityTokenCheckbox state] == NSOnState];
+    [securityToken setEnabled:isEnabled];
+    [visibleSecurityToken setEnabled:isEnabled];
+    [securityEyeButton setEnabled:isEnabled];
+    [securityEyeButton setHidden:!isEnabled];
     [[self securityToken] setStringValue:@""];
+    [[self visibleSecurityToken] setStringValue:@""];
 }
 
 -(void) exposePasswordAndSetImage {

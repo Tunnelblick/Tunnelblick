@@ -111,7 +111,7 @@ Gw
                                     <outlet property="nextKeyView" destination="86" id="104"/>
                                 </connections>
                             </button>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="86">
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="86" customClass="TBButton">
                                 <rect key="frame" x="18" y="132" width="332" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="check" title="Save password in Keychain" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="87">
@@ -200,7 +200,7 @@ Gw
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wn3-me-tYT">
                                 <rect key="frame" x="355" y="95" width="129" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="SecurityToken" bezelStyle="regularSquare" imagePosition="right" inset="2" id="SZu-oq-kO8">
+                                <buttonCell key="cell" type="check" title="Token" bezelStyle="regularSquare" imagePosition="right" inset="2" id="SZu-oq-kO8">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
