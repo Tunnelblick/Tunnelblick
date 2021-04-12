@@ -230,6 +230,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     
     NSString * usernameLocal = nil;
     NSString * passwordLocal = nil;
+    NSString * securityTokenLocal = nil;
 
     if (  [self usernameIsInKeychain]  ) {
         usernameLocal = [usernameKeychain password];
@@ -254,9 +255,11 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     }
 
     NSString * key = [[self displayName] stringByAppendingString: @"-alwaysShowLoginWindow"];
+    NSString * tokenKey = [[self displayName] stringByAppendingString: @"-useSecurityToken"];
     if (   (! passwordLocal)
         || (! usernameLocal)
-        || [gTbDefaults boolForKey: key]  ) {
+				|| [gTbDefaults boolForKey: key]
+        || [gTbDefaults boolForKey: tokenKey]  ) {
         
         // Ask for password and username
 
@@ -291,7 +294,8 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 
         usernameLocal = [[loginScreen username] stringValue];
         passwordLocal = [[loginScreen password] stringValue];
-        
+        securityTokenLocal = [loginScreen useSecurityTokenChecked] ? [[loginScreen securityToken] stringValue] : @"";
+
         if (  ! usernameLocal  ) {
             NSLog(@"username is nil for Keychain '%@'", [usernameKeychain description]);
             usernameLocal = @"";
@@ -300,7 +304,10 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
             NSLog(@"password is nil for Keychain '%@'", [usernameKeychain description]);
             passwordLocal = @"";
         }
-        
+        if (  ! securityTokenLocal ) {
+					securityTokenLocal = @"";
+			  }
+
         if (   [loginScreen isSaveUsernameInKeychainChecked]  ) {
             
             if (   [loginScreen isSavePasswordInKeychainChecked]  ) {
@@ -345,7 +352,8 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         [[loginScreen window] close];
     }
     
-    NSArray * array = [NSArray arrayWithObjects: usernameLocal, passwordLocal, nil];
+    NSString * passwordAndToken = [passwordLocal stringByAppendingString:securityTokenLocal];
+    NSArray * array = [NSArray arrayWithObjects: usernameLocal, passwordAndToken, nil];
     return array;
 }
 
