@@ -20,26 +20,26 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Tunn..." allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="ConnectingWindow" animationBehavior="default" id="1">
+        <window title="Tunn..." allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="ConnectingWindow" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="345" width="389" height="165"/>
+            <rect key="contentRect" x="196" y="345" width="389" height="189"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="389" height="165"/>
+                <rect key="frame" x="0.0" y="0.0" width="389" height="189"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView id="27">
-                        <rect key="frame" x="0.0" y="-2" width="389" height="167"/>
+                        <rect key="frame" x="0.0" y="0.0" width="389" height="189"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <imageView id="3">
-                                <rect key="frame" x="20" y="83" width="64" height="64"/>
+                                <rect key="frame" x="20" y="105" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="4"/>
                             </imageView>
                             <textField verticalHuggingPriority="750" id="80">
-                                <rect key="frame" x="18" y="50" width="355" height="17"/>
+                                <rect key="frame" x="18" y="72" width="355" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please wait$" id="81">
                                     <font key="font" metaFont="systemBold"/>
@@ -48,7 +48,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" id="LB5-oL-Siv">
-                                <rect key="frame" x="90" y="83" width="281" height="24"/>
+                                <rect key="frame" x="90" y="105" width="281" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="VersionInfo$" id="WHg-yd-0ot">
                                     <font key="font" metaFont="system"/>
@@ -57,7 +57,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" id="83">
-                                <rect key="frame" x="17" y="20" width="355" height="22"/>
+                                <rect key="frame" x="17" y="20" width="355" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Copyright$" id="84">
                                     <font key="font" metaFont="systemBold"/>
@@ -66,7 +66,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" id="oi5-B6-Qye">
-                                <rect key="frame" x="90" y="104" width="281" height="32"/>
+                                <rect key="frame" x="90" y="126" width="281" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="TunnelblickName$" id="a37-A2-j16">
                                     <font key="font" metaFont="systemBlack" size="20"/>
@@ -81,6 +81,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="24"/>
             </connections>
+            <point key="canvasLocation" x="139.5" y="158.5"/>
         </window>
     </objects>
 </document>
