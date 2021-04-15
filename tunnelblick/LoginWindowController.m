@@ -44,7 +44,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextField       *, visibleSecurityToken)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, saveUsernameInKeychainCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *, useSecurityTokenCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, alwaysShowLoginWindowCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, eyeButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, securityEyeButton)
@@ -112,23 +111,18 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
     [savePasswordInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain",        @"Checkbox name")];
 
     CGFloat oldUseSecurityTokenCheckboxWidth = [useSecurityTokenCheckbox frame].size.width;
-    [useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Token:", @"Checkbox name")
-                             infoTitle: attributedStringFromHTML(NSLocalizedString(
-                                                                                   @"<p>Allows for the additional entry of a security token when checked.</p>\n"
-                                                                                   @"<p>This token is appended to the password during the authentication process. This enables the simultaneous use of authentication devices (dongels) together with the the keychain to secure the password.</p>\n",
-                                                                                   @"HTML Info for security token checkbox"))];
-    if (  ! [UIHelper languageAtLaunchWasRTL]  ) {
-        NSRect frame = [useSecurityTokenCheckbox frame];
-        CGFloat widthChange = oldUseSecurityTokenCheckboxWidth - frame.size.width;
-        if (  widthChange > 0.0  ) {
-            frame.origin.x += widthChange;
-            [useSecurityTokenCheckbox setFrame: frame];
-        }
-    }
 
-    [alwaysShowLoginWindowCheckbox  setTitle: NSLocalizedString(@"Always show this window", @"Checkbox name")];
+// The following doesn't work because this is a modal window. That means that it will not trigger UI updates until it is done
+//	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Token:", @"Checkbox name. This checkbox allows the user to type in a 'token' such as a value" "shown on an authentication device (such as a dongle). Translations must be short to fit in limited space.")
+//                             infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Allows for the additional entry of a security token when checked.</p>\n"
+//                                                                                   @"<p>This token is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the the keychain to secure the password.</p>\n",
 
-    [savePasswordInKeychainCheckbox setState:   NSOffState];
+//                                                                                   @"HTML Info for security token checkbox"))];
+
+	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Token:", @"Checkbox name. This checkbox allows the user to type in a 'token', a value shown on an authentication device such as a dongle. Translations must be short to fit in limited space.")];
+	[useSecurityTokenCheckbox sizeToFit];
+
+	[savePasswordInKeychainCheckbox setState:   NSOffState];
     [savePasswordInKeychainCheckbox setEnabled: NO];
 
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
@@ -139,7 +133,19 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
     
     // Adjust position of Cancel button if the OK button got bigger or smaller
     [UIHelper shiftControl: cancelButton by: widthChange reverse: rtl];
-    
+
+	// If a LTR language and the "Token:" checkbox got smaller, shift it to the right,
+	// so it is flush right, like the "Username:" and "Password" labels.
+	// In an RTL language, it doesn't need to shift; it is already flush left
+	if (  ! rtl )  {
+		NSRect frame = [useSecurityTokenCheckbox frame];
+		widthChange = oldUseSecurityTokenCheckboxWidth - frame.size.width;
+		if (  widthChange > 0.0  ) {
+			frame.origin.x += widthChange;
+			[useSecurityTokenCheckbox setFrame: frame];
+		}
+	}
+
     [self redisplay];
 }
 
@@ -189,13 +195,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
                                                         : NSOnState)];
 	[[self savePasswordInKeychainCheckbox] setEnabled: setSaveUsernameCheckbox];  // Enabled only if saving username
 
-	NSString * key = [[delegate displayName] stringByAppendingString: @"-alwaysShowLoginWindow"];
-	[[self alwaysShowLoginWindowCheckbox] setState: (  [gTbDefaults boolForKey: key]
-													 ? NSOnState
-													 : NSOffState)];
-	[[self alwaysShowLoginWindowCheckbox] setEnabled: TRUE];
-	
-	key = [[delegate displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
+	NSString * key = [[delegate displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
 	[[self useSecurityTokenCheckbox] setState:( [gTbDefaults boolForKey:key] ? NSOnState : NSOffState)];
 	[[self securityEyeButton] setEnabled:[gTbDefaults boolForKey:key]];
 	[[self securityEyeButton] setHidden:![gTbDefaults boolForKey:key]];
@@ -251,10 +251,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
         return;
     }
 
-	NSString * key = [[delegate displayName] stringByAppendingString: @"-alwaysShowLoginWindow"];
-	[gTbDefaults setBool: [self isAlwaysShowLoginWindowChecked] forKey: key];
-	
-	key = [[delegate displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
+	NSString * key = [[delegate displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
 	[gTbDefaults setBool: [self useSecurityTokenChecked] forKey: key];
 
     [cancelButton setEnabled: NO];
@@ -426,11 +423,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 -(BOOL) useSecurityTokenChecked
 {
 	return (  [useSecurityTokenCheckbox state] == NSOnState  );
-}
-
--(BOOL) isAlwaysShowLoginWindowChecked
-{
-	return (  [alwaysShowLoginWindowCheckbox state] == NSOnState  );
 }
 
 -(id) delegate

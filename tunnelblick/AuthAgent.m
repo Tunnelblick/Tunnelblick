@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2019, 2020. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -254,11 +254,9 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         }
     }
 
-    NSString * alwaysShowKey = [[self displayName] stringByAppendingString: @"-alwaysShowLoginWindow"];
     NSString * tokenKey = [[self displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
     if (   (! passwordLocal)
         || (! usernameLocal)
-        || [gTbDefaults boolForKey: alwaysShowKey]
         || [gTbDefaults boolForKey: tokenKey]  ) {
         
         // Ask for password and username

@@ -7,7 +7,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="LoginWindowController">
             <connections>
                 <outlet property="OKButton" destination="9" id="49"/>
-                <outlet property="alwaysShowLoginWindowCheckbox" destination="GtK-TV-ZsK" id="Wm3-7L-HSL"/>
                 <outlet property="cancelButton" destination="35" id="59"/>
                 <outlet property="eyeButton" destination="2qw-EU-T3c" id="lFy-Cp-01R"/>
                 <outlet property="iconIV" destination="110" id="112"/>
@@ -31,14 +30,14 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="ConnectingWindow" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="345" width="500" height="350"/>
+            <rect key="contentRect" x="196" y="345" width="500" height="327"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="350"/>
+                <rect key="frame" x="0.0" y="0.0" width="500" height="327"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="27">
-                        <rect key="frame" x="0.0" y="0.0" width="500" height="350"/>
+                        <rect key="frame" x="0.0" y="-23" width="500" height="350"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9">
@@ -74,7 +73,7 @@ Gw
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38">
                                 <rect key="frame" x="20" y="219" width="328" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="39">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="39">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -84,17 +83,33 @@ Gw
                                     <outlet property="nextKeyView" destination="55" id="102"/>
                                 </connections>
                             </textField>
+                            <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="55">
+                                <rect key="frame" x="48" y="156" width="300" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="56">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <allowedInputSourceLocales>
+                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                    </allowedInputSourceLocales>
+                                </secureTextFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="-2" id="62"/>
+                                    <outlet property="nextKeyView" destination="LOz-xG-e9B" id="kVC-gq-o85"/>
+                                </connections>
+                            </secureTextField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LOz-xG-e9B">
-                                <rect key="frame" x="107" y="156" width="241" height="22"/>
+                                <rect key="frame" x="86" y="156" width="262" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="right" drawsBackground="YES" id="kfU-dL-7KJ">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="kfU-dL-7KJ">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
                                     <outlet property="delegate" destination="-2" id="Z54-su-7bb"/>
-                                    <outlet property="nextKeyView" destination="55" id="nUJ-wz-iea"/>
+                                    <outlet property="nextKeyView" destination="adg-1U-zFx" id="Ksi-bb-nlq"/>
                                 </connections>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="42">
@@ -117,6 +132,7 @@ Gw
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
+                                    <action selector="savePasswordInKeychainCheckboxWasClicked:" target="-2" id="rwG-pz-iD3"/>
                                     <outlet property="nextKeyView" destination="9" id="107"/>
                                 </connections>
                             </button>
@@ -138,22 +154,6 @@ Gw
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="55">
-                                <rect key="frame" x="48" y="156" width="300" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" drawsBackground="YES" usesSingleLineMode="YES" id="56">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <allowedInputSourceLocales>
-                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                                    </allowedInputSourceLocales>
-                                </secureTextFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="-2" id="62"/>
-                                    <outlet property="nextKeyView" destination="42" id="106"/>
-                                </connections>
-                            </secureTextField>
                             <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="110">
                                 <rect key="frame" x="407" y="256" width="72" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -184,21 +184,10 @@ Gw
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="IEN-Dd-Zla"/>
                             </imageView>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GtK-TV-ZsK">
-                                <rect key="frame" x="18" y="13" width="464" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="check" title="Always show this window$$$" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="VsW-uX-oJf">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <outlet property="nextKeyView" destination="9" id="DAr-kx-fVP"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wn3-me-tYT">
-                                <rect key="frame" x="355" y="95" width="129" height="18"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wn3-me-tYT" customClass="TBButton">
+                                <rect key="frame" x="353" y="95" width="129" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Token" bezelStyle="regularSquare" imagePosition="right" inset="2" id="SZu-oq-kO8">
+                                <buttonCell key="cell" type="check" title="Token$$" bezelStyle="regularSquare" imagePosition="right" inset="2" id="SZu-oq-kO8">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -224,7 +213,7 @@ Gw
                                 </connections>
                             </secureTextField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sp5-mN-LXU">
-                                <rect key="frame" x="48" y="93" width="300" height="22"/>
+                                <rect key="frame" x="77" y="93" width="271" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="on3-qa-2fP">
                                     <font key="font" metaFont="system"/>
@@ -233,6 +222,7 @@ Gw
                                 </textFieldCell>
                                 <connections>
                                     <outlet property="delegate" destination="-2" id="67N-0n-rpS"/>
+                                    <outlet property="nextKeyView" destination="38" id="A44-8k-3dK"/>
                                 </connections>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LS4-oh-7b6">
@@ -257,7 +247,7 @@ Gw
                 <outlet property="delegate" destination="-2" id="24"/>
                 <outlet property="initialFirstResponder" destination="38" id="77"/>
             </connections>
-            <point key="canvasLocation" x="855" y="442"/>
+            <point key="canvasLocation" x="155" y="84.5"/>
         </window>
     </objects>
 </document>

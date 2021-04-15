@@ -46,7 +46,6 @@
     IBOutlet NSButton           * saveUsernameInKeychainCheckbox;
     IBOutlet NSButton           * savePasswordInKeychainCheckbox;
     IBOutlet TBButton           * useSecurityTokenCheckbox;
-    IBOutlet NSButton           * alwaysShowLoginWindowCheckbox;
 
     id                            delegate;
 
@@ -73,12 +72,12 @@ TBPROPERTY_READONLY(NSTextField *,       username)
 TBPROPERTY_READONLY(NSSecureTextField *, password)
 TBPROPERTY_READONLY(NSTextField *,       visiblePassword)
 TBPROPERTY_READONLY(NSTextField *,       securityToken)
+TBPROPERTY_READONLY(NSTextField *,       visibleSecurityToken)
 
 TBPROPERTY_READONLY(NSButton *,    eyeButton)
 
 TBPROPERTY_READONLY(NSButton *,    saveUsernameInKeychainCheckbox)
 TBPROPERTY_READONLY(NSButton *,    savePasswordInKeychainCheckbox)
-TBPROPERTY_READONLY(NSButton *,    alwaysShowLoginWindowCheckbox)
 
 TBPROPERTY_READONLY(id, delegate)
 

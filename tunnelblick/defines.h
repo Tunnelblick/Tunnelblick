@@ -810,6 +810,7 @@ name = newValue;                                    \
 @"AdvancedWindowTabIdentifier",	\
 \
 @"haveDealtWithOldTunTapPreferences",	\
+@"haveDealtWithAlwaysShowLoginWindow",	\
 @"haveDealtWithOldLoginItem",	\
 @"haveDealtWithAfterDisconnect",	\
 @"haveStartedAnUpdateOfTheApp",	\
@@ -912,9 +913,8 @@ name = newValue;                                    \
 @"-allowChangesToManuallySetNetworkSettings",	\
 @"-disableNetworkAccessAfterDisconnect",	\
 @"-disableNetworkAccessAfterUnexpectedDisconnect",	\
-@"-alwaysShowLoginWindow", \
 @"-consecutiveSuccessfulIPAddressChanges", \
-\
+@"-loginWindowSecurityTokenCheckboxIsChecked", \
 @"-changeDNSServersAction",	\
 @"-changeDomainAction",	\
 @"-changeSearchDomainAction",	\
@@ -939,6 +939,7 @@ name = newValue;                                    \
 \
 /* No longer used */	\
 @"-authUsername",	\
+@"-alwaysShowLoginWindow", \
 @"-skipWarningThatMayNotConnectInFutureBecauseOfOpenVPNOptions",	\
 @"-usernameIsSet",	\
 @"-useRouteUpInsteadOfUp"   \

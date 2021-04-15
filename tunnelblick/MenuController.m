@@ -1076,7 +1076,23 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 		
 		[gTbDefaults setBool: TRUE forKey: @"haveDealtWithAfterDisconnect"];
 	}
-	
+
+	if (  ! [gTbDefaults boolForKey: @"haveDealtWithAlwaysShowLoginWindow"]  ) {
+		// Convert all "-alwaysShowLoginWindow" configuration preferences to "-loginWindowSecurityTokenCheckboxIsChecked"
+		NSString * key;
+		NSEnumerator * e = [userDefaultsDict keyEnumerator];
+		while (  (key = [e nextObject])  ) {
+			if (  [key hasSuffix: @"-alwaysShowLoginWindow"]  ) {
+				NSString * newKey = [key stringByReplacingOccurrencesOfString: @"-alwaysShowLoginWindow" withString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
+				id obj = [userDefaultsDict objectForKey: key];
+				[gTbDefaults removeObjectForKey: key];
+				[gTbDefaults setObject: obj forKey: newKey];
+			}
+		}
+
+		[gTbDefaults setBool: TRUE forKey: @"haveDealtWithAlwaysShowLoginWindow"];
+	}
+
 	// Scan for unknown preferences
 	[gTbDefaults scanForUnknownPreferencesInDictionary: primaryForcedPreferencesDict  displayName: @"Primary forced preferences"];
 	[gTbDefaults scanForUnknownPreferencesInDictionary: deployedForcedPreferencesDict displayName: @"Deployed forced preferences"];
