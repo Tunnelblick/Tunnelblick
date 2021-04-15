@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2021 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,7 +24,7 @@
 #import "helper.h"
 #import "NSString+TB.h"
 #import "MenuController.h"
-
+#import "sharedRoutines.h"
 
 extern NSArray        * gConfigurationPreferences;
 extern MenuController * gMC;
@@ -344,7 +344,13 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 }
 
 -(void) setObject: (id) value forKey: (NSString *) key {
-    
+
+	if (   ( ! value )
+		|| ( ! key)  ) {
+		NSLog(@"Ignoring [gTBDefaults set object: %@ for key: %@]; stack trace = %@", value, key, callStack());
+		return;
+	}
+
     id primaryValue = [self primaryObjectForKey: key];
     if (  primaryValue  ) {
         if (  [primaryValue isNotEqualTo: value]  ) {
