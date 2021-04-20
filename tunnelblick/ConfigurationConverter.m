@@ -1301,30 +1301,41 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
             
             if (  [optionsWithPath containsObject: [firstToken stringValue]]  ) {
                 if (  secondToken  ) {
-                    // remove leading/trailing single- or double-quotes
-					NSRange r2 = [secondToken range];
-                    if (   (   [[configString substringWithRange: NSMakeRange(r2.location, 1)] isEqualToString: @"\""]
-                            && [[configString substringWithRange: NSMakeRange(r2.location + r2.length - 1, 1)] isEqualToString: @"\""]  )
-                        || (   [[configString substringWithRange: NSMakeRange(r2.location, 1)] isEqualToString: @"'"]
-                            && [[configString substringWithRange: NSMakeRange(r2.location + r2.length - 1, 1)] isEqualToString: @"'"]  )  )
-                    {
-                        r2.location++;
-                        r2.length -= 2;
-                    }
-                    
-                    // copy the file and change the path in the configuration string if necessary
-                    if (  ! [[configString substringWithRange: r2] isEqualToString: @"[inline]"]  ) {
-                        NSString * errMsg2 = [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO okIfNoFile: NO ignorePathInfo: (! outputPath)];
-                        if (  errMsg2  ) {
-                            return errMsg2;
-                        }
-                    }
-                    tokenIx++;
-                } else {
-                    if (  ! [optionsWithArgsThatAreOptional containsObject: [firstToken stringValue]]  ) {
-                        return [self logMessage: [NSString stringWithFormat: @"Expected path not found for '%@'", [firstToken stringValue]]
-                                      localized: [NSString stringWithFormat: NSLocalizedString(@"Expected path not found for '%@'", @"Window text"), [firstToken stringValue]]];
-                    }
+					BOOL isDh = [[firstToken stringValue] isEqualToString: @"dh"];
+					BOOL secondTokenIsNotNone = ( ! [[secondToken stringValue] isEqualToString: @"none"] );
+					if (    (   isDh
+							 && secondTokenIsNotNone )
+						||  ( ! isDh )  ) {
+						// remove leading/trailing single- or double-quotes
+						NSRange r2 = [secondToken range];
+						if (   (   [[configString substringWithRange: NSMakeRange(r2.location, 1)] isEqualToString: @"\""]
+								&& [[configString substringWithRange: NSMakeRange(r2.location + r2.length - 1, 1)] isEqualToString: @"\""]  )
+							|| (   [[configString substringWithRange: NSMakeRange(r2.location, 1)] isEqualToString: @"'"]
+								&& [[configString substringWithRange: NSMakeRange(r2.location + r2.length - 1, 1)] isEqualToString: @"'"]  )  )
+						{
+							r2.location++;
+							r2.length -= 2;
+						}
+
+						// copy the file and change the path in the configuration string if necessary
+						if (  ! [[configString substringWithRange: r2] isEqualToString: @"[inline]"]  ) {
+							NSString * errMsg2 = [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO okIfNoFile: NO ignorePathInfo: (! outputPath)];
+							if (  errMsg2  ) {
+								return errMsg2;
+							}
+						}
+					}
+					tokenIx++;
+				} else {
+					if (  ! [optionsWithArgsThatAreOptional containsObject: [firstToken stringValue]]  ) {
+						if (  [[firstToken stringValue] isEqualToString: @"dh"]  ) {
+							return [self logMessage: [NSString stringWithFormat: @"Expected path (or 'none') not found for 'dh' option"]
+										  localized: [NSString stringWithFormat: NSLocalizedString(@"Expected path (or 'none') not found for 'dh' option", @"Window text")]];
+						} else {
+							return [self logMessage: [NSString stringWithFormat: @"Expected path not found for '%@'", [firstToken stringValue]]
+										  localized: [NSString stringWithFormat: NSLocalizedString(@"Expected path not found for '%@'", @"Window text"), [firstToken stringValue]]];
+						}
+					}
                 }
             } else if (  [optionsWithCommand containsObject: [firstToken stringValue]]  ) {
                 if (  secondToken  ) {
