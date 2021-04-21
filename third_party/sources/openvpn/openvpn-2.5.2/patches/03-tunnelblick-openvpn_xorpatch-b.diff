@@ -1,6 +1,6 @@
-diff -u -r -x .DS_Store openvpn-2.5_rc3.old/src/openvpn/options.c openvpn-2.5_rc3.new/src/openvpn/options.c
---- openvpn-2.5_rc3.old/src/openvpn/options.c	2020-10-19 13:38:17.000000000 -0400
-+++ openvpn-2.5_rc3.new/src/openvpn/options.c	2020-10-19 13:38:17.000000000 -0400
+diff -u -r -x .DS_Store openvpn-2.5.2.old/src/openvpn/options.c openvpn-2.5.2.new/src/openvpn/options.c
+--- openvpn-2.5.2.old/src/openvpn/options.c	2021-04-21 08:29:09.000000000 -0400
++++ openvpn-2.5.2.new/src/openvpn/options.c	2021-04-21 08:29:09.000000000 -0400
 @@ -821,6 +821,9 @@
      o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
      o->resolve_in_advance = false;
@@ -31,7 +31,7 @@ diff -u -r -x .DS_Store openvpn-2.5_rc3.old/src/openvpn/options.c openvpn-2.5_rc
  
      if (o->http_proxy_options)
      {
-@@ -6260,6 +6269,46 @@
+@@ -6273,6 +6282,46 @@
          }
          options->proto_force = proto_force;
      }
