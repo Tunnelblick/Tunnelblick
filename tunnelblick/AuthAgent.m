@@ -292,7 +292,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 
         usernameLocal = [[loginScreen username] stringValue];
         passwordLocal = [[loginScreen password] stringValue];
-        securityTokenLocal = [loginScreen useSecurityTokenChecked] ? [[loginScreen securityToken] stringValue] : @"";
+        securityTokenLocal = [loginScreen useSecurityTokenChecked] ? [[loginScreen securityToken] stringValue] : nil;
 
         if (  ! usernameLocal  ) {
             NSLog(@"username is nil for Keychain '%@'", [usernameKeychain description]);
@@ -302,9 +302,6 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
             NSLog(@"password is nil for Keychain '%@'", [usernameKeychain description]);
             passwordLocal = @"";
         }
-        if (  ! securityTokenLocal ) {
-					securityTokenLocal = @"";
-			  }
 
         if (   [loginScreen isSaveUsernameInKeychainChecked]  ) {
             
@@ -350,7 +347,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         [[loginScreen window] close];
     }
     
-    NSString * passwordAndToken = [passwordLocal stringByAppendingString:securityTokenLocal];
+    NSString * passwordAndToken = [passwordLocal stringByAppendingString: ( securityTokenLocal ? securityTokenLocal : @"" )];
     NSArray * array = [NSArray arrayWithObjects: usernameLocal, passwordAndToken, nil];
     return array;
 }
