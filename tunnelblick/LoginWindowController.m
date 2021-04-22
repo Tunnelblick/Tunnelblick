@@ -119,7 +119,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
 //                                                                                   @"HTML Info for security token checkbox"))];
 
-	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Token:", @"Checkbox name. This checkbox allows the user to type in a 'token', a value shown on an authentication device such as a dongle. Translations must be short to fit in limited space.")];
+	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Security code:", @"Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle.")];
 	[useSecurityTokenCheckbox sizeToFit];
 
 	[savePasswordInKeychainCheckbox setState:   NSOffState];
@@ -245,8 +245,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
     if (   (strlen(usernameC) == 0)
         || (strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)
-        || ((strlen(passwordC) + strlen(securityTokenC)) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)
-				|| ([self useSecurityTokenChecked] && strlen(securityTokenC) == 0)) {
+        || ((strlen(passwordC) + strlen(securityTokenC)) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)  ) {
         [UIHelper shakeWindow: self.window];
         return;
     }

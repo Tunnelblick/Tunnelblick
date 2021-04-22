@@ -30,14 +30,14 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="ConnectingWindow" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="345" width="500" height="327"/>
+            <rect key="contentRect" x="196" y="345" width="626" height="327"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="327"/>
+                <rect key="frame" x="0.0" y="0.0" width="626" height="327"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="27">
-                        <rect key="frame" x="0.0" y="-23" width="500" height="350"/>
+                        <rect key="frame" x="0.0" y="-23" width="626" height="350"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9">
@@ -137,7 +137,7 @@ Gw
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44">
-                                <rect key="frame" x="353" y="222" width="129" height="17"/>
+                                <rect key="frame" x="353" y="222" width="255" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="45">
                                     <font key="font" metaFont="system"/>
@@ -146,7 +146,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="46">
-                                <rect key="frame" x="353" y="158" width="129" height="17"/>
+                                <rect key="frame" x="353" y="158" width="255" height="17"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="47">
                                     <font key="font" metaFont="system"/>
@@ -184,18 +184,6 @@ Gw
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="IEN-Dd-Zla"/>
                             </imageView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wn3-me-tYT" customClass="TBButton">
-                                <rect key="frame" x="353" y="95" width="129" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Token$$" bezelStyle="regularSquare" imagePosition="right" inset="2" id="SZu-oq-kO8">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="useSecurityTokenCheckboxWasClicked:" target="-2" id="Mi8-Pq-td8"/>
-                                    <outlet property="nextKeyView" destination="adg-1U-zFx" id="7gF-vS-RHz"/>
-                                </connections>
-                            </button>
                             <secureTextField verticalHuggingPriority="750" id="adg-1U-zFx">
                                 <rect key="frame" x="48" y="93" width="300" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -236,6 +224,18 @@ Gw
                                     <action selector="securityEyeButtonWasClicked:" target="-2" id="jL0-ci-tzU"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wn3-me-tYT" customClass="TBButton">
+                                <rect key="frame" x="353" y="95" width="255" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Token$$" bezelStyle="regularSquare" imagePosition="right" inset="2" id="SZu-oq-kO8">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="useSecurityTokenCheckboxWasClicked:" target="-2" id="Mi8-Pq-td8"/>
+                                    <outlet property="nextKeyView" destination="adg-1U-zFx" id="7gF-vS-RHz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <connections>
                             <outlet property="nextKeyView" destination="42" id="79"/>
@@ -247,7 +247,7 @@ Gw
                 <outlet property="delegate" destination="-2" id="24"/>
                 <outlet property="initialFirstResponder" destination="38" id="77"/>
             </connections>
-            <point key="canvasLocation" x="155" y="84.5"/>
+            <point key="canvasLocation" x="218" y="84.5"/>
         </window>
     </objects>
 </document>
