@@ -1513,6 +1513,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"auth-nocache|"
     @"auth-retry|"
     @"auth-token|"
+    @"auth-token-user|"
     @"auth-user-pass-optional|"
 //  @"auth-user-pass-verify|"
     @"auth-user-pass|"
