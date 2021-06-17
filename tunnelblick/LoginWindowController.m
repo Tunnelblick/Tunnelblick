@@ -113,11 +113,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
     CGFloat oldUseSecurityTokenCheckboxWidth = [useSecurityTokenCheckbox frame].size.width;
 
 // The following doesn't work because this is a modal window. That means that it will not trigger UI updates until it is done
-//	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Token:", @"Checkbox name. This checkbox allows the user to type in a 'token' such as a value" "shown on an authentication device (such as a dongle). Translations must be short to fit in limited space.")
-//                             infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Allows for the additional entry of a security token when checked.</p>\n"
-//                                                                                   @"<p>This token is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the the keychain to secure the password.</p>\n",
+//	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Security code:", @"Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle.")
+//                             infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Allows for the additional entry of a security code when checked.</p>\n"
+//                                                                                   @"<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the the keychain to secure the password.</p>\n",
 
-//                                                                                   @"HTML Info for security token checkbox"))];
+//                                                                                   @"HTML Info for security code checkbox"))];
 
 	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Security code:", @"Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle.")];
 	[useSecurityTokenCheckbox sizeToFit];
