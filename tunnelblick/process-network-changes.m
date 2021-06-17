@@ -406,7 +406,7 @@ NSString * getKeyFromScDictionary(NSString * key, NSString * dictionary)
     return @"";
 }
 
-NSDictionary * getSafeEnvironment() {
+NSDictionary * getSafeEnvironment(void) {
 	
 	// (This is a pared-down version of the routine in SharedRoutines)
     //

@@ -1568,7 +1568,7 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode) {
     return logPath;
 }
 
-void deleteAllLogFiles() {
+void deleteAllLogFiles(void) {
 	
 	// Deletes all log files associated with OpenVPN log files that have the OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS bit set in the bitmask encoded in their filenames
     // Also deletes all log files that have a "last modified" date earlier than one week ago

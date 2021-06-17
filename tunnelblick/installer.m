@@ -1291,7 +1291,7 @@ void doInitialWork(BOOL updateKexts) {
     }
 }
 
-void moveLibOpenVPN() {
+void moveLibOpenVPN(void) {
 	
 	NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
 	NSString * newConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
@@ -1546,7 +1546,7 @@ void secureTheApp(NSString * appResourcesPath) {
 	}
 }
 
-void pruneL_AS_T_TBLKS() {
+void pruneL_AS_T_TBLKS(void) {
 	
 	// Prune L_AS_T_TblKS by removing all but the highest edition of each container
 	
