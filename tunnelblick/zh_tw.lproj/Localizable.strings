@@ -413,9 +413,6 @@
 "Allow changes to manually-set network settings" = "允許更動手動設定的網路設定";
 
 /* Checkbox name */
-"Always show this window" = "永遠顯示這個視窗";
-
-/* Checkbox name */
 "Apply to all" = "全部套用";
 
 /* Checkbox Name */
@@ -510,6 +507,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "於鑰匙圈內儲存";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "認證碼:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "在路由設定後，設定 DNS";
@@ -1198,7 +1198,7 @@
 /* Window text */
 "Copied %@, removing CR characters" = "複製了 %@，並刪除 CR 字元";
 
-/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub、Jonathan Bullard 及其他人士。";
 
 /* Window text */
@@ -1272,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "未於「%@」找到預期的指令";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "'dh' 選項的預期路徑(或 'none')不存在";
 
 /* Window text */
 "Expected path not found for '%@'" = "未於「%@」找到預期的路徑";
@@ -2329,6 +2332,9 @@
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Tun 連線需要 「tun」裝置驅動程式。通常會使用系統的 Tun 驅動程式，但 Tunnelblick 也有內建自己的 Tun 驅動程式。如果您安裝了不同的 Tun 驅動程式， Tunnelblick 可能會無法載入自身內建的驅動程式。</p>\n<p>OpenVPN 會使用系統的驅動程式，除非 OpenVPN 設定檔中包含 'dev-type tun' 選項。</p>\n<p>您可以選擇 Tunnelblick 如何載入內建的 Tun 驅動程式：</p>\n<p><strong>自動載入 Tun 驅動程式</strong>：Tunnelblick 會在需要的時候載入內建的驅動程式，並在不再使用時卸載它。(Tunnelblick 將只會在 OpenVPN 設定包含 'dev-type tun' 選項時載入內建的驅動程式)</p>\n<p><strong>總是載入 Tun 驅動程式</strong>：Tunnelblick 會在連線到設定時載入驅動程式，並在不再使用時卸載它。</p>\n<p><strong>永不載入 Tun 驅動程式</strong>：Tunnelblick 永不載入內建的驅動程式。</p>\n<p>在 Tap 設定以及不允許 Tunnelblick 載入內建 Tun 驅動程式的 macOS 版本中，<strong>這個核取方塊將無法使用</strong>。更多資訊請參照 <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>。</p>";
 
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the the keychain to secure the password.</p>\n" = "<p>當勾選時，允許增加認證碼輸入。</p>\n<p>這個代碼是在認證過程中，附加在密碼之後的。這個選項允許認證裝置的並用，像是伺服器匙與鑰匙圈並用，以保護密碼。</p>\n";
+
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>檢查Tunnelblick應用程式的更新。</p><p>詳情請參考Tunnelblick網站中的<a href=\"https://tunnelblick.net/cPrivacy.html\">隱私和安全</a> [tunnelblick.net]。</p><p>如果你的VPN服務供應商實現了這個特徵，也检查配置的更新。</p>";
 
@@ -2576,7 +2582,7 @@
 /* Credit description */
 "Portuguese translation" = "葡萄牙文翻譯";
 
-/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+/* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "自 2010 年以來程式及文檔的增強與維護";
 
 /* Credit description */

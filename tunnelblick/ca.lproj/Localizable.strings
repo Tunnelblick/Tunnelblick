@@ -413,9 +413,6 @@
 "Allow changes to manually-set network settings" = "Permetre canvis als paràmetres de xarxa establerts manualment";
 
 /* Checkbox name */
-"Always show this window" = "Mostrar sempre aquesta finestra";
-
-/* Checkbox name */
 "Apply to all" = "Aplicar a tot";
 
 /* Checkbox Name */
@@ -510,6 +507,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Guardar en el gestor de claus";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Codi de seguretat:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Afegir DNS un cop les rutes hagin estat afegides";
@@ -1198,7 +1198,7 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Copiat %@, eliminant caràcters CR";
 
-/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, i altres.";
 
 /* Window text */
@@ -1272,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "Comanda esperada no trobada per a '%@'";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Camí esperat (o 'cap') no trobat per a l'opció 'dh'";
 
 /* Window text */
 "Expected path not found for '%@'" = "Camí esperat no trobat per a '%@'";
@@ -2329,6 +2332,9 @@
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Es necessita un controlador 'tun' per a connexions Tun. Normalment s'utilitza el controlador Tun del sistema, però Tunnelblick també inclou el seu propi controlador Tun. Si ha instal·lat un controlador Tun diferent, Tunnelblick pot no ser capaç de carregar el seu propi controlador.</p>\n<p>ObrirVPN utilitzarà el controlador del sistema tret que la configuració d'OpenVPN inclogui l'opció 'dev-type tun'.</p>\n<p>Vostè pot triar si Tunnelblick carrega el seu propi Tun controlador, i quan ho fa.</p>\n<p><strong>Carregar controlador Tun automàticament</strong>: Tunnelblick carrega el seu propi controlador si cal i el descarrega quan no el necessita més. (Tunnelblick únicament carregarà el seu propi controlador si la configuració ObrirVPN inclou l'opció 'dev-type tun'.)</p>\n<p><strong>Carregar controlador Tun sempre</strong>: Tunnelblick carrega el seu propi controlador quan es connecta amb aquesta configuració, i el descarrega quan no el necessita més.</p>\n<p><strong>Mai carregar controlador Tun</strong>: Tunnelblick mai carrega el seu propi controlador.</p>\n<p><strong>Aquesta casella està deshabilitada </strong> per a configuracions de Tap i en versions de macOS que no permeten a Tunnelblick carregar el seu controlador Tun. Per a obtenir més informació, consulteu <a href=\"https://tunnelblick.net/cTunTapConnections.html\"> Tun i Tap VPNs a macOS [tunnelblick.net] </a>. </p>";
 
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the the keychain to secure the password.</p>\n" = "<p>Permet l'entrada d'un codi de seguretat addicional si es marca.</p>\n<p>Aquest codi s'afegeix a la contrasenya durant el procés d'autenticació. Això permet l'ús de dispositius d'autenticació externs combinat amb el clauer per assegurar la contrasenya.</p>";
+
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Comprov si hi ha actualitzacions de l'aplicació Tunnelblick.</p><p>Accedeix a la pàgina de Tunnelblick; per a més detalls consulta <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacitat i seguretat</a> [tunnelblick.net].</p><p>També comprova actualitzacions de les configuracions VPN si el teu proveïdor té aquesta característica habilitada.</p>";
 
@@ -2576,7 +2582,7 @@
 /* Credit description */
 "Portuguese translation" = "Traducció al Portuguès";
 
-/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+/* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "Millores al programa i a la documentació i manteniment des de 2010";
 
 /* Credit description */

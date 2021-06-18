@@ -413,9 +413,6 @@
 "Allow changes to manually-set network settings" = "Tillad ændringer til manuelle netværksindstillinger";
 
 /* Checkbox name */
-"Always show this window" = "Vis altid dette vindue";
-
-/* Checkbox name */
 "Apply to all" = "Anvend for alle";
 
 /* Checkbox Name */
@@ -533,7 +530,7 @@
 "Set nameserver (alternate 1)" = "Sæt navneserveren (Alternativ 1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 2)" = "Sæt navneserveren (Alternativ 2)";
+"Set nameserver (alternate 2)" = "Angiv navneserver (alternativ 2)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Sæt navneserver";
@@ -1198,7 +1195,7 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Kopierede %@, fjerner CR tegn";
 
-/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard og andre.";
 
 /* Window text */
@@ -2576,7 +2573,7 @@
 /* Credit description */
 "Portuguese translation" = "Portugisisk oversættelse";
 
-/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+/* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "Forbedringer og vedligeholdelse af program og dokumentation siden 2010";
 
 /* Credit description */

@@ -413,9 +413,6 @@
 "Allow changes to manually-set network settings" = "Sta wijzigingen voor handmatige ingestelde netwerk instellingen toe";
 
 /* Checkbox name */
-"Always show this window" = "Dit venster altijd weergeven";
-
-/* Checkbox name */
 "Apply to all" = "Toepassen op alles";
 
 /* Checkbox Name */
@@ -510,6 +507,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "In Sleutelhanger opslaan";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Beveiligingscode:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Stel DNS in nadat routes zijn ingesteld";
@@ -1198,7 +1198,7 @@
 /* Window text */
 "Copied %@, removing CR characters" = "%@ gekopieerd, CR tekens verwijderen";
 
-/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, en anderen.";
 
 /* Window text */
@@ -1272,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "Verwacht commando voor '%@' is niet gevonden";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Verwacht pad (of 'niets') niet gevonden voor 'dh' optie";
 
 /* Window text */
 "Expected path not found for '%@'" = "Het verwachte pad voor '%@' is niet gevonden";
@@ -1850,7 +1853,7 @@
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick heeft autorisatie nodig om de configuratie '%@' te dupliceren.";
 
 /* Window text */
-"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick heeft toestemming nodig voor het installeren van tun en tap systeemextensies. ";
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick heeft autorisatie nodig voor het installeren van tun en tap systeem extensies. ";
 
 /* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick heeft autorisatie nodig om %ld configuraties privé te maken.";
@@ -1886,7 +1889,7 @@
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick heeft toestemming van een beheerder nodig om de geïmporteerde gegevens te beveiligen.";
 
 /* Window text */
-"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick heeft toestemming nodig voor het verwijderen van tun en tap systeemextensies. ";
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick heeft autorisatie nodig voor het verwijderen van tun en tap systeem extensies. ";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick wil een configuratie instelling wijzigen, maar dit mag alleen worden gewijzigd door een beheerder.";
@@ -2329,6 +2332,9 @@
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Een 'tun'-stuurprogramma is nodig voor tun-verbindingen. In de meeste gevallen zal het tun-stuurprogramma van het systeem gebruikt worden, maar Tunnelblick bevat ook een eigen tun-stuurprogramma. Indien u een ander tun-stuurprogramma hebt geïnstalleerd kan Tunnelblick wellicht zijn eigen stuurprogramma niet laden.</p><p>OpenVPN zal het stuurprogramma van het systeem gebruiken, tenzij de OpenVPN-configuratie de optie 'dev-type tun' bevat.</p><p>U kunt kiezen of en wanneer Tunnelblick zijn eigen stuurprogramma zal laden:</p>\n<p><strong>tun-stuurprogramma automatisch laden</strong>: Tunnelblick zal het stuurprogramma laden wanneer nodig en ontladen wanneer het niet meer nodig is. (Tunnelblick zal zijn eigen stuurprogramma alleen laden als de OpenVPN configuratie de 'dev-type tun' optie bevat.)</p>\n<p><strong>tun-stuurprogramma altijd laden</strong>: Tunnelblick zal het stuurprogramma laden wanneer het deze configuratie verbindt en ontladen wanneer het niet meer nodig is.</p>\n<p><strong>tun-stuurprogramma nooit laden</strong>: Tunnelblick zal het stuurprogramma nooit laden.</p>\n<p><strong>Deze checkbox is uitgeschakeld</strong> voor tap-configuraties en op versies van MacOS die weigeren om Tunnelblick het tun-stuurprogramma te laden. Voor meer information, zie  <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>";
 
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the the keychain to secure the password.</p>\n" = "<p>Maakt een extra toevoeging van een veiligheidscode mogelijk wanneer dit is aangevinkt</p>\n<p>Deze code wordt toegevoegd aan het wachtwoord tijdens het authenticatieproces. Dit maakt gelijktijdig gebruik van authenticatie-apparaten zoals dongels mogelijk samen met de sleutelhanger, om het wachtwoord beveiligen.</p>";
+
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Controleert op nieuwe versies van Tunnelblick.</p><p>Maakt gebruik van de Tunnelblick website; voor meer informatie zie <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy en veiligheid</a>[tunnelblick.net].</p><p>Controleert tevens op nieuwe versies van configuraties mits de VPN service provider dit ondersteunt.</p>";
 
@@ -2576,7 +2582,7 @@
 /* Credit description */
 "Portuguese translation" = "Portugese vertaling";
 
-/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+/* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "Programmatuur- en documentatie-verbeteringen en onderhoud sinds 2010";
 
 /* Credit description */

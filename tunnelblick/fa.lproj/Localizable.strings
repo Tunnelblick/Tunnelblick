@@ -128,6 +128,9 @@
 "Ignore" = "نادیده گرفتن";
 
 /* Button */
+"Install tun and tap system extensions..." = "افزونه Tun & Tap را نصب کنید.";
+
+/* Button */
 "Install" = "نصب";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -287,6 +290,9 @@
 /* Button */
 "Uninstall Tunnelblick..." = "حذف برنامه تانلبلیک";
 
+/* Button */
+"Uninstall tun and tap system extensions..." = "افزونه Tun & Tap را حذف کنید.";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "به‌روزرسانی";
 
@@ -407,10 +413,10 @@
 "Allow changes to manually-set network settings" = "پذیرفتن تغییرات جدید به تنظیمات دستی شبکه";
 
 /* Checkbox name */
-"Always show this window" = "این پنجره را همیشه نشان بده";
-
-/* Checkbox name */
 "Apply to all" = "برای همه اعمال کن";
+
+/* Checkbox Name */
+"Authenticate before connecting" = "قبل از وصل شدن، هویت‌سنجی را انجام دهید.";
 
 /* Checkbox name */
 "Check for updates automatically" = "به صورت خودکار برای نسخه های جدید بررسی کن";
@@ -420,6 +426,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "اگر نشانی آی پی بعد از برقراری ارتباط تغییر کرد، بررسی کن";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "به جز در مواردی که دسترسی به سرور VPN با IPv6 فراهم شده باشد، گزینه IPv6 را غیرفعال کنید.";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "قطع ارتباط در زمان استراحت رایانه";
@@ -722,6 +731,12 @@
 "System Requirements Not Met" = "پیش نیاز سامانه یافت نشد";
 
 /* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "حذف آزمایشی TUNNELBLICK موفق نبود.";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "حذف آزمایشی TUNNELBLICK با موفقیت انجام شد.";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "خطا در پیکربندی Tunnelblick";
 
 /* Window title */
@@ -735,6 +750,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: عبارت عبور نیاز است";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "حذف TUNNELBLICK موفق نبود.";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "حذف TUNNELBLICK با موفقیت انجام شد.";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "قادر به اجرای Tunnelblick نیستیم";

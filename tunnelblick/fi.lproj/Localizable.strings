@@ -413,9 +413,6 @@
 "Allow changes to manually-set network settings" = "Salli manuaaliset muutokset verkkoasetuksiin";
 
 /* Checkbox name */
-"Always show this window" = "Näytä aina tämä ikkuna";
-
-/* Checkbox name */
 "Apply to all" = "Käytä kaikille";
 
 /* Checkbox Name */
@@ -1198,7 +1195,7 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Kopioitiin %@, poistettiin rivinvaihtomerkit";
 
-/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard ja muita.";
 
 /* Window text */
@@ -2576,7 +2573,7 @@
 /* Credit description */
 "Portuguese translation" = "Portugalilainen käännös";
 
-/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+/* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "Sovelluksen ja dokumentaation parannukset ja ylläpito vuodesta 2010";
 
 /* Credit description */

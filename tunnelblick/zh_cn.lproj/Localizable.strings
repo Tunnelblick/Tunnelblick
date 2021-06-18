@@ -413,9 +413,6 @@
 "Allow changes to manually-set network settings" = "允许更改手动设置的网络设置";
 
 /* Checkbox name */
-"Always show this window" = "一直显示此窗口";
-
-/* Checkbox name */
 "Apply to all" = "应用于全部";
 
 /* Checkbox Name */
@@ -1198,7 +1195,7 @@
 /* Window text */
 "Copied %@, removing CR characters" = "复制了 %@，删除 CR 字符";
 
-/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "版权所有 © 2004-%@ Angelo Laub，Jonathan Bullard，以及其他开发成员。";
 
 /* Window text */
@@ -2347,7 +2344,7 @@
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>将 Tunnelblick 设置（包括此计算机的所有用户的所有配置和设置）导出到桌面上的一个压缩文件。</p><ul><li>保存在钥匙串中的用户验证信息（用户名/密码，或密钥等）<strong>不会</strong>导出。</li><li>这个导出过程可能需要很长时间。</li></ul>";
 
-/* HTML text. Although Apple uses the term "system extension" in most places, this string refers to a macOS setting that uses the term "system software". */
+/* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>如果你看不到按钮允许载入开发者 ‘Jonathan Bullard’ 开发的系统软件，试试连接这个VPN（这个动作会失败）然后再次看看 ‘系统选项’ 中 ‘安全与隐私’ 中的 ‘一般’ 选项卡。";
 
 /* HTML info for the 'Advanced...' button. */
@@ -2576,7 +2573,7 @@
 /* Credit description */
 "Portuguese translation" = "葡萄牙语翻译";
 
-/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+/* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "3.0b10 版本后对程序和文档的改进和修复。";
 
 /* Credit description */

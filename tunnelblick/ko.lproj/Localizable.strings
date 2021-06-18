@@ -401,9 +401,6 @@
 "Allow changes to manually-set network settings" = "수동으로 설정한 네트워크 설정들의 변경을 허용";
 
 /* Checkbox name */
-"Always show this window" = "항상 이 창 보기";
-
-/* Checkbox name */
 "Apply to all" = "모두 적용";
 
 /* Checkbox Name */

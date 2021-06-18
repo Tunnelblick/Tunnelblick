@@ -413,9 +413,6 @@
 "Allow changes to manually-set network settings" = "手動でセットされたネットワーク設定への変更を許可する";
 
 /* Checkbox name */
-"Always show this window" = "このウインドウを常に表示";
-
-/* Checkbox name */
 "Apply to all" = "全員に適用";
 
 /* Checkbox Name */
@@ -1198,7 +1195,7 @@
 /* Window text */
 "Copied %@, removing CR characters" = "%@ をコピーしました、CRキャラクターを削除してます";
 
-/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard 他.";
 
 /* Window text */
@@ -2347,7 +2344,7 @@
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>このコンピューターの全ユーザーのすべての構成と設定を含むTunnelblickセットアップを、圧縮ファイルでデスクトップ上にエクスポートします。</p> <ul> <li>キーチェーンに保存された資格情報はエクスポート<strong>されません</strong>。</li> <li>エクスポートするには時間がかかる場合があります。</li> </ul>";
 
-/* HTML text. Although Apple uses the term "system extension" in most places, this string refers to a macOS setting that uses the term "system software". */
+/* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>開発者「Jonathan Bullard」によるシステムソフトウェアのロードを許可するボタンが表示されない場合は、再度この構成で接続してみて（失敗しますが）、「システム環境設定」の「セキュリティとプライバシー」にある「一般」タブを確認して下さい。 </p>";
 
 /* HTML info for the 'Advanced...' button. */
@@ -2576,7 +2573,7 @@
 /* Credit description */
 "Portuguese translation" = "ポルトガル語翻訳";
 
-/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+/* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "2020年以降のプログラムとドキュメントの拡張と保守";
 
 /* Credit description */

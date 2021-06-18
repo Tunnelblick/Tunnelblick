@@ -407,9 +407,6 @@
 "Allow changes to manually-set network settings" = "อนุญาตให้มีการตั้งค่าเครือข่ายเองได้";
 
 /* Checkbox name */
-"Always show this window" = "แสดงหน้าต่างนี้เสมอ";
-
-/* Checkbox name */
 "Apply to all" = "ใช้กับทุกอย่าง";
 
 /* Checkbox Name */

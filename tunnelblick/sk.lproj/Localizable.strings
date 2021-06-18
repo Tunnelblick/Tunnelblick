@@ -413,9 +413,6 @@
 "Allow changes to manually-set network settings" = "Povoliť zmeny ručne nastaviteľnej siete";
 
 /* Checkbox name */
-"Always show this window" = "Toto okno vždy zobraziť";
-
-/* Checkbox name */
 "Apply to all" = "Uplatniť na všetko";
 
 /* Checkbox Name */
@@ -510,6 +507,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Uložiť v Kľúčenke";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Bezpečnostný kód:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Nastav DNS záznam po nastavení routovania";
@@ -1198,7 +1198,7 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Skopírované %@, odstránené znaky CR";
 
-/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub. Jonathan Bullard, a ďalší.";
 
 /* Window text */
@@ -1272,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "Nepodarilo sa nájsť očakávaný príkaz pre '%@'";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Zadaná cesta vo voľbe 'dh' nebola najdená";
 
 /* Window text */
 "Expected path not found for '%@'" = "Nepodarilo sa nájsť očakávaný cestu pre \"%@\"";
@@ -2329,6 +2332,9 @@
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Pre spojenia typu Tun je potrebné zariadenie 'tun'. Bežne sa použíje ovládač Tun ktorý je súčasťou operačného systému, ale Tunnelblick obsahuje aj vlastný ovládač Tun. V prípade ak už máte nainštalovaný iný ovládač Tu, je možné že Tunnelblick nebude môcť načítat svoj ovládač Tun.</p>\n<p>Automaticky sa použije ovládač Tun ktorý je súčasťou operačného systému. V prípade že OpenVPN konfigurácia obsahuje voľbu 'dev-type tun', bude použitý ovládač Tun aplikácie Tunnelblick.</p>\n<p>Zvoľte si kedy má Tunnelblick načítať svoj oládač Tun:</p>\n<p><strong>Načítať ovládač Tun automaticky</strong>: Tunnelblick načíta svoj ovládač len keď je to potrebné a následne ho znova deaktivuje ked už tento ovládač nie je potrebný. Toto je možné len v prípade ak konfigurácia OpenVPN obsahuje voľbu 'dev-type tun'. </p>\n<p><strong>Vždy načítať ovládač Tun</strong>: Tunnelblick načíta svoj ovládač len pri pripojení tejto konfigurácie a následne ho znova deaktivuje ked už tento ovládač nie je potrebný.</p>\n<p><strong>Nenačítavať ovládač Tun</strong>: Tunnelblick nikdy nenačíta svoj ovládač.</p>\n<p><strong>Táto voľa je deaktivovaná</strong> pre konfigurácie typu Tap a aj v prípade že verzia macOS nepovoľuje aplikácii Tunnelblick načítať svoj Tun ovládač. Pre ďalšie informácie klikni na <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>";
 
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the the keychain to secure the password.</p>\n" = "<p>Umožni použitie dodatočného bezpečnostného kódu.</p>\n<p>Tento dodatočný bezpečnostný kód je pripojený k heslu počas autentifikácie. Toto umožňuje použitie autentifikačných zariadení, ako napríklad bezpečnostných dongle, v spojení s heslom uloženým v keychain.</p>\n";
+
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Skontroluje aktualizácie pre aplikáciu Tunnelblick.</p><p>Navštívi stránku Tunnelblick; pre detailné informácie pozri <a href=\"https://tunnelblick.net/cPrivacy.html\">Súkromie a bezpečnosť</a>[tunnelblick.net]</p><p>Tiež skontroluje aktualizácie konfigurácií v prípade, že poskytovateľ služby VPN túto funkciu podporuje.</p>";
 
@@ -2347,7 +2353,7 @@
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exportovať nastavenia Tunnelbick do komprimovaného súboru na poloch, vrátane všetkych konfigurácií a nastavení všetkých uživateľov tohoto počítaša</p><ul><li>Údaje uložené v Keychain <strong>nebudú</strong> exportované.</li><li>Tento export si môže vyžiadať dlhší čas spracovania.</li></ul>";
 
-/* HTML text. Although Apple uses the term "system extension" in most places, this string refers to a macOS setting that uses the term "system software". */
+/* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Ak nevidíte tlačidlo na povolenie načítania systémového softvéru od 'Jonathan Bullard', pokúste sa  pripojiť túto konfiguráciu (ktorej pripojenie sa nepodarí) a potom sa pozrite do záložky 'Všeobecné' v 'Bezpečnosť a súkromie' v rámci 'Systémové nastavenia'.</p>";
 
 /* HTML info for the 'Advanced...' button. */
@@ -2576,7 +2582,7 @@
 /* Credit description */
 "Portuguese translation" = "Portugalský preklad";
 
-/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+/* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "Rozširovanie programu a dokumentácie a údržba od roku 2010";
 
 /* Credit description */

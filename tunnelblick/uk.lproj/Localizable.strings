@@ -413,9 +413,6 @@
 "Allow changes to manually-set network settings" = "Дозволити зміни до мережевих налаштувань, встановлених вручну";
 
 /* Checkbox name */
-"Always show this window" = "Завжди показувати це вікно";
-
-/* Checkbox name */
 "Apply to all" = "Застосувати до всіх";
 
 /* Checkbox Name */
@@ -510,6 +507,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Зберегти в Ключарі";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Код безпеки:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Налаштувати DNS після налаштування маршрутів";
@@ -1198,7 +1198,7 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Скопійовано %@, видалення символів переводу рядків (CR)";
 
-/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Авторське право © 2004-%@ Angelo Laub, Jonathan Bullard, та інші.";
 
 /* Window text */
@@ -1272,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "Не знайдено команду, що очікувалася для '%@'";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Очікуване розташування (або 'none') не знайдено для опції 'dh'";
 
 /* Window text */
 "Expected path not found for '%@'" = "Не знайдений шлях, що очікувався для '%@'";
@@ -2329,6 +2332,9 @@
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Для підключень типу Tun потрібен 'tun'-драйвер. зазвичай використовується драйвер системи, проте до складу Tunnelblick входить власний драйвер Tun. Якщо ви встановили інший драйвер Tun, Tunnelblick може виявитись не в змозі завантажити власний драйвер.</p>\n<p>OpenVPN буде використовувати драйвер операційної системи завжди, окрім випадків, коли конфігурація OpenVPN містить опцію 'dev-type tun'.</p>\n<p>Ви можете обирати за яких умов Tunnelblick буде завантажувати власний драйвер Tun:</p>\n<p><strong>Завантажувати драйвер Tun автоматично</strong>: Tunnelblick завантажуватиме власний драйвер за необхідності  і вигружатиме коли він перестане бути потрібен. (Tunnelblick завантажуватиме драйвер тільки за наявності опції 'dev-type tun' в конфігурації OpenVPN).</p>\n<p><strong>Завжди завантажувати драйвер Tun</strong>: Tunnelblick завантажуватиме власний драйвер при підключенні конфігурації і вигружатиме коли він перестане бути потрібен.</p>\n<p><strong>Ніколи не завантажувати драйвер Tun</strong>: Tunnelblick ніколи не завантажуватиме власний драйвер.</p>\n<p><strong>Ця опція не доступна</strong> для типу конфігурацій Tap та для версій macOS які не дозволяють Tunnelblick завантажувати власний драйвер. Більше інформації за посиланням<a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>";
 
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the the keychain to secure the password.</p>\n" = "<p>Дозволяє додатковий ввід коду безпеки коли обрано.</p>\n<p>Цей код додаєтьсядо паролю під час аутентифікації. Це дозволяє одночасне засточування пристроїв аутентифікації таких як донгли разом Ключарем для убезпечення паролю.</p>\n";
+
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Перевіряє наявність оновлень для Tunnelblick.</p><p>З'єднується з веб-сторінкою Tunnelblick; більш детально за посиланням <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security (Захист та безпека даних)</a> [tunnelblick.net].</p><p>Також перевіряє наявність оновлень для конфигурацій, якщо провайдер послуг VPN підтримує цю функцію.</p>";
 
@@ -2347,7 +2353,7 @@
 /* HTML info for the 'Export Tunnelblick Setup' button. */
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Екпортує налаштування Tunnelblick, включно із конфігураціями та налаштуваннями для всіх користувачів цього комп'ютера, в запакований файл на Робочий стіл.</p><ul><li>Облікові данні, які зберігаються в Ключарі <strong>не</strong> експортуються.</li><li>Експортування може зайняти істотний час.</li></ul>";
 
-/* HTML text. Although Apple uses the term "system extension" in most places, this string refers to a macOS setting that uses the term "system software". */
+/* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Якщо Ви не бачите кнопку дозволу загрузки системних програм від розробника 'Jonathan Bullard', спробуйте під'єднатись до цієї конфігурації (що не вдасться), потім знову перегляньте закладку \"Загальні\" налаштувань \"Захист і безпека\" в \"Системні параметри\".</p>";
 
 /* HTML info for the 'Advanced...' button. */
@@ -2576,7 +2582,7 @@
 /* Credit description */
 "Portuguese translation" = "Португальський переклад";
 
-/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+/* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "Покращення та підтримка програми та документації з 2010 року";
 
 /* Credit description */

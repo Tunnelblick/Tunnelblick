@@ -413,9 +413,6 @@
 "Allow changes to manually-set network settings" = "Változások engedélyezése a kézzel megadott hálózati beállításokban";
 
 /* Checkbox name */
-"Always show this window" = "Mindig mutassa ezt az ablakot";
-
-/* Checkbox name */
 "Apply to all" = "Alkalmazás mindre";
 
 /* Checkbox Name */
@@ -510,6 +507,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Mentés a kulcstartóra";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Biztonsági kód:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "DNS beállítása az útvonal beállítása után";
@@ -1198,7 +1198,7 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Másolt %@, CR karakterek eltávolítása";
 
-/* Window text. The '%@' will be replaced by the current year (e.g., "2020") */
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Szerzői jogok © 2004-%@ Angelo Laub, Jonathan Bullard és mások.";
 
 /* Window text */
@@ -2576,7 +2576,7 @@
 /* Credit description */
 "Portuguese translation" = "Portugál fordítás";
 
-/* Credit description. This describes the contribution of a Tunnelblick developer or translator and appears in the scrolling list of credits on the "Info" panel of Tunnelblick's "VPN Details" window. */
+/* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "Program és dokumentáció fejlesztése és karbantartása 2010 óta";
 
 /* Credit description */
