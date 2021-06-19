@@ -284,6 +284,9 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "אייקון של Tunnelblick 3.3";
 
+/* Button */
+"Uninstall Tunnelblick..." = "הסר את Tunnelblick";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "עדכן";
 
@@ -391,6 +394,9 @@
 /* Menu item */
 "VPN Details..." = "פרטי VPN…";
 
+/* Menu item */
+"Warnings" = "אזהרות";
+
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "אפשר שינויים לקביעה ידנית של הגדרות רשת";
 
@@ -489,6 +495,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "שמור במחזיק מפתחות";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "קוד אבטחה:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "הגדר DNS לאחר שהנתיבים מוכנים";
@@ -1547,6 +1556,9 @@
 "The installation or repair took too long or failed. Try again?" = "ההתקנה או התיקון לקחו זמן ממושך מידיי או נכשלו. האם לנסות שוב?";
 
 /* Window text */
+"The passphrase was not accepted." = "סיסמת המעבר לא התקבלה.";
+
+/* Window text */
 "The username and password were not accepted by the remote VPN server." = "שם המשתמש והסיסמא לא התקבלו על ידי שרת ה-VPN המרוחק.";
 
 /* Window text */
@@ -1646,6 +1658,9 @@
 "Unable to convert OpenVPN configuration" = "נכשל בהמרת הגדרות OpenVPN";
 
 /* Window text */
+"Unable to install or replace the '%@' configuration\n" = "לא ניתן להתקין או להחליף את הגדרות ׳%@׳";
+
+/* Window text */
 "Unable to install the '%@' configuration\n" = "התקנת הגדרות ׳%@׳ נכשלה.";
 
 /* Window text */
@@ -1655,7 +1670,13 @@
 "Unable to open configuration file for modification" = "לא ניתן לפתוח את קובץ ההגדרות לעריכה";
 
 /* Window text */
+"Unable to parse configuration file as UTF-8" = "לא ניתן לקרוא את קובץ ההגדרות כ- UTF-8";
+
+/* Window text */
 "Unable to replace the '%@' configuration\n" = "לא ניתן להחליף את הגדרות ׳%@׳";
+
+/* Window text */
+"Unable to secure %@ because it is owned by %@" = "לא ניתן לאבטח את %1$@ מכיוון שהוא נמצא בבעלות %2$@";
 
 /* Window text */
 "Unable to secure %@" = "לא ניתן לאבטח את %@";
@@ -1664,7 +1685,16 @@
 "Unable to set permissions on '%@'" = "לא ניתן להגדיר הרשאות ב-׳%@׳";
 
 /* Window text */
+"Unable to uninstall the '%@' configuration\n" = "לא ניתן להסיר את הגדרות ׳%@׳";
+
+/* Window text */
+"Unable to write to configuration file for modification" = "לא ניתן לכתוב אל קובץ ההגדרות";
+
+/* Window text */
 "Unexpected disconnection:" = "בעת ניתוק בלתי צפוי:";
+
+/* Window text */
+"Unknown key '%@' in %@" = "מפתח לא מזוהה '%1$@' ב- %2$@";
 
 /* Window text */
 "Unknown value '%@' for '%@' in %@" = "ערך לא תקין %1$@ עבור %2$@ ב%3$@";
@@ -1713,6 +1743,12 @@
 
 /* Suffix for a duplicate of a file */
 " copy" = " העתק";
+
+/* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
+"%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
+
+/* Tooltip */
+"%d days %d:%02d:%02d" = "%1$d ימים %2$d:%3$02d:%4$02d";
 
 /* Popup button menu item */
 "(Do not import)" = "(לא לייבא)";

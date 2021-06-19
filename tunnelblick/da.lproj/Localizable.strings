@@ -508,6 +508,9 @@
 /* Checkbox name */
 "Save in Keychain" = "Gem i nøglering";
 
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Sikkerhedskode:";
+
 /* Checkbox name */
 "Set DNS after routes are set" = "Indstil DNS efter forbindelserne er lavet";
 
@@ -1269,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "Forventet kommando blev ikke fundet for '%@'";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Forventet sti (eller 'ingen') blev ikke fundet for 'dh' mulighed";
 
 /* Window text */
 "Expected path not found for '%@'" = "Forventet sti blev ikke fundet for '%@'";
@@ -2325,6 +2331,9 @@
 
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>En 'tun' enhedsdriver er nødvendig til Tun forbindelser. Normalt bruges systemets Tun driver, men Tunnelblick inkluderer også sin egen Tun driver. Hvis du har installeret en anden Tun driver, er Tunnelblick muligvis ikke i stand til at indlæse dens driver.</p>\n<p>OpenVPN bruger systemets driver, medmindre OpenVPN konfigurationen inkluderer indstillingen 'dev-type tun'.</p>\n<p>Du kan vælge, om og hvornår Tunnelblick indlæser sin Tun driver:</p>\n<p><strong>Indlæs Tun driveren automatisk</strong>: Tunnelblick indlæser driveren, hvis det er nødvendigt, og tømmer den, når den ikke længere er nødvendig. (Tunnelblick indlæses kun sin driver, hvis OpenVPN konfigurationen inkluderer indstillingen 'dev-type tun').</p>\n<p><strong>Indlæs altid Tun driveren</strong>: Tunnelblick indlæser driveren, når den tilslutter denne konfiguration, og loser den, når den ikke længere er nødvendig.</p>\n<p><strong>Indlæs aldrig Tun driveren</strong>: Tunnelblick indlæser aldrig sin driver.</p>\n<p><strong>Dette afkrydsningsfelt er deaktiveret</strong> til Tap konfigurationer og på versioner af macOS, som ikke tillader Tunnelblick at indlæse sin Tun driver. For mere information, se <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>";
+
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the the keychain to secure the password.</p>\n" = "<p>Giver mulighed for yderligere indtastning af en sikkerhedskode, når dette er markeret.</p>\n<p>Denne kode føjes til adgangskoden under godkendelsesprocessen. Dette muliggør samtidig brug af godkendelsesenheder såsom dongler sammen med nøglering for at sikre adgangskoden.</p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Undersøg om der er opdateringer til Tunnelblick.</p><p>Tilgår Tunnelblicks hjemmeside; se her for flere oplysninger <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Undersøger også om der er opdateringer til konfigurationerne hvis din VPN leverandør understøtter denne funktionalitet.</p>";

@@ -508,6 +508,9 @@
 /* Checkbox name */
 "Save in Keychain" = "キーチェーンに保存する";
 
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "セキュリティコード:";
+
 /* Checkbox name */
 "Set DNS after routes are set" = "経路を設定した後にDNSを設定する";
 
@@ -1269,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "%@ の相応のコマンドが見つかりません";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "パス（または'none'）が'dh'オプションには必要です";
 
 /* Window text */
 "Expected path not found for '%@'" = "予期したパス %@ が見つかりません";
