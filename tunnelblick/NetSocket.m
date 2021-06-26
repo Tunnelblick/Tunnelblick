@@ -371,7 +371,14 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 	
 	// Setup socket address
 	bzero( &socketAddress, sizeof( socketAddress ) );
-	bcopy( (char*) ((char*)socketHost->h_addr), (char*)&socketAddress.sin_addr, (unsigned) socketHost->h_length );
+
+	// The pointer socketHost->h_addr is not aligned, so create an aligned pointer and use it.
+	char * ptr_to_hw_addr;
+	memcpy( &ptr_to_hw_addr, (char*)&(socketHost->h_addr), sizeof(char*));
+
+	// Copy h_addr to sin_addr
+	memcpy( &socketAddress.sin_addr, ptr_to_hw_addr, (unsigned) socketHost->h_length);
+
 	socketAddress.sin_family = PF_INET;
 	socketAddress.sin_port = htons( inPort );
 	
