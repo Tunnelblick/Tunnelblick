@@ -4101,8 +4101,8 @@ NSString * fatalErrorData(const char * siglist, int signalNumber, NSString * sta
 
 static void signal_handler(int signalNumber)
 {
-    // Deal with SIGTERM and SIGPIPE (SIGPIPE (SIGPIPE sometimes happens on the management interface when OpenVPN exits)
-    // For other errors, create a simple error data dump and ask the user to email it the the developers, then exit
+    // Deal with SIGTERM and SIGPIPE (SIGPIPE sometimes happens on the management interface when OpenVPN exits)
+    // For other errors, create a simple error data dump and ask the user to email it the developers, then exit
 
     if (  signalNumber == SIGTERM ) {
         if (   gShuttingDownTunnelblick

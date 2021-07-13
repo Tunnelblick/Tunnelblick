@@ -947,7 +947,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 +(NSString *) parseConfigurationForTunTapForConnection: (VPNConnection *) connection {
 
     // Returns the type of connection the configuration will use: 'tun', 'tap', 'utun'
-    // Returns nil if the the type could not be deterimined.
+    // Returns nil if the type could not be deterimined.
     //
     // Does not interact with the user.
 

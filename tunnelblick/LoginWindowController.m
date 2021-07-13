@@ -115,7 +115,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 // The following doesn't work because this is a modal window. That means that it will not trigger UI updates until it is done
 //	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Security code:", @"Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle.")
 //                             infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Allows for the additional entry of a security code when checked.</p>\n"
-//                                                                                   @"<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the the keychain to secure the password.</p>\n",
+//                                                                                   @"<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n",
 
 //                                                                                   @"HTML Info for security code checkbox"))];
 
