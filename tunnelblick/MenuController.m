@@ -3219,6 +3219,8 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 				// Tunnelblick's main thread.
 				if (   [connection isDisconnected]
 					|| [connection noOpenvpnProcess]  ) {
+                    TBLog(@"DB-SD", @"Invoking hasDisconnected for '%@' from waitForDisconnection:", connection.displayName);
+                    [connection hasDisconnected];
 					[connectionsList removeObject: connection];
 					TBLog(@"DB-CD", @"%@ has disconnected", [connection displayName])
 				}
