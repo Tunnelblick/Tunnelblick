@@ -209,9 +209,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
     [gMC activateIgnoringOtherApps];
     [[self window] makeKeyAndOrderFront: self];
 	
-	NSTextField * itemToSelect = ([usernameLocal length] == 0)
+	NSTextField * itemToSelect = (  ([usernameLocal length] == 0)
 								  ? [self username]
-								  : ([passwordLocal length] == 0 ? [self password] : [self securityToken]);
+								  : (  ([passwordLocal length] == 0)
+									 ? [self password]
+									 : [self securityToken]));
 	[itemToSelect selectText: self];
 	[[self window] setInitialFirstResponder: itemToSelect];
 }
