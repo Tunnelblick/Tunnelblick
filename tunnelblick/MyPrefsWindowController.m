@@ -1150,6 +1150,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     VPNConnection * connection = [self selectedConnection];
     if (  connection  ) {
+		[self validateDetailsWindowControlsForConnection: connection];
         NSString * newDisplayName = [connection displayName];
         [settingsSheetWindowController setConfigurationName: newDisplayName];
     } else {

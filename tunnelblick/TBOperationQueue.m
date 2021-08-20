@@ -84,7 +84,9 @@ void validateDetailsAndStatusWindows(void) {
     id vpnDetails = [gMC logScreen];
     if (  vpnDetails  ) {
         VPNConnection * connection = [vpnDetails selectedConnection];
-        [vpnDetails performSelectorOnMainThread: @selector(validateDetailsWindowControlsForConnection:) withObject: connection waitUntilDone: NO];
+		if (  connection  ) {
+			[vpnDetails performSelectorOnMainThread: @selector(validateDetailsWindowControlsForConnection:) withObject: connection waitUntilDone: NO];
+		}
     }
     
     NSDictionary * dict = [gMC myVPNConnectionDictionary];
