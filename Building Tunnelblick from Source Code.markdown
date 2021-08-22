@@ -1,11 +1,13 @@
 **Building Tunnelblick from Source Code**
 
+_Last Updated 2021-08-20_
+
 You can build Tunnelblick from the source code. Usually, people install
 and use a ready-to-use binary version of Tunnelblick. The most recent
 binary is available on the [Tunnelblick
 website](https://tunnelblick.net) as a disk image (".dmg") file
 containing a copy of the Tunnelblick application. It's easy to install
-the Application from this .dmg -- you simply double-click it.
+the Tunnelblick applications from this .dmg -- you simply double-click it.
 
 Because Tunnelblick is distributed using the "GNU General Public
 License, version 2", the source code itself is also available. Anyone
@@ -50,8 +52,8 @@ and the Other Third-Party Software**.
 **Using a Virtual Machine**
 
 Using a virtual machine to build Tunnelblick is fine – Tunnelblick
-releases are built using Parallels and VirtualBox. However, there have
-been unreproducible errors when the Tunnelblick source code is located
+releases are sometimes built using Parallels and VirtualBox. However, there
+have been unreproducible errors when the Tunnelblick source code is located
 on a network device or the host computer, so copying the source to the
 virtual machine's hard drive and building there is recommended. Using
 Parallels with more than one virtual CPU also can also cause
@@ -62,16 +64,13 @@ recommended for Parallels.
 **1. Supported Versions of macOS and Xcode**
 
 The current version of Tunnelblick should be built using:
- * Xcode 7.3.1 on macOS 10.11.6 on an Intel Mac; or
- * Xcode 12.3  on macOS 10.15.7 on an Intel Mac.
+ * Xcode 7.3.1  on macOS 10.11.6 on an Intel Mac; or
+ * Xcode 12.5.1 on macOS 11.5.2  on an Intel or M1 Mac.
 
-Tunnelblick cannot be built yet on an Apple Silicon (M1) Mac, but there
-are plans to be able to do so.
-
-When built on Xcode 7.3.1, Tunnelblick will run on Intel processors, or
+When built by Xcode 7.3.1, Tunnelblick will run on Intel processors, or
 on Apple M1 processors using Rosetta 2.
 
-When built on Xcode 12.3, Tunnelblick will be a Universal binary and run
+When built by Xcode 12.5.1, Tunnelblick will be a Universal binary and run
 natively on Intel or M1 processors.
 
 Other versions of Xcode and macOS may fail to build Tunnelblick, or create
@@ -85,6 +84,7 @@ GitHub](https://github.com/Tunnelblick//Tunnelblick).
 You can download a .zip containing the source from the "master" branch
 (which includes the latest changes to the source code) by clicking the
 "Download ZIP" button, or you can select a different branch and download
+the source code for that, or you can select a specific release and download
 the source code for that.
 
 The rest of this document refers to the folder in which you have
@@ -133,12 +133,11 @@ Notes:
 Double-click **TunnelblickSource**/tunnelblick/Tunnelblick.xcodeproj to
 open the Tunnelblick source code in Xcode.
 
-After a few moments, recent versions of Xcode will begin indexing files,
-indicated in the progress bar at the top of the Xcode window. Allow the
-indexing to complete, which usually takes a minute or two. Xcode does
-indexing at various times, and if you click a button while Xcode is
-indexing it will often crash. (This is an Xcode problem, not a
-Tunnelblick problem.)
+After a few moments, Xcode will begin indexing files, indicated in the progress
+bar at the top of the Xcode window. Allow the indexing to complete, which
+usually takes a minute or two. Xcode does indexing at various times, and if you
+click a button while Xcode is indexing it may crash. (This is an Xcode
+problem, not a Tunnelblick problem.)
 
 Xcode 12 needs to have the command line tools installed. You can
 do that in Terminal with the following command:
@@ -154,7 +153,7 @@ There are two different types of builds. Unfortunately Xcode defaults to
 using the one you shouldn't use, "Debug". You should use the "Release"
 build instead.
 
-To select the type of build in Xcode 12.2:
+To select the type of build in Xcode 12:
 
  1. Click Product > Scheme > Edit Scheme…
  2. Select "Run Tunnelblick" in the list on the left of the window that
@@ -166,11 +165,11 @@ To select the type of build in Xcode 12.2:
 
 **Finally, Build Tunnelblick!**
 
-Do a "Clean build folder" before building.
+Do a "Product >> Clean build folder" before building.
 
 Finally! You are ready to build Tunnelblick. Go ahead!
 
-The first time a build is done, it may take several minutes, even on a
+The first time a build is done, it may take tens of minutes, even on a
 relatively fast computer, so be patient. (Subsequent builds, which do
 not usually rebuild OpenVPN or the Tun/Tap kexts, are quicker.)
 
