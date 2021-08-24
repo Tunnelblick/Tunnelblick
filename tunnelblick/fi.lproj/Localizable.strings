@@ -92,7 +92,7 @@
 "Delete saved passphrase and try again" = "Poista tallennettu salasana ja yritä uudestaan";
 
 /* Button */
-"Delete saved password and try again" = "Poista tallennettu salasana ja yritä uudestaan";
+"Delete saved password and try again" = "Poista tallennettu salasana ja yritä uudelleen";
 
 /* Button */
 "Delete" = "Poista";
@@ -276,7 +276,7 @@
 "This configuration uses %@ credentials" = "Tämä konfiguraatio käyttää %@ käyttäjätunnuksia";
 
 /* Button */
-"Try again with saved passphrase" = "Kokeile uudelleen tallennetulla salasanalla";
+"Try again with saved passphrase" = "Yritä uudelleen tallennetulla salasanalla";
 
 /* Button */
 "Try again with saved username and password" = "Yritä uudelleen tallennetulla käyttäjätunnuksella ja salasanalla";
@@ -507,6 +507,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Tallenna Avainnippuun";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Turvakoodi: ";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Aseta DNS vasta reititysten määrityksen jälkeen";
@@ -1010,7 +1013,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Yksityinen konfiguraatio nimellä '%@' on jo olemassa.\n\nHaluatko korvata sen jaetulla konfiguraatiolla?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Tapahtui virhe tarkastettaessa tietokoneen julkista IP osoitetta.\n\nKatso Konsoli logista lisätietoja.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Tapahtui virhe tarkastettaessa tietokoneen julkista IP osoitetta.\n\nKatso lisätietoja lokista.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Jaettu konfiguraatio '%@' on jo olemassa.\n\nHaluatko korvata sen yksityisellä konfiguraatiolla?";
@@ -1269,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "Odotettua komentoa ei löydy kohteelle '%@'";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Oletussijaintia (tai 'ei mitään') valinnaiselle 'dh' ei löytynyt.";
 
 /* Window text */
 "Expected path not found for '%@'" = "Odotettua polkua ei löydy kohteelle '%@'";
@@ -2325,6 +2331,9 @@
 
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>'tun'-laiteajuri tarvitaan Tun-yhteyksiä varten. Yleensä käytetään järjestelmän Tun-ajuria, mutta Tunnelblick sisältää myös oman Tun-ajurin. Jos olet asentanut eri Tun-ajurin, Tunnelblick ei ehkä pysty lataamaan ajuriaan.</p>\n<p>OpenVPN käyttä järjestelmän ajuria ellei OpenVPN-konfiguraatioissa ole optio 'dev-type tun'.</p>\n<p>Voit valita mikäli ja milloin Tunnelblick lataa Tun-ajurinsa:</p>\n<p><strong>Lataa Tun-ajuri automaattisesti</strong>: Tunnelblick lataa ajurinsa, mikäli se tarvitaan ja ottaa sen pois käytöstä, kun sitä ei enää tarvita. (Tunnelblick lataa vain ajurinsa, jos OpenVPN-konfiguraatiossa on optio 'dev-type tun' option.)</p>\n<p><strong>Lataa aina Tun-ajuri</strong>: Tunnelblick lataa aina ajurinsa, kun se muodostaa yhteyden tätä konfiguraatiota käyttäen, ja poistaa sen käytöstä, kun sitä ei enää tarvita.</p>\n<p><strong>Älä koskaan lataa Tun-ajuria</strong>: Tunnelblick ei koskaan lataa ajuriaan.</p>\n<p><strong>Tämä valintalaatikko on pois käytöstä</strong> Tap-konfiguraatioille ja macOS:n versioille, jotka eivät salli Tunnelblickin lataavan Tun-ajuriaan. Lisätietojen saamiseksi katso <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>\n";
+
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n" = "<p>Sallii turvakoodin lisäämisen, kun valittu.</p>\n<p>Koodi liitetään salasanaan todennuksen aikana. Tämä mahdollistaa todennuslaitteiden, kuten useamman donglen samanaikaisen käytön yhdessä Apple Avainnipun kanssa salasanan suojaamiseksi.</p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Tarkista Tunnelblick ohjelman päivitykset.</p><p>Käy Tunnelblick sivustolla; lisätietoja saadaksesi katso <a href=\"https://tunnelblick.net/cPrivacy.html\">Yksityisyys ja Turvallisuus</a> [tunnelblick.net].</p><p>Tarkistaa myös päivitykset VPN yhteyden asetuksiin, jos palveluntarjoajalla on tämä ominaisuus käytössä.</p>";

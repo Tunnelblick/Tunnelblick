@@ -195,7 +195,7 @@
 
 /* Button
    Menu item */
-"Re-enable Network Access" = "ネットワーク接続を再開する";
+"Re-enable Network Access" = "ネットワーク接続を再度有効にする";
 
 /* Button */
 "Reinstall" = "再インストール";
@@ -1184,7 +1184,7 @@
 "Connection:" = "接続時:";
 
 /* Window text */
-"Converted OpenVPN configuration" = "変換されたOpenVPN設定";
+"Converted OpenVPN configuration" = "  • OpenVPN 設定ファイルを変換しました\n";
 
 /* Window text */
 "Converting %@ at line %lu: %@" = "%2$lu: %3$@ 行目で %1$@ を変換中";
@@ -2332,6 +2332,9 @@
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Tun接続のためには「tun」デバイスドライバーが必要です。通常システムのTunドライバーが使われますが、Tunnelblickにも独自のTunドライバーが含まれています。もし別のTunドライバーをインストールしている場合は、TunnelblickのTunドライバーを読み込むことができないかもしれません。</p><p>この項目ではTunnelblickのドライバーを読み込むかどうか選択できます:</p>\n<p><strong>Tunドライバーを自動的に読み込む</strong>: Tunnelblickは必要な時にドライバーを読み込んで不要になれば開放します。（OpenVPN設定に「dev-type tun」オプションが含まれている時のみTunnelblickのドライバーを読み込みます。）</p>\n<p><strong>Tunドライバーを常に読み込む</strong>: Tunnelblickはこの接続先に接続する時は常にドライバーを読み込んで、不要になれば開放します。</p>\n<p><strong>Tunドライバーを読み込まない</strong>: Tunnelblickはドライバーを読み込みません。</p>\n<p>Tap設定の場合やTunnelblickのTunドライバーが許可できないmacOSのバージョンでは<strong>この項目は無効です</strong>。詳しくは、<a href=\"https://tunnelblick.net/cTunTapConnections.html\">macOS上でのTunとTap VPN [tunnelblick.net]</a>をご覧ください。</p>";
 
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n" = "<p>チェックマークを入れるとセキュリティコードの追加入力が可能になります。</p>\n<p>このコードは認証プロセスの際にパスワードに付け加えられます。これによりドングルなどのデバイスとパスワードを安全に保管するためのキーチェーンを併用することができます。</p>";
+
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Tunnelblickのアップデートを確認します。</p><p>Tunnelblickのウェブサイトにて、<a href=\"https://tunnelblick.net/cPrivacy.html\">プライバシーとセキュリティー</a>をご覧になれます。[tunnelblick.net]</p><p>また、VPN接続業者側のVPN設定がこのバージョンをサポートしているかもご確認ください。</p>";
 
@@ -2420,40 +2423,40 @@
 "Admin mode %@ remaining" = "管理者モードはあと %@ です";
 
 /* Credit description */
-"Afrikaans translation" = "アフリカーンス語翻訳";
+"Afrikaans translation" = "アフリカーンス語";
 
 /* Credit description */
 "Animation and icon sets code" = "アニメーションとアイコンセットコード";
 
 /* Credit description */
-"Arabic translation" = "アラビア語翻訳";
+"Arabic translation" = "アラビア語";
 
 /* Toolbar text for 'Lock' item */
 "Authorizing..." = "認証中";
 
 /* Credit description */
-"Azerbaijani translation" = "アゼルバイジャン語翻訳";
+"Azerbaijani translation" = "アゼルバイジャン語";
 
 /* Credit description */
-"Bulgarian translation" = "ブルガリア語翻訳";
+"Bulgarian translation" = "ブルガリア語";
 
 /* Credit description */
 "Button images" = "ボタン画像";
 
 /* Credit description */
-"Catalan translation" = "カタロニア語翻訳";
+"Catalan translation" = "カタロニア語";
 
 /* Checkbox text */
-"Check for IP address changes" = "IPアドレスの変化を確認";
+"Check for IP address changes" = "IPアドレスの変更を確認";
 
 /* Checkbox text */
 "Check for updates" = "アップデートを確認";
 
 /* Credit description */
-"Chinese (simplified) translation" = "中国語 (簡体字) 翻訳";
+"Chinese (simplified) translation" = "中国語 (簡体字) ";
 
 /* Credit description */
-"Chinese (traditional) translation" = "中国語 (繁体字) 翻訳";
+"Chinese (traditional) translation" = "中国語 (繁体字) ";
 
 /* Credentials name */
 "Common" = "共通";
@@ -2468,13 +2471,13 @@
 "Contributed to early code" = "初期のコードへの貢献";
 
 /* Credit description */
-"Croatian translation" = "クロアチア語翻訳";
+"Croatian translation" = "クロアチア語";
 
 /* Credit description */
-"Czech translation" = "チェコ語翻訳";
+"Czech translation" = "チェコ語";
 
 /* Credit description */
-"Danish translation" = "デンマーク語翻訳";
+"Danish translation" = "デンマーク語";
 
 /* Speak string */
 "Disconnected from %@" = "%@ を切断しました";
@@ -2492,56 +2495,56 @@
 "Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "この警告を再び表示しない;\nTunnelblickを起動した際、再び有効にしない";
 
 /* Credit description */
-"Dutch translation" = "オランダ語翻訳";
+"Dutch translation" = "オランダ語";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item */
 "Enter admin mode" = "管理者モードへ移行";
 
 /* Credit description */
-"Estonian translation" = "エストニア語翻訳";
+"Estonian translation" = "エストニア語";
 
 /* Credit description */
-"Finnish translation" = "フィンランド語翻訳";
+"Finnish translation" = "フィンランド語";
 
 /* Credit description */
-"Flemish translation" = "フラマン語翻訳";
+"Flemish translation" = "フラマン語";
 
 /* Credit description */
 "Founder, original program and documentation" = "創始者、オリジナルプログラムとドキュメント";
 
 /* Credit description */
-"French translation" = "フランス語翻訳";
+"French translation" = "フランス語";
 
 /* Credit description */
-"German translation" = "ドイツ語翻訳";
+"German translation" = "ドイツ語";
 
 /* Credit description */
-"Greek translation" = "ギリシア語翻訳";
+"Greek translation" = "ギリシア語";
 
 /* Credit description */
-"Hebrew translation" = "ヘブライ語翻訳";
+"Hebrew translation" = "ヘブライ語";
 
 /* Credit description */
-"Hungarian translation" = "ハンガリー語翻訳";
+"Hungarian translation" = "ハンガリー語";
 
 /* Credit description */
-"Icelandic translation" = "アイスランド語翻訳";
+"Icelandic translation" = "アイスランド語";
 
 /* Credit description */
 "Icon set including Retina images" = "Retina用画像を含むアイコンセット";
 
 /* Credit description */
-"Indonesian translation" = "インドネシア語翻訳";
+"Indonesian translation" = "インドネシア語";
 
 /* Credit description */
-"Italian translation" = "イタリア語翻訳";
+"Italian translation" = "イタリア語";
 
 /* Credit description */
-"Japanese translation" = "日本語翻訳";
+"Japanese translation" = "日本語";
 
 /* Credit description */
-"Korean translation" = "韓国語翻訳";
+"Korean translation" = "韓国語";
 
 /* [name of your language] translation */
 "LANGUAGE_TRANSLATION" = "日本語翻訳";
@@ -2550,7 +2553,7 @@
 "LEAD_TRANSLATORS" = "川本芳久";
 
 /* Credit description */
-"Latvian translation" = "ラトビア語翻訳";
+"Latvian translation" = "ラトビア語";
 
 /* Credit description */
 "Localization code tweaks" = "ローカライゼーションコード変更";
@@ -2559,7 +2562,7 @@
 "Multiple configuration folders" = "複数設定フォルダー";
 
 /* Credit description */
-"Norwegian translation" = "ノルウェー語翻訳";
+"Norwegian translation" = "ノルウェー語";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 と 64 ビット統合";
@@ -2568,43 +2571,43 @@
 "PKCS#11 support" = "PKCS#11のサポート";
 
 /* Credit description */
-"Persian translation" = "ペルシャ語翻訳";
+"Persian translation" = "ペルシャ語";
 
 /* Credit description */
-"Polish translation" = "ポーランド語翻訳";
+"Polish translation" = "ポーランド語";
 
 /* Credit description */
-"Portuguese (Brazilian) translation" = "ポルトガル語 (ブラジル) 翻訳";
+"Portuguese (Brazilian) translation" = "ポルトガル語 (ブラジル) ";
 
 /* Credit description */
-"Portuguese translation" = "ポルトガル語翻訳";
+"Portuguese translation" = "ポルトガル語";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "2020年以降のプログラムとドキュメントの拡張と保守";
 
 /* Credit description */
-"Romanian translation" = "ルーマニア語翻訳";
+"Romanian translation" = "ルーマニア語";
 
 /* Credit description */
-"Russian translation" = "ロシア語翻訳";
+"Russian translation" = "ロシア語";
 
 /* Credit description */
-"Serbian (Latin) translation" = "セルビア語 (ラテン文字) 翻訳";
+"Serbian (Latin) translation" = "セルビア語 (ラテン文字) ";
 
 /* Credit description */
-"Slovak translation" = "スロバキア語翻訳";
+"Slovak translation" = "スロバキア語";
 
 /* Credit description */
-"Spanish translation" = "スペイン語翻訳";
+"Spanish translation" = "スペイン語";
 
 /* Credit description */
-"Swahili (Tanzania) translation" = "スワヒリ語（タンザニア）翻訳";
+"Swahili (Tanzania) translation" = "スワヒリ語（タンザニア）";
 
 /* Credit description */
-"Swedish translation" = "スウェーデン語翻訳";
+"Swedish translation" = "スウェーデン語";
 
 /* Credit description */
-"Thai translation" = "タイ語翻訳";
+"Thai translation" = "タイ語";
 
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "Tunnelblick設定 %@";
@@ -2613,13 +2616,13 @@
 "Tunnelblick icon" = "Tunnelblickアイコン";
 
 /* Credit description */
-"Turkish translation" = "トルコ語翻訳";
+"Turkish translation" = "トルコ語";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueueとUKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian translation" = "ウクライナ語翻訳";
+"Ukrainian translation" = "ウクライナ語";
 
 /* Credit description */
 "Up and Down scripts" = "up/downスクリプト";
@@ -2634,7 +2637,7 @@
 "User on this computer" = "このコンピューターでのユーザ名";
 
 /* Credit description */
-"Vietnamese translation" = "ベトナム語翻訳";
+"Vietnamese translation" = "ベトナム語";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcodeの助言とOpenSSLの統合";

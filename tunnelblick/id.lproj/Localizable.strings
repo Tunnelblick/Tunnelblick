@@ -198,7 +198,7 @@
 "Re-enable Network Access" = "Hidupkan Lagi Akses Jaringan";
 
 /* Button */
-"Reinstall" = "Pasang Ulang";
+"Reinstall" = "Install ulang";
 
 /* Button */
 "Remove Credentials" = "Hapus Kredensial";
@@ -213,7 +213,7 @@
 "Reset primary interface" = "Atur ulang antar muka primer";
 
 /* Button */
-"Restart connection" = "Start ulang koneksi";
+"Restart connection" = "Mulai ulang sambungan";
 
 /* Button */
 "Restore" = "Pulihkan";
@@ -507,6 +507,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Simpan dalam Rantai Kunci";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Kode keamanan:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Atur DNS setelah rute ditata";
@@ -1271,6 +1274,9 @@
 "Expected command not found for '%@'" = "Perintah yang diharapkan tak ditemukan bagi '%@'";
 
 /* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Path yang diharapkan (atau 'none') tidak ditemukan untuk opsi 'dh'";
+
+/* Window text */
 "Expected path not found for '%@'" = "Path yang diharapkan tak ditemukan bagi '%@'";
 
 /* Window text */
@@ -1904,7 +1910,7 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick telah sukses:\n\n";
 
 /* Window text */
-"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick tidak dapat membongkar ekstensi sistemnya. Harap mulai ulang komputer Anda dan coba hapus ekstensi sistem Tunnelblick lagi.";
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick tidak dapat membongkar ekstensi sistemnya. Harap mulai ulang komputer Anda dan coba bongkar pemasangan ekstensi sistem Tunnelblick lagi.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick sukses dipasang dan %ld konfigurasi dipasang atau diganti.";

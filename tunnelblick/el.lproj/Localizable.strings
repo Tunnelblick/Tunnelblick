@@ -128,7 +128,7 @@
 "Ignore" = "Αγνόησε";
 
 /* Button */
-"Install tun and tap system extensions..." = "Εγκαταστήσετε τις επεκτάσεις  του συστήματος για tun και tap";
+"Install tun and tap system extensions..." = "Εγκαταστήσετε τις επεκτάσεις του συστήματος για tun και tap…";
 
 /* Button */
 "Install" = "Εγκατάσταση";
@@ -497,7 +497,7 @@
 "Reconnect when user switches in" = "Επανασύνδεση όταν ο χρήστης εισέρχεται";
 
 /* Checkbox name */
-"Require administrator authorization to install all configurations" = "Απαιτείται εξουσιοδότηση διαχειριστή για την εγκατάσταση όλων των ρυθμίσεων";
+"Require administrator authorization to install all configurations" = "Απαίτησε εξουσιοδότηση διαχειριστή για την εγκατάσταση όλων των ρυθμίσεων";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Δρομολόγιση όλης της κίνησης του IPv4 μέσω του VPN";
@@ -507,6 +507,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Αποθήκευση στην Κλειδοθήκη";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Κωδικός ασφαλείας: ";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Όρισε τον DNS αφού έχουν οριστεί οι διαδρομές (routes)";
@@ -1269,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "Η αναμενόμενη εντολή δεν βρέθηκε για '%@'";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Η αναμενόμενη διαδρομή αρχείου (ή 'μη ορισμένο') δεν βρέθηκε για την επιλογή 'dh'";
 
 /* Window text */
 "Expected path not found for '%@'" = "Αναμενόμενη διαδρομή δεν βρέθηκε για '%@'";
@@ -2325,6 +2331,9 @@
 
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p> Ένα πρόγραμμα οδήγησης συσκευής 'tun' απαιτείται για τις συνδέσεις Tun. Συνήθως χρησιμοποιείται το πρόγραμμα οδήγησης Tun του συστήματος, αλλά το Tunnelblick περιλαμβάνει επίσης το δικό του πρόγραμμα οδήγησης Tun. Αν έχετε εγκαταστήσει διαφορετικό πρόγραμμα οδήγησης Tun, το Tunnelblick ενδέχεται να μην είναι σε θέση να φορτώσει το δικό του. </p>\n<p> Το OpenVPN θα χρησιμοποιήσει το πρόγραμμα οδήγησης του συστήματος, εκτός εάν η διαμόρφωση OpenVPN περιλαμβάνει την επιλογή 'dev-type tun'. </p>\n<p> Μπορείτε να επιλέξετε εάν και πότε το Tunnelblick θα φορτώσει το δικό του πρόγραμμα οδήγησης Tun: </p>\n<p> <strong> Αυτόματη φόρτωση του προγράμματος οδήγησης Tun </strong>: Το Tunnelblick φορτώνει το πρόγραμμα οδήγησης όταν χρειαστεί και το ξεφορτώνει όταν δεν είναι πλέον απαραίτητο. (Το Tunnelblick θα φορτώσει το πρόγραμμα οδήγησης του μόνο αν η διαμόρφωση OpenVPN περιλαμβάνει την επιλογή 'dev-type tun'). </p>\n<p> <strong> Συνεχής φόρτωση του προγράμματος οδήγησης Tun </strong>: Το Tunnelblick φορτώνει το πρόγραμμα οδήγησης όταν συνδέει αυτή τη διαμόρφωση και το ξεφορτώνει όταν δεν είναι πλέον απαραίτητο. </p>\n<p> <strong> Να μην φορτώνεται ποτέ το πρόγραμμα οδήγησης Tun </strong>: Το Tunnelblick δεν θα φορτώσει ποτέ το πρόγραμμα οδήγησης του. </p>\n<p> <strong> Αυτό το πλαίσιο ελέγχου είναι απενεργοποιημένο </strong> για τις διαμορφώσεις Tap και σε εκδόσεις του λειτουργικού συστήματος macOS που δεν επιτρέπουν στο Tunnelblick να φορτώσει το δικό του πρόγραμμα οδήγησης Tun. Για περισσότερες πληροφορίες, δείτε  <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun και Tap VPNs σε macOS [tunnelblick.net]</a>.</p>";
+
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n" = "<p>Όταν επιλεχθεί επιτρέπει την υποβολή συμπληρωματικού κωδικού ασφαλείας.</p>\n<p>Ο κωδικός ασφαλείας προστίθεται στον κωδικό πρόσβασης κατά την διαδικασία αυθεντικοποίησης. Αυτό επιτρέπει τη χρήση εξωτερικών συσκευών αυθεντικοποίησης (dongles) παράλληλα με τη χρήση της Κλειδοθήκης για την προστάσια του κωδικού πρόσβασης.</p>\n";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p> Έλεγχοι για ενημερώσεις στην εφαρμογή Tunnelblick. </p> <p> Πρόσβαση στον ιστότοπο Tunnelblick. για περισσότερες λεπτομέρειες, ανατρέξτε στο <a href=\"https://tunnelblick.net/cPrivacy.html\"> Απόρρητο και Ασφάλεια </a> [tunnelblick.net]. </p> <p> Επίσης, ελέγχεται για ενημερώσεις σε διαμορφώσεις, εάν ο πάροχος υπηρεσιών VPN υλοποιεί τη συγκεκριμένη λειτουργία. </p>";

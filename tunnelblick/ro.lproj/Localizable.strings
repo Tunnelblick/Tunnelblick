@@ -71,7 +71,7 @@
 "Continue" = "Continuă";
 
 /* Button */
-"Convert Configurations" = "Convertește configurațiile";
+"Convert Configurations" = "Convertește configurările";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Copiază Log-ul din consolă în Clipboard";
@@ -508,6 +508,9 @@
 /* Checkbox name */
 "Save in Keychain" = "Salvează în Keychain";
 
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Cod de securitate: ";
+
 /* Checkbox name */
 "Set DNS after routes are set" = "Setați DNS după ce sunt definite rutele";
 
@@ -551,7 +554,7 @@
 "CONNECTED" = "Conectat"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "În curs de conectare"; // Please translate "Connecting"
+"CONNECTING" = "Se conectează"; // Please translate "Connecting"
 
 /* Connection status */
 "DISCONNECTING" = "Se deconectează"; // Please translate "Disconnecting"
@@ -1076,19 +1079,19 @@
 "An internal Tunnelblick error occurred%@%@" = "A apărut o eroare internă Tunnelblick %1$@%2$@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "O eroare Tunnelblick internă sa produs: fileIsReasonableSize: Nu se pot obține atributele: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "A apărut o eroare internă Tunnelblick: fileIsReasonableSize: Nu se pot obține atributele: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "O eroare Tunnelblick internă sa produs: fileIsReasonableSize: Nu se poate obține dimensiunea: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "A apărut o eroare internă Tunnelblick: fileIsReasonableSize: Nu se poate obține dimensiunea: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "O eroare Tunnelblick internă sa produs: fileIsReasonableSize: Nu se poate obține tipul: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "A apărut o eroare internă Tunnelblick: fileIsReasonableSize: Nu se poate obține tipul: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "O eroare Tunnelblick internă sa produs: fileIsReasonableSize: tipul fișierului este invalid: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "A apărut o eroare internă Tunnelblick: fileIsReasonableSize: tipul fișierului este invalid: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "O eroare Tunnelblick internă sa produs: fileIsReasonableSize: calea este nil";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "A apărut o eroare internă Tunnelblick: fileIsReasonableSize: calea este nil";
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "O actualizare a configurării %@ VPN e disponibilă.\n\nDorești să actualizezi această configurare?\n\n";
@@ -1121,7 +1124,7 @@
 "B/s" = "B/s";
 
 /* Window text */
-"Backslash at end of line %u is not allowed" = "Backslash la sfârșitul liniei %u nu este permisă";
+"Backslash at end of line %u is not allowed" = "Backslash la sfârșitul liniei %u nu este permis";
 
 /* Window text */
 "Cancelled trying to quit all OpenVPN processes" = "S-a anulat încercarea de a închide toate procesele OpenVPN";
@@ -1269,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "Comanda așteptată nu a fost găsită pentru %@";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Locația așteptată (sau 'niciuna') nu a fost găsită pentru opțiunea 'dh'\n";
 
 /* Window text */
 "Expected path not found for '%@'" = "Calea așteptată nu a fost găsită pentru %@";
@@ -2325,6 +2331,9 @@
 
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p> Un driver de dispozitiv \"Tun\" este necesară pentru conexiuni Tun. De obicei, driverul Tun al sistemului este utilizat, dar Tunnelblick include, de asemenea propriul driver Tun. Dacă ați instalat un alt driver Tun, Tunnelblick poate să nu fie în măsură să încarce acest driver. </p>\n<p> OpenVPN va utiliza driverul sistemului cu excepția cazului în configurația OpenVPN include opțiunea 'dev-type tun'. </p>\n<p> Puteți alege dacă și când Tunnelblick încarcă driverul său Tun: </p>\n<p> <strong> Încarcă driverul Tun automat </strong>: Tunnelblick incarca driverul sãu în cazul în care este necesar și îl evacuează atunci când acesta nu mai este necesar. (Tunnelblick va încărca driverul său numai în cazul în care configurația OpenVPN include opțiunea 'dev-type tun'.) </p>\n<p> <strong> Încărcați întotdeauna driverul Tun </strong>:. Tunnelblick incarca driverul atunci când se conectează această configurație, și-l descarcă atunci când nu mai este nevoie de el</p>\n<p> <strong> Nu încărcați niciodată driverul Tun </strong>: Tunnelblick nu încarcă niciodată driverul său </p>.\n<p> <strong> Această casetă de selectare este dezactivată </strong> pentru configurații Tap și pe versiuni macOS care nu permit Tunnelblick să încarce driverul său Tun. Pentru informații suplimentare, consultă <a href=\"https://tunnelblick.net/cTunTapConnections.html\">VPN-uri Tun și Tap VPNs pe macOS [tunnelblick.net]</a>.</p>";
+
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n" = "<p>Permite introducerea suplimentară a unui cod de securitate, când opțiunea este selectată.</p>\n<p>Acest cod este adăugat la parolă în timpul procesului de autentificare. Astfel se permite utilizarea simultană a dispozitivelor de autentificare (dongle) împreună cu \n lanțul de autentificare pentru a securiza parola.</p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Caută versiuni actualizate a aplicației Tunnelblick.</p><p>Se conectează la site-ul Tunnelblick; pentru mai multe detalii vizitați <a href=\"https://tunnelblick.net/cPrivacy.html\">Securitate și Intimitate</a> [tunnelblick.net].</p><p>De asemenea caută actualizări a configurațiilor, dacă furnizorul de servicii VPN suportă această funcționalitate.</p>";

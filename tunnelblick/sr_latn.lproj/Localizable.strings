@@ -508,6 +508,9 @@
 /* Checkbox name */
 "Save in Keychain" = "Sačuvaj u Keychain";
 
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Sigurnosni kod:";
+
 /* Checkbox name */
 "Set DNS after routes are set" = "Postavi DNS nakon što su rute postavljene";
 
@@ -1269,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "Očekivana komada nije pronađena za '%@'";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Očekivana putanja (ili 'none') nije pronađena za opciju 'dh'";
 
 /* Window text */
 "Expected path not found for '%@'" = "Očekivana putanja nije pronađena za '%@'";
@@ -2325,6 +2331,9 @@
 
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>'tun' drajver je neophodan za Tun konekcije. Najčešće se koristi sistemski Tun drajver, ali i Tunnelblick poseduje sopstveni Tun drajver. Ako ste instalirali drugi Tun drajver, Tunnelblick možda neće biti u mogućnosti da učita svoj drajver.</p>\n<p>OpenVPN će koristiti sistemski drajver sem ukoliko OpenVPN konfiguracija ne sadrži 'dev-type tun' opciju.</p>\n<p>Možete odabrati da li i kada će Tunnelblick učitavati svoj drajver:</p>\n<p><strong>Učitaj Tun drajver automatski</strong>: Tunnelblick učitava svoj drajver po potrebi i uklanja ga kada više nije potreban. (Tunnelblick će učititati svoj drajver samo ako OpenVPN konfiguracija sadrži 'dev-type tun' opciju.)</p>\n<p><strong>Uvek učitaj Tun drajver</strong>: Tunnelblick učitava svoj drajver kada se povezuje ova konfiguracija i uklanja kada više nije potreban.</p>\n<p><strong>Nikad ne učitavaj Tun drajver</strong>: Tunnelblick nikad ne učitava svoj drajver.</p>\n<p><strong>Opcija je onemogućena</strong> za Tap konfiguracije.</p>";
+
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n" = "<p>Kada je označeno omogućava dodatni unos sigurnosni kod.</p>\n<p>Ovaj kod je nadodat na lozinku tokom procesa autentikacije. Ovo omogućava istovremenu upotrebu autentikacijskih uređaja kao što su dongle-ovi sa keychain-om za osiguranje lozinke.</p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Proverava postojanje novije verzije Tunnelblick programa.</p><p>Pristupa Tunnelblick veb sajtu; za više detalja pogledajte <a href=\"https://tunnelblick.net/cPrivacy.html\">Privatnost i bezbednost</a> [tunnelblick.net].</p><p>Takođe provereva za osveženja konfiguracija ukoliko vaš VPN servis omogućava tu opciju.</p>";

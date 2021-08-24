@@ -182,7 +182,7 @@
 "Open easy-rsa in Terminal" = "Easy-rsa megnyitása a Terminalban";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Az ikon a Spotlight Ikon mellé helyezése";
+"Place Icon Near the Spotlight Icon" = "Az ikon elhelyezése a Spotlight ikon mellé";
 
 /* Button */
 "Place Icon Normally" = "Ikon normál elhelyezése";
@@ -1169,7 +1169,7 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "A(z) '%1$@' nevű konfiguráció figyelmen kívül lesz hagyva, mert a neve tiltott karaktereket tartalmaz.\n\nA tiltott karakterek: '%2$s'\n\n";
 
 /* Window text */
-"Configuration changes:" = "A konfiguráció változásai:";
+"Configuration changes:" = "A konfiguráció megváltoztatása";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "A konfigurációkat a hálózati rendszergazdája vagy a VPN szolgáltatója által adott fájlokból telepítjük.\n\nA konfigurációs fájlok kiterjesztése: .tblk, .ovpn, vagy .conf.\n\n(Előfordulhatnak egyéb fájlok, amik a konfigurációhoz tartoznak, hagyja őket figyelmen kívül.)\n\nA konfiguráció telepítéséhez jelölje ki és húzza őket a Tunnelblick ikonjára a felső menüsorban, vagy a konfigurációk listájára a 'Konfigurációk' fülön a 'VPN részletek' ablakban.\n\nTöbb konfiguráció egyidejű telepítéséhez jelölje ki az összes fájlt, és húzza az összeset a Tunnelblick ikonjára a felső menüsorban.";
@@ -1272,6 +1272,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "A várt parancs nem található a következőhöz: '%@'";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "A várt elérési út (vagy 'nincs') nem található a 'dh' opcióhoz";
 
 /* Window text */
 "Expected path not found for '%@'" = "A várt elérési út nem található a következőhöz: '%@'";
@@ -2328,6 +2331,9 @@
 
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Egy 'tun' eszközillesztő szükséges Tun kapcsolat létrehozásához. Általában a rendszer saját Tun illesztője van használatban, de a Tunnelblick is tartalmaz a saját Tun illesztőt. Ha telepített másik Tun illesztőt, lehetséges, hogy a Tunnelblick nem tudja betölteni a saját illesztőjét.</p>\n<p>Az OpenVPN a rendszer illesztőjét használja, kivéve ha az OpenVPN konfiguráció tartalmazza a 'dev-type tun' opciót.</p>\n<p>Választhat, hogy a Tunnelblick mikor töltse be az illesztőt:</p>\n<p><strong>Tun illesztő automatikus betöltése</strong>: A Tunnelblick betölti a saját illesztőjét és kikapcsolja azt, ha már nincs rá szükség.(A Tunnelblick csak akkor tölti be az illesztőjét, ha az OpenVPN konfigurációban megtalálható a 'dev-tpye tun' opció.)</p>\n<p><strong>Tun illesztő betöltése mindig</strong>: A Tunnelblick betölti a saját illesztőjét ha ehhez a konfigurációhoz csatlakozik, és kikapcsolja azt, ha már nincs rá szükség.</p>\n<p><strong>Soha ne töltse be a Tun illesztőt</strong>: A Tunnelblick sosem tölti be az illesztőjét</p>\n<p><strong>Ez a jelölőnégyzet inaktív</strong> Tap konfigurációk esetén vagy a macOS olyan verzió esetében, amelyek nem engedélyezik a Tunnelblick számára, hogy betöltse a Tun illesztőjét. További információkért lásd a <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a> cikket.</p>";
+
+/* HTML Info for security code checkbox */
+"<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n" = "<p>Ha engedélyezve van, lehetősége lesz megadni egy biztonsági kódot.</p>\n<p>Ezt a kódot hozzáfűzzük majd a jelszavához a hitelesítési folyamat során, így lehetősége lesz a Kulcskarikát együtt használni hitelesítő eszközökkel, pld. hardverkulcsokkal, hogy a jelszavát biztonságban tartsa.</p>";
 
 /* HTML info for the 'Check Now' button. */
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Ellenőrzi a frissítéseket a Tunnelblick alkalmazáshoz. </p><p> Hozzáférést biztosít a Tunnelblick honlapján; További részleteket lásd <a href=\"https://tunnelblick.net/cPrivacy.html\"> adatvédelem és biztonság </a> [tunnelblick.net]. </p><p> ellenőrzi a frissítéseket a konfigurációkhoz ha a VPN szolgáltató alkalmazza ezt a funkciót. </p>";

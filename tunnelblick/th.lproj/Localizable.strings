@@ -128,6 +128,9 @@
 "Ignore" = "ไม่ต้องทำอะไร";
 
 /* Button */
+"Install tun and tap system extensions..." = "ติดตั้งส่วนเสริม tun และ tap ของระบบ";
+
+/* Button */
 "Install" = "ติดตั้ง";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -286,6 +289,9 @@
 
 /* Button */
 "Uninstall Tunnelblick..." = "ถอนการติดตั้ง Tunnelblick...";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "ถอนการติดตั้งส่วนเสริม tun และ tap ของระบบ";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "อัปเดต";
@@ -501,6 +507,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "บันทึกลงใน Keychain";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "รหัสความปลอดภัย:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "ตั้ง DNS เมื่อ routes ถูกตั้งแล้ว";
@@ -777,6 +786,30 @@
 
 /* Window title */
 "Warning" = "คำเตือน";
+
+/* Window title */
+"Warning: Unknown OpenVPN processes" = "คำเตือน: พบการทำงานของ OpenVPN ที่ไม่รู้จัก";
+
+/* Window title */
+"Welcome to Tunnelblick" = "ยินดีต้อนรับเข้าสู่ Tunnelblick";
+
+/* Window title */
+"Welcome" = "ยินดีต้อนรับ";
+
+/* Window title */
+"While Connected" = "ขณะเชื่อมต่ออยู่";
+
+/* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
+"     From the VPN server for %@:\n\n%@" = "จากเซิร์ฟเวอร์ VPN ของ %1$@: %2$@";
+
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "• เซิร์ฟเวอร์ DNS %@ เป็นเซิร์ฟเวอร์ DNS สาธารณะที่ Tunnelblick รู้จัก แต่ไม่ถูกเปลี่ยนเส้นทางไปยัง VPN";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed %lu configurations\n\n" = "• ติดตั้ง %lu คอนฟิกเกอเรชั่นแล้ว";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Installed one configuration\n\n" = "• ติดตั้งคอนฟิกเกอเรชั่นแล้ว";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' มีอยู่แล้วบนเดสก์ท็อป\n\nต้องการแทนที่หรือไม่?";
