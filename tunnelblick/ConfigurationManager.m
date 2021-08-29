@@ -24,6 +24,8 @@
 #import <asl.h>
 #import <sys/param.h>
 #import <sys/mount.h>
+#import <sys/sysctl.h>
+#import <sys/types.h>
 #import <unistd.h>
 
 #import "defines.h"
@@ -4677,6 +4679,25 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 }
 
++(NSString *) macModelNumber {
+
+	NSString * model = @"unknown";
+
+	size_t len = 0;
+	sysctlbyname("hw.model", NULL, &len, NULL, 0);
+	if (  len  ) {
+		char * model_c = malloc(len * sizeof(char));
+		sysctlbyname("hw.model", model_c, &len, NULL, 0);
+		NSString * model_temp = [NSString stringWithUTF8String: model_c];
+		free(model_c);
+		if (  model_temp  ) {
+			model = model_temp;
+		}
+	}
+
+	return [NSString stringWithFormat: @"Model: %@\n", model];
+}
+
 
 +(void) putDiagnosticInfoOnClipboardWithDisplayName: (NSString *) displayName log: (NSString *) logContents {
 	
@@ -4703,6 +4724,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * sipStatusInfo = (  runningWithSIPDisabled()
                                     ? @"System Integrity Protection is DISABLED\n"
                                     : @"System Integrity Protection is enabled\n");
+
+		NSString * macModelInfo = [ConfigurationManager macModelNumber];
 
         // Get contents of configuration file
         NSString * condensedConfigFileContents = [connection condensedSanitizedConfigurationFileContents ];
@@ -4764,7 +4787,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
-							 @"%@%@%@%@\n"  // Version info
+							 @"%@%@%@%@%@\n"  // Version info
                              @"Configuration %@\n\n"
                              @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
                              @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
@@ -4782,7 +4805,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							 @"Non-Apple kexts that are loaded:\n\n%@\n%@"
 							 @"Quit Log:\n\n%@\n%@"
 							 @"Console Log:\n\n%@\n",
-                             versionContents, gitInfo, translationInfo, sipStatusInfo,
+                             versionContents, gitInfo, translationInfo, sipStatusInfo, macModelInfo,
                              [connection localizedName],
 							 [connection configPath], condensedConfigFileContents, separatorString,
                              tblkFileList, separatorString,
