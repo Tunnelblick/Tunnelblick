@@ -5178,6 +5178,13 @@ static void signal_handler(int signalNumber)
         }
     }
 
+	// Create a file with the trace logs
+	NSString * traceLogPath = [tunnelblickErrorDataFolderPath stringByAppendingPathComponent: @"TBTrace.log"];
+	NSString * traceLog = dumpTraces();
+	if (  ! [traceLog writeToFile: traceLogPath atomically: NO encoding: NSUTF8StringEncoding error: nil]  ) {
+		NSLog(@"Error writing trace logs to %@", traceLogPath);
+	}
+
     // Create the .tar.gz
     NSArray * arguments = @[@"-cz",
                             @"-f", tarGzPath,
