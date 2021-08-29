@@ -4784,6 +4784,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 		NSString * previousDownLogContents = [self stringWithFileContentsOrNotFound: [L_AS_T stringByAppendingPathComponent: @"DownLog.previous.txt"]];
 
+		NSString * traceLogContents = dumpTraces();
+
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
@@ -4804,6 +4806,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              @"ifconfig output:\n\n%@\n%@"
 							 @"Non-Apple kexts that are loaded:\n\n%@\n%@"
 							 @"Quit Log:\n\n%@\n%@"
+							 @"Traces Log:\n\n%@\n%@"
 							 @"Console Log:\n\n%@\n",
                              versionContents, gitInfo, translationInfo, sipStatusInfo, macModelInfo,
                              [connection localizedName],
@@ -4822,6 +4825,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              ifconfigOutput, separatorString,
 							 kextContents, separatorString,
 							 quitLogContents, separatorString,
+							 traceLogContents, separatorString,
                              consoleContents];
         
         pb = [NSPasteboard generalPasteboard];
