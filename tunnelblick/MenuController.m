@@ -5292,6 +5292,8 @@ static void signal_handler(int signalNumber)
 
     [self displayMessagesAboutKextsAndBigSur];
 
+	pruneTracesFolder();
+
     [pool drain];
 }
 
