@@ -38,6 +38,7 @@
 #import "KeyChain.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
+#import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "MenuController.h"
 #import "TBUserDefaults.h"
@@ -66,6 +67,128 @@ void appendLog(NSString * msg)
 	NSLog(@"%@", msg);
 }
 
+NSString * tracesFolderPath(void) {
+
+	NSString * path = [[[[NSHomeDirectory()
+						  stringByAppendingPathComponent: @"Library"]
+						 stringByAppendingPathComponent: @"Application Support"]
+						stringByAppendingPathComponent: @"Tunnelblick"]
+					   stringByAppendingPathComponent: @"TracesLogs"];
+	return path;
+}
+
+NSString * tracesFilename(NSString * dateTime) {
+
+	NSString * name = [[dateTime substringWithRange: NSMakeRange(0, LENGTH_OF_YYYY_MM_DD)]
+					   stringByAppendingPathExtension: @"log"];
+	return name;
+}
+
+void pruneTracesFolder() {
+
+	// Does not use gFileMgr, so this can be called before gFileMgr is set up
+
+	NSDate * oneDayAgo = [[NSDate date] dateByAddingTimeInterval: -SECONDS_PER_DAY];
+	NSString * earliestAllowedFilenamePrefix = [[oneDayAgo tunnelblickUserLogRepresentationWithoutMicroseconds] substringWithRange: NSMakeRange(0, LENGTH_OF_YYYY_MM_DD)];
+
+	NSString * folderPath = tracesFolderPath();
+	NSArray * filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: folderPath error: nil];
+	NSEnumerator * e = [filenames objectEnumerator];
+	NSString * filename;
+	while (  filename = [e nextObject]  ) {
+		if (  [[filename pathExtension] isEqualToString: @"log"]  ) {
+			if (  [[filename lastPathComponent] compare: earliestAllowedFilenamePrefix] == NSOrderedAscending  ) {
+				NSString * path = [folderPath stringByAppendingPathComponent: filename];
+				if (  [[NSFileManager defaultManager] tbRemoveFileAtPath: path handler: nil]  ) {
+					NSLog(@"Removed %@", path); // Error has already been logged
+				}
+			}
+		}
+	}
+}
+
+NSString * dumpTraces(void) {
+
+	// Does not use gFileMgr, so this can be called before gFileMgr is set up
+
+	NSMutableString * result = [NSMutableString stringWithCapacity: 100000];
+
+	NSArray * filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: tracesFolderPath() error: nil];
+
+	NSArray * sortedFilenames = [filenames sortedArrayUsingComparator:
+								 ^NSComparisonResult(NSString * string1, NSString * string2) { return [string1 compare: string2]; }];
+
+	NSEnumerator * e = [sortedFilenames objectEnumerator];
+	NSString * filename;
+	while (  filename = [e nextObject]  ) {
+		NSString * path = [tracesFolderPath() stringByAppendingPathComponent: filename];
+		if (  [[path pathExtension] isEqualToString: @"log"]  ) {
+			NSData * data = [[NSFileManager defaultManager] contentsAtPath: path];
+			// If file was pruned since we created "filenames", just ignore it
+			if (  data  ) {
+				NSString * contents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+				if (  ! contents  ) {
+					contents = [NSString stringWithFormat: @"Unable to parse %@ as UTF8\n", path];
+				}
+				[result appendString: contents];
+			}
+		}
+	}
+
+	return result;
+}
+
+void append_tb_trace_routine (const char * source_path, int line_number, NSString * format, ...) {
+
+	// Append to the current day's traces log file
+	//
+	// SHOULD CALLED BY USING THE TBTrace() MACRO, NOT DIRECTLY
+	//
+	// Does not use gFileMgr, so this can be called before gFileMgr is set up
+
+	// Construct message from format string and arguments
+	NSString * dateTime = [[NSDate date] tunnelblickUserLogRepresentation];
+	NSString * sourceFileName = [[[[NSString alloc] initWithBytes: source_path
+														   length: strlen(source_path)
+														 encoding: NSUTF8StringEncoding]
+								  autorelease]
+								 lastPathComponent];
+	va_list arg_list;
+	va_start(arg_list, format);
+	NSString * message = [[[NSString alloc] initWithFormat: format arguments: arg_list] autorelease];
+	va_end(arg_list);
+	NSString * fullMessage = [NSString stringWithFormat: @"%@: %@:%u\t%@\n", dateTime, sourceFileName, line_number, message];
+
+	static FILE * trace_file = NULL;
+
+	if (  trace_file == NULL  ) {
+		NSString * folderPath = tracesFolderPath();
+		if (  ! [[NSFileManager defaultManager] fileExistsAtPath: folderPath]  ) {
+			if ( ! [[NSFileManager defaultManager] tbCreateDirectoryAtPath: folderPath withIntermediateDirectories: YES attributes: nil]  ) {
+				return;
+			}
+		}
+
+		const char * path = [[folderPath stringByAppendingPathComponent: tracesFilename(dateTime)] UTF8String];
+
+		trace_file = fopen(path, "a");
+		if (  trace_file == NULL  ) {
+			NSLog(@"appendNote: Unable to open %s", path);
+			return;
+		}
+	}
+
+	const char * full_message_c = [fullMessage UTF8String];
+	size_t full_message_c_len = strlen(full_message_c);
+	size_t result = fwrite(full_message_c, 1, full_message_c_len, trace_file);
+	if (  result != full_message_c_len) {
+		NSLog(@"Wrote only %lu of %lu bytes to %@", result, full_message_c_len, tracesFilename(dateTime));
+	}
+
+	if (  fflush(trace_file) != ERR_SUCCESS  ) {
+		NSLog(@"fflush() of %@ failed; errno = %d (%s)", tracesFilename(dateTime), errno, strerror(errno));
+	}
+}
 
 // The following base64 routines were inspired by an answer by denis2342 to the thread at https://stackoverflow.com/questions/11386876/how-to-encode-and-decode-files-as-base64-in-cocoa-objective-c
 

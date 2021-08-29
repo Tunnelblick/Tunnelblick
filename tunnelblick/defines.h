@@ -52,6 +52,8 @@
 
 #define SECONDS_PER_DAY ( 24 * 60 * 60 )
 
+#define LENGTH_OF_YYYY_MM_DD ( 4 + 1 + 2 + 1 + 2 )
+
 // Number of characters/columns taken up by the date & time in the Tunnelblick log
 //    If == 19, microseconds are not included (e.g., "2019-03-08 09:30:15")
 //    If == 26, microseconds are included     (e.g., "2019-03-08 09:30:15.123456")
@@ -619,6 +621,9 @@ return name;                               \
 name = newValue;                                    \
 }                                                       \
 
+// The  @""  before __VA_ARGS__ allows TBTrace to accept no arguments and forces an error
+// if there are arguments and the first argument isn't a literal NSString or C string
+#define TBTrace(...) append_tb_trace_routine( __FILE__, __LINE__, @"" __VA_ARGS__)
 
 #define NON_CONFIGURATIONS_PREFERENCES_NSARRAY @[	\
 @"DB-ALL",    /* All extra logging */	\

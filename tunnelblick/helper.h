@@ -30,6 +30,10 @@ NSAttributedString * attributedStringFromHTML(NSString * html);
 
 void           appendLog				 (NSString * msg);
 
+void           append_tb_trace_routine	 (const char * sourceFile, int lineNumber, NSString * format, ...);
+void		   pruneTracesFolder(void);
+NSString	 * dumpTraces(void);
+
 BOOL           appHasValidSignature(void);
 
 NSString	 * base64Encode(NSData   * input);
