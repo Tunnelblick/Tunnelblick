@@ -4093,11 +4093,14 @@ NSString * fatalErrorData(const char * siglist, int signalNumber, NSString * sta
 	NSString * msg = [NSString stringWithFormat: @"%@:\n\n"
 					  @"macOS %@; %@\n\n"
 					  @"Received fatal signal %s (%d) on %@ thread\n\n"
-					  @"stack trace: %@",
+					  @"stack trace: %@"
+					  @"\n================================================================================\n\n"
+					  @"Traces Log:\n\n%@",
 					  dateMsg,
 					  osVersionString, tunnelblickVersion([NSBundle mainBundle]),
 					  siglist, signalNumber, threadType,
-					  stackInfo];
+					  stackInfo,
+					  dumpTraces()];
 	return msg;
 }
 
