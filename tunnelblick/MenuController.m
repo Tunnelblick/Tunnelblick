@@ -5214,7 +5214,7 @@ static void signal_handler(int signalNumber)
 
         NSDate * lastRequestDate = [gTbDefaults dateForKey: @"dateLastRequestedEmailCrashReports"];
         if (  lastRequestDate  ) {
-            NSDate * nextRequestDate = [lastRequestDate dateByAddingTimeInterval: 24*60*60];
+            NSDate * nextRequestDate = [lastRequestDate dateByAddingTimeInterval: SECONDS_PER_DAY];
             NSComparisonResult result = [[NSDate date] compare: nextRequestDate];
             if (  result == NSOrderedAscending  ) {
                 return;

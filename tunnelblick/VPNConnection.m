@@ -5073,7 +5073,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSTimeInterval ti = [csd timeIntervalSinceNow];
     long timeL = (long) round(-ti);
     
-    int days  = timeL / (24*60*60);
+    int days  = timeL / SECONDS_PER_DAY;
     long timeLessDays = timeL - ( days * (24*60*60) );
     
     int hours = timeLessDays / (60*60);
