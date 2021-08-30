@@ -124,7 +124,7 @@ void pruneTracesFolder() {
 			if (  [[filename lastPathComponent] compare: earliestAllowedFilenamePrefix] == NSOrderedAscending  ) {
 				NSString * path = [folderPath stringByAppendingPathComponent: filename];
 				if (  [[NSFileManager defaultManager] tbRemoveFileAtPath: path handler: nil]  ) {
-					NSLog(@"Removed %@", path); // Error has already been logged
+					NSLog(@"Removed %@", path);
 				}
 			}
 		}
@@ -148,11 +148,11 @@ NSString * dumpTraces(void) {
 		NSString * path = [tracesFolderPath() stringByAppendingPathComponent: filename];
 		if (  [[path pathExtension] isEqualToString: @"log"]  ) {
 			NSData * data = [[NSFileManager defaultManager] contentsAtPath: path];
-			// If file was pruned since we created "filenames", just ignore it
+			// Ignore any error getting the file contents: the file could have been pruned since we created "filenames"
 			if (  data  ) {
 				NSString * contents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
 				if (  ! contents  ) {
-					contents = [NSString stringWithFormat: @"Unable to parse %@ as UTF8\n", path];
+					contents = [NSString stringWithFormat: @"Unable to parse as UTF8: %@\n", path];
 				}
 				[result appendString: contents];
 			}
