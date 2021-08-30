@@ -184,12 +184,29 @@ void append_tb_trace_routine (const char * source_path, int line_number, NSStrin
 	NSString * fullMessage = [NSString stringWithFormat: @"%@: %@:%u\t%@\n", dateTime, sourceFileName, line_number, message];
 
 	static FILE * trace_file = NULL;
+	static NSString * lastTracesFilename = nil;
 
 	if (  ! lockUsingMutex(&traceFileMutex, @"traceFileMutex")  ) {
 		return;
 	}
 
+	NSString * newTracesFilename = tracesFilename(dateTime);
+
+	if (  ! [lastTracesFilename isEqualToString: newTracesFilename]  ) {
+		// It's a new day; close the old day's traces file if necessary
+		if (  trace_file != NULL  ) {
+			fclose(trace_file);
+			trace_file = NULL;
+		}
+
+		// Indicate we are using the new day's trace file
+		[newTracesFilename retain];
+		[lastTracesFilename release];
+		lastTracesFilename = newTracesFilename;
+	}
+
 	if (  trace_file == NULL  ) {
+		// Create folder for traces files if necessary
 		NSString * folderPath = tracesFolderPath();
 		if (  ! [[NSFileManager defaultManager] fileExistsAtPath: folderPath]  ) {
 			if ( ! [[NSFileManager defaultManager] tbCreateDirectoryAtPath: folderPath withIntermediateDirectories: YES attributes: nil]  ) {
@@ -198,7 +215,7 @@ void append_tb_trace_routine (const char * source_path, int line_number, NSStrin
 			}
 		}
 
-		const char * path = [[folderPath stringByAppendingPathComponent: tracesFilename(dateTime)] UTF8String];
+		const char * path = [[folderPath stringByAppendingPathComponent: lastTracesFilename] UTF8String];
 
 		trace_file = fopen(path, "a");
 		if (  trace_file == NULL  ) {
