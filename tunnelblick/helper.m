@@ -84,6 +84,30 @@ NSString * tracesFilename(NSString * dateTime) {
 	return name;
 }
 
+static pthread_mutex_t traceFileMutex = PTHREAD_MUTEX_INITIALIZER;
+
+BOOL lockUsingMutex(pthread_mutex_t * mutex, NSString * mutexName) {
+
+	int status = pthread_mutex_lock(mutex);
+	if (  status != 0  ) {
+		NSLog(@"pthread_mutex_lock(&%@) failed; status = %ld, errno = %ld", mutexName, (long) status, (long) errno);
+		return NO;
+	}
+
+	return YES;
+}
+
+BOOL unlockUsingMutex(pthread_mutex_t * mutex, NSString * mutexName) {
+
+	int status = pthread_mutex_unlock(mutex);
+	if (  status != 0  ) {
+		NSLog(@"pthread_mutex_unlock(&%@) failed; status = %ld, errno = %ld", mutexName, (long) status, (long) errno);
+		return NO;
+	}
+
+	return YES;
+}
+
 void pruneTracesFolder() {
 
 	// Does not use gFileMgr, so this can be called before gFileMgr is set up
@@ -140,7 +164,7 @@ NSString * dumpTraces(void) {
 
 void append_tb_trace_routine (const char * source_path, int line_number, NSString * format, ...) {
 
-	// Append to the current day's traces log file
+	// Thread-safe append to the current day's traces log file
 	//
 	// SHOULD CALLED BY USING THE TBTrace() MACRO, NOT DIRECTLY
 	//
@@ -161,10 +185,15 @@ void append_tb_trace_routine (const char * source_path, int line_number, NSStrin
 
 	static FILE * trace_file = NULL;
 
+	if (  ! lockUsingMutex(&traceFileMutex, @"traceFileMutex")  ) {
+		return;
+	}
+
 	if (  trace_file == NULL  ) {
 		NSString * folderPath = tracesFolderPath();
 		if (  ! [[NSFileManager defaultManager] fileExistsAtPath: folderPath]  ) {
 			if ( ! [[NSFileManager defaultManager] tbCreateDirectoryAtPath: folderPath withIntermediateDirectories: YES attributes: nil]  ) {
+				unlockUsingMutex(&traceFileMutex, @"traceFileMutex");
 				return;
 			}
 		}
@@ -174,6 +203,7 @@ void append_tb_trace_routine (const char * source_path, int line_number, NSStrin
 		trace_file = fopen(path, "a");
 		if (  trace_file == NULL  ) {
 			NSLog(@"appendNote: Unable to open %s", path);
+			unlockUsingMutex(&traceFileMutex, @"traceFileMutex");
 			return;
 		}
 	}
@@ -188,6 +218,8 @@ void append_tb_trace_routine (const char * source_path, int line_number, NSStrin
 	if (  fflush(trace_file) != ERR_SUCCESS  ) {
 		NSLog(@"fflush() of %@ failed; errno = %d (%s)", tracesFilename(dateTime), errno, strerror(errno));
 	}
+
+	unlockUsingMutex(&traceFileMutex, @"traceFileMutex");
 }
 
 // The following base64 routines were inspired by an answer by denis2342 to the thread at https://stackoverflow.com/questions/11386876/how-to-encode-and-decode-files-as-base64-in-cocoa-objective-c
