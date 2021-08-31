@@ -193,7 +193,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                 if (  [upSoundName isEqualToString: @"Speak"]  ) {
 					speakWhenConnected = TRUE;
 				} else {
-                    tunnelUpSound   = [NSSound soundNamed: upSoundName];
+                    [self setTunnelUpSound: [NSSound soundNamed: upSoundName]];
                     if (  ! tunnelUpSound  ) {
                         NSLog(@"%@ '%@' not found; no sound will be played when connecting", upSoundKey, upSoundName);
                     }
@@ -207,7 +207,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                 if (  [downSoundName isEqualToString: @"Speak"]  ) {
 					speakWhenDisconnected = TRUE;
 				} else {
-                    tunnelDownSound = [NSSound soundNamed: downSoundName];
+                    [self setTunnelDownSound: [NSSound soundNamed: downSoundName]];
                     if (  ! tunnelDownSound  ) {
                         NSLog(@"%@ '%@' not found; no sound will be played when an unexpected disconnection occurs", downSoundKey, downSoundName);
                     }
