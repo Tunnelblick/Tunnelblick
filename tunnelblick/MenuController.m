@@ -6401,17 +6401,9 @@ static BOOL runningHookupThread = FALSE;
 		unsigned nQueued = 0;
         while (  (displayName = [e nextObject])  ) {
             NSDictionary  * entry = [logFileInfo objectForKey: displayName];
-			NSNumber      * portAsNumber   = [entry objectForKey: @"port"];
-            NSString      * startArguments = [entry objectForKey: @"openvpnstartArgs"];
-			VPNConnection * connection     = [entry objectForKey: @"connection"];
-            
-            TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: queueing hook up of '%@' using port %lu", displayName, (unsigned long)[portAsNumber intValue])
-            
-            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   portAsNumber,   @"port",
-                                   startArguments, @"openvpnstartArgs",
-                                   nil];
-            [connection performSelectorOnMainThread: @selector(tryToHookup:)  withObject: dict waitUntilDone: NO];
+            TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: queueing hook up of '%@' using port %@", displayName, [entry objectForKey: @"port"])
+			TBTrace(@"hookupToRunningOpenVPNsThread: Queueing hook up of '%@' using port %@", displayName, [entry objectForKey: @"port"]);
+			[self performSelectorOnMainThread:@selector(hookupWithLogFileInfoDict:) withObject: entry waitUntilDone: NO];
 			nQueued++;
         }
 		
@@ -6424,6 +6416,13 @@ static BOOL runningHookupThread = FALSE;
     
 	[threadPool drain];
     return;
+}
+
+-(void) hookupWithLogFileInfoDict: (NSDictionary *) dict {
+
+	TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: trying hook up of '%@' using port %@", [[dict objectForKey: @"connection"] displayName], [dict objectForKey: @"port"])
+	TBTrace(@"hookupWithLogFileInfoDict: Trying hook up of '%@' using port %@", [[dict objectForKey: @"connection"] displayName], [dict objectForKey: @"port"]);
+	[[dict objectForKey: @"connection"] tryToHookup:  dict];
 }
 
 // Returns a configuration path (and port number and the starting arguments from openvpnstart) from a path created by openvpnstart
