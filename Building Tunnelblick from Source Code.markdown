@@ -65,13 +65,13 @@ recommended for Parallels.
 
 The current version of Tunnelblick should be built using:
  * Xcode 7.3.1  on macOS 10.11.6 on an Intel Mac; or
- * Xcode 12.5.1 on macOS 11.5.2  on an Intel or M1 Mac.
+ * Xcode 12.5.1 on macOS 11.5.2  on an Intel or Apple Silicon Mac.
 
 When built by Xcode 7.3.1, Tunnelblick will run on Intel processors, or
-on Apple M1 processors using Rosetta 2.
+on Apple Silicon processors using Rosetta 2.
 
 When built by Xcode 12.5.1, Tunnelblick will be a Universal binary and run
-natively on Intel or M1 processors.
+natively on Intel or Apple Silicon processors.
 
 Other versions of Xcode and macOS may fail to build Tunnelblick, or create
 Tunnelblick binaries that crash or have other unpredictable behavior.
@@ -167,11 +167,47 @@ To select the type of build in Xcode 12:
 
 Do a "Product >> Clean build folder" before building.
 
-Finally! You are ready to build Tunnelblick. Go ahead!
+Finally! You are ready to build Tunnelblick:
+
+
+
+**First Build**
 
 The first time a build is done, it may take tens of minutes, even on a
 relatively fast computer, so be patient. (Subsequent builds, which do
 not usually rebuild OpenVPN or the Tun/Tap kexts, are quicker.)
+
+**On an Intel Mac** you can just use Xcode to do the first build.
+
+**On an Apple Silicon Mac** you **cannot** do the first build of Tunnelblick
+using Xcode _interactively_. Instead, you must use the "xcodebuild" command line
+tool in a Terminal session which is running using Rosetta. (That's because only
+the first build of Tunnelblick builds the third-party software, and that only
+builds without error only using xcodebuild in a Rosetta Terminal session.)
+
+First, create a copy of Terminal that runs using Rosetta (you only need to
+do this once):
+
+ 1. Make a copy of /Applications/Utilities/Terminal.app on your Desktop.
+ 2. Command-click on the copy, click on "Get Info", and put a check in the
+ "open using Rosetta" checkbox.
+ 3. Rename the copy "Terminal - ROSETTA" or something similar.
+ 4. Drag the copy into your /Applications/Utilities folder or some Other
+ convenient place.
+ 5. (Optional) Drag the copy to your Dock for easy access.
+
+To build, use the following commands in Terminal using Rosetta:
+
+```
+cd "folder containing the tunnelblick and third_party folders"
+xcodebuild -project Tunnelblick.xcodeproj -alltargets -configuration Release build 
+```
+
+Once you've done the first build using xcodebuild, you can use Xcode
+normally (interactively) for subsequent builds unless you need to rebuild
+the third-party software.
+
+**First Build Complete**
 
 When the build is complete, "Build succeeded" will appear at the bottom
 of the Build Results window. In some situations it may take another
