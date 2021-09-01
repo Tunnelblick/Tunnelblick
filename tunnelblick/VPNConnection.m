@@ -4343,6 +4343,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 
+	if (  separatorRange.location < 2  ) {
+		NSLog(@"processRealTimeOpenvpnOutputWithLine: No command in '%@'", line);
+		return;
+	}
+
     NSRange commandRange = NSMakeRange(1, separatorRange.location-1);
     NSString* command = [line substringWithRange: commandRange];
     NSString* parameterString = [line substringFromIndex: separatorRange.location+1];
