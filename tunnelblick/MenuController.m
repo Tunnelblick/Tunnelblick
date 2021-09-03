@@ -6402,7 +6402,6 @@ static BOOL runningHookupThread = FALSE;
         while (  (displayName = [e nextObject])  ) {
             NSDictionary  * entry = [logFileInfo objectForKey: displayName];
             TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: queueing hook up of '%@' using port %@", displayName, [entry objectForKey: @"port"])
-			TBTrace(@"hookupToRunningOpenVPNsThread: Queueing hook up of '%@' using port %@", displayName, [entry objectForKey: @"port"]);
 			[self performSelectorOnMainThread:@selector(hookupWithLogFileInfoDict:) withObject: entry waitUntilDone: NO];
 			nQueued++;
         }
@@ -6421,7 +6420,6 @@ static BOOL runningHookupThread = FALSE;
 -(void) hookupWithLogFileInfoDict: (NSDictionary *) dict {
 
 	TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: trying hook up of '%@' using port %@", [[dict objectForKey: @"connection"] displayName], [dict objectForKey: @"port"])
-	TBTrace(@"hookupWithLogFileInfoDict: Trying hook up of '%@' using port %@", [[dict objectForKey: @"connection"] displayName], [dict objectForKey: @"port"]);
 	[[dict objectForKey: @"connection"] tryToHookup:  dict];
 }
 
