@@ -1,6 +1,6 @@
 **Building Tunnelblick from Source Code**
 
-_Last Updated 2021-08-20_
+_Last Updated 2021-09-12_
 
 You can build Tunnelblick from the source code. Usually, people install
 and use a ready-to-use binary version of Tunnelblick. The most recent
@@ -167,47 +167,11 @@ To select the type of build in Xcode 12:
 
 Do a "Product >> Clean build folder" before building.
 
-Finally! You are ready to build Tunnelblick:
+Finally! You are ready to build Tunnelblick. Click Product > Build.
 
-
-
-**First Build**
-
-The first time a build is done, it may take tens of minutes, even on a
+_Note that the first time a build is done, it may take tens of minutes, even on a
 relatively fast computer, so be patient. (Subsequent builds, which do
-not usually rebuild OpenVPN or the Tun/Tap kexts, are quicker.)
-
-**On an Intel Mac** you can just use Xcode to do the first build.
-
-**On an Apple Silicon Mac** you **cannot** do the first build of Tunnelblick
-using Xcode _interactively_. Instead, you must use the "xcodebuild" command line
-tool in a Terminal session which is running using Rosetta. (That's because only
-the first build of Tunnelblick builds the third-party software, and that only
-builds without error only using xcodebuild in a Rosetta Terminal session.)
-
-First, create a copy of Terminal that runs using Rosetta (you only need to
-do this once):
-
- 1. Make a copy of /Applications/Utilities/Terminal.app on your Desktop.
- 2. Command-click on the copy, click on "Get Info", and put a check in the
- "open using Rosetta" checkbox.
- 3. Rename the copy "Terminal - ROSETTA" or something similar.
- 4. Drag the copy into your /Applications/Utilities folder or some Other
- convenient place.
- 5. (Optional) Drag the copy to your Dock for easy access.
-
-To build, use the following commands in Terminal using Rosetta:
-
-```
-cd "folder containing the tunnelblick and third_party folders"
-xcodebuild -project Tunnelblick.xcodeproj -alltargets -configuration Release build 
-```
-
-Once you've done the first build using xcodebuild, you can use Xcode
-normally (interactively) for subsequent builds unless you need to rebuild
-the third-party software.
-
-**First Build Complete**
+not usually rebuild OpenVPN or the Tun/Tap kexts, are quicker.)_
 
 When the build is complete, "Build succeeded" will appear at the bottom
 of the Build Results window. In some situations it may take another
