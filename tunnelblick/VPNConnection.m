@@ -4556,7 +4556,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 
     TBLog(@"DB-PM", @"passwordAsModifed: have replaceString = %s; have prependString = %s; have appendString = %s",
-          CSTRING_FROM_BOOL((BOOL)replaceString), CSTRING_FROM_BOOL((BOOL)prependString), CSTRING_FROM_BOOL((BOOL)appendString));
+          CSTRING_FROM_BOOL(replaceString != nil), CSTRING_FROM_BOOL(prependString != nil), CSTRING_FROM_BOOL(appendString != nil));
 	if (  replaceString  ) {
 		password = [[replaceString retain] autorelease];
         TBLog(@"DB-PM", @"passwordAsModifed: Replaced password with output from password-replace.user.sh");
