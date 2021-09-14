@@ -2426,7 +2426,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  connection  ) {
             if (  ! [[connection state] isEqualToString: @"EXITING"]  ) {
                 NSLog(@"Starting disconnection of '%@'", [connection displayName]);
-                [connection startDisconnectingUserKnows: @YES];
+                [connection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @YES waitUntilDone: NO];
             }
         } else {
             NSLog(@"No entry for '%@' in myVPNConnectionDictionary = '%@'", [connection displayName], dict);

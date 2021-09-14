@@ -62,7 +62,7 @@ extern TBUserDefaults  * gTbDefaults;
     if (  connection  ) {
         if (  ! [connection isDisconnected]  ) {
             [connection addToLog: @"Disconnecting; AppleScript 'disconnect' invoked"];
-            [connection startDisconnectingUserKnows: @YES];
+            [connection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @YES waitUntilDone: NO];
             return @YES;
         }
     }
@@ -105,7 +105,7 @@ extern TBUserDefaults  * gTbDefaults;
     while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection isDisconnected]  ) {
             [connection addToLog: @"Disconnecting; AppleScript 'disconnect all' invoked"];
-            [connection startDisconnectingUserKnows: @YES];
+            [connection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @YES waitUntilDone: NO];
             nDisconnecting++;
         }
     }
@@ -131,7 +131,7 @@ extern TBUserDefaults  * gTbDefaults;
             if (  ! (   [gTbDefaults boolForKey: autoConnectkey]
                      && [gTbDefaults boolForKey: systemStartkey] )  ) {
                 [connection addToLog:@"Disconnecting; AppleScript 'disconnect all except when computer starts' invoked"];
-                [connection startDisconnectingUserKnows: @NO];
+                [connection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @NO waitUntilDone: NO];
                 nDisconnecting++;
             }
         }

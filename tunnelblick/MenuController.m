@@ -2879,7 +2879,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     if (   myConnection
 		&& ( ! [[myConnection state] isEqualTo: @"EXITING"] )  ) {
         [myConnection addToLog: @"Disconnecting; user asked to delete the configuration"];
-        [myConnection startDisconnectingUserKnows: @YES];
+        [myConnection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @YES waitUntilDone: NO];
         [myConnection waitUntilDisconnected];
         
 		NSString * localName = [myConnection localizedName];
@@ -3167,7 +3167,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                     TBLog(@"DB-SD", @"startDisconnecting:disconnectingAll:logMessage: will use killall to disconnect %@", [connection displayName])
                 } else {
                     TBLog(@"DB-SD", @"startDisconnecting:disconnectingAll:logMessage: starting disconnect of %@", [connection displayName])
-                    [connection startDisconnectingUserKnows: @YES];
+                    [connection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @YES waitUntilDone: NO];
                 }
             }
         }
@@ -8561,7 +8561,7 @@ void terminateBecauseOfBadConfiguration(void)
         if (   [connection shouldDisconnectWhenBecomeInactiveUser]
             && ( ! [connection isDisconnected])  ) {
             [connection addToLog: @"Disconnecting; user became inactive"];
-            [connection startDisconnectingUserKnows: @YES];
+            [connection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @YES waitUntilDone: NO];
             [disconnectionsWeAreWaitingFor addObject: connection];
             NSString * key = [[connection displayName] stringByAppendingString: @"-doNotReconnectOnFastUserSwitch"];
             if (  ! [gTbDefaults boolForKey: key]  ) {
@@ -9112,7 +9112,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  choice == statusWindowControllerDisconnectChoice  ) {
             [connection addToLog: @"Disconnecting; notification window disconnect button pressed"];
 			NSString * oldRequestedState = [connection requestedState];
-			[connection startDisconnectingUserKnows: @YES];
+            [connection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @YES waitUntilDone: NO];
 			if (  [oldRequestedState isEqualToString: @"EXITING"]  ) {
 				[connection displaySlowDisconnectionDialogLater];
 			}
