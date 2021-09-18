@@ -1857,12 +1857,11 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 
     if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
-        // Count the total number of connections and what their "Set nameserver" status was at the time of connection
+        // Count the total number of connections (including this one) and what their "Set nameserver" status was at the time of connection
         int numConnections = 1;
-        int numConnectionsWithModifyNameserver = 0;
-        if (  [self useDNSStatus] != 0  ) {
-            numConnectionsWithModifyNameserver = 1;
-        }
+        int numConnectionsWithModifyNameserver = (  ([self useDNSStatus] == 0)
+                                                  ? 0
+                                                  : 1 );
         VPNConnection * connection;
         NSEnumerator* e = [[gMC myVPNConnectionDictionary] objectEnumerator];
         while (  (connection = [e nextObject])  ) {
