@@ -1436,7 +1436,7 @@ OSStatus runToolExtended(NSString     * launchPath,
         NSDate * terminateTime = [startTime dateByAddingTimeInterval: 60.0];
 
         while(  [task isRunning]  ) {
-            usleep(100000);
+            usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
 
             if (  [warnTime compare: [NSDate date]] == NSOrderedAscending  ) {
                 warnTime = [warnTime dateByAddingTimeInterval: 10.00];

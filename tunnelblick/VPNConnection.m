@@ -1746,7 +1746,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 		if (  stopWaitForNetworkAvailabilityThread  ) {
 			break;
 		}
-		usleep(100000);
+		usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
 	}
 	
 	TBLog(@"DB-CD", @"waitForNetworkAvailabilityThread: broke out of loop; stopWaitForNetworkAvailabilityThread = %s", CSTRING_FROM_BOOL(stopWaitForNetworkAvailabilityThread))
@@ -3307,7 +3307,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             return YES;
         }
         
-        usleep(100000);
+        usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
     }
 	
     return YES;
@@ -3495,7 +3495,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     while (  ! completelyDisconnected  ) {
-        usleep(100000); // 0.1 seconds
+        usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
     }
 }
 

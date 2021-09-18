@@ -4884,7 +4884,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
 		}
 		
-		usleep(100000);	// 0.1 seconds
+		usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
 	}
 	
 	if (  numberOfOpenvpnProcesses == 0  ) {
@@ -4929,7 +4929,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			runOpenvpnstart(arguments, nil, nil);
 		}
 		
-		usleep(100000);	// 0.1 seconds
+		usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
 	}
 	
 	if (  ! processExists  ) {
@@ -4981,7 +4981,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			[connection performSelectorOnMainThread: @selector(sendSigtermToManagementSocket) withObject: nil waitUntilDone: NO];
 		}
 		
-		usleep(100000);	// 0.1 seconds
+		usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
 	}
 	
 	if (  ! processExists  ) {

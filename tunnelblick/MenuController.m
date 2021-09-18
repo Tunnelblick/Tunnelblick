@@ -3229,7 +3229,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 			[listNotModifiedInInnerLoop release];
 			
 			if (  [connectionsList count] != 0  ) {
-				usleep(100000);
+				usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
 			}
 		}
 		

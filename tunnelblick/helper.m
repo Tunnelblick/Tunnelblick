@@ -1209,7 +1209,7 @@ void TBCloseAllAlertPanels (void) {
             return;
         }
         
-        usleep(100000);
+        usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
         continue;
     }
     

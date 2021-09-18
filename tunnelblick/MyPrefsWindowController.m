@@ -3527,7 +3527,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 				pool = [[NSAutoreleasePool alloc] init];
 			}
 			
-			usleep(100000);	// 0.1 seconds
+			usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
 
 			i++;
 		}

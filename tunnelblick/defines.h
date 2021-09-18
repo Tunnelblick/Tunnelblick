@@ -52,6 +52,8 @@
 
 #define SECONDS_PER_DAY ( 24 * 60 * 60 )
 
+#define ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS 100000
+
 #define LENGTH_OF_YYYY_MM_DD ( 4 + 1 + 2 + 1 + 2 )
 
 // Number of characters/columns taken up by the date & time in the Tunnelblick log
