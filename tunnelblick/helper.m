@@ -329,7 +329,7 @@ uint64_t nowAbsoluteNanoseconds(void)
 BOOL runningATunnelblickBeta(void) {
 
     NSString * version = [[gMC tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
-    return ([version rangeOfString: @"beta"].length != 0);
+    return [version containsString: @"beta"];
 }
 
 BOOL runningWithSIPDisabled(void) {
@@ -349,8 +349,8 @@ BOOL runningWithSIPDisabled(void) {
     }
 
     BOOL result = FALSE;
-    BOOL disabled = ([stdOutString rangeOfString: @"System Integrity Protection status: disabled"].length != 0);
-    BOOL enabled  = ([stdOutString rangeOfString: @"System Integrity Protection status: enabled"].length  != 0);
+    BOOL disabled = [stdOutString containsString: @"System Integrity Protection status: disabled"];
+    BOOL enabled  = [stdOutString containsString: @"System Integrity Protection status: enabled"];
     if (   disabled
         && ( ! enabled)  ) {
         result = TRUE;
@@ -373,7 +373,7 @@ BOOL runningOnMacosBeta(void) {
     if (   (status == EXIT_SUCCESS)
         && ([stdOutString length] > 0)  ) {
         NSString * lastCharacter = [stdOutString substringWithRange: NSMakeRange([stdOutString length] - 1, 1)];
-        BOOL isLetter = ( [@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" rangeOfString: lastCharacter].length != 0 );
+        BOOL isLetter = [@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" containsString: lastCharacter];
         return isLetter;
     }
 
@@ -524,7 +524,7 @@ BOOL anyKextsAreLoaded(void) {
         return NO;
     }
     
-    BOOL result = ([stdoutString rangeOfString: @"net.tunnelblick."].length != 0);
+    BOOL result = [stdoutString containsString: @"net.tunnelblick."];
     return result;
 }
 
@@ -640,7 +640,7 @@ NSString * architectureBeingUsed(void) {
     OSStatus status = runTool(TOOL_PATH_FOR_SYSCTL, @[@"-n", @"machdep.cpu.brand_string"], &stdOutString, &stdErrString);
     if (   (status == EXIT_SUCCESS)
         && ([stdOutString length] > 0)  ) {
-        return ([stdOutString rangeOfString: @"Intel"].length != 0);
+        return [stdOutString containsString: @"Intel"];
     }
 
     NSLog(@"Error status %d from 'sysctl -a'; stdout = '%@'; stderr = '%@'", status, stdOutString, stdErrString);
@@ -661,8 +661,8 @@ NSString * architecturesForExecutable(NSString * path) {
     
     NSString * archs = @"";
     
-    BOOL haveX86 = [stdoutString rangeOfString: @"Mach-O 64-bit executable x86_64"].length != 0;
-    BOOL haveArm = [stdoutString rangeOfString: @"Mach-O 64-bit executable arm64"].length != 0;
+    BOOL haveX86 = [stdoutString containsString: @"Mach-O 64-bit executable x86_64"];
+    BOOL haveArm = [stdoutString containsString: @"Mach-O 64-bit executable arm64"];
     if (  haveX86  ) {
         if (  haveArm  ) {
             archs = ARCH_ALL;
@@ -682,7 +682,7 @@ BOOL thisArchitectureSupportsBinaryAtPath(NSString * path) {
     
     NSString * archs = architecturesForExecutable(path);
 
-    BOOL supports = ([archs rangeOfString: requiredArch].length != 0);
+    BOOL supports = [archs containsString: requiredArch];
     return supports;
 }
 
@@ -1792,8 +1792,8 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
 	NSUInteger i;
 	for (  i=0; i<[arguments count]; i++  ) {
         NSString * arg = [arguments objectAtIndex: i];
-		if (   ([arg rangeOfString: @"\t"].length != 0)
-            || ([arg rangeOfString: @"\0"].length != 0)  ) {
+		if (   [arg containsString: @"\t"]
+            || [arg containsString: @"\0"]  ) {
 			NSLog(@"runOpenvpnstart: Argument %lu contains one or more HTAB (ASCII 0x09) or NULL (ASCII (0x00) characters. They are not allowed in arguments. Arguments = %@", (unsigned long)i, arguments);
 			return -1;
 		}
@@ -2105,7 +2105,7 @@ NSString * messageIfProblemInLogLine(NSString * line) {
 	for (  ix=0; ix<[messagesToWarnAbout count]; ix++  ) {
 		
 		NSString * message = [messagesToWarnAbout objectAtIndex: ix];
-		if (  [line rangeOfString: message].length != 0  ) {
+		if (  [line containsString: message]  ) {
 			
 			NSString * moreInfo = (  ([correspondingInfo count] >= ix)
 								   ? [correspondingInfo objectAtIndex: ix]

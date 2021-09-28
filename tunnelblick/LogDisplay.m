@@ -359,7 +359,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
         lineCount--;
     }
     
-	BOOL fromTunnelblick = ([line rangeOfString: TB_LOG_PREFIX].length != 0);
+	BOOL fromTunnelblick = [line containsString: TB_LOG_PREFIX];
 
     NSUInteger i;
     for (  i=0; i < lineCount; i++) {
@@ -1211,7 +1211,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
             lineCount--;
         }
         
-		BOOL fromTunnelblick = ([line rangeOfString: TB_LOG_PREFIX].length != 0);
+		BOOL fromTunnelblick = [line containsString: TB_LOG_PREFIX];
 		
         NSUInteger i;
         for (  i=0; i < lineCount; i++) {

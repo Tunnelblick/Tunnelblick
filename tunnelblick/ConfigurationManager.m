@@ -462,7 +462,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                         }
                     }
                 } else {
-                    if (  [fullPath rangeOfString: @".tblk/"].length == 0  ) {  // Ignore .ovpn and .conf in a .tblk
+                    if (  ! [fullPath containsString: @".tblk/"]  ) {  // Ignore .ovpn and .conf in a .tblk
                         if (  [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"]  ) {
                             addIt = TRUE;
                         }
@@ -4161,7 +4161,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSMutableArray * filesToDelete = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
 		while (  (file = [dirEnum nextObject])  ) {
 			if (   [file hasPrefix: @"."]
-				|| ([file rangeOfString: @"/."].length != 0)  ) {
+				|| [file containsString: @"/."]  ) {
 				[dirEnum skipDescendants];
 				[filesToDelete addObject: file];
 			}
@@ -4475,17 +4475,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                         includeDict = TRUE;
                     }
                 } else if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_MSG]]  ) {
-                    if (   ([string rangeOfString: @"Tunnelblick"].length != 0)
-                        || ([string rangeOfString: @"tunnelblick"].length != 0)
-                        || ([string rangeOfString: @"Tunnel" "blick"].length != 0)      // Include non-rebranded references to Tunnelblick
-                        || ([string rangeOfString: @"atsystemstart"].length != 0)
-                        || ([string rangeOfString: @"installer"].length != 0)
-                        || ([string rangeOfString: @"openvpnstart"].length != 0)
-                        || ([string rangeOfString: @"Saved crash report for openvpn"].length != 0)
-                        || ([string rangeOfString: @"process-network-changes"].length != 0)
-                        || ([string rangeOfString: @"standardize-scutil-output"].length != 0)
+                    if (   [string containsString: @"Tunnelblick"]
+                        || [string containsString: @"tunnelblick"]
+                        || [string containsString: @"Tunnel" "blick"]      // Include non-rebranded references to Tunnelblick
+                        || [string containsString: @"atsystemstart"]
+                        || [string containsString: @"installer"]
+                        || [string containsString: @"openvpnstart"]
+                        || [string containsString: @"Saved crash report for openvpn"]
+                        || [string containsString: @"process-network-changes"]
+                        || [string containsString: @"standardize-scutil-output"]
                         ) {
-						if (  [string rangeOfString: @"Google Software Update installer"].length == 0  ) {
+						if (  ! [string containsString: @"Google Software Update installer"]  ) {
 							includeDict = TRUE;
 						}
                     }

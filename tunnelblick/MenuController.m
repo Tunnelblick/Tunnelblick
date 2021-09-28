@@ -2000,7 +2000,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  [self contactURL]  ) {
             NSString * menuTitle = nil;
             NSDictionary * infoPlist = [self tunnelblickInfoDictionary];
-            if (  [[infoPlist objectForKey: @"CFBundleShortVersionString"] rangeOfString: @"beta"].length != 0  ) {
+            if (  [[infoPlist objectForKey: @"CFBundleShortVersionString"] containsString: @"beta"]  ) {
                 if (  [NSLocalizedString(@"Tunnelblick", "Window title") isEqualToString: @"Tunnel" "blick"]  ) {
                     if (  [@"Tunnelblick" isEqualToString: @"Tunnel" "blick"]  ) {
                         menuTitle = NSLocalizedString(@"Suggestion or Bug Report...", @"Menu item");
@@ -5016,14 +5016,14 @@ static void signal_handler(int signalNumber)
 	
 	NSArray  * versionNames = [gMC openvpnVersionNames];
 
-	BOOL wantLibressl = ([desiredVersion rangeOfString: @"libressl"].length != 0 );
+	BOOL wantLibressl = [desiredVersion containsString: @"libressl"];
 	NSString * majorMinor = [desiredVersion substringToIndex: 3];
 	NSString * bestSoFar = nil;
 	NSUInteger ix;
 	for (  ix=0; ix<[versionNames count]; ix++) {
 		NSString * versionName = [versionNames objectAtIndex: ix];
 		if (  [versionName hasPrefix: majorMinor]  ) {
-			BOOL hasLibressl = ([versionName rangeOfString: @"libressl"].length != 0 );
+			BOOL hasLibressl = [versionName containsString: @"libressl"];
 			if (  wantLibressl == hasLibressl  ) {
 				return versionName;
 			}
@@ -5043,7 +5043,7 @@ static void signal_handler(int signalNumber)
 		// Want a version of OpenVPN before our earliest version. Return our earliest version
 		// that has a matching SSL library (if possible).
 		// Assumes that versions come in pairs (an OpenSSL version and a LibreSSL version)
-		BOOL hasLibressl = ([earliestVersion rangeOfString: @"libressl"].length != 0 );
+		BOOL hasLibressl = [earliestVersion containsString: @"libressl"];
 		if (   (  [versionNames count] == 1  )
 			|| (  wantLibressl == hasLibressl  )  ) {
 			
@@ -5053,7 +5053,7 @@ static void signal_handler(int signalNumber)
 		
 		// Earliest with matching SSL library
 		NSString * secondVersion = [versionNames objectAtIndex: 1];
-		hasLibressl = ([secondVersion rangeOfString: @"libressl"].length != 0 );
+		hasLibressl = [secondVersion containsString: @"libressl"];
 		if (  wantLibressl == hasLibressl  ) {
 			return secondVersion;
 		}
@@ -5064,7 +5064,7 @@ static void signal_handler(int signalNumber)
 	
 	// Don't want a version earlier than our earliest, so assume want one later than our latest and return our latest
 	NSString * latestVersion = [versionNames lastObject];
-	BOOL hasLibressl = ([latestVersion rangeOfString: @"libressl"].length != 0 );
+	BOOL hasLibressl = [latestVersion containsString: @"libressl"];
 	if (   (  [versionNames count] == 1  )
 		|| (  wantLibressl == hasLibressl  )  ) {
 		
@@ -5074,7 +5074,7 @@ static void signal_handler(int signalNumber)
 	
 	// Latest with matching SSL library
 	NSString * secondLatestVersion = [versionNames objectAtIndex: [versionNames count] - 2];
-	hasLibressl = ([secondLatestVersion rangeOfString: @"libressl"].length != 0 );
+	hasLibressl = [secondLatestVersion containsString: @"libressl"];
 	if (  wantLibressl == hasLibressl  ) {
 		return secondLatestVersion;
 	}
@@ -5863,9 +5863,9 @@ static void signal_handler(int signalNumber)
 
     [gFileMgr tbRemoveFileAtPath: UNINSTALL_DETAILS_PATH handler: nil];
 
-    BOOL failed = (   ([logContents rangeOfString: @"Error:"].length != 0)
-                   || ([logContents rangeOfString: @"Problem:"].length != 0)  );
-    BOOL testOnly = [logContents rangeOfString: @"Testing only -- NOT removing or unloading anything"].length != 0;
+    BOOL failed = (   [logContents containsString: @"Error:"]
+                   || [logContents containsString: @"Problem:"]  );
+    BOOL testOnly = [logContents containsString: @"Testing only -- NOT removing or unloading anything"];
 
     NSString * headline = (  failed
                            ? (  testOnly
@@ -6625,10 +6625,10 @@ BOOL warnAboutNonTblks(void)
 			|| [ourExecutable  isEqualToString: @"Tun" @"nelblick"]
             
             || ( ! ourBundleIdentifier )
-			|| ([ourBundleIdentifier    rangeOfString: @"net.tunnelb" @"lick."].length != 0)
+			|| [ourBundleIdentifier    containsString: @"net.tunnelb" @"lick."]
 			
 			|| ( ! ourUpdateFeedURLString )
-			|| ([ourUpdateFeedURLString rangeOfString: @"tu" @"nnelblick.net" ].length != 0)
+			|| [ourUpdateFeedURLString containsString: @"tu" @"nnelblick.net" ]
 			) {
 			TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
 							NSLocalizedString(@"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it"

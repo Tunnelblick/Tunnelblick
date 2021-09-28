@@ -1050,7 +1050,7 @@ BOOL invalidConfigurationName(NSString * name, const char badCharsC[])
 			|| ( [name length] == 0)
             || ( [name hasPrefix: @"."] )
 			|| ( [name hasSuffix: @"."] )
-            || ( [name rangeOfString: @".."].length != 0)
+            || ( [name containsString: @".."] )
             || ( NULL != strpbrk(nameC, badCharsC) )
             );
 }
@@ -1564,16 +1564,16 @@ unsigned getLoadedKextsMask(void) {
     
     unsigned bitMask = 0;
     
-    if (  [stdOutString rangeOfString: @"foo.tap"].length != 0  ) {
+    if (  [stdOutString containsString: @"foo.tap"]  ) {
         bitMask = OPENVPNSTART_FOO_TAP_KEXT;
     }
-    if (  [stdOutString rangeOfString: @"foo.tun"].length != 0  ) {
+    if (  [stdOutString containsString: @"foo.tun"]  ) {
         bitMask = bitMask | OPENVPNSTART_FOO_TUN_KEXT;
     }
-    if (  [stdOutString rangeOfString: @"net.tunnelblick.tap"].length != 0  ) {
+    if (  [stdOutString containsString: @"net.tunnelblick.tap"]  ) {
         bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
     }
-    if (  [stdOutString rangeOfString: @"net.tunnelblick.tun"].length != 0  ) {
+    if (  [stdOutString containsString: @"net.tunnelblick.tun"]  ) {
         bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
     }
     
@@ -1918,13 +1918,13 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
         // So we will ignore everything after a COMMMENT that includes '-----BEGIN' until a line that includes '-----END'.
         // So if no '-----END' appears, we will end up ignoring the rest of the file, even if it is NOT commented out.
         
-        if (  [line rangeOfString: @"-----BEGIN"].length != 0  ) {
+        if (  [line containsString: @"-----BEGIN"]  ) {
             // Have something that looks like a certificate or key; skip to the end of it and insert a message about it.
             unsigned beginLineNumber = i;   // Line number of '-----BEGIN'
             BOOL foundEnd = FALSE;
 			for (  i=i+1; i<[lines count]; i++  )  {
                 line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
-				if (  (foundEnd  = ([line rangeOfString: @"-----END"].length != 0))  ) {
+				if (  (foundEnd  = [line containsString: @"-----END"])  ) {
                     if (  i != (beginLineNumber + 1)  ) {
                         [outputString appendFormat: @" [Lines that appear to be security-related have been omitted]\n"];
                     }

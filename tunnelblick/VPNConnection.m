@@ -2315,7 +2315,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 											   )
 											);
 
-	BOOL wantOpenSSL = ( [versionNameFromPreference rangeOfString: @"libressl"].length == 0 );
+	BOOL wantOpenSSL = ( ! [versionNameFromPreference containsString: @"libressl"] );
 	
 	NSString * sslString = (  wantOpenSSL
 							? @"openssl"
@@ -2334,7 +2334,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		for (  ix=0; ix<[versionNames count]; ix++  ) {
 			version = [versionNames objectAtIndex: ix];
 			if (  [version hasPrefix: requestedMajorMinor]  ) {
-				if (  [version rangeOfString: sslString].length != 0  ) {
+				if (  [version containsString: sslString]  ) {
 					versionToTry = [[version copy] autorelease];
 					break;
 				}
@@ -2359,7 +2359,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			// Don't have the same major.minor, try to at least get SSL that the user specified
 			for (  ix=0; ix<[versionNames count]; ix++  ) {
 				version = [versionNames objectAtIndex: ix];
-				if (  [version rangeOfString: sslString].length != 0  ) {
+				if (  [version containsString: sslString]  ) {
 					versionToTry = [[version retain] autorelease];
 					break;
 				}
@@ -2412,7 +2412,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			}
 			versionToTry = [versionNames objectAtIndex: ixOfNextLowerVersion];
 			
-			if (  [versionToTry rangeOfString: sslString].length != 0  ) {
+			if (  [versionToTry containsString: sslString]  ) {
 				break;
 			}
 		}
@@ -2495,7 +2495,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			}
 			versionToTry = [versionNames objectAtIndex: ixOfNextHigherVersion];
 			
-			if (  [versionToTry rangeOfString: sslString].length != 0  ) {
+			if (  [versionToTry containsString: sslString]  ) {
 				break;
 			}
 		}
@@ -3597,7 +3597,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSString * stdOut;
 	NSString * stdErr;
 	
-    NSArray * arguments = (  ([address rangeOfString: @":"].length != 0)
+    NSArray * arguments = (  [address containsString: @":"]
                            ? [NSArray arrayWithObjects: @"-n", @"get", @"-inet6", address, nil]
                            : [NSArray arrayWithObjects: @"-n", @"get",            address, nil]);
 
@@ -3607,9 +3607,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		return FALSE;
     }
 
-    BOOL result = (   ([stdOut rangeOfString: @"interface: utun"].length != 0)
-                   || ([stdOut rangeOfString: @"interface: tap"].length != 0)
-                   || ([stdOut rangeOfString: @"interface: tun"].length != 0));
+    BOOL result = (   [stdOut containsString: @"interface: utun"]
+                   || [stdOut containsString: @"interface: tap"]
+                   || [stdOut containsString: @"interface: tun"]  );
     if (  ! result  ) {
         [self addToLog: [NSString stringWithFormat: @"Routing info stdout:\n%@stderr:\n%@", stdOut, stdErr]];
     }
@@ -4497,8 +4497,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	// Display dynamic challenge and send user's response to management interface
 	
-	BOOL echoResponse     = [dynamicChallengeFlags rangeOfString: @"E"].length != 0;
-	BOOL responseRequired = [dynamicChallengeFlags rangeOfString: @"R"].length != 0;
+	BOOL echoResponse     = [dynamicChallengeFlags containsString: @"E"];
+	BOOL responseRequired = [dynamicChallengeFlags containsString: @"R"];
 	NSString * response   = [self getResponseToChallenge: dynamicChallengePrompt
 											  echoResponse: echoResponse
 										  responseRequired: responseRequired

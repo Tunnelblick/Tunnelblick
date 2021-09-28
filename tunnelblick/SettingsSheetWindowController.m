@@ -292,7 +292,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     NSString * type = [connection tapOrTun];
     if (   (   ( ! type )
-			|| ([type rangeOfString: @"tun"].length != 0)  )
+			|| [type containsString: @"tun"]  )
 		|| ( ! [self usingSmartSetNameserverScript] )  ) {
         [enableIpv6OnTapCheckbox setState: NSOffState];
         [enableIpv6OnTapCheckbox setEnabled: NO];
@@ -1274,7 +1274,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     NSString * leasewatchOptionsKey = [configurationName stringByAppendingString: @"-leasewatchOptions"];
     NSString * leasewatchOptions = [gTbDefaults stringForKey: leasewatchOptionsKey];
     if (  leasewatchOptions  ) {
-        if (  [leasewatchOptions rangeOfString: leasewatchOptionsChar].length != 0) {
+        if (  [leasewatchOptions containsString: leasewatchOptionsChar]  ) {
             ignoringBecauseOfLeasewatchOptions = TRUE;
         }
     }
