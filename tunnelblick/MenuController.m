@@ -6833,26 +6833,44 @@ BOOL warnAboutNonTblks(void)
 													nil,									   // Other button
 													nil, checkboxLabels, &checkboxResults, FALSE, nil, nil));
 		
-		if (  button == NSAlertDefaultReturn  ) {
-			if (  updateChecksCheckboxIx != -1  ) {
-				[gTbDefaults setBool:   [[checkboxResults objectAtIndex: updateChecksCheckboxIx]    boolValue] forKey: @"updateCheckAutomatically"];
-			}
-			
-			if (  ipAddressChecksCheckboxIx != -1  ) {
-				[gTbDefaults setBool: ! [[checkboxResults objectAtIndex: ipAddressChecksCheckboxIx] boolValue] forKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-			}
-			
-			return YES;
-		}
-		
-		if (   ( ! showMoreInfoButton )
-			|| ( button == NSAlertOtherReturn )  ) {
-			return NO;
-		}
-		
-		if (  privacyURLString  ) {
-			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: privacyURLString]];
-		}
+        switch (  button  ) {
+            case NSAlertDefaultReturn: // "Continue" button
+                if (  updateChecksCheckboxIx != -1  ) {
+                    [gTbDefaults setBool:   [[checkboxResults objectAtIndex: updateChecksCheckboxIx]    boolValue] forKey: @"updateCheckAutomatically"];
+                }
+                
+                if (  ipAddressChecksCheckboxIx != -1  ) {
+                    [gTbDefaults setBool: ! [[checkboxResults objectAtIndex: ipAddressChecksCheckboxIx] boolValue] forKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+                }
+                
+                return YES;
+                
+            case NSAlertAlternateReturn:
+                if (  ! showMoreInfoButton  ) {
+                    // "Quit" button
+                    return NO;
+                }
+                
+                // "More Info" button
+                if (  privacyURLString  ) {
+                    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: privacyURLString]];
+                }
+                
+                // Fall through to loop to display the dialog again
+                break;
+                
+            case NSAlertOtherReturn:
+                // Only used for "Quit"
+                return NO;
+                
+            case NSAlertErrorReturn:
+                NSLog(@"TBRunAlertPanelExtended() in shouldContinueAfterAskingOrInformingAboutInternetAccess returned NSAlertErrorReturn");
+                return NO;
+                
+            default:
+                NSLog(@"TBRunAlertPanelExtended() in shouldContinueAfterAskingOrInformingAboutInternetAccess returned unknown status %d", button);
+                return NO;
+        }
 	}
 }
 
