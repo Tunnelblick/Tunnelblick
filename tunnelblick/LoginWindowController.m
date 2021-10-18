@@ -204,6 +204,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
     [cancelButton setEnabled: YES];
     [OKButton setEnabled: YES];
     [[self window] center];
+    [[self window] setCollectionBehavior: NSWindowCollectionBehaviorCanJoinAllSpaces|NSWindowCollectionBehaviorFullScreenAuxiliary];
     [[self window] display];
     [self showWindow: self];
     [gMC activateIgnoringOtherApps];
