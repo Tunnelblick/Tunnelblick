@@ -1,6 +1,6 @@
 **Building Tunnelblick from Source Code**
 
-_Last Updated 2021-09-12_
+_Last Updated 2021-10-28_
 
 You can build Tunnelblick from the source code. Usually, people install
 and use a ready-to-use binary version of Tunnelblick. The most recent
@@ -64,14 +64,9 @@ recommended for Parallels.
 **1. Supported Versions of macOS and Xcode**
 
 The current version of Tunnelblick should be built using:
- * Xcode 7.3.1  on macOS 10.11.6 on an Intel Mac; or
- * Xcode 12.5.1 on macOS 11.5.2  on an Intel or Apple Silicon Mac.
+ * Xcode 13.1 on macOS 11.6.1 on an Intel or Apple Silicon Mac.
 
-When built by Xcode 7.3.1, Tunnelblick will run on Intel processors, or
-on Apple Silicon processors using Rosetta 2.
-
-When built by Xcode 12.5.1, Tunnelblick will be a Universal binary and run
-natively on Intel or Apple Silicon processors.
+Tunnelblick will be a Universal binary and run natively on Intel or Apple Silicon processors.
 
 Other versions of Xcode and macOS may fail to build Tunnelblick, or create
 Tunnelblick binaries that crash or have other unpredictable behavior.
@@ -139,11 +134,11 @@ usually takes a minute or two. Xcode does indexing at various times, and if you
 click a button while Xcode is indexing it may crash. (This is an Xcode
 problem, not a Tunnelblick problem.)
 
-Xcode 12 needs to have the command line tools installed. You can
+Xcode needs to have the command line tools installed. You can
 do that in Terminal with the following command:
 ```xcode-select --install```
 
-Xcode 12 also needs to have "parallelized builds" turned off. This can be done
+Xcode also needs to have "parallelized builds" turned off. This can be done
 on the Build tab of the window that appears when you click Product >> Scheme
 >> Edit Scheme.
 
@@ -153,7 +148,7 @@ There are two different types of builds. Unfortunately Xcode defaults to
 using the one you shouldn't use, "Debug". You should use the "Release"
 build instead.
 
-To select the type of build in Xcode 12:
+To select the type of build in Xcode:
 
  1. Click Product > Scheme > Edit Scheme…
  2. Select "Run Tunnelblick" in the list on the left of the window that
