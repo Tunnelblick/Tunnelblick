@@ -1,0 +1,11 @@
+--- src/tap/tap.cc	2014-11-03 18:35:06.000000000 -0500
++++ src/tap/tap.cc	2021-10-28 06:57:12.000000000 -0400
+@@ -519,7 +519,7 @@
+ 	event.header.event_code = code;
+ 	event.header.event_data[0] = family;
+ 	event.unit = (u_int32_t) unit;
+-	strncpy(event.if_name, ifnet_name(ifp), IFNAMSIZ);
++	memcpy(event.if_name, ifnet_name(ifp), IFNAMSIZ);
+ 
+ 	ifnet_event(ifp, &event.header);
+ }
