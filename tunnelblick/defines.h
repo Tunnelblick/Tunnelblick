@@ -735,7 +735,6 @@ name = newValue;                                    \
 @"doNotEjectTunnelblickVolume",	\
 @"doNotCheckThatOpenvpnVersionIsCompatibleWithConfiguration",	\
 @"openvpnAllowsDynamicChallengeRegardlessOfAuthRetrySetting",	\
-@"bigSurCanLoadKexts",	\
 @"tryToLoadKextsOnThisVersionOfMacOS",    \
 @"doNotDisconnectForCertificateProblems", \
 \
@@ -840,6 +839,7 @@ name = newValue;                                    \
 \
 /* No longer used */	\
 @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",	\
+@"bigSurCanLoadKexts",    \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\
 @"daysToDeferWarningOfOldBuild",	\

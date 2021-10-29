@@ -2741,7 +2741,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSString * preference = [gTbDefaults stringForKey: preferenceKey];
     if (  ! [preference isEqualToString: @"never"]  ) {
         if (   runningOn__Monterey__Successor__OrNewer()  ) {
-            if (  [gTbDefaults boolForKey: @"bigSurSuccesssorCanLoadKexts"]  ) {
+            if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
                 NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
             } else {
 				if (  preference  ) {
