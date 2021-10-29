@@ -441,40 +441,17 @@ BOOL runningOnCatalinaOrNewer(void)
 
 BOOL runningOnBigSurOrNewer(void)
 {
-    return runningOnNewerThan(10, 15);
+    return runningOnNewerThan(10, 15); // Handles 11.0, too
 }
 
-BOOL runningOn__Big__Sur__Successor__OrNewer(void) {
-
-    // tldr; runningOnNewerThan(10, 16) won't work because Big Sur can be version 11.0 in some circumstances.
-    //
-    // Written when Big Sur was released because the version numbering changed, and Big Sur
-    // will be reported as either 10.16 or as 11.0, depending on the SDK Tunnelblick was built with.
-    //
-    // From https://eclecticlight.co/2020/07/21/big-sur-is-both-10-16-and-11-0-its-official/ :
-    //      The version number reported for Big Sur depends on the SDK used to build the application:
-    //        * Built by SDK 10.15 and lower:  Big Sur is 10.16
-    //        * Built by SDK 10.16 and higher: Big Sur is 11.0
-    //
-    // This doesn't affect Tunnelblick's runningOnBigSurOrNewer(), but if this scheme is contined it
-    // will affect the corresponding routine for Big Sur's successor. Testing for the successor by using
-    // runningOnNewerThan(10, 16) will fail when Big Sur reports itself as 11.0.
-    //
-    // So we test differently when the version number is not 10.something.
-
-    unsigned major, minor, bugFix;
-    OSStatus status = getSystemVersion(&major, &minor, &bugFix);
-    if (  status != 0) {
-        NSLog(@"getSystemVersion() failed");
-        [gMC terminateBecause: terminatingBecauseOfError];
-        return FALSE;
-    }
-
-    if (  major == 10  ) {
-        return runningOnNewerThan(10, 16);
-    }
+BOOL runningOnMontereyOrNewer(void) {
 
     return runningOnNewerThan(11, 99999);
+}
+
+BOOL runningOn__Monterey__Successor__OrNewer(void) {
+    
+    return runningOnNewerThan(12, 99999);
 }
 
 BOOL runningOnNewerThanWithBugFix(unsigned majorVersion, unsigned minorVersion, unsigned bugfixVersion)

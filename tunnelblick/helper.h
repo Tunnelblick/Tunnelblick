@@ -166,7 +166,8 @@ BOOL           runningOnHighSierraOrNewer(void);
 BOOL           runningOnMojaveOrNewer(void);
 BOOL           runningOnCatalinaOrNewer(void);
 BOOL           runningOnBigSurOrNewer(void);
-BOOL           runningOn__Big__Sur__Successor__OrNewer(void);
+BOOL           runningOnMontereyOrNewer(void);
+BOOL           runningOn__Monterey__Successor__OrNewer(void);
 
 BOOL           runningOnTen_Fourteen_FiveOrNewer(void);
 

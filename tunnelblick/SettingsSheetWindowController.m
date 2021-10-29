@@ -377,7 +377,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     // But let users change that assumption by setting the "tryToLoadKextsOnThisVersionOfMacOS" preference to true
 
     BOOL enabled = TRUE;
-    BOOL donotLoadKext = (   runningOn__Big__Sur__Successor__OrNewer()
+    BOOL donotLoadKext = (   runningOn__Monterey__Successor__OrNewer()
                           && ( ! [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"] )  );
 
     if (  donotLoadKext  ) {

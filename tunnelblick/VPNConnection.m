@@ -2740,7 +2740,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSString * preferenceKey = [displayName stringByAppendingString: @"-loadTap"];
 	NSString * preference = [gTbDefaults stringForKey: preferenceKey];
     if (  ! [preference isEqualToString: @"never"]  ) {
-        if (   runningOn__Big__Sur__Successor__OrNewer()  ) {
+        if (   runningOn__Monterey__Successor__OrNewer()  ) {
             if (  [gTbDefaults boolForKey: @"bigSurSuccesssorCanLoadKexts"]  ) {
                 NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
             } else {
@@ -2767,7 +2767,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	preferenceKey = [displayName stringByAppendingString: @"-loadTun"];
 	preference = [gTbDefaults stringForKey: preferenceKey];
     if (  ! [preference isEqualToString: @"never"]  ) {
-        if (   runningOn__Big__Sur__Successor__OrNewer()  ) {
+        if (   runningOn__Monterey__Successor__OrNewer()  ) {
             if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
                 NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
             } else {

@@ -5283,14 +5283,14 @@ static void signal_handler(int signalNumber)
     BOOL alwaysLoadTun     = [self oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: @"tun"];
     BOOL configNeedsTap    = [self oneOrMoreConfigurationsMustLoad: @"tap"];
     BOOL configNeedsTun    = [self oneOrMoreConfigurationsMustLoad: @"tun"];
-    BOOL onBigSurSucessorOrNewer = runningOn__Big__Sur__Successor__OrNewer();
+    BOOL onMontereySucessorOrNewer = runningOn__Monterey__Successor__OrNewer();
     BOOL sipIsDisabled     = runningWithSIPDisabled();
 
     [self displayMessageAboutBigSurAndKextsAlwaysLoadTap: alwaysLoadTap
                                            alwaysLoadTun: alwaysLoadTun
                                           configNeedsTap: configNeedsTap
                                           configNeedsTun: configNeedsTun
-                                 onBigSurSucessorOrNewer: onBigSurSucessorOrNewer
+                                 onMontereySucessorOrNewer: onMontereySucessorOrNewer
                                            sipIsDisabled: sipIsDisabled];
 }
 
@@ -5311,7 +5311,7 @@ static void signal_handler(int signalNumber)
                                          alwaysLoadTun: (BOOL) alwaysLoadTun
                                         configNeedsTap: (BOOL) configNeedsTap
                                         configNeedsTun: (BOOL) configNeedsTun
-                               onBigSurSucessorOrNewer: (BOOL) onBigSurSucessorOrNewer
+                               onMontereySucessorOrNewer: (BOOL) onMontereySucessorOrNewer
                                          sipIsDisabled: (BOOL) sipIsDisabled{
 
 	(void)sipIsDisabled;
@@ -5346,7 +5346,7 @@ static void signal_handler(int signalNumber)
         NSMutableString * htmlMessage = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
         NSString * preferenceName = nil; // Will replace with appropriate name for the message that is being displayed
 
-        if (   onBigSurSucessorOrNewer
+        if (   onMontereySucessorOrNewer
             && ( ! [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"] )  ) {
             [htmlMessage appendString: willNotConnect];
             [htmlMessage appendString: fixWillNotConnect];
