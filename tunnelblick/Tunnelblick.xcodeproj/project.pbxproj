@@ -112,6 +112,7 @@
 		6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */; };
 		6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */; };
 		6375FB4B1387F0E20034CB78 /* SettingsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */; };
+		63793423272D6B8200179B8F /* bn.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63793422272D6B8100179B8F /* bn.lproj */; };
 		637A871913B74B81003C1871 /* SplashWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A871813B74B81003C1871 /* SplashWindowController.m */; };
 		637A871C13B74DFB003C1871 /* SplashWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 637A871B13B74DFB003C1871 /* SplashWindow.xib */; };
 		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
@@ -485,6 +486,7 @@
 		6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSheetWindowController.m; sourceTree = "<group>"; };
 		6375FB471387F0270034CB78 /* SettingsSheetWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsSheetWindowController.h; sourceTree = "<group>"; };
 		6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSheet.xib; sourceTree = "<group>"; };
+		63793422272D6B8100179B8F /* bn.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bn.lproj; sourceTree = "<group>"; };
 		637A871713B74B81003C1871 /* SplashWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashWindowController.h; sourceTree = "<group>"; };
 		637A871813B74B81003C1871 /* SplashWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashWindowController.m; sourceTree = "<group>"; };
 		637A871B13B74DFB003C1871 /* SplashWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashWindow.xib; sourceTree = "<group>"; };
@@ -1098,6 +1100,7 @@
 				635713A31A6709D800709670 /* ar.lproj */,
 				631C2F201DF1A74B00DB1AE4 /* az.lproj */,
 				63DC245419FA73E3006B1BDF /* bg.lproj */,
+				63793422272D6B8100179B8F /* bn.lproj */,
 				63BF3E1010A2ED7F00AC8A59 /* ca.lproj */,
 				630210121465CBBC00283B78 /* cs.lproj */,
 				6341C39313D6DE6200B9CE2B /* da.lproj */,
@@ -1599,6 +1602,7 @@
 				61BC4DB40E2FA3C300F24255 /* MainMenu.xib in Resources */,
 				61F294A60ED389520097DE94 /* openvpn.conf in Resources */,
 				63A6F033236B93CF002762D9 /* th.lproj in Resources */,
+				63793423272D6B8200179B8F /* bn.lproj in Resources */,
 				615F748A0ED3A4C2007F6F0A /* en.lproj in Resources */,
 				634E02051CAD9764008637FF /* af.lproj in Resources */,
 				63E5276A20C2DA7E00963456 /* sr_latn.lproj in Resources */,
