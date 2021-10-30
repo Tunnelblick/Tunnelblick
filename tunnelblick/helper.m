@@ -399,21 +399,6 @@ BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
 }
 
 
-BOOL runningOnMountainLionOrNewer(void)
-{
-    return runningOnNewerThan(10, 7);
-}
-
-BOOL runningOnMavericksOrNewer(void)
-{
-    return runningOnNewerThan(10, 8);
-}
-
-BOOL runningOnYosemiteOrNewer(void)
-{
-    return runningOnNewerThan(10, 9);
-}
-
 BOOL runningOnElCapitanOrNewer(void)
 {
     return runningOnNewerThan(10, 10);
@@ -514,27 +499,22 @@ BOOL okToUpdateConfigurationsWithoutAdminApproval(void) {
 
 BOOL displaysHaveDifferentSpaces(void) {
     
-    if (   runningOnMavericksOrNewer()  ) {
-        
-        NSString * spacesPrefsPath = [NSHomeDirectory() stringByAppendingPathComponent: @"/Library/Preferences/com.apple.spaces.plist"];
-        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: spacesPrefsPath];
-        if (  dict  ) {
-            id obj = [dict objectForKey: @"spans-displays"];
-            if (  obj  ) {
-                if (  [obj respondsToSelector: @selector(boolValue)]  ) {
-                    return ! [obj boolValue];
-                } else {
-                    NSLog(@"The 'spans-displays' preference from %@ does not respond to boolValue", spacesPrefsPath);
-                }
+    NSString * spacesPrefsPath = [NSHomeDirectory() stringByAppendingPathComponent: @"/Library/Preferences/com.apple.spaces.plist"];
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: spacesPrefsPath];
+    if (  dict  ) {
+        id obj = [dict objectForKey: @"spans-displays"];
+        if (  obj  ) {
+            if (  [obj respondsToSelector: @selector(boolValue)]  ) {
+                return ! [obj boolValue];
+            } else {
+                NSLog(@"The 'spans-displays' preference from %@ does not respond to boolValue", spacesPrefsPath);
             }
-        } else {
-            NSLog(@"Unable to load dictionary from %@", spacesPrefsPath);
         }
-        
-        return YES; // Error, so assume displays do have different spaces
+    } else {
+        NSLog(@"Unable to load dictionary from %@", spacesPrefsPath);
     }
     
-    return NO;
+    return YES; // Error, so assume displays do have different spaces
 }
 
 BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
@@ -551,8 +531,7 @@ BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
         return YES;
     }
     
-    if (   runningOnMavericksOrNewer()
-        && ([[NSScreen screens] count] != 1)
+    if (   ([[NSScreen screens] count] != 1)
         && displaysHaveDifferentSpaces()  ) {
         return YES;
     }
@@ -566,12 +545,7 @@ BOOL shouldPlaceIconInStandardPositionInStatusBar(void) {
         return YES;
     }
     
-    if (   runningOnMavericksOrNewer()
-        && displaysHaveDifferentSpaces()  ) {
-        return YES;
-    }
-    
-    return NO;
+    return displaysHaveDifferentSpaces();
 }
 
 BOOL localAuthenticationIsAvailable(void) {

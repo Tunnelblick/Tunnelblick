@@ -1405,9 +1405,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         ) {
         
         // Force icon to the right in Status Bar
-        long long priority = (  runningOnMountainLionOrNewer()
-							  ? 0x000000007FFFFFFDll			// Mountain Lion will accept, and Yosemite and higher need, 2147483645 (0x7FFFFFFD)
-							  : 0x000000007FFFFFFEll);			// Lion won't work with that, though
+        long long priority = 0x000000007FFFFFFDll;
         
         if (  ! ( statusItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
             NSLog(@"Can't obtain status item near Spotlight icon");
@@ -4546,9 +4544,7 @@ static void signal_handler(int signalNumber)
     BOOL sawDevApple = FALSE;
     BOOL sawDevUs    = FALSE;
     BOOL sawIdent    = FALSE;
-    BOOL sawTeam     = (  runningOnYosemiteOrNewer()
-                        ? FALSE
-                        : TRUE);    // codesign on some macOS 10.9 (Mavericks) and lower does not output this field
+    BOOL sawTeam     = FALSE;
     
     NSArray * lines = [codesignDvvOutput componentsSeparatedByString: @"\n"];
     NSString * line;
@@ -5747,19 +5743,16 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 020")
 
-	if (  runningOnMountainLionOrNewer()) {
-		
-		NSUserNotificationCenter * center = [NSUserNotificationCenter defaultUserNotificationCenter];
-		if (  ! center) {
-			NSLog(@"No result from [NSUserNotificationCenter defaultUserNotificationCenter]");
-			[self terminateBecause: terminatingBecauseOfError];
-		}
-		if (  ! [center respondsToSelector: @selector(setDelegate:)]  ) {
-			NSLog(@"[NSUserNotificationCenter defaultUserNotificationCenter] does not respond to 'setDelegate:'");
-			[self terminateBecause: terminatingBecauseOfError];
-		}
-		[center setDelegate: self];
-	}
+	NSUserNotificationCenter * center = [NSUserNotificationCenter defaultUserNotificationCenter];
+    if (  ! center) {
+        NSLog(@"No result from [NSUserNotificationCenter defaultUserNotificationCenter]");
+        [self terminateBecause: terminatingBecauseOfError];
+    }
+    if (  ! [center respondsToSelector: @selector(setDelegate:)]  ) {
+        NSLog(@"[NSUserNotificationCenter defaultUserNotificationCenter] does not respond to 'setDelegate:'");
+        [self terminateBecause: terminatingBecauseOfError];
+    }
+    [center setDelegate: self];
     
     if (  [gTbDefaults boolForKey: @"haveStartedAnUpdateOfTheApp"]  ) {
         [gTbDefaults removeObjectForKey: @"haveStartedAnUpdateOfTheApp"];
@@ -7257,9 +7250,8 @@ BOOL warnAboutNonTblks(void)
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 009")
     [splashScreen setMessage: NSLocalizedString(@"Installation finished successfully.", @"Window text")];
-	if (  runningOnMountainLionOrNewer()  ) {
-		[UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Installation succeeded", @"Window title") msg: launchWindowText];
-    }
+	[UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Installation succeeded", @"Window title") msg: launchWindowText];
+
 	
     TBLog(@"DB-SU", @"relaunchIfNecessary: 010")
     [splashScreen fadeOutAndClose];

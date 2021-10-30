@@ -110,14 +110,6 @@ BOOL networkIsReachable(void) {
 	
 	NSTimeInterval timeoutInterval = 20.0;
 	
-	NSURLRequest * testRequest = [NSURLRequest requestWithURL: testURL
-											   	  cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
-											  timeoutInterval: timeoutInterval];
-	NSURLConnection * testConnection = [[NSURLConnection alloc] initWithRequest: testRequest delegate: nil];
-	return ( testConnection ? YES : NO);
-	
-	WHEN WE SUPPORT ONLY 10.9 AND HIGHER, REPLACE THE ABOVE FIVE NON-EMPTY LINES WITH THE FOLLOWING (runningOnMavericksOrNewer()):
- 
 	NSURLSessionConfiguration * sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
 	sessionConfiguration.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 	sessionConfiguration.timeoutIntervalForRequest = timeoutInterval;

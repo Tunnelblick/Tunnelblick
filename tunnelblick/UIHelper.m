@@ -343,33 +343,26 @@ extern TBUserDefaults * gTbDefaults;
 +(void) showSuccessNotificationTitle: (NSString *) title
                                  msg: (NSString *) msg {
     
-	if (  runningOnMountainLionOrNewer()  ) {
-		
-        NSUserNotification * notification = [[[NSUserNotification alloc] init] autorelease];
-        if (  ! notification  ) {
-            NSLog(@"Cannot create NSUserNotification");
-            TBShowAlertWindow(title, msg);
-            return;
-        }
-        
-		[notification setTitle:           title];
-		[notification setInformativeText: msg];
-		[notification setSoundName:       @"NSUserNotificationDefaultSoundName"];
-		
-		NSUserNotificationCenter * center = [NSUserNotificationCenter defaultUserNotificationCenter];
-        if (  ! center  ) {
-            NSLog(@"Cannot create NSUserNotificationCenter");
-            TBShowAlertWindow(title, msg);
-            return;
-        }
-        
-		[center deliverNotification: notification];
-		
-	} else {
-		
-		TBShowAlertWindow(title, msg);
-		
-	}
+    NSUserNotification * notification = [[[NSUserNotification alloc] init] autorelease];
+    if (  ! notification  ) {
+        NSLog(@"Cannot create NSUserNotification");
+        TBShowAlertWindow(title, msg);
+        return;
+    }
+    
+    [notification setTitle:           title];
+    [notification setInformativeText: msg];
+    [notification setSoundName:       @"NSUserNotificationDefaultSoundName"];
+    
+    NSUserNotificationCenter * center = [NSUserNotificationCenter defaultUserNotificationCenter];
+    if (  ! center  ) {
+        NSLog(@"Cannot create NSUserNotificationCenter");
+        TBShowAlertWindow(title, msg);
+        return;
+    }
+    
+    [center deliverNotification: notification];
+
 }
 
 // The following method is a modified version of the code at http://stackoverflow.com/questions/10517386/how-to-give-nswindow-a-shake-effect-as-saying-no-as-in-login-failure-window/23491643#23491643
