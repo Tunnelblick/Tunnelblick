@@ -2554,7 +2554,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 					  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry));
 			}
             if (  ! alreadyWarnedAboutUsingDifferentVersionOfOpenVPN  ) {
-                NSString * problematicOptions =[removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
+                NSString * problematicOptions = [removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
                 warningMessage1 = [NSString stringWithFormat:
                                    NSLocalizedString(@"This VPN works now, but may not work in a future version of Tunnelblick.\n\n"
                                                      
