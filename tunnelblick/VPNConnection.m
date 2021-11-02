@@ -2267,6 +2267,37 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return  result;
 }
 
+-(NSString *) linesToHTML: (NSString *) text {
+    
+    // Converts simple text to HTML:
+    //      Replaces single instances of \n with <br />
+    //      Surrounds each "line" ending in \n\n with <p> and </p>
+
+    NSMutableString * result = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+    
+    NSArray * lines = [text componentsSeparatedByString: @"\n\n"];
+    NSEnumerator * e = [lines objectEnumerator];
+    NSMutableString * line;
+    while (   (line = [[[e nextObject] mutableCopy] autorelease])
+           && (line.length != 0)  ) {
+        [line replaceOccurrencesOfString: @"\n"
+                              withString: @"<br />"
+                                 options: 0
+                                   range: NSMakeRange(0, line.length)];
+        if (  result.length != 0) {
+            [result appendString: @"</p>\n"];
+        }
+        [result appendString: @"<p>"];
+        [result appendString: line];
+    }
+
+    if (  result.length != 0) {
+        [result appendString: @"</p>\n"];
+    }
+
+    return [NSString stringWithString: result];
+}
+
 -(NSUInteger) getOpenVPNVersionIxToUseConnecting: (BOOL) connecting {
 
 	// Decides what version of OpenVPN to use with the configuration and returns its index in MenuController's "openvpnVersionNames" array.
@@ -2606,7 +2637,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  warningMessage  ) {
         [gMC addWarningNoteWithHeadline: NSLocalizedString(@"Problem using future versions of Tunnelblick...",
                                                            @"Menu item. Translate it to be as short as possible. When clicked, will display the full warning.")
-                                message: [[[NSAttributedString alloc ] initWithString: warningMessage] autorelease]
+                                message: attributedLightDarkStringFromHTML( [self linesToHTML: warningMessage] )
                           preferenceKey: key];
 	}
 	
