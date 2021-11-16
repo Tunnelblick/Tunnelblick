@@ -5319,12 +5319,14 @@ static void signal_handler(int signalNumber)
 
     if (  needTunOrTap  ) {
 
+#if MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS
         NSString * willNotConnect   = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n"
                                                         @"<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
 
         NSString * fixWillNotConnect = NSLocalizedString(@"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n",
                                                         @"HTML text. May be combined with other paragraphs.");
+#endif
 
         NSString * futureNotConnect = NSLocalizedString(@"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n"
                                                         @"<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n",
@@ -5342,6 +5344,7 @@ static void signal_handler(int signalNumber)
         NSMutableString * htmlMessage = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
         NSString * preferenceName = nil; // Will replace with appropriate name for the message that is being displayed
 
+#if MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS
         if (   onMontereySucessorOrNewer
             && ( ! [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"] )  ) {
             [htmlMessage appendString: willNotConnect];
@@ -5351,7 +5354,10 @@ static void signal_handler(int signalNumber)
             [htmlMessage appendString: futureNotConnect];
             preferenceName = @"skipWarningAboutBigSur2";
         }
-
+#else
+        [htmlMessage appendString: futureNotConnect];
+        preferenceName = @"skipWarningAboutBigSur2";
+#endif
         if (  ! configNeedsTap  ) {
             [htmlMessage appendString: mayModify];
             preferenceName = [preferenceName stringByAppendingString: @"m"];

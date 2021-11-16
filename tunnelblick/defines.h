@@ -22,6 +22,8 @@
 //*************************************************************************************************
 // Misc:
 
+#define MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS FALSE
+
 // Set to TRUE to allow Tunnelblick to use openvpnstart's kill and killall subcommands
 #define ALLOW_OPENVPNSTART_KILL    TRUE
 #define ALLOW_OPENVPNSTART_KILLALL TRUE

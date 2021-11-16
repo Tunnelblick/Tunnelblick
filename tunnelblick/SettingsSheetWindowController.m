@@ -377,6 +377,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     // But let users change that assumption by setting the "tryToLoadKextsOnThisVersionOfMacOS" preference to true
 
     BOOL enabled = TRUE;
+
+#if MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS
     BOOL donotLoadKext = (   runningOn__Monterey__Successor__OrNewer()
                           && ( ! [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"] )  );
 
@@ -390,6 +392,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
         enabled = FALSE;
     }
+#endif
 
     [button selectItemAtIndex: index];
     [button setEnabled: enabled];
