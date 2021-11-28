@@ -426,31 +426,6 @@ BOOL removeQuarantineBit(void) {
     return TRUE;
 }
 
-NSString * getStringOf40RandomCharacters(void) {
-	
-	// Returns a 40 character long string composed of random characters in the range 'a' through 'p'
-	// (A simple encoding of 20 bytes of random data.)
-	
-	// Get 20 random bytes
-	const char bytes[20];
-	int result = SecRandomCopyBytes(kSecRandomDefault, sizeof(bytes), (void *)bytes);
-	if (  result != errSecSuccess  ) {
-		appendLog(@"Unable to obtain data for .mip");
-		errorExit();
-	}
-	
-	// Convert each 4-bit nibble to a character from 'a' through 'p'
-	NSMutableString * outString = [[[NSMutableString alloc] initWithCapacity: 2 * sizeof(bytes)] autorelease];
-	NSUInteger ix;
-	for (  ix=0; ix<sizeof(bytes); ix++) {
-		char ch = bytes[ix];
-		char ch1 = (ch & 0xF) + 'a';
-		char ch2 = ((ch >> 4) & 0xF) + 'a';
-		[outString appendFormat: @"%c%c", ch1, ch2];
-	}
-	return outString;
-}
-
 /* DISABLED BECAUSE THIS IS NOT AVAILABLE ON 10.4 and 10.5
  *
  * UPDATE 2016-07-03: SMJobSubmit is now deprecated, but we are leaving the code in so that if 'launchctl load' stops working, we can try using it
@@ -1181,6 +1156,11 @@ void doInitialWork(BOOL updateKexts) {
 		errorExit();
 	}
 	
+    if (  ! createDirWithPermissionAndOwnership(L_AS_T_MIPS,
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
+        errorExit();
+    }
+    
 	if (  ! createDirWithPermissionAndOwnership(L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH,
 												PERMS_SECURED_FOLDER, 0, 0)  ) {
 		errorExit();
@@ -1208,38 +1188,21 @@ void doInitialWork(BOOL updateKexts) {
 		secureOpenvpnBinariesFolder(L_AS_T_OPENVPN);
 	}
 
-	// Create the .mip file owned by root with 0600 permissions in L_AS_T if it doesn't already exist
-	NSDirectoryEnumerator  * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T];
+	// Delete *.mip files (used before using the Mips folder)
+    NSDirectoryEnumerator  * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T];
 	NSString * fileName;
 	while (  (fileName = [dirEnum nextObject])  ) {
 		[dirEnum skipDescendants];
 		if (  [fileName hasSuffix: @".mip"]  ) {
-			break;
+            NSString * fullPath = [L_AS_T stringByAppendingPathComponent: fileName];
+            if (  [gFileMgr tbRemoveFileAtPath: fullPath handler: nil]  ) {
+                appendLog([NSString stringWithFormat: @"Deleted obsolete file '%@'", fullPath]);
+            } else {
+                appendLog([NSString stringWithFormat: @"Cannot delete obsolete file '%@'", fullPath]);
+            }
 		}
 	}
-	if (  ! fileName) {
-		// Get 40 random characters A-P as a filename for the .mip file
-		NSString * name = getStringOf40RandomCharacters();
-		NSString * path = [L_AS_T stringByAppendingPathComponent: [name stringByAppendingString: @".mip"]];
-		NSString * contents = [name stringByAppendingString: @"\n"];
-		NSData * contentsAsData = [NSData dataWithBytes: [contents cStringUsingEncoding: NSASCIIStringEncoding] length: [contents length]];
-		if (  contentsAsData == NULL  ) {
-			appendLog(@"Unable to create .mip because can't get dataWithBytes with NSASCIIStringEncoding");
-			errorExit();
-		}
-		NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-									 [NSNumber numberWithInt: 0], NSFileOwnerAccountID,
-									 [NSNumber numberWithInt: 0], NSFileGroupOwnerAccountID,
-									 [NSNumber numberWithInt: PERMS_SECURED_ROOT_RO], NSFilePosixPermissions,
-									 nil];
-		if (  ! [gFileMgr createFileAtPath: path contents: contentsAsData attributes: attributes] ) {
-			appendLog(@"Unable to create .mip");
-			errorExit();
-		}
-		
-		appendLog(@"Created .mip");
-	}
-	
+    
 	NSString * userL_AS_T_Path= [[[NSHomeDirectory()
 								   stringByAppendingPathComponent: @"Library"]
 								  stringByAppendingPathComponent: @"Application Support"]

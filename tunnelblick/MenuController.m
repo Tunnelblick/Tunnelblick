@@ -7559,16 +7559,6 @@ BOOL warnAboutNonTblks(void)
     return -1;
 }
 
-BOOL needToCreateMip(void) {
-	
-	if (  mipName()  ) {
-		return NO;
-	}
-	
-	NSLog(@"No .mip");
-	return YES;
-}
-
 // Checks whether the installer needs to be run
 //
 // Returns an unsigned containing INSTALLER_... bits set appropriately for runInstaller:, and, ultimately, by the installer program
@@ -7580,7 +7570,6 @@ unsigned needToRunInstaller(BOOL inApplications)
     unsigned flags = 0;
     
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
-	if (  ( needToCreateMip() )									 ) flags = flags | INSTALLER_SECURE_APP; // .mip will be created by any use of installer
     if (  needToReplaceLaunchDaemon()                            ) flags = flags | INSTALLER_REPLACE_DAEMON;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;
@@ -7956,6 +7945,16 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         return YES;
     }
     if (  ! checkOwnerAndPermissions(L_AS_T_LOGS, 0, 0, PERMS_SECURED_FOLDER)  ) {
+        return YES; // NSLog already called
+    }
+    
+    // check that Mips directory exists and has proper ownership and permissions
+    if (  ! (   [gFileMgr fileExistsAtPath: L_AS_T_MIPS isDirectory: &isDir]
+             && isDir )  ) {
+        NSLog(@"Need to create mips directory '%@'", L_AS_T_MIPS);
+        return YES;
+    }
+    if (  ! checkOwnerAndPermissions(L_AS_T_MIPS, 0, 0, PERMS_SECURED_FOLDER)  ) {
         return YES; // NSLog already called
     }
     

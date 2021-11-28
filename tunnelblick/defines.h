@@ -32,7 +32,7 @@
 #define DISPLAY_NAME_LENGTH_MAX 512
 
 // The maximum 'argc' for openvpnstart
-#define OPENVPNSTART_MAX_ARGC 11
+#define OPENVPNSTART_MAX_ARGC 12
 
 // The "admin" and "staff" group IDs
 #define ADMIN_GROUP_ID 80
@@ -117,6 +117,8 @@
 #define L_AS_T_USERS  @"/Library/Application Support/Tunnelblick/Users"
 
 #define L_AS_T_TBLKS  @"/Library/Application Support/Tunnelblick/Tblks"
+
+#define L_AS_T_MIPS  @"/Library/Application Support/Tunnelblick/Mips"
 
 #define L_AS_T_OPENVPN  @"/Library/Application Support/Tunnelblick/Openvpn"
 

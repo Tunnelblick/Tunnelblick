@@ -28,6 +28,7 @@
 #import <sys/acl.h>
 #import <sys/mount.h>
 #import <sys/param.h>
+#import <sys/stat.h>
 #import <sys/sysctl.h>
 #import <sys/types.h>
 #import <sys/xattr.h>
@@ -910,7 +911,20 @@ NSString * newTemporaryDirectoryPathInTunnelblickHelper(void) {
 
 //**************************************************************************************************************************
 
-int runAsRootWithConfigNameAndLocCodeReturnOutput(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode, NSString ** stdOut, NSString ** stdErr) {
+NSString * managementPasswordFilePath(NSString * configName) {
+    
+    if (  configName  ) {
+        NSString * name = [configName stringByAppendingPathExtension: @"mip"];
+        NSString * path = [L_AS_T_MIPS stringByAppendingPathComponent: name];
+        return path;
+    }
+    
+    return nil;
+}
+
+//**************************************************************************************************************************
+
+int runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode, NSString * managementPassword, NSString ** stdOut, NSString ** stdErr) {
 
 	// Runs a program as root
 	//
@@ -977,14 +991,66 @@ int runAsRootWithConfigNameAndLocCodeReturnOutput(NSString * thePath, NSArray * 
     }
     [task setStandardError: errFileHandle];
     
+    if (  managementPassword  ) {
+        
+        // Create a file with the contents of the management interface password followed by a linefeed
+        // The file must be owned by root and have 0700 permissions so only root can read it.
+        
+        NSString * path = managementPasswordFilePath(configName);
+        
+        const char * path_c = [path fileSystemRepresentation];
+
+        mode_t old_umask = umask(0077);
+        
+        becomeRoot(@"Create .mip file");
+        
+            FILE * file = fopen(path_c, "w");
+            if (  file == NULL  ) {
+                umask(old_umask);
+                stopBeingRoot();
+                fprintf(stderr, "runAsRoot: Unable to create %s\n", path_c);
+                [dirPath release];
+                [stdFileHandle release];
+                [errFileHandle release];
+                return -1;
+            }
+
+            umask(old_umask);
+
+            const char * managementPassword_c = [[managementPassword stringByAppendingString: @"\n"]
+                                            cStringUsingEncoding: NSASCIIStringEncoding];
+            size_t len = strlen(managementPassword_c);
+            size_t written = fwrite(managementPassword_c, 1, len, file);
+            if (  written != len  ) {
+                stopBeingRoot();
+                fprintf(stderr, "runAsRoot: Unable to write to %s\n", path_c);
+                [dirPath release];
+                [stdFileHandle release];
+                [errFileHandle release];
+                return -1;
+            }
+            
+            if (  fclose(file) != 0  ) {
+                stopBeingRoot();
+                fprintf(stderr, "runAsRoot: Unable to close %s\n", path_c);
+                [dirPath release];
+                [stdFileHandle release];
+                [errFileHandle release];
+                return -1;
+            }
+        
+        stopBeingRoot();
+    }
+    
     [task setCurrentDirectoryPath: @"/private/tmp"];
     
     [task setEnvironment: getSafeEnvironment(configName, configLocCode, nil)];
     
-	becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
+    becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
     
-	[task launch];
-	[task waitUntilExit];
+        [task launch];
+        [task waitUntilExit];
+    
     stopBeingRoot();
 	
     [stdFileHandle closeFile];
@@ -1038,20 +1104,20 @@ int runAsRootWithConfigNameAndLocCodeReturnOutput(NSString * thePath, NSArray * 
 //**************************************************************************************************************************
 int runAsRootWithConfigNameAndLocCode(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString * configName, unsigned configLocCode) {
     
-    return runAsRootWithConfigNameAndLocCodeReturnOutput(thePath, theArguments, permissions, configName, configLocCode, nil, nil);
+    return runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(thePath, theArguments, permissions, configName, configLocCode, nil, nil, nil);
     
 }
 
 //**************************************************************************************************************************
 
 int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
-	return runAsRootWithConfigNameAndLocCode(thePath, theArguments, permissions, nil, 0);
+	return runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, nil, nil);
 }
 
 //**************************************************************************************************************************
 
 int runAsRootReturnOutput(NSString * thePath, NSArray * theArguments, mode_t permissions, NSString ** stdOut, NSString ** stdErr) {
-    return runAsRootWithConfigNameAndLocCodeReturnOutput(thePath, theArguments, permissions, nil, 0, stdOut, stdErr);
+    return runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(thePath, theArguments, permissions, nil, 0, nil, stdOut, stdErr);
 }
 
 //**************************************************************************************************************************
@@ -2324,7 +2390,8 @@ int startVPN(NSString * configFile,
              BOOL       noMonitor,
              unsigned   bitMask,
              NSString * leasewatchOptions,
-             NSString * openvpnVersion) {
+             NSString * openvpnVersion,
+             NSString * managementPassword) {
     
 	// Tries to start an openvpn connection (up to ten times if not starting from GUI).
     // Returns OPENVPNSTART_COULD_NOT_START_OPENVPN (having output a message to stderr) if any other error occurs
@@ -2519,13 +2586,7 @@ int startVPN(NSString * configFile,
     [arguments addObject: @"--management"];
     [arguments addObject: @"127.0.0.1"];
     [arguments addObject: [NSString stringWithFormat:@"%u", port]];
-	
-	NSString * themipName = mipName();
-	if (  ! themipName  ) {
-		fprintf(stderr, "Unable to find .mip\n");
-		exitOpenvpnstart(169);
-	}
-	[arguments addObject: [L_AS_T stringByAppendingPathComponent: [themipName stringByAppendingString: @".mip"]]];
+    [arguments addObject: managementPasswordFilePath(configFile)];
     
 	if (  (bitMask & OPENVPNSTART_TEST_MTU) != 0  ) {
         [arguments addObject: @"--mtu-test"];
@@ -2859,7 +2920,7 @@ int startVPN(NSString * configFile,
             }
 		}
     }
-	
+    
     // Unload foo.tun/tap iff we are loading the new net.tunnelblick.tun/tap and foo.tun/tap are loaded
     unsigned unloadMask  = 0;
     unsigned loadedKexts = getLoadedKextsMask();
@@ -2957,19 +3018,19 @@ int startVPN(NSString * configFile,
 		}
 	}
     
-    status = runAsRoot(openvpnPath, arguments, 0755);
+    status = runAsRootWithConfigNameAndLocCodeAndmanagementPasswordReturnOutput(openvpnPath, arguments, 0755, configFile, 0, managementPassword, nil, nil);
     
     NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@", openvpnPath];
     unsigned i;
     for (i=0; i<[arguments count]; i++) {
-		NSString * arg = [arguments objectAtIndex: i];
-		if (  [arg hasPrefix: @"--"]  ) {
-			[displayCmdLine appendString: [NSString stringWithFormat: @"\n     %@", arg]];
-		} else {
-			[displayCmdLine appendString: [NSString stringWithFormat: @" %@", arg]];
-		}
-	}
-    
+        NSString * arg = [arguments objectAtIndex: i];
+        if (  [arg hasPrefix: @"--"]  ) {
+            [displayCmdLine appendString: [NSString stringWithFormat: @"\n     %@", arg]];
+        } else {
+            [displayCmdLine appendString: [NSString stringWithFormat: @" %@", arg]];
+        }
+    }
+
     if (  status != 0  ) {
         NSString * logContents = @"";
         if (  (bitMask & OPENVPNSTART_DISABLE_LOGGING) == 0  ) {
@@ -3555,7 +3616,8 @@ int main(int argc, char * argv[]) {
             unsigned   bitMask = OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT;
             NSString * leasewatchOptions = @"-i";
             NSString * openvpnVersion = @"";
-            
+            NSString * managementPassword = @"";
+
 			if (  (argc > 3) && (argc <= OPENVPNSTART_MAX_ARGC)  ) {
                 
                 if (  strlen(argv[3]) <= DISPLAY_NAME_LENGTH_MAX                      ) configFile = [NSString stringWithUTF8String:argv[2]];
@@ -3567,7 +3629,8 @@ int main(int argc, char * argv[]) {
                 if (  (argc >  8) && (strlen(argv[ 8]) < 10)                          ) bitMask = cvt_atou(argv[8], @"bitMask");
                 if (  (argc >  9) && (strlen(argv[ 9]) < 16)                          ) leasewatchOptions = [NSString stringWithUTF8String: argv[9]]; 
                 if (  (argc > 10) && (strlen(argv[10]) < 128)                         ) openvpnVersion    = [NSString stringWithUTF8String: argv[10]];
-                
+                if (  (argc > 11) && (strlen(argv[11]) < 128)                         ) managementPassword = [NSString stringWithUTF8String: argv[11]];
+
                 validateConfigName(configFile);
                 validatePort(port);
                 validateUseScripts(useScripts);
@@ -3614,7 +3677,8 @@ int main(int argc, char * argv[]) {
                                        noMonitor,
                                        bitMask,
                                        leasewatchOptions,
-                                       openvpnVersion);
+                                       openvpnVersion,
+                                       managementPassword);
                     
                     if (   (retCode == 0)               // If succeeded, return indicating that success
                         || ((bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS) != 0)  ) {// If failed and are using the GUI, return the failure

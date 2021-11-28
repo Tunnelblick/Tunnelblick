@@ -253,7 +253,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         }
         statistics.lastSet = [[NSDate date] retain];
         
-        [self clearStatisticsIncludeTotals: YES];        
+        [self clearStatisticsIncludeTotals: YES];
     }
     
     return self;
@@ -919,7 +919,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	[dynamicChallengeFlags            release]; dynamicChallengeFlags            = nil;
 	[authRetryParameter				  release]; authRetryParameter               = nil;
 	[statistics.lastSet               release]; statistics.lastSet               = nil;
-	
+    [managementPassword               release]; managementPassword               = nil;
+
     [super dealloc];
 }
 
@@ -1617,14 +1618,16 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 						  ];
 	[self addToLog: logText];
 	
-	NSMutableArray * escapedArguments = [NSMutableArray arrayWithCapacity:[argumentsUsedToStartOpenvpnstart count]];
+    // Log the command used to launch openvpnstart, but don't show the management interface password
+    NSMutableString * escapedArguments = [NSMutableString stringWithCapacity: 1000];
 	unsigned i;
-	for (i=0; i<[argumentsUsedToStartOpenvpnstart count]; i++) {
-		[escapedArguments addObject: [[[argumentsUsedToStartOpenvpnstart objectAtIndex: i] componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "]];
+	for (i=0; i<([argumentsUsedToStartOpenvpnstart count]-1); i++) {
+		[escapedArguments appendString: [[[argumentsUsedToStartOpenvpnstart objectAtIndex: i]
+                                       componentsSeparatedByString: @" "]
+                                      componentsJoinedByString: @"\\ "]];
 	}
-	
-	[self addToLog: [NSString stringWithFormat: @"openvpnstart %@",
-					 [escapedArguments componentsJoinedByString: @" "]]];
+    [escapedArguments appendString: @" <password>"];
+	[self addToLog: [NSString stringWithFormat: @"openvpnstart %@", escapedArguments]];
 	
 	unsigned bitMask = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 7] unsignedIntValue];
 	if (  (loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT)  ) {
@@ -1843,6 +1846,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	[self setDynamicChallengePrompt:   nil];
 	[self setDynamicChallengeFlags:    nil];
 
+    [self createAndStoreManagementPassword];
+    
 	disconnectWhenStateChanges = FALSE;
     
     NSString * oldRequestedState = [self requestedState];
@@ -2900,14 +2905,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * ourOpenVPNVersion = [[gMC openvpnVersionNames] objectAtIndex: finalOpenvpnIx];
 
     NSArray * args = [NSArray arrayWithObjects:
-                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, ourOpenVPNVersion, nil];
+                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, ourOpenVPNVersion, [self managementPassword], nil];
 
     // IF THE NUMBER OF ARGUMENTS CHANGES:
     //    (1) Modify openvpnstart to use the new arguments
     //    (2) Change OPENVPNSTART_MAX_ARGC in defines.h to the maximum 'argc' for openvpnstart
     //        (That is, change it to one more than the number of entries in 'args' (because the path to openvpnstart is also an argument)
     //    (3) Change the constant integer in the next line to the same number
-#if 11 != OPENVPNSTART_MAX_ARGC
+#if 12 != OPENVPNSTART_MAX_ARGC
     #error "OPENVPNSTART_MAX_ARGC is not correct. It must be 1 more than the count of the 'args' array"
 #endif
     
@@ -3562,19 +3567,20 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     NSParameterAssert(socket == managementSocket);
     
-	if (  tryingToHookup  ) TBLog(@"DB-HU", @"['%@'] netsocketConnected: invoked ; sending commands to port %lu", displayName, (unsigned long)[managementSocket remotePort])
-	
+    if (  tryingToHookup  ) {
+        TBLog(@"DB-HU", @"['%@'] netsocketConnected: invoked ; sending commands to port %lu", displayName, (unsigned long)[managementSocket remotePort])
+    }
+    
     TBLog(@"DB-ALL", @"Tunnelblick connected to management interface on port %d.", [managementSocket remotePort]);
     
-    NSString * theMipName = mipName();
-	if (  theMipName  ) {
-		NSString * mipString = [theMipName stringByAppendingString: @"\r\n"];
+    NSString * password = [self managementPassword];
+    if (  password  ) {
 		NSString * authRetryCommand = (  [self forceAuthRetryInteract]
 									   ? @"auth-retry interact\r\n"
 									   : nil);
 		
 		NS_DURING {
-			[managementSocket writeString: mipString					encoding: NSASCIIStringEncoding];
+			[managementSocket writeString: [password stringByAppendingString: @"\r\n"] encoding: NSASCIIStringEncoding];
 			[managementSocket writeString: @"pid\r\n"					encoding: NSASCIIStringEncoding];
 			if (  authRetryCommand  ) {
 				[managementSocket writeString: authRetryCommand			encoding: NSASCIIStringEncoding];
@@ -3587,7 +3593,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 		NS_ENDHANDLER
 	} else {
-		NSLog(@"Unable to find .mip file");
+		NSLog(@"Unable to find management interface password");
 	}
 }
 
@@ -5528,6 +5534,72 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	return [[myAuthAgent retain] autorelease];
 }
+
+NSString * getStringOf64RandomCharacters(void) {
+    
+    // Returns a 64 character long string composed of random characters in the range 'a' through 'p'
+    // (A simple encoding of 32 bytes of random data.)
+    
+    // Get 32 random bytes
+    const char bytes[32];
+    int result = SecRandomCopyBytes(kSecRandomDefault, sizeof(bytes), (void *)bytes);
+    if (  result != errSecSuccess  ) {
+        NSLog(@"Unable to obtain data for .mip");
+        return @"";
+    }
+    
+    // Convert each 4-bit nibble to a character from 'a' through 'p'
+    NSMutableString * outString = [[[NSMutableString alloc] initWithCapacity: 2 * sizeof(bytes)] autorelease];
+    NSUInteger ix;
+    for (  ix=0; ix<sizeof(bytes); ix++) {
+        char ch = bytes[ix];
+        char ch1 = (ch & 0xF) + 'a';
+        char ch2 = ((ch >> 4) & 0xF) + 'a';
+        [outString appendFormat: @"%c%c", ch1, ch2];
+    }
+    return [NSString stringWithString: outString];
+}
+
+-(void) createAndStoreManagementPassword {
+    
+    // Creates a password for the management interface for this configuration,
+    // stores it in a class variable for fast access from this launch of Tunnelblick
+    // and
+    // stores it in the Keychain for access when Tunnelblick has been relaunched.
+    
+    NSString * password = getStringOf64RandomCharacters();
+    
+    [self setManagementPassword: password];
+    
+    KeyChain * kc = [[KeyChain alloc] initWithService: @"Tunnelblick Management Password" withAccountName: [self displayName]];
+    [kc deletePassword];
+    [kc setPassword: password];
+    [kc release];
+}
+
+-(NSString *) managementPassword {
+    
+    // Returns the class variable if it is available, otherwise returns the copy stored in the Keychain
+    
+    NSString * password = [[managementPassword retain] autorelease];
+    
+    if (  ! password  ) {
+        KeyChain * kc = [[[KeyChain alloc] initWithService: @"Tunnelblick Management Password"
+                                           withAccountName: [self displayName]]
+                         autorelease];
+        password = [kc password];
+    }
+
+    if (  ! password  ) {
+        NSLog(@"Unable to obtain management interface password from class variable or from the Keychain");
+        return @"";
+    }
+    
+    return password;
+}
+
+TBSYNTHESIZE_OBJECT_SET(        NSString *,               managementPassword, setManagementPassword)
+
 TBSYNTHESIZE_OBJECT_GET(retain, StatusWindowController *, statusScreen)
 
 TBSYNTHESIZE_OBJECT_SET(		NSString *,				  sanitizedConfigurationFileContents, setSanitizedConfigurationFileContents)
