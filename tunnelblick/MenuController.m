@@ -5129,7 +5129,7 @@ static void signal_handler(int signalNumber)
 
 -(void) askAboutSendingCrashReportsOnMainThread {
 
-    NSAttributedString * msg = attributedStringFromHTML([NSString stringWithFormat:
+    NSAttributedString * msg = attributedLightDarkStringFromHTML([NSString stringWithFormat:
                                                          NSLocalizedString(@"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n"
                                                                            @"<p>Please email %@ and attach the<br>"
                                                                            "'%@' file that has been created on your Desktop.</p>\n\n"

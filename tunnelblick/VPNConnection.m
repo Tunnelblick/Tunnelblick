@@ -1272,7 +1272,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                                                                @" the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n",
                                                                @"Window text. The '%u' will be replaced with 5 or a similar small positive number");
             TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                      attributedStringFromHTML([NSString stringWithFormat: warningMessageBase, successes]),
+                                      attributedLightDarkStringFromHTML([NSString stringWithFormat: warningMessageBase, successes]),
                                       @"skipWarningAboutNotCheckingIPAddressChanges",
                                       nil,
                                       nil,
