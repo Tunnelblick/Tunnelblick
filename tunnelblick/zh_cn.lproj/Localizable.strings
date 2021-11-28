@@ -509,7 +509,7 @@
 "Save in Keychain" = "储存于 Keychain";
 
 /* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
-"Security code:" = "安全码:";
+"Security code:" = "安全码：";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "在设置路由后设置 DNS";
