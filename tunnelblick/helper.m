@@ -630,6 +630,12 @@ NSString * architecturesForExecutable(NSString * path) {
 BOOL thisArchitectureSupportsBinaryAtPath(NSString * path) {
     
     NSString * requiredArch = architectureBeingUsed();
+
+    // If running under Rosetta, we need a binary that runs on Intel architecture
+    if (  [requiredArch isEqualToString: ARCH_ARM]
+        & processIsTranslated()  ) {
+        requiredArch = ARCH_X86;
+    }
     
     NSString * archs = architecturesForExecutable(path);
 
