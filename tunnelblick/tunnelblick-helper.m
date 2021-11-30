@@ -914,7 +914,8 @@ NSString * newTemporaryDirectoryPathInTunnelblickHelper(void) {
 NSString * managementPasswordFilePath(NSString * configName) {
     
     if (  configName  ) {
-        NSString * name = [configName stringByAppendingPathExtension: @"mip"];
+        NSMutableString * name = [[[configName stringByAppendingPathExtension: @"mip"] mutableCopy] autorelease];
+        [name replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, name.length)];
         NSString * path = [L_AS_T_MIPS stringByAppendingPathComponent: name];
         return path;
     }
