@@ -628,19 +628,35 @@ NSString * architecturesForExecutable(NSString * path) {
 }
 
 BOOL thisArchitectureSupportsBinaryAtPath(NSString * path) {
-    
-    NSString * requiredArch = architectureBeingUsed();
 
-    // If running under Rosetta, we need a binary that runs on Intel architecture
-    if (  [requiredArch isEqualToString: ARCH_ARM]
-        & processIsTranslated()  ) {
-        requiredArch = ARCH_X86;
-    }
-    
+    // We don't support running Arm binaries under Rosetta (even if macOS does)
+    // because (A) running Tunnelblick under Rosetta is unnecessary and (B) we warn
+    // about it.
+
     NSString * archs = architecturesForExecutable(path);
+    NSString * currentArch = architectureBeingUsed();
 
-    BOOL supports = [archs containsString: requiredArch];
-    return supports;
+    if (  [currentArch isEqualToString: ARCH_ARM]) {
+        if (  processIsTranslated()  ) {
+           return [archs containsString: ARCH_X86];     // Arm under Rosetta
+        }
+        if (  runningOnMontereyOrNewer()  ) {
+            return (   [archs containsString: ARCH_X86] // Arm not under Rosetta and on Monterey or newer
+                    || [archs containsString: ARCH_ARM]  );
+        }
+        return [archs containsString: ARCH_ARM];        // Arm not under Rosetta before Monterey
+    }
+
+    if (  [currentArch isEqualToString: ARCH_X86]) {
+        return [archs containsString: ARCH_X86];        // x86
+    }
+
+    NSLog(@"Tunnelblick does not recognize the current architecture '%@'."
+          @" Assuming cannot run binary (which supports only '%@') at %@\n"
+          @"Using Rosetta = %s; Tunnelblick supports = %@ and %@",
+          currentArch, path, archs,
+          CSTRING_FROM_BOOL(processIsTranslated()), ARCH_X86, ARCH_ARM);
+    return NO;
 }
 
 NSAttributedString * attributedStringFromHTML(NSString * html) {
