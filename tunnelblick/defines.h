@@ -700,6 +700,7 @@ name = newValue;                                    \
 @"skipWarningAboutBigSur1m", \
 @"skipWarningAboutBigSur2m", \
 @"skipWarningAboutNotCheckingIPAddressChanges", \
+@"skipWarningAboutRosetta", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\

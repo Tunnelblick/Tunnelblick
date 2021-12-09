@@ -5290,11 +5290,24 @@ static void signal_handler(int signalNumber)
                                            sipIsDisabled: sipIsDisabled];
 }
 
+-(void) displayMessageAboutRosetta {
+
+    if (  processIsTranslated()  ) {
+        [self addWarningNoteWithHeadline: NSLocalizedString(@"Do not run using Rosetta...", @"")
+                                 message: attributedLightDarkStringFromHTML(NSLocalizedString(@"<p>Tunnelblick should not be run using Rosetta.</p>\n"
+                                                                                              @"<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>",
+                                                                                              @"HTML warning message"))
+                           preferenceKey: @"skipWarningAboutRosetta"];
+    }
+}
+
 -(void) postLaunchThread {
 
     NSAutoreleasePool * pool = [NSAutoreleasePool new];
 
     [self askAboutSendingCrashReports];
+
+    [self displayMessageAboutRosetta];
 
     [self displayMessagesAboutKextsAndBigSur];
 
