@@ -1622,11 +1622,12 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     NSMutableString * escapedArguments = [NSMutableString stringWithCapacity: 1000];
 	unsigned i;
 	for (i=0; i<([argumentsUsedToStartOpenvpnstart count]-1); i++) {
-		[escapedArguments appendString: [[[argumentsUsedToStartOpenvpnstart objectAtIndex: i]
+        NSString * escapedArgument = [[[argumentsUsedToStartOpenvpnstart objectAtIndex: i]
                                        componentsSeparatedByString: @" "]
-                                      componentsJoinedByString: @"\\ "]];
+                                      componentsJoinedByString: @"\\ "];
+        [escapedArguments appendString: [escapedArgument stringByAppendingString: @" "]];
 	}
-    [escapedArguments appendString: @" <password>"];
+    [escapedArguments appendString: @"<password>"];
 	[self addToLog: [NSString stringWithFormat: @"openvpnstart %@", escapedArguments]];
 	
 	unsigned bitMask = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 7] unsignedIntValue];
