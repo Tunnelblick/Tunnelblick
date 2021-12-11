@@ -5293,7 +5293,7 @@ static void signal_handler(int signalNumber)
 -(void) displayMessageAboutRosetta {
 
     if (  processIsTranslated()  ) {
-        [self addWarningNoteWithHeadline: NSLocalizedString(@"Do not run using Rosetta...", @"")
+        [self addWarningNoteWithHeadline: NSLocalizedString(@"Do not run using Rosetta...", @"Headline for warning")
                                  message: attributedLightDarkStringFromHTML(NSLocalizedString(@"<p>Tunnelblick should not be run using Rosetta.</p>\n"
                                                                                               @"<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>",
                                                                                               @"HTML warning message"))
