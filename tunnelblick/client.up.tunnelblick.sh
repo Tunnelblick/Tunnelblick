@@ -764,7 +764,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	scutil <<-EOF > /dev/null
 		open
 
-		# Store our variables for the other scripts (process-network-changes, leasewatch, down, etc.) to use
+		# Store our variables for Tunnelblick and other scripts (process-network-changes, leasewatch, down, etc.) to use
 		d.init
 		# The '#' in the next line does NOT start a comment; it indicates to scutil that a number follows it (as opposed to a string or an array)
 		d.add PID # ${PPID}
@@ -785,6 +785,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
         d.add TapDeviceHasBeenSetNone "false"
         d.add TunnelDevice          "$dev"
         d.add RestoreIpv6Services   "$IPV6_DISABLED_SERVICES_ENCODED"
+        d.add ExpectedDnsAddresses  "$FIN_DNS_SA"
 		set State:/Network/OpenVPN
 
 		# Back up the device's current DNS and SMB configurations,

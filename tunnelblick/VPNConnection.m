@@ -25,6 +25,7 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <pthread.h>
 #import <signal.h>
+#import <SystemConfiguration/SCDynamicStore.h>
 
 #import "helper.h"
 #import "defines.h"
@@ -3698,6 +3699,98 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	return FALSE;
 }
 
+-(CFDictionaryRef) newSystemStoreDictionaryWithName: (NSString *) name {
+
+    SCDynamicStoreRef dynamicStore = SCDynamicStoreCreate(NULL, (CFStringRef)@"Tunnelblick", NULL, NULL);
+    if (  dynamicStore == NULL) {
+        appendLog(@"Error: SCDynamicStoreCreate() failed");
+        return NULL;
+    }
+
+    CFPropertyListRef result = SCDynamicStoreCopyValue(dynamicStore, (CFStringRef)name);
+    if (  result == NULL) {
+        appendLog([NSString stringWithFormat: @"Warning: SCDynamicStoreCopyValue(%@) failed", name]);
+        CFRelease(dynamicStore);
+        return NULL;
+    }
+
+    CFRelease(dynamicStore);
+
+    if (  ! [[(id)result class] isSubclassOfClass: [NSDictionary class]]  ) {
+        appendLog([NSString stringWithFormat: @"Error: SCDynamicStoreCopyValue(%@) is not a dictionary, it is a %@", name, [[(id)result class] className]]);
+        CFRelease(result);
+        return NULL;
+    }
+
+    return (CFDictionaryRef)result;
+}
+
+-(NSArray *) expectedDnsAddresses {
+
+    // Returns the list of DNS servers expected to be in use.
+    //
+    // Returns nil if there was an error (after logging the error).
+
+    NSString * name = @"State:/Network/OpenVPN";
+    CFDictionaryRef cfDict = [self newSystemStoreDictionaryWithName: name];
+    if (  cfDict == NULL  ) {
+        return nil;     // An error or warning has already been logged
+    }
+
+    NSString * key = @"ExpectedDnsAddresses";
+    id addressesString = [(NSDictionary *)cfDict objectForKey: key];
+    if (  ! addressesString  ) {
+        appendLog([NSString stringWithFormat: @"Error: System Store %@ does not contain an item with key '%@'", name, key]);
+        CFRelease(cfDict);
+        return nil;
+    }
+
+    if (  ! [[addressesString class] isSubclassOfClass: [NSString class]]  ) {
+        appendLog([NSString stringWithFormat: @"Error: System Store object %@ with key '%@' is not a string, it is a %@", name, key, [[addressesString class] className]]);
+        CFRelease(cfDict);
+        return nil;
+    }
+
+    NSArray * addresses = [(NSString *)addressesString componentsSeparatedByString: @" "];
+
+    CFRelease(cfDict);
+
+    return addresses;
+}
+
+-(void) checkDnsAddressesAreAsExpected: (NSArray *) addressesBeingUsed warningMessage: (NSMutableString *) message {
+
+    NSArray * expected = [self expectedDnsAddresses];
+    if (  ! expected  ) {
+        [self addToLog: @"Warning: Could not obtain a list of DNS addresses that are expected"];
+        return;
+    }
+
+    // Make sure all expected addresses are present
+    NSString * address;
+    NSEnumerator * e = [expected objectEnumerator];
+    while (  (address = [e nextObject])  ) {
+        if (  ! [addressesBeingUsed containsObject: address]  ) {
+            [self addToLog: [NSString stringWithFormat: @"Warning: DNS server address %@ is not being used.\n\n", address]];
+            [message appendString: [NSString stringWithFormat:
+                                    NSLocalizedString(@"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n", @"Window text"), address, self.displayName]];
+        }
+    }
+
+    // Make sure all addresses that are present are expected
+    e = [addressesBeingUsed objectEnumerator];
+    while (  (address = [e nextObject])  ) {
+        if (  ! [expected containsObject: address]  ) {
+            [self addToLog: [NSString stringWithFormat: @"Warning: DNS server address %@ is being used but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n", address]];
+            [message appendString: [NSString stringWithFormat:
+                                    NSLocalizedString(@"     • DNS server address %@ is being used for VPN '%@' but should not be used."
+                                                       @" That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n",
+                                                      @"Window text"), address, self.displayName]];
+        }
+    }
+
+}
+
 -(void) startCheckingDnsAddresses {
 	
 	NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
@@ -3740,7 +3833,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		[self addToLog: @"Warning: No DNS servers have been specified."];
 		[message appendString: NSLocalizedString(@"     • No DNS servers have been specified.\n\n", @"Window text")];
 	} else {
-		
+
+        [self checkDnsAddressesAreAsExpected: addresses warningMessage: message];
+
 		NSString * type = [self tapOrTun];
 		
 		if (   ( ! [type isEqualToString: @"Cancel"])
