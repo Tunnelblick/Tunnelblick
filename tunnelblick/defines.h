@@ -377,8 +377,9 @@
 #define OPENVPNSTART_RESET_PRIMARY_INTERFACE_UNEXPECTED	0x00800000u
 #define OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED	0x01000000u
 #define OPENVPNSTART_ON_BIG_SUR_OR_NEWER                0x02000000u
+#define OPENVPNSTART_DISABLE_SECONDARY_NET_SERVICES   0x04000000u
 // DUPLICATE THE HIGHEST VALUE BELOW					vvvvvvvvvvv
-#define OPENVPNSTART_HIGHEST_BITMASK_BIT				0x02000000u
+#define OPENVPNSTART_HIGHEST_BITMASK_BIT				0x04000000u
 
 
 //*************************************************************************************************
@@ -921,6 +922,7 @@ name = newValue;                                    \
 @"-waitForDHCPInfoIfTap",	\
 @"-enableIpv6OnTap",	\
 @"-doNotDisableIpv6onTun",	\
+@"-disableSecondaryNetworkServices", \
 @"-loggingLevel",	\
 @"-allowChangesToManuallySetNetworkSettings",	\
 @"-disableNetworkAccessAfterDisconnect",	\

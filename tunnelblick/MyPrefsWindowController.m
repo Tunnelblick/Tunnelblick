@@ -861,6 +861,24 @@ static BOOL firstTimeShowingWindow = TRUE;
 	}
 }
 
+-(void) setupDisableSecondaryNetworkServices: (VPNConnection *) connection
+{
+    (void) connection;
+
+    NSString * type = [connection tapOrTun];
+    if (   ( ! [type isEqualToString: @"tap"] )
+        && [self usingSmartSetNameserverScript]  ) {
+        [self setupPerConfigurationCheckbox: [configurationsPrefsView disableSecondaryNetworkServicesCheckbox]
+                                        key: @"-disableSecondaryNetworkServices"
+                                   inverted: NO
+                                  defaultTo: NO];
+
+    } else {
+        [[configurationsPrefsView disableSecondaryNetworkServicesCheckbox] setState:   NSOffState];
+        [[configurationsPrefsView disableSecondaryNetworkServicesCheckbox] setEnabled: NO];
+    }
+}
+
 -(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection
 {
     
@@ -1307,7 +1325,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[self setupUponUnexpectedDisconnectPopUpButton:	connection];
         [self setupDisableIpv6OnTun:					connection];
         [self setupCheckIPAddress:						connection];
-		
+        [self setupDisableSecondaryNetworkServices:     connection];
+
         [[configurationsPrefsView advancedButton] setEnabled: ! [gTbDefaults boolForKey: @"disableAdvancedButton"]];
         [settingsSheetWindowController            setupSettingsFromPreferences];
         
@@ -1345,7 +1364,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[configurationsPrefsView routeAllTrafficThroughVpnCheckbox]            setEnabled: NO];
         [[configurationsPrefsView checkIPAddressAfterConnectOnAdvancedCheckbox] setEnabled: NO];
         [[configurationsPrefsView disableIpv6OnTunCheckbox]                     setEnabled: NO];
-        
+        [[configurationsPrefsView disableSecondaryNetworkServicesCheckbox]     setEnabled: NO];
+
         [[configurationsPrefsView perConfigOpenvpnVersionButton]    setEnabled: NO];
         
         [[configurationsPrefsView advancedButton]                   setEnabled: NO];
@@ -2287,6 +2307,13 @@ static BOOL firstTimeShowingWindow = TRUE;
                                                                                    inverted: YES];
 }
 
+-(IBAction) disableSecondaryNetworkServicesCheckboxWasClicked: (NSButton *) sender
+{
+    [gMC setBooleanPreferenceForSelectedConnectionsWithKey: @"-disableSecondaryNetworkServices"
+                                                        to: ([sender state] == NSOnState)
+                                                  inverted: NO];
+}
+
 -(IBAction) advancedButtonWasClicked: (id) sender
 {
 	(void) sender;
@@ -2621,6 +2648,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         
 		[self setupNetworkMonitoring: [self selectedConnection]];
 		
+        [self setupDisableSecondaryNetworkServices: [self selectedConnection]];
+
 		// Set up IPv6 and reset of primary interface
 		[self setupDisableIpv6OnTun: [self selectedConnection]];
 		

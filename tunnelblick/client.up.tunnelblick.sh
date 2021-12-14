@@ -222,6 +222,7 @@ disable_ipv6() {
     local dipv6_services ; dipv6_services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d' ; true)"
 
     # Go through the list disabling IPv6 for enabled services, and outputting lines with the names of the services
+    local dipv6_service
     printf %s "$dipv6_services$LF"  |   while IFS= read -r dipv6_service ; do
 		if [ -n "$dipv6_service" ] ; then
 
@@ -235,6 +236,34 @@ disable_ipv6() {
 			fi
 		fi
 
+    done
+}
+
+##########################################################################################
+disable_secondary_network_services() {
+
+# Disables each enabled (active) network service except the primary service.
+#
+# For each such service, outputs a line with the name of the service.
+# (A separate line is output for each name because a name may include spaces.)
+#
+# The 'restore_disabled_network_services' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
+
+    # Get list of services and remove the first four lines, which contain a heading and the primary service
+    local services ; services="$( /usr/sbin/networksetup  -listnetworkserviceorder | sed -e '1,4d' ; true)"
+
+    # Go through the list disabling each service and outputting a line with the name of the service
+    # If first character of a line is an asterisk, the service is disabled, so we skip it
+    local service
+    printf %s "$services$LF"  |   while IFS= read -r service ; do
+		if [ -n "$service" ] \
+        && [ "${service:0:9}" != "(Hardware" ] \
+		&& [ "${service:0:1}" != "*" ] ; then
+            # Remove '(nnn) ' from start of line to get the service name
+            service="${service#* }"
+            /usr/sbin/networksetup -setnetworkserviceenabled "$service" off
+            echo "$service"
+		fi
     done
 }
 
@@ -756,6 +785,11 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		echo "$IPV6_DISABLED_SERVICES" > "/Library/Application Support/Tunnelblick/restore-ipv6.txt"
 	fi
 
+    # Similarly, save the list of secondary services that need to be restored when disconnecting
+	if [ -n "$SECONDARY_DISABLED_SERVICES" ] ; then
+		echo "$SECONDARY_DISABLED_SERVICES" > "/Library/Application Support/Tunnelblick/restore-secondary.txt"
+	fi
+
 	# Save the openvpn process ID and the Network Primary Service ID, leasewather.plist path, logfile path, and optional arguments from Tunnelblick,
 	# then save old and new DNS and SMB settings
 	# PPID is a script variable (defined by bash itself) that contains the process ID of the parent of the process running the script (i.e., OpenVPN's process ID)
@@ -785,6 +819,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
         d.add TapDeviceHasBeenSetNone "false"
         d.add TunnelDevice          "$dev"
         d.add RestoreIpv6Services   "$IPV6_DISABLED_SERVICES_ENCODED"
+        d.add RestoreSecondaryServices "$SECONDARY_DISABLED_SERVICES_ENCODED"
         d.add ExpectedDnsAddresses  "$FIN_DNS_SA"
 		set State:/Network/OpenVPN
 
@@ -1453,6 +1488,7 @@ fi
 # When we're done, only the OpenVPN arguments remain for the rest of the script to use
 ARG_ENABLE_IPV6_ON_TAP="false"
 ARG_DISABLE_IPV6_ON_TUN="false"
+ARG_DISABLE_SECONDARY_SERVICES_ON_TUN="false"
 ARG_TAP="false"
 ARG_WAIT_FOR_DHCP_IF_TAP="false"
 ARG_RESTORE_ON_DNS_RESET="false"
@@ -1525,6 +1561,9 @@ while [ $# -ne 0 ] ; do
         shift
     elif [ "$1" = "-w" ] ; then                     # -w = ARG_RESTORE_ON_WINS_RESET
 		ARG_RESTORE_ON_WINS_RESET="true"
+		shift
+    elif [ "$1" = "-x" ] ; then                     # -x = ARG_DISABLE_SECONDARY_SERVICES_ON_TUN
+		ARG_DISABLE_SECONDARY_SERVICES_ON_TUN="true"
 		shift
 	else
 		if [ "${1:0:1}" = "-" ] ; then				# Shift out Tunnelblick arguments (they start with "-") that we don't understand
@@ -1624,9 +1663,15 @@ EXIT_CODE=0
 
 if ${ARG_TAP} ; then
 
-    # IPv6 should be re-enabled only for TUN, not TAP
+    # IPv6 should be re-enabled only for TUN, not TAP; the same for secondary network services
     readonly IPV6_DISABLED_SERVICES=""
     readonly IPV6_DISABLED_SERVICES_ENCODED=""
+    readonly SECONDARY_DISABLED_SERVICES=""
+    readonly SECONDARY_DISABLED_SERVICES_ENCODED=""
+
+    if ${ARG_DISABLE_SECONDARY_SERVICES_ON_TUN} ; then
+        logMessage "WARNING: Will NOT disable secondary services because this is a TAP configuration."
+    fi
 
 	# If _any_ DHCP info (such as DNS) is provided by the OpenVPN server or the client configuration file (via "dhcp-option"), use it
 	# Otherwise, use DHCP to get DNS if possible, or do nothing about DNS
@@ -1704,10 +1749,28 @@ else
         if ${ARG_DISABLE_IPV6_ON_TUN} ; then
             logMessage "WARNING: Will NOT disable IPv6 settings."
         fi
+		if ${ARG_DISABLE_SECONDARY_SERVICES_ON_TUN} ; then
+			logMessage "WARNING: Will NOT disable secondary services."
+		fi
         logDnsInfoNoChanges
         flushDNSCache
 	else
 
+        # Disable secondary services if requested
+        SECONDARY_DISABLED_SERVICES=""
+        if ${ARG_DISABLE_SECONDARY_SERVICES_ON_TUN} ; then
+            readonly SECONDARY_DISABLED_SERVICES="$( disable_secondary_network_services )"
+            if [ "$SECONDARY_DISABLED_SERVICES" != "" ] ; then
+                printf '%s\n' "$SECONDARY_DISABLED_SERVICES" \
+                | while IFS= read -r service ; do
+                    logMessage "Disabled '$service'"
+                done
+            fi
+        fi
+        # Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
+        readonly SECONDARY_DISABLED_SERVICES_ENCODED="$( echo "$SECONDARY_DISABLED_SERVICES" | tr '\n' '\t' )"
+
+        # Disable IPv6 if requested
         IPV6_DISABLED_SERVICES=""
         if ${ARG_DISABLE_IPV6_ON_TUN} ; then
 			trusted_ip_line="$( env | grep 'trusted_ip' ; true )"
@@ -1724,7 +1787,6 @@ else
 				logMessage "WARNING: NOT disabling IPv6 because the OpenVPN server address is an IPv6 address ($trusted_ip)"
 			fi
         fi
-
 		# Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
 		readonly IPV6_DISABLED_SERVICES_ENCODED="$( echo "$IPV6_DISABLED_SERVICES" | tr '\n' '\t' )"
 

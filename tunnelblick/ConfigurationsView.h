@@ -117,6 +117,7 @@
     IBOutlet TBButton            * monitorNetworkForChangesCheckbox;
     IBOutlet TBButton            * routeAllTrafficThroughVpnCheckbox;
 	IBOutlet TBButton            * disableIpv6OnTunCheckbox;
+    IBOutlet TBButton            * disableSecondaryNetworkServicesCheckbox;
     IBOutlet TBButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
 	
     IBOutlet TBButton            * advancedButton;
@@ -190,6 +191,7 @@ TBPROPERTY_READONLY(NSMenuItem *,          uponUnexpectedDisconnectDisableNetwor
 TBPROPERTY_READONLY(TBButton *,            monitorNetworkForChangesCheckbox)
 TBPROPERTY_READONLY(TBButton *,            routeAllTrafficThroughVpnCheckbox)
 TBPROPERTY_READONLY(TBButton *,            disableIpv6OnTunCheckbox)
+TBPROPERTY_READONLY(TBButton *,            disableSecondaryNetworkServicesCheckbox)
 TBPROPERTY_READONLY(TBButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *,   perConfigOpenvpnVersionArrayController)

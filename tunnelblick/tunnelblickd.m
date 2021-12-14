@@ -30,9 +30,11 @@
  However, it is called with one argument, "load", when first loaded (via a "RunAtLoad" entry in a different launchd .plist).
  That would usually happen only once when the system boots but also happens during installation when tunnelblickd is loaded.
 
- When the "load" argument is present, tunnelblickd checks for the presence of a file,
- /Library/Application Support/Tunnelblick/restore-ipv6.txt. If present, tunnelblickd will restore IPv6 to "Automatic" for
- each service listed in a separate line in the file and then delete the file.
+ When the "load" argument is present:
+    1. tunnelblickd checks for the presence of a file, /Library/Application Support/Tunnelblick/restore-secondary.txt.
+       if present, tunnelblickd will enable each service listed in a separate line in the file and then delete the file.
+    2. tunnelblickd checks for the presence of a file, /Library/Application Support/Tunnelblick/restore-ipv6.txt.
+       if present, tunnelblickd will restore IPv6 to "Automatic" for each service listed in a separate line in the file and then delete the file.
 
  */
 
@@ -477,6 +479,59 @@ BOOL isFirstRunAfterBoot(aslclient  asl,
 	return firstRunAfterBoot;
 }
 
+void restoreSecondary(aslclient  asl,
+                       aslmsg     log_msg) {
+
+    NSString * path = @"/Library/Application Support/Tunnelblick/restore-secondary.txt";
+
+    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "restore-secondary.txt does not exist");
+        return;
+    }
+
+    NSError * error;
+    NSString * servicesString = [NSString stringWithContentsOfFile: path
+                                                          encoding: NSUTF8StringEncoding
+                                                             error: &error];
+
+    if (  [[NSFileManager defaultManager] removeItemAtPath: path error: &error]) {
+        asl_log(asl, log_msg, ASL_LEVEL_INFO, "Deleted %s", [path UTF8String]);
+    } else {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not delete %s; error was %s", [path UTF8String], [[error description] UTF8String]);
+        // Fall through to continue even though the error happened to report that file can't be read or to restore the secondary services if it can be read
+    }
+
+    if (  ! servicesString  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not read %s; error was %s", [path UTF8String], [[error description] UTF8String]);
+        return;
+    }
+
+    NSArray * services = [servicesString componentsSeparatedByString: @"\n"];
+    if (  services  ) {
+        NSString * service;
+        NSEnumerator * e = [services objectEnumerator];
+        BOOL processed_a_service = FALSE;
+        while (  (service = [e nextObject])  ) {
+            if (  [service length] != 0  ) {
+                processed_a_service = TRUE;
+                NSArray * arguments = @[@"-setnetworkserviceenabled", service, @"on"];
+                OSStatus status = runTool(@"root", @"wheel", TOOL_PATH_FOR_NETWORKSETUP, arguments, nil, nil, asl, log_msg);
+                if (  status == 0  ) {
+                    asl_log(asl, log_msg, ASL_LEVEL_INFO, "Re-enabled %s", [service UTF8String]);
+                } else {
+                    asl_log(asl, log_msg, ASL_LEVEL_ERR, "Failed with status %d while trying to re-enable %s", status, [service UTF8String]);
+                }
+            }
+        }
+        if (  ! processed_a_service  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_WARNING, "%s exists but does not include any service names. Contents = '%s'",
+                    [path UTF8String], [servicesString UTF8String]);
+        }
+    } else {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not parse into separate lines: '%s'", [servicesString UTF8String]);
+    }
+}
+
 void restoreIpv6(aslclient  asl,
 				 aslmsg     log_msg) {
 
@@ -623,11 +678,15 @@ int main(void) {
 
 		// This is the first time tunnelblickd has run since a reboot:
 		//
-		// 	  (A) Restore IPv6 to "Automatic" for each service listed in /L_AS_T/restore-ipv6.txt, then delete the file.
+        //    (A) Re-enable each service listed in /L_AS_T/restore-secondary.txt, then delete the file.
+        //
+		// 	  (B) Restore IPv6 to "Automatic" for each service listed in /L_AS_T/restore-ipv6.txt, then delete the file.
 		//
-		//	  (B) Delete everything in /Library/Application Support/Tunnelblick/expect-disconnect/
+		//	  (C) Delete everything in /Library/Application Support/Tunnelblick/expect-disconnect/
 		//
-		//	  (C) Delete /Library/Application Support/Tunnelblick/shutting-down-computer.txt if it exists
+		//	  (D) Delete /Library/Application Support/Tunnelblick/shutting-down-computer.txt if it exists
+
+        restoreSecondary(asl, log_msg);
 
 		restoreIpv6(asl, log_msg);
 

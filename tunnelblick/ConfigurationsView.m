@@ -465,6 +465,15 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   @" cannot be enforced on a 'tap' connection.</p>",
 														   @"HTML info for the 'Disable IPv6 unless the VPN server is accessed using IPv6' checkbox."))];
 	
+    [disableSecondaryNetworkServicesCheckbox
+     setTitle: NSLocalizedString(@"Disable secondary network interfaces", @"Checkbox name")
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, all network interfaces except the primary interface will"
+                                                           @" be disabled while the VPN is active.</p>\n"
+                                                           @"<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n"
+                                                           @"<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n"
+                                                           @"<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>",
+                                                           @"HTML info for the 'Disable secondary network interfaces' checkbox.\n\n"))];
+
 	[checkIPAddressAfterConnectOnAdvancedCheckbox
 	 setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connecting", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP"
@@ -549,6 +558,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayControl
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            monitorNetworkForChangesCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            routeAllTrafficThroughVpnCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            disableIpv6OnTunCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            disableSecondaryNetworkServicesCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)

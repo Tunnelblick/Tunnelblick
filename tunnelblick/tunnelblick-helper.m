@@ -2748,6 +2748,10 @@ int startVPN(NSString * configFile,
             [scriptOptions appendString: @" -9"];   // TUN only
         }
         
+        if (  (bitMask & OPENVPNSTART_DISABLE_SECONDARY_NET_SERVICES) != 0  ) {
+            [scriptOptions appendString: @" -x"];
+        }
+
         if (  (bitMask & OPENVPNSTART_USE_TAP) != 0  ) {
             [scriptOptions appendString: @" -a"];   // TAP only
         }

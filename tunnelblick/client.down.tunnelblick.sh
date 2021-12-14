@@ -226,9 +226,11 @@ EOF
 	readonly ALSO_USING_SETUP_KEYS="$(        get_item "$saved_info" '^[[:space:]]*bAlsoUsingSetupKeys :'     )"
 	readonly TUNNEL_DEVICE="$(                get_item "$saved_info" '^[[:space:]]*TunnelDevice :'            )"
 
-	# Note: '\n' was translated into '\t' by the 'up' script before stroring 'RestoreIPv6Services', so we translate it back
+	# Note: '\n' was translated into '\t' by the 'up' script before storing 'RestoreIpv6Services' and 'RestoreSecondaryServices', so we translate it back
 	local tmp ; tmp="$(                       get_item "$saved_info" '^[[:space:]]*RestoreIpv6Services :'     )"
 	readonly IPV6_SERVICES_TO_RESTORE="$( echo "${tmp#*: /}" | tr '\t' '\n' )"
+	tmp="$(                                   get_item "$saved_info" '^[[:space:]]*RestoreSecondaryServices :'     )"
+	readonly SECONDARY_SERVICES_TO_RESTORE="$( echo "${tmp#*: /}" | tr '\t' '\n' )"
 }
 
 get_item() {
@@ -424,6 +426,32 @@ restore_ipv6() {
 			execute_command "Re-enabled IPv6 (automatic) for \"$ripv6_service\""       \
 							"Error happened while trying to re-enable IPv6 (automatic)" \
 							/usr/sbin/networksetup -setv6automatic "$ripv6_service"
+		fi
+    done
+}
+
+##########################################################################################
+restore_disabled_network_services() {
+
+    # Undoes the actions performed by the disable_secondary_network_services() routine in client.up.tunnelblick.sh by enabling
+    # each network service which that routine disabled.
+    #
+    # $SECONDARY_SERVICES_TO_RESTORE must contain the output from disable_secondary_network_services() -- the list of network
+	# services which were disabled.
+
+    if [ -z "$SECONDARY_SERVICES_TO_RESTORE" ] ; then
+		log_debug_message "No secondary services to be restored"
+        return
+    fi
+
+	local service
+
+	printf %s "$SECONDARY_SERVICES_TO_RESTORE$LF" | \
+	while IFS= read -r service ; do
+		if [ -n "$service" ] ; then
+			execute_command "Re-enabled \"$service\""       \
+							"Error happened while trying to re-enable network service \"$service\"" \
+							/usr/sbin/networksetup -setnetworkserviceenabled "$service" on
 		fi
     done
 }
@@ -708,6 +736,8 @@ else
 
 	profile_or_execute release_dhcp
 
+	profile_or_execute restore_disabled_network_services
+
 	profile_or_execute restore_network_settings
 
 	profile_or_execute restore_ipv6
@@ -722,8 +752,9 @@ else
 
 	profile_or_execute run_prefix_or_suffix 'down-suffix.sh'
 
-	# Remove the file containing info needed to undo network changes if this script is not run to completion (because it was)
-	rm -f "/Library/Application Support/Tunnelblick/restore-ipv6.txt"
+	# Remove the files containing info needed to undo network changes if this script is not run to completion (because it was)
+	rm -f "/Library/Application Support/Tunnelblick/restore-ipv6.txt" \
+          "/Library/Application Support/Tunnelblick/restore-secondary.txt"
 fi
 
 log_message "End of output from ${OUR_NAME}"

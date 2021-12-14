@@ -142,6 +142,7 @@
 -(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:            (NSButton *) sender;
 -(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) disableIpv6OnTunCheckboxWasClicked:                     (NSButton *) sender;
+-(IBAction) disableSecondaryNetworkServicesCheckboxWasClicked:     (NSButton *) sender;
 
 -(IBAction) whenToConnectManuallyMenuItemWasClicked:          (id) sender;
 -(IBAction) whenToConnectTunnelBlickLaunchMenuItemWasClicked: (id) sender;
