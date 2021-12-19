@@ -948,6 +948,7 @@ name = newValue;                                    \
 @"-prependDomainNameToSearchDomains",	\
 @"-doNotWaitForInternetAtBoot",	\
 @"-doNotReconnectOnUnexpectedDisconnect", /* This preference is NOT IMPLEMENTED and it is not in the .xib */	\
+@"-loginWindowSecurityTokenIsHidden", \
 \
 @"-doNotShowOnTunnelblickMenu",	\
 \
