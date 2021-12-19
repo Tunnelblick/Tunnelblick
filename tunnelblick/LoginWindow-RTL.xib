@@ -17,6 +17,7 @@
                 <outlet property="saveUsernameInKeychainCheckbox" destination="42" id="89"/>
                 <outlet property="securityEyeButton" destination="LS4-oh-7b6" id="8Tl-Hg-kPp"/>
                 <outlet property="securityToken" destination="adg-1U-zFx" id="w7u-hq-5y5"/>
+                <outlet property="securityTokenView" destination="hGa-l3-MWf" id="xuw-3Z-Umk"/>
                 <outlet property="useSecurityTokenCheckbox" destination="wn3-me-tYT" id="Lkl-Rx-Cz9"/>
                 <outlet property="username" destination="38" id="64"/>
                 <outlet property="usernameTFC" destination="45" id="54"/>
@@ -31,7 +32,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="345" width="626" height="327"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="626" height="327"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -184,58 +185,64 @@ Gw
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="IEN-Dd-Zla"/>
                             </imageView>
-                            <secureTextField verticalHuggingPriority="750" id="adg-1U-zFx">
-                                <rect key="frame" x="48" y="93" width="300" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="xm1-d8-lFy">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <allowedInputSourceLocales>
-                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                                    </allowedInputSourceLocales>
-                                </secureTextFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="-2" id="9na-Wp-cBi"/>
-                                    <outlet property="nextKeyView" destination="Sp5-mN-LXU" id="52I-gB-Jkb"/>
-                                </connections>
-                            </secureTextField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sp5-mN-LXU">
-                                <rect key="frame" x="77" y="93" width="271" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="on3-qa-2fP">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="-2" id="67N-0n-rpS"/>
-                                    <outlet property="nextKeyView" destination="38" id="A44-8k-3dK"/>
-                                </connections>
-                            </textField>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LS4-oh-7b6">
-                                <rect key="frame" x="21" y="93" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Hf1-sU-L1U">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="securityEyeButtonWasClicked:" target="-2" id="jL0-ci-tzU"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wn3-me-tYT" customClass="TBButton">
-                                <rect key="frame" x="353" y="95" width="255" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Token$$" bezelStyle="regularSquare" imagePosition="right" inset="2" id="SZu-oq-kO8">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="useSecurityTokenCheckboxWasClicked:" target="-2" id="Mi8-Pq-td8"/>
-                                    <outlet property="nextKeyView" destination="adg-1U-zFx" id="7gF-vS-RHz"/>
-                                </connections>
-                            </button>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGa-l3-MWf">
+                                <rect key="frame" x="21" y="93" width="585" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="adg-1U-zFx">
+                                        <rect key="frame" x="27" y="0.0" width="300" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="xm1-d8-lFy">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <allowedInputSourceLocales>
+                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                            </allowedInputSourceLocales>
+                                        </secureTextFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="-2" id="9na-Wp-cBi"/>
+                                            <outlet property="nextKeyView" destination="Sp5-mN-LXU" id="52I-gB-Jkb"/>
+                                        </connections>
+                                    </secureTextField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LS4-oh-7b6">
+                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Hf1-sU-L1U">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="securityEyeButtonWasClicked:" target="-2" id="jL0-ci-tzU"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wn3-me-tYT" customClass="TBButton">
+                                        <rect key="frame" x="332" y="2" width="255" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Token$$" bezelStyle="regularSquare" imagePosition="right" inset="2" id="SZu-oq-kO8">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="useSecurityTokenCheckboxWasClicked:" target="-2" id="Mi8-Pq-td8"/>
+                                            <outlet property="nextKeyView" destination="adg-1U-zFx" id="7gF-vS-RHz"/>
+                                        </connections>
+                                    </button>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sp5-mN-LXU">
+                                        <rect key="frame" x="56" y="0.0" width="271" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="on3-qa-2fP">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="-2" id="67N-0n-rpS"/>
+                                            <outlet property="nextKeyView" destination="38" id="A44-8k-3dK"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </customView>
                         </subviews>
                         <connections>
                             <outlet property="nextKeyView" destination="42" id="79"/>

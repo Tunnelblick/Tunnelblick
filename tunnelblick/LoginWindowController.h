@@ -46,6 +46,8 @@
     IBOutlet NSButton           * saveUsernameInKeychainCheckbox;
     IBOutlet NSButton           * savePasswordInKeychainCheckbox;
     IBOutlet TBButton           * useSecurityTokenCheckbox;
+    
+    IBOutlet NSView             * securityTokenView;
 
     id                            delegate;
 

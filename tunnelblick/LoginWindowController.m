@@ -51,6 +51,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, securityEyeButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeNormal)
 TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
+
 -(id) initWithDelegate: (id) theDelegate
 {
     self = [super initWithWindowNibName: [UIHelper appendRTLIfRTLLanguage: @"LoginWindow"]];
@@ -195,11 +197,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
                                                         : NSOnState)];
 	[[self savePasswordInKeychainCheckbox] setEnabled: setSaveUsernameCheckbox];  // Enabled only if saving username
 
-	NSString * key = [[delegate displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
+	NSString * key = [displayName stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
 	[[self useSecurityTokenCheckbox] setState:( [gTbDefaults boolForKey:key] ? NSOnState : NSOffState)];
 	[[self securityEyeButton] setEnabled:[gTbDefaults boolForKey:key]];
 	[[self securityEyeButton] setHidden:![gTbDefaults boolForKey:key]];
 	[self setInputBoxAndSecurityToken:@"" exposed: FALSE];
+
+    key = [displayName stringByAppendingString: @"-loginWindowSecurityTokenIsHidden"];
+    [[self securityTokenView] setHidden:[gTbDefaults boolForKey:key]];
 
     [cancelButton setEnabled: YES];
     [OKButton setEnabled: YES];
