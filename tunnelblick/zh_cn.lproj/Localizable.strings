@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "除非 VPN 服务器使用 IPv6 连接，禁用 IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "禁用次要网络接口";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "当计算机休眠时断开连接";
 
 /* Checkbox name */
@@ -806,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS 服务器地址 %@ 是 Tunnelblick 已知的公共 DNS 服务器，但是并未通过 VPN 路由。\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • DNS服务器地址 %1$@ 被用于VPN '%2$@'，但不应如此。这表示可能存在多个活跃的网络接口。Tunnelblick不支持多个活跃的网络接口。\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS 服务器地址 %@ 不是 Tunnelblick 已知的公共 DNS 服务器，且并未通过 VPN 路由。\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS 服务器地址 %@ 不是公网 IP 地址，且并未通过 VPN 路由。\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • DNS服务器地址 %1$@ 没有被使用，但期望被用于VPN '%2$@'。\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • 安装了 %lu 个配置\n\n";
@@ -2284,6 +2293,9 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>选中时</strong>，所有配置会共享同样的用户名，密码和（如果有）私钥。</p>\n";
 
+/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>选中后</strong>，当VPN激活时，除了主要接口外的所有网络接口将被禁用。</p>\n<p>建议这样做，因为Tunnelblick只在主网络接口上设置DNS。</p>\n<p><strong>未选中时</strong>，次要网络接口没有被禁用。</p>\n<p>在使用“tap”连接并且没有“设置域名服务器”时，<strong>这个复选框会被禁用</strong> 。</p>";
+
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>选中时</strong>，文件夹内部的配置会展示在Tunnelblick的子菜单上。</p>\n<p><strong>不选中时</strong>，文件夹中的配置会展示在Tunnelblick的菜单栏上。</p>";
 
@@ -2410,6 +2422,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick包含一个经过定制的“easy-rsa”，它是一系列由OpenVPN的开发者们编写的用于创建和维护证书和私钥的命令行脚本。</p><p>点击这个按钮启动MacOS终端并将工作目录指定在包含这些脚本的目录中。</p><p>这些脚本通常位于 ~/Library/Application Support/Tunnelblick/easy-rsa。“easy-rsaPath” 偏好可以设置 Tunnelblick 使用的替代目录位置。“easy-rsaPath”必须是绝对路径或以 “~” 开始，并且其父目录必须存在。如果对应路径目录存在，将会被使用，否则将会在Tunnelblick启动的时候创建并将easy-rsa脚本安装到其中。</p><p>欲了解更多使用easy-rsa的信息，请参见 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">创建您自己的证书颁发机构 (CA) 并生成用于OpenVPN服务器以及客户端的证书和私钥</a> [openvpn.net].</p><p>欲了解更多关于 Tunnelblick 对 easy-rsa 的定制，请参见目录中的 README 文件。</p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Tunnelblick不应该使用Rosetta运行。</p>\n<p>更多信息，查看<a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net]。</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick无法载入一个联系到%@需要的系统扩展。</p>";
 
@@ -2481,6 +2496,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "已断开 %@ 的连接";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "不要使用Rosetta运行…";
 
 /* Checkbox */
 "Do not show this again" = "不再显示";

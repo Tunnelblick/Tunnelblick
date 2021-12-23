@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Wyłącz IPv6, chyba że dostęp do serwera VPN odbywa się za pomocą IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Wyłącz dodatkowe interfejsy sieciowe";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Rozłącz gdy komputer zostaje uśpiony";
 
 /* Checkbox name */
@@ -806,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Adres serwera DNS %@ jest publicznym serwerem DNS rozpoznanym przez Tunnelblicka, ale nie jest trasowany przez VPN.\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • Adres serwera DNS %1$@ jest używany przez VPN '%2$@', a nie powinien. Może to oznaczać, że aktywny jest więcej niż jeden interfejs sieciowy. Tunnelblick nie obsługuje wielu aktywnych interfejsów sieciowych. \n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Adres serwera DNS %@ nie jest publicznym serwerem DNS rozpoznanym przez Tunnelblicka i nie jest trasowany przez VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • Adres serwera DNS %@ nie jest publicznym adresem IP i nie jest trasowany przez VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • Adres serwera DNS %1$@ nie jest używany, ale miał być używany przez VPN '%2$@'.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Zainstalowano %lu konfigurację/i\n\n";
@@ -2284,6 +2293,9 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Jeśli zaznaczone</strong>, wszystkie konfiguracje będą współdzieliły tego samego użytkownika, hasło i/lub klucz prywatny.</p>\n";
 
+/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Po zaznaczeniu</strong>, wszystkie interfejsy sieciowe z wyjątkiem interfejsu podstawowego zostaną wyłączone, gdy sieć VPN jest aktywna.</p>\n<p>Jest to zalecane, ponieważ Tunnelblick konfiguruje DNS tylko dla podstawowego interfejsu sieciowego.</p>\n<p><strong>Gdy nie jest zaznaczone</strong>, dodatkowe interfejsy sieciowe nie są wyłączone.</p>\n<p><strong>To pole wyboru jest wyłączone</strong> podczas korzystania z połączenia typu „tap” i nieużywania opcji „Ustaw serwer DNS”.</p>";
+
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Jeśli zaznaczone</strong>, konfiguracje wewnątrz folderu będą wyświetlone w zagnieżdżonym menu Tunnelblick.</p>\n<p><strong>Jeśli nie zaznaczone</strong>, konfiguracje wewnątrz folderu będą wyświetlone w głównym menu Tunnelblick.</p>";
 
@@ -2410,6 +2422,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick instaluje odpowiednio skonfigurowaną wersję 'easy-rsa', zestawu skryptów napisanych przez programistów OpenVPN do tworzenia i zarządzania certyfikatami i kluczami.</p><p>Naciskając ten przycisk uruchomisz aplikację terminala w katalogu roboczym gdzie znajduje się folder ze skryptami.</p><p>Standardowo skrypty są zainstalowane w folderze ~/Library/Application Support/Tunnelblick/easy-rsa. Parametr 'easy-rsaPath' może wskazywać inny katalog który Tunnelblick powinien używać. 'easy-rsaPath' musi być absolutną ścieżką lub zaczynać się od '~', i folder nadrzędny musi istnieć. Jeśli folder ze ścieżki istnieje to będzie wykorzystany; jeśli nie istnieje, to zostanie stworzony i skrypty easy-rsa zostaną tam zainstalowane przy uruchomieniu Tunnelblick'a.</p><p>Więcej informacji o easy-rsa w języku angielskim znajduje się tutaj <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>Szczegóły personalizacji easy-rsa przez Tunnelblick znajdują się w tym katalogu w pliku README.</p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Tunnelblick nie powinien być uruchamiany za pomocą Rosetty.</p>\n<p>Aby uzyskać więcej informacji, zobacz <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick nie był w stanie załadować rozszerzenia systemu potrzebnego do połączenia z %@.</p>";
 
@@ -2481,6 +2496,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "Rozłączono z %@";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Nie używaj Rosetty…";
 
 /* Checkbox */
 "Do not show this again" = "Nie pokazuj tej informacji ponownie";

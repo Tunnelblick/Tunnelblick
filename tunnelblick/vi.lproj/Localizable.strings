@@ -2,7 +2,7 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Ngắt Tất Cả Kết Nối (%1$@) - địa chỉ IP công khai là %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Ngắt Tất Cả Kết Nối (%1$@) - địa chỉ IP công khai %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Ngắt Tất Cả Kết Nối (%@)";
@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Vô hiệu hóa IPv6 trừ khi máy chủ VPN được truy cập bằng IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Tắt các giao diện mạng phụ";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Ngắt kết nối khi máy tính chuyển sang chế độ nghỉ";
 
 /* Checkbox name */
@@ -806,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Địa chỉ máy chủ DNS %@ là một máy chủ DNS công cộng được biết đến với Tunnelblick nhưng không được định tuyến qua VPN.\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • Địa chỉ máy chủ DNS %1$@ đang được sử dụng cho VPN '%2$@' nhưng tốt hơn không nên sử dụng. Điều đó có thể chỉ ra rằng có nhiều hơn một giao diện mạng đang hoạt động. Tunnelblick không hỗ trợ nhiều giao diện mạng đang hoạt động.\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Địa chỉ máy chủ DNS %@ không phải là một máy chủ DNS công cộng được biết đến với Tunnelblick và không được định tuyến qua VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • Địa chỉ máy chủ DNS %@ không phải một địa chỉ IP công cộng và không được định tuyến qua VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • Địa chỉ máy chủ DNS %1$@ không được sử dụng nhưng đáng nên được sử dụng cho VPN '%2$@'.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "• Cài đặt %lu cấu hình\n\n";
@@ -2284,6 +2293,9 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Khi được chọn</strong>, tất cả các cấu hình sẽ chia sẻ cùng một tên người dùng, mật khẩu và / hoặc khóa riêng tư.</p>";
 
+/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong> Khi được chọn</strong>, tất cả các giao diện mạng ngoại trừ giao diện chính sẽ được tắt trong khi VPN đang hoạt động.</p>\n<p>Điều này được khuyến nghị vì Tunnelblick chỉ thiết lập DNS trên giao diện mạng chính </p>\n<p> <strong>Khi không được chọn</strong>, các giao diện mạng phụ không bị tắt.</p>\n<p> <strong>Checkbox này bị tắt</strong> khi sử dụng kết nối 'nhấn' và khi không sử dụng 'Đặt máy chủ định danh'.</p>";
+
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Khi được chọn</strong>, cấu hình bên trong các thư mục được hiển thị trong menu con của menu Tunnelblick.</p>\n<p><strong>Khi được chọn</strong>, cấu hình bên trong các thư mục được hiển thị trong menu Tunnelblick.</p>";
 
@@ -2410,6 +2422,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick bao gồm một phiên bản tùy chỉnh của 'easy-rsa', là một tập hợp các tập lệnh dòng lệnh được viết bởi các nhà phát triển OpenVPN để tạo và duy trì các chứng chỉ và khóa.</p><p>Nhấp vào nút này sẽ khởi chạy ứng dụng MacOS Terminal với thư mục làm việc được đặt thành thư mục chứa các tập lệnh.</p><p>Các tập lệnh thường được đặt trong thư mục tại ~/Library/Application Support/Tunnelblick/easy-rsa. Tùy chọn 'easy-rsaPath' có thể chứa đường dẫn đến thư mục mà Tunnelblick sẽ sử dụng thay thế. 'easy-rsaPath' phải là một đường dẫn tuyệt đối hoặc bắt đầu bằng dấu '~', và thư mục mẹ của đường dẫn phải tồn tại. Nếu một thư mục tồn tại ở đường dẫn, nó sẽ được sử dụng; nếu nó không tồn tại, nó sẽ được tạo và các tập lệnh easy-rsa sẽ được cài đặt vào nó khi Tunnelblick được khởi chạy.</p><p>Để biết thông tin về cách sử dụng easy-rsa, hãy xem <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Thiết lập Tổ chức phát hành chứng chỉ (CA) của riêng bạn và tạo chứng chỉ và khóa cho máy chủ OpenVPN và nhiều máy khách</a> [openvpn.net].</p><p>Để biết chi tiết về các tùy chỉnh của easy-rsa của Tunnelblick, hãy xem tệp README nằm trong thư mục.</p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Tunnelblick không nên được chạy với Rosetta.</p>\n<p>Để biết thêm chi tiết, xem <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick không thể tải tiện ích mở rộng hệ thống cần kết nối với %@.</p>";
 
@@ -2481,6 +2496,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "Đã ngắt kết nối khỏi %@\n";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Không chạy với Rosetta…";
 
 /* Checkbox */
 "Do not show this again" = "Không hiện lại lần nữa";

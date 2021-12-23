@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Inaktivera IPv6 om inte VPN-servern ansluts via IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Inaktivera sekundära nätverksgränssnitt";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Koppla bort när datorn försätts i vila";
 
 /* Checkbox name */
@@ -806,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     DNS-adressen %@ är publik och känd för Tunnelblick, men skickas inte via VPN:en.\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • DNS-serveradressen %1$@ används för VPN '%2$@' men bör inte användas. Det kan tyda på att mer än ett nätverksgränssnitt är aktivt. Tunnelblick stöder inte flera aktiva nätverksgränssnitt.\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     DNS-adressen %@ är inte en publik DNS-server som Tunnelblick känner till och den skicka inte via VPN:en.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS-adressen %@ är inte en publik IP-adress och färdas inte igenom VPN tjänsten.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • DNS-serveradressen %1$@ används inte men förväntades användas för VPN '%2$@'.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installerade %lu konfigurationer\n\n";
@@ -2410,6 +2419,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p> Tunnelblick innehåller en anpassad version av \"easy-rsa\", som är en uppsättning kommandoradsskript skrivna av OpenVPN-utvecklarna för att skapa och behålla certifikat och nycklar. </p>\n<p> Genom att klicka på den här knappen startas OS X Terminal-applikationen med den mappen som innehåller skripten som aktuell katalog. </p>\n<p> Skripten finns normalt i mappen ~ /Library/Application Support/ Tunnelblick/easy-rsa. En \"easy-rsaPath\" -inställning kan innehålla sökvägen till en mapp som Tunnelblick ska använda istället. 'Easy-rsaPath' måste vara en absolut sökväg eller börja med '~', och den överordnade mappen på sökvägen måste existera. Om en mapp finns i sökvägen kommer den att användas; Om den inte existerar kommer den att skapas och Easy-RSA-skript installeras i den när Tunnelblick startas. </p>\n<p> För information om hur du använder easy-rsa, se \n<a href=\"https://openvpn.net/index.php/opensource/documentation/howto.html#pki\">Sätt upp din egen certifikatutfärdare(CA) och generera certifikat och nycklar för en OpenVPN-server och flera klienter </a> [openvpn.net]. </p>\n<p> För detaljer om Tunnelblick anpassningar av easy-rsa, se README-filen i mappen. </p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Tunnelblick ska inte köras med Rosetta.</p>\n<p>För mer information, se <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick och Rosetta</a>[tunnelblick.net].</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick kunde inte ladda ett systemtillägg som är nödvändigt för att skapa en förbindelse till %@.</p>";
 
@@ -2481,6 +2493,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "Nedkopplad från %@";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Kör inte med Rosetta…";
 
 /* Checkbox */
 "Do not show this again" = "Visa inte detta igen";

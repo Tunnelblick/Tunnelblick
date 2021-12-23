@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "IPv6でVPNサーバに接続している場合を除き、IPv6を無効にする";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "二次のネットワークインターフェイスを無効にする";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "スリープ時に接続を切断する";
 
 /* Checkbox name */
@@ -806,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNSサーバのIPアドレス「%@」はパブリックDNSサーバですが、経路がVPNへ向いていません。\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • DNSサーバーアドレス %1$@ は VPN '%2$@' に現在使われていますが推奨できません。\nこれは２つ以上のネットワークインターフェイスがアクティブであることを意味します。Tunnelblick は複数のアクティブなネットワークインターフェイスをサポートしていません。";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNSサーバのIPアドレス「%@」はパブリックDNSサーバではありませんが、経路がVPNへ向いていません。\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNSサーバのアドレス %@ は公開されているIPアドレスはないため、VPNでルーティングされません。\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • DNSサーバーアドレス %1$@ は現在使用されていませんが VPN '%2$@' に使用されることが期待されていました。";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu つの設定がインストールされました\n\n";
@@ -2284,6 +2293,9 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>チェックを入れた時</strong>、全ての設定は同じユーザー名、パスワードと/もしくは秘密鍵を共有します。</p>\n";
 
+/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>チェックを入れると</strong>、VPNがアクティブの間は優先するもの以外の全てのネットワークインターフェイスが無効になります。</p>\n<p> そうするとTunnelblick は優先のネットワークインターフェイスのみDNSを設定するのでお勧めです。</p>\n<p><strong>チェックを外すと</strong>、二次のインターフェイスが無効になりません。</p>\n<p>”タップ”接続を使って”ネームサーバーを設定”を使用しない場合、<strong>このチェックボックスは無効になります</strong>。</p>";
+
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>チェックすると</strong>、フォルダ内の構成は、Tunnelblickメニューのサブメニューに表示されます。</p>\n<p><strong>チェックされていない場合</strong>、フォルダ内の構成は、Tunnelblickメニューに表示されます。</p>";
 
@@ -2410,6 +2422,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblickは証明書と鍵を発行し維持するために、OpenVPN開発者が作成したコマンドラインスクリプトである 'easy-rsa' をカスタマイズしたバージョンを使用しています。</p><p>このボタンをクリックすることで、スクリプトが保存されているフォルダをワーキングディレクトリにしてmacOSのターミナルアプリが起動します。</p><p>スクリプトは通常 ~/Library/Application Support/Tunnelblick/easy-rsa に保存されています。 'easy-rsaPath' を設定することによってこのフォルダを変更できます。 'easy-rsaPath' は絶対パスか '~' から始まらなければならず、かつ親フォルダまでは存在しなければいけません。もしフォルダが存在すればそれが使われます。もし存在しなければ、Tunnelblickが起動した時にフォルダが作られて 'easy-rsa' スクリプトがインストールされます。</p><p>easy-rsa の使い方については次のリンクをご参照下さい。 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">自己認証局（CA）をセットアップし、証明書と鍵をOpenVPNのサーバーや複数のクライアントに発行する方法</a> [openvpn.net]</p><p>Tunnelblickのeasy-rsaのカスタマイズについてもっと知りたいときは上のフォルダにあるREADMEをお読み下さい。</p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p> Tunnelblick は Rosetta を使用しての起動を推奨しません。</p>\n<p>詳細な情報はこちらをご覧ください。<a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblickと Rossetta</a>[tunnelblick.net]</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblickは、%@に接続するために必要なシステム拡張機能を読み込むことができませんでした。</p>";
 
@@ -2481,6 +2496,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "%@ を切断しました";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Rosetta を使用して起動させないでください…";
 
 /* Checkbox */
 "Do not show this again" = "次回から表示しない";

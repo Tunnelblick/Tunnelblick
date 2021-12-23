@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Zakázat IPv6, dokud není na VPN server přistupováno pomocí IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Zakázat sekundární síťová rozhraní";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Odpojit při usnutí počítače";
 
 /* Checkbox name */
@@ -806,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS server s adresou %@ je veřejný DNS server známy Tunnelblicku. Není směrován přes VPN.\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     Adresa DNS serveru %1$@ je špatně použita pro VPN '%2$@'. Je možné, že máte aktivních více síťových rozhraní. Tunnelblick použití více aktivních síťových rozhraní nepodporuje.\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS server s adresou %@ není veřejný DNS server známý Tunnelblicku a není směrován přes VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • adresa DNS serveru %@ není veřejná IP adresa a nebude směrována přes VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     DNS server %1$@ by měl být používán pro VPN '%2$@', ale není.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Nainstalováno %lu konfigurací\n\n";
@@ -2284,6 +2293,9 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Je-li zaškrtnuto</strong>, budou všechny konfigurace sdílet totéž uživatelské jméno, heslo a/nebo privátní klíč.</p>\n";
 
+/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Pokud je zaškrtnuto</strong>, všechna síťová rozhraní kromě hlavního budou zakázána když je VPN aktivní.</p>\n<p>Toto nastavení doporučujeme, protože tunnelblick nastavuje DNS tak, aby používalo pouze to z hlavního síťového rozhraní.</p>\n<p><strong>Pokud není zaškrtnuto</strong>, všechna další síťová rozhraní nebudou zakázána.</p>\n<p> <strong>Tento checkbox je zneaktivněn</strong> pokud se používá 'tap' připojení nebo když není aktivní volba 'Nastavit nameserver'</p>";
+
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Je-li zaškrtnuto</strong>, jsou konfigurace, umístěné uvnitř adresářů, zobrazené v podmenu nabídky Tunnelblicku.</p>\n<p><strong>Není-li zaškrtnuto</strong>, jsou konfigurace, umístěné uvnitř adresářů, zobrazené v nabídce Tunnelblicku.</p>";
 
@@ -2410,6 +2422,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick obsahuje upravenou verzi 'easy-rsa', která je sadou skriptů příkazové řádky, napsaných vývojáři OpenVPN pro vytvoření a údržbu certifikátů a klíčů.</p><p>Klikem na toto tlačítko se spustí macOS Terminál s přednastavenou složkou, obsahující tyto skripty.</p><p>Skripty jsou běžně umístěny ve složce ~/Knihovna/Application Support/Tunnelblick/easy-rsa. Předvolba 'easy-rsaPath' může obsahovat cestu ke složce, kterou bude Tunnelblick používat namísto výchozí. Cesta 'easy-rsaPath' musí být úplný odkaz nebo cesta začínající '~', a nadřazená složka takové cesty musí existovat. Když u dané cesty existuje složka, bude použita; když neexistuje, bude vytvořena a easy-rsa skripty do ní budou nainstalovány při spuštění Tunnelblicku.</p><p>Pro informace o užívání easy-rsa viz <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Nastavení vlastního Certifikátu autority (CA) a generování certifikátů a klíčů pro OpenVPN server a vícero klientů</a> [openvpn.net].</p><p>Informace o přizpůsobení easy-rsa v Tunnelblick najdete v README souboru umístěném ve složce.</p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Tunnelblick by neměl běžet v rámci rozhraní Rosetta.</p>\n<p>Více informace naleznete na stránce <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick a Rosetta</a>[tunnelblick.net].</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblicku se nepodařilo zavést systémové rozšíření, které je nezbytné pro spojení %@.</p>";
 
@@ -2481,6 +2496,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "Odpojeno z %@";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Nepouštějte pomocí prostředí Rosetta…";
 
 /* Checkbox */
 "Do not show this again" = "Znovu nezobrazovat";

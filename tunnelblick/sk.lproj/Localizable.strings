@@ -811,6 +811,9 @@
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • adresa DNS servera %@ nie je verejná IP adresa a nebude smerovaná cez VPN.\n\n";
 
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • Adresa DNS servera %1$@ nie je použitá, ale bola očakávaná na použitie VPN '%2$@'.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Počet inštalovaných konfigurácií: %lu ";
 

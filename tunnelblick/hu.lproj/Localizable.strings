@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Kapcsolja ki az IPv6-ot, kivéve ha a VPN szervert IPv6 használatával éri el";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Másodlagos hálózati adapterek kikapcsolása";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Szétkapcsolás, ha a számítógép alvó állapotba kerül";
 
 /* Checkbox name */
@@ -806,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • A %@ DNS szerver cím egy Tunnelblick által ismert nyilvános cím, de nem kerül a VPN-en keresztül átroutolásra.\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • A %2$@ VPN-hez a %1$@ DNS szerver van beállítva, mely DNS szerver használata nem ajánlott. Feltételezhető, hogy több hálózati interfész is használatban van. A Tunnelblick nem támogatja a több aktív hálózati interfésszel rendelkező rendszereket.\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • A %@ DNS szerver cím egy Tunnelblick által nem ismert nyilvános cím, és nem kerül a VPN-en keresztül átroutolásra.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     A %@ DNS cím egy belső hálózati cím, így nem kerül átroutolásra a VPN kapcsolaton keresztül.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • A %1$@ DNS szerver cím nincs használatban, de javasolt a %2$@ VPN-hez használni.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu konfiguráció telepítve\n\n";
@@ -2284,6 +2293,9 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Kiválasztás esetén</strong>az összes konfiguráció azonos felhasználónevet, jelszót és/vagy privát kulcsot fog használni.</p>\n";
 
+/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Kiválasztás esetén</strong>az elsődleges hálózati adaptert kivéve az összes hálózati adaptert kikapcsoljuk, amíg a VPN kapcsolat aktív.</p>\n<p>Ez azért javasolt, mert a Tunnelblick csak az elsődleges hálózati adapteren állítja be a DNS-t.</p>\n<p><strong>Ha nem választja ki</strong>, másodlagos hálózati adaptereket nem kapcsoljuk ki.</p>\n<p><strong>Ez a jelölőnégyzet inaktív</strong> 'tap' kapcsolat esetén, valamint ha nincs kiválasztva a 'Névszerver beállítása'.</p>";
+
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Ha </strong> van bejelölve, konfigurációk amelyek almappákban vannak a Tunnelblick menü almenüjében jelennek meg. </p>\n<p><strong> Ha nincs kiválasztva </strong>, a konfigurációk, amelyek almappákban vannak a Tunnelblick menüben jelennek meg. </p>";
 
@@ -2410,6 +2422,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick tartalmaz egy testreszabott \"könnyű-rsa\" változatot, amelyek OpenVPN fejlesztők által készített parancssoros szkriptek a tanúsítványok és kulcsok létrehozásához és fenntartásához. </p><p> Erre a gombra kattintva elindul a macOS Terminal alkalmazás a könyvtár a szkripteket tartalmazó mappával. </p><p> A szkriptek általában a ~/Library/Application Support/Tunnelblick/easy-rsa mappában találhatók. \"Könnyű-rsa Path\" preferencia tartalmazhat egy utat egy mappához amit Tunnelblick fogja helyette használni. \"Könnyű rsa Path\" egy abszolút útvonal kell hogy legyen, vagy egy '~', és a szülő mappának léteznie kell. Ha van egy mappa az elérési úton, akkor azt fogja használni; ha nem létezik, akkor egy új jön létre, és a könnyű rsa script ebbe lesz telepítve amikor Tunnelblick elindúl. </p> <p> A könnyű rsa használatával kapcsolatos információkat lásd: <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\"> A saját hitelesítésszolgáltató (CA) és a termelő tanúsítványokat és kulcsokat felállítani egy OpenVPN szerver és több ügyfél </a> [openvpn.net]. </p> <p> a részleteket Tunnelblick terveit az a könnyű rsa-ról lásd a README fájlt található a mappát. </p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>A Tunnelblick nem futtatható a Rosetta használatával.</p>\n<p> További információk a következő linken érhetők el <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>A Tunnelblick nem tudta betölteni a rendszerbővítményt, ami szükséges a %@-hoz való csatlakozáshoz.</p>";
 
@@ -2481,6 +2496,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "%@ leválasztva";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Ne futtasd Rosetta használatával…";
 
 /* Checkbox */
 "Do not show this again" = "Ne mutassa ismét";

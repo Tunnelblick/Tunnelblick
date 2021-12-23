@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "تعطيل بروتوكول IPv6 الا اذا امكن الوصول ل OpenVPN عن طريق عنوان IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "تعطيل الشبكات الثانوية";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "قطع الاتصال عندما يصبح الكمبيوتر في وضع السكون";
 
 /* Checkbox name */
@@ -806,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • عنوان خادم DNS %@ هو خادم DNS عام معروف ل Tunnelblick لكن لا يتم توجيهه عبر ال VPN.\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • عنوان خادم DNS @$1% يتم إستخدامه الVPN '@$2%' ولكن لا ينبغي استخدامها. قد يشير ذلك إلى أن أكثر من شبكة ناشطة. لا يدعم Tunnelblick العديد من الشبكات الناشطة.\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • عنوان خادم DNS %@ ليس خادم DNS عام معروف ل Tunnelblick ولا يتم توجيهه عبر ال VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • عنوان خادم DNS %@ هو ليس عنوان IP عامًا و لا يتم توجيهه عبر ال VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • عنوان خادم DNS %1$@ لا يتم استخدامه ولكن كان من المتوقع استخدامه مع VPN '%2$@'.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     تم تحميل %lu الاعدادات";
@@ -2284,6 +2293,9 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>عند تفعيل هذا الخيار</strong>، سيتم تطبيق نفس اسم المستخدم وكلمة السر و/أو المفتاح الخاص لكافة الإعدادات.</p>\n";
 
+/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<strong><p>عند إختياره<strong/>، سيتم تعطيل جميع الشبكات باستثناء الشبكة الأساسية أثناء ال-VPN وهو ناشط.<p/>\n<p>يوصى بهذا لأن Tunnelblick يقوم بإعداد DNS فقط على الشبكة الأساسية.<p/>\n<strong><p>عند عدم إختياره<strong/>، لا يتم تعطيل واجهات الشبكة الثانوية<p/>\n<strong><p>مربع الاختيار هذا معطل<strong/> عند استخدام اتصال 'tap' وعند عدم استخدام .'اعداد النيم سيرفر'.<p/>";
+
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>عند تفعيل هذا الخيار</strong>، سيتم إظهار الإعدادات الموجودة ضمن مجلدات في قوائم فرعية في قائمة تانلبليك.</p>\n<p><strong>عند عدم تفعيل هذا الخيار</strong>، سيتم إظهار الإعدادات الموجودة ضمن مجلدات في قائمة تانلبليك.</p>";
 
@@ -2410,6 +2422,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>	 Tunnelblick يتضمن نسخة مخصصة من 'easy-rsa' و التي هي مجموعة من الرموز على واجهة سطر الأوامر مكتوبة من مجموعة من مطوري OpenVPN، والتي تمكن من إنشاء وصيانة الشهادات والمفاتيح.</p><p>النقر على هذا الزر يشغل برنامج ال macOS Terminal مع ملف الدليل العامل المضبوط الذي يحتوي على الرموز.</p><p>الرموز موجودة عادة داخل الملف ~/Library/Application Support/Tunnelblick/easy-rsa. من الممكن أن تحتوي إعدادات 'easy-rsaPath' الطريق نحو ملف يستعمله تُنلـبليك عوضا عن الملف المفترض. 'easy-rsaPath' يجب أن يكون طريقاً مطلقا أو يبدأ ب '~'، والملف الأم للطريق يجب أن يكون موجوداً. إذا كان هناك ملف في الطريق المعين فسوف يستعمل، وإذا لا يكون موجوداً, سيتم إنشاؤه و ستثبت فيه رموز easy-rsa عندما يشغل Tunnelblick.</p><p> للمزيد من المعلومات حول easy-rsa، أنظر <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">أعدّ (Certificate Authority (CA خاصتك و اِستحدث شهادات والمفاتيح لخادم OpenVPN و عملاء متعددون.</a> [openvpn.net].</p><p>لمزيد من المعلومات حول تخصيص easy-rsa ل Tunnelblick، أنظر ملف README المتواجد داخل ملف التطبيق.</p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Rosetta يجب ألا يعمل باستخدام Tunnelblick</p>\n<p>لمزيد من المعلومات، راجع<a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick و Rosetta</a>[tunnelblick.net].</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p> تُنلـبليك غير قادر على تحميل إضافة النظام الضرورية لربط الإتصال ب ٪@ </p>";
 
@@ -2481,6 +2496,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "قطع الاتصال من %@";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "لا تقم بتشغيل Rosetta...";
 
 /* Checkbox */
 "Do not show this again" = " عدم إظهار هذا مرة أخرى";

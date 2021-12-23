@@ -806,10 +806,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS сървърен адрес %@ е публичен DNS сървър известен на Tunnelblick, но не се рутира през VPN-а.\n     \n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • DNS сървърен адрес %1$@ се използва за VPN '%2$@', но не трябва. Това може да означава, че повече от един мрежови интерфейс е активен. Tunnelblick не поддържа множество активни интерфейси.\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS сървърен адрес %@ НЕ е публичен DNS сървър известен на Tunnelblick и не се рутира през VPN-а.\n     \n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS сървърен адрес %@ не е публичен IP адрес и не се рутира през VPN-а.\n     \n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • DNS сървърен адрес %1$@ не се използва, но се очакваше да бъде използван за VPN '%2$@'.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Инсталирани %lu конфигурации\n\n";
@@ -2410,6 +2416,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick включва персонализирана версия на 'easy-rsa', която е набор от скриптове за команден интерпретато написани от програмистите на OpenVPN за създаване и управление на сертификати и ключове.</p><p>Натискайки този бутон ще се стартира Терминал приложението на OS X и ще отвори папката със скриптовете.</p><p>Обикновено те са разположени в ~/Library/Application Support/Tunnelblick/easy-rsa. Но 'easy-rsaPath' настройката може да зададе и път до папка в Tunnelblick вместо това. 'easy-rsaPath' трябва да е абсолютен път или да започва с '~', и основната папка трябва да съществува. Ако папката посочена с пътя съществува, то тя ще се използва; ако не съществува - ще бъде създадена и скриптовете на easy-rsa ще бъдат инсталирани в нея.</p><p>За повече информация как се ползва easy-rsa, вижте <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Настройване на собствен Certificate Authority (CA) и генериране на сертификати и ключове за OpenVPN сървър и множество клиенти</a> [openvpn.net].</p><p>За повече информация по настройване на Tunnelblick easy-rsa, вижте файла README в папката.</p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Tunnelblick не трябва да се използва с Rosetta.</p>\n<p>За повече детайли виж <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick и Rosetta</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick не успя да зареди системно разширение, което е необходимо за връзка с %@.</p>";
 
@@ -2481,6 +2490,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "Изключен (не е свързан) от %@";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Не използвайте с Rosetta…";
 
 /* Checkbox */
 "Do not show this again" = "Не показвай повече това";

@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Dezactivează IPv6 cu excepția cazului în care serverul VPN este accesat folosind IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Dezactivează interfețele de rețea secundare";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Deconectează când computerul este în mod hibernare";
 
 /* Checkbox name */
@@ -806,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • Adresa serverului DNS %@ este un server DNS public cunoscut de Tunnelblick dar nu este transmisă prin rețeaua VPN.\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • Adresa serverului DNS %1$@ este folosită de VPN '%2$@' dar nu ar trebui folosită. Este posibil ca mai mult de o interfață de rețea să fie activă. Tunnelblick nu oferă support pentru multiple interfețe de rețea active.\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • Adresa serverului DNS %@ nu este un server DNS public cunoscut de Tunnelblick și nu este transmisă prin rețeaua VPN.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • Adresa serverului DNS %@ nu este un IP public și nu va fi rutat prin VPN.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • Adresa serverului DNS %1$@ nu este folosită dar ne așteptam să fie folosită pentru VPN '%2$@'.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     %lu configurări instalate\n\n";
@@ -2284,6 +2293,9 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Când este bifată</strong>, toate configurațiile vor folosi același nume de utilizator, parolă și/sau cheie privată.</p>\n";
 
+/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Când este bifată</strong>, toate interfețele de rețea în afara celei primare vor fi dezactivate cât timp VPN-ul este activ.</p>\n<p>Recomandăm această opțiune deoarece Tunnelblick activează DNS-ul numai pentru interfața de rețea primară.</p>\n<p><strong>Când nu este bifată</strong>, interfețele de rețea secundare nu sunt dezactivate.</p>\n<p><strong>Această casetă de selectare este dezactivată</strong> dacă se folosește o conexiune de tip \"Tap\" și 'Setează DNS' nu este folosit.</p>";
+
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Când este bifată</strong>, configurațiile din interiorul directoarelor sunt afișate în sub-meniuri alre meniului Tunnelblick.</p>\n<p><strong>Când nu este bifată</strong>, configurațiile din interiorul directoarelor sunt afișate în meniul Tunnelblick.</p>";
 
@@ -2410,6 +2422,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick include o versiune personalizată a librăriei 'easy-rsa', care este un set de script-uri din linia de comandă scrise de dezvoltatorii OpenVPN pentru a creea și menține certificate și chei.</p><p>Apăsând acest buton lansează aplicația macOS Terminal cu directorul curent configurat în locația acestor script-uri.</p><p>Acestea sunt în mod normal găsite în ~/Library/Application Support/Tunnelblick/easy-rsa. Opțiunea 'easy-rsaPath' poate conține calea către un director pe care Tunnelblick să îl folosească alternativ. 'easy-rsaPath' trebuie să fie o cale absolută sau să înceapă cu '~', iar directorul părinte trebuie să existe. Dacă un director există în locația specificată, va fi folosit; dacă nu există va fi creeat, iar script-urile easy-rsa vor fi instalate în acea locație când Tunnelblick pornește.</p><p>Pentru mai multe informații despre utilizarea easy-rsa, vizitați <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Configurarea propriei Autorități de Certificare (CA) și generarea de certificate și chei pentru server-ul OpenVPN și mai mulți clienți</a> [openvpn.net].</p><p>Pentru detalii despre personalizările Tunnelblick's a easy-rsa, citiți fișierul README găsit în acel director.</p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Nu folosiți Rosetta pentru a rula Tunnelblick.</p>\n<p>Pentru mai multe informații, vizitați pagina (în engleză) <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick nu a putut să încarce o extensie sistem necesară pentru conectare la %@.</p>";
 
@@ -2481,6 +2496,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "Deconectat de la %@";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Nu rulați utilizând Rosetta…";
 
 /* Checkbox */
 "Do not show this again" = "Nu mai afişa asta";
