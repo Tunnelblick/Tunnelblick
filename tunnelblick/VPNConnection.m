@@ -1269,8 +1269,8 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                                                                @"<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n"
                                                                @" so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n"
                                                                @"<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window."
-                                                               @" If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to"
-                                                               @" the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n",
+                                                               @" If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">contributing to"
+                                                               @" the Tunnelblick project.</a> [tunnelblick.net]</p>\n",
                                                                @"Window text. The '%u' will be replaced with 5 or a similar small positive number");
             TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                       attributedLightDarkStringFromHTML([NSString stringWithFormat: warningMessageBase, successes]),
