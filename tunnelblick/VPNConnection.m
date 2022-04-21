@@ -2654,6 +2654,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 -(BOOL) mustLoad: (NSString *) requirement {
 
     // requirement must be "tun" or "tap". Returns true if the configuration requires the specified kext.
+    if ( [@"tap" isEqualToString: requirement] ) {
+        // TAP can be handled with IOUserEthernetController now
+        return NO;
+    }
 
 
     NSString * tunTapOrUtun = (  tunOrTap
@@ -2795,15 +2799,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 	if (  [preference isEqualToString: @"always"]  ) {
 		bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
-	} else if (   (! preference)
-               || ( [preference length] == 0)  ) {
-        if (   ( ! tunOrTap )
-            || [tunOrTap isEqualToString: @"tap"]  ) {
-            bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
-        }
     } else if (  ! [preference isEqualToString: @"never"]  ) {
-        [self addToLog: [NSString stringWithFormat: @"Cannot recognize the %@ preference value of '%@', so Tunnelblick will load the tap kext", preferenceKey, preference]];
-        bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
+        [self addToLog: [NSString stringWithFormat: @"Cannot recognize the %@ preference value of '%@', so Tunnelblick will not load the tap kext", preferenceKey, preference]];
     }
     
 	preferenceKey = [displayName stringByAppendingString: @"-loadTun"];

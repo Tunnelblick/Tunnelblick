@@ -1033,7 +1033,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 		e = [loadTapConfigNames objectEnumerator];
 		while (  (configName = [e nextObject])  ) {
 			if (  ! [doNotLoadTapConfigNames containsObject: configName]  ) {
-				[gTbDefaults setObject: @"always" forKey: [configName stringByAppendingString: @"-loadTap"]];
+				[gTbDefaults setObject: @"never" forKey: [configName stringByAppendingString: @"-loadTap"]];
 			}
 		}
 		
