@@ -43,10 +43,10 @@ index 9c898718..2a9a04ad 100644
  	*-mingw*)
  		AC_DEFINE([TARGET_WIN32], [1], [Are we running WIN32?])
 diff --git a/src/openvpn/tun.c b/src/openvpn/tun.c
-index 9b6d8d68..0e6b923d 100644
+index 9b6d8d68..3ba371ec 100644
 --- a/src/openvpn/tun.c
 +++ b/src/openvpn/tun.c
-@@ -56,6 +56,145 @@
+@@ -56,6 +56,150 @@
  
  #include <string.h>
  
@@ -97,6 +97,8 @@ index 9b6d8d68..0e6b923d 100644
 +            found = true;
 +        }
 +    }
++    CFRelease(ifCFName);
++    CFRelease(sc);
 +    CFRelease(services);
 +    return found;
 +}
@@ -128,13 +130,16 @@ index 9b6d8d68..0e6b923d 100644
 +    char *buffer = (char *)malloc(maxSize);
 +    if (buffer == NULL) {
 +        msg(M_ERR, "ERROR: Unable to malloc space for BSD interface name");
++        CFRelease(bsdName);
 +        return NULL;
 +    }
 +    if (!CFStringGetCString(bsdName, buffer, maxSize, kCFStringEncodingUTF8)) {
 +        msg(M_ERR, "ERROR: Unable to convert bsdName to cstring");
++        CFRelease(bsdName);
 +        free(buffer);
 +        return NULL;
 +    }
++    CFRelease(bsdName);
 +    return buffer;
 +}
 +
@@ -192,7 +197,7 @@ index 9b6d8d68..0e6b923d 100644
  #ifdef _WIN32
  
  const static GUID GUID_DEVCLASS_NET = { 0x4d36e972L, 0xe325, 0x11ce, { 0xbf, 0xc1, 0x08, 0x00, 0x2b, 0xe1, 0x03, 0x18 } };
-@@ -1789,7 +1928,36 @@ open_tun_generic(const char *dev, const char *dev_type, const char *dev_node,
+@@ -1789,7 +1933,36 @@ open_tun_generic(const char *dev, const char *dev_type, const char *dev_node,
                  }
                  if (!dynamic_opened)
                  {
