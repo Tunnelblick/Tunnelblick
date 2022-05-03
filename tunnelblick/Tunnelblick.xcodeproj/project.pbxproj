@@ -69,6 +69,7 @@
 		633888F81C00F2FC0076032D /* LoginWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633888F21C00F2FC0076032D /* LoginWindow-RTL.xib */; };
 		633888F91C00F2FC0076032D /* PassphraseWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633888F31C00F2FC0076032D /* PassphraseWindow-RTL.xib */; };
 		633888FB1C00F2FC0076032D /* Welcome-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633888F51C00F2FC0076032D /* Welcome-RTL.xib */; };
+		633BC7442821ECE4007150B3 /* HY.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 633BC7432821ECE4007150B3 /* HY.lproj */; };
 		633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 633DF4581312B13100B8606C /* ConfigurationManager.m */; };
 		633E55631BB0F16600A6B8FB /* BuildAppsAndDmgs.sh in Resources */ = {isa = PBXBuildFile; fileRef = 633E55621BB0F16600A6B8FB /* BuildAppsAndDmgs.sh */; };
 		6341C39713D6DE6200B9CE2B /* da.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6341C39313D6DE6200B9CE2B /* da.lproj */; };
@@ -435,6 +436,7 @@
 		633888F21C00F2FC0076032D /* LoginWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "LoginWindow-RTL.xib"; sourceTree = "<group>"; };
 		633888F31C00F2FC0076032D /* PassphraseWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PassphraseWindow-RTL.xib"; sourceTree = "<group>"; };
 		633888F51C00F2FC0076032D /* Welcome-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Welcome-RTL.xib"; sourceTree = "<group>"; };
+		633BC7432821ECE4007150B3 /* HY.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HY.lproj; sourceTree = "<group>"; };
 		633DF4581312B13100B8606C /* ConfigurationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationManager.m; sourceTree = "<group>"; };
 		633E55621BB0F16600A6B8FB /* BuildAppsAndDmgs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = BuildAppsAndDmgs.sh; sourceTree = "<group>"; };
 		6341C39313D6DE6200B9CE2B /* da.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = da.lproj; sourceTree = "<group>"; };
@@ -1114,6 +1116,7 @@
 				639B6118205BE7FD00BC2FF5 /* he.lproj */,
 				634E02061CAD9776008637FF /* hr.lproj */,
 				63903D12145EAD49006627C9 /* hu.lproj */,
+				633BC7432821ECE4007150B3 /* HY.lproj */,
 				63EA2CA81C9EFCF0005F0872 /* id.lproj */,
 				63EA2CA91C9EFCF0005F0872 /* is.lproj */,
 				63BD86E41205BA39005B8E38 /* it.lproj */,
@@ -1702,6 +1705,7 @@
 				B86D1314181186E900FDFB3B /* ListingWindow.xib in Resources */,
 				63EA2CAB1C9EFCF0005F0872 /* id.lproj in Resources */,
 				632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */,
+				633BC7442821ECE4007150B3 /* HY.lproj in Resources */,
 				6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */,
 				6357DADB214FC229003A7196 /* ImportWindow-RTL.xib in Resources */,
 				636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */,
