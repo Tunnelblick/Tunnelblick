@@ -818,7 +818,7 @@
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS-serveradres %@ is geen openbaar IP-adres en wordt niet via de VPN gerouteerd.\n\n";
 
 /* Window text */
-"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • DNS serveradres %1$@ wordt niet gebruikt maar werd wel verwacht voor VPN '%2$@'.\n\n";
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • DNS serveradres %1$@ wordt niet gebruikt, maar werd wel verwacht voor VPN '%2$@'.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu configuraties geïnstalleerd\n\n";
@@ -999,9 +999,6 @@
 
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick ondervond een of meer serieuze problemen.</p>\n\n<p>Stuur een e-mail naar %1$@ en voeg daaraan het bestand <br>'%2$@' toe, dat op de desktop is aangemaakt.</p>\n\n<p>Het bestand kan de Tunnelblick-ontwikkelaars helpen om de oorzaak van deze problemen op te lossen. Het bestand bevat geen persoonlijke gegevens of informatie over je VPNs.</p>\n\n<p>Probeer, indien mogelijk, ook te beschrijven wat Tunnelblick aan het doen was, toen de problemen optraden.</p>\n\n<p>Dankzij jouw hulp zullen alle Tunnelblick-gebruikers hiervan profiteren.</p>";
-
-/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
-"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p> Het van buitenaf zichtbare IP-adres van deze computer is gewijzigd na het opzetten van deze VPN-verbinding, elk van de laatste %u keren dat het werd gecontroleerd.</p>\n<p>Dit betekent waarschijnlijk dat de VPN correct is ingesteld en dat verdere controle niet nodig is, dus de controle is uitgeschakeld voor deze VPN om de belasting op tunnelblick.net servers te verminderen.</p>\n<p>De optie kan weer aangezet worden onder het tabblad \"Instellingen\" in Tunnelblicks \"VPN-Details\" scherm. Als u dat doet, overweeg dan een donatie te doen<a href=\"https://tunnelblick.net/donate.html\">aan het Tunnelblick project</a> [tunnelblick.net] om te helpen bij het betalen van de serverkosten </p>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Een TBPreference of TBAlwaysSetPreference sleutel verwijst naar een onbekende instelling ' %1$@' in %2$@";
@@ -2293,7 +2290,7 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Wanneer aangevinkt</strong>, zullen alle configuraties dezelfde gebruikersnaam, wachtwoord en/of privé sleutel gebruiken.</p>\n";
 
-/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+/* HTML info for the 'Disable secondary network interfaces' checkbox.\n\n */
 "<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Indien geselecteerd</strong> worden alle netwerkinterfaces uitgeschakeld als het VPN actief is, met uitzondering van de primaire netwerkinterface.</p>\n<p>Dit is wenselijk aangezien Tunnelblick alleen DNS op de primaire netwerkinterface instelt</p>\n<p><strong>Indient niet geselecteerd</strong> worden secondaire netwerkinterfaces niet uitgeschakeld</p>\n<p><strong>Deze optie is niet beschikbaar</strong> bij gebruik van een 'tap' verbinding en wanneer 'nameserver configureren' niet wordt gebruikt.</p>";
 
 /* HTML info for the 'Display connection submenus' checkbox. */

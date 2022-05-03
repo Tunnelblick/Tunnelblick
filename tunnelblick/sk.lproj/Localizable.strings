@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Deaktivovať IPv6 v prípade že pripojenie VPN nepoužíva IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Zakázať sekundárne sieťové rozhrania";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Odpojiť pri prechode do režimu spánku";
 
 /* Checkbox name */
@@ -806,6 +809,9 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     Adresa DNS servera %@ je verejná adresa známa pre Tunnelblick, ale nie je smerovaná cez VPN.\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • Adresa DNS servera %1$@ je použitá pre VPN '%2$@', ale nemala by byť použítá. Je možné, že máte aktívnych viac sieťových rozhraní. Tunnelblick použitie viacerých aktívnych sieťových rozhraní nepodporuje.\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     Adresa DNS servera %@ nie je verejná adresa známa pre Tunnelblick a nie je smerovaná cez VPN.\n\n";
 
 /* Window text */
@@ -993,9 +999,6 @@
 
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Vyskytla sa jedna alebo viaceré závažné chyby aplikácie Tunnelblick.</p>\n\n<p>Prosím zašlite email na %1$@ a pripojte súbor the<br>'%2$@', ktorý bol vytvorený na Vašej pracovnej ploche.</p>\n\n<p>Tento súbor obsahuje informácie, ktoré umožnia vývojárom Tunnelblick analyzovať a odstrániť tento problém. Tento súbor neobsahuje žiadne osobné uádaje ani žiadne informácie o Vašich VPN konfiguráciách.</p>\n\n<p>Ak je to možné, prosím tiež v krátkosti popíšte situáciu počas ktorej došlo k tejto vážnej chybe aplikácie Tunnelblick.</p>\n\n<p>Pomôžete tým všetkým užívateľom aplikácie Tunnelblick. Ďakujeme.</p>";
-
-/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
-"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Verejná adresa tohoto počítača sa po pripojení k tejto VPN zmenila zakaždým behom posledných %u kontrol.</p>\n<p>To pravdepodobne znamená, že táto VPN je nastavená správne a nie je nutné ju ďalej kontrolovať, preto je teraz kontrola pre túto VPN vypnutá, aby sme znížili záťaž serverov tunnelblick.net.</p>\n<p>Kontrolu je možné znova zapnúť v záložke Nastavenia v okne Detaily VPN. Pokiaľ kontrolu opätovne zapnete, prosíme zvážte taktiež <a href=\"https://tunnelblick.net/donate.html\">príspevok projektu Tunnelblick</a> [tunnelblick.net] na pomoc s platbami výdajov na server.</p>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference alebo TBAlwaysSetPreference sa odkazuje na neznámu preferenciu \"%1$@\" %2$@";
@@ -2287,6 +2290,9 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Ak je zaškrtnuté</strong>, budú všetky konfigurácie zdieľať to isté používateľské meno, heslo a/nebo privátny kľúč.</p>\n";
 
+/* HTML info for the 'Disable secondary network interfaces' checkbox.\n\n */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Ak zaškrtnuté</strong>, všetky sieťové rozhrania, okrem hlavného, budú zakázané, keď je VPN aktívna.</p>\n<p>Toto nastavenie doporučujeme, pretože Tunnelblick nastavuje DNS tak, aby používalo iba to z hlavného sieťového rozhrania.</p>\n<p><strong>Ak nezaškrtnuté</strong>, všetky ďalšie sieťové rozhrania nebudú zakázané.</p>\n<p> <strong>Tento checkbox je neaktívny</strong> pokiaľ sa používá 'tap' pripojenie alebo ak nie je aktívna voľba 'Nastaviť nameserver'</p>";
+
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Pokiaľ zaškrtnuté</strong>, sú konfigurácie, umiestnené vo vnútri priečinkov, zobrazené v podmenu ponuky Tunnelblicku.</p>\n<p><strong>Pokiaľ nie je zaškrtnuté</strong>, sú konfigurácie, umiestnené vo vnútri priečinkov, zobrazené v ponuke Tunnelblicku.</p>";
 
@@ -2413,6 +2419,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick obsahuje upravenú verziu 'easy-rsa', ktorá je sadou skriptov príkazového riadku, napísaných vývojármi OpenVPN pre vytváranie a údržbu certifikátov a kľúčov.</p><p>Stlačením toho tlačítka sa spustí macOS Terminál s prednastaveným priečinkom, obsahujúcim tieto skripty.</p><p>Skripty sú bežne umiestnené v priečinku ~/Library/Application Support/Tunnelblick/easy-rsa. Predvoľba 'easy-rsaPath' môže obsahovať cestu k priečinku, ktorú bude Tunnelblick používať namiesto východiskovej. Cesta 'easy-rsaPath' musí byť úplný odkaz alebo cesta začínajúca '~', a nadradený priečinok tejto cesty musí existovať. Pokiaľ v danej ceste existuje priečinok, bude použitý; pokiaľ neexistuje, bude vytvorený a easy-rsa skripty budú doňho nainštalované pri spustení Tunnelblicku.</p><p>Pre informácie o používaní easy-rsa pozri <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Nastavenie vlastného Certifikátu autority (CA) a generovanie certifikátov a kľúčov pre OpenVPN server a viacero klientov</a> [openvpn.net].</p><p>Informácie o prispôsobení easy-rsa v Tunnelblick nájdete v README súbore umiestnenom v priečinku.</p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Tunnelblick by nemal bežať v rámci rozhrania Rosetta.</p>\n<p>Viac informácií nájdete na stránke <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick a Rosetta</a>[tunnelblick.net].</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblicku sa nepodarilo načítať systémové rozšírenie, ktoré je požadované na pripojenie k %@.</p>";
 
@@ -2484,6 +2493,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "Odpojené od %@";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Nespúšťať pri používaní Rosetta…";
 
 /* Checkbox */
 "Do not show this again" = "Už nezobrazovať";

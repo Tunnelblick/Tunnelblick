@@ -1,0 +1,5 @@
+/* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
+/* See https://tunnelblick.net/cLocalizeTranslate.html.           */
+
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) - apparent public IP address %@" = "Ստատուս հաղորդագրություն։ Առաջին '%@'-ը կոնֆիգուրացիայի անունն է։ Երկրորդ '%@'-ը դա IP հասցեն է (օրինակ` '8.8.4.4'):";

@@ -219,7 +219,7 @@
 "Restore" = "Palauta";
 
 /* Button text */
-"Retry with manual response" = "Yritä uudelleen manuaalilla vastauksella";
+"Retry with manual response" = "Yritä uudelleen syöttämällä vastaus";
 
 /* Button */
 "Retry" = "Yritä uudelleen";
@@ -429,6 +429,9 @@
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Poista IPv6 käytöstä, kunnes VPN palveluun otetaan IPv6 yhteys";
+
+/* Checkbox name */
+"Disable secondary network interfaces" = "Poista käytöstä toissijaiset verkkoliitännät";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Katkaise yhteys, kun tietokone menee unitilaan";
@@ -806,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     DNS palvelun osoite %@ on Tunnelblickin julkiseksi tunnistama palvelu, mutta sitä ei ole reititetty VPN kautta.\n\n";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • DNS palvelun osoitte %1$@ on käytössä VPN yhteydelle '%2$@', mutta sitä ei tulisi käyttää. Tämä voi tarkoittaa, että useampia kuin yksi verkkoyhteys on käytössä tällä hetkellä. Tunnelblick ei tue useamman verkkoyhteyden käyttämistä saman aikaisesti.\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     DNS palvelun osoite %@ ei ole Tunnelblickin julkiseksi tunnistama palvelu ja sitä ei ole reititetty VPN kautta.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     DNS palvelun osoite %@ ei ole julkinen IP osoite ja sitä ei ole reititetty VPN yhteyden kautta.\n\n";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     • DNS palvelun osoite %1$@ ei ole käytössä, mutta sitä tulisi käyttää VPN yhteydelle '%2$@'.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Asennettu %lu konfiguraatiota\n\n";
@@ -947,7 +956,7 @@
 "'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "Tiedosto '%@' vaikuttaa olevan UTF-16-enkoodattu. Kaikki OpenVPN:ään liittyvät tiedostot tulee olla joko normaaleja teksti- tai UTF-8 -tiedostoja";
 
 /* Window text */
-"'%@' at line %u was not terminated properly" = "%1$@ rivillä %2$u ei lopetettu";
+"'%@' at line %u was not terminated properly" = "%1$@ rivillä %2$u ei päätetty oikealla tavalla";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@':lla ei ole käyttäjätunnuksia (yksityinen avain tai käyttäjätunnus ja salasana) tallennettuna Avainnippuun.";
@@ -990,9 +999,6 @@
 
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick kohtasi hiljattain yhden tai seaman vakavan virheen.</p>\n\n<p>Lähetä sähköpostitse %1$@ ja liitä <br>'%2$@' -tiedosto, joka on luotu työpöydällesi.</p>\n\n<p>Tiedosto sisältää informaatiota, joka auttaa Tunnelblickin kehittäjiä korjaamaan ongelmia, jotka aiheuttavat tämänkaltaisia virheitä. Se ei sisällä henkilökohtaisia tietoja sinusta tai VPN-yhteyksistäsi.</p>\n\n<p>Jos pystyt, kuvaile myös, mitä Tunnelblick teki, kun virhe tapahtui.</p>\n\n<p>Apusi tässä hyödyttää kaikkia Tunnelblickin käyttäjiä.</p>";
-
-/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
-"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>Tämän tietokoneen oletettu julkinen IP-osoite on muuttunut tähän VPN:ään  yhdistämisen jälkeen kulloinkin %u kertaa, kun se tarkistettiin.</p>\n<p>Tämä todennäköisesti merkitsee, että VPN on asennettu oikein, eikä lisätarkistuksia tarvita, joten tarkistus on otettu pois käytöstä tälle VPN:lle tunnelblick.net-palvelimien kuormituksen vähentämiseksi.</p>\n<p>Voit aktivoida tarkistuksen uudelleen \"Asetukset-välilehdeltä\" Tunnelblickin \"VPN-tiedot\"-ikkunasta. Jos teet niin, harkitse <a href=\"https://tunnelblick.net/donate.html\">lahjoitusta Tunnelblick-projektille</a> [tunnelblick.net] auttamaan palvelinkustannusten maksamisessa.</p>\n";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Avain TBPreference tai TBAlwaysSetPreference viittaa tuntemattomaan asetukseen '%1$@' kohteessa %2$@";
@@ -1454,7 +1460,7 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Olemassa olevaa konfiguraatiota ei korvata, joten konfiguraatio '%@' ei voi käyttää 'TBKeepExistingFilesList'";
 
 /* Window text */
-"On expected disconnect:" = "Yhteyden odoitusti katketessa:";
+"On expected disconnect:" = "Yhteyden odotetusti katketessa:";
 
 /* Window text */
 "On unexpected disconnect:" = "Yhteyden katketessa yllättäen:";
@@ -2284,6 +2290,9 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Kun valittu</strong>, kaikki asetukset jakavat saman käyttäjänimen, salasanan, ja/tai yksityisen avaimen.</p>\n";
 
+/* HTML info for the 'Disable secondary network interfaces' checkbox.\n\n */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Kun valittu</strong>, kaikki verkkoyhteydet paitsi ensisijainen yhteys poistetaan käytöstä, kun VPN yhteys on käytössä.</p>\n<p>Tämä on suositeltavaa, koska Tunnelblick asettaa DNS asetukset ainostaan ensisijaiselle verkkoyhteydelle.</p>\n<p><strong>Mikäli ei ole valittuna</strong>, toissijaista verkkoyhteyttä ei poisteta käytöstä.</p>\n<p><strong>Tämä valinta ei ole käytettävissä</strong> mikäli käytetään 'tap' yhteystapaa ja ei ole käytössä 'Aseta nimipalvelimet'.</p>";
+
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Kun valittu</strong>, kansion sisällä olevat asetukset näytetään Tunnelblick:in alivalikossa.</p>\n<p><strong>Kun ei valittu</strong>, kansion sisällä olevat asetukset näytetään Tunnelblick:in päävalikossa.</p>";
 
@@ -2410,6 +2419,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick sisältää muutetun version 'easy-rsa':sta, joka on joukko OpenVPN kehittäjien tekemiä komentoja avaintiedostojen luontiin ja hallinnointiin.</p><p>Tämä painike käynnistää macOS:n Pääte-ohjelman työkansioon, jossa komennot sijaitsevat.</p><p>Komennot ovat tavallisesti kansiossa ~/Library/Application Support/Tunnelblick/easy-rsa. 'easy-rsaPath' asetus voi sisältää polun kansioon, jota Tunnelblick käyttää oletuksen sijaan. 'easy-rsaPath' polku pitää ollaa riippumaton '~', ja kotikansion polku pitää olla olemassa. Jos kansio sijaitsee polulla, sitä käytetään; Jos sitä ei ole, Se luodaan Tunnelblickin käynnistyksen yhteydessä ja easy-rsa komennot asennetaan sinne.</p><p>Katso lisätietoja easy-rsa:n käyttämisestä <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>Saadaksesi lisätietoja Tunnelblickin tekemistä muutoksista easy-rsa:han, lue kansiossa oleva README tiedosto.</p>";
 
+/* HTML warning message */
+"<p>Tunnelblick should not be run using Rosetta.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick and Rosetta</a> [tunnelblick.net].</p>" = "<p>Tunnelblick ei tule suorittaa käyttäen Rosettaa</p>\n<p>Lisätietoja, katso <a href=\"https://tunnelblick.net/cUsingRosetta.html\">Tunnelblick ja Rosetta</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick ei pystynyt lataamaan järjestelmälaajennosta, joka tarvitaan yhteyden muodostamiseen kohteeseen %@.</p>";
 
@@ -2481,6 +2493,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "Yhteys katkaistu kohteesta %@";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Älä suorita käyttäen Rosettaa…";
 
 /* Checkbox */
 "Do not show this again" = "Älä näytä tätä enää uudestaan";

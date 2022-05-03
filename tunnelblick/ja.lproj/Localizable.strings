@@ -182,7 +182,7 @@
 "Open easy-rsa in Terminal" = "ターミナルで easy-rsa を開く";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "アイコンを Spotlight の近くに配置する";
+"Place Icon Near the Spotlight Icon" = "Spotlight アイコンの隣に配置する";
 
 /* Button */
 "Place Icon Normally" = "適当な位置に配置される";
@@ -195,7 +195,7 @@
 
 /* Button
    Menu item */
-"Re-enable Network Access" = "ネットワーク接続を再度有効にする";
+"Re-enable Network Access" = "ネットワーク接続を再開する";
 
 /* Button */
 "Reinstall" = "再インストール";
@@ -494,7 +494,7 @@
 "Prepend domain name to search domains" = "名前を検索する時にドメイン名をつける";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "パソコン再開後、再接続";
+"Reconnect when computer wakes up" = "パソコンを起動時に再接続";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "ユーザスイッチから戻った時に再接続する";
@@ -536,7 +536,7 @@
 "Set nameserver (alternate 1)" = "ネームサーバーを設定 (alternate 1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 2)" = "ネームサーバーを設定 (alternate 2)";
+"Set nameserver (alternate 2)" = "ネームサーバーを設定 (選択肢 2)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "ネームサーバーを設定";
@@ -869,7 +869,7 @@
 "    • Uninstall %lu configurations\n\n" = "    • %lu個の設定を削除\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall one configuration\n" = "    • 1個の構成をアンインストールする\n";
+"    • Uninstall one configuration\n" = "    •１個の 構成を削除する\n";
 
 /* Window text */
 "  • Be installed in /Applications as Tunnelblick\n" = "  •  「 /アプリケーション」に「Tunnelblick」という名前でインストール\n";
@@ -999,9 +999,6 @@
 
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>先ほどTunnelblickで深刻なエラーが発生しました。</p>\n\n<p>デスクトップに作成されているファイル'%2$@'を添付して %1$@ までメールしていただけませんか。</p>\n\n<p>このファイルには、エラーを引き起こした問題を解決する手助けとなる情報が含まれています。ここにはあなたの個人情報やあなたのVPNの情報は含まれていません。</p>\n\n<p>もし可能なら、エラーが発生した時にTunnelblickが何をしていたか記入していただけると助かります。</p>\n\n<p>あなたの支援がTunnelblickの全ての利用者のためになります。</p>";
-
-/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
-"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p>このVPNに接続した最近%u回は、このコンピュータの見かけ上のグローバルIPアドレスが変化しています。</p>\n<p>多分このVPNは正しくセットアップされていて以降のチェックは不要ですので、tunnelblick.netサーバーの負荷を減らすために、このチェックを無効にします。</p>\n<p>「VPNの詳細」ウィンドウの設定タブにあるチェックを入れることで再度有効にすることができます。再度有効にするときには、サーバー費用として非常に助かりますので<a href=\"https://tunnelblick.net/donate.html\">Tunnelblickプロジェクトへの寄付</a> [tunnelblick.net]についてもご一考いただけますようお願いいたします。</p>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "%2$@ に、TBPreferenceまたはTBAlwaysSetPreferenceが未知な設定 %1$@ を指定しています";
@@ -2293,7 +2290,7 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>チェックを入れた時</strong>、全ての設定は同じユーザー名、パスワードと/もしくは秘密鍵を共有します。</p>\n";
 
-/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+/* HTML info for the 'Disable secondary network interfaces' checkbox.\n\n */
 "<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>チェックを入れると</strong>、VPNがアクティブの間は優先するもの以外の全てのネットワークインターフェイスが無効になります。</p>\n<p> そうするとTunnelblick は優先のネットワークインターフェイスのみDNSを設定するのでお勧めです。</p>\n<p><strong>チェックを外すと</strong>、二次のインターフェイスが無効になりません。</p>\n<p>”タップ”接続を使って”ネームサーバーを設定”を使用しない場合、<strong>このチェックボックスは無効になります</strong>。</p>";
 
 /* HTML info for the 'Display connection submenus' checkbox. */
@@ -2357,13 +2354,13 @@
 "<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Tunnelblickをアンインストールするには、クリックして下さい。</p>\n\n<p>Tunnelblickが /Applications にインストールされていない場合は<strong>無効</strong>。</p>\n\n\n";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
-"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>問題解決のための診断情報をクリップボードにコピーします。</p><p>その情報には、ソフトウェアのバージョンと設定、OpenVPN設定ファイル、ネットワーク設定などを含みます。</p><p>また、認証情報は含みませんがIPアドレスやURLなど秘密<em>かもしれない</em>情報は含みます。この情報をメールで送信したり公開情報として投稿したりする前には、内容をチェックして秘密にしておきたい情報は削除してください。</p>";
+"<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>問題を診断するのに役立つ情報をクリップボードにコピーします。</p><p>その情報には、ソフトウェアのバージョンと設定、OpenVPN構成ファイル、ネットワーク設定などを含みます。</p><p>また認証情報は含みませんがIPアドレスやURLなど秘匿すべき<em>可能性のある</em>情報は含みます。この情報をメールで送信したり公開情報として投稿したりする前には、内容をチェックして秘密にしておきたい情報は削除してください。</p>";
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>コンソールログの最後の部分をクリップボードにコピーして、電子メールやその他のドキュメントに貼り付けることができるようにします。</p> <p>ログには、TunnelblickとOpenVPNの操作の詳細が含まれています。 これには、通常のダイアログウィンドウでユーザーに表示するには長すぎる通常のステータスメッセージと詳細なエラーメッセージが含まれます。</p>";
 
 /* HTML info for the 'Export Tunnelblick Setup' button. */
-"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>このコンピューターの全ユーザーのすべての構成と設定を含むTunnelblickセットアップを、圧縮ファイルでデスクトップ上にエクスポートします。</p> <ul> <li>キーチェーンに保存された資格情報はエクスポート<strong>されません</strong>。</li> <li>エクスポートするには時間がかかる場合があります。</li> </ul>";
+"<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>このコンピューターの全ユーザーのすべての構成と設定を含むTunnelblickセットアップを、圧縮ファイルでデスクトップ上にエクスポートします。</p> <ul> <li>キーチェーンに保存された認証情報はエクスポート<strong>されません</strong>。</li> <li>エクスポートするには時間がかかる場合があります。</li> </ul>";
 
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>開発者「Jonathan Bullard」によるシステムソフトウェアのロードを許可するボタンが表示されない場合は、再度この構成で接続してみて（失敗しますが）、「システム環境設定」の「セキュリティとプライバシー」にある「一般」タブを確認して下さい。 </p>";
@@ -2438,28 +2435,28 @@
 "Admin mode %@ remaining" = "管理者モードはあと %@ です";
 
 /* Credit description */
-"Afrikaans translation" = "アフリカーンス語";
+"Afrikaans translation" = "アフリカーンス語翻訳";
 
 /* Credit description */
 "Animation and icon sets code" = "アニメーションとアイコンセットコード";
 
 /* Credit description */
-"Arabic translation" = "アラビア語";
+"Arabic translation" = "アラビア語翻訳";
 
 /* Toolbar text for 'Lock' item */
 "Authorizing..." = "認証中";
 
 /* Credit description */
-"Azerbaijani translation" = "アゼルバイジャン語";
+"Azerbaijani translation" = "アゼルバイジャン語翻訳";
 
 /* Credit description */
-"Bulgarian translation" = "ブルガリア語";
+"Bulgarian translation" = "ブルガリア語翻訳";
 
 /* Credit description */
 "Button images" = "ボタン画像";
 
 /* Credit description */
-"Catalan translation" = "カタロニア語";
+"Catalan translation" = "カタロニア語翻訳";
 
 /* Checkbox text */
 "Check for IP address changes" = "IPアドレスの変更を確認";
@@ -2468,10 +2465,10 @@
 "Check for updates" = "アップデートを確認";
 
 /* Credit description */
-"Chinese (simplified) translation" = "中国語 (簡体字) ";
+"Chinese (simplified) translation" = "中国語 (簡体字) 翻訳";
 
 /* Credit description */
-"Chinese (traditional) translation" = "中国語 (繁体字) ";
+"Chinese (traditional) translation" = "中国語 (繁体字) 翻訳";
 
 /* Credentials name */
 "Common" = "共通";
@@ -2486,13 +2483,13 @@
 "Contributed to early code" = "初期のコードへの貢献";
 
 /* Credit description */
-"Croatian translation" = "クロアチア語";
+"Croatian translation" = "クロアチア語翻訳";
 
 /* Credit description */
-"Czech translation" = "チェコ語";
+"Czech translation" = "チェコ語翻訳";
 
 /* Credit description */
-"Danish translation" = "デンマーク語";
+"Danish translation" = "デンマーク語翻訳";
 
 /* Speak string */
 "Disconnected from %@" = "%@ を切断しました";
@@ -2513,56 +2510,56 @@
 "Do not warn about this again;\nnever re-enable when starting Tunnelblick" = "この警告を再び表示しない;\nTunnelblickを起動した際、再び有効にしない";
 
 /* Credit description */
-"Dutch translation" = "オランダ語";
+"Dutch translation" = "オランダ語翻訳";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item */
 "Enter admin mode" = "管理者モードへ移行";
 
 /* Credit description */
-"Estonian translation" = "エストニア語";
+"Estonian translation" = "エストニア語翻訳";
 
 /* Credit description */
-"Finnish translation" = "フィンランド語";
+"Finnish translation" = "フィンランド語翻訳";
 
 /* Credit description */
-"Flemish translation" = "フラマン語";
+"Flemish translation" = "フラマン語翻訳";
 
 /* Credit description */
 "Founder, original program and documentation" = "創始者、オリジナルプログラムとドキュメント";
 
 /* Credit description */
-"French translation" = "フランス語";
+"French translation" = "フランス語翻訳";
 
 /* Credit description */
-"German translation" = "ドイツ語";
+"German translation" = "ドイツ語翻訳";
 
 /* Credit description */
-"Greek translation" = "ギリシア語";
+"Greek translation" = "ギリシア語翻訳";
 
 /* Credit description */
-"Hebrew translation" = "ヘブライ語";
+"Hebrew translation" = "ヘブライ語翻訳";
 
 /* Credit description */
-"Hungarian translation" = "ハンガリー語";
+"Hungarian translation" = "ハンガリー語翻訳";
 
 /* Credit description */
-"Icelandic translation" = "アイスランド語";
+"Icelandic translation" = "アイスランド語翻訳";
 
 /* Credit description */
 "Icon set including Retina images" = "Retina用画像を含むアイコンセット";
 
 /* Credit description */
-"Indonesian translation" = "インドネシア語";
+"Indonesian translation" = "インドネシア語翻訳";
 
 /* Credit description */
-"Italian translation" = "イタリア語";
+"Italian translation" = "イタリア語翻訳";
 
 /* Credit description */
-"Japanese translation" = "日本語";
+"Japanese translation" = "日本語翻訳";
 
 /* Credit description */
-"Korean translation" = "韓国語";
+"Korean translation" = "韓国語翻訳";
 
 /* [name of your language] translation */
 "LANGUAGE_TRANSLATION" = "日本語翻訳";
@@ -2571,7 +2568,7 @@
 "LEAD_TRANSLATORS" = "川本芳久";
 
 /* Credit description */
-"Latvian translation" = "ラトビア語";
+"Latvian translation" = "ラトビア語翻訳";
 
 /* Credit description */
 "Localization code tweaks" = "ローカライゼーションコード変更";
@@ -2580,7 +2577,7 @@
 "Multiple configuration folders" = "複数設定フォルダー";
 
 /* Credit description */
-"Norwegian translation" = "ノルウェー語";
+"Norwegian translation" = "ノルウェー語翻訳";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 と 64 ビット統合";
@@ -2589,43 +2586,43 @@
 "PKCS#11 support" = "PKCS#11のサポート";
 
 /* Credit description */
-"Persian translation" = "ペルシャ語";
+"Persian translation" = "ペルシャ語翻訳";
 
 /* Credit description */
-"Polish translation" = "ポーランド語";
+"Polish translation" = "ポーランド語翻訳";
 
 /* Credit description */
-"Portuguese (Brazilian) translation" = "ポルトガル語 (ブラジル) ";
+"Portuguese (Brazilian) translation" = "ポルトガル語 (ブラジル) 翻訳";
 
 /* Credit description */
-"Portuguese translation" = "ポルトガル語";
+"Portuguese translation" = "ポルトガル語翻訳";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance since 2010" = "2020年以降のプログラムとドキュメントの拡張と保守";
 
 /* Credit description */
-"Romanian translation" = "ルーマニア語";
+"Romanian translation" = "ルーマニア語翻訳";
 
 /* Credit description */
-"Russian translation" = "ロシア語";
+"Russian translation" = "ロシア語翻訳";
 
 /* Credit description */
-"Serbian (Latin) translation" = "セルビア語 (ラテン文字) ";
+"Serbian (Latin) translation" = "セルビア語 (ラテン文字) 翻訳";
 
 /* Credit description */
-"Slovak translation" = "スロバキア語";
+"Slovak translation" = "スロバキア語翻訳";
 
 /* Credit description */
-"Spanish translation" = "スペイン語";
+"Spanish translation" = "スペイン語翻訳";
 
 /* Credit description */
-"Swahili (Tanzania) translation" = "スワヒリ語（タンザニア）";
+"Swahili (Tanzania) translation" = "スワヒリ語（タンザニア）翻訳";
 
 /* Credit description */
-"Swedish translation" = "スウェーデン語";
+"Swedish translation" = "スウェーデン語翻訳";
 
 /* Credit description */
-"Thai translation" = "タイ語";
+"Thai translation" = "タイ語翻訳";
 
 /* This is the name of a file created by the 'Export Tunnelblick Setup' button. The %@ will be replaced by a date/time such as '2018-07-28 16:22:18' */
 "Tunnelblick Setup %@" = "Tunnelblick設定 %@";
@@ -2634,13 +2631,13 @@
 "Tunnelblick icon" = "Tunnelblickアイコン";
 
 /* Credit description */
-"Turkish translation" = "トルコ語";
+"Turkish translation" = "トルコ語翻訳";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueueとUKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian translation" = "ウクライナ語";
+"Ukrainian translation" = "ウクライナ語翻訳";
 
 /* Credit description */
 "Up and Down scripts" = "up/downスクリプト";
@@ -2655,7 +2652,7 @@
 "User on this computer" = "このコンピューターでのユーザ名";
 
 /* Credit description */
-"Vietnamese translation" = "ベトナム語";
+"Vietnamese translation" = "ベトナム語翻訳";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcodeの助言とOpenSSLの統合";

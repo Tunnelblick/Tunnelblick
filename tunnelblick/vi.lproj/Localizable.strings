@@ -20,7 +20,7 @@
 "Username:" = "Tài khoản:";
 
 /* Button */
-"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Lệnh-Chọn-F%3$d)";
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
 "(None available)" = "(Không sẵn sàng)";
@@ -41,28 +41,28 @@
 "Advanced..." = "Nâng cao…";
 
 /* Button */
-"All Users" = "Tất Cả Người Dùng";
+"All Users" = "Tất cả người dùng";
 
 /* Button */
-"Always load Tap driver" = "Luôn luôn nạp phần mềm Tap";
+"Always load Tap driver" = "Luôn luôn nạp trình điều khiển Tap";
 
 /* Button */
-"Always load Tun driver" = "Luôn luôn nạp phần mềm Tun";
+"Always load Tun driver" = "Luôn luôn nạp trình điều khiển Tun";
 
 /* Button */
 "Always use the plugin" = "Luôn luôn sử dụng plugin";
 
 /* Button */
-"Back" = "Quay Lại";
+"Back" = "Quay lại";
 
 /* Button */
 "Cancel" = "Hủy";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Cập Nhật Ngay";
+"Check For Updates Now" = "Kiểm tra bản cập nhật ngay";
 
 /* Button */
-"Check Now" = "Cập Nhật Ngay";
+"Check Now" = "Kiểm tra ngay";
 
 /* Button */
 "Connect" = "Kết nối";
@@ -71,13 +71,13 @@
 "Continue" = "Tiếp tục";
 
 /* Button */
-"Convert Configurations" = "Đổi cấu hình";
+"Convert Configurations" = "Chuyển đổi cấu hình";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Sao chép chi tiết từ Console vào Clipboard";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Sao chép chi tiết chẩn đoán vào Clipboard";
+"Copy Diagnostic Info to Clipboard" = "Sao chép Chi tiết chẩn đoán vào Clipboard";
 
 /* Button */
 "Create sample configuration and edit it" = "Tạo cấu hình mẫu và chỉnh sửa nó";
@@ -86,13 +86,13 @@
 "Default (%@)" = "Mặc định (%@)";
 
 /* Button */
-"Delete Credentials" = "Xóa Chứng Chỉ";
+"Delete Credentials" = "Xóa thông tin xác thực";
 
 /* Button */
-"Delete saved passphrase and try again" = "Xóa cụm từ mật khẩu và thử lại";
+"Delete saved passphrase and try again" = "Xóa mật mã đã lưu và thử lại";
 
 /* Button */
-"Delete saved password and try again" = "Xóa mật khẩu và thử lại";
+"Delete saved password and try again" = "Xóa mật khẩu đã lưu và thử lại";
 
 /* Button */
 "Delete" = "Xóa";
@@ -999,9 +999,6 @@
 
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Gần đây Tunnelblick đã gặp một hoặc nhiều lỗi nghiêm trọng.</p>\n\n<p>Vui lòng email đến %1$@ và đính kèm <br>'%2$@' tệp đã được tạo trên Desktop của bạn.</p>\n\n<p>Tệp chứa thông tin sẽ giúp các nhà phát triển Tunnelblick khắc phục các sự cố gây ra lỗi. Nó không bao gồm thông tin cá nhân về bạn hoặc thông tin về các VPN của bạn.</p>\n\n<p>Nếu có thể, vui lòng mô tả những gì Tunnelblick đang làm khi lỗi xảy ra.</p>\n\n<p>Sự giúp đỡ của bạn trong việc này sẽ mang lại lợi ích cho tất cả người dùng Tunnelblick.</p>";
-
-/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
-"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">donating to the Tunnelblick project</a> [tunnelblick.net] to help pay for server expenses.</p>\n" = "<p> Địa chỉ IP công khai của máy tính này đã thay đổi sau khi kết nối với VPN mỗi lần từ lần kiểm tra cuối thứ %u.</p> \n<p> Điều này có nghĩa là VPN được thiết lập xong và không cần thiết phải kiểm tra lại,\n  vì vậy việc kiểm tra đã bị vô hiệu hóa đối với VPN này để giảm tải trên các máy chủ của tunnelblick.net. </p>\n<p> Bạn có thể kích hoạt lại việc kiểm tra trên \"tab Cài đặt\" trong cửa sổ \"Chi tiết VPN\" của Tunnelblick. Nếu thực hiện thao tác này, xin vui lòng xem xét <a href=\"https://tunnelblick.net/donate.html\"> quyên góp cho dự án Tunnelblick </a> [tunnelblick.net] để giúp thanh toán các chi phí cho máy chủ. </p>";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Một giá trị của từ khoá TBPreference hay TBAlwaysSetPreference có giá trị tham khảo không xác định '%1$@' ở trong %2$@";
@@ -2293,7 +2290,7 @@
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Khi được chọn</strong>, tất cả các cấu hình sẽ chia sẻ cùng một tên người dùng, mật khẩu và / hoặc khóa riêng tư.</p>";
 
-/* HTML info for the 'Disable secondary network interfaces' checkbox. */
+/* HTML info for the 'Disable secondary network interfaces' checkbox.\n\n */
 "<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong> Khi được chọn</strong>, tất cả các giao diện mạng ngoại trừ giao diện chính sẽ được tắt trong khi VPN đang hoạt động.</p>\n<p>Điều này được khuyến nghị vì Tunnelblick chỉ thiết lập DNS trên giao diện mạng chính </p>\n<p> <strong>Khi không được chọn</strong>, các giao diện mạng phụ không bị tắt.</p>\n<p> <strong>Checkbox này bị tắt</strong> khi sử dụng kết nối 'nhấn' và khi không sử dụng 'Đặt máy chủ định danh'.</p>";
 
 /* HTML info for the 'Display connection submenus' checkbox. */
