@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Isključi IPv6 ukoliko VPN server ne koristi IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Isključi sekundarne mrežne interfejse";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Odspoji pri odlasku u stanje mirovanja računala";
 
 /* Checkbox name */
@@ -996,6 +999,9 @@
 
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick je u skorijoj prošlosti doživeo jedan ili više ozbiljnih problema.</p>\n\n<p>Molimo vas da pošaljete email na adresu  %1$@ i prikačite <br>'%2$@' fajl koji se nalazi na vašem Desktop-u..</p>\n\n<p>Fajl sadrži informaciju koja će pomoći Tunnelblick razvojnom timu da ustanovi razloge za greške i reši probleme. Fajl ne sadrži privatne informacije ili bilo kakve informacije o VPN serverima.</p>\n\n<p>Ukoliko ste u mogućnosti molimo vas da dodatno opišete šta je Tunnelblick radio u momentu kada se greška dogodila..</p>\n\n<p>Vaša pomoć će biti od koristi svim korisnicima Tunnelblick-a.</p>";
+
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">contributing to the Tunnelblick project.</a> [tunnelblick.net]</p>\n" = "<p>Javna IP adresa ovog računala se promjenila nakon ostvarivanja konekcije sa ovim VPN serverom svaki od %u puta kada je provera bila izvršena.</p>\n<p>To ukazuje da je VPN konekcija ispravno podešena i da dalje provere nisu potrebne.,\n pa je samim tim provera automatski isključena za ovu VPN konekciju kako bi se smanjilo opterećenje na tunnelblick.net serverima.</p>\n<p>Proveru možete uključiti putem \"Settings tab\"-a u okviru \"VPN Details\" prozora. Ukoliko to učinite, molimo vas da porazmislite o <a href=\"https://tunnelblick.net/donate.html\">doniranju Tunnelblick projektu.</a> [tunnelblick.net]</p>\n";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference ili TBAlwaysSetPreference ključ ukazuje na nepoznato podešavanje '%1$@' u %2$@";
@@ -2286,6 +2292,9 @@
 
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Kada je uključeno</strong>, sve konfiguracije će deliti isto korisničko ime, lozinku i/ili privatni ključ.</p>\n";
+
+/* HTML info for the 'Disable secondary network interfaces' checkbox.\n\n */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Kada je ova opcija uključena</strong>, svi mrežni interfejsi, sem primarnog, biće isključeni dok je VPN konekcija aktivna.</p>\n<p>Ovo je preporučena aktivnost zato što Tunnelblick vrši podešavanje DNS-a samo na primarnom mrežnom interfejsu.</p>\n<p><strong>Kada ova opcija nije uključena</strong>, sekundarni mrežni interfejsi neće biti ugašeni.</p>\n<p><strong>Ova opcija je ugašena</strong> prilikom opotrebe 'tap' konekcije i kada se ne koristi opcija 'Set nameserver'.</p>";
 
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Kada je uključeno</strong>, konfiguracije koje su unutar direktorijuma prikazane su u podmenijima Tunnelblick menija</p>\n<p><strong>Kada je isključeno</strong>, konfiguracije koje su unutar direktorijuma prikazane su u Tunnelblick meniju.</p>";

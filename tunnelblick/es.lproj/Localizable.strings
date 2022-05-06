@@ -128,7 +128,7 @@
 "Ignore" = "Ignorar";
 
 /* Button */
-"Install tun and tap system extensions..." = "Instalar extensiones del sistema tun y tap…";
+"Install tun and tap system extensions..." = "Instalar extensiones del sistema 'tun' y 'tap'…";
 
 /* Button */
 "Install" = "Instalar";
@@ -291,7 +291,7 @@
 "Uninstall Tunnelblick..." = "Desinstalar Tunnelblick…";
 
 /* Button */
-"Uninstall tun and tap system extensions..." = "Desinstalar extensiones del sistema tun y tap…";
+"Uninstall tun and tap system extensions..." = "Desinstalar extensiones del sistema 'tun' y 'tap'…";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Actualizar";
@@ -809,7 +809,7 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • La dirección del servidor DNS %@ corresponde a un servidor DNS público conocido por Tunnelblick pero no será ruteada a través de la VPN.\n\n";
 
 /* Window text */
-"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • La dirección de servidor DNS %1$@ está siendo utilizada por la VPN '%2$@' pero no debería ser usada. Eso puede indicar que más de una interface de red está activa. Tunnelblick no soporta múltiples interfaces de red activas.\n\n";
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     • La dirección de servidor DNS %1$@ está siendo utilizada por la VPN '%2$@' pero no debería ser usada. Eso puede indicar que más de una interfase de red está activa. Tunnelblick no soporta múltiples interfaces de red activas.\n\n";
 
 /* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • La dirección del servidor DNS %@ no corresponde a un servidor DNS público conocido por Tunnelblick y no será ruteada a través de la VPN.\n\n";
@@ -1000,6 +1000,9 @@
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick ha experimentado uno o más errores graves recientemente.</p>\n\n<p>Por favor, envíe un correo a %1$@ y adjunte el archivo<br>'%2$@' que ha sido creado en su Escritorio.</p>\n\n<p>El archivo contiene información que ayudará a los desarrolladores de Tunnelblick a solucionar los problemas que provocan errores semejantes. El archivo no incluye información personal sore Ud. o sus VPNs.</p>\n\n<p>Si es posible, por favor describa qué estaba haciendo Tunnelblick cuando ocurrió el error.</p>\n\n<p>Su ayuda beneficiará a todos los usuarios de Tunnelblick.</p>";
 
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">contributing to the Tunnelblick project.</a> [tunnelblick.net]</p>\n" = "<p> La dirección IP pública aparente de esta computadora ha cambiado después de conectarse a esta VPN cada una de las últimas %u veces que se verificó. </p>\n<p> Esto probablemente significa que la VPN está configurada correctamente y no es necesario realizar más comprobaciones,\n  por lo que se ha desactivado la comprobación de esta VPN para alivianar la carga en los servidores de tunnelblick.net. </p>\n<p> Puede volver a habilitar la verificación en la \"pestaña de Configuración\" de la ventana \"Detalles de VPN\" de Tunnelblick. Si lo hace, considere también <a href=\"https://tunnelblick.net/donate.html\"> donar al proyecto Tunnelblick </a> [tunnelblick.net] </ P >";
+
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Una clave TBPreference o TBAlwaysSetPreference refiere a una preferencia desconocida '%1$@' en %2$@";
 
@@ -1145,7 +1148,7 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "No se puede desinstalar la configuración '%@' because porque no está instalada.";
 
 /* Window text */
-"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Click en \"OK\" para desconectar todas las VPNs, salir de Tunnelblick, y comenzar a desinstalarlo.\n\nPuede haber una demora de unos pocos segundos antes de que aparezca la primera ventana del desinstalador.\n\nSi desea guardar una copia de sus configuraciones de VPN y todos los ajustes de Tunnelblick, haga click en \"Cancelar\" y exporte primero los ajustes de Tunnelblick.";
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Clic en \"OK\" para desconectar todas las VPNs, salir de Tunnelblick, y comenzar a desinstalarlo.\n\nPuede haber una demora de unos pocos segundos antes de que aparezca la primera ventana del desinstalador.\n\nSi desea guardar una copia de sus configuraciones de VPN y todos los ajustes de Tunnelblick, haga clic en \"Cancelar\" y exporte primero los ajustes de Tunnelblick.\n\n";
 
 /* Window text */
 "Computer sleep/wake" = "Equipo Reposo/Arranque";
@@ -1295,13 +1298,13 @@
 "Failed to create symlink\n  to %@\n  at %@" = "No se pudo crear el enlace simbólico\n  a %1$@\n  de %2$@";
 
 /* Window text */
-"Failed to install Tunnelblick's tun and tap system extensions." = "Falló la instalación de las extensiones del sistema tun y tap de Tunnelblick.";
+"Failed to install Tunnelblick's tun and tap system extensions." = "Falló la instalación de las extensiones del sistema 'tun' y 'tap' de Tunnelblick.";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Error al establecer permisos en %@\n";
 
 /* Window text */
-"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Falló la desinstalación de las extensiones del sistema tun y tap de Tunnelblick.";
+"Failed to uninstall Tunnelblick's tun and tap system extensions." = "Falló la desinstalación de las extensiones del sistema 'tun' y 'tap' de Tunnelblick.";
 
 /* Window text */
 "Fast User Switching" = "Cambio Rápido de Usuario";
@@ -1859,7 +1862,7 @@
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick necesita autorización para duplicar la configuración '%@'.";
 
 /* Window text */
-"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick necesita autorización para instalar sus extensiones del sistema tun y tap.";
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick necesita autorización para instalar sus extensiones del sistema 'tun' y 'tap'.";
 
 /* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick necesita autorización para hacer %ld configuraciones privadas.";
@@ -1895,7 +1898,7 @@
 "Tunnelblick needs authorization to secure the imported data." = "Tunnelblick necesita autorización para asegurar los datos importados.";
 
 /* Window text */
-"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick necesita autorización para desinstalar sus extensiones del sistema tun y tap.";
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick necesita autorización para desinstalar sus extensiones del sistema 'tun' y 'tap'.";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick necesita cambiar un parámetro de configuración que solo puede ser cambiado por un administrador del equipo.";
@@ -2291,7 +2294,7 @@
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Cuando está marcado</strong>, todas las configuraciones compartirán el mismo usuario, contraseña, y/o clave privada.</p>\n";
 
 /* HTML info for the 'Disable secondary network interfaces' checkbox.\n\n */
-"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Cuando está seleccionado</strong>, todas las interfaces excepto la primaria serán deshabilitadas mientras la VPN está activa.</p>\n<p>Esto es recomendable porque Tunnelblick configura el DNS solamente en la interface de red primaria.</p>\n<p><strong>Cuando no está seleccionado</strong>, las interfaces de red secundarias no son deshabilitadas.</p>\n<p><strong>Este checkbox está deshabilitado</strong> cuando se utiliza una conexión 'tap' y cuando no se emplea 'Configurar servidor de nombres'.</p>";
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "<p><strong>Cuando está seleccionado</strong>, todas las interfases excepto la primaria serán deshabilitadas mientras la VPN está activa.</p>\n<p>Esto es recomendable porque Tunnelblick configura el DNS solamente en la interfase de red primaria.</p>\n<p><strong>Cuando no está seleccionado</strong>, las interfases de red secundarias no son deshabilitadas.</p>\n<p><strong>Este checkbox está deshabilitado</strong> cuando se utiliza una conexión 'tap' y cuando no se emplea 'Configurar servidor de nombres'.</p>";
 
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Cuando está marcado</strong>, las configuraciones que están dentro de carpetas son mostradas en sub-menús del menú de Tunnelblick.</p>\n<p><strong>Cuando no está marcado</strong>, las configuraciones que están dentro de carpetas son mostradas en el menú de Tunnelblick.</p>";
@@ -2348,10 +2351,10 @@
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Buscar actualizaciones de la aplicación Tunnelblick.</p><p>Accede al sitio web de Tunnelblick; para más detalles ver <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>También se buscan actualizaciones para las configuraciones, si es que su proveedor de servicio de VPN ha implementado esa característica.</p>";
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
-"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Clic para instalar o desinstalar las Extensiones del Sistema Tun y Tap de Tunnelblick.</p>\n\n<p>Ver <a href=\"https://tunnelblick.net/cInstallKexts.html\">Instalación de Extensiones del Sistema Tun y Tap de  Tunnelblick</a> [tunnelblick.net] para más detalles.</p><p><strong>Deshabilitado</strong> a menos que  Tunnelblick se esté ejecutando en macOS Big Sur o Posterior.</p>";
+"<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Clic para instalar o desinstalar las Extensiones del Sistema 'tun' y 'tap' de Tunnelblick.</p>\n\n<p>Ver <a href=\"https://tunnelblick.net/cInstallKexts.html\">Instalación de Extensiones del Sistema 'tun' y 'tap' de Tunnelblick</a> [tunnelblick.net] para más detalles.</p><p><strong>Deshabilitado</strong> a menos que Tunnelblick se esté ejecutando en macOS Big Sur o Posterior.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Click para desinstalar Tunnelblick.</p>\n\n<p><strong>Deshabilitado</strong> si Tunnelblick no está instalado en /Aplicaciones.</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Clic para desinstalar Tunnelblick.</p>\n\n<p><strong>Deshabilitado</strong> si Tunnelblick no está instalado en /Aplicaciones.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Copia información al Portapapeles para ayudar a diagnosticar problemas.</p><p>La información incluye versiones de software y ajustes, el archivo de configuración de OpenVPN, configuraciones de red y más.</p><p>No se incluye información sensible de certificados, pero datos tales como direcciones IP y URLs, las cuales <em>podrían</em> ser confidenciales, sí están incluidos. Ud. debería examinar la información y remover cualquier cosa que desee mantener en secreto antes de enviarla en un correo electrónico o publicarla.</p>";
@@ -2363,7 +2366,7 @@
 "<p>Exports the Tunnelblick setup, including all configurations and settings for all users of this computer, to a compressed file on the Desktop.</p><ul><li>Credentials saved in the Keychain are <strong>not</strong> exported.</li><li>The export may take a long time.</li></ul>" = "<p>Exporta la configuración de Tunnelblick, incluyendo todos las configuraciones y ajustes para todos los usuarios de esta computadora, a un archivo comprimido en el Escritorio.</p><ul><li>Las credenciales guardadas en el Llavero (Keychain) <strong>no</strong> son exportadas.</li><li>La exportación puede tomar un tiempo prolongado.</li></ul>";
 
 /* HTML text. */
-"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Si no ve un botón para permitir la carga de software del sistema del desarrollador 'Jonathan Bullard', intente conectarse con esta configuración, (lo cual va a fallar), luego busque en la solapa 'General' de \"'Seguridad & Privacidad' en 'Preferencias del Sistema' nuevamente.</p>";
+"<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Si no ve un botón para permitir la carga de software del sistema del desarrollador 'Jonathan Bullard', intente conectarse con esta configuración, (lo cual va a fallar), luego busque en la solapa 'General' de 'Seguridad & Privacidad' en 'Preferencias del Sistema' nuevamente.</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Abre una ventana con ajustes adicionales.</p><p>Cualquier cambio será aplicado a todas las configuraciones que estén seleccionadas en la ventana de 'Detalles de VPN'.</p>";
@@ -2408,13 +2411,13 @@
 "<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' and 'tun' system extensions, which are signed by developer 'Jonathan Bullard'.</p>" = "<p> La extensión del sistema no pudo ser cargada porque usted ha indicado a macOS que no le permita a Tunnelblick cargar sus extensiones de sistema 'tap' y 'tun' firmadas por el desarrollador 'Jonathan Bullard'.</p>";
 
 /* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
-"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "<p> La extensión del sistema no pudo ser cargada porque usted ha indicado a macOS que no le permita a Tunnelblick cargar sus extensión de sistema 'tap' firmada por el desarrollador 'Jonathan Bullard'.</p>";
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "<p> La extensión del sistema no pudo ser cargada porque usted ha indicado a macOS que no le permita a Tunnelblick cargar su extensión de sistema 'tap' firmada por el desarrollador 'Jonathan Bullard'.</p>";
 
 /* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
 "<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tun' system extension, which is signed by developer 'Jonathan Bullard'. You should modify your Tunnelblick settings and/or your OpenVPN configuration file so that Tunnelblick does not need to load its 'tun' system extension, after which you will be able to connect.</p>" = "<p> La extensión del sistema no pudo ser cargada porque usted ha indicado a macOS que no le permita a Tunnelblick cargar su extensión de sistema 'tun' firmada por el desarrollador 'Jonathan Bullard'. Ud. debería cambiar sus preferencias de Tunnelblick y/o configuración de OpenVPN de modo que Tunnelblick no necesite cargar su extensión de sistema 'tun', luego de lo cual será capaz de conectarse.</p>";
 
 /* HTML text. */
-"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'. You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>" = "<p>Para permitir que Tunnelblick instale sus extensiones de sistema, Ud. debe permitir la carga de software del sistema, del desarrollador 'Jonathan Bullard'. Puede hacer eso en la pestaña 'General' de  'Seguridad & Privacidad' en 'Preferencias del sistema'.</p>";
+"<p>To allow Tunnelblick to install its system extensions, you must allow loading of system software by developer 'Jonathan Bullard'. You can do that on the 'General' tab of 'Security & Privacy' in 'System Preferences'.</p>" = "<p>Para permitir que Tunnelblick instale sus extensiones de sistema, Ud. debe permitir la carga de software del sistema, del desarrollador 'Jonathan Bullard'. Puede hacer eso en la pestaña 'General' de 'Seguridad & Privacidad' en 'Preferencias del sistema'.</p>";
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick incluye una versión personalizada de 'easy-rsa', la cual consiste de un conjunto de scripts de línea de comando escritos por los desarrolladores de OpenVPN para crear y mantener certificados y claves.</p><p>Haciendo clic en este botón se lanza la aplicación de Terminal de macOS con el directorio de trabajo ubicado en la carpeta que contiene dichos scripts.</p><p>Los scripts están localizados normalmente en la carpeta ubicada en ~/Library/Application Support/Tunnelblick/easy-rsa. La preferencia 'easy-rsaPath' puede contener el path hacia otra carpeta que Tunnelblick puede utilizar en lugar de aquella. La preferencia 'easy-rsaPath' debe contener un path absoluto o bien comenzar con '~', y la carpeta de nivel superior de este path debe existir previamente. Si ya existiera una carpeta en ese path, ésta será utilizada; si no existiera, será creada y los scripts de easy-rsa serán instalados en ella cuando Tunnelblick se inicie.</p><p>Para información sobre el uso de easy-rsa, ver <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>Para detalles de personalización de easy-rsa con Tunnelblick, ver el archivo README ubicado en la carpeta.</p>";
