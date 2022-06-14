@@ -3225,7 +3225,7 @@ NSString * validateEnvironment(void) {
 			errorFound = TRUE;
 		}
 	} else {
-		fprintf(stderr, "the PATH environment variable is missing; it must be '%s'\n", [envPath UTF8String]);
+		fprintf(stderr, "the PATH environment variable is missing; it must start with '%s'\n", [STANDARD_PATH UTF8String]);
 		errorFound = TRUE;
 	}
 	
