@@ -34,14 +34,20 @@ built-openvpn-prepare:
 		openvpn_name="$${openvpn_tar_name%.*}" ; \
 		mv $$openvpn_name   openvpn ; \
 		cd  openvpn ; \
-		curl -o IOUserEthernetController.h https://opensource.apple.com/source/IOKitUser/IOKitUser-1845.120.6/network.subproj/IOUserEthernetController.h; \
+		if [ -f "$(SOURCES_DIR)/IOUserEthernetController.h" ] ; then \
+			cp -a "$(SOURCES_DIR)/IOUserEthernetController.h" "IOUserEthernetController.h" ; \
+			echo "Using IOUserEthernetController.h in $(SOURCES_DIR)" ; \
+		else \
+			curl -o IOUserEthernetController.h https://opensource.apple.com/source/IOKitUser/IOKitUser-1845.120.6/network.subproj/IOUserEthernetController.h; \
+			echo "Downloaded https://opensource.apple.com/source/IOKitUser/IOKitUser-1845.120.6/network.subproj/IOUserEthernetController.h" ; \
+		fi ; \
 		expected_sha256="afc703ffb49fd732dd388f2edb7b058607c95d125ddee58e000db5135367e0fb" ; \
 		sha256="$$( shasum -a 256 IOUserEthernetController.h )" ; \
 		sha256="$${sha256%% *}" ; \
 		if [ "$$sha256" = "$$expected_sha256" ] ; then \
-			echo "Successfully downloaded https://opensource.apple.com/source/IOKitUser/IOKitUser-1845.120.6/network.subproj/IOUserEthernetController.h" ; \
+			echo "The contents of IOUserEthernetController.h were as expected." ; \
 		else \
-			echo "error: Contents of https://opensource.apple.com/source/IOKitUser/IOKitUser-1845.120.6/network.subproj/IOUserEthernetController.h were not as expected: SHA256 ($$sha256) does not match the SHA256 of the file downloaded 2022-06-15 19:22:00 UTC ($$expected_sha256)" ; \
+			echo "error: The contents of IOUserEthernetController.h were not as expected: SHA256 ($$sha256) does not match the SHA256 of the file downloaded 2022-06-15 19:22:00 UTC ($$expected_sha256)" ; \
 		fi ; \
 		if [ -d $(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name/patches ]; then \
 			for patch_file in $$(ls $(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name/patches/*.diff); do \
