@@ -1,7 +1,7 @@
 # Makefile to build all of the third-party software included in Tunnelblick
 #
 # Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
-# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2021. All rights reserved.
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2021, 2022. All rights reserved.
 #
 #  This file is part of Tunnelblick.
 #
@@ -31,7 +31,7 @@ LZ4_NAME         = lz4-1.9.3
 SPARKLE_NAME     = Sparkle-077c64419f9460263bad99ab24dff962a103b1e2
 
 OPENSSL_1_0_NAME = openssl-1.0.2u
-OPENSSL_1_1_NAME = openssl-1.1.1o
+OPENSSL_1_1_NAME = openssl-1.1.1s
 LIBRESSL_NAME	 = libressl-2.7.1
 
 PKCS11_NAME      = pkcs11-helper-1.27.0
