@@ -177,6 +177,7 @@
 		63C3757A1A45111700D51E81 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63C3757B1A45112500D51E81 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63C3757C1A45113000D51E81 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
+		63C98A732913D6A700DB78F2 /* KK.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63C98A722913D6A700DB78F2 /* KK.lproj */; };
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.m */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
 		63D893F32124E5FE000E20E5 /* SetupImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F22124E5FE000E20E5 /* SetupImporter.m */; };
@@ -554,6 +555,7 @@
 		63C374391A4510AA00D51E81 /* tunnelblick-helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "tunnelblick-helper"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C375781A4510F600D51E81 /* tunnelblick-helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "tunnelblick-helper.m"; sourceTree = "<group>"; };
 		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		63C98A722913D6A700DB78F2 /* KK.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KK.lproj; sourceTree = "<group>"; };
 		63CC72F71928C5CB00F81220 /* TBUIUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUIUpdater.h; sourceTree = "<group>"; };
 		63CC72F81928C5CB00F81220 /* TBUIUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUIUpdater.m; sourceTree = "<group>"; };
 		63D39B4614F9860E002D1297 /* UtilitiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilitiesView.h; sourceTree = "<group>"; };
@@ -1121,6 +1123,7 @@
 				63EA2CA91C9EFCF0005F0872 /* is.lproj */,
 				63BD86E41205BA39005B8E38 /* it.lproj */,
 				615F74930ED3A4FA007F6F0A /* ja.lproj */,
+				63C98A722913D6A700DB78F2 /* KK.lproj */,
 				615F74960ED3A4FA007F6F0A /* ko.lproj */,
 				6356C51B2036244800A7792A /* ky.lproj */,
 				6356C51C2036244800A7792A /* lt.lproj */,
@@ -1707,6 +1710,7 @@
 				632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */,
 				633BC7442821ECE4007150B3 /* HY.lproj in Resources */,
 				6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */,
+				63C98A732913D6A700DB78F2 /* KK.lproj in Resources */,
 				6357DADB214FC229003A7196 /* ImportWindow-RTL.xib in Resources */,
 				636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */,
 				63DC244F19FA7379006B1BDF /* pt_br.lproj in Resources */,
