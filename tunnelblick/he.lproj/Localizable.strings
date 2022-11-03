@@ -373,6 +373,9 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "רמת הרישום של OpenVPN תקבע על ידי התצורה";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "\"בעיה בשימוש בגירסאות חדשות של macOS…\"";
+
 /* Menu item */
 "Quit Tunnelblick" = "צא מ Tunnelblick";
 
@@ -417,6 +420,9 @@
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "בטל תמיכה ב-IPv6 אלא אם שרת גישה לשרת הVPN מתבצעת באמצעות IPV6";
+
+/* Checkbox name */
+"Disable secondary network interfaces" = "השבת ממשקי רשת משניים";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "נתק כאשר המחשב עובר למצב שינה";
@@ -722,6 +728,12 @@
 "System Requirements Not Met" = "דרישות מערכת לא תואמות";
 
 /* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "בדיקת ניסיון הסרת TUNNELBLICK נכשלה";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "בדיקת ניסיון הסרת TUNNELBLICK הצליחה";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "בעייה בהגדרות Tunnelblick";
 
 /* Window title */
@@ -735,6 +747,12 @@
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: דרוש ביטוי מעבר";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "הסרת TUNNELBLICK נכשלה";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "הסרת TUNNELBLICK הצליחה";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "לא ניתן להפעיל את Tunnelblick";
@@ -1568,6 +1586,9 @@
 "There is not an OpenVPN configuration file in '%@'" = "לא נמצא קובץ הגדרות של OpenVPN ב-'%@'";
 
 /* Window text */
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "הייתה בעיה בתצורת OpenVPN. עיין בקובץ הLOG לפרטים.";
+
+/* Window text */
 "There was a problem:\n\n%@" = "אירעה שגיאה:\n\n%@";
 
 /* Window text */
@@ -1575,6 +1596,12 @@
 
 /* Window text */
 "This VPN requires you to respond to a question but has not provided the question." = "ה-VPN דורש תגובה לשאלה, אך לא סיפק את השאלה.";
+
+/* Window text */
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "עותק Tunnelblick זה אינו חתום דיגיטלית.\n\nאין דרך לאמת שלא בוצעו שינוים בגירסה זו.\n\nבדקו מול מקור הקובץ לפני השימוש בו.\n\n";
+
+/* Window text */
+"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "לא ניתן להפעיל ו/או להתקין גירסת Tunnelblick זו, מכיון שכתובת הURL לעדכון המוגדרת בתוכנה איננה חוקית.\n\n";
 
 /* Window text */
 "Too many configuration files in '%@'" = "קיימים קבצי הגדרות רבים ב-׳%@׳";
