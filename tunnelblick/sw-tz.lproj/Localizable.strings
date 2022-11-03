@@ -128,6 +128,9 @@
 "Ignore" = "Puuza au usifanye chochote";
 
 /* Button */
+"Install tun and tap system extensions..." = "Sakinisha tun na uguse viendelezi vya mfumo…";
+
+/* Button */
 "Install" = "Sakinisha";
 
 /* Button. In a dialog that says a file already exists in a new location. */
@@ -284,6 +287,12 @@
 /* Button */
 "Tunnelblick 3.3 icon" = "Ikoni ya Tunnelblick 3.3 ";
 
+/* Button */
+"Uninstall Tunnelblick..." = "Sanidua Tunnelblick…";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Sanidua na uguse viendelezi vya mfumo…";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "Sasisha";
 
@@ -370,6 +379,12 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Kiwango cha Log cha OpenVPN kilichowekwa na usanidi";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "Tatizo la kutumia matoleo yajayo ya Tunnelblick…";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "Tatizo la kutumia matoleo yajayo ya macOS…";
+
 /* Menu item */
 "Quit Tunnelblick" = "Katisha Tunnelblick";
 
@@ -414,6 +429,9 @@
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Lemaza IPv6 mpaka seva ya VPN itafikiwa kwa kutumia IPv6";
+
+/* Checkbox name */
+"Disable secondary network interfaces" = "Zima miingiliano ya pili ya mtandao";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Ondoa Unganisho wakati kompyuta inakwenda kulala";
@@ -461,6 +479,9 @@
 "Flush DNS cache after connecting or disconnecting" = "Ondoa log-mficho wa DNS baada ya kuunganisha au kukatiza";
 
 /* Checkbox name */
+"Inhibit automatic update checking and IP Address checking" = "Zuia ukaguzi wa sasisho otomatiki na kukagua Anwani ya IP";
+
+/* Checkbox name */
 "Keep connected" = "Baki katika Maunganisho";
 
 /* Checkbox name */
@@ -470,10 +491,31 @@
 "Place near Spotlight icon" = "Weka Ikoni karibu na Ikoni ya Uangalizi";
 
 /* Checkbox name */
+"Prepend domain name to search domains" = "Andaa jina la kikoa ili kutafuta vikoa";
+
+/* Checkbox name */
+"Reconnect when computer wakes up" = "Unganisha tena kompyuta inapoamka";
+
+/* Checkbox name */
 "Reconnect when user switches in" = "Unganisha tena wakati mtumiaji huingia";
 
 /* Checkbox name */
+"Require administrator authorization to install all configurations" = "Inahitaji idhini ya msimamizi ili kusakinisha usanidi wote";
+
+/* Checkbox name */
+"Route all IPv4 traffic through the VPN" = "Elekeza trafiki yote ya IPv4 kupitia VPN";
+
+/* Checkbox name */
+"Run MTU maximum size test after connecting" = "Endesha jaribio la ukubwa wa juu wa MTU baada ya kuunganisha";
+
+/* Checkbox name */
 "Save in Keychain" = "Hifadhi katika Funguo-mnyororo";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Nambari ya usalama:";
+
+/* Checkbox name */
+"Set DNS after routes are set" = "Weka DNS baada ya njia kuwekwa";
 
 /* Checkbox name */
 "Show when disconnected" = "Onesha maunganisho yakikatwa";
@@ -501,6 +543,9 @@
 
 /* Text on disk image */
 "Double-click to begin" = "Bofya mara mbili kuanza";
+
+/* Connection status */
+"ADD_ROUTES" = "Kuongeza njia"; // Please translate "Adding routes"
 
 /* Connection status */
 "ASSIGN_IP" = "Gawa anwani ya Itifiki Inteneti (II)"; // Please translate "Assigning IP address"
@@ -539,6 +584,9 @@
 "RESOLVE" = "Kutatua jina la kikoa"; // Please translate ""
 
 /* Connection status */
+"SLEEP" = "Inasubiri mchakato wa Demoni"; // Please translate "Waiting for daemon process"
+
+/* Connection status */
 "TCP_CONNECT" = "Kufanya muunganisho wa TCPF"; // Please translate "Making TCP connection"
 
 /* Connection status */
@@ -560,22 +608,76 @@
 " (Private)" = "(Binafsi)";
 
 /* Window title */
-" (Shared)" = "(kushirikiana)"; // Indicates a shared configuration
+" (Shared)" = " (Kushirikiana)"; // Indicates a shared configuration
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Usanidi - Tunnelblick";
 
 /* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Imetenganishwa - Mipangilio ya Kina%3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
+
+/* Window title */
+"'%@' has been disconnected" = "%1$@%2$@: %3$@%4$@ - %5$@'%@' imetenganishwa";
+
+/* Window title */
 "Active connection" = "Maunganisho Amilifu";
+
+/* Window title */
+"Add a Configuration" = "Ongeza Usanidi";
+
+/* Window title. The '%@' is a space followed by the name of the program (usually 'Tunnelblick') */
+"Advanced Settings%@" = "Mipangilio ya Juu au Kina%@";
+
+/* Window title */
+"Alert sounds" = "Sauti za tahadhari";
+
+/* Window title */
+"Alert" = "Tahadhari";
+
+/* Window title */
+"All configuration files removed" = "Faili zote za usanidi zimeondolewa";
 
 /* Window title */
 "Appearance" = "Mwonekano";
 
 /* Window title */
+"Authentication failed" = "Uthibitishaji umeshindikana";
+
+/* Window title */
 "Configuration(s) Ignored" = "Usanidi umepuuzwa";
 
 /* Window title */
+"Connecting & Disconnecting" = "Kuunganisha & Kukata muunganisho";
+
+/* Window title */
+"Could Not Copy Configuration" = "Haikuweza Kunakili Usanidi";
+
+/* Window title */
+"Could Not Move Configuration" = "Haikuweza Kusogeza Usanidi";
+
+/* Window title */
+"Could Not Replace Configuration" = "Haikuweza Kubadilisha Usanidi";
+
+/* Window title */
+"Could Not Uninstall Configuration" = "Haikuweza Kuondoa Usanidi";
+
+/* Window title */
+"Create and Edit a Sample Configuration?" = "Unda na Uhariri Usanidi wa Mfano?";
+
+/* Window title */
+"Details - Tunnelblick" = "Maelezo - Tunnelblick";
+
+/* Window title */
+"Do you wish to connect?" = "Je, ungependa kuunganishwa?";
+
+/* Window title */
 "File not found" = "Faili halionekani";
+
+/* Window title */
+"Import a Tunnelblick Setup" = "Ingiza Usanidi wa Tunnelblick";
 
 /* Window title */
 "Info" = "Taarifa";
@@ -590,22 +692,97 @@
 "Installation or Repair Failed" = "Usanikishaji  au Urekebishaji Umeshindwa";
 
 /* Window title */
-"Log" = "Log";
+"Installation succeeded" = "Usakinishaji umefaulu";
+
+/* Window title */
+"Log" = "Log au Kumbukumbu";
 
 /* Window title */
 "Name not allowed" = "Jina haliruhusiwi";
 
 /* Window title */
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Hakuna 'dev tun', 'dev utun', au 'dev tap' iliyopatikana";
+
+/* Window title */
 "No Credentials" = "Hakuna sifa";
 
 /* Window title */
+"Only computer administrators should update Tunnelblick" = "Wasimamizi wa kompyuta pekee wanapaswa kusasisha Tunnelblick";
+
+/* Window title */
+"OpenVPN is Not Responding" = "OpenVPN haijibu";
+
+/* Window title */
+"Please insert token" = "Tafadhali weka tokeni";
+
+/* Window title */
+"Preferences" = "Mapendeleo";
+
+/* Window title */
+"Replace Existing File?" = "Ungependa Kubadilisha Faili Iiliyopo?";
+
+/* Window title */
+"Replace VPN Configuration?" = "Je, ungependa kubadilisha Usanidi wa VPN?";
+
+/* Window title */
+"Sample Configuration Created" = "Fanya Usanidi uwe wa Kibinafsi";
+
+/* Window title */
+"Settings" = "Mpangilio";
+
+/* Window title */
+"Sounds" = "Sauti";
+
+/* Window title */
+"System Requirements Not Met" = "Mahitaji ya Mfumo hayajafikiwa";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK FAILED" = "Jaribio la uondoaji halikufaulu";
+
+/* Window title */
+"TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Jaribio la uondoaji limefaulu.";
+
+/* Window title */
+"Tunnelblick Configuration Problem" = "Tatizo la Usanidi wa Tunnelblick";
+
+/* Window title */
+"Tunnelblick Error" = "Hitilafu ya Tunnelblick";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Inahitajika Logia";
+
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: Nenosiri au Nywila Inahitajika";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "KUSAKINISHA TUNNELLICK IMESHINDWA";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "KUONDOA TUNNELBLICK UMEFANIKIWA";
+
+/* Window title */
+"Unable to launch Tunnelblick" = "Imeshindwa kuzindua Tunnelblick";
+
+/* Window title */
+"Unavailable" = "Haipatikani";
+
+/* Window title */
+"Use 'down-root' plugin for OpenVPN?" = "Ungependa kutumia programu-jalizi ya 'chini-chini' ya OpenVPN?";
 
 /* Window title */
 "Utilities" = "Huduma";
 
 /* Window title */
 "VPN Configuration Installation Error" = "Kosa la Usanidi wa VPN";
+
+/* Window title */
+"VPN Configuration Installation" = "Ufungaji wa Usanidi wa VPN";
+
+/* Window title */
+"VPN Credentials" = "VPN sifa";
 
 /* Window title */
 "Warning!" = "Onyo!";
@@ -632,10 +809,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "• Anuani ya seva ya DNS% @ ni seva ya DNS ya umma inayojulikana kwa Tunnelblick lakini hapitishwi VPN.";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "Maandishi ya dirisha. %@ ya kwanza ni anwani ya IP (kama vile 1.2.3.4). Anwani ya pili ya IP ni jina la usanidi wa VPN.";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "• Anwani ya seva ya DNS% @ sio seva ya DNS ya umma inayojulikana kwa Tunnelblick na haipitishwi VPN.";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "• Anwani ya seva ya DNS% @ sio anwani ya IP ya umma na haipitishwi VPN.";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "• Anwani ya seva ya DNS% @ sio anwani ya IP ya umma na haipitishwi VPN.";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "• Sanikisha % lu usanidi";
@@ -657,6 +840,219 @@
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced one configuration\n\n" = "• Imebadilisha usanidi mmoja";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Uninstalled %lu configurations\n\n" = "• Usisanikishe % lu usanidi\n\n";
+
+/* Window text: 'Tunnelblick successfully: *' */
+"     • Uninstalled one configuration\n\n" = "Usanidi mmoja umeondolewa";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install %lu configurations\n\n" = "• Sanikisha % lu usanidi";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install one configuration\n" = "Usanidi mmoja umeongezwa";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace %lu \"safe\" configurations (administrator authorization not required)\n\n" = "Sakinisha au ubadilishe usanidi wa %lu \"salama\" (uidhinishaji wa msimamizi hauhitajiki)\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install or replace one \"safe\" configuration (administrator authorization not required)\n" = "\nSakinisha au ubadilishe usanidi mmoja \"salama\" (uidhinishaji wa msimamizi hauhitajiki)";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace %lu configurations\n\n" = "• Imebadilisha usanidi mmoja";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace one configuration\n" = "    • Badilisha usanidi mmoja\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall %lu configurations\n\n" = "    • Sanidua %lu usanidi\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall one configuration\n" = "    • Sanidua usanidi mmoja\n";
+
+/* Window text */
+"  • Be installed in /Applications as Tunnelblick\n" = "  • Sakinishwa katika /Programu kama Tunnelblick\n";
+
+/* Window text */
+"  • Change ownership and permissions of the program to secure it\n" = "  • Badilisha umiliki na ruhusa za programu ili kuilinda\n";
+
+/* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
+"  • Complete the update\n" = "  • Kamilisha sasisho\n";
+
+/* Window text */
+"  • Convert OpenVPN configurations\n" = "  • Badilisha usanidi wa OpenVPN\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Copy a configuration\n" = "  • Nakili usanidi\n";
+
+/* Window text */
+"  • Install forced preferences\n" = "  • Sakinisha mapendeleo ya kulazimishwa\n";
+
+/* Window text */
+"  • Install or update configuration(s)\n" = "  • Sakinisha au usasishe usanidi\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Move a configuration\n" = "  • Hamisha usanidi\n";
+
+/* Window text */
+"  • Move the private configurations folder\n" = "  • Hamisha folda ya usanidi wa faragha\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Remove a configuration\n" = "  • Ondoa usanidi\n";
+
+/* Window text */
+"  • Secure configurations\n" = "  • Weka Salama usanidi\n";
+
+/* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ ni programu isiyolipishwa: unaweza kuisambaza upya na/au kuirekebisha chini ya sheria na masharti ya %2$@ kama ilivyochapishwa na %3$@.\n\n%4$@ ni chapa ya biashara iliyosajiliwa ya OpenVPN Inc.";
+
+/* Window text */
+" Do you wish to install %@ to %@%@?\n\n" = " Je, ungependa kusakinisha %1$@ hadi %2$@%3$@?\n\n";
+
+/* Window text */
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Je! ungependa kuchukua nafasi\n    %1$@\n    katika %2$@\nna %3$@%4$@?\n\n";
+
+/* Window text */
+" Forced preferences will also be installed or replaced.\n\n" = " Mapendeleo ya kulazimishwa pia yatasakinishwa au kubadilishwa.\n\n";
+
+/* Window text */
+" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Kumbuka: Mipangilio ya OpenVPN itabadilishwa kuwa Mipangilio ya Tunnelblick VPN.\n\n";
+
+/* Window text */
+" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick lazima isakinishwe katika Programu.\n\n";
+
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick inahitaji uidhinishaji wa msimamizi wa kompyuta ili iweze kuunganisha kiotomatiki '%@' kompyuta inapoanza.";
+
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick inahitaji uidhinishaji wa msimamizi wa kompyuta ili iweze kuacha kuunganisha kiotomatiki '%@' kompyuta inapoanza.";
+
+/* Window text */
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ONYO: Nakala hii ya Tunnelblick imechezewa.\n\n";
+
+/* Window text. The '%@' is the name of an OpenVPN and SSL binary, e.g. 'OpenVPN 2.4.8 OpenSSL 1.1.1' */
+"%@ (non-Tunnelblick)" = "%@ (isiyo ya Tunnelblick)";
+
+/* Window text */
+"%@ exists but is not a folder" = "%@ ipo lakini sio folda";
+
+/* Window text */
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ ipo lakini si folda%@ imerejeshwa hadi nakala yake ya mwisho (kivuli) iliyolindwa.\n\n";
+
+/* Window text. The '%@' at the beginning is a separately translated string that describes an action that is to be taken. */
+"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator's authorization is not required." = "%@\n\n Kumbuka: Tunnelblick iko katika hali ya msimamizi, kwa hivyo idhini ya msimamizi wa kompyuta haihitajiki.";
+
+/* Window text */
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "Mipangilio ya %ld imerejeshwa kwa nakala yake ya mwisho (kivuli) iliyolindwa.\n\n";
+
+/* Window text */
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' tayari ipo kwenye Desktopu au Eneo-kazi.\n\nJe, ungependa kuibadilisha?";
+
+/* Window text. '%@' is the name of a configuration or a folder of configurations. */
+"'%@' already exists." = "'%@' tayari ipo.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' appears to be a file encoded with UTF-16. All OpenVPN-related files must be plain text or UTF-8 files" = "'%@' inaonekana kuwa faili iliyosimbwa kwa UTF-16. Faili zote zinazohusiana na OpenVPN lazima ziwe maandishi wazi au faili za UTF-8";
+
+/* Window text */
+"'%@' at line %u was not terminated properly" = "'%1$@' kwenye mstari wa %2$u haikukatishwa ipasavyo";
+
+/* Window text */
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' haina kitambulisho (ufunguo wa kibinafsi au jina la mtumiaji na nenosiri) iliyohifadhiwa kwenye Keycheni.";
+
+/* Window text. %@ is the name of a file. */
+"'%@' is not a plain text or UTF-8 file." = "'%@' si maandishi wazi au faili ya UTF-8.";
+
+/* Window text */
+"'%@' was not terminated." = "'%@' haikukatishwa.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n */
+"'%@' will connect using OpenVPN %@ instead of the requested version (%@)." = "'%1$@' itaunganishwa kwa kutumia OpenVPN %2$@ badala ya toleo lililoombwa (%3$@).";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "upendeleo wa 'rahisi-rsaPath' umepuuzwa; haijabainisha folda";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "upendeleo wa 'rahisi-rsaPath' umepuuzwa; lazima iwe njia kamili au uanze na '~'";
+
+/* Window text -- appears in log display when logging is disabled\n */
+"(Logging is disabled.)" = "(Uwekaji kumbukumbu umezimwa.)";
+
+/* Window text */
+"(Never checked)" = "(Haijaangaliwa kamwe)";
+
+/* Window text */
+"(The 'easy-rsaPath' preference is invalid.)" = "(Upendeleo wa 'rahisi-rsaPath' ni batili.)";
+
+/* Window text */
+"(if connected when computer went to sleep)" = "(ikiwa imeunganishwa wakati kompyuta ililala)";
+
+/* Window text */
+"(if connected when user switched out)" = "(ikiwa imeunganishwa wakati mtumiaji amezima)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Inc." = "<br>Kulingana na Tunnelblick, programu isiyolipishwa inapatikana katika<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN ni chapa ya biashara iliyosajiliwa kutoka kwa OpenVPN Inc.";
+
+/* Window text. The %@ is the name of a VPN configuration. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Usanidi wa mtandao haukurejeshwa ipasavyo baada ya kukatwa kutoka kwa %@.</p><p>Tatizo hili kwa kawaida husababishwa na kutumia 'user nobody' na /au chaguo za 'kikundi hakuna' OpenVPN.</p><p>Ili kurejesha usanidi wa mtandao, unapaswa kuanzisha upya kompyuta yako.</p><p>Ili kuzuia hitilafu hii katika siku zijazo, ondoa 'user nobody' na mistari ya 'hakuna mtu' kutoka kwa faili yako ya usanidi ya OpenVPN.</p><p>Angalia <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Chaguo za OpenVPN za Mtumiaji na Kikundi</a> [tunnelblick.net] kwa maelezo zaidi.</p></font>\n\n";
+
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Hivi karibuni Tunnelblick ilipata hitilafu mbaya moja au zaidi.</p>\n\n<p>Tafadhali tuma barua pepe kwa %1$@ na uambatishe<br>'%2$@' faili ambalo limeundwa kwenye Desktopu au Eneo-kazi lako.</p>\n\n<p>Faili lina maelezo ambayo yatasaidia wasanidi wa Tunnelblick kurekebisha matatizo yanayosababisha hitilafu kama hizo. Haijumuishi taarifa za kibinafsi kukuhusu au taarifa kuhusu VPN zako.</p>\n\n<p>Ukiweza, tafadhali eleza pia kile Tunnelblick ilichokuwa ikifanya wakati hitilafu ilipotokea.</p>\n\n<p>Msaada wako katika hili utawasaidia watumiaji wote wa Tunnelblick.</p>";
+
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">contributing to the Tunnelblick project.</a> [tunnelblick.net]</p>\n" = "<p>Anwani inayoonekana ya IP ya kompyuta hii imebadilika baada ya kuunganishwa kwenye VPN hii kila mara %u ya mwisho ilipokaguliwa.</p>\n<p>Hii labda inamaanisha kuwa VPN imesanidiwa ipasavyo na kuangalia zaidi sio lazima,\n kwa hivyo ukaguzi umezimwa kwa VPN hii ili kupunguza mzigo kwenye seva za tunnelblick.net.</p>\n<p>Unaweza kuwezesha upya kuangalia kwenye \"kichupo cha Mipangilio\" cha dirisha la \"Maelezo ya VPN\" la Tunnelblick. Ukifanya hivyo, tafadhali zingatia pia <a href=\"https://tunnelblick.net/donate.html\">kuchangia mradi wa Tunnelblick.</a> [tunnelblick.net]</p>\n";
+
+/* Window text */
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Kitufe cha TBPreference au TAlwaysSetPreference kinarejelea mapendeleo yasiyojulikana '%1$@' katika %2$@";
+
+/* Window text */
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Usanidi wa Tunnelblick VPN umewekwa ndani sana katika '%@'";
+
+/* Window text */
+"A configuration named '%@' already exists in this location.\nDo you want to replace it with the one you're moving or copying?" = "Mipangilio inayoitwa '%@' tayari ipo katika eneo hili.\nJe, ungependa kuibadilisha na ile unayohamisha au kunakili?";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot connect when the computer starts." = "Usanidi unaohitaji kaulisiri (ufunguo wa faragha) au jina la mtumiaji na nenosiri hauwezi kuunganisha kompyuta inapoanza.";
+
+/* Window text */
+"A passphrase is required to connect to\n  %@%@" = "Kaulisiri au Nenosiri linahitajika ili kuunganisha\n  %1$@%2$@";
+
+/* Window text */
+"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Mipangilio ya faragha inayoitwa '%@' tayari ipo.\n\nJe, ungependa kuibadilisha na usanidi ulioshirikiwa?";
+
+/* Window text */
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Tatizo limetokea wakati wa kuangalia anwani ya wazi ya IP ya kompyuta hii.\n\nTazama kumbukumbu ya konsolu kwa maelezo.\n\n";
+
+/* Window text */
+"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Usanidi ulioshirikiwa unaoitwa '%@' tayari upo.\n\nJe! ungependa kuibadilisha na usanidi wa kibinafsi?";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "Jina la mtumiaji na nenosiri vinahitajika ili kuunganisha\n  %@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Jina la mtumiaji na nenosiri vinahitajika ili kuunganisha\n  %1$@\n(kwa kutumia '%2$@' vitambulisho)";
+
+/* Window text */
+"Add Credentials" = "Ongeza Hati tambulishi";
+
+/* Window text */
+"Added '.sh' extension to %@ so it will be secured properly" = "Imeongeza kiendelezi cha '.sh' hadi %@ ili kulindwa ipasavyo";
+
+/* Window text */
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Umeongeza kiendelezi cha '.hakijulikani' hadi %@ hivyo kitalindwa ipasavyo";
+
+/* Window text */
+"Additional contributions by" = "Michango ya ziada na";
+
+/* Window text */
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "Baada ya sekunde %1$.1f, niliacha kujaribu kuleta maelezo ya anwani ya IP.\n\nTunnelblick haitaangalia kama anwani ya IP ya kompyuta hii inabadilika wakati %2$@ imeunganishwa.\n\n";
+
+/* Window text */
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Baada ya kuunganisha kwa %@, DNS haionekani kufanya kazi.\n\nHii inaweza kumaanisha kuwa VPN yako haijasanidiwa ipasavyo.\n\n";
+
+/* Window text */
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Baada ya kuunganisha kwa %@, Mtandao hauonekani kufikiwa.\n\nHii inaweza kumaanisha kuwa VPN yako haijasanidiwa ipasavyo.\n\n";
 
 /* Window text */
 "Cancelled trying to quit all OpenVPN processes" = "Ghairisha kujaribu kukatisha michakato yote ya OpenVPN";

@@ -1,0 +1,69 @@
+/* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
+/* See https://tunnelblick.net/cLocalizeTranslate.html.           */
+
+
+/* Textbox name */
+"Username:" = "Қолданушы аты:";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"All Users" = "Барлық қолданушылар";
+
+/* Button */
+"Always load Tap driver" = "Tab драйверін үнемі жүктеу";
+
+/* Button */
+"Always load Tun driver" = "Tun драйверін үнемі жүктеу";
+
+/* Button */
+"Always use the plugin" = "Плагинді үнемі қолдану";
+
+/* Button */
+"Back" = "Артқа";
+
+/* Button */
+"Cancel" = "Бас тарту";
+
+/* Menu item */ /* Button */
+"Check For Updates Now" = "Жаңартуларды тексеру";
+
+/* Button */
+"Check Now" = "Қазір тексеру";
+
+/* Button */
+"Connect" = "Қосу";
+
+/* Button */
+"Continue" = "Жалғастыру";
+
+/* Button */
+"Delete" = "Жою";
+
+/* Button */
+"Disconnect" = "Өшіру";
+
+/* Button */
+"Do nothing" = "Ештене істемеу";
+
+/* Button */
+"Help" = "Көмек";
+
+/* Button */
+"Ignore" = "Ескермеу";
+
+/* Button */
+"Install" = "Орнату";
+
+/* Button */
+"Manually" = "Қолмен";

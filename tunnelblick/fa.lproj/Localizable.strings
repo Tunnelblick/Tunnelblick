@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "به جز در مواردی که دسترسی به سرور VPN با IPv6 فراهم شده باشد، گزینه IPv6 را غیرفعال کنید.";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "غیر فعال کردن رابط شبکه ی ثانویه";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "قطع ارتباط در زمان استراحت رایانه";
 
 /* Checkbox name */
@@ -507,6 +510,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "ذخیره کردن در Keychain";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "کد امنیتی:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "تنظیم سامانه نام دامنه (DNS) پس از تثبیت مسیریابی";
@@ -799,6 +805,9 @@
 /* Window text. The first %@ will be replaced by the name of a configuration. The second %@ will be replaced by a message from a VPN server, such as 'Please insert your security token'. */
 "     From the VPN server for %@:\n\n%@" = "     از سرور VPN برای%1$@:\n%2$@";
 
+/* Window text */
+"     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • سرور DNS با آدرس %@ یک سرور DNS عمومی و شناخته شده در Tunnelblick است، ولی اصلاعاتش از VPN عبور نمیکند.\n\n";
+
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • پیکربندی %lu نصب شد\n\n";
 
@@ -1017,6 +1026,9 @@
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "خطایی در حین بازگردانی به رونوشت (سایه) امن رخ داد. برای اطلاعات بیشتر به میزفرمان گزارشات مراجعه نمایید.\n\n";
+
+/* Window text */
+"An error occurred. Please try again." = "خطایی رخ داده است. لطفا بعدا مجددا تلاش نمایید.";
 
 /* Window text */
 "An error occurred. See the Console Log for details." = "خطایی رخ داده است. برای اطلاعات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
@@ -1271,6 +1283,9 @@
 "Installation finished successfully." = "نصب با موفقیت پایان یافت.";
 
 /* Window text */
+"Installing and securing Tunnelblick..." = "در حال نصب و امن کردن Tunnelblick…";
+
+/* Window text */
 "Installing configurations is not allowed" = "نصب پیکربندی مجاز نیست";
 
 /* Window text */
@@ -1314,6 +1329,9 @@
 
 /* Window text */
 "Modified configuration file to remove path information" = "فایل پیکربندی برای پاک کردن اطلاعات مسیر ویرایش شد";
+
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "چندین اتصال همزمان ایجاد خواهد شد (%1$d با 'تنظیمات نام‌سرور'، %2$d بدون تنظیمات 'نام‌سرور')";
 
 /* Window text */
 "Named Credentials" = "اعتبار نامه های نام دار";
@@ -1404,6 +1422,9 @@
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "یک یا چند پیکربندی رد شدند. برای اطلاعات بیشتر به میزفرمان گزارشات مراجعه فرمایید.";
+
+/* Window text */
+"One or more possible problems with DNS were found: \n\n%@" = "یک یا چند اشکال احتمالی در DNS پیدا شد:\n\n%@";
 
 /* Window text */
 "One or more problems were detected:\n\n%@" = "یک یا چند ایراد پیدا شد:\n\n%@";
@@ -1703,6 +1724,9 @@
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick در حال اجرا می باشد و برای ادامه کار بسته خواهد شد.";
 
 /* Window text */
+"Tunnelblick is ready." = "Tunnelblick آماده است.";
+
+/* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick برای تکثیر پیکربندی '%@' نیاز به اجازه دارد.";
 
 /* Window text */
@@ -1716,6 +1740,12 @@
 
 /* Window text */
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick برای مشترک سازی پیکربندی '%@' نیاز به اجازه دارد.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick برای تغییر نام پوشه ی '%1$@' به '%2$@' نیاز به اجازه دارد.";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick برای امن کردن اطلاعات وارد شده نیاز به اجازه دارد.";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick نیاز به تغییر تنظیمی دارد که فقط توسط مدیر رایانه قابل تغییر است.";
@@ -1926,6 +1956,9 @@
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "شما نمی توایند یک پیکربندی که برای اجرا در حین راه اندازی رایانه تعیین شده است، را حذف نمایید.";
+
+/* Window text */
+"You may not remove a folder unless it is empty." = "شما اجازه ی پاک کردن پوشه را ندارید مگر اینکه خالی باشد.";
 
 /* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "در صورت عدم ارایه نام کاربری مدیر رایانه، قادر به بروزرسانی Tunnelblick نخواهید بود.\n\nآیا مایل به یررسی بروزرسانی هستید؟";

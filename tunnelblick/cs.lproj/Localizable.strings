@@ -1109,7 +1109,7 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Opravdu nechcete zkonvertovat konfigurace OpenVPN do konfigurací VPN Tunnelblicku?\n\nKONFIGURACE NEBUDE DOSTUPNÁ, POKUD JE NEPŘEVEDETE!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Opravdu si přejete smazat přihlašovací údaje (privátní klíč a/nebo jméno a heslo) pro konfigurace %ld, které jsou uloženy v Klíčence?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Opravdu si přejete smazat přihlašovací údaje (privátní klíč a/nebo jméno a heslo) %ld konfigurací, které jsou uloženy v Klíčence?";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Opravdu si přejete smazat identifikační údaje (privátní klíč a/nebo jméno a heslo) pro '%@', která je uložena v klíčence?";
@@ -1454,7 +1454,7 @@
 "Non-string value for an item in '%@' in %@" = "Hodnota položky v '%1$@' in %2$@ neobsahuje řetězec";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Žádná z %ld vybraných konfigurací nemá v klíčence uloženy identifikační údaje (privátní klíč a/nebo jméno a heslo).";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Žádná z %ld vybraných konfigurací nemá v Klíčence uloženy identifikační údaje (privátní klíč a/nebo jméno a heslo).";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Není .ovpn ani .conf: %@";
