@@ -1,0 +1,129 @@
+From 363ad7103507bcc092fde61c3b60bd3cfbf60aaa Mon Sep 17 00:00:00 2001
+From: James Bekkema <james@sparklabs.com>
+Date: Mon, 23 Jul 2018 13:21:53 +1000
+Subject: [PATCH] Restore functionality of route-gateway's dhcp parameter, and
+ expand to support routes using vpn_gateway.
+
+---
+ src/openvpn/init.c  |  1 +
+ src/openvpn/route.c | 32 ++++++++++++++++++++++++++++++--
+ src/openvpn/route.h |  3 +++
+ 3 files changed, 34 insertions(+), 2 deletions(-)
+
+diff -u -r -x .DS_Store openvpn-2.5_rc1.old/src/openvpn/init.c openvpn-2.5_rc1.new/src/openvpn/init.c
+--- openvpn-2.5_rc1.old/src/openvpn/init.c	2020-09-22 09:44:23.000000000 -0400
++++ openvpn-2.5_rc1.new/src/openvpn/init.c	2020-09-22 09:44:23.000000000 -0400
+@@ -1522,6 +1522,7 @@
+     if (init_route_list(route_list,
+                         options->routes,
+                         gw,
++                        options->route_gateway_via_dhcp,
+                         metric,
+                         link_socket_current_remote(link_socket_info),
+                         es,
+Only in openvpn-2.5_rc1.old/src/openvpn: options.c.orig
+diff -u -r -x .DS_Store openvpn-2.5_rc1.old/src/openvpn/route.c openvpn-2.5_rc1.new/src/openvpn/route.c
+--- openvpn-2.5_rc1.old/src/openvpn/route.c	2020-09-22 09:44:23.000000000 -0400
++++ openvpn-2.5_rc1.new/src/openvpn/route.c	2020-09-22 09:44:23.000000000 -0400
+@@ -301,6 +301,12 @@
+ }
+ 
+ static bool
++should_use_dhcp_gateway(const char *gateway, const struct route_list *rl)
++{
++    return (rl->spec.flags & RTSA_DHCP_ENDPOINT && (!is_route_parm_defined(gateway) || !strcmp(gateway, "vpn_gateway")));
++}
++
++static bool
+ init_route(struct route_ipv4 *r,
+            struct addrinfo **network_list,
+            const struct route_option *ro,
+@@ -371,7 +377,11 @@
+ 
+     /* gateway */
+ 
+-    if (is_route_parm_defined(ro->gateway))
++    if (should_use_dhcp_gateway(ro->gateway, rl))
++    {
++        r->flags |= RT_DHCP_GATEWAY;
++    }
++    else if (is_route_parm_defined(ro->gateway))
+     {
+         if (!get_special_addr(rl, ro->gateway, &r->gateway, &status))
+         {
+@@ -423,7 +433,10 @@
+         r->flags |= RT_METRIC_DEFINED;
+     }
+ 
+-    r->flags |= RT_DEFINED;
++    if ((r->flags & RT_DHCP_GATEWAY) == 0)
++    {
++        r->flags |= RT_DEFINED;
++    }
+ 
+     return true;
+ 
+@@ -545,6 +558,16 @@
+     rl->spec.remote_endpoint = addr;
+     rl->spec.flags |= RTSA_REMOTE_ENDPOINT;
+     setenv_route_addr(es, "vpn_gateway", rl->spec.remote_endpoint, -1);
++
++    struct route_ipv4 *r;
++    for (r = rl->routes; r; r = r->next)
++    {
++        if (r->flags & RT_DHCP_GATEWAY)
++        {
++            r->gateway = addr;
++            r->flags |= RT_DEFINED;
++        }
++    }
+ }
+ 
+ static void
+@@ -615,6 +638,7 @@
+ init_route_list(struct route_list *rl,
+                 const struct route_option_list *opt,
+                 const char *remote_endpoint,
++                bool remote_endpoint_dhcp,
+                 int default_metric,
+                 in_addr_t remote_host,
+                 struct env_set *es,
+@@ -681,6 +705,10 @@
+             ret = false;
+         }
+     }
++    else if (remote_endpoint_dhcp)
++    {
++        rl->spec.flags |= RTSA_DHCP_ENDPOINT;
++    }
+ 
+     if (rl->flags & RG_ENABLE)
+     {
+diff -u -r -x .DS_Store openvpn-2.5_rc1.old/src/openvpn/route.h openvpn-2.5_rc1.new/src/openvpn/route.h
+--- openvpn-2.5_rc1.old/src/openvpn/route.h	2020-09-22 09:44:23.000000000 -0400
++++ openvpn-2.5_rc1.new/src/openvpn/route.h	2020-09-22 09:44:23.000000000 -0400
+@@ -63,6 +63,7 @@
+ #define RTSA_REMOTE_ENDPOINT  (1<<0)
+ #define RTSA_REMOTE_HOST      (1<<1)
+ #define RTSA_DEFAULT_METRIC   (1<<2)
++#define RTSA_DHCP_ENDPOINT    (1<<3)
+     unsigned int flags;
+ 
+     in_addr_t remote_endpoint;
+@@ -113,6 +114,7 @@
+ #define RT_DEFINED        (1<<0)
+ #define RT_ADDED          (1<<1)
+ #define RT_METRIC_DEFINED (1<<2)
++#define RT_DHCP_GATEWAY   (1<<3)
+     struct route_ipv4 *next;
+     unsigned int flags;
+     const struct route_option *option;
+@@ -286,6 +288,7 @@
+ bool init_route_list(struct route_list *rl,
+                      const struct route_option_list *opt,
+                      const char *remote_endpoint,
++                     bool remote_endpoint_dhcp,
+                      int default_metric,
+                      in_addr_t remote_host,
+                      struct env_set *es,
+Only in openvpn-2.5_rc1.old/src/openvpn: socket.c.orig
