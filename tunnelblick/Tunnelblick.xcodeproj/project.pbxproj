@@ -179,6 +179,7 @@
 		63C3757C1A45113000D51E81 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
 		63C98A732913D6A700DB78F2 /* KK.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63C98A722913D6A700DB78F2 /* KK.lproj */; };
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.m */; };
+		63D2658829940ACC00E1C3FF /* HI.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63D2658729940ACC00E1C3FF /* HI.lproj */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
 		63D893F32124E5FE000E20E5 /* SetupImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F22124E5FE000E20E5 /* SetupImporter.m */; };
 		63D893F821258FAE000E20E5 /* ImportWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F621258FAE000E20E5 /* ImportWindowController.m */; };
@@ -558,6 +559,7 @@
 		63C98A722913D6A700DB78F2 /* KK.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KK.lproj; sourceTree = "<group>"; };
 		63CC72F71928C5CB00F81220 /* TBUIUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUIUpdater.h; sourceTree = "<group>"; };
 		63CC72F81928C5CB00F81220 /* TBUIUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUIUpdater.m; sourceTree = "<group>"; };
+		63D2658729940ACC00E1C3FF /* HI.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HI.lproj; sourceTree = "<group>"; };
 		63D39B4614F9860E002D1297 /* UtilitiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilitiesView.h; sourceTree = "<group>"; };
 		63D39B4714F9860E002D1297 /* UtilitiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilitiesView.m; sourceTree = "<group>"; };
 		63D893F12124E5F1000E20E5 /* SetupImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupImporter.h; sourceTree = "<group>"; };
@@ -1116,6 +1118,7 @@
 				B896C2DF1767B753004D9A21 /* fi.lproj */,
 				615F748C0ED3A4E5007F6F0A /* fr.lproj */,
 				639B6118205BE7FD00BC2FF5 /* he.lproj */,
+				63D2658729940ACC00E1C3FF /* HI.lproj */,
 				634E02061CAD9776008637FF /* hr.lproj */,
 				63903D12145EAD49006627C9 /* hu.lproj */,
 				633BC7432821ECE4007150B3 /* HY.lproj */,
@@ -1714,6 +1717,7 @@
 				6357DADB214FC229003A7196 /* ImportWindow-RTL.xib in Resources */,
 				636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */,
 				63DC244F19FA7379006B1BDF /* pt_br.lproj in Resources */,
+				63D2658829940ACC00E1C3FF /* HI.lproj in Resources */,
 				63B16B521E204D37002958D0 /* updates_sign_with_v1_signature in Resources */,
 				633888F81C00F2FC0076032D /* LoginWindow-RTL.xib in Resources */,
 				63DC245319FA73A9006B1BDF /* el.lproj in Resources */,

@@ -1,0 +1,132 @@
+/* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
+/* See https://tunnelblick.net/cLocalizeTranslate.html.           */
+
+
+/* Status message */
+"No Active Connections" = "कोई सक्रिय संपर्क नहीं";
+
+/* Textbox name */
+"Username:" = "उपयोगकर्ता का नाम:";
+
+/* Button */
+"(None available)" = "(कोई भी उपलब्ध नहीं)";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"Advanced..." = "विस्तृत...";
+
+/* Button */
+"All Users" = "सभी उपयोगकर्ता";
+
+/* Button */
+"Always use the plugin" = "हमेशा प्लगइन का प्रयोग करें";
+
+/* Button */
+"Back" = "वापस जाएं";
+
+/* Button */
+"Cancel" = "रद्द करें";
+
+/* Menu item */ /* Button */
+"Check For Updates Now" = "नवीनतम के लिए अभी जांचें";
+
+/* Button */
+"Check Now" = "अभी जांचें";
+
+/* Button */
+"Connect" = "जुड़ें";
+
+/* Button */
+"Continue" = "आगे";
+
+/* Button */
+"Convert Configurations" = "व्यवस्थाएं परिवर्तित करें";
+
+/* Button */
+"Delete" = "मिटाएँ";
+
+/* Button */
+"Disconnect" = "बंद करें";
+
+/* Button */
+"Do nothing" = "कुछ न करें";
+
+/* Button */
+"Help" = "सहायता";
+
+/* Button */
+"I have configuration files" = "मेरे पास व्यवस्था की फ़ाइलें हैं";
+
+/* Button */
+"Ignore" = "अनदेखा करें";
+
+/* Button */
+"Install" = "स्थापित करें";
+
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "दोनों को रखें";
+
+/* Button */
+"Manually" = "अपने हाथ से";
+
+/* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"More Info [%@]" = "और जानकारी [%@]";
+
+/* Button */
+"More Info" = "और जानकारी";
+
+/* Button */
+"Never show" = "कभी न दिखाएं";
+
+/* Button */
+"No sound" = "कोई आवाज नहीं";
+
+/* Button */
+"OK" = "ठीक है";
+
+/* Button */
+"Only Me" = "केवल मेरे लिये";
+
+/* Button */
+"Quit" = "छोड़ दें";
+
+/* Button */
+"Replace" = "बदलें";
+
+/* Button */
+"Restore" = "पुनर्स्थापित करें";
+
+/* Button */
+"Retry" = "पुन: प्रयास करें";
+
+/* Button */
+"Skip" = "छोड़ें";
+
+/* Button */
+"Speak" = "बोलें";
+
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "रुकें";
+
+/* Button */
+"Terminate" = "समाप्त करें";
+
+/* Button */
+"Try again" = "पुनः प्रयास करें";
+
+/* Button */
+"When computer starts" = "जब संगणक चालू होता है";
+
+/* Window text */
+"Password:" = "पासवर्ड:";

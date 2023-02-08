@@ -431,6 +431,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Nonaktifkan IPv6 kecuali server VPN diakses memakai IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Kunci: Tutup pautan jaringan rangkaian\nName Kotak semakan";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Putuskan ketika komputer tidur";
 
 /* Checkbox name */
@@ -996,6 +999,9 @@
 
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Baru-baru ini Tunnelblick mengalami satu atau beberapa kesalahan serius.</p>\n\n<p>Harap kirim email ke %1$@ dan lampirkan file <br>'%2$@' yang telah dibuat di Desktop Anda.</p>\n\n<p>File tersebut berisi informasi yang akan membantu pengembang Tunnelblick memperbaiki masalah yang menyebabkan kesalahan tersebut. Ini tidak termasuk informasi pribadi tentang Anda atau informasi tentang VPN Anda.</p>\n\n<p>Jika Anda bisa, jelaskan juga apa yang dilakukan Tunnelblick saat kesalahan terjadi.</p>\n\n<p>Bantuan Anda dalam hal ini akan menguntungkan semua pengguna Tunnelblick.</p>";
+
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">contributing to the Tunnelblick project.</a> [tunnelblick.net]</p>\n" = "<p>Alamat IP publik dari komputer ini telah berubah setelah tersambung ke VPN ini sebanyak %u kali.</p>\n<p>Ini mungkin berarti VPN sudah diatur dengan benar dan pemeriksaan lebih lanjut tidak diperlukan, jadi pemeriksaan VPN ini telah dinonaktifkan untuk meringankan beban di server tunnelblick.net.</p>\n<p>Anda dapat mengaktifkan kembali pemeriksaan di \"tab Pengaturan\" dari jendela \"Rincian VPN\" Tunnelblick. Jika Anda melakukan itu, harap pertimbangkan juga <a href=\"https://tunnelblick.net/donate.html\">menyumbang ke proyek Tunnelblick</a>[tunnelblick.net].</p>\n";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Suatu kunci TBPreference atau TBAlwaysSetPreference mengacu ke sebuah preferensi '%1$@' yang tak dikenal dalam %2$@";
@@ -2286,6 +2292,9 @@
 
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Ketika dicentang</strong>, semua konfigurasi akan bersama-sama memakai nama pengguna, kata sandi, dan/atau kunci pribadi yang sama.</p>\n";
+
+/* HTML info for the 'Disable secondary network interfaces' checkbox.\n\n */
+"<p><strong>When checked</strong>, all network interfaces except the primary interface will be disabled while the VPN is active.</p>\n<p>This is recommended because Tunnelblick sets up DNS only on the primary network interface.</p>\n<p><strong>When not checked</strong>, secondary network interfaces are not disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection and when not using 'Set nameserver'.</p>" = "Kunci: <p><strong>Bila disemak</strong>, semua pautan jaringan kecuali pautan utama akan diaktifkan bila VPN aktif.</p>\n<p>Ini disyorkan kerana Tunnelblick membina DNS hanya untul oautan jaringan utama.</p>\n<p><strong>Bila kotak tidak disemak</strong>, pautan jaringan kedua tidak diaktifkan.</p>\n<p><strong>Kotak semak ini diaktifkan</strong> bila menguna sambungan 'tap' dan tidak menguna 'Set nameserver'.</p>\nHTML info untuk \"Diaktifkan pautan jaringan sekunder\" kotak semakan";
 
 /* HTML info for the 'Display connection submenus' checkbox. */
 "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Ketika dicentang</strong>, konfigurasi yang ada di dalam folder ditampilkan dalam submenu dari menu Tunnelblick.</p>\n<p><strong>Ketika tidak dicentang</strong>, konfigurasi yang ada di dalam folder ditampilkan dalam menu Tunnelblick.</p>";
