@@ -1,26 +1,8 @@
-diff --git a/README.apple b/README.apple
-new file mode 100644
-index 00000000..d611d261
---- /dev/null
-+++ b/README.apple
-@@ -0,0 +1,12 @@
-+To compile TAP support for new Apple OS, IOKit IOUserEthernetController headers are required:
-+
-+mkdir -p appleinclude/IOKit/network
-+curl -o appleinclude/IOKit/network/IOUserEthernetController.h https://opensource.apple.com/source/IOKitUser/IOKitUser-1845.120.6/network.subproj/IOUserEthernetController.h
-+
-+Add IOKitUser/network.subproj to include search path and link CoreFoundation and IOKit
-+
-+	CFLAGS="-I$(pwd)/appleinclude" ./configure
-+	make
-+	make install
-+
-+OpenVPN will now create a new en interface and use that as it previously used a TAP interface
-diff --git a/configure.ac b/configure.ac
-index 9c898718..2a9a04ad 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -317,7 +317,21 @@ case "$host" in
+Only in openvpn-2.5.8.new: README.apple
+diff -u -r -x .DS_Store openvpn-2.5.8.old/configure.ac openvpn-2.5.8.new/configure.ac
+--- openvpn-2.5.8.old/configure.ac	2023-02-07 17:05:38.000000000 -0500
++++ openvpn-2.5.8.new/configure.ac	2023-02-07 17:05:38.000000000 -0500
+@@ -331,7 +331,21 @@
  		AC_DEFINE([TARGET_DARWIN], [1], [Are we running on Mac OS X?])
  		AC_DEFINE_UNQUOTED([TARGET_PREFIX], ["M"], [Target prefix])
  		have_tap_header="yes"
@@ -42,10 +24,11 @@ index 9c898718..2a9a04ad 100644
  		;;
  	*-mingw*)
  		AC_DEFINE([TARGET_WIN32], [1], [Are we running WIN32?])
-diff --git a/src/openvpn/tun.c b/src/openvpn/tun.c
-index 9b6d8d68..3ba371ec 100644
---- a/src/openvpn/tun.c
-+++ b/src/openvpn/tun.c
+Only in openvpn-2.5.8.old/src/openvpn: init.c.orig
+Only in openvpn-2.5.8.old/src/openvpn: socket.c.orig
+diff -u -r -x .DS_Store openvpn-2.5.8.old/src/openvpn/tun.c openvpn-2.5.8.new/src/openvpn/tun.c
+--- openvpn-2.5.8.old/src/openvpn/tun.c	2023-02-07 17:05:38.000000000 -0500
++++ openvpn-2.5.8.new/src/openvpn/tun.c	2023-02-07 17:05:38.000000000 -0500
 @@ -56,6 +56,150 @@
  
  #include <string.h>
@@ -197,7 +180,7 @@ index 9b6d8d68..3ba371ec 100644
  #ifdef _WIN32
  
  const static GUID GUID_DEVCLASS_NET = { 0x4d36e972L, 0xe325, 0x11ce, { 0xbf, 0xc1, 0x08, 0x00, 0x2b, 0xe1, 0x03, 0x18 } };
-@@ -1789,7 +1933,36 @@ open_tun_generic(const char *dev, const char *dev_type, const char *dev_node,
+@@ -1790,7 +1934,36 @@
                  }
                  if (!dynamic_opened)
                  {
