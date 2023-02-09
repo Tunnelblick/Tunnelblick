@@ -128,6 +128,7 @@ endif
 OPENVPN_2_3_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_0_NAME) -o $$ssl_name = $(LIBRESSL_NAME)
 OPENVPN_2_4_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_1_NAME)
 OPENVPN_2_5_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_1_NAME)
+OPENVPN_2_6_SSL_LIBRARIES_TEST = $$ssl_name = $(OPENSSL_1_1_NAME)
 
 #######################################################################################
 # Define treatment of deprecated functions, methods, etc. for OpenVPN

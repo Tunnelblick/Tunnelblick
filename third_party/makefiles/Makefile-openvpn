@@ -97,6 +97,10 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                     if [ $(OPENVPN_2_5_SSL_LIBRARIES_TEST) ] ; then \
                         build_it=true ; \
                     fi ; \
+                elif [ "$$openvpn_major_minor" = "2.6"  ] ; then \
+                    if [ $(OPENVPN_2_6_SSL_LIBRARIES_TEST) ] ; then \
+                        build_it=true ; \
+                    fi ; \
                 else \
                     echo "warning: Will try to build unknown $$openvpn_major_minor version of OpenVPN with $$ssl_name" ; \
                     build_it=true ; \
