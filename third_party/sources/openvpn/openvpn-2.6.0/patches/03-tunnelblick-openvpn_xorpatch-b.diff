@@ -1,7 +1,7 @@
-diff -u -r -x .DS_Store openvpn-2.5.8.old/src/openvpn/options.c openvpn-2.5.8.new/src/openvpn/options.c
---- openvpn-2.5.8.old/src/openvpn/options.c	2023-02-07 17:05:37.000000000 -0500
-+++ openvpn-2.5.8.new/src/openvpn/options.c	2023-02-07 17:05:37.000000000 -0500
-@@ -826,6 +826,9 @@
+diff -u -r -x .DS_Store openvpn-2.6.0.old/src/openvpn/options.c openvpn-2.6.0.new/src/openvpn/options.c
+--- openvpn-2.6.0.old/src/openvpn/options.c	2023-02-07 17:53:58.000000000 -0500
++++ openvpn-2.6.0.new/src/openvpn/options.c	2023-02-07 17:53:58.000000000 -0500
+@@ -837,6 +837,9 @@
      o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
      o->resolve_in_advance = false;
      o->proto_force = -1;
@@ -11,7 +11,7 @@ diff -u -r -x .DS_Store openvpn-2.5.8.old/src/openvpn/options.c openvpn-2.5.8.ne
      o->occ = true;
  #ifdef ENABLE_MANAGEMENT
      o->management_log_history_cache = 250;
-@@ -979,6 +982,9 @@
+@@ -999,6 +1002,9 @@
      setenv_str_i(es, "local_port", e->local_port, i);
      setenv_str_i(es, "remote", e->remote, i);
      setenv_str_i(es, "remote_port", e->remote_port, i);
@@ -21,7 +21,7 @@ diff -u -r -x .DS_Store openvpn-2.5.8.old/src/openvpn/options.c openvpn-2.5.8.ne
  
      if (e->http_proxy_options)
      {
-@@ -1458,6 +1464,9 @@
+@@ -1714,6 +1720,9 @@
      SHOW_BOOL(bind_ipv6_only);
      SHOW_INT(connect_retry_seconds);
      SHOW_INT(connect_timeout);
@@ -31,7 +31,7 @@ diff -u -r -x .DS_Store openvpn-2.5.8.old/src/openvpn/options.c openvpn-2.5.8.ne
  
      if (o->http_proxy_options)
      {
-@@ -6324,6 +6333,46 @@
+@@ -6718,6 +6727,46 @@
          }
          options->proto_force = proto_force;
      }

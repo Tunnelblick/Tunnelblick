@@ -1,9 +1,10 @@
---- openvpn-2.5_git_974513e/src/openvpn/socket.c	2017-08-17 11:27:23.000000000 -0400
-+++ openvpn-2.5_git_974513e_patched/src/openvpn/socket.c	2017-08-18 18:37:11.000000000 -0400
-@@ -54,6 +54,56 @@
-     IPv6_TCP_HEADER_SIZE,
- };
-
+diff -u -r -x .DS_Store openvpn-2.6.0.old/src/openvpn/socket.c openvpn-2.6.0.new/src/openvpn/socket.c
+--- openvpn-2.6.0.old/src/openvpn/socket.c	2023-02-07 17:53:58.000000000 -0500
++++ openvpn-2.6.0.new/src/openvpn/socket.c	2023-02-07 17:53:58.000000000 -0500
+@@ -61,6 +61,56 @@
+     }
+ }
+ 
 +int buffer_mask(struct buffer *buf, const char *mask, int xormasklen)
 +{
 +    int i;
@@ -55,5 +56,5 @@
 +}
 +
  /*
-  * Convert sockflags/getaddr_flags into getaddr_flags
+  * Functions related to the translation of DNS names to IP addresses.
   */
