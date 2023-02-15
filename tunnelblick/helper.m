@@ -637,24 +637,15 @@ BOOL thisArchitectureSupportsBinaryAtPath(NSString * path) {
     NSString * currentArch = architectureBeingUsed();
 
     if (  [currentArch isEqualToString: ARCH_ARM]) {
-        if (  processIsTranslated()  ) {
-           return [archs containsString: ARCH_X86];     // Arm under Rosetta
-        }
-        if (  runningOnMontereyOrNewer()  ) {
-            return (   [archs containsString: ARCH_X86] // Arm not under Rosetta and on Monterey or newer
-                    || [archs containsString: ARCH_ARM]  );
-        }
-        return [archs containsString: ARCH_ARM];        // Arm not under Rosetta before Monterey
-    }
-
-    if (  [currentArch isEqualToString: ARCH_X86]) {
-        return [archs containsString: ARCH_X86];        // x86
+        return [archs containsString: ARCH_ARM];
+    } else if (  [currentArch isEqualToString: ARCH_X86]) {
+        return [archs containsString: ARCH_X86];
     }
 
     NSLog(@"Tunnelblick does not recognize the current architecture '%@'."
           @" Assuming cannot run binary (which supports only '%@') at %@\n"
           @"Using Rosetta = %s; Tunnelblick supports = %@ and %@",
-          currentArch, path, archs,
+          currentArch, archs, path,
           CSTRING_FROM_BOOL(processIsTranslated()), ARCH_X86, ARCH_ARM);
     return NO;
 }
