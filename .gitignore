@@ -12,6 +12,7 @@ third_party/built-*
 third_party/do-not-clean
 third_party/products/
 tunnelblick/build
+/third_party/sources/IOUserEthernetController.h
 
 # OS generated files #
 ######################
