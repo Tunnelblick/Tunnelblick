@@ -434,7 +434,15 @@ static BOOL firstTimeShowingWindow = TRUE;
                 if (  leftFrame.size.width < LEFT_NAV_AREA_MINIMUM_SIZE  ) {
                     leftFrame.size.width = LEFT_NAV_AREA_MINIMUM_SIZE;
                 }
-                [[configurationsPrefsView leftSplitView] setFrame: leftFrame];
+                // Set a very narrow frame, then set the frame to be the correct width
+                // This is necessary because otherwise macOS truncates a long name and follows it with "..." as if the name column was narrow,
+                // even if the name column is very wide and could show the entire name. Setting the name column to be very narrow, then making
+                // it the correct width tricks macOS into displaying it correctly.
+                NSRect narrowLeftFrame = leftFrame;
+                narrowLeftFrame.size.width = 10;
+                NSView * v = [configurationsPrefsView leftSplitView];
+                [v setFrame: narrowLeftFrame];
+                [v setFrame: leftFrame];
             }
 			
 			if (  configurationsTabIdentifier  ) {
