@@ -1355,7 +1355,7 @@ void secureTheApp(NSString * appResourcesPath) {
 	NSString *pncPlistPath              = [appResourcesPath stringByAppendingPathComponent:@"ProcessNetworkChanges.plist"                    ];
 	NSString *leasewatchPlistPath       = [appResourcesPath stringByAppendingPathComponent:@"LeaseWatch.plist"                               ];
 	NSString *leasewatch3PlistPath      = [appResourcesPath stringByAppendingPathComponent:@"LeaseWatch3.plist"                              ];
-	NSString *launchAtLoginScriptPath   = [appResourcesPath stringByAppendingPathComponent:@"launchAtLogin.sh"                               ];
+	NSString *launchAtLoginPath         = [appResourcesPath stringByAppendingPathComponent:@"Tunnelblick-LaunchAtLogin"                      ];
 	NSString *clientUpPath              = [appResourcesPath stringByAppendingPathComponent:@"client.up.osx.sh"                               ];
 	NSString *clientDownPath            = [appResourcesPath stringByAppendingPathComponent:@"client.down.osx.sh"                             ];
 	NSString *clientNoMonUpPath         = [appResourcesPath stringByAppendingPathComponent:@"client.nomonitor.up.osx.sh"                     ];
@@ -1424,7 +1424,7 @@ void secureTheApp(NSString * appResourcesPath) {
 	
 	okSoFar = checkSetPermissions(openvpnstartPath,          PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 	
-	okSoFar = checkSetPermissions(launchAtLoginScriptPath,   PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
+	okSoFar = checkSetPermissions(launchAtLoginPath,         PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 
     okSoFar = checkSetPermissions(uninstallerAppleSPath,     PERMS_SECURED_READABLE, YES) && okSoFar;
     okSoFar = checkSetPermissions(uninstallerScriptPath,     PERMS_SECURED_EXECUTABLE, YES) && okSoFar;

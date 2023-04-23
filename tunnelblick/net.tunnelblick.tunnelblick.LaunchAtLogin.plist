@@ -6,7 +6,7 @@
 	<string>net.tunnelblick.tunnelblick.LaunchAtLogin</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/Applications/Tunnelblick.app/Contents/Resources/launchAtLogin.sh</string>
+		<string>/Applications/Tunnelblick.app/Contents/Resources/Tunnelblick-LaunchAtLogin</string>
 	</array>
 	<key>LimitLoadToSessionType</key>
 	<string>Aqua</string>

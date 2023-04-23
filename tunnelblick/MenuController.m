@@ -7802,7 +7802,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     NSString *leasewatch3PlistPath      = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch3.plist"                   ];
     NSString *tunnelblickdPlistPath     = [resourcesPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.tunnelblickd.plist"];
     NSString *launchAtLoginPlistPath    = [resourcesPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
-    NSString *launchAtLoginScriptPath   = [resourcesPath stringByAppendingPathComponent: @"launchAtLogin.sh"                    ];
+    NSString *launchAtLoginPath         = [resourcesPath stringByAppendingPathComponent: @"Tunnelblick-LaunchAtLogin"           ];
 	NSString *clientUpPath              = [resourcesPath stringByAppendingPathComponent: @"client.up.osx.sh"                    ];
 	NSString *clientDownPath            = [resourcesPath stringByAppendingPathComponent: @"client.down.osx.sh"                  ];
 	NSString *clientNoMonUpPath         = [resourcesPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"          ];
@@ -7941,7 +7941,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	}
     
 	// check files which should  be owned by root with 755 permissions
-    if (  ! checkOwnerAndPermissions(launchAtLoginScriptPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
+    if (  ! checkOwnerAndPermissions(launchAtLoginPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
         return YES; // NSLog already called
     }
     if (  ! checkOwnerAndPermissions(reactivateTunnelblickPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {

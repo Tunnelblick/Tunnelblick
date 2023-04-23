@@ -115,6 +115,7 @@ sign_app () {
         codesign_v_t_or "$app_path/Contents/Resources/standardize-scutil-output"
         codesign_v_t_or "$app_path/Contents/Resources/tunnelblickd"
         codesign_v_t_or "$app_path/Contents/Resources/tunnelblick-helper"
+        codesign_v_t_or "$app_path/Contents/Resources/Tunnelblick-LaunchAtLogin"
 
         # Sign the openvpn and openvpn-down-root.so binaries
         local openvpn_version_dir
@@ -210,7 +211,7 @@ check_app_signature () {
     codesign_verify_verbose "$app_path" --deep
 
     # Check individual binaries
-    for f in tun-notarized.kext tap-notarized.kext atsystemstart installer openvpnstart process-network-changes standardize-scutil-output tunnelblickd tunnelblick-helper ; do
+    for f in tun-notarized.kext tap-notarized.kext atsystemstart installer openvpnstart process-network-changes standardize-scutil-output tunnelblickd tunnelblick-helper Tunnelblick-LaunchAtLogin ; do
         codesign_verify_verbose "$app_path/Contents/Resources/$f"
     done
 

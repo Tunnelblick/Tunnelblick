@@ -163,6 +163,7 @@
 #define TOOL_PATH_FOR_KILLALL		@"/usr/bin/killall"
 #define TOOL_PATH_FOR_LAUNCHCTL		@"/bin/launchctl"
 #define TOOL_PATH_FOR_NETWORKSETUP	@"/usr/sbin/networksetup"
+#define TOOL_PATH_FOR_OPEN          @"/usr/bin/open"
 #define TOOL_PATH_FOR_OSASCRIPT		@"/usr/bin/osascript"
 #define TOOL_PATH_FOR_PLUTIL		@"/usr/bin/plutil"
 #define TOOL_PATH_FOR_PS			@"/bin/ps"

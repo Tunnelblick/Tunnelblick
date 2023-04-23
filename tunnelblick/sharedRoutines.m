@@ -782,7 +782,7 @@ NSString * fileIsReasonableSize(NSString * path) {
     }
     
     NSNumber * sizeAsNumber = [atts objectForKey: NSFileSize];
-    if (  ! sizeAsNumber  ) {
+    if (  sizeAsNumber == nil  ) {
         return [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
                 @": fileIsReasonableSize: Cannot get size: ", path];
     }
