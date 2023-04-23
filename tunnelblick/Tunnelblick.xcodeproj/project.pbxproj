@@ -213,6 +213,7 @@
 		63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE213848338007E39AB /* VPNServiceSorryController.m */; };
 		63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE413848338007E39AB /* VPNServiceTermsOfServiceController.m */; };
 		63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE613848338007E39AB /* VPNServiceWelcomeController.m */; };
+		63E7E6BE29F5B6D000AC76CD /* KA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63E7E6BD29F5B6D000AC76CD /* KA.lproj */; };
 		63E8EE032235F54D0030C7A6 /* sl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63E8EE022235F54D0030C7A6 /* sl.lproj */; };
 		63EA2CAA1C9EFCF0005F0872 /* fa.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63EA2CA71C9EFCF0005F0872 /* fa.lproj */; };
 		63EA2CAB1C9EFCF0005F0872 /* id.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63EA2CA81C9EFCF0005F0872 /* id.lproj */; };
@@ -628,6 +629,7 @@
 		63E6A8A11D9FBBBF006F1211 /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; name = COPYING; path = ../COPYING; sourceTree = "<group>"; };
 		63E6A8A21D9FBBBF006F1211 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		63E6A8A31D9FBBDB006F1211 /* third_party */ = {isa = PBXFileReference; lastKnownFileType = folder; name = third_party; path = ../third_party; sourceTree = "<group>"; };
+		63E7E6BD29F5B6D000AC76CD /* KA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KA.lproj; sourceTree = "<group>"; };
 		63E8427A117A147500529DE2 /* ConfigurationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationManager.h; sourceTree = "<group>"; };
 		63E8EE022235F54D0030C7A6 /* sl.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sl.lproj; sourceTree = "<group>"; };
 		63EA2CA71C9EFCF0005F0872 /* fa.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fa.lproj; sourceTree = "<group>"; };
@@ -1163,6 +1165,7 @@
 				63EA2CA91C9EFCF0005F0872 /* is.lproj */,
 				63BD86E41205BA39005B8E38 /* it.lproj */,
 				615F74930ED3A4FA007F6F0A /* ja.lproj */,
+				63E7E6BD29F5B6D000AC76CD /* KA.lproj */,
 				63C98A722913D6A700DB78F2 /* KK.lproj */,
 				615F74960ED3A4FA007F6F0A /* ko.lproj */,
 				6356C51B2036244800A7792A /* ky.lproj */,
@@ -1773,6 +1776,7 @@
 				63EA2CAB1C9EFCF0005F0872 /* id.lproj in Resources */,
 				632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */,
 				633BC7442821ECE4007150B3 /* HY.lproj in Resources */,
+				63E7E6BE29F5B6D000AC76CD /* KA.lproj in Resources */,
 				6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */,
 				63C98A732913D6A700DB78F2 /* KK.lproj in Resources */,
 				6357DADB214FC229003A7196 /* ImportWindow-RTL.xib in Resources */,
