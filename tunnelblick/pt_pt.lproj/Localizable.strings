@@ -14,7 +14,7 @@
 "Disconnect All (%d Connections)" = "Desligar Todas (%d Ligações)";
 
 /* Status message */
-"No Active Connections" = "Nenhuma Ligação Ativa";
+"No Active Connections" = "Sem Ligações Activas";
 
 /* Textbox name */
 "Username:" = "Nome de Utilizador:";
@@ -1406,7 +1406,7 @@
 "Modified configuration file to remove path information" = "O ficheiro de configuração foi alterado para remover as informações da sua localização";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Serão criadas múltiplas ligações em simultâneo (%1$d com 'Definir nameserver', %2$d sem 'Definir nameserver')";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')" = "Múltiplas conexões simultâneas serão criadas (%1$d com 'Definir nameserver', %2$d sem 'Definir nameserver')";
 
 /* Window text */
 "Named Credentials" = "Credenciais Nomeadas";
@@ -1628,7 +1628,7 @@
 "The 'namedCredentialsNames' preference must be an array of strings" = "A preferência 'namedCredentialsNames' deve ser uma matriz de vetores";
 
 /* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "O ficheiro de configuração OpenVPN em %1$@ contém a opção '%2$@', que é apenas válida para Windows. Não pode ser usada no macOS.";
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "O ficheiro de configuração OpenVPN em %1$@ contém a opção '%2$@', que é apenas válida para Windows. Não pode ser usado no macOS.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "Registo de OpenVPN contém a seguinte mensagem: \n\n\"%1$@\".%2$@";
@@ -1760,7 +1760,7 @@
 "Too many configuration files in '%@'" = "Demasiados ficheiros de configuração em '%@'";
 
 /* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
-"Too many copies already exist." = "Já há demasiadas cópias.";
+"Too many copies already exist." = "Já há existem cópias.";
 
 /* Window text */
 "Translation by" = "Traduzido por";
@@ -1829,7 +1829,7 @@
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "O Tunnelblick não conseguiu substituir a configuração '%@'. Veja o Registo da Consola para mais detalhes.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "O Tunnelblick encontrou um erro fatal.\n\nPor favor contacte developers@tunnelblick.net para obter ajuda, indicando a tarefa que o Tunnelblick estava a executar quando o erro ocorreu.\n\n";
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "O Tunnelblick encontrou um erro fatal.\n\nPor favor contacte developers@tunnelblick.net para obter ajuda indicando a tarefa que o Tunnelblick estava a executar quando o erro ocorreu.\n\n";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "O Tunnelblick encontrou erros com as configurações %1$lu:\n\n%2$@%3$@%4$@%5$@%6$@%7$@";

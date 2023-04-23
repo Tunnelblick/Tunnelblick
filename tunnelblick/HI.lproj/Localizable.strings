@@ -125,8 +125,41 @@
 /* Button */
 "Try again" = "पुनः प्रयास करें";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "अद्यतन करें";
+
+/* Button */
+"When Tunnelblick launches" = "जब Tunnelblick प्रारंभ होता है";
+
 /* Button */
 "When computer starts" = "जब संगणक चालू होता है";
+
+/* Menu Item */
+"Rename Configuration" = "व्यवस्था का नाम बदलें";
+
+/* Menu Item */
+"Revert Configuration..." = "व्यवस्थाएं पूर्ववत करें";
+
+/* Menu item */
+"Warnings" = "चेतावनियाँ";
+
+/* Checkbox name */
+"Apply to all" = "सभी पर लागू करें";
+
+/* Checkbox name */
+"Display connection timers" = "संपर्क घड़ी दिखायें";
+
+/* Checkbox name */
+"Do not ask again, always 'Ignore'" = "पुनः न पूछो, हमेशा 'अनदेखा' करो";
+
+/* Checkbox name */
+"Do not ask again, always Continue" = "पुनः ना पूछो, हमेशा जारी रखो";
+
+/* Checkbox name */
+"Do not ask again, always convert" = "पुनः ना पूछो, हमेशा रूपांतरित करो";
+
+/* Checkbox name */
+"Do not show this type of warning again" = "फिर से इस तरह की चेतावनी न दिखाएं";
 
 /* Window text */
 "Password:" = "पासवर्ड:";

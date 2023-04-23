@@ -1946,6 +1946,9 @@
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "'%@' 구성은 자동 업데이트 구성이기 때문에 개인 또는 공유 구성으로 변경할 수 없습니다.\n\n업데이트 가능한 Tunnelblick VPN 구성은 개인 또는 공유 용도로 변경할 수 없지만, 내부의 구성은 개인 또는 공유 용도로 변경할 수 있습니다.";
 
 /* Window text */
+"You cannot rename or move a configuration which is set to start when the computer starts." = "컴퓨터 시작 시 연결하도록 되어있는 구성의 이름을 변경하거나 옮길 수 없습니다.";
+
+/* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "OpenVPN 설정을 가지고 있지만 Tunnelblick VPN 설정은 없습니다.\n\nOpenVPN 설정을 사용하려면 Tunnelblick VPN 설정으로 변환해야 합니다.\n\n";
 
 /* Window text */
@@ -1979,10 +1982,19 @@
 "You may not remove a configuration which is set to start when the computer starts." = "컴퓨터가 시작할 때 연결하도록 되어있는 구성은 삭제할 수 없습니다.";
 
 /* Window text */
+"You may not remove a folder unless it is empty." = "폴더가 비어있지 않는 한 삭제할 수 없습니다.";
+
+/* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Tunnelblick의 시스템 확장을 설치 또는 삭제 하기 전에 모든 VPN의 연결을 해제해야 합니다.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "컴퓨터 관리자 권한을 얻기 전까지 Tunnelblick을 업데이트 할 수 없습니다.\n\n업데이트를 확인하겠습니까?";
 
 /* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "당신의 컴퓨터가 Tunnelblick 아이콘을 Spotlight 아이콘 근처에 보여주지 못할 수도 있습니다.\n\n가끔 메뉴 막대에서 아이콘이 사라지는 경우가 생길 수 있습니다.\n\nTunnelblick 아이콘을 Spotlight 아이콘 근처에 배치하시겠습니까?\n\n";
+
+/* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "당신의 도움은 모든 Tunnelblick 사용자들에게 큰 도움이 됩니다. \n가능하다면 이메일 전송이 완료될 때까지 종료 버튼을 누르지 마십시오.";
 
 /* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "시스템 시계를 올바르게 설정할 수 없습니다.\n\n시스템 시계가 올바른 날자와 시간을 가지지 않으면 설정 중 일부나 전체는 연결하지 못할 수 있습니다.\n\n";
@@ -2007,6 +2019,9 @@
 
 /* Window text */
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\n주의: 현재 하나 이상의 구성이 연결되어 있습니다. 연결 해제된 다음에 설치/교체/삭제가 수행되며, 구성이 삭제되지 않는 한 다시 연결될 것입니다.\n\n";
+
+/* Window text */
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\n이 구성의 보안을 위한 하나 또는 여러 개의 인증서가 만료되었습니다. \n\n상세한 내용은 VPN 상세 정보 > 구성 > 로그 탭의 VPN 로그를 참조하십시오.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\n과 %ld개 Tunnelblick VPN 설정 설치";
@@ -2046,6 +2061,9 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>%u개 이상의 사용자 계정을 가진 컴퓨터에 Tunnelblick 설정을 불러오기 위해서는, 불러오고 싶은 데이터가 지정된 Text File을 만들어야합니다.</p>\n<p>자세한 정보는, <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\"> https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>를 참고하세요.</p></font>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>한 개 이상의 구성에 연결할 수 없습니다.</strong></p>\n<p>현재 구성(들) 은 현재 macOS에서 허용하지 않는 시스템 확장을 요구합니다. </p>\n";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>체크되었을 때</strong>, IPv6이 활성화됩니다.</p>\n<p><strong>체크되지 않았을 때</strong>, IPv6이 활성화 되지 않습니다.</p>\n<p>많은 VPN 구성들이 IPv6을 사용함으로 생기는 정보 유출에 대해 보호하지 않으므로 IPv6을 비활성화하는 것이 추천됩니다. 대다수 인터넷 접속은 IPv6 없이도 잘 작동합니다.</p>\n<p>Tun 구성에 대해 <strong>이 체크상자는 비활성화됩니다.</strong></p>";
@@ -2131,11 +2149,20 @@
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>'이 경고를 다시 하지 않음' 체크상자에 의해 억제된 경고를 복원합니다.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>The Console Log shows which configurations will not be able to connect.</p>\n" = "<p>연결이 불가능한 구성은 콘솔 로그에서 확인할 수 있습니다.</p>\n";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 캐시는 DNS 정보의 복사본을 포함하고 있습니다.</p>\n<p><strong>체크되었을 때</strong>, 연결하거나 연결 해제한 후 DNS 캐시가 삭제됩니다. DNS 검색은 VPN 설정에서 지정한 이름 서버에 의해 수행됩니다.</p>\n<p><strong>체크되지 않았을 때</strong>, DNS 캐시는 삭제되지 않습니다. VPN 설정에서 지정한 이름 서버와 캐시된 이전 VPN 항목 간에 이름이 중복 될 경우, 문제가 발생할 수 있습니다.</p>";
 
+/* HTML text. This will be displayed after a paragraph saying that a system extension could not be loaded. */
+"<p>The system extension could not be loaded because you have told macOS not to allow Tunnelblick to load its 'tap' system extension, which is signed by developer 'Jonathan Bullard'.</p>" = "<p>사용자의 macOS에서의 설정에서 차단했기 때문에 'Jonathan Bullard' 가 서명한 'tap' 확장기능을 설치할 수 없습니다..</p>";
+
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the macOS Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick은 사용자화 버전의 'easy-rsa'를 포함합니다. 'easy-rsa'란 자격 증명과 키를 만들고 유지하기 위해 OpenVPN 개발자에 의해 작성된 커맨드 라인 스크립트 세트입니다.</p><p>이 버튼을 누르면 스크립트를 포함하는 폴더에 대한 작업 디렉토리 세트와 함께 macOS 터미널 어플리케이션이 실행됩니다.</p><p>스크립트는 일반적으로 ~/Library/Application Support/Tunnelblick/easy-rsa에 위치하고 있습니다. 'easy-rsaPath' 설정은 Tunnelblick이 대신 사용할 폴더에 대한 경로를 포함할 수 있습니다. 'easy-rsaPath'는 반드시 절대 경로 또는 '~'로 시작하며 상위 폴더가 존재하는 경로를 포함해야 합니다. 만약 폴더가 경로에 존재한다면, 사용될 것입니다; 만약 폴더가 존재하지 않는다면, 폴더가 생성될 것이고 easy-rsa 스크립트가 Tunnelblick이 실행될 때 설치될 것입니다.</p><p>easy-rsa를 사용하는 정보에 대해선, <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a>를 확인하십시오.[openvpn.net]</p><p>Tunnelblick의 easy-rsa 사용자화에 대한 자세한 사항은 폴더에 있는 README 파일을 참고하십시오.</p>";
+
+/* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
+"Admin mode %@ remaining" = "관리자 모드가 %@ 남았습니다";
 
 /* Credit description */
 "Afrikaans translation" = "아프리칸스어 번역";
@@ -2145,6 +2172,9 @@
 
 /* Credit description */
 "Arabic translation" = "아랍어 번역";
+
+/* Toolbar text for 'Lock' item */
+"Authorizing..." = "인증 중...";
 
 /* Credit description */
 "Azerbaijani translation" = "아제르바이잔어 번역";
@@ -2193,6 +2223,9 @@
 
 /* Speak string */
 "Disconnected from %@" = "%@가 연결 해제되었습니다";
+
+/* No comment provided by engineer. */
+"Do not run using Rosetta..." = "Rosetta를 통해 실행하시 마십시오...";
 
 /* Checkbox */
 "Do not show this again" = "다시 보이지 않기";
@@ -2295,6 +2328,9 @@
 "Portuguese translation" = "포르투갈어 번역";
 
 /* Credit description */
+"Program and documentation enhancements and maintenance since 2010" = "2010년부터 프로그램 문서화 및 강화";
+
+/* Credit description */
 "Romanian translation" = "루마니아어 번역";
 
 /* Credit description */
@@ -2308,6 +2344,9 @@
 
 /* Credit description */
 "Spanish translation" = "스페인어 번역";
+
+/* Credit description */
+"Swahili (Tanzania) translation" = "스와힐리어 (탄자니아) 번역";
 
 /* Credit description */
 "Swedish translation" = "스웨덴어 번역";
@@ -2347,6 +2386,9 @@
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode 지원 & OpenSSL 통합";
+
+/* Authentication Prompt */
+"authenticate" = "인증 중";
 
 /* File name of a newly-created folder */
 "untitled folder" = "제목없는 폴더";

@@ -1,0 +1,258 @@
+/* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
+/* See https://tunnelblick.net/cLocalizeTranslate.html.           */
+
+
+/* Status message */
+"No Active Connections" = "არ არის აქტიური კავშირები";
+
+/* Textbox name */
+"Username:" = "მომხმარებელი:";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"Advanced..." = "სხვა პარამეტრები…";
+
+/* Button */
+"All Users" = "ყველა მომხმარებელი";
+
+/* Button */
+"Back" = "უკან";
+
+/* Button */
+"Cancel" = "დახურვა";
+
+/* Menu item */ /* Button */
+"Check For Updates Now" = "განახლების შემოწმება";
+
+/* Button */
+"Check Now" = "შემოწმება";
+
+/* Button */
+"Connect" = "დაკავშირება";
+
+/* Button */
+"Continue" = "გაგრძელება";
+
+/* Button */
+"Delete" = "წაშლა";
+
+/* Button */
+"Disconnect" = "გათიშვა";
+
+/* Button */
+"Help" = "დახმარება";
+
+/* Button */
+"Ignore" = "იგნორირება";
+
+/* Button */
+"Install tun and tap system extensions..." = "tun და tap სისტემური გაფართოებების დაყენება…";
+
+/* Button */
+"Install" = "დაყენება";
+
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "ორივეს შენახვა";
+
+/* Button */
+"Manually" = "ხელით გაშვება";
+
+/* Button */
+"More Info" = "მეტი ინფორმაცია";
+
+/* Button */
+"Never show" = "აღარ მაჩვენო";
+
+/* Button */
+"Restore" = "აღდგენა";
+
+/* Button */
+"Skip" = "გამოტოვება";
+
+/* Button */
+"Standard icon" = "სტანდარტული იქონი";
+
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "გაჩერება";
+
+/* Button */
+"Terminate All OpenVPN processes" = "ყველა OpenVPN პროცესის შეწყვეტა";
+
+/* Button */
+"Terminate" = "შეწყვეტა";
+
+/* Button */
+"Try again" = "ხელახლა ცდა";
+
+/* Button */
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 იქონი";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "განახლება";
+
+/* Menu item */
+"Add a VPN..." = "VPN-ის დამატება...";
+
+/* Menu Item */
+"Rename Configuration" = "კონფიგურაციის გადარქმევა";
+
+/* Menu Item */
+"Revert Configuration..." = "კონფიგურაციის დაბრუნება...";
+
+/* Menu item */
+"VPN Details..." = "VPN დეტალები...";
+
+/* Connection status */
+"CONNECTED" = "დაკავშირებული"; // Please translate "Connected"
+
+/* Connection status */
+"CONNECTING" = "დაკავშირება"; // Please translate "Connecting"
+
+/* Connection status */
+"DISCONNECTING" = "გათიშვა"; // Please translate "Disconnecting"
+
+/* Connection status */
+"EXITING" = "გათიშულია"; // Please translate "Disconnected"
+
+/* System profile item */
+"Configurations" = "კონფიგურაციები";
+
+/* Window title */
+"Active connection" = "აქტიური კავშირი";
+
+/* Window title */
+"Add a Configuration" = "კონფიგურაციის დამატება";
+
+/* Window title */
+"Appearance" = "ვიზუალი";
+
+/* Window title */
+"Preferences" = "პარამეტრები";
+
+/* Window title */
+"Settings" = "პარამეტრები";
+
+/* Window title */
+"Tunnelblick Configuration Problem" = "Tunnelblick კონფიგურაციის პრობლემა";
+
+/* Window title */
+"Tunnelblick Error" = "Tunnelblick შეცდომა";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
+"Unavailable" = "მიუწვდომელია";
+
+/* Window title */
+"Welcome" = "მოგესალმებით";
+
+/* Window text */
+"DNS servers:" = "DNS სერვერები:";
+
+/* Window text */
+"Domain:" = "დომენი:";
+
+/* Window text */
+"GB" = "GB";
+
+/* Window text */
+"GB/s" = "GB/s";
+
+/* Window text */
+"KB" = "KB";
+
+/* Window text */
+"KB/s" = "KB/s";
+
+/* Window text */
+"MB" = "MB";
+
+/* Window text */
+"MB/s" = "MB/s";
+
+/* Window text */
+"Menu:" = "მენიუ:";
+
+/* Window text */
+"NetBIOS name:" = "NetBIOS სახელი:";
+
+/* Window text */
+"Network setting" = "ქსელის პარამეტრები";
+
+/* Window text */
+"PB" = "PB";
+
+/* Window text */
+"PB/s" = "PB/s";
+
+/* Window text */
+"Password:" = "პაროლი:";
+
+/* Window text */
+"TB" = "TB";
+
+/* Window text */
+"TB/s" = "TB/s";
+
+/* Window text */
+"The file %@ is empty" = "ფაილი %@ ცარიელია";
+
+/* Window text */
+"The file %@ is missing" = "ფაილი %@ დაკარგულია";
+
+/* Window text */
+"Tunnelblick has been secured." = "Tunnelblick დაცულია.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick მზად არის.";
+
+/* Window text */
+"Updates:" = "განახლებები:";
+
+/* Window text */
+"ZB" = "ZB";
+
+/* Window text */
+"ZB/s" = "ZB/s";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>როდესაც ჩართულია</strong>, VPN გაითიშება, როდესაც კომპიუტერი დაიძინებს.</p>\n<p><strong>როდესაც გათიშულია</strong>, VPN დარჩება ჩართული, როდესაც კომპიუტერი დაიძინებს.</p>";
+
+/* Window title  VPNService */
+"Welcome!" = "მოგესალმებით!";
+
+/* Window text VPNService */
+"Confirm password:" = "დაადასტურეთ პაროლი:";
+
+/* Window text VPNService */
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "გილოცავთ! თქვენი ანგარიში შეიქმნა. თქვენ მალე მიიღებთ წერილს Tunnelblick-სგან. მიჰყევით წერილში მითითებულ ინსტრუქციებს, იმისთვის რომ დაავერიფიციროთ თქვენი ელ-ფოსტის მისამართი და დააჭირეთ ღილაკს 'შემდეგ'.";
+
+/* Window text VPNService */
+"Could not check registration" = "რეგისტრაციის შემოწმება ვერ მოხერხდა";
+
+/* Window text VPNService */
+"Could not get a captcha image" = "Captcha სურათის მიღება ვერ მოხერხდა";
+
+/* Window text VPNService */
+"Could not get a session token" = "Session Token-ის მიღება ვერ მოხერხდა";
+
+/* Window text VPNService */
+"Email address %@ is already registered for an account" = "ელ-ფოსტის მისამართი %@, უკვე რეგისტრირებულია ექაუნთზე";
+
+/* Window text VPNService */
+"Email address:" = "ელ-ფოსტა:";
+
+/* Window text VPNService */
+"Invalid URL: %@" = "არასწორი URL: %@";
