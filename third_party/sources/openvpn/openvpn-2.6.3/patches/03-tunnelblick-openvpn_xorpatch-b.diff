@@ -1,6 +1,6 @@
-diff -u -r -x .DS_Store openvpn-2.6.0.old/src/openvpn/options.c openvpn-2.6.0.new/src/openvpn/options.c
---- openvpn-2.6.0.old/src/openvpn/options.c	2023-02-07 17:53:58.000000000 -0500
-+++ openvpn-2.6.0.new/src/openvpn/options.c	2023-02-07 17:53:58.000000000 -0500
+diff -u -r -x .DS_Store openvpn-2.6.2.old/src/openvpn/options.c openvpn-2.6.2.new/src/openvpn/options.c
+--- openvpn-2.6.2.old/src/openvpn/options.c	2023-04-24 12:28:08.000000000 -0400
++++ openvpn-2.6.2.new/src/openvpn/options.c	2023-04-24 12:28:08.000000000 -0400
 @@ -837,6 +837,9 @@
      o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
      o->resolve_in_advance = false;
@@ -21,7 +21,7 @@ diff -u -r -x .DS_Store openvpn-2.6.0.old/src/openvpn/options.c openvpn-2.6.0.ne
  
      if (e->http_proxy_options)
      {
-@@ -1714,6 +1720,9 @@
+@@ -1724,6 +1730,9 @@
      SHOW_BOOL(bind_ipv6_only);
      SHOW_INT(connect_retry_seconds);
      SHOW_INT(connect_timeout);
@@ -31,7 +31,7 @@ diff -u -r -x .DS_Store openvpn-2.6.0.old/src/openvpn/options.c openvpn-2.6.0.ne
  
      if (o->http_proxy_options)
      {
-@@ -6718,6 +6727,46 @@
+@@ -6757,6 +6766,46 @@
          }
          options->proto_force = proto_force;
      }
