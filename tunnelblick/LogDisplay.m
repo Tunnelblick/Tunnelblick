@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2023 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -152,10 +152,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 	}
 }
 
-// Returns the NSLogStorage object for the NSTextView that contains the log
-// BUT only if it is the log for this configuration. (If not, returns nil.)
--(NSTextStorage *) logStorage
-{
+-(NSTextStorage *) logStorage {
+
+    // Returns the NSLogStorage object for the NSTextView that contains the log
+    // BUT only if it is the log for this configuration. (If not, returns nil.)
+
     MyPrefsWindowController * wc = [gMC logScreen];
     if (  wc  ) {
         if (  [self connection] == [wc selectedConnection]  ) {
@@ -243,9 +244,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 						   : [LogDisplay darkBlueColorForFont])
 						:  [NSColor textColor]);
 }
-// Highlights errors with red, warnings with yellow, and notes with blue
-// Renders Tunnelblick log entries in blue text and OpenVPN entries in black text
+
 -(NSMutableAttributedString *) attributedStringFromLine: (NSString *) line fromTunnelblick: (BOOL) fromTunnelblick {
+
+    // Highlights errors with red, warnings with yellow, and notes with blue
+    // Renders Tunnelblick log entries in blue text and OpenVPN entries in black text
 
 	BOOL useRedHighlighting    = [line rangeOfString: @"ERROR:" options: NSCaseInsensitiveSearch].length != 0;
 	BOOL useYellowHighlighting = (  useRedHighlighting
@@ -392,8 +395,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     [self insertLogEntry: dict];
 }
 
--(LogDisplay *) initWithConfigurationPath: (NSString *) inConfigPath
-{
+-(LogDisplay *) initWithConfigurationPath: (NSString *) inConfigPath {
+
 	if (  (self = [super init])  ) {
         
         savedLog = nil;
@@ -445,9 +448,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     [super dealloc];
 }
 
-// Inserts the current date/time, a message, and a \n to the log display.
--(void) addToLog: (NSString *) text
-{
+-(void) addToLog: (NSString *) text {
+
+    // Inserts the current date/time, a message, and a \n to the log display.
+
     if (   gShuttingDownWorkspace
         || [self loggingIsDisabled]  ) {
         return;
@@ -469,8 +473,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 }
 
 // Clears the log so it shows only the header line
--(void) clear
-{
+-(void) clear {
+
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -530,8 +534,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 }
 
 // Starts (or restarts) monitoring newly-created log files.
--(void) startMonitoringLogFiles
-{
+-(void) startMonitoringLogFiles {
+
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -586,8 +590,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 }
 
 // Stops monitoring newly-created log files.
--(void) stopMonitoringLogFiles
-{
+-(void) stopMonitoringLogFiles {
+
     if (  ! [self monitorQueue]  ) {
         if (  savedLog  ) {
             return;
@@ -618,6 +622,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 }
 
 -(void) outputLogFiles {
+
 	[self openvpnLogChanged];
 	[self scriptLogChanged];
 }
@@ -888,8 +893,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     [self loadLogsWithInitialContents: dict];
 }
 
--(NSUInteger) indexAfter: (NSUInteger) n string: (NSString *) s inString: (NSString *) text range: (NSRange) r
-{
+-(NSUInteger) indexAfter: (NSUInteger) n string: (NSString *) s inString: (NSString *) text range: (NSRange) r {
+
     // Find the n-th string
     NSRange rStartAt = r;
     NSRange rLf;
@@ -903,8 +908,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     return rStartAt.location;
 }
 
--(NSString *) contentsOfPath: (NSString *) logPath usePosition: (unsigned long long *) logPosition
-{
+-(NSString *) contentsOfPath: (NSString *) logPath usePosition: (unsigned long long *) logPosition {
+
     // Open file, seek to current position, read to end of file, note new current position, close file
     NSFileHandle * file;
     if (  logPath  ) {
@@ -942,11 +947,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     return scriptLogContents;
 }
 
-// Returns the next line from the string of a tunnelblick log
-// A \n is appended to the line if it doesn't end in one
-// If the at the end of the string, nil is returned
--(NSString *) nextLineInTunnelblickString: (NSString * *) stringPtr fromPosition: (unsigned *) positionPtr
-{
+-(NSString *) nextLineInTunnelblickString: (NSString * *) stringPtr fromPosition: (unsigned *) positionPtr {
+
+    // Returns the next line from the string of a tunnelblick log
+    // A \n is appended to the line if it doesn't end in one
+    // If the at the end of the string, nil is returned
+
     NSString * line;
     unsigned stringLength = [*stringPtr length];
     NSRange stringRng = NSMakeRange(*positionPtr, stringLength - *positionPtr);
@@ -968,13 +974,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     return line;
 }
 
-// Returns the next line from the string of a script log
-// The date/time in the line (if any) is converted to tunnelblickUserLogRepresentation
-// A \n is appended to the line if it doesn't end in one
-// If the line is not from the OpenVPN log, and the 1st character after the date/time is not a "*", one is inserted
-// If the at the end of the string, nil is returned
--(NSString *) nextLineInScriptString: (NSString * *) stringPtr fromPosition: (unsigned *) positionPtr
-{
+-(NSString *) nextLineInScriptString: (NSString * *) stringPtr fromPosition: (unsigned *) positionPtr {
+
+    // Returns the next line from the string of a script log
+    // The date/time in the line (if any) is converted to tunnelblickUserLogRepresentation
+    // A \n is appended to the line if it doesn't end in one
+    // If the line is not from the OpenVPN log, and the 1st character after the date/time is not a "*", one is inserted
+    // If the at the end of the string, nil is returned
+
     NSString * line;
     unsigned stringLength = [*stringPtr length];
     NSRange stringRng = NSMakeRange(*positionPtr, stringLength - *positionPtr);
@@ -1005,12 +1012,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     return [[newValue copy] autorelease];
 }
 
-// Returns the next lines from the string of an OpenVPN log that all have the same date/time
-// The date/time in the line (if any) is converted to tunnelblickUserLogRepresentation
-// A \n is appended to the lines if it doesn't end in one
-// If at the end of the string, nil is returned
--(NSString *) nextLinesInOpenVPNString: (NSString * *) stringPtr fromPosition: (unsigned *) positionPtr
-{
+-(NSString *) nextLinesInOpenVPNString: (NSString * *) stringPtr fromPosition: (unsigned *) positionPtr {
+
+    // Returns the next lines from the string of an OpenVPN log that all have the same date/time
+    // The date/time in the line (if any) is converted to tunnelblickUserLogRepresentation
+    // A \n is appended to the lines if it doesn't end in one
+    // If at the end of the string, nil is returned
+
     NSMutableString * linesToReturn = [NSMutableString stringWithCapacity: 2000];
     unsigned lengthOfLinesUsed = 0;
     
@@ -1081,6 +1089,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 	//		23 if the date/time is of the form "Sat Mar  9 08:10:08 2019 "
 	//		24 if the date/time is of the form "Sat Mar 19 08:10:08 2019 "
 	//                                          0123456789012345678901234
+
 	if (  [line length] > 17  ) {
 		NSString * dateTimeWithSeconds = [line substringWithRange: NSMakeRange(0, 10)];
 		if ( [dateTimeWithSeconds containsOnlyCharactersInString: @"0123456789"]  ) {
@@ -1188,9 +1197,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 	return result;
 }
 
-// Appends a line to the log display
--(void) appendLine: (NSString *) line fromOpenvpnLog: (BOOL) isFromOpenvpnLog fromTunnelblickLog: (BOOL) isFromTunnelblickLog
-{
+-(void) appendLine: (NSString *) line fromOpenvpnLog: (BOOL) isFromOpenvpnLog fromTunnelblickLog: (BOOL) isFromTunnelblickLog {
+
+    // Appends a line to the log display
+
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -1244,9 +1254,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     [self didAddLineToLogDisplay];
 }
 
-// We added a line to the log display -- if already displaying the maximum number of lines then remove some lines (i.e. scroll off the top)
--(void) didAddLineToLogDisplay
-{
+-(void) didAddLineToLogDisplay{
+
+    // We added a line to the log display -- if already displaying the maximum number of lines then remove some lines (i.e. scroll off the top)
+
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -1256,8 +1267,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     }
 }
 
--(void) pruneLog
-{
+-(void) pruneLog {
+
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -1309,10 +1320,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     pthread_mutex_unlock( &logStorageMutex );
 }
 
-// Invoked when either log file has changed.
--(void) watcher: (UKKQueue *) kq receivedNotification: (NSString *) nm forPath: (NSString *) fpath
-{
-	(void) kq;
+-(void) watcher: (UKKQueue *) kq receivedNotification: (NSString *) nm forPath: (NSString *) fpath {
+
+    // Invoked when either log file has changed.
+
+    (void) kq;
 	(void) nm;
 	
     if (  gShuttingDownWorkspace || ignoreChangeRequests  ) {
@@ -1350,8 +1362,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     }
 }
 
--(void) watchdogTimedOutHandler: (NSTimer *) timer
-{
+-(void) watchdogTimedOutHandler: (NSTimer *) timer {
+
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -1370,22 +1382,22 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 
 }
 
--(void) openvpnLogChanged
-{
+-(void) openvpnLogChanged {
+
     if (  ! ignoreChangeRequests  ) {
         [self logChangedAtPath: [self openvpnLogPath] usePosition: &openvpnLogPosition fromOpenvpnLog: YES];
     }
 }
 
--(void) scriptLogChanged
-{
+-(void) scriptLogChanged {
+
     if (  ! ignoreChangeRequests  ) {
         [self logChangedAtPath: [self scriptLogPath] usePosition: &scriptLogPosition fromOpenvpnLog: NO];
     }
 }
 
--(void) logChangedAtPath: (NSString *) logPath usePosition: (unsigned long long *) logPositionPtr fromOpenvpnLog: (BOOL) isFromOpenvpnLog
-{
+-(void) logChangedAtPath: (NSString *) logPath usePosition: (unsigned long long *) logPositionPtr fromOpenvpnLog: (BOOL) isFromOpenvpnLog {
+
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -1441,15 +1453,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     pthread_mutex_unlock( &makingChangesMutex );
 }
 
-// Inserts a line into the log display at the "correct" position
-// The "correct" order is that all OpenVPN log entries for a particular date/time come before
-// any script log entries for that same time.
 -(void)       insertLine: (NSString *) line
 beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
     beforeOpenVPNEntries: (BOOL) beforeOpenVPNEntries
           fromOpenVPNLog: (BOOL) isFromOpenVPNLog
-      fromTunnelblickLog: (BOOL) isFromTunnelblickLog
-{
+      fromTunnelblickLog: (BOOL) isFromTunnelblickLog {
+
+    // Inserts a line into the log display at the "correct" position
+    // The "correct" order is that all OpenVPN log entries for a particular date/time come before
+    // any script log entries for that same time.
+
     (void) isFromTunnelblickLog;
     
     if (  gShuttingDownWorkspace  ) {
@@ -1581,10 +1594,11 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
     [self didAddLineToLogDisplay];
 }
 
-// Returns an NSRange for the previous line
-// Considers the "previous line" to include all lines with no date/time
--(NSRange) rangeOfLineBeforeLineThatStartsAt: (unsigned long) lineStartIndex inString: (NSString *) text after: (unsigned long) start
-{
+-(NSRange) rangeOfLineBeforeLineThatStartsAt: (unsigned long) lineStartIndex inString: (NSString *) text after: (unsigned long) start {
+
+    // Returns an NSRange for the previous line
+    // Considers the "previous line" to include all lines with no date/time
+
     if (  lineStartIndex <= start  ) {
         return NSMakeRange(start, 0);
     }
@@ -1608,15 +1622,16 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
     return currentLineRng;
 }
 
-// Returns a path for a script log file
-// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and an extension of ".script.log"
-//
-// If the configuration file is in the home folder, we pretend it is in /Users/username instead (just for the purpose
-// of creating the filename -- we never try to access /Users/username...). We do this because
-// the scripts have access to the username, but don't have access to the actual location of the home folder, and the home
-// folder may be located in a non-standard location (on a remote volume for example).
--(NSString *) constructScriptLogPath
-{
+-(NSString *) constructScriptLogPath {
+
+    // Returns a path for a script log file
+    // It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and an extension of ".script.log"
+    //
+    // If the configuration file is in the home folder, we pretend it is in /Users/username instead (just for the purpose
+    // of creating the filename -- we never try to access /Users/username...). We do this because
+    // the scripts have access to the username, but don't have access to the actual location of the home folder, and the home
+    // folder may be located in a non-standard location (on a remote volume for example).
+
     NSMutableString * logBase;
     if (  [[self configurationPath] hasPrefix: [NSHomeDirectory() stringByAppendingString: @"/"]]  ) {
         logBase = [[[NSString stringWithFormat: @"/Users/%@%@", NSUserName(), [[self configurationPath] substringFromIndex: [NSHomeDirectory() length]]] mutableCopy] autorelease];
@@ -1634,20 +1649,21 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
     return returnVal;
 }
 
-// Returns a path for an OpenVPN log file.
-// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S" , and extensions of
-//      * an underscore-separated list of the values for useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
-//      * the port number;
-//      * "openvpn"; and
-//      * "log"
-// So what we actually do is search for a file with the specified encoded configuration path, and return the path to that file.
-//
-// If the configuration file is in the home folder, we pretend it is in /Users/username instead (just for the purpose
-// of creating the filename -- we never try to access /Users/username...). We do this because
-// the scripts have access to the username, but don't have access to the actual location of the home folder, and the home
-// folder may be located in a non-standard location (on a remote volume for example).
--(NSString *) constructOpenvpnLogPath
-{
+-(NSString *) constructOpenvpnLogPath {
+
+    // Returns a path for an OpenVPN log file.
+    // It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S" , and extensions of
+    //      * an underscore-separated list of the values for useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
+    //      * the port number;
+    //      * "openvpn"; and
+    //      * "log"
+    // So what we actually do is search for a file with the specified encoded configuration path, and return the path to that file.
+    //
+    // If the configuration file is in the home folder, we pretend it is in /Users/username instead (just for the purpose
+    // of creating the filename -- we never try to access /Users/username...). We do this because
+    // the scripts have access to the username, but don't have access to the actual location of the home folder, and the home
+    // folder may be located in a non-standard location (on a remote volume for example).
+
     NSMutableString * logBase;
     if (  [[self configurationPath] hasPrefix: NSHomeDirectory()]  ) {
         logBase = [[[NSString stringWithFormat: @"/Users/%@%@", NSUserName(), [[self configurationPath] substringFromIndex: [NSHomeDirectory() length]]] mutableCopy] autorelease];
