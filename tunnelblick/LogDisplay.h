@@ -43,11 +43,17 @@
     
     VPNConnection * connection;
     
-    UKKQueue      * monitorQueue;                   // nil, or queue to monitor log files for changes
-    
+    NSTimer       * logMonitoringTimer;             // Timer fires periodically to check for changes to the log files
+
     unsigned long long openvpnLogPosition;          // NSFileHandle offsetInFile we have read up to
     unsigned long long scriptLogPosition;
-    
+
+    unsigned long long connectionLogEntrySizeLimit;        // Maximum # of bytes to add to the log while connected
+    unsigned long long connectionLogInitialLoadMultiplier; // Maximum # of bytes to load the log from initially
+                                                           // = connectionLogInitialLoadMultiplier * connectionLogEntrySizeLimit
+
+    NSTimeInterval  connectionLogTickInterval;      // # of seconds between each check to see if the log files changed
+
     NSString      * lastOpenvpnEntryTime;           // Date/time of most-recently-inserted entry from OpenVPN log file
     NSString      * lastScriptEntryTime;            // Date/time of most-recently-inserted entry from script log file
     
@@ -61,11 +67,6 @@
     //                                              // we get the display contents to swap for a different connection's log display.
     //                                              // (Don't need to lock the mutex when we are saying NOT to ignore requests.)
     
-    // Used to throttle requests so we don't use too much CPU time processing bursts of changes to the log files
-    long            secondWeLastQueuedAChange;      // Seconds since 1/1/2001 that we last queued a request to process a change to a log file
-    unsigned        numberOfRequestsInThatSecond;   // Number of requests we've queued in that second
-    NSTimer       * watchdogTimer;                  // Timer to queue a request to process a change to a log file
-	
 	BOOL			warnedAboutUserGroupAlready;	// Used to warn about this only once per connection/disconnection.
 }
 

@@ -34,7 +34,6 @@
 #import "NSString+TB.h"
 #import "NSTimer+TB.h"
 #import "TBUserDefaults.h"
-#import "UKKQueue/UKKQueue.h"
 #import "VPNConnection.h"
 
 #define NUMBER_OF_LINES_TO_KEEP_AT_START_OF_LOG 10
@@ -81,10 +80,6 @@ extern TBUserDefaults * gTbDefaults;
 -(void)    loadLogsWithInitialContents: (NSAttributedString *)  initialContents
          skipToStartOfLineInOpenvpnLog: (BOOL)                  skipToStartOfLineInOpenvpnLog;
 
--(void)         logChangedAtPath:       (NSString *)            logPath
-                     usePosition:       (unsigned long long *)  logPositionPtr
-                  fromOpenvpnLog:       (BOOL)                  isFromOpenvpnLog;
-
 -(NSTextStorage *) logStorage;
 
 -(void)         openvpnLogChanged;
@@ -101,10 +96,6 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void)         pruneLog;
 
--(void)         watcher:                (UKKQueue *)            kq
-   receivedNotification:                (NSString *)            nm
-                forPath:                (NSString *)            fpath;
-
 @end
 
 @implementation LogDisplay
@@ -117,8 +108,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString *,             configurationPath,      setC
 TBSYNTHESIZE_OBJECT(retain, NSString *,             openvpnLogPath,         setOpenvpnLogPath)
 TBSYNTHESIZE_OBJECT(retain, NSString *,             scriptLogPath,          setScriptLogPath)
 TBSYNTHESIZE_OBJECT(retain, VPNConnection *,        connection,             setConnection)
-TBSYNTHESIZE_OBJECT(retain, UKKQueue *,             monitorQueue,           setMonitorQueue)
-TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setWatchdogTimer)
+TBSYNTHESIZE_OBJECT(retain, NSTimer *,              logMonitoringTimer,     setLogMonitoringTimer)
+
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastOpenvpnEntryTime)
 TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastScriptEntryTime)
@@ -404,10 +395,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
         openvpnLogPath = nil;
         scriptLogPath = nil;
 
-        monitorQueue = nil;
+        logMonitoringTimer = nil;
         connection = nil;
-        watchdogTimer = nil;
-        
+
         lastEntryTime        = @"0000-00-00 00:00:00";
         lastOpenvpnEntryTime = @"0000-00-00 00:00:00";
         lastScriptEntryTime  = @"0000-00-00 00:00:00";
@@ -423,6 +413,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
             NSLog(@"logDisplay:initWithConfigurationPath: pthread_mutex_init( &makingChangesMutex ) failed; status = %ld", (long) status);
             return nil;
         }
+
+        [self setOpenvpnLogPath: [self constructOpenvpnLogPath]];
+        [self setScriptLogPath:  [self constructScriptLogPath]];
         
         tbLog = [[NSMutableString alloc] init];
     }
@@ -438,13 +431,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     [openvpnLogPath       release]; openvpnLogPath       = nil;
     [scriptLogPath        release]; scriptLogPath        = nil;
 	[connection           release]; connection           = nil;
-	[monitorQueue         release]; monitorQueue         = nil;
+    [logMonitoringTimer invalidate];
+	[logMonitoringTimer   release]; logMonitoringTimer   = nil;
     [lastOpenvpnEntryTime release]; lastOpenvpnEntryTime = nil;
     [lastScriptEntryTime  release]; lastScriptEntryTime  = nil;
 	[lastEntryTime        release]; lastEntryTime        = nil;
-    [watchdogTimer invalidate];
-	[watchdogTimer        release]; watchdogTimer        = nil;
-	
+
     [super dealloc];
 }
 
@@ -462,7 +454,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     BOOL fromTunnelblick = [text hasPrefix: TB_LOG_PREFIX];
     
     if (   [self logStorage]
-        && [self monitorQueue]  ) {
+        && [self logMonitoringTimer]  ) {
         [self insertLine: dateText beforeTunnelblickEntries: NO beforeOpenVPNEntries: NO fromOpenVPNLog: NO fromTunnelblickLog: fromTunnelblick];
     } else {
         if (  fromTunnelblick  ) {
@@ -526,11 +518,39 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     
     // As if doing addLog, but done even if logging is disabled so the "(Logging is disabled.)" message is shown
     if (   logStore
-        && [self monitorQueue]  ) {
+        && [self logMonitoringTimer]  ) {
         [self insertLine: message beforeTunnelblickEntries: NO beforeOpenVPNEntries: NO fromOpenVPNLog: NO fromTunnelblickLog: YES];
     } else {
         [[self tbLog] setString: message];
     }
+}
+
+-(void) startLogMonitoringTimer {
+
+    // We don't set up a repeating timer because we don't know how long it will take to proccess
+    // a timer tick. Instead, we start the timer at the end of processing the timer tick.
+
+    [self setLogMonitoringTimer: [NSTimer scheduledTimerWithTimeInterval: connectionLogTickInterval
+                                                                  target: self
+                                                                selector: @selector(logMonitorTick)
+                                                                userInfo: nil
+                                                                 repeats: NO]];
+    [logMonitoringTimer setTolerance: connectionLogTickInterval/10.0];
+}
+
+-(unsigned long long) fileSizeAtPath: (NSString *) path {
+
+    unsigned long long fileSize = 0;
+
+    if (  [gFileMgr fileExistsAtPath: path]  ) {
+        NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: path traverseLink: NO];
+        NSNumber * fileSizeAsNumber = [attributes objectForKey:NSFileSize];
+        if (  fileSizeAsNumber  ) {
+            fileSize = [fileSizeAsNumber unsignedLongLongValue];
+        }
+    }
+
+    return fileSize;
 }
 
 // Starts (or restarts) monitoring newly-created log files.
@@ -540,13 +560,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
         return;
     }
     
-    [self setMonitorQueue: [[[UKKQueue alloc] init] autorelease]];
-    
-    [[self monitorQueue] setDelegate: self];
-    [[self monitorQueue] setAlwaysNotify: YES];
-    
     [self setOpenvpnLogPath: [self constructOpenvpnLogPath]];
-    [self setScriptLogPath:  [self constructScriptLogPath]];
+    connectionLogTickInterval          = [gTbDefaults floatForKey: @"connectionLogTickInterval" default: 0.25 min: 0.1 max: 2.0];
+
+    connectionLogEntrySizeLimit        = [gTbDefaults unsignedIntForKey: @"connectionLogEntrySizeLimit" default: 100000 min: 1000 max: 32000000];
+    connectionLogInitialLoadMultiplier = [gTbDefaults unsignedIntForKey: @"connectionLogInitialLoadMultiplier" default: 4 min: 1 max: 1000];
+
+    [self startLogMonitoringTimer];
 
     if (   ( ! logsHaveBeenLoaded)
         || [self savedLog]  ) {
@@ -554,17 +574,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
         
         // The OpenVPN log may be huge (verb level 9 can generates several megabyte per second)
         //  so we only scan the last part -- only the last MAX_LOG_DISPLAY_SIZE bytes
-        NSNumber * fileSizeAsNumber;
-        unsigned long long fileSize = 0;
-        if (  [self openvpnLogPath]  ) {
-            NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: [self openvpnLogPath] traverseLink: NO];
-            if (  (fileSizeAsNumber = [attributes objectForKey:NSFileSize])  ) {
-                fileSize = [fileSizeAsNumber unsignedLongLongValue];
-            }
-        }
-        
+        unsigned long long fileSize = [self fileSizeAtPath: openvpnLogPath];
+
         BOOL skipToStartOfLineInOpenvpnLog = FALSE;
-        unsigned long long amountToExamine = gMaximumLogSize;
+        unsigned long long amountToExamine = connectionLogEntrySizeLimit * connectionLogInitialLoadMultiplier;
         if (   ( fileSize > amountToExamine )
             && ( (fileSize - openvpnLogPosition) > amountToExamine)  ) {
             openvpnLogPosition = fileSize - amountToExamine;
@@ -580,25 +593,19 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     }
     
     ignoreChangeRequests = FALSE;
-    
-    if (  [self openvpnLogPath]  ) {
-        [[self monitorQueue] addPathToQueue: [self openvpnLogPath]];
-    }
-    if (  [self scriptLogPath]  ) {
-        [[self monitorQueue] addPathToQueue: [self scriptLogPath]];
-    }
 }
 
 // Stops monitoring newly-created log files.
 -(void) stopMonitoringLogFiles {
 
-    if (  ! [self monitorQueue]  ) {
+    if (  ! [self logMonitoringTimer]  ) {
         if (  savedLog  ) {
             return;
         }
     }
 
-    [self setMonitorQueue: nil];
+    [logMonitoringTimer invalidate];
+    [self setLogMonitoringTimer: nil];
 
     // Process any existing log changes before we stop monitoring
     [self performSelectorOnMainThread: @selector(openvpnLogChanged) withObject: nil waitUntilDone: NO];
@@ -889,7 +896,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
                            initialContents,                                          @"contents",
                            [NSNumber numberWithBool: skipToStartOfLineInOpenvpnLog], @"skip",
                            nil];
-    
+
     [self loadLogsWithInitialContents: dict];
 }
 
@@ -1320,113 +1327,89 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     pthread_mutex_unlock( &logStorageMutex );
 }
 
--(void) watcher: (UKKQueue *) kq receivedNotification: (NSString *) nm forPath: (NSString *) fpath {
 
     // Invoked when either log file has changed.
 
-    (void) kq;
-	(void) nm;
-	
+    }
+
+}
+
+-(void) logMonitorTick {
+
+    // Invoked periodically to check for changes to the log files.
+
     if (  gShuttingDownWorkspace || ignoreChangeRequests  ) {
         return;
     }
-    
-    // Do some primitive throttling -- only queue three requests per second
-    long rightNow = (long)floor([NSDate timeIntervalSinceReferenceDate]);
-    if (  rightNow == secondWeLastQueuedAChange  ) {
-        numberOfRequestsInThatSecond++;
-        if (  numberOfRequestsInThatSecond > 3) {
-            if (  ! [self watchdogTimer]  ) {
-                // Set a timer to queue a request later. (This will happen at most once per second.)
-                [watchdogTimer invalidate];
-                [self setWatchdogTimer: [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 1.0
-                                                                         target: self
-                                                                       selector: @selector(watchdogTimedOutHandler:)
-                                                                       userInfo: fpath
-                                                                        repeats: NO]];
-                [watchdogTimer tbSetTolerance: -1.0];
-            }
-            return;
-        }
-    } else {
-        secondWeLastQueuedAChange    = rightNow;
-        numberOfRequestsInThatSecond = 0;
-    }
 
-    if (  [self monitorQueue]  ) {
-        if (  [[[fpath stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
-            [self performSelectorOnMainThread: @selector(openvpnLogChanged) withObject: nil waitUntilDone: YES];
-        } else {
-            [self performSelectorOnMainThread: @selector(scriptLogChanged) withObject: nil waitUntilDone: YES];
-        }
-    }
-}
+    [self checkForChangesToLog: openvpnLogPath position: &openvpnLogPosition isFromOpenvpnLog: YES];
+    [self checkForChangesToLog: scriptLogPath  position: &scriptLogPosition  isFromOpenvpnLog: NO];
 
--(void) watchdogTimedOutHandler: (NSTimer *) timer {
-
-    if (  gShuttingDownWorkspace  ) {
-        return;
-    }
-    
-    [self setWatchdogTimer: nil];
-    
-    NSString * fpath = [timer userInfo];
-    
-    if (  [self monitorQueue]  ) {
-        if (  [[[fpath stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
-            [self performSelectorOnMainThread: @selector(openvpnLogChanged) withObject: nil waitUntilDone: YES];
-        } else {
-            [self performSelectorOnMainThread: @selector(scriptLogChanged) withObject: nil waitUntilDone: YES];
-        }
-    }
-
+    [self startLogMonitoringTimer];
 }
 
 -(void) openvpnLogChanged {
 
-    if (  ! ignoreChangeRequests  ) {
-        [self logChangedAtPath: [self openvpnLogPath] usePosition: &openvpnLogPosition fromOpenvpnLog: YES];
-    }
+    [self checkForChangesToLog: openvpnLogPath position: &openvpnLogPosition isFromOpenvpnLog: YES];
 }
 
 -(void) scriptLogChanged {
 
-    if (  ! ignoreChangeRequests  ) {
-        [self logChangedAtPath: [self scriptLogPath] usePosition: &scriptLogPosition fromOpenvpnLog: NO];
-    }
+    [self checkForChangesToLog: scriptLogPath position: &scriptLogPosition isFromOpenvpnLog: NO];
 }
 
--(void) logChangedAtPath: (NSString *) logPath usePosition: (unsigned long long *) logPositionPtr fromOpenvpnLog: (BOOL) isFromOpenvpnLog {
+-(void) checkForChangesToLog: (NSString *) logPath
+                    position: (long long unsigned *) logPositionPtr
+            isFromOpenvpnLog: (BOOL) isFromOpenvpnLog {
 
     if (  gShuttingDownWorkspace  ) {
         return;
     }
     
+    if (  ignoreChangeRequests  ) {
+        return;
+    }
+
     // Return without doing anything if log file doesn't exist
     if (   ( ! logPath )
         || ( ! [gFileMgr fileExistsAtPath: logPath])  ) {
         return;
     }
     
+    unsigned long long size = [self fileSizeAtPath: logPath];
+    if (  size == *logPositionPtr  ) {
+        return; // No change to the log
+    }
+
     // MUTEX LOCK for the rest of this method
     OSStatus status = pthread_mutex_lock( &makingChangesMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_lock( &makingChangesMutex ) failed; status = %ld", (long) status);
         return;
     }
-    
-    if (  ignoreChangeRequests  ) {
-        pthread_mutex_unlock( &makingChangesMutex );
-        return;
     }
-        
+
     // Go through the log file contents one line at a time
     NSString * logString = [self contentsOfPath: logPath  usePosition: logPositionPtr];
-    if (  ! logString  ) {
+    if (  logString == nil  ) {
         NSLog(@"logString is nil in logChangedAtPath: %@ usePosition: %llu fromOpenvpnLog: %s", logPath, *logPositionPtr, CSTRING_FROM_BOOL(isFromOpenvpnLog));
         pthread_mutex_unlock( &makingChangesMutex );
         return;
     }
+
+    NSUInteger stringLength = [logString length];
+    if (  stringLength == 0  ) {
+        pthread_mutex_unlock( &makingChangesMutex );
+        return;
+    }
+
+    if (  stringLength > connectionLogEntrySizeLimit  ) {
+        *logPositionPtr += stringLength;
+        [[self connection] addToLog: @"Warning: Log entries have been discarded because too many came in too quickly."];
+        pthread_mutex_unlock( &makingChangesMutex );
+        return;
+    }
+
     unsigned logStringPosition = 0;
     
     NSString * line;
