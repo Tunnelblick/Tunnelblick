@@ -559,8 +559,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     if (  gShuttingDownWorkspace  ) {
         return;
     }
-    
-    [self setOpenvpnLogPath: [self constructOpenvpnLogPath]];
     connectionLogTickInterval          = [gTbDefaults floatForKey: @"connectionLogTickInterval" default: 0.25 min: 0.1 max: 2.0];
 
     connectionLogEntrySizeLimit        = [gTbDefaults unsignedIntForKey: @"connectionLogEntrySizeLimit" default: 100000 min: 1000 max: 32000000];
@@ -1328,7 +1326,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 }
 
 
-    // Invoked when either log file has changed.
 
     }
 
