@@ -250,6 +250,48 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     return defaultValue;
 }
 
+-(unsigned long long) unsignedLongLongForKey: (NSString *)         key
+                                     default: (unsigned long long) defaultValue
+                                         min: (unsigned long long) minValue
+                                         max: (unsigned long long) maxValue {
+
+    // Note: If the preference is an string, it is limited to the maximum _positive_ value.
+    //       A number can be anywere in the full range of unsigned long long.
+
+    id obj = [self objectForKey: key];
+
+    if (  obj  ) {
+
+        unsigned long long obValue;
+
+        if (  [obj respondsToSelector: @selector(unsignedLongLongValue)]  ) { // NSNumber responds to this
+            obValue = [obj unsignedLongLongValue];
+
+        } else  if (  [obj respondsToSelector: @selector(longLongValue)]  ) { // NSString responds to this
+            long long obLongLongValue = [obj longLongValue];
+            if (  obLongLongValue < 0  ) {
+                NSLog(@"'%@' preference ignored because it is < 0. Using %llu", key, defaultValue);
+                return defaultValue;
+            }
+            obValue = (unsigned long long) obLongLongValue;
+
+        } else {
+            NSLog(@"'%@' preference ignored because it is not a number. Using %llu", key, defaultValue);
+            return defaultValue;
+        }
+
+        if (  obValue < minValue  ) {
+            NSLog(@"'%@' preference ignored because it is less than %llu. Using %llu", key, minValue, defaultValue);
+        } else if (  obValue > maxValue  ) {
+            NSLog(@"'%@' preference ignored because it is greater than %llu. Using %llu", key, maxValue, defaultValue);
+        } else {
+            return obValue;
+        }
+    }
+
+    return defaultValue;
+}
+
 -(NSArray *) arrayForKey:    (NSString *) key {
     
     // Returns the NSArray object associated with a key, or nil if no object exists for the key or the object is not an NSArray.

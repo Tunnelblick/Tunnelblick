@@ -113,6 +113,11 @@
                           min: (unsigned)   minValue
                           max: (unsigned)   maxValue;
 
+-(unsigned long long) unsignedLongLongForKey: (NSString *)         key
+                                     default: (unsigned long long) defaultValue
+                                         min: (unsigned long long) minValue
+                                         max: (unsigned long long) maxValue;
+
 -(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName;
 
 -(NSString *) removeNamedCredentialsGroup: (NSString *) groupName;
