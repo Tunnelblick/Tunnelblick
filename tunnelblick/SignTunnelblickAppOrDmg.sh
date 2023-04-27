@@ -30,7 +30,7 @@
 #			path is the path to a Tunnelblick.app or to a .dmg containing Tunnelblck.
 #
 #			signing_identity is optional. If not provided, a signing identity of "-"
-#			will be used, to create and ad-hoc
+#			will be used, to create an ad-hoc signature.
 #
 # Coding convention:
 #		UPPERCASE variables are globals.
