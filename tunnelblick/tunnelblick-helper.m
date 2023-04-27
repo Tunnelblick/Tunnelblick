@@ -2534,7 +2534,7 @@ int startVPN(NSString * configFile,
                                  // Specify daemon and log path first, so the config file cannot override them,
 								 // and specify the working directory for the config and the machine-readable log format
                                  @"--daemon",
-                                 @"--log",        logPath,
+                                 @"--log-append",        logPath,
 								 @"--cd",         cdFolderPath,
                                  nil];
     

@@ -52,6 +52,8 @@
     unsigned long long connectionLogInitialLoadMultiplier; // Maximum # of bytes to load the log from initially
                                                            // = connectionLogInitialLoadMultiplier * connectionLogEntrySizeLimit
 
+    unsigned long long maximumOpenvpnLogSize;       // Maximum # of bytes allowed in the OpenVPN log file before truncating it
+
     NSTimeInterval  connectionLogTickInterval;      // # of seconds between each check to see if the log files changed
 
     NSString      * lastOpenvpnEntryTime;           // Date/time of most-recently-inserted entry from OpenVPN log file

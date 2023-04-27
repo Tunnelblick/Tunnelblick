@@ -414,9 +414,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
             return nil;
         }
 
-        [self setOpenvpnLogPath: [self constructOpenvpnLogPath]];
-        [self setScriptLogPath:  [self constructScriptLogPath]];
-        
         tbLog = [[NSMutableString alloc] init];
     }
     
@@ -563,6 +560,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 
     connectionLogEntrySizeLimit        = [gTbDefaults unsignedIntForKey: @"connectionLogEntrySizeLimit" default: 100000 min: 1000 max: 32000000];
     connectionLogInitialLoadMultiplier = [gTbDefaults unsignedIntForKey: @"connectionLogInitialLoadMultiplier" default: 4 min: 1 max: 1000];
+
+    maximumOpenvpnLogSize              = [gTbDefaults unsignedLongLongForKey: @"maximumOpenvpnLogSize" default: 2000000 /* JKB */ min: 1000000ull max: 1000000000000ull];
+
+    [self setOpenvpnLogPath: [self constructOpenvpnLogPath]];
+    [self setScriptLogPath:  [self constructScriptLogPath]];
 
     [self startLogMonitoringTimer];
 
@@ -1325,10 +1327,36 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     pthread_mutex_unlock( &logStorageMutex );
 }
 
+-(BOOL) truncateFileAtPath: (NSString *) path {
 
-
+    int result = truncate([path fileSystemRepresentation], 0);
+    if (  result != 0 ) {
+        NSLog(@"truncate() failed with errno %d ('%s'): %@", errno, strerror(errno), path);
+        return FALSE;
     }
 
+    return TRUE;
+}
+
+-(void) truncateLogFiles {
+
+    // Truncates the OpenVPN and Tunnelblick log files.
+    //
+    // Adjusts position and lastEntryTime variables appropriately.
+
+    lastEntryTime = @"0000-00-00 00:00:00";
+
+    if (  [self truncateFileAtPath: openvpnLogPath] ) {
+        openvpnLogPosition = 0;
+        lastOpenvpnEntryTime = @"0000-00-00 00:00:00";
+    }
+
+    if (  ! [self truncateFileAtPath: scriptLogPath] ) {
+        return;
+    }
+
+    scriptLogPosition  = 0;
+    lastScriptEntryTime = @"0000-00-00 00:00:00";
 }
 
 -(void) logMonitorTick {
@@ -1384,6 +1412,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
         NSLog(@"pthread_mutex_lock( &makingChangesMutex ) failed; status = %ld", (long) status);
         return;
     }
+
+    // Truncate the log files and clear the log display if the OpenVPN log file is too large.
+    if (   isFromOpenvpnLog
+        && (size > maximumOpenvpnLogSize)  ) {
+        [self truncateLogFiles];
+        [self clear];
+        [[self connection] addToLog: @"Warning: The OpenVPN log file was too big. The log was cleared and the log files were truncated."];
     }
 
     // Go through the log file contents one line at a time
