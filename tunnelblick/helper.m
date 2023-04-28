@@ -679,6 +679,8 @@ NSString * escaped(NSString *string)
 	NSMutableString * stringOut = [[string mutableCopy] autorelease];
 	[stringOut replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NSLiteralSearch range:NSMakeRange(0, [stringOut length])];
 	[stringOut replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, [stringOut length])];
+    [stringOut replaceOccurrencesOfString:@"\r" withString:@""     options:NSLiteralSearch range:NSMakeRange(0, [stringOut length])];
+    [stringOut replaceOccurrencesOfString:@"\n" withString:@""     options:NSLiteralSearch range:NSMakeRange(0, [stringOut length])];
 	return stringOut;
 }
 
