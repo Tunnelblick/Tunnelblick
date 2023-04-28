@@ -21,9 +21,6 @@
 		61BC4B7E0E2F9EBC00F24255 /* NSApplication+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B700E2F9EBC00F24255 /* NSApplication+LoginItem.m */; };
 		61BC4B800E2F9EBC00F24255 /* KeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B740E2F9EBC00F24255 /* KeyChain.m */; };
 		61BC4B810E2F9EBC00F24255 /* AuthAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B770E2F9EBC00F24255 /* AuthAgent.m */; };
-		61BC4B910E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B8B0E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.m */; };
-		61BC4B930E2F9EDA00F24255 /* UKKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B8E0E2F9EDA00F24255 /* UKKQueue.m */; };
-		61BC4B940E2F9EDA00F24255 /* UKMainThreadProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B900E2F9EDA00F24255 /* UKMainThreadProxy.m */; };
 		61BC4CDF0E2F9FFA00F24255 /* openvpnstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B670E2F9EBC00F24255 /* openvpnstart.m */; };
 		61BC4CE10E2FA02800F24255 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		61BC4D8A0E2FA20800F24255 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61BC4D880E2FA20800F24255 /* CoreFoundation.framework */; };
@@ -116,7 +113,6 @@
 		63793423272D6B8200179B8F /* bn.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63793422272D6B8100179B8F /* bn.lproj */; };
 		637A871913B74B81003C1871 /* SplashWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A871813B74B81003C1871 /* SplashWindowController.m */; };
 		637A871C13B74DFB003C1871 /* SplashWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 637A871B13B74DFB003C1871 /* SplashWindow.xib */; };
-		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
 		637B0A1E1A81DC2100210900 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 637B0A1D1A81DC2100210900 /* Sparkle.framework */; };
 		637B0A281A81DC3500210900 /* Sparkle.framework in Copy Sparkle */ = {isa = PBXBuildFile; fileRef = 637B0A1D1A81DC2100210900 /* Sparkle.framework */; };
 		638164DE1C145CC100B59958 /* reactivate-tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */; };
@@ -404,14 +400,6 @@
 		61BC4B750E2F9EBC00F24255 /* KeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChain.h; sourceTree = "<group>"; };
 		61BC4B760E2F9EBC00F24255 /* AuthAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthAgent.h; sourceTree = "<group>"; };
 		61BC4B770E2F9EBC00F24255 /* AuthAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthAgent.m; sourceTree = "<group>"; };
-		61BC4B890E2F9EDA00F24255 /* UKFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFileWatcher.h; sourceTree = "<group>"; };
-		61BC4B8A0E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFNSubscribeFileWatcher.h; sourceTree = "<group>"; };
-		61BC4B8B0E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFNSubscribeFileWatcher.m; sourceTree = "<group>"; };
-		61BC4B8C0E2F9EDA00F24255 /* UKKQueue Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UKKQueue Readme.txt"; sourceTree = "<group>"; };
-		61BC4B8D0E2F9EDA00F24255 /* UKKQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKKQueue.h; sourceTree = "<group>"; };
-		61BC4B8E0E2F9EDA00F24255 /* UKKQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKKQueue.m; sourceTree = "<group>"; };
-		61BC4B8F0E2F9EDA00F24255 /* UKMainThreadProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKMainThreadProxy.h; sourceTree = "<group>"; };
-		61BC4B900E2F9EDA00F24255 /* UKMainThreadProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKMainThreadProxy.m; sourceTree = "<group>"; };
 		61BC4BC10E2F9FE900F24255 /* openvpnstart */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = openvpnstart; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BC4D6B0E2FA06900F24255 /* installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = installer; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BC4D880E2FA20800F24255 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
@@ -513,7 +501,6 @@
 		637A871713B74B81003C1871 /* SplashWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashWindowController.h; sourceTree = "<group>"; };
 		637A871813B74B81003C1871 /* SplashWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashWindowController.m; sourceTree = "<group>"; };
 		637A871B13B74DFB003C1871 /* SplashWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashWindow.xib; sourceTree = "<group>"; };
-		637ACF281053EE9B00A49655 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		637B0A1D1A81DC2100210900 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../third_party/products/sparkle/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "reactivate-tunnelblick.sh"; sourceTree = "<group>"; };
 		638222201E287C0500A2BD87 /* updates_create_signature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updates_create_signature; sourceTree = "<group>"; };
@@ -803,7 +790,6 @@
 				B8407880170CE44C0002B941 /* Configurations */,
 				B8407883170CE5400002B941 /* EasyRSA & AppleScript */,
 				63ABFE901349E370003DEB64 /* UI */,
-				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
 				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
 				63E56ED51384831C007E39AB /* VPNService */,
 				61BC4B690E2F9EBC00F24255 /* MenuController.h */,
@@ -935,22 +921,6 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		61BC4B880E2F9EDA00F24255 /* UKKQueue */ = {
-			isa = PBXGroup;
-			children = (
-				61BC4B890E2F9EDA00F24255 /* UKFileWatcher.h */,
-				637ACF281053EE9B00A49655 /* UKFileWatcher.m */,
-				61BC4B8A0E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.h */,
-				61BC4B8B0E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.m */,
-				61BC4B8C0E2F9EDA00F24255 /* UKKQueue Readme.txt */,
-				61BC4B8D0E2F9EDA00F24255 /* UKKQueue.h */,
-				61BC4B8E0E2F9EDA00F24255 /* UKKQueue.m */,
-				61BC4B8F0E2F9EDA00F24255 /* UKMainThreadProxy.h */,
-				61BC4B900E2F9EDA00F24255 /* UKMainThreadProxy.m */,
-			);
-			path = UKKQueue;
 			sourceTree = "<group>";
 		};
 		6311305E11041B89003435F1 /* UKLoginItemRegistry */ = {
@@ -1936,15 +1906,11 @@
 				61BC4B7E0E2F9EBC00F24255 /* NSApplication+LoginItem.m in Sources */,
 				61BC4B800E2F9EBC00F24255 /* KeyChain.m in Sources */,
 				61BC4B810E2F9EBC00F24255 /* AuthAgent.m in Sources */,
-				61BC4B910E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.m in Sources */,
 				63FFD6581D0E9D9400D4FFD9 /* SystemAuth.m in Sources */,
-				61BC4B930E2F9EDA00F24255 /* UKKQueue.m in Sources */,
-				61BC4B940E2F9EDA00F24255 /* UKMainThreadProxy.m in Sources */,
 				6185E7400E76045D0009C2FD /* helper.m in Sources */,
 				631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */,
 				6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */,
 				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
-				637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */,
 				638E69611097725500587933 /* TBUserDefaults.m in Sources */,
 				6311306411041B89003435F1 /* LoginItemsAE.c in Sources */,
 				6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */,

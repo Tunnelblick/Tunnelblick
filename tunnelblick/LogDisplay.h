@@ -21,7 +21,6 @@
 
 #import "defines.h"
 
-@class UKKQueue;
 @class VPNConnection;
 
 
