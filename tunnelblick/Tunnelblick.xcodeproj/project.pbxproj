@@ -40,8 +40,6 @@
 		63097CE022340EA8005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
 		63097CE122340EC4005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
 		63097CE222340EF8005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
-		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
-		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
 		63118D0D1EA77A6900F20EC1 /* VLS_BE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63118D0C1EA77A6900F20EC1 /* VLS_BE.lproj */; };
 		631310D913CA18870071C110 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631310D513CA18870071C110 /* nl.lproj */; };
 		631494A519FA7B9E009057D1 /* pt_pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631494A219FA7B9E009057D1 /* pt_pt.lproj */; };
@@ -415,10 +413,6 @@
 		6308EEE8222701E8003D974C /* ta.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ta.lproj; sourceTree = "<group>"; };
 		63097CDD22323E2B005F94CF /* NSDate+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TB.m"; sourceTree = "<group>"; };
 		63097CDE22323E2B005F94CF /* NSDate+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TB.h"; sourceTree = "<group>"; };
-		6311305F11041B89003435F1 /* LoginItemsAE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LoginItemsAE.c; sourceTree = "<group>"; };
-		6311306011041B89003435F1 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
-		6311306111041B89003435F1 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
-		6311306211041B89003435F1 /* UKLoginItemRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKLoginItemRegistry.m; sourceTree = "<group>"; };
 		63118D0C1EA77A6900F20EC1 /* VLS_BE.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = VLS_BE.lproj; sourceTree = "<group>"; };
 		631310D513CA18870071C110 /* nl.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nl.lproj; sourceTree = "<group>"; };
 		631494A219FA7B9E009057D1 /* pt_pt.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pt_pt.lproj; sourceTree = "<group>"; };
@@ -790,7 +784,6 @@
 				B8407880170CE44C0002B941 /* Configurations */,
 				B8407883170CE5400002B941 /* EasyRSA & AppleScript */,
 				63ABFE901349E370003DEB64 /* UI */,
-				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
 				63E56ED51384831C007E39AB /* VPNService */,
 				61BC4B690E2F9EBC00F24255 /* MenuController.h */,
 				61BC4B6A0E2F9EBC00F24255 /* MenuController.m */,
@@ -921,17 +914,6 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		6311305E11041B89003435F1 /* UKLoginItemRegistry */ = {
-			isa = PBXGroup;
-			children = (
-				6311305F11041B89003435F1 /* LoginItemsAE.c */,
-				6311306011041B89003435F1 /* LoginItemsAE.h */,
-				6311306111041B89003435F1 /* UKLoginItemRegistry.h */,
-				6311306211041B89003435F1 /* UKLoginItemRegistry.m */,
-			);
-			path = UKLoginItemRegistry;
 			sourceTree = "<group>";
 		};
 		632BB9E5194F2CD5006CD7DA /* Alert Window */ = {
@@ -1912,8 +1894,6 @@
 				6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */,
 				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
 				638E69611097725500587933 /* TBUserDefaults.m in Sources */,
-				6311306411041B89003435F1 /* LoginItemsAE.c in Sources */,
-				6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */,
 				63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */,
 				63FA09411D25E68500859556 /* MAAttachedWindow.m in Sources */,
 				63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */,

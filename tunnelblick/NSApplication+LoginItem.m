@@ -35,7 +35,6 @@
 #import "NSArray+cArray.h"
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
-#import "UKLoginItemRegistry/UKLoginItemRegistry.h"
 
 // The following external, global variable is used by functions in this file and must be declared and set elsewhere before the
 // functions in this file are called:
