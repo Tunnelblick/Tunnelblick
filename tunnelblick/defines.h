@@ -224,7 +224,7 @@
 // OpenVPN options that are not allowed on macOS
 #define OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY @[@"allow-nonadmin", @"cryptoapicert", @"dhcp-release", @"dhcp-renew", @"pause-exit", \
                                                 @"register-dns", @"service", @"show-adapters", @"show-net", @"show-net-up", \
-                                                @"show-valid-subnets", @"tap-sleep", @"win-sys"]
+                                                @"show-valid-subnets", @"tap-sleep", @"win-sys", @"windows-driver"]
 
 //*************************************************************************************************
 // OpenVPN options that cannot appear in a "safe" configuration
@@ -238,34 +238,53 @@
 //		OpenVPN version the option(s) were removed in (if has a '?' suffix, the removal version has not been decided)
 //		Option name...
 //
-// These entries are based on version 36 (modified 2020-07-25) of https://community.openvpn.net/openvpn/wiki/DeprecatedOptions
+// These entries are based on version 65 (modified 2023-02-01) of https://community.openvpn.net/openvpn/wiki/DeprecatedOptions
 #define OPENVPN_OPTIONS_DEPRECATED_AND_REMOVED @[ \
                             @[@"2.1", @"2.5",  @"ifconfig-pool-linear"], \
                             @[@"2.3", @"2.4",  @"tls-remote"], \
                             @[@"2.3", @"2.5",  @"compat-names", @"no-name-remapping"], \
                             @[@"2.4", @"2.4",  @"tun-ipv6"], \
-                            @[@"2.4", @"2.5",  @"client-cert-not-required", @"key-method", @"no-iv", @"no-replay"], \
-                            @[@"2.4", @"2.5?", @"comp-lzo", @"dhcp-release", @"max-routes"], \
+                            @[@"2.4", @"2.5",  @"client-cert-not-required", @"no-iv", @"secret"], \
+                            @[@"2.4", @"2.5?", @"comp-lzo", @"comp-noadapt", @"dhcp-release", @"key-method", @"max-routes", @"no-replay", @"ns-cert-type"], \
                             @[@"2.4", @"2.6",  @"keysize"], \
                             @[@"2.4", @"2.6?", @"ns-cert-type"], \
-                            @[@"2.5", @"2.6",  @"inetd"], \
-                            @[@"2.5", @"2.6?", @"compress", @"ncp-disable"] \
-                            ];
+                            @[@"2.5", @"2.6",  @"inetd", @"management-client-pf", @"ncp-disable", @"prng"], \
+                            @[@"2.5", @"2.6?", @"compress"], \
+                            @[@"2.6", @"2.7?", @"foreign-option", @"verify-hash"] \
+                            ]
 
 //*************************************************************************************************
 // Array of arrays with info about options added to OpenVPN. Each array entry is an array with:
-//		OpenVPN version the option(s) first appeared in,
+//		OpenVPN minor version the option(s) first appeared in,
 //		Option name...
+//
+// By first appeared in, we mean that that option was not in the last minor version before it
+// (e.g. something in 2.5.x that did not appear in 2.4.12, which was the last 2.4 version).
+//
+// So if an option appears in only in 2.4.12 and 2.5.0 and later, it is "new" in 2.4, and if a
+// configuration with it is run in 2.4.11, no complaint will be made even though it should.
+//
+// The 2.6 list is as of 2.6.3.
+//
 #define OPENVPN_OPTIONS_ADDED @[ \
                         @[@"2.4", \
                              @"auth-gen-token", @"compat-names", @"compress", @"ecdh-curve", @"http-proxy-user-pass", @"ip-remote-hint", \
                              @"keying-material-exporter", @"machine-readable-output", @"management-external-cert", @"msg-channel", \
                              @"ncp-ciphers", @"ncp-disable", @"preresolve", @"pull-filter", @"push-remove", @"show-curves", @"tls-crypt", \
-                             @"verify-client-cert",], \
+                             @"tls-cert-profile", @"tls-ciphersuites", @"tls-crypt", \
+                             @"verify-client-cert"], \
 \
                         @[@"2.5", \
-                             @"tls-cert-profile", @"tls-crypt-v2", @"tls-crypt-v2-verify"], \
+                             @"allow-compression", @"auth-gen-token-secret", @"auth-token-user", @"bind-dev", @"block-ipv6", \
+                             @"data-ciphers", @"data-ciphers-fallback", @"providers", @"route-ipv6-gateway", @"show-groups", \
+                             @"tls-crypt-v2", @"tls-crypt-v2-verify", @"tls-groups", @"vlan-accept", @"vlan-pvid", @"vlan-tagging", \
+                             @"windows-driver"], \
+\
+                        @[@"2.6", \
+                             @"client-crresponse", @"compat-mode", @"connect-freq-initial", @"disable-dco", @"dns", @"key-derivation", \
+                             @"max-packet-size", @"peer-fingerprint", @"protocol-flags", @"session-timeout", @"tun-mtu-max"] \
                         ];
+
 //*************************************************************************************************
 // Tunnelblick and OpenVPN logging levels, stored in the per-configuration "-loggingLevel" preference.
 // Levels from 0...11 are passed to OpenVPN in the --verb option and Tunnelblick does logging
