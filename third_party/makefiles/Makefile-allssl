@@ -58,6 +58,8 @@ built-allssl: built-allssl-prepare
 				buildarch="$(OPENSSL_1_0_TARGET_ARCHS)" ; \
 			elif [ "$${sslversion:0:11}" = "openssl-1.1" ] ; then \
 				buildarch="$(OPENSSL_1_1_TARGET_ARCHS)" ; \
+			elif [ "$${sslversion:0:11}" = "openssl-3.0" ] ; then \
+				buildarch="$(OPENSSL_3_0_TARGET_ARCHS)" ; \
 			else \
 				echo "error: Unknown OpenSSL version '$${sslversion}'. Must begin with 'openssl-1.0' or 'openssl-1.1'" ; \
 				exit 255 ; \
@@ -94,7 +96,7 @@ built-allssl: built-allssl-prepare
 				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
 				echo "Install $${sslversion} for $$a to $$staging" ; \
 				$(MAKE) install_sw; \
-			elif [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] ; then \
+			elif [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] || [ "$${sslversion}" = "$(OPENSSL_3_0_NAME)" ] ; then \
 				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./Configure no-shared zlib no-asm --openssldir="$$staging" $$ssl_arch; \
 				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
 				echo "Install $${sslversion} for $$a to $$staging" ; \

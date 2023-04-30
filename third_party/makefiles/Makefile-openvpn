@@ -83,7 +83,7 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
         if [ -d $(BUILD_DIR)/openvpn/$$openvpn_name/openvpn ] ; then \
             cd $(BUILD_DIR)/openvpn/$$openvpn_name/openvpn ; \
             openvpn_major_minor="$${openvpn_name:8:3}" ; \
-            for ssl_name in "$(LIBRESSL_NAME)" "$(OPENSSL_1_0_NAME)" "$(OPENSSL_1_1_NAME)" ; do \
+            for ssl_name in "$(LIBRESSL_NAME)" "$(OPENSSL_1_0_NAME)" "$(OPENSSL_1_1_NAME)" "$(OPENSSL_3_0_NAME)" ; do \
                 build_it=false; \
                 if [   "$$openvpn_major_minor" = "2.3" ] ; then \
                     if [ $(OPENVPN_2_3_SSL_LIBRARIES_TEST) ] ; then \
@@ -113,6 +113,10 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                     ssl_staging_dir="$(OPENSSL_1_1_STAGING_DIR)" ; \
                     target_archs="$(OPENVPN_OPENSSL_1_1_TARGET_ARCHS)" ; \
                     pkcs11_enable="--enable-pkcs11" ; \
+                elif [ "$$ssl_name" = "$(OPENSSL_3_0_NAME)" ] ; then \
+                    ssl_staging_dir="$(OPENSSL_3_0_STAGING_DIR)" ; \
+                    target_archs="$(OPENVPN_OPENSSL_3_0_TARGET_ARCHS)" ; \
+                    pkcs11_enable="" ; \
                 elif [ "$$ssl_name" = "$(LIBRESSL_NAME)"    ] ; then \
                     ssl_staging_dir="$(LIBRESSL_STAGING_DIR)" ; \
                     target_archs="$(OPENVPN_LIBRESSL_TARGET_ARCHS)" ; \
@@ -167,7 +171,7 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
                                 $(MAKE) $(OPENVPN_DEPRECATED_GCC_MAKE_OPTION) ; \
                             else \
                                 CC="$(CC)" \
-                                    CFLAGS="$(CFLAGS) -arch $$a $(OPENVPN_DEPRECATED_LLVN_OPTION) -D __APPLE_USE_RFC_3542" \
+                                    CFLAGS="$(CFLAGS) -I. -arch $$a $(OPENVPN_DEPRECATED_LLVN_OPTION) -D __APPLE_USE_RFC_3542" \
                                     LZO_CFLAGS="-I$(LZO_STAGING_DIR)_$$a/include" \
                                     LZO_LIBS="-L$(LZO_STAGING_DIR)_$$a/lib -llzo2" \
                                     LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)_$$a/include" \
