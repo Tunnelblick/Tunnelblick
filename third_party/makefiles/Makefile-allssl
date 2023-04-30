@@ -51,12 +51,8 @@ built-allssl: built-allssl-prepare
 	for ssldir in $(shell find -xsE $(BUILD_DIR) -depth 1 -type d -iregex ".*/(libre|open){1}ssl-.*" ); do \
 		sslversion=$${ssldir##*/}; \
 		sslvariant=$${sslversion%-*}; \
-		if [ "$${sslvariant:0:8}" = "libressl" ] ; then \
-			buildarch="$(LIBRESSL_TARGET_ARCHS)" ; \
-		elif [ "$${sslvariant:0:7}" = "openssl" ] ; then \
-			if [ "$${sslversion:0:11}" = "openssl-1.0" ] ; then \
-				buildarch="$(OPENSSL_1_0_TARGET_ARCHS)" ; \
-			elif [ "$${sslversion:0:11}" = "openssl-1.1" ] ; then \
+		if [ "$${sslvariant:0:7}" = "openssl" ] ; then \
+			if [ "$${sslversion:0:11}" = "openssl-1.1" ] ; then \
 				buildarch="$(OPENSSL_1_1_TARGET_ARCHS)" ; \
 			elif [ "$${sslversion:0:11}" = "openssl-3.0" ] ; then \
 				buildarch="$(OPENSSL_3_0_TARGET_ARCHS)" ; \
@@ -65,7 +61,7 @@ built-allssl: built-allssl-prepare
 				exit 255 ; \
 			fi ; \
 		else \
-			echo "error: Unknown SSL variant '$${sslvariant}'. Must be 'openssl' or 'libressl'" ; \
+			echo "error: Unknown SSL variant '$${sslvariant}'. Must be 'openssl'" ; \
 			exit 255 ; \
 		fi ; \
 		for a in $${buildarch}; do \
@@ -91,12 +87,7 @@ built-allssl: built-allssl-prepare
 			echo "Make $${sslversion} for $$a ($$ssl_arch)" ; \
 			echo "CC: $(CC)"; \
 			echo "CFLAGS: $(CFLAGS)"; \
-			if [ "$${sslversion}" = "$(OPENSSL_1_0_NAME)" ] ; then \
-				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./Configure no-shared zlib no-zlib-dynamic no-asm no-krb5 --prefix="$$staging" $$ssl_arch; \
-				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
-				echo "Install $${sslversion} for $$a to $$staging" ; \
-				$(MAKE) install_sw; \
-			elif [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] || [ "$${sslversion}" = "$(OPENSSL_3_0_NAME)" ] ; then \
+			if [ "$${sslversion}" = "$(OPENSSL_1_1_NAME)" ] || [ "$${sslversion}" = "$(OPENSSL_3_0_NAME)" ] ; then \
 				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./Configure no-shared zlib no-asm --openssldir="$$staging" $$ssl_arch; \
 				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
 				echo "Install $${sslversion} for $$a to $$staging" ; \
@@ -105,11 +96,6 @@ built-allssl: built-allssl-prepare
 				mv "$$staging/usr/local/lib"     "$$staging/lib" ; \
 				mv "$$staging/usr/local/include" "$$staging/include" ; \
 				rm -fr "$$staging/usr" ; \
-			elif [ "$${sslversion}" = "$(LIBRESSL_NAME)" ] ; then \
-				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --disable-shared --disable-asm --prefix="$$staging" --build="$$TB_CONFIGURE_BUILD" --host="$(TB_CONFIGURE_HOST)" $$ssl_arch; \
-				$(MAKE) check; \
-				echo "Install $${sslversion} for $$a to $$staging" ; \
-				$(MAKE) install; \
 			else \
 				echo "error: do not know how to build '$${sslvariant}' ($${sslversion})" ; \
 			fi ; \
