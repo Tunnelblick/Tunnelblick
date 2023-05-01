@@ -124,6 +124,9 @@ extern MenuController * gMC;
 															   extraArguments: installerArguments
 															  usingSystemAuth: auth
 																 installTblks: nil];
+
+        [gMC updateMenuAndDetailsWindowForceLeftNavigation: YES];
+        
 		if (  result != 0  ) {
 			[self notifyAboutImportProblem: [NSString stringWithFormat: @"Error while importing %@", tblkSetupPath]];
 			return NO;
