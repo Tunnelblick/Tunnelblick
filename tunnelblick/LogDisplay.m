@@ -561,7 +561,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     connectionLogEntrySizeLimit        = [gTbDefaults unsignedIntForKey: @"connectionLogEntrySizeLimit" default: 100000 min: 1000 max: 32000000];
     connectionLogInitialLoadMultiplier = [gTbDefaults unsignedIntForKey: @"connectionLogInitialLoadMultiplier" default: 4 min: 1 max: 1000];
 
-    maximumOpenvpnLogSize              = [gTbDefaults unsignedLongLongForKey: @"maximumOpenvpnLogSize" default: 2000000 /* JKB */ min: 1000000ull max: 1000000000000ull];
+    maximumOpenvpnLogSize              = [gTbDefaults unsignedLongLongForKey: @"maximumOpenvpnLogSize" default: 200000000 min: 1000000ull max: 1000000000000ull];
 
     [self setOpenvpnLogPath: [self constructOpenvpnLogPath]];
     [self setScriptLogPath:  [self constructScriptLogPath]];
