@@ -130,5 +130,11 @@
 			<result type="boolean" description="Returns true if the credentials were deleted, false if the credentials could not be deleted."/>
 		</command>
 
+        <command name="install private configurations" code="TBLKInCo" description="Install safe .ovpn and/or .tblk VPN configurations as private configurations.">
+            <cocoa class="ApplescriptInstallPrivateConfigurations"/>
+            <direct-parameter description="A list containing strings with the POSIX paths to the safe .ovpn and/or .tblk configurations that are to be installed." type="any"/>
+            <result type="boolean" description="Returns true if the configurations were all installed successfully, false otherwise."/>
+        </command>
+
 	</suite>
 </dictionary>

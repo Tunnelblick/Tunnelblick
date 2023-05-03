@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2019, 2020 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2019, 2020, 2023 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -23,11 +23,13 @@
 #import "ApplescriptCommands.h"
 
 #import "AuthAgent.h"
+#import "ConfigurationManager.h"
 #import "MenuController.h"
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 
-extern MenuController       * gMC;
+extern NSFileManager   * gFileMgr;
+extern MenuController  * gMC;
 extern TBUserDefaults  * gTbDefaults;
 
 
@@ -261,6 +263,58 @@ extern TBUserDefaults  * gTbDefaults;
 	}
 
 	return @NO;
+}
+
+@end
+
+@implementation ApplescriptInstallPrivateConfigurations
+
+- (id)performDefaultImplementation
+{
+    NSAppleEventDescriptor * listDescriptor = self.directParameter;
+    if (  listDescriptor.descriptorType != typeAEList  ) {
+        NSLog(@"install private configurations: Argument must be a list of strings with POSIX paths");
+        return [NSNumber numberWithBool: FALSE];
+    }
+
+    NSInteger numberOfItems = listDescriptor.numberOfItems;
+    if (  numberOfItems == 0  ) {
+        NSLog(@"install private configurations: Nothing to install");
+        return [NSNumber numberWithBool: FALSE];
+    }
+
+    NSMutableArray * paths = [NSMutableArray arrayWithCapacity: numberOfItems];
+
+    for (  NSInteger i=1; i<=numberOfItems; i++  ) {
+
+        NSAppleEventDescriptor * itemDescriptor = [listDescriptor descriptorAtIndex: i];
+        NSString * path = itemDescriptor.stringValue;
+        if (  path == nil  ) {
+            NSLog(@"install private configurations: All entries in the argument list must be strings.");
+            return [NSNumber numberWithBool: FALSE];
+        }
+
+        if (   [path.pathExtension isEqualToString: @"ovpn"]
+            || [path.pathExtension isEqualToString: @"tblk"]  ) {
+            if (  ! [gFileMgr fileExistsAtPath: path]  ) {
+                NSLog(@"install private configurations: No .tblk or .ovpn at %@", path);
+                return [NSNumber numberWithBool: FALSE];
+            }
+        } else {
+            NSLog(@"install private configurations: Unknown extension (not .tblk or .ovpn): %@", path);
+            return [NSNumber numberWithBool: FALSE];
+        }
+
+        [paths addObject: path];
+    }
+
+    BOOL result = [ConfigurationManager InstallPrivateConfigurations: paths];
+
+    if (  result  ) {
+        [gMC updateMenuAndDetailsWindowForceLeftNavigation: YES];
+    }
+
+    return [NSNumber numberWithBool: result];
 }
 
 @end

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2019 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2019, 2023 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -87,6 +87,11 @@
 
 
 @interface ApplescriptDeleteAllCredentials : NSScriptCommand {
+}
+- (id)performDefaultImplementation;
+@end
+
+@interface ApplescriptInstallPrivateConfigurations : NSScriptCommand {
 }
 - (id)performDefaultImplementation;
 @end

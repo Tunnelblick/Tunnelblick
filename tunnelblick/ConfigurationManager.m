@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2023 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -90,6 +90,9 @@ TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, updateSources,     setUpdateSource
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, updateTargets,     setUpdateTargets)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, deletions,         setDeletions)
 
+TBSYNTHESIZE_NONOBJECT(NSApplicationDelegateReply, applescriptReply, setApplescriptReply)
+
+TBSYNTHESIZE_NONOBJECT(BOOL, fromAppleScript,        setFromAppleScript)
 TBSYNTHESIZE_NONOBJECT(BOOL, inhibitCheckbox,        setInhibitCheckbox)
 TBSYNTHESIZE_NONOBJECT(BOOL, installToSharedOK,      setInstallToSharedOK)
 TBSYNTHESIZE_NONOBJECT(BOOL, installToPrivateOK,     setInstallToPrivateOK)
@@ -2242,6 +2245,16 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return TRUE;
 }
 
+-(void) setApplescriptReplyOrNotifyDelegate: (BOOL) notifyDelegate
+                                     result: (NSApplicationDelegateReply) delegateNotifyValue {
+
+    if (  self.fromAppleScript  ) {
+        [self setApplescriptReply: delegateNotifyValue];
+    } else if (  notifyDelegate  ) {
+        [gMC myReplyToOpenOrPrint: [NSNumber numberWithInt: delegateNotifyValue]];
+    }
+}
+
 -(void) cleanupInstallAndNotifyDelegate: (BOOL)                       notifyDelegate
                     delegateNotifyValue: (NSApplicationDelegateReply) delegateNotifyValue {
     
@@ -2252,9 +2265,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		}
 	}
     
-    if (  notifyDelegate  ) {
-        [gMC myReplyToOpenOrPrint: [NSNumber numberWithInt: delegateNotifyValue]];
-    }
+    [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: delegateNotifyValue];
 }
 
 +(BOOL) copyConfigPath: (NSString *)   sourcePath
@@ -2877,28 +2888,23 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
 	return FALSE;
 }
-		   
+
 -(void) installConfigurations: (NSArray *) filePaths
       skipConfirmationMessage: (BOOL)      skipConfirmMsg
             skipResultMessage: (BOOL)      skipResultMsg
                notifyDelegate: (BOOL)      notifyDelegate
-             disallowCommands: (BOOL)      disallowCommands {
-    
+             disallowCommands: (BOOL)      disallowCommands
+       privateFromApplescript: (BOOL)      privateFromApplescript {
+
     // The filePaths array entries are paths to a .tblk, .ovpn, or .conf to install.
     
     if (  [filePaths count] == 0) {
-        if (  notifyDelegate  ) {
-            [gMC myReplyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplySuccess]];
-        }
-        
+        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplySuccess];
         return;
     }
     
     if (  ! [self checkFilesAreReasonable: filePaths]  ) {
-        if (  notifyDelegate  ) {
-            [gMC myReplyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
-        }
-        
+        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
         return;
     }
     
@@ -2906,21 +2912,21 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         if (  ! [NSThread isMainThread]  ) {
             NSLog(@"installConfigurations...disallowCommands: YES but not on main thread; stack trace: %@", callStack());
-            if (  notifyDelegate  ) {
-                [gMC myReplyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
-            }
-            
+            [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
             return;
         }
         CommandOptionsStatus status = [ConfigurationManager commandOptionsInConfigurationsAtPaths: filePaths];
         if (  status == CommandOptionsError  ) {
-            if (  notifyDelegate  ) {
-                [gMC myReplyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
-            }
-            
+            [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
             return;
         }
         if ( status != CommandOptionsNo  ) {
+            if (  privateFromApplescript  ) {
+                NSLog(@"One or more configurations include programs which run when you connect to a VPN. They cannot be installed via AppleScript");
+                [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
+                return;
+            }
+
 			if (  status == CommandOptionsUserScript  ) {
 				int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
 														 NSLocalizedString(@"One or more VPN configurations that are being updated include programs which"
@@ -2936,10 +2942,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 														 NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
 														 nil,
 														 NSAlertAlternateReturn);
-				if (  userAction == NSAlertAlternateReturn  ) {
-					[ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
-				}
-			} else {
+                if (  userAction == NSAlertAlternateReturn  ) {
+                    [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
+                } else if (  userAction == NSAlertDefaultReturn  ) {
+                    [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
+                } else {
+                    [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
+                }
+
+                return;
+
+            } else {
 				int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
 														 NSLocalizedString(@"One or more VPN configurations that are being updated include programs which"
 																		   @" will run as root when you connect to a VPN. These programs are part of the configuration"
@@ -2955,7 +2968,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 														 NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
 														 nil,
 														 NSAlertAlternateReturn);
-				if (  userAction == NSAlertAlternateReturn  ) {
+
+                if (  userAction == NSAlertDefaultReturn  ) {
+                    [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
+                } else if (  userAction == NSAlertAlternateReturn  ) {
 					userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
 												 NSLocalizedString(@"Are you sure you wish to install configurations which can TAKE"
 																   @" COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
@@ -2963,17 +2979,19 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 												 NSLocalizedString(@"Cancel",  @"Button"), // Default
 												 NSLocalizedString(@"Install", @"Button"), // Alternate
 												 nil);                                     // Other
-					if (  userAction == NSAlertAlternateReturn  ) {
-						[ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
-					}
+                    if (  userAction == NSAlertAlternateReturn  ) {
+                        [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
+                    } else if (  userAction == NSAlertDefaultReturn  ) {
+                        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
+                    } else {
+                        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
+                    }
+                } else {
+                    [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
 				}
+
+                return;
 			}
-			
-			if (  notifyDelegate  ) {
-                [gMC myReplyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
-            }
-				
-            return;
         }
     }
 		
@@ -2990,6 +3008,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                      && ( ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"])
                                      )
                                  )];
+    if (  privateFromApplescript  ) {
+        [self setInstallToSharedOK: FALSE];
+        if (  ! [self installToPrivateOK]  ) {
+            NSLog(@"Cannot install to either private or shared!");
+            [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
+            return;
+        }
+    }
+
     if (   [gTbDefaults boolForKey: @"doNotOpenDotTblkFiles"]
         || (   ( ! [self installToPrivateOK] )
             && ( ! [self installToSharedOK]  )
@@ -2997,9 +3024,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         ) {
         TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
                           NSLocalizedString(@"Installing configurations is not allowed", "Window text"));
-        if (  notifyDelegate  ) {
-            [gMC myReplyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
-        }
+        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
         return;
     }
     
@@ -3021,16 +3046,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * path = [newTemporaryDirectoryPath() autorelease];
     if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
         NSLog(@"Unable to delete %@", path);
-        if (  notifyDelegate  ) {
-            [gMC myReplyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
-        }
+        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
         return;
     }
     if (  createDir(path, privateFolderPermissions(path)) == -1  ) {
         NSLog(@"Unable to create %@", path);
-        if (  notifyDelegate  ) {
-            [gMC myReplyToOpenOrPrint: [NSNumber numberWithInt: NSApplicationDelegateReplyFailure]];
-        }
+        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
         return;
     }
     [self setTempDirPath: path];
@@ -3062,15 +3083,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         if (  result  ) {
             if ( [result isEqualToString: @"cancel"]  ) {
 				[self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: NSApplicationDelegateReplyCancel];
-				return;
 			} else if (  [result isNotEqualTo: @"skip"]  ) {
 				TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
 								  [NSString stringWithFormat:
 								   NSLocalizedString(@"Installation failed:\n\n%@", "Window text"),
 								   result]);
 				[self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: NSApplicationDelegateReplyFailure];
-				return;
 			}
+
+            return;
         }
     }
     
@@ -3095,10 +3116,24 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	// Do the uninstalls/replacements/uninstalls
 	NSApplicationDelegateReply reply = [self doUninstallslReplacementsInstallsSkipConfirmMsg: skipConfirmMsg
 																			   skipResultMsg: skipResultMsg];
-	
+
     [self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: reply];
-	
+
     return;
+}
+
+-(void) installConfigurations: (NSArray *) filePaths
+      skipConfirmationMessage: (BOOL)      skipConfirmMsg
+            skipResultMessage: (BOOL)      skipResultMsg
+               notifyDelegate: (BOOL)      notifyDelegate
+             disallowCommands: (BOOL)      disallowCommands {
+
+    [[ConfigurationManager manager] installConfigurations: filePaths
+                                  skipConfirmationMessage: skipConfirmMsg
+                                        skipResultMessage: skipResultMsg
+                                           notifyDelegate: notifyDelegate
+                                         disallowCommands: disallowCommands
+                                   privateFromApplescript: NO];
 }
 
 -(void) installConfigurations: (NSArray *) filePaths
@@ -6034,6 +6069,25 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			: (  haveUserScript
 			   ? CommandOptionsUserScript
 			   : CommandOptionsNo ));
+}
+
++(BOOL) InstallPrivateConfigurations: (NSArray *) filePaths {
+
+    ConfigurationManager * cm = [[ConfigurationManager alloc] init];
+    if (  cm == nil  ) {
+        return FALSE;
+    }
+
+    [cm setFromAppleScript: TRUE];
+
+    [cm installConfigurations: filePaths
+      skipConfirmationMessage: YES
+            skipResultMessage: YES
+               notifyDelegate: NO
+             disallowCommands: YES
+       privateFromApplescript: YES];
+
+    return (  [cm applescriptReply] == NSApplicationDelegateReplySuccess);
 }
 
 @end

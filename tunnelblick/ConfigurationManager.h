@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2023 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -29,6 +29,7 @@
  */
 
 #import "defines.h"
+#import <appkit/AppKit.h>
 
 // Return values for +ConfigurationManager:commandOptionsInConfigurationsAtPaths: and some methods it invokes
 typedef enum
@@ -68,12 +69,21 @@ typedef enum
 	NSMutableArray * updateSources;		// Paths of .tblk stubs to copy to L_AS_T_TBLKS for updatable configurations
 	NSMutableArray * updateTargets;
     NSMutableArray * deletions;			// Paths of .tblks to delete to uninstall
-	
+
+    // If fromAppleScript is true, the results of
+    //    installConfigurations:skipConfirmationMessage:skipResultMessage:notifyDelegate:disallowCommands:privateFromApplescript:
+    // are stored in applescriptReply instead of being sent to a delegate.
+    NSApplicationDelegateReply applescriptReply;
+
+    BOOL fromAppleScript;               // Indicates we need to set applescriptReply instead of notifying the delegate
     BOOL inhibitCheckbox;
     BOOL installToSharedOK;
     BOOL installToPrivateOK;
 	BOOL multipleConfigurations;
 }
+
+TBPROPERTY(BOOL,                       fromAppleScript,  setFromAppleScript)
+TBPROPERTY(NSApplicationDelegateReply, applescriptReply, setApplescriptReply)
 
 // The following three methods are invoked on the main thread by corresponding instance methods in MenuController
 // that are invoked by the various ...Operations class methods.
@@ -172,5 +182,8 @@ typedef enum
 +(void) installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: (NSArray *)  paths;
 
 +(CommandOptionsStatus) commandOptionsInConfigurationsAtPaths: (NSArray *) paths;
+
+// Used by ApplescriptCommands.m:
++(BOOL) InstallPrivateConfigurations: (NSArray *) filePaths;
 
 @end
