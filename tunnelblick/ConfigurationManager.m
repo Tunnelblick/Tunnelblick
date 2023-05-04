@@ -1845,7 +1845,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                          NSLocalizedString(@"Replace", @"Button"),   // Default button
                                          NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
                                          nil);                                       // Other button
-            if (  result == NSAlertAlternateReturn  ) {
+            if (  result != NSAlertDefaultReturn  ) {
 				return @"cancel";
             }
         }
@@ -2592,7 +2592,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                          NSLocalizedString(@"OK",      @"Button"),   // Default button
                                          NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
                                          nil);                                       // Other button
-            if (  result == NSAlertAlternateReturn  ) {
+            if (  result != NSAlertDefaultReturn  ) {
 				[auth release];
 				return NSApplicationDelegateReplyCancel;
             }
