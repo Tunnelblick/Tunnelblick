@@ -830,24 +830,34 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             && (   downOption
                 || ([connection useDNSStatus] != 0)  )  ) {
                 
-                NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?", @"Window text"),
-                                  [connection localizedName]];
-                
-                int result = TBRunAlertPanelExtended(NSLocalizedString(@"Use 'down-root' plugin for OpenVPN?", @"Window title"),
-                                                     msg,
-                                                     NSLocalizedString(@"Do not use the plugin", @"Button"),
-                                                     NSLocalizedString(@"Always use the plugin", @"Button"),
-                                                     NSLocalizedString(@"Cancel", @"Button"),
-                                                     skipWarningKey,
-                                                     NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"),
-                                                     nil,
-													 NSAlertDefaultReturn);
-                if (  result == NSAlertAlternateReturn  ) {
+            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?", @"Window text"),
+                              [connection localizedName]];
+
+            int result = TBRunAlertPanelExtended(NSLocalizedString(@"Use 'down-root' plugin for OpenVPN?", @"Window title"),
+                                                 msg,
+                                                 NSLocalizedString(@"Do not use the plugin", @"Button"),
+                                                 NSLocalizedString(@"Always use the plugin", @"Button"),
+                                                 NSLocalizedString(@"Cancel", @"Button"),
+                                                 skipWarningKey,
+                                                 NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"),
+                                                 nil,
+                                                 NSAlertDefaultReturn);
+            switch (  result  ) {
+
+                case NSAlertDefaultReturn:
+                    break;
+
+                case NSAlertAlternateReturn:
                     [gTbDefaults setBool: TRUE forKey: useDownRootPluginKey];
-                } else if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
+                    break;
+
+                case NSAlertOtherReturn:
                     return @"Cancel";
-                }
+
+                default: // Error; already logged
+                    return @"Cancel";
             }
+        }
     }
     
     if (   (   [gTbDefaults boolForKey: useDownRootPluginKey]
@@ -2942,12 +2952,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 														 NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
 														 nil,
 														 NSAlertAlternateReturn);
-                if (  userAction == NSAlertAlternateReturn  ) {
-                    [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
-                } else if (  userAction == NSAlertDefaultReturn  ) {
-                    [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
-                } else {
-                    [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
+                switch (  userAction  ) {
+
+                    case NSAlertDefaultReturn:
+                        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
+                        break;
+
+                    case NSAlertAlternateReturn:
+                        [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
+                        break;
+
+                    case NSAlertOtherReturn:
+
+                    default: // Error; already logged
+                        [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
                 }
 
                 return;
@@ -2969,26 +2987,34 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 														 nil,
 														 NSAlertAlternateReturn);
 
-                if (  userAction == NSAlertDefaultReturn  ) {
-                    [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
-                } else if (  userAction == NSAlertAlternateReturn  ) {
-					userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-												 NSLocalizedString(@"Are you sure you wish to install configurations which can TAKE"
-																   @" COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
-																   @"Window text"),
-												 NSLocalizedString(@"Cancel",  @"Button"), // Default
-												 NSLocalizedString(@"Install", @"Button"), // Alternate
-												 nil);                                     // Other
-                    if (  userAction == NSAlertAlternateReturn  ) {
-                        [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
-                    } else if (  userAction == NSAlertDefaultReturn  ) {
+                switch (  userAction  ) {
+
+                    case NSAlertDefaultReturn:
                         [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
-                    } else {
+                        break;
+
+                    case NSAlertAlternateReturn:
+                        userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                                     NSLocalizedString(@"Are you sure you wish to install configurations which can TAKE"
+                                                                       @" COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
+                                                                       @"Window text"),
+                                                     NSLocalizedString(@"Cancel",  @"Button"), // Default
+                                                     NSLocalizedString(@"Install", @"Button"), // Alternate
+                                                     nil);                                     // Other
+                        if (  userAction == NSAlertAlternateReturn  ) {
+                            [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
+                        } else if (  userAction == NSAlertDefaultReturn  ) {
+                            [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyCancel];
+                        } else {
+                            [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
+                        }
+                        break;
+
+                    case NSAlertOtherReturn:
+
+                    default: // Error; already logged
                         [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
-                    }
-                } else {
-                    [self setApplescriptReplyOrNotifyDelegate: notifyDelegate result: NSApplicationDelegateReplyFailure];
-				}
+                }
 
                 return;
 			}
