@@ -793,6 +793,12 @@ name = newValue;                                    \
 @"doNotShowOutlineViewOfConfigurations",	\
 @"showConnectedDurations",	\
 \
+@"connectionLogTickInterval", \
+@"connectionLogEntrySizeLimit", \
+@"connectionLogInitialLoadMultiplier", \
+\
+@"maximumOpenvpnLogSize", \
+\
 @"chooseSameOpenvpnOverSameSsl",	\
 \
 @"welcomeURL",	\
