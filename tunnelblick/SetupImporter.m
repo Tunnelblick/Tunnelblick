@@ -120,10 +120,10 @@ extern MenuController * gMC;
 	NSString * message = NSLocalizedString(@"Tunnelblick needs authorization to secure the imported data.", @"Window text");
 	SystemAuth * auth = [[SystemAuth newAuthWithPrompt: message] autorelease];
 	if (  auth  ) {
-		NSInteger result = [gMC runInstaller: INSTALLER_IMPORT
-															   extraArguments: installerArguments
-															  usingSystemAuth: auth
-																 installTblks: nil];
+        NSInteger result = [gMC runInstaller: INSTALLER_IMPORT
+                              extraArguments: installerArguments
+                             usingSystemAuth: auth
+                                installTblks: nil];
 
         [gMC updateMenuAndDetailsWindowForceLeftNavigation: YES];
         

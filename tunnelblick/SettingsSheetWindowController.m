@@ -1373,9 +1373,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
     if (  auth  ) {
         NSInteger status = [gMC runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
-                                           extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
-                                          usingSystemAuth: auth
-                                             installTblks: nil];
+                              extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
+                             usingSystemAuth: auth
+                                installTblks: nil];
         [auth release];
         
         [self performSelectorOnMainThread: @selector(finishAuthenticating:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];

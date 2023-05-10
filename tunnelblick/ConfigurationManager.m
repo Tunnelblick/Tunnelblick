@@ -996,9 +996,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSArray * arguments = [NSArray arrayWithObject: targetPath];
     
     NSInteger result = [gMC runInstaller: INSTALLER_DELETE
-                                                           extraArguments: arguments
-                                                          usingSystemAuth: auth
-                                                             installTblks: nil];
+                          extraArguments: arguments
+                         usingSystemAuth: auth
+                            installTblks: nil];
     if (  result != 0  ) {
         NSLog(@"Error while deleting %@", targetPath);
         return FALSE;
@@ -1039,9 +1039,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         while (  (containerPath = [e nextObject])) {
             arguments = [NSArray arrayWithObject: containerPath];
             result = [gMC runInstaller: INSTALLER_DELETE
-                                                         extraArguments: arguments
-                                                        usingSystemAuth: auth
-                                                           installTblks: nil];
+                        extraArguments: arguments
+                       usingSystemAuth: auth
+                          installTblks: nil];
             if (  result != 0  ) {
                 NSLog(@"Error while uninstalling master \"stub\" .tblk for '%@' at path %@", bundleId, containerPath);
                 return FALSE;
@@ -2372,9 +2372,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
     
     NSInteger installerResult = [gMC runInstaller: firstArg
-                                                                    extraArguments: arguments
-                                                                   usingSystemAuth: auth
-                                                                      installTblks: nil];
+                                   extraArguments: arguments
+                                  usingSystemAuth: auth
+                                     installTblks: nil];
 	if (  installerResult == 0  ) {
         return TRUE;
     }
@@ -2771,10 +2771,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                   stringByAppendingPathComponent: targetLast];
         
 		NSArray * arguments = [NSArray arrayWithObjects: target, source, nil];
-		NSInteger installerResult = [gMC runInstaller: INSTALLER_COPY
-                                                                        extraArguments: arguments
-                                                                       usingSystemAuth: auth
-                                                                          installTblks: nil];
+        NSInteger installerResult = [gMC runInstaller: INSTALLER_COPY
+                                       extraArguments: arguments
+                                      usingSystemAuth: auth
+                                         installTblks: nil];
 		if (  installerResult == 0  ) {
  			[[gMC myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
             [[gMC myConfigMultiUpdater] performSelectorOnMainThread:@selector(addUpdateCheckingForStubTblkAtPath:) withObject: target waitUntilDone: YES];
@@ -3782,9 +3782,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
     NSArray * arguments = [NSArray arrayWithObjects: path, @"", nil];
     NSInteger installerResult = [gMC runInstaller: INSTALLER_COPY
-                                                                    extraArguments: arguments
-                                                                   usingSystemAuth: auth
-                                                                      installTblks: nil];
+                                   extraArguments: arguments
+                                  usingSystemAuth: auth
+                                     installTblks: nil];
     if (  installerResult != 0  ) {
         NSLog(@"Could not create configuration folder '%@'", path);
         return FALSE;
@@ -3953,9 +3953,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             if (  ! [gFileMgr fileExistsAtPath: fullTargetPath]  ) {
                 NSArray * arguments = [NSArray arrayWithObjects: fullTargetPath, fullSourcePath, nil];
                 NSInteger installerResult = [gMC runInstaller: INSTALLER_MOVE
-                                                                                extraArguments: arguments
-                                                                               usingSystemAuth: auth
-                                                                                  installTblks: nil];
+                                               extraArguments: arguments
+                                              usingSystemAuth: auth
+                                                 installTblks: nil];
                 if (  installerResult != 0  ) {
                     NSLog(@"Could not rename folder '%@' to '%@'", fullSourcePath, fullTargetPath);
                 }
@@ -5095,10 +5095,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 								  stringByAppendingPathComponent: @"Desktop"]
 								 stringByAppendingPathComponent: filename];
 		
-		NSInteger result = [gMC runInstaller: INSTALLER_EXPORT_ALL
-															   extraArguments: [NSArray arrayWithObject: targetPath]
-															  usingSystemAuth: auth
-																 installTblks: nil];
+        NSInteger result = [gMC runInstaller: INSTALLER_EXPORT_ALL
+                              extraArguments: [NSArray arrayWithObject: targetPath]
+                             usingSystemAuth: auth
+                                installTblks: nil];
 		if (  result != 0  ) {
 			NSLog(@"Error while exporting to %@", targetPath);
 		}
