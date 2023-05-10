@@ -1506,6 +1506,46 @@ void doFolderRename(NSString * sourcePath, NSString * targetPath) {
     }
 }
 
+void structureTblkProperly(NSString * path) {
+
+    // If a .tblk doesn't have a Contents folder, makes sure Info.plist is in Contents, and all files in a .tblk except Info.plist are in Contents/Resources.
+
+    if (  [gFileMgr fileExistsAtPath: [path stringByAppendingPathComponent: @"Contents"]]  ) {
+        return;
+    }
+
+    createDir([path stringByAppendingPathComponent: @"Contents/Resources"], 0700);
+
+    NSMutableArray * sourcePaths = [NSMutableArray arrayWithCapacity: 10];
+    NSMutableArray * targetPaths = [NSMutableArray arrayWithCapacity: 10];
+
+    // Create a list of paths of files to be moved and where to move them
+    NSString * entry;
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
+    [dirE skipDescendants];
+    while (  (entry = [dirE nextObject])  ) {
+        NSString * fullPath = [path stringByAppendingPathComponent: entry];
+        BOOL isDir;
+        if (   ( ! [entry hasPrefix @"."] )
+            && [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+            && ( ! isDir )  ) {
+            if (  [entry isEqualToString: @"Info.plist"]  ) {
+                [sourcePaths addObject: fullPath];
+                [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents"] stringByAppendingPathComponent: entry]];
+            } else if (  ! [entry hasPrefix: @"."]  ) {
+                [sourcePaths addObject: fullPath];
+                [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents/Resources"] stringByAppendingPathComponent: entry]];
+            }
+        }
+    }
+
+    for (  NSUInteger i=0; i<[sourcePaths count]; i++  ) {
+        if (  ! [gFileMgr tbMovePath: sourcePaths[i] toPath: targetPaths[i] handler: nil]  ) {
+            appendLog([NSString stringWithFormat: @"Unable to move %@ to %@", sourcePaths[i], targetPaths[i]]);
+            errorExit();
+        }
+    }
+}
 void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy) {
 	
 	if (   ( ! firstPath )
@@ -1589,7 +1629,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 	
 	safeCopyOrMovePathToPath(sourcePath, targetPath, moveNotCopy);
 	
-	BOOL targetIsPrivate = [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]];
+    structureTblkProperly(targetPath);
 	uid_t uid = (  targetIsPrivate
 				 ? gRealUserID
 				 : 0);
