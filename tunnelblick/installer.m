@@ -2410,14 +2410,16 @@ int main(int argc, char *argv[])
     NSString * firstPath = nil;
     if (  argc > 2  ) {
         firstPath = [gFileMgr stringWithFileSystemRepresentation: argv[2] length: strlen(argv[2])];
-        if (  ! [firstPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+        if (   ( gPrivatePath == nil  )
+            || ( ! [firstPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
             errorExitIfAnySymlinkInPath(firstPath);
         }
     }
     NSString * secondPath = nil;
     if (  argc > 3  ) {
         secondPath = [gFileMgr stringWithFileSystemRepresentation: argv[3] length: strlen(argv[3])];
-        if (  ! [secondPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+        if (   ( gPrivatePath == nil  )
+            || ( ! [secondPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
             errorExitIfAnySymlinkInPath(secondPath);
         }
     }
