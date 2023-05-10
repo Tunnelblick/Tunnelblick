@@ -115,8 +115,8 @@
 FILE          * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
-uid_t           gRealUserID;                  // User ID & Group ID for the real user (i.e., not "root:wheel", which is what we are running as)
 gid_t           gRealGroupID;
+uid_t           gUserID = 0;
 NSString      * gPrivatePath = nil;                 // ~/Library/Application Support/Tunnelblick/Configurations
 NSAutoreleasePool * pool;
 
@@ -184,6 +184,12 @@ NSString * userPrivatePath(void) {
     errorExit();
     return nil; // Satisfy analyzer
 }
+
+uid_t userUID(void) {
+
+    if (  gUserID != 0  ) {
+        return gUserID;
+    }
 
 void deleteFlagFile(NSString * path) {
     
@@ -769,8 +775,8 @@ void createAndSecureFolder(NSString * path) {
 
     BOOL private = [path hasPrefix: [[userPrivatePath() stringByDeletingLastPathComponent] stringByAppendingString: @"/"]];
     if (  private  ) {
-        own   = gRealUserID;
         grp   = privateFolderGroup(path);
+        own   = userUID();
         perms = privateFolderPermissions(path);
     }
     errorExitIfAnySymlinkInPath(path);
@@ -1085,12 +1091,12 @@ void doInitialWork(BOOL updateKexts) {
 	mode_t permissions = privateFolderPermissions(userL_AS_T_Path);
 	
 	if (  ! createDirWithPermissionAndOwnership(userL_AS_T_Path,
-												permissions, gRealUserID, group)  ) {
+												permissions, userUID(), userGID())  ) {
 		errorExit();
 	}
 
 	if (  ! createDirWithPermissionAndOwnership([userL_AS_T_Path stringByAppendingPathComponent: @"Configurations"],
-												permissions, gRealUserID, group)  ) {
+												permissions, userUID(), userGID())  ) {
 		errorExit();
 	}
 
@@ -1410,8 +1416,8 @@ void secureAllTblks(void) {
 	unsigned i;
 	for (i=0; i < [foldersToSecure count]; i++) {
 		NSString * folderPath = [foldersToSecure objectAtIndex: i];
-		okSoFar = okSoFar && secureOneFolder(folderPath, isPrivate, gRealUserID);
 		BOOL isPrivate = [folderPath hasPrefix: userPrivatePath()];
+		okSoFar = okSoFar && secureOneFolder(folderPath, isPrivate, userUID());
 	}
 	
 	if (  ! okSoFar  ) {
@@ -1640,7 +1646,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 	
     structureTblkProperly(targetPath);
 	uid_t uid = (  targetIsPrivate
-				 ? gRealUserID
+				 ? userUID()
 				 : 0);
 	secureOneFolder(targetPath, targetIsPrivate, uid);
 
@@ -1950,7 +1956,7 @@ void exportToPath(NSString * exportPath) {
 	}
 	
 	// Set the ownership and permissions of the .tar.gz so only the real user can access it
-	if ( ! checkSetOwnership(tarPath, NO, gRealUserID, gRealGroupID)  ) {
+	if ( ! checkSetOwnership(tarPath, NO, userUID(), userGID())  ) {
 		errorExit();
 	}
 	if ( ! checkSetPermissions(tarPath, 0700, YES)  ) {
