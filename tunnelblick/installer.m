@@ -23,6 +23,7 @@
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
+#include <pwd.h>
 #import <sys/stat.h>
 #import <sys/time.h>
 #import <sys/xattr.h>
@@ -275,6 +276,59 @@ void freeAuthRef(AuthorizationRef authRef) {
 			errorExit();
 		}
 	}
+}
+
+void getUidAndGidFromUsername(NSString * username, uid_t * uid_ptr, gid_t * gid_ptr) {
+
+    // Modified version of sample code by Matthew Flaschen
+    // from https://stackoverflow.com/questions/1009254/programmatically-getting-uid-and-gid-from-username-in-unix
+
+    const char * username_C = [username cStringUsingEncoding: NSASCIIStringEncoding];
+    if(  username_C == NULL  ) {
+        appendLog([NSString stringWithFormat: @"Failed to convert username '%@' to an ASCII username.", username]);
+        errorExit();
+    }
+
+    struct passwd * pwd = calloc(1, sizeof(struct passwd));
+    if(  pwd == NULL  ) {
+        appendLog(@"Failed to allocate struct passwd for getpwnam_r.");
+        errorExit();
+    }
+
+    size_t buffer_len = sysconf(_SC_GETPW_R_SIZE_MAX) * sizeof(char);
+    char *buffer = malloc(buffer_len);
+    if(  buffer == NULL  ) {
+        appendLog(@"Failed to allocate buffer for getpwnam_r.");
+        free(pwd);
+        errorExit();
+    }
+
+    errno = 0;
+    struct passwd * result = pwd;  // getpwnam_r overwrites this copy of pwd but we keep pwd so we can free it later
+    int return_status = getpwnam_r(username_C, pwd, buffer, buffer_len, &result);
+    if (  return_status != 0  ) {
+        appendLog([NSString stringWithFormat: @"getpwnam_r returned error %d; errno = %d ('%s')", return_status, errno, strerror(errno)]);
+        free(pwd);
+        free(buffer);
+        errorExit();
+    }
+    if(  result == NULL  ) {
+        appendLog([NSString stringWithFormat: @"getpwnam_r failed to find entry for '%s'. (First argument to installer must be a username.)", username_C]);
+        free(pwd);
+        free(buffer);
+        errorExit();
+    }
+
+    *uid_ptr = result->pw_uid;
+    *gid_ptr = result->pw_gid;
+
+    free(pwd);
+    free(buffer);
+
+    if (  *uid_ptr == 0  ) {
+        appendLog(@"Cannot run installer using username 'root'");
+        errorExit();
+    }
 }
 
 void resolveSymlinksInPath(NSString * targetPath) {
