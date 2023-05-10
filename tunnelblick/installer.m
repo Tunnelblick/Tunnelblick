@@ -186,8 +186,8 @@ void deleteFlagFile(NSString * path) {
         } else {
             appendLog([NSString stringWithFormat: @"%@ is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode]);
         }
-    } else {
-        appendLog([NSString stringWithFormat: @"stat of %@ failed\nError was '%s'", path, strerror(errno)]);
+    } else if (  errno != ENOENT  ) { // Ignore no such file
+        appendLog([NSString stringWithFormat: @"stat of %@ failed\nError was %d ('%s')", path, errno, strerror(errno)]);
     }
 }
 
