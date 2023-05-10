@@ -424,18 +424,21 @@ BOOL removeQuarantineBit(void) {
     return TRUE;
 }
 
-/* DISABLED BECAUSE THIS IS NOT AVAILABLE ON 10.4 and 10.5
- *
- * UPDATE 2016-07-03: SMJobSubmit is now deprecated, but we are leaving the code in so that if 'launchctl load' stops working, we can try using it
- *
- * When/if this is enabled, must add the ServiceManagement framework, too, via the following line at the start of this file:
- *
- *      #import <ServiceManagement/ServiceManagement.h>
- *
- * That framework is not on 10.4, and the SMJobSubmit() function is not available on 10.5
- 
-void  loadLaunchDaemonUsingSMJobSubmit(NSDictionary * newPlistContents) {
-	
+void loadLaunchDaemonUsingSMJobSubmit(NSDictionary * newPlistContents) {
+
+    (void)newPlistContents; // REMOVE if we ever use this routine!
+
+    /* DISABLED BECAUSE THIS IS NOT AVAILABLE ON 10.4 and 10.5
+     *
+     * UPDATE 2016-07-03: SMJobSubmit is now deprecated, but we are leaving the code in so that if 'launchctl load' stops working, we can try using it
+     *
+     * When/if this is enabled, must add the ServiceManagement framework, too, via the following line at the start of this file:
+     *
+     *      #import <ServiceManagement/ServiceManagement.h>
+     *
+     * That framework is not on 10.4, and the SMJobSubmit() function is not available on 10.5
+
+
 	// Obtain the right to change the system launchd domain
 	AuthorizationItem right;
 	right.name = kSMRightModifySystemDaemons;
@@ -490,9 +493,9 @@ void  loadLaunchDaemonUsingSMJobSubmit(NSDictionary * newPlistContents) {
 	if (  submitError  ) CFRelease(submitError);
 	
 	freeAuthRef(authRef);
-}
 
- */
+    */
+}
 
 void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
 	
@@ -857,6 +860,9 @@ BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath,
     return YES;
 }
 
+//**************************************************************************************************************************
+// KEXTS
+
 BOOL secureOneKext(NSString * path) {
     
     // Everything inside a kext should have 0755 permissions except Info.plist, CodeResources, and all contents of _CodeSignature, which should have 0644 permissions
@@ -981,6 +987,9 @@ void installOrUpdateKexts(BOOL forceInstall) {
 		haveUpdatedKexts = TRUE;
     }
 }
+
+//**************************************************************************************************************************
+// GENERAL
 
 void doInitialWork(BOOL updateKexts) {
 	
@@ -1567,9 +1576,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 	}
 	
 	// Resolve symlinks
-	//
 	// Do the move or copy
-	//
 	// Secure the target
 	//
 	// If   we MOVED OR COPIED TO PRIVATE
@@ -1587,8 +1594,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 				 ? gRealUserID
 				 : 0);
 	secureOneFolder(targetPath, targetIsPrivate, uid);
-	
-	
+
 	NSString * lastPartOfTarget = lastPartOfPath(targetPath);
 	
 	if (   targetIsPrivate  ) {
