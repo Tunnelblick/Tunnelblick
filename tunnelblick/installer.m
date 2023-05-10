@@ -119,6 +119,8 @@ uid_t           gUserID = 0;
 gid_t           gGroupID = 0;
 NSString      * gUsername = nil;
 NSString      * gPrivatePath = nil;                 // ~/Library/Application Support/Tunnelblick/Configurations
+NSString      * gHomeDirectory = nil;
+
 NSAutoreleasePool * pool;
 
 // The following variable may be modified by routines to affect later behavior of the program
@@ -182,6 +184,17 @@ NSString * userUsername(void) {
     }
 
     appendLog(@"Tried to access userUsername, which was not set");
+    errorExit();
+    return nil; // Satisfy analyzer
+}
+
+NSString * userHomeDirectory(void) {
+
+    if (  gHomeDirectory != nil  ) {
+        return gHomeDirectory;
+    }
+
+    appendLog(@"Tried to access userHomeDirectory, which was not set");
     errorExit();
     return nil; // Satisfy analyzer
 }
