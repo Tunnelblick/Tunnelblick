@@ -115,8 +115,8 @@
 FILE          * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
-gid_t           gRealGroupID;
 uid_t           gUserID = 0;
+gid_t           gGroupID = 0;
 NSString      * gPrivatePath = nil;                 // ~/Library/Application Support/Tunnelblick/Configurations
 NSAutoreleasePool * pool;
 
@@ -190,6 +190,17 @@ uid_t userUID(void) {
     if (  gUserID != 0  ) {
         return gUserID;
     }
+
+gid_t userGID(void) {
+
+    if (  gGroupID != 0  ) {
+        return gGroupID;
+    }
+
+    appendLog(@"Tried to access userGID, which was not set");
+    errorExit();
+    return 0; // Satisfy analyzer
+}
 
 void deleteFlagFile(NSString * path) {
     
