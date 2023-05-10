@@ -216,6 +216,11 @@ uid_t userUID(void) {
         return gUserID;
     }
 
+    appendLog(@"Tried to access userUID, which was not set");
+    errorExit();
+    return 0; // Satisfy analyzer
+}
+
 gid_t userGID(void) {
 
     if (  gGroupID != 0  ) {
