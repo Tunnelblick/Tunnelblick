@@ -887,7 +887,7 @@ void createAndSecureFolder(NSString * path) {
     if (  private  ) {
         NSString * lastPart = lastPartOfPath(path);
         createAndSecureFolder([[L_AS_T_USERS
-                                stringByAppendingPathComponent: NSUserName()]
+                                stringByAppendingPathComponent: userUsername()]
                                stringByAppendingPathComponent: lastPart]);
     }
 }
@@ -1148,7 +1148,7 @@ void doInitialWork(BOOL updateKexts) {
 		errorExit();
 	}
 	
-	if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS stringByAppendingPathComponent: NSUserName()],
+	if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS stringByAppendingPathComponent: userUsername()],
 												PERMS_SECURED_FOLDER, 0, 0)  ) {
 		errorExit();
 	}
@@ -1482,7 +1482,7 @@ void pruneL_AS_T_TBLKS(void) {
 
 void secureAllTblks(void) {
 	
-	NSString * altPath = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
+	NSString * altPath = [L_AS_T_USERS stringByAppendingPathComponent: userUsername()];
 	
 	// First, copy any .tblks that are in private to alt (unless they are already there)
 	NSString * file;
@@ -1597,10 +1597,10 @@ void doFolderRename(NSString * sourcePath, NSString * targetPath) {
 
         // It's a private path. Rename any existing corresponding shadow path, too
         NSString * secureSourcePath = [[L_AS_T_USERS
-                                        stringByAppendingPathComponent: NSUserName()]
+                                        stringByAppendingPathComponent: userUsername()]
                                        stringByAppendingPathComponent: lastPartOfPath(sourcePath)];
         NSString * secureTargetPath = [[L_AS_T_USERS
-                                        stringByAppendingPathComponent: NSUserName()]
+                                        stringByAppendingPathComponent: userUsername()]
                                        stringByAppendingPathComponent: lastPartOfPath(targetPath)];
 
         if (  [gFileMgr fileExistsAtPath: secureSourcePath]  ) {
@@ -1830,7 +1830,7 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 		if (  [firstPartOfPath(firstPath) isEqualToString: userPrivatePath()]  ) {
 			NSString * shadowCopyPath = [NSString stringWithFormat: @"%@/%@/%@",
 										 L_AS_T_USERS,
-										 NSUserName(),
+										 userUsername(),
 										 lastPartOfPath(firstPath)];
 			if (  [gFileMgr fileExistsAtPath: shadowCopyPath]  ) {
 				errorExitIfAnySymlinkInPath(shadowCopyPath);
