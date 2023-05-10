@@ -79,10 +79,8 @@
 //               to                        net.tunnelblick.tunnelblick.startup.*
 //          Updates Tunnelblick kexts in /Library/Extensions (unless kexts are being uninstalled)
 //
-//      (2) if INSTALLER_MOVE_LIBRARY_OPENVPN is set, moves the contents of the old configuration folder
-//          at ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
-//          and replaces it with a symlink to the new location.
-//      (3) If INSTALLER_CONVERT_NON_TBLKS is set, all private .ovpn or .conf files are converted to .tblks
+//      (2) (REMOVED)
+//      (3) (REMOVED)
 //      (4) If INSTALLER_COPY_APP is set, this app is copied to /Applications and the com.apple.quarantine extended attribute is removed from the app and all items within it
 //      (5) If INSTALLER_SECURE_APP is set, secures Tunnelblick.app by setting the ownership and permissions of its components.
 //      (6) If INSTALLER_COPY_APP is set, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
@@ -776,151 +774,6 @@ void createAndSecureFolder(NSString * path) {
     }
 }
 
-BOOL tunnelblickTestPrivateOnlyHasTblks(void) {
-	
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
-	NSString * file;
-	while (  (file = [dirEnum nextObject])  ) {
-		if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
-			[dirEnum skipDescendents];
-		} else {
-			if (   [[file pathExtension] isEqualToString: @"ovpn"]
-				|| [[file pathExtension] isEqualToString: @"conf"]  ) {
-				return NO;
-			}
-		}
-	}
-	
-	return YES;
-}
-
-BOOL copyTblksToNewFolder(NSString * newFolder) {
-	
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
-	NSString * file;
-	
-	while (  (file = [dirEnum nextObject])  ) {
-		NSString * inPath = [gPrivatePath stringByAppendingPathComponent: file];
-		if (  itemIsVisible(inPath)  ) {
-			if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
-				NSString * outPath = [newFolder stringByAppendingPathComponent: file];
-				NSString * outPathFolder = [outPath stringByDeletingLastPathComponent];
-				if (  ! createDirWithPermissionAndOwnership(outPathFolder, privateFolderPermissions(outPathFolder), gRealUserID, privateFolderGroup(outPathFolder))  ) {
-					appendLog([NSString stringWithFormat: @"Unable to create %@", outPathFolder]);
-					return FALSE;
-				}
-				if (  ! [gFileMgr tbCopyPath: inPath toPath: outPath handler: nil]  ) {
-					appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", inPath, outPath]);
-					return FALSE;
-				} else {
-					appendLog([NSString stringWithFormat: @"Copied %@", file]);
-				}
-				
-				[dirEnum skipDescendents];
-			}
-		}
-	}
-	
-	return TRUE;
-}
-
-BOOL convertAllPrivateOvpnAndConfToTblk(void) {
-	
-	NSString * newFolder = [[gPrivatePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"NewConfigurations"];
-	if ( [gFileMgr fileExistsAtPath: newFolder]  ) {
-		[gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
-	}
-	
-	BOOL haveDoneConversion = FALSE;
-	
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
-	NSString * file;
-	while (  (file = [dirEnum nextObject])  ) {
-		NSString * inPath = [gPrivatePath stringByAppendingPathComponent: file];
-		NSString * ext = [file pathExtension];
-		if (  itemIsVisible(inPath)  ) {
-			if (  [ext isEqualToString: @"tblk"]  ) {
-				[dirEnum skipDescendents];
-			} else if (   [ext isEqualToString: @"ovpn"]
-					   ||  [ext isEqualToString: @"conf"]  ) {
-				NSString * fileWithoutExtension = [file stringByDeletingPathExtension];
-				NSString * outTblkPath = [newFolder stringByAppendingPathComponent:
-										  [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
-				NSString * outTblkPathButInExistingConfigurationsFolder = [gPrivatePath stringByAppendingPathComponent:
-																		   [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
-				if (   [gFileMgr fileExistsAtPath: outTblkPath]
-					|| [gFileMgr fileExistsAtPath: outTblkPathButInExistingConfigurationsFolder]  ) {
-					fileWithoutExtension = [[fileWithoutExtension stringByAppendingString: @" from "]
-											stringByAppendingString: ext];
-					outTblkPath = [newFolder stringByAppendingPathComponent:
-								   [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
-					outTblkPathButInExistingConfigurationsFolder = [gPrivatePath stringByAppendingPathComponent:
-																	[fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
-					if (   [gFileMgr fileExistsAtPath: outTblkPath]
-						|| [gFileMgr fileExistsAtPath: outTblkPathButInExistingConfigurationsFolder]  ) {
-						appendLog([NSString stringWithFormat: @"Unable to construct name for a .tblk for %@", file]);
-						return FALSE;
-					}
-				}
-				NSString * inConfPath = [gPrivatePath stringByAppendingPathComponent: file];
-				
-				if (  ! createDirWithPermissionAndOwnership(newFolder, privateFolderPermissions(newFolder), gRealUserID, privateFolderGroup(newFolder))  ) {
-					appendLog([NSString stringWithFormat: @"Unable to create %@", newFolder]);
-					return FALSE;
-				};
-				
-				ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
-				NSString * conversionResults = [converter convertConfigPath: inConfPath
-																 outputPath: outTblkPath
-														  replacingTblkPath: nil
-																displayName: nil
-													   nameForErrorMessages: inConfPath
-														   useExistingFiles: nil
-																	logFile: gLogFile
-																   fromTblk: NO];
-				[converter release];
-				
-				if (  conversionResults  ) {
-					appendLog([NSString stringWithFormat: @"Unable to convert %@ to a Tunnelblick private Configuration: %@", inConfPath, conversionResults]);
-					return FALSE;
-				}
-				
-				haveDoneConversion = TRUE;
-			}
-		}
-	}
-	
-	if (  haveDoneConversion  ) {
-		if ( ! copyTblksToNewFolder(newFolder)  ) {
-			appendLog(@"Unable to copy existing private .tblk configurations");
-			return FALSE;
-		}
-		
-		NSString * dateTimeString = [[NSDate date] tunnelblickFilenameRepresentation];
-		
-		NSString * oldFolder = [[newFolder stringByDeletingLastPathComponent]
-								stringByAppendingPathComponent:
-								[NSString stringWithFormat: @"Configurations before conversion %@", dateTimeString]];
-		if (  [gFileMgr tbMovePath: gPrivatePath toPath: oldFolder handler: nil]  ) {
-			if  (  [gFileMgr tbMovePath: newFolder toPath: gPrivatePath handler: nil]  ) {
-				return TRUE;
-			} else {
-				[gFileMgr tbMovePath: oldFolder toPath: gPrivatePath handler: nil]; // Try to restore original setup
-				appendLog([NSString stringWithFormat: @"Unable to rename %@ to %@", newFolder, gPrivatePath]);
-				return FALSE;
-			}
-		} else {
-			appendLog([NSString stringWithFormat: @"Unable to rename %@ to %@", gPrivatePath, oldFolder]);
-			return FALSE;
-		}
-	} else {
-		appendLog(@"No private .ovpn or .conf configurations to be converted");
-		[gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
-	}
-	
-	return TRUE;
-}
-
 void secureOpenvpnBinariesFolder(NSString * enclosingFolder) {
 
 	if (   ( ! checkSetOwnership(enclosingFolder, YES, 0, 0))
@@ -1252,55 +1105,6 @@ void doInitialWork(BOOL updateKexts) {
     if (  updateKexts  ) {
         installOrUpdateKexts(NO);
     }
-}
-
-void moveLibOpenVPN(void) {
-	
-	NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
-	NSString * newConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
-	
-	// Verify that new configuration folder exists
-	BOOL isDir;
-	if (  [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
-		if (  isDir  ) {
-			// If old configurations folder exists (and is a folder):
-			// Move its contents to the new configurations folder and delete it
-			NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: oldConfigDirPath traverseLink: NO];
-			if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-				if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
-					if (  isDir  ) {
-						// Move old configurations folder's contents to the new configurations folder and delete the old folder
-						if (  moveContents(oldConfigDirPath, newConfigDirPath)  ) {
-							appendLog([NSString stringWithFormat: @"Moved contents of %@ to %@", oldConfigDirPath, newConfigDirPath]);
-							gSecureTblks = TRUE; // We may have moved some .tblks, so we should secure them
-							// Delete the old configuration folder
-							makeUnlockedAtPath(oldConfigDirPath);
-							if (  ! [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
-								appendLog([NSString stringWithFormat: @"Unable to remove %@", oldConfigDirPath]);
-								errorExit();
-							}
-						} else {
-							appendLog([NSString stringWithFormat: @"Unable to move all contents of %@ to %@", oldConfigDirPath, newConfigDirPath]);
-							errorExit();
-						}
-					} else {
-						appendLog([NSString stringWithFormat: @"%@ is not a symbolic link or a folder", oldConfigDirPath]);
-						errorExit();
-					}
-				}
-			}
-		} else {
-			appendLog([NSString stringWithFormat: @"Warning: %@ exists but is not a folder", newConfigDirPath]);
-			if ( gSecureTblks ) {
-				errorExit();
-			}
-		}
-	} else {
-		appendLog([NSString stringWithFormat: @"Warning: Private configuration folder %@ does not exist", newConfigDirPath]);
-		if ( gSecureTblks ) {
-			errorExit();
-		}
-	}
 }
 
 void copyTheApp(void) {
@@ -2492,8 +2296,6 @@ int main(int argc, char *argv[])
     BOOL doCopyApp                = (arg1 & INSTALLER_COPY_APP) != 0;
     BOOL doSecureApp              =    doCopyApp
 								    || ( (arg1 & INSTALLER_SECURE_APP)   != 0 );
-	BOOL doConvertNonTblks        = (arg1 & INSTALLER_CONVERT_NON_TBLKS) != 0;
-	BOOL doMoveLibOpenvpn         = (arg1 & INSTALLER_MOVE_LIBRARY_OPENVPN) != 0;
     BOOL doForceLoadLaunchDaemon  = (arg1 & INSTALLER_REPLACE_DAEMON) != 0;
     BOOL doUninstallKexts         = (arg1 & INSTALLER_UNINSTALL_KEXTS) != 0;
     
@@ -2582,28 +2384,10 @@ int main(int argc, char *argv[])
 	doInitialWork( ! doUninstallKexts );
 	
     //**************************************************************************************************************************
-    // (2) Deal with migration to new configuration path
-	
-	if (  doMoveLibOpenvpn  ) {
-		moveLibOpenVPN();
-	}
+    // (2) (REMOVED)
 	
     //**************************************************************************************************************************
-	// (3) If INSTALLER_CONVERT_NON_TBLKS, all .ovpn or .conf files are converted to .tblks
-	
-	if (  doConvertNonTblks  ) {
-		if ( ! tunnelblickTestPrivateOnlyHasTblks()  ) {
-			appendLog(@"\nBeginning conversion of .ovpn and .conf configurations to .tblk configurations...");
-			
-			if (  ! convertAllPrivateOvpnAndConfToTblk()  ) {
-				appendLog(@"Conversion of .ovpn and .conf configurations to .tblk configurations failed");
-				errorExit();
-			}
-			
-			gSecureTblks = TRUE;
-			appendLog(@"Conversion of .ovpn and .conf configurations to .tblk configurations succeeded\n");
-		}
-	}
+	// (3) (REMOVED)
 	
     //**************************************************************************************************************************
     // (4) If INSTALLER_COPY_APP is set:
