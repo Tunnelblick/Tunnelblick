@@ -117,6 +117,7 @@ NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
 uid_t           gUserID = 0;
 gid_t           gGroupID = 0;
+NSString      * gUsername = nil;
 NSString      * gPrivatePath = nil;                 // ~/Library/Application Support/Tunnelblick/Configurations
 NSAutoreleasePool * pool;
 
@@ -172,6 +173,17 @@ void closeLog(void) {
 	if (  gLogFile != NULL  ) {
 		fclose(gLogFile);
 	}
+}
+
+NSString * userUsername(void) {
+
+    if (  gUsername != nil  ) {
+        return gUsername;
+    }
+
+    appendLog(@"Tried to access userUsername, which was not set");
+    errorExit();
+    return nil; // Satisfy analyzer
 }
 
 NSString * userPrivatePath(void) {
