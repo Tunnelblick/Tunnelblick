@@ -462,7 +462,6 @@ BOOL isOnRemoteVolume(NSString * path) {
             parent = [parent stringByDeletingLastPathComponent];
         }
         if ([  parent length] > 1  ) {
-            appendLog([NSString stringWithFormat: @"isOnRemoteVolume: will check parent of '%@'", path]);
             return isOnRemoteVolume(parent);
         }
         appendLog(@"isOnRemoteVolume: No parents for path");
