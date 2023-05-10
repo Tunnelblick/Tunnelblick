@@ -48,6 +48,7 @@
 //     installer bitmask
 //     installer bitmask targetPath   [sourcePath]
 //	   installer bitmask sourcePath   usernameMappingString
+//     installer bitmask targetPath   sourcePath             username
 //
 // where
 //
@@ -56,6 +57,8 @@
 //     targetPath is the path to a configuration (.ovpn or .conf file, or .tblk package) to be secured (or forced-preferences.plist)
 //
 //     sourcePath is the path to be copied or moved to targetPath before securing targetPath
+//
+//     username is the short username of the user on whose behalf a configuration is being installed
 //
 //     usernamMappingString is a string that contains a set of username mapping rules to use when importing a .tblkSetup. It consists
 //							of zero or more separated-by-slashes pairs of username:username. The first username is the username in the
@@ -2432,7 +2435,6 @@ int main(int argc, char *argv[])
 	gDeployPath = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
 #endif
     
-    BOOL installingAConfiguration = (argc == 4);
 
 	// Log the arguments installer was started with
 	unsigned long firstArg = strtoul(argv[1], NULL, 10);
@@ -2535,6 +2537,7 @@ int main(int argc, char *argv[])
     // from one disk to another (e.g., home folder on network to local hard drive)
 	if (   (   (operation == INSTALLER_COPY )
 		    || (operation == INSTALLER_MOVE)
+            || (operation == INSTALLER_INSTALL_PRIVATE_CONFIG)
 			)
 		&& firstPath
 		&& secondPath  ) {
@@ -2553,6 +2556,8 @@ int main(int argc, char *argv[])
     //**************************************************************************************************************************
     // (11) Set up tunnelblickd to load when the computer starts
 	
+    BOOL installingAConfiguration = (  (argc == 4) || (argc == 5)  ); // (Installing or importing configurations)
+
     if (  ( ! doForceLoadLaunchDaemon )  ) {
         if (  ! installingAConfiguration  ) {
             if (   needToReplaceLaunchDaemon()
