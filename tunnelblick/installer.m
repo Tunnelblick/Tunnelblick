@@ -114,10 +114,10 @@
 // The following globals are not modified after they are initialized:
 FILE          * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
-NSString      * gPrivatePath;                 // Path to ~/Library/Application Support/Tunnelblick/Configurations
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
 uid_t           gRealUserID;                  // User ID & Group ID for the real user (i.e., not "root:wheel", which is what we are running as)
 gid_t           gRealGroupID;
+NSString      * gPrivatePath = nil;                 // ~/Library/Application Support/Tunnelblick/Configurations
 NSAutoreleasePool * pool;
 
 // The following variable may be modified by routines to affect later behavior of the program
@@ -172,6 +172,17 @@ void closeLog(void) {
 	if (  gLogFile != NULL  ) {
 		fclose(gLogFile);
 	}
+}
+
+NSString * userPrivatePath(void) {
+
+    if (  gPrivatePath != nil  ) {
+        return gPrivatePath;
+    }
+
+    appendLog(@"Tried to access userPrivatePath, which was not set");
+    errorExit();
+    return nil; // Satisfy analyzer
 }
 
 void deleteFlagFile(NSString * path) {
@@ -711,7 +722,7 @@ void errorExitIfAnySymlinkInPath(NSString * path) {
 NSString * firstPartOfPath(NSString * path) {
 	
 	NSArray * paths = [NSArray arrayWithObjects:
-					   gPrivatePath,
+					   userPrivatePath(),
 					   gDeployPath,
 					   L_AS_T_SHARED, nil];
 	NSEnumerator * arrayEnum = [paths objectEnumerator];
@@ -727,7 +738,7 @@ NSString * firstPartOfPath(NSString * path) {
 NSString * lastPartOfPath(NSString * path) {
 	
 	NSArray * paths = [NSArray arrayWithObjects:
-					   gPrivatePath,
+					   userPrivatePath(),
 					   gDeployPath,
 					   L_AS_T_SHARED, nil];
 	NSEnumerator * arrayEnum = [paths objectEnumerator];
@@ -756,7 +767,7 @@ void createAndSecureFolder(NSString * path) {
     gid_t  grp   = 0;
     mode_t perms = PERMS_SECURED_FOLDER;
 
-    BOOL private = [path hasPrefix: [[gPrivatePath stringByDeletingLastPathComponent] stringByAppendingString: @"/"]];
+    BOOL private = [path hasPrefix: [[userPrivatePath() stringByDeletingLastPathComponent] stringByAppendingString: @"/"]];
     if (  private  ) {
         own   = gRealUserID;
         grp   = privateFolderGroup(path);
@@ -1373,11 +1384,11 @@ void secureAllTblks(void) {
 	
 	// First, copy any .tblks that are in private to alt (unless they are already there)
 	NSString * file;
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: userPrivatePath()];
 	while (  (file = [dirEnum nextObject])  ) {
 		if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
 			[dirEnum skipDescendents];
-			NSString * privateTblkPath = [gPrivatePath stringByAppendingPathComponent: file];
+			NSString * privateTblkPath = [userPrivatePath() stringByAppendingPathComponent: file];
 			NSString * altTblkPath     = [altPath stringByAppendingPathComponent: file];
 			if (  ! [gFileMgr fileExistsAtPath: altTblkPath]  ) {
 				if (  ! createDirWithPermissionAndOwnership([altTblkPath stringByDeletingLastPathComponent], PERMS_SECURED_FOLDER, 0, 0)  ) {
@@ -1395,14 +1406,14 @@ void secureAllTblks(void) {
 	
 	// Now secure shared tblks, private tblks, and shadow copies of private tblks
 	
-	NSArray * foldersToSecure = [NSArray arrayWithObjects: L_AS_T_SHARED, gPrivatePath, altPath, nil];
+	NSArray * foldersToSecure = [NSArray arrayWithObjects: L_AS_T_SHARED, userPrivatePath(), altPath, nil];
 	
 	BOOL okSoFar = YES;
 	unsigned i;
 	for (i=0; i < [foldersToSecure count]; i++) {
 		NSString * folderPath = [foldersToSecure objectAtIndex: i];
-		BOOL isPrivate = [folderPath hasPrefix: gPrivatePath];
 		okSoFar = okSoFar && secureOneFolder(folderPath, isPrivate, gRealUserID);
+		BOOL isPrivate = [folderPath hasPrefix: userPrivatePath()];
 	}
 	
 	if (  ! okSoFar  ) {
@@ -1480,7 +1491,7 @@ void doFolderRename(NSString * sourcePath, NSString * targetPath) {
         errorExit();
     }
 
-    if (  [sourcePath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+    if (  [sourcePath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]]  ) {
 
         // It's a private path. Rename any existing corresponding shadow path, too
         NSString * secureSourcePath = [[L_AS_T_USERS
@@ -1604,7 +1615,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
         }
     }
 
-	// Create the enclosing folder(s) if necessary. Owned by root unless if in gPrivatePath, in which case it is owned by the user
+	// Create the enclosing folder(s) if necessary. Owned by root unless if in userPrivatePath(), in which case it is owned by the user
 	NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
     createAndSecureFolder(enclosingFolder);
 	
@@ -1675,7 +1686,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 		}
 	}
 	
-	if (  [sourcePath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+	if (  [sourcePath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]]  ) {
 		if (  moveNotCopy  ) {
 			NSString * lastPartOfSource = lastPartOfPath(sourcePath);
 			NSString * shadowSourcePath   = [NSString stringWithFormat: @"%@/%@/%@",
@@ -1714,7 +1725,7 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 		}
 		
 		// Delete shadow copy, too, if it exists
-		if (  [firstPartOfPath(firstPath) isEqualToString: gPrivatePath]  ) {
+		if (  [firstPartOfPath(firstPath) isEqualToString: userPrivatePath()]  ) {
 			NSString * shadowCopyPath = [NSString stringWithFormat: @"%@/%@/%@",
 										 L_AS_T_USERS,
 										 NSUserName(),
