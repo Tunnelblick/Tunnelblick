@@ -391,47 +391,6 @@ void resolveSymlinksInPath(NSString * targetPath) {
 	}
 }
 
-void convertOldUpdatableConfigurations(void) {
-    
-    // Converts the "old" setup for updatable configurations to the new setup.
-    //
-    // The old setup was that an updatable configuration was stored in L_AS_T_TBLKS as a bundle-id.tblk.
-    // The problem with that is that the configurations could note really be named (the bundle-id was used as the name).
-    // To correct that problem and to implement having the L_AS_T_TBLKS copy be the copy that is updated by Sparkle, the
-    // new structure is to have a folder in L_AS_T_TBLKS for each updatable configuration, with a folder name consisting
-    // of bundle-id_edition. (The bundle-id, as a domain name, cannot have an underscore character) where the edition is
-    // a monotonically increasing integer, incremented for each updatable configuration. That folder contains a .tblk with
-    // a user-specified name.
-    
-    NSString * edition = @"0";
-	NSString * tblkFilename;
-    NSDirectoryEnumerator * outerDirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
-    while (  (tblkFilename = [outerDirEnum nextObject])  ) {
-        [outerDirEnum skipDescendents];
-        NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: tblkFilename];
-        BOOL isDir;
-        if (   ( ! [tblkFilename hasPrefix: @"."] )
-            && [tblkFilename hasSuffix: @".tblk"]
-            && [gFileMgr fileExistsAtPath: containerPath isDirectory: &isDir]
-            && isDir  ) {
-            NSString * newContainerPath = [[containerPath stringByDeletingPathExtension]	// Remove .tblk
-										   stringByAppendingPathEdition: edition];          // Add _<edition>
-			
-            edition  = [NSString stringWithFormat: @"%u", [edition intValue] + 1]; 			// Increment the edition #
-            
-
-            createDirWithPermissionAndOwnership(newContainerPath, PERMS_SECURED_FOLDER, 0, 0);
-            int status = rename([containerPath fileSystemRepresentation],
-								[[newContainerPath stringByAppendingPathComponent: tblkFilename] fileSystemRepresentation]);
-            if (  status != 0  ) {
-                appendLog([NSString stringWithFormat: @"Could not rename %@ to %@; error was %d = '%s'", containerPath, newContainerPath, errno, strerror(errno)]);
-                errorExit();
-            }
-			appendLog([NSString stringWithFormat: @"Enclosed %@ in %@", tblkFilename, newContainerPath]);
-        }
-    }
-}
-
 BOOL isLaunchDaemonLoaded(void) {
 	
 	// Must have uid=0 (not merely euid=0) for runTool(launchctl) to work properly
@@ -1198,8 +1157,6 @@ void doInitialWork(BOOL updateKexts) {
 		errorExit();
 	}
 
-	convertOldUpdatableConfigurations();
-	
 	// Rename /Library/LaunchDaemons/net.tunnelblick.startup.*
 	//     to                        net.tunnelblick.tunnelblick.startup.*
 	
