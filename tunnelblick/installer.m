@@ -2453,20 +2453,19 @@ int main(int argc, char *argv[])
 	appendLog([NSString stringWithFormat: @"getuid() = %ld; getgid() = %ld; geteuid() = %ld; getegid() = %ld",
 			   (long)gRealUserID, (long)gRealGroupID, (long)geteuid(), (long)getegid()]);
 
-    NSString * firstPath = nil;
+    NSString * firstArg = nil;
     if (  argc > 2  ) {
-        firstPath = [gFileMgr stringWithFileSystemRepresentation: argv[2] length: strlen(argv[2])];
+        firstArg = [gFileMgr stringWithFileSystemRepresentation: argv[2] length: strlen(argv[2])];
         if (   ( gPrivatePath == nil  )
-            || ( ! [firstPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfAnySymlinkInPath(firstPath);
+            || ( ! [firstArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
+            errorExitIfAnySymlinkInPath(firstArg);
         }
     }
-    NSString * secondPath = nil;
+    NSString * secondArg = nil;
     if (  argc > 3  ) {
-        secondPath = [gFileMgr stringWithFileSystemRepresentation: argv[3] length: strlen(argv[3])];
+        secondArg = [gFileMgr stringWithFileSystemRepresentation: argv[3] length: strlen(argv[3])];
         if (   ( gPrivatePath == nil  )
-            || ( ! [secondPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
-            errorExitIfAnySymlinkInPath(secondPath);
+            || ( ! [secondArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
         }
     }
     
@@ -2512,10 +2511,10 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
-    // (8) Install the .plist at firstPath to L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+    // (8) Install the .plist at firstArg to L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
     
     if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES  ) {
-		installForcedPreferences(firstPath, secondPath);
+		installForcedPreferences(firstArg, secondArg);
     }
     
     //**************************************************************************************************************************
@@ -2527,10 +2526,10 @@ int main(int argc, char *argv[])
 		    || (operation == INSTALLER_MOVE)
             || (operation == INSTALLER_INSTALL_PRIVATE_CONFIG)
 			)
-		&& firstPath
-		&& secondPath  ) {
+		&& firstArg
+		&& secondArg  ) {
 
-		doCopyOrMove(firstPath, secondPath, (operation == INSTALLER_MOVE));
+		doCopyOrMove(firstArg, secondArg, (operation == INSTALLER_MOVE));
     }
     
     //**************************************************************************************************************************
@@ -2538,7 +2537,7 @@ int main(int argc, char *argv[])
     // If requested, delete a single file or .tblk package (also deletes the shadow copy if deleting a private configuration)
 	
     if (  operation == INSTALLER_DELETE  ) {
-		deleteOneTblk(firstPath, secondPath);
+		deleteOneTblk(firstArg, secondArg);
     }
     
     //**************************************************************************************************************************
@@ -2568,20 +2567,20 @@ int main(int argc, char *argv[])
 	
 	//**************************************************************************************************************************
 	// (12) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
-	if (   firstPath
-		&& ( ! secondPath   )
+	if (   firstArg
+		&& ( ! secondArg   )
 		&& (  operation == INSTALLER_EXPORT_ALL)  ) {
-		exportToPath(firstPath);
+		exportToPath(firstArg);
 	}
 	
 	//**************************************************************************************************************************
-	// (13) If requested, import settings from the .tblkSetup at firstPath using username mapping in the string in "secondPath"
+	// (13) If requested, import settings from the .tblkSetup at firstArg using username mapping in the string in "secondArg"
 	//
-	//		NOTE: "secondPath" is not actually a path. It is a string that specifies the username mapping to use when importing.
+	//		NOTE: "secondArg" is a string that specifies the username mapping to use when importing.
 	if (   (operation == INSTALLER_IMPORT)
-		&& firstPath
-		&& secondPath  ) {
-		importSetup(firstPath, secondPath);
+		&& firstArg
+		&& secondArg  ) {
+		importSetup(firstArg, secondArg);
 	}
 	
     //**************************************************************************************************************************
