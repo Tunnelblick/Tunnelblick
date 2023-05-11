@@ -543,6 +543,13 @@
 //  describes username mapping)
 #define INSTALLER_IMPORT                     0x5000u
 
+// Install a private configuration
+// (First argument is username,
+//  second argument is path to
+//  the configuration)
+#define INSTALLER_INSTALL_PRIVATE_CONFIG     0x5000u
+
+
 
 //*************************************************************************************************
 // Size to use to minimize the left navigation area when it is inactive

@@ -2706,7 +2706,25 @@ int main(int argc, char *argv[]) {
 		&& firstArg
 		&& secondArg  ) {
 
+        if (  operation == INSTALLER_INSTALL_PRIVATE_CONFIG  ) {
+            if thirdArg
+        }
+
 		doCopyOrMove(firstArg, secondArg, (operation == INSTALLER_MOVE));
+    } else {
+        if (  operation == INSTALLER_INSTALL_PRIVATE_CONFIG  ) {
+            if ( argc < 4) {
+                appendLog(@"install private configuration requires a username and a path");
+                errorExit();
+            }
+            NSString * username = firstArg;
+            if (  ! [username isEqualToString: gUsername]  ) {
+                appendLog(@"install private configuration cannot be done for a different user");
+                errorExit();
+            }
+
+            doCopyOrMove(firstArg, secondArg, false);
+        }
     }
     
     //**************************************************************************************************************************
