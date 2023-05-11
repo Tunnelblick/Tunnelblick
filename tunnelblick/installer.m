@@ -2060,30 +2060,6 @@ void safeCopyPathToPathAndSetUidAndGid(NSString * sourcePath, NSString * targetP
 	appendLog([NSString stringWithFormat: @"%@ and set ownership to %@: %@", verb, formattedUserGroup(newUid, newGid), targetPath]);
 }
 
-NSInteger getUidOrGid(NSString * name, BOOL shouldGetGid) {
-
-	// Returns the UID or GID of a named user (but fails for user "root")
-	
-	NSString * stdoutString = nil;
-	NSArray  * arguments = [NSArray arrayWithObjects: (shouldGetGid ? @"-g" : @"-u"), name, nil];
-	OSStatus status = runTool(TOOL_PATH_FOR_ID, arguments, &stdoutString, nil);
-	if (  status != 0  ) {
-		appendLog([NSString stringWithFormat: @"Could not get %@ for %@", (shouldGetGid ? @"uid" : @"gid"), name]);
-		errorExit();
-	}
-	
-	unsigned int value = [stdoutString unsignedIntValue];
-	if (   (value == UINT_MAX)
-		|| (value == 0)  ) {
-		appendLog([NSString stringWithFormat: @"Could not get uid or gid for %@ (was UINT_MAX)", name]);
-		errorExit();
-	}
-	
-	return (  shouldGetGid
-			? (gid_t)value
-			: (uid_t)value);
-}
-
 void mergeConfigurations(NSString * sourcePath, NSString * targetPath, uid_t uid, gid_t gid, BOOL mergeIconSets) {
 	
 	// Adds folders in the source folder to the target folder, replacing existing folders in the target folder if they exist, and
@@ -2171,10 +2147,11 @@ void mergeGlobalUsersFolder(NSString * tblkSetupPath, NSDictionary * nameMap) {
 }
 
 void mergeSetupDataForOneUser(NSString * sourcePath, NSString * newUsername) {
-	
-	uid_t newUid = getUidOrGid(newUsername, NO);
-	gid_t newGid = getUidOrGid(newUsername, YES);
-	
+
+    uid_t newUid;
+    gid_t newGid;
+    getUidAndGidFromUsername(newUsername, &newUid, &newGid);
+
 	NSString * userHomeFolder = [@"/Users" stringByAppendingPathComponent: newUsername];
 	
 	NSString * userL_AS_TPath = [[[userHomeFolder
