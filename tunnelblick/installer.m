@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2023. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -47,10 +47,19 @@
 // Usage:
 //
 //     installer bitmask
-//     installer bitmask targetPath   [sourcePath]
-//	   installer bitmask sourcePath   usernameMappingString
-//     installer bitmask targetPath   sourcePath             username
+//               (for most operations)
 //
+//     installer bitmask  targetPath
+//               (for delete configuration)
+//
+//     installer bitmask  targetPath  sourcePath
+//               (for copy/move configuration)
+//
+//     installer bitmask  sourcePath  usernameMappingString
+//               (for import .tblksetup)
+//
+//     installer bitmask  username  sourcePath
+//               (for copy private configurations)
 // where
 //
 //	   bitMask DETERMINES WHAT THE INSTALLER WILL DO (see defines.h for bit assignments)
@@ -119,6 +128,14 @@
 FILE          * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
+
+// The following variables contain info about the user. They may be zero or nil if not needed.
+// If invoked by Tunnelblick, they will be set up using the uid from getuid().
+// If invoked by sudo or similar (which has getuid() == 0):
+//    * If this is the 'install private config' operation, they will be set up using the provided username.
+//    * If one of the arguments to installer is a path in the user's home folder or a subfolder, they will
+//      be set up for that user.
+//    * Otherwise, they will be set to zero or nil.
 uid_t           gUserID = 0;
 gid_t           gGroupID = 0;
 NSString      * gUsername = nil;
@@ -131,6 +148,8 @@ NSAutoreleasePool * pool;
 BOOL            gSecureTblks;				  // Set initially if all .tblks need to be secured.
 
 //**************************************************************************************************************************
+
+// LOGGING AND ERROR HANDLING
 
 void errorExit(void);
 
@@ -1226,7 +1245,7 @@ void secureTheApp(NSString * appResourcesPath) {
 	NSString *openvpnstartPath          = [appResourcesPath stringByAppendingPathComponent:@"openvpnstart"                                   ];
 	NSString *openvpnPath               = [appResourcesPath stringByAppendingPathComponent:@"openvpn"                                        ];
 	NSString *atsystemstartPath         = [appResourcesPath stringByAppendingPathComponent:@"atsystemstart"                                  ];
-	NSString *installerPath             = [appResourcesPath stringByAppendingPathComponent:@"installer"                                      ];
+	NSString *installerPath             = [appResourcesPath stringByAppendingPathComponent:@"installer"                          ];
 	NSString *ssoPath                   = [appResourcesPath stringByAppendingPathComponent:@"standardize-scutil-output"                      ];
 	NSString *pncPath                   = [appResourcesPath stringByAppendingPathComponent:@"process-network-changes"                        ];
     NSString *uninstallerScriptPath     = [appResourcesPath stringByAppendingPathComponent:@"tunnelblick-uninstaller.sh"                     ];
@@ -2371,8 +2390,7 @@ void importSetup(NSString * tblkSetupPath, NSString * usernameMap) {
 //**************************************************************************************************************************
 //**************************************************************************************************************************
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 	pool = [NSAutoreleasePool new];
 	
     gFileMgr = [NSFileManager defaultManager];
