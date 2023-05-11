@@ -639,6 +639,7 @@ BOOL removeQuarantineBitWorker(NSString * path) {
     
     return TRUE;
 }
+
 BOOL removeQuarantineBit(void) {
     
     NSString * tbPath = @"/Applications/Tunnelblick.app";
@@ -941,6 +942,24 @@ void errorExitIfAnySymlinkInPath(NSString * path) {
 		
 		curPath = [curPath stringByDeletingLastPathComponent];
 	}
+}
+
+NSArray * configurationPathsFromPath(NSString * path) {
+
+    NSString * privatePath = gPrivatePath;
+    if (  privatePath == nil  ) {
+        NSString * username = usernameFromPossiblePrivatePath(path);
+        if (  username != nil  ) {
+            privatePath = privatePathFromUsername(username);
+        }
+    }
+
+    NSArray * paths = [NSArray arrayWithObjects:
+                       gDeployPath,
+                       L_AS_T_SHARED,
+                       privatePath, // May be nil, so must be last
+                       nil];
+    return paths;
 }
 
 NSString * firstPartOfPath(NSString * path) {
