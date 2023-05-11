@@ -24,6 +24,7 @@
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 #include <pwd.h>
+#import <OpenDirectory/OpenDirectory.h>
 #import <sys/stat.h>
 #import <sys/time.h>
 #import <sys/xattr.h>
@@ -350,6 +351,67 @@ void getUidAndGidFromUsername(NSString * username, uid_t * uid_ptr, gid_t * gid_
         appendLog(@"Cannot run installer using username 'root'");
         errorExit();
     }
+}
+
+BOOL usernameIsValid(NSString * username) {
+
+    // Modified from Dave DeLong's updated answer to his own question at
+    // https://stackoverflow.com/questions/1303561/list-of-all-users-and-groups
+
+    ODSession * session = ODSession.defaultSession;
+    ODNode * root = [ODNode nodeWithSession: session
+                                       name: @"/Local/Default"
+                                      error: nil];
+    ODQuery * q = [ODQuery queryWithNode: root
+                          forRecordTypes: kODRecordTypeUsers
+                               attribute: nil
+                               matchType: 0
+                             queryValues: nil
+                        returnAttributes: nil
+                          maximumResults: 0
+                                   error: nil];
+
+    NSArray * results = [q resultsAllowingPartial: NO
+                                            error: nil];
+
+    for (  ODRecord * r in results  ) {
+        if (  [username isEqualToString [r recordName]]  ) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+NSString * usernameFromPossiblePrivatePath(NSString * path) {
+
+    if (  ! [path hasPrefix: @"/Users/"]  ) {
+        return nil;
+    }
+
+    NSRange afterUsersSlash = NSMakeRange([@"/Users/" length], [path length] - [@"/Users/" length]);
+    NSRange slashAfterName = [path rangeOfString: @"/" options: 0 range: afterUsersSlash];
+    if (  slashAfterName.location == NSNotFound  ) {
+        return nil;
+    }
+
+    NSString * username = [path substringWithRange: NSMakeRange([@"/Users/" length], slashAfterName.location)];
+    if (  usernameIsValid(username)  ) {
+        return username;
+    }
+
+    return nil;
+}
+
+NSString * privatePathFromUsername(NSString * username) {
+
+    NSString * privatePath = [[[[[@"/Users/"
+                                  stringByAppendingPathComponent: username]
+                                 stringByAppendingPathComponent: @"Library"]
+                                stringByAppendingPathComponent: @"Application Support"]
+                               stringByAppendingPathComponent: @"Tunnelblick"]
+                              stringByAppendingPathComponent: @"Configurations"];
+    return privatePath;
 }
 
 void resolveSymlinksInPath(NSString * targetPath) {
