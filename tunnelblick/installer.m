@@ -414,6 +414,84 @@ NSString * privatePathFromUsername(NSString * username) {
     return privatePath;
 }
 
+void setupUserGlobalsFromGUsername(void) {
+
+    gHomeDirectory = [@"/Users" stringByAppendingPathComponent: gUsername];
+    gPrivatePath = [[[[gHomeDirectory
+                       stringByAppendingPathComponent: @"Library"]
+                      stringByAppendingPathComponent: @"Application Support"]
+                     stringByAppendingPathComponent: @"Tunnelblick"]
+                    stringByAppendingPathComponent: @"Configurations"];
+
+    getUidAndGidFromUsername(gUsername, &gUserID, &gGroupID);
+    gGroupID = privateFolderGroup(gPrivatePath);
+}
+
+void setupUserGlobals(int argc, char *argv[], unsigned operation) {
+
+    gUserID = getuid();
+
+    if (  gUserID == 0  ) {
+        //
+        // Calculate user info from uid
+        //
+        // (Already have gUserID)
+        gUsername = NSUserName();
+        gHomeDirectory = NSHomeDirectory();
+        gPrivatePath = [[[[gHomeDirectory
+                           stringByAppendingPathComponent: @"Library"]
+                          stringByAppendingPathComponent: @"Application Support"]
+                         stringByAppendingPathComponent: @"Tunnelblick"]
+                        stringByAppendingPathComponent: @"Configurations"];
+        gGroupID = privateFolderGroup(gPrivatePath);
+    } else if (   operation == INSTALLER_INSTALL_PRIVATE_CONFIG  ) {
+        //
+        // Calculate user info from username given as an argument
+        //
+
+        if (  argc != 3  ) {
+            appendLog(@"Must provide path and username when copying a private configuration");
+            errorExit();
+        }
+
+        gUsername = [NSString stringWithCString: argv[2] encoding: NSASCIIStringEncoding];
+        if (   ( gUsername == nil )
+            || ( ! usernameIsValid(gUsername) )  ) {
+            appendLog(@"Second argument must be a valid username");
+            errorExit();
+        }
+
+        setupUserGlobalsFromGUsername();
+
+    } else {
+        //
+        // Calculate user info from a private path if one is provided as an argument
+        //
+        for (  int i=2; i<argc; i++  ) {
+            gUsername = usernameFromPossiblePrivatePath([NSString stringWithCString: argv[i] encoding: NSUTF8StringEncoding]);
+            if (  gUsername  ) {
+                break;
+            }
+        }
+
+        if (  gUsername != nil  ) {
+            setupUserGlobalsFromGUsername();
+        } else {
+            //
+            // Give up: set user info to zeros and nils.
+            // For many operations (load kexts, etc.) it isn't needed.
+            //
+            gUserID = 0;
+            gGroupID = 0;
+            gUsername = nil;
+            gPrivatePath = nil;
+            gHomeDirectory = nil;
+        }
+    }
+}
+
+// MISC
+
 void resolveSymlinksInPath(NSString * targetPath) {
 	
 	// There are symlinks in a .tblk for files which are not readable by the user but should be propagated from one configuration to another when installing an updated configuration.
