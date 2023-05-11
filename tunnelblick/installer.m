@@ -1006,8 +1006,8 @@ void createAndSecureFolder(NSString * path) {
 
     BOOL private = [path hasPrefix: [[userPrivatePath() stringByDeletingLastPathComponent] stringByAppendingString: @"/"]];
     if (  private  ) {
-        grp   = privateFolderGroup(path);
         own   = userUID();
+        grp   = userGID();
         perms = privateFolderPermissions(path);
     }
     errorExitIfAnySymlinkInPath(path);
@@ -1179,6 +1179,7 @@ NSString * kextPathThatExists(NSString * resourcesPath, NSString * nameOne, NSSt
 
     return nil;
 }
+
 void installOrUpdateKexts(BOOL forceInstall) {
 
     // Update or install the kexts at most once each time installer is invoked
@@ -1313,12 +1314,11 @@ void doInitialWork(BOOL updateKexts) {
 		}
 	}
     
-	NSString * userL_AS_T_Path= [[[NSHomeDirectory()
+	NSString * userL_AS_T_Path= [[[userHomeDirectory()
 								   stringByAppendingPathComponent: @"Library"]
 								  stringByAppendingPathComponent: @"Application Support"]
 								 stringByAppendingPathComponent: @"Tunnelblick"];
 	
-	gid_t  group = privateFolderGroup(userL_AS_T_Path);
 	mode_t permissions = privateFolderPermissions(userL_AS_T_Path);
 	
 	if (  ! createDirWithPermissionAndOwnership(userL_AS_T_Path,
@@ -1790,6 +1790,7 @@ void structureTblkProperly(NSString * path) {
         }
     }
 }
+
 void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy) {
 	
 	if (   ( ! firstPath )
@@ -1861,6 +1862,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 	
 	// Resolve symlinks
 	// Do the move or copy
+	// Restructure the target if necessary
 	// Secure the target
 	//
 	// If   we MOVED OR COPIED TO PRIVATE
@@ -1874,6 +1876,8 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 	safeCopyOrMovePathToPath(sourcePath, targetPath, moveNotCopy);
 	
     structureTblkProperly(targetPath);
+
+    BOOL targetIsPrivate = [targetPath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]];
 	uid_t uid = (  targetIsPrivate
 				 ? userUID()
 				 : 0);
@@ -1885,7 +1889,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 		
 		NSString * shadowTargetPath   = [NSString stringWithFormat: @"%@/%@/%@",
 										 L_AS_T_USERS,
-										 NSUserName(),
+										 userUsername(),
 										 lastPartOfTarget];
 		
 		errorExitIfAnySymlinkInPath(shadowTargetPath);
@@ -1924,7 +1928,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 			NSString * lastPartOfSource = lastPartOfPath(sourcePath);
 			NSString * shadowSourcePath   = [NSString stringWithFormat: @"%@/%@/%@",
 											 L_AS_T_USERS,
-											 NSUserName(),
+											 userUsername(),
 											 lastPartOfSource];
 			if (  [gFileMgr fileExistsAtPath: shadowSourcePath]  ) {
 				if (  ! deleteThingAtPath(shadowSourcePath)  ) {
