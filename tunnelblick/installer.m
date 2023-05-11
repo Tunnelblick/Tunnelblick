@@ -1894,13 +1894,10 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 		
 		errorExitIfAnySymlinkInPath(shadowTargetPath);
 		
-		BOOL deletedOldShadowCopy = FALSE;
 		if (  [gFileMgr fileExistsAtPath: shadowTargetPath]  ) {
 			if (  ! deleteThingAtPath(shadowTargetPath)  ) {
 				errorExit();
 			}
-			
-			deletedOldShadowCopy = TRUE;
 		}
 		
 		// Create container for shadow copy
@@ -1915,12 +1912,6 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 		safeCopyPathToPath(targetPath, shadowTargetPath);	// Copy the target because the source may have _moved_ to the target
 		
 		secureOneFolder(shadowTargetPath, NO, 0);
-		
-		if (  deletedOldShadowCopy  ) {
-			appendLog([NSString stringWithFormat: @"Updated secure (shadow) copy of %@", lastPartOfTarget]);
-		} else {
-			appendLog([NSString stringWithFormat: @"Created secure (shadow) copy of %@", lastPartOfTarget]);
-		}
 	}
 	
 	if (  [sourcePath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]]  ) {
@@ -1935,7 +1926,6 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 					errorExit();
 				}
 			}
-			appendLog([NSString stringWithFormat: @"Deleted secure (shadow) copy of %@", lastPartOfSource]);
 		}
 	}
 }
