@@ -2544,33 +2544,45 @@ int main(int argc, char *argv[]) {
 	
     gFileMgr = [NSFileManager defaultManager];
 	
-    if (  (argc < 2)  || (argc > 4)  ) {
+    if (  argc < 2  ) {
 		openLog(FALSE);
-        appendLog([NSString stringWithFormat: @"Wrong number of arguments -- expected 1 to 3, given %d", argc-1]);
+        appendLog(@"1 or more arguments are required");
         errorExit();
 	}
 
-    unsigned arg1 = (unsigned) strtol(argv[1], NULL, 10);
-	
-	BOOL doClearLog               = (arg1 & INSTALLER_CLEAR_LOG) != 0;
-    BOOL doCopyApp                = (arg1 & INSTALLER_COPY_APP) != 0;
-    BOOL doSecureApp              =    doCopyApp
-								    || ( (arg1 & INSTALLER_SECURE_APP)   != 0 );
-    BOOL doForceLoadLaunchDaemon  = (arg1 & INSTALLER_REPLACE_DAEMON) != 0;
-    BOOL doUninstallKexts         = (arg1 & INSTALLER_UNINSTALL_KEXTS) != 0;
+    unsigned opsAndFlags = (unsigned) strtol(argv[1], NULL, 10);
+
+    BOOL doClearLog = (opsAndFlags & INSTALLER_CLEAR_LOG) != 0;
+    openLog(doClearLog);
+
+    // Log the arguments installer was started with
+    NSMutableString * logString = [NSMutableString stringWithFormat: @"Tunnelblick installer started %@; getuid() = %d; getgid() = %d; %d arguments:\n",
+                                   [[NSDate date] tunnelblickUserLogRepresentation], getuid(), getgid(), argc - 1];
+    [logString appendFormat:@"     0x%04x", opsAndFlags];
+    int i;
+    for (  i=2; i<argc; i++  ) {
+        [logString appendFormat: @"\n     %@", [NSString stringWithUTF8String: argv[i]]];
+    }
+    appendLog(logString);
+
+    unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK) >> INSTALLER_OPERATION_SHIFT_COUNT;
+
+    // Set up booleans that describe what operations are to be done
+
+    BOOL doCopyApp                = (opsAndFlags & INSTALLER_COPY_APP) != 0;
+    BOOL doSecureApp              = (   doCopyApp
+								     || ( (opsAndFlags & INSTALLER_SECURE_APP) != 0 )
+                                     );
+    BOOL doForceLoadLaunchDaemon  = (opsAndFlags & INSTALLER_REPLACE_DAEMON) != 0;
+    BOOL doUninstallKexts         = (operation == INSTALLER_UNINSTALL_KEXTS);
     
-    // Uinstall kexts overrides install kexts
+    // Uninstall kexts overrides install kexts
     BOOL doInstallKexts           = (   ( ! doUninstallKexts )
-                                     && ((arg1 & INSTALLER_INSTALL_KEXTS) != 0)  );
+                                     && (operation == INSTALLER_INSTALL_KEXTS)  );
 
-	unsigned int operation = (arg1 & INSTALLER_OPERATION_MASK);
-	
-	// Note: gSecureTblks will also be set to TRUE later if any private .ovpn or .conf configurations were converted to .tblks
 	gSecureTblks = (   doCopyApp
-						 || ( (arg1 & INSTALLER_SECURE_TBLKS) != 0 ) );
+                    || ( (opsAndFlags & INSTALLER_SECURE_TBLKS) != 0 ) );
 
-	openLog(  doClearLog  );
-	
 	NSBundle * ourBundle = [NSBundle mainBundle];
 	NSString * resourcesPath = [ourBundle bundlePath]; // (installer itself is in Resources)
     NSArray  * execComponents = [resourcesPath pathComponents];
@@ -2590,22 +2602,11 @@ int main(int argc, char *argv[]) {
 	gDeployPath = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
 #endif
     
+    // Set up globals that have to do with the user
+    setupUserGlobals(argc, argv, operation);
 
-	// Log the arguments installer was started with
-	unsigned long firstArg = strtoul(argv[1], NULL, 10);
-	NSMutableString * argString = [NSMutableString stringWithFormat: @" 0x%04lx", firstArg];
-	int i;
-	for (  i=2; i<argc; i++  ) {
-		[argString appendFormat: @"\n     %@", [NSString stringWithUTF8String: argv[i]]];
-	}
-	NSString * dateMsg = [[NSDate date] tunnelblickUserLogRepresentation];
-	
-	appendLog([NSString stringWithFormat: @"Tunnelblick installer started %@. %d arguments:%@", dateMsg, argc - 1, argString]);
-	
-    gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
-    
     // If we copy the .app to /Applications, other changes to the .app affect THAT copy, otherwise they affect the currently running copy
-    NSString * appResourcesPath = (doCopyApp
+    NSString * appResourcesPath = (  doCopyApp
                                    
                                    ? [[[@"/Applications"
                                         stringByAppendingPathComponent: [ourAppName stringByAppendingPathExtension: @"app"]]
@@ -2614,12 +2615,6 @@ int main(int argc, char *argv[]) {
 
                                    : [[resourcesPath copy] autorelease]);
     
-    gRealUserID  = getuid();
-    gRealGroupID = getgid();
-
-	appendLog([NSString stringWithFormat: @"getuid() = %ld; getgid() = %ld; geteuid() = %ld; getegid() = %ld",
-			   (long)gRealUserID, (long)gRealGroupID, (long)geteuid(), (long)getegid()]);
-
     NSString * firstArg = nil;
     if (  argc > 2  ) {
         firstArg = [gFileMgr stringWithFileSystemRepresentation: argv[2] length: strlen(argv[2])];
@@ -2633,6 +2628,7 @@ int main(int argc, char *argv[]) {
         secondArg = [gFileMgr stringWithFileSystemRepresentation: argv[3] length: strlen(argv[3])];
         if (   ( gPrivatePath == nil  )
             || ( ! [secondArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
+            errorExitIfAnySymlinkInPath(secondArg);
         }
     }
     
@@ -2691,7 +2687,6 @@ int main(int argc, char *argv[]) {
     // from one disk to another (e.g., home folder on network to local hard drive)
 	if (   (   (operation == INSTALLER_COPY )
 		    || (operation == INSTALLER_MOVE)
-            || (operation == INSTALLER_INSTALL_PRIVATE_CONFIG)
 			)
 		&& firstArg
 		&& secondArg  ) {
