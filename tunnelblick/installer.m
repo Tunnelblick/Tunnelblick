@@ -963,40 +963,34 @@ NSArray * configurationPathsFromPath(NSString * path) {
 }
 
 NSString * firstPartOfPath(NSString * path) {
-	
-	NSArray * paths = [NSArray arrayWithObjects:
-					   userPrivatePath(),
-					   gDeployPath,
-					   L_AS_T_SHARED, nil];
-	NSEnumerator * arrayEnum = [paths objectEnumerator];
-	NSString * configFolder;
-	while (  (configFolder = [arrayEnum nextObject])  ) {
-		if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
-			return configFolder;
-		}
-	}
-	return nil;
+
+    NSArray * paths = configurationPathsFromPath(path);
+    NSEnumerator * arrayEnum = [paths objectEnumerator];
+    NSString * configFolder;
+    while (  (configFolder = [arrayEnum nextObject])  ) {
+        if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
+            return configFolder;
+        }
+    }
+    return nil;
 }
 
 NSString * lastPartOfPath(NSString * path) {
-	
-	NSArray * paths = [NSArray arrayWithObjects:
-					   userPrivatePath(),
-					   gDeployPath,
-					   L_AS_T_SHARED, nil];
-	NSEnumerator * arrayEnum = [paths objectEnumerator];
-	NSString * configFolder;
-	while (  (configFolder = [arrayEnum nextObject])  ) {
-		if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
-			if (  [path length] > [configFolder length]  ) {
-				return [path substringFromIndex: [configFolder length]+1];
-			} else {
-				appendLog([NSString stringWithFormat: @"No display name in path '%@'", path]);
-				return @"X";
-			}
-		}
-	}
-	return nil;
+
+    NSArray * paths = configurationPathsFromPath(path);
+    NSEnumerator * arrayEnum = [paths objectEnumerator];
+    NSString * configFolder;
+    while (  (configFolder = [arrayEnum nextObject])  ) {
+        if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
+            if (  [path length] > [configFolder length]  ) {
+                return [path substringFromIndex: [configFolder length]+1];
+            } else {
+                appendLog([NSString stringWithFormat: @"No display name in path '%@'", path]);
+                return @"X";
+            }
+        }
+    }
+    return nil;
 }
 
 void createAndSecureFolder(NSString * path) {
