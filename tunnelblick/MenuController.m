@@ -7082,7 +7082,7 @@ static BOOL runningHookupThread = FALSE;
 													 | INSTALLER_SECURE_TBLKS
 													 | (  forcedPlistToInstallPath
                                                         ? INSTALLER_INSTALL_FORCED_PREFERENCES
-                                                        : INSTALLER_NOOP)
+                                                        : 0)
                                                      )
 									extraArguments: (  forcedPlistToInstallPath
                                                      ? [NSArray arrayWithObject: forcedPlistToInstallPath]

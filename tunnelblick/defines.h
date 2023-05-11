@@ -509,6 +509,7 @@
 // or two additional arguments
 
 #define INSTALLER_OPERATION_MASK			 0xF000u
+#define INSTALLER_OPERATION_SHIFT_COUNT      12
 
 // Copy one configuration
 // (Only if two paths are additional

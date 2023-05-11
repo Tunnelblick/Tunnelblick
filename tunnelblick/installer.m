@@ -201,20 +201,6 @@ void closeLog(void) {
 	}
 }
 
-void errorExit() {
-
-#ifdef TBDebug
-    appendLog([NSString stringWithFormat: @"installer: errorExit: Stack trace: %@", callStack()]);
-#endif
-
-    // Leave AUTHORIZED_ERROR_PATH to indicate an error occurred
-    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
-    closeLog();
-
-    [pool drain];
-    exit(EXIT_FAILURE);
-}
-
 void deleteFlagFile(NSString * path) {
 
     const char * fsrPath = [path fileSystemRepresentation];
@@ -230,6 +216,20 @@ void deleteFlagFile(NSString * path) {
     } else if (  errno != ENOENT  ) { // Ignore no such file
         appendLog([NSString stringWithFormat: @"stat of %@ failed\nError was %d ('%s')", path, errno, strerror(errno)]);
     }
+}
+
+void errorExit() {
+
+#ifdef TBDebug
+    appendLog([NSString stringWithFormat: @"installer: errorExit: Stack trace: %@", callStack()]);
+#endif
+
+    // Leave AUTHORIZED_ERROR_PATH to indicate an error occurred
+    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
+    closeLog();
+
+    [pool drain];
+    exit(EXIT_FAILURE);
 }
 
 void freeAuthRef(AuthorizationRef authRef) {
@@ -375,7 +375,7 @@ BOOL usernameIsValid(NSString * username) {
                                             error: nil];
 
     for (  ODRecord * r in results  ) {
-        if (  [username isEqualToString [r recordName]]  ) {
+        if (  [username isEqualToString: [r recordName]]  ) {
             return YES;
         }
     }
@@ -1770,7 +1770,7 @@ void structureTblkProperly(NSString * path) {
     while (  (entry = [dirE nextObject])  ) {
         NSString * fullPath = [path stringByAppendingPathComponent: entry];
         BOOL isDir;
-        if (   ( ! [entry hasPrefix @"."] )
+        if (   ( ! [entry hasPrefix: @"."] )
             && [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
             && ( ! isDir )  ) {
             if (  [entry isEqualToString: @"Info.plist"]  ) {
@@ -2690,10 +2690,6 @@ int main(int argc, char *argv[]) {
 			)
 		&& firstArg
 		&& secondArg  ) {
-
-        if (  operation == INSTALLER_INSTALL_PRIVATE_CONFIG  ) {
-            if thirdArg
-        }
 
 		doCopyOrMove(firstArg, secondArg, (operation == INSTALLER_MOVE));
     } else {
