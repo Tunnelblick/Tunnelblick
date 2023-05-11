@@ -200,6 +200,50 @@ void closeLog(void) {
 	}
 }
 
+void errorExit() {
+
+#ifdef TBDebug
+    appendLog([NSString stringWithFormat: @"installer: errorExit: Stack trace: %@", callStack()]);
+#endif
+
+    // Leave AUTHORIZED_ERROR_PATH to indicate an error occurred
+    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
+    closeLog();
+
+    [pool drain];
+    exit(EXIT_FAILURE);
+}
+
+void deleteFlagFile(NSString * path) {
+
+    const char * fsrPath = [path fileSystemRepresentation];
+    struct stat sb;
+    if (  0 == stat(fsrPath, &sb)  ) {
+        if (  (sb.st_mode & S_IFMT) == S_IFREG  ) {
+            if (  0 != unlink(fsrPath)  ) {
+                appendLog([NSString stringWithFormat: @"Unable to delete %@", path]);
+            }
+        } else {
+            appendLog([NSString stringWithFormat: @"%@ is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode]);
+        }
+    } else if (  errno != ENOENT  ) { // Ignore no such file
+        appendLog([NSString stringWithFormat: @"stat of %@ failed\nError was %d ('%s')", path, errno, strerror(errno)]);
+    }
+}
+
+void freeAuthRef(AuthorizationRef authRef) {
+
+    if (  authRef != NULL  ) {
+        OSStatus status = AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+        if (  status != errAuthorizationSuccess  ) {
+            appendLog([NSString stringWithFormat: @"AuthorizationFree) returned %ld", (long)status]);
+            errorExit();
+        }
+    }
+}
+
+// USER INFORMATION
+
 NSString * userUsername(void) {
 
     if (  gUsername != nil  ) {
@@ -253,48 +297,6 @@ gid_t userGID(void) {
     appendLog(@"Tried to access userGID, which was not set");
     errorExit();
     return 0; // Satisfy analyzer
-}
-
-void deleteFlagFile(NSString * path) {
-    
-	const char * fsrPath = [path fileSystemRepresentation];
-    struct stat sb;
-	if (  0 == stat(fsrPath, &sb)  ) {
-        if (  (sb.st_mode & S_IFMT) == S_IFREG  ) {
-            if (  0 != unlink(fsrPath)  ) {
-                appendLog([NSString stringWithFormat: @"Unable to delete %@", path]);
-            }
-        } else {
-            appendLog([NSString stringWithFormat: @"%@ is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode]);
-        }
-    } else if (  errno != ENOENT  ) { // Ignore no such file
-        appendLog([NSString stringWithFormat: @"stat of %@ failed\nError was %d ('%s')", path, errno, strerror(errno)]);
-    }
-}
-
-void errorExit() {
-    
-#ifdef TBDebug
-    appendLog([NSString stringWithFormat: @"installer: errorExit: Stack trace: %@", callStack()]);
-#endif
-	
-    // Leave AUTHORIZED_ERROR_PATH to indicate an error occurred
-    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
-	closeLog();
-    
-    [pool drain];
-    exit(EXIT_FAILURE);
-}
-
-void freeAuthRef(AuthorizationRef authRef) {
-	
-	if (  authRef != NULL  ) {
-		OSStatus status = AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-		if (  status != errAuthorizationSuccess  ) {
-			appendLog([NSString stringWithFormat: @"AuthorizationFree) returned %ld", (long)status]);
-			errorExit();
-		}
-	}
 }
 
 void getUidAndGidFromUsername(NSString * username, uid_t * uid_ptr, gid_t * gid_ptr) {
