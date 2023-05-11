@@ -505,21 +505,27 @@
 
 //********************************************
 // PRIMARY OPERATION CODES
-// Each primary operation also requires one
+// Each primary operation also requires zero
 // or two additional arguments
 
 #define INSTALLER_OPERATION_MASK			 0xF000u
 
 // Copy one configuration
+// (Only if two paths are additional
+// arguments: target path, source path)
 #define INSTALLER_COPY						 0x0000u
 
 // Move one configuration
+// (Additional arguments are target path,
+//  source path)
 #define INSTALLER_MOVE						 0x1000u
 
 // Delete one configuration
+// (Additional argument is the path)
 #define INSTALLER_DELETE                     0x2000u
 
-// Copy one file to
+// Copy one file to forced preferences
+// (Additional argument is the path)
 // L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
 #define INSTALLER_INSTALL_FORCED_PREFERENCES 0x3000u
 
@@ -527,9 +533,14 @@
 // users (configurations and preferences but
 // not Keychain items) to a .tblkSetup, then
 // compress that to a .tar.gz on the Desktop
+// (No additional arguments)
 #define INSTALLER_EXPORT_ALL                 0x4000u
 
-// Import from a .tblkSetup using a string that defines username mapping
+// Import from a .tblkSetup using a string
+// that defines username mapping
+// (First additional argument is the path to
+//  the .tblksetup; second is a string that
+//  describes username mapping)
 #define INSTALLER_IMPORT                     0x5000u
 
 
