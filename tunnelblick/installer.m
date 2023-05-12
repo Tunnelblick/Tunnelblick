@@ -383,19 +383,32 @@ BOOL usernameIsValid(NSString * username) {
     return NO;
 }
 
+NSString * makePathAbsolute(NSString * path) {
+
+    NSString * standardizedPath = [path stringByStandardizingPath];
+    NSURL * url = [NSURL fileURLWithPath: standardizedPath];
+    url = [url absoluteURL];
+    const char * pathC = [url fileSystemRepresentation];
+    NSString * absolutePath = [NSString stringWithCString: pathC encoding: NSUTF8StringEncoding];
+
+    return absolutePath;
+}
+
 NSString * usernameFromPossiblePrivatePath(NSString * path) {
 
-    if (  ! [path hasPrefix: @"/Users/"]  ) {
+    NSString * absolutePath = makePathAbsolute(path);
+
+    if (  ! [absolutePath hasPrefix: @"/Users/"]  ) {
         return nil;
     }
 
-    NSRange afterUsersSlash = NSMakeRange([@"/Users/" length], [path length] - [@"/Users/" length]);
-    NSRange slashAfterName = [path rangeOfString: @"/" options: 0 range: afterUsersSlash];
+    NSRange afterUsersSlash = NSMakeRange([@"/Users/" length], [absolutePath length] - [@"/Users/" length]);
+    NSRange slashAfterName = [absolutePath rangeOfString: @"/" options: 0 range: afterUsersSlash];
     if (  slashAfterName.location == NSNotFound  ) {
         return nil;
     }
 
-    NSString * username = [path substringWithRange: NSMakeRange(afterUsersSlash.location, slashAfterName.location - afterUsersSlash.location)];
+    NSString * username = [absolutePath substringWithRange: NSMakeRange(afterUsersSlash.location, slashAfterName.location - afterUsersSlash.location)];
     if (  usernameIsValid(username)  ) {
         return username;
     }
@@ -500,6 +513,21 @@ void setupUserGlobals(int argc, char *argv[], unsigned operation) {
 }
 
 // MISC
+
+BOOL isPathPrivate(NSString * path) {
+
+//    NSString * absolutePath = [path stringByStandardizingPath];
+//    if (  ! [path hasPrefix: @"/"]  ) {
+//        absolutePath = [[gFileMgr currentDirectoryPath] stringByAppendingPathComponent: absolutePath];
+//    }
+
+    NSString * absolutePath = makePathAbsolute(path);
+
+    BOOL isPrivate = (   [absolutePath hasPrefix: @"/Users/"]
+                      && [absolutePath hasPrefix: [[userPrivatePath() stringByDeletingLastPathComponent] stringByAppendingString: @"/"]]
+                      );
+    return isPrivate;
+}
 
 void resolveSymlinksInPath(NSString * targetPath) {
 	
@@ -1013,7 +1041,7 @@ void createAndSecureFolder(NSString * path) {
     gid_t  grp   = 0;
     mode_t perms = PERMS_SECURED_FOLDER;
 
-    BOOL private = [path hasPrefix: [[userPrivatePath() stringByDeletingLastPathComponent] stringByAppendingString: @"/"]];
+    BOOL private = isPathPrivate(path);
     if (  private  ) {
         own   = userUID();
         grp   = userGID();
@@ -1633,7 +1661,7 @@ void secureAllTblks(void) {
 	unsigned i;
 	for (i=0; i < [foldersToSecure count]; i++) {
 		NSString * folderPath = [foldersToSecure objectAtIndex: i];
-		BOOL isPrivate = [folderPath hasPrefix: userPrivatePath()];
+		BOOL isPrivate = isPathPrivate(folderPath);
 		okSoFar = okSoFar && secureOneFolder(folderPath, isPrivate, userUID());
 	}
 	
@@ -1865,7 +1893,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 	
     structureTblkProperly(targetPath);
 
-    BOOL targetIsPrivate = [targetPath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]];
+    BOOL targetIsPrivate = isPathPrivate(targetPath);
 	uid_t uid = (  targetIsPrivate
 				 ? userUID()
 				 : 0);
@@ -1902,7 +1930,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 		secureOneFolder(shadowTargetPath, NO, 0);
 	}
 	
-	if (  [sourcePath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]]  ) {
+	if (  isPathPrivate(sourcePath)  ) {
 		if (  moveNotCopy  ) {
 			NSString * lastPartOfSource = lastPartOfPath(sourcePath);
 			NSString * shadowSourcePath   = [NSString stringWithFormat: @"%@/%@/%@",
@@ -1940,7 +1968,7 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 		}
 		
 		// Delete shadow copy, too, if it exists
-		if (  [firstPartOfPath(firstPath) isEqualToString: userPrivatePath()]  ) {
+		if (  isPathPrivate(firstPath)  ) {
 			NSString * shadowCopyPath = [NSString stringWithFormat: @"%@/%@/%@",
 										 L_AS_T_USERS,
 										 userUsername(),
