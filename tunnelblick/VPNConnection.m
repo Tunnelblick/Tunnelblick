@@ -1605,14 +1605,14 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 	
 	[gTbDefaults setBool: NO forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
 	
-	NSString * logText = [NSString stringWithFormat:@"Attempting connection with %@%@; Set nameserver = %@%@",
+	NSString * logText = [NSString stringWithFormat:@"Attempting connection with %@%@; Set nameserver = 0x%08x%@",
 						  [self displayName],
 						  (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"1"]
 						   ? @" using shadow copy"
 						   : (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"]
 							  ? @" from Deploy"
 							  : @""  )  ),
-						  [argumentsUsedToStartOpenvpnstart objectAtIndex: 3],
+						  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 3] unsignedIntValue],
 						  (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 6] isEqualToString:@"1"]
 						   ? @"; not monitoring connection"
 						   : @"; monitoring connection" )
@@ -1626,6 +1626,11 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
         NSString * escapedArgument = [[[argumentsUsedToStartOpenvpnstart objectAtIndex: i]
                                        componentsSeparatedByString: @" "]
                                       componentsJoinedByString: @"\\ "];
+        if (   (i == 7)
+            || (i == 3)  ) { // Display bitmasks in hex
+            escapedArgument = [NSString stringWithFormat: @"0x%08x", [escapedArgument unsignedIntValue]];
+        }
+
         [escapedArguments appendString: [escapedArgument stringByAppendingString: @" "]];
 	}
     [escapedArguments appendString: @"<password>"];
