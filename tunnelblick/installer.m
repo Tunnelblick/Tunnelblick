@@ -395,7 +395,7 @@ NSString * usernameFromPossiblePrivatePath(NSString * path) {
         return nil;
     }
 
-    NSString * username = [path substringWithRange: NSMakeRange([@"/Users/" length], slashAfterName.location)];
+    NSString * username = [path substringWithRange: NSMakeRange(afterUsersSlash.location, slashAfterName.location - afterUsersSlash.location)];
     if (  usernameIsValid(username)  ) {
         return username;
     }
@@ -431,7 +431,7 @@ void setupUserGlobals(int argc, char *argv[], unsigned operation) {
 
     gUserID = getuid();
 
-    if (  gUserID == 0  ) {
+    if (  gUserID != 0  ) {
         //
         // Calculate user info from uid
         //
@@ -468,13 +468,14 @@ void setupUserGlobals(int argc, char *argv[], unsigned operation) {
         // Calculate user info from a private path if one is provided as an argument
         //
         for (  int i=2; i<argc; i++  ) {
-            gUsername = usernameFromPossiblePrivatePath([NSString stringWithCString: argv[i] encoding: NSUTF8StringEncoding]);
+            NSString * path = [NSString stringWithCString: argv[i] encoding: NSUTF8StringEncoding];
+            gUsername = usernameFromPossiblePrivatePath(path);
             if (  gUsername  ) {
                 break;
             }
         }
 
-        if (  gUsername != nil  ) {
+        if (  gUsername  ) {
             setupUserGlobalsFromGUsername();
         } else {
             //
@@ -1282,11 +1283,6 @@ void doInitialWork(BOOL updateKexts) {
 		errorExit();
 	}
 	
-	if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS stringByAppendingPathComponent: userUsername()],
-												PERMS_SECURED_FOLDER, 0, 0)  ) {
-		errorExit();
-	}
-	
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
 		errorExitIfAnySymlinkInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 		if (   ( ! checkSetOwnership(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, NO, 0, 0))
@@ -1314,22 +1310,30 @@ void doInitialWork(BOOL updateKexts) {
 		}
 	}
     
-	NSString * userL_AS_T_Path= [[[userHomeDirectory()
-								   stringByAppendingPathComponent: @"Library"]
-								  stringByAppendingPathComponent: @"Application Support"]
-								 stringByAppendingPathComponent: @"Tunnelblick"];
-	
-	mode_t permissions = privateFolderPermissions(userL_AS_T_Path);
-	
-	if (  ! createDirWithPermissionAndOwnership(userL_AS_T_Path,
-												permissions, userUID(), userGID())  ) {
-		errorExit();
-	}
+    if (  gHomeDirectory  ) {
 
-	if (  ! createDirWithPermissionAndOwnership([userL_AS_T_Path stringByAppendingPathComponent: @"Configurations"],
-												permissions, userUID(), userGID())  ) {
-		errorExit();
-	}
+        if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS stringByAppendingPathComponent: userUsername()],
+                                                    PERMS_SECURED_FOLDER, 0, 0)  ) {
+            errorExit();
+        }
+
+        NSString * userL_AS_T_Path= [[[userHomeDirectory()
+                                       stringByAppendingPathComponent: @"Library"]
+                                      stringByAppendingPathComponent: @"Application Support"]
+                                     stringByAppendingPathComponent: @"Tunnelblick"];
+
+        mode_t permissions = privateFolderPermissions(userL_AS_T_Path);
+
+        if (  ! createDirWithPermissionAndOwnership(userL_AS_T_Path,
+                                                    permissions, userUID(), userGID())  ) {
+            errorExit();
+        }
+
+        if (  ! createDirWithPermissionAndOwnership([userL_AS_T_Path stringByAppendingPathComponent: @"Configurations"],
+                                                    permissions, userUID(), userGID())  ) {
+            errorExit();
+        }
+    }
 
 	// Rename /Library/LaunchDaemons/net.tunnelblick.startup.*
 	//     to                        net.tunnelblick.tunnelblick.startup.*
@@ -1967,6 +1971,8 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 				}
 			}
 		}
+    } else {
+        appendLog([NSString stringWithFormat: @"No file at %@", firstPath]);
 	}
 }
 
@@ -2565,7 +2571,7 @@ int main(int argc, char *argv[]) {
     }
     appendLog(logString);
 
-    unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK) >> INSTALLER_OPERATION_SHIFT_COUNT;
+    unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK);
 
     // Set up booleans that describe what operations are to be done
 
