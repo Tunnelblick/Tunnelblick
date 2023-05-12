@@ -1335,30 +1335,6 @@ void doInitialWork(BOOL updateKexts) {
         }
     }
 
-	// Rename /Library/LaunchDaemons/net.tunnelblick.startup.*
-	//     to                        net.tunnelblick.tunnelblick.startup.*
-	
-	dirEnum = [gFileMgr enumeratorAtPath: @"/Library/LaunchDaemons"];
-	NSString * file;
-	NSString * oldPrefix = @"net.tunnelblick.startup.";
-	NSString * newPrefix = @"net.tunnelblick.tunnelblick.startup.";
-	while (  (file = [dirEnum nextObject])  ) {
-		[dirEnum skipDescendents];
-		if (  [file hasPrefix:  oldPrefix]) {
-			NSString * newFile = [newPrefix stringByAppendingString: [file substringFromIndex: [oldPrefix length]]];
-			NSString * newPath = [@"/Library/LaunchDaemons" stringByAppendingPathComponent: newFile];
-			NSString * oldPath = [@"/Library/LaunchDaemons" stringByAppendingPathComponent: file];
-			if (  0 == rename([oldPath fileSystemRepresentation], [newPath fileSystemRepresentation])  ) {
-				appendLog([NSString stringWithFormat: @"Renamed %@ to %@", oldPath, newFile]);
-			} else {
-				appendLog([NSString stringWithFormat: @"Unable to rename %@ to %@; error = '%s' (%ld)",
-						   oldPath, newFile, strerror(errno), (long)errno]);
-				errorExit();
-			}
-			
-		}
-	}
-    
     if (  updateKexts  ) {
         installOrUpdateKexts(NO);
     }
