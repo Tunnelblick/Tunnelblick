@@ -444,6 +444,8 @@ void setupUserGlobals(int argc, char *argv[], unsigned operation) {
                          stringByAppendingPathComponent: @"Tunnelblick"]
                         stringByAppendingPathComponent: @"Configurations"];
         gGroupID = privateFolderGroup(gPrivatePath);
+        appendLog([NSString stringWithFormat: @"Determined username '%@' from getuid(): %u", gUsername, gUserID]);
+
     } else if (   operation == INSTALLER_INSTALL_PRIVATE_CONFIG  ) {
         //
         // Calculate user info from username given as an argument
@@ -462,7 +464,11 @@ void setupUserGlobals(int argc, char *argv[], unsigned operation) {
         }
 
         setupUserGlobalsFromGUsername();
-
+        if (  gUserID == 0  ) {
+            appendLog([NSString stringWithFormat: @"Could not get uid for user '%@' (determined from second argument)", gUsername]);
+        } else {
+            appendLog([NSString stringWithFormat: @"Determined username '%@' from second argument", gUsername]);
+        }
     } else {
         //
         // Calculate user info from a private path if one is provided as an argument
@@ -476,6 +482,7 @@ void setupUserGlobals(int argc, char *argv[], unsigned operation) {
         }
 
         if (  gUsername  ) {
+            appendLog([NSString stringWithFormat: @"Determined username '%@' from a path provided as an argument", gUsername]);
             setupUserGlobalsFromGUsername();
         } else {
             //
@@ -487,6 +494,7 @@ void setupUserGlobals(int argc, char *argv[], unsigned operation) {
             gUsername = nil;
             gPrivatePath = nil;
             gHomeDirectory = nil;
+            appendLog(@"Unable to determine user. Some operations cannot be performed");
         }
     }
 }
