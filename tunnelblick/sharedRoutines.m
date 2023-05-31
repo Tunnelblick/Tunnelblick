@@ -240,8 +240,14 @@ NSString * sha256HexStringForData (NSData * data) {
     NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
     
     if (  data  ) {
+        unsigned len = UINT_MAX;    // If too much data, just use the first bit. Shouldn't happen, but…
+        if (  data.length > UINT_MAX  ) {
+            appendLog([NSString stringWithFormat: @"data.length (%lu) too large; : Stack trace: %@", (unsigned long)data.length, callStack()]);
+        } else {
+            len = (unsigned)data.length;
+        }
         uint8_t digest[CC_SHA256_DIGEST_LENGTH];
-        if (  CC_SHA256(data.bytes, data.length, digest)  ) {
+        if (  CC_SHA256(data.bytes, len, digest)  ) {
             int i;
             for (  i = 0; i < CC_SHA256_DIGEST_LENGTH; i++  ) {
                 [output appendFormat:@"%02x", digest[i]];
