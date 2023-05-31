@@ -364,9 +364,9 @@ OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix)
             if (  [info respondsToSelector: @selector(operatingSystemVersion)]  ) {
                 NSOperatingSystemVersion version = [info operatingSystemVersion];
                 if (  version.majorVersion > 9  ) {
-                    *major = version.majorVersion;
-                    *minor = version.minorVersion;
-                    *bugFix = version.patchVersion;
+                    *major = (unsigned)version.majorVersion;
+                    *minor = (unsigned)version.minorVersion;
+                    *bugFix = (unsigned)version.patchVersion;
                     return EXIT_SUCCESS;
                 } else {
                     NSLog(@"operatingSystemVersion has majorVersion < 10! (%ld.%ld.%ld)", (long)version.majorVersion, (long)version.minorVersion, (long)version.patchVersion);
@@ -1726,7 +1726,7 @@ NSString * lineAfterRemovingNulCharacters(NSString * line, NSMutableString * out
 OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString ** stderrString) {
     
     int sockfd;
-    int n;
+    size_t n;
     
     const char * requestToServer = [[NSString stringWithFormat: @"%s%@", TUNNELBLICKD_OPENVPNSTART_HEADER_C, command] UTF8String];
     const char * socketPath = [TUNNELBLICKD_SOCKET_PATH UTF8String];
@@ -1790,7 +1790,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     while (  [(NSDate *)[NSDate date] compare: timeoutDate] == NSOrderedAscending  ) {
         bzero((char *)buffer, SOCKET_BUF_SIZE);
         n = read(sockfd, (char *)buffer, SOCKET_BUF_SIZE - 1);
-        if (   (n == -1)
+        if (   (n == -1lu)
             && (errno == EAGAIN)  ) {
 			sleepTimeMicroseconds *= 2;
 			if (  sleepTimeMicroseconds > 5000000  ) {
@@ -1800,7 +1800,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
             usleep(sleepTimeMicroseconds);
             continue;
         } else if (  n < 0  ) {
-            appendLog([NSString stringWithFormat: @"runTunnelblickd: Error reading from tunnelblickd socket; status = %d; errno = %u; error was '%s'", n, errno, strerror(errno)]);
+            appendLog([NSString stringWithFormat: @"runTunnelblickd: Error reading from tunnelblickd socket; status = %ld; errno = %u; error was '%s'", n, errno, strerror(errno)]);
             goto error1;
         }
         
