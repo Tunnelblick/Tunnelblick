@@ -467,7 +467,7 @@ void setupUserGlobals(int argc, char *argv[], unsigned operation) {
         // Calculate user info from username given as an argument
         //
 
-        if (  argc < 3  ) {
+        if (  argc != 3  ) {
             appendLog(@"Must provide path and username when copying a private configuration");
             errorExit();
         }
@@ -487,52 +487,35 @@ void setupUserGlobals(int argc, char *argv[], unsigned operation) {
         }
     } else {
         //
-        // Calculate user info from current working directory path if possible
+        // Calculate user info from a private path if one is provided as an argument
         //
-        gUsername = usernameFromPossiblePrivatePath([gFileMgr currentDirectoryPath]);
-        if (  gUsername  ) {
-            appendLog([NSString stringWithFormat: @"Determined username '%@' from current working directory", gUsername]);
-            setupUserGlobalsFromGUsername();
+        for (  int i=2; i<argc; i++  ) {
+            NSString * path = [NSString stringWithCString: argv[i] encoding: NSUTF8StringEncoding];
+            gUsername = usernameFromPossiblePrivatePath(path);
+            if (  gUsername  ) {
+                break;
+            }
+        }
 
+        if (  gUsername  ) {
+            appendLog([NSString stringWithFormat: @"Determined username '%@' from a path provided as an argument", gUsername]);
+            setupUserGlobalsFromGUsername();
         } else {
             //
-            // Calculate user info from a private path if one is provided as an argument
+            // Give up: set user info to zeros and nils.
+            // For many operations (load kexts, etc.) it isn't needed.
             //
-            for (  int i=2; i<argc; i++  ) {
-                NSString * path = [NSString stringWithCString: argv[i] encoding: NSUTF8StringEncoding];
-                gUsername = usernameFromPossiblePrivatePath(path);
-                if (  gUsername  ) {
-                    break;
-                }
-            }
-
-            if (  gUsername  ) {
-                appendLog([NSString stringWithFormat: @"Determined username '%@' from a path provided as an argument", gUsername]);
-                setupUserGlobalsFromGUsername();
-            } else {
-                //
-                // Give up: set user info to zeros and nils.
-                // For many operations (load kexts, etc.) it isn't needed.
-                //
-                gUserID = 0;
-                gGroupID = 0;
-                gUsername = nil;
-                gPrivatePath = nil;
-                gHomeDirectory = nil;
-                appendLog(@"Unable to determine user. Some operations cannot be performed");
-            }
+            gUserID = 0;
+            gGroupID = 0;
+            gUsername = nil;
+            gPrivatePath = nil;
+            gHomeDirectory = nil;
+            appendLog(@"Unable to determine user. Some operations cannot be performed");
         }
     }
 }
 
 // MISC
-
-NSString * thisAppResourcesPath(void) {
-
-    NSString * resourcesPath = [NSProcessInfo.processInfo.arguments[0]  // .app/Contents/Resources/installer
-                                stringByDeletingLastPathComponent];     // .app/Contents/Resources
-    return resourcesPath;
-}
 
 BOOL isPathPrivate(NSString * path) {
 
@@ -826,7 +809,8 @@ void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
     }
     
 #ifdef TBDebug
-    NSString * resourcesPath = thisAppResourcesPath(); // (installer itself is in Resources, so this works)
+    NSBundle * ourBundle = [NSBundle mainBundle];
+    NSString * resourcesPath = [ourBundle bundlePath]; // (installer itself is in Resources, so this works)
     NSString * tunnelblickdPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
 #else
     NSString * tunnelblickdPath = @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
@@ -1247,8 +1231,8 @@ void installOrUpdateKexts(BOOL forceInstall) {
     
     BOOL shouldUpdateKextCaches = FALSE;
     
-    NSString * resourcesPath = thisAppResourcesPath();
-
+    NSString * thisAppPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+    NSString * resourcesPath = [[thisAppPath stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"];
 
     NSString * tunKextInAppPath = kextPathThatExists(resourcesPath, @"tun-notarized.kext", @"tun.kext");
     NSString * tapKextInAppPath = kextPathThatExists(resourcesPath, @"tap-notarized.kext", @"tap.kext");
@@ -2620,7 +2604,8 @@ int main(int argc, char *argv[]) {
 	gSecureTblks = (   doCopyApp
                     || ( (opsAndFlags & INSTALLER_SECURE_TBLKS) != 0 ) );
 
-	NSString * resourcesPath = thisAppResourcesPath(); // (installer itself is in Resources)
+	NSBundle * ourBundle = [NSBundle mainBundle];
+	NSString * resourcesPath = [ourBundle bundlePath]; // (installer itself is in Resources)
     NSArray  * execComponents = [resourcesPath pathComponents];
 	if (  [execComponents count] < 3  ) {
         appendLog([NSString stringWithFormat: @"too few execComponents; resourcesPath = %@", resourcesPath]);
@@ -2669,7 +2654,7 @@ int main(int argc, char *argv[]) {
     
     NSString * fourthArg = nil;
     if (  argc > 4  ) {
-        fourthArg = [gFileMgr stringWithFileSystemRepresentation: argv[4] length: strlen(argv[4])];
+        fourthArg = [gFileMgr stringWithFileSystemRepresentation: argv[4] length: strlen(argv[3])];
         if (   ( gPrivatePath == nil  )
             || ( ! [fourthArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
             errorExitIfAnySymlinkInPath(fourthArg);
@@ -2729,7 +2714,7 @@ int main(int argc, char *argv[]) {
     // Also moves/coies/creates a shadow copy if a private configuration.
     // Like the NSFileManager "movePath:toPath:handler" method, we move by copying, then deleting.
     if (   secondArg
-        && (argc < 6)  ) {
+        && (argc < 5)  ) {
         if (   (   (operation == INSTALLER_COPY )
                 || (operation == INSTALLER_MOVE)
                 )
@@ -2739,7 +2724,7 @@ int main(int argc, char *argv[]) {
 
         } else if (   (operation == INSTALLER_INSTALL_PRIVATE_CONFIG)
                    && thirdArg  ) {
-            if (  argc < 4  ) {
+            if ( argc < 4) {
                 appendLog(@"installing a private configuration requires a username and a path");
                 errorExit();
             }
@@ -2750,19 +2735,14 @@ int main(int argc, char *argv[]) {
                 createFolder(targetPath);
             }
 
-            targetPath = [targetPath stringByAppendingPathComponent: [thirdArg lastPathComponent]];
+            [targetPath stringByAppendingPathComponent: [thirdArg lastPathComponent]];
 
             doCopyOrMove(targetPath, thirdArg, false);
 
         } else if (  operation == INSTALLER_INSTALL_SHARED_CONFIG  ) {
 
-            if (  argc < 3  ) {
+            if ( argc < 3) {
                 appendLog(@"installing a shared configuration requires a path");
-                errorExit();
-            }
-
-            if (  argc > 4  ) {
-                appendLog(@"installing a shared configuration takes at most three arguments");
                 errorExit();
             }
 
@@ -2775,7 +2755,7 @@ int main(int argc, char *argv[]) {
                 targetPath = L_AS_T_SHARED;
             }
 
-            targetPath = [targetPath stringByAppendingPathComponent: [secondArg lastPathComponent]];
+            targetPath = [targetPath stringByAppendingPathComponent: [thirdArg lastPathComponent]];
 
             doCopyOrMove(targetPath, secondArg, false);
         }

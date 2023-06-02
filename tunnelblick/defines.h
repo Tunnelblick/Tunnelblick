@@ -513,20 +513,19 @@
 
 // Copy one configuration
 // (Only if two paths are additional
-// arguments: target path, source path)
+//  arguments: target path, source path)
 #define INSTALLER_COPY						 0x0000u
 
 // Move one configuration
-// (Additional arguments are target path,
-//  source path)
+// (arguments: target path, source path)
 #define INSTALLER_MOVE						 0x1000u
 
 // Delete one configuration
-// (Additional argument is the path)
+// (argument: path)
 #define INSTALLER_DELETE                     0x2000u
 
 // Copy one file to forced preferences
-// (Additional argument is the path)
+// (argument: path)
 // L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
 #define INSTALLER_INSTALL_FORCED_PREFERENCES 0x3000u
 
@@ -534,22 +533,25 @@
 // users (configurations and preferences but
 // not Keychain items) to a .tblkSetup, then
 // compress that to a .tar.gz on the Desktop
-// (No additional arguments)
+// (no arguments)
 #define INSTALLER_EXPORT_ALL                 0x4000u
 
 // Import from a .tblkSetup using a string
 // that defines username mapping
-// (First additional argument is the path to
-//  the .tblksetup; second is a string that
-//  describes username mapping)
+// (arguments: path to .tblksetup,
+//  string that describes username mapping)
 #define INSTALLER_IMPORT                     0x5000u
 
 // Install a private configuration
-// (First argument is username,
-//  second argument is path to
-//  the configuration)
-#define INSTALLER_INSTALL_PRIVATE_CONFIG     0x5000u
+// (arguments: username,
+//  path to configuration,
+//  optional subfolder)
+#define INSTALLER_INSTALL_PRIVATE_CONFIG     0x6000u
 
+// Install a shared configuration
+// (arguments: path to configuration,
+//  optional subfolder)
+#define INSTALLER_INSTALL_SHARED_CONFIG     0x7000u
 
 
 //*************************************************************************************************
