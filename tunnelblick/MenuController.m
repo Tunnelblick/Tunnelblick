@@ -2647,13 +2647,13 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             }
             myState = (  ! publicIPAddress
 					   ? [NSString stringWithFormat: NSLocalizedString(@"Disconnect All (%@)", @"Status message"), name]
-					   : [NSString stringWithFormat: NSLocalizedString(@"Disconnect All (%@) - apparent public IP address %@", @"Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4')"), name, [self publicIPAddress]]);
+					   : [NSString stringWithFormat: NSLocalizedString(@"Disconnect All (%@) IP: %@", @"Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4')"), name, [self publicIPAddress]]);
 			[statusMenuItem setTitle: myState];
 			[statusMenuItem setTitle: myState];
         } else {
             myState = (  ! publicIPAddress
 					   ? [NSString stringWithFormat:NSLocalizedString(@"Disconnect All (%d Connections)", @"Status message"),nConnections]
-					   : [NSString stringWithFormat:NSLocalizedString(@"Disconnect All (%d Connections) - apparent public IP address %@", @"Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4')"),nConnections, [self publicIPAddress]]);
+					   : [NSString stringWithFormat:NSLocalizedString(@"Disconnect All (%d Connections) IP: %@", @"Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4')"),nConnections, [self publicIPAddress]]);
             [statusMenuItem setTitle: myState];
         }
         return YES;
