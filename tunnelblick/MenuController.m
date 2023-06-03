@@ -3178,14 +3178,20 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 -(void) waitForDisconnection: (NSMutableArray *) connectionsList {
-    
+
     // Notes: Removes items from the mutable array
 	//        May return before all are disconnected if the computer is shutting down or restarting
     
 	if (  [connectionsList count] != 0  ) {
 		
 		TBLog(@"DB-CD", @"Waiting for %lu configurations to disconnect: %@", (unsigned long)[connectionsList count], connectionsList)
-		
+
+        NSDate * startDateTime = [NSDate date];
+        NSTimeInterval timeout = [gTbDefaults timeIntervalForKey: @"timeoutForDisconnectingConfigurations"
+                                                         default: 10.0
+                                                             min: 0.0 // 0.0 means no timeout
+                                                             max: 100.0];
+
 		while (  [connectionsList count] != 0  ) {
 			
 			// Create a copy of connectionsList which will not be modified inside the inner loop
@@ -3205,11 +3211,14 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 					return;
 				}
 				
-				// Since this method runs in the main thread, it blocks the processing that sets the variables that 'isDisconnected' checks
+				// If this method runs in the main thread, it blocks the processing that sets the variables that 'isDisconnected' checks
 				// So we check for disconnection with the 'noOpenvpnProcess' method, too. That works because the OpenVPN process quits independently of
 				// Tunnelblick's main thread.
 				if (   [connection isDisconnected]
-					|| [connection noOpenvpnProcess]  ) {
+                    || (  [NSThread isMainThread]
+                        ? [connection noOpenvpnProcess]
+                        : NO)
+                    ) {
                     TBLog(@"DB-SD", @"Invoking hasDisconnected for '%@' from waitForDisconnection:", connection.displayName);
                     [connection hasDisconnected];
 					[connectionsList removeObject: connection];
@@ -3218,7 +3227,14 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 			}
 			
 			[listNotModifiedInInnerLoop release];
-			
+
+            if (  timeout != 0.0  ) {
+                if (  [[NSDate date] timeIntervalSinceDate: startDateTime] > timeout  ) {
+                    TBLog(@"DB-SD", @"Timed out waiting for all disconnections to complete; stack trace = \n%@", callStack());
+                    return;
+                }
+            }
+
 			if (  [connectionsList count] != 0  ) {
 				usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
 			}
@@ -8258,7 +8274,7 @@ void terminateBecauseOfBadConfiguration(void)
         if (   [connection shouldDisconnectWhenBecomeInactiveUser]
             && ( ! [connection isDisconnected])  ) {
             [connection addToLog: @"Disconnecting; user became inactive"];
-            [connection performSelectorOnMainThread: @selector(startDisconnectingUserKnows:) withObject: @YES waitUntilDone: NO];
+            [connection startDisconnectingUserKnows: @YES];
             [disconnectionsWeAreWaitingFor addObject: connection];
             NSString * key = [[connection displayName] stringByAppendingString: @"-doNotReconnectOnFastUserSwitch"];
             if (  ! [gTbDefaults boolForKey: key]  ) {
@@ -8278,15 +8294,24 @@ void terminateBecauseOfBadConfiguration(void)
     
     // Indicate no configurations have connected since user became active
     // Done here so it is correct immediately when the user becomes active again
-    [self performSelectorOnMainThread: @selector(clearAllHaveConnectedSince) withObject: nil waitUntilDone: YES];
-    
+    [self clearAllHaveConnectedSince];
+
+    [NSThread detachNewThreadSelector: @selector(taskWaitForDisconnections:) toTarget: self withObject: disconnectionsWeAreWaitingFor];
+}
+
+-(void)taskWaitForDisconnections: (NSMutableArray *) disconnectionsWeAreWaitingFor {
+
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
     [self waitForDisconnection: disconnectionsWeAreWaitingFor];
-	
+
     if (  OSAtomicCompareAndSwap32Barrier(gettingReadyForInactive, readyForInactive, &gActiveInactiveState)  ) {
-		TBLog(@"DB-SW", "didBecomeInactiveUser: state = readyForInactive");
-	} else {
-		NSLog(@"didBecomeInactiveUser: cannot set readyForActive because gActiveInactiveState was not 'gettingReadyForInactive' (it is %ld)", (long) gActiveInactiveState);
+        TBLog(@"DB-SW", "didBecomeInactiveUser: state = readyForInactive");
+    } else {
+        NSLog(@"didBecomeInactiveUser: cannot set readyForActive because gActiveInactiveState was not 'gettingReadyForInactive' (it is %ld)", (long) gActiveInactiveState);
     }
+
+    [pool drain];
 }
 
 -(void)didBecomeActiveUserHandler: (NSNotification *) n
