@@ -1,6 +1,6 @@
-diff -u -r -x .DS_Store openvpn-2.6.2.old/src/openvpn/forward.c openvpn-2.6.2.new/src/openvpn/forward.c
---- openvpn-2.6.2.old/src/openvpn/forward.c	2023-04-24 12:28:08.000000000 -0400
-+++ openvpn-2.6.2.new/src/openvpn/forward.c	2023-04-24 12:28:08.000000000 -0400
+diff -u -r -x .DS_Store openvpn-2.6.4.old/src/openvpn/forward.c openvpn-2.6.4.new/src/openvpn/forward.c
+--- openvpn-2.6.4.old/src/openvpn/forward.c	2023-06-03 12:09:13.000000000 -0400
++++ openvpn-2.6.4.new/src/openvpn/forward.c	2023-06-03 12:09:13.000000000 -0400
 @@ -928,7 +928,10 @@
  
      status = link_socket_read(c->c2.link_socket,
@@ -13,7 +13,7 @@ diff -u -r -x .DS_Store openvpn-2.6.2.old/src/openvpn/forward.c openvpn-2.6.2.ne
  
      if (socket_connection_reset(c->c2.link_socket, status))
      {
-@@ -1772,7 +1775,10 @@
+@@ -1782,7 +1785,10 @@
                  socks_preprocess_outgoing_link(c, &to_addr, &size_delta);
  
                  /* Send packet */
