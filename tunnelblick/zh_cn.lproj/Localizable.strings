@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "断开所有 (%1$@) - 公网 IP %2$@";
+"Disconnect All (%@) IP: %@" = "断开所有连接 (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "断开所有连接 (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "断开所有 (%1$d 连接) - 公网 IP %2$@";
+"Disconnect All (%d Connections) IP: %@" = "断开所有连接 (共 %1$d 个连接) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "断开所有连接 (%d 个连接)";
@@ -69,9 +69,6 @@
 
 /* Button */
 "Continue" = "继续";
-
-/* Button */
-"Convert Configurations" = "转换配置";
 
 /* Button */
 "Copy Console Log to Clipboard" = "复制控制台日志到粘贴板";
@@ -453,9 +450,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "不再询问, 总是 ‘继续’ ";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "不再询问, 总是 ‘转换’ ";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "不再显示此类警告信息";
@@ -880,9 +874,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • 完成更新\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • 转换 OpenVPN 配置 \n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • 复制一项配置\n";
 
@@ -894,9 +885,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • 移动一项配置";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • 移动私人配置文件目录 \n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • 删除一项配置";
@@ -915,9 +903,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = "系统内建的固定偏好设置也将被安装或者替换.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " 注意: OpenVPN 格式的配置将会转换为 Tunnelblick VPN 格式的配置.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick 必须安装在应用程序里.\n\n";
@@ -1104,9 +1089,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "VPN配置 %@ 可以应用更新。\n\n您想更新配置吗？\n\n";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "你确定想把 OpenVPN 的配置文件转换为 Tunnelblick VPN 的配置文件格式吗?\n\n如果你不做转换, 配置文件将无法使用!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "您确定要删除已经存储至钥匙链 %ld 配置文件的认证信息 (包含私钥和/或用户名密码) 吗？";
@@ -1904,9 +1886,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick 将要改变的设置需要管理员权限.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick 需要把 OpenVPN 配置转换成 Tunnelblick VPN 配置。";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick 需要创建或更新一个配置文件的安全副本.";
 
 /* Window text */
@@ -2097,18 +2076,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "您不能重命名一个被设置为开机自动启动的配置文件。";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "您有 OpenVPN 配置，但没有任何Tunnelblick VPN 配置。\n\n如果您想要使用以上配置， 必须先把OpenVPN 配置转换为Tunnelblick VPN 配置。\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "你有 OpenVPN 的配置但你没有 Tunnelblick VPN 的配置。\n\n如果你想使用 Tunnelblick 的配置，那 OpenVPN 的配置必须被转换为 Tunnelblick 的配置。\n\n但是，Tunnelblick 无法转换它们因为出现了一个问题：\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "你有 OpenVPN 的配置。\n\n如果你想使用 Tunnelblick 的配置，那 OpenVPN 的配置必须被转换为 Tunnelblick 的配置。\n\n但是，Tunnelblick 无法转换它们因为出现了一个问题：\n\n%@\n\n如果你选择 '忽略' 这些配置将不可用 ！\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "你有一个或多个 OpenVPN 格式的配置文件, 这些配置文件在当前版本的 Tunnelblick 下无法使用. 你可以:\n\n  • 让 Tunnelblick 将 OpenVPN 格式的配置文件转换为 Tunnelblick VPN 格式的配置文件; 或者\n  • 退出和安装一个不同版本的 Tunnelblick ; 或者\n  • 忽略不做转换并继续.\n\n如果你选择 '忽略' 这些配置文件将不可用!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "你刚尝试安装一个配置文件，但它是一个示例配置文件。这个配置文件必须被修改才能连接到一个 VPN 。你可能还需要其它文件，例如证书或密钥文件，才能连接到 VPN 。\n\n请咨询你的网络管理员或你的 VPN 服务提供商以获取配置和其它文件或你需要修改示例文件的信息。\n\n改配置文件是在\n%@\n\n";

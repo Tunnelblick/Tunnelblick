@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "قطع جميع الإتصالات (%1$@) - عنوان جهاز الكمبيوتر الظاهر %2$@";
+"Disconnect All (%@) IP: %@" = "قطع كافة الإتصالات (%1$@) %2$@ IP";
 
 /* Status message */
 "Disconnect All (%@)" = "قطع كافة الاتصالات (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "قطع جميع (%1$d اتصالات) - عنوان جهاز الكمبيوتر الظاهر %2$@";
+"Disconnect All (%d Connections) IP: %@" = "قطع كافة الإتصالات (%1$d روابط) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "فصل كافة الإتصالات ال (%d)";
@@ -69,9 +69,6 @@
 
 /* Button */
 "Continue" = "استمر";
-
-/* Button */
-"Convert Configurations" = "تحويل إعدادات الإتصال";
 
 /* Button */
 "Copy Console Log to Clipboard" = "إنسخ سجل شاشة التحكم للحافظة";
@@ -453,9 +450,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "لا تسألني مرة أخرى، ودائما استمر";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "لا تسألني مرة أخرى، ودائما غير";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "الرجاء عدم اظهارهذا التحذير مجددا";
@@ -880,9 +874,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • إنهاء التحديث\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • غير إعدادات ال OpenVPN\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • نسخ تكوين";
 
@@ -894,9 +885,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • نقل تكوين";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "• نقل المجلد الاعدادات الخاصة";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • حذف تكوين";
@@ -915,9 +903,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " الاختيارات الاجبارية سيتم تثبيتها او تغييرها.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = "ملاحظة: اعدادات OpenVPN سيتم تغيرها الى اعدادات تُنلـبليك VPN.";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = "عليك تثبيت تُنلـبليك في التطبيقات\n";
@@ -1104,9 +1089,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "يتوفر تحديث %@ لاعدادات الVPN.\nهل تريد تحديث الاعدادات؟";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "هل أنت متأكد من أنك لا تريد تحويل تثبيتات تُنلـبليك VPNالى تثبيتات تُنلـبليك VPN؟ \nالتثبيتات لن تكون متاحة اذا لم يتم تحويلها!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "هل أنت متأكد أنك تريد حذف الوثائق الثبوتية (المفتاح الخاص و/أو اسم المستخدم وكلمة المرور) لاعدادات الاتصال %ld المحفوظة في سلسلة المفاتيح Keychain؟";
@@ -1904,9 +1886,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "تونلبليك يحتاج لتنفيذ عملية لا تتم إلا بصلاحيات مدير النظام.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "يستلزم تُنلـبليك تحويل اعدادات اتصال OpenVPN الى اعدادات اتصال تُنلـبليك VPN.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "يحتاج البرنامج لتحديث أو عمل نسخه أمنة من ملف الإعدادات.";
 
 /* Window text */
@@ -2097,18 +2076,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "لا يمكن تعديل اعدادات تُفعل تلقائيا لدى تشغيل الحاسوب.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "اعدادات اتصال OpenVPN فقط متوفرة ولا يوجد اعدادات اتصال تُنلـبليك.\n\nيتوجب تحويل اعدادات اتصال OpenVPN الى اعدادات اتصال تُنلـبليك قبل استخدامها.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "اعدادات اتصال OpenVPN فقط متوفرة ولا يوجد اعدادات اتصال تُنلـبليك.\n\nيتوجب تحويل اعدادات اتصال OpenVPN الى اعدادات اتصال تُنلـبليك قبل استخدامها.\n\nتعذر على تُنلـبليك تحويل اعدادات الاتصال بسبب المشكلة التالية:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "اعدادات اتصال OpenVPN متوفرة.\n\nيتوجب تحويل اعدادات اتصال OpenVPN الى اعدادات اتصال تُنلـبليك قبل استخدامها.\n\nتعذر على تُنلـبليك تحويل اعدادات الاتصال بسبب المشكلة التالية:\n\n%@\n\nفي حال اختيار ‘تجاهل‘ لن يمكنك استخدام اعدادات الاتصال!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "لن تتوفر احدى اعدادات اتصال OpenVPN عند استخدام هذا الاصدار من برنامج تُنلـبليك. الحلول الممكنة:\n\n • تحويل اعدادات اتصال OpenVPN الى اعدادات اتصال تُنلـبليك؛ أو\n • الخروج من البرنامج واستخدام اصدار آخر من برنامج تُنلـبليك؛ أو\n • تجاهل هذه الاشكالية والمتابعة بدون تحويل اعدادات الاتصال.\n\nفي حال اختيار ‘تجاهل‘ لن يمكنك استخدام اعدادات الاتصال!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "لقد حاولت تثبيت اعدادات اتصال هي نفسها عينة اعدادات الاتصال المبدئية. يجب تحريف اعدادات الاتصال المبدئية للتمكن من الاتصال بـ VPN. قد تحتاج ايضا لملفات اخرى لاتمام الاتصال منها على سبيل المثال ملفات المفاتيح (keys) وملفات التعريف الشخصي (certificates).\n\nراجع الاعدادات مع مدير شبكتك أو استحوذ على ملفات اعدادات الاتصال من مزود خدمة VPN الخاص بك.\n\nملفات اعدادات الاتصال متواجدة هنا:\n%@\n\n";

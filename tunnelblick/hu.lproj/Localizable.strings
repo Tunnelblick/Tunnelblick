@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Összes megszakítása (%1$@) - látszólagos nyilvános IP cím: %2$@";
+"Disconnect All (%@) IP: %@" = "Minden kapcsolat megszakítása (%1$@) IP: %@";
 
 /* Status message */
 "Disconnect All (%@)" = "Minden kapcsolat megszakítása (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Összes megszakítása (%1$d kapcsolat) - látszólagos nyilvános IP cím: %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Minden kapcsolat megszakítása (%d apcsolat) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Minden kapcsolat megszakítása (%d Kapcsolat)";
@@ -69,9 +69,6 @@
 
 /* Button */
 "Continue" = "Folytatás";
-
-/* Button */
-"Convert Configurations" = "Konfigurációk konvertálása";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Konzol napló másolása vágólapra";
@@ -453,9 +450,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Ne kérdezzen többször, mindig folytassa";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Ne kérdezzen többször, mindig konvertálja ";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Ne mutassa ezt a figyelmeztetést újra";
@@ -880,9 +874,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  A frissítés befejezése\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • OpenVPN konfigurációs fájlok konvertálása\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • Konfiguráció másolása\n";
 
@@ -894,9 +885,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • Konfiguráció mozgatása\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Privát konfigurációs könyvtár mozgatása\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • Konfiguráció törlése\n";
@@ -915,9 +903,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " A kényszerített beállításokat is telepítjük vagy felülírjuk.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Megjegyzés: Az OpenVPN konfigurációs állományok konvertálva lesznek Tunnelblick állományokra.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " A Tunnelblick csak az Alkalmazások közé telepíthető.\n\n";
@@ -1104,9 +1089,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "A(z) %@ VPN konfigurációhoz frissítés elérhető.\n\nSzeretnéd frissíteni ezt a konfigurációt?\n\n";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Biztosan konvertálni szeretné az OpenVPN konfigurációt Tunnelblick konfigurációra?\n\nA KONFIGURÁCIÓ NEM LESZ HASZNÁLHATÓ KONVERTÁLÁS NÉLKÜL!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Biztos, hogy törölni akarja hitelesítő adatokat (privát kulcs és/vagy felhasználónév és jelszó) a kulcskarikában tárolt %ld konfigurációhoz?";
@@ -1904,9 +1886,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "A Tunnelblicknek meg kell változtatnia egy beállítást, amit csak egy rendszergazda tud megváltoztatni.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "A Tunnelblicknek az OpenVPN konfigurációt Tunnelblick VPN konfigurációvá kell konvertálnia.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblicknek készítenie vagy frissíteni kell egy konfigurációs fájl biztonsági másolatát";
 
 /* Window text */
@@ -2097,18 +2076,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "Nem mozgatható vagy nevezhető át olyan konfiguráció, ami a számítógép indulásakor automatikusan indul.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Van OpenVPN konfigurációs állománya, de nem rendelkezik Tunnelblick VPN konfigurációval.\n\nAz OpenVPN konfigurációs állományokat át kell alakítani Tunnelblick VPN konfigurációs állományokká ha használni szeretné.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Van OpenVPN konfigurációs állománya, de nem rendelkezik Tunnelblick VPN konfigurációval.\n\nAz OpenVPN konfigurációs állományokat át kell alakítani Tunnelblick VPN konfigurációs állományokká ha használni szeretné.\n\nViszont a Tunnelblick nem tudja átalakítani a következő hiba miatt:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Van OpenVPN konfigurációs állománya.\n\nAz OpenVPN konfigurációs állományokat át kell alakítani Tunnelblick VPN konfigurációs állományokká ha használni szeretné.\n\nViszont a Tunnelblick nem tudja átalakítani a következő hiba miatt:\n\n%@\n\nHa a 'Mellőz' gombra kattint, a konfiguráció nem lesz elérhető!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Önnek egy vagy több OpenVPN konfigurációja van, amelyek nem használhatók a Tunnelblick ezen verziójával. A következőket teheti:\n\n  • Engedélyezze, hogy a Tunnelblick konvertálja ezeket a fájlokat Tunnelblick VPN konfigurációs fájlokká; vagy\n  • Lépjen ki és telepítsen egy megfelelő verziójú Tunnelblicket; vagy\n  • Figyelmen kívül hagyja az üzenetet és folytatja.\n\nHa figyelmen kívül hagyja az üzeneteket a konfigurációk nem lesznek elérhetők!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Egy példa konfigurációs állományt próbált meg telepíteni. Ezt a konfigurációs állományt mindenképpen módosítani kell, hogy csatlakozni tudjon egy VPN hálózathoz. Továbbá szüksége lehet egyéb állományokra is, úgymint tanúsítvány, kulcs fájlok, stb.\n\nKeresse fel a hálózati adminisztrátorát vagy a VPN szolgáltatóját a szükséges állományok ügyében, vagy információért miként módosíthatja a példa fájlokat.\n\nA konfigurációs állomány:\n%@\n\n";

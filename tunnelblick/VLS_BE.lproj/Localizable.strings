@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Verbreek alle (%1$@) - publiek IP adres is waarschijnlijk %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Verbreek Alle (%@)";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Verbreek Alle (%1$d Verbindingen) - publiek IP adres is waarschijnlijk %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Verbreek Alle (%d Verbindingen)";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "Doorgaan";
-
-/* Button */
-"Convert Configurations" = "Converteer Configuraties";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Kopiëer console log naar het klembord";
@@ -453,9 +445,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Niet meer vragen, altijd doorgaan";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Niet meer vragen, altijd converteren";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Laat dit type waarschuwing niet meer zien";
@@ -880,9 +869,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Update afronden\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Converteer OpenVPN configuraties\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • Configuratie kopiëren\n";
 
@@ -894,9 +880,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • Configuratie verplaatsen\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Verplaats de map met privé-configuraties\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • Configuratie verwijderen\n";
@@ -915,9 +898,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Afgedwongen instellingen zullen ook geïnstalleerd of vervangen worden.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Let op: OpenVPN configuraties zullen geconverteerd worden naar Tunnelblick VPN configuraties.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick moet geïnstalleerd worden in programma's.\n\n";
@@ -1104,9 +1084,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Een update voor de %@ VPN configuratie is beschikbaar.\n\nWil je de configuratie bijwerken?\n\n";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Weet u zeker dat u de OpenVPN configuraties niet wilt omzetten naar Tunnelblick VPN Configuraties?\n\nCONFIGURATIES ZULLEN NIET BESCHIKBAAR ZIJN ALS U ZE NIET OMZET!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Weet u zeker dat u de aanmeldgegevens (privésleutel en/of gebruikersnaam en wachtwoord) wilt verwijderen voor %ld configuraties die zijn opgeslagen in de sleutelhanger?";
@@ -1904,9 +1881,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick wil een configuratie instelling wijzigen, maar dit mag alleen worden gewijzigd door een beheerder.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick moet OpenVPN configuraties naar Tunnelblick VPN Configuraties omzetten.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick moet een beveiligde (schaduw) kopie van het configuratiebestand maken of bijwerken";
 
 /* Window text */
@@ -2097,18 +2071,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "Je kunt een configuratie niet hernoemen of verplaatsen als die is ingesteld om te verbinden als de computer opstart.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "U heeft OpenVPN configuraties,  maar u heeft geen Tunnelblick VPN configuraties.  \n\nDe OpenVPN configuraties moeten worden omgezet in Tunnelblick VPN configuraties als u ze wilt gebruiken.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "U heeft OpenVPN configuraties,  maar u heeft geen Tunnelblick VPN configuraties.  \n\nDe OpenVPN configuraties moeten worden omgezet in Tunnelblick VPN configuraties als u ze wilt gebruiken.\n\nEchter, Tunnelblick kan de bestanden niet converteren omdat er een probleem was:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "U heeft OpenVPN configuraties,  maar u heeft geen Tunnelblick VPN configuraties.  \n\nDe OpenVPN configuraties moeten worden omgezet in Tunnelblick VPN configuraties als u ze wilt gebruiken.\n\nEchter, Tunnelblick kan de bestanden niet converteren omdat er een probleem was:\n\n%@\n\nWanneer u kiest voor 'negeren' zullen de configuraties niet beschikbaar zijn!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "U beschikt over één of meerdere OpenVPN configuraties die niet beschikbaar zullen zijn als u deze versie van Tunnelblick gebruikt. U kunt:\n\n  • Tunnelblick deze OpenVPN configuraties laten omzetten naar Tunnelblick VPN Configuraties; of\n  • Stop en installeer een andere versie van Tunnelblick; of\n  • Negeer dit en ga verder zonder omzetten.\n\nAls u 'Negeren' kiest zullen de configuraties niet beschikbaar zijn!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "U hebt geprobeerd om een configuratiebestand te installeren dat een voorbeeld configuratiebestand is. Het configuratiebestand moet worden gewijzigd om te verbinden met een VPN verbinding. Mogelijk moet u ook andere bestanden, zoals het certificaat of sleutel vervangen, voordat een VPN-verbinding opgezet kan worden.\n\nRaadpleeg uw netwerkbeheerder of de serviceprovider van uw VPN verbinding voor de benodigde bestanden en/of informatie die u nodig heeft om het voorbeeld bestand aan te passen.\n\nHet configuratiebestand is te vinden in\n%@  \n\n";

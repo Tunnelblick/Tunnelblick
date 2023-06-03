@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "모든 (%1$@) 연결 해제 - 대외 공용 IP 주소 %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "모든 (%@) 연결 해제";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "모든 (%1$d 연결들) 연결 해제 - 대외 공용 IP 주소 %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "모든 (%d개) 연결 해제";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "계속";
-
-/* Button */
-"Convert Configurations" = "설정 변환";
 
 /* Button */
 "Copy Console Log to Clipboard" = "콘솔 로그를 클립보드로 복사";
@@ -438,9 +430,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "다시 물어보지 않고 계속 진행";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "다시 물어보지 않고 계속 변환";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "이 종류의 경고들을 다시 보지 않기";
@@ -847,9 +836,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • 업데이트 완료\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • OpenVPN 설정을 변환\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • 설정 복사\n";
 
@@ -861,9 +847,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • 설정 이동\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • 개인 설정 폴더로 이동\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • 설정 제거\n";
@@ -882,9 +865,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " 강제된 환경설정이 설치되거나 교체될 것입니다.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " 주의: OpenVPN 설정은 Tunnelblick VPN 설정으로 변환될 것입니다.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick은 Applications에 설치되어야 합니다.\n\n";
@@ -1062,9 +1042,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "%@ VPN 구성에 대한 업데이트를 사용할 수 있습니다.\n\n구성을 업데이트 하시겠습니까?";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "OpenVPN 설정을 Tunnelblick VPN 설정으로 변환하지 않겠습니까?\n\n설정을 변환하지 않으면 설정은 사용할 수 없습니다!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "키체인에 저장된 %ld 구성의 인증(개인 키 및/또는 사용자 이름 및 비밀번호)을 삭제하시겠습니까?";
@@ -1781,9 +1758,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick이 컴퓨터 관리자만 변경할 수 있는 설정을 변경하려고 합니다.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick은 OpenVPN 구성을 Tunnelblick VPN 구성으로 변경해야 합니다.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick이 설정 파일의 보안 (복제) 복사본을 만들거나 업데이트를 하려고 합니다.";
 
 /* Window text */
@@ -1947,18 +1921,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "컴퓨터 시작 시 연결하도록 되어있는 구성의 이름을 변경하거나 옮길 수 없습니다.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "OpenVPN 설정을 가지고 있지만 Tunnelblick VPN 설정은 없습니다.\n\nOpenVPN 설정을 사용하려면 Tunnelblick VPN 설정으로 변환해야 합니다.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "OpenVPN 설정은 가지고 있지만 Tunnelblick VPN 설정은 없습니다.\n\nOpenVPN 설정을 사용하려면 Tunnelblick VPN 설정으로 변환해야 합니다.\n\n하지만 아래 문제가 있어서 Tunnelblick이 설정을 변환하지 못했습니다:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "OpenVPN 설정을 가지고 있습니다.\n\nOpenVPN 설정을 사용하려면 Tunnelblick VPN 설정으로 변환해야 합니다.\n\n하지만 아래 문제가 있어서 Tunnelblick이 설정을 변환하지 못했습니다:\n\n%@\n\n'무시'를 선택하면 설정은 사용할 수 없습니다!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "이 Tunnelblick 버전에서 사용할 수 없는 1개 또는 이상의 OpenVPN 설정이 있습니다. 다음과 같이 할 수 있습니다:\n\n  • OpenVPN 설정을 Tunnelblick VPN 설정으로 변환\n  • 종료하고 Tunnelblick 다른 버전을 설치\n  • 무시하고 변환없이 계속 진행\n\n'무시'를 선택하면 설정들은 사용할 수 없습니다!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "예제 구성 파일을 설치하려고 시도했습니다. VPN에 접속하려면 구성 파일을 수정하십시오. 인증서 또는 키 파일 등이 요구될 수 있습니다.\n\n네트워크 관리자나 VPN 서비스 제공자에게 문의해 구성 파일을 받거나 예제 구성 파일을 수정하기 위해 필요한 정보를 얻으십시오.\n\n구성 파일은 다음 위치에 있습니다\n%@\n\n";

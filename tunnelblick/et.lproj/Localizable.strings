@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Lahuta Kõik (%1$@) - Avalik IP aadress %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Katkesta kõik ühendused (%@)";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Lahuta Kõik (%1$d Ühendused) - Avalik IP aadress %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Katkesta kõik ühendused (%d ühendust)";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "Jätka";
-
-/* Button */
-"Convert Configurations" = "Konverteeri konfiguratsioone";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Kopeeri konsooli logi lõikepuhvrisse";
@@ -393,9 +385,6 @@
 "Do not ask again, always Continue" = "Ära rohkem küsi, alati jätka";
 
 /* Checkbox name */
-"Do not ask again, always convert" = "Ära rohkem küsi, alati konverteeri";
-
-/* Checkbox name */
 "Do not show this type of warning again" = "Ära kuva seda hoiatust uuesti";
 
 /* Checkbox name */
@@ -708,16 +697,10 @@
 "  • Complete the update\n" = "  Uuenduse lõpetada\n";
 
 /* Window text */
-"  • Convert OpenVPN configurations\n" = "  Teisenda OpenVPN konfiguratsioonid\n";
-
-/* Window text */
 "  • Install forced preferences\n" = "  Installeeri nõutud seaded\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  Installeeri või uuenda konfiguratsioone\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  Muuda privaatsete konfiguratsioonide kausta\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  Turvalised konfiguratsioonid\n";
@@ -730,9 +713,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Nõutud seadistused installeeritakse või asendatakse.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Teade: OpenVPN konfiguratsioonid muudetakse Tunnelblick VPN konfiguratsioonideks.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick peab olema installeeritud asukohas Applications.\n\n";

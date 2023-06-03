@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Shkëput gjithë (%1$@) - adresa IP publike e dukshme %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Shkëputi të gjitha (%@)";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Shkëputi të gjitha (%1$d lidhjet) - adresa IP publike e dukshme %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Shkëputi të gjitha (%d lidhjet)";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "Vazhdo";
-
-/* Button */
-"Convert Configurations" = "Shndërro konfigurimet";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Kopjo shënimet e konsolës në Clipboard";
@@ -391,9 +383,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Mos më pyet më, gjithmonë 'Vazhdo'";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Mos më pyet më, gjithmonë shndërro";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Mos shfaq më këto lloj paralajmërimesh";

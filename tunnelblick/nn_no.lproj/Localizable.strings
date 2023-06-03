@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Kople frå alle (%1$@) - tilsynelatande offentleg IP addresse %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Kople frå alle (%@)";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Kople frå alle (%1$d tilkoplingar) - tilsynelatande offentleg IP-addresse %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Kople frå alle (%d tilkoplingar)";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "Fortsett";
-
-/* Button */
-"Convert Configurations" = "Konverter endringar";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Kopier konsollogg til utklippstavle";
@@ -453,9 +445,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Ikkje spør igjen, hald alltid fram";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Ikkje spør igjen, gjer alltid om";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Ikkje vis denne typen adversel igjen";
@@ -880,9 +869,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Fullføre oppdateringa\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Endre OpenVPN-konfigurasjonar\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • Kopier eit oppsett\n";
 
@@ -894,9 +880,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • Flytt eit oppsett\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Flytt til privat konfigurasjonsmappe\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • Fjern eit oppsett\n";
@@ -915,9 +898,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Tvungne innstillingar vil også installerast eller vert erstatta.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " OBS! OpenVPN-konfigurasjonar vil konverterast til Tunnelblick VPN-konfigurasjonar.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick lyt innstallerast i programmappa.\n\n";
@@ -1760,9 +1740,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick treng løyve til å endra ei innstilling som berre kan endrast av ein datamaskinadministrator.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick treng å konvertera OpenVPN-konfigurasjonar til VPN-konfigurasjonar for Tunnelblick.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick har behov for å laga eller oppdatera ein sikker (skugge) kopi av konfigurasjonsfila.";
 
 /* Window text */
@@ -1944,18 +1921,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "Du kan ikkje endra namn eller flytta ein konfigurasjon som er sett til å starta opp ved oppstarten til maskina.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Du har OpenVPN-konfigurasjonar, men du har ingen Tunnelblick-VPN-konfigurasjonar.\n\nOpenVPN-konfigurasjonene må konverterast til ein Tunnelblick-VPN-konfigurasjon viss du vil bruka dei.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Du har OpenVPN-konfigurasjonar, men du har ingen Tunnelblick-VPN-konfigurasjonar.\n\nOpenVPN-konfigurasjonene må konverterast til Tunnelblick-VPN-konfigurasjonar viss du vil bruka dei.\n\nTunnelblick kan likevel ikkje konvertera dei fordi det oppstod eit problem:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Du har OpenVPN-konfigurasjonar.\n\nOpenVPN-konfigurasjonane må konverterast til Tunnelblick-VPN-konfigurasjonar viss du vil bruka dei.\n\nTunnelblick kan likevel ikkje ikkje konvertera dei fordi det oppstod eit problem:\n\n%@\n\nHvis du vel 'Ignorer', blir ikkje konfigurasjonane tilgjengelege!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Du har ein eller fleire OpenVPN konfigurasjonar som ikkje vil vera tilgjengelege ved bruk av denne versjonen av Tunnelblick. Du kan:\n\n  • La Tunnelblick konvertera desse OpenVPN konfigurasjonar til Tunnelblick VPN konfigurasjonar; eller\n  • Avslutte og installera ein annan versjon av Tunnelblick; eller\n  • Ignorere dette og halda utan fram med å konvertera.\n\nHvis du vel å 'Ignorere' vil ikkje konfigurasjonane vera tilgjengeleg!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Du har prøvd å installera ei konfigurasjonsfil som er eit konfigurasjonsfildøme. Konfigurasjonensfilen må endrast for å kunna oppretta eit VPN-samband. Du kan også trenga andre filer, slik som sertifikat eller nøkkelfiler, for å oppretta VPN-sambandet.\n\nRådfør deg med nettverksadministratoren din eller VPN-leverandør for å få konfigurasjonen og andre filer, eller informasjonen du treng for å modifisera dømefila.\n\nKonfigurasjonsfilen finst ved\n%@\n\n";

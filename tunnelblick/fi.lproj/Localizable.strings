@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Katkaise kaikki (%1$@) - näkyvä julkinen IP osoite %2$@";
+"Disconnect All (%@) IP: %@" = "Katkaise kaikki (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Katkaise kaikki (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Katkaise kaikki (%1$d yhteyttä) - näkyvä julkinen IP-osoite %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Katkaise kaikki (%1$d yhteyttä) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Katkaise kaikki (%d yhteyttä)";
@@ -69,9 +69,6 @@
 
 /* Button */
 "Continue" = "Jatka";
-
-/* Button */
-"Convert Configurations" = "Muunna asetukset";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Kopioi loki leikepöydälle";
@@ -453,9 +450,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Älä kysy uudelleen, oleta ‘Jatka’";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Älä kysy uudestaan, muunna aina";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Älä näytä tätä varoitusta uudelleen";
@@ -880,9 +874,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  Viimeistele päivitys\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Muunna OpenVPN-konfiguraatiot\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  Kopioi konfiguraatio\n";
 
@@ -894,9 +885,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  Siirrä konfiguraatio\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Siirrä yksityisten konfiguraatioiden kansio\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  Poista konfiguraatio\n";
@@ -915,9 +903,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Myös pakotetut asetukset asennetaan tai korvataan.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Huomaa: OpenVPN-konfiguraatiot muunnetaan Tunnelblick VPN-konfiguraatioiksi.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick on asennettava Ohjelmat-kansioon.\n\n";
@@ -1104,9 +1089,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Päivitys saatavissa %@ VPN määrityksiin.\n\nPäivitetäänkö määritykset?";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Oletko varma, että et halua muuntaa OpenVPN konfiguraatioita Tunnekblick VPN konfiguraatioiksi?\n\nKONFIGURAATIOT EIVÄT OLE KÄYTÖSSÄ JOS ET MUUNNA NIITÄ!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Haluatko varmasti poistaa tunnukset (yksityinen avain ja/tai käyttäjätunnus ja salasana) %ld konfiguraatiolta, joka on tallennettu Avainnippuun?";
@@ -1904,9 +1886,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblickin on muutettava asetus, jonka voi muuttaa vain tietokoneen järjestelmänvalvoja.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblickin täytyy muuntaa OpenVPN-konfiguraatiot Tunnelblick VPN -konfiguraatioiksi.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblickin on luotava tai päivitettävä turvallinen (varjo)kopio konfiguraatiotiedostosta.";
 
 /* Window text */
@@ -2097,18 +2076,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "Et voi uudelleennimetä tai siirtää konfiguraatiota, joka on asetettu käynnistymään tietokoneen käynnistyksen yhteydessä.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Sinulla on OpenVPN-konfiguraatioita, mutta sinulla ei ole yhtään Tunnelblick VPN -konfiguraatiota. \n\nOpenVPN-konfiguraatiot on muunnettava Tunnelblick VPN -konfiguraatioiksi, mikäli haluat käyttää niitä.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Sinulla on OpenVPN-konfiguraatioita, mutta sinulla ei ole yhtään Tunnelblick VPN -konfiguraatiota. \n\nOpenVPN-konfiguraatiot on muunnettava Tunnelblick VPN -konfiguraatioiksi, mikäli haluat käyttää niitä.\n\nTunnelblick ei kuitenkaan pysty muuntamaan niitä, koska kohdattiin ongelma:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Sinulla on OpenVPN-konfiguraatioita.\n\nOpenVPN-konfiguraatiot on muunnettava Tunnelblick VPN -konfiguraatioiksi, mikäli haluat käyttää niitä.\n\nTunnelblick ei kuitenkaan pysty muuntamaan niitä, koska kohdattiin ongelma:\n\n%@\n\nJos valitset 'Jätä huomiotta', konfiguraatiot eivät ole käytettävissä!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Sinulla OpenVPN-kokoonpanoja, jotka eivät ole käytettävissä, jos käytetään Tunnelblickin tätä versiota. Voit: \n\n• Antaa Tunnelblickin muuntaa nämä OpenVPN-konfiguraatiot Tunnelblick VPN -konfiguraatioiksi;tai \n• Lopettaa ja asentaa Tunnelblickin eri version; tai \n• Jättää tämän huomiotta ja jatkaa muuntamatta.  \n\nJos valitset \"Jätä huomiotta\" konfiguraatiot eivät ole käytettävissä!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Olet yrittänyt asentaa konfiguraatiotiedoston, joka on mallikonfiguraatiotiedosto. Konfiguraatiotiedosto on muunnettava VPN-yhteyden muodostamiseksi. Voit tarvita myös muita tiedostoja, kuten varmenne- tai avaintiedostoja, VPN-yhteyden muodostamiseksi. \n\nOta yhteyttä verkon ylläpitäjääsi tai VPN-yhteydentarjoajaasi saadaksesi konfiguraatio- ja muut tiedostostot tai tiedot, jotka tarvitset mallitiedoston muokkaamiseksi. \n\nKonfiguraatiotiedosto sijaitsee kohteessa \n%@\n\n";

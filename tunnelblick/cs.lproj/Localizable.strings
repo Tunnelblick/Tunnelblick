@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Odpojit vše (%1$@) - zřejmá veřejná IP adresa %2$@";
+"Disconnect All (%@) IP: %@" = "Odpojit vše (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Odpojit všechna (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Odpojit vše ( %1$d spojení) - zřejmá veřejná IP adresa %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Odpojit vše (%1$d spojení) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Odpojit všechna (%d spojení)";
@@ -69,9 +69,6 @@
 
 /* Button */
 "Continue" = "Pokračovat";
-
-/* Button */
-"Convert Configurations" = "Konvertovat konfigurace";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Zkopírovat log konzole do schránky";
@@ -453,9 +450,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Opět nedotazovat, vždy pokračovat";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Opět nedotazovat, vždy konvertovat";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Tento typ varování znovu nezobrazovat";
@@ -880,9 +874,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Dokončit aktualizaci\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Zkonvertovat konfigurace OpenVPN\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  Kopírovat konfiguraci\n";
 
@@ -894,9 +885,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  přesunout konfiguraci\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Přesunout složku s privátními konfiguracemi\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  Odstranit konfiguraci\n";
@@ -915,9 +903,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Vynucená nastavení budou také instalována nebo přepsána.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Poznámka: Konfigurace OpenVPN budou konvertovány do konfigurací Tunnelblick VPN.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick musí být nainstalován v složce Aplikace.\n\n";
@@ -1104,9 +1089,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Je k dispozici aktualizace konfiguace %@.\n\nPřejete si aktualizovat konfiguraci?\n\n";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Opravdu nechcete zkonvertovat konfigurace OpenVPN do konfigurací VPN Tunnelblicku?\n\nKONFIGURACE NEBUDE DOSTUPNÁ, POKUD JE NEPŘEVEDETE!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Opravdu si přejete smazat přihlašovací údaje (privátní klíč a/nebo jméno a heslo) %ld konfigurací, které jsou uloženy v Klíčence?";
@@ -1904,9 +1886,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick potřebuje změnit nastavení, které může být změněno pouze administrátorem počítače.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick potřebuje zkonvertovat konfigurace OpenVPN do konfigurací Tunnelblick VPN.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick potřebuje vytvořit nebo aktualiztovat bezpečnostní (stínovou) kopii konfiguračního souboru.";
 
 /* Window text */
@@ -2097,18 +2076,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "Není možné přejmenovat nebo přesouvat konfiguraci která se spouští po startu počítače.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Máte konfigurace OpenVPN, ale nemáte žádné konfigurace Tunnelblick VPN.\n\nPokud je chcete použít, pak musí být konfigurace OpenVPN zkonvertovány do konfigurací Tunnelblick VPN.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Máte konfigurace OpenVPN, ale nemáte žádné konfigurace Tunnelblick VPN.\n\nPokud je chcete použít, pak musí být konfigurace OpenVPN zkonvertovány do konfigurací Tunnelblick VPN.\n\nBohužel Tunnelblick je nemůže konvertovat, protože se vyskytl problém:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Máte konfigurace OpenVPN.\n\nPokud je chcete použít, pak musí být konfigurace OpenVPN zkonvertovány do konfigurací Tunnelblick VPN.\n\nBohužel Tunnelblick je nemůže zkonvertovat, protože se vyskytl problém:\n\n%@\n\nPokud vyberete 'Ignorovat' konfigurace nebude dostupná!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Máte jednu nebo více konfigurací OpenVPN, které nebudou dostupné, pokud používátu tuto verzi Tunnelblicku. Můžete:\n\n  • Nechat Tunnelblick zkonvertovat tyto konfigurace OpenVPN do konfigurací VPN Tunnelblicku; nebo\n  • Skončit a nainstalovat jinou verzi Tunnelblicku; nebo\n  • Ignorovat toto hlášení a pokračovat bez konverze.\n\nPokud vyberete 'Ignorovat', tak konfigurace nebude dostupná!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Pokoušel jste se instalovat konfigurační soubor, který je příkladem konfigurace. Pro připojení k VPN musí být konfigurační soubor modifikován. Můžete také potřebovat další soubory, jako jsou certifikáty, nebo soubory s klíči.\n\nS Vaším síťovým administrátorem, nebo poskytovatelem VPN zkonzultujte, jak získat konfiguraci a další soubory nebo informace potřebné pro modifikaci příkladu.\n\nKonfigurační soubor je na\n%@\n\n";

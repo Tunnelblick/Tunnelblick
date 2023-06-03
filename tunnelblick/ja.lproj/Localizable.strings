@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "全て切断 (%1$@) - 対外パブリックIPアドレス %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "全て切断 (%@)";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "全て切断 (%1$d 個の接続) - 対外パブリックIPアドレス %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "全て切断 (%d 個の接続)";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "続ける";
-
-/* Button */
-"Convert Configurations" = "設定ファイルを変換";
 
 /* Button */
 "Copy Console Log to Clipboard" = "コンソールログをクリップボードにコピー";
@@ -453,9 +445,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "次回から表示せず、常に続ける";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "次回から表示せず、常に変換する";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "今後はこの種類の警告を表示しない";
@@ -880,9 +869,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • 更新を完了する\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • OpenVPN 設定ファイルを変換します\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • 構成をコピーする\n";
 
@@ -894,9 +880,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • 構成を移動する\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • 個人用設定フォルダに移動します\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • 構成を削除する\n";
@@ -915,9 +898,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " ユーザーによって変更できない設定もインストールか上書きされます\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " 注意: OpenVPN 設定ファイルは Tunnelblick VPN 設定ファイルへ変換されます。\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick をアプリケーションフォルダへインストールする必要があります。\n\n";
@@ -1104,9 +1084,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "VPN構成 \"%@\" のアップデートが利用可能です。\n\n構成をアップデートしますか？\n\n";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "本当に OpenVPN 設定ファイルを Tunnelblick VPN 設定ファイルへ変換しなくてよいですか？\n\n変換しない限りこれらの接続先は利用できません！\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "キーチェーンに保存されている%ld 個の認証情報(秘密鍵またはユーザー名とパスワード) を本当に削除してもよいですか？";
@@ -1904,9 +1881,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "管理者のみが変更できるかもしれない設定の変更が必要です";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "OpenVPN 設定から Tunnelblick VPN 設定への変換が必要です。";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "設定ファイルの安全な(シャドー)コピーを作成または更新する必要があります。";
 
 /* Window text */
@@ -2097,18 +2071,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "コンピュータの起動時に接続する設定にしている場合、設定の名前を変更したり移動することはできません。";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "いずれのOpenVPN設定もTunnelblick設定ではありません。\n\nOpenVPN設定は、使用時にTunnelblick VPN設定に変換される必要があります。\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "いずれのOpenVPN設定もTunnelblick設定ではありません。\n\nOpenVPN設定は、使用時にTunnelblick VPN設定に変換される必要がありますが、以下の問題により変換できません:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "既にOpenVPNの設定が存在します。\n\nもしその設定を使用する場合は、OpenVPNの設定はTunnelblick VPN設定に変換する必要があります。\n\nTunnelblickは以下の問題により設定を変換できませんでした:\n\n%@\n\nもしこの設定を使用しない場合は 'Ignore' を選択して下さい。\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "このバージョンの Tunnelblick では使用できない OpenVPN 設定ファイルがいくつかあります。次のいずれかを選んでください。\n\n  • これらの OpenVPN 設定ファイルを Tunnelblick VPN 設定ファイルに変換します。\n  • 終了して別のバージョンの Tunnelblick をインストールします。\n  • これを無視して、変換せずに続けます。\n\n「無視」を選択した場合、これらの接続先は利用できません！\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "アナタがインストール使用とした設定はサンプルの設定ファイルです。VPNを接続するためには設定ファイルを修正してください。また、必要に応じて証明書や秘密鍵のファイルを用意してください。\n\nサンプル設定ファイルの修正は、ネットワーク管理者やVPNサービスプロバイダに問い合わせて情報を入手して下さい。\n\n設定ファイルは %@ に置かれています。\n\n";

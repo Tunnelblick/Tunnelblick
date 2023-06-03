@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "قطع کلیه ارتباط ها (%1$@) - نشانی آی پی فعلی %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "قطع کردن همه (%@)";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "قطع کلیه (%1$d ارتباط) - نشانی آی پی فعلی %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "قطع کردن همه (%d اتصال)";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "ادامه";
-
-/* Button */
-"Convert Configurations" = "تبدیل تنظیمات";
 
 /* Button */
 "Copy Console Log to Clipboard" = "کپی کردن لاگ";
@@ -453,9 +445,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "دیگر نپرس٬ همیشه ادامه بده";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "دیگر نپرس٬ همیشه تبدیل کن";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "این نوع هشدار را دیگر نشان نده";
@@ -859,9 +848,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • کامل کردن بروز رسانی\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • تبدیل تنظیمات OpenVPN\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "• کپی کردن تنظیمات\n";
 
@@ -873,9 +859,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "• انتقال تنظیمات";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • جابجایی پوشه تنظیمات خصوصی\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "• حذف تنظیمات";
@@ -894,9 +877,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " تنظیمات اجباری هم نصب یا جایگزین میشوند.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " توجه: پیکربندی OpenVPN به پیکربندی Tunnelblick تبدیل خواهد شد.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " برنامه Tunnelblick باید در پوشه برنامه ها نصب شود.\n\n";
@@ -1050,9 +1030,6 @@
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "خطای داخلی در Tunnelblick رخ داد: fileIsReasonableSize: مسیر نامشخص است";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "آیا از عدم تبدیل پیکربندی OpenVPN به پیکربندی Tunnelblick VPN اطمینان دارید؟\n\nپیکربندی ها بدون تبدیل در دسترس نخواهند بود!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "آیا از حذف اعتبارنامه ها (کلید خصوصی و/یا نام کاربری و گذرواژه) برای پیکربندی %ld که در Keychain ذخیره شده اند اطمینان دارید؟";
@@ -1751,9 +1728,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick نیاز به تغییر تنظیمی دارد که فقط توسط مدیر رایانه قابل تغییر است.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick نیاز دارد تا پیکربندی های OpenVPN را به پیکربندی های وی پی ان Tunnelblick نبدیل نماید.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick نیاز دارد تا یک رونوشت امن(سایه) از فایل پیکربندی ایجاد نماید و یا آنرا ویرایش نماید.";
 
 /* Window text */
@@ -1923,18 +1897,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "شما قادر به خصوصی و یا مشترک ساختن پیکربندی '%@' نیستید زیرا این پیکربندی از نوع ویرایش پذیر می باشد.\n\nتوجه داشته باشید که پیکربندی ویرایش پذیر وی پی ان در Tunnelblick قابل خصوصی و مشترک سازی نمی باشد; فقط تنظیمات درون آن را می توان خصوصی و یا مشترک کرد.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "چندین پیکربندی برای OpenVPN موجود است ولی نه برای وی پی ان Tunnelblick.\n\nپیکربندی های OpenVPN برای استفاده، باید به پیکربندی های وی پی ان Tunnelblick تبدیل شوند.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "چندین پیکربندی برای OpenVPN موجود است ولی نه برای وی پی ان Tunnelblick.\n\nپیکربندی های OpenVPN برای استفاده، باید به پیکربندی های وی پی ان Tunnelblick تبدیل شوند.\n\n\nبا این حال،‌ له دلیل بروز یک اشکال، Tunnelblick نتوانست این تبدیل را انجام دهد:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "چندین پیکربندی برای OpenVPN موجود است.\n\nپیکربندی های OpenVPN برای استفاده، باید به پیکربندی های وی پی ان Tunnelblick تبدیل شوند.\n\nبا این حال،‌ له دلیل بروز یک اشکال، Tunnelblick نتوانست این تبدیل را انجام دهد:\n\n%@\n\nاگر گزینه 'نادیده بگیر' را انتخاب نماییدپیکربندی های در دسترس نخواهند بود!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "چندین پیکربندی OpenVPN موجود است که برای این نسخه از Tunnelblick در دسترس نیستند. شما می توانید:\n\n  • توسط Tunnelblick این پیکربندی ها را به پیکربندی وی پی ان Tunnelblick تبدیل کنید; یا\n  • از Tunnelblick خارج شوید و نسخه ای دیگر از آنرا نصب نمایید; و یا\n  • این مورد را نادید بگیرید و بدون تبدیل ادامه کار دهید.\n\nاگر گزینه 'نادیده بگیر' را انتخاب نمایید، پیکربندی های در دسترس نخواهند بود!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "شما تلاش کردید تا یه فایل نمونه پیکربندی را به جای فایل اصلی پیکربندی نصب نمایید. این فایل پیکربندی باید برای اتصال به وی پی ان تغییر کند. همچنین شما باید فایل های دیگری همچون اعتبارنامه و یا کلید را همراه داشته باشید.\n\nجهت دریافت فایل پیکربندی و یا سایر فایل های و یا اطلاعات بیشتر برای تغییر در فایل نمونه، با مدیر شبکه و یا اراسه دهنده سرویس وی پی ان خود تماس حاصل فرمایید.\n\nفایل پیکربندی در مسیر زیر قرار دارد:\n%@\n\n";

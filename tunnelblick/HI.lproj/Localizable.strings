@@ -51,9 +51,6 @@
 "Continue" = "आगे";
 
 /* Button */
-"Convert Configurations" = "व्यवस्थाएं परिवर्तित करें";
-
-/* Button */
 "Delete" = "मिटाएँ";
 
 /* Button */
@@ -154,9 +151,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "पुनः ना पूछो, हमेशा जारी रखो";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "पुनः ना पूछो, हमेशा रूपांतरित करो";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "फिर से इस तरह की चेतावनी न दिखाएं";

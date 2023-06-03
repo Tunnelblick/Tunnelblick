@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Aftengja allt (%1$@) – sýnileg opinber IP-tala %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Aftengja allt (%@)";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Aftengja allt (%1$d tengingar) – sýnileg opinber IP-tala %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Aftengja allt (%d tengingar)";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "Halda áfram";
-
-/* Button */
-"Convert Configurations" = "Umbreyta samskipunum";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Afrita atburðaskrá Console yfir á klippiborðið";
@@ -441,9 +433,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Ekki spyrja aftur, halda alltaf áfram";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Ekki spyrja aftur, umbreyta alltaf";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Ekki birta þess konar viðvörun aftur";
@@ -853,9 +842,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Ganga frá uppfærslunni\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Umbreyta OpenVPN-samskipunum\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • Afrita samskipan\n";
 
@@ -867,9 +853,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • Færa samskipan\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Færa möppu einkasamskipana\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • Fjarlægja samskipan\n";
@@ -888,9 +871,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Óbreytanlegar stillingar verða einnig settar upp eða þeim skipt út.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Ath.: OpenVPN-samskipunum verður um breytt í Tunnelblick VPN-samskipanir.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Það verður að setja Tunnelblick upp í Applications-möppunni.\n\n";
@@ -1674,15 +1654,6 @@
 
 /* Window text */
 "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Ekki er hægt að gera samskipanina „%@“ leynilega eða opinbera því hún er uppfæranleg samskipan.\n\nÞess má geta að uppfæranlega Tunneblick-samskipan má ekki gera leynilega eða opinbera: einungis má gera þær samskipanir sem hún inniheldur leynilegar eða opinberar.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Þú ert með OpenVPN-samskipanir en þú ert ekki með neinar Tunnelblick-samskipanir.\n\nOpenVPN-samskipunum verður að umbreyta í Tunnelblick-samskipanir til þess að þær geti verið notaðar.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Þú ert með OpenVPN-samskipanir en þú ert ekki með neinar Tunnelblick-samskipanir.\n\nOpenVPN-samskipunum verður að umbreyta í Tunnelblick-samskipanir til þess að þær geti verið notaðar.\n\nTunneblick getur þó ekki umbreytt þeim því vandamál kom upp:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Þú ert með OpenVPN-samskipanir en þú ert ekki með neinar Tunnelblick-samskipanir.\n\nOpenVPN-samskipunum verður að umbreyta í Tunnelblick-samskipanir til þess að þær geti verið notaðar.\n\nTunneblick getur þó ekki umbreytt þeim því vandamál kom upp:\n\n%@\n\nEf þú smellir á „Hunsa“ verða samskipanirnar ekki aðgengilegar.\n\n";
 
 /* Window text */
 "You may not duplicate a Deployed configuration." = "Ekki má tvírita faststillta samskipan.";

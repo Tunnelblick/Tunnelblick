@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Putuskan Semua (%1$@) - alamat IP publik yang muncul %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Putuskan Semua (%@)";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Putuskan Semua (%1$d Koneksi) - alamat IP publik yang muncul %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Putuskan Semua (%d Koneksi)";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "Lanjutkan";
-
-/* Button */
-"Convert Configurations" = "Konversikan Konfigurasi";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Salin Log Konsol ke Papan Klip";
@@ -453,9 +445,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Jangan tanya lagi, selalu Lanjutkan";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Jangan tanya lagi, selalu konversikan";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Jangan tampilkan peringatan tipe ini lagi";
@@ -880,9 +869,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Menyelesaikan update ini\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Konversikan konfigurasi OpenVPN\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  Salin sebuah konfigurasi\n";
 
@@ -894,9 +880,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • Pindahkan suatu konfigurasi\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Pindahkan folder konfigurasi pribadi\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • Hapus suatu konfigurasi\n";
@@ -915,9 +898,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Preferensi yang dipaksa juga akan dipasang atau diganti.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Catatan: Konfigurasi OpenVPN akan dikonversikan ke Konfigurasi VPN Tunnelblick.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick mesti dipasang dalam Applications.\n\n";
@@ -1104,9 +1084,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Pembaruan untuk %@ konfigurasi VPN telah tersedia.\n\nApakah anda ingin memperbarui konfigurasi?\n\n";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Anda yakin tidak ingin mengonversi konfigurasi OpenVPN ke Konfigurasi VPN Tunnelblick?\n\nKONFIGURASI TIDAK AKAN TERSEDIA BILA ANDA TIDAK MENGONVERSI MEREKA!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Anda yakin hendak menghapus kredensial (kunci pribadi dan/atau nama pengguna dan kata sandi) untuk %ld konfigurasi yang tersimpan di dalam Rantai Kunci?";
@@ -1904,9 +1881,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick perlu mengubah suatu pengaturan yang hanya dapat diubah oleh administrator komputer.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick perlu mengonversi konfigurasi OpenVPN ke Konfigurasi VPN Tunnelblick.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick perlu membuat atau memperbarui suatu salinan aman (bayangan) dari berkas konfigurasi.";
 
 /* Window text */
@@ -2097,18 +2071,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "Anda tidak dapat mengganti nama atau memindahkan suatu konfigurasi yang diatur untuk mulai berjalan ketika komputer mulai menyala.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Anda punya konfigurasi OpenVPN tapi Anda tidak punya Konfigurasi VPN Tunnelblick apapun.\n\nKonfigurasi OpenVPN mesti dikonversi ke Konfigurasi VPN Tunnelblick bila Anda ingin memakai mereka.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Anda punya konfigurasi OpenVPN tapi Anda tidak punya Konfigurasi VPN Tunnelblick apapun.\n\nKonfigurasi OpenVPN mesti dikonversi ke Konfigurasi VPN Tunnelblick bila Anda ingin memakai mereka.\n\nNamun, Tunnelblick tidak dapat mengonversi mereka karena ada masalah:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Anda punya konfigurasi OpenVPN.\n\nKonfigurasi OpenVPN mesti dikonversi ke Konfigurasi VPN Tunnelblick bila Anda ingin memakai mereka.\n\nNamun, Tunnelblick tidak dapat mengonversi mereka karena ada masalah:\n\n%@\n\nBila Anda memilih 'Abaikan' maka konfigurasi tidak akan dapat dipakai!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Anda punya satu atau lebih konfigurasi OpenVPN yang tidak akan tersedia ketika memakai versi Tunnelblick ini. Anda dapat:\n\n  • Membiarkan Tunnelblick mengonversi konfigurasi OpenVPN ini ke Konfigurasi VPN Tunnelblick; atau\n  • Keluar dan memasang versi lain Tunnelblick; atau\n  • Mengabaikan ini dan melanjutkan tanpa mengonversi.\n\nBila Anda memilih 'Abaikan' maka konfigurasi tidak akan dapat dipakai!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Anda telah mencoba memasang suatu berkas konfigurasi yang berupa berkas konfigurasi contoh. Berkas konfigurasi mesti diubah untuk menyambung ke sebuah VPN. Anda mungkin juga perlu berkas lain, seperti berkas sertifikat atau kunci, untuk menyambung ke VPN.\n\nTanyakan ke administrator jaringan atau penyedia layanan VPN Anda untuk memperoleh konfigurasi dan berkas lain atau informasi yang Anda perlukan untuk mengubah berkas contoh.\n\nBerkas konfigurasi ada di\n%@\n\n";

@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Alle trennen (%1$@) - scheinbare öffentliche IP-Adresse %2$@";
+"Disconnect All (%@) IP: %@" = "Alle Verbindungen trennen (%1$@ Verbindungen) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Alle trennen (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Trenne alle (%1$d Verbindungen) - scheinbare öffentliche IP-Adresse %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Alle Verbindungen trennen (%1$d Verbindungen) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Alle %d Verbindungen trennen";
@@ -69,9 +69,6 @@
 
 /* Button */
 "Continue" = "Weiter";
-
-/* Button */
-"Convert Configurations" = "Konfigurationen umwandeln";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Konsolen-Protokoll in die Zwischenablage kopieren";
@@ -453,9 +450,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Nicht erneut fragen, immer fortfahren";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Nicht erneut fragen, immer umwandeln";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Diese Art von Warnung nicht mehr anzeigen";
@@ -880,9 +874,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  Update vervollständigen\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • OpenVPN-Konfigurationen umwandeln\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • Eine Konfiguration kopieren\n";
 
@@ -894,9 +885,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • Eine Konfiguration bewegen\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Den privaten Konfigurationsordner verschieben\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • Eine Konfiguration löschen\n";
@@ -915,9 +903,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Erzwungene Einstellungen werden ebenfalls installiert oder ersetzt.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Hinweis: OpenVPN-Konfigurationen werden in Tunnelblick-VPN-Konfigurationen umgewandelt.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick muss im Programme-Ordner installiert sein.\n\n";
@@ -1104,9 +1089,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Für die %@ VPN Konfiguration ist ein Update verfügbar.\n\nMöchten Sie die Konfiguration updaten?\n\n";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Sind Sie sicher, dass Sie OpenVPN Konfigurationen nicht zu Tunnelblick VPN Konfigurationen umwandeln möchten?\n\nKONFIGURATIONEN WERDEN NICHT VERFÜGBAR SEIN, WENN SIE SIE NICHT UMWANDELN!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Sind Sie sicher, dass sie die Zugangsdaten (privater Schlüssel und/oder Benutzername und Passwort), die im Schlüsselbund für %ld Konfigurationen gespeichert sind, löschen möchten?";
@@ -1904,9 +1886,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick muss eine Einstellung ändern, die nur vom Computeradministrator geändert werden kann.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick muss die OpenVPN-Konfigurationen in eine Tunnelblick-VPN-Konfigurationen konvertieren.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick muss eine sichere (Schatten-) Kopie der Konfigurationsdatei erstellen oder updaten.";
 
 /* Window text */
@@ -2097,18 +2076,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "Eine Konfiguration, die 'Beim Start des Computers\" aktiv ist, kann nicht umbenannt oder verschoben werden.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Sie haben OpenVPN-Konfigurationen, aber Sie haben keine Tunnelblick VPN-Konfigurationen.\n\nDie OpenVPN-Konfigurationen müssen in Tunnelblick VPN-Konfigurationen umgewandelt werden, wenn Sie sie benutzen möchten.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Sie haben OpenVPN-Konfigurationen, aber Sie haben keine Tunnelblick VPN-Konfigurationen.\n\nDie OpenVPN-Konfigurationen müssen in Tunnelblick VPN-Konfigurationen umgewandelt werden, wenn Sie sie benutzen möchten. \n\nTunnelblick konnte sie jedoch nicht umwandeln, denn es trat ein Problem auf:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Sie haben OpenVPN-Konfigurationen. \n\nDie OpenVPN-Konfigurationen müssen in Tunnelblick VPN-Konfigurationen umgewandelt werden, wenn Sie sie benutzen möchten.\n\nTunnelblick konnte sie jedoch nicht umwandeln, denn es ist ein Problem aufgetreten:\n\n%@\n\nWenn Sie \"ignorieren\" wählen, werden die Konfigurationen nicht zur Verfügung stehen!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Sie haben eine oder mehrere OpenVPN Konfigurationen, die nicht verfügbar sein werden, wenn Sie diese Version von Tunnelblick nutzen. Sie können:\n\n  • Tunnelblick diese OpenVPN Konfigurationen zu Tunnelblick VPN Konfigurationen umwandeln lassen; oder\n  • Beenden und eine andere Version von Tunnelblick installieren; oder\n  • Diese Meldung ignorieren und ohne Konvertierung fortfahren.\n\nWenn Sie 'Diese Meldung ignorieren' wählen, werden die Konfigurationen nicht verfügbar sein!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Die installierte Konfigurationsdatei ist nur eine Beispielkonfiguration. Um sich mit dem VPN zu verbinden, müssen sie diese noch anpassen. Möglicherweise benötigen Sie auch weitere Dateien wie Zertifikate oder Schlüssel. \n\nWenden Sie sich an Ihren Netzwerkadministrator oder ihren VPN-Serviceanbieter für Konfigurationsdetails und Dateien.\n\nDie Konfigurationsdatei ist in\n%@\n\n";

@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Ondoa zote (%1$@) - anwani dhahiri ya Itifaki ya Intaneti(Internet Protocol) ya umma%2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Ondoa Maunganisho Yote (%@)";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Ondoa Viunganisho vyote (%1$d) - anwani dhahiri ya Itifaki ya Intaneti(Internet Protocol)  ya umma%2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Ondoa Maunganisho Yote (%d Maunganisho)";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "Endelea";
-
-/* Button */
-"Convert Configurations" = "Kubadilisha Usanidi";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Nakili Taariza za Konsolu kwenye Bodiklipu";
@@ -453,9 +445,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Usiulize tena, kila wakati 'Endelea'";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Usiulize tena, badilisha kila wakati";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "38/5000\nUsioneshe tena aina hii ya onyo";
@@ -880,9 +869,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Kamilisha sasisho\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Badilisha usanidi wa OpenVPN\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • Nakili usanidi\n";
 
@@ -894,9 +880,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • Hamisha usanidi\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Hamisha folda ya usanidi wa faragha\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • Ondoa usanidi\n";
@@ -915,9 +898,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Mapendeleo ya kulazimishwa pia yatasakinishwa au kubadilishwa.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Kumbuka: Mipangilio ya OpenVPN itabadilishwa kuwa Mipangilio ya Tunnelblick VPN.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick lazima isakinishwe katika Programu.\n\n";

@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Отключить все (%1$@) - видимый внешний IP-адрес %2$@";
+"Disconnect All (%@) IP: %@" = "Отключить все (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Отключить всё (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Отключить все (соединений: %1$d) - видимый внешний IP-адрес %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Отключить все (соединений: %1$d) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Отключить все (соединений: %d)";
@@ -69,9 +69,6 @@
 
 /* Button */
 "Continue" = "Продолжить";
-
-/* Button */
-"Convert Configurations" = "Конвертировать конфигурации";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Скопировать Журнал Событий в буфер обмена";
@@ -453,9 +450,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Больше не спрашивать, всегда продолжать";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Больше не спрашивать, всегда конвертировать";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Больше не показывать подобные предупреждения";
@@ -880,9 +874,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Завершить обновление\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Конвертирование конфигураций OpenVPN\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • Копировать конфигурацию\n";
 
@@ -894,9 +885,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • Переместить конфигурацию\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Перемещение папки личных конфигураций\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • Удалить конфигурацию\n";
@@ -915,9 +903,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Принудительные параметры также будут установлены или заменены.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Замечание: Конфигурации OpenVPN будут конвертированы в конфигурации Tunnelblick VPN.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick должен быть установлен в Программы.\n\n";
@@ -1104,9 +1089,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Доступно обновление %@ VPN конфигурации.\n\nХотите обновить конфигурацию?\n\n";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Вы действительно не хотите конвертировать конфигурации OpenVPN?\n\nКОНФИГУРАЦИИ НЕ БУДУТ ДОСТУПНЫ, ПОКА ВЫ ИХ НЕ ПРЕОБРАЗУЕТЕ!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Вы действительно хотите удалить учётные данные (приватный ключ и/или имя пользователя и пароль) для %ld конфигураций, которые сохранены в Связке ключей?";
@@ -1904,9 +1886,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick требуется изменить настройки, которые могут быть сделаны только администратором компьютера.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick требуется конвертировать конфигурации OpenVPN в формат конфигураций Tunnelblick VPN.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick необходимо создать или обновить безопасную (теневую) копию конфигурационного файла.";
 
 /* Window text */
@@ -2097,18 +2076,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "Переименовывать или перемещать конфигурацию, которая используется при запуске компьютера нельзя.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "У вас есть настройки OpenVPN, но у вас нет никаких конфигураций Tunnelblick VPN.\n\nЕсли вы хотите использовать конфигурации OpenVPN, они должны быть преобразованы в конфигурации Tunnelblick VPN.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "У вас есть настройки OpenVPN, но у вас нет никаких конфигураций Tunnelblick VPN.\n\nЕсли вы хотите использовать конфигурации OpenVPN, они должны быть преобразованы в конфигурации Tunnelblick VPN.\n\nОднако, Tunnelblick не смог их преобразовать, из-за возникшей проблемы:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "У вас есть конфигурации OpenVPN.\n\nЕсли вы хотите использовать конфигурации OpenVPN, они должны быть преобразованы в конфигурации Tunnelblick VPN.\n\nОднако, Tunnelblick не смог их преобразовать, из-за возникшей проблемы:\n\n%@\n\nЕсли вы выберите 'Игнорировать' конфигурации не будут доступны!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Некоторые из имеющихся конфигураций OpenVPN станут недоступными при использовании Tunnelblick. Вы можете:\n\n  • позволить Tunnelblick преобразовать эти конфигурации OpenVPNв конфигурации Tunnelblick VPN; или\n  • Выйти и установить другую версию Tunnelblick; or\n  • Проигнорировать и продолжить без преобразования.\n\nЕсли вы проиггнорируете, то конфигурации будут недоступны!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Вы пытались установить файл конфигурации, который дан для примера. Чтобы подключиться к VPN вам необходимо изменить файл конфигурации. Вам также могут понадобиться другие файлы, такие как сертификат или ключ, для подключения к VPN.\n\nОбратитесь к администратору сети или поставщику услуг VPN для получения конфигурации и других файлов или информации, как именно вам необходимо изменить файл из примера.\n\nФайл конфигурации находится в\n%@\n\n";

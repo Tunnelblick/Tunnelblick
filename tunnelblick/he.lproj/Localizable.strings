@@ -1,14 +1,9 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
-/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "נתק הכל (%1$@) - כתובת IP ציבורית גלויה %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "נתק הכל (%@)";
-
-/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "נתק הכל (%1$d חיבורים) - כתובת IP ציבורית גלויה %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "נתק הכל (%d חיבורים)";
@@ -69,9 +64,6 @@
 
 /* Button */
 "Continue" = "המשך";
-
-/* Button */
-"Convert Configurations" = "המר תצורות";
 
 /* Button */
 "Copy Console Log to Clipboard" = "העתק יומן מסוף ללוח";
@@ -444,9 +436,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "אל תשאל שוב, המשך תמיד";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "אל תשאל שוב, המר תמיד";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "אל תציג את האזהרה הזו שוב";
@@ -865,9 +854,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  להשלים את העדכון\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  להמיר הגדרות OpenVPN\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • העתק תצורה\n";
 
@@ -879,9 +865,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • העבר תצורה\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  להעביר הגדרות לתיקיה פרטית\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • הסר תצורה\n";
@@ -900,9 +883,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " העדפות מאולצות גם כן יותקנו או יוחלפו.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " הערה: הגדרות OpenVPN יומרו להגדרות יעודיות עבור VPN של Tunnelblick.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick מוכרח להיות מותקן באפליקציות.\n\n";
@@ -1080,9 +1060,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "קיים עדכון לקובץ הגדרות %@.\nהאם ברצוך לעדכן את קובץ ההגדרות?";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "האם את/ה בטוח/ה שאין ברצונך להמיר הגדרות OpenVPN להגדרות Tunnelblick VPN?\n\nההגדרות לא יהיו זמינות אם לא תמיר/י אותן!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "האם את(ה) בטוח(ה) שברצונך למחוק את שם המשתמש והסיסמא עבור הגדרות %ld אשר מאוחסנים ב-Keychain?";

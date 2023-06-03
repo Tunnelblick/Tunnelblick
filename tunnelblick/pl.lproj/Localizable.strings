@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Rozłącz wszystkie (%1$@) - widoczne publicznie adresy IP %2$@";
+"Disconnect All (%@) IP: %@" = "Rozłącz wszystkie (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Rozłącz wszystkie (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Rozłącz wszystkie (%1$d połączenia) - widoczne publicznie adresy IP %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Rozłącz wszystkie (%1$d połączenia) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Rozłącz wszystkie (%d połączenia)";
@@ -69,9 +69,6 @@
 
 /* Button */
 "Continue" = "Kontynuuj";
-
-/* Button */
-"Convert Configurations" = "Konwertuj konfiguracje";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Skopiuj log konsoli do schowka";
@@ -453,9 +450,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Nie pytaj ponownie, zawsze kontynuuj";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Nie pytaj ponownie, zawsze konwertuj";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Nie pokazuj więcej ostrzeżeń tego typu";
@@ -880,9 +874,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  Ukończyć aktualizację\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Konwertuj konfiguracje OpenVPN\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • skopiować konfigurację\n";
 
@@ -894,9 +885,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • przenieść konfigurację\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Przenieś katalog konfiguracji indywidualnych\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • usunąć konfigurację\n";
@@ -915,9 +903,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Wymuszone ustawienia zostaną również zainstalowane bądź zastąpione.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Uwaga: Konfiguracja OpenVPN zostanie skonwertowana do formatu 'Połączenie VPN Tunnelblick'a' (.tblk).\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick musi być zainstalowany w katalogu \"Programy\"\\.\n\n";
@@ -1104,9 +1089,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "Dostępna jest aktualizacja konfiguracji VPN o nazwie %@ \n\nCzy chcesz zaktualizować tę konfigurację?\n\n";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Czy na pewno nie chcesz przekonwertować konfiguracji OpenVPN do formatu konfiguracji Tunnelblick'a (.tblk)?\n\nKONFIGURACJE TE NIE BĘDĄ DOSTĘPNE, JEŻELI NIE ZOSTANĄ PRZEKONWERTOWANE!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Czy jesteś pewny, że chcesz usunąć poświadczenia (klucz prywatny i/lub nazwę użytkownika oraz hasło) dla konfiguracji %ld przechowywanych w Pęku Kluczy?";
@@ -1904,9 +1886,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick potrzebuje zmienić ustawienia dostępne jedynie dla administratora komputera.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick musi dokonać konwersji konfiguracji OpenVPN do konfiguracji Tunnelblick.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick musi stworzyć lub uaktualnić zabezpieczone (ukryte) kopie plików konfiguracji.";
 
 /* Window text */
@@ -2097,18 +2076,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "Nie możesz zmienić nazwy ani przenieść konfiguracji, która ma nawiązywać połączenie podczas uruchamiania komputera.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Masz konfiguracje OpenVPN, ale nie masz żadnych konfiguracji Tunnelblick'a. \n\nJeśli chcesz z nich korzystać, konfiguracje OpenVPN musi zostać przekonwertowana do formatu Tunnelblick'a.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Masz konfiguracje OpenVPN, ale nie masz żadnych konfiguracji Tunnelblick'a. \n\nJeśli chcesz z nich korzystać, konfiguracje OpenVPN musi zostać przekonwertowana do konfiguracji Tunnelblick'a.\n\nNiestety Tunnelblick nie może przekonwertować Twoich konfiguracji z powodu błędu:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Masz konfiguracje OpenVPN.\n\nJeśli chcesz z nich korzystać, konfiguracje OpenVPN musi zostać przekonwertowana do konfiguracji Tunnelblick'a.\n\nNiestety Tunnelblick nie może przekonwertować Twoich konfiguracji z powodu błędu:\n\n%@\n\nJeśli klikniesz \"Ignoruj\", konfiguracje nie będą dostępne!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Posiadasz jedną lub więcej konfiguracji OpenVPN które nie mogą być wykorzystane w tej wersji Tunnelblick'a. Możesz:\n\n  • Pozwolić Tunnelblick'owi przekonwertować te konfiguracje do formatu Tunnelblick'a (.tblk); lub\n  • Zakończyć program i zainstalować inną wersję Tunnelblick'a; lub\n  • Zignoruj tą wiadomość i kontynuuj bez konwersji.\n\nJeśli zignorujesz to ostrzeżenie, Twoje konfiguracje nie będą dostępne!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Próbowałeś zainstalować plik konfiguracyjny, który jest przykładowym plikiem konfiguracyjnym. \n\nAby połączyć się z VPN, należy zmodyfikować plik konfiguracji. Inne pliki, takie jak certyfikaty, bądź pliki z kluczami mogą okazać się konieczne do nawiązania połączenia.\n\nSkonsultuj się z administratorem sieci lub usługodawcą VPN w celu uzyskania konfiguracji i innych plików lub informacji koniecznych do skonfigurowania połączenia.\n\nPlik konfiguracyjny jest w \n%@  \n\n";

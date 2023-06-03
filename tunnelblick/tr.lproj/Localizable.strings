@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Bütün (%1$@) Bağlantısını Kes - görünen açık IP adresi %2$@";
+"Disconnect All (%@) IP: %@" = "Tüm bağlantıları kes (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Tüm bağlantıları kes (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Bütün (%1$d Sayıda) Bağlantıyı Kes - görünen açık IP adresi %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Tüm bağlantıları kes (%1$d Bağlantı) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Tüm bağlantıları kes (%d Bağlantı)";
@@ -69,9 +69,6 @@
 
 /* Button */
 "Continue" = "Devam et";
-
-/* Button */
-"Convert Configurations" = "Konfigürasyonları Dönüştür";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Konsol Kayıtlarını Panoya Koplaya";
@@ -453,9 +450,6 @@
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Tekrar sorma, her zaman devam et";
-
-/* Checkbox name */
-"Do not ask again, always convert" = "Tekrar sorma, her zaman dönüştür";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Bu tip uyarıları artık gösterme";
@@ -880,9 +874,6 @@
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  Güncellemeyi tamamlamaya\n";
 
-/* Window text */
-"  • Convert OpenVPN configurations\n" = "  • OpenVPN yapılandırmalarını dönüştür\n";
-
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Copy a configuration\n" = "  • Bir yapılandırmanın kopyalanması\n";
 
@@ -894,9 +885,6 @@
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Move a configuration\n" = "  • Bir yapılandırmanın taşınması\n";
-
-/* Window text */
-"  • Move the private configurations folder\n" = "  • Özel yapılandırmalar dizinini taşı\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
 "  • Remove a configuration\n" = "  • Bir yapılandırmanın silinmesi\n";
@@ -915,9 +903,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = "Zorunlu ayarlar ayrıca yüklenecek veya değiştirilecek.\n\n";
-
-/* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Not: OpenVPN yapılandırmaları Tunnelblick VPN Yapılandırmalarına dönüştürülecek.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick Uygulamalar dizininde kurulu olmalıdır.\n\n";
@@ -1104,9 +1089,6 @@
 
 /* Window text; the %@ will be replaced by the name of a configuration. */
 "An update to the %@ VPN configuration is available.\n\nDo you wish to update the configuration?\n\n" = "%@ VPN konfigurasyonuna ait bir güncelleme var.\nKonfigürasyonu şimdi güncellemek istiyormusunuz?\n\n";
-
-/* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "OpenVPN yapılandırmalarını Tunnelblick yapılandırmalarına dönüştürmek istemediğinize emin misiniz?\n\nEĞER DÖNÜŞTÜRMEZSENİZ YAPILANDIRMALARI KULLANAMAYACAKSINIZ!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Keychain içerisinde saklanan %ld yapılandırmaları için kimlik bilgilerini (özel anahtar ve/veya kullanıcı adı ve parola) silmek istediğinize emin misiniz?";
@@ -1904,9 +1886,6 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick'in sadece bilgisayarın yöneticisi tarafından değiştirilebilen bir ayarı değiştirmesi gerekiyor.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick OpenVPN yapılandırmalarını Tunnelblick VPN yapılandırmalarına çevirmeli.";
-
-/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick yapılandırma dosyasına ait günvenli (gölge) kopyanın yaratılmasına ya da güncellenmesine ihtiyaç duyuyor.";
 
 /* Window text */
@@ -2097,18 +2076,6 @@
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "Bilgisayar açıldığında çalışmak üzere ayarlanmış yapılanmadırmanın adını değiştiremez yada taşıyamazsınız.";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "OpenVPN yapılandırmalarınız var ama hiç Tunnulblick VPN Yapılandırmanız yok.\n\nOpenVPN yapılandırmalarını kullanmak isterseniz onları Tunnelblick VPN Yapılandırmasına çevirmelisiniz.\n\n";
-
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "OpenVPN yapılandırmalarınız var ama hiç Tunnulblick VPN Yapılandırmanız yok.\n\nOpenVPN yapılandırmalarını kullanmak isterseniz onları Tunnelblick VPN Yapılandırmasına çevirmelisiniz.\n\nAncak, Tunnelblick bunları çevirirken aşağıdaki hata ile karşılaştı:\n\n%@";
-
-/* Window text */
-"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "OpenVPN yapılandırmalarınız.\n\nOpenVPN yapılandırmalarını kullanmak isterseniz onları Tunnelblick VPN Yapılandırmasına çevirmelisiniz.\n\nAncak, Tunnelblick bunları çevirirken aşağıdaki hata ile karşılaştı:\n\n%@\n\nEğer 'Yoksay' seçeneğini seçerseniz yapılandırmalarınız kullanılabilir olmayacak!\n\n";
-
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Bu sürüm Tunnelblick ile uyumlu olmayan OpenVPN konfigürasyonlarınız var. Bu durumda:\n\n\n  • Bu OpenVPN konfigürasyonlarını Tunnelblick VPN Konfigürasyonuna çevirin, yada\n  • İptal edin ve farklı bir sürüm Tunnelblick kurun; yada\n  • Yoksayın ve birşeyi dönüştürmeden devam edin.\n\nEğer yoksayarsanız, konfigürasyonlar çalışmayacak!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Örnek bir yapılandırma dosyasını yüklemeyi denediniz. Yapılandırma dosyası VPN bağlantısı için uyarlanmalıdır. VPN'e bağlanmak için sertifika ya da anahtar dosyaları gibi başka dosyalara da ihtiyacınız olabilir.\n\nÖrnek dosya içerisinde değiştirmeniz gereken bilgiler ve diğer dosyalar için ağ yöneticisinize yada VPN servis sağlayıcınıza danışın.\n\nYapılandırma dosyası şurada\n%@\n\n";
