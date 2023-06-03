@@ -749,6 +749,7 @@ name = newValue;                                    \
 @"timeoutForIPAddressCheckBeforeConnection",	\
 @"timeoutForIPAddressCheckAfterConnection",	\
 @"timeoutForIPAddressCheckAfterSleeping",	\
+@"timeoutForDisconnectingConfigurations",    \
 @"delayBeforeReconnectingAfterSleep",	\
 @"delayBeforeReconnectingAfterSleepAndIpaFetchError",	\
 @"delayBeforeIPAddressCheckAfterConnection",	\
