@@ -2587,7 +2587,7 @@ int main(int argc, char *argv[]) {
         errorExit();
 	}
 
-    unsigned opsAndFlags = (unsigned) strtol(argv[1], NULL, 10);
+    unsigned opsAndFlags = (unsigned) strtol(argv[1], NULL, 0);
 
     BOOL doClearLog = (opsAndFlags & INSTALLER_CLEAR_LOG) != 0;
     openLog(doClearLog);
