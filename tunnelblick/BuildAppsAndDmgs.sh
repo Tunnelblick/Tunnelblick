@@ -343,10 +343,7 @@ for d in `ls "${app_path}/Contents/Resources/IconSets"` ; do
 done
 
 # Remove extended attributes
-for f in ${app_path}/Contents/Resources/*
-do
-  xattr -d "com.apple.FinderInfo" ${f} 2> /dev/null
-done
+xattr -c -rs "${f}" 2> /dev/null
 
 # Remove NeedsTranslation.strings and Removed.strings from all .lproj folders and set permissions on Localizable.strings and InfoPlist.strings files
 shopt -s nullglob
