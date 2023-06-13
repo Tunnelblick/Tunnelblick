@@ -408,7 +408,7 @@ NSString * usernameFromPossiblePrivatePath(NSString * path) {
     NSRange afterUsersSlash = NSMakeRange([@"/Users/" length], [absolutePath length] - [@"/Users/" length]);
     NSRange slashAfterName = [absolutePath rangeOfString: @"/" options: 0 range: afterUsersSlash];
     if (  slashAfterName.location == NSNotFound  ) {
-        return nil;
+        slashAfterName.location = absolutePath.length;
     }
 
     NSString * username = [absolutePath substringWithRange: NSMakeRange(afterUsersSlash.location, slashAfterName.location - afterUsersSlash.location)];
