@@ -333,7 +333,7 @@
 
 
 //*************************************************************************************************
-// Values for the location of the configuration file (cfgLocCode argument to openvpnstart) 
+// Values for the location of the configuration file (cfgLocCode argument to openvpnstart)
 #define CFG_LOC_PRIVATE   0
 #define CFG_LOC_ALTERNATE 1
 #define CFG_LOC_DEPLOY    2
@@ -462,14 +462,16 @@
 // alternate configuration path
 #define INSTALLER_SECURE_TBLKS               0x0010u
 
+// UNUSED
 // Set to convert all .ovpn and .conf files
 // (and their associated keys, scripts,
 // etc.) to .tblk packages
-#define INSTALLER_CONVERT_NON_TBLKS          0x0020u
+// #define INSTALLER_CONVERT_NON_TBLKS       0x0020u
 
+// UNUSED
 // Set to move ~/Library/openvpn to
 // ~/Library/Application Support/Tunnelblick
-#define INSTALLER_MOVE_LIBRARY_OPENVPN       0x0040u
+// #define INSTALLER_MOVE_LIBRARY_OPENVPN    0x0040u
 
 // UNUSED
 //                                           0x0080u
