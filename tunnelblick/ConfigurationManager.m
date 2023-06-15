@@ -4203,25 +4203,30 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	// Returns TRUE if updated or skipped update or secured or reverted.
 	// Returns FALSE only user cancelled or an error occurred.
 
-	int result;
+    int result = NSAlertAlternateReturn; // Cancel
 
-	if (  updateInfo  ) {
-		result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								 [NSString stringWithFormat: NSLocalizedString(@"An update to the %@ VPN configuration is available.\n\n"
-																			   @"Do you wish to update the configuration?\n\n",
-																			   @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
-								 NSLocalizedString(@"Update",		    @"Button. 'Update' refers to the update of a configuration."),  // Default
-								 NSLocalizedString(@"Cancel",		    @"Button"),  // Alternate
-								 NSLocalizedString(@"Skip this Update", @"Button. 'Update' refers to the update of a configuration.")); // Other
-	} else {
-		result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								 [NSString stringWithFormat: NSLocalizedString(@"The %@ VPN configuration has been modified since it was last secured.\n\n"
-																			   @"Do you wish to secure the modified configuration or revert to the last secured configuration?\n\n",
-																			   @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
-								 NSLocalizedString(@"Secure the Configuration",		   @"Button"),  // Default
-								 NSLocalizedString(@"Cancel",						   @"Button"),  // Alternate
-								 NSLocalizedString(@"Revert to the Last Secured Copy", @"Button")); // Other
-	}
+    NSString * tblkPath = configPathFromDisplayName(displayName);
+    BOOL install = [gMC shouldInstallConfigurations: @[tblkPath] withTunnelblick: NO];
+
+    if (  install  ) {
+        if (  updateInfo  ) {
+            result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                     [NSString stringWithFormat: NSLocalizedString(@"An update to the %@ VPN configuration is available.\n\n"
+                                                                                   @"Do you wish to update the configuration?\n\n",
+                                                                                   @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
+                                     NSLocalizedString(@"Update",		    @"Button. 'Update' refers to the update of a configuration."),  // Default
+                                     NSLocalizedString(@"Cancel",		    @"Button"),  // Alternate
+                                     NSLocalizedString(@"Skip this Update", @"Button. 'Update' refers to the update of a configuration.")); // Other
+        } else {
+            result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                     [NSString stringWithFormat: NSLocalizedString(@"The %@ VPN configuration has been modified since it was last secured.\n\n"
+                                                                                   @"Do you wish to secure the modified configuration or revert to the last secured configuration?\n\n",
+                                                                                   @"Window text; the %@ will be replaced by the name of a configuration."), displayName],
+                                     NSLocalizedString(@"Secure the Configuration",		   @"Button"),  // Default
+                                     NSLocalizedString(@"Cancel",						   @"Button"),  // Alternate
+                                     NSLocalizedString(@"Revert to the Last Secured Copy", @"Button")); // Other
+        }
+    }
 
 	switch (  result  ) {
 

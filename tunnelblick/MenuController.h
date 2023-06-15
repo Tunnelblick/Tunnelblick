@@ -308,6 +308,8 @@ enum StatusIconPosition {
 -(void)             setState:                               (NSString *)        newState;
 -(void)             setPreferenceForSelectedConfigurationsWithDict: (NSDictionary * ) dict;
 -(void)             setupUpdaterAutomaticChecks;
+-(BOOL)             shouldInstallConfigurations: (NSArray *) filePaths
+                                withTunnelblick: (BOOL) withTunnelblick;
 -(NSArray *)        sortedSounds;
 -(unsigned)         statusScreenIndex;
 -(void)				uninstall;
