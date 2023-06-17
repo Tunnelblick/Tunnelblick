@@ -125,12 +125,7 @@ extern TBUserDefaults * gTbDefaults;
                                    htmlFromFile,
                                    basedOnHtml,
                                    @"</div></center><body></html>"];
-        NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
-		if (  ! data  ) {
-			NSLog(@"Cannot get dataUsingEncoding:NSASCIIStringEncoding for html; stack trace = %@", callStack());
-			data = [NSData data];
-		}
-        NSMutableAttributedString * description = [[[NSMutableAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
+        NSMutableAttributedString * description = [[attributedStringFromHTML(html) mutableCopy] autorelease];
 		[description addAttribute: NSForegroundColorAttributeName value:[NSColor textColor]           range: NSMakeRange(0, [description length])];
 		[description addAttribute: NSBackgroundColorAttributeName value:[NSColor textBackgroundColor] range: NSMakeRange(0, [description length])];
         [[infoDescriptionTV textStorage] setAttributedString: description];
@@ -500,9 +495,7 @@ extern TBUserDefaults * gTbDefaults;
     [creditsHTML appendString: htmlTail];
 
     // Create an NSMutableAttributedString from the HTML
-    const char * bytes = [creditsHTML UTF8String];
-    NSData * htmlData = [[[NSData alloc] initWithBytes: bytes length: strlen(bytes)] autorelease];
-    NSMutableAttributedString * creditsString = [[[NSMutableAttributedString alloc] initWithHTML: htmlData documentAttributes: nil] autorelease];
+    NSMutableAttributedString * creditsString = [[attributedStringFromHTML(creditsHTML) mutableCopy] autorelease];
 
     // Make substitutions in the NSMutableAttributedString
 
