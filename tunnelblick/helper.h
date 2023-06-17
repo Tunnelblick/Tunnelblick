@@ -170,6 +170,8 @@ BOOL           runningOnTen_Fourteen_FiveOrNewer(void);
 
 BOOL           runningOnMacosBeta(void);
 
+BOOL           runningOnOCLP(void);
+
 BOOL           bothKextsAreInstalled(void);
 BOOL           anyKextsAreLoaded(void);
 

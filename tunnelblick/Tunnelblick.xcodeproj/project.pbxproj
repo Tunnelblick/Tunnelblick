@@ -40,6 +40,7 @@
 		63097CE022340EA8005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
 		63097CE122340EC4005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
 		63097CE222340EF8005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
+		630AF69E2A3E5BBC001D50B7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C2E2E724AB8D6C00F79628 /* IOKit.framework */; };
 		63118D0D1EA77A6900F20EC1 /* VLS_BE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63118D0C1EA77A6900F20EC1 /* VLS_BE.lproj */; };
 		631310D913CA18870071C110 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631310D513CA18870071C110 /* nl.lproj */; };
 		631494A519FA7B9E009057D1 /* pt_pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631494A219FA7B9E009057D1 /* pt_pt.lproj */; };
@@ -414,6 +415,7 @@
 		6308EEE8222701E8003D974C /* ta.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ta.lproj; sourceTree = "<group>"; };
 		63097CDD22323E2B005F94CF /* NSDate+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TB.m"; sourceTree = "<group>"; };
 		63097CDE22323E2B005F94CF /* NSDate+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TB.h"; sourceTree = "<group>"; };
+		630AF69A2A3E5B36001D50B7 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		63118D0C1EA77A6900F20EC1 /* VLS_BE.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = VLS_BE.lproj; sourceTree = "<group>"; };
 		631310D513CA18870071C110 /* nl.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nl.lproj; sourceTree = "<group>"; };
 		631494A219FA7B9E009057D1 /* pt_pt.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pt_pt.lproj; sourceTree = "<group>"; };
@@ -772,6 +774,7 @@
 				637B0A1E1A81DC2100210900 /* Sparkle.framework in Frameworks */,
 				63AE127F25C239500008379F /* Security.framework in Frameworks */,
 				634616871A9B85C60049C16C /* SystemConfiguration.framework in Frameworks */,
+				630AF69E2A3E5BBC001D50B7 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -908,6 +911,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				630AF69A2A3E5B36001D50B7 /* CoreFoundation.framework */,
 				63F0E58D2A0D77D60098CB1D /* OpenDirectory.framework */,
 				63C2E2E724AB8D6C00F79628 /* IOKit.framework */,
 				A425AA572380E5C7000686E7 /* LocalAuthentication.framework */,

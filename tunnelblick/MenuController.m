@@ -522,7 +522,10 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         NSString * osVersionString = (  getSystemVersion(&major, &minor, &bugFix) == EXIT_SUCCESS
                                       ? [NSString stringWithFormat:@"%d.%d.%d", major, minor, bugFix]
                                       : @"version is unknown");
-        NSLog(@"Tunnelblick: macOS %@; %@", osVersionString, tunnelblickVersion([NSBundle mainBundle]));
+        NSString * oclpString = (  runningOnOCLP()
+                                 ? @" (OLCP)"
+                                 : @"");
+        NSLog(@"Tunnelblick: macOS %@%@; %@", osVersionString, oclpString, tunnelblickVersion([NSBundle mainBundle]));
         
 		// Create private configurations folder if necessary
         gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
@@ -3073,12 +3076,16 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
 		NSString * buildNumber   = [self extractItemFromSwVersWithOption: @"-buildVersion"];
 
+        NSString * oclpString = (  runningOnOCLP()
+                                 ? @" (OLCP)"
+                                 : @"");
+
 		NSArray  * versionHistory     = [gTbDefaults arrayForKey: @"tunnelblickVersionHistory"];
 		NSString * priorVersionString = (  (  [versionHistory count] > 1  )
 										 ? [NSString stringWithFormat: @"; prior version %@", [versionHistory objectAtIndex: 1]]
 										 : @"");
-		openVPNLogHeader = [[NSString stringWithFormat:@"%@macOS %@ (%@); %@%@",
-							 TB_LOG_PREFIX, versionNumber, buildNumber, tunnelblickVersion([NSBundle mainBundle]), priorVersionString] retain];
+		openVPNLogHeader = [[NSString stringWithFormat:@"%@macOS %@ (%@)%@; %@%@",
+							 TB_LOG_PREFIX, versionNumber, buildNumber, oclpString, tunnelblickVersion([NSBundle mainBundle]), priorVersionString] retain];
 	}
 
 	return [[openVPNLogHeader retain] autorelease];
