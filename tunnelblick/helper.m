@@ -650,17 +650,43 @@ BOOL thisArchitectureSupportsBinaryAtPath(NSString * path) {
     return NO;
 }
 
+NSAttributedString * notAvailableAttributedString(void) {
+
+    NSString * s = NSLocalizedString(@"(String is not available)\n", @"This appears in place of a string when the string cannot be created.");
+    NSAttributedString * na = [[[NSAttributedString alloc] initWithString: s] autorelease];
+    if (  na == nil ) {
+        NSLog(@"notAvailableAttributedString:  initWithString failed");
+        na = [[[NSAttributedString alloc] initWithString: @"\n"] autorelease];
+        if (  na == nil ) {
+            NSLog(@"notAvailableAttributedString:  initWithString: '\n' failed");
+            na = [[[NSAttributedString alloc] initWithString: @""] autorelease];
+        }
+    }
+
+    return na;
+}
+
 NSAttributedString * attributedStringFromHTML(NSString * html) {
-    
+
+    NSAttributedString * as;
+
     NSData * htmlData = [html dataUsingEncoding: NSUTF8StringEncoding];
-	if ( htmlData == nil  ) {
-		NSLog(@"attributedStringFromHTML: cannot get dataUsingEncoding: NSUTF8StringEncoding; stack trace = %@", callStack());
-		return nil;
-	}
-	
-	NSAttributedString * as = [[[NSAttributedString alloc]
-								initWithHTML: htmlData options: @{NSTextEncodingNameDocumentOption: @"UTF-8"} documentAttributes: nil]
-							   autorelease];
+    if ( htmlData == nil  ) {
+        NSLog(@"attributedStringFromHTML: could not get dataUsingEncoding: NSUTF8StringEncoding");
+        as = notAvailableAttributedString();
+    } else {
+        NSDictionary * options = @{NSTextEncodingNameDocumentOption: @"UTF-8"};
+        as = [[[NSAttributedString alloc] initWithHTML: htmlData options: options documentAttributes: nil] autorelease];
+        if (  as == nil  ) {
+            NSLog(@"attributedStringFromHTML: initWithHTML failed");
+            as = notAvailableAttributedString();
+        }
+    }
+
+    if (  as == nil  ) {
+        NSLog(@"attributedStringFromHTML: returning nil");
+    }
+
     return as;
 }
 
