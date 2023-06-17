@@ -2179,6 +2179,9 @@
 /* Popup button menu item */
 "(Do not import)" = "(Do not import)";
 
+/* This appears in place of a string when the string cannot be created. */
+"(String is not available)\n" = "(String is not available)\n";
+
 /* Credit description */
 "64-bit enabling and testing" = "64-bit enabling and testing";
 
