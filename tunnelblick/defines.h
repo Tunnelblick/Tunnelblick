@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2018, 2023 by Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -282,8 +282,10 @@
 #define INSTALLER_SECURE_APP            0x0004u
 #define INSTALLER_HELPER_IS_TO_BE_SUID  0x0008u
 #define INSTALLER_SECURE_TBLKS          0x0010u
-#define INSTALLER_CONVERT_NON_TBLKS     0x0020u
-#define INSTALLER_MOVE_LIBRARY_OPENVPN  0x0040u
+// UNUSED
+// #define INSTALLER_CONVERT_NON_TBLKS  0x0020u
+// UNUSED
+// #define INSTALLER_MOVE_LIBRARY_OPENVPN 0x0040u
 
 #define INSTALLER_MOVE_NOT_COPY         0x1000u
 #define INSTALLER_DELETE                0x2000u
