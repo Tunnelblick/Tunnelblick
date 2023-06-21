@@ -1605,8 +1605,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			
 			// Alt config is different or doesn't exist. We must create it (and maybe the folders that contain it)
 			; // empty statement needed to avoid bogus compiler error
-			AuthorizationRef authRef = [NSApplication getAuthorizationRef:
-										NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text")];
+            NSString * extra = (@"\n\nThe configuration MAY include programs which will run as root when you"
+                                @" connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
+                                @"YOU SHOULD NOT CREATE OR UPDATE THIS CONFIGURATION UNLESS YOU ARE AWARE OF AND UNDERSTAND THE CHANGES BEING MADE.\n\n");
+
+            AuthorizationRef authRef = [NSApplication getAuthorizationRef:
+                                        [NSString stringWithFormat: @"%@%@",
+                                         NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text"), extra]];
 			if ( authRef == nil ) {
 				NSLog(@"Authorization to create/update a secure (shadow) copy of the configuration file cancelled by user.");
 				AuthorizationFree(authRef, kAuthorizationFlagDefaults);
