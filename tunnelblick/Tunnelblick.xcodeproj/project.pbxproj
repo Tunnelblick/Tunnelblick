@@ -74,7 +74,6 @@
 		63432577140D7F6F00015CE0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
 		6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6345F20F120BB1DA009C6222 /* Carbon.framework */; };
 		634616871A9B85C60049C16C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634616861A9B85C60049C16C /* SystemConfiguration.framework */; };
-		634827BB1D7DBFBB0046703C /* BuildThirdPartyItems.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634827BA1D7DBFBB0046703C /* BuildThirdPartyItems.sh */; };
 		634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */; };
 		634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */; };
 		634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */; };
@@ -450,7 +449,6 @@
 		63432572140D7F5A00015CE0 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		6345F20F120BB1DA009C6222 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		634616861A9B85C60049C16C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
-		634827BA1D7DBFBB0046703C /* BuildThirdPartyItems.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = BuildThirdPartyItems.sh; sourceTree = "<group>"; };
 		63490251139F9C6B00025BD5 /* ConfigurationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationsView.h; sourceTree = "<group>"; };
 		634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.down.tunnelblick.sh; sourceTree = "<group>"; };
 		634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.up.tunnelblick.sh; sourceTree = "<group>"; };
@@ -864,7 +862,6 @@
 			children = (
 				63F7497C1CB149820043C198 /* TBVersionString.txt */,
 				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
-				634827BA1D7DBFBB0046703C /* BuildThirdPartyItems.sh */,
 				633E55621BB0F16600A6B8FB /* BuildAppsAndDmgs.sh */,
 				632496F025C0D4A5004A3E9A /* SignTunnelblickAppOrDmg.sh */,
 				63E6A8A31D9FBBDB006F1211 /* third_party */,
@@ -1676,7 +1673,6 @@
 				6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */,
 				638222211E287C0500A2BD87 /* updates_create_signature in Resources */,
 				6322DFAB2429185D002F3958 /* tb-icon-64x64.v1.png in Resources */,
-				634827BB1D7DBFBB0046703C /* BuildThirdPartyItems.sh in Resources */,
 				6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */,
 				639EC33E1C0E16A9001FE378 /* StatusWindow-RTL.xib in Resources */,
 				634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */,
@@ -1794,7 +1790,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "arch -x86_64 ./BuildThirdPartyItems.sh\n";
+			shellScript = "arch -x86_64 ../third_party/BuildThirdPartyItems.sh\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

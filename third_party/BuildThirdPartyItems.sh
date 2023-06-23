@@ -47,9 +47,9 @@ if [ "$path_to_build_folder" != "${path_to_build_folder/ /}" ] ; then
 fi
 
 # Check if this version of Xcode can build for the arm64 architecture
-if [ "${ARCHS_STANDARD/arm64/}" = "${ARCHS_STANDARD}"  ] ; then
+if [ "${ARCHS_STANDARD/arm64/}" = "${ARCHS_STANDARD}" ] ; then
     TB_CAN_BUILD_ARM=0
-    echo “Not building for Apple Silicon. ARCHS_STANDARD = ‘${ARCHS_STANDARD}’”
+    echo "Not building for Apple Silicon. ARCHS_STANDARD = ‘${ARCHS_STANDARD}’"
 else
     TB_CAN_BUILD_ARM=1
 fi
@@ -71,7 +71,7 @@ COMMAND_MODE=unix2003
 # The following line is needed so up-to-date autotools are used
 PATH="/usr/local/bin:$PATH"
 
-if [ ! -e do-not-clean ]; then
+if [ ! -e do-not-clean ] ; then
   make clean
 fi
 
