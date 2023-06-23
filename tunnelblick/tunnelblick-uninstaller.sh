@@ -558,7 +558,7 @@ uninstall_tb_remove_item_at_path "/Library/Extensions/tap-notarized.kext"
 uninstall_tb_remove_item_at_path "/var/log/${uninstall_tb_app_name}"
 
 # Remove the installer log
-uninstall_tb_remove_item_at_path "/tmp/tunnelblick-installer-log.txt"
+uninstall_tb_remove_item_at_path "/Library/Application Support/Tunnelblick/tunnelblick-installer-log.txt"
 
 # Remove the temporary authorization icon
 uninstall_tb_remove_item_at_path "/tmp/${uninstall_tb_app_name}AuthIcon.png"
