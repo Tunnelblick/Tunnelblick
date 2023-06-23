@@ -78,7 +78,7 @@
 #define DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH @"/tmp/tunnelblick-downscript-needs-to-be-run.txt"
 
 // NOTE: tunnelblick-uninstaller.sh refers to the installer log path without using this header file
-#define INSTALLER_LOG_PATH      @"/tmp/tunnelblick-installer-log.txt"
+#define INSTALLER_LOG_PATH      @"/Library/Application Support/Tunnelblick/tunnelblick-installer-log.txt"
 
 // NOTE: net.tunnelblick.tunnelblick.tunnelblickd.plist and tunnelblick-uninstaller.sh refer to the tunnelblickd log path without using this header file
 // NOTE: The "_C" strings are C-strings, not NSStrings

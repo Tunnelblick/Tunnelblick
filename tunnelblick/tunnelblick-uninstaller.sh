@@ -642,7 +642,7 @@ fi
 uninstall_tb_remove_item_at_path "/var/log/Tunnelblick"
 
 # Remove the installer log
-uninstall_tb_remove_item_at_path "/tmp/tunnelblick-installer-log.txt"
+uninstall_tb_remove_item_at_path "/Library/Application Support/Tunnelblick/tunnelblick-installer-log.txt"
 
 # Remove non-per-user CrashReporter files
 if [ "${uninstall_tb_app_name}" != "" ] ; then
