@@ -25,7 +25,7 @@
 uninstall_log()
 {
   local d="$( date -j +'%Y-%m-%d %H:%M:%S: ' )"
-  printf '%s%s\n' "$d" "$1" >> "/tmp/Tunnelblick Uninstaller Log.txt"
+  printf '%s%s\n' "$d" "$1" >> "/Library/Application Support/Tunnelblick/Tunnelblick Uninstaller Log.txt"
 }
 
 
@@ -779,17 +779,17 @@ else
 fi
 
 if [ "${uninstall_remove_data}" = "true" ] ; then
-  rm -f ${secure} "/tmp/Tunnelblick Uninstaller Log.txt"
+  rm -f ${secure} "/Library/Application Support/Tunnelblick/Tunnelblick Uninstaller Log.txt"
   status=$?
 else
   status="0"
 fi
 if [ "${status}" = "0" ]; then
-  echo "Removed${secure_note} /tmp/Tunnelblick Uninstaller Log.txt"
+  echo "Removed${secure_note} /Library/Application Support/Tunnelblick/Tunnelblick Uninstaller Log.txt"
 else
-  echo "Problem: Error (${status}) trying to 'rm -f ${secure} /tmp/Tunnelblick Uninstaller Log.txt'"
-  echo "Output from 'ls -@ -A -b -e -l -O /tmp/Tunnelblick Uninstaller Log.txt':"
-  echo "$( ls -@ -A -b -e -l -O "/tmp/Tunnelblick Uninstaller Log.txt" )"
+  echo "Problem: Error (${status}) trying to 'rm -f ${secure} /Library/Application Support/Tunnelblick/Tunnelblick Uninstaller Log.txt'"
+  echo "Output from 'ls -@ -A -b -e -l -O /Library/Application Support/Tunnelblick/Tunnelblick Uninstaller Log.txt':"
+  echo "$( ls -@ -A -b -e -l -O "/Library/Application Support/Tunnelblick/Tunnelblick Uninstaller Log.txt" )"
 fi
 
 if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
