@@ -68,12 +68,16 @@ NSString * gLogPath;
 // Call dumpMsg to put a debugging messages to a newly-created file in /tmp
 // (This can be done even before gLogPath is set up with the Tunnelblick log)
 void dumpMsg(NSString * msg) {
+#ifdef TBDebug
     static int msgNum = 0;
     NSString * filePath = [NSString stringWithFormat: @"/tmp/Tunnelblick-process-network-changes-%d.txt", msgNum++];
     NSFileManager * fm = [[[NSFileManager alloc] init] autorelease];
     [fm tbRemoveFileAtPath: filePath handler: nil];
     const char * bytes = [msg UTF8String];
     [fm createFileAtPath: filePath contents: [NSData dataWithBytes: bytes length: strlen(bytes)] attributes: nil];
+#else
+    (void)msg;
+#endif
 }    
 
 int main (int argc, const char * argv[])
