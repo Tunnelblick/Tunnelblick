@@ -201,7 +201,7 @@ NSString * newTemporaryDirectoryPathUsingUrlForDirectory(aslclient  asl,
 NSString * newTemporaryDirectoryPathUsingFixedPath(aslclient  asl,
 												   aslmsg     log_msg) {
 
-	NSString * path = @"/var/tmp/tunnelblickd";
+	NSString * path = @"/Library/Application Support/tunnelblickd";
 	if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
 		asl_log(asl, log_msg, ASL_LEVEL_INFO,
 				"Using existing temporary directory at %s", [path UTF8String]);
@@ -262,17 +262,17 @@ NSString * newTemporaryDirectoryPath(aslclient asl,
 
 	NSString * path;
 
+    if (  ( path = [newTemporaryDirectoryPathUsingFixedPath(asl, log_msg) autorelease] )  ) {
+        NSString * result = removeSymlinkFromPath(path, asl, log_msg);
+        return [result retain];
+    }
+
 	if (  ( path = [newTemporaryDirectoryPathUsingMkdtemp(asl, log_msg) autorelease] )  ) {
 		NSString * result = removeSymlinkFromPath(path, asl, log_msg);
 		return [result retain];
 	}
 
 	if (  ( path = [newTemporaryDirectoryPathUsingUrlForDirectory(asl, log_msg) autorelease] )  ) {
-		NSString * result = removeSymlinkFromPath(path, asl, log_msg);
-		return [result retain];
-	}
-
-	if (  ( path = [newTemporaryDirectoryPathUsingFixedPath(asl, log_msg) autorelease] )  ) {
 		NSString * result = removeSymlinkFromPath(path, asl, log_msg);
 		return [result retain];
 	}
