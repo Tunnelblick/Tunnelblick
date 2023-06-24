@@ -121,8 +121,8 @@ int main(int argc, char* argv[])
         setStart(plistPath, daemonDescription, daemonLabel, argc, argv);
     }
     
-    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
     deleteFlagFile(AUTHORIZED_ERROR_PATH);
+    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
 
     [pool drain];
     exit(EXIT_SUCCESS);
