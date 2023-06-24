@@ -73,11 +73,11 @@ EOF
 
 
 # save old dns settings to temporary file
-if [ ! -e /tmp/openvpn_dns_${PSID} ]; then
-	echo "$OLDDNS1 $OLDDNS2" > /tmp/openvpn_dns_${PSID}
+if [ ! -e /Library/Application Support/Tunnelblick/openvpn_dns_${PSID} ]; then
+	echo "$OLDDNS1 $OLDDNS2" > /Library/Application Support/Tunnelblick/openvpn_dns_${PSID}
 fi
-if [ ! -e /tmp/openvpn_domain_${PSID} ]; then
-	echo "$OLDDOMAIN" > /tmp/openvpn_domain_${PSID}
+if [ ! -e /Library/Application Support/Tunnelblick/openvpn_domain_${PSID} ]; then
+	echo "$OLDDOMAIN" > /Library/Application Support/Tunnelblick/openvpn_domain_${PSID}
 fi
 
 # set pushed nameserver
