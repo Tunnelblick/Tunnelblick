@@ -166,11 +166,14 @@ void debugLog(NSString * string) {
 	// For example, if this installer hangs.
 	//
 	// "string" is a string identifier indicating where debugLog was called from.
-	
+#ifdef TBDebug
 	static unsigned int debugLogMessageCounter = 0;
 	
 	NSString * path = [NSString stringWithFormat: @"/tmp/0-%u-tunnelblick-installer-%@.txt", ++debugLogMessageCounter, string];
 	[gFileMgr createFileAtPath: path contents: [NSData data] attributes: nil];
+#else
+    (void)string;
+#endif
 }
 
 void openLog(BOOL clearLog) {
