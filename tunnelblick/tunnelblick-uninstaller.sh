@@ -560,9 +560,6 @@ uninstall_tb_remove_item_at_path "/var/log/${uninstall_tb_app_name}"
 # Remove the installer log
 uninstall_tb_remove_item_at_path "/Library/Application Support/Tunnelblick/tunnelblick-installer-log.txt"
 
-# Remove the temporary authorization icon
-uninstall_tb_remove_item_at_path "/tmp/${uninstall_tb_app_name}AuthIcon.png"
-
 # Remove non-per-user CrashReporter files for the application, openvpn, openvpnstart, and tunnelblickd
 for path in $( ls "/Library/Logs/CrashReporter/${uninstall_tb_app_name}"_* 2> /dev/null ) ; do
   uninstall_tb_remove_item_at_path "${path}"
