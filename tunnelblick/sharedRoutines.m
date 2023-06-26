@@ -28,8 +28,7 @@
 
 #import "sharedRoutines.h"
 
-//#import <arpa/inet.h>
-//#import <netdb.h>
+#import <mach/mach_time.h>
 #import <netinet/in.h>
 #import <sys/mount.h>
 #import <sys/socket.h>
@@ -1515,6 +1514,15 @@ OSStatus runToolExtended(NSString     * launchPath,
     }
     
 	return status;
+}
+
+uint64_t nowAbsoluteNanoseconds(void)
+{
+    // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
+    mach_timebase_info_data_t info;
+    mach_timebase_info(&info);
+    uint64_t nowNs = (unsigned long long)mach_absolute_time() * (unsigned long long)info.numer / (unsigned long long)info.denom;
+    return nowNs;
 }
 
 OSStatus runTool(NSString * launchPath,
