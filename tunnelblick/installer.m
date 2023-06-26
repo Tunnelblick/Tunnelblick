@@ -1096,6 +1096,9 @@ void secureOpenvpnBinariesFolder(NSString * enclosingFolder) {
 	}
 }
 
+//**************************************************************************************************************************
+// KEXTS
+
 BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath,
                             NSString * kextInAppPath,
                             NSString * finalNameOfKext,
@@ -1146,9 +1149,6 @@ BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath,
 
     return YES;
 }
-
-//**************************************************************************************************************************
-// KEXTS
 
 BOOL secureOneKext(NSString * path) {
     
