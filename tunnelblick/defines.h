@@ -132,8 +132,7 @@
 // NOTE: some scripts refer to the following paths without using this header file
 #define L_AS_T_DISABLED_NETWORK_SERVICES_PATH         @"/Library/Application Support/Tunnelblick/disabled-network-services.txt"
 #define L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH          @"/Library/Application Support/Tunnelblick/expect-disconnect"
-#define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
-#define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
+#define AUTHORIZED_DONE_PATH    @"/Library/Application Support/Tunnelblick/tunnelblick-authorized-done"
 #define DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH @"/Library/Application Support/Tunnelblick/downscript-needs-to-be-run.txt"
 #define INSTALLER_LOG_PATH      @"/Library/Application Support/Tunnelblick/tunnelblick-installer-log.txt"
 #define UNINSTALL_DETAILS_PATH  @"/tmp/UninstallDetails.txt"

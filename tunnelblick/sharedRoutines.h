@@ -104,6 +104,8 @@ NSDictionary * getSafeEnvironment(NSString * configName, unsigned configLocCode,
 
 uint64_t nowAbsoluteNanoseconds(void);
 
+void storeAuthorizedDoneFileAndExit(OSStatus status);
+
 OSStatus runTool(NSString * launchPath,
                  NSArray  * arguments,
                  NSString * * stdOut,

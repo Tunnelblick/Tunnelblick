@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014, 2015, 2016, 2018, 2021 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2015, 2016, 2018, 2021, 2023 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -1523,6 +1523,30 @@ uint64_t nowAbsoluteNanoseconds(void)
     mach_timebase_info(&info);
     uint64_t nowNs = (unsigned long long)mach_absolute_time() * (unsigned long long)info.numer / (unsigned long long)info.denom;
     return nowNs;
+}
+
+void storeAuthorizedDoneFileAndExit(OSStatus status) {
+
+    // Used by tools that are invoked by waitForExecuteAuthorized to indicate they are done and whether they succeeded or failed.
+
+    // Create a string with "B" or "G" (bad or good) to indicate status, and a decimal representation of time(NULL) in ASCII.
+    NSString * contents = [NSString stringWithFormat: @"%@%ld",
+                           (  (status == EXIT_SUCCESS)
+                            ? @"G"   // Bad
+                            : @"B"), // Good
+                           time(NULL)];
+    if ( contents == nil  ) {
+        appendLog([NSString stringWithFormat: @"Error creating content for %@", AUTHORIZED_DONE_PATH]);
+        exit(EXIT_FAILURE);
+    }
+
+    // Write out the file, overwriting any existing file
+    if ( ! [contents writeToFile: AUTHORIZED_DONE_PATH atomically: YES encoding: NSUTF8StringEncoding error: nil]  ) {
+        appendLog([NSString stringWithFormat: @"Error creating or overwriting file at %@", AUTHORIZED_DONE_PATH]);
+        exit(EXIT_FAILURE);
+    }
+
+    exit(status);
 }
 
 OSStatus runTool(NSString * launchPath,

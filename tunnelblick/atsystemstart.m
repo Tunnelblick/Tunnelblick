@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011 2012, 2013, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011 2012, 2013, 2016, 2023 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,7 +19,7 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-/* This program must be run as root via executeAuthorized so it can make modifications to /Library/LaunchDaemons.
+/* This program must be run as root via waitForExecuteAuthorized so it can make modifications to /Library/LaunchDaemons.
  *
  * It sets up to either run, or not run, openvpnstart with specified arguments at system startup.
  * It does this by placing, or removing, a .plist file in /Library/LaunchDaemons
@@ -28,12 +28,8 @@
  * If the first argument is "1", this program will set up to RUN openvpnstart at system startup with the rest of the arguments.
  * If the first argument is "0", this program will set up to NOT RUN openvpnstart at system startup with the rest of the arguments.
  *
- // If no error occurs, the file AUTHORIZED_ERROR_PATH is deleted
- * When finished (or if an error occurs), the file AUTHORIZED_RUNNING_PATH is deleted to indicate the program has finished
- *
- * Note: Although this program returns EXIT_SUCCESS or EXIT_FAILURE, that code is not returned to the invoker of executeAuthorized.
- * The code returned by executeAuthorized indicates only success or failure to launch this program. Thus, the invoking program must
- * determine whether or not this program completed its task successfully.
+ * When this program finishes (or if an error occurs), it creates or modifies the file at AUTHORIZED_RUNNING_PATH to
+ * indicate the program has finished and whether or not it succeeded.
  *
  */
 
@@ -121,11 +117,7 @@ int main(int argc, char* argv[])
         setStart(plistPath, daemonDescription, daemonLabel, argc, argv);
     }
     
-    deleteFlagFile(AUTHORIZED_ERROR_PATH);
-    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
-
-    [pool drain];
-    exit(EXIT_SUCCESS);
+    storeAuthorizedDoneFileAndExit(EXIT_SUCCESS);
 }
 
 void appendLog(NSString * msg)
@@ -236,10 +228,7 @@ void deleteFlagFile(NSString * path) {
 
 void errorExit() {
     
-    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
-    
-    [pool drain];
-    exit(EXIT_FAILURE);
+    storeAuthorizedDoneFileAndExit(EXIT_FAILURE);
 }
 
 

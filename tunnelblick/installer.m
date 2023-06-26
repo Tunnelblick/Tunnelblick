@@ -39,7 +39,7 @@
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 
-// NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA executeAuthorized
+// NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA waitForExecuteAuthorized
 //
 // This program is called when something needs to be secured.
 // It accepts one to three arguments, and always does some standard housekeeping in
@@ -126,7 +126,7 @@
 //
 //     (14) If requested, install or uninstall kexts
 
-// When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
+// When finished (or if an error occurs), the file at AUTHORIZED_DONE_PATH is written to indicate the program has finished
 
 // The following globals are not modified after they are initialized:
 FILE          * gLogFile;					  // FILE for log
@@ -150,6 +150,7 @@ NSAutoreleasePool * pool;
 
 // The following variable may be modified by routines to affect later behavior of the program
 BOOL            gSecureTblks;				  // Set initially if all .tblks need to be secured.
+BOOL            gErrorOccurred = FALSE;       // Set if an error occurred
 
 //**************************************************************************************************************************
 
@@ -207,35 +208,14 @@ void closeLog(void) {
 	}
 }
 
-void deleteFlagFile(NSString * path) {
-
-    const char * fsrPath = [path fileSystemRepresentation];
-    struct stat sb;
-    if (  0 == stat(fsrPath, &sb)  ) {
-        if (  (sb.st_mode & S_IFMT) == S_IFREG  ) {
-            if (  0 != unlink(fsrPath)  ) {
-                appendLog([NSString stringWithFormat: @"Unable to delete %@", path]);
-            }
-        } else {
-            appendLog([NSString stringWithFormat: @"%@ is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode]);
-        }
-    } else if (  errno != ENOENT  ) { // Ignore no such file
-        appendLog([NSString stringWithFormat: @"stat of %@ failed\nError was %d ('%s')", path, errno, strerror(errno)]);
-    }
-}
-
 void errorExit() {
 
 #ifdef TBDebug
     appendLog([NSString stringWithFormat: @"installer: errorExit: Stack trace: %@", callStack()]);
 #endif
 
-    // Leave AUTHORIZED_ERROR_PATH to indicate an error occurred
-    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
-    closeLog();
-
-    [pool drain];
-    exit(EXIT_FAILURE);
+    storeAuthorizedDoneFileAndExit(EXIT_FAILURE);
+    exit(EXIT_FAILURE); // Never executed but needed to make static analyzer happy
 }
 
 void freeAuthRef(AuthorizationRef authRef) {
@@ -1890,7 +1870,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 	// Create the enclosing folder(s) if necessary. Owned by root unless if in userPrivatePath(), in which case it is owned by the user
 	NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
     createAndSecureFolder(enclosingFolder);
-	
+
 	// Make sure we can delete the original if we are moving instead of copying
 	if (  moveNotCopy  ) {
 		if (  ! makeUnlockedAtPath(targetPath)  ) {
@@ -2850,11 +2830,7 @@ int main(int argc, char *argv[]) {
     // DONE
     
 	appendLog(@"Tunnelblick installer finished without error");
-	
-    deleteFlagFile(AUTHORIZED_ERROR_PATH);      // Important to delete error flag file first, to avoid race conditions
-    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
-	closeLog();
-    
-    [pool release];
-    exit(EXIT_SUCCESS);
+    storeAuthorizedDoneFileAndExit(  (  gErrorOccurred
+                                      ? EXIT_FAILURE
+                                      : EXIT_SUCCESS)  );
 }
