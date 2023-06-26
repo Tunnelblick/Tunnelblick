@@ -4,7 +4,7 @@
 //
 //  Created by Dirk Theisen on Thu Feb 26 2004.
 //  Copyright 2004 Objectpark Software. All rights reserved.
-//  Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+//  Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2023. All rights reserved.
 //
 //  Permission to use, copy, modify, and distribute this software for any
 //  purpose with or without fee is hereby granted, provided that the above
@@ -465,88 +465,105 @@ extern TBUserDefaults * gTbDefaults;
 	return myStatus;
 }
 
-+(BOOL) createFlagFile: (NSString *) path {
-    
-    int fd = open([path fileSystemRepresentation], O_RDONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-    if (fd < 0) {
-        NSLog(@"Unable to create flag file %@\nError was '%s'", path, strerror(errno));
-        return NO;
-    } else {
-        if (  0 != close(fd)  ) {
-            NSLog(@"Unable to close flag file %@ with file descriptor %d\nError was '%s'", path, fd, strerror(errno));
-            return NO;
-        }
+struct authorizedDoneData {
+    BOOL errorOccurred;
+    time_t epochTime;
+};
+
++(BOOL) parseAuthorizedDoneFile: (struct authorizedDoneData *) dataPtr {
+
+    // Get contents of AUTHORIZED_DONE_PATH file:
+    //      1st character is "B" for bad, "G" for good,
+    //      the rest of the contents is a deciaml representation in ASCII of the epoch time that the tool finished.
+
+    NSString * contents = [NSString stringWithContentsOfFile: AUTHORIZED_DONE_PATH encoding: NSUTF8StringEncoding error: nil];
+    if (  [contents length] < 6  ) {
+        TBLog(@"DB-AA", @"File does not exist or is too short: %@", AUTHORIZED_DONE_PATH);
+        return FALSE;
     }
-    
-    return YES;
+
+    if (   ( ! [contents hasPrefix: @"G"] )
+        && ( ! [contents hasPrefix: @"B"] )  ) {
+        NSLog(@"File does not start with 'G' or 'B': %@", AUTHORIZED_DONE_PATH);
+        return FALSE;
+    }
+
+    time_t epochTime  = strtol([[contents substringFromIndex: 1] UTF8String], NULL, 10);
+    if (   (epochTime == 0)
+        || (epochTime == LONG_MIN)
+        || (epochTime == LONG_MAX)  ) {
+        NSLog(@"Time cannot be parsed in file: %@", AUTHORIZED_DONE_PATH);
+        return FALSE;
+    }
+
+    (*dataPtr).errorOccurred = [contents hasPrefix: @"B"];
+    (*dataPtr).epochTime = epochTime;
+    return TRUE;
 }
 
 +(wfeaReturnValue) waitForExecuteAuthorized: (NSString *)       toolPath
                               withArguments: (NSArray *)        arguments
                        withAuthorizationRef: (AuthorizationRef) myAuthorizationRef {
-    
-    // Creates a "running" and an "error" flag file, runs executeAuthorized, then waits for up to 25.55 seconds for the "running" flag file to disappear
-    
-    if (   ( ! [self createFlagFile: AUTHORIZED_RUNNING_PATH] )
-        || ( ! [self createFlagFile: AUTHORIZED_ERROR_PATH]   )  ) {
-        unlink([AUTHORIZED_RUNNING_PATH fileSystemRepresentation]);
-        unlink([AUTHORIZED_ERROR_PATH fileSystemRepresentation]);
-        return wfeaExecAuthFailed;
+
+    // IMPORTANT: WITHIN TUNNELBLICK, THE TOOL MUST BE STARTED *ONLY* BY THIS ROUTINE. Otherwise, this routine could spuriously detect that the tool was done even though
+    //            it was actually some other invocation of the tool that was complete.
+    //
+    //
+    // executeAuthorized returns immediately, either with an error or having started the tool but not having waited for the tool to complete.
+    //
+    // However, this routine must wait until the tool is finished to continue.
+    //
+    // So when the tool is finished, it creates or updates the file at AUTHORIZED_DONE_PATH to indicate that it has finished. The information
+    // in the file allows this routine to determine if the tool has finished _this_ request (not some earlier request) and whether the tool
+    // succeeded or failed.
+
+    time_t epochTimeAtStart = time(NULL);
+
+    // Wait to start the tool until it is later than epochTimeAtStart
+    // That way we know that the time the tool finishes will be > epochTimeAtStart
+    while (  time(NULL) == epochTimeAtStart  ) {
+        usleep(ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS);
     }
-    
+
     if (  EXIT_SUCCESS != [NSApplication executeAuthorized: toolPath withArguments: arguments withAuthorizationRef: myAuthorizationRef]  ) {
-        if (  0 != unlink([AUTHORIZED_RUNNING_PATH fileSystemRepresentation])  ) {
-            NSLog(@"Unable to delete %@", AUTHORIZED_RUNNING_PATH);
-        }
-        if (  0 != unlink([AUTHORIZED_ERROR_PATH fileSystemRepresentation])  ) {
-            NSLog(@"Unable to delete %@", AUTHORIZED_ERROR_PATH);
-        }
         return wfeaExecAuthFailed;
     }
     
-    // Wait for up to 50 seconds for the program to finish -- sleeping .05 seconds first, then .1, .2, .4, .8, .8, .8... seconds between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+    // Wait for up to about 30 seconds for the program to finish -- sleeping .05 seconds first, then .1, .2, .4, .8, .8, .8... seconds between tries as a cheap and easy throttling mechanism for a heavily loaded computer
     
-    NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 50.0];
-    useconds_t sleepTimeMicroseconds = 50000; // First sleep time is 0.050 seconds
+    useconds_t sleepTimeMicroseconds = (ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS / 2); // First sleep time is 0.050 seconds
     for (;;) {
         
-        NSDate * now = [NSDate date];
-        if (  [now compare: timeout] == NSOrderedDescending  ) {
+        if (  time(NULL) > (epochTimeAtStart + 30)  ) {
             break;
         }
         
         usleep(sleepTimeMicroseconds);
-        if (  sleepTimeMicroseconds < 1000000  ) {
+        if (  sleepTimeMicroseconds < (8 * ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS)  ) {
             sleepTimeMicroseconds *= 2;
         }
-        
-        struct stat sb;
-        if (  0 == stat([AUTHORIZED_RUNNING_PATH fileSystemRepresentation], &sb)  ) {
-            // running flag file exists, so wait some more or time out
+
+        struct authorizedDoneData data;
+        BOOL result = [self parseAuthorizedDoneFile: &data];
+        if ( ! result ) {
+            TBLog(@"DB-AA", @"File does not exist or is invalid: %@", AUTHORIZED_DONE_PATH);
             continue;
         }
-        
-        // running flag file has been deleted, indicating we're done
-        if (  0 == stat([AUTHORIZED_ERROR_PATH fileSystemRepresentation], &sb)  ) {
-            // error flag file exists, so there was an error
-            if (  0 != unlink([AUTHORIZED_ERROR_PATH fileSystemRepresentation])  ) {
-                NSLog(@"Unable to delete %@", AUTHORIZED_ERROR_PATH);
-            }
-            
-            return wfeaFailure;
+
+        if (  data.epochTime <= epochTimeAtStart  ) {
+            TBLog(@"DB-AA", @"File was last modified before the tool was started");
+            continue;
         }
-        
-        return wfeaSuccess;
+
+        // The tool finished after we started it, so it was our invocation of it that finished
+        wfeaReturnValue status = (  data.errorOccurred
+                                  ? wfeaExecAuthFailed
+                                  : wfeaSuccess);
+        TBLog(@"DB-AA", @"waitForExecuteAuthorized: returning %@", (data.errorOccurred ? @"wfeaExecAuthFailed" : @"wfeaSuccess"));
+        return (status);
     }
     
-    NSLog(@"Timed out waiting for %@ to disappear indicting %@ finished", AUTHORIZED_RUNNING_PATH, [toolPath lastPathComponent]);
-    if (  0 != unlink([AUTHORIZED_RUNNING_PATH fileSystemRepresentation])  ) {
-        NSLog(@"Unable to delete %@", AUTHORIZED_RUNNING_PATH);
-    }
-    if (  0 != unlink([AUTHORIZED_ERROR_PATH fileSystemRepresentation])  ) {
-        NSLog(@"Unable to delete %@", AUTHORIZED_ERROR_PATH);
-    }
-    
+    NSLog(@"Timed out waiting for %@ to be created or modified indicting %@ finished", AUTHORIZED_DONE_PATH, [toolPath lastPathComponent]);
     return wfeaTimedOut;
 }
 
