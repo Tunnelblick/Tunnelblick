@@ -6,7 +6,7 @@ TOPDIR = $(PWD)
 #######################################################################################
 # Define names of folders in third_party/sources that contain programs to build:
 
-LZO_NAME         = lzo-2.08
+LZO_NAME         = lzo-2.10
 
 OPENSSL_NAME     = openssl-1.0.2p
 
