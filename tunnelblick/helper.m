@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2023. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -22,7 +22,6 @@
 
 #import "helper.h"
 
-#import <mach/mach_time.h>
 #import <pthread.h>
 #import <Security/Security.h>
 #import <sys/stat.h>
@@ -315,15 +314,6 @@ NSData * base64Decode(NSString * input) {
 	}
 	
 	return output;
-}
-
-uint64_t nowAbsoluteNanoseconds(void)
-{
-    // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
-    mach_timebase_info_data_t info;
-    mach_timebase_info(&info);
-    uint64_t nowNs = (unsigned long long)mach_absolute_time() * (unsigned long long)info.numer / (unsigned long long)info.denom;
-    return nowNs;
 }
 
 BOOL runningATunnelblickBeta(void) {

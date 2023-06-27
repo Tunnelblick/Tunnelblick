@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014, 2015, 2016, 2018 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2015, 2016, 2018, 2023 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -101,6 +101,8 @@ BOOL makeUnlockedAtPath(NSString * path);
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser);
 
 NSDictionary * getSafeEnvironment(NSString * configName, unsigned configLocCode, NSDictionary * additionalEntries);
+
+uint64_t nowAbsoluteNanoseconds(void);
 
 OSStatus runTool(NSString * launchPath,
                  NSArray  * arguments,
