@@ -264,7 +264,7 @@
 "Terminate All OpenVPN processes" = "中止所有 OpenVPN 程序";
 
 /* Button */
-"Terminate" = "中止";
+"Terminate" = "停止";
 
 /* Button */
 "This configuration has its own separate credentials" = "此設定檔有自已獨立的認證資訊";
@@ -449,7 +449,7 @@
 "Do not ask again, always 'Ignore'" = "不再詢問，總是「忽略」";
 
 /* Checkbox name */
-"Do not ask again, always Continue" = "不再詢問，總是繼續";
+"Do not ask again, always Continue" = "默认始终继续。";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "不要再顯示這類型的警告";
@@ -2181,6 +2181,9 @@
 
 /* Popup button menu item */
 "(Do not import)" = "（不要匯入）";
+
+/* This appears in place of a string when the string cannot be created. It should only be shown when there is a serious problem with the computer. By string we mean any string of words that have been translated (basically, the pieces of language that we translate at one time). It could be a word or two, a sentence, or several paragraphs. */
+"(String is not available)\n" = "(暫無文本)\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "64位元測試與支援";

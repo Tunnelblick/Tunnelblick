@@ -1,9 +1,14 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) IP: %@" = "Ondoa IP Yote (%1$@): %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Ondoa Maunganisho Yote (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) IP: %@" = "Tenganisha Miunganisho Yote (%1$d) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Ondoa Maunganisho Yote (%d Maunganisho)";
@@ -1035,10 +1040,124 @@
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Baada ya kuunganisha kwa %@, Mtandao hauonekani kufikiwa.\n\nHii inaweza kumaanisha kuwa VPN yako haijasanidiwa ipasavyo.\n\n";
 
 /* Window text */
+"All OpenVPN processes have quit" = "Michakato yote ya OpenVPN imeacha";
+
+/* Window text */
+"All configuration files have been removed. Tunnelblick must quit." = "Faili zote za usanidi zimeondolewa. Tunnelblick lazima izime.";
+
+/* Window text */
+"All configurations use %@ credentials" = "Mipangilio yote hutumia vitambulisho %@";
+
+/* Window text */
+"Also, please attach the 'Tunnelblick Error Data.txt' file on your Desktop to the email. It contains information about the error. You can double-click the file to see the information.\n\n" = "Pia, tafadhali ambatisha faili ya 'Tunnelblick Error Data.txt' kwenye Eneo-kazi lako kwa barua pepe. Ina maelezo kuhusu hitilafu. Unaweza kubofya faili mara mbili ili kuona habari.\n\n";
+
+/* Window text */
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Hitilafu (hali %1$ld) ilitokea wakati wa kujaribu kuangalia usalama wa usanidi wa %2$@.\n\nTafadhali acha na uzindue upya Tunnelblick. Tatizo likiendelea, tafadhali sakinisha tena Tunnelblick.";
+
+/* Window text */
+"An error occurred getting the list of loaded system extensions." = "Hitilafu ilitokea katika kupata orodha ya viendelezi vya mfumo vilivyopakiwa.";
+
+/* Window text */
+"An error occurred while trying to launch %@" = "Hitilafu ilitokea wakati wa kujaribu kuzindua %@";
+
+/* Window text */
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Hitilafu ilitokea wakati wa kujaribu kurejesha nakala (kivuli) iliyohifadhiwa. Tazama Kumbukumbu ya Console kwa maelezo.\n\n";
+
+/* Window text */
+"An error occurred. Please try again." = "Hitilafu imetokea. Tafadhali jaribu tena.";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "Hitilafu imetokea. Tazama Kumbukumbu ya Console kwa maelezo.";
+
+/* Window text */
+"Backslash at end of line %u is not allowed" = "Bakslashi mwishoni mwa mstari %u hairuhusiwi";
+
+/* Window text */
 "Cancelled trying to quit all OpenVPN processes" = "Ghairisha kujaribu kukatisha michakato yote ya OpenVPN";
 
 /* Window text */
+"Cannot find configuration file at %@" = "Haiwezi kupata faili ya usanidi kwa %@";
+
+/* Window text */
+"Cannot install configurations to either shared or private locations" = "Haiwezi kusakinisha usanidi kwa maeneo yaliyoshirikiwa au ya faragha";
+
+/* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Haiwezi kusanidua usanidi '%@' kwa sababu haijasakinishwa.";
+
+/* Window text */
+"Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "Bofya \"Sawa\" ili kutenganisha VPN zote, acha Tunnelblick, na uanze kuiondoa.\n\nKunaweza kuwa na ucheleweshaji wa sekunde chache kabla ya dirisha la kwanza la kiondoa kuonekana.\n\nIkiwa ungependa kuhifadhi nakala ya usanidi wako wa VPN na mipangilio yote ya Tunnelblick, bofya \"Ghairi\" na uhamishe usanidi wa Tunnelblick kwanza.\n\n";
+
+/* Window text */
+"Computer sleep/wake" = "Kompyuta kulala/kuamka";
+
+/* Window text */
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Usanidi wa '%1$@' ('%2$@') utapuuzwa kwa sababu jina lake lina vibambo ambavyo haviruhusiwi.\n\nHerufi ambazo haziruhusiwi: '%3$s'\n\n";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Usanidi '%@' una hati moja au zaidi ambayo inaweza kusababisha matatizo ikiwa utabadilisha au kusanidua usanidi wakati umeunganishwa.\n\nJe, ungependa kubadilisha usanidi?";
+
+/* Window text */
+"Configuration '%@' is not secure. It should be reinstalled." = "Usanidi '%@' si salama. Inapaswa kuwekwa upya.";
+
+/* Window text */
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Usanidi '%@' si salama. Tafadhali sakinisha tena Tunnelblick.";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Usanidi '%@' hauwezi kusasishwa kwa sababu haukuweza kutiwa alama kuwa 'unaoweza kusasishwa'.\n";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or higher; you are using Tunnelblick %@.\n\nYou must update Tunnelblick to install this configuration." = "Usanidi '%1$@' unahitaji Tunnelblick %2$@ au toleo jipya zaidi; unatumia Tunnelblick %3$@.\n\nLazima usasishe Tunnelblick ili kusakinisha usanidi huu.";
+
+/* Window text. The first '%@' will be the name of a configuration; the other two '%@' will each be a version number such as '3.5.4' or '3.5.3beta02' */
+"Configuration '%@' requires Tunnelblick %@ or lower; you are using Tunnelblick %@." = "Usanidi '%1$@' unahitaji Tunnelblick %2$@ au chini; unatumia Tunnelblick %3$@.";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Usanidi wa '%1$@' utapuuzwa kwa sababu jina lake lina vibambo ambavyo haviruhusiwi.\n\nHerufi ambazo haziruhusiwi: '%2$s'\n\n";
+
+/* Window text */
+"Configuration changes:" = "Mabadiliko ya usanidi:";
+
+/* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Usanidi umewekwa kutoka kwa mafaili ambayo hutolewa kwako na Meneja wako wa Mtandao au mtoaji wa huduma wa VPN.\n\nFaili za usanidi zina viongezeo .tblk, .ovpn, au .conf.\n\n(Kunaweza kuwa na faili nyingine zinazohusiana na usanidi zenye viongezeo vingine; yapuuze.)\n\nKusasisha faili la usanidi , chagua na kisha dondosha kwenye ikoni ya Tunnelblick kwenye mtambaa wa menyu au kwenye orodha ya usanidi kwenye kichupo cha 'Usanidi' wa dirisha la 'Maelezo ya VPN'.\n\nKusasisha mafaili mengi ya usanidi  kwa wakati mmoja, chagua mafaili yote na kisha buruta na udondoshe yote.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Mipangilio ambayo si sehemu ya Tunnelblick huwekwa ili kusakinishwa unaposakinisha Tunnelblick.\n\n";
+
+/* Window text */
+"Connect:" = "Unganisha:";
+
+/* Window text */
+"Connection:" = "Unganisho:";
+
+/* Window text */
+"Converted OpenVPN configuration" = "Usanidi wa OpenVPN uliogeuzwa";
+
+/* Window text */
+"Converting %@ at line %lu: %@" = "Inabadilisha %1$@ kwenye mstari %2$lu: %3$@";
+
+/* Window text */
+"Converting %@: %@" = "Inabadilisha %1$@: %2$@";
+
+/* Window text */
+"Copied %@" = "Imenakiliwa %@";
+
+/* Window text */
+"Copied %@, removing CR characters" = "Imenakiliwa %@, na kuondoa vibambo vya CR";
+
+/* Window text */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Hakimiliki © 2004-%@ Angelo Laub, Jonathan Bullard, na wengine.";
+
+/* Window text */
+"Could not copy %@ to %@" = "Haikuweza kunakili %1$@ hadi %2$@";
+
+/* Window text */
+"Could not create %@" = "Haikuweza kuunda %@";
+
+/* Window text */
+"Could not delete %@" = "Haikuweza kufuta %@";
+
+/* Window text */
+"Could not find easy-rsa in Tunnelblick.app" = "Haikuweza kupata rsa-rahisi katika Tunnelblick.app";
 
 /* Window text */
 "Icon:" = "Ikoni:";

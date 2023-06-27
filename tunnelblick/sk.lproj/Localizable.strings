@@ -2182,6 +2182,9 @@
 /* Popup button menu item */
 "(Do not import)" = "(neimportovať)";
 
+/* This appears in place of a string when the string cannot be created. It should only be shown when there is a serious problem with the computer. By string we mean any string of words that have been translated (basically, the pieces of language that we translate at one time). It could be a word or two, a sentence, or several paragraphs. */
+"(String is not available)\n" = "(Reťazec nie je k dispozícii)\n";
+
 /* Credit description */
 "64-bit enabling and testing" = "Beh a testovanie 64-bit";
 

@@ -1,9 +1,14 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) IP: %@" = "Prekini sve (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Prekini sve (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) IP: %@" = "Prekini sve (%1$d aktivnih) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Prekini sve veze (%d veza)";

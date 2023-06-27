@@ -8,7 +8,7 @@
 "Disconnect All (%@)" = "Rozłącz wszystkie (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) IP: %@" = "Rozłącz wszystkie (%1$d połączenia) IP: %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Rozłącz wszystkie IP: %2$@ (liczba połączeń: %1$d)";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Rozłącz wszystkie (%d połączenia)";
@@ -902,7 +902,7 @@
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Czy chcesz zastąpić\n    %1$@\n    w %2$@\n wartością %3$@%4$@?\n\n";
 
 /* Window text */
-" Forced preferences will also be installed or replaced.\n\n" = " Wymuszone ustawienia zostaną również zainstalowane bądź zastąpione.\n\n";
+" Forced preferences will also be installed or replaced.\n\n" = " Wymuszone ustawienia również zostaną zainstalowane bądź zastąpione.\n\n";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick musi być zainstalowany w katalogu \"Programy\"\\.\n\n";
@@ -1790,7 +1790,7 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick nie mógł pobrać informacje o adresie IP przed nawiązaniem połączenia %@.\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick nie mógł znaleźć opcji \"tun\" i \"tap\" w pliku konfiguracyjnym OpenVPN";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick nie mógł znaleźć opcji „tun” i „tap” w pliku konfiguracyjnym OpenVPN";
 
 /* Window text */
 "Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick nie mógł znaleźć wolnego portu do wykorzystania do komunikacji z OpenVPN";
@@ -2181,6 +2181,9 @@
 
 /* Popup button menu item */
 "(Do not import)" = "(nie importuj)";
+
+/* This appears in place of a string when the string cannot be created. It should only be shown when there is a serious problem with the computer. By string we mean any string of words that have been translated (basically, the pieces of language that we translate at one time). It could be a word or two, a sentence, or several paragraphs. */
+"(String is not available)\n" = "Klucz: (ciąg znaków jest niedostępny)\n\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "implementacja i testowanie wersji 64-bitowej";

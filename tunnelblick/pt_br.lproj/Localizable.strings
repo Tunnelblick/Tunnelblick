@@ -1,9 +1,14 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) IP: %@" = "Desconectar Todas (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Desconectar Todas (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) IP: %@" = "Desconectar Todas (%1$d Conexões) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Desconectar Todas (%d Conexões)";
@@ -2176,6 +2181,9 @@
 
 /* Popup button menu item */
 "(Do not import)" = "(Não importar)";
+
+/* This appears in place of a string when the string cannot be created. It should only be shown when there is a serious problem with the computer. By string we mean any string of words that have been translated (basically, the pieces of language that we translate at one time). It could be a word or two, a sentence, or several paragraphs. */
+"(String is not available)\n" = "(Texto não está disponível)\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "Testes e ativação 64-bit";
