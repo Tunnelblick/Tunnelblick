@@ -2594,12 +2594,11 @@ int main(int argc, char *argv[]) {
 								     || ( (opsAndFlags & INSTALLER_SECURE_APP) != 0 )
                                      );
     BOOL doForceLoadLaunchDaemon  = (opsAndFlags & INSTALLER_REPLACE_DAEMON) != 0;
-    BOOL doUninstallKexts         = (operation == INSTALLER_UNINSTALL_KEXTS);
+    BOOL doUninstallKexts         = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS);
     
     // Uninstall kexts overrides install kexts
     BOOL doInstallKexts           = (   ( ! doUninstallKexts )
-                                     && (operation == INSTALLER_INSTALL_KEXTS)  );
-
+                                     && (opsAndFlags & INSTALLER_INSTALL_KEXTS)  );
 	gSecureTblks = (   doCopyApp
                     || ( (opsAndFlags & INSTALLER_SECURE_TBLKS) != 0 ) );
 
