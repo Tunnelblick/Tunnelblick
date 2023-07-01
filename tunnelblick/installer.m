@@ -211,7 +211,9 @@ void closeLog(void) {
 void errorExit() {
 
 #ifdef TBDebug
-    appendLog([NSString stringWithFormat: @"installer: errorExit: Stack trace: %@", callStack()]);
+    appendLog([NSString stringWithFormat: @"errorExit(): Stack trace: %@", callStack()]);
+#else
+    appendLog(@"Tunnelblick installer failed");
 #endif
 
     storeAuthorizedDoneFileAndExit(EXIT_FAILURE);
