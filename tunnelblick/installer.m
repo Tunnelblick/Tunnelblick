@@ -876,6 +876,229 @@ BOOL deleteThingAtPath(NSString * path) {
 	return TRUE;
 }
 
+BOOL securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * targetPath) {
+
+    // Create a file or a directory owned by root with 0700 permissions (permissions will be changed to the correct values later)
+
+    if (  isDir  ) {
+        umask(0077);
+        int result = mkdir([targetPath fileSystemRepresentation], 0700);
+        umask(S_IWGRP | S_IWOTH);
+        if (  result != 0  ) {
+            appendLog([NSString stringWithFormat: @"mkdir() returned error: '%s' for path %@", strerror(errno), targetPath]);
+            return NO;
+        }
+    } else {
+        int result = open([targetPath fileSystemRepresentation], (O_CREAT | O_EXCL | O_APPEND | O_NOFOLLOW_ANY), 0700);
+        if (  result < 0  ) {
+            appendLog([NSString stringWithFormat: @"open() returned error: '%s' for path %@", strerror(errno), targetPath]);
+            return NO;
+        }
+        close(result); // Ignore errors
+    }
+
+    return YES;
+}
+
+BOOL securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
+
+    const char * sourcePathC = [sourcePath fileSystemRepresentation];
+    const char * targetPathC = [targetPath fileSystemRepresentation];
+    if (   (sourcePathC == NULL)
+        || (targetPathC == NULL)  ) {
+        appendLog([NSString stringWithFormat: @"Could not get fileSystemRepresentation for path %@ and/or path '%@", sourcePath, targetPath]);
+        return NO;
+    }
+
+    // Open the item as READ-ONLY (we're not changing it now)
+    int fd = open(targetPathC, (O_RDONLY | O_NOFOLLOW_ANY));
+    if (  fd == -1  ) {
+        appendLog([NSString stringWithFormat: @"Could not open %s", targetPathC]);
+        return NO;
+    }
+
+    struct stat status;
+
+    int result = fstat(fd, &status);
+    if (   (result != 0)
+        || (status.st_uid != 0)
+        || (status.st_nlink != (isDir ? 2 : 1))
+        || (status.st_mode  != (isDir ? S_IFDIR | 0700 : S_IFREG | 0700))  ) {
+        appendLog([NSString stringWithFormat: @"Item has been modified after being created at path %@\nowner = %u; group = %u; nlink = %u; mode = 0%o",
+                   targetPath, status.st_uid, status.st_gid, status.st_nlink, status.st_mode]);
+        return NO;
+    }
+
+    // Change owner group (owner is already 0)
+    result = fchown(fd, 0, 0);
+    if (  result != 0  ) {
+        appendLog([NSString stringWithFormat: @"lchown() returned error: '%s' for path %s", strerror(errno), targetPathC]);
+        return NO;
+    }
+
+    // Change permissions
+    NSDictionary * sourceAttributes = [gFileMgr tbFileAttributesAtPath: sourcePath traverseLink: NO];
+    mode_t mode = [[sourceAttributes objectForKey: NSFilePosixPermissions] unsignedIntValue];
+    result = fchmod(fd, mode);
+    if (  result != 0  ) {
+        appendLog([NSString stringWithFormat: @"chmod() returned error: '%s' for path %s", strerror(errno), targetPathC]);
+        return NO;
+    }
+
+    // Verify ownership, permissions, no hard links, and either a directory or a regular file
+    mode = mode | (  isDir
+                   ? S_IFDIR
+                   : S_IFREG);
+
+    result = lstat(targetPathC, &status);
+    if (   (result != 0)
+        || (status.st_uid != 0)
+        || (status.st_gid != 0)
+        || (status.st_nlink != (isDir ? 2 : 1))
+        || (status.st_mode  != mode)  ) {
+        appendLog([NSString stringWithFormat: @"Failed to modify group and/or permissions at path %@\nowner = %u; group = %u; nlink = %u; mode = 0%o",
+                   targetPath, status.st_uid, status.st_gid, status.st_nlink, status.st_mode]);
+        return NO;
+    }
+
+    // Copy dates
+    // (1) Must convert between timespec returned from stat() and timeval needed by lutimes().
+    // (2) Must first uses futimes() with the creation date, which will set the creation date and the modified date
+    //     to the supplied date because it is earlier than than the creation date.
+    //     Must then use lutimes() to set the modified date.
+
+    // Get creation and modified dates
+    result = lstat(sourcePathC, &status);
+    if (  result != 0  ) {
+        appendLog([NSString stringWithFormat: @"lstat() failed for path %s", sourcePathC]);
+        return NO;
+    }
+    struct timespec createdTS  = status.st_birthtimespec;
+    struct timespec modifiedTS = status.st_mtimespec;
+
+    // Convert creation date format and set creation date
+    struct timeval createdTV;
+    createdTV.tv_sec  = createdTS.tv_sec;
+    createdTV.tv_usec = createdTS.tv_nsec / 1000;
+    struct timeval createdTimevals[2] = {createdTV, createdTV};
+    result = futimes(fd, createdTimevals);
+    if (  result != 0  ) {
+        appendLog([NSString stringWithFormat: @"lutimes() #1 failed for %s", targetPathC]);
+        return NO;
+    }
+
+    // Convert modified date format and set modified date
+    struct timeval modifiedTV;
+    modifiedTV.tv_sec  = modifiedTS.tv_sec;
+    modifiedTV.tv_usec = modifiedTS.tv_nsec / 1000;
+    struct timeval modifiedTimevals[2] = {modifiedTV, modifiedTV};
+    result = futimes(fd, modifiedTimevals);
+    if (  result != 0  ) {
+        appendLog([NSString stringWithFormat: @"lutimes() #1 failed for %s", targetPathC]);
+        return NO;
+    }
+
+    close(fd);
+    return YES;
+}
+
+void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath);
+
+void securelyCopyFileOrFolderContents(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
+
+    // Copy the folder contents or the file contents
+    if (  isDir  ) {
+        NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: sourcePath];
+        NSString * path;
+        while (  (path = [dirE nextObject])  ) {
+            [dirE skipDescendants];
+            NSString * fullSourcePath = [sourcePath stringByAppendingPathComponent: path];
+            NSString * fullTargetPath = [targetPath stringByAppendingPathComponent: path];
+            //
+            // NOTE: RECURSION
+            //
+            securelyCopyDirectly(fullSourcePath, fullTargetPath);
+        }
+    } else {
+        NSData *data = [NSData dataWithContentsOfFile: sourcePath
+                                              options: (NSDataReadingUncached | NSDataReadingMappedIfSafe)
+                                                error: nil];
+        if (  ! data  ) {
+            appendLog([NSString stringWithFormat: @"Could not read data from %@", sourcePath]);
+            errorExit();
+        }
+
+        NSFileHandle * fh = [NSFileHandle fileHandleForWritingAtPath: targetPath];
+        if (  ! fh  ) {
+            appendLog([NSString stringWithFormat: @"Could not get file handle to write to %@", targetPath]);
+            errorExit();
+        }
+
+        @try {
+            [fh writeData: data];
+        } @catch (NSException *exception exception) {
+            appendLog([NSString stringWithFormat: @"Could not write data (%@) to %@", exception, targetPath]);
+            [fh release];
+            errorExit();
+        }
+    }
+}
+
+void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
+
+    // Copies a file, or a folder and its contents making sure the copy has the same permissions and dates as the original but is owned by root:wheel.
+    //
+    // DO NOT USE THIS FUNCTION: Use securelyCopy() instead.
+    //
+    // This routine is called only by securelyCopy() and securelyCopyFileOrFolderContents().
+
+    BOOL isDir;
+
+    if (  ! [gFileMgr fileExistsAtPath: sourcePath isDirectory: &isDir]  ) {
+        appendLog([NSString stringWithFormat: @"Does not exist: %@", sourcePath]);
+        errorExit();
+    }
+
+    if (  ! [gFileMgr tbRemovePathIfItExists: targetPath]  ) {
+        appendLog([NSString stringWithFormat: @"Unable to remove %@", targetPath]);
+        errorExit();
+    }
+
+    if (  ! securelyCreateFileOrDirectoryEntry(isDir, targetPath)  ) {
+        errorExit();
+    }
+
+    // Set final permissions and dates
+    if ( ! securelySetItemAttributes(isDir, sourcePath, targetPath)  ) {
+        errorExit();
+    }
+
+    securelyCopyFileOrFolderContents(isDir, sourcePath, targetPath);
+}
+
+void securelyCopy(NSString * sourcePath, NSString * targetPath) {
+
+    // Copies a file, or a folder and its contents making sure the copy has the same permissions and dates as the original but is owned by root:wheel.
+    //
+    // Uses an intermediate file or folder and then renames it, so no partial copy is done if an error occurs.
+
+    BOOL isDir;
+
+    if (  ! [gFileMgr fileExistsAtPath: sourcePath isDirectory: &isDir]  ) {
+        appendLog([NSString stringWithFormat: @"Does not exist: %@", sourcePath]);
+        errorExit();
+    }
+
+    NSString * tempPath = [L_AS_T stringByAppendingPathComponent: @"installer-temp"];
+
+    securelyCopyDirectly(sourcePath, tempPath);
+
+    if (  0 != renamex_np([tempPath fileSystemRepresentation], [targetPath fileSystemRepresentation], (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
+        appendLog([NSString stringWithFormat: @"renamex_np() failed with error %d ('%s') to rename %@ to %@", errno, strerror(errno), tempPath, targetPath]);
+        errorExit();
+    }
+}
+
 void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy) {
 	
 	// Copies or moves a folder, but unlocks everything in the copy (or target, if it is a move)
