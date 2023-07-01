@@ -150,6 +150,7 @@ NSAutoreleasePool * pool;
 
 // The following variable may be modified by routines to affect later behavior of the program
 BOOL            gSecureTblks;				  // Set initially if all .tblks need to be secured.
+
 BOOL            gErrorOccurred = FALSE;       // Set if an error occurred
 
 //**************************************************************************************************************************
@@ -1466,7 +1467,6 @@ void installOrUpdateKexts(BOOL forceInstall) {
     }
     
     if (  shouldUpdateKextCaches  ) {
-        
         updateTheKextCaches();
 		haveUpdatedKexts = TRUE;
     }
@@ -3014,9 +3014,12 @@ int main(int argc, char *argv[]) {
 
     //**************************************************************************************************************************
     // DONE
-    
-	appendLog(@"Tunnelblick installer finished without error");
-    storeAuthorizedDoneFileAndExit(  (  gErrorOccurred
-                                      ? EXIT_FAILURE
-                                      : EXIT_SUCCESS)  );
+
+    if (  gErrorOccurred  ) {
+        appendLog(@"Tunnelblick installer finished with errors");
+        storeAuthorizedDoneFileAndExit(EXIT_SUCCESS);
+    }
+
+    appendLog(@"Tunnelblick installer succeeded");
+    storeAuthorizedDoneFileAndExit(EXIT_SUCCESS);
 }
