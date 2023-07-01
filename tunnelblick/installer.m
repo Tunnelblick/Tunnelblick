@@ -668,40 +668,6 @@ void loadLaunchDaemonUsingLaunchctl(void) {
 	}
 }
 
-BOOL removeQuarantineBitWorker(NSString * path) {
-    
-    const char * fullPathC = [path fileSystemRepresentation];
-    const char * quarantineBitNameC = "com.apple.quarantine";
-    int status = removexattr(fullPathC, quarantineBitNameC, XATTR_NOFOLLOW);
-    if (   (status != 0)
-        && (errno != ENOATTR)) {
-        appendLog([NSString stringWithFormat: @"Failed to remove '%s' from %s; errno = %ld; error was '%s'", quarantineBitNameC, fullPathC, (long)errno, strerror(errno)]);
-        return FALSE;
-    }
-    
-    return TRUE;
-}
-
-BOOL removeQuarantineBit(void) {
-    
-    NSString * tbPath = @"/Applications/Tunnelblick.app";
-    
-    if (  ! removeQuarantineBitWorker(tbPath)  ) {
-        return FALSE;
-    }
-    
-    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tbPath];
-    NSString * file;
-    while (  (file = [dirE nextObject])  ) {
-        NSString * fullPath = [tbPath stringByAppendingPathComponent: file];
-        if (  ! removeQuarantineBitWorker(fullPath)  ) {
-            return FALSE;
-        }
-    }
-    
-    return TRUE;
-}
-
 void loadLaunchDaemonUsingSMJobSubmit(NSDictionary * newPlistContents) {
 
     (void)newPlistContents; // REMOVE if we ever use this routine!
@@ -1605,8 +1571,9 @@ void doInitialWork(BOOL updateKexts) {
 
 void copyTheApp(void) {
 	
-	NSString * currentPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+	NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 	NSString * targetPath  = @"/Applications/Tunnelblick.app";
+
 	if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
 		errorExitIfAnySymlinkInPath(targetPath);
 		if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
@@ -1620,20 +1587,10 @@ void copyTheApp(void) {
 			errorExit();
 		}
 	}
-	
-	if (  ! [gFileMgr tbCopyPath: currentPath toPath: targetPath handler: nil]  ) {
-		appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", currentPath, targetPath]);
-		errorExit();
-	} else {
-		appendLog([NSString stringWithFormat: @"Copied %@ to %@", currentPath, targetPath]);
-	}
-	
-	if (  ! removeQuarantineBit()  ) {
-		appendLog(@"Unable to remove all 'com.apple.quarantine' extended attributes");
-		errorExit();
-	} else {
-		appendLog(@"Removed any 'com.apple.quarantine' extended attributes");
-	}
+
+    securelyCopy(sourcePath, targetPath);
+
+    appendLog([NSString stringWithFormat: @"Securely copied %@ to %@", sourcePath, targetPath]);
 }
 
 void secureTheApp(NSString * appResourcesPath) {
