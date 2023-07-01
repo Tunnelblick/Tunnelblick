@@ -474,7 +474,7 @@
 #define INSTALLER_SECURE_APP                 0x0004u
 
 // UNUSED
-// WAS INSTALLER_HELPER_IS_TO_BE_SUID        0x0008u
+//                                           0x0008u
 
 // Set to secure all .tblk packages in
 // Configurations, Shared, and the
@@ -486,9 +486,8 @@
 // etc.) to .tblk packages
 #define INSTALLER_CONVERT_NON_TBLKS          0x0020u
 
-// Set to move ~/Library/openvpn to
-// ~/Library/Application Support/Tunnelblick
-#define INSTALLER_MOVE_LIBRARY_OPENVPN       0x0040u
+// UNUSED
+//                                           0x0040u
 
 // UNUSED
 //                                           0x0080u
