@@ -1326,9 +1326,14 @@ BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath,
     NSString * finalPath = [[initialKextInLibraryExtensionsPath stringByDeletingLastPathComponent]
                             stringByAppendingPathComponent: finalNameOfKext];
 
-    // safeCopyPathToPath will replace any existing kext
-    safeCopyPathToPath(kextInAppPath, finalPath);
-    
+    if (  [gFileMgr fileExistsAtPath: finalPath]  ) {
+        if (  ! deleteThingAtPath(finalPath)  ) {
+            errorExit();
+        }
+    }
+
+    securelyCopy(kextInAppPath, finalPath);
+
     if ( ! checkSetOwnership(finalPath, YES, 0, 0)  ) {
         errorExit();
     }
