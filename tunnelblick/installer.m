@@ -1314,6 +1314,7 @@ BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath,
 
         if (   [initialNameOfKext isEqualToString: finalNameOfKext]
             && [gFileMgr contentsEqualAtPath: initialKextInLibraryExtensionsPath andPath: kextInAppPath]  ) {
+            appendLog([NSString stringWithFormat: @"Kext is up-to-date: %@", finalNameOfKext]);
             return NO;
         }
     }
@@ -1386,7 +1387,9 @@ BOOL uninstallOneKext(NSString * path) {
     if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
         errorExit();
     }
-    
+
+    appendLog([NSString stringWithFormat: @"Uninstalled %@", [path lastPathComponent]]);
+
     return YES;
 }
 
@@ -1398,6 +1401,9 @@ void uninstallKexts(void) {
 
     if (  shouldUpdateKextCaches  ) {
         updateTheKextCaches();
+    } else {
+        appendLog(@"There are no kexts to uninstall");
+        gErrorOccurred = TRUE;
     }
 }
 
