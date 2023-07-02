@@ -1520,21 +1520,6 @@ void doInitialWork(BOOL updateKexts) {
 		secureOpenvpnBinariesFolder(L_AS_T_OPENVPN);
 	}
 
-	// Delete *.mip files (used before using the Mips folder)
-    NSDirectoryEnumerator  * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T];
-	NSString * fileName;
-	while (  (fileName = [dirEnum nextObject])  ) {
-		[dirEnum skipDescendants];
-		if (  [fileName hasSuffix: @".mip"]  ) {
-            NSString * fullPath = [L_AS_T stringByAppendingPathComponent: fileName];
-            if (  [gFileMgr tbRemoveFileAtPath: fullPath handler: nil]  ) {
-                appendLog([NSString stringWithFormat: @"Deleted obsolete file '%@'", fullPath]);
-            } else {
-                appendLog([NSString stringWithFormat: @"Cannot delete obsolete file '%@'", fullPath]);
-            }
-		}
-	}
-    
     if (  gHomeDirectory  ) {
 
         if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS stringByAppendingPathComponent: userUsername()],
@@ -2772,8 +2757,9 @@ int main(int argc, char *argv[]) {
 								     || ( (opsAndFlags & INSTALLER_SECURE_APP) != 0 )
                                      );
     BOOL doForceLoadLaunchDaemon  = (opsAndFlags & INSTALLER_REPLACE_DAEMON) != 0;
-    BOOL doUninstallKexts         = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS);
-    
+    BOOL doUninstallKexts         = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS) != 0;
+    BOOL doSecureTblks            = (opsAndFlags & INSTALLER_SECURE_TBLKS) != 0;
+
     // Uninstall kexts overrides install kexts
     BOOL doInstallKexts           = (   ( ! doUninstallKexts )
                                      && (opsAndFlags & INSTALLER_INSTALL_KEXTS)  );
