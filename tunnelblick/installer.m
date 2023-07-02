@@ -39,7 +39,7 @@
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 
-// NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA waitForExecuteAuthorized
+// NOTE: THIS PROGRAM MUST BE RUN AS ROOT. Tunnelblick runs it by using waitForExecuteAuthorized
 //
 // This program is called when something needs to be secured.
 // It accepts one to three arguments, and always does some standard housekeeping in
@@ -57,7 +57,7 @@
 //               (for import .tblksetup)
 //
 //     installer bitmask  targetPath  sourcePath
-//               (for copy/move configuration - requires getuid() to be non-zero)
+//               (for copy/move configuration)
 //
 //     installer bitmask  username  sourcePath [subfolder]
 //               (for copy to private configuration)
@@ -90,21 +90,14 @@
 //			Creates directories or repairs their ownership/permissions as needed
 //			Repairs ownership/permissions of L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
 //			Creates the .mip file if it does not already exist
-//			Updates old format of updatable configuartions to new format
-//          Converts old entries in L_AS_T_TBLKS to the new format, with a bundleId_edition folder enclosing a .tblk
-//          Renames /Library/LaunchDaemons/net.tunnelblick.startup.*
-//               to                        net.tunnelblick.tunnelblick.startup.*
 //          Updates Tunnelblick kexts in /Library/Extensions (unless kexts are being uninstalled)
 //
 //      (2) (REMOVED)
 //      (3) (REMOVED)
-//      (4) If INSTALLER_COPY_APP is set, this app is copied to /Applications and the com.apple.quarantine extended attribute is removed from the app and all items within it
+//      (4) If INSTALLER_COPY_APP is set, this app is copied to /Applications, discarding all xattrs including the quarantine bit
 //      (5) If INSTALLER_SECURE_APP is set, secures Tunnelblick.app by setting the ownership and permissions of its components.
 //      (6) If INSTALLER_COPY_APP is set, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
-//      (7) If INSTALLER_SECURE_TBLKS or INSTALLER_COPY_APP are set
-//			or migrated configurations from the old OpenVPN library,
-//			or converted non-.tblks to be .tblks:
-//			Then secures all .tblk packages in the following folders:
+//      (7) If INSTALLER_SECURE_TBLKS is set, then secures all .tblk packages in the following folders:
 //				/Library/Application Support/Tunnelblick/Shared
 //				~/Library/Application Support/Tunnelblick/Configurations
 //				/Library/Application Support/Tunnelblick/Users/<username>
@@ -147,9 +140,6 @@ NSString      * gPrivatePath = nil;                 // ~/Library/Application Sup
 NSString      * gHomeDirectory = nil;
 
 NSAutoreleasePool * pool;
-
-// The following variable may be modified by routines to affect later behavior of the program
-BOOL            gSecureTblks;				  // Set initially if all .tblks need to be secured.
 
 BOOL            gErrorOccurred = FALSE;       // Set if an error occurred
 
@@ -521,11 +511,6 @@ NSString * thisAppResourcesPath(void) {
 }
 
 BOOL isPathPrivate(NSString * path) {
-
-//    NSString * absolutePath = [path stringByStandardizingPath];
-//    if (  ! [path hasPrefix: @"/"]  ) {
-//        absolutePath = [[gFileMgr currentDirectoryPath] stringByAppendingPathComponent: absolutePath];
-//    }
 
     NSString * absolutePath = makePathAbsolute(path);
 
