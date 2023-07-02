@@ -555,9 +555,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 
 		// Remove any old "Launch Tunnelblick" link in the private configurations folder
 		NSString * tbLinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-		if (  [gFileMgr fileExistsAtPath: tbLinkPath]  ) {
-			[gFileMgr tbRemoveFileAtPath: tbLinkPath handler: nil];
-        }
+		[gFileMgr tbRemovePathIfItExists: tbLinkPath];
 
         if (  ! [self setUpUserDefaults]  ) {
             return nil; // An error was already logged
@@ -1334,11 +1332,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
     
     if (  renameIfBad  ) {
         NSString * dotBadPath = [path stringByAppendingPathExtension: @"bad"];
-        if (  [gFileMgr fileExistsAtPath: dotBadPath]  ) {
-            if (  ! [gFileMgr tbRemoveFileAtPath: dotBadPath handler: nil]  ) {
-                NSLog(@"Unable to delete %@", dotBadPath);
-            }
-        }
+        [gFileMgr tbRemovePathIfItExists: dotBadPath];
         if (  [gFileMgr tbMovePath: path toPath: dotBadPath handler: nil]  ) {
             NSLog(@"Renamed %@ to %@", path, [dotBadPath lastPathComponent]);
         } else {
@@ -4012,14 +4006,8 @@ static void signal_handler(int signalNumber)
 		// Put file on user's Desktop with crash data
 		NSString * dumpPath = [@"~/Desktop/Tunnelblick Error Data.txt" stringByExpandingTildeInPath];
 		
-		if (  [gFileMgr fileExistsAtPath: dumpPath]  ) {
-			if (  [gFileMgr tbRemoveFileAtPath: dumpPath handler: nil]  ) {
-				NSLog(@"Removed old crash data at %@", dumpPath);
-			} else {
-				NSLog(@"Failed to remove old crash data at %@", dumpPath);
-			}
-		}
-		
+        [gFileMgr tbRemovePathIfItExists: dumpPath];
+
 		BOOL wroteFile = [msg writeToFile: dumpPath atomically: NO encoding: NSUTF8StringEncoding error: nil];
 		
 		if ( wroteFile  ) {
@@ -5072,7 +5060,6 @@ static void signal_handler(int signalNumber)
             return;
         }
     }
-
 
     // Delete the temporary folder
     if (  ! [gFileMgr tbRemoveFileAtPath: temporaryDirectoryPath handler: nil]  ) {
