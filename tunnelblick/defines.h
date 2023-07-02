@@ -481,10 +481,8 @@
 // alternate configuration path
 #define INSTALLER_SECURE_TBLKS               0x0010u
 
-// Set to convert all .ovpn and .conf files
-// (and their associated keys, scripts,
-// etc.) to .tblk packages
-#define INSTALLER_CONVERT_NON_TBLKS          0x0020u
+// UNUSED
+//                                           0x0020u
 
 // UNUSED
 //                                           0x0040u
