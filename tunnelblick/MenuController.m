@@ -7017,8 +7017,6 @@ static BOOL runningHookupThread = FALSE;
     TBLog(@"DB-SU", @"relaunchIfNecessary: 007")
     // Install this program and secure it
 	NSInteger installerResult = [self runInstaller: (  INSTALLER_COPY_APP
-													 | INSTALLER_SECURE_APP
-													 | INSTALLER_SECURE_TBLKS
 													 | (  forcedPlistToInstallPath
                                                         ? INSTALLER_INSTALL_FORCED_PREFERENCES
                                                         : 0)
@@ -7115,10 +7113,6 @@ static BOOL runningHookupThread = FALSE;
 -(NSString *) promptForInstaller: (unsigned)  installFlags
                     installTblks: (NSArray *) tblksToInstall {
     
-    if (  installFlags & INSTALLER_COPY_APP  ) {
-        installFlags = installFlags | INSTALLER_SECURE_TBLKS;
-    }
-
     BOOL appended = FALSE;
 	NSUInteger operation = installFlags | INSTALLER_OPERATION_MASK;
     NSMutableString * msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
@@ -7215,10 +7209,6 @@ static BOOL runningHookupThread = FALSE;
     if (  ! [auth authRef]  ) {
         NSLog(@"runInstaller:... authorization was cancelled");
         return 1;
-    }
-    
-    if (  installFlags & INSTALLER_COPY_APP  ) {
-        installFlags = installFlags | INSTALLER_SECURE_TBLKS;
     }
     
     NSString * msg = [[self promptForInstaller: installFlags installTblks: tblksToInstall]

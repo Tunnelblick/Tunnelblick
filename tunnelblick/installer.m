@@ -2763,8 +2763,6 @@ int main(int argc, char *argv[]) {
     // Uninstall kexts overrides install kexts
     BOOL doInstallKexts           = (   ( ! doUninstallKexts )
                                      && (opsAndFlags & INSTALLER_INSTALL_KEXTS)  );
-	gSecureTblks = (   doCopyApp
-                    || ( (opsAndFlags & INSTALLER_SECURE_TBLKS) != 0 ) );
 
 	NSString * resourcesPath = thisAppResourcesPath(); // (installer itself is in Resources)
     NSArray  * execComponents = [resourcesPath pathComponents];
@@ -2858,7 +2856,7 @@ int main(int argc, char *argv[]) {
     //**************************************************************************************************************************
     // (7)
     // If requested, secure all .tblk packages
-    if (  gSecureTblks  ) {
+    if (  doSecureTblks  ) {
 		secureAllTblks();
     }
     
