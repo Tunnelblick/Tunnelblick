@@ -310,7 +310,7 @@ void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * path) {
 
 // Secure routines
 
-void securelyDeleteItemAtPath(NSString * path) {
+void securelyDeleteItem(NSString * path) {
 
     errorExitIfAnySymlinkInPath(path);
 
@@ -322,7 +322,7 @@ void securelyDeleteItemAtPath(NSString * path) {
     }
 }
 
-void securelyDeleteItemIfItExistsAtPath(NSString * path) {
+void securelyDeleteItemIfItExists(NSString * path) {
 
     if (  ! [gFileMgr fileExistsAtPath: path]  ) {
         return;
@@ -341,7 +341,7 @@ void securelyDeleteItemIfItExistsAtPath(NSString * path) {
 void securelyRename(NSString * sourcePath, NSString * targetPath) {
 
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-        securelyDeleteItemAtPath(targetPath);
+        securelyDeleteItem(targetPath);
     }
 
     if (  0 != renamex_np([sourcePath fileSystemRepresentation], [targetPath fileSystemRepresentation], (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
@@ -534,7 +534,7 @@ void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
         errorExit();
     }
 
-    securelyDeleteItemIfItExistsAtPath(targetPath);
+    securelyDeleteItemIfItExists(targetPath);
 
     if (  ! securelyCreateFileOrDirectoryEntry(isDir, targetPath)  ) {
         errorExit();
@@ -576,7 +576,7 @@ void securelyMove(NSString * sourcePath, NSString * targetPath) {
 
     securelyCopy(sourcePath, targetPath);
 
-    securelyDeleteItemAtPath(sourcePath);
+    securelyDeleteItem(sourcePath);
 }
 
 // USER INFORMATION
@@ -916,7 +916,7 @@ void resolveSymlinksInPath(NSString * targetPath) {
 				errorExit();
 			}
 
-            securelyDeleteItemAtPath(fullPath);
+            securelyDeleteItem(fullPath);
 
 			NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
 										 [NSNumber numberWithInt: 0], NSFileOwnerAccountID,
@@ -1231,14 +1231,14 @@ BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath,
     }
     
     if (  initialKextExists  ) {
-        securelyDeleteItemAtPath(initialKextInLibraryExtensionsPath);
+        securelyDeleteItem(initialKextInLibraryExtensionsPath);
     }
     
     NSString * finalPath = [[initialKextInLibraryExtensionsPath stringByDeletingLastPathComponent]
                             stringByAppendingPathComponent: finalNameOfKext];
 
     if (  [gFileMgr fileExistsAtPath: finalPath]  ) {
-        securelyDeleteItemAtPath(finalPath);
+        securelyDeleteItem(finalPath);
     }
 
     securelyCopy(kextInAppPath, finalPath);
@@ -1291,7 +1291,7 @@ BOOL uninstallOneKext(NSString * path) {
         return NO;
     }
     
-    securelyDeleteItemAtPath(path);
+    securelyDeleteItem(path);
 
     appendLog([NSString stringWithFormat: @"Uninstalled %@", [path lastPathComponent]]);
 
@@ -1390,12 +1390,12 @@ void testSecurelyRename(NSString * folder) {
 
     // Touch two files (delete them first if they exist)
     NSString * test1Path = [folder stringByAppendingPathComponent: @"rename-test-target-1"];
-    securelyDeleteItemIfItExistsAtPath(test1Path);
+    securelyDeleteItemIfItExists(test1Path);
     if (  ! [gFileMgr createFileAtPath: test1Path contents: nil attributes: nil]  ) {
         appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-1 in %@", folder]);
     }
     NSString * test2Path = [folder stringByAppendingPathComponent: @"rename-test-target-2"];
-    securelyDeleteItemIfItExistsAtPath(test2Path);
+    securelyDeleteItemIfItExists(test2Path);
     if (  ! [gFileMgr createFileAtPath: test2Path contents: nil attributes: nil]  ) {
         appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-2 in %@", folder]);
     }
@@ -1404,8 +1404,8 @@ void testSecurelyRename(NSString * folder) {
     BOOL good = (0 != renamex_np([test1Path fileSystemRepresentation], [test2Path fileSystemRepresentation],(RENAME_NOFOLLOW_ANY | RENAME_EXCL)));
 
     // Delete the files
-    securelyDeleteItemIfItExistsAtPath(test1Path);
-    securelyDeleteItemIfItExistsAtPath(test2Path);
+    securelyDeleteItemIfItExists(test1Path);
+    securelyDeleteItemIfItExists(test2Path);
 
 
     if (  ! good  ) {
@@ -1730,7 +1730,7 @@ void pruneL_AS_T_TBLKS(void) {
 					break;
 				}
 				if (  ! [edition isEqualToString: highestEdition]  ) {
-                    securelyDeleteItemAtPath(containerPath);
+                    securelyDeleteItem(containerPath);
 					appendLog([NSString stringWithFormat: @"Pruned L_AS_T_TBLKS by removing %@", containerPath]);
 				}
 			}
@@ -1799,7 +1799,7 @@ void installForcedPreferences(NSString * firstPath, NSString * secondPath) {
 		if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
 			errorExitIfAnySymlinkInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 			makeUnlockedAtPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-            securelyDeleteItemAtPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+            securelyDeleteItem(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 		} else {
 			errorExitIfAnySymlinkInPath([L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH stringByDeletingLastPathComponent]);
 		}
@@ -2009,7 +2009,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 		errorExitIfAnySymlinkInPath(shadowTargetPath);
 		
 		if (  [gFileMgr fileExistsAtPath: shadowTargetPath]  ) {
-            securelyDeleteItemAtPath(shadowTargetPath);
+            securelyDeleteItem(shadowTargetPath);
 		}
 		
 		// Create container for shadow copy
@@ -2034,7 +2034,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 											 userUsername(),
 											 lastPartOfSource];
 			if (  [gFileMgr fileExistsAtPath: shadowSourcePath]  ) {
-                securelyDeleteItemAtPath(shadowSourcePath);
+                securelyDeleteItem(shadowSourcePath);
 			}
 		}
 	}
@@ -2055,7 +2055,7 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 	if (  [gFileMgr fileExistsAtPath: firstPath]  ) {
 		errorExitIfAnySymlinkInPath(firstPath);
 		makeUnlockedAtPath(firstPath);
-        securelyDeleteItemAtPath(firstPath);
+        securelyDeleteItem(firstPath);
 		appendLog([NSString stringWithFormat: @"removed %@", firstPath]);
 
 		// Delete shadow copy, too, if it exists
@@ -2067,7 +2067,7 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 			if (  [gFileMgr fileExistsAtPath: shadowCopyPath]  ) {
 				errorExitIfAnySymlinkInPath(shadowCopyPath);
 				makeUnlockedAtPath(shadowCopyPath);
-                securelyDeleteItemAtPath(shadowCopyPath);
+                securelyDeleteItem(shadowCopyPath);
 				appendLog([NSString stringWithFormat: @"removed %@", shadowCopyPath]);
 			}
 		}
@@ -2088,7 +2088,7 @@ void setupDaemon(void) {
 		errorExit();
 	}
 	if (  hadExistingPlist  ) {
-        securelyDeleteItemAtPath(TUNNELBLICKD_PLIST_PATH);
+        securelyDeleteItem(TUNNELBLICKD_PLIST_PATH);
 	}
 	if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
 		if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
@@ -2179,7 +2179,7 @@ void pruneFolderAtPath(NSString * path) {
 		
 		NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: pruneCandidatePath];
 		if (  ! [innerEnum nextObject]  ) {
-            securelyDeleteItemIfItExistsAtPath(pruneCandidatePath);
+            securelyDeleteItemIfItExists(pruneCandidatePath);
 			appendLog([NSString stringWithFormat: @"Removed folder because it was empty: %@", pruneCandidatePath]);
 		}
 	}
@@ -2193,7 +2193,7 @@ void exportToPath(NSString * exportPath) {
 	
 	// Remove the output file if it already exists
 	// (We do this so user doesn't do something with it before we're finished).
-    securelyDeleteItemIfItExistsAtPath(tarPath);
+    securelyDeleteItemIfItExists(tarPath);
 
 	// Create a temporary folder
 	NSString * tempFolderPath = newTemporaryDirectoryPath();
@@ -2286,7 +2286,7 @@ void exportToPath(NSString * exportPath) {
 	}
 	
 	// Remove the temporary folder
-    securelyDeleteItemAtPath(tempFolderPath);
+    securelyDeleteItem(tempFolderPath);
 }
 
 //**************************************************************************************************************************
@@ -2569,7 +2569,7 @@ void mergeForcedPreferences(NSString * sourcePath) {
 		}
 		
 		if (  modifiedExistingPreferences  ) {
-            securelyDeleteItemIfItExistsAtPath(targetPath);
+            securelyDeleteItemIfItExists(targetPath);
 			if (  ! [existingPreferences writeToFile: targetPath atomically: YES]  ) {
 				appendLog([NSString stringWithFormat: @"Error: could not write %@  ", sourcePath]);
 				errorExit();
