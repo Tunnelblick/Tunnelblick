@@ -1089,91 +1089,6 @@ void createFolder(NSString * path) {
 			   [attributes fileOwnerAccountID],   [attributes fileGroupOwnerAccountID],   [attributes filePosixPermissions]]);
 }
 
-// Safe routines
-
-void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy) {
-	
-	// Copies or moves a folder, but unlocks everything in the copy (or target, if it is a move)
-	
-	// Copy the file or package to a ".temp" file/folder first, then rename it
-	// This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
-	// see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
-	NSString * dotTempPath = [targetPath stringByAppendingPathExtension: @"temp"];
-	errorExitIfAnySymlinkInPath(dotTempPath);
-    securelyDeleteItemIfItExistsAtPath(dotTempPath);
-
-	createFolder([dotTempPath stringByDeletingLastPathComponent]);
-	
-// JKB: DO securelyCopy HERE, TOO
-    if (  ! [gFileMgr tbCopyPath: sourcePath toPath: dotTempPath handler: nil]  ) {
-		appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", sourcePath, dotTempPath]);
-        securelyDeleteItemIfItExistsAtPath(dotTempPath);
-		errorExit();
-	}
-	appendLog([NSString stringWithFormat: @"Copied %@\n    to %@", sourcePath, dotTempPath]);
-	
-	// Make sure everything in the copy is unlocked
-	makeUnlockedAtPath(dotTempPath);
-	NSString * file;
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: dotTempPath];
-	while (  (file = [dirEnum nextObject])  ) {
-		makeUnlockedAtPath([dotTempPath stringByAppendingPathComponent: file]);
-	}
-	
-	// Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
-	// about duplicate configuration names.
-	if (  moveNotCopy  ) {
-		errorExitIfAnySymlinkInPath(sourcePath);
-		if (  [gFileMgr fileExistsAtPath: sourcePath]  ) {
-			makeUnlockedAtPath(sourcePath);
-            securelyDeleteItemAtPath(sourcePath);
-		}
-	}
-	
-	errorExitIfAnySymlinkInPath(targetPath);
-	if ( [gFileMgr fileExistsAtPath:targetPath]  ) {
-		makeUnlockedAtPath(targetPath);
-        securelyDeleteItemAtPath(targetPath);
-	}
-	int status = rename([dotTempPath fileSystemRepresentation], [targetPath fileSystemRepresentation]);
-	if (  status != 0 ) {
-		appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@; error was %d: '%s'", dotTempPath, targetPath, errno, strerror(errno)]);
-        securelyDeleteItemIfItExistsAtPath(dotTempPath);
-		errorExit();
-	}
-	
-	appendLog([NSString stringWithFormat: @"Renamed %@\n     to %@", dotTempPath, targetPath]);
-}
-
-void safeCopyPathToPath(NSString * sourcePath, NSString * targetPath) {
-	
-	safeCopyOrMovePathToPath(sourcePath, targetPath, NO);
-}
-
-BOOL moveContents(NSString * fromPath, NSString * toPath) {
-	
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: fromPath];
-	NSString * file;
-	while (  (file = [dirEnum nextObject])  ) {
-		[dirEnum skipDescendents];
-		if (  ! [file hasPrefix: @"."]  ) {
-			NSString * fullFromPath = [fromPath stringByAppendingPathComponent: file];
-			NSString * fullToPath   = [toPath   stringByAppendingPathComponent: file];
-			if (  [gFileMgr fileExistsAtPath: fullToPath]  ) {
-				appendLog([NSString stringWithFormat: @"Unable to move %@ to %@ because the destination already exists", fullFromPath, fullToPath]);
-				return NO;
-			} else {
-				if (  ! [gFileMgr tbMovePath: fullFromPath toPath: fullToPath handler: nil]  ) {
-					appendLog([NSString stringWithFormat: @"Unable to move %@ to %@", fullFromPath, fullToPath]);
-					return NO;
-				}
-			}
-		}
-	}
-	
-	return YES;
-}
-
 NSArray * configurationPathsFromPath(NSString * path) {
 
     NSString * privatePath = gPrivatePath;
@@ -2086,7 +2001,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 	
 	resolveSymlinksInPath(sourcePath);
 	
-	safeCopyOrMovePathToPath(sourcePath, targetPath, moveNotCopy);
+	securelyMove(sourcePath, targetPath);
 	
     structureTblkProperly(targetPath);
 
@@ -2120,7 +2035,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 			createDirWithPermissionAndOwnership(enclosingFolder, PERMS_SECURED_FOLDER, 0, 0);
 		}
 		
-		safeCopyPathToPath(targetPath, shadowTargetPath);	// Copy the target because the source may have _moved_ to the target
+		securelyCopy(targetPath, shadowTargetPath);	// Copy the target because the source may have _moved_ to the target
 		
 		secureOneFolder(shadowTargetPath, NO, 0);
 	}
@@ -2236,7 +2151,7 @@ void exportOneUser(NSString * username, NSString * targetUsersPath) {
 	if (  [gFileMgr fileExistsAtPath: sourcePreferencesPath]  ) {
 		createExportFolder(targetThisUserPath);
 		createdTargetThisUserPath = TRUE;
-		safeCopyPathToPath(sourcePreferencesPath, targetPreferencesPath);
+		securelyCopy(sourcePreferencesPath, targetPreferencesPath);
 	}
 	
 	NSString * userL_AS_T = [[[homeFolder
@@ -2252,7 +2167,7 @@ void exportOneUser(NSString * username, NSString * targetUsersPath) {
 			createExportFolder(targetThisUserPath);
 			createdTargetThisUserPath = TRUE;
 		}
-		safeCopyPathToPath(sourceConfigurationsPath, targetConfigurationsPath);
+        securelyCopy(sourceConfigurationsPath, targetConfigurationsPath);
 	}
 	
 	// Copy easy-rsa only if it exists
@@ -2262,7 +2177,7 @@ void exportOneUser(NSString * username, NSString * targetUsersPath) {
 		if (  ! createdTargetThisUserPath  ) {
 			createExportFolder(targetThisUserPath);
 		}
-		safeCopyPathToPath(sourceEasyrsaPath, targetEasyrsaPath);
+        securelyCopy(sourceEasyrsaPath, targetEasyrsaPath);
 	}
 }
 
@@ -2333,19 +2248,19 @@ void exportToPath(NSString * exportPath) {
 	NSString * sourceForcedPreferencesPath = [L_AS_T stringByAppendingPathComponent: @"forced-preferences.plist"];
 	if (  [gFileMgr fileExistsAtPath: sourceForcedPreferencesPath]  ) {
 		NSString * targetForcedPreferencesPath = [targetSetupGlobalPath stringByAppendingPathComponent: @"forced-preferences.plist"];
-		safeCopyPathToPath(sourceForcedPreferencesPath, targetForcedPreferencesPath);
+        securelyCopy(sourceForcedPreferencesPath, targetForcedPreferencesPath);
 	}
 	
 	// Copy Shared to Global
 	NSString * sourceSharedPath            = L_AS_T_SHARED;
 	NSString * targetSharedPath            = [targetSetupGlobalPath stringByAppendingPathComponent: @"Shared"];
-	safeCopyPathToPath(sourceSharedPath, targetSharedPath);
+    securelyCopy(sourceSharedPath, targetSharedPath);
 	pruneFolderAtPath(targetSharedPath);
 	
 	// Copy Users to Global
 	NSString * sourceUsersPath             = L_AS_T_USERS;
 	NSString * targetUsersPath             = [targetSetupGlobalPath stringByAppendingPathComponent: @"Users"];
-	safeCopyPathToPath(sourceUsersPath, targetUsersPath);
+    securelyCopy(sourceUsersPath, targetUsersPath);
 	pruneFolderAtPath(targetUsersPath);
 	
 	// Create TBInfo.plist
@@ -2404,7 +2319,7 @@ void safeCopyPathToPathAndSetUidAndGid(NSString * sourcePath, NSString * targetP
 	NSString * verb = (  [gFileMgr fileExistsAtPath: targetPath]
 					   ? @"Overwrote"
 					   : @"Copied to");
-	safeCopyPathToPath(sourcePath, targetPath);
+    securelyCopy(sourcePath, targetPath);
     if ( ! checkSetOwnership(targetPath, YES, newUid, newGid)  ) {
         errorExit();
     }
