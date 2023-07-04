@@ -211,9 +211,73 @@ void errorExit() {
     exit(EXIT_FAILURE); // Never executed but needed to make static analyzer happy
 }
 
+void errorExitIfPathIsNotSecure(NSString * targetPath) {
 
+    // Exits if the path or any of its parent folders:
+    //          * does not exist; or
+    //          * is not a regular file or a directory; or
+    //          * has multiple hard links; or
+    //          * is not owned by the root:wheel (or root:admin for the /Applications folder);
+    //          * is writable by group or other.
+
+    NSError * error;
+
+    NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: targetPath error: &error];
+    if (  ! attributes  ) {
+        appendLog([NSString stringWithFormat: @"Path is not secure (error %@ getting attributes) %@", [error description], targetPath]);
+        errorExit();
+    }
+
+    // Everything except the /Applications folder must have owner group wheel
+    unsigned long requiredGroup  = (  [targetPath isEqualToString: @"/Applications"]
+                                    ? ADMIN_GROUP_ID
+                                    : 0);
+
+    // Regular files must have a reference count of 0 (i.e., have no hard links)
+    // Directories must have a reference count of 2 (i.e., no extra hard links)
+    unsigned long requiredRefCount;
+    NSFileAttributeKey fileType = (NSFileAttributeKey)[attributes objectForKey: NSFileType];
+    if (  [fileType isEqual: NSFileTypeRegular]) {
+        requiredRefCount = 1;
+    } else if (  [fileType isEqual: NSFileTypeDirectory]) {
+        requiredRefCount = 2;
+    } else {
+        appendLog([NSString stringWithFormat: @"Path is not secure (not a directory of regular file) %@", targetPath]);
+        errorExit();
+    }
+
+    unsigned long owner  = [[attributes objectForKey: NSFileOwnerAccountID] unsignedLongValue];
+    unsigned long group  = [[attributes objectForKey: NSFileGroupOwnerAccountID] unsignedLongValue];
+    unsigned long refCnt = [[attributes objectForKey: NSFileReferenceCount] unsignedLongValue] ;
+    short permissions    = [[attributes objectForKey: NSFilePosixPermissions] shortValue];
+
+    if (   (owner != 0)
+        || (group != requiredGroup)
+        || ((permissions & (S_IWGRP | S_IWOTH)) != 0)
+        || (refCnt != requiredRefCount)
+        ) {
+            appendLog([NSString stringWithFormat: @"Path is not secure - owned by %lu:%lu; permissions = 0%o; referenceCount = %lu (should be 0:%lu, not writable by group or other, %lu): %@",
+                       owner, group, permissions, refCnt, requiredGroup, requiredRefCount, targetPath]);
             errorExit();
         }
+
+    if (  targetPath.length != 1  ) {
+        NSString * parentPath = [targetPath stringByDeletingLastPathComponent];
+        if (  ! parentPath  ) {
+            appendLog([NSString stringWithFormat: @"Path is not secure (could not get path to parent) %@", targetPath]);
+            errorExit();
+        }
+        errorExitIfPathIsNotSecure(parentPath);
+    }
+}
+
+void securelyDeleteItemAtPath(NSString * path) {
+
+    const char * pathC = [path fileSystemRepresentation];
+
+    if (  0 != unlink(pathC)  ) {
+        appendLog([NSString stringWithFormat: @"unlink() failed with error %d ('%s') for path %@", errno, strerror(errno), path]);
+        errorExit();
     }
 }
 
@@ -740,6 +804,19 @@ BOOL deleteThingAtPath(NSString * path) {
 	return TRUE;
 }
 
+void securelyRename(NSString * sourcePath, NSString * targetPath) {
+
+    if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+        securelyDeleteItemAtPath(targetPath);
+    }
+
+    if (  0 != renamex_np([sourcePath fileSystemRepresentation], [targetPath fileSystemRepresentation], (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
+        appendLog([NSString stringWithFormat: @"renamex_np() failed with error %d ('%s') trying to rename %@ to %@",
+                   errno, strerror(errno), sourcePath, targetPath]);
+        errorExit();
+    }
+}
+
 BOOL securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * targetPath) {
 
     // Create a file or a directory owned by root with 0700 permissions (permissions will be changed to the correct values later)
@@ -955,12 +1032,23 @@ void securelyCopy(NSString * sourcePath, NSString * targetPath) {
 
     NSString * tempPath = [L_AS_T stringByAppendingPathComponent: @"installer-temp"];
 
+    errorExitIfPathIsNotSecure(tempPath);
+
+    errorExitIfPathIsNotSecure(targetPath);
+
     securelyCopyDirectly(sourcePath, tempPath);
 
     if (  0 != renamex_np([tempPath fileSystemRepresentation], [targetPath fileSystemRepresentation], (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
         appendLog([NSString stringWithFormat: @"renamex_np() failed with error %d ('%s') to rename %@ to %@", errno, strerror(errno), tempPath, targetPath]);
         errorExit();
     }
+}
+
+void securelyMove(NSString * sourcePath, NSString * targetPath) {
+
+    securelyCopy(sourcePath, targetPath);
+
+    securelyDeleteItemAtPath(sourcePath);
 }
 
 void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy) {
