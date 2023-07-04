@@ -2651,8 +2651,8 @@ int main(int argc, char *argv[]) {
     openLog(doClearLog);
 
     // Log the arguments installer was started with
-    NSMutableString * logString = [NSMutableString stringWithFormat: @"Tunnelblick installer started %@; getuid() = %d; geteuid() = %d; getgid() = %d;\ncurrentDirectoryPath = '%@'; %d arguments:\n",
-                                   [[NSDate date] tunnelblickUserLogRepresentation], getuid(), geteuid(), getgid(), [gFileMgr currentDirectoryPath], argc - 1];
+    NSMutableString * logString = [NSMutableString stringWithFormat: @"Tunnelblick installer started %@; getuid() = %d; geteuid() = %d; getgid() = %d; getegid() = %d\ncurrentDirectoryPath = '%@'; %d arguments:\n",
+                                   [[NSDate date] tunnelblickUserLogRepresentation], getuid(), geteuid(), getgid(), getegid(), [gFileMgr currentDirectoryPath], argc - 1];
     [logString appendFormat:@"     0x%04x", opsAndFlags];
     int i;
     for (  i=2; i<argc; i++  ) {
