@@ -903,12 +903,9 @@ void resolveSymlinksInPath(NSString * targetPath) {
 				appendLog([NSString stringWithFormat: @"Could not get contents of %@", resolvedPath]);
 				errorExit();
 			}
-			
-			if (  ! [gFileMgr tbRemoveFileAtPath: fullPath handler: nil]  ) {
-				appendLog([NSString stringWithFormat: @"Could not remove (before replacing): %@", fullPath]);
-				errorExit();
-			}
-			
+
+            securelyDeleteItemAtPath(fullPath);
+
 			NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
 										 [NSNumber numberWithInt: 0], NSFileOwnerAccountID,
 										 [NSNumber numberWithInt: 0], NSFileGroupOwnerAccountID,
@@ -1077,19 +1074,6 @@ void createFolder(NSString * path) {
 			   [attributes fileOwnerAccountID],   [attributes fileGroupOwnerAccountID],   [attributes filePosixPermissions]]);
 }
 
-BOOL deleteThingAtPath(NSString * path) {
-	
-	errorExitIfAnySymlinkInPath(path);
-	makeUnlockedAtPath(path);
-	if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
-		return FALSE;
-	} else {
-		appendLog([NSString stringWithFormat: @"Deleted %@", path]);
-	}
-	
-	return TRUE;
-}
-
 // Safe routines
 
 void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL moveNotCopy) {
@@ -1130,24 +1114,19 @@ void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL
 		errorExitIfAnySymlinkInPath(sourcePath);
 		if (  [gFileMgr fileExistsAtPath: sourcePath]  ) {
 			makeUnlockedAtPath(sourcePath);
-			if (  ! deleteThingAtPath(sourcePath)  ) {
-				errorExit();
-			}
+            securelyDeleteItemAtPath(sourcePath);
 		}
 	}
 	
 	errorExitIfAnySymlinkInPath(targetPath);
 	if ( [gFileMgr fileExistsAtPath:targetPath]  ) {
 		makeUnlockedAtPath(targetPath);
-        if (  ! [gFileMgr tbRemoveFileAtPath:targetPath handler: nil]  ) {
-            errorExit();
-        }
+        securelyDeleteItemAtPath(targetPath);
 	}
 	int status = rename([dotTempPath fileSystemRepresentation], [targetPath fileSystemRepresentation]);
 	if (  status != 0 ) {
 		appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@; error was %d: '%s'", dotTempPath, targetPath, errno, strerror(errno)]);
-		[gFileMgr tbRemovePathIfItExists: dotTempPath];
-
+        securelyDeleteItemAtPathIfItExists(dotTempPath);
 		errorExit();
 	}
 	
@@ -1328,18 +1307,14 @@ BOOL installOrUpdateOneKext(NSString * initialKextInLibraryExtensionsPath,
     }
     
     if (  initialKextExists  ) {
-        if (  ! deleteThingAtPath(initialKextInLibraryExtensionsPath)  ) {
-            errorExit();
-        }
+        securelyDeleteItemAtPath(initialKextInLibraryExtensionsPath);
     }
     
     NSString * finalPath = [[initialKextInLibraryExtensionsPath stringByDeletingLastPathComponent]
                             stringByAppendingPathComponent: finalNameOfKext];
 
     if (  [gFileMgr fileExistsAtPath: finalPath]  ) {
-        if (  ! deleteThingAtPath(finalPath)  ) {
-            errorExit();
-        }
+        securelyDeleteItemAtPath(finalPath);
     }
 
     securelyCopy(kextInAppPath, finalPath);
@@ -1392,9 +1367,7 @@ BOOL uninstallOneKext(NSString * path) {
         return NO;
     }
     
-    if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
-        errorExit();
-    }
+    securelyDeleteItemAtPath(path);
 
     appendLog([NSString stringWithFormat: @"Uninstalled %@", [path lastPathComponent]]);
 
@@ -1832,11 +1805,7 @@ void pruneL_AS_T_TBLKS(void) {
 					break;
 				}
 				if (  ! [edition isEqualToString: highestEdition]  ) {
-					if (  ! [gFileMgr tbRemoveFileAtPath: containerPath handler: nil]  ) {
-						appendLog([NSString stringWithFormat: @"While pruning L_AS_T_TBLKS, could not remove %@", containerPath]);
-						errorExit();
-					}
-					
+                    securelyDeleteItemAtPath(containerPath);
 					appendLog([NSString stringWithFormat: @"Pruned L_AS_T_TBLKS by removing %@", containerPath]);
 				}
 			}
@@ -1905,9 +1874,7 @@ void installForcedPreferences(NSString * firstPath, NSString * secondPath) {
 		if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
 			errorExitIfAnySymlinkInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 			makeUnlockedAtPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
-			if (  ! [gFileMgr tbRemoveFileAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH handler: nil]  ) {
-				appendLog([NSString stringWithFormat: @"Warning: unable to remove %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
-			}
+            securelyDeleteItemAtPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
 		} else {
 			errorExitIfAnySymlinkInPath([L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH stringByDeletingLastPathComponent]);
 		}
@@ -2128,9 +2095,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 		errorExitIfAnySymlinkInPath(shadowTargetPath);
 		
 		if (  [gFileMgr fileExistsAtPath: shadowTargetPath]  ) {
-			if (  ! deleteThingAtPath(shadowTargetPath)  ) {
-				errorExit();
-			}
+            securelyDeleteItemAtPath(shadowTargetPath);
 		}
 		
 		// Create container for shadow copy
@@ -2155,9 +2120,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 											 userUsername(),
 											 lastPartOfSource];
 			if (  [gFileMgr fileExistsAtPath: shadowSourcePath]  ) {
-				if (  ! deleteThingAtPath(shadowSourcePath)  ) {
-					errorExit();
-				}
+                securelyDeleteItemAtPath(shadowSourcePath);
 			}
 		}
 	}
@@ -2413,9 +2376,7 @@ void exportToPath(NSString * exportPath) {
 	}
 	
 	// Remove the temporary folder
-	if (  ! [gFileMgr tbRemoveFileAtPath: tempFolderPath handler: nil]  ) {
-		errorExit();
-	}
+    securelyDeleteItemAtPath(tempFolderPath);
 }
 
 //**************************************************************************************************************************
