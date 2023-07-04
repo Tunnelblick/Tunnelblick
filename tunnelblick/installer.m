@@ -211,12 +211,7 @@ void errorExit() {
     exit(EXIT_FAILURE); // Never executed but needed to make static analyzer happy
 }
 
-void freeAuthRef(AuthorizationRef authRef) {
 
-    if (  authRef != NULL  ) {
-        OSStatus status = AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-        if (  status != errAuthorizationSuccess  ) {
-            appendLog([NSString stringWithFormat: @"AuthorizationFree) returned %ld", (long)status]);
             errorExit();
         }
     }
@@ -654,91 +649,8 @@ void loadLaunchDaemonUsingLaunchctl(void) {
 	}
 }
 
-void loadLaunchDaemonUsingSMJobSubmit(NSDictionary * newPlistContents) {
-
-    (void)newPlistContents; // REMOVE if we ever use this routine!
-
-    /* DISABLED BECAUSE THIS IS NOT AVAILABLE ON 10.4 and 10.5
-     *
-     * UPDATE 2016-07-03: SMJobSubmit is now deprecated, but we are leaving the code in so that if 'launchctl load' stops working, we can try using it
-     *
-     * When/if this is enabled, must add the ServiceManagement framework, too, via the following line at the start of this file:
-     *
-     *      #import <ServiceManagement/ServiceManagement.h>
-     *
-     * That framework is not on 10.4, and the SMJobSubmit() function is not available on 10.5
-
-
-	// Obtain the right to change the system launchd domain
-	AuthorizationItem right;
-	right.name = kSMRightModifySystemDaemons;
-	right.valueLength = 0;
-	right.value = NULL;
-	right.flags = 0;
-	
-	AuthorizationRights requestedRights;
-	requestedRights.count = 1;
-	requestedRights.items = &right;
-	
-	AuthorizationRef authRef = NULL;
-	
-	OSStatus status = AuthorizationCreate(&requestedRights,
-										  kAuthorizationEmptyEnvironment,
-										  (  kAuthorizationFlagDefaults
-										   | kAuthorizationFlagExtendRights),
-										  &authRef);
-	if (  errAuthorizationSuccess != status  ) {
-		appendLog([NSString stringWithFormat: @"Unable to create an AuthorizationRef with the 'kSMRightModifySystemDaemons' right; status = %d", status]);
-		freeAuthRef(authRef);
-		errorExit();
-	}
-	
-	// Unload the existing LaunchDaemon if if is loaded
-	NSString * daemonLabel = @"net.tunnelblick.tunnelblick.tunnelblickd";
-	CFErrorRef removeError = NULL;
-	if (  ! SMJobRemove(kSMDomainSystemLaunchd, (CFStringRef)daemonLabel, authRef, TRUE , &removeError)) {	// TRUE = do not return until removed
-		if (  CFErrorGetCode(removeError) != kSMErrorJobNotFound ) {
-			appendLog([NSString stringWithFormat: @"Unable to unload %@; error: %@", daemonLabel, (NSError *)removeError]);
-			if (  removeError  ) CFRelease(removeError);
-			freeAuthRef(authRef);
-			errorExit();
-		}
-		appendLog([NSString stringWithFormat: @"Do not need to unload old %@", daemonLabel]);
-	} else {
-		appendLog([NSString stringWithFormat: @"Unloaded old %@", daemonLabel]);
-	}
-	if (  removeError  ) CFRelease(removeError);
-	
-	// Load the new daemon
-	CFDictionaryRef cfPlist = (CFDictionaryRef)[NSDictionary dictionaryWithDictionary: newPlistContents];
-	CFErrorRef submitError = NULL;
-	if (  ! SMJobSubmit(kSMDomainSystemLaunchd, cfPlist, authRef, &submitError)  ) {
-		appendLog([NSString stringWithFormat: @"SMJobSubmit failed to load %@; error: %@", daemonLabel, (NSError *)submitError]);
-		if (  submitError  ) CFRelease(submitError);
-		freeAuthRef(authRef);
-		errorExit();
-	} else {
-		appendLog([NSString stringWithFormat: @"Loaded new %@", daemonLabel]);
-	}
-	if (  submitError  ) CFRelease(submitError);
-	
-	freeAuthRef(authRef);
-
-    */
-}
-
 void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
 	
-	// 'runningOnSnowLeopardOrNewer' is not in sharedRoutines, so we don't use it -- we load the launch daemon the old way, with 'launchctl load'
-	// Left the new code in to make it easy to implement the new way -- with 'SMJobSubmit()' on 10.6.8 and higher -- in case a later version of macOS messes with 'launchctl load'
-	// To implement the new way, too, move 'runningOnSnowLeopardOrNewer' to sharedRoutines and un-comment the code below to use 'loadLaunchDaemonUsingSMJobSubmit'.
-    //
-    // UPDATE 2016-07-03: By now (when we are removing 10.4 and 10.5 code), SMJobSubmit is deprecated (thanks, Apple!), so we aren't bothering to use it,
-    // we are still using 'launchctl load'.
-    
-    //      if (  runningOnSnowLeopardOrNewer()  ) {
-    //          loadLaunchDaemonUsingSMJobSubmit(newPlistContents);
-    // 	    } else {
     (void) newPlistContents;  // Can remove this if the above lines are un-commmented
     loadLaunchDaemonUsingLaunchctl();
     //	    }
@@ -1030,9 +942,9 @@ void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
 
 void securelyCopy(NSString * sourcePath, NSString * targetPath) {
 
-    // Copies a file, or a folder and its contents making sure the copy has the same permissions and dates as the original but is owned by root:wheel.
+    // Copies a file, or a folder and its contents, making sure the copy has the same permissions and dates as the original but is owned by root:wheel.
     //
-    // Uses an intermediate file or folder and then renames it, so no partial copy is done if an error occurs.
+    // Uses an intermediate file or folder and then renames it, so no partial copy has been done if an error occurs.
 
     BOOL isDir;
 
