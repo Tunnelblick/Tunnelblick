@@ -569,10 +569,7 @@ void securelyCopy(NSString * sourcePath, NSString * targetPath) {
 
     securelyCopyDirectly(sourcePath, tempPath);
 
-    if (  0 != renamex_np([tempPath fileSystemRepresentation], [targetPath fileSystemRepresentation], (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
-        appendLog([NSString stringWithFormat: @"renamex_np() failed with error %d ('%s') to rename %@ to %@", errno, strerror(errno), tempPath, targetPath]);
-        errorExit();
-    }
+    securelyRename(tempPath, targetPath);
 }
 
 void securelyMove(NSString * sourcePath, NSString * targetPath) {
@@ -1833,8 +1830,7 @@ void doFolderRename(NSString * sourcePath, NSString * targetPath) {
     // Renames the source folder to the target folder. Both folders need to be in the same folder.
     //
     // If the source folder is a private folder, the corresponding secure folder is also renamed if it exists.
-    //
-    // Uses rename() so nothing needs be done with ownership/permissions.
+
 
     if (  ! [gFileMgr fileExistsAtPath: sourcePath]  ) {
         appendLog([NSString stringWithFormat: @"rename source does not exist: %@ to %@", sourcePath, targetPath]);
@@ -1844,13 +1840,8 @@ void doFolderRename(NSString * sourcePath, NSString * targetPath) {
         appendLog([NSString stringWithFormat: @"rename target exists: %@ to %@", sourcePath, targetPath]);
         errorExit();
     }
-    if (  0 == rename([sourcePath fileSystemRepresentation], [targetPath fileSystemRepresentation])  ) {
-        appendLog([NSString stringWithFormat: @"Renamed %@ to %@", sourcePath, targetPath]);
-    } else {
-        appendLog([NSString stringWithFormat: @"Error from rename = %d ('%s') trying to rename %@ to %@",
-                   errno, strerror(errno), sourcePath, targetPath]);
-        errorExit();
-    }
+    securelyRename(sourcePath, targetPath);
+    appendLog([NSString stringWithFormat: @"Renamed %@ to %@", sourcePath, targetPath]);
 
     if (  [sourcePath hasPrefix: [userPrivatePath() stringByAppendingString: @"/"]]  ) {
 
@@ -1867,13 +1858,8 @@ void doFolderRename(NSString * sourcePath, NSString * targetPath) {
                 appendLog([NSString stringWithFormat: @"rename target exists: %@ to %@", secureSourcePath, secureTargetPath]);
                 errorExit();
             }
-            if (  0 == rename([secureSourcePath fileSystemRepresentation], [secureTargetPath fileSystemRepresentation])  ) {
-                appendLog([NSString stringWithFormat: @"Renamed %@ to %@", secureSourcePath, secureTargetPath]);
-            } else {
-                appendLog([NSString stringWithFormat: @"Error from rename = %d ('%s') trying to rename %@ to %@",
-                           errno, strerror(errno), secureSourcePath, secureTargetPath]);
-                errorExit();
-            }
+            securelyRename(secureSourcePath, secureTargetPath);
+            appendLog([NSString stringWithFormat: @"Renamed %@ to %@", secureSourcePath, secureTargetPath]);
         }
     }
 }
