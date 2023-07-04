@@ -980,9 +980,8 @@ void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL
 	
 	if (  ! [gFileMgr tbCopyPath: sourcePath toPath: dotTempPath handler: nil]  ) {
 		appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", sourcePath, dotTempPath]);
-		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
-			[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
-		}
+		[gFileMgr tbRemovePathIfItExists: dotTempPath];
+
 		errorExit();
 	}
 	appendLog([NSString stringWithFormat: @"Copied %@\n    to %@", sourcePath, dotTempPath]);
@@ -1017,9 +1016,8 @@ void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL
 	int status = rename([dotTempPath fileSystemRepresentation], [targetPath fileSystemRepresentation]);
 	if (  status != 0 ) {
 		appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@; error was %d: '%s'", dotTempPath, targetPath, errno, strerror(errno)]);
-		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
-			[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
-		}
+		[gFileMgr tbRemovePathIfItExists: dotTempPath];
+
 		errorExit();
 	}
 	
