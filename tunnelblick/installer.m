@@ -1464,6 +1464,32 @@ void installOrUpdateKexts(BOOL forceInstall) {
 //**************************************************************************************************************************
 // GENERAL
 
+void testSecurelyRename(NSString * folder) {
+
+    // Touch two files (delete them first if they exist)
+    NSString * test1Path = [folder stringByAppendingPathComponent: @"rename-test-target-1"];
+    [gFileMgr tbRemovePathIfItExists: test1Path];
+    if (  ! [gFileMgr createFileAtPath: test1Path contents: nil attributes: nil]  ) {
+        appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-1 in %@", folder]);
+    }
+    NSString * test2Path = [folder stringByAppendingPathComponent: @"rename-test-target-2"];
+    [gFileMgr tbRemovePathIfItExists: test1Path];
+    if (  ! [gFileMgr createFileAtPath: test2Path contents: nil attributes: nil]  ) {
+        appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-2 in %@", folder]);
+    }
+
+    // Try to rename one to the other. This should fail because of the RENAME_EXCL option.
+    BOOL good = (0 != renamex_np([test1Path fileSystemRepresentation], [test2Path fileSystemRepresentation],(RENAME_NOFOLLOW_ANY | RENAME_EXCL)));
+
+    // Delete the files
+    [gFileMgr tbRemovePathIfItExists: test1Path];
+    [gFileMgr tbRemovePathIfItExists: test1Path];
+
+    if (  ! good  ) {
+        appendLog([NSString stringWithFormat: @"Rename test failed for %@", folder]);
+    }
+}
+
 void doInitialWork(BOOL updateKexts) {
 	
 	if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
@@ -1517,6 +1543,9 @@ void doInitialWork(BOOL updateKexts) {
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_OPENVPN]  ) {
 		secureOpenvpnBinariesFolder(L_AS_T_OPENVPN);
 	}
+
+    testSecurelyRename(@"/Applications");
+    testSecurelyRename(L_AS_T);
 
     if (  gHomeDirectory  ) {
 
