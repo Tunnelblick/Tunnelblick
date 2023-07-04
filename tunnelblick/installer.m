@@ -322,7 +322,7 @@ void securelyDeleteItemAtPath(NSString * path) {
     }
 }
 
-void securelyDeleteItemAtPathIfItExists(NSString * path) {
+void securelyDeleteItemIfItExistsAtPath(NSString * path) {
 
     if (  ! [gFileMgr fileExistsAtPath: path]  ) {
         return;
@@ -534,7 +534,7 @@ void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
         errorExit();
     }
 
-    securelyDeleteItemAtPathIfItExists(targetPath);
+    securelyDeleteItemIfItExistsAtPath(targetPath);
 
     if (  ! securelyCreateFileOrDirectoryEntry(isDir, targetPath)  ) {
         errorExit();
@@ -1100,14 +1100,14 @@ void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL
 	// see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
 	NSString * dotTempPath = [targetPath stringByAppendingPathExtension: @"temp"];
 	errorExitIfAnySymlinkInPath(dotTempPath);
-    securelyDeleteItemAtPathIfItExists(dotTempPath);
+    securelyDeleteItemIfItExistsAtPath(dotTempPath);
 
 	createFolder([dotTempPath stringByDeletingLastPathComponent]);
 	
 // JKB: DO securelyCopy HERE, TOO
     if (  ! [gFileMgr tbCopyPath: sourcePath toPath: dotTempPath handler: nil]  ) {
 		appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", sourcePath, dotTempPath]);
-        securelyDeleteItemAtPathIfItExists(dotTempPath);
+        securelyDeleteItemIfItExistsAtPath(dotTempPath);
 		errorExit();
 	}
 	appendLog([NSString stringWithFormat: @"Copied %@\n    to %@", sourcePath, dotTempPath]);
@@ -1138,7 +1138,7 @@ void safeCopyOrMovePathToPath(NSString * sourcePath, NSString * targetPath, BOOL
 	int status = rename([dotTempPath fileSystemRepresentation], [targetPath fileSystemRepresentation]);
 	if (  status != 0 ) {
 		appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@; error was %d: '%s'", dotTempPath, targetPath, errno, strerror(errno)]);
-        securelyDeleteItemAtPathIfItExists(dotTempPath);
+        securelyDeleteItemIfItExistsAtPath(dotTempPath);
 		errorExit();
 	}
 	
@@ -1478,12 +1478,12 @@ void testSecurelyRename(NSString * folder) {
 
     // Touch two files (delete them first if they exist)
     NSString * test1Path = [folder stringByAppendingPathComponent: @"rename-test-target-1"];
-    securelyDeleteItemAtPathIfItExists(test1Path);
+    securelyDeleteItemIfItExistsAtPath(test1Path);
     if (  ! [gFileMgr createFileAtPath: test1Path contents: nil attributes: nil]  ) {
         appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-1 in %@", folder]);
     }
     NSString * test2Path = [folder stringByAppendingPathComponent: @"rename-test-target-2"];
-    securelyDeleteItemAtPathIfItExists(test2Path);
+    securelyDeleteItemIfItExistsAtPath(test2Path);
     if (  ! [gFileMgr createFileAtPath: test2Path contents: nil attributes: nil]  ) {
         appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-2 in %@", folder]);
     }
@@ -1492,8 +1492,8 @@ void testSecurelyRename(NSString * folder) {
     BOOL good = (0 != renamex_np([test1Path fileSystemRepresentation], [test2Path fileSystemRepresentation],(RENAME_NOFOLLOW_ANY | RENAME_EXCL)));
 
     // Delete the files
-    securelyDeleteItemAtPathIfItExists(test1Path);
-    securelyDeleteItemAtPathIfItExists(test2Path);
+    securelyDeleteItemIfItExistsAtPath(test1Path);
+    securelyDeleteItemIfItExistsAtPath(test2Path);
 
 
     if (  ! good  ) {
@@ -2278,7 +2278,7 @@ void pruneFolderAtPath(NSString * path) {
 		
 		NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: pruneCandidatePath];
 		if (  ! [innerEnum nextObject]  ) {
-            securelyDeleteItemAtPathIfItExists(pruneCandidatePath);
+            securelyDeleteItemIfItExistsAtPath(pruneCandidatePath);
 			appendLog([NSString stringWithFormat: @"Removed folder because it was empty: %@", pruneCandidatePath]);
 		}
 	}
@@ -2292,8 +2292,8 @@ void exportToPath(NSString * exportPath) {
 	
 	// Remove the output file if it already exists
 	// (We do this so user doesn't do something with it before we're finished).
-    securelyDeleteItemAtPathIfItExists(tarPath);
-    
+    securelyDeleteItemIfItExistsAtPath(tarPath);
+
 	// Create a temporary folder
 	NSString * tempFolderPath = newTemporaryDirectoryPath();
 	
@@ -2668,7 +2668,7 @@ void mergeForcedPreferences(NSString * sourcePath) {
 		}
 		
 		if (  modifiedExistingPreferences  ) {
-            securelyDeleteItemAtPathIfItExists(targetPath);
+            securelyDeleteItemIfItExistsAtPath(targetPath);
 			if (  ! [existingPreferences writeToFile: targetPath atomically: YES]  ) {
 				appendLog([NSString stringWithFormat: @"Error: could not write %@  ", sourcePath]);
 				errorExit();
