@@ -139,6 +139,12 @@ NSString      * gUsername = nil;
 NSString      * gPrivatePath = nil;                 // ~/Library/Application Support/Tunnelblick/Configurations
 NSString      * gHomeDirectory = nil;
 
+// Privileged and unprivileged UID and GID
+unsigned long gPriv_uid;
+unsigned long gPriv_gid;
+unsigned long gUnpriv_uid;
+unsigned long gUnpriv_gid;
+
 NSAutoreleasePool * pool;
 
 BOOL            gErrorOccurred = FALSE;       // Set if an error occurred
