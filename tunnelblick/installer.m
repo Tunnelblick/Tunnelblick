@@ -351,7 +351,7 @@ void securelyRename(NSString * sourcePath, NSString * targetPath) {
     }
 }
 
-BOOL securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * targetPath) {
+void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * targetPath) {
 
     // Create a file or a directory owned by root with 0700 permissions (permissions will be changed to the correct values later)
 
@@ -361,18 +361,16 @@ BOOL securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * targetPath) {
         umask(S_IWGRP | S_IWOTH);
         if (  result != 0  ) {
             appendLog([NSString stringWithFormat: @"mkdir() returned error: '%s' for path %@", strerror(errno), targetPath]);
-            return NO;
+            errorExit();
         }
     } else {
         int result = open([targetPath fileSystemRepresentation], (O_CREAT | O_EXCL | O_APPEND | O_NOFOLLOW_ANY), 0700);
         if (  result < 0  ) {
             appendLog([NSString stringWithFormat: @"open() returned error: '%s' for path %@", strerror(errno), targetPath]);
-            return NO;
+            errorExit();
         }
         close(result); // Ignore errors
     }
-
-    return YES;
 }
 
 BOOL securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
@@ -536,9 +534,7 @@ void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
 
     securelyDeleteItemIfItExists(targetPath);
 
-    if (  ! securelyCreateFileOrDirectoryEntry(isDir, targetPath)  ) {
-        errorExit();
-    }
+    securelyCreateFileOrDirectoryEntry(isDir, targetPath);
 
     // Set final permissions and dates
     if ( ! securelySetItemAttributes(isDir, sourcePath, targetPath)  ) {
