@@ -373,21 +373,21 @@ void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * targetPath) {
     }
 }
 
-BOOL securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
+void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
 
     const char * sourcePathC = [sourcePath fileSystemRepresentation];
     const char * targetPathC = [targetPath fileSystemRepresentation];
     if (   (sourcePathC == NULL)
         || (targetPathC == NULL)  ) {
         appendLog([NSString stringWithFormat: @"Could not get fileSystemRepresentation for path %@ and/or path '%@", sourcePath, targetPath]);
-        return NO;
+        errorExit();
     }
 
     // Open the item as READ-ONLY (we're not changing it now)
     int fd = open(targetPathC, (O_RDONLY | O_NOFOLLOW_ANY));
     if (  fd == -1  ) {
         appendLog([NSString stringWithFormat: @"Could not open %s", targetPathC]);
-        return NO;
+        errorExit();
     }
 
     struct stat status;
@@ -399,14 +399,14 @@ BOOL securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * tar
         || (status.st_mode  != (isDir ? S_IFDIR | 0700 : S_IFREG | 0700))  ) {
         appendLog([NSString stringWithFormat: @"Item has been modified after being created at path %@\nowner = %u; group = %u; nlink = %u; mode = 0%o",
                    targetPath, status.st_uid, status.st_gid, status.st_nlink, status.st_mode]);
-        return NO;
+        errorExit();
     }
 
     // Change owner group (owner is already 0)
     result = fchown(fd, 0, 0);
     if (  result != 0  ) {
         appendLog([NSString stringWithFormat: @"lchown() returned error: '%s' for path %s", strerror(errno), targetPathC]);
-        return NO;
+        errorExit();
     }
 
     // Change permissions
@@ -415,7 +415,7 @@ BOOL securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * tar
     result = fchmod(fd, mode);
     if (  result != 0  ) {
         appendLog([NSString stringWithFormat: @"chmod() returned error: '%s' for path %s", strerror(errno), targetPathC]);
-        return NO;
+        errorExit();
     }
 
     // Verify ownership, permissions, no hard links, and either a directory or a regular file
@@ -431,7 +431,7 @@ BOOL securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * tar
         || (status.st_mode  != mode)  ) {
         appendLog([NSString stringWithFormat: @"Failed to modify group and/or permissions at path %@\nowner = %u; group = %u; nlink = %u; mode = 0%o",
                    targetPath, status.st_uid, status.st_gid, status.st_nlink, status.st_mode]);
-        return NO;
+        errorExit();
     }
 
     // Copy dates
@@ -444,7 +444,7 @@ BOOL securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * tar
     result = lstat(sourcePathC, &status);
     if (  result != 0  ) {
         appendLog([NSString stringWithFormat: @"lstat() failed for path %s", sourcePathC]);
-        return NO;
+        errorExit();
     }
     struct timespec createdTS  = status.st_birthtimespec;
     struct timespec modifiedTS = status.st_mtimespec;
@@ -457,7 +457,7 @@ BOOL securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * tar
     result = futimes(fd, createdTimevals);
     if (  result != 0  ) {
         appendLog([NSString stringWithFormat: @"lutimes() #1 failed for %s", targetPathC]);
-        return NO;
+        errorExit();
     }
 
     // Convert modified date format and set modified date
@@ -468,11 +468,10 @@ BOOL securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * tar
     result = futimes(fd, modifiedTimevals);
     if (  result != 0  ) {
         appendLog([NSString stringWithFormat: @"lutimes() #1 failed for %s", targetPathC]);
-        return NO;
+        errorExit();
     }
 
     close(fd);
-    return YES;
 }
 
 void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath);
@@ -537,9 +536,7 @@ void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
     securelyCreateFileOrDirectoryEntry(isDir, targetPath);
 
     // Set final permissions and dates
-    if ( ! securelySetItemAttributes(isDir, sourcePath, targetPath)  ) {
-        errorExit();
-    }
+    securelySetItemAttributes(isDir, sourcePath, targetPath);
 
     securelyCopyFileOrFolderContents(isDir, sourcePath, targetPath);
 }
