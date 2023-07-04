@@ -556,10 +556,6 @@ void securelyCopy(NSString * sourcePath, NSString * targetPath) {
 
     NSString * tempPath = [L_AS_T stringByAppendingPathComponent: @"installer-temp"];
 
-    errorExitIfPathIsNotSecure(tempPath);
-
-    errorExitIfPathIsNotSecure(targetPath);
-
     securelyCopyDirectly(sourcePath, tempPath);
 
     securelyRename(tempPath, targetPath);
