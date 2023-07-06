@@ -273,95 +273,6 @@ BOOL isPathPrivate(NSString * path) {
     return isPrivate;
 }
 
-void errorExitIfPathIsNotSecure(NSString * targetPath) {
-
-    // Exits if the path or any of its parent folders:
-    //          * does not exist; or
-    //          * is not a regular file or a directory; or
-    //          * has multiple hard links; or
-    //          * is not owned by the root:wheel (or root:admin for the /Applications folder);
-    //          * is writable by group or other.
-
-    NSError * error;
-
-    NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: targetPath error: &error];
-    if (  ! attributes  ) {
-        appendLog([NSString stringWithFormat: @"Path is not secure (error %@ getting attributes) %@", [error description], targetPath]);
-        errorExit();
-    }
-
-    // Everything except the /Applications folder must have owner group wheel
-    unsigned long requiredGroup  = (  [targetPath isEqualToString: @"/Applications"]
-                                    ? ADMIN_GROUP_ID
-                                    : 0);
-
-    // Regular files must have a reference count of 0 (i.e., have no hard links)
-    // Directories must have a reference count of 2 (i.e., no extra hard links)
-    unsigned long requiredRefCount;
-    NSFileAttributeKey fileType = (NSFileAttributeKey)[attributes objectForKey: NSFileType];
-    if (  [fileType isEqual: NSFileTypeRegular]) {
-        requiredRefCount = 1;
-    } else if (  [fileType isEqual: NSFileTypeDirectory]) {
-        requiredRefCount = 2;
-    } else {
-        appendLog([NSString stringWithFormat: @"Path is not secure (not a directory of regular file) %@", targetPath]);
-        errorExit();
-    }
-
-    unsigned long owner  = [[attributes objectForKey: NSFileOwnerAccountID] unsignedLongValue];
-    unsigned long group  = [[attributes objectForKey: NSFileGroupOwnerAccountID] unsignedLongValue];
-    unsigned long refCnt = [[attributes objectForKey: NSFileReferenceCount] unsignedLongValue] ;
-    short permissions    = [[attributes objectForKey: NSFilePosixPermissions] shortValue];
-
-    if (   (owner != 0)
-        || (group != requiredGroup)
-        || ((permissions & (S_IWGRP | S_IWOTH)) != 0)
-        || (refCnt != requiredRefCount)
-        ) {
-            appendLog([NSString stringWithFormat: @"Path is not secure - owned by %lu:%lu; permissions = 0%o; referenceCount = %lu (should be 0:%lu, not writable by group or other, %lu): %@",
-                       owner, group, permissions, refCnt, requiredGroup, requiredRefCount, targetPath]);
-            errorExit();
-        }
-
-    if (  targetPath.length != 1  ) {
-        NSString * parentPath = [targetPath stringByDeletingLastPathComponent];
-        if (  ! parentPath  ) {
-            appendLog([NSString stringWithFormat: @"Path is not secure (could not get path to parent) %@", targetPath]);
-            errorExit();
-        }
-        errorExitIfPathIsNotSecure(parentPath);
-    }
-}
-
-void errorExitIfAnySymlinkInPath(NSString * path) {
-
-    NSString * curPath = path;
-    while (   (curPath.length != 0)
-           && ! [curPath isEqualToString: @"/"]  ) {
-        if (  [gFileMgr fileExistsAtPath: curPath]  ) {
-            NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
-            if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                appendLog([NSString stringWithFormat: @"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path]);
-                errorExit();
-            }
-        }
-
-        curPath = [curPath stringByDeletingLastPathComponent];
-    }
-}
-
-void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * path) {
-
-    if (   [gFileMgr fileExistsAtPath: path]
-        && [gFileMgr isReadableFileAtPath: path]  ) {
-        errorExitIfAnySymlinkInPath(path);
-        return;
-    }
-
-    appendLog([NSString stringWithFormat: @"File does not exist or is not readable: %@", path]);
-    errorExit();
-}
-
 void resolveSymlinksInPath(NSString * targetPath) {
 
     // There are symlinks in a .tblk for files which are not readable by the user but should be propagated from one configuration to another when installing an updated configuration.
@@ -466,6 +377,177 @@ NSString * lastPartOfPath(NSString * path) {
         }
     }
     return nil;
+}
+
+void pruneL_AS_T_TBLKS(void) {
+
+    // Prune L_AS_T_TblKS by removing all but the highest edition of each container
+
+    NSDictionary * bundleIdEditions = highestEditionForEachBundleIdinL_AS_T(); // Key = bundleId; object = edition
+
+    if (  [bundleIdEditions count] != 0  ) {
+        NSString * bundleIdAndEdition;
+        NSDirectoryEnumerator * outerDirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
+        while (  (bundleIdAndEdition = [outerDirEnum nextObject])  ) {
+            [outerDirEnum skipDescendents];
+            NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
+            BOOL isDir;
+            if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
+                && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
+                && [gFileMgr fileExistsAtPath: containerPath isDirectory: &isDir]
+                && isDir  ) {
+                NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
+                if (  ! bundleId  ) {
+                    appendLog([NSString stringWithFormat: @"Container path does not have a bundleId: %@", containerPath]);
+                    break;
+                }
+                NSString * edition  = [bundleIdAndEdition pathEdition];
+                if (  ! edition  ) {
+                    appendLog([NSString stringWithFormat: @"Container path does not have an edition: %@", containerPath]);
+                    break;
+                }
+                NSString * highestEdition = [bundleIdEditions objectForKey: bundleId];
+                if (  ! highestEdition  ) {
+                    appendLog(@"New entry in L_AS_T_TBLKS appeared during pruning");
+                    break;
+                }
+                if (  ! [edition isEqualToString: highestEdition]  ) {
+                    securelyDeleteItem(containerPath);
+                    appendLog([NSString stringWithFormat: @"Pruned L_AS_T_TBLKS by removing %@", containerPath]);
+                }
+            }
+        }
+    }
+}
+
+void structureTblkProperly(NSString * path) {
+
+    // If a .tblk doesn't have a Contents folder, makes sure Info.plist is in Contents, and all files in a .tblk except Info.plist are in Contents/Resources.
+
+    if (  [gFileMgr fileExistsAtPath: [path stringByAppendingPathComponent: @"Contents"]]  ) {
+        return;
+    }
+
+    createDir([path stringByAppendingPathComponent: @"Contents/Resources"], 0700);
+
+    NSMutableArray * sourcePaths = [NSMutableArray arrayWithCapacity: 10];
+    NSMutableArray * targetPaths = [NSMutableArray arrayWithCapacity: 10];
+
+    // Create a list of paths of files to be moved and where to move them
+    NSString * entry;
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
+    [dirE skipDescendants];
+    while (  (entry = [dirE nextObject])  ) {
+        NSString * fullPath = [path stringByAppendingPathComponent: entry];
+        BOOL isDir;
+        if (   ( ! [entry hasPrefix: @"."] )
+            && [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+            && ( ! isDir )  ) {
+            if (  [entry isEqualToString: @"Info.plist"]  ) {
+                [sourcePaths addObject: fullPath];
+                [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents"] stringByAppendingPathComponent: entry]];
+            } else if (  ! [entry hasPrefix: @"."]  ) {
+                [sourcePaths addObject: fullPath];
+                [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents/Resources"] stringByAppendingPathComponent: entry]];
+            }
+        }
+    }
+
+    for (  NSUInteger i=0; i<[sourcePaths count]; i++  ) {
+        if (  ! [gFileMgr tbMovePath: sourcePaths[i] toPath: targetPaths[i] handler: nil]  ) {
+            appendLog([NSString stringWithFormat: @"Unable to move %@ to %@", sourcePaths[i], targetPaths[i]]);
+            errorExit();
+        }
+    }
+}
+
+void errorExitIfPathIsNotSecure(NSString * targetPath) {
+
+    // Exits if the path or any of its parent folders:
+    //          * does not exist; or
+    //          * is not a regular file or a directory; or
+    //          * has multiple hard links; or
+    //          * is not owned by the root:wheel (or root:admin for the /Applications folder);
+    //          * is writable by group or other.
+
+    NSError * error;
+
+    NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: targetPath error: &error];
+    if (  ! attributes  ) {
+        appendLog([NSString stringWithFormat: @"Path is not secure (error %@ getting attributes) %@", [error description], targetPath]);
+        errorExit();
+    }
+
+    // Everything except the /Applications folder must have owner group wheel
+    unsigned long requiredGroup  = (  [targetPath isEqualToString: @"/Applications"]
+                                    ? ADMIN_GROUP_ID
+                                    : 0);
+
+    // Regular files must have a reference count of 0 (i.e., have no hard links)
+    // Directories must have a reference count of 2 (i.e., no extra hard links)
+    unsigned long requiredRefCount;
+    NSFileAttributeKey fileType = (NSFileAttributeKey)[attributes objectForKey: NSFileType];
+    if (  [fileType isEqual: NSFileTypeRegular]) {
+        requiredRefCount = 1;
+    } else if (  [fileType isEqual: NSFileTypeDirectory]) {
+        requiredRefCount = 2;
+    } else {
+        appendLog([NSString stringWithFormat: @"Path is not secure (not a directory of regular file) %@", targetPath]);
+        errorExit();
+    }
+
+    unsigned long owner  = [[attributes objectForKey: NSFileOwnerAccountID] unsignedLongValue];
+    unsigned long group  = [[attributes objectForKey: NSFileGroupOwnerAccountID] unsignedLongValue];
+    unsigned long refCnt = [[attributes objectForKey: NSFileReferenceCount] unsignedLongValue] ;
+    short permissions    = [[attributes objectForKey: NSFilePosixPermissions] shortValue];
+
+    if (   (owner != 0)
+        || (group != requiredGroup)
+        || ((permissions & (S_IWGRP | S_IWOTH)) != 0)
+        || (refCnt != requiredRefCount)
+        ) {
+        appendLog([NSString stringWithFormat: @"Path is not secure - owned by %lu:%lu; permissions = 0%o; referenceCount = %lu (should be 0:%lu, not writable by group or other, %lu): %@",
+                   owner, group, permissions, refCnt, requiredGroup, requiredRefCount, targetPath]);
+        errorExit();
+    }
+
+    if (  targetPath.length != 1  ) {
+        NSString * parentPath = [targetPath stringByDeletingLastPathComponent];
+        if (  ! parentPath  ) {
+            appendLog([NSString stringWithFormat: @"Path is not secure (could not get path to parent) %@", targetPath]);
+            errorExit();
+        }
+        errorExitIfPathIsNotSecure(parentPath);
+    }
+}
+
+void errorExitIfAnySymlinkInPath(NSString * path) {
+
+    NSString * curPath = path;
+    while (   (curPath.length != 0)
+           && ! [curPath isEqualToString: @"/"]  ) {
+        if (  [gFileMgr fileExistsAtPath: curPath]  ) {
+            NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
+            if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+                appendLog([NSString stringWithFormat: @"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path]);
+                errorExit();
+            }
+        }
+
+        curPath = [curPath stringByDeletingLastPathComponent];
+    }
+}
+
+void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * path) {
+
+    if (   [gFileMgr fileExistsAtPath: path]
+        && [gFileMgr isReadableFileAtPath: path]  ) {
+        errorExitIfAnySymlinkInPath(path);
+        return;
+    }
+
+    appendLog([NSString stringWithFormat: @"File does not exist or is not readable: %@", path]);
+    errorExit();
 }
 
 //**************************************************************************************************************************
@@ -1799,47 +1881,6 @@ void secureTheApp(NSString * appResourcesPath) {
 	}
 }
 
-void pruneL_AS_T_TBLKS(void) {
-	
-	// Prune L_AS_T_TblKS by removing all but the highest edition of each container
-	
-	NSDictionary * bundleIdEditions = highestEditionForEachBundleIdinL_AS_T(); // Key = bundleId; object = edition
-	
-	if (  [bundleIdEditions count] != 0  ) {
-		NSString * bundleIdAndEdition;
-		NSDirectoryEnumerator * outerDirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
-		while (  (bundleIdAndEdition = [outerDirEnum nextObject])  ) {
-			[outerDirEnum skipDescendents];
-			NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
-			BOOL isDir;
-			if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
-				&& ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
-				&& [gFileMgr fileExistsAtPath: containerPath isDirectory: &isDir]
-				&& isDir  ) {
-				NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
-				if (  ! bundleId  ) {
-					appendLog([NSString stringWithFormat: @"Container path does not have a bundleId: %@", containerPath]);
-					break;
-				}
-				NSString * edition  = [bundleIdAndEdition pathEdition];
-				if (  ! edition  ) {
-					appendLog([NSString stringWithFormat: @"Container path does not have an edition: %@", containerPath]);
-					break;
-				}
-				NSString * highestEdition = [bundleIdEditions objectForKey: bundleId];
-				if (  ! highestEdition  ) {
-					appendLog(@"New entry in L_AS_T_TBLKS appeared during pruning");
-					break;
-				}
-				if (  ! [edition isEqualToString: highestEdition]  ) {
-                    securelyDeleteItem(containerPath);
-					appendLog([NSString stringWithFormat: @"Pruned L_AS_T_TBLKS by removing %@", containerPath]);
-				}
-			}
-		}
-	}
-}
-
 void secureAllTblks(void) {
 	
 	NSString * altPath = [L_AS_T_USERS stringByAppendingPathComponent: userUsername()];
@@ -1962,47 +2003,6 @@ void doFolderRename(NSString * sourcePath, NSString * targetPath) {
             }
             securelyRename(secureSourcePath, secureTargetPath);
             appendLog([NSString stringWithFormat: @"Renamed %@ to %@", secureSourcePath, secureTargetPath]);
-        }
-    }
-}
-
-void structureTblkProperly(NSString * path) {
-
-    // If a .tblk doesn't have a Contents folder, makes sure Info.plist is in Contents, and all files in a .tblk except Info.plist are in Contents/Resources.
-
-    if (  [gFileMgr fileExistsAtPath: [path stringByAppendingPathComponent: @"Contents"]]  ) {
-        return;
-    }
-
-    createDir([path stringByAppendingPathComponent: @"Contents/Resources"], 0700);
-
-    NSMutableArray * sourcePaths = [NSMutableArray arrayWithCapacity: 10];
-    NSMutableArray * targetPaths = [NSMutableArray arrayWithCapacity: 10];
-
-    // Create a list of paths of files to be moved and where to move them
-    NSString * entry;
-    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
-    [dirE skipDescendants];
-    while (  (entry = [dirE nextObject])  ) {
-        NSString * fullPath = [path stringByAppendingPathComponent: entry];
-        BOOL isDir;
-        if (   ( ! [entry hasPrefix: @"."] )
-            && [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
-            && ( ! isDir )  ) {
-            if (  [entry isEqualToString: @"Info.plist"]  ) {
-                [sourcePaths addObject: fullPath];
-                [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents"] stringByAppendingPathComponent: entry]];
-            } else if (  ! [entry hasPrefix: @"."]  ) {
-                [sourcePaths addObject: fullPath];
-                [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents/Resources"] stringByAppendingPathComponent: entry]];
-            }
-        }
-    }
-
-    for (  NSUInteger i=0; i<[sourcePaths count]; i++  ) {
-        if (  ! [gFileMgr tbMovePath: sourcePaths[i] toPath: targetPaths[i] handler: nil]  ) {
-            appendLog([NSString stringWithFormat: @"Unable to move %@ to %@", sourcePaths[i], targetPaths[i]]);
-            errorExit();
         }
     }
 }
@@ -2176,6 +2176,39 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
     } else {
         appendLog([NSString stringWithFormat: @"No file at %@", firstPath]);
 	}
+}
+
+void setupDaemon(void) {
+
+	// If we are reloading the LaunchDaemon, we make sure it is up-to-date by copying its .plist into /Library/LaunchDaemons
+
+	// Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
+	BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
+	NSDictionary * newPlistContents = tunnelblickdPlistDictionaryToUse();
+	if (  ! newPlistContents  ) {
+		appendLog(@"Unable to get a model for tunnelblickd.plist");
+		errorExit();
+	}
+	if (  hadExistingPlist  ) {
+        securelyDeleteItem(TUNNELBLICKD_PLIST_PATH);
+	}
+	if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
+		if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
+			errorExit();
+		}
+		if (  ! checkSetPermissions(TUNNELBLICKD_PLIST_PATH, PERMS_SECURED_READABLE, YES)  ) {
+			errorExit();
+		}
+		appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
+	} else {
+		appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
+		errorExit();
+	}
+
+	// Load the new launch daemon so it is used immediately, even before the next system start
+	// And save hashes of the tunnelblickd program and it's .plist, so we can detect when they need to be updated
+	loadLaunchDaemonAndSaveHashes(newPlistContents);
+
 }
 
 //**************************************************************************************************************************
