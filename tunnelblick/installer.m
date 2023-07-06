@@ -150,12 +150,24 @@ NSAutoreleasePool * pool;
 BOOL            gErrorOccurred = FALSE;       // Set if an error occurred
 
 //**************************************************************************************************************************
-
-// LOGGING AND ERROR HANDLING
+// FORWARD REFERENCES
 
 void errorExit(void);
 
 void errorExitIfAnySymlinkInPath(NSString * path);
+
+const char * fileSystemRepresentationFromPath(NSString * path);
+
+NSString * userPrivatePath(void);
+
+void securelyDeleteItem(NSString * path);
+
+NSString * usernameFromPossiblePrivatePath(NSString * path);
+
+NSString * privatePathFromUsername(NSString * username);
+
+//**************************************************************************************************************************
+// LOGGING AND ERROR HANDLING
 
 void debugLog(NSString * string) {
 	
@@ -164,6 +176,8 @@ void debugLog(NSString * string) {
 	// For example, if this installer hangs.
 	//
 	// "string" is a string identifier indicating where debugLog was called from.
+    // "string" must be able to be added as part of a file name, so no ":" or "/" chars, etc.
+
 #ifdef TBDebug
 	static unsigned int debugLogMessageCounter = 0;
 	
@@ -176,7 +190,7 @@ void debugLog(NSString * string) {
 
 void openLog(BOOL clearLog) {
     
-    const char * path = [INSTALLER_LOG_PATH fileSystemRepresentation];
+    const char * path = fileSystemRepresentationFromPath(INSTALLER_LOG_PATH);
 	
 	if (  clearLog  ) {
 		gLogFile = fopen(path, "w");
@@ -217,7 +231,47 @@ void errorExit() {
     exit(EXIT_FAILURE); // Never executed but needed to make static analyzer happy
 }
 
-// Tests
+//**************************************************************************************************************************
+// UTILITY ROUTINES
+
+NSString * makePathAbsolute(NSString * path) {
+
+    NSString * standardizedPath = [path stringByStandardizingPath];
+    NSURL * url = [NSURL fileURLWithPath: standardizedPath];
+    url = [url absoluteURL];
+    const char * pathC = url.fileSystemRepresentation;
+    NSString * absolutePath = [NSString stringWithCString: pathC encoding: NSUTF8StringEncoding];
+
+    return absolutePath;
+}
+
+const char * fileSystemRepresentationFromPath(NSString * path) {
+
+    const char * pathC = path.fileSystemRepresentation;
+    if (  ! pathC  ) {
+        appendLog([NSString stringWithFormat: @"Could not get filesystem representation for %@", path]);
+        errorExit();
+    }
+
+    return pathC;
+}
+
+NSString * thisAppResourcesPath(void) {
+
+    NSString * resourcesPath = [NSProcessInfo.processInfo.arguments[0]  // .app/Contents/Resources/installer
+                                stringByDeletingLastPathComponent];     // .app/Contents/Resources
+    return resourcesPath;
+}
+
+BOOL isPathPrivate(NSString * path) {
+
+    NSString * absolutePath = makePathAbsolute(path);
+
+    BOOL isPrivate = (   [absolutePath hasPrefix: @"/Users/"]
+                      && [absolutePath hasPrefix: [[userPrivatePath() stringByDeletingLastPathComponent] stringByAppendingString: @"/"]]
+                      );
+    return isPrivate;
+}
 
 void errorExitIfPathIsNotSecure(NSString * targetPath) {
 
@@ -282,7 +336,7 @@ void errorExitIfPathIsNotSecure(NSString * targetPath) {
 void errorExitIfAnySymlinkInPath(NSString * path) {
 
     NSString * curPath = path;
-    while (   ([curPath length] != 0)
+    while (   (curPath.length != 0)
            && ! [curPath isEqualToString: @"/"]  ) {
         if (  [gFileMgr fileExistsAtPath: curPath]  ) {
             NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
@@ -308,80 +362,260 @@ void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * path) {
     errorExit();
 }
 
-// Secure routines
+void resolveSymlinksInPath(NSString * targetPath) {
+
+    // There are symlinks in a .tblk for files which are not readable by the user but should be propagated from one configuration to another when installing an updated configuration.
+    // These symlinks need to be replaced by the files to which they point.
+    //
+    // This is safe to do as root because only Tunnelblick or an admin can invoke the installer as root, and Tunnelblick allows only its own symlinks.
+    // (Tunnelblick resolves symlinks provided by the user while running as the user.)
+    //
+    // Because the target is a temporary copy, we replace the symlinks with the file contents in a file owned by root:wheel with permissions 0700, so the file cannot be read except by root.
+    // The final, possibly less restrictive, ownership and permissions will be set later.
+
+    if (  ! [targetPath hasSuffix: @".tblk"] ) {
+        return;
+    }
+
+    NSString * file;
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: targetPath];
+    while (  (file = [dirEnum nextObject])  ) {
+        NSString * fullPath = [targetPath stringByAppendingPathComponent: file];
+        NSDictionary * fullPathAttributes = [gFileMgr tbFileAttributesAtPath: fullPath traverseLink: NO];
+        if (  [fullPathAttributes fileType] == NSFileTypeSymbolicLink  ) {
+
+            NSString * resolvedPath = [gFileMgr tbPathContentOfSymbolicLinkAtPath: fullPath];
+            if (  ! (   [resolvedPath hasPrefix: L_AS_T_SHARED]
+                     || [resolvedPath hasPrefix: L_AS_T_TBLKS]
+                     || [resolvedPath hasPrefix: L_AS_T_USERS]
+                     || [resolvedPath hasPrefix: gDeployPath]
+                     )  ) {
+                appendLog([NSString stringWithFormat: @"Symlink is not to an allowed path: %@", resolvedPath]);
+                errorExit();
+            }
+
+            NSData * data = [gFileMgr contentsAtPath: resolvedPath];
+
+            if (  ! data  ) {
+                appendLog([NSString stringWithFormat: @"Could not get contents of %@", resolvedPath]);
+                errorExit();
+            }
+
+            securelyDeleteItem(fullPath);
+
+            NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                         [NSNumber numberWithInt: 0], NSFileOwnerAccountID,
+                                         [NSNumber numberWithInt: 0], NSFileGroupOwnerAccountID,
+                                         [NSNumber numberWithInt: 0700], NSFilePosixPermissions,
+                                         nil];
+
+            if (  [gFileMgr createFileAtPath: fullPath contents: data attributes: attributes]  ) {
+                appendLog([NSString stringWithFormat: @"Replaced symlink at %@\n with copy of %@", fullPath, resolvedPath]);
+            } else {
+                appendLog([NSString stringWithFormat: @"Could not replace symlink at %@\n     with a copy of %@", fullPath, resolvedPath]);
+                errorExit();
+            }
+        }
+    }
+}
+
+NSArray * configurationPathsFromPath(NSString * path) {
+
+    NSString * privatePath = gPrivatePath;
+    if (  privatePath == nil  ) {
+        NSString * username = usernameFromPossiblePrivatePath(path);
+        if (  username != nil  ) {
+            privatePath = privatePathFromUsername(username);
+        }
+    }
+
+    NSArray * paths = [NSArray arrayWithObjects:
+                       gDeployPath,
+                       L_AS_T_SHARED,
+                       privatePath, // May be nil, so must be last
+                       nil];
+    return paths;
+}
+
+NSString * firstPartOfPath(NSString * path) {
+
+    NSArray * paths = configurationPathsFromPath(path);
+    NSEnumerator * arrayEnum = [paths objectEnumerator];
+    NSString * configFolder;
+    while (  (configFolder = [arrayEnum nextObject])  ) {
+        if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
+            return configFolder;
+        }
+    }
+    return nil;
+}
+
+NSString * lastPartOfPath(NSString * path) {
+
+    NSArray * paths = configurationPathsFromPath(path);
+    NSEnumerator * arrayEnum = [paths objectEnumerator];
+    NSString * configFolder;
+    while (  (configFolder = [arrayEnum nextObject])  ) {
+        if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
+            if (  [path length] > [configFolder length]  ) {
+                return [path substringFromIndex: [configFolder length]+1];
+            } else {
+                appendLog([NSString stringWithFormat: @"No display name in path '%@'", path]);
+                return @"X";
+            }
+        }
+    }
+    return nil;
+}
+
+//**************************************************************************************************************************
+// SECURELY* ROUTINES
+
+void securelyDeleteFolder(NSString * path) {
+
+    errorExitIfAnySymlinkInPath(path);
+
+    // Can only rmdir() an empty folder, so empty this folder
+
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
+    [dirE skipDescendants];
+    NSString * file;
+    while (  (file = dirE.nextObject)  ) {
+        NSString * fullPath = [path stringByAppendingPathComponent: file];
+        BOOL isDir;
+        if (  [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+            && isDir  ) {
+            securelyDeleteFolder(fullPath);
+        } else {
+            if (  0 != unlink(fileSystemRepresentationFromPath(fullPath))  ) {
+                appendLog([NSString stringWithFormat: @"unlink() failed with error %d ('%s') for path %@", errno, strerror(errno), path]);
+                errorExit();
+            }
+        }
+    }
+
+    // Now that the folder is empty, remove it
+    if (  0 != rmdir(fileSystemRepresentationFromPath(path))  ) {
+        appendLog([NSString stringWithFormat: @"rmdir() failed with error %d ('%s') for path %@", errno, strerror(errno), path]);
+        errorExit();
+    }
+}
 
 void securelyDeleteItem(NSString * path) {
 
     errorExitIfAnySymlinkInPath(path);
 
-    const char * pathC = [path fileSystemRepresentation];
+    const char * pathC = fileSystemRepresentationFromPath(path);
 
-    if (  0 != unlink(pathC)  ) {
-        appendLog([NSString stringWithFormat: @"unlink() failed with error %d ('%s') for path %@", errno, strerror(errno), path]);
+    struct stat status;
+
+    if (  lstat(pathC, &status) != 0  ) {
+        appendLog([NSString stringWithFormat: @"lstat() failed with error %d ('%s') for %@", errno, strerror(errno), path]);
         errorExit();
+    }
+
+    if (  S_ISDIR(status.st_mode)  ) {
+        securelyDeleteFolder(path);
+    } else {
+        if (  0 != unlink(pathC)  ) {
+            appendLog([NSString stringWithFormat: @"unlink() failed with error %d ('%s') for path %@", errno, strerror(errno), path]);
+            errorExit();
+        }
     }
 }
 
 void securelyDeleteItemIfItExists(NSString * path) {
 
+    errorExitIfAnySymlinkInPath(path);
+
     if (  ! [gFileMgr fileExistsAtPath: path]  ) {
         return;
     }
 
-    errorExitIfAnySymlinkInPath(path);
-
-    const char * pathC = [path fileSystemRepresentation];
-
-    if (  0 != unlink(pathC)  ) {
-        appendLog([NSString stringWithFormat: @"unlink() failed with error %d ('%s') for path %@", errno, strerror(errno), path]);
-        errorExit();
-    }
+    securelyDeleteItem(path);
 }
 
 void securelyRename(NSString * sourcePath, NSString * targetPath) {
+
+    errorExitIfAnySymlinkInPath(sourcePath);
+    errorExitIfAnySymlinkInPath(targetPath);
 
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
         securelyDeleteItem(targetPath);
     }
 
-    if (  0 != renamex_np([sourcePath fileSystemRepresentation], [targetPath fileSystemRepresentation], (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
+    if (  0 != renamex_np(fileSystemRepresentationFromPath(sourcePath), fileSystemRepresentationFromPath(targetPath), (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
         appendLog([NSString stringWithFormat: @"renamex_np() failed with error %d ('%s') trying to rename %@ to %@",
                    errno, strerror(errno), sourcePath, targetPath]);
         errorExit();
     }
 }
 
-void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * targetPath) {
+void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
 
     // Create a file or a directory owned by root with 0700 permissions (permissions will be changed to the correct values later)
 
+    errorExitIfAnySymlinkInPath(path);
+
     if (  isDir  ) {
         umask(0077);
-        int result = mkdir([targetPath fileSystemRepresentation], 0700);
+        int result = mkdir(fileSystemRepresentationFromPath(path), 0700);
         umask(S_IWGRP | S_IWOTH);
         if (  result != 0  ) {
-            appendLog([NSString stringWithFormat: @"mkdir() returned error: '%s' for path %@", strerror(errno), targetPath]);
+            appendLog([NSString stringWithFormat: @"mkdir() returned error: '%s' for path %@", strerror(errno), path]);
             errorExit();
         }
     } else {
-        int result = open([targetPath fileSystemRepresentation], (O_CREAT | O_EXCL | O_APPEND | O_NOFOLLOW_ANY), 0700);
+        int result = open(fileSystemRepresentationFromPath(path), (O_CREAT | O_EXCL | O_APPEND | O_NOFOLLOW_ANY), 0700);
         if (  result < 0  ) {
-            appendLog([NSString stringWithFormat: @"open() returned error: '%s' for path %@", strerror(errno), targetPath]);
+            appendLog([NSString stringWithFormat: @"open() returned error: '%s' for path %@", strerror(errno), path]);
             errorExit();
         }
         close(result); // Ignore errors
     }
 }
 
-void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
+void securelyCreateFolderAndParents(NSString * path) {
 
-    const char * sourcePathC = [sourcePath fileSystemRepresentation];
-    const char * targetPathC = [targetPath fileSystemRepresentation];
-    if (   (sourcePathC == NULL)
-        || (targetPathC == NULL)  ) {
-        appendLog([NSString stringWithFormat: @"Could not get fileSystemRepresentation for path %@ and/or path '%@", sourcePath, targetPath]);
+    errorExitIfAnySymlinkInPath(path);
+
+    if (  [gFileMgr fileExistsAtPath: path]  ) {
+        return;
+    }
+
+    NSString * enclosingFolder = [path stringByDeletingLastPathComponent];
+    if (  ! [gFileMgr fileExistsAtPath: enclosingFolder]  ) {
+        securelyCreateFolderAndParents(enclosingFolder);
+    }
+
+    // Create the folder with the ownership and permissions of the folder that encloses it, but with the current date/time
+    NSDictionary * enclosingFolderAttributes = [gFileMgr tbFileAttributesAtPath: enclosingFolder traverseLink: NO];
+    NSDate * now = [NSDate date];
+    NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 now,                                                                   NSFileCreationDate,
+                                 now,                                                                   NSFileModificationDate,
+                                 [enclosingFolderAttributes objectForKey: NSFileGroupOwnerAccountID],   NSFileGroupOwnerAccountID,
+                                 [enclosingFolderAttributes objectForKey: NSFileGroupOwnerAccountName], NSFileGroupOwnerAccountName,
+                                 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountID],        NSFileOwnerAccountID,
+                                 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountName],      NSFileOwnerAccountName,
+                                 [enclosingFolderAttributes objectForKey: NSFilePosixPermissions],      NSFilePosixPermissions,
+                                 nil];
+    if ( ! [gFileMgr tbCreateDirectoryAtPath: path withIntermediateDirectories: NO attributes: attributes]  ) {
         errorExit();
     }
+
+    appendLog([NSString stringWithFormat: @"Created %@ with owner %@:%@ (%@:%@) and permissions 0%lo", path,
+               [attributes fileOwnerAccountName], [attributes fileGroupOwnerAccountName],
+               [attributes fileOwnerAccountID],   [attributes fileGroupOwnerAccountID],   [attributes filePosixPermissions]]);
+}
+
+void securelySetItemAttributes(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
+
+    errorExitIfAnySymlinkInPath(sourcePath);
+    errorExitIfAnySymlinkInPath(targetPath);
+
+    const char * sourcePathC = fileSystemRepresentationFromPath(sourcePath);
+    const char * targetPathC = fileSystemRepresentationFromPath(targetPath);
 
     // Open the item as READ-ONLY (we're not changing it now)
     int fd = open(targetPathC, (O_RDONLY | O_NOFOLLOW_ANY));
@@ -478,6 +712,9 @@ void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath);
 
 void securelyCopyFileOrFolderContents(BOOL isDir, NSString * sourcePath, NSString * targetPath) {
 
+    errorExitIfAnySymlinkInPath(sourcePath);
+    errorExitIfAnySymlinkInPath(targetPath);
+
     // Copy the folder contents or the file contents
     if (  isDir  ) {
         NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: sourcePath];
@@ -524,6 +761,9 @@ void securelyCopyDirectly(NSString * sourcePath, NSString * targetPath) {
     //
     // This routine is called only by securelyCopy() and securelyCopyFileOrFolderContents().
 
+    errorExitIfAnySymlinkInPath(sourcePath);
+    errorExitIfAnySymlinkInPath(targetPath);
+
     BOOL isDir;
 
     if (  ! [gFileMgr fileExistsAtPath: sourcePath isDirectory: &isDir]  ) {
@@ -547,6 +787,9 @@ void securelyCopy(NSString * sourcePath, NSString * targetPath) {
     //
     // Uses an intermediate file or folder and then renames it, so no partial copy has been done if an error occurs.
 
+    errorExitIfAnySymlinkInPath(sourcePath);
+    errorExitIfAnySymlinkInPath(targetPath);
+
     BOOL isDir;
 
     if (  ! [gFileMgr fileExistsAtPath: sourcePath isDirectory: &isDir]  ) {
@@ -563,11 +806,42 @@ void securelyCopy(NSString * sourcePath, NSString * targetPath) {
 
 void securelyMove(NSString * sourcePath, NSString * targetPath) {
 
+    errorExitIfAnySymlinkInPath(sourcePath);
+    errorExitIfAnySymlinkInPath(targetPath);
+
     securelyCopy(sourcePath, targetPath);
 
     securelyDeleteItem(sourcePath);
 }
 
+void testSecurelyRename(NSString * folder) {
+
+    // Touch two files (delete them first if they exist)
+    NSString * test1Path = [folder stringByAppendingPathComponent: @"rename-test-target-1"];
+    securelyDeleteItemIfItExists(test1Path);
+    if (  ! [gFileMgr createFileAtPath: test1Path contents: nil attributes: nil]  ) {
+        appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-1 in %@", folder]);
+    }
+    NSString * test2Path = [folder stringByAppendingPathComponent: @"rename-test-target-2"];
+    securelyDeleteItemIfItExists(test2Path);
+    if (  ! [gFileMgr createFileAtPath: test2Path contents: nil attributes: nil]  ) {
+        appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-2 in %@", folder]);
+    }
+
+    // Try to rename one to the other. This should fail because of the RENAME_EXCL option.
+    BOOL good = (0 != renamex_np(fileSystemRepresentationFromPath(test1Path), fileSystemRepresentationFromPath(test2Path),(RENAME_NOFOLLOW_ANY | RENAME_EXCL)));
+
+    // Delete the files
+    securelyDeleteItemIfItExists(test1Path);
+    securelyDeleteItemIfItExists(test2Path);
+
+
+    if (  ! good  ) {
+        appendLog([NSString stringWithFormat: @"Rename test failed for %@", folder]);
+    }
+}
+
+//**************************************************************************************************************************
 // USER INFORMATION
 
 NSString * userUsername(void) {
@@ -708,17 +982,6 @@ BOOL usernameIsValid(NSString * username) {
     return NO;
 }
 
-NSString * makePathAbsolute(NSString * path) {
-
-    NSString * standardizedPath = [path stringByStandardizingPath];
-    NSURL * url = [NSURL fileURLWithPath: standardizedPath];
-    url = [url absoluteURL];
-    const char * pathC = [url fileSystemRepresentation];
-    NSString * absolutePath = [NSString stringWithCString: pathC encoding: NSUTF8StringEncoding];
-
-    return absolutePath;
-}
-
 NSString * usernameFromPossiblePrivatePath(NSString * path) {
 
     NSString * absolutePath = makePathAbsolute(path);
@@ -847,81 +1110,8 @@ void setupUserGlobals(int argc, char *argv[], unsigned operation) {
     }
 }
 
-// MISC
-
-NSString * thisAppResourcesPath(void) {
-
-    NSString * resourcesPath = [NSProcessInfo.processInfo.arguments[0]  // .app/Contents/Resources/installer
-                                stringByDeletingLastPathComponent];     // .app/Contents/Resources
-    return resourcesPath;
-}
-
-BOOL isPathPrivate(NSString * path) {
-
-    NSString * absolutePath = makePathAbsolute(path);
-
-    BOOL isPrivate = (   [absolutePath hasPrefix: @"/Users/"]
-                      && [absolutePath hasPrefix: [[userPrivatePath() stringByDeletingLastPathComponent] stringByAppendingString: @"/"]]
-                      );
-    return isPrivate;
-}
-
-void resolveSymlinksInPath(NSString * targetPath) {
-	
-	// There are symlinks in a .tblk for files which are not readable by the user but should be propagated from one configuration to another when installing an updated configuration.
-	// These symlinks need to be replaced by the files to which they point.
-	//
-	// This is safe to do as root because only Tunnelblick or an admin can invoke the installer as root, and Tunnelblick allows only its own symlinks.
-	// (Tunnelblick resolves symlinks provided by the user while running as the user.)
-	//
-	// Because the target is a temporary copy, we replace the symlinks with the file contents in a file owned by root:wheel with permissions 0700, so the file cannot be read except by root.
-	// The final, possibly less restrictive, ownership and permissions will be set later.
-	
-	if (  ! [targetPath hasSuffix: @".tblk"] ) {
-		return;
-	}
-	
-	NSString * file;
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: targetPath];
-	while (  (file = [dirEnum nextObject])  ) {
-		NSString * fullPath = [targetPath stringByAppendingPathComponent: file];
-		NSDictionary * fullPathAttributes = [gFileMgr tbFileAttributesAtPath: fullPath traverseLink: NO];
-		if (  [fullPathAttributes fileType] == NSFileTypeSymbolicLink  ) {
-			
-			NSString * resolvedPath = [gFileMgr tbPathContentOfSymbolicLinkAtPath: fullPath];
-			if (  ! (   [resolvedPath hasPrefix: L_AS_T_SHARED]
-                     || [resolvedPath hasPrefix: L_AS_T_TBLKS]
-                     || [resolvedPath hasPrefix: L_AS_T_USERS]
-                     || [resolvedPath hasPrefix: gDeployPath]
-                     )  ) {
-                appendLog([NSString stringWithFormat: @"Symlink is not to an allowed path: %@", resolvedPath]);
-                errorExit();
-            }
-            
-			NSData * data = [gFileMgr contentsAtPath: resolvedPath];
-			
-			if (  ! data  ) {
-				appendLog([NSString stringWithFormat: @"Could not get contents of %@", resolvedPath]);
-				errorExit();
-			}
-
-            securelyDeleteItem(fullPath);
-
-			NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-										 [NSNumber numberWithInt: 0], NSFileOwnerAccountID,
-										 [NSNumber numberWithInt: 0], NSFileGroupOwnerAccountID,
-										 [NSNumber numberWithInt: 0700], NSFilePosixPermissions,
-										 nil];
-            
-			if (  [gFileMgr createFileAtPath: fullPath contents: data attributes: attributes]  ) {
-				appendLog([NSString stringWithFormat: @"Replaced symlink at %@\n with copy of %@", fullPath, resolvedPath]);
-			} else {
-				appendLog([NSString stringWithFormat: @"Could not replace symlink at %@\n     with a copy of %@", fullPath, resolvedPath]);
-				errorExit();
-            }
-		}
-	}
-}
+//**************************************************************************************************************************
+// LAUNCHDAEMON
 
 BOOL isLaunchDaemonLoaded(void) {
 	
@@ -1041,90 +1231,7 @@ void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
     }
 }
 
-void createFolder(NSString * path) {
-	
-	errorExitIfAnySymlinkInPath(path);
-	
-	if (  [gFileMgr fileExistsAtPath: path]  ) {
-		return;
-	}
-	
-	NSString * enclosingFolder = [path stringByDeletingLastPathComponent];
-	if (  ! [gFileMgr fileExistsAtPath: enclosingFolder]  ) {
-		createFolder(enclosingFolder);
-	}
-	
-	// Create the folder with the ownership and permissions of the folder that encloses it, but with the current date/time
-	NSDictionary * enclosingFolderAttributes = [gFileMgr tbFileAttributesAtPath: enclosingFolder traverseLink: NO];
-	NSDate * now = [NSDate date];
-	NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-								 now,                                                                   NSFileCreationDate,
-								 now,                                                                   NSFileModificationDate,
-								 [enclosingFolderAttributes objectForKey: NSFileGroupOwnerAccountID],   NSFileGroupOwnerAccountID,
-								 [enclosingFolderAttributes objectForKey: NSFileGroupOwnerAccountName], NSFileGroupOwnerAccountName,
-								 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountID],        NSFileOwnerAccountID,
-								 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountName],      NSFileOwnerAccountName,
-								 [enclosingFolderAttributes objectForKey: NSFilePosixPermissions],      NSFilePosixPermissions,
-								 nil];
-	if ( ! [gFileMgr tbCreateDirectoryAtPath: path withIntermediateDirectories: NO attributes: attributes]  ) {
-		errorExit();
-	}
-	
-	appendLog([NSString stringWithFormat: @"Created %@ with owner %@:%@ (%@:%@) and permissions 0%lo", path,
-			   [attributes fileOwnerAccountName], [attributes fileGroupOwnerAccountName],
-			   [attributes fileOwnerAccountID],   [attributes fileGroupOwnerAccountID],   [attributes filePosixPermissions]]);
-}
-
-NSArray * configurationPathsFromPath(NSString * path) {
-
-    NSString * privatePath = gPrivatePath;
-    if (  privatePath == nil  ) {
-        NSString * username = usernameFromPossiblePrivatePath(path);
-        if (  username != nil  ) {
-            privatePath = privatePathFromUsername(username);
-        }
-    }
-
-    NSArray * paths = [NSArray arrayWithObjects:
-                       gDeployPath,
-                       L_AS_T_SHARED,
-                       privatePath, // May be nil, so must be last
-                       nil];
-    return paths;
-}
-
-NSString * firstPartOfPath(NSString * path) {
-
-    NSArray * paths = configurationPathsFromPath(path);
-    NSEnumerator * arrayEnum = [paths objectEnumerator];
-    NSString * configFolder;
-    while (  (configFolder = [arrayEnum nextObject])  ) {
-        if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
-            return configFolder;
-        }
-    }
-    return nil;
-}
-
-NSString * lastPartOfPath(NSString * path) {
-
-    NSArray * paths = configurationPathsFromPath(path);
-    NSEnumerator * arrayEnum = [paths objectEnumerator];
-    NSString * configFolder;
-    while (  (configFolder = [arrayEnum nextObject])  ) {
-        if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
-            if (  [path length] > [configFolder length]  ) {
-                return [path substringFromIndex: [configFolder length]+1];
-            } else {
-                appendLog([NSString stringWithFormat: @"No display name in path '%@'", path]);
-                return @"X";
-            }
-        }
-    }
-    return nil;
-}
-
-void createAndSecureFolder(NSString * path) {
+void createAndSecureConfigurationsSubfolder(NSString * path) {
 
     // Use to create and secure an empty configurations subfolder (either Shared or a private folder). If it is
     // a private folder, the secured copy is also created.
@@ -1150,42 +1257,43 @@ void createAndSecureFolder(NSString * path) {
     // If a private folder, create the secure copy, too.
     if (  private  ) {
         NSString * lastPart = lastPartOfPath(path);
-        createAndSecureFolder([[L_AS_T_USERS
-                                stringByAppendingPathComponent: userUsername()]
-                               stringByAppendingPathComponent: lastPart]);
+        createAndSecureConfigurationsSubfolder([[L_AS_T_USERS
+                                                 stringByAppendingPathComponent: userUsername()]
+                                                stringByAppendingPathComponent: lastPart]);
     }
 }
 
-void secureOpenvpnBinariesFolder(NSString * enclosingFolder) {
+void setupLaunchDaemon(void) {
 
-	if (   ( ! checkSetOwnership(enclosingFolder, YES, 0, 0))
-		|| ( ! checkSetPermissions(enclosingFolder, PERMS_SECURED_FOLDER, NO))  ) {
-		errorExit();
-	}
+    // If we are reloading the LaunchDaemon, we make sure it is up-to-date by copying its .plist into /Library/LaunchDaemons
 
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: enclosingFolder];
-	NSString * folder;
-	BOOL isDir;
-	while (  (folder = [dirEnum nextObject])  ) {
-		[dirEnum skipDescendents];
-		NSString * fullPath = [enclosingFolder stringByAppendingPathComponent: folder];
-		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
-			&& isDir  ) {
-			if (  ! checkSetPermissions(fullPath, PERMS_SECURED_FOLDER, YES)  ) {
-				errorExit();
-			}
-			if (  [folder hasPrefix: @"openvpn-"]  ) {
-				NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
-				if (  ! checkSetPermissions(thisOpenvpnPath, PERMS_SECURED_EXECUTABLE, YES)  ) {
-					errorExit();
-				}
-				NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
-				if (  ! checkSetPermissions(thisOpenvpnDownRootPath, PERMS_SECURED_ROOT_EXEC, YES)  ) {
-					errorExit();
-				}
-			}
-		}
-	}
+    // Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
+    BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
+    NSDictionary * newPlistContents = tunnelblickdPlistDictionaryToUse();
+    if (  ! newPlistContents  ) {
+        appendLog(@"Unable to get a model for tunnelblickd.plist");
+        errorExit();
+    }
+    if (  hadExistingPlist  ) {
+        securelyDeleteItem(TUNNELBLICKD_PLIST_PATH);
+    }
+    if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
+        if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
+            errorExit();
+        }
+        if (  ! checkSetPermissions(TUNNELBLICKD_PLIST_PATH, PERMS_SECURED_READABLE, YES)  ) {
+            errorExit();
+        }
+        appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
+    } else {
+        appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
+        errorExit();
+    }
+
+    // Load the new launch daemon so it is used immediately, even before the next system start
+    // And save hashes of the tunnelblickd program and it's .plist, so we can detect when they need to be updated
+    loadLaunchDaemonAndSaveHashes(newPlistContents);
+
 }
 
 //**************************************************************************************************************************
@@ -1268,7 +1376,7 @@ BOOL secureOneKext(NSString * path) {
 void updateTheKextCaches(void) {
 
     // According to the man page for kextcache, kext caches should be updated by executing 'touch /Library/Extensions'; the following is the equivalent:
-    if (  utimes([gFileMgr fileSystemRepresentationWithPath: @"/Library/Extensions"], NULL) != 0  ) {
+    if (  utimes(fileSystemRepresentationFromPath(@"/Library/Extensions"), NULL) != 0  ) {
         appendLog([NSString stringWithFormat: @"utimes(\"/Library/Extensions\", NULL) failed with error %d ('%s')", errno, strerror(errno)]);
         errorExit();
     }
@@ -1373,32 +1481,37 @@ void installOrUpdateKexts(BOOL forceInstall) {
 }
 
 //**************************************************************************************************************************
-// GENERAL
+// HIGH LEVEL ROUTINES
 
-void testSecurelyRename(NSString * folder) {
+void secureOpenvpnBinariesFolder(NSString * enclosingFolder) {
 
-    // Touch two files (delete them first if they exist)
-    NSString * test1Path = [folder stringByAppendingPathComponent: @"rename-test-target-1"];
-    securelyDeleteItemIfItExists(test1Path);
-    if (  ! [gFileMgr createFileAtPath: test1Path contents: nil attributes: nil]  ) {
-        appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-1 in %@", folder]);
-    }
-    NSString * test2Path = [folder stringByAppendingPathComponent: @"rename-test-target-2"];
-    securelyDeleteItemIfItExists(test2Path);
-    if (  ! [gFileMgr createFileAtPath: test2Path contents: nil attributes: nil]  ) {
-        appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-2 in %@", folder]);
+    if (   ( ! checkSetOwnership(enclosingFolder, YES, 0, 0))
+        || ( ! checkSetPermissions(enclosingFolder, PERMS_SECURED_FOLDER, NO))  ) {
+        errorExit();
     }
 
-    // Try to rename one to the other. This should fail because of the RENAME_EXCL option.
-    BOOL good = (0 != renamex_np([test1Path fileSystemRepresentation], [test2Path fileSystemRepresentation],(RENAME_NOFOLLOW_ANY | RENAME_EXCL)));
-
-    // Delete the files
-    securelyDeleteItemIfItExists(test1Path);
-    securelyDeleteItemIfItExists(test2Path);
-
-
-    if (  ! good  ) {
-        appendLog([NSString stringWithFormat: @"Rename test failed for %@", folder]);
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: enclosingFolder];
+    NSString * folder;
+    BOOL isDir;
+    while (  (folder = [dirEnum nextObject])  ) {
+        [dirEnum skipDescendents];
+        NSString * fullPath = [enclosingFolder stringByAppendingPathComponent: folder];
+        if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+            && isDir  ) {
+            if (  ! checkSetPermissions(fullPath, PERMS_SECURED_FOLDER, YES)  ) {
+                errorExit();
+            }
+            if (  [folder hasPrefix: @"openvpn-"]  ) {
+                NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
+                if (  ! checkSetPermissions(thisOpenvpnPath, PERMS_SECURED_EXECUTABLE, YES)  ) {
+                    errorExit();
+                }
+                NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
+                if (  ! checkSetPermissions(thisOpenvpnDownRootPath, PERMS_SECURED_ROOT_EXEC, YES)  ) {
+                    errorExit();
+                }
+            }
+        }
     }
 }
 
@@ -1581,7 +1694,7 @@ void secureTheApp(NSString * appResourcesPath) {
 			// Nothing should be writable by group, writable by user, be suid, or be sgid
 			unsigned long  permsShouldHave = (perms & ~(S_IWGRP | S_IWOTH | S_ISUID | S_ISGID));
 			if (  (perms != permsShouldHave )  ) {
-				if (  chmod([fullPath fileSystemRepresentation], permsShouldHave) == 0  ) {
+				if (  chmod(fileSystemRepresentationFromPath(fullPath), permsShouldHave) == 0  ) {
 					appendLog([NSString stringWithFormat: @"Changed permissions from %lo to %lo on %@",
 							   (long) perms, (long) permsShouldHave, fullPath]);
 				} else {
@@ -1917,7 +2030,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
             errorExit();
         }
 
-        createAndSecureFolder(targetPath);
+        createAndSecureConfigurationsSubfolder(targetPath);
         return;
     }
 
@@ -1954,7 +2067,7 @@ void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy)
 
 	// Create the enclosing folder(s) if necessary. Owned by root unless if in userPrivatePath(), in which case it is owned by the user
 	NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
-    createAndSecureFolder(enclosingFolder);
+    createAndSecureConfigurationsSubfolder(enclosingFolder);
 
 	// Make sure we can delete the original if we are moving instead of copying
 	if (  moveNotCopy  ) {
@@ -2063,39 +2176,6 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
     } else {
         appendLog([NSString stringWithFormat: @"No file at %@", firstPath]);
 	}
-}
-
-void setupDaemon(void) {
- 
-	// If we are reloading the LaunchDaemon, we make sure it is up-to-date by copying its .plist into /Library/LaunchDaemons
-	
-	// Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
-	BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
-	NSDictionary * newPlistContents = tunnelblickdPlistDictionaryToUse();
-	if (  ! newPlistContents  ) {
-		appendLog(@"Unable to get a model for tunnelblickd.plist");
-		errorExit();
-	}
-	if (  hadExistingPlist  ) {
-        securelyDeleteItem(TUNNELBLICKD_PLIST_PATH);
-	}
-	if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
-		if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
-			errorExit();
-		}
-		if (  ! checkSetPermissions(TUNNELBLICKD_PLIST_PATH, PERMS_SECURED_READABLE, YES)  ) {
-			errorExit();
-		}
-		appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
-	} else {
-		appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
-		errorExit();
-	}
-	
-	// Load the new launch daemon so it is used immediately, even before the next system start
-	// And save hashes of the tunnelblickd program and it's .plist, so we can detect when they need to be updated
-	loadLaunchDaemonAndSaveHashes(newPlistContents);
-	
 }
 
 //**************************************************************************************************************************
@@ -2333,7 +2413,7 @@ void mergeConfigurations(NSString * sourcePath, NSString * targetPath, uid_t uid
 
 				// Create enclosing folder(s) if necessary
 				if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
-					createFolder(targetPath);
+					securelyCreateFolderAndParents(targetPath);
 				}
 				
 				NSString * sourceFullPath = [sourcePath stringByAppendingPathComponent: name];
@@ -2362,7 +2442,7 @@ void mergeGlobalUsersFolder(NSString * tblkSetupPath, NSDictionary * nameMap) {
 	
 	// Create enclosing folder(s) if necessary
 	if (  ! [gFileMgr fileExistsAtPath: outFolder]  ) {
-					createFolder(outFolder);
+					securelyCreateFolderAndParents(outFolder);
 	}
 	
 	// Do mapping only if necessary
@@ -2609,7 +2689,7 @@ void importSetup(NSString * tblkSetupPath, NSString * usernameMap) {
 }
 
 //**************************************************************************************************************************
-//**************************************************************************************************************************
+// MAIN PROGRAM
 
 int main(int argc, char *argv[]) {
 	pool = [NSAutoreleasePool new];
@@ -2780,7 +2860,7 @@ int main(int argc, char *argv[]) {
 
             if (  fourthArg  ) {
                 targetPath = [targetPath stringByAppendingPathComponent: fourthArg];
-                createFolder(targetPath);
+                securelyCreateFolderAndParents(targetPath);
             }
 
             targetPath = [targetPath stringByAppendingPathComponent: [thirdArg lastPathComponent]];
@@ -2803,7 +2883,7 @@ int main(int argc, char *argv[]) {
 
             if (  thirdArg  ) {
                 targetPath = [L_AS_T_SHARED stringByAppendingPathComponent: thirdArg];
-                createFolder(targetPath);
+                securelyCreateFolderAndParents(targetPath);
             } else {
                 targetPath = L_AS_T_SHARED;
             }
@@ -2838,7 +2918,7 @@ int main(int argc, char *argv[]) {
     }
     
     if (  doForceLoadLaunchDaemon  ) {
-		setupDaemon();
+		setupLaunchDaemon();
     } else {
         if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
             errorExit();
