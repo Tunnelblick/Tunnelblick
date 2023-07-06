@@ -2153,7 +2153,12 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 		appendLog(@"Operation is INSTALLER_DELETE but secondPath is set");
 		errorExit();
 	}
-	
+
+    if (  [firstPath hasPrefix: L_AS_T_USERS]  ) {
+        appendLog([NSString stringWithFormat: @"Did not delete %@.\nTo delete a shadow copy, delete the user's copy; the shadow copy will be deleted automatically.", firstPath]);
+        errorExit();
+    }
+
 	if (  [gFileMgr fileExistsAtPath: firstPath]  ) {
 		errorExitIfAnySymlinkInPath(firstPath);
 		makeUnlockedAtPath(firstPath);
