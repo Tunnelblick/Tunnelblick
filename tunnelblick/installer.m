@@ -2179,7 +2179,8 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 			}
 		}
     } else {
-        appendLog([NSString stringWithFormat: @"No file at %@", firstPath]);
+        appendLog([NSString stringWithFormat: @"No file to delete at %@", firstPath]);
+        gErrorOccurred = TRUE;
 	}
 }
 
