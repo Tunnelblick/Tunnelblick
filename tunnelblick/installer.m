@@ -2184,39 +2184,6 @@ void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
 	}
 }
 
-void setupDaemon(void) {
-
-	// If we are reloading the LaunchDaemon, we make sure it is up-to-date by copying its .plist into /Library/LaunchDaemons
-
-	// Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
-	BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
-	NSDictionary * newPlistContents = tunnelblickdPlistDictionaryToUse();
-	if (  ! newPlistContents  ) {
-		appendLog(@"Unable to get a model for tunnelblickd.plist");
-		errorExit();
-	}
-	if (  hadExistingPlist  ) {
-        securelyDeleteItem(TUNNELBLICKD_PLIST_PATH);
-	}
-	if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
-		if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
-			errorExit();
-		}
-		if (  ! checkSetPermissions(TUNNELBLICKD_PLIST_PATH, PERMS_SECURED_READABLE, YES)  ) {
-			errorExit();
-		}
-		appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
-	} else {
-		appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
-		errorExit();
-	}
-
-	// Load the new launch daemon so it is used immediately, even before the next system start
-	// And save hashes of the tunnelblickd program and it's .plist, so we can detect when they need to be updated
-	loadLaunchDaemonAndSaveHashes(newPlistContents);
-
-}
-
 //**************************************************************************************************************************
 // EXPORT SETUP
 
