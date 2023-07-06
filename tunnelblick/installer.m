@@ -2007,7 +2007,7 @@ void doFolderRename(NSString * sourcePath, NSString * targetPath) {
     }
 }
 
-void doCopyOrMove(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy) {
+void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL moveNotCopy) {
 	
 	if (   ( ! firstPath )
 		|| ( ! secondPath )  ){
@@ -2887,7 +2887,7 @@ int main(int argc, char *argv[]) {
                 )
             && thirdArg  ) {
 
-            doCopyOrMove(secondArg, thirdArg, (operation == INSTALLER_MOVE));
+            copyOrMoveOneTblk(secondArg, thirdArg, (operation == INSTALLER_MOVE));
 
         } else if (   (operation == INSTALLER_INSTALL_PRIVATE_CONFIG)
                    && thirdArg  ) {
@@ -2904,7 +2904,7 @@ int main(int argc, char *argv[]) {
 
             targetPath = [targetPath stringByAppendingPathComponent: [thirdArg lastPathComponent]];
 
-            doCopyOrMove(targetPath, thirdArg, false);
+            copyOrMoveOneTblk(targetPath, thirdArg, false);
 
         } else if (  operation == INSTALLER_INSTALL_SHARED_CONFIG  ) {
 
@@ -2929,7 +2929,7 @@ int main(int argc, char *argv[]) {
 
             targetPath = [targetPath stringByAppendingPathComponent: [secondArg lastPathComponent]];
 
-            doCopyOrMove(targetPath, secondArg, false);
+            copyOrMoveOneTblk(targetPath, secondArg, false);
         }
 
     }
