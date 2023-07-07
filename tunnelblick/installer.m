@@ -139,11 +139,7 @@ static NSString      * gUsername = nil;
 NSString             * gPrivatePath = nil;                 // ~/Library/Application Support/Tunnelblick/Configurations
 static NSString      * gHomeDirectory = nil;
 
-// Privileged and unprivileged UID and GID
-unsigned long gPriv_uid;
-unsigned long gPriv_gid;
-unsigned long gUnpriv_uid;
-unsigned long gUnpriv_gid;
+static NSAutoreleasePool * pool;
 
 static BOOL            gErrorOccurred = FALSE;       // Set if an error occurred
 
@@ -210,14 +206,7 @@ void appendLog(NSString * s) {
 	}
 }
 
-void closeLog(void) {
-    
-	if (  gLogFile != NULL  ) {
-		fclose(gLogFile);
-	}
-}
-
-void errorExit() {
+static void errorExit() {
 
 #ifdef TBDebug
     appendLog([NSString stringWithFormat: @"errorExit(): Stack trace: %@", callStack()]);
@@ -346,19 +335,6 @@ static NSArray * configurationPathsFromPath(NSString * path) {
     return paths;
 }
 
-NSString * firstPartOfPath(NSString * path) {
-
-    NSArray * paths = configurationPathsFromPath(path);
-    NSEnumerator * arrayEnum = [paths objectEnumerator];
-    NSString * configFolder;
-    while (  (configFolder = [arrayEnum nextObject])  ) {
-        if (  [path hasPrefix: [configFolder stringByAppendingString: @"/"]]  ) {
-            return configFolder;
-        }
-    }
-    return nil;
-}
-
 NSString * lastPartOfPath(NSString * path) {
 
     NSArray * paths = configurationPathsFromPath(path);
@@ -456,66 +432,6 @@ static void structureTblkProperly(NSString * path) {
             appendLog([NSString stringWithFormat: @"Unable to move %@ to %@", sourcePaths[i], targetPaths[i]]);
             errorExit();
         }
-    }
-}
-
-void errorExitIfPathIsNotSecure(NSString * targetPath) {
-
-    // Exits if the path or any of its parent folders:
-    //          * does not exist; or
-    //          * is not a regular file or a directory; or
-    //          * has multiple hard links; or
-    //          * is not owned by the root:wheel (or root:admin for the /Applications folder);
-    //          * is writable by group or other.
-
-    NSError * error;
-
-    NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: targetPath error: &error];
-    if (  ! attributes  ) {
-        appendLog([NSString stringWithFormat: @"Path is not secure (error %@ getting attributes) %@", [error description], targetPath]);
-        errorExit();
-    }
-
-    // Everything except the /Applications folder must have owner group wheel
-    unsigned long requiredGroup  = (  [targetPath isEqualToString: @"/Applications"]
-                                    ? ADMIN_GROUP_ID
-                                    : 0);
-
-    // Regular files must have a reference count of 0 (i.e., have no hard links)
-    // Directories must have a reference count of 2 (i.e., no extra hard links)
-    unsigned long requiredRefCount;
-    NSFileAttributeKey fileType = (NSFileAttributeKey)[attributes objectForKey: NSFileType];
-    if (  [fileType isEqual: NSFileTypeRegular]) {
-        requiredRefCount = 1;
-    } else if (  [fileType isEqual: NSFileTypeDirectory]) {
-        requiredRefCount = 2;
-    } else {
-        appendLog([NSString stringWithFormat: @"Path is not secure (not a directory of regular file) %@", targetPath]);
-        errorExit();
-    }
-
-    unsigned long owner  = [[attributes objectForKey: NSFileOwnerAccountID] unsignedLongValue];
-    unsigned long group  = [[attributes objectForKey: NSFileGroupOwnerAccountID] unsignedLongValue];
-    unsigned long refCnt = [[attributes objectForKey: NSFileReferenceCount] unsignedLongValue] ;
-    short permissions    = [[attributes objectForKey: NSFilePosixPermissions] shortValue];
-
-    if (   (owner != 0)
-        || (group != requiredGroup)
-        || ((permissions & (S_IWGRP | S_IWOTH)) != 0)
-        || (refCnt != requiredRefCount)
-        ) {
-        appendLog([NSString stringWithFormat: @"Path is not secure - owned by %lu:%lu; permissions = 0%o; referenceCount = %lu (should be 0:%lu, not writable by group or other, %lu): %@",
-                   owner, group, permissions, refCnt, requiredGroup, requiredRefCount, targetPath]);
-        errorExit();
-    }
-
-    if (  targetPath.length != 1  ) {
-        NSString * parentPath = [targetPath stringByDeletingLastPathComponent];
-        if (  ! parentPath  ) {
-            appendLog([NSString stringWithFormat: @"Path is not secure (could not get path to parent) %@", targetPath]);
-            errorExit();
-        }
-        errorExitIfPathIsNotSecure(parentPath);
     }
 }
 
