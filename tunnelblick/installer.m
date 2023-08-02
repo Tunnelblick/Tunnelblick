@@ -94,7 +94,7 @@
 //
 //      (2) (REMOVED)
 //      (3) (REMOVED)
-//      (4) If INSTALLER_COPY_APP is set, this app is copied to /Applications, discarding all xattrs including the quarantine bit
+//      (4) If INSTALLER_COPY_APP is set, this app is copied to /Applications and the com.apple.quarantine extended attribute is removed from the app and all items within it
 //      (5) If INSTALLER_SECURE_APP is set, secures Tunnelblick.app by setting the ownership and permissions of its components.
 //      (6) If INSTALLER_COPY_APP is set, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
 //      (7) If INSTALLER_SECURE_TBLKS is set, then secures all .tblk packages in the following folders:
@@ -467,6 +467,41 @@ static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * pa
     appendLog([NSString stringWithFormat: @"File does not exist or is not readable: %@", path]);
     errorExit();
 }
+
+BOOL removeQuarantineBitWorker(NSString * path) {
+
+    const char * fullPathC = [path fileSystemRepresentation];
+    const char * quarantineBitNameC = "com.apple.quarantine";
+    int status = removexattr(fullPathC, quarantineBitNameC, XATTR_NOFOLLOW);
+    if (   (status != 0)
+        && (errno != ENOATTR)) {
+        appendLog([NSString stringWithFormat: @"Failed to remove '%s' from %s; errno = %ld; error was '%s'", quarantineBitNameC, fullPathC, (long)errno, strerror(errno)]);
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+BOOL removeQuarantineBit(void) {
+
+    NSString * tbPath = @"/Applications/Tunnelblick.app";
+
+    if (  ! removeQuarantineBitWorker(tbPath)  ) {
+        return FALSE;
+    }
+
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tbPath];
+    NSString * file;
+    while (  (file = [dirE nextObject])  ) {
+        NSString * fullPath = [tbPath stringByAppendingPathComponent: file];
+        if (  ! removeQuarantineBitWorker(fullPath)  ) {
+            return FALSE;
+        }
+    }
+
+    return TRUE;
+}
+
 
 //**************************************************************************************************************************
 // SECURELY* ROUTINES
@@ -1621,9 +1656,19 @@ static void copyTheApp(void) {
 		}
 	}
 
-    securelyCopy(sourcePath, targetPath);
+    if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
+        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
+        errorExit();
+    } else {
+        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+    }
 
-    appendLog([NSString stringWithFormat: @"Securely copied %@ to %@", sourcePath, targetPath]);
+    if (  ! removeQuarantineBit()  ) {
+        appendLog(@"Unable to remove all 'com.apple.quarantine' extended attributes");
+        errorExit();
+    } else {
+        appendLog(@"Removed any 'com.apple.quarantine' extended attributes");
+    }
 }
 
 static void secureTheApp(NSString * appResourcesPath) {
