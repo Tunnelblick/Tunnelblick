@@ -443,7 +443,9 @@ static void errorExitIfAnySymlinkInPath(NSString * path) {
         if (  [gFileMgr fileExistsAtPath: curPath]  ) {
             NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
             if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                if (  ! [curPath hasSuffix: @"Tunnelblick.app/Contents/Resources/openvpn/default"]  ) {
+                if (   ( ! [curPath hasSuffix: @"/Tunnelblick.app/Contents/Resources/openvpn/default"] )
+                    && ( [curPath rangeOfString: @"/Tunnelblick.app/Contents/Frameworks/Sparkle.framework/"].length == 0 )
+                    ) {
                     appendLog([NSString stringWithFormat: @"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path]);
                     errorExit();
                 }
