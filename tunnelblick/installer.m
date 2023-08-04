@@ -1550,7 +1550,7 @@ static void secureOpenvpnBinariesFolder(NSString * enclosingFolder) {
     }
 }
 
-static void doInitialWork(BOOL updateKexts) {
+static void setupLibrary_Application_Support_Tunnelblick(void) {
 	
 	if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
 												PERMS_SECURED_FOLDER, 0, 0)  ) {
@@ -1603,9 +1603,9 @@ static void doInitialWork(BOOL updateKexts) {
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_OPENVPN]  ) {
 		secureOpenvpnBinariesFolder(L_AS_T_OPENVPN);
 	}
+}
 
-    testSecurelyRename(@"/Applications");
-    testSecurelyRename(L_AS_T);
+static void setupUser_Library_Application_Support_Tunnelblick(void) {
 
     if (  gHomeDirectory  ) {
 
@@ -1630,10 +1630,6 @@ static void doInitialWork(BOOL updateKexts) {
                                                     permissions, userUID(), userGID())  ) {
             errorExit();
         }
-    }
-
-    if (  updateKexts  ) {
-        installOrUpdateKexts(NO);
     }
 }
 
@@ -2665,6 +2661,11 @@ int main(int argc, char *argv[]) {
 	
     gFileMgr = [NSFileManager defaultManager];
 	
+    setupLibrary_Application_Support_Tunnelblick();
+
+    testSecurelyRename(@"/Applications");
+    testSecurelyRename(L_AS_T);
+
     if (  argc < 2  ) {
 		openLog(FALSE);
         appendLog(@"1 or more arguments are required");
@@ -2759,17 +2760,16 @@ int main(int argc, char *argv[]) {
     }
 
     //**************************************************************************************************************************
-    // (1) Create directories or repair their ownership/permissions as needed
-    //        and do other things that are done each time installer is run
-	
-	doInitialWork( ! doUninstallKexts );
-	
     //**************************************************************************************************************************
     // (2) (REMOVED)
 	
     //**************************************************************************************************************************
 	// (3) (REMOVED)
 	
+    // (1) Create home directories or repair their ownership/permissions as needed
+
+	setupUser_Library_Application_Support_Tunnelblick();
+
     //**************************************************************************************************************************
     // (4) If INSTALLER_COPY_APP is set:
     //     Then move /Applications/XXXXX.app to the Trash, then copy this app to /Applications/XXXXX.app
@@ -2919,12 +2919,16 @@ int main(int argc, char *argv[]) {
     // (14) If requested, install or uninstall kexts
     if (   doInstallKexts  ) {
         installOrUpdateKexts(YES);
-    }
-    
+    // (12) If requested, uninstall, install kexts, otherwise update them if they are installed
+
     if (   doUninstallKexts  ) {
         uninstallKexts();
+    } else if (   doInstallKexts  ) {
+        installOrUpdateKexts(YES);
+    } else {
+        installOrUpdateKexts(NO);
     }
-
+    
     //**************************************************************************************************************************
     // DONE
 
