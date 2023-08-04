@@ -965,8 +965,8 @@ void installOrUpdateKexts(BOOL forceInstall) {
     }
 }
 
-void doInitialWork(BOOL updateKexts) {
-	
+void setupLibrary_Application_Support_Tunnelblick(void) {
+
 	if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
 												PERMS_SECURED_FOLDER, 0, 0)  ) {
 		errorExit();
@@ -1023,6 +1023,9 @@ void doInitialWork(BOOL updateKexts) {
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_OPENVPN]  ) {
 		secureOpenvpnBinariesFolder(L_AS_T_OPENVPN);
 	}
+}
+
+void setupUser_Library_Application_Support_Tunnelblick(void) {
 
 	// Delete *.mip files (used before using the Mips folder)
     NSDirectoryEnumerator  * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T];
@@ -1084,10 +1087,6 @@ void doInitialWork(BOOL updateKexts) {
 			
 		}
 	}
-    
-    if (  updateKexts  ) {
-        installOrUpdateKexts(NO);
-    }
 }
 
 void copyTheApp(void) {
@@ -2267,6 +2266,8 @@ int main(int argc, char *argv[])
 	
     gFileMgr = [NSFileManager defaultManager];
 	
+    setupLibrary_Application_Support_Tunnelblick();
+
     if (  (argc < 2)  || (argc > 4)  ) {
 		openLog(FALSE);
         appendLog([NSString stringWithFormat: @"Wrong number of arguments -- expected 1 to 3, given %d", argc-1]);
@@ -2364,7 +2365,7 @@ int main(int argc, char *argv[])
     //        and convert old entries in L_AS_T_TBLKS to the new format, with an bundleId_edition folder enclosing a .tblk
     //        and do other things that are done each time installer is run
 	
-	doInitialWork( ! doUninstallKexts );
+    setupUser_Library_Application_Support_Tunnelblick();
 	
     //**************************************************************************************************************************
     // (2) (REMOVED)
@@ -2471,15 +2472,14 @@ int main(int argc, char *argv[])
 	}
 	
     //**************************************************************************************************************************
-    // (14) If requested, install or uninstall kexts
-    if (   doInstallKexts  ) {
-        installOrUpdateKexts(YES);
-    }
-    
+    // (14) If requested, uninstall, install kexts, otherwise update them if they are installed
     if (   doUninstallKexts  ) {
         uninstallKexts();
+    } else if (   doInstallKexts  ) {
+        installOrUpdateKexts(YES);
+    } else {
+        installOrUpdateKexts(NO);
     }
-
     //**************************************************************************************************************************
     // DONE
     
