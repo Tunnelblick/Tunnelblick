@@ -4848,6 +4848,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 		NSString * downLogContents = [self stringWithFileContentsOrNotFound: [L_AS_T stringByAppendingPathComponent: @"DownLog.txt"]];
 
+        NSString * installerLogContents = [self stringWithFileContentsOrNotFound: [L_AS_T stringByAppendingPathComponent: @"tunnelblick-installer-log.txt"]];
+
 		NSString * previousDownLogContents = [self stringWithFileContentsOrNotFound: [L_AS_T stringByAppendingPathComponent: @"DownLog.previous.txt"]];
 
 		NSString * traceLogContents = dumpTraces();
@@ -4866,7 +4868,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              @"Forced preferences:\n\n%@\n\n%@"
                              @"Deployed forced preferences:\n\n%@\n\n%@"
                              @"Tunnelblick Log:\n\n%@\n%@"
-							 @"Down log:\n\n%@\n%@"
+							 @"Installer log:\n\n%@\n%@"
+                             @"Down log:\n\n%@\n%@"
 							 @"Previous down log:\n\n%@\n%@"
 							 @"Network services:\n\n%@\n%@"
                              @"ifconfig output:\n\n%@\n%@"
@@ -4885,6 +4888,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              primaryForcedPreferencesContents, separatorString,
                              deployedForcedPreferencesContents, separatorString,
                              logContents, separatorString,
+                             installerLogContents, separatorString,
 							 downLogContents, separatorString,
 							 previousDownLogContents, separatorString,
 							 networkServicesContents, separatorString,
