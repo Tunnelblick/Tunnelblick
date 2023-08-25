@@ -209,10 +209,12 @@ extern MenuController * gMC;
 		while (  (name = [e nextObject])  ) {
 			[e skipDescendants];
 			if (  ! [name hasPrefix: @"."]  ) {
-				if (   ( getUidFromName(name) != 0 )
-					&& ( getGidFromName(name) != 0 )  ) {
-					[result addObject: name];
-				}
+                if (  ! [name isEqualToString: @"Shared"]  ) {
+                    if (   ( getUidFromName(name) != 0 )
+                        && ( getGidFromName(name) != 0 )  ) {
+                        [result addObject: name];
+                    }
+                }
 			}
 		}
 		
