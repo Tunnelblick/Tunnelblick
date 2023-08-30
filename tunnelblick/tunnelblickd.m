@@ -142,6 +142,23 @@ NSString * setupStdOutOrStdErr(NSString * path,
     return path;
 }
 
+NSString * getContentsThenDeleteFileAtPath(NSString * path,
+                                           aslclient  asl,
+                                           aslmsg     log_msg) {
+
+    NSString * string = [NSString stringWithContentsOfFile: path encoding: NSUTF8StringEncoding error: nil];
+    if (  string == nil  ) {
+        string = [NSString stringWithFormat: @"Could not interpret as UTF-8 %@", path];
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret as UTF-8: %s", [path UTF8String]);
+    }
+
+    if (  0 != unlink([path fileSystemRepresentation])  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [path UTF8String], (long)errno, strerror(errno));
+    }
+
+    return string;
+}
+
 OSStatus runTool(NSString * userName,
 				 NSString * userHome,
 				 NSString * launchPath,
@@ -187,23 +204,8 @@ OSStatus runTool(NSString * userName,
     [outFile closeFile];
     [errFile closeFile];
     
-    NSString * stdOutString = [NSString stringWithContentsOfFile: stdOutPath encoding: NSUTF8StringEncoding error: nil];
-	if (  stdOutString == nil  ) {
-		stdOutString = @"Could not interpret stdout as UTF-8";
-		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret stdout as UTF-8");
-	}
-    NSString * stdErrString = [NSString stringWithContentsOfFile: stdErrPath encoding: NSUTF8StringEncoding error: nil];
-	if (  stdErrString == nil  ) {
-		stdErrString = @"Could not interpret stdout as UTF-8";
-		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret stderr as UTF-8");
-	}
-	
-    if (  0 != unlink([stdOutPath fileSystemRepresentation])  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [stdOutPath UTF8String], (long)errno, strerror(errno));
-    }
-    if (  0 != unlink([stdErrPath fileSystemRepresentation])  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [stdErrPath UTF8String], (long)errno, strerror(errno));
-    }
+    NSString * stdOutString = getContentsThenDeleteFileAtPath(stdOutPath, asl, log_msg);
+    NSString * stdErrString = getContentsThenDeleteFileAtPath(stdErrPath, asl, log_msg);
 
     NSString * message = nil;
     
