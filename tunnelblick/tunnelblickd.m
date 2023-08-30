@@ -73,7 +73,7 @@ static void signal_handler(int signalNumber) {
 	}
 }
 
-NSData * availableDataOrError(NSFileHandle * file,
+static NSData * availableDataOrError(NSFileHandle * file,
                               aslclient      asl,
                               aslmsg         log_msg) {
 	
@@ -104,7 +104,7 @@ NSData * availableDataOrError(NSFileHandle * file,
 	}
 }
 
-NSDictionary * getSafeEnvironment(NSString * userName,
+static NSDictionary * getSafeEnvironment(NSString * userName,
 								  NSString * userHome) {
     
     // Create our own environment to guard against Shell Shock (BashDoor) and similar vulnerabilities in bash
@@ -124,7 +124,7 @@ NSDictionary * getSafeEnvironment(NSString * userName,
     return env;
 }
 
-NSString * setupStdOutOrStdErr(NSString * path,
+static NSString * setupStdOutOrStdErr(NSString * path,
                               aslclient  asl,
                               aslmsg     log_msg) {
 
@@ -142,7 +142,7 @@ NSString * setupStdOutOrStdErr(NSString * path,
     return path;
 }
 
-NSString * getContentsThenDeleteFileAtPath(NSString * path,
+static NSString * getContentsThenDeleteFileAtPath(NSString * path,
                                            aslclient  asl,
                                            aslmsg     log_msg) {
 
@@ -159,7 +159,7 @@ NSString * getContentsThenDeleteFileAtPath(NSString * path,
     return string;
 }
 
-OSStatus runTool(NSString * userName,
+static OSStatus runTool(NSString * userName,
 				 NSString * userHome,
 				 NSString * launchPath,
                  NSArray  * arguments,
@@ -230,7 +230,7 @@ OSStatus runTool(NSString * userName,
     return status;
 }
 
-void updateApproximateLastBootInfo(BOOL	            infoFileExists,
+static void updateApproximateLastBootInfo(BOOL	            infoFileExists,
 								   NSTimeInterval   approximateMostRecentReboot,
 								   NSString       * approximateLastRebootInfoPath,
 								   aslclient        asl,
@@ -257,7 +257,7 @@ void updateApproximateLastBootInfo(BOOL	            infoFileExists,
 	}
 }
 
-BOOL isFirstRunAfterBoot(aslclient  asl,
+static BOOL isFirstRunAfterBoot(aslclient  asl,
 						 aslmsg     log_msg) {
 
 	// Consider this to be the first run after boot if
@@ -307,7 +307,7 @@ BOOL isFirstRunAfterBoot(aslclient  asl,
 	return firstRunAfterBoot;
 }
 
-void restoreSecondary(aslclient  asl,
+static void restoreSecondary(aslclient  asl,
                        aslmsg     log_msg) {
 
     NSString * path = @"/Library/Application Support/Tunnelblick/restore-secondary.txt";
@@ -360,7 +360,7 @@ void restoreSecondary(aslclient  asl,
     }
 }
 
-void restoreIpv6(aslclient  asl,
+static void restoreIpv6(aslclient  asl,
 				 aslmsg     log_msg) {
 
 	NSString * path = @"/Library/Application Support/Tunnelblick/restore-ipv6.txt";
@@ -413,7 +413,7 @@ void restoreIpv6(aslclient  asl,
 	}
 }
 
-void clearExpectedDisconnectFolder(aslclient  asl,
+static void clearExpectedDisconnectFolder(aslclient  asl,
 								   aslmsg     log_msg) {
 
 	NSString * file;
@@ -437,7 +437,7 @@ void clearExpectedDisconnectFolder(aslclient  asl,
 	}
 }
 
-void removeShutdownFlagFile (aslclient  asl,
+static void removeShutdownFlagFile (aslclient  asl,
 							 aslmsg     log_msg) {
 
 	NSError * error;
