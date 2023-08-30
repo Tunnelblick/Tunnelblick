@@ -104,183 +104,6 @@ NSData * availableDataOrError(NSFileHandle * file,
 	}
 }
 
-NSString * newTemporaryDirectoryPathUsingMkdtemp(aslclient  asl,
-												 aslmsg     log_msg) {
-
-	NSString   * tempDirectory = NSTemporaryDirectory();
-	NSString   * tempDirectoryTemplate = [tempDirectory stringByAppendingPathComponent: @"net.tunnelblick.tunnelblickd-XXXXXX"];
-    const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
-    
-    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
-    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
-    if (  tempDirectoryNameCString == NULL  ) {
-		asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not allocate memory for a temporary directory name");
-        exit(-1);
-    }
-    
-    size_t sz = strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
-	if (  sz >= bufferLength  ) {
-		asl_log(asl, log_msg, ASL_LEVEL_EMERG,
-				"Catastrophic error: Could not copy template for temporary directory name; bufferLength = %lu; attempted to copy %lu bytes; template was '%s'",
-				bufferLength, sz, tempDirectoryTemplateCString);
-		free(tempDirectoryNameCString);
-		exit(-1);
-	}
-    
-	char * result = mkdtemp(tempDirectoryNameCString);
-	if (  result == NULL ) {
-		// Log some debugging info
-		NSString * infoMsg = [NSString stringWithFormat: @"mkdtemp() result was %p; error was %d: '%s'\n"
-							  "tempDirectoryTemplateCString = %s\n"
-							  "tempDirectoryNameCString     = %s\n"
-							  "NSTemporaryDirectory()       = %@\n",
-							  result, errno, strerror(errno),
-							  tempDirectoryTemplateCString,
-							  tempDirectoryNameCString,
-							  tempDirectory];
-		NSString * folder = [NSString stringWithFormat: @"%s", tempDirectoryNameCString];
-		while (  folder.length > 1  )   {
-			NSString * exists = (  [[NSFileManager defaultManager] fileExistsAtPath: folder]
-								 ? @"exists"
-								 : @"does not exist");
-			infoMsg = [infoMsg stringByAppendingFormat: @"%@ %@\n", folder, exists];
-			if (  [exists isEqualToString: @"exists"]  ) {
-				break;
-			}
-
-			folder = [folder stringByDeletingLastPathComponent];
-		}
-		asl_log(asl, log_msg, ASL_LEVEL_ERR,
-				"Could not create a new temporary directory using mkdtemp()\n%s", [infoMsg UTF8String]);
-		free(tempDirectoryNameCString);
-
-		return nil;
-	}
-
-	NSString * path = [[NSFileManager defaultManager]
-					   stringWithFileSystemRepresentation: tempDirectoryNameCString
-					   length: strlen(tempDirectoryNameCString)];
-	asl_log(asl, log_msg, ASL_LEVEL_INFO, "Created new temporary directory %s", tempDirectoryNameCString);
-	free(tempDirectoryNameCString);
-	return [path retain];
-}
-
-NSString * newTemporaryDirectoryPathUsingUrlForDirectory(aslclient  asl,
-														 aslmsg     log_msg) {
-
-	NSString * desktopPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Desktop"];
-	if (  ! desktopPath  ) {
-		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not create a new temporary directory using URLForDirectory: NSHomeDirectory() was nil");
-		return nil;
-	}
-
-	NSURL    * desktopURL  = [NSURL fileURLWithPath: desktopPath isDirectory: YES];
-	if (  ! desktopURL  ) {
-		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not create a new temporary directory using URLForDirectory: fileURLWithPath failed for %s", [desktopPath UTF8String]);
-		return nil;
-	}
-
-	NSError * error = nil;
-	NSURL * temporaryDirectoryURL = [[NSFileManager defaultManager] URLForDirectory: NSItemReplacementDirectory
-																		   inDomain: NSUserDomainMask
-																  appropriateForURL: desktopURL
-																			 create: YES
-																			  error: &error];
-	if (  error  ) {
-		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not create a new temporary directory using URLForDirectory: URLForDirectory failed for %s; error was %s",
-				[desktopPath UTF8String], [[error description] UTF8String]);
-		return nil;
-	}
-
-	NSString * path = [temporaryDirectoryURL path];
-	asl_log(asl, log_msg, ASL_LEVEL_INFO, "Created new temporary directory at %s", [path UTF8String]);
-
-	return [path retain];
-}
-
-NSString * newTemporaryDirectoryPathUsingFixedPath(aslclient  asl,
-												   aslmsg     log_msg) {
-
-	NSString * path = @"/Library/Application Support/tunnelblickd";
-	if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
-		asl_log(asl, log_msg, ASL_LEVEL_INFO,
-				"Using existing temporary directory at %s", [path UTF8String]);
-	} else {
-		NSError * err;
-		if (  [[NSFileManager defaultManager] createDirectoryAtPath: path
-										withIntermediateDirectories: NO
-														 attributes: nil
-															  error: &err]  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_INFO,
-					"Created new temporary directory at %s", [path UTF8String]);
-		} else {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR,
-					"Could not create a new temporary directory using a fixed path at %s; error was %s",
-					[path UTF8String], [[err description] UTF8String]);
-			return nil;
-		}
-	}
-
-	return [path retain];
-}
-
-NSString * removeSymlinkFromPath(NSString * path,
-								 aslclient  asl,
-								 aslmsg     log_msg) {
-
-	// Change from /var to /private/var to avoid using a symlink and thinking there is a symlink attack (normally, /var is a symlink to /private/var)
-	if (  [path hasPrefix: @"/var/"]  ) {
-		struct stat sb;
-		if (  0 == lstat("/var", &sb)  ) {
-			if (  (sb.st_mode & S_IFLNK) == S_IFLNK  ) {
-				char * real_var_path = realpath("/var", NULL);
-				if (  real_var_path == NULL  ) {
-					asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: realpath(\"/var\") returned NULL; error was %d: '%s'", errno, strerror(errno));
-					exit(-1);
-				}
-				if (  0 != strcmp(real_var_path, "/private/var")  ) {
-					asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: /var is a symlink but not to /private/var; it links to %s", real_var_path);
-					free(real_var_path);
-					exit(-1);
-				}
-
-				free(real_var_path);
-				NSString * afterVar = [path substringFromIndex: 4];
-				path = [@"/private/var" stringByAppendingPathComponent: afterVar];
-			}
-		} else {
-			asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: lstat(\"/var\") failed; error was %d: '%s'", errno, strerror(errno));
-			exit(-1);
-		}
-	}
-
-	return path;
-}
-
-NSString * newTemporaryDirectoryPath(aslclient asl,
-									 aslmsg    log_msg) {
-
-	NSString * path;
-
-    if (  ( path = [newTemporaryDirectoryPathUsingFixedPath(asl, log_msg) autorelease] )  ) {
-        NSString * result = removeSymlinkFromPath(path, asl, log_msg);
-        return [result retain];
-    }
-
-	if (  ( path = [newTemporaryDirectoryPathUsingMkdtemp(asl, log_msg) autorelease] )  ) {
-		NSString * result = removeSymlinkFromPath(path, asl, log_msg);
-		return [result retain];
-	}
-
-	if (  ( path = [newTemporaryDirectoryPathUsingUrlForDirectory(asl, log_msg) autorelease] )  ) {
-		NSString * result = removeSymlinkFromPath(path, asl, log_msg);
-		return [result retain];
-	}
-
-	asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not create temporary directory");
-	exit(-1);
-}
-
 NSDictionary * getSafeEnvironment(NSString * userName,
 								  NSString * userHome) {
     
@@ -301,6 +124,24 @@ NSDictionary * getSafeEnvironment(NSString * userName,
     return env;
 }
 
+NSString * setupStdOutOrStdErr(NSString * path,
+                              aslclient  asl,
+                              aslmsg     log_msg) {
+
+    if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+        if (  0 != unlink([path fileSystemRepresentation])  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [path UTF8String], (long)errno, strerror(errno));
+        }
+    }
+
+    if (  ! [[NSFileManager defaultManager] createFileAtPath: path contents: [NSData data] attributes: nil]  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not create %s", [path UTF8String]);
+        exit(EXIT_FAILURE);
+    }
+
+    return path;
+}
+
 OSStatus runTool(NSString * userName,
 				 NSString * userHome,
 				 NSString * launchPath,
@@ -314,20 +155,9 @@ OSStatus runTool(NSString * userName,
 	
     // Send stdout and stderr to files in a temporary directory
     
-    NSString * tempDir    = [newTemporaryDirectoryPath(asl, log_msg) autorelease];
-    
-    NSString * stdOutPath = [tempDir stringByAppendingPathComponent: @"stdout.txt"];
-    NSString * stdErrPath = [tempDir stringByAppendingPathComponent: @"stderr.txt"];
+    NSString * stdOutPath = setupStdOutOrStdErr(TUNNELBLICKD_STDOUT_PATH, asl, log_msg);
+    NSString * stdErrPath = setupStdOutOrStdErr(TUNNELBLICKD_STDERR_PATH, asl, log_msg);
 
-    if (  ! [[NSFileManager defaultManager] createFileAtPath: stdOutPath contents: [NSData data] attributes: nil]  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not create %s", [stdOutPath UTF8String]);
-        exit(EXIT_FAILURE);
-    }
-    if (  ! [[NSFileManager defaultManager] createFileAtPath: stdErrPath contents: [NSData data] attributes: nil]  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not create %s", [stdErrPath UTF8String]);
-        exit(EXIT_FAILURE);
-    }
-    
     NSFileHandle * outFile = [NSFileHandle fileHandleForWritingAtPath: stdOutPath];
     if (  ! outFile  ) {
         asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get file handle for %s", [stdOutPath UTF8String]);
@@ -374,10 +204,6 @@ OSStatus runTool(NSString * userName,
     if (  0 != unlink([stdErrPath fileSystemRepresentation])  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [stdErrPath UTF8String], (long)errno, strerror(errno));
     }
-    if (  0 != rmdir([tempDir fileSystemRepresentation])  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not rmdir %s; errno = %ld; error was '%s'", [tempDir UTF8String], (long)errno, strerror(errno));
-    }
-	asl_log(asl, log_msg, ASL_LEVEL_INFO, "Removed temporary directory %s", [tempDir UTF8String]);
 
     NSString * message = nil;
     

@@ -149,6 +149,9 @@
 // NOTE: tunnelblick-uninstaller.sh refers to the .plist path without using this header file
 #define TUNNELBLICKD_PLIST_PATH @"/Library/LaunchDaemons/net.tunnelblick.tunnelblick.tunnelblickd.plist"
 
+#define TUNNELBLICKD_STDOUT_PATH @"/Library/Application Support/Tunnelblick/tunnelblickd-stdout.txt"
+#define TUNNELBLICKD_STDERR_PATH @"/Library/Application Support/Tunnelblick/tunnelblickd-stderr.txt"
+
 #define TOOL_PATH_FOR_ARCH			@"/usr/bin/arch"
 #define TOOL_PATH_FOR_BASH			@"/bin/bash"
 #define TOOL_PATH_FOR_CODESIGN		@"/usr/bin/codesign"
