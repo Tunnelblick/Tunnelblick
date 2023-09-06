@@ -73,37 +73,6 @@ static void signal_handler(int signalNumber) {
 	}
 }
 
-static NSData * availableDataOrError(NSFileHandle * file,
-                              aslclient      asl,
-                              aslmsg         log_msg) {
-	
-	// This routine is a modified version of a method from http://dev.notoptimal.net/search/label/NSTask
-	// Slightly modified version of Chris Suter's category function used as a private function
-    
-    NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
-    
-	for (;;) {
-		
-		NSDate * now = [NSDate date];
-        if (  [now compare: timeout] == NSOrderedDescending  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR, "availableDataOrError: Taking a long time checking for data from a pipe");
-            timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
-        }
-		
-		@try {
-			return [file availableData];
-		} @catch (NSException *e) {
-			if ([[e name] isEqualToString:NSFileHandleOperationException]) {
-				if ([[e reason] isEqualToString: @"*** -[NSConcreteFileHandle availableData]: Interrupted system call"]) {
-					continue;
-				}
-				return nil;
-			}
-			@throw;
-		}
-	}
-}
-
 static NSDictionary * getSafeEnvironment(NSString * userName,
 								  NSString * userHome) {
     
