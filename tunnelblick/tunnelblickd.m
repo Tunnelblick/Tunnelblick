@@ -93,9 +93,11 @@ static NSDictionary * getSafeEnvironment(NSString * userName,
     return env;
 }
 
-static NSString * setupStdOutOrStdErr(NSString * path,
-                              aslclient  asl,
-                              aslmsg     log_msg) {
+static NSFileHandle *  getStdOutOrStdErrFileHandle(NSString * path,
+                                                   aslclient  asl,
+                                                   aslmsg     log_msg) {
+
+    NSFileHandle * outFile = nil;
 
     if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
         if (  0 != unlink([path fileSystemRepresentation])  ) {
@@ -104,11 +106,15 @@ static NSString * setupStdOutOrStdErr(NSString * path,
     }
 
     if (  ! [[NSFileManager defaultManager] createFileAtPath: path contents: [NSData data] attributes: nil]  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not create %s", [path UTF8String]);
-        exit(EXIT_FAILURE);
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not create %s", [path UTF8String]);
+    } else {
+        outFile = [NSFileHandle fileHandleForWritingAtPath: path];
+        if (  ! outFile  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not get file handle for %s", [path UTF8String]);
+        }
     }
 
-    return path;
+    return outFile;
 }
 
 static NSString * getContentsThenDeleteFileAtPath(NSString * path,
@@ -139,22 +145,9 @@ static OSStatus runTool(NSString * userName,
 	
 	// Runs a command or script, returning the execution status of the command, stdout, and stderr
 	
-    // Send stdout and stderr to files in a temporary directory
-    
-    NSString * stdOutPath = setupStdOutOrStdErr(TUNNELBLICKD_STDOUT_PATH, asl, log_msg);
-    NSString * stdErrPath = setupStdOutOrStdErr(TUNNELBLICKD_STDERR_PATH, asl, log_msg);
+    NSFileHandle * outFile = getStdOutOrStdErrFileHandle(TUNNELBLICKD_STDOUT_PATH, asl, log_msg);
+    NSFileHandle * errFile = getStdOutOrStdErrFileHandle(TUNNELBLICKD_STDERR_PATH, asl, log_msg);
 
-    NSFileHandle * outFile = [NSFileHandle fileHandleForWritingAtPath: stdOutPath];
-    if (  ! outFile  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get file handle for %s", [stdOutPath UTF8String]);
-        exit(EXIT_FAILURE);
-    }
-    NSFileHandle * errFile = [NSFileHandle fileHandleForWritingAtPath: stdErrPath];
-    if (  ! errFile  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get file handle for %s", [stdErrPath UTF8String]);
-        exit(EXIT_FAILURE);
-    }
-    
     NSTask * task = [[[NSTask alloc] init] autorelease];
     
     [task setLaunchPath:           launchPath];
@@ -173,8 +166,8 @@ static OSStatus runTool(NSString * userName,
     [outFile closeFile];
     [errFile closeFile];
     
-    NSString * stdOutString = getContentsThenDeleteFileAtPath(stdOutPath, asl, log_msg);
-    NSString * stdErrString = getContentsThenDeleteFileAtPath(stdErrPath, asl, log_msg);
+    NSString * stdOutString = getContentsThenDeleteFileAtPath(TUNNELBLICKD_STDOUT_PATH, asl, log_msg);
+    NSString * stdErrString = getContentsThenDeleteFileAtPath(TUNNELBLICKD_STDERR_PATH, asl, log_msg);
 
     NSString * message = nil;
     
