@@ -93,6 +93,68 @@ static NSDictionary * getSafeEnvironment(NSString * userName,
     return env;
 }
 
+static void becomeTheClient(uid_t      client_euid,
+                            gid_t      client_egid,
+                            aslclient  asl,
+                            aslmsg     log_msg) {
+
+    // Pretend we are the client while running tunnelblick-helper
+    if (  getegid() == client_egid  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: setegid(%lu) unnecessary: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
+                (unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+        ;
+    } else if (  setegid(client_egid)  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeTheClient: setegid(%lu) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
+                (unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+//        } else {
+//            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: setegid(%lu) succeeded: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
+//                    (unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+    }
+    if (  geteuid() == client_euid  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: seteuid(%lu) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
+                (unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+        ;
+    } else if (  seteuid(client_euid)  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeTheClient: seteuid(%lu) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
+                (unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+//        } else {
+//            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: seteuid(%lu) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
+//                    (unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+    }
+
+//    asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: at exit: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
+//            (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+}
+
+static void becomeRoot(aslclient  asl,
+                       aslmsg     log_msg) {
+
+    if (   geteuid() == 0  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeRoot: seteuid(0) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
+                (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+    } else if (  seteuid(0)  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeRoot: seteuid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
+                (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+//    } else {
+//            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeRoot: seteuid(0) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
+//                    (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+        ;
+    }
+    if (   getegid() == 0  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeRoot: setegid(0) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
+                (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+    } else if (  setegid(0)  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeRoot: setegid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
+                (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+//        } else {
+//            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeRoot: setegid(0) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
+//                    (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+    }
+
+//    asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeRoot: at exit: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
+//            (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+}
+
 static NSFileHandle *  getStdOutOrStdErrFileHandle(NSString * path,
                                                    aslclient  asl,
                                                    aslmsg     log_msg) {
@@ -134,15 +196,17 @@ static NSString * getContentsThenDeleteFileAtPath(NSString * path,
     return string;
 }
 
-static OSStatus runTool(NSString * userName,
-				 NSString * userHome,
-				 NSString * launchPath,
-                 NSArray  * arguments,
-                 NSString * * stdOutStringPtr,
-                 NSString * * stdErrStringPtr,
-                 aslclient  asl,
-                 aslmsg     log_msg) {
-	
+static OSStatus runTool(uid_t      client_euid,
+                        gid_t      client_egid,
+                        NSString * userName,
+                        NSString * userHome,
+                        NSString * launchPath,
+                        NSArray  * arguments,
+                        NSString * * stdOutStringPtr,
+                        NSString * * stdErrStringPtr,
+                        aslclient  asl,
+                        aslmsg     log_msg) {
+
 	// Runs a command or script, returning the execution status of the command, stdout, and stderr
 	
     NSFileHandle * outFile = getStdOutOrStdErrFileHandle(TUNNELBLICKD_STDOUT_PATH, asl, log_msg);
@@ -156,13 +220,22 @@ static OSStatus runTool(NSString * userName,
     [task setEnvironment:          getSafeEnvironment(userName, userHome)];
     [task setStandardOutput:       outFile];
     [task setStandardError:        errFile];
-    
-    [task launch];
-    
-    [task waitUntilExit];
-    
-    OSStatus status = [task terminationStatus];
-    
+
+    if (   (client_euid != 0)
+        || (client_egid != 0)  ) {
+        becomeTheClient(client_euid, client_egid, asl, log_msg);
+    }
+        [task launch];
+
+        [task waitUntilExit];
+
+        OSStatus status = [task terminationStatus];
+
+    if (   (client_euid != 0)
+        || (client_egid != 0)  ) {
+        becomeRoot(asl, log_msg);
+    }
+
     [outFile closeFile];
     [errFile closeFile];
     
@@ -305,7 +378,7 @@ static void restoreSecondary(aslclient  asl,
             if (  [service length] != 0  ) {
                 processed_a_service = TRUE;
                 NSArray * arguments = @[@"-setnetworkserviceenabled", service, @"on"];
-                OSStatus status = runTool(@"root", @"wheel", TOOL_PATH_FOR_NETWORKSETUP, arguments, nil, nil, asl, log_msg);
+                OSStatus status = runTool(0, 0, @"root", @"wheel", TOOL_PATH_FOR_NETWORKSETUP, arguments, nil, nil, asl, log_msg);
                 if (  status == 0  ) {
                     asl_log(asl, log_msg, ASL_LEVEL_INFO, "Re-enabled %s", [service UTF8String]);
                 } else {
@@ -358,7 +431,7 @@ static void restoreIpv6(aslclient  asl,
 			if (  [service length] != 0  ) {
 				processed_a_service = TRUE;
 				NSArray * arguments = [NSArray arrayWithObjects: @"-setv6automatic", service, nil];
-				OSStatus status = runTool(@"root", @"wheel", TOOL_PATH_FOR_NETWORKSETUP, arguments, nil, nil, asl, log_msg);
+				OSStatus status = runTool(0, 0, @"root", @"wheel", TOOL_PATH_FOR_NETWORKSETUP, arguments, nil, nil, asl, log_msg);
 				if (  status == 0  ) {
 					asl_log(asl, log_msg, ASL_LEVEL_INFO, "Restored IPv6 to 'Automatic' for %s", [service UTF8String]);
 				} else {
@@ -712,63 +785,9 @@ int main(void) {
 		
 		NSMutableString * commandToDisplay = [NSMutableString stringWithString: command];
 		[commandToDisplay replaceOccurrencesOfString: @"\t" withString: @" " options: 0 range: NSMakeRange(0, [commandToDisplay length])];
-		
-		// Pretend we are the client while running tunnelblick-helper
-		if (  getegid() == client_egid  ) {
-//			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Before running tunnelblick-helper, setegid(%lu) unnecessary: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//					(unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			;
-		} else if (  setegid(client_egid)  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Before running tunnelblick-helper, setegid(%lu) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
-					(unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-//		} else {
-//			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Before running tunnelblick-helper, setegid(%lu) succeeded: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//					(unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-		}
-		if (  geteuid() == client_euid  ) {
-//			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Before running tunnelblick-helper, seteuid(%lu) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//					(unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			;
-		} else if (  seteuid(client_euid)  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Before running tunnelblick-helper, seteuid(%lu) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
-					(unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-//		} else {
-//			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Before running tunnelblick-helper, seteuid(%lu) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//					(unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-		}
-		
-//		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Launching tunnelblick-helper as uid 0, euid = %lu, gid = 0, and egid = %lu; user '%s' with home folder '%s'",
-//				(unsigned long)client_euid, (unsigned long)client_egid, [userName UTF8String], [userHome UTF8String]);
-		
-		OSStatus status = runTool(userName, userHome, tunnelblickHelperPath, arguments, &stdoutString, &stderrString, asl, log_msg);
-		
-		// Resume being root:wheel if needed
-		if (   geteuid() == 0  ) {
-//			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "After running tunnelblick-helper, seteuid(0) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//					(unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			;
-		} else if (  seteuid(0)  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR, "After running tunnelblick-helper with command '%s', seteuid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
-					[commandToDisplay UTF8String], (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			goto done;
-		} else {
-//			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "After running tunnelblick-helper, seteuid(0) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//					(unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			;
-		}
-		if (   getegid() == 0  ) {
-//			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "After running tunnelblick-helper, setegid(0) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//					(unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			;
-		} else if (  setegid(0)  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR, "After running tunnelblick-helper with command '%s', setegid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
-					[commandToDisplay UTF8String], (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			goto done;
-//		} else {
-//			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "After running tunnelblick-helper, setegid(0) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//					(unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-		}
-        
+
+        OSStatus status = runTool(client_euid, client_egid, userName, userHome, tunnelblickHelperPath, arguments, &stdoutString, &stderrString, asl, log_msg);
+
         if (  status != 0  ) {
             // Log the status from executing the command
             asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Status = %ld from tunnelblick-helper command '%s'", (long) status, [commandToDisplay UTF8String]);
