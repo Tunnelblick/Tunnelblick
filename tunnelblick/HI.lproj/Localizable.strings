@@ -75,7 +75,13 @@
 "Keep Both" = "दोनों को रखें";
 
 /* Button */
+"Latest (%@)" = "नवीनतम (%@)";
+
+/* Button */
 "Manually" = "अपने हाथ से";
+
+/* Button */
+"Monochrome icon" = "एकरंगा चित्र";
 
 /* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "More Info [%@]" = "और जानकारी [%@]";
@@ -102,16 +108,25 @@
 "Replace" = "बदलें";
 
 /* Button */
+"Restart connection" = "संपर्क पुनः आरंभ करें";
+
+/* Button */
 "Restore" = "पुनर्स्थापित करें";
 
 /* Button */
 "Retry" = "पुन: प्रयास करें";
 
 /* Button */
+"Revert" = "पहले जैसा करें";
+
+/* Button */
 "Skip" = "छोड़ें";
 
 /* Button */
 "Speak" = "बोलें";
+
+/* Button */
+"Standard icon" = "सामान्य चित्र";
 
 /* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
 "Stop" = "रुकें";
@@ -130,6 +145,9 @@
 
 /* Button */
 "When computer starts" = "जब संगणक चालू होता है";
+
+/* Menu item */
+"Add a VPN..." = "एक वीपीएन (VPN) जोड़ें";
 
 /* Menu Item */
 "Rename Configuration" = "व्यवस्था का नाम बदलें";
@@ -154,6 +172,12 @@
 
 /* Checkbox name */
 "Do not show this type of warning again" = "फिर से इस तरह की चेतावनी न दिखाएं";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "सुरक्षा कोड";
+
+/* Connection status */
+"CONNECTED" = "जुडा हुआ है"; // Please translate "Connected"
 
 /* Window text */
 "Password:" = "पासवर्ड:";

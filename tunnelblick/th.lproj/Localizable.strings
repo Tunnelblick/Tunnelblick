@@ -590,7 +590,7 @@
 "WAIT" = "กำลังรอการตอบกลับของเซิร์ฟเวอร์"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
-"Sample Tunnelblick VPN Configuration" = "ตัวอย่าง คอนฟิกเกอเรชันของ Tunnelblick VPN";
+"Sample Tunnelblick VPN Configuration" = "ตัวอย่างคอนฟิกเกอเรชัน VPN ของ Tunnelblick";
 
 /* System profile item */
 "Configurations" = "คอนฟิกเกอเรชัน";
@@ -1655,7 +1655,454 @@
 "The file %@ is empty" = "ไฟล์ %@ ว่างเปล่า";
 
 /* Window text */
+"The file %@ is missing" = "ไม่พบไฟล์ %@";
+
+/* Window text */
+"The installation or repair took too long or failed. Try again?" = "การติดตั้งหรือซ่อมแซมใช้เวลานานเกินไปหรืออาจล้มเหลว ลองใหม่อีกครั้ง?";
+
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "การติดตั้ง/ลบ/กู้คืน/ซ่อมแซม Tunnelblick ล้มเหลว ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"The passphrase was not accepted." = "ไม่ยอมรับรหัสผ่าน";
+
+/* Window text */
+"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "คอนฟิกเกอเรชันส่วนตัวไม่เคยถูกเก็บรักษาไว้ ดังนั้นคุณไม่สามารถเปลี่ยนกลับไปใช้สำเนาที่เก็บรักษาไว้ได้";
+
+/* Window text */
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "โฟลเดอร์คอนฟิกเกอเรชันตัวอย่างได้ถูกสร้างไว้บนเดสก์ท็อปของคุณ และไฟล์คอนฟิกเกอเรชัน OpenVPN ถูกเปิดด้วย TextEdit แล้วเพื่อให้คุณสามารถแก้ไขสำหรับระบบ VPN ของคุณ\n\nเมื่อคุณได้แก้ไฟล์คอนฟิกเกอเรชัน OpenVPN และบันทึกการแก้ไข้เรียบร้อยแล้ว โปรด\n\n1. ย้ายหรือคัดลอกกุญแจใดๆหรือไฟล์ใบรับรองที่เกี่ยวข้องกับคอนฟิกเกอเรชันไปใส่ในโฟลเดอร์ 'ตัวอย่างคอนฟิกเกอเรชัน VPN ของ Tunnelblick' บนเดสก์ท็อปของคุณ\n\n(โฟลเดอร์นี้ได้ถูกเปิดด้วย Finder แล้วเพื่อให้คุณลากไฟล์ไปใส่มัน)\n\n2. เปลี่ยนชื่อของไฟล์คอนฟิกเกอเรชันไปเป็นชื่อที่คุณต้องการ (ห้ามแก้นามสกุลของไฟล์) ชื่อนี้จะเป็นชื่อที่ Tunnelblick ใช้เรียกคอนฟิกเกอเรชัน\n\n3. เพื่อจะติดตั้งคอนฟิกเกอเรชัน ให้ลากไฟล์คอนฟิกเกอเรชันไปปล่อยบนไอคอน Tunnelblick ในแถบเมนูหรือบนรายการคอนฟิกเกอเรชันในแท็ป 'คอนฟิกเกอเรชัน' ในหน้าต่าง 'รายละเอียด VPN'";
+
+/* Window text */
+"The username and password were not accepted by the remote VPN server." = "ชื่อผู้ใช้และรหัสผ่านไม่ได้รับการยอมรับจากเซิร์ฟเวอร์ VPN ปลายทาง";
+
+/* Window text */
+"There are no OpenVPN configurations to install." = "ไม่มีคอนฟิกเกอเรชัน OpenVPN ที่จะติดตั้ง";
+
+/* Window text */
+"There are no OpenVPN processes running" = "ไม่มีโพรเซสของ OpenVPN ทำงานอยู่";
+
+/* Window text */
+"There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "ไม่มีคอนฟิกเกอเรชัน VPN ติดตั้งอยู่\n\nTunnelblick ต้องการคอนฟิกเกอเรชันติดตั้งอยู่อย่างน้อย 1 ชุดเพื่อที่จะเชื่อมต่อ VPN ซึ่งคอนฟิกเกอเรชันมักถูกติดตั้งมาจากไฟล์ที่ได้มาจากคุณหรือผู้จัดการเครือข่ายของคุณหรือผู้ให้บริการ VPN โดยไฟล์เหล่านี้ต้องได้ถูกติดตั้งถึงจะใช้งานได้\n\nไฟล์คอนฟิกเกอเรชันมีนามสกุลเป็น .tblk, .ovpn หรือ .conf\n\n(อาจมีไฟล์อื่นๆที่เกี่ยวข้องกับคอนฟิกเกอเรชันซึ่งมีนามสกุลอื่น ให้มองข้ามเรื่องนี้ไปก่อน)\n\nคุณมีไฟล์คอนฟิกเกอเรชันหรือไม่?\n";
+
+/* Window text */
+"There is not an OpenVPN configuration file in '%@'" = "ไม่มีไฟล์คอนฟิกเกอเรชัน OpenVPN ใน '%@'";
+
+/* Window text */
+"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "มีปัญหาในการลบชุดคอนฟิกเกอเรชันหรือโฟลเดอร์ ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "มีปัญหาในการดึงรายการเซิร์ฟเวอร์​ DNS สาธารณะที่เป็นที่รู้จัก";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "มีปัญหาในการดึงรายการเซิร์ฟเวอร์​ DNS";
+
+/* Window text */
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "มีปัญหากับคอนฟิกเกอเรชัน OpenVPN ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"There was a problem with\n\n%@:\n\n%@" = "มีปัญหากับ\n\n%1$@:\n\n%2$@";
+
+/* Window text */
+"There was a problem:\n\n%@" = "มีปัญหา:\n\n%@";
+
+/* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "มีปัญหาในการนำเข้าการตั้งค่าของ Tunnelblick\n\nดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Tunnelblick รุ่น 'Deployed' นี้ไม่สามารถเปิดหรือติดตั้งได้เนื่องจากถูกรีเแบรนด์แล้ว หรือ updateFeedURL/SUFeedURL หายไปหรือมี 'tunnelblick.net' อยู่ หรือ CFBundleIdentifier หายไปหรือไม่มี 'net.tunnelblick' อยู่\n\n";
+
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Tunnelblick รุ่น 'Deployed' นี้ไม่สามารถเปิดหรือติดตั้งได้เนื่องจากไม่มีไฟล์​ Info.plist\n\n";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "VPN นี้ไม่สามารถเชื่อมต่อได้\n\nไฟล์คอนฟิกเกอเรชัน OpenVPN สำหรับ '%1$@' มีตัวเลือก OpenVPN เหล่านี้อยู่:\n\n%2$@\nไม่มี OpenVPN รุ่นใดๆ ใน Tunnelblick รุ่นนี้ ที่มีตัวเลือกเหล่านี้\n\nคุณควรอัพเดทคอนฟิกเกอเรชันเพื่อให้สามารถใช้กับ OpenVPN รุ่นใหม่ๆได้";
+
+/* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "VPN นี้ต้องการให้คุณตอบคำถามคำถามหนึ่งแต่ไม่ได้ให้คำถามมา";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"This VPN works now, but may not work in a future version of Tunnelblick.\n\nThe OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n%@\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "VPN นี้ทำงานได้อยู่ตอนนี้ แต่อาจจะทำงานไม่ได้กับ Tunnelblick ในรุ่นต่อๆไปในอนาคต\n\nควรอัพเดทไฟล์คอนฟิกเกอเรชัน OpenVPN สำหรับ '%1$@' เพื่อให้สามารถทำงานได้กับ OpenVPN รุ่นใหม่ๆ \nไฟล์คอนฟิกเกอเรชันนี้มีตัวเลือก OpenVPN เหล่านี้:\n\n%2$@\nTunnelblick จะใช้ OpenVPN รุ่น %3$@ เพื่อจะเชื่อมต่อด้วยคอนฟิกเกอเรชันชุดนี้\n\nแต่คุณจะไม่สามารถเชื่อมต่อ VPN นี้ได้ด้วย Tunnelblick รุ่นต่อๆไปในอนาคตที่ไม่มี OpenVPN รุ่นที่รองรับตัวเลือกเหล่านี้";
+
+/* Window text */
+"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "หมายเลขไอพีสาธารณะของคอมพิวเตอร์เครื่องนี้ยังคงเป็น %2$@ ไม่ได้เปลี่ยนไปหลังจากเชื่อมต่อไปที่ %1$@\n\nนี่อาจหมายความว่า VPN ของคุณไม่ได้ถูกปรับแต่งอย่างถูกต้อง\n\n";
+
+/* Window text */
+"This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "สำเนานี้ของ Tunnelblick ได้ถูกดัดแปลงจากเดิม (ลายมือชื่อดิจิทัลไม่ถูกต้อง)\n\nโปรดตรวจสอบกับผู้ให้สำเนาของ Tunnelblick นี้ ก่อนจะใช้\n\n";
+
+/* Window text */
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "สำเนานี้ของ Tunnelblick ไม่ได้ถูกลงลายมือชื่อดิจิทัล\n\nไม่มีทางตรวจสอบได้ว่าสำเนานี้ถูกดัดแปลงจากเดิมหรือไม่\n\n โปรดตรวจสอบกับผู้ให้สำเนาของ Tunnelblick นี้ ก่อนจะใช้\n\n";
+
+/* Window text */
+"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Tunnelblick รุ่นนี้ไม่สามารถเปิดหรือติดตั้งได้เนื่องจากมี update URL ที่ไม่ถูกต้อง\n\n";
+
+/* Window text */
+"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Tunnelblick รุ่นนี้ไม่สามารถเปิดหรือติดตั้งได้เนื่องจากไม่ใช่รุ่น 'Deployed' และ Tunnelblick รุ่น 'Deployed' อย่างน้อย 1 รุ่นเคยถูกติดตั้งมาก่อนแล้ว\n\n";
+
+/* Window text */
+"Too many configuration files in '%@'" = "มีไฟล์คอนฟิกเกอเรชันมากเกินไปใน '%@'";
+
+/* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
+"Too many copies already exist." = "มีหลายสำเนามากเกินไปแล้ว";
+
+/* Window text */
+"Translation by" = "แปลโดย";
+
+/* Window text */
+"Trying to quit all OpenVPN processes..." = "กำลังพยายามที่จะหยุดการทำงานทุกโพรเซสของ OpenVPN…";
+
+/* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick โหมดสำหรับผู้ดูแล\n\n อนุญาตชั่วคราวให้เปลี่ยนแปลงสิ่งที่โดยปกติต้องได้รับการอนุญาตจากผู้ดูแลคอมพิวเตอร์\n\n วาระจะหมดอายุใน 5 นาทีหรือเมื่อปิดหน้าต่าง 'รายละเอียด VPN'";
+
+/* Window text */
+"Tunnelblick Internet Use:" = "การใช้อินเทอร์เน็ตของ Tunnelblick:";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check for updates when it is launched and periodically while it is running.\n\n" = "Tunnelblick สามารถเข้าถึง %@ เพื่อตรวจสอบการอัพเดท เมื่อตอนเริ่มเปิดขึ้นมาหรือเป็นช่วงๆขณะกำลังทำงานอยู่\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick สามารถเข้าถึง %@ เพื่อตรวจสอนการเปลี่ยนแปลงหมายเลขไอพีสาธารณะของคอมพิวเตอร์ของคุณทุกครั้งที่คุณเชื่อมต่อ VPN\n\n";
+
+/* Window text */
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "ไม่สามารถตั้ง Tunnelblick ให้เริ่มเปิดขึ้นทำงานโดยอัตโนมัติหลังจากคุณเข้าระบบ\n\nดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "ไม่สามารถเริ่มเปิด Tunnelblick ขึ้นมาทำงานได้เนื่องจากปัญหาเกี่ยวกับคอนฟิกเกอเรชัน โปรดตรวจสอบรายละเอียดที่ Console Log";
+
+/* Window text */
+"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick ไม่สามารถลบคอนฟิกเกอเรชัน '%@' ได้อย่างสมบูรณ์ ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick ไม่สามารถคัดลอกโฟลเดอร์ '%@' ได้ ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick ไม่สามารถคัดลอกคอนฟิกเกอเรชัน '%@' ได้ ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"Tunnelblick could not create the empty configuration folder" = "Tunnelblick ไม่สามารถสร้างโฟลเดอร์คอนฟิกเกอเรชันเปล่าได้";
+
+/* Window text */
+"Tunnelblick could not create the sample configuration" = "Tunnelblick ไม่สามารถสร้างโฟลเดอร์คอนฟิกเกอเรชันตัวอย่างได้";
+
+/* Window text */
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick ไม่สามารถแสดงหน้าต่างได้\n\nCFUserNotificationCreate() คืนค่าความผิดพลาด = %1$ld; การแจ้งเตือน = %2$@";
+
+/* Window text */
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick ไม่สามารถดึงข้อมูลหมายเลขไอพีก่อนที่การเชื่อมต่อไปยัง %@ จะเกิดขึ้น\n\n";
+
+/* Window text */
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick ไม่พบตัวเลือก 'tun' หรือ 'tap' ในไฟล์คอนฟิกเกอเรชัน OpenVPN";
+
+/* Window text */
+"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick ไม่พบพอร์ตที่ว่างเพื่อจะใช้ติดต่อกับ OpenVPN";
+
+/* Window text */
+"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick ไม่พบไฟล์คอนฟิกเกอเรชันหรือไม่สามารถชำระไฟล์คอนฟิกเกอเรชันที่เจอได้ ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"Tunnelblick could not load a kext" = "Tunnelblick ไม่สามารถโหลด kext ได้";
+
+/* Window text */
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick ไม่สามารถย้ายคอนฟิกเกอเรชัน '%@' ได้ ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text. The '%@' refers to a configuration or a folder of configurations. */
+"Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick ไม่สามารถลบ %@ ได้ ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick ไม่สามารถแทนที่คอนฟิกเกอเรชัน '%@' ได้ ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick พบความผิดพลาดร้ายแรง\n\nโปรดส่งอีเมล์ไปที่ developers@tunnelblick.net เพื่อขอความช่วยเหลือ และอธิบายว่า Tunnelblick กำลังทำอะไรอยู่ขณะเกิดความผิดพลาด\n\n";
+
+/* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "Tunnelblick พบความผิดพลาดกับคอนฟิกเกอเรชันจำนวน %1$lu ชุด:\n\n%2$@%3$@%4$@%5$@%6$@%7$@";
+
+/* Window text */
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick ล้มเหลวที่จะแก้ไขปัญหาด้วยการตั้งค่าของ '%@' รายละเอียดอยู่ใน Console Log";
+
+/* Window text */
+"Tunnelblick has been secured." = "Tunnelblick ปลอดภัยแล้ว";
+
+/* Window text */
+"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick ได้ตัดการเชื่อมต่อ '%@' เพราะไฟล์คอนฟิกเกอเรชันถูกลบไปแล้ว";
+
+/* Window text */
+"Tunnelblick is based on %@." = "Tunnelblick มีฐานมาจาก %@";
+
+/* Window text */
+"Tunnelblick is currently running. It will be shut down before proceeding." = "ขณะนี้ Tunnelblick กำลังทำงานอยู่ ดังนั้นมันจะปิดตัวลงก่อนที่จะดำเนินต่อ";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick พร้อมแล้ว";
+
+/* Window text */
+"Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะคัดลอกโฟลเดอร์ '%@'";
+
+/* Window text */
+"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะคัดลอกหรือย้ายคอนฟิกเกอเรชัน";
+
+/* Window text */
+"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะสำเนาคอนฟิกเกอเรชันชื่อ '%@'";
+
+/* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะติดตั้งส่วนเสริม tun และ tap ของระบบ";
+
+/* Window text */
+"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะทำให้คอนฟิกเกอเรชันจำนวน %ld ชุดเป็นส่วนตัว";
+
+/* Window text */
+"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะทำให้คอนฟิกเกอเรชันจำนวน %ld ชุดใช้ร่วมกันได้";
+
+/* Window text */
+"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะทำให้คอนฟิกเกอเรชันชื่อ '%@' เป็นส่วนตัว";
+
+/* Window text */
+"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะทำให้คอนฟิกเกอเรชันชื่อ '%@' ใช้ร่วมกันได้";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะย้ายโฟลเดอร์ '%1$@' ไปไว้ในโฟลเดอร์ '%2$@'";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@'." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะย้ายโฟลเดอร์ '%@'";
+
+/* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะอ่านข้อมูลใน Tunnelblick ของผู้ใช้อื่นในเครื่องคอมพิวเตอร์เครื่องนี้เพื่อจะสามารถส่งออกข้อมูลใน Tunnelblick ทั้งหมดได้\n\nโปรดทราบ:\n\n     1. ข้อมูลยืนยันตัวตนที่เก็บใน Keychain จะไม่ถูกส่งออกไปด้วย\n\n     2. การส่งออกอาจใช้เวลานาน\n\n";
+
+/* Window text */
+"Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะลบคอนฟิกเกอเรชันหรือโฟลเดอร์\n\n การลบเป็นการลบถาวรและเอากลับมาไม่ได้ การตั้งค่าของคอนฟิกเกอเรชันที่ถูกลบก็จะถูกลบไปอย่างถาวรด้วย";
+
+/* Window text */
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะเปลี่ยนชื่อคอนฟิกเกอเรชันจาก '%1$@' เป็น '%2$@'";
+
+/* Window text */
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะเปลี่ยนชื่อโฟลเดอร์จาก '%1$@' เป็น '%2$@'";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะเก็บรักษาข้อมูลที่นำเข้ามา";
+
+/* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick ต้องได้รับอนุญาตเพื่อจะถอนการติดตั้งส่วนเสริม tun และ tap ของระบบ";
+
+/* Window text */
+"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick จำเป็นต้องแก้ไขการตั้งค่าที่อาจจะแก้ได้เฉพาะผู้ดูแลระบบเท่านั้น";
+
+/* Window text */
+"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick จำเป็นต้องสร้างหรือปรับปรุงสำเนาไฟล์คอนฟิกเกอเรชันที่เก็บรักษาไว้";
+
+/* Window text */
+"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick จำเป็นต้องทำบางอย่างที่ต้องได้รับอนุญาตจากผู้ดูแลระบบ\n";
+
+/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick จำเป็นต้อง:\n";
+
+/* Window text: '* Installed/Replaced/Uninstalled' */
+"Tunnelblick successfully:\n\n" = "Tunnelblick ทำสิ่งเหล่านี้สำเร็จ:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick ไม่สามารถที่จะเอาส่วนเสริมของระบบออกได้ โปรดรีสตาร์ทเครื่องคอมพิวเตอร์ของคุณและลองพยายามถอนการติดตั้งส่วนเสริมระบบของ Tunnelblick อีกครั้ง";
+
+/* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick ถูกติดตั้งสำเร็จแล้วและคอนฟิกเกอเรชันจำนวน %ld ชุดถูกติดตั้งหรือแทนที่แล้ว";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick ถูกติดตั้งสำเร็จแล้วและคอนฟิกเกอเรชันจำนวน 1 ชุดถูกติดตั้งหรือแทนที่แล้ว";
+
+/* Window text */
+"Tunnelblick was successfully installed." = "Tunnelblick ถูกติดตั้งสำเร็จแล้ว";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick ถูกแทนที่สำเร็จแล้วและคอนฟิกเกอเรชันจำนวน %ld ชุดถูกติดตั้งหรือแทนที่แล้ว";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick ถูกแทนที่สำเร็จแล้วและคอนฟิกเกอเรชันจำนวน 1 ชุดถูกติดตั้งหรือแทนที่แล้ว";
+
+/* Window text */
+"Tunnelblick was successfully replaced." = "Tunnelblick ถูกแทนที่สำเร็จแล้ว";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick ไม่สามารถติดต่อกับโพรเซสของ OpenVPN ที่มีอยู่ได้ภายใน %2$d วินาทีสำหรับ '%1$@' ความพยายามที่จะติดต่อได้ถูกยกเลิกแล้ว";
+
+/* Window text */
+"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick ไม่สามารถทำงานแก้ไขได้ ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick ไม่สามารถเริ่มโพรเซสของ OpenVPN เพื่อจะเชื่อมต่อ %@ ได้ สำหรับรายละเอียด ดู log ได้ที่หน้าต่างรายละเอียด VPN...";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check for updates when it is launched and periodically while it is running. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick จะเข้าถึง %@ เพื่อตรวจสอบการอัพเดท เมื่อตอนเริ่มเปิดขึ้นมาหรือเป็นช่วงๆขณะกำลังทำงานอยู่ ติดต่อผู้ให้สำเนา Tunnelblick นี้สำหรับรายละเอียด\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick จะเข้าถึง %@ เพื่อตรวจสอนการเปลี่ยนแปลงหมายเลขไอพีสาธารณะของคอมพิวเตอร์ของคุณทุกครั้งที่คุณเชื่อมต่อ VPN ติดต่อผู้ให้สำเนา Tunnelblick นี้สำหรับรายละเอียด\n\n";
+
+/* Window text */
+"Unable to Establish Communication" = "ไม่สามารถเริ่มการติดต่อได้";
+
+/* Window text */
+"Unable to convert OpenVPN configuration" = "ไม่สามารถแปลงคอนฟิกเกอเรชัน OpenVPN ได้";
+
+/* Window text */
+"Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "ไม่สามารถคัดลอกไฟล์จาก '%1$@' ไปที่ '%2$@' เพราะใช้ชื่อเดียวกันสำหรับเนื้อหาต่างกัน";
+
+/* Window text */
+"Unable to create %@ owned by %ld:%ld with %lo permissions" = "ไม่สามารถสร้างไฟล์ %1$@ ที่ %2$ld:%3$ld เป็นเจ้าของด้วยความยินยอม %4$lo ได้";
+
+/* Window text */
+"Unable to install or replace the '%@' configuration\n" = "ไม่สามารถติดตั้งหรือแทนที่คอนฟิกเกอเรชันชื่อ '%@' ได้\n";
+
+/* Window text */
+"Unable to install the '%@' configuration\n" = "ไม่สามารถติดตั้งคอนฟิกเกอเรชันชื่อ '%@' ได้\n";
+
+/* Window text */
+"Unable to load contents of %@ as UTF-8" = "ไม่สามารถโหลดเนื้อหา %@ ในรูปแบบ UTF-8 ได้";
+
+/* Window text */
+"Unable to open configuration file for modification" = "ไม่สามารถเปิดคอนฟิกเกอเรชันเพื่อแก้ไขได้";
+
+/* Window text */
+"Unable to parse configuration file as UTF-8" = "ไม่สามารถอ่านไฟล์คอนฟิกเกอเรชันในรูปแบบ UTF-8 ได้";
+
+/* Window text */
+"Unable to replace the '%@' configuration\n" = "ไม่สามารถแทนที่คอนฟิกเกอเรชันชื่อ '%@' ได้\n";
+
+/* Window text */
+"Unable to secure %@ because it is owned by %@" = "ไม่สามารถเพิ่มความปลอดภัยให้ %1$@ ได้เพราะ %2$@ เป็นเจ้าของ";
+
+/* Window text */
+"Unable to secure %@" = "ไม่สามารถเพิ่มความปลอดภัยให้ %@ ได้";
+
+/* Window text */
+"Unable to set permissions on '%@'" = "ไม่สามารถตั้งความยินยอมที่ '%@'";
+
+/* Window text */
+"Unable to store updatable configuration stub at %@\n" = "ไม่สามารถเก็บตัวแทนคอนฟิกเกอเรชันเพื่อจะอัพเดทไว้ที่ %@ ได้\n";
+
+/* Window text */
+"Unable to uninstall the '%@' configuration\n" = "ไม่สามารถถอนการติดตั้งคอนฟิกเกอเรชันชื่อ '%@' ได้\n";
+
+/* Window text */
+"Unable to write to configuration file for modification" = "ไม่สามารถเขียนใส่คอนฟิกเกอเรชันเพื่อแก้ไขได้";
+
+/* Window text */
+"Unexpected disconnection:" = "การเชื่อมต่อถูกตัดอย่างไม่คาดคิด:";
+
+/* Window text */
+"Unknown extension '%@' for %@" = "ส่วนเสริมที่ไม่รู้จัก '%1$@' สำหรับ %2$@";
+
+/* Window text */
+"Unknown key '%@' in %@" = "คีย์ที่ไม่รู้จัก '%1$@' ใน %2$@";
+
+/* Window text */
+"Unknown value '%@' for '%@' in %@" = "ค่าที่ไม่รู้จัก '%1$@' สำหรับคีย์ '%2$@' ใน %3$@";
+
+/* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "ไฟล์ที่ไม่สามารถอ่านได้ที่ %@\n\nดูรายละเอียดได้ที่ Console log";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "ไม่สามารถเก็บคอนฟิกเกอเรชันชื่อ '%@' ไว้เพื่อจะอัพเดทได้เพราะไม่สามารถสร้าง 'Contents' ในตัวแทน .tblk ได้\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "ไม่สามารถเก็บคอนฟิกเกอเรชันชื่อ '%@' ไว้เพื่อจะอัพเดทได้เพราะไม่สามารถเก็บไฟล์ Info.plist ในตัวแทน .tblk ได้\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "ไม่สามารถเก็บคอนฟิกเกอเรชันชื่อ '%@' ไว้เพื่อจะอัพเดทได้เพราะค่า CFBundleIdentifier ได้ถูกใช้ไปแล้ว\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "ไม่สามารถเก็บคอนฟิกเกอเรชันชื่อ '%@' ไว้เพื่อจะอัพเดทได้เพราะ Info.plist ไม่มีรายการ 'SUPublicDSAKey' หรือรายการ 'SUFeedURL' ไม่ได้ระบุว่าใช้ https:\n";
+
+/* Window text */
+"Updates:" = "อัปเดต:";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "คอนฟิกเกอเรชัน VPN %@ จะไม่ถูกติดตั้งเพราะมีเลขรุ่นต่ำกว่า";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "คอนฟิกเกอเรชัน VPN %@ จะไม่ถูกติดตั้งเพราะคอนฟิกเกอเรชันนี้มีอยู่แล้วและไม่ควรจะถูกแทนที่";
+
+/* Window text */
+"VPN log level:" = "ระดับ VPN log";
+
+/* Window text */
+"VPN status windows:" = "หน้าต่างสถานะ VPN:";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "ค่า '%1$@' สำหรับคีย์ '%2$@' ไม่ใช่ URL ที่ถูกต้องใน %3$@";
+
+/* Window text */
+"WINS servers:" = "เซิร์ฟเวอร์ WINS:";
+
+/* Window text */
+"Warning: '%@' is already a named credential." = "คำเตือน: '%@' เป็นข้อมูลยืนยันตัวตนที่มีชื่ออยู่แล้ว";
+
+/* Window text */
+"Warning: One or more settings could not be copied. See the Console Log for details." = "คำเตือน: ไม่สามารถคัดลอกการตั้งค่าอย่างน้อย 1 ชุด ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text */
+"Warning: One or more settings could not be duplicated. See the Console Log for details." = "คำเตือน: ไม่สามารถสำเนาการตั้งค่าอย่างน้อย 1 ชุด ดูรายละเอียดได้ที่ Console Log";
+
+/* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
+"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "คำเตือน: คอนฟิกเกอเรชันต่อไปนี้ ซึ่งควรจะเชื่อมต่อเมื่อเครื่องคอมพิวเตอร์เริ่มทำงานนั้น ไม่สามารถเชื่อมต่อได้:\n\n%@\n";
+
+/* Window text */
+"Warnings:" = "คำเตือน:";
+
+/* Window text */
+"When changes to anything else" = "เมื่อเปลี่ยนเป็นอย่างอื่น";
+
+/* Window text */
+"When changes to pre-VPN value" = "เมื่อเปลี่ยนเป็นค่าก่อน VPN ทำงาน";
+
+/* Window text */
+"Workgroup:" = "เวิร์กกรุ๊ป:";
+
+/* Window text */
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "คุณอยากจะ\n\n  • สร้างคอนฟิกเกอเรชันตัวอย่างบนเดสก์ทอป\n             และ\n  • เปิดไฟล์คอนฟิกเกอเรชัน OpenVPN ขึ้นมาใน TextEdit เพื่อที่จะแก้ไขสำหรับการเชื่อมต่อ VPN ของคุณหรือไม่?\n\n";
+
+/* Window text */
+"You are not allowed to replace a private configuration" = "คุณไม่ได้รับอนุญาตให้แทนที่คอนฟิกเกอเรชันส่วนตัว";
+
+/* Window text */
+"You are not allowed to replace a shared configuration" = "คุณไม่ได้รับอนุญาตให้แทนที่คอนฟิกเกอเรชันที่ใช้ร่วมกัน";
+
+/* Window text */
+"You cannot make the '%@' configuration private because it is set to start when the computer starts." = "คุณไม่สามารถเปลี่ยนคอนฟิกเกอเรชัน '%@' ให้เป็นส่วนตัวได้เพราะมันถูกตั้งให้ทำงานเมื่อเครื่องคอมพิวเตอร์เริ่มทำงาน";
+
+/* Window text */
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "คุณไม่สามารถเปลี่ยนคอนฟิกเกอเรชัน '%@' ให้เป็นส่วนตัวหรือใช้ร่วมกันได้เพราะมันเป็นคอนฟิกเกอเรชันที่อัพเดทได้\n\nเรียนให้ทราบว่าคอนฟิกเกอเรชัน VPN ที่อัพเดทได้ของ Tunnelblick นั้นไม่สามารถเปลี่ยนให้เป็นส่วนตัวหรือใช้ร่วมกันได้ มีแค่คอนฟิกเกอเรชันภายในนั้นเท่านั้นที่ทำให้เป็นส่วนตัวหรือใช้ร่วมกันได้";
+
+/* Window text */
+"You cannot rename or move a Deployed configuration." = "คุณไม่สามารถเปลี่ยนชื่อหรือย้ายคอนฟิกเกอเรชันที่ติดตั้งแล้วได้";
+
+/* Window text */
+"You cannot rename or move a configuration unless it is disconnected." = "คุณไม่สามารถเปลี่ยนชื่อหรือย้ายคอนฟิกเกอเรชันได้ เว้นแต่ว่ามันไม่ได้ถูกเชื่อมต่อ";
+
+/* Window text */
+"You cannot rename or move a configuration which is set to start when the computer starts." = "คุณไม่สามารถเปลี่ยนชื่อหรือย้ายคอนฟิกเกอเรชันที่ถูกตั้งให้ทำงานเมื่อเครื่องคอมพิวเตอร์เริ่มทำงานได้";
+
+/* Window text */
+"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "คุณได้พยายามติดตั้งไฟล์คอนฟิกเรชันที่เป็นคอนฟิกเกอเรชันตัวอย่าง ไฟล์คอนฟิกเกอเรชันนี้ต้องถูกแก้ไขก่อนที่จะเชื่อมต่อ VPN และคุณอาจจำเป็นต้องใช้ไฟล์อื่นด้วย ยกตัวอย่งเช่น ไฟล์ใบรับรองหรือไฟล์กุญแจต่างๆ เพื่อจะเชื่อมต่อ VPN\n\nโปรดปรึกษากับผู้ดูแลระบบเครือข่ายของคุณหรือผู้ให้บริการ VPN เพื่อจะขอคอนฟิกเกอเรชันและไฟล์อื่นที่ใช้ได้ หรือขอข้อมูลที่จำเป็นเพื่อจะแก้ไขให้ไฟล์คอนฟิกเกอเรชันตัวอย่างใช้งานได้\n\nไฟล์คอนฟิกเกอเรชันอยู่ที่\n%@\n\n";
+
+/* Window text */
+"You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "คุณไม่น่าจะเชื่อมต่อด้วยคอนฟิกเกอเรชันนี้\n\nถ้าคุณแปลงมันเป็น 'Tunnelblick VPN Connection' (.tblk) คุณน่าจะสามารถเชื่อมต่อได้";
+
+/* Window text */
+"You may not duplicate a Deployed configuration." = "คุณไม่น่าจะสำเนาคอนฟิกเกอเรชันที่ติดตั้งแล้ว";
+
+/* Window text */
+"You may not duplicate a configuration which is set to start when the computer starts." = "คุณไม่น่าจะสำเนาคอนฟิกเกอเรชันที่ถูกตั้งให้ทำงานเมื่อเครื่องคอมพิวเตอร์เริ่มทำงาน";
+
+/* Window text */
+"You may not remove a Deployed configuration." = "คุณไม่น่าจะลบคอนฟิกเกอเรชันที่ติดตั้งแล้ว";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "คุณไม่น่าจะลบคอนฟิกเกอเรชัน เว้นแต่ว่ามันไม่ได้ถูกเชื่อมต่อ";
+
+/* Window text */
+"You may not remove a configuration which is set to start when the computer starts." = "คุณไม่น่าจะลบคอนฟิกเกอเรชันที่ถูกตั้งให้ทำงานเมื่อเครื่องคอมพิวเตอร์เริ่มทำงาน";
+
+/* Window text */
+"You may not remove a folder unless it is empty." = "คุณไม่น่าจะลบแฟ้ม เว้นแต่ว่ามันจะเป็นแฟ้มเปล่า";
+
+/* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "คุณต้องตัดการเชื่อมต่อ VPN ทั้งหมดก่อนที่คุณจะติดตั้งหรือถอนการติดตั้งส่วนเสริมระบบของ Tunnelblick";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Teerapap Changwichukarn";

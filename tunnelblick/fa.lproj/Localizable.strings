@@ -1719,6 +1719,9 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick برای مشترک سازی پیکربندی '%@' نیاز به اجازه دارد.";
 
 /* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick برای انتقال پوشه ی '%1$@' به پوشه ی '%2$@' نیاز به اجازه دارد.";
+
+/* Window text */
 "Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick برای تغییر نام پوشه ی '%1$@' به '%2$@' نیاز به اجازه دارد.";
 
 /* Window text */
