@@ -527,13 +527,17 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                  : @"");
         NSLog(@"Tunnelblick: macOS %@%@; %@", osVersionString, oclpString, tunnelblickVersion([NSBundle mainBundle]));
         
-		// Create private configurations folder if necessary
-        gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
-        if (  createDir(gPrivatePath, privateFolderPermissions(gPrivatePath)) == -1  ) {
-			NSLog(@"Unable to create %@", gPrivatePath);
-			exit(1);
-		}
-        
+        // Create private configurations folder if not running as root
+        if (  [NSHomeDirectory() hasPrefix: @"/var/root"]) {
+            gPrivatePath = nil;
+        } else {
+            gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
+            if (  createDir(gPrivatePath, privateFolderPermissions(gPrivatePath)) == -1  ) {
+                NSLog(@"Unable to create %@", gPrivatePath);
+                exit(1);
+            }
+        }
+
         gConfigDirs = [[NSMutableArray alloc] initWithCapacity: 2];
         
 		[NSApp setDelegate: (id)self];
