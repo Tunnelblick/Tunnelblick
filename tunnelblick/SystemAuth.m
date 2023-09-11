@@ -238,7 +238,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
                                              nil,
                                              NSAlertDefaultReturn);
         if (  allowReactivation  ) {
-            [NSApp activateIgnoringOtherApps:YES];
+            [gMC activateIgnoringOtherApps];
         }
         
         if (  result != NSAlertDefaultReturn  ) {
