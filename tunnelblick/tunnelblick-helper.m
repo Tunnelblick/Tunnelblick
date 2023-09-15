@@ -2588,7 +2588,11 @@ int startVPN(NSString * configFile,
     [arguments addObject: @"127.0.0.1"];
     [arguments addObject: [NSString stringWithFormat:@"%u", port]];
     [arguments addObject: managementPasswordFilePath(configFile)];
-    
+
+    [arguments addObject: @"--setenv"];
+    [arguments addObject: @"IV_SSO"];
+    [arguments addObject: @"webauth"];
+
 	if (  (bitMask & OPENVPNSTART_TEST_MTU) != 0  ) {
         [arguments addObject: @"--mtu-test"];
     }
