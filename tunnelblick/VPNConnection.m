@@ -4472,6 +4472,39 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
         return;
     }
+
+    if (  [line hasPrefix: @">INFOMSG:WEB_AUTH:"]  ) {
+
+        NSString *pattern = @"^>INFOMSG:WEB_AUTH:([^:]*):(.+)";
+        NSError *error = nil;
+
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+        if (error) {
+            NSLog(@"Error creating regular expression: %@", error);
+            return;
+        }
+
+        NSRange range = NSMakeRange(0, line.length);
+        NSTextCheckingResult *match = [regex firstMatchInString:line options:0 range:range];
+
+        if (match) {
+            NSString *urlString = [line substringWithRange:[match rangeAtIndex:2]];
+            [self addToLog: [NSString stringWithFormat: @"WEB_AUTH URL: %@", urlString]];
+
+            NSURL *webAuthUrl = [NSURL URLWithString:urlString];
+
+            // Get the default NSWorkspace instance
+            NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+
+            // Open the URL in the default web browser
+            if (![workspace openURL:webAuthUrl]) {
+                NSLog(@"Failed to open the URL");
+            }
+
+        } else {
+            NSLog(@"No URL found in the input string.");
+        }
+    }
     
     if (   [line isEqualToString: @">FATAL:Error: private key password verification failed"]
         || [line rangeOfString: @"RECONNECTING,private-key-password-failure"].length) {
