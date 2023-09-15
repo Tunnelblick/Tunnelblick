@@ -4474,7 +4474,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 
     if (  [line hasPrefix: @">INFOMSG:WEB_AUTH:"]  ) {
-
+        // This is currently not supporting any flags; it just opens the given URL
+        // in the defauklt web browser.
         NSString *pattern = @"^>INFOMSG:WEB_AUTH:([^:]*):(.+)";
         NSError *error = nil;
 
@@ -4504,6 +4505,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         } else {
             NSLog(@"No URL found in the input string.");
         }
+        return;
     }
     
     if (   [line isEqualToString: @">FATAL:Error: private key password verification failed"]
