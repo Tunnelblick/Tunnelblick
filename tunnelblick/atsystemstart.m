@@ -226,7 +226,7 @@ void deleteFlagFile(NSString * path) {
     }
 }
 
-void errorExit() {
+void errorExit(void) {
     
     storeAuthorizedDoneFileAndExit(EXIT_FAILURE);
 }

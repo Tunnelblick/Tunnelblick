@@ -207,7 +207,7 @@ void appendLog(NSString * s) {
 	}
 }
 
-static void errorExit() {
+static void errorExit(void) {
 
 #ifdef TBDebug
     appendLog([NSString stringWithFormat: @"errorExit(): Stack trace: %@", callStack()]);

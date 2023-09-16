@@ -108,7 +108,7 @@ BOOL unlockUsingMutex(pthread_mutex_t * mutex, NSString * mutexName) {
 	return YES;
 }
 
-void pruneTracesFolder() {
+void pruneTracesFolder(void) {
 
 	// Does not use gFileMgr, so this can be called before gFileMgr is set up
 
@@ -1778,7 +1778,7 @@ NSMutableString * encodeSlashesAndPeriods(NSString * s)
     return result;
 }
 
-NSString * copyrightNotice()
+NSString * copyrightNotice(void)
 {
     NSDateFormatter * dateFormat = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormat setLocale: [NSLocale localeWithLocaleIdentifier: @"en_US_POSIX"]];
