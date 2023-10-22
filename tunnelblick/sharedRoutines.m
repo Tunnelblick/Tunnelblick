@@ -1221,6 +1221,7 @@ NSData * availableDataOrError(NSFileHandle * file) {
         if (  [now compare: timeout] == NSOrderedDescending  ) {
             appendLog(@"availableDataOrError: Taking a long time checking for data from a pipe");
             timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
+            (void)timeout; // Avoid static analyzer warning that timeout will not be read
         }
 		
 		@try {
