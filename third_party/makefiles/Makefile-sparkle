@@ -98,6 +98,14 @@ built-sparkle-prepare:
 
 built-sparkle: built-sparkle-prepare
 	@echo "THIRD_PARTY: Building Sparkle.framework for '$(ARCHS)' with deploy-target '$(MACOSX_DEPLOYMENT_TARGET)' and SDK path '$(SDK_DIR)'" ;
+	for d in build build/Release build/Debug ; do \
+    	if [ -e "$(SPARKLE_BUILD_DIR)/$$d" ] ; then \
+	    	xattr -w com.apple.xcode.CreatedByBuildSystem true "$(SPARKLE_BUILD_DIR)/$$d" ; \
+		    echo "Did xattr $(SPARKLE_BUILD_DIR)/$$d to avoid Xcode complaints when cleaning" ; \
+	    else \
+		    echo "Did not xattr $(SPARKLE_BUILD_DIR)/$$d" ; \
+	    fi ; \
+	done ;
 	SPARKLE_ARCHS="$(foreach f, $(SPARKLE_TARGET_ARCHS), -arch $f)" ; \
 	SPARKLE_FLAGS="$(TB_SPARKLE_DEPRECATED_HANDLING) \
 		               $$SPARKLE_ARCHS \
