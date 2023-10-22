@@ -164,6 +164,7 @@ static NSString * privatePathFromUsername(NSString * username);
 //**************************************************************************************************************************
 // LOGGING AND ERROR HANDLING
 
+#ifdef TBDebug
 static void debugLog(NSString * string) {
 	
 	// Call this function to create files in /tmp to show progress through this program
@@ -173,15 +174,12 @@ static void debugLog(NSString * string) {
 	// "string" is a string identifier indicating where debugLog was called from.
     // "string" must be able to be added as part of a file name, so no ":" or "/" chars, etc.
 
-#ifdef TBDebug
 	static unsigned int debugLogMessageCounter = 0;
 	
 	NSString * path = [NSString stringWithFormat: @"/tmp/0-%u-tunnelblick-installer-%@.txt", ++debugLogMessageCounter, string];
 	[gFileMgr createFileAtPath: path contents: [NSData data] attributes: nil];
-#else
-    (void)string;
-#endif
 }
+#endif
 
 static void openLog(BOOL clearLog) {
     
