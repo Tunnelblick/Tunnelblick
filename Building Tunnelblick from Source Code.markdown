@@ -1,6 +1,6 @@
 **Building Tunnelblick from Source Code**
 
-_Last Updated 2021-10-28_
+_Last Updated 2023-10-22_
 
 You can build Tunnelblick from the source code. Usually, people install
 and use a ready-to-use binary version of Tunnelblick. The most recent
@@ -15,15 +15,16 @@ with sufficient technical skills and resources can create their own
 binary and use it as they see fit under the terms of the license. This
 document describes how to do that.
 
-Tunnelblick runs on macOS 10.10 and higher.
+Tunnelblick runs on macOS 10.13 and higher when built with Xcode 15 as described
+in this document.
 
 On recent versions of macOS, Tunnelblick's tun and tap system extensions
 are restricted:
 
- * On macOS Catalina, the computer must be restarted after loading the
+ * On macOS 10.15 ("Catalina"), the computer must be restarted after loading the
    system extensions for the first time.
 
- * On macOS Big Sur, Tunnelblick's tun and tap system extensions can be
+ * On macOS 10.16 ("Big Sur"), Tunnelblick's tun and tap system extensions can be
    used only after being installed and approved by an administrator;
    the installation process involves restarting the computer.
 
@@ -52,7 +53,7 @@ and the Other Third-Party Software**.
 **Using a Virtual Machine**
 
 Using a virtual machine to build Tunnelblick is fine – Tunnelblick
-releases are sometimes built using Parallels and VirtualBox. However, there
+releases are sometimes built using Viable, Parallels, and VirtualBox. However, there
 have been unreproducible errors when the Tunnelblick source code is located
 on a network device or the host computer, so copying the source to the
 virtual machine's hard drive and building there is recommended. Using
@@ -64,23 +65,30 @@ recommended for Parallels.
 **1. Supported Versions of macOS and Xcode**
 
 The current version of Tunnelblick should be built using:
- * Xcode 13.2 on macOS 11.6.1 or higher on an Intel or Apple Silicon Mac.
+ * Xcode 15.0.1 or higher on macOS 13.6 or higher on an Intel or Apple Silicon Mac.
 
-Tunnelblick will be a Universal binary and run natively on Intel or Apple Silicon processors.
+Tunnelblick will be a Universal binary and run natively on Intel or Apple Silicon
+processors.
 
 Other versions of Xcode and macOS may fail to build Tunnelblick, or create
 Tunnelblick binaries that crash or have other unpredictable behavior.
 
 **2. Getting the Tunnelblick Source Code**
 
+Tunnelblick source code is maintained using the git version control program. The
+three branches normally used are:
+ * *master*: Contains the most recent code; beta releases are based on master.
+ * *3*: Contains the most recent code for the latest 3.* release
+ * *3.5*: Containsthe most recend code for the 3.5.* release (very old!)
+
 Download the Tunnelblick source code from the [Tunnelblick Project on
 GitHub](https://github.com/Tunnelblick//Tunnelblick).
 
-You can download a .zip containing the source from the "master" branch
-(which includes the latest changes to the source code) by clicking the
-"Download ZIP" button, or you can select a different branch and download
-the source code for that, or you can select a specific release and download
-the source code for that.
+You can download a .zip containing the source from the "master" branch (which includes
+the latest changes to the source code) by clicking the green "< > Code" button and
+then the "Download ZIP" button, or you can select a different branch and download
+the source code for that. As an alternative, you can find a specific release and
+download the source code for that.
 
 The rest of this document refers to the folder in which you have
 downloaded Tunnelblick as "**TunnelblickSource**".
@@ -138,9 +146,13 @@ Xcode needs to have the command line tools installed. You can
 do that in Terminal with the following command:
 ```xcode-select --install```
 
-Xcode also needs to have "parallelized builds" turned off. This can be done
-on the Build tab of the window that appears when you click Product >> Scheme
->> Edit Scheme.
+Xcode also needs to be built using "Manual Order", which is _not_ the default. To
+change the default, click Product >> Scheme >> Edit Scheme, then "Build" on the left,
+then set "Build Order" to "Manual Order". You should also un-check "Find Implicit
+Dependencies".
+
+Xcode also needs to be set to build in "legacy" locations; in Xcode >> Settings
+>> Locations >> Advanced >> set "Build Location" to "Legacy".
 
 **5. Selecting  the Type of Build You Want to Create**
 
@@ -154,7 +166,7 @@ To select the type of build in Xcode:
  2. Select "Run Tunnelblick" in the list on the left of the window that
  appears.
  3. Select "Info" at the top of the window.
- 4. Select the build type in the drop-down list to the right of "Build
+ 4. Select build type "Release" in the drop-down list to the right of "Build
  Configuration" on the right.
 
 
@@ -168,15 +180,14 @@ _Note that the first time a build is done, it may take tens of minutes, even on 
 relatively fast computer, so be patient. (Subsequent builds, which do
 not usually rebuild OpenVPN or the Tun/Tap kexts, are quicker.)_
 
-When the build is complete, "Build succeeded" will appear at the bottom
+When the build is complete, "Build succeeded" should appear at the bottom
 of the Build Results window. In some situations it may take another
 30-60 seconds to finish creating the .dmg file after "Build succeeded"
 appears.
 
-There should not be any errors, but the first time you build Tunnelblick
-there may be many warnings, which can be ignored. Building some old
-versions of OpenVPN that are included in Tunnelblick generates dozens of
-warnings, primarily about signed/unsigned conflicts.
+There should not be any errors, but there may be many warnings (over a thousand!),
+which can be ignored. Building some old versions of OpenVPN that are included in
+Tunnelblick generates most of these warnings.
 
 At this point, you might want to make a copy of your current
 Tunnelblick.app in case the new one doesn't work for you.
@@ -195,9 +206,9 @@ Group](https://groups.google.com/forum/#!forum/tunnelblick-discuss).
 
 Building OpenVPN and the Other Third-Party Software
 
-The normal Tunnelblick build process builds all of the third-party
-software (OpenVPN, OpenSSL, LZO, Sparkle, pkcs11-helper, and tuntap)
-using third_party/Makefile.
+The normal Tunnelblick build process only builds the third-party software (OpenVPN,
+OpenSSL, LZO, Sparkle, pkcs11-helper, and tuntap) **once**, using third_party/Makefile.
+Subsequent builds normally skip this, and build only the Tunnelblick code.
 
 Unlike the usual "Make" procedure, the third_party/Makefile creates
 special "built-xxx" files to indicate that each of the components has
