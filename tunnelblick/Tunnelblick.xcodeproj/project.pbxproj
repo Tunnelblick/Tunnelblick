@@ -144,6 +144,7 @@
 		639B6119205BE7FD00BC2FF5 /* he.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 639B6118205BE7FD00BC2FF5 /* he.lproj */; };
 		639BCE5B1D07894C00A9111D /* ro.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 639BCE5A1D07894C00A9111D /* ro.lproj */; };
 		639C2F0E1D84812800DA3386 /* AuthIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 639C2F0D1D84812800DA3386 /* AuthIcon.png */; };
+		639D8FD62AE6EA5800F82700 /* OpenDirectory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 639D8FD42AE6EA3E00F82700 /* OpenDirectory.framework */; };
 		639EC33E1C0E16A9001FE378 /* StatusWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */; };
 		639F0FBA1960EFA100A3090E /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
@@ -520,6 +521,7 @@
 		639B6118205BE7FD00BC2FF5 /* he.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = he.lproj; sourceTree = "<group>"; };
 		639BCE5A1D07894C00A9111D /* ro.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ro.lproj; sourceTree = "<group>"; };
 		639C2F0D1D84812800DA3386 /* AuthIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AuthIcon.png; sourceTree = "<group>"; };
+		639D8FD42AE6EA3E00F82700 /* OpenDirectory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenDirectory.framework; path = System/Library/Frameworks/OpenDirectory.framework; sourceTree = SDKROOT; };
 		639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StatusWindow-RTL.xib"; sourceTree = "<group>"; };
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
@@ -685,6 +687,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				639D8FD62AE6EA5800F82700 /* OpenDirectory.framework in Frameworks */,
 				639A47B92168BAD90019FBFD /* SystemConfiguration.framework in Frameworks */,
 				63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */,
 				61BC4DA00E2FA31F00F24255 /* Foundation.framework in Frameworks */,
@@ -889,6 +892,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				639D8FD42AE6EA3E00F82700 /* OpenDirectory.framework */,
 				63C2E2E724AB8D6C00F79628 /* IOKit.framework */,
 				A425AA572380E5C7000686E7 /* LocalAuthentication.framework */,
 				63AB7CFF1D930BCE008ED621 /* QuartzCore.framework */,

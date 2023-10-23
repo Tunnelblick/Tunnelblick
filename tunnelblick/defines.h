@@ -513,6 +513,17 @@
 // Import from a .tblkSetup using a string that defines username mapping
 #define INSTALLER_IMPORT                     0x5000u
 
+// Install a private configuration
+// (arguments: username,
+//  path to configuration,
+//  optional subfolder)
+#define INSTALLER_INSTALL_PRIVATE_CONFIG     0x6000u
+
+// Install a shared configuration
+// (arguments: path to configuration,
+//  optional subfolder)
+#define INSTALLER_INSTALL_SHARED_CONFIG      0x7000u
+
 
 //*************************************************************************************************
 // Size to use to minimize the left navigation area when it is inactive
