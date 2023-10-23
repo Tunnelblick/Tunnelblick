@@ -89,7 +89,7 @@
 "Delete saved passphrase and try again" = "Apagar a palavra passe guardada e tentar novamente";
 
 /* Button */
-"Delete saved password and try again" = "Apague a palavra-passe salva e tente novamente";
+"Delete saved password and try again" = "Apagar a palavra-passe guardada e tentar novamente";
 
 /* Button */
 "Delete" = "Apagar";
@@ -2181,6 +2181,9 @@
 
 /* Popup button menu item */
 "(Do not import)" = "(Não importar)";
+
+/* This appears in place of a string when the string cannot be created. It should only be shown when there is a serious problem with the computer. By string we mean any string of words that have been translated (basically, the pieces of language that we translate at one time). It could be a word or two, a sentence, or several paragraphs. */
+"(String is not available)\n" = "(A cadeia de caracteres não está disponível)\n\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "Testes e ativação 64-bit";
