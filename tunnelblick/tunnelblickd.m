@@ -17,12 +17,12 @@
  *  distribution); if not, write to the Free Software Foundation, Inc.,
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *  or see http://www.gnu.org/licenses/.
- 
- 
+
+
  NOTE: THIS PROGRAM MUST BE RUN AS ROOT. IT IS AN macOS LAUNCHDAEMON
- 
+
  This daemon is used by the Tunnelblick GUI to start and stop OpenVPN instances and perform other activities that require root access.
- 
+
  It is a modified version of SampleD.c, a sample program supplied by Apple.
 
  It is normally invoked with no arguments, when it is invoked because data is available on the socket.
@@ -67,7 +67,7 @@
 static BOOL sigtermReceived = FALSE;
 
 static void signal_handler(int signalNumber) {
-	
+
 	if (  signalNumber == SIGTERM  ) {
 		sigtermReceived = TRUE;
 	}
@@ -76,20 +76,21 @@ static void signal_handler(int signalNumber) {
 NSData * availableDataOrError(NSFileHandle * file,
                               aslclient      asl,
                               aslmsg         log_msg) {
-	
+
 	// This routine is a modified version of a method from http://dev.notoptimal.net/search/label/NSTask
 	// Slightly modified version of Chris Suter's category function used as a private function
-    
+
     NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
-    
+
 	for (;;) {
-		
+
 		NSDate * now = [NSDate date];
         if (  [now compare: timeout] == NSOrderedDescending  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "availableDataOrError: Taking a long time checking for data from a pipe");
             timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
+            (void)timeout;
         }
-		
+
 		@try {
 			return [file availableData];
 		} @catch (NSException *e) {
@@ -110,14 +111,14 @@ NSString * newTemporaryDirectoryPathUsingMkdtemp(aslclient  asl,
 	NSString   * tempDirectory = NSTemporaryDirectory();
 	NSString   * tempDirectoryTemplate = [tempDirectory stringByAppendingPathComponent: @"net.tunnelblick.tunnelblickd-XXXXXX"];
     const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
-    
+
     size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
     char * tempDirectoryNameCString = (char *) malloc( bufferLength );
     if (  tempDirectoryNameCString == NULL  ) {
 		asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not allocate memory for a temporary directory name");
         exit(-1);
     }
-    
+
     size_t sz = strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
 	if (  sz >= bufferLength  ) {
 		asl_log(asl, log_msg, ASL_LEVEL_EMERG,
@@ -126,7 +127,7 @@ NSString * newTemporaryDirectoryPathUsingMkdtemp(aslclient  asl,
 		free(tempDirectoryNameCString);
 		exit(-1);
 	}
-    
+
 	char * result = mkdtemp(tempDirectoryNameCString);
 	if (  result == NULL ) {
 		// Log some debugging info
@@ -283,11 +284,11 @@ NSString * newTemporaryDirectoryPath(aslclient asl,
 
 NSDictionary * getSafeEnvironment(NSString * userName,
 								  NSString * userHome) {
-    
+
     // Create our own environment to guard against Shell Shock (BashDoor) and similar vulnerabilities in bash
     // (Even if bash is not being launched directly, whatever is being launched could invoke bash;
 	//  for example, tunnelblick-helper launches openvpn which can invoke bash for scripts)
-	
+
     NSDictionary * env = [NSDictionary dictionaryWithObjectsAndKeys:
                           STANDARD_PATH,          @"PATH",
                           NSTemporaryDirectory(), @"TMPDIR",
@@ -297,7 +298,7 @@ NSDictionary * getSafeEnvironment(NSString * userName,
                           TOOL_PATH_FOR_BASH,     @"SHELL",
                           @"unix2003",            @"COMMAND_MODE",
                           nil];
-    
+
     return env;
 }
 
@@ -309,13 +310,13 @@ OSStatus runTool(NSString * userName,
                  NSString * * stdErrStringPtr,
                  aslclient  asl,
                  aslmsg     log_msg) {
-	
+
 	// Runs a command or script, returning the execution status of the command, stdout, and stderr
-	
+
     // Send stdout and stderr to files in a temporary directory
-    
+
     NSString * tempDir    = [newTemporaryDirectoryPath(asl, log_msg) autorelease];
-    
+
     NSString * stdOutPath = [tempDir stringByAppendingPathComponent: @"stdout.txt"];
     NSString * stdErrPath = [tempDir stringByAppendingPathComponent: @"stderr.txt"];
 
@@ -327,7 +328,7 @@ OSStatus runTool(NSString * userName,
         asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not create %s", [stdErrPath UTF8String]);
         exit(EXIT_FAILURE);
     }
-    
+
     NSFileHandle * outFile = [NSFileHandle fileHandleForWritingAtPath: stdOutPath];
     if (  ! outFile  ) {
         asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get file handle for %s", [stdOutPath UTF8String]);
@@ -338,25 +339,25 @@ OSStatus runTool(NSString * userName,
         asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get file handle for %s", [stdErrPath UTF8String]);
         exit(EXIT_FAILURE);
     }
-    
+
     NSTask * task = [[[NSTask alloc] init] autorelease];
-    
+
     [task setLaunchPath:           launchPath];
     [task setArguments:            arguments];
     [task setCurrentDirectoryPath: @"/private/tmp"];
     [task setEnvironment:          getSafeEnvironment(userName, userHome)];
     [task setStandardOutput:       outFile];
     [task setStandardError:        errFile];
-    
+
     [task launch];
-    
+
     [task waitUntilExit];
-    
+
     OSStatus status = [task terminationStatus];
-    
+
     [outFile closeFile];
     [errFile closeFile];
-    
+
     NSString * stdOutString = [NSString stringWithContentsOfFile: stdOutPath encoding: NSUTF8StringEncoding error: nil];
 	if (  stdOutString == nil  ) {
 		stdOutString = @"Could not interpret stdout as UTF-8";
@@ -367,7 +368,7 @@ OSStatus runTool(NSString * userName,
 		stdErrString = @"Could not interpret stdout as UTF-8";
 		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret stderr as UTF-8");
 	}
-	
+
     if (  0 != unlink([stdOutPath fileSystemRepresentation])  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [stdOutPath UTF8String], (long)errno, strerror(errno));
     }
@@ -380,25 +381,25 @@ OSStatus runTool(NSString * userName,
 	asl_log(asl, log_msg, ASL_LEVEL_INFO, "Removed temporary directory %s", [tempDir UTF8String]);
 
     NSString * message = nil;
-    
+
     if (  stdOutStringPtr  ) {
         *stdOutStringPtr = [[stdOutString retain] autorelease];
     } else if (   (status != EXIT_SUCCESS)
                && (0 != [stdOutString length])  )  {
         message = [NSString stringWithFormat: @"stdout = '%@'\n", stdOutString];
     }
-    
+
     if (  stdErrStringPtr  ) {
         *stdErrStringPtr = [[stdErrString retain] autorelease];
     } else if (   (status != EXIT_SUCCESS)
                && (0 != [stdErrString length])  )  {
         message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? message : @""), stdErrString];
     }
-    
+
     if (  message  ) {
         asl_log(asl, log_msg, ASL_LEVEL_WARNING, "'%s' returned status = %ld\n%s", [[launchPath lastPathComponent] UTF8String], (long)status, [message UTF8String]);
     }
-    
+
     return status;
 }
 
@@ -625,15 +626,15 @@ void removeShutdownFlagFile (aslclient  asl,
 }
 
 int main(void) {
-	
+
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];
-	
+
     unsigned int event_count = 0;
-	
+
 	struct sigaction action;
-    
+
     struct sockaddr_storage ss;
-	
+
     socklen_t       slen          = sizeof(ss);
 	aslclient       asl           = NULL;
 	aslmsg          log_msg       = NULL;
@@ -647,9 +648,9 @@ int main(void) {
 					listening_fd_array;
     size_t          i;
     int             kq;
-    
+
 	static const char * command_header = TUNNELBLICKD_OPENVPNSTART_HEADER_C;
-	
+
     // Create a new ASL log
     asl = asl_open("tunnelblickd", "Daemon", ASL_OPT_STDERR);
 	if (  asl == NULL  ) {
@@ -662,7 +663,7 @@ int main(void) {
 	if (  asl_set(log_msg, ASL_KEY_SENDER, "tunnelblickd") != 0  ) {
 		return EXIT_FAILURE;
 	}
-		
+
 	// Make sure we are root:wheel
 	if (   (getuid()  != 0)
 		|| (getgid()  != 0)
@@ -711,51 +712,51 @@ int main(void) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "launch_data_new_string(\"" LAUNCH_KEY_CHECKIN "\") Unable to create string.");
         goto done;
     }
-    
+
     if (  (checkin_response = launch_msg(checkin_request)) == NULL  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "launch_msg(\"" LAUNCH_KEY_CHECKIN "\") IPC failure: %m");
         goto done;
     }
-    
+
     if (  LAUNCH_DATA_ERRNO == launch_data_get_type(checkin_response)  ) {
         errno = launch_data_get_errno(checkin_response);
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Check-in failed: %m");
         goto done;
     }
-	
+
 	// If the .plist and macOS did not specify a TimeOut, default to 30 seconds
 	launch_data_t timeoutValue = launch_data_dict_lookup(checkin_response, LAUNCH_JOBKEY_TIMEOUT);
 	if (  timeoutValue != NULL) {
 		timeout.tv_sec = launch_data_get_integer(timeoutValue);
 	}
-    
+
     launch_data_t the_label = launch_data_dict_lookup(checkin_response, LAUNCH_JOBKEY_LABEL);
     if (  NULL == the_label  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "No label found");
         goto done;
     }
-    
+
     asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Started %s", launch_data_get_string(the_label));
-    
+
     // Retrieve the dictionary of Socket entries in the config file
     sockets_dict = launch_data_dict_lookup(checkin_response, LAUNCH_JOBKEY_SOCKETS);
     if (  NULL == sockets_dict  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "No sockets found on which to answer requests!");
         goto done;
     }
-    
+
     if (  launch_data_dict_get_count(sockets_dict) > 1) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Too many sockets! This daemon supports only one socket.");
 		goto done;
     }
-    
+
     // Get the dictionary value from the key "MyListenerSocket", as defined in the .plist file.
     listening_fd_array = launch_data_dict_lookup(sockets_dict, "Listener");
     if (  NULL == listening_fd_array  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "No socket named 'Listener' found in launchd .plist to answer requests on!");
         goto done;
     }
-    
+
     // Initialize a new kernel event.  This will trigger when a connection occurs on our listener socket.
     for (  i = 0; i < launch_data_array_get_count(listening_fd_array); i++  ) {
 		launch_data_t this_listening_fd = launch_data_array_get_index(listening_fd_array, i);
@@ -765,11 +766,11 @@ int main(void) {
             goto done;
 		}
     }
-    
+
     launch_data_free(checkin_response);
-    
+
 //    asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Initialization complete");
-    
+
     // Set up SIGTERM handler
     action.sa_handler = signal_handler;
     sigemptyset(&action.sa_mask);
@@ -778,7 +779,7 @@ int main(void) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Failed to set signal handler for SIGTERM");
         goto done;
     }
-	
+
 	// Loop processing kernel events.
     for (;;) {
 
@@ -787,16 +788,16 @@ int main(void) {
 			retval = EXIT_SUCCESS;
 			goto done;
 		}
-		
+
 		[pool drain];
 		pool = [NSAutoreleasePool new];
-		
+
         FILE *the_stream;
         int  filedesc;
 		int nbytes;
 
 		char buffer[SOCKET_BUF_SIZE];
-		
+
         // Get the next event from the kernel event queue.
         if (  -1 == (filedesc = kevent(kq, NULL, 0, &kev_listener, 1, &timeout))  ) {
 			if (   sigtermReceived
@@ -809,7 +810,7 @@ int main(void) {
             goto done;
         } else if (  0 == filedesc  ) {
             asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Timed out; exiting");
-			
+
 			// If the current log file is too large, start it over
 			asl_close(asl);
 			struct stat st;
@@ -824,14 +825,14 @@ int main(void) {
 			goto done;
         }
 //        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Received file descriptor %d", filedesc);
-		
+
         // Accept an incoming connection.
         if (  -1 == (filedesc = accept(kev_listener.ident, (struct sockaddr *)&ss, &slen))  ) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "Error from accept(): %m");
             continue; /* this isn't fatal */
         }
 //		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Connection established");
-		
+
 		// Get the client's credentials
 		uid_t client_euid;
 		gid_t client_egid;
@@ -844,7 +845,7 @@ int main(void) {
 //					(unsigned long)client_euid, (unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
 			;
 		}
-        
+
 		// Get the request from the client
 		nbytes = read(filedesc, buffer, SOCKET_BUF_SIZE - 1);
 		if (  0 == nbytes  ) {
@@ -857,9 +858,9 @@ int main(void) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Too many bytes read; maximum is %lu", (unsigned long)(SOCKET_BUF_SIZE - 2));
 			continue; // this isn't fatal
 		}
-		
+
 		buffer[nbytes] = '\0';	// Terminate so the request is a string
-		
+
         // Ignore request unless it starts with a valid header and is terminated by a \n
 		if (  0 != strncmp(buffer, command_header, strlen(command_header))  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did it did not start with a valid header; received '%s'", (unsigned long)nbytes, buffer);
@@ -872,7 +873,7 @@ int main(void) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but did not receive a LF at the end; received '%s'", (unsigned long)nbytes, buffer);
 			continue; // this isn't fatal
 		}
-		
+
 		// Remove the LF at the end of the request
 		buffer[nbytes - 1] = '\0';
 
@@ -881,14 +882,14 @@ int main(void) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but they were not a valid UTF-8 string", (unsigned long)nbytes);
 			goto done;
 		}
-		
-		
+
+
 //		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Received %lu bytes from client including a terminating NL: '%s'", (unsigned long)nbytes, buffer);
-		
+
 		//***************************************************************************************
 		//***************************************************************************************
 		// Process the request by calling tunnelblick-helper and sending its status and output to the client
-		
+
         // Get the client's username from the client's euid
         struct passwd *pw = getpwuid(client_euid);
         NSString * userName = [NSString stringWithCString: pw->pw_name encoding: NSUTF8StringEncoding];
@@ -901,7 +902,7 @@ int main(void) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret userhome as UTF-8");
 			goto done;
 		}
-		
+
 		// Set up to have tunnelblick-helper to do the work
 		NSString * tunnelblickHelperPath;
 		NSString * bundlePath = [[NSBundle mainBundle] bundlePath];
@@ -919,10 +920,10 @@ int main(void) {
 		NSArray  * arguments    = [command componentsSeparatedByString: @"\t"];
 		NSString * stdoutString = nil;
 		NSString * stderrString = nil;
-		
+
 		NSMutableString * commandToDisplay = [NSMutableString stringWithString: command];
 		[commandToDisplay replaceOccurrencesOfString: @"\t" withString: @" " options: 0 range: NSMakeRange(0, [commandToDisplay length])];
-		
+
 		// Pretend we are the client while running tunnelblick-helper
 		if (  getegid() == client_egid  ) {
 //			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Before running tunnelblick-helper, setegid(%lu) unnecessary: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
@@ -946,12 +947,12 @@ int main(void) {
 //			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Before running tunnelblick-helper, seteuid(%lu) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
 //					(unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
 		}
-		
+
 //		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Launching tunnelblick-helper as uid 0, euid = %lu, gid = 0, and egid = %lu; user '%s' with home folder '%s'",
 //				(unsigned long)client_euid, (unsigned long)client_egid, [userName UTF8String], [userHome UTF8String]);
-		
+
 		OSStatus status = runTool(userName, userHome, tunnelblickHelperPath, arguments, &stdoutString, &stderrString, asl, log_msg);
-		
+
 		// Resume being root:wheel if needed
 		if (   geteuid() == 0  ) {
 //			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "After running tunnelblick-helper, seteuid(0) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
@@ -978,19 +979,19 @@ int main(void) {
 //			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "After running tunnelblick-helper, setegid(0) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
 //					(unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
 		}
-        
+
         if (  status != 0  ) {
             // Log the status from executing the command
             asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Status = %ld from tunnelblick-helper command '%s'", (long) status, [commandToDisplay UTF8String]);
         }
-		
+
 		// Send the status, stdout, and stderr to the client as a UTF-8-encoded string which is terminated by a \0.
 		//
 		// The header of the string consists of the signed status, the unsigned length of the stdout string,
 		// the unsigned length of the stderr string, and a newline. (The numbers are each separated by one space.)
 		//
 		// The stdout string follows the header, the stderr string follows the stdout string, and a \0 follows that.
-		
+
 		const char * headerC = [[NSString stringWithFormat: @"%ld %lu %lu\n",
 								 (long)status, (unsigned long)[stdoutString length], (unsigned long)[stderrString length]]
 								UTF8String];
@@ -1003,17 +1004,17 @@ int main(void) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not open stream to output to client");
 			close(filedesc);  // This isn't fatal
 		}
-		
+
 		//***************************************************************************************
 		//***************************************************************************************
 	}
-	
+
 done:
 	if (  asl != NULL ) {
 		asl_close(asl);
 	}
 
 	[pool drain];
-	
+
 	return retval;
 }
