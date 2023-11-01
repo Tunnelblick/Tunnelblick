@@ -2,12 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Program</key>
+	<string>/Applications/Tunnelblick.app/Contents/Resources/Tunnelblick-LaunchAtLogin</string>
 	<key>Label</key>
 	<string>net.tunnelblick.tunnelblick.LaunchAtLogin</string>
-	<key>ProgramArguments</key>
-	<array>
-		<string>/Applications/Tunnelblick.app/Contents/Resources/Tunnelblick-LaunchAtLogin</string>
-	</array>
 	<key>LimitLoadToSessionType</key>
 	<string>Aqua</string>
 	<key>RunAtLoad</key>
