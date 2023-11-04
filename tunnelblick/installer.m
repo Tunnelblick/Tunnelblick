@@ -2047,8 +2047,12 @@ static void copyOrMoveOneTblk(NSString * firstPath, NSString * secondPath, BOOL 
 	
 	resolveSymlinksInPath(sourcePath);
 	
-	securelyMove(sourcePath, targetPath);
-	
+    if (  moveNotCopy  ) {
+        securelyMove(sourcePath, targetPath);
+    } else {
+        securelyCopy(sourcePath, targetPath);
+    }
+
     structureTblkProperly(targetPath);
 
     BOOL targetIsPrivate = isPathPrivate(targetPath);
