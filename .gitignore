@@ -1,3 +1,11 @@
+build-log.txt
+third_party/build
+third_party/built-*
+third_party/do-not-clean
+third_party/products/
+third_party/sources/IOUserEthernetController.h
+tunnelblick/build
+
 # Xcode 7 user data
 xcuserdata/
 xcshareddata/
@@ -5,14 +13,6 @@ xcshareddata/
 # Xcode 3.2.2 user data
 *.mode1v3
 *.pbxuser
-
-build-log.txt
-third_party/build
-third_party/built-*
-third_party/do-not-clean
-third_party/products/
-tunnelblick/build
-/third_party/sources/IOUserEthernetController.h
 
 # OS generated files #
 ######################
