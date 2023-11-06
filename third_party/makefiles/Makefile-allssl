@@ -101,6 +101,8 @@ built-allssl: built-allssl-prepare
 			fi ; \
 			cd .. ; \
 		done ; \
+		mkdir -p "$(PRODUCTS_DIR)/$$sslversion" ; \
+		lipo $(STAGING_DIR)/$$sslversion*/bin/openssl -create -output "$(PRODUCTS_DIR)/$$sslversion/openssl"; \
 	done
 	cd $(TOPDIR)
 	touch built-allssl
