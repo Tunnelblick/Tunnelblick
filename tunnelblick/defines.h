@@ -230,7 +230,7 @@
 
 //*************************************************************************************************
 // OpenVPN options that cannot appear in a "safe" configuration
-#define OPENVPN_OPTIONS_THAT_ARE_UNSAFE @[@"auth-user-pass-verify", @"config", @"client-connect", @"client-disconnect", \
+#define OPENVPN_OPTIONS_THAT_ARE_UNSAFE @[@"auth-user-pass-verify", @"config", @"client-connect", @"client-crresponse", @"client-disconnect", \
                                           @"down", @"ipchange", @"iproute", @"learn-address", \
                                           @"plugin", @"route-pre-down", @"route-up", @"tls-verify",  @"up"]
 

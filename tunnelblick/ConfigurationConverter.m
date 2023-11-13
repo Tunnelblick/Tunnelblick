@@ -1211,6 +1211,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 									@"tls-crypt-v2-verify",
 									@"auth-user-pass-verify",
 									@"client-connect",
+                                    @"client-crresponse",
 									@"client-disconnect",
 									@"up",
 									@"down",
