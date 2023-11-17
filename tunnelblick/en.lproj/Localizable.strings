@@ -527,7 +527,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Set nameserver (alternate 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton */ /* System profile item */
 "Set nameserver" = "Set nameserver";
 
 /* Text on disk image */
@@ -2639,7 +2639,7 @@
 /* Button VPNService */
 "Get Different Image" = "Get Different Image";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService */ /* Window title VPNService */
 "Login" = "Login";
 
 /* Button VPNService */
