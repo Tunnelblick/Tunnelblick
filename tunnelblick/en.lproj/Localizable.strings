@@ -302,8 +302,7 @@
 /* Menu item */
 "Connect %@%@" = "Connect %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Copy Configuration into a New Folder…";
 
 /* Menu item */
@@ -336,8 +335,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Make Configuration Shared…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Move Configuration into a New Folder…";
 
 /* Menu item */
@@ -536,55 +534,55 @@
 "Double-click to begin" = "Double-click to begin";
 
 /* Connection status */
-"ADD_ROUTES" = "Adding routes";   // Please translate "Adding routes"
+"ADD_ROUTES" = "Adding routes"; // Please translate "Adding routes"
 
 /* Connection status */
-"ASSIGN_IP" = "Assigning IP address";   // Please translate "Assigning IP address"
+"ASSIGN_IP" = "Assigning IP address"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Authorizing";   // Please translate "Authorizing"
+"AUTH" = "Authorizing"; // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "Connected";   // Please translate "Connected"
+"CONNECTED" = "Connected"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Connecting";   // Please translate "Connecting"
+"CONNECTING" = "Connecting"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Disconnecting";     // Please translate "Disconnecting"
+"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
 
 /* Connection status */
-"EXITING" = "Disconnected";     // Please translate "Disconnected"
+"EXITING" = "Disconnected"; // Please translate "Disconnected"
 
 /* Connection status */
-"GET_CONFIG" = "Getting configuration";   // Please translate ""
+"GET_CONFIG" = "Getting configuration";
 
 /* Connection status */
-"NETWORK_ACCESS" = "Waiting for network access";	// Please translate "Waiting for network access"
+"NETWORK_ACCESS" = "Waiting for network access"; // Please translate "Waiting for network access"
 
 /* Connection status */
-"PASSWORD_WAIT" = "Waiting for password";   // Please translate "Waiting for password"
+"PASSWORD_WAIT" = "Waiting for password"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "Waiting for passphrase";   // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "Waiting for passphrase"; // Please translate "Waiting for password"
 
 /* Connection status */
-"RECONNECTING" = "Reconnecting";   // Please translate ""
+"RECONNECTING" = "Reconnecting";
 
 /* Connection status */
-"RESOLVE" = "Resolving domain name";   // Please translate ""
+"RESOLVE" = "Resolving domain name";
 
 /* Connection status */
-"SLEEP" = "Waiting for Daemon process";   // Please translate "Waiting for daemon process"
+"SLEEP" = "Waiting for Daemon process"; // Please translate "Waiting for daemon process"
 
 /* Connection status */
-"TCP_CONNECT" = "Making TCP connection";   // Please translate "Making TCP connection"
+"TCP_CONNECT" = "Making TCP connection"; // Please translate "Making TCP connection"
 
 /* Connection status */
-"UDP_CONNECT" = "Making UDP connection";   // Please translate "Making UDP connection"
+"UDP_CONNECT" = "Making UDP connection"; // Please translate "Making UDP connection"
 
 /* Connection status */
-"WAIT" = "Waiting for server response";   // Please translate "Waiting for Server Response"
+"WAIT" = "Waiting for server response"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
@@ -593,13 +591,13 @@
 "Configurations" = "Configurations";
 
 /* Window title */
-" (Deployed)" = " (Deployed)"; /* Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Deployed)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
 
 /* Window title */
 " (Private)" = " (Private)";
 
 /* Window title */
-" (Shared)" = " (Shared)"; /* Indicates a shared configuration */
+" (Shared)" = " (Shared)"; // Indicates a shared configuration
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Configuration - Tunnelblick";
@@ -2179,7 +2177,7 @@
 /* Popup button menu item */
 "(Do not import)" = "(Do not import)";
 
-/* This appears in place of a string when the string cannot be created. */
+/* This appears in place of a string when the string cannot be created. It should only be shown when there is a serious problem with the computer. By string we mean any string of words that have been translated (basically, the pieces of language that we translate at one time). It could be a word or two, a sentence, or several paragraphs. */
 "(String is not available)\n" = "(String is not available)\n";
 
 /* Credit description */
@@ -2482,8 +2480,7 @@
 /* Credit description */
 "Dutch translation" = "Dutch translation";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Enter admin mode";
 
 /* Credit description */
@@ -2794,4 +2791,3 @@
 
 /* Window text VPNService */
 "Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
-
