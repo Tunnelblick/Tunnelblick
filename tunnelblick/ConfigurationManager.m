@@ -4450,7 +4450,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 ? [NSString stringWithFormat: @"There are no files in %@\n", configPathTail]
                 : [NSString stringWithFormat: @"Files in %@:\n%@", configPathTail, fileListString]);
     } else {
-        return [NSString stringWithFormat: @"Cannot list files in %@; not a .tblk\n", configPathTail];
+        return (  connection
+                ? [NSString stringWithFormat: @"Cannot list files in %@; not a .tblk\n", configPathTail]
+                : @"\n");
     }
 }
 
@@ -4770,9 +4772,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	NSPasteboard * pb = [NSPasteboard generalPasteboard];
 	[pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
 
-	VPNConnection * connection = [gMC connectionForDisplayName: displayName];
-    if (  connection  ) {
-		
+    NSString * separatorString = @"================================================================================\n\n";
+
+	VPNConnection * connection = (  displayName
+                                  ? [gMC connectionForDisplayName: displayName]
+                                  : nil);
+
 		[pb setString: @"You pasted too soon! The Tunnelblick diagnostic info was not yet available on the Clipboard when you pasted. Try to paste again.\n" forType: NSStringPboardType];
 
 		// Get OS and Tunnelblick version info
@@ -4793,6 +4798,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 		NSString * macModelInfo = [ConfigurationManager macModelNumber];
 
+    // Get per-configuration info
+    NSString * perConfigurationString;
+    if (  connection  ) {
+
         // Get contents of configuration file
         NSString * condensedConfigFileContents = [connection condensedSanitizedConfigurationFileContents ];
 		if (  ! condensedConfigFileContents  ) {
@@ -4802,6 +4811,21 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         // Get list of files in .tblk or message explaining why cannot get list
         NSString * tblkFileList = [ConfigurationManager listOfFilesInTblkForConnection: connection];
 
+        // Get relevant preferences
+        NSString * configurationPreferencesContents = [ConfigurationManager getPreferences: gConfigurationPreferences prefix: [connection displayName]];
+
+        perConfigurationString = [NSString stringWithFormat:
+                                  @"Configuration %@\n\nSanitized\" condensed configuration file for %@:\n\n%@\n%@"
+                                  @"%@\n%@"
+                                  @"Configuration preferences:\n\n%@\n%@",
+                                  [connection localizedName], [connection configPath], condensedConfigFileContents, separatorString,
+                                  tblkFileList, separatorString,
+                                  configurationPreferencesContents, separatorString];
+
+        // List of unusual files in .tblk (or message why not listing them)
+    } else {
+        perConfigurationString = [NSString stringWithFormat:@"(No configuration selected)\n\n%@", separatorString];
+    }
 		// Get contents of kext policy database if available
 		NSString * kextPolicyData = @"Kext Policy database not available (available only on macOS High Sierra and later)";
 		if (  runningOnHighSierraOrNewer()  ) {
@@ -4818,9 +4842,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			}
 		}
 
-        // Get relevant preferences
-        NSString * configurationPreferencesContents = [ConfigurationManager getPreferences: gConfigurationPreferences prefix: [connection displayName]];
-        
         NSString * wildcardPreferencesContents      = [ConfigurationManager getPreferences: gConfigurationPreferences prefix: @"*"];
         
         NSString * programPreferencesContents       = [ConfigurationManager getPreferences: gProgramPreferences       prefix: @""];
@@ -4854,19 +4875,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 		NSString * traceLogContents = dumpTraces();
 
-		NSString * separatorString = @"================================================================================\n\n";
-		
         NSString * output = [NSString stringWithFormat:
-							 @"%@%@%@%@%@\n"  // Version info
-                             @"Configuration %@\n\n"
-                             @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
-                             @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
-							 @"Tunnelblick Kext Policy Data:\n\n%@\n\n%@"
-                             @"Configuration preferences:\n\n%@\n%@"
+							 @"%@%@%@%@%@\n%@"  // Version info
+                             @"%@"  // perConfigurationString
                              @"Wildcard preferences:\n\n%@\n%@"
                              @"Program preferences:\n\n%@\n%@"
                              @"Forced preferences:\n\n%@\n\n%@"
                              @"Deployed forced preferences:\n\n%@\n\n%@"
+                             @"Tunnelblick Kext Policy Data:\n\n%@\n\n%@"
                              @"Tunnelblick Log:\n\n%@\n%@"
 							 @"Installer log:\n\n%@\n%@"
                              @"Down log:\n\n%@\n%@"
@@ -4877,16 +4893,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							 @"Quit Log:\n\n%@\n%@"
 							 @"Traces Log:\n\n%@\n%@"
 							 @"Console Log:\n\n%@\n",
-                             versionContents, gitInfo, translationInfo, sipStatusInfo, macModelInfo,
-                             [connection localizedName],
-							 [connection configPath], condensedConfigFileContents, separatorString,
-                             tblkFileList, separatorString,
-							 kextPolicyData, separatorString,
-                             configurationPreferencesContents, separatorString,
+                             versionContents, gitInfo, translationInfo, sipStatusInfo, macModelInfo, separatorString,
+                             perConfigurationString,
                              wildcardPreferencesContents, separatorString,
                              programPreferencesContents, separatorString,
                              primaryForcedPreferencesContents, separatorString,
                              deployedForcedPreferencesContents, separatorString,
+                             kextPolicyData, separatorString,
                              logContents, separatorString,
                              installerLogContents, separatorString,
 							 downLogContents, separatorString,
@@ -4901,11 +4914,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         pb = [NSPasteboard generalPasteboard];
         [pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
         [pb setString: output forType: NSStringPboardType];
-    } else {
-		[pb setString: @"No diagnostic info is available because no configuration has been selected.\n" forType: NSStringPboardType];
-        NSLog(@"diagnosticInfoToClipboardButtonWasClicked but no configuration selected");
-    }
-	
 }
 
 +(NSString *) stringWithFileContentsOrNotFound: (NSString *) filePath {
@@ -5554,7 +5562,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
-	NSString * displayName = [dict objectForKey: @"displayName"];
+	NSString * displayName = nilIfNSNull([dict objectForKey: @"displayName"]);
 	NSString * logContents = nilIfNSNull([dict objectForKey: @"logContents"]);
 
     [ConfigurationManager putDiagnosticInfoOnClipboardWithDisplayName: displayName log: logContents];
@@ -5914,14 +5922,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 +(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName log: (NSString *) logContents {
     
 	NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-						   displayName, 			 @"displayName",
+                           NSNullIfNil(displayName), @"displayName",
 						   NSNullIfNil(logContents), @"logContents",
 						   nil];
 
     [TBOperationQueue addToQueueSelector: @selector(putDiagnosticInfoOnClipboardOperation:)
                                   target: [ConfigurationManager class]
                                   object: dict
-                             disableList: [NSArray arrayWithObject: displayName]];
+                             disableList: (  displayName
+                                           ? [NSArray arrayWithObject: displayName]
+                                           : [NSArray array])
+    ];
 }
 
 +(void) terminateAllOpenVPNInNewThread {

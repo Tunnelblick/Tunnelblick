@@ -1204,8 +1204,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	[[configurationsPrefsView diagnosticInfoToClipboardProgressIndicator] stopAnimation: self];
 	[[configurationsPrefsView diagnosticInfoToClipboardProgressIndicator] setHidden: YES];
-    [[configurationsPrefsView diagnosticInfoToClipboardButton] setEnabled: (   [self oneConfigurationIsSelected]
-																			&& (! [gTbDefaults boolForKey: @"disableCopyLogToClipboardButton"]))];
+    [[configurationsPrefsView diagnosticInfoToClipboardButton] setEnabled: (! [gTbDefaults boolForKey: @"disableCopyLogToClipboardButton"])];
 }
 
 -(void) indicateWaitingForConsoleLogToClipboard
@@ -1294,8 +1293,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self validateConnectAndDisconnectButtonsForConnection: connection];
         
 		// diagnosticInfoToClipboardProgressIndicator is controlled by indicateWaitingForDiagnosticInfoToClipboard and indicateNotWaitingForDiagnosticInfoToClipboard
-		[[configurationsPrefsView diagnosticInfoToClipboardButton] setEnabled: (   [[configurationsPrefsView diagnosticInfoToClipboardProgressIndicator] isHidden]
-																				&& [self oneConfigurationIsSelected])];
+		[[configurationsPrefsView diagnosticInfoToClipboardButton] setEnabled: [[configurationsPrefsView diagnosticInfoToClipboardProgressIndicator] isHidden]];
 		
         // Left split view
         
@@ -1353,7 +1351,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         [[configurationsPrefsView logDisplayProgressIndicator]      setHidden: YES];
 
-        [[configurationsPrefsView diagnosticInfoToClipboardButton]  setEnabled: NO];
+        [[configurationsPrefsView diagnosticInfoToClipboardButton]  setEnabled: YES];
 		// diagnosticInfoToClipboardProgressIndicator is controlled by indicateWaitingForDiagnosticInfoToClipboard and indicateNotWaitingForDiagnosticInfoToClipboard
         
         [[configurationsPrefsView connectButton]                    setEnabled: NO];
