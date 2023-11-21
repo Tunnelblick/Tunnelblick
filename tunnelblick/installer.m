@@ -126,6 +126,8 @@
 static FILE          * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
+static BOOL     renamex_npWorks = NO;         // renamex_np() works as needed for /Applications and L_AS_T, and home folder if it is available
+
 
 // The following variables contain info about the user. They may be zero or nil if not needed.
 // If invoked by Tunnelblick, they will be set up using the uid from getuid().
@@ -578,10 +580,22 @@ static void securelyRename(NSString * sourcePath, NSString * targetPath) {
         securelyDeleteItem(targetPath);
     }
 
-    if (  0 != renamex_np(fileSystemRepresentationFromPath(sourcePath), fileSystemRepresentationFromPath(targetPath), (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
-        appendLog([NSString stringWithFormat: @"renamex_np() failed with error %d ('%s') trying to rename %@ to %@",
-                   errno, strerror(errno), sourcePath, targetPath]);
-        errorExit();
+    if (  renamex_npWorks  ) {
+        if (  0 != renamex_np(fileSystemRepresentationFromPath(sourcePath), fileSystemRepresentationFromPath(targetPath), (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
+            appendLog([NSString stringWithFormat: @"renamex_np() failed with error %d ('%s') trying to rename %@ to %@",
+                       errno, strerror(errno), sourcePath, targetPath]);
+            errorExit();
+        } else {
+            appendLog([NSString stringWithFormat: @"renamex_np() succeeded renaming %@ to %@", sourcePath, targetPath]);
+        }
+    } else {
+        if (  0 != rename(fileSystemRepresentationFromPath(sourcePath), fileSystemRepresentationFromPath(targetPath))  ){
+            appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
+                       errno, strerror(errno), sourcePath, targetPath]);
+            errorExit();
+        } else {
+            appendLog([NSString stringWithFormat: @"rename() succeeded renaming %@ to %@", sourcePath, targetPath]);
+        }
     }
 }
 
@@ -848,32 +862,48 @@ static void securelyMove(NSString * sourcePath, NSString * targetPath) {
     securelyDeleteItem(sourcePath);
 }
 
-static void testSecurelyRename(NSString * folder) {
+static BOOL testRenamex_np(NSString * folder) {
+
+    errorExitIfAnySymlinkInPath(folder);
 
     // Touch two files (delete them first if they exist)
-    NSString * test1Path = [folder stringByAppendingPathComponent: @"rename-test-target-1"];
+    NSString * test1Path = [folder stringByAppendingPathComponent: @"renamex_np-test-target-1"];
     securelyDeleteItemIfItExists(test1Path);
     if (  ! [gFileMgr createFileAtPath: test1Path contents: nil attributes: nil]  ) {
-        appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-1 in %@", folder]);
+        appendLog([NSString stringWithFormat: @"testRenamex_np: Can't create renamex_np-test-target-1 in %@", folder]);
     }
-    NSString * test2Path = [folder stringByAppendingPathComponent: @"rename-test-target-2"];
+    NSString * test2Path = [folder stringByAppendingPathComponent: @"renamex_np-test-target-2"];
     securelyDeleteItemIfItExists(test2Path);
     if (  ! [gFileMgr createFileAtPath: test2Path contents: nil attributes: nil]  ) {
-        appendLog([NSString stringWithFormat: @"testSecurelyRename Can't create rename-test-target-2 in %@", folder]);
+        appendLog([NSString stringWithFormat: @"testRenamex_np: Can't create renamex_np-test-target-2 in %@", folder]);
     }
 
-    // Try to rename one to the other. This should fail because of the RENAME_EXCL option.
-    BOOL good = (0 != renamex_np(fileSystemRepresentationFromPath(test1Path), fileSystemRepresentationFromPath(test2Path),(RENAME_NOFOLLOW_ANY | RENAME_EXCL)));
+    // Try to rename test1 to test2. This should fail because test2 exists and the RENAME_EXCL option is used
+    if (  0 == renamex_np(fileSystemRepresentationFromPath(test1Path), fileSystemRepresentationFromPath(test2Path),(RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ) {
+        // renamex_np succeeded but should have failed
+        appendLog([NSString stringWithFormat: @"renamex_np() test #1 failed for %@", folder]);
+        securelyDeleteItemIfItExists(test1Path);
+        securelyDeleteItemIfItExists(test2Path);
+        return FALSE;
+    }
 
-    // Delete the files
-    securelyDeleteItemIfItExists(test1Path);
     securelyDeleteItemIfItExists(test2Path);
 
-
-    if (  ! good  ) {
-        appendLog([NSString stringWithFormat: @"Rename test failed for %@", folder]);
+    // Try to rename test1 to test2. This should now succeed because test2 does not exist
+    if (  0 != renamex_np(fileSystemRepresentationFromPath(test1Path), fileSystemRepresentationFromPath(test2Path),(RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ) {
+        // renamex_np() failed
+        appendLog([NSString stringWithFormat: @"renamex_np() test #2 failed for %@", folder]);
+        securelyDeleteItemIfItExists(test1Path);
+        securelyDeleteItemIfItExists(test2Path);
+        return FALSE;
     }
-}
+
+    securelyDeleteItemIfItExists(test2Path);    // test1 was succcesfully renamed to test2, so delete test2
+
+    appendLog([NSString stringWithFormat: @"renamex_np() tests succeeded for %@", folder]);
+
+    return TRUE;
+ }
 
 //**************************************************************************************************************************
 // USER INFORMATION
@@ -2666,9 +2696,6 @@ int main(int argc, char *argv[]) {
 	
     setupLibrary_Application_Support_Tunnelblick();
 
-    testSecurelyRename(@"/Applications");
-    testSecurelyRename(L_AS_T);
-
     if (  argc < 2  ) {
 		openLog(FALSE);
         appendLog(@"1 or more arguments are required");
@@ -2726,6 +2753,19 @@ int main(int argc, char *argv[]) {
     
     // Set up globals that have to do with the user
     setupUserGlobals(argc, argv, operation);
+
+    renamex_npWorks = (   testRenamex_np(@"/Applications")
+                       && testRenamex_np(L_AS_T)  );
+    if (   renamex_npWorks
+        && gHomeDirectory  ) {
+        NSString * path = [[[[gHomeDirectory
+                              stringByAppendingPathComponent: @"Library"]
+                             stringByAppendingPathComponent: @"Application Support"]
+                            stringByAppendingPathComponent: @"Tunnelblick"]
+                           stringByAppendingPathComponent: @"Configurations"];
+
+        renamex_npWorks = testRenamex_np(path);
+    }
 
     // If we copy the .app to /Applications, other changes to the .app affect THAT copy, otherwise they affect the currently running copy
     NSString * appResourcesPath = (  doCopyApp
