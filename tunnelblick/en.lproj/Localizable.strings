@@ -533,56 +533,56 @@
 /* Text on disk image */
 "Double-click to begin" = "Double-click to begin";
 
-/* Connection status */
-"ADD_ROUTES" = "Adding routes"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Adding routes";
 
-/* Connection status */
-"ASSIGN_IP" = "Assigning IP address"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Assigning IP address";
 
-/* Connection status */
-"AUTH" = "Authorizing"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Authorizing";
 
-/* Connection status */
-"CONNECTED" = "Connected"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Connected";
 
-/* Connection status */
-"CONNECTING" = "Connecting"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Connecting";
 
-/* Connection status */
-"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Disconnecting";
 
-/* Connection status */
-"EXITING" = "Disconnected"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Disconnected";
 
-/* Connection status */
+/* Connection status, please translate "Getting configuration" */
 "GET_CONFIG" = "Getting configuration";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Waiting for network access"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Waiting for network access";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Waiting for password"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Waiting for password";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Waiting for passphrase"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Waiting for passphrase";
 
-/* Connection status */
+/* Connection status, please translate "Reconnecting" */
 "RECONNECTING" = "Reconnecting";
 
-/* Connection status */
+/* Connection status, please translate "Resolving domain name" */
 "RESOLVE" = "Resolving domain name";
 
-/* Connection status */
-"SLEEP" = "Waiting for Daemon process"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Waiting for Daemon process";
 
-/* Connection status */
-"TCP_CONNECT" = "Making TCP connection"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Making TCP connection";
 
-/* Connection status */
-"UDP_CONNECT" = "Making UDP connection"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Making UDP connection";
 
-/* Connection status */
-"WAIT" = "Waiting for server response"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Waiting for server response";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
@@ -590,14 +590,14 @@
 /* System profile item */
 "Configurations" = "Configurations";
 
-/* Window title */
-" (Deployed)" = " (Deployed)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Deployed)";
 
 /* Window title */
 " (Private)" = " (Private)";
 
-/* Window title */
-" (Shared)" = " (Shared)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Shared)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Configuration - Tunnelblick";
