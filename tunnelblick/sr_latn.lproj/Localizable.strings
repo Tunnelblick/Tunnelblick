@@ -53,9 +53,6 @@
 /* Button */
 "Cancel" = "Otkaži";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Ažuriraj";
-
 /* Button */
 "Check Now" = "Izvrši proveru";
 
@@ -297,11 +294,13 @@
 /* Menu item */
 "Add a VPN..." = "Dodaj VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Ažuriraj";
+
 /* Menu item */
 "Connect %@%@" = "Poveži %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Kopiraj Konfiguraciju u Novi Folder";
 
 /* Menu item */
@@ -334,8 +333,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Označi konfiguraciju kao deljenu…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Premjesti Konfiguraciju u Novi Folder";
 
 /* Menu item */
@@ -527,62 +525,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Podesi nameserver (alternativa 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Podesi nameserver";
 
 /* Text on disk image */
 "Double-click to begin" = "Dupli-klik za pokretanje";
 
-/* Connection status */
-"ADD_ROUTES" = "Dodavanje ruta"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Dodavanje ruta";
 
-/* Connection status */
-"ASSIGN_IP" = "Dodeljivanje IP adrese"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Dodeljivanje IP adrese";
 
-/* Connection status */
-"AUTH" = "Autorizacija"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Autorizacija";
 
-/* Connection status */
-"CONNECTED" = "Povezan"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Povezan";
 
-/* Connection status */
-"CONNECTING" = "Povezivanje"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Povezivanje";
 
-/* Connection status */
-"DISCONNECTING" = "Prekidanje konekcije"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Prekidanje konekcije";
 
-/* Connection status */
-"EXITING" = "Prekinuta konekcija"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Prekinuta konekcija";
 
-/* Connection status */
-"GET_CONFIG" = "Preuzimanje konfiguracije"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Preuzimanje konfiguracije";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Čekam na dostupnost mreže"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Čekam na dostupnost mreže";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Čekam na lozinku"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Čekam na lozinku";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Čekam na tajnu sekvencu"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Čekam na tajnu sekvencu";
 
-/* Connection status */
-"RECONNECTING" = "Obnova konekcije"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Obnova konekcije";
 
-/* Connection status */
-"RESOLVE" = "Razlučivanje imena domena"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Razlučivanje imena domena";
 
-/* Connection status */
-"SLEEP" = "Čekanje na pozadinski proces"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Čekanje na pozadinski proces";
 
-/* Connection status */
-"TCP_CONNECT" = "Uspostavljanje TCP veze"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Uspostavljanje TCP veze";
 
-/* Connection status */
-"UDP_CONNECT" = "Uspostavljanje UDP konekcije"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Uspostavljanje UDP konekcije";
 
-/* Connection status */
-"WAIT" = "Čekanje na odgovor servera"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Čekanje na odgovor servera";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Primer Tunnelblick VPN konfiguracije";
@@ -590,14 +588,14 @@
 /* System profile item */
 "Configurations" = "Konfiguracije";
 
-/* Window title */
-" (Deployed)" = " (Primenjeno)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Primenjeno)";
 
 /* Window title */
 " (Private)" = " (Privatno)";
 
-/* Window title */
-" (Shared)" = " (Deljeno)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Deljeno)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN konfiguracija - Tunnelblick";
@@ -2480,8 +2478,7 @@
 /* Credit description */
 "Dutch translation" = "Holandski prevod";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Uključi admin režim";
 
 /* Credit description */
@@ -2640,7 +2637,7 @@
 /* Button VPNService */
 "Get Different Image" = "Preuzmi drugu sliku";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Prijava";
 
 /* Button VPNService */

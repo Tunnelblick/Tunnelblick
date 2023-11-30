@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Cancel·lar";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Cercar actualitzacions ara";
-
 /* Button */
 "Check Now" = "Comprovar ara";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Afegeix una VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Cercar actualitzacions ara";
+
 /* Menu item */
 "Connect %@%@" = "Connecta %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Copiar la configuració a una nova carpeta ...";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Fer la configuració compartida…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Moure la configuració a una nova carpeta ...";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Configura el servidor de noms (alternatiu 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Configurar el servidor de noms";
 
 /* Text on disk image */
 "Double-click to begin" = "Fes doble click per començar";
 
-/* Connection status */
-"ADD_ROUTES" = "Afegint rutes"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Afegint rutes";
 
-/* Connection status */
-"ASSIGN_IP" = "Assignant adreça IP"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Assignant adreça IP";
 
-/* Connection status */
-"AUTH" = "Autoritzant"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Autoritzant";
 
-/* Connection status */
-"CONNECTED" = "Connectat"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Connectat";
 
-/* Connection status */
-"CONNECTING" = "Connectant"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Connectant";
 
-/* Connection status */
-"DISCONNECTING" = "Desconnectant"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Desconnectant";
 
-/* Connection status */
-"EXITING" = "Desconnectat"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Desconnectat";
 
-/* Connection status */
-"GET_CONFIG" = "Obtenint la configuració"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Obtenint la configuració";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Esperant accés a la xarxa"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Esperant accés a la xarxa";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Esperant la contrasenya"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Esperant la contrasenya";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Esperant la contrasenya"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Esperant la contrasenya";
 
-/* Connection status */
-"RECONNECTING" = "Reconnectant"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Reconnectant";
 
-/* Connection status */
-"RESOLVE" = "Resolent el nom de domini"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Resolent el nom de domini";
 
-/* Connection status */
-"SLEEP" = "Esperant el procés dimoni"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Esperant el procés dimoni";
 
-/* Connection status */
-"TCP_CONNECT" = "Realitzant la connexió TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Realitzant la connexió TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "Realitzant la connexió UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Realitzant la connexió UDP";
 
-/* Connection status */
-"WAIT" = "Esperant resposta del servidor"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Esperant resposta del servidor";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Configuració VPN de guia de Tunnelblick";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Configuracions";
 
-/* Window title */
-" (Deployed)" = " (Desplegada)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Desplegada)";
 
 /* Window title */
 " (Private)" = " (Privada)";
 
-/* Window title */
-" (Shared)" = " (Compartida)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Compartida)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ Configuració d'OpenVPN - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Traducció a l'Holandès";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Passar a mode admin";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Obtenir una imatge diferent";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Connectar";
 
 /* Button VPNService */

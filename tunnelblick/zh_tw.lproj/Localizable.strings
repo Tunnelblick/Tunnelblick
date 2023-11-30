@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "取消";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "立即檢查更新";
-
 /* Button */
 "Check Now" = "立即檢查";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "新增 VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "立即檢查更新";
+
 /* Menu item */
 "Connect %@%@" = "連接 %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "將設定檔複製到新的資料夾...";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "將設定檔改為共享…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "將設定檔移動到新的資料夾...";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "設定域名解析伺服器（替代選擇 2）";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "設定域名解析器";
 
 /* Text on disk image */
 "Double-click to begin" = "連按兩下以開始";
 
-/* Connection status */
-"ADD_ROUTES" = "正在設定路由"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "正在設定路由";
 
-/* Connection status */
-"ASSIGN_IP" = "正在分配 IP 地址"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "正在分配 IP 地址";
 
-/* Connection status */
-"AUTH" = "正在認證"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "正在認證";
 
-/* Connection status */
-"CONNECTED" = "已連線"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "已連線";
 
-/* Connection status */
-"CONNECTING" = "正在連線"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "正在連線";
 
-/* Connection status */
-"DISCONNECTING" = "正在中斷連線"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "正在中斷連線";
 
-/* Connection status */
-"EXITING" = "已中斷連線"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "已中斷連線";
 
-/* Connection status */
-"GET_CONFIG" = "正在獲取設定"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "正在獲取設定";
 
-/* Connection status */
-"NETWORK_ACCESS" = "等待網路存取能力"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "等待網路存取能力";
 
-/* Connection status */
-"PASSWORD_WAIT" = "正在等候密碼"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "正在等候密碼";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "正在等候密匙"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "正在等候密匙";
 
-/* Connection status */
-"RECONNECTING" = "正在重新連線"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "正在重新連線";
 
-/* Connection status */
-"RESOLVE" = "正在解析域名"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "正在解析域名";
 
-/* Connection status */
-"SLEEP" = "正在等待背景程序"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "正在等待背景程序";
 
-/* Connection status */
-"TCP_CONNECT" = "正在建立 TCP 連接"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "正在建立 TCP 連接";
 
-/* Connection status */
-"UDP_CONNECT" = "正在建立 UDP 連接"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "正在建立 UDP 連接";
 
-/* Connection status */
-"WAIT" = "正在等待伺服器回應"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "正在等待伺服器回應";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Tunnelblick VPN 設定檔範本";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "設定";
 
-/* Window title */
-" (Deployed)" = " (已部署)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (已部署)";
 
 /* Window title */
 " (Private)" = " (私密)";
 
-/* Window title */
-" (Shared)" = " (共享)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (共享)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN 設定 - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "荷蘭語翻譯";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "進入管理模式";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "更換另一圖像";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "登入";
 
 /* Button VPNService */

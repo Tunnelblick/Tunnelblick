@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Άκυρο";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Έλεγχος ενημερώσεων τώρα";
-
 /* Button */
 "Check Now" = "Έλεγχος τώρα ";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Προσθήκη νέου VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Έλεγχος ενημερώσεων τώρα";
+
 /* Menu item */
 "Connect %@%@" = "Σύνδεση στο %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Αντιγραφή Διαμόρφωσης σε Νέο Φάκελο…";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Κάνε τις παραμέτρους κοινόχρηστες…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Μεταφορά Διαμόρφωσης σε Νέο Φάκελο…";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Ορισμός nameserver (εναλλακτικός 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Ορισμός διακομιστή";
 
 /* Text on disk image */
 "Double-click to begin" = "Διπλό-κλίκ για έναρξη";
 
-/* Connection status */
-"ADD_ROUTES" = "Προσθήκη δρομολογητών"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Προσθήκη δρομολογητών";
 
-/* Connection status */
-"ASSIGN_IP" = "Εκχώρηση διεύθυνσης IP"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Εκχώρηση διεύθυνσης IP";
 
-/* Connection status */
-"AUTH" = "Εξουσιοδότηση"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Εξουσιοδότηση";
 
-/* Connection status */
-"CONNECTED" = "Συνδεδεμένο"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Συνδεδεμένο";
 
-/* Connection status */
-"CONNECTING" = "Συνδέετε"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Συνδέετε";
 
-/* Connection status */
-"DISCONNECTING" = "Αποσύνδεση"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Αποσύνδεση";
 
-/* Connection status */
-"EXITING" = "Αποσυνδεδεμένο"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Αποσυνδεδεμένο";
 
-/* Connection status */
-"GET_CONFIG" = "Λήψη παραμέτρων"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Λήψη παραμέτρων";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Αναμονή για πρόσβαση στο δίκτυο"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Αναμονή για πρόσβαση στο δίκτυο";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Αναμονή κωδικού"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Αναμονή κωδικού";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Αναμονή για φράση-κλειδί"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Αναμονή για φράση-κλειδί";
 
-/* Connection status */
-"RECONNECTING" = "Επανασύνδεση"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Επανασύνδεση";
 
-/* Connection status */
-"RESOLVE" = "Επίλυση ονόματος δρομολογητή"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Επίλυση ονόματος δρομολογητή";
 
-/* Connection status */
-"SLEEP" = "Αναμονή διαδικασίας Daemon"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Αναμονή διαδικασίας Daemon";
 
-/* Connection status */
-"TCP_CONNECT" = "Γίνετε σύνδεση TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Γίνετε σύνδεση TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "Γίνετε σύνδεση UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Γίνετε σύνδεση UDP";
 
-/* Connection status */
-"WAIT" = "Αναμονή απάντησης διακομιστή"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Αναμονή απάντησης διακομιστή";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Δήγμα παραμέτρων VPN του Tunnelblick ";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Παράμετροι";
 
-/* Window title */
-" (Deployed)" = " (Ανάπτυξη)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Ανάπτυξη)";
 
 /* Window title */
 " (Private)" = " (Ιδιωτικό)";
 
-/* Window title */
-" (Shared)" = " (Κοινόχρηστο)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Κοινόχρηστο)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Παράμετροι - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Ολλανδική μετάφραση";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Είσοδος σε κατάσταση διαχειριστή";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Λήψη διαφορετικής εικόνας";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Είσοδος";
 
 /* Button VPNService */

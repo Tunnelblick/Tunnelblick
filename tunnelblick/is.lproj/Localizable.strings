@@ -53,9 +53,6 @@
 /* Button */
 "Cancel" = "Hætta við";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Athuga með uppfærslur núna";
-
 /* Button */
 "Check Now" = "Athuga núna";
 
@@ -288,11 +285,13 @@
 /* Menu item */
 "Add a VPN..." = "Bæta við VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Athuga með uppfærslur núna";
+
 /* Menu item */
 "Connect %@%@" = "Tengjast (%@%@)";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Afrita samskipan í nýja möppu…";
 
 /* Menu item */
@@ -325,8 +324,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Gera samskipan opinbera…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Færa samskipan í nýja möppu…";
 
 /* Menu item */
@@ -512,62 +510,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Stilla nafnaþjón (kostur 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Stilla nafnþjón";
 
 /* Text on disk image */
 "Double-click to begin" = "Tvísmelltu til að byrja";
 
-/* Connection status */
-"ADD_ROUTES" = "Bætir leiðum við"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Bætir leiðum við";
 
-/* Connection status */
-"ASSIGN_IP" = "Úthlutar IP-tölu"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Úthlutar IP-tölu";
 
-/* Connection status */
-"AUTH" = "Unnið úr auðkenningu"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Unnið úr auðkenningu";
 
-/* Connection status */
-"CONNECTED" = "Tengt"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Tengt";
 
-/* Connection status */
-"CONNECTING" = "Tengist"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Tengist";
 
-/* Connection status */
-"DISCONNECTING" = "Aftengist"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Aftengist";
 
-/* Connection status */
-"EXITING" = "Aftengt"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Aftengt";
 
-/* Connection status */
-"GET_CONFIG" = "Sækir samskipan"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Sækir samskipan";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Bíður eftir nettengingu"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Bíður eftir nettengingu";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Bíður eftir lykilorði"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Bíður eftir lykilorði";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Bíður eftir aðgangsorði"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Bíður eftir aðgangsorði";
 
-/* Connection status */
-"RECONNECTING" = "Tengist aftur"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Tengist aftur";
 
-/* Connection status */
-"RESOLVE" = "Unnið úr svæðisnafni"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Unnið úr svæðisnafni";
 
-/* Connection status */
-"SLEEP" = "Bíður eftir Daemon-ferlinu"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Bíður eftir Daemon-ferlinu";
 
-/* Connection status */
-"TCP_CONNECT" = "Setur upp TCP-tengingu"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Setur upp TCP-tengingu";
 
-/* Connection status */
-"UDP_CONNECT" = "Setur upp UDP-tengingu"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Setur upp UDP-tengingu";
 
-/* Connection status */
-"WAIT" = "Bíður eftir svari frá netþjóni"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Bíður eftir svari frá netþjóni";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Sýnissamskipan Tunnelblick";
@@ -575,14 +573,14 @@
 /* System profile item */
 "Configurations" = "Samskipanir";
 
-/* Window title */
-" (Deployed)" = " (faststillt)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (faststillt)";
 
 /* Window title */
 " (Private)" = " (einka)";
 
-/* Window title */
-" (Shared)" = " (deilt)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (deilt)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN-samskipan – Tunnelblick";
@@ -1808,8 +1806,7 @@
 /* Credit description */
 "Dutch translation" = "Hollensk þýðing";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Fara í kerfisstjóraham";
 
 /* Credit description */
@@ -1965,7 +1962,7 @@
 /* Button VPNService */
 "Get Different Image" = "Sækja aðra mynd";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Innskrá";
 
 /* Button VPNService */

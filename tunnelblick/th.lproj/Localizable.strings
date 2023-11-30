@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "ยกเลิก";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "ตรวจสอบการอัพเดท";
-
 /* Button */
 "Check Now" = "ตรวจสอบตอนนี้";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "เพิ่ม VPN";
 
+/* Menu item, Button */
+"Check For Updates Now" = "ตรวจสอบการอัพเดท";
+
 /* Menu item */
 "Connect %@%@" = "เชื่อมต่อกับ %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "คัดลอกการตั้งค่าไปยังโฟลเดอร์ใหม่…";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "ทำให้เป็นคอนฟิกเกอเรชันใช้ร่วมกันได้…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "ย้ายการตั้งค่าไปยังโฟลเดอร์ใหม่…";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "ตั้ง nameserver (ทางเลือกที่ 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "ตั้ง nameserver";
 
 /* Text on disk image */
 "Double-click to begin" = "ดับเบิ้ลคลิกเพื่อเริ่มต้น";
 
-/* Connection status */
-"ADD_ROUTES" = "กำลังเพิ่ม routes"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "กำลังเพิ่ม routes";
 
-/* Connection status */
-"ASSIGN_IP" = "กำลังทำการกำหนด IP address"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "กำลังทำการกำหนด IP address";
 
-/* Connection status */
-"AUTH" = "กำลังขออนุญาติ"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "กำลังขออนุญาติ";
 
-/* Connection status */
-"CONNECTED" = "เชื่อมต่อแล้ว"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "เชื่อมต่อแล้ว";
 
-/* Connection status */
-"CONNECTING" = "กำลังเชื่อมต่อ"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "กำลังเชื่อมต่อ";
 
-/* Connection status */
-"DISCONNECTING" = "กำลังตัดการเชื่อมต่อ"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "กำลังตัดการเชื่อมต่อ";
 
-/* Connection status */
-"EXITING" = "ตัดการเชื่อมต่อแล้ว"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "ตัดการเชื่อมต่อแล้ว";
 
-/* Connection status */
-"GET_CONFIG" = "กำลังดึงข้อมูลคอนฟิกเกอเรชัน"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "กำลังดึงข้อมูลคอนฟิกเกอเรชัน";
 
-/* Connection status */
-"NETWORK_ACCESS" = "กำลังรอการเชื่อมต่อ"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "กำลังรอการเชื่อมต่อ";
 
-/* Connection status */
-"PASSWORD_WAIT" = "กำลังรอรหัสผ่าน"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "กำลังรอรหัสผ่าน";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "กำลังรอรหัสผ่าน"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "กำลังรอรหัสผ่าน";
 
-/* Connection status */
-"RECONNECTING" = "กำลังเชื่อมต่ออีกครั้ง"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "กำลังเชื่อมต่ออีกครั้ง";
 
-/* Connection status */
-"RESOLVE" = "กำลังเรียกชื่อโดนเมน"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "กำลังเรียกชื่อโดนเมน";
 
-/* Connection status */
-"SLEEP" = "กำลังรอโพรเซสทำงาน"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "กำลังรอโพรเซสทำงาน";
 
-/* Connection status */
-"TCP_CONNECT" = "กำลังสร้างการเชื่อมต่อ TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "กำลังสร้างการเชื่อมต่อ TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "กำลังสร้างการเชื่อมต่อ UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "กำลังสร้างการเชื่อมต่อ UDP";
 
-/* Connection status */
-"WAIT" = "กำลังรอการตอบกลับของเซิร์ฟเวอร์"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "กำลังรอการตอบกลับของเซิร์ฟเวอร์";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "ตัวอย่างคอนฟิกเกอเรชัน VPN ของ Tunnelblick";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "คอนฟิกเกอเรชัน";
 
-/* Window title */
-" (Deployed)" = "(ปรับใช้)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = "(ปรับใช้)";
 
 /* Window title */
 " (Private)" = "(ส่วนตัว)";
 
-/* Window title */
-" (Shared)" = "(แชร์แล้ว)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = "(แชร์แล้ว)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN คอนฟิกเกอเรชัน - Tunnelblick";
@@ -2103,6 +2101,66 @@
 
 /* Window text */
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "คุณต้องตัดการเชื่อมต่อ VPN ทั้งหมดก่อนที่คุณจะติดตั้งหรือถอนการติดตั้งส่วนเสริมระบบของ Tunnelblick";
+
+/* Window text */
+"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "คุณจะไม่สามารถอัปเดต Tunnelblick ได้เว้นแต่คุณจะให้การอนุญาตจากผู้ดูแลระบบคอมพิวเตอร์";
+
+/* Window text */
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "คอมพิวเตอร์ของคุณอาจไม่สามารถแสดงไอคอน Tunnelblick ใกล้กับไอคอน Spotlight ได้อย่างน่าเชื่อถือ\n\nสิ่งนี้อาจทําให้ไอคอน Tunnelblick บางครั้งหายไปจากแถบเมนู\n\nคุณแน่ใจหรือไม่ว่าต้องการวางไอคอน Tunnelblick ใกล้กับไอคอน Spotlight?\n\n";
+
+/* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "ความช่วยเหลือของคุณในเรื่องนี้จะเป็นประโยชน์ต่อผู้ใช้ Tunnelblick ทุกคน\n\nถ้าเป็นไปได้ โปรดอย่าคลิก \"ออก\" จนกว่าคุณจะส่งอีเมล";
+
+/* Window text */
+"Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "นาฬิการะบบของคุณอาจถูกตั้งค่าไม่ถูกต้อง\n\nการกําหนดค่าบางส่วนหรือทั้งหมดของคุณอาจไม่เชื่อมต่อเว้นแต่นาฬิการะบบจะมีวันที่และเวลาที่ถูกต้อง\n\n";
+
+/* Window text */
+"ZB" = "ZB";
+
+/* Window text */
+"ZB/s" = "ZB/s";
+
+/* Window text */
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries." = "\"%1$@\" ใน Info.plist สําหรับ\n\n%2$@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries.";
+
+/* Window text */
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" ใน Info.plist สําหรับ\n\n%2$@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk.";
+
+/* Window text */
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n คําเตือน: สําเนา Tunnelblick นี้ถูกดัดแปลง\n";
+
+/* Window text */
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n คําเตือน: สําเนา Tunnelblick นี้ทําให้คอมพิวเตอร์ของคุณไม่ปลอดภัย ใช้เพื่อวัตถุประสงค์ในการดีบักเท่านั้น\n";
+
+/* Window text */
+"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nหมายเหตุ: การกําหนดค่าอย่างน้อยหนึ่งรายการกําลังเชื่อมต่ออยู่ พวกเขาจะถูกตัดการเชื่อมต่อ การติดตั้ง/การเปลี่ยน/การยกเลิกการติดตั้งจะดําเนินการ และการกําหนดค่าจะถูกเชื่อมต่อใหม่ เว้นแต่จะถูกถอนการติดตั้ง\n\n";
+
+/* Window text */
+"\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nใบรับรองอย่างน้อยหนึ่งรายการที่ใช้เพื่อรักษาความปลอดภัยการกําหนดค่านี้หมดอายุแล้ว\n\nดูการเข้าสู่ระบบ VPN ในแท็บ \"เข้าสู่ระบบ\" ของแผง \"การกําหนดค่า\" ของหน้าต่าง \"รายละเอียด VPN\" ของ Tunnelblick สําหรับรายละเอียด";
+
+/* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nข้อผิดพลาดนี้หมายความว่าตัวเลือกที่มีอยู่ในไฟล์การกําหนดค่า OpenVPN หรือถูก \"ผลัก\" โดยเซิร์ฟเวอร์ OpenVPN:\n\n     • สะกดผิด,\n\n     • มีข้อโต้แย้งที่ขาดหายไปหรือเพิ่มเติม หรือ\n\n     • ไม่ได้ดําเนินการโดยเวอร์ชันของ OpenVPN ซึ่งใช้สําหรับการกําหนดค่านี้ อาจเป็นตัวเลือกใหม่ที่ไม่ได้ใช้ใน OpenVPN เวอร์ชันเก่า หรือตัวเลือกเก่าที่ถูกลบออกใน OpenVPN เวอร์ชันใหม่ คุณสามารถเลือกเวอร์ชันของ OpenVPN ที่จะใช้กับการกําหนดค่านี้ในแท็บ \"การตั้งค่า\" ของแผง \"การกําหนดค่า\" ของหน้าต่าง \"รายละเอียด VPN\" ของ Tunnelblick\n\nดูการเข้าสู่ระบบ VPN ในแท็บ \"เข้าสู่ระบบ\" ของแผง \"การกําหนดค่า\" ของหน้าต่าง \"รายละเอียด VPN\" ของ Tunnelblick สําหรับรายละเอียด";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nการตั้งค่า 'ตั้งค่าเนมเซิร์ฟเวอร์' ของ Tunnelblick ใช้งานได้สําหรับการเชื่อมต่อ VPN เดียวเท่านั้น การใช้พวกมันกับการเชื่อมต่อ VPN มากกว่าหนึ่งรายการในเวลาเดียวกันอาจทําให้การตั้งค่าเครือข่ายของคุณเสียหายหรือทําให้การเชื่อมต่อเครือข่ายสูญหาย";
+
+/* Window text */
+"\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nและติดตั้ง %ld การกําหนดค่า VPN ของ Tunnelblick";
+
+/* Window text */
+"\nusing %@ credentials." = "\nการใช้ %@ หนังสือรับรอง";
+
+/* Window text */
+"easy-rsa installation failed: %@" = "การติดตั้ง easy-rsa ล้มเหลว: %@";
+
+/* Window text */
+"targetPathToReplaceForDisplayName: %@ was found to replace the configuration with CFBundleIdentifer %@, but earlier, %@ was found to replace it." = "targetPathToReplaceForDisplayName: %1$@ พบว่าแทนที่การกําหนดค่าด้วย CFBundleIdentifer %2$@, แต่ก่อนหน้านี้, %3$@ ถูกพบว่ามันมาแทนที่";
+
+/* Suffix for a duplicate of a file */
+" copy %d" = " สําเนา %d";
+
+/* Suffix for a duplicate of a file */
+" copy" = " สําเนา";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Teerapap Changwichukarn";

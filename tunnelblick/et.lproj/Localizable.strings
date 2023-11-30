@@ -53,9 +53,6 @@
 /* Button */
 "Cancel" = "Tühista";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Otsi uuendusi";
-
 /* Button */
 "Check Now" = "Otsi uuendusi";
 
@@ -282,6 +279,9 @@
 /* Menu item */
 "Add a VPN..." = "Lisa VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Otsi uuendusi";
+
 /* Menu item */
 "Connect %@%@" = "Ühenda %@%@";
 
@@ -435,44 +435,44 @@
 /* Text on disk image */
 "Double-click to begin" = "Topeltklikk alustamiseks";
 
-/* Connection status */
-"ASSIGN_IP" = "IP aadressi määramine"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "IP aadressi määramine";
 
-/* Connection status */
-"AUTH" = "Autoriseerimine"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Autoriseerimine";
 
-/* Connection status */
-"CONNECTED" = "Ühendatud"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Ühendatud";
 
-/* Connection status */
-"CONNECTING" = "Ühendamine"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Ühendamine";
 
-/* Connection status */
-"DISCONNECTING" = "Ühenduse katkestamine"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Ühenduse katkestamine";
 
-/* Connection status */
-"EXITING" = "Ühendamata"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Ühendamata";
 
-/* Connection status */
-"GET_CONFIG" = "Seadete laadimine"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Seadete laadimine";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Parooli ootamine"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Parooli ootamine";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Salasõna ootamine"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Salasõna ootamine";
 
-/* Connection status */
-"RECONNECTING" = "Taasühendamine"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Taasühendamine";
 
-/* Connection status */
-"TCP_CONNECT" = "Loomas TCP ühendust"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Loomas TCP ühendust";
 
-/* Connection status */
-"UDP_CONNECT" = "Loomas TCP ühendust"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Loomas TCP ühendust";
 
-/* Connection status */
-"WAIT" = "Serverilt vastuse ootamine"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Serverilt vastuse ootamine";
 
 /* System profile item */
 "Configurations" = "Konfiguratioonid";
@@ -480,8 +480,8 @@
 /* Window title */
 " (Private)" = " (isiklik)";
 
-/* Window title */
-" (Shared)" = " (jagatud)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (jagatud)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN seaded - Tunnelblick";
@@ -771,7 +771,7 @@
 /* Button VPNService */
 "Create a Free Account" = "Loo tasuta konto";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Logi sisse";
 
 /* Button VPNService */

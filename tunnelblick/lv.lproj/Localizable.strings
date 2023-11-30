@@ -53,9 +53,6 @@
 /* Button */
 "Cancel" = "Atcelt";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Pārbaudīt atjauninājumus";
-
 /* Button */
 "Check Now" = "Pārbaudīt tagad";
 
@@ -297,11 +294,13 @@
 /* Menu item */
 "Add a VPN..." = "Pievienot VPN...";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Pārbaudīt atjauninājumus";
+
 /* Menu item */
 "Connect %@%@" = "Pieslēgties %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Kopēt iestatījumus uz jaunu mapi";
 
 /* Menu item */
@@ -334,8 +333,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Koplietot konfigurāciju…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Pārvietot iestatījumus uz jaunu mapi";
 
 /* Menu item */
@@ -521,62 +519,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Iestatīt DNS serveri (alternatīva 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Iestatīt DNS serveri";
 
 /* Text on disk image */
 "Double-click to begin" = "Veiciet dubultklikšķi, lai sāktu";
 
-/* Connection status */
-"ADD_ROUTES" = "Pievienot maršrutēšanu"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Pievienot maršrutēšanu";
 
-/* Connection status */
-"ASSIGN_IP" = "Piešķir IP adresi"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Piešķir IP adresi";
 
-/* Connection status */
-"AUTH" = "Autorizējas"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Autorizējas";
 
-/* Connection status */
-"CONNECTED" = "Savienots"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Savienots";
 
-/* Connection status */
-"CONNECTING" = "Savienojas"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Savienojas";
 
-/* Connection status */
-"DISCONNECTING" = "Atvienojas"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Atvienojas";
 
-/* Connection status */
-"EXITING" = "Atvienots"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Atvienots";
 
-/* Connection status */
-"GET_CONFIG" = "Iegūst konfigurāciju"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Iegūst konfigurāciju";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Gaida piekļuvi tīklam"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Gaida piekļuvi tīklam";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Gaida paroli"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Gaida paroli";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Gaida frāzveida paroli"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Gaida frāzveida paroli";
 
-/* Connection status */
-"RECONNECTING" = "Savienojuma atsākšana"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Savienojuma atsākšana";
 
-/* Connection status */
-"RESOLVE" = "Meklē domēna vārda adresi"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Meklē domēna vārda adresi";
 
-/* Connection status */
-"SLEEP" = "Gaida uz fona programmas procesu"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Gaida uz fona programmas procesu";
 
-/* Connection status */
-"TCP_CONNECT" = "Veido TCP savienojumu"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Veido TCP savienojumu";
 
-/* Connection status */
-"UDP_CONNECT" = "Veido UDP savienojumu"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Veido UDP savienojumu";
 
-/* Connection status */
-"WAIT" = "Gaida servera atbildi"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Gaida servera atbildi";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Tunnelblick VPN parauga konfigurācija";
@@ -584,14 +582,14 @@
 /* System profile item */
 "Configurations" = "Konfigurācijas";
 
-/* Window title */
-" (Deployed)" = " (Izvietots)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Izvietots)";
 
 /* Window title */
 " (Private)" = " (Privāts)";
 
-/* Window title */
-" (Shared)" = " (Koplietojams)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Koplietojams)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN konfigurācija - Tunnelblick";
@@ -2138,8 +2136,7 @@
 /* Credit description */
 "Dutch translation" = "Tulkojums holandiešu valodā";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Atvērt administratora režīmā";
 
 /* Credit description */
@@ -2292,7 +2289,7 @@
 /* Button VPNService */
 "Get Different Image" = "Iegūt savādāku attēlu";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Pieslēgties";
 
 /* Button VPNService */

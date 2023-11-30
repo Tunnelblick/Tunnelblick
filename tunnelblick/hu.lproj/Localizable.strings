@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Mégsem";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Frissítések ellenőrzése";
-
 /* Button */
 "Check Now" = "Ellenőrzés most";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "VPN hozzáadása…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Frissítések ellenőrzése";
+
 /* Menu item */
 "Connect %@%@" = "Kapcsolódás: %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Konfiguráció másolása egy új könyvtárba...";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Konfiguráció megosztása…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Konfiguráció áthelyezése egy új könyvtárba...";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Névszerver beállítása (2-es alternatíva)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Névszerver beállítása";
 
 /* Text on disk image */
 "Double-click to begin" = "Kattintson duplán a kezdéshez";
 
-/* Connection status */
-"ADD_ROUTES" = "Útvonalak hozzáadása"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Útvonalak hozzáadása";
 
-/* Connection status */
-"ASSIGN_IP" = "IP címek hozzárendelése"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "IP címek hozzárendelése";
 
-/* Connection status */
-"AUTH" = "Engedélyezés"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Engedélyezés";
 
-/* Connection status */
-"CONNECTED" = "Csatlakozva"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Csatlakozva";
 
-/* Connection status */
-"CONNECTING" = "Csatlakozás"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Csatlakozás";
 
-/* Connection status */
-"DISCONNECTING" = "Szétkapcsolás"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Szétkapcsolás";
 
-/* Connection status */
-"EXITING" = "Szétkapcsolva"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Szétkapcsolva";
 
-/* Connection status */
-"GET_CONFIG" = "Konfiguráció betöltése"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Konfiguráció betöltése";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Hálózati hozzáférésre várakozás"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Hálózati hozzáférésre várakozás";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Jelszóra várakozás"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Jelszóra várakozás";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Jelmondatra várakozás"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Jelmondatra várakozás";
 
-/* Connection status */
-"RECONNECTING" = "Újracsatlakozás"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Újracsatlakozás";
 
-/* Connection status */
-"RESOLVE" = "Domain név feloldása"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Domain név feloldása";
 
-/* Connection status */
-"SLEEP" = "Várakozás a daemon folyamatra"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Várakozás a daemon folyamatra";
 
-/* Connection status */
-"TCP_CONNECT" = "TCP kapcsolat létrehozása"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "TCP kapcsolat létrehozása";
 
-/* Connection status */
-"UDP_CONNECT" = "UDP kapcsolat létrehozása"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "UDP kapcsolat létrehozása";
 
-/* Connection status */
-"WAIT" = "Várakozás a szerver válaszára"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Várakozás a szerver válaszára";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Minta Tunnelblick VPN Konfiguráció";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Konfigurációk";
 
-/* Window title */
-" (Deployed)" = " (Telepített)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Telepített)";
 
 /* Window title */
 " (Private)" = " (Személyes)";
 
-/* Window title */
-" (Shared)" = " (Megosztott)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Megosztott)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN konfiguráció - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Holland fordítás";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Belépés adminisztrátori módba";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Új képet kérek";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Bejelentkezés";
 
 /* Button VPNService */

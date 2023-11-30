@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Batal";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Periksa Untuk Pembaruan Sekarang";
-
 /* Button */
 "Check Now" = "Periksa Sekarang";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Tambahkan VPN...";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Periksa Untuk Pembaruan Sekarang";
+
 /* Menu item */
 "Connect %@%@" = "Sambungkan %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Salin Konfigurasi ke Folder Baru…";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Jadikan Konfigurasi Bersama…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Pindahkan Konfigurasi ke Folder Baru…";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Atur nameserver (alternatif 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Atur nameserver";
 
 /* Text on disk image */
 "Double-click to begin" = "Klik ganda untuk mulai";
 
-/* Connection status */
-"ADD_ROUTES" = "Menambahkan rute"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Menambahkan rute";
 
-/* Connection status */
-"ASSIGN_IP" = "Menetapkan alamat IP"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Menetapkan alamat IP";
 
-/* Connection status */
-"AUTH" = "Mengotorisasi"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Mengotorisasi";
 
-/* Connection status */
-"CONNECTED" = "Terhubung"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Terhubung";
 
-/* Connection status */
-"CONNECTING" = "Menghubungkan"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Menghubungkan";
 
-/* Connection status */
-"DISCONNECTING" = "Memutuskan"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Memutuskan";
 
-/* Connection status */
-"EXITING" = "Terputus"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Terputus";
 
-/* Connection status */
-"GET_CONFIG" = "Mengambil konfigurasi"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Mengambil konfigurasi";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Menunggu akses jaringan"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Menunggu akses jaringan";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Menunggu kata sandi"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Menunggu kata sandi";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Menunggu frasa sandi"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Menunggu frasa sandi";
 
-/* Connection status */
-"RECONNECTING" = "Menyambung ulang"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Menyambung ulang";
 
-/* Connection status */
-"RESOLVE" = "Mengurai nama domain"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Mengurai nama domain";
 
-/* Connection status */
-"SLEEP" = "Menunggu proses Daemon"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Menunggu proses Daemon";
 
-/* Connection status */
-"TCP_CONNECT" = "Membuat koneksi TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Membuat koneksi TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "Membuat koneksi UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Membuat koneksi UDP";
 
-/* Connection status */
-"WAIT" = "Menunggu respon server"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Menunggu respon server";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Contoh Konfigurasi VPN Tunnelblick";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Konfigurasi";
 
-/* Window title */
-" (Deployed)" = " (Di-deploy)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Di-deploy)";
 
 /* Window title */
 " (Private)" = " (Pribadi)";
 
-/* Window title */
-" (Shared)" = " (Bersama)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Bersama)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "Konfigurasi OpenVPN %@ - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Terjemahan bahasa Belanda";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Memasuki mode admin";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Ambil Gambar Lain";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Log Masuk";
 
 /* Button VPNService */

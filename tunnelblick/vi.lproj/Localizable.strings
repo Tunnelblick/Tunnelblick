@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Hủy";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Kiểm tra bản cập nhật ngay";
-
 /* Button */
 "Check Now" = "Kiểm tra ngay";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Thêm VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Kiểm tra bản cập nhật ngay";
+
 /* Menu item */
 "Connect %@%@" = "Kết nối %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Sao chép cấu hình tới thư mục mới";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Tạo cấu hình Shared...";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Di chuyển cấu hình tới thư mục mới";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Thiết lập nameserver (cách 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Đặt tên máy chủ";
 
 /* Text on disk image */
 "Double-click to begin" = "Nhấp đúp để bắt đầu";
 
-/* Connection status */
-"ADD_ROUTES" = "Thêm định tuyến"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Thêm định tuyến";
 
-/* Connection status */
-"ASSIGN_IP" = "Chỉ định địa chỉ IP"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Chỉ định địa chỉ IP";
 
-/* Connection status */
-"AUTH" = "Uỷ quyền"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Uỷ quyền";
 
-/* Connection status */
-"CONNECTED" = "Đã kết nối"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Đã kết nối";
 
-/* Connection status */
-"CONNECTING" = "Đang kết nối"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Đang kết nối";
 
-/* Connection status */
-"DISCONNECTING" = "Đang ngắt kết nối"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Đang ngắt kết nối";
 
-/* Connection status */
-"EXITING" = "Ngắt kết nối"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Ngắt kết nối";
 
-/* Connection status */
-"GET_CONFIG" = "Bắt đầu cấu hình"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Bắt đầu cấu hình";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Đang chờ truy cập mạng"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Đang chờ truy cập mạng";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Chờ nhập mật khẩu"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Chờ nhập mật khẩu";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Đang chờ nhập mật khẩu"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Đang chờ nhập mật khẩu";
 
-/* Connection status */
-"RECONNECTING" = "Kết nối lại"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Kết nối lại";
 
-/* Connection status */
-"RESOLVE" = "Đang phân giải tên miền"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Đang phân giải tên miền";
 
-/* Connection status */
-"SLEEP" = "Chờ tiến trình Daemon"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Chờ tiến trình Daemon";
 
-/* Connection status */
-"TCP_CONNECT" = "Kết nối TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Kết nối TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "Kết nối UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Kết nối UDP";
 
-/* Connection status */
-"WAIT" = "Đang chờ máy chủ phản hồi"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Đang chờ máy chủ phản hồi";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Cấu hình mẫu của Tunnelblick VPN";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Cấu hình";
 
-/* Window title */
-" (Deployed)" = "Đã deployed"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = "Đã deployed";
 
 /* Window title */
 " (Private)" = "(Riêng tư)";
 
-/* Window title */
-" (Shared)" = " (Đã chia sẻ)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Đã chia sẻ)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ - Cấu hình OpenVPN - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Bản dịch tiếng Hà Lan";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Vào chế độ quản trị viên";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Nhận Hình ảnh Khác";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Đăng nhập";
 
 /* Button VPNService */

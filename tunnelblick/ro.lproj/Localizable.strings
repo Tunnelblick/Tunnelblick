@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Anulare";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Verifică acum actualizările disponibile";
-
 /* Button */
 "Check Now" = "Verifică acum";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Adaugă configurație VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Verifică acum actualizările disponibile";
+
 /* Menu item */
 "Connect %@%@" = "Conexiune %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Copiere Configurație într-un dosar nou...";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Faceți conexiunea partajată…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Mutare Configurație într-un dosar nou...";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Setează Dns (alternativa 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Setează DNS";
 
 /* Text on disk image */
 "Double-click to begin" = "Dublu clic pentru a începe";
 
-/* Connection status */
-"ADD_ROUTES" = "Adaug rutările"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Adaug rutările";
 
-/* Connection status */
-"ASSIGN_IP" = "Asignez adresele IP"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Asignez adresele IP";
 
-/* Connection status */
-"AUTH" = "În curs de autorizare"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "În curs de autorizare";
 
-/* Connection status */
-"CONNECTED" = "Conectat"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Conectat";
 
-/* Connection status */
-"CONNECTING" = "Se conectează"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Se conectează";
 
-/* Connection status */
-"DISCONNECTING" = "Se deconectează"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Se deconectează";
 
-/* Connection status */
-"EXITING" = "Deconectat"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Deconectat";
 
-/* Connection status */
-"GET_CONFIG" = "Încarc configurările"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Încarc configurările";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Așteptând conexiunea la rețea"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Așteptând conexiunea la rețea";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Aștept parola"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Aștept parola";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Aștept pentru 'passphrase'"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Aștept pentru 'passphrase'";
 
-/* Connection status */
-"RECONNECTING" = "Reconectare"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Reconectare";
 
-/* Connection status */
-"RESOLVE" = "Rezolv numele de domeniu"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Rezolv numele de domeniu";
 
-/* Connection status */
-"SLEEP" = "Aștept procesul 'Daemon'"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Aștept procesul 'Daemon'";
 
-/* Connection status */
-"TCP_CONNECT" = "Efectuez conexiunea TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Efectuez conexiunea TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "Efectuez conexiunea UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Efectuez conexiunea UDP";
 
-/* Connection status */
-"WAIT" = "Aștept răspuns de la server"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Aștept răspuns de la server";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Configurare VPN exemplu Tunnelblick";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Configurări";
 
-/* Window title */
-" (Deployed)" = " (Distribuit)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Distribuit)";
 
 /* Window title */
 " (Private)" = " (Privat)";
 
-/* Window title */
-" (Shared)" = " (Partajat)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Partajat)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ Configurare OpenVPN - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Traducere în limba Olandeză";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Intra în modul admin";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Obține imagine diferită";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Autentificare";
 
 /* Button VPNService */

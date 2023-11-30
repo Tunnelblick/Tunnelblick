@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Anuluj";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Sprawdź teraz dostępność aktualizacji";
-
 /* Button */
 "Check Now" = "Sprawdź teraz";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Dodaj VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Sprawdź teraz dostępność aktualizacji";
+
 /* Menu item */
 "Connect %@%@" = "Podłącz %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Skopiuj konfigurację do nowego folderu…";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Oznacz konfigurację jako publiczną…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Przenieś konfigurację do nowego folderu…";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Ustaw serwer nazw (alternatywny nr 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Ustaw serwer nazw";
 
 /* Text on disk image */
 "Double-click to begin" = "Podwójne klikniecie aby rozpocząć";
 
-/* Connection status */
-"ADD_ROUTES" = "Dodawanie routingu"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Dodawanie routingu";
 
-/* Connection status */
-"ASSIGN_IP" = "Przypisywanie IP"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Przypisywanie IP";
 
-/* Connection status */
-"AUTH" = "Autoryzacja"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Autoryzacja";
 
-/* Connection status */
-"CONNECTED" = "Połączony"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Połączony";
 
-/* Connection status */
-"CONNECTING" = "Łączę"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Łączę";
 
-/* Connection status */
-"DISCONNECTING" = "Rozłączanie"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Rozłączanie";
 
-/* Connection status */
-"EXITING" = "Rozłączony"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Rozłączony";
 
-/* Connection status */
-"GET_CONFIG" = "Pobieranie konfiguracji"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Pobieranie konfiguracji";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Oczekiwanie na dostęp do sieci"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Oczekiwanie na dostęp do sieci";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Oczekiwanie na hasło"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Oczekiwanie na hasło";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Oczekiwanie na klucz prywatny"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Oczekiwanie na klucz prywatny";
 
-/* Connection status */
-"RECONNECTING" = "Ponowne łączenie"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Ponowne łączenie";
 
-/* Connection status */
-"RESOLVE" = "Pobieranie adresu ip domeny"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Pobieranie adresu ip domeny";
 
-/* Connection status */
-"SLEEP" = "Czekam na proces demona"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Czekam na proces demona";
 
-/* Connection status */
-"TCP_CONNECT" = "Tworzenie połączenia TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Tworzenie połączenia TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "Tworzenie połączenia UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Tworzenie połączenia UDP";
 
-/* Connection status */
-"WAIT" = "Czekam na odpowiedź serwera"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Czekam na odpowiedź serwera";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Przykładowa konfiguracja VPN Tunnelblick";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Konfiguracje";
 
-/* Window title */
-" (Deployed)" = " (Dostarczona)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Dostarczona)";
 
 /* Window title */
 " (Private)" = " (Indywidualne)";
 
-/* Window title */
-" (Shared)" = " (Publiczna)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Publiczna)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ Konfiguracja OpenVPN - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Holenderskie tłumaczenie";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Tryb admina";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Ustaw inny obrazek";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Zaloguj";
 
 /* Button VPNService */

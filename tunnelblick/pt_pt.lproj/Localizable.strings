@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Cancelar";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Verificar Atualizações Agora";
-
 /* Button */
 "Check Now" = "Verificar Agora";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Adicionar uma VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Verificar Atualizações Agora";
+
 /* Menu item */
 "Connect %@%@" = "Conectar %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Copiar Configuração para Nova Pasta";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Tornar Configuração Partilhada…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Mover Configuração para Nova Pasta";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Definir servidor DNS (alternativa 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Definir nameserver";
 
 /* Text on disk image */
 "Double-click to begin" = "Duplo-clique para começar";
 
-/* Connection status */
-"ADD_ROUTES" = "A adicionar rotas"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "A adicionar rotas";
 
-/* Connection status */
-"ASSIGN_IP" = "A atribuir endereço IP"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "A atribuir endereço IP";
 
-/* Connection status */
-"AUTH" = "A autorizar"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "A autorizar";
 
-/* Connection status */
-"CONNECTED" = "Conectado"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Conectado";
 
-/* Connection status */
-"CONNECTING" = "A conectar"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "A conectar";
 
-/* Connection status */
-"DISCONNECTING" = "A desconectar"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "A desconectar";
 
-/* Connection status */
-"EXITING" = "Desconectado"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Desconectado";
 
-/* Connection status */
-"GET_CONFIG" = "A obter configuração"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "A obter configuração";
 
-/* Connection status */
-"NETWORK_ACCESS" = "A aguardar que a ligação à rede seja estabelecida"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "A aguardar que a ligação à rede seja estabelecida";
 
-/* Connection status */
-"PASSWORD_WAIT" = "A espera da palavra-passe"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "A espera da palavra-passe";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "A espera da frase-senha"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "A espera da frase-senha";
 
-/* Connection status */
-"RECONNECTING" = "A reconectar"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "A reconectar";
 
-/* Connection status */
-"RESOLVE" = "A resolver o nome do domínio"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "A resolver o nome do domínio";
 
-/* Connection status */
-"SLEEP" = "A aguardar pelo processo do servidor"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "A aguardar pelo processo do servidor";
 
-/* Connection status */
-"TCP_CONNECT" = "A fazer conexão TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "A fazer conexão TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "A fazer conexão UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "A fazer conexão UDP";
 
-/* Connection status */
-"WAIT" = "À espera da resposta do servidor"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "À espera da resposta do servidor";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Exemplo de Configuração VPN do Tunnelblick";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Configurações";
 
-/* Window title */
-" (Deployed)" = " (Customizada)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Customizada)";
 
 /* Window title */
 " (Private)" = " (Privado)";
 
-/* Window title */
-" (Shared)" = " (Partilhado)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Partilhado)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "Configuração OpenVPN %@ - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Tradução para Holandês";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Entrar com modo administrativo";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Obter Imagem Diferente";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Iniciar sessão";
 
 /* Button VPNService */

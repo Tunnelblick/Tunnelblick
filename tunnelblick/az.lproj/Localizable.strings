@@ -53,9 +53,6 @@
 /* Button */
 "Cancel" = "Ləğv et";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Yenilənmələr olmasını indi yoxla";
-
 /* Button */
 "Check Now" = "İndi yoxla";
 
@@ -261,6 +258,9 @@
 /* Menu item */
 "Add a VPN..." = "VPN əlavə et…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Yenilənmələr olmasını indi yoxla";
+
 /* Menu item */
 "Connect %@%@" = "%@%@-a qoşul";
 
@@ -444,59 +444,59 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Server adını quraşdır (alternativ 1)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Server adını quraşdır";
 
 /* Text on disk image */
 "Double-click to begin" = "Başlamaq üçün iki dəfə basın";
 
-/* Connection status */
-"ADD_ROUTES" = "Marşrutlar əlavə edilir"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Marşrutlar əlavə edilir";
 
-/* Connection status */
-"ASSIGN_IP" = "İP ünvan təyin edilir"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "İP ünvan təyin edilir";
 
-/* Connection status */
-"AUTH" = "İcazə alınır"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "İcazə alınır";
 
-/* Connection status */
-"CONNECTED" = "Qoşuldu"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Qoşuldu";
 
-/* Connection status */
-"CONNECTING" = "Qoşulur"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Qoşulur";
 
-/* Connection status */
-"DISCONNECTING" = "Bağlantı dayandırılır"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Bağlantı dayandırılır";
 
-/* Connection status */
-"EXITING" = "Bağlantı kəsilib"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Bağlantı kəsilib";
 
-/* Connection status */
-"GET_CONFIG" = "Konfiqurasiya alınır"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Konfiqurasiya alınır";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Şifrə gözlənilir"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Şifrə gözlənilir";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Şifrə-söz gözlənilir"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Şifrə-söz gözlənilir";
 
-/* Connection status */
-"RECONNECTING" = "Təkrar qoşulur"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Təkrar qoşulur";
 
-/* Connection status */
-"RESOLVE" = "Domen adı qərarlaşdırılır"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Domen adı qərarlaşdırılır";
 
-/* Connection status */
-"SLEEP" = "Daemon prosesi gözlənilir"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Daemon prosesi gözlənilir";
 
-/* Connection status */
-"TCP_CONNECT" = "TCP bağlantısı edilir"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "TCP bağlantısı edilir";
 
-/* Connection status */
-"UDP_CONNECT" = "UDP bağlantısı edilir"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "UDP bağlantısı edilir";
 
-/* Connection status */
-"WAIT" = "Serverdən cavab gözlənilir"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Serverdən cavab gözlənilir";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Tunnelblick VPN Konfiqurasiyasının nümunəsi";
@@ -504,14 +504,14 @@
 /* System profile item */
 "Configurations" = "Konfiqurasiyalar";
 
-/* Window title */
-" (Deployed)" = " (İstifadədədir)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (İstifadədədir)";
 
 /* Window title */
 " (Private)" = " (Özəl)";
 
-/* Window title */
-" (Shared)" = " (Paylaşdırılmış)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Paylaşdırılmış)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Konfiqurasiyası - Tunnelblick";
@@ -1617,7 +1617,7 @@
 /* Button VPNService */
 "Accept" = "Qəbul et";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Giriş";
 
 /* Button VPNService */

@@ -26,9 +26,6 @@
 /* Button */
 "Cancel" = "Preklič\n";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Preveri posodobitve";
-
 /* Button */
 "Check Now" = "Preveri takoj";
 
@@ -62,11 +59,13 @@
 /* Menu item */
 "Add a VPN..." = "Dodaj VPN";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Preveri posodobitve";
+
 /* Menu item */
 "Connect %@%@" = "Poveži %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Kopiraj konfiguracije v Novo Mapo";
 
 /* Menu item */

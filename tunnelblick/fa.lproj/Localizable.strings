@@ -53,9 +53,6 @@
 /* Button */
 "Cancel" = "انصراف";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "بررسی برای به روز رسانی";
-
 /* Button */
 "Check Now" = "بررسی کن";
 
@@ -297,11 +294,13 @@
 /* Menu item */
 "Add a VPN..." = "اضافه کردن وی پی ان…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "بررسی برای به روز رسانی";
+
 /* Menu item */
 "Connect %@%@" = "اتصال %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "تنظیمات را در یک فولدر جدید کپی کن...";
 
 /* Menu item */
@@ -334,8 +333,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "مشترک کردن پیکربندی…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "تنظیمات را به یک فولدر جدید منتقل کن...";
 
 /* Menu item */
@@ -527,62 +525,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "مشخص کردن نام سرویس‌دهنده (جایگزین 1)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "مشخص کردن نام سرویس‌دهنده";
 
 /* Text on disk image */
 "Double-click to begin" = "برای شروع دوبار کلیک کنید";
 
-/* Connection status */
-"ADD_ROUTES" = "افزودن مسیرها"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "افزودن مسیرها";
 
-/* Connection status */
-"ASSIGN_IP" = "اختصاص دادن نشانی آی پی"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "اختصاص دادن نشانی آی پی";
 
-/* Connection status */
-"AUTH" = "احراز هویت"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "احراز هویت";
 
-/* Connection status */
-"CONNECTED" = "متصل است"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "متصل است";
 
-/* Connection status */
-"CONNECTING" = "در حال اتصال"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "در حال اتصال";
 
-/* Connection status */
-"DISCONNECTING" = "در حال قطع اتصال"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "در حال قطع اتصال";
 
-/* Connection status */
-"EXITING" = "قطع شده"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "قطع شده";
 
-/* Connection status */
-"GET_CONFIG" = "دریافت پیکربندی"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "دریافت پیکربندی";
 
-/* Connection status */
-"NETWORK_ACCESS" = "در حال انتظار برای دسترسی شبکه"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "در حال انتظار برای دسترسی شبکه";
 
-/* Connection status */
-"PASSWORD_WAIT" = "در حال انتظار برای گذرواژه"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "در حال انتظار برای گذرواژه";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "در حال انتظار برای عبارت عبور"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "در حال انتظار برای عبارت عبور";
 
-/* Connection status */
-"RECONNECTING" = "اتصال دوباره"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "اتصال دوباره";
 
-/* Connection status */
-"RESOLVE" = "بدست آوردن نام دامنه"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "بدست آوردن نام دامنه";
 
-/* Connection status */
-"SLEEP" = "در حال انتظار برای پردازه پس‌زمینه"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "در حال انتظار برای پردازه پس‌زمینه";
 
-/* Connection status */
-"TCP_CONNECT" = "ساخت ارتباط TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "ساخت ارتباط TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "ساخت ارتباط UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "ساخت ارتباط UDP";
 
-/* Connection status */
-"WAIT" = "درحال انتظار برای دریافت پاسخ از سرور"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "درحال انتظار برای دریافت پاسخ از سرور";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "پیکربندی نمونه وی‌پی‌ان Tunnelblick";
@@ -590,14 +588,14 @@
 /* System profile item */
 "Configurations" = "پیکربندی ها";
 
-/* Window title */
-" (Deployed)" = " (مستقر)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (مستقر)";
 
 /* Window title */
 " (Private)" = " (خصوصی)";
 
-/* Window title */
-" (Shared)" = " (مشترک)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (مشترک)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ پیکربندی OpenVPN - Tunnelblick";
@@ -2063,8 +2061,7 @@
 /* Credit description */
 "Dutch translation" = "ترجمه داچ";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "ورود به مد مدیر";
 
 /* Credit description */
@@ -2199,7 +2196,7 @@
 /* Button VPNService */
 "Get Different Image" = "دریافت تصویر دیگر";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "ورود";
 
 /* Button VPNService */

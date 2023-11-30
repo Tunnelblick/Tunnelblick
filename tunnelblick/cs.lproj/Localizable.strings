@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Zrušit";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Vyhledat aktualizace";
-
 /* Button */
 "Check Now" = "Vyhledat";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Přidat VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Vyhledat aktualizace";
+
 /* Menu item */
 "Connect %@%@" = "Připojit %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Zkopírovat konfiguraci do nové složky…";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Vytvořit konfiguraci jako sdílenou…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Přesunout konfiguraci do nové složky…";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Nastavit nameserver (alternativa 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Nastavit nameserver";
 
 /* Text on disk image */
 "Double-click to begin" = "Začít dvojklikem";
 
-/* Connection status */
-"ADD_ROUTES" = "Přidávám směrování"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Přidávám směrování";
 
-/* Connection status */
-"ASSIGN_IP" = "Přiřazuji IP adresu"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Přiřazuji IP adresu";
 
-/* Connection status */
-"AUTH" = "Autorizuji"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Autorizuji";
 
-/* Connection status */
-"CONNECTED" = "Připojeno"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Připojeno";
 
-/* Connection status */
-"CONNECTING" = "Připojování"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Připojování";
 
-/* Connection status */
-"DISCONNECTING" = "Odpojování"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Odpojování";
 
-/* Connection status */
-"EXITING" = "Odpojeno"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Odpojeno";
 
-/* Connection status */
-"GET_CONFIG" = "Získat předvolby"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Získat předvolby";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Čekání na přístup k síti"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Čekání na přístup k síti";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Čekám na heslo"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Čekám na heslo";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Čekám na passphrase"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Čekám na passphrase";
 
-/* Connection status */
-"RECONNECTING" = "Znovupřipojování"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Znovupřipojování";
 
-/* Connection status */
-"RESOLVE" = "Získávání doménového jména"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Získávání doménového jména";
 
-/* Connection status */
-"SLEEP" = "Čekám na proces démona"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Čekám na proces démona";
 
-/* Connection status */
-"TCP_CONNECT" = "Vytvářím spojení TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Vytvářím spojení TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "Vytvářím spojení UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Vytvářím spojení UDP";
 
-/* Connection status */
-"WAIT" = "Čekám na odpověď serveru"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Čekám na odpověď serveru";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Příklady předvoleb VPN Tunnelblicku";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Konfigurace";
 
-/* Window title */
-" (Deployed)" = " (Zabudované)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Zabudované)";
 
 /* Window title */
 " (Private)" = " (Soukromé)";
 
-/* Window title */
-" (Shared)" = " (Sdílené)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Sdílené)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ Konfigurace OpenVPN - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Nizozemský překlad";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Vstoupit do administračního režimu";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Získat jiný obrázek";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Přihlásit";
 
 /* Button VPNService */

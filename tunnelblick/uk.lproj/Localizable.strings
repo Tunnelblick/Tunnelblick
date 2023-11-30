@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Скасувати";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Перевірити наявність оновлень";
-
 /* Button */
 "Check Now" = "Перевірити зараз";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Додати VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Перевірити наявність оновлень";
+
 /* Menu item */
 "Connect %@%@" = "З'єднати %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Скопіювати Конфігурацію в Нову Папку...";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Зробити конфігурацію спільною…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Перемістити Конфігурацію в Нову Папку...";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Встановити сервер імен (варіант 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Встановити сервер імен";
 
 /* Text on disk image */
 "Double-click to begin" = "Клікніть двічі для початку";
 
-/* Connection status */
-"ADD_ROUTES" = "Додавання маршрутів"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Додавання маршрутів";
 
-/* Connection status */
-"ASSIGN_IP" = "Призначення IP адреси"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Призначення IP адреси";
 
-/* Connection status */
-"AUTH" = "Авторизація"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Авторизація";
 
-/* Connection status */
-"CONNECTED" = "З'єднано"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "З'єднано";
 
-/* Connection status */
-"CONNECTING" = "З'єднання"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "З'єднання";
 
-/* Connection status */
-"DISCONNECTING" = "Роз’єднання"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Роз’єднання";
 
-/* Connection status */
-"EXITING" = "Роз'єднано"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Роз'єднано";
 
-/* Connection status */
-"GET_CONFIG" = "Отримування конфігурації"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Отримування конфігурації";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Очікування підключення до мережі"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Очікування підключення до мережі";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Очікування на ввод паролю"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Очікування на ввод паролю";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Очікування вводу фрази-паролю"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Очікування вводу фрази-паролю";
 
-/* Connection status */
-"RECONNECTING" = "Перепідключення"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Перепідключення";
 
-/* Connection status */
-"RESOLVE" = "Визначення доменного імені"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Визначення доменного імені";
 
-/* Connection status */
-"SLEEP" = "Очікування процесу служби"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Очікування процесу служби";
 
-/* Connection status */
-"TCP_CONNECT" = "Виконується TCP з’єднання"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Виконується TCP з’єднання";
 
-/* Connection status */
-"UDP_CONNECT" = "Виконується UDP з’єднання"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Виконується UDP з’єднання";
 
-/* Connection status */
-"WAIT" = "Очікування відповіді сервера"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Очікування відповіді сервера";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Зразок конфігурації Tunnelblick VPN";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Конфігурації";
 
-/* Window title */
-" (Deployed)" = " (Розгорнута)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Розгорнута)";
 
 /* Window title */
 " (Private)" = " (Приватно)";
 
-/* Window title */
-" (Shared)" = " (Спільна)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Спільна)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ конфігурація OpenVPN - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Голандський переклад";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Увійти до режиму адміністратора";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Інша картинка";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Увійти";
 
 /* Button VPNService */

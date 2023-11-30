@@ -32,9 +32,6 @@
 /* Button */
 "Cancel" = "დახურვა";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "განახლების შემოწმება";
-
 /* Button */
 "Check Now" = "შემოწმება";
 
@@ -104,6 +101,9 @@
 /* Menu item */
 "Add a VPN..." = "VPN-ის დამატება...";
 
+/* Menu item, Button */
+"Check For Updates Now" = "განახლების შემოწმება";
+
 /* Menu Item */
 "Rename Configuration" = "კონფიგურაციის გადარქმევა";
 
@@ -113,17 +113,17 @@
 /* Menu item */
 "VPN Details..." = "VPN დეტალები...";
 
-/* Connection status */
-"CONNECTED" = "დაკავშირებული"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "დაკავშირებული";
 
-/* Connection status */
-"CONNECTING" = "დაკავშირება"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "დაკავშირება";
 
-/* Connection status */
-"DISCONNECTING" = "გათიშვა"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "გათიშვა";
 
-/* Connection status */
-"EXITING" = "გათიშულია"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "გათიშულია";
 
 /* System profile item */
 "Configurations" = "კონფიგურაციები";

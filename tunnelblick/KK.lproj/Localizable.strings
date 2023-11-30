@@ -35,9 +35,6 @@
 /* Button */
 "Cancel" = "Бас тарту";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Жаңартуларды тексеру";
-
 /* Button */
 "Check Now" = "Қазір тексеру";
 
@@ -67,3 +64,6 @@
 
 /* Button */
 "Manually" = "Қолмен";
+
+/* Menu item, Button */
+"Check For Updates Now" = "Жаңартуларды тексеру";

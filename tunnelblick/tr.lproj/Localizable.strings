@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Vazgeç";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Güncellemeleri şimdi kontrol et";
-
 /* Button */
 "Check Now" = "Kontrol et";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "VPN Ekle...";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Güncellemeleri şimdi kontrol et";
+
 /* Menu item */
 "Connect %@%@" = "Bağlan: %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Yapılandırmayı yeni bir klasöre kopyala...";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Yapılandırmayı Paylaştır…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Yapılandırmayı yeni bir klasöre taşı...";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Alanadı sunucusunu ayarla (alternatif 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Alanadı sunucusunu ayarla";
 
 /* Text on disk image */
 "Double-click to begin" = "Başlamak için çift-tıklayın";
 
-/* Connection status */
-"ADD_ROUTES" = "Rotalar ekleniyor"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Rotalar ekleniyor";
 
-/* Connection status */
-"ASSIGN_IP" = "IP adresi atanıyor"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "IP adresi atanıyor";
 
-/* Connection status */
-"AUTH" = "Kimlik denetimi yapılıyor"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Kimlik denetimi yapılıyor";
 
-/* Connection status */
-"CONNECTED" = "Bağlandı"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Bağlandı";
 
-/* Connection status */
-"CONNECTING" = "Bağlanıyor"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Bağlanıyor";
 
-/* Connection status */
-"DISCONNECTING" = "Bağlantı kesiliyor"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Bağlantı kesiliyor";
 
-/* Connection status */
-"EXITING" = "Bağlantı kesildi"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Bağlantı kesildi";
 
-/* Connection status */
-"GET_CONFIG" = "Yapılandırma alınıyor"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Yapılandırma alınıyor";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Ağ bağlantısı bekleniyor"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Ağ bağlantısı bekleniyor";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Şifre için bekleniyor"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Şifre için bekleniyor";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Parola için bekleniyor"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Parola için bekleniyor";
 
-/* Connection status */
-"RECONNECTING" = "Yeniden bağlanıyor"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Yeniden bağlanıyor";
 
-/* Connection status */
-"RESOLVE" = "Alan adı çözümleniyor"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Alan adı çözümleniyor";
 
-/* Connection status */
-"SLEEP" = "Arka plan işlemi bekleniyor"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Arka plan işlemi bekleniyor";
 
-/* Connection status */
-"TCP_CONNECT" = "TCP bağlantısı yapılıyor"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "TCP bağlantısı yapılıyor";
 
-/* Connection status */
-"UDP_CONNECT" = "UDP bağlantısı yapılıyor"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "UDP bağlantısı yapılıyor";
 
-/* Connection status */
-"WAIT" = "Sunucunun yanıt vermesi bekleniyor"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Sunucunun yanıt vermesi bekleniyor";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Örnek Tunnelblick VPN Yapılandırması";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Yapılandırmalar";
 
-/* Window title */
-" (Deployed)" = " (Konuşlandı)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Konuşlandı)";
 
 /* Window title */
 " (Private)" = " (Özel)";
 
-/* Window title */
-" (Shared)" = " (Paylaşımlı)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Paylaşımlı)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Yapılandırması - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Flemenkçe çeviri";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Yönetici moduna gir";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Farklı bir resim göster";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Giriş Yap";
 
 /* Button VPNService */

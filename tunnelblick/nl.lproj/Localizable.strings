@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Annuleren";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Nu Controleren op Updates";
-
 /* Button */
 "Check Now" = "Nu Controleren";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Een VPN toevoegen…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Nu Controleren op Updates";
+
 /* Menu item */
 "Connect %@%@" = "Verbinden %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Kopieer configuratie naar een nieuwe map...";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Configuratie gedeeld maken…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Verplaats configuratie naar een nieuwe map...";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Stel naamserver in (alternatief 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Nameserver instellen";
 
 /* Text on disk image */
 "Double-click to begin" = "Dubbelklik om te starten";
 
-/* Connection status */
-"ADD_ROUTES" = "Routes toevoegen"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Routes toevoegen";
 
-/* Connection status */
-"ASSIGN_IP" = "IP adres toewijzen"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "IP adres toewijzen";
 
-/* Connection status */
-"AUTH" = "Autoriseren"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Autoriseren";
 
-/* Connection status */
-"CONNECTED" = "Verbonden"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Verbonden";
 
-/* Connection status */
-"CONNECTING" = "Verbinding maken"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Verbinding maken";
 
-/* Connection status */
-"DISCONNECTING" = "Verbinding aan het verbreken"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Verbinding aan het verbreken";
 
-/* Connection status */
-"EXITING" = "Verbinding verbreken"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Verbinding verbreken";
 
-/* Connection status */
-"GET_CONFIG" = "Configuratie ophalen"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Configuratie ophalen";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Wachten op netwerktoegang"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Wachten op netwerktoegang";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Wachten op wachtwoord"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Wachten op wachtwoord";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Wachten op wachtwoordzin"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Wachten op wachtwoordzin";
 
-/* Connection status */
-"RECONNECTING" = "Opnieuw verbinden"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Opnieuw verbinden";
 
-/* Connection status */
-"RESOLVE" = "Domeinnaam bepalen"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Domeinnaam bepalen";
 
-/* Connection status */
-"SLEEP" = "Wachten op daemon-proces"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Wachten op daemon-proces";
 
-/* Connection status */
-"TCP_CONNECT" = "TCP-verbinding maken"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "TCP-verbinding maken";
 
-/* Connection status */
-"UDP_CONNECT" = "UDP-verbinding maken"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "UDP-verbinding maken";
 
-/* Connection status */
-"WAIT" = "Wachten op Antwoord van Server"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Wachten op Antwoord van Server";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Voorbeeld Tunnelblick VPN configuratie";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Configuraties";
 
-/* Window title */
-" (Deployed)" = " (Ingezet)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Ingezet)";
 
 /* Window title */
 " (Private)" = " (Persoonlijk)";
 
-/* Window title */
-" (Shared)" = " (Gedeeld)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Gedeeld)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN configuratie - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Nederlandse vertaling";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Ga naar beheer modus";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Andere afbeelding gebruiken";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Aanmelden";
 
 /* Button VPNService */

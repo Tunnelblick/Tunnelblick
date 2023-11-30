@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Avbryt";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Sök efter uppdateringar nu";
-
 /* Button */
 "Check Now" = "Kontrollera nu";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Lägg till VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Sök efter uppdateringar nu";
+
 /* Menu item */
 "Connect %@%@" = "Anslut %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Kopiera inställningar till ny mapp...";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Gör anslutningen delad…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Flytta inställningar till ny mapp...";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Ange DNS-server (alternativ 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Ställ in namnserver";
 
 /* Text on disk image */
 "Double-click to begin" = "Dubbel-klicka för att börja";
 
-/* Connection status */
-"ADD_ROUTES" = "Lägger till rutter"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Lägger till rutter";
 
-/* Connection status */
-"ASSIGN_IP" = "Tilldelar IP-adress"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Tilldelar IP-adress";
 
-/* Connection status */
-"AUTH" = "Auktoriserar"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Auktoriserar";
 
-/* Connection status */
-"CONNECTED" = "Ansluten"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Ansluten";
 
-/* Connection status */
-"CONNECTING" = "Ansluter"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Ansluter";
 
-/* Connection status */
-"DISCONNECTING" = "Kopplar ifrån"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Kopplar ifrån";
 
-/* Connection status */
-"EXITING" = "Frånkopplad"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Frånkopplad";
 
-/* Connection status */
-"GET_CONFIG" = "Hämtar konfiguration"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Hämtar konfiguration";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Väntar på nätverksåtkomst"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Väntar på nätverksåtkomst";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Väntar på lösenord"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Väntar på lösenord";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Väntar på lösenfras"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Väntar på lösenfras";
 
-/* Connection status */
-"RECONNECTING" = "Återansluter"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Återansluter";
 
-/* Connection status */
-"RESOLVE" = "Hämtar domännamn"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Hämtar domännamn";
 
-/* Connection status */
-"SLEEP" = "Väntar på daemonprocess"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Väntar på daemonprocess";
 
-/* Connection status */
-"TCP_CONNECT" = "Upprättar TCP-anslutning"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Upprättar TCP-anslutning";
 
-/* Connection status */
-"UDP_CONNECT" = "Upprättar UDP-anslutning"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Upprättar UDP-anslutning";
 
-/* Connection status */
-"WAIT" = "Väntar på svar från server"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Väntar på svar från server";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Tunnelblick VPN exempelkonfiguration";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Konfigurationer";
 
-/* Window title */
-" (Deployed)" = " (Används)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Används)";
 
 /* Window title */
 " (Private)" = " (Privat)";
 
-/* Window title */
-" (Shared)" = " (Delad)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Delad)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN-konfiguration - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Holländsk översättning";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Starta administratörsläget";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Hämta ny bild";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Logga in";
 
 /* Button VPNService */

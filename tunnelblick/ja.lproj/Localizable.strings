@@ -53,9 +53,6 @@
 /* Button */
 "Cancel" = "キャンセル";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "更新を今すぐ確認";
-
 /* Button */
 "Check Now" = "チェック";
 
@@ -297,11 +294,13 @@
 /* Menu item */
 "Add a VPN..." = "VPNを追加…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "更新を今すぐ確認";
+
 /* Menu item */
 "Connect %@%@" = "%@%@ に接続";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "設定を新しいフォルダーにコピー";
 
 /* Menu item */
@@ -334,8 +333,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "接続先を共有…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "設定を新しいフォルダーに移動";
 
 /* Menu item */
@@ -527,62 +525,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "ネームサーバーを設定 (選択肢 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "ネームサーバーを設定";
 
 /* Text on disk image */
 "Double-click to begin" = "ダブルクリックして開始";
 
-/* Connection status */
-"ADD_ROUTES" = "経路を追加しています"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "経路を追加しています";
 
-/* Connection status */
-"ASSIGN_IP" = "IP アドレスを割り当てています"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "IP アドレスを割り当てています";
 
-/* Connection status */
-"AUTH" = "認証中"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "認証中";
 
-/* Connection status */
-"CONNECTED" = "接続しました"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "接続しました";
 
-/* Connection status */
-"CONNECTING" = "接続しています"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "接続しています";
 
-/* Connection status */
-"DISCONNECTING" = "切断中"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "切断中";
 
-/* Connection status */
-"EXITING" = "接続されていません"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "接続されていません";
 
-/* Connection status */
-"GET_CONFIG" = "設定を取得しています"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "設定を取得しています";
 
-/* Connection status */
-"NETWORK_ACCESS" = "ネットワーク接続を待っています"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "ネットワーク接続を待っています";
 
-/* Connection status */
-"PASSWORD_WAIT" = "パスワードを待っています"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "パスワードを待っています";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "パスフレーズを待っています"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "パスフレーズを待っています";
 
-/* Connection status */
-"RECONNECTING" = "再接続しています"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "再接続しています";
 
-/* Connection status */
-"RESOLVE" = "ドメイン名を解決しています"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "ドメイン名を解決しています";
 
-/* Connection status */
-"SLEEP" = "デーモンプロセスを待っています"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "デーモンプロセスを待っています";
 
-/* Connection status */
-"TCP_CONNECT" = "TCP 接続を開始します"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "TCP 接続を開始します";
 
-/* Connection status */
-"UDP_CONNECT" = "UDP 接続を開始します"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "UDP 接続を開始します";
 
-/* Connection status */
-"WAIT" = "サーバーの返事を待っています"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "サーバーの返事を待っています";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Tunnelblick VPN 設定サンプル";
@@ -590,14 +588,14 @@
 /* System profile item */
 "Configurations" = "接続先";
 
-/* Window title */
-" (Deployed)" = " (配付用)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (配付用)";
 
 /* Window title */
 " (Private)" = " (個人用)";
 
-/* Window title */
-" (Shared)" = " (共有)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (共有)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN の設定 - Tunnelblick";
@@ -2477,8 +2475,7 @@
 /* Credit description */
 "Dutch translation" = "オランダ語翻訳";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "管理者モードへ移行";
 
 /* Credit description */
@@ -2637,7 +2634,7 @@
 /* Button VPNService */
 "Get Different Image" = "別の画像を取得";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "ログイン";
 
 /* Button VPNService */

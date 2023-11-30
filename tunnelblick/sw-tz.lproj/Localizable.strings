@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Ghairi";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Angalia Sasisho Sasa";
-
 /* Button */
 "Check Now" = "Angalia Sasa";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Ongeza VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Angalia Sasisho Sasa";
+
 /* Menu item */
 "Connect %@%@" = "Unganisha %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Nakili Usanidi kwenye folda mpya…";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Fanya Usanidi Kutumiwa na wengi...";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Sogeza Usanidi kwenye folda mpya…";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Weka jina-seva (alternate 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Weka jina-seva";
 
 /* Text on disk image */
 "Double-click to begin" = "Bofya mara mbili kuanza";
 
-/* Connection status */
-"ADD_ROUTES" = "Kuongeza njia"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Kuongeza njia";
 
-/* Connection status */
-"ASSIGN_IP" = "Gawa anwani ya Itifiki Inteneti (II)"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Gawa anwani ya Itifiki Inteneti (II)";
 
-/* Connection status */
-"AUTH" = "Kuidhinisha"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Kuidhinisha";
 
-/* Connection status */
-"CONNECTED" = "Imeunganishwa"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Imeunganishwa";
 
-/* Connection status */
-"CONNECTING" = "Inaunganishwa"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Inaunganishwa";
 
-/* Connection status */
-"DISCONNECTING" = "Kutounganisha"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Kutounganisha";
 
-/* Connection status */
-"EXITING" = "Kukatauunganisho"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Kukatauunganisho";
 
-/* Connection status */
-"GET_CONFIG" = "Kupata Usanidi"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Kupata Usanidi";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Kusubiria Ufikio wa mtandao"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Kusubiria Ufikio wa mtandao";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Kusubiria Nywila"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Kusubiria Nywila";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Kusubiria Manenosiri"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Kusubiria Manenosiri";
 
-/* Connection status */
-"RECONNECTING" = "Kuunganisha tena"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Kuunganisha tena";
 
-/* Connection status */
-"RESOLVE" = "Kutatua jina la kikoa"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Kutatua jina la kikoa";
 
-/* Connection status */
-"SLEEP" = "Inasubiri mchakato wa Demoni"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Inasubiri mchakato wa Demoni";
 
-/* Connection status */
-"TCP_CONNECT" = "Kufanya muunganisho wa TCPF"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Kufanya muunganisho wa TCPF";
 
-/* Connection status */
-"UDP_CONNECT" = "Kufanya muunganisho wa UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Kufanya muunganisho wa UDP";
 
-/* Connection status */
-"WAIT" = "Kungojea mwitikio wa seva"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Kungojea mwitikio wa seva";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Usanidi wa Sampuli ya Tunnelblick VPN";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Usanidi";
 
-/* Window title */
-" (Deployed)" = "(Imesimikwa)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = "(Imesimikwa)";
 
 /* Window title */
 " (Private)" = "(Binafsi)";
 
-/* Window title */
-" (Shared)" = " (Kushirikiana)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Kushirikiana)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Usanidi - Tunnelblick";
@@ -1192,8 +1190,7 @@
 /* Checkbox text */
 "Check for IP address changes" = "Angalia mabadiliko ya Anwani ya Itifaki ya Inteneti";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Ingiza hali ya Msimamizi";
 
 /* Names of lead translators */
@@ -1202,5 +1199,5 @@
 /* Credit description */
 "Tunnelblick icon" = "Ikoni ya Tunnelblick";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Logia";

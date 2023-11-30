@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "Peruuta";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "Tarkista päivitykset";
-
 /* Button */
 "Check Now" = "Tarkista heti";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "Lisää VPN…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "Tarkista päivitykset";
+
 /* Menu item */
 "Connect %@%@" = "Yhdistä %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "Kopioi asetukset uuteen hakemistoon...";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Jaa asetukset…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "Siirrä asetukset uuteen hakemistoon...";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "Aseta nimipalvelin (vaihtoehto 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "Aseta nimipalvelin";
 
 /* Text on disk image */
 "Double-click to begin" = "Tuplaklikkaa aloittaaksesi";
 
-/* Connection status */
-"ADD_ROUTES" = "Lisätään reittejä"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "Lisätään reittejä";
 
-/* Connection status */
-"ASSIGN_IP" = "Asettaa IP-osoitetta"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "Asettaa IP-osoitetta";
 
-/* Connection status */
-"AUTH" = "Varmentaa"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "Varmentaa";
 
-/* Connection status */
-"CONNECTED" = "Yhdistetty"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "Yhdistetty";
 
-/* Connection status */
-"CONNECTING" = "Yhdistää"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "Yhdistää";
 
-/* Connection status */
-"DISCONNECTING" = "Yhteyttä katkaistaan"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "Yhteyttä katkaistaan";
 
-/* Connection status */
-"EXITING" = "Yhteys suljettu"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "Yhteys suljettu";
 
-/* Connection status */
-"GET_CONFIG" = "Hakee asetuksia"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "Hakee asetuksia";
 
-/* Connection status */
-"NETWORK_ACCESS" = "Odotetaan pääsyä verkkoon"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "Odotetaan pääsyä verkkoon";
 
-/* Connection status */
-"PASSWORD_WAIT" = "Odottaa salasanaa"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "Odottaa salasanaa";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "Odottaa salasanalausetta"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "Odottaa salasanalausetta";
 
-/* Connection status */
-"RECONNECTING" = "Yhdistää uudelleen"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "Yhdistää uudelleen";
 
-/* Connection status */
-"RESOLVE" = "Selvittää domain-nimeä"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "Selvittää domain-nimeä";
 
-/* Connection status */
-"SLEEP" = "Odottaa taustaprosessia"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "Odottaa taustaprosessia";
 
-/* Connection status */
-"TCP_CONNECT" = "Luo TCP-yhteyttä"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "Luo TCP-yhteyttä";
 
-/* Connection status */
-"UDP_CONNECT" = "Luo UDP-yhteyttä"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "Luo UDP-yhteyttä";
 
-/* Connection status */
-"WAIT" = "Odottaa palvelimen vastausta"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "Odottaa palvelimen vastausta";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Malli Tunnelblick VPN-asetustiedosto";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "Konfiguraatiot";
 
-/* Window title */
-" (Deployed)" = " (Otettu käyttöön)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (Otettu käyttöön)";
 
 /* Window title */
 " (Private)" = " (Yksityinen)";
 
-/* Window title */
-" (Shared)" = " (Jaettu)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (Jaettu)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN-Konfiguraatio - Tunnelblick";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "Hollantilainen käännös";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "Siirry pääkäyttäjän tilaan";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "Ota eri kuva";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "Sisäänkirjautuminen";
 
 /* Button VPNService */

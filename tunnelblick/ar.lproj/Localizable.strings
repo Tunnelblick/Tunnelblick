@@ -58,9 +58,6 @@
 /* Button */
 "Cancel" = "إلغاء";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "تحقق من وجود تحديثات جديدة الآن";
-
 /* Button */
 "Check Now" = "تحقق الآن";
 
@@ -302,11 +299,13 @@
 /* Menu item */
 "Add a VPN..." = "أضف شبكة VPN جديدة…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "تحقق من وجود تحديثات جديدة الآن";
+
 /* Menu item */
 "Connect %@%@" = "انشاء اتصال %@%@";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "نسخ الإعدادت إلى مجلد جديد";
 
 /* Menu item */
@@ -339,8 +338,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "اجعل الإعدادات مشتركة...";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "نقل الإعدادت إلى مجلد جديد";
 
 /* Menu item */
@@ -532,62 +530,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "ضبط النيم سيرفر (بديل 2)";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "اعداد النيم سيرفر";
 
 /* Text on disk image */
 "Double-click to begin" = "نقر مزدوج للبدء";
 
-/* Connection status */
-"ADD_ROUTES" = "إضافة الخطوط"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "إضافة الخطوط";
 
-/* Connection status */
-"ASSIGN_IP" = "تعيين عنوان الـIP"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "تعيين عنوان الـIP";
 
-/* Connection status */
-"AUTH" = "السماح"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "السماح";
 
-/* Connection status */
-"CONNECTED" = "متصل"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "متصل";
 
-/* Connection status */
-"CONNECTING" = "جارٍ الاتصال"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "جارٍ الاتصال";
 
-/* Connection status */
-"DISCONNECTING" = "جار قطع الاتصال"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "جار قطع الاتصال";
 
-/* Connection status */
-"EXITING" = "غير متصل"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "غير متصل";
 
-/* Connection status */
-"GET_CONFIG" = "جار الحصول على الاعدادات"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "جار الحصول على الاعدادات";
 
-/* Connection status */
-"NETWORK_ACCESS" = "بإنتظار الاتصال بالإنترنت"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "بإنتظار الاتصال بالإنترنت";
 
-/* Connection status */
-"PASSWORD_WAIT" = "بانتظار كلمة المرور"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "بانتظار كلمة المرور";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "بإنتظار عبارة المرور"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "بإنتظار عبارة المرور";
 
-/* Connection status */
-"RECONNECTING" = "جار اعادة الاتصال"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "جار اعادة الاتصال";
 
-/* Connection status */
-"RESOLVE" = "تحليل إسم النطاق"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "تحليل إسم النطاق";
 
-/* Connection status */
-"SLEEP" = "في إنتظار العملية الخفيه"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "في إنتظار العملية الخفيه";
 
-/* Connection status */
-"TCP_CONNECT" = "إنشاء إتصال TCP"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "إنشاء إتصال TCP";
 
-/* Connection status */
-"UDP_CONNECT" = "إنشاء إتصال UDP"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "إنشاء إتصال UDP";
 
-/* Connection status */
-"WAIT" = "في انتظار استجابة الخادم"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "في انتظار استجابة الخادم";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "نموذج من إعدادات الشبكه الخاصه الإفتراضيه بـتُنلـبليك";
@@ -595,14 +593,14 @@
 /* System profile item */
 "Configurations" = "إعدادات";
 
-/* Window title */
-" (Deployed)" = " (مُوزعة)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (مُوزعة)";
 
 /* Window title */
 " (Private)" = " (خاص)";
 
-/* Window title */
-" (Shared)" = " (مشترك)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (مشترك)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ إعداد OpenVPN \n تُنلـبليك-";
@@ -2485,8 +2483,7 @@
 /* Credit description */
 "Dutch translation" = "الترجمة الهولندية";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "ادخل وضع المدير";
 
 /* Credit description */
@@ -2645,7 +2642,7 @@
 /* Button VPNService */
 "Get Different Image" = "الحصول على صورة مختلفة";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "تسجل الدخول";
 
 /* Button VPNService */

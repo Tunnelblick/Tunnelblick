@@ -47,20 +47,20 @@
 /* Button */
 "Try again" = "மீண்டும் முயற்சி செய்க";
 
-/* Connection status */
-"CONNECTED" = "இணைக்கப்பட்டது"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "இணைக்கப்பட்டது";
 
-/* Connection status */
-"CONNECTING" = "இணைக்கப்படுகிறது"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "இணைக்கப்படுகிறது";
 
-/* Connection status */
-"DISCONNECTING" = "இணை துண்டிக்கப்படுகிறது"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "இணை துண்டிக்கப்படுகிறது";
 
-/* Connection status */
-"EXITING" = "இணை துண்டிக்கப்பட்டது"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "இணை துண்டிக்கப்பட்டது";
 
-/* Connection status */
-"RECONNECTING" = "மீண்டும் இணைக்கப்படுகிறது"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "மீண்டும் இணைக்கப்படுகிறது";
 
 /* Window title */
 "Alert" = "கவனம்";

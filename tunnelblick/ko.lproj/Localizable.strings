@@ -53,9 +53,6 @@
 /* Button */
 "Cancel" = "취소";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "지금 업데이트 확인";
-
 /* Button */
 "Check Now" = "지금 확인";
 
@@ -291,11 +288,13 @@
 /* Menu item */
 "Add a VPN..." = "VPN 추가…";
 
+/* Menu item, Button */
+"Check For Updates Now" = "지금 업데이트 확인";
+
 /* Menu item */
 "Connect %@%@" = "%@%@ 연결하기";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Copy Configuration into a New Folder..." = "설정을 새 폴더로 복사";
 
 /* Menu item */
@@ -328,8 +327,7 @@
 /* Menu Item */
 "Make Configuration Shared..." = "공유 설정으로 변경…";
 
-/* Menu item
-   Menu Item */
+/* Menu item */
 "Move Configuration into a New Folder..." = "설정을 새 폴더로 이동";
 
 /* Menu item */
@@ -509,62 +507,62 @@
 /* PopUpButton */
 "Set nameserver (alternate 2)" = "네임서버 (alternate 2)로 설정";
 
-/* PopUpButton *//* System profile item */
+/* PopUpButton, System profile item */
 "Set nameserver" = "네임서버로 설정";
 
 /* Text on disk image */
 "Double-click to begin" = "시작하려면 이중 클릭";
 
-/* Connection status */
-"ADD_ROUTES" = "라우트 추가 중"; // Please translate "Adding routes"
+/* Connection status, please translate "Adding routes" */
+"ADD_ROUTES" = "라우트 추가 중";
 
-/* Connection status */
-"ASSIGN_IP" = "IP 주소할당 중"; // Please translate "Assigning IP address"
+/* Connection status, please translate "Assigning IP address" */
+"ASSIGN_IP" = "IP 주소할당 중";
 
-/* Connection status */
-"AUTH" = "인증 중"; // Please translate "Authorizing"
+/* Connection status, please translate "Authorizing" */
+"AUTH" = "인증 중";
 
-/* Connection status */
-"CONNECTED" = "연결 됨"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "연결 됨";
 
-/* Connection status */
-"CONNECTING" = "연결 중"; // Please translate "Connecting"
+/* Connection status, please translate "Connecting" */
+"CONNECTING" = "연결 중";
 
-/* Connection status */
-"DISCONNECTING" = "연결 해제하기"; // Please translate "Disconnecting"
+/* Connection status, please translate "Disconnecting" */
+"DISCONNECTING" = "연결 해제하기";
 
-/* Connection status */
-"EXITING" = "연결 안됨"; // Please translate "Disconnected"
+/* Connection status, please translate "Disconnected" */
+"EXITING" = "연결 안됨";
 
-/* Connection status */
-"GET_CONFIG" = "설정 받는 중"; // Please translate ""
+/* Connection status, please translate "Getting configuration" */
+"GET_CONFIG" = "설정 받는 중";
 
-/* Connection status */
-"NETWORK_ACCESS" = "네트워크 접속을 기다리는 중"; // Please translate "Waiting for network access"
+/* Connection status, please translate "Waiting for network access" */
+"NETWORK_ACCESS" = "네트워크 접속을 기다리는 중";
 
-/* Connection status */
-"PASSWORD_WAIT" = "비밀번호 대기 중"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for password" */
+"PASSWORD_WAIT" = "비밀번호 대기 중";
 
-/* Connection status */
-"PRIVATE_KEY_WAIT" = "암호 대기 중"; // Please translate "Waiting for password"
+/* Connection status, please translate "Waiting for passphrase" */
+"PRIVATE_KEY_WAIT" = "암호 대기 중";
 
-/* Connection status */
-"RECONNECTING" = "다시연결 중"; // Please translate ""
+/* Connection status, please translate "Reconnecting" */
+"RECONNECTING" = "다시연결 중";
 
-/* Connection status */
-"RESOLVE" = "도메인 이름 확인 중"; // Please translate ""
+/* Connection status, please translate "Resolving domain name" */
+"RESOLVE" = "도메인 이름 확인 중";
 
-/* Connection status */
-"SLEEP" = "데몬 프로세스 대기 중"; // Please translate "Waiting for daemon process"
+/* Connection status, please translate "Waiting for daemon process" */
+"SLEEP" = "데몬 프로세스 대기 중";
 
-/* Connection status */
-"TCP_CONNECT" = "TCP 연결 중"; // Please translate "Making TCP connection"
+/* Connection status, please translate "Making TCP connection" */
+"TCP_CONNECT" = "TCP 연결 중";
 
-/* Connection status */
-"UDP_CONNECT" = "UDP 연결 중"; // Please translate "Making UDP connection"
+/* Connection status, please translate "Making UDP connection" */
+"UDP_CONNECT" = "UDP 연결 중";
 
-/* Connection status */
-"WAIT" = "서버 응답 대기 중"; // Please translate "Waiting for Server Response"
+/* Connection status, please translate "Waiting for Server Response" */
+"WAIT" = "서버 응답 대기 중";
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "예제 Tunnelblick VPN 설정";
@@ -572,14 +570,14 @@
 /* System profile item */
 "Configurations" = "설정";
 
-/* Window title */
-" (Deployed)" = " (배포됨)"; // Indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html
+/* Window title, indicates a configuration from a customized version of Tunnelblick -- see https://tunnelblick.net/cCusDeployed.html */
+" (Deployed)" = " (배포됨)";
 
 /* Window title */
 " (Private)" = " (개인)";
 
-/* Window title */
-" (Shared)" = " (공유됨)"; // Indicates a shared configuration
+/* Window title, indicates a shared configuration */
+" (Shared)" = " (공유됨)";
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN 설정 - Tunnelblick";
@@ -2204,8 +2202,7 @@
 /* Credit description */
 "Dutch translation" = "네덜란드어 번역";
 
-/* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item */
+/* Toolbar text for 'Lock' icon */
 "Enter admin mode" = "관리자 모드로 진입";
 
 /* Credit description */
@@ -2364,7 +2361,7 @@
 /* Button VPNService */
 "Get Different Image" = "다른 이미지 받기";
 
-/* Button VPNService *//* Window title VPNService */
+/* Button VPNService, Window title VPNService */
 "Login" = "로그인";
 
 /* Button VPNService */

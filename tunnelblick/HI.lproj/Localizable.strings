@@ -38,9 +38,6 @@
 /* Button */
 "Cancel" = "रद्द करें";
 
-/* Menu item */ /* Button */
-"Check For Updates Now" = "नवीनतम के लिए अभी जांचें";
-
 /* Button */
 "Check Now" = "अभी जांचें";
 
@@ -149,6 +146,9 @@
 /* Menu item */
 "Add a VPN..." = "एक वीपीएन (VPN) जोड़ें";
 
+/* Menu item, Button */
+"Check For Updates Now" = "नवीनतम के लिए अभी जांचें";
+
 /* Menu Item */
 "Rename Configuration" = "व्यवस्था का नाम बदलें";
 
@@ -176,8 +176,8 @@
 /* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
 "Security code:" = "सुरक्षा कोड";
 
-/* Connection status */
-"CONNECTED" = "जुडा हुआ है"; // Please translate "Connected"
+/* Connection status, please translate "Connected" */
+"CONNECTED" = "जुडा हुआ है";
 
 /* Window text */
 "Password:" = "पासवर्ड:";
