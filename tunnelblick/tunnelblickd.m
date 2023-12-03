@@ -202,27 +202,33 @@ NSString * newTemporaryDirectoryPathUsingUrlForDirectory(aslclient  asl,
 NSString * newTemporaryDirectoryPathUsingFixedPath(aslclient  asl,
 												   aslmsg     log_msg) {
 
-	NSString * path = @"/Library/Application Support/tunnelblickd";
-	if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
-		asl_log(asl, log_msg, ASL_LEVEL_INFO,
-				"Using existing temporary directory at %s", [path UTF8String]);
-	} else {
-		NSError * err;
-		if (  [[NSFileManager defaultManager] createDirectoryAtPath: path
-										withIntermediateDirectories: NO
-														 attributes: nil
-															  error: &err]  ) {
-			asl_log(asl, log_msg, ASL_LEVEL_INFO,
-					"Created new temporary directory at %s", [path UTF8String]);
-		} else {
-			asl_log(asl, log_msg, ASL_LEVEL_ERR,
-					"Could not create a new temporary directory using a fixed path at %s; error was %s",
-					[path UTF8String], [[err description] UTF8String]);
-			return nil;
-		}
-	}
+    NSError * err;
 
-	return [path retain];
+    NSString * path = @"/Library/Application Support/tunnelblickd";
+
+    if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+        if ( ! [[NSFileManager defaultManager] removeItemAtPath: path error: err]  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                    "Could not delete temporary directory using a fixed path at %s; error was %s",
+                    [path UTF8String], [[err description] UTF8String]);
+            return  nil;
+        }
+    }
+
+    if (  ! [[NSFileManager defaultManager] createDirectoryAtPath: path
+                                      withIntermediateDirectories: NO
+                                                       attributes: nil
+                                                            error: &err]  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR,
+                "Could not create temporary directory using a fixed path at %s; error was %s",
+                [path UTF8String], [[err description] UTF8String]);
+        return nil;
+    } else {
+        asl_log(asl, log_msg, ASL_LEVEL_INFO,
+                "Using temporary directory at %s", [path UTF8String]);
+    }
+
+    return [path retain];
 }
 
 NSString * removeSymlinkFromPath(NSString * path,
