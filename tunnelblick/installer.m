@@ -2807,6 +2807,8 @@ int main(int argc, char *argv[]) {
 
 	setupUser_Library_Application_Support_Tunnelblick();
 
+    securelyDeleteItemIfItExists(@"/Library/Application Support/tunnelblickd");
+
     //**************************************************************************************************************************
     // (2) If INSTALLER_COPY_APP is set:
     //     Then move /Applications/XXXXX.app to the Trash, then copy this app to /Applications/XXXXX.app
