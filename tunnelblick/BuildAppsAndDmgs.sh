@@ -257,8 +257,8 @@ mkdir -p "${app_path}/Contents/Resources/openvpn"
 default_openvpn="z"
 
 # DEFAULT OpenVPN will be the lowest version linked to OpenSSL with the following prefix:
-default_openvpn_version_prefix="openvpn-2.5"
-default_openssl_version_prefix="openssl-1.1.1"
+default_openvpn_version_prefix="openvpn-2.6"
+default_openssl_version_prefix="openssl-3.0"
 
 for d in `ls "../third_party/products/openvpn"`
 do
