@@ -4815,7 +4815,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * configurationPreferencesContents = [ConfigurationManager getPreferences: gConfigurationPreferences prefix: [connection displayName]];
 
         perConfigurationString = [NSString stringWithFormat:
-                                  @"Configuration %@\n\nSanitized\" condensed configuration file for %@:\n\n%@\n%@"
+                                  @"Configuration %@\n\n\"Sanitized\" condensed configuration file for %@:\n\n%@\n%@"
                                   @"%@\n%@"
                                   @"Configuration preferences:\n\n%@\n%@",
                                   [connection localizedName], [connection configPath], condensedConfigFileContents, separatorString,
