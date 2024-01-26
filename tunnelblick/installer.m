@@ -1863,6 +1863,13 @@ static void secureTheApp(NSString * appResourcesPath) {
 	
 	okSoFar = checkSetPermissions(tunnelblickHelperPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 	
+    if (  ! removeQuarantineBit()  ) {
+        appendLog(@"Unable to remove all 'com.apple.quarantine' extended attributes");
+        errorExit();
+    } else {
+        appendLog(@"Removed any 'com.apple.quarantine' extended attributes");
+    }
+
 	if (  ! okSoFar  ) {
 		appendLog(@"Unable to secure Tunnelblick.app");
 		errorExit();
