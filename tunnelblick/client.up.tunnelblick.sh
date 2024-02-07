@@ -14,23 +14,23 @@
 # ******************************************************************************************************************
 
 
-##########################################################################################
-# @param String message - The message to log
-logMessage()
-{
+logMessage() {
+
+    # @param String message - The message to log
+
 	echo "$( date -j +'%H:%M:%S' ) *Tunnelblick: " "${@}"
 }
 
-##########################################################################################
-# @param String message - The message to log
-#
-# If Tunnelblick's "DB-UP" preference is set, extra logging will be done for all configurations.
-#
-# (If the "DB-UP" preference is set, VPNConnection sets the OPENVPNSTART_EXTRA_LOGGING bit;
-#  if tunnelblick-helper sees that bit set, it adds " -l" to OpenVPN's "--up" or "--route-up" commands; and
-#  if this script sees the "-l", it sets ARG_EXTRA_LOGGING to "true")
-logDebugMessage()
-{
+logDebugMessage() {
+
+    # @param String message - The message to log
+    #
+    # If Tunnelblick's "DB-UP" preference is set, extra logging will be done for all configurations.
+    #
+    # (If the "DB-UP" preference is set, VPNConnection sets the OPENVPNSTART_EXTRA_LOGGING bit;
+    #  if tunnelblick-helper sees that bit set, it adds " -l" to OpenVPN's "--up" or "--route-up" commands; and
+    #  if this script sees the "-l", it sets ARG_EXTRA_LOGGING to "true")
+
     if ${ARG_EXTRA_LOGGING} ; then
 		if [ -z "$1" ] ; then
 			logMessage ''
@@ -40,15 +40,15 @@ logDebugMessage()
     fi
 }
 
-##########################################################################################
-# log a change to a setting
-# @param String filters - empty, or one or two '#' if not performing the change
-# @param String name of setting that is being changed
-# @param String new value
-# @param String old value
-logChange()
-{
-	if [ "$1" = "" ] ; then
+logChange() {
+
+    # log a change to a setting
+    # @param String filters - empty, or one or two '#' if not performing the change
+    # @param String name of setting that is being changed
+    # @param String new value
+    # @param String old value
+
+ 	if [ "$1" = "" ] ; then
 		if [ "$3" = "$4" ] ; then
 			logMessage "Did not change $2 setting of '$3' (but re-set it)"
 		else
@@ -59,17 +59,17 @@ logChange()
 	fi
 }
 
-##########################################################################################
-# @param String string - Content to trim
-trim()
-{
-# We DO NOT want to double-quote {%@}
-# This should create a set of trimmed strings.
-# shellcheck disable=SC2068
-	echo ${@}
+trim() {
+
+    # @param String string - Content to trim
+    #
+    # We DO NOT want to double-quote {%@}
+    # This should create a set of trimmed strings.
+    # shellcheck disable=SC2068
+
+    echo ${@}
 }
 
-##########################################################################################
 get_networksetup_setting() {
 
 	# Outputs a string with the networksetup setting named $1 for each active network service.
@@ -164,17 +164,15 @@ get_networksetup_setting() {
 	IFS="$saved_IFS"
 }
 
+run_prefix_or_suffix() {
 
-##########################################################################################
-run_prefix_or_suffix()
-{
-# @param String 'up-prefix.sh' or 'up-suffix.sh'
-#
-# Execute the specified script (if it exists) in a subshell with the arguments with which this script was called.
-#
-# Tunnelblick starts OpenVPN with --set-env TUNNELBLICK_CONFIG_FOLDER <PATH>
-# where <PATH> is the path to the folder containing the OpenVPN configuration file.
-# That folder is where the script will be (if it exists).
+    # @param String 'up-prefix.sh' or 'up-suffix.sh'
+    #
+    # Execute the specified script (if it exists) in a subshell with the arguments with which this script was called.
+    #
+    # Tunnelblick starts OpenVPN with --set-env TUNNELBLICK_CONFIG_FOLDER <PATH>
+    # where <PATH> is the path to the folder containing the OpenVPN configuration file.
+    # That folder is where the script will be (if it exists).
 
 	if [  -z "$TUNNELBLICK_CONFIG_FOLDER" ] ; then
 		logMessage "The 'TUNNELBLICK_CONFIG_FOLDER' environment variable is missing or empty"
@@ -206,17 +204,16 @@ run_prefix_or_suffix()
 	fi
 }
 
-##########################################################################################
 disable_ipv6() {
 
-# Disables IPv6 on each enabled (active) network service on which it is set to the macOS default "IPv6 Automatic".
-#
-# For each such service, outputs a line with the name of the service.
-# (A separate line is output for each name because a name may include spaces.)
-#
-# The 'restore_ipv6' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
-#
-# NOTE: Done only for enabled services because some versions of macOS enable the service if this IPv6 setting is changed.
+    # Disables IPv6 on each enabled (active) network service on which it is set to the macOS default "IPv6 Automatic".
+    #
+    # For each such service, outputs a line with the name of the service.
+    # (A separate line is output for each name because a name may include spaces.)
+    #
+    # The 'restore_ipv6' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
+    #
+    # NOTE: Done only for enabled services because some versions of macOS enable the service if this IPv6 setting is changed.
 
     # Get list of services and remove the first line which contains a heading
     local dipv6_services ; dipv6_services="$( /usr/sbin/networksetup  -listallnetworkservices | sed -e '1,1d' ; true)"
@@ -239,21 +236,21 @@ disable_ipv6() {
     done
 }
 
-##########################################################################################
 disable_secondary_network_services() {
 
-# Disables each enabled (active) network service except the primary service.
-#
-# For each such service, outputs a line with the name of the service.
-# (A separate line is output for each name because a name may include spaces.)
-#
-# The 'restore_disabled_network_services' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
+    # Disables each enabled (active) network service except the primary service.
+    #
+    # For each such service, outputs a line with the name of the service.
+    # (A separate line is output for each name because a name may include spaces.)
+    #
+    # The 'restore_disabled_network_services' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
 
     # Get list of services and remove the first four lines, which contain a heading and the primary service
     local services ; services="$( /usr/sbin/networksetup  -listnetworkserviceorder | sed -e '1,4d' ; true)"
 
     # Go through the list disabling each service and outputting a line with the name of the service
     # If first character of a line is an asterisk, the service is disabled, so we skip it
+
     local service
     printf %s "$services$LF"  |   while IFS= read -r service ; do
 		if [ -n "$service" ] \
@@ -267,28 +264,29 @@ disable_secondary_network_services() {
     done
 }
 
-##########################################################################################
-# @param String[] dnsServers - The name servers to use
-# @param String domainName - The domain name to use
-# @param \optional String[] winsServers - The SMB servers to use
-# @param \optional String[] searchDomains - The search domains to use
-#
-# Throughout this routine:
-#            MAN_ is a prefix for manually set parameters
-#            DYN_ is a prefix for dynamically set parameters (by a "push", config file, or command line option)
-#            CUR_ is a prefix for the current parameters (as arbitrated by macOS between manual and DHCP data)
-#            FIN_ is a prefix for the parameters we want to end up with
-#            SKP_ is a prefix for an empty string or a "#" used to control execution of statements that set parameters in scutil
-#
-#            DNS_SA is a suffix for the ServerAddresses value in a System Configuration DNS key
-#            DNS_SD is a suffix for the SearchDomains   value in a System Configuration DNS key
-#            DNS_DN is a suffix for the DomainName      value in a System Configuration DNS key
-#
-#            SMB_NN is a suffix for the NetBIOSName   value in a System Configuration SMB key
-#            SMB_WG is a suffix for the Workgroup     value in a System Configuration SMB key
-#            SMB_WA is a suffix for the WINSAddresses value in a System Configuration SMB key
-#
-# So, for example, MAN_SMB_NN is the manually set NetBIOSName value (or the empty string if not set manually)
+setDnsServersAndDomainName() {
+
+    # @param String[] dnsServers - The name servers to use
+    # @param String domainName - The domain name to use
+    # @param \optional String[] winsServers - The SMB servers to use
+    # @param \optional String[] searchDomains - The search domains to use
+    #
+    # Throughout this routine:
+    #            MAN_ is a prefix for manually set parameters
+    #            DYN_ is a prefix for dynamically set parameters (by a "push", config file, or command line option)
+    #            CUR_ is a prefix for the current parameters (as arbitrated by macOS between manual and DHCP data)
+    #            FIN_ is a prefix for the parameters we want to end up with
+    #            SKP_ is a prefix for an empty string or a "#" used to control execution of statements that set parameters in scutil
+    #
+    #            DNS_SA is a suffix for the ServerAddresses value in a System Configuration DNS key
+    #            DNS_SD is a suffix for the SearchDomains   value in a System Configuration DNS key
+    #            DNS_DN is a suffix for the DomainName      value in a System Configuration DNS key
+    #
+    #            SMB_NN is a suffix for the NetBIOSName   value in a System Configuration SMB key
+    #            SMB_WG is a suffix for the Workgroup     value in a System Configuration SMB key
+    #            SMB_WA is a suffix for the WINSAddresses value in a System Configuration SMB key
+    #
+    # So, for example, MAN_SMB_NN is the manually set NetBIOSName value (or the empty string if not set manually)
 
 setDnsServersAndDomainName()
 {
@@ -1012,10 +1010,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	fi
 }
 
-##########################################################################################
-# Used for TAP device which does DHCP
-configureDhcpDns()
-{
+configureDhcpDns() {
+
+    # Used for TAP device which does DHCP
 	# whilst ipconfig will have created the neccessary Network Service keys, the DNS
 	# settings won't actually be used by macOS unless the SupplementalMatchDomains key
 	# is added
@@ -1025,6 +1022,7 @@ configureDhcpDns()
 
 	# - wait until we get a lease before extracting the DNS domain name and merging into SC
 	# - despite it's name, ipconfig waitall doesn't (but maybe one day it will :-)
+
 	logDebugMessage "About to 'ipconfig waitall'"
 	ipconfig waitall
 	logDebugMessage "Completed 'ipconfig waitall'"
@@ -1174,46 +1172,45 @@ configureDhcpDns()
 	return 0
 }
 
-##########################################################################################
-# Configures using OpenVPN foreign_option_* instead of DHCP
+configureOpenVpnDns() {
 
-configureOpenVpnDns()
-{
-# Description of foreign_option_ parameters (from OpenVPN 2.3-alpha_2 man page):
-#
-# DOMAIN name -- Set Connection-specific DNS Suffix.
-#
-# DOMAIN-SEARCH name -- Set Connection-specific DNS Search Address. Repeat this option to
-#               set additional search domains. (Tunnelblick-specific addition.)
-#
-# DNS addr -- Set primary domain name server address.  Repeat  this  option  to  set
-#              secondary DNS server addresses.
-#
-# WINS  addr  --  Set primary WINS server address (NetBIOS over TCP/IP Name Server).
-#              Repeat this option to set secondary WINS server addresses.
-#
-# NBDD addr -- Set primary NBDD server address (NetBIOS over TCP/IP Datagram Distribution Server)
-#              Repeat this option to set secondary NBDD server addresses.
-#
-# NTP  addr  -- Set primary NTP server address (Network Time Protocol).  Repeat this option
-#              to set secondary NTP server addresses.
-#
-# NBT type -- Set NetBIOS over TCP/IP Node  type.   Possible  options:  1  =  b-node
-#              (broadcasts),  2  =  p-node (point-to-point name queries to a WINS server), 4 = m-
-#              node (broadcast then query name server), and 8 = h-node (query name  server,  then
-#              broadcast).
-#
-# NBS  scope-id  --  Set  NetBIOS  over TCP/IP Scope. A NetBIOS Scope ID provides an
-#              extended naming service for the NetBIOS over TCP/IP (Known  as  NBT)  module.  The
-#              primary  purpose  of  a NetBIOS scope ID is to isolate NetBIOS traffic on a single
-#              network to only those nodes with the same NetBIOS scope ID.  The NetBIOS scope  ID
-#              is  a  character string that is appended to the NetBIOS name. The NetBIOS scope ID
-#              on two hosts must match, or the two hosts will not be  able  to  communicate.  The
-#              NetBIOS Scope ID also allows computers to use the same computer name, as they have
-#              different scope IDs. The Scope ID becomes a part of the NetBIOS name,  making  the
-#              name unique.  (This description of NetBIOS scopes courtesy of NeonSurge@abyss.com)
-#
-#DISABLE-NBT -- Disable Netbios-over-TCP/IP.
+    # Configures using OpenVPN foreign_option_* instead of DHCP
+
+    # Description of foreign_option_ parameters (from OpenVPN 2.3-alpha_2 man page):
+    #
+    # DOMAIN name -- Set Connection-specific DNS Suffix.
+    #
+    # DOMAIN-SEARCH name -- Set Connection-specific DNS Search Address. Repeat this option to
+    #               set additional search domains. (Tunnelblick-specific addition.)
+    #
+    # DNS addr -- Set primary domain name server address.  Repeat  this  option  to  set
+    #              secondary DNS server addresses.
+    #
+    # WINS  addr  --  Set primary WINS server address (NetBIOS over TCP/IP Name Server).
+    #              Repeat this option to set secondary WINS server addresses.
+    #
+    # NBDD addr -- Set primary NBDD server address (NetBIOS over TCP/IP Datagram Distribution Server)
+    #              Repeat this option to set secondary NBDD server addresses.
+    #
+    # NTP  addr  -- Set primary NTP server address (Network Time Protocol).  Repeat this option
+    #              to set secondary NTP server addresses.
+    #
+    # NBT type -- Set NetBIOS over TCP/IP Node  type.   Possible  options:  1  =  b-node
+    #              (broadcasts),  2  =  p-node (point-to-point name queries to a WINS server), 4 = m-
+    #              node (broadcast then query name server), and 8 = h-node (query name  server,  then
+    #              broadcast).
+    #
+    # NBS  scope-id  --  Set  NetBIOS  over TCP/IP Scope. A NetBIOS Scope ID provides an
+    #              extended naming service for the NetBIOS over TCP/IP (Known  as  NBT)  module.  The
+    #              primary  purpose  of  a NetBIOS scope ID is to isolate NetBIOS traffic on a single
+    #              network to only those nodes with the same NetBIOS scope ID.  The NetBIOS scope  ID
+    #              is  a  character string that is appended to the NetBIOS name. The NetBIOS scope ID
+    #              on two hosts must match, or the two hosts will not be  able  to  communicate.  The
+    #              NetBIOS Scope ID also allows computers to use the same computer name, as they have
+    #              different scope IDs. The Scope ID becomes a part of the NetBIOS name,  making  the
+    #              name unique.  (This description of NetBIOS scopes courtesy of NeonSurge@abyss.com)
+    #
+    #DISABLE-NBT -- Disable Netbios-over-TCP/IP.
 
 	unset vForOptions
 	unset vOptions
@@ -1280,9 +1277,8 @@ configureOpenVpnDns()
 	return 0
 }
 
-##########################################################################################
-flushDNSCache()
-{
+flushDNSCache() {
+
     if ${ARG_FLUSH_DNS_CACHE} ; then
 		if [ -f /usr/bin/dscacheutil ] ; then
 			set +e # we will catch errors from dscacheutil
@@ -1336,12 +1332,11 @@ flushDNSCache()
     fi
 }
 
-
-##########################################################################################
-# log information about the DNS settings
-# @param String Manual DNS_SA
-# @param String New DNS_SA
 logDnsInfo() {
+
+    # log information about the DNS settings
+    # @param String Manual DNS_SA
+    # @param String New DNS_SA
 
 	log_dns_info_manual_dns_sa="$1"
 	log_dns_info_new_dns_sa="$2"
@@ -1394,7 +1389,8 @@ logDnsInfo() {
 }
 
 logDnsInfoNoChanges() {
-# log information about DNS settings if they are not changing
+
+    # log information about DNS settings if they are not changing
 
     set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 
