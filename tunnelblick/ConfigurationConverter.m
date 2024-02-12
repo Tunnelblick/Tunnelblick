@@ -1578,6 +1578,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"extra-certs|"
     @"fast-io|"
     @"float|"
+    @"force-tls-key-material-export|"
     @"foreign-option|"
     @"fragment|"
     @"genkey|"
