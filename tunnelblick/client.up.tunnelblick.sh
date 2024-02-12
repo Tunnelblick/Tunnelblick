@@ -70,6 +70,17 @@ trim() {
     echo ${@}
 }
 
+setGlobal() {
+
+    # @param name of a global variable
+    # @param value to set the global variable to
+
+    # When called in a subroutine, sets a global variable to a value.
+    # (Normally setting a variable does not affect the global variable's value.)
+
+    export -n "$1=$2"
+}
+
 get_networksetup_setting() {
 
 	# Outputs a string with the networksetup setting named $1 for each active network service.
@@ -264,6 +275,88 @@ disable_secondary_network_services() {
     done
 }
 
+disableIPv6AndSecondaryServices() {
+
+    # Disables IPv6 and secondary services if appropriate.
+    # Sets global variables withs encoded lists of the services that were disabled
+    #      so they can be restored by the down script.
+    # Saves non-encoded lists of the services that were disabled in a file
+    #       so they can be restored on shutdown or restart of the computer.
+
+    # Disable IPv6 services if requested and the VPN server address is not an IPv6 address,
+    # and create a list of those that were disabled.
+
+    ipv6_disabled_services=""
+    if ${ARG_DISABLE_IPV6_ON_TUN} ; then
+        trusted_ip_line="$( env | grep 'trusted_ip' ; true )"
+        if [ "${trusted_ip_line/:/}" = "$trusted_ip_line" ] ; then
+            readonly ipv6_disabled_services="$( disable_ipv6 )"
+            if [ "$ipv6_disabled_services" != "" ] ; then
+                printf '%s\n' "$ipv6_disabled_services" \
+                | while IFS= read -r dipv6_service ; do
+                    logMessage "Disabled IPv6 for '$dipv6_service'"
+                done
+            fi
+        else
+            trusted_ip="${trusted_ip_line#trusted_ip=}"
+            logMessage "WARNING: NOT disabling IPv6 because the OpenVPN server address is an IPv6 address ($trusted_ip)"
+        fi
+    fi
+
+    # Save an encoded copy of the list in global IPV6_DISABLED_SERVICES_ENCODED so it can be used later
+    # Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
+    setGlobal IPV6_DISABLED_SERVICES_ENCODED "$( echo "$ipv6_disabled_services" | tr '\n' '\t' )"
+    readonly  IPV6_DISABLED_SERVICES_ENCODED
+
+    # Save non-encoded list in file for use on shutdown or restart of the computer
+    if [ -n  "$ipv6_disabled_services" ] ; then
+        echo "$ipv6_disabled_services" > "/Library/Application Support/Tunnelblick/restore-ipv6.txt"
+    else
+        rm -f "/Library/Application Support/Tunnelblick/restore-ipv6.txt"
+    fi
+
+    # Disable secondary services if requested and create a list of those that were disabled
+    secondary_disabled_services=""
+    if ${ARG_DISABLE_SECONDARY_SERVICES_ON_TUN} ; then
+        readonly secondary_disabled_services="$( disable_secondary_network_services )"
+        if [ "$secondary_disabled_services" != "" ] ; then
+            printf '%s\n' "$secondary_disabled_services" \
+            | while IFS= read -r service ; do
+                logMessage "Disabled '$service'"
+              done
+        fi
+    fi
+
+    # Save an encoded copy of the list in global SECONDARY_DISABLED_SERVICES_ENCODED so it can be used later
+    # Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
+    setGlobal SECONDARY_DISABLED_SERVICES_ENCODED "$( echo "$secondary_disabled_services" | tr '\n' '\t' )"
+    readonly  SECONDARY_DISABLED_SERVICES_ENCODED
+
+    # Save non-encoded list in file for use on shutdown or restart of the computer
+	if [ -n "$secondary_disabled_services" ] ; then
+		echo "$secondary_disabled_services" > "/Library/Application Support/Tunnelblick/restore-secondary.txt"
+    else
+        rm -f "/Library/Application Support/Tunnelblick/restore-secondary.txt"
+	fi
+}
+
+setupToMonitorNetworkConfiguration() {
+
+    if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
+        if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-p" ] ; then
+            logMessage "Setting up to monitor system configuration with process-network-changes"
+        else
+            logMessage "Setting up to monitor system configuration with leasewatch"
+        fi
+        if [ "${LEASEWATCHER_TEMPLATE_PATH}" != "" ] ; then
+            sed -e "s|/Applications/Tunnelblick\.app/Contents/Resources|${TB_RESOURCES_PATH}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
+        fi
+        launchctl load "${LEASEWATCHER_PLIST_PATH}"
+    else
+        logMessage "Will not monitor for network configuration changes."
+    fi
+}
+
 setDnsServersAndDomainName() {
 
     # @param String[] dnsServers - The name servers to use
@@ -288,8 +381,6 @@ setDnsServersAndDomainName() {
     #
     # So, for example, MAN_SMB_NN is the manually set NetBIOSName value (or the empty string if not set manually)
 
-setDnsServersAndDomainName()
-{
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 		PSID="$( scutil <<-EOF |
 			open
@@ -771,23 +862,6 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	logDebugMessage "${SKP_SMB}${SKP_SMB_WG}ADD State: Workgroup      ${FIN_SMB_WG}"
 	logDebugMessage "${SKP_SMB}${SKP_SMB_WA}ADD State: WINSAddresses  ${FIN_SMB_WA}"
 
-	# Save the list of services that need to have their IPv6 settings restored to "Automatic" when disconnecting.
-	#
-	# This is done because the changes cannot be restored in the down script during a restart or shutdown because
-	# the networksetup daemon may not be running. On the first run after a computer start, tunnelblickd will
-	# use this list to restore IPv6 settings, then it will delete the file.
-	#
-	# (Normally -- when not shutting down or restarting the computer -- the down script does the IPv6 restorations.)
-
-	if [ -n "$IPV6_DISABLED_SERVICES" ] ; then
-		echo "$IPV6_DISABLED_SERVICES" > "/Library/Application Support/Tunnelblick/restore-ipv6.txt"
-	fi
-
-    # Similarly, save the list of secondary services that need to be restored when disconnecting
-	if [ -n "$SECONDARY_DISABLED_SERVICES" ] ; then
-		echo "$SECONDARY_DISABLED_SERVICES" > "/Library/Application Support/Tunnelblick/restore-secondary.txt"
-	fi
-
 	# Save the openvpn process ID and the Network Primary Service ID, leasewather.plist path, logfile path, and optional arguments from Tunnelblick,
 	# then save old and new DNS and SMB settings
 	# PPID is a script variable (defined by bash itself) that contains the process ID of the parent of the process running the script (i.e., OpenVPN's process ID)
@@ -997,17 +1071,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	flushDNSCache
 
-	if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-        if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-p" ] ; then
-            logMessage "Setting up to monitor system configuration with process-network-changes"
-        else
-            logMessage "Setting up to monitor system configuration with leasewatch"
-        fi
-        if [ "${LEASEWATCHER_TEMPLATE_PATH}" != "" ] ; then
-            sed -e "s|/Applications/Tunnelblick\.app/Contents/Resources|${TB_RESOURCES_PATH}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
-		fi
-        launchctl load "${LEASEWATCHER_PLIST_PATH}"
-	fi
+	setupToMonitorNetworkConfiguration
 }
 
 configureDhcpDns() {
@@ -1660,9 +1724,7 @@ EXIT_CODE=0
 if ${ARG_TAP} ; then
 
     # IPv6 should be re-enabled only for TUN, not TAP; the same for secondary network services
-    readonly IPV6_DISABLED_SERVICES=""
     readonly IPV6_DISABLED_SERVICES_ENCODED=""
-    readonly SECONDARY_DISABLED_SERVICES=""
     readonly SECONDARY_DISABLED_SERVICES_ENCODED=""
 
     if ${ARG_DISABLE_SECONDARY_SERVICES_ON_TUN} ; then
@@ -1737,56 +1799,57 @@ if ${ARG_TAP} ; then
 		fi
 	fi
 else
+
+    # TUN
+
+	disableIPv6AndSecondaryServices
+
 	if [ "$foreign_option_1" == "" ]; then
-		logMessage "NOTE: No network configuration changes need to be made."
-		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-			logMessage "WARNING: Will NOT monitor for other network configuration changes."
-		fi
-        if ${ARG_DISABLE_IPV6_ON_TUN} ; then
-            logMessage "WARNING: Will NOT disable IPv6 settings."
-        fi
-		if ${ARG_DISABLE_SECONDARY_SERVICES_ON_TUN} ; then
-			logMessage "WARNING: Will NOT disable secondary services."
-		fi
+
         logDnsInfoNoChanges
+
+        setupToMonitorNetworkConfiguration
+
         flushDNSCache
+
+        scutil <<-EOF > /dev/null
+            open
+
+            d.init
+
+            # Store variables needed by the down script
+
+            d.add LeaseWatcherPlistPath    "${LEASEWATCHER_PLIST_PATH}"
+            d.add RemoveLeaseWatcherPlist  "${REMOVE_LEASEWATCHER_PLIST}"
+            d.add Service ${PSID}
+            d.add RouteGatewayIsDhcp       "${ROUTE_GATEWAY_IS_DHCP}"
+            d.add TapDeviceHasBeenSetNone  "false"
+            d.add bAlsoUsingSetupKeys      "${ALSO_USING_SETUP_KEYS}"
+            d.add TunnelDevice             "$dev"
+            d.add RestoreIpv6Services      "$IPV6_DISABLED_SERVICES_ENCODED"
+            d.add RestoreSecondaryServices "$SECONDARY_DISABLED_SERVICES_ENCODED"
+
+            # Store variables needed by Tunnelblick
+
+            d.add ScriptLogFile                     "${SCRIPT_LOG_FILE}"
+            d.add MonitorNetwork                    "${ARG_MONITOR_NETWORK_CONFIGURATION}"
+            d.add RestoreOnDNSReset                 "${ARG_RESTORE_ON_DNS_RESET}"
+            d.add RestoreOnWINSReset                "${ARG_RESTORE_ON_WINS_RESET}"
+            d.add IgnoreOptionFlags                 "${ARG_IGNORE_OPTION_FLAGS}"
+            d.add IsTapInterface                    "${ARG_TAP}"
+            d.add FlushDNSCache                     "${ARG_FLUSH_DNS_CACHE}"
+            d.add ResetPrimaryInterface             "${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT}"
+            d.add ResetPrimaryInterfaceOnUnexpected "${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED}"
+            d.add ExpectedDnsAddresses              "$FIN_DNS_SA"
+            
+            set State:/Network/OpenVPN
+
+EOF
+        EXIT_CODE=0
 	else
 
-        # Disable secondary services if requested
-        SECONDARY_DISABLED_SERVICES=""
-        if ${ARG_DISABLE_SECONDARY_SERVICES_ON_TUN} ; then
-            readonly SECONDARY_DISABLED_SERVICES="$( disable_secondary_network_services )"
-            if [ "$SECONDARY_DISABLED_SERVICES" != "" ] ; then
-                printf '%s\n' "$SECONDARY_DISABLED_SERVICES" \
-                | while IFS= read -r service ; do
-                    logMessage "Disabled '$service'"
-                done
-            fi
-        fi
-        # Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
-        readonly SECONDARY_DISABLED_SERVICES_ENCODED="$( echo "$SECONDARY_DISABLED_SERVICES" | tr '\n' '\t' )"
-
-        # Disable IPv6 if requested
-        IPV6_DISABLED_SERVICES=""
-        if ${ARG_DISABLE_IPV6_ON_TUN} ; then
-			trusted_ip_line="$( env | grep 'trusted_ip' ; true )"
-			if [ "${trusted_ip_line/:/}" = "$trusted_ip_line" ] ; then
-            	readonly IPV6_DISABLED_SERVICES="$( disable_ipv6 )"
-				if [ "$IPV6_DISABLED_SERVICES" != "" ] ; then
-					printf '%s\n' "$IPV6_DISABLED_SERVICES" \
-					| while IFS= read -r dipv6_service ; do
-                    	logMessage "Disabled IPv6 for '$dipv6_service'"
-                	done
-            	fi
-			else
-				trusted_ip="${trusted_ip_line#trusted_ip=}"
-				logMessage "WARNING: NOT disabling IPv6 because the OpenVPN server address is an IPv6 address ($trusted_ip)"
-			fi
-        fi
-		# Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
-		readonly IPV6_DISABLED_SERVICES_ENCODED="$( echo "$IPV6_DISABLED_SERVICES" | tr '\n' '\t' )"
-
 		configureOpenVpnDns
+
 		EXIT_CODE=$?
 	fi
 fi
