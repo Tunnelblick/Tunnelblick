@@ -3478,7 +3478,7 @@ int main(int argc, char * argv[]) {
             if (  argc == 3  ) {
                 unsigned int bitMask = cvt_atou(argv[2], @"bitMask");
                 BOOL onBigSurOrNewer = ((bitMask & OPENVPNSTART_ON_BIG_SUR_OR_NEWER) != 0);
-                unsigned int kextMask = bitMask & ( ~ OPENVPNSTART_ON_BIG_SUR_OR_NEWER);
+                unsigned int kextMask = bitMask & ( ~ OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT);
                 if (  kextMask <= OPENVPNSTART_KEXTS_MASK_LOAD_MAX  ) {
                     if (  kextMask == 0  ) {
                         kextMask = OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT;
