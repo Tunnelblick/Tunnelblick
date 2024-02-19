@@ -2804,6 +2804,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 	if (  [preference isEqualToString: @"always"]  ) {
 		bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
+    } else if (   (! preference)
+               || ( [preference length] == 0)  ) {
+        // "automatic", so load our tap kext if it is a tap connection
+        if (  [tunOrTap isEqualToString: @"tap"]  ) {
+            bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
+        }
     } else if (  ! [preference isEqualToString: @"never"]  ) {
         [self addToLog: [NSString stringWithFormat: @"Cannot recognize the %@ preference value of '%@', so Tunnelblick will not load the tap kext", preferenceKey, preference]];
     }
