@@ -187,12 +187,12 @@ static void openLog(BOOL clearLog) {
     
     const char * path = fileSystemRepresentationFromPath(INSTALLER_LOG_PATH);
 	
-	if (  clearLog  ) {
-		gLogFile = fopen(path, "w");
-	} else {
-		gLogFile = fopen(path, "a");
-	}
-    
+    char * mode = (  clearLog
+                   ? "w"
+                   : "a");
+
+    gLogFile = fopen(path, mode);
+
 	if (  gLogFile == NULL  ) {
 		errorExit();
 	}
@@ -502,7 +502,7 @@ void removeQuarantineBit(void) {
 
     appendLog(@"Removed any 'com.apple.quarantine' extended attributes");
     return;
-    
+
 fail:
     appendLog(@"Unable to remove all 'com.apple.quarantine' extended attributes");
     errorExit();
