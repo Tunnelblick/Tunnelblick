@@ -174,7 +174,7 @@ on ReplaceLastPathComponent(path, newLastComponent) -- (String,String) as String
 	
 	if lastColonIx = -1 then
 		display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
-			message LocalizedFormattedString("There is a problem. The path to this script (%s) does not contain any colons.\n\nPlease email developers@tunnelblick.net for help.", {path}) Â
+			message LocalizedFormattedString("There is a problem. The path to this script (%s) does not contain any colons.\n\nPlease see https://tunnelblick.net/e1", {path}) Â
 			as critical
 		return ""
 	end if
@@ -219,7 +219,7 @@ on GetMyScriptPath() -- As POSIX path
 	end if
 	
 	display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
-		message LocalizedFormattedString("There is a problem. The uninstaller shell script does not exist at %s.\n\nPlease email developers@tunnelblick.net for help.", Â
+		message LocalizedFormattedString("There is a problem. The uninstaller shell script does not exist at %s.\n\nPlease see https://tunnelblick.net/e1", Â
 										 {myScriptPath}) Â
 		as critical
 	return ""
@@ -442,7 +442,7 @@ on WriteTextToFile(theText, theFile)
             close access file theFile
         end try
 
-        display alert "Error " & errorNumber &  " (" & errorMessage & ") writing to /tmp/UninstallDetails.txt\n\nPlease email developers@tunnelblick.net for help."
+        display alert "Error " & errorNumber &  " (" & errorMessage & ") writing to /tmp/UninstallDetails.txt\n\nPlease see https://tunnelblick.net/e1"
         return false
     end try
 end WriteTextToFile
@@ -538,7 +538,7 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 		set scriptOutput to do shell script (quoted form of myScriptPath) & argumentString with administrator privileges
 	on error errorMessage number errorNumber
         if errorNumber ­ -128 then
-            display alert "Error " & errorNumber &  " (" & errorMessage & ") in shell script: " & (quoted form of myScriptPath) & argumentString & " with administrator privileges.\n\nPlease email developers@tunnelblick.net for help."
+            display alert "Error " & errorNumber &  " (" & errorMessage & ") in shell script: " & (quoted form of myScriptPath) & argumentString & " with administrator privileges.\n\nPlease see https://tunnelblick.net/e1"
         end if
 		return
 	end try
@@ -645,7 +645,7 @@ on ProcessFile(fullPath) -- (POSIX path)
 	try
 		set confirmString to UserConfirmation(fullPath, TBName, TBIdentifier)
 	on error errorMessage number errorNumber
-		display alert "Error in UserConfirmation(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
+		display alert "Error in UserConfirmation(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease see https://tunnelblick.net/e1"
 		return
 	end try
 	if confirmString = "cancel" then
@@ -659,11 +659,11 @@ on ProcessFile(fullPath) -- (POSIX path)
 		else
 			try
 				display alert (localized string of "Tunnelblick Uninstaller TEST FAILED") Â
-					message LocalizedFormattedString("An internal error occurred: UserConfirmation('%s','%s','%s') returned '%s'.\n\nPlease email developers@tunnelblick.net for help.", {fullPath, TBName, TBIdentifier, confirmString}) Â
+					message LocalizedFormattedString("An internal error occurred: UserConfirmation('%s','%s','%s') returned '%s'.\n\nPlease see https://tunnelblick.net/e1", {fullPath, TBName, TBIdentifier, confirmString}) Â
 					as critical Â
 					buttons {localized string of "OK"}
 			on error errorMessage number errorNumber
-				display alert "Error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
+				display alert "Error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease see https://tunnelblick.net/e1"
 				return
 			end try
 			return
@@ -674,7 +674,7 @@ on ProcessFile(fullPath) -- (POSIX path)
 		DoProcessing(TBName, TBIdentifier, fullPath, testFlag, scriptPath)
 	on error errorMessage number errorNumber
         if errorNumber ­ -128 then
-            display alert "Error in DoProcessing(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
+            display alert "Error in DoProcessing(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease see https://tunnelblick.net/e1"
         end if
 	end try
 	
@@ -741,7 +741,7 @@ if not IsDefined then
 		ProcessFile(POSIX path of "/Applications/Tunnelblick.app")
 	on error errorMessage number errorNumber
         if errorNumber ­ -128 then
-            display alert "Error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease email developers@tunnelblick.net for help."
+            display alert "Error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease see https://tunnelblick.net/e1"
         end if
 	end try
 end if
