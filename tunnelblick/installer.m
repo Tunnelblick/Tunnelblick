@@ -1300,38 +1300,6 @@ static void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
     }
 }
 
-static void createAndSecureConfigurationsSubfolder(NSString * path) {
-
-    // Use to create and secure an empty configurations subfolder (either Shared or a private folder). If it is
-    // a private folder, the secured copy is also created.
-    //
-    // A Shared or secured folder is owned by root; a private folder is owned by the user.
-
-    uid_t  own   = 0;
-    gid_t  grp   = 0;
-    mode_t perms = PERMS_SECURED_FOLDER;
-
-    BOOL private = isPathPrivate(path);
-    if (  private  ) {
-        own   = userUID();
-        grp   = userGID();
-        perms = privateFolderPermissions(path);
-    }
-    errorExitIfAnySymlinkInPath(path);
-
-    if (  ! createDirWithPermissionAndOwnership(path, perms, own, grp)  ) {
-        errorExit();
-    }
-
-    // If a private folder, create the secure copy, too.
-    if (  private  ) {
-        NSString * lastPart = lastPartOfPath(path);
-        createAndSecureConfigurationsSubfolder([[L_AS_T_USERS
-                                                 stringByAppendingPathComponent: userUsername()]
-                                                stringByAppendingPathComponent: lastPart]);
-    }
-}
-
 static void setupLaunchDaemon(void) {
 
     // If we are reloading the LaunchDaemon, we make sure it is up-to-date by copying its .plist into /Library/LaunchDaemons
@@ -1551,6 +1519,38 @@ static void installOrUpdateKexts(BOOL forceInstall) {
 
 //**************************************************************************************************************************
 // HIGH LEVEL ROUTINES
+
+static void createAndSecureConfigurationsSubfolder(NSString * path) {
+
+    // Use to create and secure an empty configurations subfolder (either Shared or a private folder). If it is
+    // a private folder, the secured copy is also created.
+    //
+    // A Shared or secured folder is owned by root; a private folder is owned by the user.
+
+    uid_t  own   = 0;
+    gid_t  grp   = 0;
+    mode_t perms = PERMS_SECURED_FOLDER;
+
+    BOOL private = isPathPrivate(path);
+    if (  private  ) {
+        own   = userUID();
+        grp   = userGID();
+        perms = privateFolderPermissions(path);
+    }
+    errorExitIfAnySymlinkInPath(path);
+
+    if (  ! createDirWithPermissionAndOwnership(path, perms, own, grp)  ) {
+        errorExit();
+    }
+
+    // If a private folder, create the secure copy, too.
+    if (  private  ) {
+        NSString * lastPart = lastPartOfPath(path);
+        createAndSecureConfigurationsSubfolder([[L_AS_T_USERS
+                                                 stringByAppendingPathComponent: userUsername()]
+                                                stringByAppendingPathComponent: lastPart]);
+    }
+}
 
 static void secureOpenvpnBinariesFolder(NSString * enclosingFolder) {
 
