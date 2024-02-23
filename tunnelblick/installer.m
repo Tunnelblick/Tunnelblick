@@ -483,12 +483,12 @@ BOOL removeQuarantineBitWorker(NSString * path) {
     return TRUE;
 }
 
-BOOL removeQuarantineBit(void) {
+void removeQuarantineBit(void) {
 
     NSString * tbPath = @"/Applications/Tunnelblick.app";
 
     if (  ! removeQuarantineBitWorker(tbPath)  ) {
-        return FALSE;
+        goto fail;
     }
 
     NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tbPath];
@@ -496,11 +496,16 @@ BOOL removeQuarantineBit(void) {
     while (  (file = [dirE nextObject])  ) {
         NSString * fullPath = [tbPath stringByAppendingPathComponent: file];
         if (  ! removeQuarantineBitWorker(fullPath)  ) {
-            return FALSE;
+            goto fail;
         }
     }
 
-    return TRUE;
+    appendLog(@"Removed any 'com.apple.quarantine' extended attributes");
+    return;
+    
+fail:
+    appendLog(@"Unable to remove all 'com.apple.quarantine' extended attributes");
+    errorExit();
 }
 
 
@@ -1688,12 +1693,7 @@ static void copyTheApp(void) {
         appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
     }
 
-    if (  ! removeQuarantineBit()  ) {
-        appendLog(@"Unable to remove all 'com.apple.quarantine' extended attributes");
-        errorExit();
-    } else {
-        appendLog(@"Removed any 'com.apple.quarantine' extended attributes");
-    }
+    removeQuarantineBit();
 }
 
 static void secureTheApp(NSString * appResourcesPath) {
@@ -1863,12 +1863,7 @@ static void secureTheApp(NSString * appResourcesPath) {
 	
 	okSoFar = checkSetPermissions(tunnelblickHelperPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 	
-    if (  ! removeQuarantineBit()  ) {
-        appendLog(@"Unable to remove all 'com.apple.quarantine' extended attributes");
-        errorExit();
-    } else {
-        appendLog(@"Removed any 'com.apple.quarantine' extended attributes");
-    }
+    removeQuarantineBit();
 
 	if (  ! okSoFar  ) {
 		appendLog(@"Unable to secure Tunnelblick.app");
