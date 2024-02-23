@@ -471,7 +471,7 @@ static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * pa
 
 BOOL removeQuarantineBitWorker(NSString * path) {
 
-    const char * fullPathC = [path fileSystemRepresentation];
+    const char * fullPathC = fileSystemRepresentationFromPath(path);
     const char * quarantineBitNameC = "com.apple.quarantine";
     int status = removexattr(fullPathC, quarantineBitNameC, XATTR_NOFOLLOW);
     if (   (status != 0)
