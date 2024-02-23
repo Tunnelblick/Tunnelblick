@@ -1672,8 +1672,9 @@ static void copyTheApp(void) {
 	NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 	NSString * targetPath  = @"/Applications/Tunnelblick.app";
 
+    errorExitIfAnySymlinkInPath(targetPath);
+
 	if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-		errorExitIfAnySymlinkInPath(targetPath);
 		if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
 														   source: @"/Applications"
 													  destination: @""
