@@ -340,6 +340,11 @@ disableIPv6AndSecondaryServices() {
 	fi
 }
 
+willNotMonitorNetworkConfiguration() {
+
+        logMessage "Will not monitor for network configuration changes."
+}
+
 setupToMonitorNetworkConfiguration() {
 
     if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
@@ -353,7 +358,7 @@ setupToMonitorNetworkConfiguration() {
         fi
         launchctl load "${LEASEWATCHER_PLIST_PATH}"
     else
-        logMessage "Will not monitor for network configuration changes."
+        willNotMonitorNetworkConfiguration
     fi
 }
 
@@ -1808,7 +1813,7 @@ else
 
         logDnsInfoNoChanges
 
-        setupToMonitorNetworkConfiguration
+        willNotMonitorNetworkConfiguration
 
         flushDNSCache
 
