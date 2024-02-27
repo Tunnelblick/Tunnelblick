@@ -1,9 +1,14 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) IP: %@" = "Atvienot visus (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Atvienot visus (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) IP: %@" = "Atvienot visus (%1$d savienojumus) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Atvienot visus %d savienojumus";
@@ -33,7 +38,7 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Papildus...";
+"Advanced..." = "Papildus…";
 
 /* Button */
 "All Users" = "Visi lietotāji";
@@ -78,7 +83,7 @@
 "Delete Credentials" = "Dzēst Piekļuves Datus";
 
 /* Button */
-"Delete saved passphrase and try again" = "Dzēst saglabāto frāzveida paroli un mēģināt vēlreiz";
+"Delete saved passphrase and try again" = "Dzēst saglabāto paroles frāzi un mēģināt vēlreiz";
 
 /* Button */
 "Delete saved password and try again" = "Dzēst saglabāto paroli un mēģināt vēlreiz";
@@ -132,7 +137,7 @@
 "Load Tap driver automatically" = "Ielādēt Tap dzinēju automātiski";
 
 /* Button */
-"Load Tun driver automatically" = "Ielādēt Tun dzinēju automātiski";
+"Load Tun driver automatically" = "Ielādēt Tun dzini automātiski";
 
 /* Button */
 "Manually" = "Manuāli";
@@ -168,7 +173,7 @@
 "Only Me" = "Tikai man";
 
 /* Button */
-"Open easy-rsa in Terminal" = "Atvērt easy-rsa komandrindā";
+"Open easy-rsa in Terminal" = "Atvērt easy-rsa Terimnālī";
 
 /* Button */
 "Place Icon Near the Spotlight Icon" = "Novietot ikonu blakus Spotlight ikonai";
@@ -421,6 +426,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Atspējot IPv6, izņemot, ja VPN serveris izmanto IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Atvienot sekundārus tīkla interfeisus";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Pārtraukt savienojumu, kad dators iemieg";
 
 /* Checkbox name */
@@ -494,6 +502,9 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Saglabāt Keychain";
+
+/* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
+"Security code:" = "Drošības kods:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Iestatīt DNS pēc maršrutēšanas uzsākšanas";
@@ -790,10 +801,16 @@
 "     • DNS server address %@ is a public DNS server known to Tunnelblick but is not being routed through the VPN.\n\n" = "     • DNS servera adrese %@ pieder publiskam DNS serverim, kuru pazīst Tunnelblick, taču netiek maršrutēta caur VPN.";
 
 /* Window text */
+"     • DNS server address %@ is being used for VPN '%@' but should not be used. That may indicate that more than one network interface is active. Tunnelblick does not support multiple active network interfaces.\n\n" = "     DNS serveris ar adresi %1$@ tiek letots priekš VPN '%2$@' bet to nebūtu jālieto. Tas var nozīmēt ka vienlaicīgi ir aktīvs vairāk nekā viens tīkla interfeiss. Tunnelblick neatbalsta vairāku tīkla interfeisu vienlaicīgu lietošanu.\n\n";
+
+/* Window text */
 "     • DNS server address %@ is not a public DNS server known to Tunnelblick and is not being routed through the VPN.\n\n" = "     • DNS servera adrese %@ nepieder publiskam DNS serverim, kuru pazīst Tunnelblick, un netiek maršrutēta caur VPN.";
 
 /* Window text */
 "     • DNS server address %@ is not a public IP address and is not being routed through the VPN.\n\n" = "     • DNS servera adrese %@ nav publiska IP adrese un netiek maršrutēta caur VPN.";
+
+/* Window text */
+"     • DNS server address %@ is not being used but was expected to be used for VPN '%@'.\n\n" = "     DNS servera adrese %1$@ netiek izmantota, taču bija paredzēts, ka tā tiks izmantota priekš VPN '%2$@'.\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Uzstādītas %lu konfigurācijas\n\n";
@@ -962,6 +979,12 @@
 
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Tīkla uzstādījumi netika korekti atgriezti, atslēdzoties no %@.</p><p>Šīs problēmas cēlonis parasti ir ūser nobody' un/vai 'group nobody' OpenVPN konfigurācijā.</p><p>Lai atgrieztu tīkla iestatījumus, jums vajadzēs pārstartēt datoru.</p><p>Lai novērstu šo kļūdu nākotnē, izņemiet 'user nobody' un 'group nobody' rindiņas no jūsu OpenVPN konfigurācijas faila.</p><p>Vairāk informācijas skat. <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Lietotāju un grupu OpenVPN konfigurācija</a> [tunnelblick.net].</p></font>\n\n";
+
+/* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
+"<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick notika viena vai vairākas nopietnas kļūdas.</p>\n\n<p>Lūdzu nosūtiet e-pastu %1$@, pievienojot failu <br>'%2$@' kas tika izveidots Darbavirsmā.</p>\n\n<p>Šīs fails satur informāciju kas palīdzēs Tunnelblick izstrādātajiem izlabot problēmas dēļ kurām rodas šis kļūdas. Tas nesatur personisku informāciju par Jums vai VPN ko izmantojat.</p>\n\n<p>Ja iespējams, lūdzu aprakstiet arī kas notika Tunnelblick lietotnē, kad notika šī kļūda.</p>\n\n<p>Jusu palīdzība sniegs labumu visiem Tunnelblick lietotājiem.</p>";
+
+/* Window text. The '%u' will be replaced with 5 or a similar small positive number */
+"<p>This computer's apparent public IP address has changed after connecting to this VPN each of the last %u times it was checked.</p>\n<p>This probably means that the VPN is set up correctly and further checking is not necessary,\n so the checking has been disabled for this VPN to lighten the load on tunnelblick.net servers.</p>\n<p>You can re-enable checking on the \"Settings tab\" of Tunnelblick's \"VPN Details\" window. If you do that, please also consider <a href=\"https://tunnelblick.net/donate.html\">contributing to the Tunnelblick project.</a> [tunnelblick.net]</p>\n" = "<p>Šī datora publiska IP adrese mainījās pēc pieslēgšanās pie šī VPN katru no pēdējām %u pārbaudes reizēm.</p>\n<p>Tas nozime ka visticamāk VPN darbojas korekti un turpmākās pārbaudes nav nepieciešamas, tāpēc šim VPN pārbaude tikusi atspējota, lai atvieglotu slodzi uz tunnelblick.net serveriem.</p>\n<p>Jūs varat iespējot pārbaudi \"VPN iestatījumu\" loga \"Iestatījumu\" cilnē. Ja jūs to darīsiet, lūdzu arī apsveriet iespēju <a href=\"https://tunnelblick.net/donate.html\">ziedot Tunnelblick projektam</a> [tunnelblick.net], lai palīdzētu segt izmaksas par serveriem.</p>\n";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference vai TBAlwaysSetPreference atslēga atsaucas uz nezināmu izvēli '%1$@' iekš %2$@";
@@ -1165,6 +1188,9 @@
 "Copied %@, removing CR characters" = "Nokopēts %@, dzēstas rakstatgriezes rakstzīmes";
 
 /* Window text */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Autori: Angelo Laub, Jonathan Bullard un citi. Visas tiesības aizsargātas. © 2004-%@.";
+
+/* Window text */
 "Could not copy %@ to %@" = "Nevarēja nokopēt %1$@ uz %2$@";
 
 /* Window text */
@@ -1235,6 +1261,9 @@
 
 /* Window text */
 "Expected command not found for '%@'" = "Sagaidāmā pavēle priekš '%@' netika atrasta";
+
+/* Window text */
+"Expected path (or 'none') not found for 'dh' option" = "Opcijai 'dh' netika atrasts paredzētais ceļš (vai 'none')";
 
 /* Window text */
 "Expected path not found for '%@'" = "Opcijas '%@' ceļš netika atrasts";
@@ -1551,6 +1580,15 @@
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Paldies par ziedojumu Tunnelblick";
 
+/* Window text; the %@ will be replaced by the name of a configuration. */
+"The %@ VPN configuration has been modified since it was last secured.\n\nDo you wish to secure the modified configuration or revert to the last secured configuration?\n\n" = "%@ VPN konfigurācija tika rediģēta kopš pēdējas reizes kad tā tikusi nodrošināta.\n\nVai vēlaties nodrošināt rediģētu konfigurāciju vai atgriezt pēdējo nodrošinātu šis konfigurācijas versiju?\n\n";
+
+/* Window text. '%@' is the name of a system folder, e.g. 'Applications' */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details." = "%1$@ sistēmas mape (%2$@) nav droša. \n\nTunnelblick un citas programmas var nestrādāt korekti līdz šī problēma ir izlabota.\n\nSīkāka informācija atrodamā Notikumu žurnāla.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "'%@' OpenVPN opcija nav pieejama MacOS. Tā ir pieejama tikai Windows.";
+
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "'%@' OpenVPN opcija nav atļauta, kad tiek izmantots Tunnelblick.";
 
@@ -1568,6 +1606,9 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' izvēlei ir jābūt virkņu masīvam";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on macOS." = "OpenVPN konfigurācijas fails %1$@ satur tikai Windows platformai paredzētu iestatījumu '%2$@'. Tā nevar tikt izmantota macOS platformā.";
 
 /* Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail. */
 "The OpenVPN log contains the following message: \n\n\"%@\".%@" = "OpenVPN žurnāla datne satur sekojošu ierakstu: \n\n\"%1$@\".%2$@";
@@ -1645,6 +1686,15 @@
 "There is not an OpenVPN configuration file in '%@'" = "Nav OpenVPN konfigurācijas datnes konfigurācijā '%@'";
 
 /* Window text */
+"There was a problem deleting one or more configurations or folders. See the Console Log for details." = "Radās kļūda, dzēšot vienu vai vairākas konfigurācijas vai mapes. Sīkāka informācija pieejama Notikumu žurnāla.";
+
+/* Window text */
+"There was a problem getting the list of known public DNS servers." = "Notikusi kļūda saņemot sarakstu ar zināmiem publiskiem DNS serveriem.";
+
+/* Window text */
+"There was a problem getting the list of the DNS servers." = "Notikusi kļūda saņemot sarakstu ar DNS serveriem.";
+
+/* Window text */
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "Radās problēma ar OpenVPN konfigurāciju. Vairāk informācijas notikumu žurnālā.";
 
 /* Window text */
@@ -1654,10 +1704,22 @@
 "There was a problem:\n\n%@" = "Problēma: %@";
 
 /* Window text */
+"There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Notikusi kļūda importējot Tunnelblick iestatījumus.\n\nSīkāka informācija atrodama Notikumu žurnāla.";
+
+/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Šī 'Izvietotā' Tunnelblick versija nevar tikt palaista vai uzstādīta, jo tai netika izmainīts zīmola marķējums, vai arī nav opciju 'updateFeedURL' vai 'SUFeedURL', vai tajās ir ierakstīts 'tunnelblick.net', vai nav opcijas 'CFBundleIdentifier'vai tajā ir 'net.tunnelblick'.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Šī 'Izvietotā' Tunnelblick versija nevar tikt palaista vai uzstādīta, jo tai nav datnes Info.plist.\n\n";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
+"This VPN cannot be connected.\n\nThe OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n%@\nNone of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\nYou should update the configuration so it can be used with modern versions of OpenVPN." = "Nav iespējams pieslēgti šo VPN.\n\nOpenVPN konfigurācijas fails prieks '%1$@' satur šādus OpenVPN iestatijumus:\n\n%2$@\nNeviena no Tunnelblick iekļautajam OpenVPN versijām neatbalsta šos iestatījumus.\n\nJums jārediģē konfigurāciju tā, lai to varētu izmantot ar jaunākajām OpenVPN versijām. ";
+
+/* Window text */
+"This VPN requires you to respond to a question but has not provided the question." = "Šis VPN pieprasa atbildi uz jautājumu, taču nav sniedzis jautājumu.";
+
+/* Window text. The first '%@' will be replaced by the name of a configuration. The third '%@' will be replaced by a list of names of OpenVPN options, one on each line. The forth '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n' */
+"This VPN works now, but may not work in a future version of Tunnelblick.\n\nThe OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n%@\nTunnelblick will use OpenVPN %@ to connect this configuration.\n\nHowever, you will not be able to connect to this VPN with future versions of Tunnelblick that do not include a version of OpenVPN that accepts the options." = "Šobrīd šis VPN strāda, taču ir iespēja ka tas nestrādās nākamajās Tunnelblick versijas.\n\nOpenVPN konfigurācijas fails priekš '%1$@' ir jārediģē tā lai tas varētu tikt izmantots ar jaunākam OpenVPN versijām. Tas satur sekojošas OpenVPN opcijas:\n\n%2$@\nTunnelblick izmantos OpenVPN %3$@ lai pieslēgt šo konfigurāciju. \n\nŅemiet vērā, ka Jūs nevarēsiet pieslēgties šim VPN ar nākamajam Tunnelblick versijām, kuram nebus iekļauta OpenVPN versija kas atbalsta šis opcijas.";
 
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Šī datora ārējā IP adrese nav mainījusies pēc pieslēgšanās pie %1$@. Tā joprojām ir %2$@.\n\nTas varētu nozīmēt, ka jūsu VPN nav pareizi konfigurēts.\n\n";
@@ -1687,13 +1749,28 @@
 "Trying to quit all OpenVPN processes..." = "Notiek mēģinājums pārtraukt visus OpenVPN procesus…";
 
 /* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily allow changes that require a computer administrator's authorization.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick administratora režīms\n\n Īslaicīgi atļaut izmaiņas, kurām nepieciešama administratora parole.\n\n Sesija beidzas pēc piecām minūtēm vai aizverot VPN iestatījumu logu.";
+
+/* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick Interneta izmantošana:";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check for updates when it is launched and periodically while it is running.\n\n" = "Tunnelblick var piekļūt %@ lai pārbaudīt atjauninajumu pieejamību pie palaišanas vai periodiski darbības laikā.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick var piekļūt %@ lai pārbaudīt Jūsu datora publisku IP adreses izmaiņas katru reizi kad pieslēdzas pie VPN.\n\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick neizdevās konfigurēt automātisku pašpalaišanos līdz ar ielogošanos.\n\nVairāk informācijas notikumu žurnālā.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick neizdevās pašpalaisties dēl problēmām ar konfigurāciju. Vairāk informācijas notikumu žurnālā.";
+
+/* Window text */
+"Tunnelblick could not completely remove the '%@' configuration. See the Console Log for details." = "Tunnelblick neizdevās pilnībā atinstalēt konfigurāciju '%@'. Sīkāka informācija pieejama Notikumu žurnāla.";
+
+/* Window text */
+"Tunnelblick could not copy folder '%@'. See the Console Log for details." = "Tunnelblick neizdevās nokopēt mapi '%@'. Sikaka informācija pieejama Notikumu žurnālā.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick neizdevās nokopēt konfigurāciju '%@'. Vairāk informācijas notikumu žurnālā.";
@@ -1720,13 +1797,28 @@
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick neizdevās atrast konfigurācijas datni vai dzēst sensitīvus datus tajā. Vairāk informācijas notikumu žurnālā.";
 
 /* Window text */
+"Tunnelblick could not load a kext" = "Tunnelblick neizdevās ielādēt kext";
+
+/* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick neizdevās pārvietot konfigurāciju '%@'. Vairāk informācijas notikumu žurnālā.";
+
+/* Window text. The '%@' refers to a configuration or a folder of configurations. */
+"Tunnelblick could not remove %@. See the Console Log for details." = "Tunnelblick neizdevās atinstalēt %@. Sīkāka informācija pieejama Notikumu žurnāla.";
 
 /* Window text */
 "Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick neizdevās aizstāt konfigurāciju '%@'. Vairāk informācijas notikumu žurnālā.";
 
 /* Window text */
+"Tunnelblick encountered a fatal error.\n\nPlease email developers@tunnelblick.net for help, describing what Tunnelblick was doing when the error occurred.\n\n" = "Tunnelblick saskaras ar nopietnu kļūdu.\n\nLūdzu uzrakstiet e-pastu developers@tunnelblick.net lai saņemtu palīdzību un aprakstiet kas notika Tunnelblick brīdi kas radusies kļūda.\n\n";
+
+/* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@%@%@" = "Tunnelblick radās kļūdas ar %1$lu konfigurācijām:\n\n%2$@%3$@%4$@%5$@%6$@%7$@";
+
+/* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick neizdevās labot problēmas ar '%@' iestatījumiem. Vairāk informācijas notikumu žurnālā.";
+
+/* Window text */
+"Tunnelblick has been secured." = "Tunnelblick ticis nodrošināts.";
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick atvienojās no %@, jo konfigurācijas datne tika dzēsta.";
@@ -1741,7 +1833,16 @@
 "Tunnelblick is ready." = "Tunnelblick ir gatavs darbam.";
 
 /* Window text */
+"Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick pieprasa atļauju kopēt mapi '%@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick nepieciešama atļauja lai kopēt vai pārvietot konfigurācijas.";
+
+/* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick nepieciešama autorizācija, lai dublētu '%@' konfigurāciju.";
+
+/* Window text */
+"Tunnelblick needs authorization to install its tun and tap system extensions." = "Tunnelblick nepieciešama atļauja lai instalēt tun un tap sistēmas paplašinājumus.";
 
 /* Window text */
 "Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick nepieciešama autorizācija, lai pārveidotu %ld konfigurācijas par privātām.";
@@ -1756,16 +1857,46 @@
 "Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick nepieciešama autorizācija, lai pārveidotu '%@' konfigurāciju par koplietojamu.";
 
 /* Window text */
+"Tunnelblick needs authorization to move folder '%@' into folder '%@'." = "Tunnelblick nepieciešama atļauja lai pārvietot mapi '%1$@' mapē '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to move folder '%@'." = "Tunnelblick pieprasa atļauju pārvietot mapi '%@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to read Tunnelblick data belonging to other users of this computer so it can export all Tunnelblick data.\n\nPlease note:\n\n     1. Credentials saved in the Keychain will NOT be exported.\n\n     2. The export may take a long time.\n\n" = "Tunnelblick nepieciešama atļauja piekļūt citu šī datora lietotāju Tunnelblick datiem, lai eksportēt visus Tunnelblick datus.\n\nLūdzu ņemiet vērā:\n\n     1. Lietotaju dati kas glabājas atslēgu kopā NETIKS eksportēti.\n\n     2. Eksportēšana var aizņemt ilgāku laiku.\n\n";
+
+/* Window text */
+"Tunnelblick needs authorization to remove one or more configurations or folders.\n\n Removal is permanent and cannot be undone. Settings for removed configurations will also be removed permanently." = "Tunnelblick nepieciešama atļauja lai dzēstu vienu vai vairākas konfigurācijas vai mapes.\n\n Dzēšana ir neatgriezeniskā un nevar tikt atcelta.\nIestatījumi dzēstam konfigurācijas arī tiks neatgriezeniski dzēsti.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename configuration '%@' to '%@'." = "Tunnelblick nepieciešama atlauja, lai pārsauktu '%1$@' konfigurāciju par '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to rename folder '%@' to '%@'." = "Tunnelblick nepieciešama atļauja, lai pārsauktu mapi '%1$@' par '%2$@'.";
+
+/* Window text */
+"Tunnelblick needs authorization to secure the imported data." = "Tunnelblick nepieciešama atļauja nodrošināt importētus datus.";
+
+/* Window text */
+"Tunnelblick needs authorization to uninstall its tun and tap system extensions." = "Tunnelblick nepieciešama atļauja lai atinstalet tun un tap sistēmas paplašinājumus.";
+
+/* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick nepieciešams mainīt iestatījumu, kuru var izmainīt tikai datora administrators.";
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick nepieciešams izveidot vai atjaunot drošu (ēnas) konfigurācijas datnes kopiju.";
 
 /* Window text */
+"Tunnelblick needs to perform an action that requires a computer administrator's authorization.\n" = "Tunnelblick nepieciešams veikt darbību, kurai nepieciešama administratora autorizācija.\n";
+
+/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick nepieciešams:\n";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick veiksmīgi:\n\n";
+
+/* Window text */
+"Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick neizdevās atspejot savus sistēmas paplašinājumus. Lūdzu restartējiet datoru un vēlreiz pamēģiniet atinstalēt Tunnelblick sistēmas paplašinājumus.";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick tika veiksmīgi uzinstalēts un %ld konfigurācijas tika uzinstalētas vai aizvietotas.";
@@ -1793,6 +1924,12 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick neizdevās startēt OpenVPN, lai savienotos ar %@. Detalizēta informācija atrodama VPN iestatījumi... logā";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check for updates when it is launched and periodically while it is running. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick savienosies ar %@ lai pārbaudīt atjaunojamu pieejamību pie palaišanas un periodiski darbības laikā. Sazinājāties ar šis Tunnelblick kopijas izplatītāju lai saņemtu sīkāku informāciju.\n\n";
+
+/* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnnelblick savienosies ar %@ lai pārbaudīt vai Jūsu datora publiska IP adrese mainās katru reizi kad savienojoties ar VPN. Sazinieties ar šis Tunnelblick kopijas izplatītāju lai saņemt sīkāku informāciju.\n\n";
 
 /* Window text */
 "Unable to Establish Communication" = "Nav iespējams izveidot savienojumu";
@@ -1893,6 +2030,12 @@
 /* Window text */
 "Warning: '%@' is already a named credential." = "Brīdinājums: '%@' jau atrodas norādīto piekļuves datu sarakstā.";
 
+/* Window text */
+"Warning: One or more settings could not be copied. See the Console Log for details." = "Brīdinājums: Vienu vai vairākus iestatījumus neizdevās nokopēt. Vairāk informācijas notikumu žurnālā.";
+
+/* Window text */
+"Warning: One or more settings could not be duplicated. See the Console Log for details." = "Brīdinājums: Vienu vai vairākus iestatījumus neizdevās dubultot. Vairāk informācijas notikumu žurnālā.";
+
 /* Window text. The %@ will be replaced with a list of the names of configurations, one per line */
 "Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n" = "Brīdinājums: Uzskaitītās konfigurācijas nav pieslēgušās, lai gan tām paredzēts pieslēgties, kad dators tiek ieslēgts:\n\n%@\n";
 
@@ -1927,6 +2070,12 @@
 "You cannot rename or move a Deployed configuration." = "Jūs nevarat pārsaukt vai pārvietot aktīvās konfigurācijas.";
 
 /* Window text */
+"You cannot rename or move a configuration unless it is disconnected." = "Nav iespējams pārvietot vai pārdēvēt konfigurāciju ja tā nav atslēgta.";
+
+/* Window text */
+"You cannot rename or move a configuration which is set to start when the computer starts." = "Nav iespējams pārvietot vai pārdēvēt konfigurāciju kas ir iestatīta palaišanai pie datora ieslēgšanas.";
+
+/* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Jūs mēģinājāt uzstādīt konfigurācijas datni, kas ir domāta kā paraugs. Šī konfigurācijas datne ir jāpielāgo, lai pieslēgtos VPN. Jums var būt vajadzīgas arī citas datnes, piemēram, sertifikāti vai atslēgu datnes, lai pieslēgtos VPN.\n\nSazinieties ar sava tīkla administratoru vai VPN pakalpojuma sniedzēju, lai iegūtu konfigurāciju un citas datnes vai arī informāciju, kā pārveidot esošo parauga datni.\n\nKonfigurācijas datne atrodas\n%@\n\n";
 
 /* Window text */
@@ -1948,10 +2097,19 @@
 "You may not remove a configuration which is set to start when the computer starts." = "Jūs nevarat dzēst konfigurāciju, kura ir nozīmēta startēšanai līdz ar datora ieslēgšanu.";
 
 /* Window text */
+"You may not remove a folder unless it is empty." = "Nav iespejams izdzēst mapi ja tā nav tukša.";
+
+/* Window text */
+"You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Jums jāatvieno visus VPN pirms Jūs varēsiet atinstalēt Tunnelblick sistēmas paplašinājumus.";
+
+/* Window text */
 "You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Jūs nevarēsiet veikt Tunnelblick atjaunināšanu bez datora administratora autorizācijas.\n\nVai tiešām vēlaties pārbaudīt atjauninājumus?";
 
 /* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Iespējams ka jūsu dators nespēj uzticami parādīt Tunnelblick ikonu blakus Spotlight ikonai.\n\nŠī iemesla dēļ, Tunnelblick ikona var dažreiz PAZUST no izvēlnes joslas.\n\nVai tiešām vēlaties novietot Tunnelblick ikonu blakus Spotlight ikonai?\n\n";
+
+/* Window text */
+"Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Jūsu palīdzība sniegs labumu visiem Tunnelblick lietotājiem.\n\nJa iespējams, lūdzu nespiediet \"Iziet\" pirms Jūs aizsūtat e-pastu.";
 
 /* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Laiks sistēmā nav uzstādīts pareizi.\n\nDažas vai visas konfigurācijas nevar pieslēgies, kamēr sistēmā nav uzstādīts pareizs datums un laiks.\n\n";
@@ -1981,6 +2139,12 @@
 "\n\nOne or more of the certificates used to secure this configuration have expired.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "Viens vai vairāki sertifikāti kuri tiek izmantoti, lai padarītu konfigurāciju drošāku ir ar iztecējušu termiņu.\n\nSīkāk skatīt VPN žurnālu \"Log\" cilnī \"Konfigurācijas\" panelī, Tunnelblick \"VPN detaļas\" logā.";
 
 /* Window text */
+"\n\nThis error means that an option that is contained in the OpenVPN configuration file or was \"pushed\" by the OpenVPN server:\n\n     • has been misspelled,\n\n     • has missing or extra arguments, or\n\n     • is not implemented by the version of OpenVPN which is being used for this configuration. It may be a new option that is not implemented in an old version of OpenVPN, or an old option that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window.\n\nSee the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's \"VPN Details\" window for details." = "\n\nŠī kļūda nozīme ka opcija ko satur OpenVPN konfigurācijas fails vai kura tika saņemta no OpenVPN servera: \n\n     • satur drukas kļūdu,\n\n     • ir lieks vai iztrūkst arguments, vai\n\n     • tā nav implementēta OpenVPN versijā, kas tiek izmantota šai konfigurācijai. Iespējams ka tas ir jauna opcija kas nebija implementēta vecā OpenVPN versijā vai arī tā bija atspējota jaunā OpenVPN versijā.\nJūs varat izvelieties kuru OpenVPN versiju izmantot ar šo konfigurāciju “VPN detaļās” logā “Konfigurācijas” paneļa “Iestatījumi” cilne.\n\nSīkāka informācija pieejama “VPN detaļās” logā “Konfigurācijas” paneļa “Žurnāls” cilne.";
+
+/* Window text */
+"\n\nTunnelblick's 'Set nameserver' settings only work for a single VPN connection. Using them with more than one VPN connection at the same time may damage your network settings or cause a loss of network connectivity." = "\n\nTunnelblick 'Iestatit vārda serveri\" iestatījumus ir domāts lietošanai tikai ar vienu VPN savienojumu. Lietojot to ar vairākiem VPN savienojumiem pastāv risks bojāt tīkla iestatijumus un zaudēt savienojumu.";
+
+/* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nun instalēt %ld Tunnelblick VPN konfigurācijas";
 
 /* Window text */
@@ -1998,6 +2162,12 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopēt";
 
+/* The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and has been or may be removed in a later version\n\n" = " • '%1$@' ir atspejots OpenVPN %2$@ un ir izdzēsts vai tiks izdzēsts nākamajās versijas\n\n";
+
+/* The first '%@' is the name of an OpenVPN option. The second '%@' and third '%@' are OpenVPN version strings such as '2.3' or '2.5' */
+" • '%@' was deprecated in OpenVPN %@ and removed in OpenVPN %@\n\n" = " • '%1$@' ir astpejots OpenVPN %2$@ un izdzēsts no OpenVPN %3$@\n\n";
+
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
@@ -2010,11 +2180,43 @@
 /* Popup button menu item */
 "(Do not import)" = "(Neimportēt)";
 
+/* This appears in place of a string when the string cannot be created. It should only be shown when there is a serious problem with the computer. By string we mean any string of words that have been translated (basically, the pieces of language that we translate at one time). It could be a word or two, a sentence, or several paragraphs. */
+"(String is not available)\n" = "(Virkne nav pieejama)\n";
+
 /* Credit description */
 "64-bit enabling and testing" = "64-bit pievienošana un testēšana";
 
+/* HTML error message. The  '%u' will be replaced a number such as '32'. */
+"<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Lai importēt Tunnelblick iestatījumus uz datora kur ir vairāk ka %u lietotāju konti, Jums jāizveido teksta failu ar aprakstu kādus datus ir jāimportē.</p>\n<p>Sīkāka informācija atrodama tīmekļa lapa <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML info for the 'OpenVPN version' button. */
+"<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Tunnelblick projekts neizstrādāja '<strong>ne-Tunnelblick</strong>' OpenVPN versijas un tas nav šī projekta sastāvdaļas. Tos instālēja datora administrators.</p>";
+
+/* HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS. */
+"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>" = "<p>Lai 'Atļaut' sistēmas paplašinājumu iespējams būs nepieciešams mainīt sistēmas iestatijumus. To iespējams izdarīt tikai \"Recovery\" režīma. Būs nepieciešams pārstartēt datoru \"Recovery\" režīmā, izdarīt nepieciešamas izmaiņas, un pārstartēt atpakaļ normāla režīma. macOS vajadzētu palīdzēt Jums iziet cauri tam procesam.</p>";
+
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Vairāk informācijas</a> [tunnelblick.net]</p>";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Viena vai vairākas konfigurācijas nevarēs savienoties.</strong></p>\n<p>Šim konfigurācijam nepieciešams sistēmas paplašinājums, bet šī macOS versija neļauj Tunnelblick izmantot savus sistēmas paplašinājumus.</p>\n";
+
+/* HTML text. May be combined with other paragraphs. */
+"<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Viena vai vairākas konfigurācijas nevarēs savienoties</strong> nākamās macOS versijas.</p>\n<p>Šim konfigurācijam nepieciešams sistēmas paplašinājums, bet nākamās macOS versijas neļaus Tunnelblick izmantot savus sistēmas paplašinājumus.</p>\n";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Norada kadas OpenVPN un SSL programmatūras versijas ir jāizmanto lai pieslēgties VPN.</strong><ul><li><strong>\"Noklusējuma\" izvēle</strong> izmantos noklusējuma OpenVPN versiju ar OpenSSL, kas nāk kopā ar šo Tunnelblick versiju. Tas var atšķirties dažādām Tunnelblick versijām.<br></li><li><strong>\"Jaunāka\" izvēle</strong> izmantos jaunāko pieejamo OpenVPN versiju ar LibreSSL, kas nāk kopā ar šo Tunnelblick versiju. Tas var atšķirties dažādām Tunnelblick versijām.<br></li><li><strong>Jebkura cita izvēle</strong> izmantos norādītas OpenVPN un SSL versijas, ja tas ir pieejamas šajā Tunnelblick versija. Ja tas nav pieejamas, to vieta tiks izmantotas pēc tuvākas pieejamas versijas.<br></li></ul>";
+
+/* HTML info for the 'Set DNS/WINS' button. */
+"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Norada ko (un vai) Tunnelblick darīs lai mainīt DNS iestatijumus kad ir pieslēgs VPN.</strong> Varianti ir:<ul><li><strong>Neiestatit vārdu serverī</strong>: nekas netiek darīts.<br></li><li><strong>Iestatit vārdu serverī</strong>: Tunnelblick izmantos savu standarta skriptu lai rediģēt DNS un WINS iestatījumus. Parasti, šī ir vislabākā izvēle. Tas rediģē DNS un WINS ieastatījumus saskaņā ar OpenVPN instrukcijām. DNS un WINS iestatījumi kas rediģēti manuāli nebus mainīti, ja vien opcija \"Atļaut mainīt manuāli rediģētus tīkla iestatījumus\" nebus iespējota \"Papildus\" iestatījumu logā.<br></li><li><strong>Iestatīt vārdu serverī (3.1)</strong>Tunnelblick izmantos skriptu no Tunnelblick versijas 3.1 lai rediģēt DNS un WINS iestatījumus.<br></li><li><strong>Iestatīt vārdu serverī (3.0b10)</strong>Tunnelblick izmantos skriptu no Tunnelblick versijas 3.0b10 lai rediģēt DNS un WINS iestatījumus.<br></li><li><strong>Iestatīt vārdu serverī (alternatīva 1)</strong>Tunnelblick izmantos alternatīvu skriptu lai rediģēt DNS un WINS iestatījumus.<br></li></ul>";
+
+/* HTML info for the 'On unexpected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em> disconnects</strong> (for example, if OpenVPN crashes or loses its connection to the VPN and is set up to stop when that happens). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Norāda ko darīt Tunnelblick gadījumā ja <em>pēkšņi</em> pazūd savienojums ar VPN</strong> (piemēram ja OpenVPN uzkaras va pazaudē savienojumu ar VPN un ir iestatīts aptūrēt darbību šādos gadījumos). Izvēles ir:</p><ul><li><strong>Nedarit neko</strong><br></li><li><strong>Pārstartet galvenotīkla interfeisu</strong>: Tunnelblick pārstartē galveno tīkla interfeisu ar 'ipconfig down; ipconfig up' komandām. Tas mēdz palīdzēt kad konfigurācija nelej atjaunot tīkla iestatijumus pec savienojuma zaudēšanas.<br></li><li><strong>Atspējot tīkla pieslēgumu (\"Avārijas Poga\")</strong>: Tunnelblick aptur visus tīkla savienojumus (lokālus un interneta), atslēdzot Wi-Fi un visus pārējos tīkla servisus. Tas nodrošina ka dati netiek pārsūtīti no datora vai uz to izņemot ka caur VPN. Ja Tunnelblick atslēdza tīkla savienojumus, tos var iespejot izmantojot komandu no izvēlnes, kas pieejama nospiežot uz Tunnelblick ikonas. Jus varat arī pieslēgt Wi-Fi ieslēdzot to, vai piesegt citus tīkla servisus \"Sistēmas Iestatījumu\" \"Tīkli\" cilnē. <strong> Šī funkcija var nestrādāt korekti ja vienlaicīgi ir pieslēgti vairaki VPN.</strong></li></ul>";
+
+/* HTML info for the 'On expected disconnect' button. */
+"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The choices are:</p><ul><li><strong>Do nothing</strong><br></li><li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface by issuing 'ipconfig down; ipconfig up' commands to the interface. This can be helpful when a configuration fails to restore network settings properly after a disconnection.<br></li><li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick cuts off all network access (local and Internet) by turning off Wi-Fi and disabling all other network services. This can help ensure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <strong>This setting may not work properly when more than one VPN is connected simultaneously.</strong></li></ul>" = "<p><strong>Norāda ko darīt Tunnelblick gadījumā ja notika <em>atslēgšanās</em> no VPN</strong> (piemēram ja izvēlne ir izvēlēta iespeja \"Atslēgties\" vai nospiesta atbilstoša poga). Izvēles ir:</p><ul><li><strong>Nedarit neko</strong><br></li><li><strong>Pārstartet galvenotīkla interfeisu</strong>: Tunnelblick pārstartē galveno tīkla interfeisu ar 'ipconfig down; ipconfig up' komandām. Tas mēdz palīdzēt kad konfigurācija nelej atjaunot tīkla iestatijumus pec savienojuma zaudēšanas.<br></li><li><strong>Atspējot tīkla pieslēgumu (\"Avārijas Poga\")</strong>: Tunnelblick aptur visus tīkla savienojumus (lokālus un interneta), atslēdzot Wi-Fi un visus pārējos tīkla servisus. Tas nodrošina ka dati netiek pārsūtīti no datora vai uz to izņemot ka caur VPN. Ja Tunnelblick atslēdza tīkla savienojumus, tos var iespejot izmantojot komandu no izvēlnes, kas pieejama nospiežot uz Tunnelblick ikonas. Jus varat arī pieslēgt Wi-Fi ieslēdzot to, vai piesegt citus tīkla servisus \"Sistēmas Iestatījumu\" \"Tīkli\" cilnē. <strong> Šī funkcija var nestrādāt korekti ja vienlaicīgi ir pieslēgti vairaki VPN.</strong></li></ul>";
+
+/* HTML info for the 'Connect' button. */
+"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Norāda kad Tunnelblick jāpieslēdzas pie VPN.</strong></p><p>\"Pie datora startēšanas\" var izmantot tikai ar \"dalītām\" konfigurācijām, kuram nav saglabātas akreditācijas (lietotājvārds/parole/paroles frāze) un kas neizmanto OpenVPN 'auth-user-pass' opciju bez argumentiem.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Kad atzīmēta</strong>, IPv6 tiks iespējots.</p>\n<p><strong>Kad neatzīmēta</strong>, IPv6 netiks iespējots.</p>\n<p>IPv6 atspējošana bieži tiek ieteikta, jo daudzas VPN konfigurācijas nepasargā no informācijas noplūdes lietojot IPv6. Vairumā gadījumu piekļuve Internetam ir iespējama bez IPv6.</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong> 'tun' savienojumiem.</p>";

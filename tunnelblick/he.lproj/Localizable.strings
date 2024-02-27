@@ -1537,6 +1537,9 @@
 "The %@ system folder (%@) is not secure.\n\nTunnelblick and other programs may not work properly until this problem is fixed.\n\nThe Console Log has details." = "תיקיית סיסטם %1$@ (%2$@) לא מאובטח.\n\nייתכן שTunnelblick ותוכנות אחרים לא יפעלו באופן תקין עד שבעייה זו פותרה.\n\nראה פרטים console log";
 
 /* Window text */
+"The '%@' OpenVPN option is not allowed on macOS. It is a 'Windows only' option." = "האפשרות %@ של OpenVPN לא מותרת במערכת הפעלה מק. אפשרות זו במערכת וודינדוס בלבד.";
+
+/* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "הלוג עבור OpenVPN איננו קיים יותר או שנמחק ";
 
 /* Window text */
