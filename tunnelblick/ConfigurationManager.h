@@ -29,7 +29,7 @@
  */
 
 #import "defines.h"
-#import <appkit/AppKit.h>
+#import <AppKit/AppKit.h>
 
 // Return values for +ConfigurationManager:commandOptionsInConfigurationsAtPaths: and some methods it invokes
 typedef enum
