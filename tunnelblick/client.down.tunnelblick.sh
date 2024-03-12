@@ -218,6 +218,9 @@ get_info_saved_by_up_script() {
 EOF
 		)"
 
+	readonly MADE_DNS_CHANGES="$(             get_item "$saved_info" '^[[:space:]]*madeDnsChanges :'          )"
+	readonly INHIBIT_NETWORK_MONITORING="$(   get_item "$saved_info" '^[[:space:]]*inhibitNetworkMonitoring :')"
+
 	readonly LEASEWATCHER_PLIST_PATH="$(      get_item "$saved_info" '^[[:space:]]*LeaseWatcherPlistPath :'   )"
 	readonly REMOVE_LEASEWATCHER_PLIST="$(    get_item "$saved_info" '^[[:space:]]*RemoveLeaseWatcherPlist :' )"
 	readonly PSID="$(                         get_item "$saved_info" '^[[:space:]]*Service :'                 )"
@@ -231,6 +234,21 @@ EOF
 	readonly IPV6_SERVICES_TO_RESTORE="$( echo "${tmp#*: /}" | tr '\t' '\n' )"
 	tmp="$(                                   get_item "$saved_info" '^[[:space:]]*RestoreSecondaryServices :'     )"
 	readonly SECONDARY_SERVICES_TO_RESTORE="$( echo "${tmp#*: /}" | tr '\t' '\n' )"
+
+    message=">>>>>>>>>>Set by get_info_saved_by_up_script():$LF"
+    message="${message}MADE_DNS_CHANGES              = '$MADE_DNS_CHANGES'$LF"
+    message="${message}INHIBIT_NETWORK_MONITORING    = '$INHIBIT_NETWORK_MONITORING'$LF"
+    message="${message}LEASEWATCHER_PLIST_PATH       = '$LEASEWATCHER_PLIST_PATH'$LF"
+    message="${message}REMOVE_LEASEWATCHER_PLIST     = '$REMOVE_LEASEWATCHER_PLIST'$LF"
+    message="${message}PSID                          = '$PSID'$LF"
+    message="${message}ROUTE_GATEWAY_IS_DHCP         = '$ROUTE_GATEWAY_IS_DHCP'$LF"
+    message="${message}TAP_DEVICE_HAS_BEEN_SET_NONE  = '$TAP_DEVICE_HAS_BEEN_SET_NONE'$LF"
+    message="${message}ALSO_USING_SETUP_KEYS         = '$ALSO_USING_SETUP_KEYS'$LF"
+    message="${message}TUNNEL_DEVICE                 = '$TUNNEL_DEVICE'$LF"
+    message="${message}SECONDARY_SERVICES_TO_RESTORE = '$SECONDARY_SERVICES_TO_RESTORE'"
+    message="${message}IPV6_SERVICES_TO_RESTORE      = '$IPV6_SERVICES_TO_RESTORE'$LF"
+
+    log_debug_message "$message"
 }
 
 get_item() {
@@ -262,6 +280,13 @@ EOF
 
 ##########################################################################################
 remove_leasewatcher() {
+
+    if [ "$INHIBIT_NETWORK_MONITORING" = "true" ] ; then
+        log_message "INHIBIT_NETWORK_MONITORING is true, so not removing leasewatcher"
+        return 0
+    fi
+
+    log_debug_message "Removing network monitoring because INHIBIT_NETWORK_MONITORING = '$INHIBIT_NETWORK_MONITORING'"
 
 	if $ARG_MONITOR_NETWORK_CONFIGURATION ; then
 
@@ -308,6 +333,13 @@ release_dhcp() {
 
 ##########################################################################################
 restore_network_settings() {
+
+    if [ "$MADE_DNS_CHANGES" = "false" ] ; then
+        log_message "MADE_DNS_CHANGES is false, so not restoring network_settings"
+        return 0
+    fi
+
+    log_debug_message "Restoring network settings because MADE_DNS_CHANGES = '$MADE_DNS_CHANGES'"
 
 	local no_such_key="<dictionary> {
   TunnelblickNoSuchKey : true
@@ -620,6 +652,9 @@ remove_system_configuration_items() {
 
 	# Ignore errors trying to delete items in the system configuration database.
 	# They won't exist if the computer shut down or restarted while the VPN was connected.
+
+   log_message "Up to six 'No such key' messages may appear next and may be ignored."
+
 	scutil <<-EOF
 		open
 		remove State:/Network/OpenVPN/OldDNS

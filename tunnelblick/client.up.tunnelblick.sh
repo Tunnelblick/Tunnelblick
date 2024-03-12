@@ -879,6 +879,8 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		d.init
 		# The '#' in the next line does NOT start a comment; it indicates to scutil that a number follows it (as opposed to a string or an array)
 		d.add PID # ${PPID}
+        d.add madeDnsChanges        "true"
+        d.add inhibitNetworkMonitoring "false"
 		d.add Service ${PSID}
 		d.add LeaseWatcherPlistPath "${LEASEWATCHER_PLIST_PATH}"
 		d.add RemoveLeaseWatcherPlist "${REMOVE_LEASEWATCHER_PLIST}"
@@ -1026,7 +1028,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	networksetup_searchdomains="$( get_networksetup_setting searchdomains )"
 
 	logDebugMessage ''
-	logDebugMessage "Configurations as read back after changes:"
+	logDebugMessage "Configurations as read back after changes:$LF"
 	logDebugMessage "State:/.../DNS = ${NEW_DNS_STATE_CONFIG}"
 	logDebugMessage "State:/.../SMB = ${NEW_SMB_STATE_CONFIG}"
 	logDebugMessage ''
@@ -1227,14 +1229,14 @@ configureDhcpDns() {
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "WARNING: Will NOT monitor for other network configuration changes."
 		fi
-        logDnsInfoNoChanges
+        notMakingDnsChanges
         flushDNSCache
 	else
 		logMessage "WARNING: No DNS information received from OpenVPN via DHCP, so no network/DNS configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "WARNING: Will NOT monitor for other network configuration changes."
 		fi
-        logDnsInfoNoChanges
+        notMakingDnsChanges
         flushDNSCache
 	fi
 
@@ -1339,7 +1341,7 @@ configureOpenVpnDns() {
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "WARNING: Will NOT monitor for other network configuration changes."
 		fi
-        logDnsInfoNoChanges
+        notMakingDnsChanges
         flushDNSCache
 	fi
 
@@ -1502,6 +1504,63 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
     set -e # resume abort on error
 
 	logDnsInfo "${LOGDNSINFO_MAN_DNS_SA}" "${LOGDNSINFO_CUR_DNS_SA}"
+}
+
+notMakingDnsChanges() {
+
+        logMessage "No changes to DNS servers have been requested"
+
+        logDnsInfoNoChanges
+
+        willNotMonitorNetworkConfiguration
+
+        scutil <<-EOF > /dev/null
+            open
+
+            d.init
+
+            # Store variables needed by the down script
+
+            d.add madeDnsChanges           "false"
+            d.add inhibitNetworkMonitoring "true"
+
+            d.add LeaseWatcherPlistPath    "${LEASEWATCHER_PLIST_PATH}"
+            d.add RemoveLeaseWatcherPlist  "${REMOVE_LEASEWATCHER_PLIST}"
+            d.add Service ${PSID}
+            d.add RouteGatewayIsDhcp       "${ROUTE_GATEWAY_IS_DHCP}"
+            d.add TapDeviceHasBeenSetNone  "false"
+            d.add bAlsoUsingSetupKeys      "${ALSO_USING_SETUP_KEYS}"
+            d.add TunnelDevice             "$dev"
+            d.add RestoreIpv6Services      "$IPV6_DISABLED_SERVICES_ENCODED"
+            d.add RestoreSecondaryServices "$SECONDARY_DISABLED_SERVICES_ENCODED"
+
+            # Store variables needed by Tunnelblick
+
+            d.add ScriptLogFile                     "${SCRIPT_LOG_FILE}"
+            d.add MonitorNetwork                    "${ARG_MONITOR_NETWORK_CONFIGURATION}"
+            d.add RestoreOnDNSReset                 "${ARG_RESTORE_ON_DNS_RESET}"
+            d.add RestoreOnWINSReset                "${ARG_RESTORE_ON_WINS_RESET}"
+            d.add IgnoreOptionFlags                 "${ARG_IGNORE_OPTION_FLAGS}"
+            d.add IsTapInterface                    "${ARG_TAP}"
+            d.add FlushDNSCache                     "${ARG_FLUSH_DNS_CACHE}"
+            d.add ResetPrimaryInterface             "${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT}"
+            d.add ResetPrimaryInterfaceOnUnexpected "${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED}"
+            d.add ExpectedDnsAddresses              "$FIN_DNS_SA"
+
+            set State:/Network/OpenVPN
+
+EOF
+
+        logMessage "Have written State:/Network/OpenVPN for no DNS changes and to inhibit network monitoring"
+
+ 		noChangesState="$( scutil <<-EOF
+			open
+			show State:/Network/OpenVPN
+			quit
+EOF
+)"
+
+        logDebugMessage "State:/Network/OpenVPN = $noChangesState"
 }
 
 ##########################################################################################
@@ -1799,7 +1858,7 @@ if ${ARG_TAP} ; then
 			if ${ARG_ENABLE_IPV6_ON_TAP} ; then
 				logMessage "WARNING: Will NOT set up IPv6 on TAP device because it does not use DHCP."
 			fi
-			logDnsInfoNoChanges
+			notMakingDnsChanges
 			flushDNSCache
 		fi
 	fi
@@ -1811,45 +1870,9 @@ else
 
 	if [ "$foreign_option_1" == "" ]; then
 
-        logDnsInfoNoChanges
-
-        willNotMonitorNetworkConfiguration
-
+        notMakingDnsChanges
         flushDNSCache
 
-        scutil <<-EOF > /dev/null
-            open
-
-            d.init
-
-            # Store variables needed by the down script
-
-            d.add LeaseWatcherPlistPath    "${LEASEWATCHER_PLIST_PATH}"
-            d.add RemoveLeaseWatcherPlist  "${REMOVE_LEASEWATCHER_PLIST}"
-            d.add Service ${PSID}
-            d.add RouteGatewayIsDhcp       "${ROUTE_GATEWAY_IS_DHCP}"
-            d.add TapDeviceHasBeenSetNone  "false"
-            d.add bAlsoUsingSetupKeys      "${ALSO_USING_SETUP_KEYS}"
-            d.add TunnelDevice             "$dev"
-            d.add RestoreIpv6Services      "$IPV6_DISABLED_SERVICES_ENCODED"
-            d.add RestoreSecondaryServices "$SECONDARY_DISABLED_SERVICES_ENCODED"
-
-            # Store variables needed by Tunnelblick
-
-            d.add ScriptLogFile                     "${SCRIPT_LOG_FILE}"
-            d.add MonitorNetwork                    "${ARG_MONITOR_NETWORK_CONFIGURATION}"
-            d.add RestoreOnDNSReset                 "${ARG_RESTORE_ON_DNS_RESET}"
-            d.add RestoreOnWINSReset                "${ARG_RESTORE_ON_WINS_RESET}"
-            d.add IgnoreOptionFlags                 "${ARG_IGNORE_OPTION_FLAGS}"
-            d.add IsTapInterface                    "${ARG_TAP}"
-            d.add FlushDNSCache                     "${ARG_FLUSH_DNS_CACHE}"
-            d.add ResetPrimaryInterface             "${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT}"
-            d.add ResetPrimaryInterfaceOnUnexpected "${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED}"
-            d.add ExpectedDnsAddresses              "$FIN_DNS_SA"
-            
-            set State:/Network/OpenVPN
-
-EOF
         EXIT_CODE=0
 	else
 
