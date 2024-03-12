@@ -72,8 +72,9 @@ int main(int argc, const char * argv[]) {
            launchTunnelblick();
         } else {
 
-            NSString * launchAtLoginPreference = [[NSUserDefaults standardUserDefaults] objectForKey: @"launchAtNextLogin"];
-            if (  [launchAtLoginPreference isEqualToString: @"1"] ) {
+            NSUserDefaults * defaults = [[[NSUserDefaults alloc] initWithSuiteName: @"net.tunnelblick.tunnelblick"] autorelease];
+            BOOL launchAtLoginPreference = [[defaults objectForKey: @"launchAtNextLogin"] boolValue];
+            if (  launchAtLoginPreference  ) {
                 launchTunnelblick();
             } else {
 
