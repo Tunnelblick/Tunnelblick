@@ -132,7 +132,6 @@ kext_products_folder="$( cd ../third_party/products/tuntap ; pwd )"
   cp -a "build/${CONFIGURATION}/standardize-scutil-output"  "${app_path}/Contents/Resources/"
   cp -a "build/${CONFIGURATION}/tunnelblickd"               "${app_path}/Contents/Resources/"
   cp -a "build/${CONFIGURATION}/tunnelblick-helper"         "${app_path}/Contents/Resources/"
-  cp -a "build/${CONFIGURATION}/Tunnelblick-LaunchAtLogin"  "${app_path}/Contents/Resources/"
 
 # Copy Tunnelblick Launcher.app into Contents/Library/LoginItems
   mkdir -p -m 755 "${app_path}/Contents/Library/LoginItems"
@@ -309,7 +308,6 @@ ntt="net.tunnelblick"
 ntt="${ntt}.tunnelblick"
 if [ "${ntt}" != "net.tunnelblick.tunnelblick" ] ; then
   mv "${app_path}/Contents/Resources/${ntt}.tunnelblickd.plist"  "${app_path}/Contents/Resources/net.tunnelblick.tunnelblick.tunnelblickd.plist"
-  mv "${app_path}/Contents/Resources/${ntt}.LaunchAtLogin.plist" "${app_path}/Contents/Resources/net.tunnelblick.tunnelblick.LaunchAtLogin.plist"
 fi
 
 # Copy the Tunnelblick icon over Sparkle's AutoUpdate.app icon (Our Sparkle patches create AutoUpdate.app as 'TunnelblickUpdater.app')
@@ -377,7 +375,6 @@ chmod 744 "${app_path}/Contents/Resources/leasewatch3"
 chmod 744 "${app_path}/Contents/Resources/process-network-changes"
 chmod 744 "${app_path}/Contents/Resources/standardize-scutil-output"
 chmod 744 "${app_path}/Contents/Resources/tunnelblickd"
-chmod 755 "${app_path}/Contents/Resources/Tunnelblick-LaunchAtLogin"
 chmod 744 "${app_path}/Contents/Resources/client.up.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/client.down.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/client.route-pre-down.tunnelblick.sh"

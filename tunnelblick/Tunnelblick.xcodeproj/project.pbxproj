@@ -44,7 +44,6 @@
 		630681112BA13C6300563B9A /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B4DCE41A409DF300F6A74C /* ServiceManagement.framework */; };
 		630681162BA6074300563B9A /* NSFileHandle+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 630681152BA6074300563B9A /* NSFileHandle+TB.m */; };
 		63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
-		6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */; };
 		6308EEE9222701E8003D974C /* ta.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6308EEE8222701E8003D974C /* ta.lproj */; };
 		63097CDF22323E2B005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
 		63097CE022340EA8005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
@@ -54,7 +53,6 @@
 		63118D0D1EA77A6900F20EC1 /* VLS_BE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63118D0C1EA77A6900F20EC1 /* VLS_BE.lproj */; };
 		631310D913CA18870071C110 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631310D513CA18870071C110 /* nl.lproj */; };
 		631494A519FA7B9E009057D1 /* pt_pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631494A219FA7B9E009057D1 /* pt_pt.lproj */; };
-		63163FE929F573E600240995 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63179444118D7EC20057ACAF /* atsystemstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 63179443118D7EC20057ACAF /* atsystemstart.m */; };
 		6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 631BC42F1FC4496300730786 /* TBPopUpButton.m */; };
@@ -171,9 +169,6 @@
 		63BF3E1310A2ED7F00AC8A59 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* ca.lproj */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
 		63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */; };
-		63C0FF6B29F419520040E634 /* Tunnelblick-LaunchAtLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C0FF6A29F419520040E634 /* Tunnelblick-LaunchAtLogin.m */; };
-		63C0FF7029F427140040E634 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
-		63C0FF7129F427320040E634 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		63C2E19C18846D2A00ED0003 /* LeaseWatch.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */; };
 		63C2E19E18846D3800ED0003 /* LeaseWatch3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */; };
 		63C2E1A018846D4600ED0003 /* ProcessNetworkChanges.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */; };
@@ -321,13 +316,6 @@
 			remoteGlobalIDString = 63AA8E571492C75200C791C9;
 			remoteInfo = "process-network-changes";
 		};
-		63C0FF7229F428D70040E634 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 63C0FF6729F419520040E634;
-			remoteInfo = "Tunnelblick-LaunchAtLogin";
-		};
 		63C375861A4513A700D51E81 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -372,15 +360,6 @@
 			);
 			name = "Copy Sparkle";
 			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63C0FF6629F419520040E634 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -437,7 +416,6 @@
 		630681122BA13CD600563B9A /* Tunnelblick-Launcher-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Tunnelblick-Launcher-Info.plist"; sourceTree = SOURCE_ROOT; };
 		630681142BA6074300563B9A /* NSFileHandle+TB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFileHandle+TB.h"; sourceTree = SOURCE_ROOT; };
 		630681152BA6074300563B9A /* NSFileHandle+TB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSFileHandle+TB.m"; sourceTree = SOURCE_ROOT; };
-		6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.LaunchAtLogin.plist; sourceTree = "<group>"; };
 		6308EEE8222701E8003D974C /* ta.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ta.lproj; sourceTree = "<group>"; };
 		63097CDD22323E2B005F94CF /* NSDate+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TB.m"; sourceTree = "<group>"; };
 		63097CDE22323E2B005F94CF /* NSDate+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TB.h"; sourceTree = "<group>"; };
@@ -577,8 +555,6 @@
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
 		63C055111970253E007AE8BE /* ConfigurationMultiUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationMultiUpdater.h; sourceTree = "<group>"; };
 		63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationMultiUpdater.m; sourceTree = "<group>"; };
-		63C0FF6829F419520040E634 /* Tunnelblick-LaunchAtLogin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Tunnelblick-LaunchAtLogin"; sourceTree = BUILT_PRODUCTS_DIR; };
-		63C0FF6A29F419520040E634 /* Tunnelblick-LaunchAtLogin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Tunnelblick-LaunchAtLogin.m"; sourceTree = "<group>"; };
 		63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LeaseWatch.plist; sourceTree = "<group>"; };
 		63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LeaseWatch3.plist; sourceTree = "<group>"; };
 		63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProcessNetworkChanges.plist; sourceTree = "<group>"; };
@@ -764,14 +740,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		63C0FF6529F419520040E634 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				63C0FF7129F427320040E634 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		63C374371A4510AA00D51E81 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -870,7 +838,6 @@
 				63AA8E581492C75200C791C9 /* process-network-changes */,
 				63ED8EE61A1E84560045D34E /* tunnelblickd */,
 				63C374391A4510AA00D51E81 /* tunnelblick-helper */,
-				63C0FF6829F419520040E634 /* Tunnelblick-LaunchAtLogin */,
 				630680FA2BA104A500563B9A /* Tunnelblick Launcher.app */,
 			);
 			name = Products;
@@ -882,7 +849,6 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				63C0FF6929F419520040E634 /* Tunnelblick-LaunchAtLogin */,
 				630680FB2BA104A500563B9A /* Tunnelblick Launcher */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -928,7 +894,6 @@
 			children = (
 				8D1107310486CEB800E47090 /* Info.plist */,
 				6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */,
-				6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */,
 				63ED90391A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist */,
 				63EA8CD913A3DB1E0034F47C /* Images */,
 				63EA8CDC13A3DBD50034F47C /* Scripts */,
@@ -1020,14 +985,6 @@
 				B840788F170CE7140002B941 /* Welcome Window */,
 			);
 			name = UI;
-			sourceTree = "<group>";
-		};
-		63C0FF6929F419520040E634 /* Tunnelblick-LaunchAtLogin */ = {
-			isa = PBXGroup;
-			children = (
-				63C0FF6A29F419520040E634 /* Tunnelblick-LaunchAtLogin.m */,
-			);
-			path = "Tunnelblick-LaunchAtLogin";
 			sourceTree = "<group>";
 		};
 		63C374521D281EBD004758A3 /* InfoButton */ = {
@@ -1571,23 +1528,6 @@
 			productReference = 63AA8E581492C75200C791C9 /* process-network-changes */;
 			productType = "com.apple.product-type.tool";
 		};
-		63C0FF6729F419520040E634 /* Tunnelblick-LaunchAtLogin */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 63C0FF6E29F419520040E634 /* Build configuration list for PBXNativeTarget "Tunnelblick-LaunchAtLogin" */;
-			buildPhases = (
-				63C0FF6429F419520040E634 /* Sources */,
-				63C0FF6529F419520040E634 /* Frameworks */,
-				63C0FF6629F419520040E634 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Tunnelblick-LaunchAtLogin";
-			productName = "Tunnelblick-LaunchAtLogin";
-			productReference = 63C0FF6829F419520040E634 /* Tunnelblick-LaunchAtLogin */;
-			productType = "com.apple.product-type.tool";
-		};
 		63C374381A4510AA00D51E81 /* tunnelblick-helper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63C375771A4510EE00D51E81 /* Build configuration list for PBXNativeTarget "tunnelblick-helper" */;
@@ -1636,7 +1576,6 @@
 			);
 			dependencies = (
 				630681102BA10EFA00563B9A /* PBXTargetDependency */,
-				63C0FF7329F428D70040E634 /* PBXTargetDependency */,
 				631795DD118DC57E0057ACAF /* PBXTargetDependency */,
 				61BC4D960E2FA28700F24255 /* PBXTargetDependency */,
 				61BC4D980E2FA28700F24255 /* PBXTargetDependency */,
@@ -1662,9 +1601,6 @@
 				TargetAttributes = {
 					630680F92BA104A500563B9A = {
 						CreatedOnToolsVersion = 15.3;
-					};
-					63C0FF6729F419520040E634 = {
-						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
 			};
@@ -1694,7 +1630,6 @@
 				63ED8EE51A1E84560045D34E /* tunnelblickd */,
 				63C374381A4510AA00D51E81 /* tunnelblick-helper */,
 				635BF17E1501CCDF00D87717 /* ExternalBuildCleanScript */,
-				63C0FF6729F419520040E634 /* Tunnelblick-LaunchAtLogin */,
 				630680F92BA104A500563B9A /* Tunnelblick Launcher */,
 			);
 		};
@@ -1819,7 +1754,6 @@
 				632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */,
 				633BC7442821ECE4007150B3 /* HY.lproj in Resources */,
 				63E7E6BE29F5B6D000AC76CD /* KA.lproj in Resources */,
-				6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */,
 				63C98A732913D6A700DB78F2 /* KK.lproj in Resources */,
 				6357DADB214FC229003A7196 /* ImportWindow-RTL.xib in Resources */,
 				63DC244F19FA7379006B1BDF /* pt_br.lproj in Resources */,
@@ -1943,16 +1877,6 @@
 			files = (
 				63097CE122340EC4005F94CF /* NSDate+TB.m in Sources */,
 				63AA8E5F1492C77700C791C9 /* process-network-changes.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63C0FF6429F419520040E634 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				63163FE929F573E600240995 /* NSFileManager+TB.m in Sources */,
-				63C0FF7029F427140040E634 /* sharedRoutines.m in Sources */,
-				63C0FF6B29F419520040E634 /* Tunnelblick-LaunchAtLogin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2085,11 +2009,6 @@
 			isa = PBXTargetDependency;
 			target = 63AA8E571492C75200C791C9 /* process-network-changes */;
 			targetProxy = 63AA8E641492C7CC00C791C9 /* PBXContainerItemProxy */;
-		};
-		63C0FF7329F428D70040E634 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 63C0FF6729F419520040E634 /* Tunnelblick-LaunchAtLogin */;
-			targetProxy = 63C0FF7229F428D70040E634 /* PBXContainerItemProxy */;
 		};
 		63C375871A4513A700D51E81 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2627,71 +2546,6 @@
 			};
 			name = Release;
 		};
-		63C0FF6C29F419520040E634 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		63C0FF6D29F419520040E634 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 		63C3743B1A4510AA00D51E81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2934,15 +2788,6 @@
 			buildConfigurations = (
 				63AA8E5A1492C75300C791C9 /* Debug */,
 				63AA8E5C1492C75300C791C9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		63C0FF6E29F419520040E634 /* Build configuration list for PBXNativeTarget "Tunnelblick-LaunchAtLogin" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				63C0FF6C29F419520040E634 /* Debug */,
-				63C0FF6D29F419520040E634 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
