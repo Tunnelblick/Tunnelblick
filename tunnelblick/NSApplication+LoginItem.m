@@ -52,10 +52,10 @@ extern TBUserDefaults * gTbDefaults;
     struct kinfo_proc* info;
     size_t length;
     int count, i;
-    
+
     // KERN_PROC_ALL has 3 elements, all others have 4
     unsigned level = 3;
-    
+
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return;
     // Allocate memory for info structure:
     if (!(info = NSZoneMalloc(NULL, length))) return;
@@ -63,7 +63,7 @@ extern TBUserDefaults * gTbDefaults;
         NSZoneFree(NULL, info);
         return;
     }
-    
+
     // Calculate number of processes:
     count = length / sizeof(struct kinfo_proc);
     for (i = 0; i < count; i++) {
@@ -74,10 +74,10 @@ extern TBUserDefaults * gTbDefaults;
         if (pid!=myPid && strncmp(myProcessName, command, MAXCOMLEN)==0) {
             // Actually kill it:
             if (kill(pid, SIGTERM) !=0) {
-                NSLog(@"Error while killing process: Error was '%s'", strerror(errno)); 
+                NSLog(@"Error while killing process: Error was '%s'", strerror(errno));
             }
         }
-    }    
+    }
     NSZoneFree(NULL, info);
 }
 
@@ -91,10 +91,10 @@ extern TBUserDefaults * gTbDefaults;
     size_t length;
     int count, i;
     int returnCount = 0;
-    
+
     // KERN_PROC_ALL has 3 elements, all others have 4
     unsigned level = 3;
-    
+
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return (-1);
     // Allocate memory for info structure:
     if (!(info = NSZoneMalloc(NULL, length))) return (-1);
@@ -103,7 +103,7 @@ extern TBUserDefaults * gTbDefaults;
         NSLog(@"countOtherInstances: sysctl returned error %d: '%s'", errno, strerror(errno));
         return(-1);
     }
-    
+
     // Calculate number of processes:
     count = length / sizeof(struct kinfo_proc);
     for (i = 0; i < count; i++) {
@@ -114,13 +114,13 @@ extern TBUserDefaults * gTbDefaults;
         if (pid!=myPid && strncmp(myProcessName, command, MAXCOMLEN)==0) {
             returnCount++;
         }
-    }    
+    }
     NSZoneFree(NULL, info);
     return(returnCount);
 }
 
 -(NSMutableArray *) pIdsForOpenVPNProcessesOnlyMain: (BOOL) onlyMain {
-    
+
     // Returns an array of NSNumber objects, each with the pid for an OpenVPN process
     // Returns nil on error, empty array if no OpenVPN processes running
     //
@@ -128,17 +128,17 @@ extern TBUserDefaults * gTbDefaults;
     // else returns process whose names _start_ with 'openvpn' (e.g. 'openvpn-down-root')
     //
     //  (modified version of countOtherInstances, above)
-    
+
     NSMutableArray * retArray = [NSMutableArray arrayWithCapacity: 2];
     const char* processName = "openvpn";
     int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
     struct kinfo_proc* info;
     size_t length;
     int count, i;
-    
+
     // KERN_PROC_ALL has 3 elements, all others have 4
     unsigned level = 3;
-    
+
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return (nil);
     // Allocate memory for info structure:
     if (!(info = NSZoneMalloc(NULL, length))) return (nil);
@@ -146,7 +146,7 @@ extern TBUserDefaults * gTbDefaults;
         NSZoneFree(NULL, info);
         return(nil);
     }
-    
+
     // Get each process ID:
     count = length / sizeof(struct kinfo_proc);
     for (i = 0; i < count; i++) {
@@ -160,7 +160,7 @@ extern TBUserDefaults * gTbDefaults;
         }
     }
     NSZoneFree(NULL, info);
-    
+
     return(retArray);
 }
 
@@ -174,23 +174,23 @@ extern TBUserDefaults * gTbDefaults;
     size_t length;
     int count, i, j;
     BOOL found = FALSE;
-    
+
     // KERN_PROC_ALL has 3 elements, all others have 4
     unsigned level = 3;
-    
+
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) {
         NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #1: errno = %d\n%s", errno, strerror(errno));
         return FALSE;
     }
-    
+
     for (j=0; j<6; j++) {   // Check six times, one second wait between each = five second maximum wait
-        
+
         if (  j != 0  ) {       // Don't sleep first time through
             sleep(1);
         }
         // Allocate memory for info structure:
         if (  (info = NSZoneMalloc(NULL, length)) != 0  ) {
-            
+
             if (  sysctl(mib, level, info, &length, NULL, 0) == 0  ) {
                 // Calculate number of processes:
                 count = length / sizeof(struct kinfo_proc);
@@ -200,26 +200,26 @@ extern TBUserDefaults * gTbDefaults;
                         found = TRUE;
                         break;
                     }
-                    
+
                 }
-                
+
                 NSZoneFree(NULL, info);
-                
+
                 if (  ! found  ) {
                     return TRUE;
                 }
-                
+
             } else {
                 NSZoneFree(NULL, info);
                 NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #2: length = %lu errno = %ld\n%s", (long) length, (long) errno, strerror(errno));
             }
-            
+
         } else {
             NSLog(@"Error: waitUntilNoProcessWithID: NSZoneMalloc failed");
         }
-        
+
     }
-    
+
     if (  ! found  ) {
         return TRUE;
     }
@@ -240,23 +240,23 @@ extern TBUserDefaults * gTbDefaults;
     size_t length;
     int count, i, j;
     const char * processNameCString = [processName UTF8String];
-    
+
     // KERN_PROC_ALL has 3 elements, all others have 4
     unsigned level = 3;
-    
+
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) {
         NSLog(@"Error: wait:untilNoProcessNamed: sysctl call #1: errno = %d\n%s", errno, strerror(errno));
         return FALSE;
     }
-    
+
     for (j=0; j<(waitSeconds+1); j++) {   // Check with a one second wait between each test
-        
+
         if (  j != 0  ) {       // Don't sleep first time through
             sleep(1);
         }
         // Allocate memory for info structure:
         if (  (info = NSZoneMalloc(NULL, length)) != 0  ) {
-            
+
             if (  sysctl(mib, level, info, &length, NULL, 0) == 0  ) {
                 // Calculate number of processes:
                 count = length / sizeof(struct kinfo_proc);
@@ -268,35 +268,35 @@ extern TBUserDefaults * gTbDefaults;
                         break;
                     }
                 }
-                
+
                 NSZoneFree(NULL, info);
-                
+
                 if (  ! found  ) {
                     return TRUE;
                 }
-                
+
             } else {
                 NSZoneFree(NULL, info);
                 NSLog(@"Error: wait:untilNoProcessNamed: sysctl call #2: length = %lu errno = %ld\n%s", (long) length, (long) errno, strerror(errno));
             }
-            
+
         } else {
             NSLog(@"Error: wait:untilNoProcessNamed: NSZoneMalloc failed");
         }
     }
-    
+
     NSLog(@"Error: Timeout wait:untilNoProcessNamed: '%@' to terminate", processName);
     return FALSE;
 }
 
 -(NSArray *) pidsOfProcessesWithPrefix: (NSString *) prefix {
-    
+
     // Returns an array with the PID of each process whose command line start with the given prefix.
     // For example, "/Applications/Tunnelblick.app/Contents/Resources/openvpn" would return the PID of any running
     // instance of "openvpnstart" as well as the PID of each instance of Tunnelblick's OpenVPN
     //
     // Returns nil if there are no such processes
-    
+
     // Run "ps -A" to get info on all processess
     NSString * stdoutString = nil;
     NSArray  * arguments = [NSArray arrayWithObject: @"-A"];
@@ -305,7 +305,7 @@ extern TBUserDefaults * gTbDefaults;
         NSLog(@"Assuming none of our OpenVPN processes are running because '%@ -Gn' returned status %ld", TOOL_PATH_FOR_PS, (long)status);
         return 0;
     }
-    
+
     // Go through the info and populate the list
     NSMutableArray * list = [[[NSMutableArray alloc] init] autorelease];
     NSArray * lines = [stdoutString componentsSeparatedByString: @"\n"];
@@ -313,14 +313,14 @@ extern TBUserDefaults * gTbDefaults;
     NSEnumerator * e = [lines objectEnumerator];
     while (  (line = [e nextObject])  ) {
         if (  [line length] > PS_CHARACTERS_BEFORE_COMMAND  ) {
-			NSString * command = [line substringFromIndex: PS_CHARACTERS_BEFORE_COMMAND];
-			if (  [command hasPrefix: prefix]  ) {
-				unsigned pid = cvt_atou([line UTF8String], @"Process ID");
-				[list addObject: [NSNumber numberWithUnsignedInt: pid]];
-			}
-		}
-	}
-    
+            NSString * command = [line substringFromIndex: PS_CHARACTERS_BEFORE_COMMAND];
+            if (  [command hasPrefix: prefix]  ) {
+                unsigned pid = cvt_atou([line UTF8String], @"Process ID");
+                [list addObject: [NSNumber numberWithUnsignedInt: pid]];
+            }
+        }
+    }
+
     if (  [list count] == 0  ) {
         return nil;
     }
@@ -328,10 +328,10 @@ extern TBUserDefaults * gTbDefaults;
 }
 
 -(void) haveDealtWithOldLoginItem  {
-    
+
     // Invoked on main thread because gTbDefaults may not be thread-safe
-	
-	[gTbDefaults setBool: TRUE forKey: @"haveDealtWithOldLoginItem"];
+
+    [gTbDefaults setBool: TRUE forKey: @"haveDealtWithOldLoginItem"];
 }
 
 -(void) deleteOurLoginItemLeopardOrNewer {
@@ -447,8 +447,8 @@ extern TBUserDefaults * gTbDefaults;
         } else {
             NSLog(@"Copied our 'net.tunnelblick.tunnelblick.LaunchAtLogin.plist' into ~/Library/LaunchAgents");
         }
+                                  NO);
     }
-#endif
 }
 
 +(OSStatus) executeAuthorized:(NSString *)toolPath withArguments:(NSArray *)arguments withAuthorizationRef:(AuthorizationRef) myAuthorizationRef {
