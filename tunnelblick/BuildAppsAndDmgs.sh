@@ -134,6 +134,10 @@ kext_products_folder="$( cd ../third_party/products/tuntap ; pwd )"
   cp -a "build/${CONFIGURATION}/tunnelblick-helper"         "${app_path}/Contents/Resources/"
   cp -a "build/${CONFIGURATION}/Tunnelblick-LaunchAtLogin"  "${app_path}/Contents/Resources/"
 
+# Copy Tunnelblick Launcher.app into Contents/Library/LoginItems
+  mkdir -p -m 755 "${app_path}/Contents/Library/LoginItems"
+  cp -a "build/${CONFIGURATION}/Tunnelblick Launcher.app"   "${app_path}/Contents/Library/LoginItems"
+
 # Copy tun & tap kexts into the Resources folder
   cp -a "$kext_products_folder/$tap_name" "${app_path}/Contents/Resources/"
   cp -a "$kext_products_folder/$tun_name" "${app_path}/Contents/Resources/"
@@ -386,6 +390,10 @@ chmod 744 "${app_path}/Contents/Resources/client.3.down.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/client.4.up.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/client.4.down.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/re-enable-network-services.sh"
+chmod 744 "${app_path}/Contents/Library/LoginItems/Tunnelblick Launcher.app/Contents/Info.plist"
+chmod 744 "${app_path}/Contents/Library/LoginItems/Tunnelblick Launcher.app/Contents/PkgInfo"
+chmod 744 "${app_path}/Contents/Library/LoginItems/Tunnelblick Launcher.app/Contents/Resources/Base.lproj/MainMenu.nib"
+
 
 # Create a signed copy of the Tunnelblick.app after changing " Unsigned" to " Signed (local)" in the version number
 rm -r -f $( dirname  "$signed_app_path" )

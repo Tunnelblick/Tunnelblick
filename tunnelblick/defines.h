@@ -738,6 +738,7 @@ name = newValue;                                    \
 @"skipWarningAboutBigSur2m", \
 @"skipWarningAboutNotCheckingIPAddressChanges", \
 @"skipWarningAboutRosetta", \
+@"skipWarningThatTunnelblickLauncherIsDisabled", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\

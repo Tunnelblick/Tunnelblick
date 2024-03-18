@@ -26,6 +26,7 @@
 #import <sys/sysctl.h>
 #import <sys/types.h>
 #import <sys/stat.h>
+#import <ServiceManagement/ServiceManagement.h>
 
 #import "defines.h"
 #import "helper.h"
@@ -334,119 +335,137 @@ extern TBUserDefaults * gTbDefaults;
     [gTbDefaults setBool: TRUE forKey: @"haveDealtWithOldLoginItem"];
 }
 
--(void) deleteOurLoginItemLeopardOrNewer {
-    
-	// This is a modified version of a method from http://blog.originate.com/blog/2013/10/07/answers-to-common-questions-in-cocoa-development/
-	
+-(void) deleteOldLoginItem {
+
+    // This is a modified version of a method from http://blog.originate.com/blog/2013/10/07/answers-to-common-questions-in-cocoa-development/
+
     NSURL * ourURL = [NSURL fileURLWithPath: @"/Applications/Tunnelblick.app/"];
-    
-	OSStatus status;
-	LSSharedFileListItemRef existingItem = NULL;
-	
-	LSSharedFileListRef lsLoginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-	if (  lsLoginItems  ) {
-		UInt32 seed = 0U;
-		CFArrayRef lsLoginItemsSnapshot = LSSharedFileListCopySnapshot(lsLoginItems, &seed);
-		NSArray * currentLoginItems = (NSArray *)lsLoginItemsSnapshot;
-		if (  currentLoginItems  ) {
-			NSUInteger ix;
-			for (  ix=0; ix<[currentLoginItems count]; ix++  ) {
-				LSSharedFileListItemRef item = (LSSharedFileListItemRef)[currentLoginItems objectAtIndex: ix];
-				
-				UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
-				CFURLRef URL = NULL;
-				status = LSSharedFileListItemResolve(item, resolutionFlags, &URL, /*outRef*/ NULL);
-				if (  status == noErr  ) {
-					if (  ! URL  ) {
-						NSLog(@"deleteOurLoginItem: loginItemsArray contains a NULL object");
-					}
-					BOOL foundIt = CFEqual(URL, (CFTypeRef)(ourURL));
-					
-					if (  foundIt  ) {
-						existingItem = item;
-						break;
-					}
-				} else if (  status != -35 /* nsvErr -- no such volume */  ) {
-					NSLog(@"deleteOurLoginItem: LSSharedFileListItemResolve returned status = %ld for item; url was %@",
-						  (long) status, ((URL == NULL) ? @"NULL" : @"not NULL"));
-				}
-				if (  URL  ) {
-					CFRelease(URL);
-				}
-			}
-			
-			if (   existingItem == NULL  ) {
-				NSLog(@"No old login item to remove");
+
+    OSStatus status;
+    LSSharedFileListItemRef existingItem = NULL;
+
+    LSSharedFileListRef lsLoginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    if (  lsLoginItems  ) {
+        UInt32 seed = 0U;
+        CFArrayRef lsLoginItemsSnapshot = LSSharedFileListCopySnapshot(lsLoginItems, &seed);
+        NSArray * currentLoginItems = (NSArray *)lsLoginItemsSnapshot;
+        if (  currentLoginItems  ) {
+            NSUInteger ix;
+            for (  ix=0; ix<[currentLoginItems count]; ix++  ) {
+                LSSharedFileListItemRef item = (LSSharedFileListItemRef)[currentLoginItems objectAtIndex: ix];
+
+                UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
+                CFURLRef URL = NULL;
+                status = LSSharedFileListItemResolve(item, resolutionFlags, &URL, /*outRef*/ NULL);
+                if (  status == noErr  ) {
+                    if (  ! URL  ) {
+                        NSLog(@"deleteOurLoginItem: loginItemsArray contains a NULL object");
+                    }
+                    BOOL foundIt = CFEqual(URL, (CFTypeRef)(ourURL));
+
+                    if (  foundIt  ) {
+                        existingItem = item;
+                        break;
+                    }
+                } else if (  status != -35 /* nsvErr -- no such volume */  ) {
+                    NSLog(@"deleteOurLoginItem: LSSharedFileListItemResolve returned status = %ld for item; url was %@",
+                          (long) status, ((URL == NULL) ? @"NULL" : @"not NULL"));
+                }
+                if (  URL  ) {
+                    CFRelease(URL);
+                }
+            }
+
+            if (   existingItem == NULL  ) {
+                NSLog(@"No old login item to remove");
                 [self performSelectorOnMainThread: @selector(haveDealtWithOldLoginItem) withObject: nil waitUntilDone: NO];
             } else {
-				status = LSSharedFileListItemRemove(lsLoginItems, existingItem);
-				if (  status == noErr  ) {
-					NSLog(@"Successfully removed the old login item");
+                status = LSSharedFileListItemRemove(lsLoginItems, existingItem);
+                if (  status == noErr  ) {
+                    NSLog(@"Successfully removed the old login item");
                     [self performSelectorOnMainThread: @selector(haveDealtWithOldLoginItem) withObject: nil waitUntilDone: NO];
                 } else {
-					NSLog(@"deleteOurLoginItem: LSSharedFileListItemRemove returned status = %ld for loginItem for %@", (long) status, ourURL);
-				}
-			}
-			
-			CFRelease(lsLoginItemsSnapshot);
-			
-		} else {
+                    NSLog(@"deleteOurLoginItem: LSSharedFileListItemRemove returned status = %ld for loginItem for %@", (long) status, ourURL);
+                }
+            }
+
+            CFRelease(lsLoginItemsSnapshot);
+
+        } else {
             NSLog(@"deleteOurLoginItem: LSSharedFileListCopySnapshot() returned NULL");
-		}
-		
-		CFRelease(lsLoginItems);
-		
-	} else {
+        }
+
+        CFRelease(lsLoginItems);
+
+    } else {
         NSLog(@"deleteOurLoginItem: LSSharedFileListCreate() returned NULL");
-	}
+    }
 }
 
--(void) deleteOurLoginItemLeopardOrNewerThread {
-	
+-(void) deleteOldLoginItemThread {
+
 	// This runs in a separate thread because deleteOurLoginItemLeopardAndUp can stall for a long time on network access
 	// to a non-existing network resource (even though kLSSharedFileListDoNotMountVolumes is specified).
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
-    [self deleteOurLoginItemLeopardOrNewer];
-	
+    [self deleteOldLoginItem];
+
     [pool drain];
+}
+
+-(void) deleteOtherLoginItem {
+
+    NSString * launchAgentsPath = [[NSHomeDirectory() stringByAppendingPathComponent: @"Library"]
+                                   stringByAppendingPathComponent: @"LaunchAgents"];
+    NSString * installedPlistPath = [launchAgentsPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
+
+    if (  ! [gFileMgr tbRemovePathIfItExists: installedPlistPath]  ) {
+        NSLog(@"Error removing %@", installedPlistPath);
+    }
 }
 
 -(void) setupNewAutoLaunchOnLogin {
     
-    // Set up the new mechanism for controlling whether Tunnelblick is launched when the user logs in.
-    
+    // Set up the "Recent" mechanism for controlling whether Tunnelblick is launched when the user logs in.
+    //
+    // There have been three mechanisms!:
+    //      Old    -- Used before Leopard
+    //      Other  -- Used from Leopard until Tunnelblick 5
+    //      Recent -- This is the one we use now (10.13+)
+    //      Latest -- macOS 13+, so we don't use it yet: Uses registerAndReturnError() and unregisterAndReturnError()
+
     // If the 'haveDealtWithOldLoginItem' preference does not exist, we should remove the Tunnelblick login item if there is one.
     // When the old login item has been dealt with, the haveDealtWithOldLoginItem method will be invoked, which will set the preference.
     
     if (  ! [gTbDefaults objectForKey: @"haveDealtWithOldLoginItem"]  ) {
-		NSLog(@"Launching a thread to remove the old login item (if any) so we can use the new mechanism that controls Tunnelblick's launch on login");
-        [NSThread detachNewThreadSelector: @selector(deleteOurLoginItemLeopardOrNewerThread) toTarget: NSApp withObject: nil];
+		NSLog(@"Launching a thread to remove the 'Old' login item (if any) so we can use the new mechanism that controls Tunnelblick's Tunnelblick Launcher");
+        [NSThread detachNewThreadSelector: @selector(deleteOldLoginItemThread) toTarget: NSApp withObject: nil];
     }
-	
-    // If the installed 'net.tunnelblick.tunnelblick.LaunchAtLogin.plist' is not the same as ours, update it.
-    
-#ifdef TBDebug
-	NSLog(@"DEBUG VERSION DOES NOT UPDATE LaunchAtLogin.plist.");
-#else
-    NSString * ourPlistPath = @"/Applications/Tunnelblick.app/Contents/Resources/net.tunnelblick.tunnelblick.LaunchAtLogin.plist";
-    NSString * launchAgentsPath = [[NSHomeDirectory() stringByAppendingPathComponent: @"Library"]
-								   stringByAppendingPathComponent: @"LaunchAgents"];
-	NSString * installedPlistPath = [launchAgentsPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
-    if (  ! [gFileMgr contentsEqualAtPath: ourPlistPath andPath: installedPlistPath]  ) {
-		if (  [gFileMgr fileExistsAtPath: installedPlistPath]  ) {
-			[gFileMgr tbRemoveFileAtPath: installedPlistPath handler: nil];
-		}
-		if (   ( createDir(launchAgentsPath, 0700) == -1  )
-			|| ( ! [gFileMgr tbCopyPath: ourPlistPath toPath: installedPlistPath handler: nil] )  ) {
-            NSLog(@"Failed to copy: %@ to %@", ourPlistPath, installedPlistPath);
-            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                              NSLocalizedString(@"Tunnelblick could not be configured to automatically launch itself after you log in.\n\n"
-                                                @"See the Console log for details.", @"Window text"));
-        } else {
-            NSLog(@"Copied our 'net.tunnelblick.tunnelblick.LaunchAtLogin.plist' into ~/Library/LaunchAgents");
-        }
+
+    // Remove the "Other" Tunnelblick login item if it exists
+    [self deleteOtherLoginItem];
+
+    // Finally, install the "Recent" mechanism if it hasn't been installed.
+    BOOL success = SMLoginItemSetEnabled((CFStringRef)@"net.tunnelblick.launcher", YES);
+    if (  success  ) {
+        NSLog(@"Login Item was added succesfully or was already present");
+    } else {
+        NSLog(@"Failed to add Login Item");
+        NSString * htmlMessage = NSLocalizedString(@"<p>A Tunnelblick login item which runs in the background is disabled.</p>\n"
+                                                   @"<p>If the login item is disabled, Tunnelblick will not launch"
+                                                   @" when you log in, even if there are important reasons why it should be launched.</p>"
+                                                   @"<p>Please re-enable it in System Settings >> General >> Login Items.</p>"
+                                                   @"<p><a href=\"https://tunnelblick.net/cBackgroundPrograms.html\">More info.</a></p>",
+                                                   @"Window text");
+        NSAttributedString * message = attributedStringFromHTML(htmlMessage);
+        TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                  message,
+                                  @"skipWarningThatTunnelblickLauncherIsDisabled",
+                                  nil,
+                                  nil,
+                                  nil,
+                                  nil,
                                   NO);
     }
 }

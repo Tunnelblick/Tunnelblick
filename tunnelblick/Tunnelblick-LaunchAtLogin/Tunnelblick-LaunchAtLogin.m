@@ -35,72 +35,11 @@
 #import "../NSFileManager+TB.h"
 #import "../sharedRoutines.h"
 
-void launchTunnelblick(void) {
-
-    startTool(TOOL_PATH_FOR_OPEN, @[@"/Applications/Tunnelblick.app"]);
-}
-
-NSString * GetProcesses(void) {
-    // Returns a string with the output from the 'ps -f -u 0' command, which lists all root processes and
-    // the command line arguments each process was started with.
-
-    NSString * stdOutString = @"";
-    NSString * stdErrString = @"";
-
-    OSStatus status = runTool(TOOL_PATH_FOR_PS, @[@"-f", @"-u", @"0"], &stdOutString, &stdErrString);
-    if (  status != EXIT_SUCCESS ) {
-        NSLog(@"Nonzero status %d from 'ps -f -u 0'; stderr = '%@'", status, stdErrString);
-    } else if (  [stdErrString length] != 0 ) {
-        NSLog(@"status from 'ps -f -u 0' was 0, but stderr '%@'", stdErrString);
-    }
-
-    if (  [stdOutString length] == 0 ) {
-        NSLog(@"Empty stdout from 'ps -f -u 0");
-    }
-
-    return stdOutString;
-}
-
-
 int main(int argc, const char * argv[]) {
-    @autoreleasepool {
 
-        (void)argc;
-        (void)argv;
-
-        if (  [[NSFileManager defaultManager] fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]  ) {
-           launchTunnelblick();
-        } else {
-
-            NSUserDefaults * defaults = [[[NSUserDefaults alloc] initWithSuiteName: @"net.tunnelblick.tunnelblick"] autorelease];
-            BOOL launchAtLoginPreference = [[defaults objectForKey: @"launchAtNextLogin"] boolValue];
-            if (  launchAtLoginPreference  ) {
-                launchTunnelblick();
-            } else {
-
-                NSString * processes = GetProcesses();
-
-                BOOL openvpn_is_running = [processes containsString: @"setenv TUNNELBLICK_CONFIG_FOLDER"];
-                if (  openvpn_is_running  ) {
-                    launchTunnelblick();
-                } else {
-
-                    BOOL helper_is_running = [processes containsString: @"tunnelblick-helper"];
-                    if (  helper_is_running  ) {
-                        launchTunnelblick();
-                    } else {
-
-                        BOOL openvpnstart_is_running = [processes containsString: @"openvpnstart"];
-                        if (  openvpnstart_is_running  ) {
-                            launchTunnelblick();
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-
+    (void) argc;
+    (void) argv;
+    
     return 0;
 }
 

@@ -33,6 +33,16 @@
 		630365D81C02D65600259FD8 /* SettingsSheet-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */; };
 		6305DAB5228DAB75001AA6CE /* eyeRedSlash.png in Resources */ = {isa = PBXBuildFile; fileRef = 6305DAB3228DAB75001AA6CE /* eyeRedSlash.png */; };
 		6305DAB6228DAB75001AA6CE /* eyeNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6305DAB4228DAB75001AA6CE /* eyeNormal.png */; };
+		630680FE2BA104A600563B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 630680FD2BA104A600563B9A /* AppDelegate.m */; };
+		630681002BA104A600563B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 630680FF2BA104A600563B9A /* Assets.xcassets */; };
+		630681032BA104A600563B9A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 630681022BA104A600563B9A /* Base */; };
+		630681052BA104A600563B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 630681042BA104A600563B9A /* main.m */; };
+		6306810A2BA1095D00563B9A /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
+		6306810B2BA1096600563B9A /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
+		6306810C2BA1098100563B9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
+		6306810E2BA109A800563B9A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6306810D2BA109A800563B9A /* Cocoa.framework */; };
+		630681112BA13C6300563B9A /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B4DCE41A409DF300F6A74C /* ServiceManagement.framework */; };
+		630681162BA6074300563B9A /* NSFileHandle+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 630681152BA6074300563B9A /* NSFileHandle+TB.m */; };
 		63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */; };
 		6308EEE9222701E8003D974C /* ta.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6308EEE8222701E8003D974C /* ta.lproj */; };
@@ -276,6 +286,13 @@
 			remoteGlobalIDString = 61BC4D6A0E2FA06900F24255;
 			remoteInfo = installer;
 		};
+		6306810F2BA10EFA00563B9A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 630680F92BA104A500563B9A;
+			remoteInfo = "Tunnelblick Launcher";
+		};
 		631795DC118DC57E0057ACAF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -410,6 +427,16 @@
 		630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "SettingsSheet-RTL.xib"; sourceTree = "<group>"; };
 		6305DAB3228DAB75001AA6CE /* eyeRedSlash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeRedSlash.png; sourceTree = "<group>"; };
 		6305DAB4228DAB75001AA6CE /* eyeNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeNormal.png; sourceTree = "<group>"; };
+		630680FA2BA104A500563B9A /* Tunnelblick Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tunnelblick Launcher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		630680FC2BA104A600563B9A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		630680FD2BA104A600563B9A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		630680FF2BA104A600563B9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		630681022BA104A600563B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		630681042BA104A600563B9A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6306810D2BA109A800563B9A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		630681122BA13CD600563B9A /* Tunnelblick-Launcher-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Tunnelblick-Launcher-Info.plist"; sourceTree = SOURCE_ROOT; };
+		630681142BA6074300563B9A /* NSFileHandle+TB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFileHandle+TB.h"; sourceTree = SOURCE_ROOT; };
+		630681152BA6074300563B9A /* NSFileHandle+TB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSFileHandle+TB.m"; sourceTree = SOURCE_ROOT; };
 		6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.LaunchAtLogin.plist; sourceTree = "<group>"; };
 		6308EEE8222701E8003D974C /* ta.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ta.lproj; sourceTree = "<group>"; };
 		63097CDD22323E2B005F94CF /* NSDate+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TB.m"; sourceTree = "<group>"; };
@@ -702,6 +729,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		630680F72BA104A500563B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6306810E2BA109A800563B9A /* Cocoa.framework in Frameworks */,
+				6306810C2BA1098100563B9A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6317943C118D7E820057ACAF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -760,6 +796,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				630681112BA13C6300563B9A /* ServiceManagement.framework in Frameworks */,
 				A425AA582380E5C7000686E7 /* LocalAuthentication.framework in Frameworks */,
 				63AB7D001D930BCE008ED621 /* QuartzCore.framework in Frameworks */,
 				6329EA021A9AF6EF00A0BFA8 /* SystemConfiguration.framework in Frameworks */,
@@ -834,6 +871,7 @@
 				63ED8EE61A1E84560045D34E /* tunnelblickd */,
 				63C374391A4510AA00D51E81 /* tunnelblick-helper */,
 				63C0FF6829F419520040E634 /* Tunnelblick-LaunchAtLogin */,
+				630680FA2BA104A500563B9A /* Tunnelblick Launcher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -845,6 +883,7 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				63C0FF6929F419520040E634 /* Tunnelblick-LaunchAtLogin */,
+				630680FB2BA104A500563B9A /* Tunnelblick Launcher */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				635CA99F12F9DCE300287298 /* AppKit.framework */,
@@ -908,6 +947,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6306810D2BA109A800563B9A /* Cocoa.framework */,
 				630AF69A2A3E5B36001D50B7 /* CoreFoundation.framework */,
 				63F0E58D2A0D77D60098CB1D /* OpenDirectory.framework */,
 				63C2E2E724AB8D6C00F79628 /* IOKit.framework */,
@@ -919,6 +959,19 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		630680FB2BA104A500563B9A /* Tunnelblick Launcher */ = {
+			isa = PBXGroup;
+			children = (
+				630681122BA13CD600563B9A /* Tunnelblick-Launcher-Info.plist */,
+				630680FC2BA104A600563B9A /* AppDelegate.h */,
+				630680FD2BA104A600563B9A /* AppDelegate.m */,
+				630680FF2BA104A600563B9A /* Assets.xcassets */,
+				630681012BA104A600563B9A /* MainMenu.xib */,
+				630681042BA104A600563B9A /* main.m */,
+			);
+			path = "Tunnelblick Launcher";
 			sourceTree = "<group>";
 		};
 		632BB9E5194F2CD5006CD7DA /* Alert Window */ = {
@@ -1229,6 +1282,8 @@
 				61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */,
 				63097CDE22323E2B005F94CF /* NSDate+TB.h */,
 				63097CDD22323E2B005F94CF /* NSDate+TB.m */,
+				630681142BA6074300563B9A /* NSFileHandle+TB.h */,
+				630681152BA6074300563B9A /* NSFileHandle+TB.m */,
 				63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */,
 				63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */,
 				63DEC28E13B890F70063CE11 /* NSString+TB.h */,
@@ -1450,6 +1505,23 @@
 			productReference = 61BC4D6B0E2FA06900F24255 /* installer */;
 			productType = "com.apple.product-type.tool";
 		};
+		630680F92BA104A500563B9A /* Tunnelblick Launcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 630681092BA104A700563B9A /* Build configuration list for PBXNativeTarget "Tunnelblick Launcher" */;
+			buildPhases = (
+				630680F62BA104A500563B9A /* Sources */,
+				630680F72BA104A500563B9A /* Frameworks */,
+				630680F82BA104A500563B9A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Tunnelblick Launcher";
+			productName = "Tunnelblick Launcher";
+			productReference = 630680FA2BA104A500563B9A /* Tunnelblick Launcher.app */;
+			productType = "com.apple.product-type.application";
+		};
 		6317943D118D7E820057ACAF /* atsystemstart */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63179445118D7EC30057ACAF /* Build configuration list for PBXNativeTarget "atsystemstart" */;
@@ -1563,6 +1635,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				630681102BA10EFA00563B9A /* PBXTargetDependency */,
 				63C0FF7329F428D70040E634 /* PBXTargetDependency */,
 				631795DD118DC57E0057ACAF /* PBXTargetDependency */,
 				61BC4D960E2FA28700F24255 /* PBXTargetDependency */,
@@ -1587,6 +1660,9 @@
 			attributes = {
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					630680F92BA104A500563B9A = {
+						CreatedOnToolsVersion = 15.3;
+					};
 					63C0FF6729F419520040E634 = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
@@ -1619,11 +1695,21 @@
 				63C374381A4510AA00D51E81 /* tunnelblick-helper */,
 				635BF17E1501CCDF00D87717 /* ExternalBuildCleanScript */,
 				63C0FF6729F419520040E634 /* Tunnelblick-LaunchAtLogin */,
+				630680F92BA104A500563B9A /* Tunnelblick Launcher */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		630680F82BA104A500563B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				630681002BA104A600563B9A /* Assets.xcassets in Resources */,
+				630681032BA104A600563B9A /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1821,6 +1907,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		630680F62BA104A500563B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6306810B2BA1096600563B9A /* sharedRoutines.m in Sources */,
+				6306810A2BA1095D00563B9A /* NSFileManager+TB.m in Sources */,
+				630681162BA6074300563B9A /* NSFileHandle+TB.m in Sources */,
+				630681052BA104A600563B9A /* main.m in Sources */,
+				630680FE2BA104A600563B9A /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6317943B118D7E820057ACAF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1963,6 +2061,11 @@
 			target = 61BC4D6A0E2FA06900F24255 /* installer */;
 			targetProxy = 61BC4D970E2FA28700F24255 /* PBXContainerItemProxy */;
 		};
+		630681102BA10EFA00563B9A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 630680F92BA104A500563B9A /* Tunnelblick Launcher */;
+			targetProxy = 6306810F2BA10EFA00563B9A /* PBXContainerItemProxy */;
+		};
 		631795DD118DC57E0057ACAF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6317943D118D7E820057ACAF /* atsystemstart */;
@@ -2012,6 +2115,14 @@
 				63FAF9A5257A5E7B00932F5B /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		630681012BA104A600563B9A /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				630681022BA104A600563B9A /* Base */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -2070,6 +2181,123 @@
 				ZERO_LINK = YES;
 			};
 			name = Debug;
+		};
+		630681072BA104A600563B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "Tunnelblick Launcher/Tunnelblick_Launcher.entitlements";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Tunnelblick-Launcher-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Tunnelblick Launcher";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSBackgroundOnly = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tunnelblick.launcher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		630681082BA104A600563B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "Tunnelblick Launcher/Tunnelblick_Launcher.entitlements";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Tunnelblick-Launcher-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Tunnelblick Launcher";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSBackgroundOnly = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tunnelblick.launcher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
 		};
 		63179440118D7E830057ACAF /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2661,6 +2889,15 @@
 			buildConfigurations = (
 				61BC4D6D0E2FA06900F24255 /* Debug */,
 				6398C40413DB30F60005FEB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		630681092BA104A700563B9A /* Build configuration list for PBXNativeTarget "Tunnelblick Launcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				630681072BA104A600563B9A /* Debug */,
+				630681082BA104A600563B9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

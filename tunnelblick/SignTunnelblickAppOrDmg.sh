@@ -92,9 +92,24 @@ codesign_v_t_or () {
 	fi
 }
 
+sign_tunnelblick_launcher_app() {
+
+    # Argument is path to Tunnelblick.app.
+    # Tunnelblick Launcher will be signed unless it is already signed
+
+    local launcher_path; launcher_path="$1/Contents/Library/LoginItems/Tunnelblick Launcher.app"
+
+    if [ -e "$launcher_path/Contents/_CodeSignature" ] ; then
+        return 0;
+    fi
+
+    codesign_v_t_or "$launcher_path"
+}
+
 sign_app () {
 
     # If not signed yet, sign the binary tools, including each version of OpenvVPN and openvpn-down-root,
+    #                         the Tunnelblick Launcher app
     #                         the Sparkle.framework, and
     #                         the .app_path itself.
     #
@@ -159,6 +174,9 @@ sign_app () {
 			echo "Error: Does not exist: '${sparkle_framework}'"
 			EXIT_VALUE=1
 		fi
+
+        # Sign Tunnelblick Launcher if it isn't signed yet
+        sign_tunnelblick_launcher_app "$app_path"
 
 		# Sign the application itself
 		codesign_v_t_or "$app_path"
