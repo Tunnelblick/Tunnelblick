@@ -1664,6 +1664,11 @@ static void setupUser_Library_Application_Support_Tunnelblick(void) {
                                                     permissions, userUID(), userGID())  ) {
             errorExit();
         }
+
+        if (  ! createDirWithPermissionAndOwnership([userL_AS_T_Path stringByAppendingPathComponent: @"TBLogs"],
+                                                    permissions, userUID(), userGID())  ) {
+            errorExit();
+        }
     }
 }
 
