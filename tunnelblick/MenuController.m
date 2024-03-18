@@ -5247,6 +5247,37 @@ static void signal_handler(int signalNumber)
     }
 }
 
+-(void) checkThatTunnelblickdIsEnabled {
+
+    OSStatus status = runOpenvpnstart(@[@"test"], nil, nil);
+
+    if (  status != 0  ) {
+        NSLog(@"tunnelblickd test failed");
+
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+
+                        NSLocalizedString(@"Tunnelblick will quit because a critical component has been disabled or is missing.\n\n"
+
+                                          @"Tunnelblick cannot perform functions such as connecting a VPN unless the component is enabled.\n\n"
+
+                                          @"Please re-enable the component in System Settings >> General >> Login Items.\n\n"
+
+                                          @"The component is listed in the 'Runs in the background' section, is named 'Tunnelblick', and is labelled 'affects all users'.\n\n"
+
+                                          @"It is recommended that you also enable the other listed Tunnelblick component if it is also disabled.\n\n"
+
+                                          @"Note: If the component is enabled and Tunnelblick still shows this message, please reinstall Tunnelblick.\n\n"
+
+                                          @"For more information, go to https://tunnelblick.net/e2",
+
+                                          @"Window text"),
+                        nil, nil, nil);
+        [self terminateBecause: terminatingBecauseOfFatalError];
+    } else {
+        NSLog(@"tunnelblickd test succeeded");
+    }
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	(void) notification;
@@ -5266,6 +5297,8 @@ static void signal_handler(int signalNumber)
     }
     gMainThread = [NSThread currentThread];
     
+    [self checkThatTunnelblickdIsEnabled];
+
     [NSApp setupNewAutoLaunchOnLogin];
 
     // Get names and version info for all copies of OpenVPN in ../Resources/openvpn
