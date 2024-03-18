@@ -1055,7 +1055,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
     //
 	// If "preferenceToSetTrue" is not nil:
 	//
-	//		If the preferences is true, no alert window will be displayed, and nil will be returned;
+	//		If the preference is true, no alert window will be displayed, and nil will be returned;
 	//
 	//		Otherwise:
 	//
