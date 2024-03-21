@@ -432,6 +432,8 @@ static void structureTblkProperly(NSString * path) {
         if (  ! [gFileMgr tbMovePath: sourcePaths[i] toPath: targetPaths[i] handler: nil]  ) {
             appendLog([NSString stringWithFormat: @"Unable to move %@ to %@", sourcePaths[i], targetPaths[i]]);
             errorExit();
+        } else {
+            appendLog([NSString stringWithFormat: @"Moved %@ to %@", sourcePaths[i], targetPaths[i]]);
         }
     }
 }
