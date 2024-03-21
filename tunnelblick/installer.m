@@ -422,8 +422,12 @@ static void structureTblkProperly(NSString * path) {
                 [sourcePaths addObject: fullPath];
                 [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents"] stringByAppendingPathComponent: entry]];
             } else if (  ! [entry hasPrefix: @"."]  ) {
+                NSString * targetEntry = entry;
+                if (  [entry hasSuffix: @".ovpn"]  ) {
+                    targetEntry = [[entry stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"config.ovpn"];
+                }
                 [sourcePaths addObject: fullPath];
-                [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents/Resources"] stringByAppendingPathComponent: entry]];
+                [targetPaths addObject: [[path stringByAppendingPathComponent: @"/Contents/Resources"] stringByAppendingPathComponent: targetEntry]];
             }
         }
     }
