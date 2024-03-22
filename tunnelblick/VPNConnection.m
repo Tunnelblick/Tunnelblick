@@ -3978,9 +3978,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
         } else {
             [gMC addNonconnection: self];
-            if([newState isEqualToString: @"RECONNECTING"]) {
-                [self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
-            }
         }
     }
 }
