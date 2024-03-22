@@ -4472,10 +4472,42 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(void) sendHoldRelease {
+
+    [self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
+}
+
+-(void) sendHoldReleaseAfterDelay: (NSTimeInterval) delay {
+
+    [self addToLog: [NSString stringWithFormat: @"Delaying HOLD release for %.3f seconds", delay]];
+    [self performSelector: @selector(sendHoldRelease) withObject: nil afterDelay: delay];
+}
+
 -(void) processRealTimeOpenvpnOutputWithLine: (NSString *) line {
 
     if (  [line hasPrefix: @">HOLD:Waiting for hold release"]  ) {
-        [self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
+        // >HOLD:Waiting for hold release:NNN means wait for NNN seconds before releasing the hold.
+        // OpenVPN management-notes.txt isn't clear that NNN is an integer, so we assume it
+        // could be an integer OR a decimal number (with a period, not a comma: not locale-friendly, but simple and easy to do)
+        NSTimeInterval holdDelay = 0.0;
+        NSRange r = [line rangeOfString:@">HOLD:Waiting for hold release:"];
+        if (  r.length != 0  ) {
+            NSString * delayString = [line substringFromIndex: r.length];
+            if (  delayString.length == 0) {
+                delayString = @"J"; // No NNN is present: force 'parameter not as expected' message and a short delay
+           }
+            if (  [delayString containsOnlyCharactersInString: @"0123456789."]  ) {
+                holdDelay = (NSTimeInterval)[delayString doubleValue];
+            } else {
+                [self addToLog: [NSString stringWithFormat: @"'HOLD:Waiting for hold release:' parameter not as expected, will delay hold release 1.0 seconds. line = '%@'", line]];
+                holdDelay = 1.0;
+            }
+        }
+        if ( holdDelay <= 0.0  ) {
+            [self sendHoldRelease];
+        } else {
+            [self sendHoldReleaseAfterDelay: holdDelay];
+        }
         return;
     }
 
