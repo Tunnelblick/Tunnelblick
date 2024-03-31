@@ -7748,45 +7748,6 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     return NO;
 }
 
-BOOL checkAttributes(NSDictionary * atts)
-{
-    // Check that a set of file attributes shows ownership by root:wheel
-    if (  [[atts fileOwnerAccountID] intValue] != 0  ) {
-        return NO;
-    }
-    
-    if (  [[atts fileGroupOwnerAccountID] intValue] != 0  ) {
-        return NO;
-    }
-    
-    return YES;
-}    
-
-BOOL checkOwnedByRootWheel(NSString * path)
-{
-    // Check that everything in path and it's subfolders is owned by root:wheel (checks symlinks, too)
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
-	NSString * file;
-	NSDictionary * atts;
-	while (  (file = [dirEnum nextObject])  ) {
-		NSString * filePath = [path stringByAppendingPathComponent: file];
-		if (  itemIsVisible(filePath)  ) {
-			atts = [gFileMgr tbFileAttributesAtPath: filePath traverseLink: NO];
-            if (  ! checkAttributes(atts)  ) {
-                return NO;
-            }
-			if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-				atts = [gFileMgr tbFileAttributesAtPath: filePath traverseLink: YES];
-                if (  ! checkAttributes(atts)  ) {
-                    return NO;
-                }
-			}
-		}
-	}
-	
-	return YES;
-}
-        
 BOOL needToRepairPackages(void)
 {
     // Check permissions of private .tblk packages.

@@ -58,6 +58,8 @@ BOOL checkOwnerAndPermissions (NSString * fPath,
                                gid_t      gid,
                                mode_t     permsShouldHave);
 
+BOOL checkOwnedByRootWheel(NSString * path);
+
 BOOL checkSetItemOwnership(NSString *     path,
 						   NSDictionary * atts,
 						   uid_t          uid,

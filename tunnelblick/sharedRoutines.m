@@ -556,6 +556,45 @@ int createDir(NSString * dirPath, unsigned long permissions) {
     return 1;
 }
 
+BOOL checkAttributes(NSDictionary * atts)
+{
+    // Check that a set of file attributes shows ownership by root:wheel
+    if (  [[atts fileOwnerAccountID] intValue] != 0  ) {
+        return NO;
+    }
+
+    if (  [[atts fileGroupOwnerAccountID] intValue] != 0  ) {
+        return NO;
+    }
+
+    return YES;
+}
+
+BOOL checkOwnedByRootWheel(NSString * path)
+{
+    // Check that everything in path and it's subfolders is owned by root:wheel (checks symlinks, too)
+    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
+    NSString * file;
+    NSDictionary * atts;
+    while (  (file = [dirEnum nextObject])  ) {
+        NSString * filePath = [path stringByAppendingPathComponent: file];
+        if (  itemIsVisible(filePath)  ) {
+            atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: NO];
+            if (  ! checkAttributes(atts)  ) {
+                return NO;
+            }
+            if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+                atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: YES];
+                if (  ! checkAttributes(atts)  ) {
+                    return NO;
+                }
+            }
+        }
+    }
+
+    return YES;
+}
+
 BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_t gid, BOOL traverseLink)
 {
 	// NOTE: THIS ROUTINE MAY ONLY BE USED FROM installer BECAUSE IT REQUIRES ROOT PERMISSIONS.
