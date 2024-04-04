@@ -1,9 +1,14 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) IP: %@" = "Shkëput të gjitha (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Shkëputi të gjitha (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) IP: %@" = "Shkëput të gjitha (%1$d Lidhjet) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Shkëputi të gjitha (%d lidhjet)";
@@ -102,6 +107,9 @@
 "Do nothing" = "Mos bëj asgjë";
 
 /* Button */
+"Export Tunnelblick Setup" = "Eksporto konfigurimet e Tunnelblick";
+
+/* Button */
 "Help" = "Ndihmë";
 
 /* Button */
@@ -114,7 +122,13 @@
 "Ignore" = "Injoro";
 
 /* Button */
+"Install tun and tap system extensions..." = "Instalo shtesat e sistemit 'tun' dhe 'tap'…";
+
+/* Button */
 "Install" = "Instalo";
+
+/* Button. In a dialog that says a file already exists in a new location. */
+"Keep Both" = "Mbaji të dyja";
 
 /* Button */
 "Latest (%@)" = "E fundit (%@)";
@@ -198,6 +212,9 @@
 /* Button */
 "Restore" = "Kthe prapa";
 
+/* Button text */
+"Retry with manual response" = "Riprovo me përgjigje manuale";
+
 /* Button */
 "Retry" = "Provo përsëri";
 
@@ -225,6 +242,9 @@
 /* Button */
 "Show while connecting" = "Shfaqe ndërsa po lidhet";
 
+/* Button. 'Update' refers to the update of a configuration. */
+"Skip this Update" = "Kapërce këtë përditësim";
+
 /* Button */
 "Skip" = "Kalo";
 
@@ -233,6 +253,9 @@
 
 /* Button */
 "Standard icon" = "Ikonë Standarte";
+
+/* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
+"Stop" = "Ndalo";
 
 /* Button */
 "Terminate All OpenVPN processes" = "Përfundo të gjithë proceset OpenVPN";
@@ -259,6 +282,15 @@
 "Tunnelblick 3.3 icon" = "Ikona Tunnelblick 3.3";
 
 /* Button */
+"Uninstall Tunnelblick..." = "Ç'instalo Tunnelblick…";
+
+/* Button */
+"Uninstall tun and tap system extensions..." = "Ç'instalo shtesat e sistemit 'tun' dhe 'tap'…";
+
+/* Button. 'Update' refers to the update of a configuration. */
+"Update" = "Përditëso";
+
+/* Button */
 "When Tunnelblick launches" = "Kur nis Tunnelblick";
 
 /* Button */
@@ -272,6 +304,12 @@
 
 /* Menu item */
 "Connect %@%@" = "Lidhu me %@%@";
+
+/* Menu item */
+"Copy Configuration into a New Folder..." = "Kopjo konfigurimin në një dosje të re…";
+
+/* Menu item */
+"Copy Configurations into a New Folder..." = "Kopjo konfigurimet në një dosje të re…";
 
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Fshij të dhënat e identifikimit të konfigurimit nga Keychain…";
@@ -299,6 +337,12 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "Kthe konfigurimin në të përbashkët…";
+
+/* Menu item */
+"Move Configuration into a New Folder..." = "Zhvendos konfigurimin në një dosje të re…";
+
+/* Menu item */
+"Move Configurations into a New Folder..." = "Zhvendos konfigurimet në një dosje të re…";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "Asnjë shënim mbi OpenVPN ose Tunnelblick";
@@ -330,8 +374,17 @@
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Niveli i shënimeve OpenVPN vendosur nga konfigurimi";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "Problem me përdorimin e versioneve të ardhshme të Tunnelblick…";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of macOS..." = "Problem me përdorimin e versioneve të ardhshme të macOS…";
+
 /* Menu item */
 "Quit Tunnelblick" = "Mbyll Tunnelblick";
+
+/* Menu Item */
+"Rename Configuration" = "Riemërto konfigurimin";
 
 /* Menu Item */
 "Revert Configuration..." = "Rikthe konfigurimin…";
@@ -348,11 +401,17 @@
 /* Menu item */
 "VPN Details..." = "Detajet e VPN…";
 
+/* Menu item */
+"Warnings" = "Paralajmërimet";
+
 /* Checkbox name */
 "Allow changes to manually-set network settings" = "Lejo ndryshimet të vendosin manualisht rregullat e rrjetit";
 
 /* Checkbox name */
 "Apply to all" = "Zbato tek të gjithë";
+
+/* Checkbox Name */
+"Authenticate before connecting" = "Identifikohu përpara lidhjes";
 
 /* Checkbox name */
 "Check for updates automatically" = "Kontrollo per përditësime automatikisht";
@@ -362,6 +421,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Kontrollo nëse IP e dukshme publike ndryshoi pas lidhjes";
+
+/* Checkbox name */
+"Disable IPv6 unless the VPN server is accessed using IPv6" = "Çaktivizo IPv6 përveç nëse serveri VPN është i aksesueshem me IPv6";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Shkëput kur kompjuteri shkon të flejë";

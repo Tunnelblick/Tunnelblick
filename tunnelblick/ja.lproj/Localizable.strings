@@ -1,9 +1,14 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) IP: %@" = "全て切断 (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "全て切断 (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) IP: %@" = "全て切断 (%1$d 接続) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "全て切断 (%d 個の接続)";
@@ -184,7 +189,7 @@
 
 /* Button
    Menu item */
-"Re-enable Network Access" = "ネットワーク接続を再開する";
+"Re-enable Network Access" = "ネットワークに再接続する";
 
 /* Button */
 "Reinstall" = "再インストール";
@@ -250,7 +255,7 @@
 "Standard icon" = "標準アイコン";
 
 /* Button. In a dialog that says a file already exists in a new location. Usually this button would be labelled 'Cancel', but it is labelled 'Stop' if one or more of a series of copies or moves of files or folders has already been done. */
-"Stop" = "中止";
+"Stop" = "中断する";
 
 /* Button */
 "Terminate All OpenVPN processes" = "全ての OpenVPN プロセスを停止";
@@ -283,7 +288,7 @@
 "Uninstall tun and tap system extensions..." = "システム拡張機能 tunとtap をアンインストールする… ";
 
 /* Button. 'Update' refers to the update of a configuration. */
-"Update" = "更新";
+"Update" = "更新する";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblick 起動時に接続";
@@ -301,7 +306,7 @@
 "Connect %@%@" = "%@%@ に接続";
 
 /* Menu item */
-"Copy Configuration into a New Folder..." = "設定を新しいフォルダーにコピー";
+"Copy Configuration into a New Folder..." = "接続先を新しいフォルダーへをコピる";
 
 /* Menu item */
 "Copy Configurations into a New Folder..." = "設定を新しいフォルダーにコピー";
@@ -2065,7 +2070,7 @@
 "You cannot rename or move a Deployed configuration." = "配付用の設定は名称変更、又は移動ができません";
 
 /* Window text */
-"You cannot rename or move a configuration unless it is disconnected." = "接続を切断するまでは、設定の名前を変更したり移動することはできません。";
+"You cannot rename or move a configuration unless it is disconnected." = "設定の名前を変更したり移動する場合は、先に接続を切断する必要があります。";
 
 /* Window text */
 "You cannot rename or move a configuration which is set to start when the computer starts." = "コンピュータの起動時に接続する設定にしている場合、設定の名前を変更したり移動することはできません。";
@@ -2174,6 +2179,9 @@
 
 /* Popup button menu item */
 "(Do not import)" = "(インポートしない)";
+
+/* This appears in place of a string when the string cannot be created. It should only be shown when there is a serious problem with the computer. By string we mean any string of words that have been translated (basically, the pieces of language that we translate at one time). It could be a word or two, a sentence, or several paragraphs. */
+"(String is not available)\n" = "(文字列が利用できない)\n";
 
 /* Credit description */
 "64-bit enabling and testing" = "64ビット化とテスト";
