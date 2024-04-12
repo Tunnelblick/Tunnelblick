@@ -3478,7 +3478,11 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
                         nil, nil, nil);
         [self terminateBecause: terminatingBecauseOfError];
     }
-    
+
+    if (  [gTbDefaults boolForKey: @"doNotShowHaveNoConfigurationsGuide"]  ) {
+        return;
+    }
+
     [ConfigurationManager haveNoConfigurationsGuideInNewThread];
 }
 

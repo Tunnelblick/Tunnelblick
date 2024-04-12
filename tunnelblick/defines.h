@@ -824,6 +824,7 @@ name = newValue;                                    \
 @"welcomeHeight",	\
 @"doNotShowWelcomeDoNotShowAgainCheckbox",	\
 @"skipWelcomeScreen",	\
+@"doNotShowHaveNoConfigurationsGuide", \
 @"lastLanguageAtLaunchWasRTL",	\
 @"dateLastRequestedEmailCrashReports", \
 \
