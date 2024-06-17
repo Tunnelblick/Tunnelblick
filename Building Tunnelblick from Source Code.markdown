@@ -1,6 +1,6 @@
 **Building Tunnelblick from Source Code**
 
-_Last Updated 2023-10-22_
+_Last Updated 2024-06-16_
 
 You can build Tunnelblick from the source code. Usually, people install
 and use a ready-to-use binary version of Tunnelblick. The most recent
@@ -18,7 +18,7 @@ document describes how to do that.
 Tunnelblick runs on macOS 10.13 and higher when built with Xcode 15 as described
 in this document.
 
-On recent versions of macOS, Tunnelblick's tun and tap system extensions
+When running on recent versions of macOS, Tunnelblick's tun and tap system extensions
 are restricted:
 
  * On macOS 10.15 ("Catalina"), the computer must be restarted after loading the
@@ -40,10 +40,11 @@ To build Tunnelblick from the source code:
  1. You need a supported version of macOS and Xcode;
  2. You need a copy of the Tunnelblick source code;
  3. You need to have installed the GNU autotools;
- 4. You need to have set up Xcode to build Tunnelblick; and
- 5. You need to select the type of build you want to create.
-
-This document has a section about each of these requirements.
+ 4. You need to have set up Xcode to build Tunnelblick;
+ 5. You need to select the type of build you want to create;
+ 6. On Apple Silicon Macs, you need to install Rosetta.
+ 
+This document has a section about each of these steps.
 
 Interspersed with these are sections on **Using a Virtual Machine**,
 **Beginning to Use Xcode to Build Tunnelblick**, and **Building OpenVPN
@@ -53,19 +54,18 @@ and the Other Third-Party Software**.
 **Using a Virtual Machine**
 
 Using a virtual machine to build Tunnelblick is fine – Tunnelblick
-releases are sometimes built using Viable, Parallels, and VirtualBox. However, there
-have been unreproducible errors when the Tunnelblick source code is located
-on a network device or the host computer, so copying the source to the
-virtual machine's hard drive and building there is recommended. Using
-Parallels with more than one virtual CPU also can also cause
-unreproducible errors, so a virtual machine setting of one CPU is
-recommended for Parallels.
+releases are sometimes built using 
+[Viable](https://eclecticlight.co/virtualisation-on-apple-silicon/).
+However, there have been unreproducible errors when the Tunnelblick source
+code is located on a network device or the host computer, so copying the source
+to the virtual machine's hard drive and building there is recommended.
 
 
 **1. Supported Versions of macOS and Xcode**
 
 The current version of Tunnelblick should be built using:
- * Xcode 15.0.1 or higher on macOS 13.6 or higher on an Intel or Apple Silicon Mac.
+ * Xcode 15.4  on macOS 14.5 on an Intel or Apple Silicon Mac; Rosetta is required
+on Apple Silicon Macs because of a bug in Apple's "files" command line utility.
 
 Tunnelblick will be a Universal binary and run natively on Intel or Apple Silicon
 processors.
@@ -79,7 +79,7 @@ Tunnelblick source code is maintained using the git version control program. The
 three branches normally used are:
  * *master*: Contains the most recent code; beta releases are based on master.
  * *3*: Contains the most recent code for the latest 3.* release
- * *3.5*: Containsthe most recend code for the 3.5.* release (very old!)
+ * *3.5*: Contains the most recent code for the 3.5.* release (very old!)
 
 Download the Tunnelblick source code from the [Tunnelblick Project on
 GitHub](https://github.com/Tunnelblick//Tunnelblick).
@@ -91,7 +91,7 @@ the source code for that. As an alternative, you can find a specific release and
 download the source code for that.
 
 The rest of this document refers to the folder in which you have
-downloaded Tunnelblick as "**TunnelblickSource**".
+downloaded Tunnelblick as "**TBS**".
 
 
 **3. Installing the GNU autotools**
@@ -119,7 +119,7 @@ Notes:
   A shell script is provided that will download and install them. To use
   it, open a Terminal window and execute
 
-  **TunnelblickSource**/third_party/ShellScriptToInstallAutotools.sh
+  **TBS**/third_party/ShellScriptToInstallAutotools.sh
 
   The script downloads appropriate versions of the tools and installs
   them. Because it installs to a protected folder, you will be asked for
@@ -129,11 +129,11 @@ Notes:
   If you installed the autotools using an older version of the above
   script, you should update automake to version 1.16.3 using the script at
 
-  **TunnelblickSource**/third_party/ShellScriptToInstallAutomake1.16.3.sh
+  **TBS**/third_party/ShellScriptToInstallAutomake1.16.3.sh
 
 **4. Setting up Xcode to Build Tunnelblick**
 
-Double-click **TunnelblickSource**/tunnelblick/Tunnelblick.xcodeproj to
+Double-click **TBS**/tunnelblick/Tunnelblick.xcodeproj to
 open the Tunnelblick source code in Xcode.
 
 After a few moments, Xcode will begin indexing files, indicated in the progress
@@ -169,8 +169,16 @@ To select the type of build in Xcode:
  4. Select build type "Release" in the drop-down list to the right of "Build
  Configuration" on the right.
 
+**6. Install Rosetta**
 
-**Finally, Build Tunnelblick!**
+On an Apple Silicon Mac, Tunnelblick's build process requires Rosetta because
+it uses Apple's "files" command line program, which has a bug which requires
+Rosetta to work properly. Install Rosetta by typing the following into Terminal:
+
+softwareupdate --install-rosetta
+
+
+**7. Finally, Build Tunnelblick!**
 
 Do a "Product >> Clean build folder" before building.
 
@@ -186,14 +194,14 @@ of the Build Results window. In some situations it may take another
 appears.
 
 There should not be any errors, but there may be many warnings (over a thousand!),
-which can be ignored. Building some old versions of OpenVPN that are included in
-Tunnelblick generates most of these warnings.
+which can be ignored. Building some old versions of OpenVPN and OpenSSL that are
+included in Tunnelblick generates most of these warnings.
 
 At this point, you might want to make a copy of your current
 Tunnelblick.app in case the new one doesn't work for you.
 
 Your .dmg file is at
-**TunnelblickSource**/tunnelblick/build/Release/Tunnelblick.dmg.
+**TBS**/tunnelblick/build/Release/Tunnelblick.dmg.
 Double-click it to open the disk image and, in the resulting window,
 double-click the Tunnelblick icon to install Tunnelblick to
 /Applications.
@@ -221,5 +229,5 @@ If you modify any of the third-party source after building Tunnelblick,
 you must delete the corresponding "built-xxx" file so that Tunnelblick
 will rebuild that software when you next build Tunnelblick.
 
-**TunnelblickSource**/third_party/README.txt contains detailed
+**TBS**/third_party/README.txt contains detailed
 information about modifying the third-party software.
