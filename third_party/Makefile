@@ -31,7 +31,7 @@ LZ4_NAME         = lz4-1.9.3
 SPARKLE_NAME     = Sparkle-077c64419f9460263bad99ab24dff962a103b1e2
 
 OPENSSL_1_1_NAME = openssl-1.1.1w
-OPENSSL_3_0_NAME = openssl-3.0.13
+OPENSSL_3_0_NAME = openssl-3.0.14
 
 PKCS11_NAME      = pkcs11-helper-1.27.0
 
