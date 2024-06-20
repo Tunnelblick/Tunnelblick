@@ -457,8 +457,8 @@ extern TBUserDefaults * gTbDefaults;
                                                    @" when you log in, even if there are important reasons why it should be launched.</p>"
                                                    @"<p>Please re-enable it in System Settings >> General >> Login Items.</p>"
                                                    @"<p><a href=\"https://tunnelblick.net/cBackgroundPrograms.html\">More info.</a></p>",
-                                                   @"Window text");
-        NSAttributedString * message = attributedStringFromHTML(htmlMessage);
+                                                   @"HTML window text");
+        NSAttributedString * message = attributedLightDarkStringFromHTML(htmlMessage);
         TBShowAlertWindowExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                   message,
                                   @"skipWarningThatTunnelblickLauncherIsDisabled",
