@@ -447,8 +447,8 @@ extern TBUserDefaults * gTbDefaults;
     [self deleteOtherLoginItem];
 
     // Finally, install the "Recent" mechanism if it hasn't been installed.
-    BOOL success = SMLoginItemSetEnabled((CFStringRef)@"net.tunnelblick.launcher", YES);
-    if (  success  ) {
+    Boolean success = SMLoginItemSetEnabled((CFStringRef)@"net.tunnelblick.launcher", (Boolean)true);
+    if (  success == true  ) {
         NSLog(@"Login Item was added succesfully or was already present");
     } else {
         NSLog(@"Failed to add Login Item");
