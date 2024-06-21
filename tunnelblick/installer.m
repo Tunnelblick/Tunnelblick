@@ -38,6 +38,8 @@
 #import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
+#import "TBUpdaterShared.h"
+#import "TBValidator.h"
 
 // NOTE: THIS PROGRAM MUST BE RUN AS ROOT. Tunnelblick runs it by using waitForExecuteAuthorized
 //
@@ -64,6 +66,10 @@
 //
 //     installer bitmask  sourcePath [subfolder]
 //               (for copy to shared configuration)
+//
+//     installer bitmask  username versionBuild
+//               (to install Tunnelblick app version and build versionBuild from /Users/username/Library/Application Support/Tunnelblick/tunnelblick-update.zip)
+//
 // where
 //
 //	   bitMask DETERMINES WHAT THE INSTALLER WILL DO (see defines.h for bit assignments)
@@ -119,6 +125,8 @@
 //	   (11) If requested, import settings from the .tblkSetup at targetPath
 //
 //     (12) If requested, install or uninstall kexts
+//
+//     (13) If requested, update Tunnelblick
 
 // When finished (or if an error occurs), the file at AUTHORIZED_DONE_PATH is written to indicate the program has finished
 
@@ -177,14 +185,25 @@ static void debugLog(NSString * string) {
     // "string" must be able to be added as part of a file name, so no ":" or "/" chars, etc.
 
 	static unsigned int debugLogMessageCounter = 0;
-	
-	NSString * path = [NSString stringWithFormat: @"/tmp/0-%u-tunnelblick-installer-%@.txt", ++debugLogMessageCounter, string];
+    NSString * now = [[NSDate date] tunnelblickUserLogRepresentation];
+
+	NSString * path = [NSString stringWithFormat: @"/tmp/0-%u-tunnelblick-installer-%@-%@.txt", ++debugLogMessageCounter, now, string];
 	[gFileMgr createFileAtPath: path contents: [NSData data] attributes: nil];
 }
 #endif
 
 static void openLog(BOOL clearLog) {
-    
+
+    if (  ! [gFileMgr tbRemovePathIfItExists: INSTALLER_OLD_LOG_PATH]  ) {
+        NSLog(@"Could not delete %@", INSTALLER_OLD_LOG_PATH);
+    }
+
+    if (  [gFileMgr fileExistsAtPath: INSTALLER_LOG_PATH]) {
+        if (  ! [gFileMgr tbForceRenamePath:INSTALLER_LOG_PATH toPath: INSTALLER_OLD_LOG_PATH]  ) {
+            NSLog(@"Could not rename %@ to %@", INSTALLER_LOG_PATH, INSTALLER_OLD_LOG_PATH);
+        }
+    }
+
     const char * path = fileSystemRepresentationFromPath(INSTALLER_LOG_PATH);
 	
     char * mode = (  clearLog
@@ -199,12 +218,13 @@ static void openLog(BOOL clearLog) {
 }
 
 void appendLog(NSString * s) {
-    
-	if (  gLogFile != NULL  ) {
-		fprintf(gLogFile, "%s\n", [s UTF8String]);
-	} else {
-		NSLog(@"%@", s);
-	}
+
+    if (  gLogFile != NULL  ) {
+        NSString * now = [[NSDate date] tunnelblickUserLogRepresentation];
+        fprintf(gLogFile, "%s: %s\n", [now UTF8String], [s UTF8String]);
+    }
+
+    NSLog(@"%@", s);
 }
 
 static void errorExit(void) {
@@ -489,28 +509,26 @@ BOOL removeQuarantineBitWorker(NSString * path) {
     return TRUE;
 }
 
-void removeQuarantineBit(void) {
+void removeQuarantineBit(NSString * tunnelblickAppPath) {
 
-    NSString * tbPath = @"/Applications/Tunnelblick.app";
-
-    if (  ! removeQuarantineBitWorker(tbPath)  ) {
+    if (  ! removeQuarantineBitWorker(tunnelblickAppPath)  ) {
         goto fail;
     }
 
-    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tbPath];
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tunnelblickAppPath];
     NSString * file;
     while (  (file = [dirE nextObject])  ) {
-        NSString * fullPath = [tbPath stringByAppendingPathComponent: file];
+        NSString * fullPath = [tunnelblickAppPath stringByAppendingPathComponent: file];
         if (  ! removeQuarantineBitWorker(fullPath)  ) {
             goto fail;
         }
     }
 
-    appendLog(@"Removed any 'com.apple.quarantine' extended attributes");
+    appendLog([NSString stringWithFormat: @"Removed any 'com.apple.quarantine' extended attributes from '%@'", tunnelblickAppPath]);
     return;
 
 fail:
-    appendLog(@"Unable to remove all 'com.apple.quarantine' extended attributes");
+    appendLog([NSString stringWithFormat: @"Unable to remove all 'com.apple.quarantine' extended attributes from '%@'", tunnelblickAppPath]);
     errorExit();
 }
 
@@ -1704,8 +1722,6 @@ static void copyTheApp(void) {
     } else {
         appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
     }
-
-    removeQuarantineBit();
 }
 
 static void secureTheApp(NSString * appResourcesPath) {
@@ -1715,7 +1731,8 @@ static void secureTheApp(NSString * appResourcesPath) {
 	NSString *openvpnstartPath          = [appResourcesPath stringByAppendingPathComponent:@"openvpnstart"                                   ];
 	NSString *openvpnPath               = [appResourcesPath stringByAppendingPathComponent:@"openvpn"                                        ];
 	NSString *atsystemstartPath         = [appResourcesPath stringByAppendingPathComponent:@"atsystemstart"                                  ];
-	NSString *installerPath             = [appResourcesPath stringByAppendingPathComponent:@"installer"                          ];
+    NSString *TunnelblickUpdateHelperPath = [appResourcesPath stringByAppendingPathComponent:@"TunnelblickUpdateHelper"                      ];
+    NSString *installerPath             = [appResourcesPath stringByAppendingPathComponent:@"installer"                                      ];
 	NSString *ssoPath                   = [appResourcesPath stringByAppendingPathComponent:@"standardize-scutil-output"                      ];
 	NSString *pncPath                   = [appResourcesPath stringByAppendingPathComponent:@"process-network-changes"                        ];
     NSString *uninstallerScriptPath     = [appResourcesPath stringByAppendingPathComponent:@"tunnelblick-uninstaller.sh"                     ];
@@ -1798,6 +1815,8 @@ static void secureTheApp(NSString * appResourcesPath) {
     okSoFar = checkSetPermissions(uninstallerScriptPath,     PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 
     okSoFar = checkSetPermissions(atsystemstartPath,         PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
+    okSoFar = checkSetPermissions(TunnelblickUpdateHelperPath, PERMS_SECURED_ROOT_EXEC, YES) && okSoFar;
+
 	okSoFar = checkSetPermissions(installerPath,             PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
 	okSoFar = checkSetPermissions(leasewatchPath,            PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
 	okSoFar = checkSetPermissions(leasewatch3Path,           PERMS_SECURED_ROOT_EXEC,  YES) && okSoFar;
@@ -1870,7 +1889,8 @@ static void secureTheApp(NSString * appResourcesPath) {
 	
 	okSoFar = checkSetPermissions(tunnelblickHelperPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 	
-    removeQuarantineBit();
+    NSString * appPath = [[appResourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+    removeQuarantineBit(appPath);
 
 	if (  ! okSoFar  ) {
 		appendLog(@"Unable to secure Tunnelblick.app");
@@ -2183,6 +2203,16 @@ static void deleteOneTblk(NSString * firstPath, NSString * secondPath) {
         appendLog([NSString stringWithFormat: @"No file to delete at %@", firstPath]);
         gErrorOccurred = TRUE;
 	}
+}
+
+static BOOL installerUpdateTunnelblick(NSString * updateSignature, NSString * versionAndBuildString, NSString * username, uid_t uid, gid_t gid, pid_t tunnelblickPid) {
+
+    NSString * zipPath = [[[@"/Users/"
+                            stringByAppendingPathComponent: username]
+                           stringByAppendingPathComponent: L_AS_T]
+                          stringByAppendingPathComponent: @"tunnelblick-update.zip"];
+
+    return updateTunnelblick(zipPath, updateSignature, versionAndBuildString, uid, gid, tunnelblickPid);
 }
 
 //**************************************************************************************************************************
@@ -2717,8 +2747,8 @@ int main(int argc, char *argv[]) {
     openLog(doClearLog);
 
     // Log the arguments installer was started with
-    NSMutableString * logString = [NSMutableString stringWithFormat: @"Tunnelblick installer started %@; getuid() = %d; geteuid() = %d; getgid() = %d; getegid() = %d\ncurrentDirectoryPath = '%@'; %d arguments:\n",
-                                   [[NSDate date] tunnelblickUserLogRepresentation], getuid(), geteuid(), getgid(), getegid(), [gFileMgr currentDirectoryPath], argc - 1];
+    NSMutableString * logString = [NSMutableString stringWithFormat: @"Tunnelblick installer getuid() = %d; geteuid() = %d; getgid() = %d; getegid() = %d\ncurrentDirectoryPath = '%@'; %d arguments:\n",
+                                   getuid(), geteuid(), getgid(), getegid(), [gFileMgr currentDirectoryPath], argc - 1];
     [logString appendFormat:@"     0x%04x", opsAndFlags];
     int i;
     for (  i=2; i<argc; i++  ) {
@@ -2748,10 +2778,6 @@ int main(int argc, char *argv[]) {
         appendLog([NSString stringWithFormat: @"too few execComponents; resourcesPath = %@", resourcesPath]);
         errorExit();
     }
-	NSString * ourAppName = [execComponents objectAtIndex: [execComponents count] - 3];
-	if (  [ourAppName hasSuffix: @".app"]  ) {
-		ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
-	}
     
     // We use Deploy located in the Tunnelblick in /Applications, even if we are running from some other location and are copying the application there
 #ifndef TBDebug
@@ -2780,7 +2806,7 @@ int main(int argc, char *argv[]) {
     NSString * appResourcesPath = (  doCopyApp
                                    
                                    ? [[[@"/Applications"
-                                        stringByAppendingPathComponent: [ourAppName stringByAppendingPathExtension: @"app"]]
+                                        stringByAppendingPathComponent: @"Tunnelblick.app"]
                                        stringByAppendingPathComponent: @"Contents"]
                                       stringByAppendingPathComponent: @"Resources"]
                                    : [[resourcesPath copy] autorelease]);
@@ -2808,6 +2834,15 @@ int main(int argc, char *argv[]) {
         if (   ( gPrivatePath == nil  )
             || ( ! [fourthArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
             errorExitIfAnySymlinkInPath(fourthArg);
+        }
+    }
+
+    NSString * fifthArg = nil;
+    if (  argc > 5  ) {
+        fifthArg = [gFileMgr stringWithFileSystemRepresentation: argv[5] length: strlen(argv[5])];
+        if (   ( gPrivatePath == nil  )
+            || ( ! [fifthArg hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])  ) {
+            errorExitIfAnySymlinkInPath(fifthArg);
         }
     }
 
@@ -2979,11 +3014,35 @@ int main(int argc, char *argv[]) {
     }
     
     //**************************************************************************************************************************
+    // (13) If requested, update Tunnelblick
+    //
+
+    if (  operation == INSTALLER_UPDATE_TUNNELBLICK  ) {
+        if (   secondArg
+            && thirdArg
+            && fourthArg
+            && fifthArg) {
+
+            pid_t tunnelblickPid = [fifthArg intValue];
+            if (  tunnelblickPid == 0  ) {
+                appendLog(@"Tunnelblick PID cannot be zero for operation INSTALLER_UPDATE_TUNNELBLICK");
+                appendLog(@"Tunnelblick installer finished with errors;");
+                gErrorOccurred = TRUE;
+            } else if (  ! installerUpdateTunnelblick(secondArg, thirdArg, fourthArg, userUID(), userGID(), tunnelblickPid)  ) {
+                gErrorOccurred = TRUE;
+            }
+        } else {
+            appendLog(@"Missing argument(s); cannot perform INSTALLER_UPDATE_TUNNELBLICK");
+            gErrorOccurred = TRUE;
+        }
+    }
+
+    //**************************************************************************************************************************
     // DONE
 
     if (  gErrorOccurred  ) {
         appendLog(@"Tunnelblick installer finished with errors");
-        storeAuthorizedDoneFileAndExit(EXIT_SUCCESS);
+        storeAuthorizedDoneFileAndExit(EXIT_FAILURE);
     }
 
     appendLog(@"Tunnelblick installer succeeded");
