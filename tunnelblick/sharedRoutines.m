@@ -20,7 +20,7 @@
  */
 
 // The routines contained in this module may be used by any of the components
-// of Tunnelblick. Most of them are used by Tunnelblick itself and installer, openvpnstart, and atsystemstart.
+// of Tunnelblick. Most of them are used by Tunnelblick itself and installer, openvpnstart, atsystemstart, and TunnelblickUpdateHelper.
 //
 // If these routines are used by a target, the target must itself define appendLog(NSString * msg), which should
 // append the message to the target's log.
