@@ -60,6 +60,8 @@ BOOL checkOwnerAndPermissions (NSString * fPath,
 
 BOOL checkOwnedByRootWheel(NSString * path);
 
+BOOL itemHasValidSignature(NSString * path, BOOL deepCheck);
+
 BOOL checkSetItemOwnership(NSString *     path,
 						   NSDictionary * atts,
 						   uid_t          uid,

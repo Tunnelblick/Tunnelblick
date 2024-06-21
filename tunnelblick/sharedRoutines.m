@@ -556,6 +556,47 @@ int createDir(NSString * dirPath, unsigned long permissions) {
     return 1;
 }
 
+BOOL itemHasValidSignature(NSString * path, BOOL deepCheck) {
+
+    NSURL * urlToCheck = [NSURL fileURLWithPath: path];
+
+    CFErrorRef errorCF = NULL;
+    SecStaticCodeRef staticCode = NULL;
+
+    OSStatus status = SecStaticCodeCreateWithPath((__bridge CFURLRef)urlToCheck, kSecCSDefaultFlags, &staticCode);
+    if (status != errSecSuccess) {
+        appendLog([NSString stringWithFormat: @"SecStaticCodeCreateWithPath() failed with status = %d for path %@", status, path]);
+        goto done;
+    }
+
+    SecCSFlags flags = kSecCSDefaultFlags | kSecCSStrictValidate | kSecCSCheckAllArchitectures;
+    if ( deepCheck  ) {
+        flags = flags | kSecCSCheckNestedCode;
+    }
+
+    status = SecStaticCodeCheckValidityWithErrors(staticCode, flags, NULL, &errorCF);
+
+    if (status != errSecSuccess) {
+        if (status == errSecCSUnsigned) {
+            appendLog([NSString stringWithFormat: @"Error: Item is not digitally signed at path = %@", path]);
+        } else if (status == errSecCSReqFailed) {
+            appendLog([NSString stringWithFormat: @"Error: The item failed the code requirements check at path = %@\nError = '%@'", path, (__bridge NSError *)errorCF]);
+        } else {
+            appendLog([NSString stringWithFormat: @"Error: The item failed the digital signature check (status = %ld) at path = %@\nError = '%@'", (long)status, path, (__bridge NSError *)errorCF]);
+        }
+    }
+
+done:
+    if (staticCode) {
+        CFRelease(staticCode);
+    }
+    if (errorCF) {
+        CFRelease(errorCF);
+    }
+
+    return (status == errSecSuccess);
+}
+
 BOOL checkAttributes(NSDictionary * atts)
 {
     // Check that a set of file attributes shows ownership by root:wheel
