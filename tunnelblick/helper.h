@@ -63,6 +63,8 @@ NSString     * copyrightNotice          (void);
 NSString     * escaped                  (NSString * string);
 
 BOOL okToUpdateConfigurationsWithoutAdminApproval(void);
+BOOL okToUpdateAppWithoutAdminApproval(void);
+
 BOOL displayNameIsValid(NSString * newName, BOOL doBeepOnError);
 
 NSMutableString * encodeSlashesAndPeriods(NSString * s);

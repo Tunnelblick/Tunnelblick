@@ -576,6 +576,13 @@ BOOL okToUpdateConfigurationsWithoutAdminApproval(void) {
 	return answer;
 }
 
+BOOL okToUpdateAppWithoutAdminApproval(void) {
+    BOOL answer = (   [gTbDefaults boolForKey: @"TBUpdaterAllowNonAdminToUpdateTunnelblick"]
+                   && ( ! [gTbDefaults canChangeValueForKey: @"TBUpdaterAllowNonAdminToUpdateTunnelblick"] )
+                   );
+    return answer;
+}
+
 BOOL displaysHaveDifferentSpaces(void) {
     
     NSString * spacesPrefsPath = [NSHomeDirectory() stringByAppendingPathComponent: @"/Library/Preferences/com.apple.spaces.plist"];
