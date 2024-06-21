@@ -1642,19 +1642,21 @@ OSStatus runTool(NSString * launchPath,
 						   nil);
 }
 
-void startTool(NSString * launchPath,
-			   NSArray  * arguments) {
-	
-	// Launches a command or script, returning immediately
-	
+NSTask * startTool(NSString * launchPath,
+                   NSArray  * arguments) {
+
+    // Launches a command or script, returning immediately
+
     NSTask * task = [[[NSTask alloc] init] autorelease];
-    
+
     [task setLaunchPath: launchPath];
     [task setArguments:  arguments];
     [task setCurrentDirectoryPath: @"/private/tmp"];
     [task setEnvironment: getSafeEnvironment(nil, 0, nil)];
-    
+
     [task launch];
+
+    return task;
 }
 
 // Returns with a bitmask of kexts that are loaded that can be unloaded

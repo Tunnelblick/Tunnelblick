@@ -121,7 +121,7 @@ OSStatus runToolExtended(NSString     * launchPath,
 						 NSString     * * stdErrStringPtr,
 						 NSDictionary * additionalEnvironmentEntries);
 
-void startTool(NSString * launchPath,
+NSTask * startTool(NSString * launchPath,
 			   NSArray *  arguments);
 
 NSString * newTemporaryDirectoryPath(void);
