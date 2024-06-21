@@ -1,4 +1,3 @@
-//
 /*
  * Copyright 2024 by Jonathan K. Bullard. All rights reserved.
 
