@@ -2,68 +2,130 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>			<string>English</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeExtensions</key>		<array><string>tblk</string></array>
-			<key>CFBundleTypeIconFile</key>			<string>tunnelblick_package.icns</string>
-			<key>CFBundleTypeName</key>				<string>Tunnelblick VPN Configuration</string>
-			<key>CFBundleTypeRole</key>				<string>Editor</string>
-			<key>LSTypeIsPackage</key>				<true/>
-			<key>NSPersistentStoreTypeKey</key>		<string>Binary</string>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tblk</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>tunnelblick_package.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>Tunnelblick VPN Configuration</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
 		</dict>
 		<dict>
-			<key>CFBundleTypeExtensions</key>		<array><string>tblkSetup</string></array>
-			<key>CFBundleTypeIconFile</key>			<string>tunnelblick_package.icns</string>
-			<key>CFBundleTypeName</key>				<string>Tunnelblick Setup</string>
-			<key>CFBundleTypeRole</key>				<string>Editor</string>
-			<key>LSTypeIsPackage</key>				<true/>
-			<key>NSPersistentStoreTypeKey</key>		<string>Binary</string>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tblkSetup</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>tunnelblick_package.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>Tunnelblick Setup</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
 		</dict>
 		<dict>
-			<key>CFBundleTypeExtensions</key>		<array><string>ovpn</string></array>
-			<key>CFBundleTypeIconFile</key>			<string>tunnelblick_package.icns</string>
-			<key>CFBundleTypeName</key>				<string>OpenVPN Configuration</string>
-			<key>CFBundleTypeRole</key>				<string>Editor</string>
-			<key>LSTypeIsPackage</key>				<false/>
-			<key>NSPersistentStoreTypeKey</key>		<string>Binary</string>
-			<key>LSHandlerRank</key>				<string>Alternate</string>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ovpn</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>tunnelblick_package.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>OpenVPN Configuration</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 		</dict>
 		<dict>
-			<key>CFBundleTypeExtensions</key>		<array><string>conf</string></array>
-			<key>CFBundleTypeIconFile</key>			<string>tunnelblick_package.icns</string>
-			<key>CFBundleTypeName</key>				<string>OpenVPN Configuration</string>
-			<key>CFBundleTypeRole</key>				<string>Editor</string>
-			<key>LSTypeIsPackage</key>				<false/>
-			<key>NSPersistentStoreTypeKey</key>		<string>Binary</string>
-			<key>LSHandlerRank</key>				<string>Alternate</string>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>conf</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>tunnelblick_package.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>OpenVPN Configuration</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 		</dict>
 	</array>
-	<key>CFBundleExecutable</key>					<string>Tunnelblick</string>
-	<key>CFBundleHelpBookFolder</key>				<string>help</string>
-	<key>CFBundleHelpBookName</key>					<string>Tunnelblick Help</string>
-	<key>CFBundleIconFile</key>						<string>tunnelblick.icns</string>
-	<key>CFBundleIdentifier</key>					<string>net.tunnelblick.tunnelblick</string>
-	<key>CFBundleInfoDictionaryVersion</key>		<string>6.0</string>
-	<key>CFBundleName</key>							<string>Tunnelblick</string>
-	<key>CFBundlePackageType</key>					<string>APPL</string>
-	<key>CFBundleShortVersionString</key>			<string>TBVERSIONSTRING (build TBBUILDNUMBER) TBCONFIGURATION</string>
-	<key>CFBundleSignature</key>					<string>OVPN</string>
-	<key>CFBundleVersion</key>						<string>TBBUILDNUMBER</string>
-	<key>IPCheckURL</key>							<string>https://tunnelblick.net/ipinfo</string>
-	<key>NSAppleScriptEnabled</key>					<true/>
-	<key>NSAppTransportSecurity</key>				<dict><key>NSAllowsArbitraryLoads</key><false/></dict>
-	<key>NSHighResolutionCapable</key>				<true/>
-	<key>NSMainNibFile</key>						<string>MainMenu</string>
-	<key>NSPrincipalClass</key>						<string>NSApplication</string>
-	<key>NSRequiresAquaSystemAppearance</key>		<false/>
-	<key>NSSupportsAutomaticGraphicsSwitching</key>	<true/>
-	<key>NSUIElement</key>							<string>1</string>
-	<key>OSAScriptingDefinition</key>				<string>tunnelblick.sdef</string>
-	<key>SUAllowsAutomaticUpdates</key>				<false/>
-	<key>SUEnableSystemProfiling</key>				<false/>
-	<key>SUFeedURL</key>							<string>https://tunnelblick.net/appcast-v2.rss</string>
+	<key>CFBundleExecutable</key>
+	<string>Tunnelblick</string>
+	<key>CFBundleHelpBookFolder</key>
+	<string>help</string>
+	<key>CFBundleHelpBookName</key>
+	<string>Tunnelblick Help</string>
+	<key>CFBundleIconFile</key>
+	<string>tunnelblick.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.tunnelblick.tunnelblick</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Tunnelblick</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>TBVERSIONSTRING (build TBBUILDNUMBER) TBCONFIGURATION</string>
+	<key>CFBundleSignature</key>
+	<string>OVPN</string>
+	<key>CFBundleVersion</key>
+	<string>TBBUILDNUMBER</string>
+	<key>IPCheckURL</key>
+	<string>https://tunnelblick.net/ipinfo</string>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+	</dict>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSRequiresAquaSystemAppearance</key>
+	<false/>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+	<true/>
+	<key>NSUIElement</key>
+	<string>1</string>
+	<key>OSAScriptingDefinition</key>
+	<string>tunnelblick.sdef</string>
+	<key>SUAllowsAutomaticUpdates</key>
+	<false/>
+	<key>SUEnableSystemProfiling</key>
+	<false/>
+	<key>SUFeedURL</key>
+	<string>https://tunnelblick.net/a136977b/appcast-v3.rss</string>
 	<key>SUPublicDSAKey</key>
 	<string>-----BEGIN PUBLIC KEY-----
 MIIDOzCCAi0GByqGSM44BAEwggIgAoIBAQDZrbatW0npHNOW3JKIKWK6/MLWhYEo
@@ -86,10 +148,15 @@ y2ZKq8vczfaplXUg4qjyO20jPJ1Rbp/rh+IMowKVpxu1tAtV1Lx+ZcGWy4F0fHg/
 oc6bOLFBXyEyrd3DpOjF
 -----END PUBLIC KEY-----
 </string>
-	<key>TBAppcastRequiresDSASignature</key>		<true/>
-	<key>TBBuildTimestamp</key>                 	<string>TBBUILDTIMESTAMP</string>
-	<key>TBGitHash</key>							<string>TBGITHASH</string>
-	<key>TBGitStatus</key>							<string>TBGITSTATUS</string>
-	<key>TBPrivacyURL</key>							<string>https://tunnelblick.net/cPrivacy.html#tunnelblick-privacy</string>
+	<key>TBAppcastRequiresDSASignature</key>
+	<true/>
+	<key>TBBuildTimestamp</key>
+	<string>TBBUILDTIMESTAMP</string>
+	<key>TBGitHash</key>
+	<string>TBGITHASH</string>
+	<key>TBGitStatus</key>
+	<string>TBGITSTATUS</string>
+	<key>TBPrivacyURL</key>
+	<string>https://tunnelblick.net/cPrivacy.html#tunnelblick-privacy</string>
 </dict>
 </plist>

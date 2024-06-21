@@ -52,7 +52,20 @@
 // So we use 90 to give ourself some breathing room (to allow CR-LF at the end, for example, although ipinfo currently doesn't return one).
 #define TUNNELBLICK_DOT_NET_IPINFO_RESPONSE_MAX_LENGTH 90
 
+// Maximum sizes in bytes for an appcast and an update .zip. Only used as sanity check, so very generous:
+// (In early 2024, appcasts were a few KB, update .zips were about 20 MB)
+#define TB_APPCAST_MAX_FILE_SIZE ( (long long)(1024 * 1024) )
+#define TB_UPDATE_MAX_ZIP_FILE_SIZE ( (long long)(80 * 1024 * 1024) )
+
+// Minimum and maximum length of an update to Tunnelblick (size of .zip file).
+// Used to make sure we don't try to download too little or too much.
+// Tunnelblick 5.0.1beta02 is about 18 MB.
+#define MINIMUM_APP_UPDATE_LENGTH ( 10*1024*1024)
+#define MAXIMUM_APP_UPDATE_LENGTH ( 50*1024*1024)
+
 #define SECONDS_PER_DAY ( 24 * 60 * 60 )
+
+#define SECONDS_BETWEEN_CHECKS_FOR_TUNNELBLICK_UPDATES (24*60*60.0)
 
 #define ONE_TENTH_OF_A_SECOND_IN_MICROSECONDS 100000
 
@@ -122,26 +135,38 @@
 
 #define L_AS_T_OPENVPN  @"/Library/Application Support/Tunnelblick/Openvpn"
 
-#define L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH   @"/Library/Application Support/Tunnelblick/forced-preferences.plist"
+#define L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH        @"/Library/Application Support/Tunnelblick/forced-preferences.plist"
 
 #define L_AS_T_TUNNELBLICKD_HASH_PATH                 @"/Library/Application Support/Tunnelblick/tunnelblickd-hash.txt"
 #define L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH @"/Library/Application Support/Tunnelblick/tunnelblickd-launchctl-plist-hash.txt"
 
-#define TUNNELBLICK_QUIT_LOG_PATH [@"~/Library/Application Support/Tunnelblick/QuitLog.txt" stringByExpandingTildeInPath]
+#define TUNNELBLICK_QUIT_LOG_PATH        [NSHomeDirectory() stringByAppendingPathComponent: @"/Library/Application Support/Tunnelblick/TBLogs/tunnelblick-quit-log.txt"]
+#define TUNNELBLICK_LOG_PATH             [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/TBLogs/tunnelblick-log.txt"]
+#define TUNNELBLICK_OLD_LOG_PATH         [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/TBLogs/tunnelblick-log-old.txt"]
+#define OPENVPNSTART_LOG_PATH            [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/TBLogs/tunnelblick-openvpnstart-log.txt"]
+#define TUNNELBLICK_UPDATER_LOG_PATH     [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/TBLogs/tunnelblick-updater-log.txt"]
+#define TUNNELBLICK_UPDATER_OLD_LOG_PATH [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/TBLogs/tunnelblick-updater-log-old.txt"]
+
+// NOTE: installer and tunnelblick-helper calculate the following path without using this macro because they use a specified username instead of using NSHomeDirectory()
+#define TUNNELBLICK_UPDATER_ZIP_PATH [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/tunnelblick-update.zip"]
 
 // NOTE: some scripts refer to the following paths without using this header file
 #define L_AS_T_DISABLED_NETWORK_SERVICES_PATH         @"/Library/Application Support/Tunnelblick/disabled-network-services.txt"
 #define L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH          @"/Library/Application Support/Tunnelblick/expect-disconnect"
-#define AUTHORIZED_DONE_PATH    @"/Library/Application Support/Tunnelblick/tunnelblick-authorized-done"
-#define DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH @"/Library/Application Support/Tunnelblick/downscript-needs-to-be-run.txt"
-#define INSTALLER_LOG_PATH      @"/Library/Application Support/Tunnelblick/tunnelblick-installer-log.txt"
-#define UNINSTALL_DETAILS_PATH  @"/tmp/UninstallDetails.txt"
+#define AUTHORIZED_DONE_PATH                          @"/Library/Application Support/Tunnelblick/tunnelblick-authorized-done"
+#define DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH              @"/Library/Application Support/Tunnelblick/downscript-needs-to-be-run.txt"
+#define INSTALLER_LOG_PATH                            @"/Library/Application Support/Tunnelblick/tunnelblick-installer-log.txt"
+#define INSTALLER_OLD_LOG_PATH                        @"/Library/Application Support/Tunnelblick/tunnelblick-installer-log-old.txt"
+#define TUNNELBLICK_UPDATE_HELPER_LOG_PATH            @"/Library/Application Support/Tunnelblick/tunnelblick-updater-helper-log.txt"
+#define TUNNELBLICK_UPDATE_HELPER_OLD_LOG_PATH        @"/Library/Application Support/Tunnelblick/tunnelblick-updater-helper-log-old.txt"
+
+#define UNINSTALL_DETAILS_PATH                        @"/tmp/UninstallDetails.txt"
 
 // NOTE: net.tunnelblick.tunnelblick.tunnelblickd.plist and tunnelblick-uninstaller.sh refer to the tunnelblickd log path without using this header file
 // NOTE: The "_C" strings are C-strings, not NSStrings
-#define TUNNELBLICKD_LOG_FOLDER @"/var/log/Tunnelblick"
-#define TUNNELBLICKD_LOG_PATH_C "/var/log/Tunnelblick/tunnelblickd.log"
-#define TUNNELBLICKD_PREVIOUS_LOG_PATH_C "/var/log/Tunnelblick/tunnelblickd.previous.log"
+#define TUNNELBLICKD_LOG_FOLDER            @"/var/log/Tunnelblick"
+#define TUNNELBLICKD_LOG_PATH_C             "/var/log/Tunnelblick/tunnelblickd.log"
+#define TUNNELBLICKD_PREVIOUS_LOG_PATH_C    "/var/log/Tunnelblick/tunnelblickd.previous.log"
 
 // NOTE: net.tunnelblick.tunnelblick.tunnelblickd.plist and tunnelblick-uninstaller.sh refer to the tunnelblickd socket path without using this header file
 #define TUNNELBLICKD_SOCKET_PATH @"/var/run/net.tunnelblick.tunnelblick.tunnelblickd.socket"
@@ -399,7 +424,7 @@
 #define OPENVPNSTART_RESET_PRIMARY_INTERFACE_UNEXPECTED	0x00800000u
 #define OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED	0x01000000u
 #define OPENVPNSTART_ON_BIG_SUR_OR_NEWER                0x02000000u
-#define OPENVPNSTART_DISABLE_SECONDARY_NET_SERVICES   0x04000000u
+#define OPENVPNSTART_DISABLE_SECONDARY_NET_SERVICES     0x04000000u
 // DUPLICATE THE HIGHEST VALUE BELOW					vvvvvvvvvvv
 #define OPENVPNSTART_HIGHEST_BITMASK_BIT				0x04000000u
 
@@ -505,18 +530,20 @@
 //********************************************
 // PRIMARY OPERATION CODES
 // Each primary operation also requires zero
-// or two additional arguments
+// or more additional arguments
 
 #define INSTALLER_OPERATION_MASK			 0xF000u
 #define INSTALLER_OPERATION_SHIFT_COUNT      12
 
 // Copy one configuration
 // (Only if two paths are additional
-//  arguments: target path, source path)
+//  arguments: target path,
+//             source path)
 #define INSTALLER_COPY						 0x0000u
 
 // Move one configuration
-// (arguments: target path, source path)
+// (arguments: target path,
+//             source path)
 #define INSTALLER_MOVE						 0x1000u
 
 // Delete one configuration
@@ -538,19 +565,26 @@
 // Import from a .tblkSetup using a string
 // that defines username mapping
 // (arguments: path to .tblksetup,
-//  string that describes username mapping)
+//             string that describes username mapping)
 #define INSTALLER_IMPORT                     0x5000u
 
 // Install a private configuration
 // (arguments: username,
-//  path to configuration,
-//  optional subfolder)
+//             path to configuration,
+//             optional subfolder)
 #define INSTALLER_INSTALL_PRIVATE_CONFIG     0x6000u
 
 // Install a shared configuration
 // (arguments: path to configuration,
-//  optional subfolder)
-#define INSTALLER_INSTALL_SHARED_CONFIG     0x7000u
+//             optional subfolder)
+#define INSTALLER_INSTALL_SHARED_CONFIG      0x7000u
+
+// Install Tunnelblick from /Users/username/Library/Application Support/Tunnelblick/Tunnelblick.zip
+// (arguments: zipSignature,
+//             versionString,
+//             username,
+//             Tunnelblick process ID)
+#define INSTALLER_UPDATE_TUNNELBLICK         0x8000u
 
 
 //*************************************************************************************************
@@ -689,7 +723,8 @@ name = newValue;                                    \
 @"DB-SW",     /* Extra logging for sleep/wake and inactive user/active user */	\
 @"DB-TD",     /* Extra logging for tunnelblickd interactions, */	\
 @"DB-TO",     /* Extra logging for terminating OpenVPN processes (via kill, killall, or socket) */	\
-@"DB-UC",     /* Extra logging for updating configurations */	\
+@"DB-UA",     /* Extra logging for updating the application */    \
+@"DB-UC",     /* Extra logging for updating configurations */    \
 @"DB-UP",     /* Extra logging for the up and down scripts */	\
 @"DB-UU",	  /* Extra logging for UI updates */	\
 \
@@ -758,6 +793,12 @@ name = newValue;                                    \
 @"delayBeforeConnectingAfterReenablingNetworkServices", \
 @"hookupTimeout",	\
 @"displayUpdateInterval",	\
+\
+@"TBUpdaterAllowNonAdminToUpdateTunnelblick", \
+@"TBUpdaterCheckOnlyWhenConnectedToVPN", \
+@"TBUpdaterDownloadUpdateWhenAvailable", \
+@"TBUpdateVersionStringForDownloadedAppUpdate", \
+@"TBUpdateTunnelblickLauncherLastEnabledTime", \
 \
 @"inhibitOutboundTunneblickTraffic",	\
 @"placeIconInStandardPositionInStatusBar",	\
@@ -857,6 +898,7 @@ name = newValue;                                    \
 @"NSWindow Frame SUStatusFrame",	\
 @"NSWindow Frame SUUpdateAlert",	\
 @"NSWindow Frame ListingWindow",	\
+@"NSWindow Frame NSFindPanel",      \
 @"detailsWindowFrameVersion",	\
 @"detailsWindowFrame",	\
 @"detailsWindowLeftFrame",	\
@@ -898,7 +940,6 @@ name = newValue;                                    \
 @"doNotShowForcedPreferenceMenuItems",	\
 @"doNotShowKeyboardShortcutSubmenu",	\
 @"doNotShowOptionsSubmenu",	\
-@"haveDealtWithSparkle1dot5b6",	\
 @"keyboardShortcutKeyCode",	\
 @"keyboardShortcutModifiers",	\
 @"managementPortStartingPortNumber",	\
@@ -1000,6 +1041,7 @@ name = newValue;                                    \
 /* No longer used */	\
 @"-authUsername",	\
 @"-alwaysShowLoginWindow", \
+@"haveDealtWithSparkle1dot5b6",    \
 @"-skipWarningThatMayNotConnectInFutureBecauseOfOpenVPNOptions",	\
 @"-usernameIsSet",	\
 @"-useRouteUpInsteadOfUp"   \
