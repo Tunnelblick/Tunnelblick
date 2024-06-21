@@ -368,17 +368,17 @@ OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix)
                     *bugFix = (unsigned)version.patchVersion;
                     return EXIT_SUCCESS;
                 } else {
-                    NSLog(@"operatingSystemVersion has majorVersion < 10! (%ld.%ld.%ld)", (long)version.majorVersion, (long)version.minorVersion, (long)version.patchVersion);
+                    appendLog([NSString stringWithFormat: @"operatingSystemVersion has majorVersion < 10! (%ld.%ld.%ld)", (long)version.majorVersion, (long)version.minorVersion, (long)version.patchVersion]);
                     return EXIT_FAILURE;
                 }
             } else {
-                NSLog(@"[NSProcessInfo processInfo] does not respond to operatingSystemVersion; not using it to obtain OS version");
+                appendLog(@"[NSProcessInfo processInfo] does not respond to operatingSystemVersion; not using it to obtain OS version");
             }
         } else {
-            NSLog(@"NSProcessInfo does not respond to processInfo; not using it to obtain OS version");
+            appendLog(@"NSProcessInfo does not respond to processInfo; not using it to obtain OS version");
         }
     } else {
-        NSLog(@"NSProcessInfo does not exist; not using it to obtain OS version");
+        appendLog(@"NSProcessInfo does not exist; not using it to obtain OS version");
     }
 
     // The following works for 10.7.5 through 10.15.5 (perhaps higher).
@@ -886,17 +886,17 @@ BOOL isAGoogleDriveIconFile(NSString * path) {
 		&& (  [name length] == 5)  ) {
 		NSDictionary * attributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
 		if (  ! attributes  ) {
-			NSLog(@"No attributes for %@; treating it as a Google Drive Icon File", path);
 			return YES;
 		}
 		if ( [attributes fileSize] == 0 ) {
 			return YES;
 		}
-		NSLog(@"File not zero size at %@; not treating it as a Google Drive Icon File", path);
 		return NO;
 	}
 	
 	return NO;
+            appendLog([NSString stringWithFormat: @"No attributes for %@; treating it as a Google Drive Icon File", path]);
+        appendLog([NSString stringWithFormat: @"File not zero size at %@; not treating it as a Google Drive Icon File", path]);
 }
 
 NSString * fileIsReasonableAt(NSString * path) {
