@@ -156,10 +156,13 @@
 -(IBAction) inhibitOutboundTBTrafficCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) generalAdminApprovalForKeyAndCertificateChangesCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:         (NSButton *) sender;
+-(IBAction) updatesCheckAndDownloadOnlyWhenInVPNCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) updatesDownloadWhenAvailableCheckboxWasClicked:      (NSButton *) sender;
+-(IBAction) updatesAdminApprovalForAppUpdatesCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked:        (NSButton *) sender;
 -(IBAction) updatesCheckNowButtonWasClicked:                     (id) sender;
-
 -(IBAction) resetDisabledWarningsButtonWasClicked:        (id) sender;
+-(void)     updateLastCheckedDate;
 
 -(IBAction) generalHelpButtonWasClicked:                  (id) sender;
 

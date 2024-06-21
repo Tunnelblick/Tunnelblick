@@ -52,6 +52,9 @@
     IBOutlet NSTextFieldCell    * updatesUpdatesTFC;
     IBOutlet NSTextField        * updatesUpdatesTF;
     IBOutlet TBButton           * updatesCheckAutomaticallyCheckbox;
+    IBOutlet TBButton           * updatesCheckOnlyWhenInVPNCheckbox;
+    IBOutlet TBButton           * updatesDownloadWhenAvailableCheckbox;
+    IBOutlet TBButton           * updatesAdminApprovalForAppUpdatesCheckbox;
     IBOutlet TBButton           * updatesCheckForBetaUpdatesCheckbox;
     IBOutlet TBButton           * updatesCheckNowButton;
     IBOutlet NSTextFieldCell    * updatesLastCheckedTFC;
@@ -71,6 +74,9 @@ TBPROPERTY_READONLY(TBButton *,          generalAdminApprovalForKeyAndCertificat
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesUpdatesTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesUpdatesTF)
 TBPROPERTY_READONLY(TBButton *,          updatesCheckAutomaticallyCheckbox)
+TBPROPERTY_READONLY(TBButton *,          updatesCheckOnlyWhenInVPNCheckbox)
+TBPROPERTY_READONLY(TBButton *,          updatesDownloadWhenAvailableCheckbox)
+TBPROPERTY_READONLY(TBButton *,          updatesAdminApprovalForAppUpdatesCheckbox)
 TBPROPERTY_READONLY(TBButton *,          updatesCheckForBetaUpdatesCheckbox)
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesLastCheckedTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesLastCheckedTF)

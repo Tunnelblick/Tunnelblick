@@ -2820,16 +2820,36 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
     // Set values for the update checkboxes
 	
-	if (  [gTbDefaults boolForKey:@"inhibitOutboundTunneblickTraffic"]  ) {
+    BOOL userCanUpdate = (   isUserAnAdmin()
+                          || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"])  );
+
+	if (   ( ! userCanUpdate )
+        || [gTbDefaults boolForKey:@"inhibitOutboundTunneblickTraffic"]  ) {
 		TBButton * checkbox = [generalPrefsView updatesCheckAutomaticallyCheckbox];
 		[checkbox setState:   NSOffState];
 		[checkbox setEnabled: NO];
-		
+        
+        checkbox = [generalPrefsView updatesCheckOnlyWhenInVPNCheckbox];
+        [checkbox setState:   NSOffState];
+        [checkbox setEnabled: NO];
+
+        checkbox = [generalPrefsView updatesDownloadWhenAvailableCheckbox];
+        [checkbox setState:   NSOffState];
+        [checkbox setEnabled: NO];
+
 	} else {
 		[self setValueForCheckbox: [generalPrefsView updatesCheckAutomaticallyCheckbox]
 					preferenceKey: @"updateCheckAutomatically"
 						 inverted: NO
 					   defaultsTo: FALSE];
+        [self setValueForCheckbox: [generalPrefsView updatesCheckOnlyWhenInVPNCheckbox]
+                    preferenceKey: @"TBUpdaterCheckOnlyWhenConnectedToVPN"
+                         inverted: NO
+                       defaultsTo: FALSE];
+        [self setValueForCheckbox: [generalPrefsView updatesDownloadWhenAvailableCheckbox]
+                    preferenceKey: @"TBUpdaterDownloadUpdateWhenAvailable"
+                         inverted: NO
+                       defaultsTo: FALSE];
     }
 	
 	[self setupCheckForBetasCheckbox];
@@ -2847,10 +2867,19 @@ static BOOL firstTimeShowingWindow = TRUE;
                          : NSOnState)];
 }
 
+-(void) setupUpdatesAdminApprovalForAppUpdatesCheckbox {
+
+    TBButton * checkbox = [generalPrefsView updatesAdminApprovalForAppUpdatesCheckbox];
+    [checkbox setState: (  okToUpdateAppWithoutAdminApproval()
+                         ? NSOffState
+                         : NSOnState)];
+}
+
 -(void) setupGeneralView
 {
 	[self setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox];
-	
+    [self setupUpdatesAdminApprovalForAppUpdatesCheckbox];
+
 	[self setValueForCheckbox: [generalPrefsView inhibitOutboundTBTrafficCheckbox]
 				preferenceKey: @"inhibitOutboundTunneblickTraffic"
 					 inverted: NO
@@ -2934,21 +2963,16 @@ static BOOL firstTimeShowingWindow = TRUE;
 	[self setupUpdatesCheckboxes];
 	[self setupCheckIPAddress: nil];
 	
-    SUUpdater * updater = [gMC updater];
-    if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
- 		[gMC setupUpdaterAutomaticChecks];
-    } else {
-        NSLog(@"'Inhibit automatic update checking and IP address checking' change ignored because the updater does not respond to setAutomaticallyChecksForUpdates:");
-	}
+    [gMC updateSettingsHaveChanged];
 }
 
 
--(void) finishGeneralAdminApprovalForKeyAndCertificateChanges: (NSNumber *) statusNumber {
-    
+-(void) finishAdminApprovalCheckboxWasClickedHelper: (NSMutableDictionary *) dict {
+
     // Runs in main thread
-    
-    OSStatus status = [statusNumber intValue];
-    
+
+    OSStatus status = [dict[@"status"] intValue];
+
     if (  status == 0  ) {
         NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
         [gTbDefaults setPrimaryDefaults: dict];
@@ -2959,17 +2983,23 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
     }
     
-    [self setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox];
-    TBButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
+    TBButton * checkbox = dict[@"button"];
+    if (  checkbox == [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox]  ) {
+        [self setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox];
+    } else {
+        [self setupUpdatesAdminApprovalForAppUpdatesCheckbox];
+    }
     [checkbox setEnabled: YES];
 }
 
--(void) generalAdminApprovalForKeyAndCertificateChangesThread: (NSString *) forcedPreferencesDictionaryPath {
-    
+-(void) adminApprovalCheckboxWasClickedHelperThread: (NSMutableDictionary *) dict {
+
     // Runs in a separate thread so user authorization doesn't hang the main thread
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
+    NSString * forcedPreferencesDictionaryPath = [dict objectForKey: @"tempDictionaryPath"];
+
     NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
     if (  auth  ) {
@@ -2979,35 +3009,36 @@ static BOOL firstTimeShowingWindow = TRUE;
                                 installTblks: nil];
         [auth release];
         
-        [self performSelectorOnMainThread: @selector(finishGeneralAdminApprovalForKeyAndCertificateChanges:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];
+        [dict setObject:[NSNumber numberWithLong: (long)status] forKey: @"status"];
     } else {
         OSStatus status = 1; // User cancelled installation
-        [self performSelectorOnMainThread: @selector(finishGeneralAdminApprovalForKeyAndCertificateChanges:) withObject: [NSNumber numberWithInt: status] waitUntilDone: NO];
+        [dict setObject: [NSNumber numberWithInt: status] forKey: @"status"];
     }
-    
+
+    [self performSelectorOnMainThread: @selector(finishAdminApprovalCheckboxWasClickedHelper:) withObject: dict waitUntilDone: NO];
+
     [gFileMgr tbRemovePathIfItExists: [forcedPreferencesDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
     
     [pool drain];
 }
 
--(IBAction) generalAdminApprovalForKeyAndCertificateChangesCheckboxWasClicked: (NSButton *) sender
-{
-    TBButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
+-(void) adminApprovalCheckboxWasClickedHelperButton: (TBButton *) checkbox preferenceName: (NSString *) preferenceName {
+
     if (  [checkbox isEnabled]  ) {
         [checkbox setEnabled: NO];
     } else {
-         return;
+        return;
     }
-    
-    BOOL newState = [sender state];
-    
+
+    BOOL newState = [checkbox state];
+
     NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
     NSMutableDictionary * newDict = (  dict
                                      ? [NSMutableDictionary dictionaryWithDictionary: dict]
                                      : [NSMutableDictionary dictionaryWithCapacity: 1]);
-    
-    [newDict setObject: [NSNumber numberWithBool: ( ! newState) ] forKey: @"allowNonAdminSafeConfigurationReplacement"];
-    
+
+    [newDict setObject: [NSNumber numberWithBool: ( ! newState) ] forKey: preferenceName];
+
     NSString * tempDictionaryPath = [newTemporaryDirectoryPath() stringByAppendingPathComponent: @"forced-preferences.plist"];
     OSStatus status = (  tempDictionaryPath
                        ? (  [newDict writeToFile: tempDictionaryPath atomically: YES]
@@ -3015,27 +3046,53 @@ static BOOL firstTimeShowingWindow = TRUE;
                           : -1)
                        : -1);
     if (  status == 0  ) {
-        [NSThread detachNewThreadSelector: @selector(generalAdminApprovalForKeyAndCertificateChangesThread:) toTarget: self withObject: tempDictionaryPath];
+        NSMutableDictionary * threadDict = [@{@"button": checkbox,
+                                              @"preferenceName": preferenceName,
+                                              @"tempDictionaryPath": tempDictionaryPath}
+                                             mutableCopy];
+
+        [NSThread detachNewThreadSelector: @selector(adminApprovalCheckboxWasClickedHelperThread:) toTarget: self withObject: threadDict];
     }
-    
+
     // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
     // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
     // To undo that afterwards, we delay changing the value for 0.2 seconds.
-    [self performSelector: @selector(setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox) withObject: nil afterDelay: 0.2];
+    SEL setupCheckbox = (  (checkbox == [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox])
+                         ? @selector(setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox)
+                         : @selector(setupUpdatesAdminApprovalForAppUpdatesCheckbox));
+    [self performSelector: setupCheckbox withObject: nil afterDelay: 0.2];
+}
+
+-(IBAction) generalAdminApprovalForKeyAndCertificateChangesCheckboxWasClicked: (NSButton *) sender
+{
+    [self adminApprovalCheckboxWasClickedHelperButton: [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox]
+                                       preferenceName: @"allowNonAdminSafeConfigurationReplacement"];
 }
 
 
 -(IBAction) updatesCheckAutomaticallyCheckboxWasClicked: (NSButton *) sender
 {
-    SUUpdater * updater = [gMC updater];
-    if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
-        [gTbDefaults setBool: [sender state] forKey: @"updateCheckAutomatically"];
-		[gMC setupUpdaterAutomaticChecks];
-    } else {
-        NSLog(@"'Automatically Check for Updates' change ignored because the updater does not respond to setAutomaticallyChecksForUpdates:");
-    }
+    [gTbDefaults setBool: [sender state] forKey: @"updateCheckAutomatically"];
+    [gMC updateSettingsHaveChanged];
+    [gMC setupUpdaterAutomaticChecks];
 }
 
+-(IBAction) updatesCheckAndDownloadOnlyWhenInVPNCheckboxWasClicked: (NSButton *) sender {
+    [gTbDefaults setBool: [sender state] forKey: @"TBUpdaterCheckOnlyWhenConnectedToVPN"];
+    [gMC updateSettingsHaveChanged];
+}
+
+-(IBAction) updatesDownloadWhenAvailableCheckboxWasClicked: (NSButton *) sender {
+
+    [gTbDefaults setBool: [sender state] forKey: @"TBUpdaterDownloadUpdateWhenAvailable"];
+    [gMC updateSettingsHaveChanged];
+}
+
+-(IBAction) updatesAdminApprovalForAppUpdatesCheckboxWasClicked: (NSButton *) sender {
+
+    [self adminApprovalCheckboxWasClickedHelperButton: [generalPrefsView updatesAdminApprovalForAppUpdatesCheckbox]
+                                       preferenceName: @"TBUpdaterAllowNonAdminToUpdateTunnelblick"];
+}
 
 -(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (NSButton *) sender
 {
@@ -3048,6 +3105,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	(void) sender;
 	
     [gMC checkForUpdates: self];
+    [gMC setLastCheckNow: [NSDate date]];
     [self updateLastCheckedDate];
 }
 
@@ -3467,8 +3525,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
     }
 }
-
-
 
 //***************************************************************************************************************
 

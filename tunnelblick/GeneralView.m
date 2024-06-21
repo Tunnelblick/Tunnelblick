@@ -130,14 +130,34 @@ extern TBUserDefaults * gTbDefaults;
 														   @"<p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>",
 														   @"HTML info for the 'Require administrator authorization to install all configurations' checkbox."))];
 	
-	[updatesUpdatesTFC setTitle: NSLocalizedString(@"Updates:", @"Window text")];
-	
+	[updatesUpdatesTFC setTitle: NSLocalizedString(@"Tunnelblick updates:", @"Window text")];
+
 	[updatesCheckAutomaticallyCheckbox
 	 setTitle: NSLocalizedString(@"Check for updates automatically", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p>"
-														   @"<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>",
+														   @"<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>",
 														   @"HTML info for the 'Check for updates automatically' checkbox."))];
 	
+    [updatesCheckOnlyWhenInVPNCheckbox
+     setTitle: NSLocalizedString(@"Check only when connected to a VPN", @"Checkbox name")
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will check for updates automatically only when connected to a VPN.</p>\n"
+                                                           @"<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>",
+                                                           @"HTML info for the 'Check only when connected to a VPN' checkbox."))];
+
+    [updatesDownloadWhenAvailableCheckbox
+     setTitle: NSLocalizedString(@"Download updates when found", @"Checkbox name")
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will download updates when they are detected (the user's permission will"
+                                                           @" be required to install updates).</p>\n"
+                                                           @"<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>",
+                                                           @"HTML info for the 'Download updates when found' checkbox."))];
+
+    [updatesAdminApprovalForAppUpdatesCheckbox
+     setTitle: NSLocalizedString(@"Require administrator authorization to update", @"Checkbox name")
+     infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will require a computer adminstrator's authorization to update Tunnelblick.</p>"
+                                                           @"<p><strong>When not checked</strong>, a standard user will be allowed to update Tunnelblick.</p>"
+                                                           @"<p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>",
+                                                           @"HTML info for the 'Require administrator authorization to update' checkbox."))];
+
 	[updatesCheckForBetaUpdatesCheckbox
 	 setTitle: NSLocalizedString(@"Check for updates to beta versions", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n"
@@ -175,6 +195,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          generalAdminApprovalForKeyA
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesUpdatesTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesUpdatesTF)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesCheckAutomaticallyCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesCheckOnlyWhenInVPNCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesDownloadWhenAvailableCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesAdminApprovalForAppUpdatesCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesCheckForBetaUpdatesCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesCheckNowButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesLastCheckedTFC)
