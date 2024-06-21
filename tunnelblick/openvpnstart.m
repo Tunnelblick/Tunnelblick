@@ -29,7 +29,7 @@ NSString          * gDeployPath = nil;
 
 // Set up appendLog routine (required to link to sharedRoutines, even though it is not used by anything in sharedRoutines that we call)
 void appendLog(NSString * msg) {
-    fprintf(stderr, "Tunnelblick: %s\n", [msg UTF8String]);
+    fprintf(stdout, "Tunnelblick: %s\n", [msg UTF8String]);
 }
 
 
