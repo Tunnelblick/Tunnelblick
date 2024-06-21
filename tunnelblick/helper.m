@@ -1087,7 +1087,7 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	// The window controller is returned so that it can be closed programmatically if there is a change to the
 	// conditions that caused the window to be opened.
 	//
-	// (Note: the alert window is always displayed on the main thread, regarless of what thread this routine is called on.)
+	// (Note: the alert window is always displayed on the main thread, regardless of what thread this routine is called on.)
 	//
 	// The "msg" argument can be an NSString or an NSAttributedString.
     //
@@ -1905,19 +1905,14 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
             [logMsg appendFormat: @"tunnelblickd stderr:\n'%@'\n", myStderrString];
         }
     }
-    
-#ifdef TBDebug
-	NSString * header = [NSString stringWithFormat: @"tunnelblickd status from %@: %ld\nArguments:\n%@\n", subcommand, (long) status, arguments];
-	[logMsg insertString: header atIndex: 0];
-	NSLog(@"%@", logMsg);
-#else
+
 	if (  status != EXIT_SUCCESS ) {
 		NSString * header = [NSString stringWithFormat: @"tunnelblickd status from %@: %ld\n", subcommand, (long) status];
 		[logMsg insertString: header atIndex: 0];
 		NSLog(@"%@", logMsg);
+        [logMsg writeToFile: OPENVPNSTART_LOG_PATH atomically: NO];
 	}
-#endif
-	
+
     return status;
 }
 
