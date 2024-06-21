@@ -62,9 +62,40 @@ extern NSString       * gPrivatePath;
 extern BOOL             gShuttingDownTunnelblick;
 extern TBUserDefaults * gTbDefaults;
 
-void appendLog(NSString * msg)
-{
-	NSLog(@"%@", msg);
+FILE * gLogFile = NULL;
+
+void openLog(void) {
+
+    NSString * oldLogPath = TUNNELBLICK_OLD_LOG_PATH;
+    NSString * logPath    = TUNNELBLICK_LOG_PATH;
+
+    if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: oldLogPath]  ) {
+        NSLog(@"Could not delete %@", oldLogPath);
+    }
+
+    if (  [gFileMgr fileExistsAtPath: logPath]) {
+        if (  ! [gFileMgr tbForceRenamePath: logPath toPath: oldLogPath]  ) {
+            NSLog(@"Could not rename %@ to %@", logPath, oldLogPath);
+        }
+    }
+
+    const char * path = [logPath fileSystemRepresentation];
+
+    gLogFile = fopen(path, "w");
+
+    if (  gLogFile == NULL  ) {
+        NSLog(@"Could not open %@", logPath);
+    }
+}
+
+void appendLog(NSString * s) {
+
+    if (  gLogFile != NULL  ) {
+        NSString * now = [[NSDate date] tunnelblickUserLogRepresentation];
+        fprintf(gLogFile, "%s: %s\n", [now UTF8String], [s UTF8String]);
+    }
+
+    NSLog(@"%@", s);
 }
 
 NSString * tracesFolderPath(void) {

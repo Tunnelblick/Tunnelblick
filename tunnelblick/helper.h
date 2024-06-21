@@ -28,6 +28,7 @@ NSAttributedString * attributedLightDarkStringFromHTML(NSString * html);
 
 NSAttributedString * attributedStringFromHTML(NSString * html);
 
+void           openLog(void);
 void           appendLog				 (NSString * msg);
 
 void           append_tb_trace_routine	 (const char * sourceFile, int lineNumber, NSString * format, ...);
