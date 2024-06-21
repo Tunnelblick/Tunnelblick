@@ -33,6 +33,13 @@
                       toPath:(NSString *)destination
                      handler:(id)handler;
 
+-(BOOL)         tbCopyFileAtPath: (NSString *) source
+                          toPath: (NSString *) destination
+ ownedByRootWheelWithPermissions: (mode_t)     permissions;
+
+-(BOOL)    tbCopyItemAtPath: (NSString *) source
+ toBeOwnedByRootWheelAtPath: (NSString *) destination;
+
 -(BOOL)           tbCreateDirectoryAtPath:(NSString *)path
 			  withIntermediateDirectories:(BOOL)withIntermediateDirectories
 							   attributes:(NSDictionary *)attributes;
