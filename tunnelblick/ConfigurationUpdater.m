@@ -33,6 +33,7 @@
 #import "NSFileManager+TB.h"
 #import "NSTimer+TB.h"
 #import "Sparkle/SUUpdater.h"
+#import "TBUpdater.h"
 #import "TBUserDefaults.h"
 
 extern NSFileManager  * gFileMgr;
@@ -187,9 +188,9 @@ TBSYNTHESIZE_OBJECT(    retain, NSString *,  feedUrlStringForConfigurationUpdate
     BOOL withUI = [withUINumber boolValue];
     
     // Wait until the application is not being updated
-    SUUpdater * appUpdater = [gMC updater];
-    while (  [appUpdater updateInProgress]  ) {
-        
+    TBUpdater * appUpdater = [gMC tbupdater];
+    while (  [appUpdater currentlyUpdating]  ) {
+
 		if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
 			[threadPool drain];
 			return;

@@ -42,7 +42,6 @@
 		6306810C2BA1098100563B9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		6306810E2BA109A800563B9A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6306810D2BA109A800563B9A /* Cocoa.framework */; };
 		630681112BA13C6300563B9A /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B4DCE41A409DF300F6A74C /* ServiceManagement.framework */; };
-		630681162BA6074300563B9A /* NSFileHandle+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 630681152BA6074300563B9A /* NSFileHandle+TB.m */; };
 		63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		6308EEE9222701E8003D974C /* ta.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6308EEE8222701E8003D974C /* ta.lproj */; };
 		63097CDF22323E2B005F94CF /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
@@ -57,6 +56,10 @@
 		6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 631BC42F1FC4496300730786 /* TBPopUpButton.m */; };
 		631C2F211DF1A74B00DB1AE4 /* az.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631C2F201DF1A74B00DB1AE4 /* az.lproj */; };
+		631D15AC2BE8477300728E32 /* TBValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D15AB2BE8477300728E32 /* TBValidator.m */; };
+		631D15AD2BEAA3B300728E32 /* TBValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D15AB2BE8477300728E32 /* TBValidator.m */; };
+		631D15B02BEBFCC400728E32 /* TBUpdaterShared.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D15AF2BEBFCC400728E32 /* TBUpdaterShared.m */; };
+		631D15B12BEBFCC400728E32 /* TBUpdaterShared.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D15AF2BEBFCC400728E32 /* TBUpdaterShared.m */; };
 		63206BC31D273CBD00019DFB /* info-icon-on-left-360x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 63206BC11D273CBD00019DFB /* info-icon-on-left-360x40.png */; };
 		63206BC41D273CBD00019DFB /* info-icon-on-right-360x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 63206BC21D273CBD00019DFB /* info-icon-on-right-360x40.png */; };
 		63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */; };
@@ -112,6 +115,11 @@
 		63611FD113CE2A8B000240F0 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63611FCD13CE2A8B000240F0 /* ru.lproj */; };
 		6364DB8B1E3F5CB40089962B /* vi.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6364DB8A1E3F5CB40089962B /* vi.lproj */; };
 		636A16721B0242490005DD0A /* lv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 636A16711B0242490005DD0A /* lv.lproj */; };
+		636F48AE2BB8DB63001C9EFE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
+		636F48AF2BB8DCB4001C9EFE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
+		636F48B72BBA4406001C9EFE /* TunnelblickUpdateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 636F48B62BBA4406001C9EFE /* TunnelblickUpdateHelper.m */; };
+		636F48BD2BBA5B2B001C9EFE /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
+		636F48BE2BBA5B4E001C9EFE /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		6372CDCA1BFCCBC500FC04DC /* TBOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6372CDC91BFCCBC500FC04DC /* TBOperationQueue.m */; };
 		6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */; };
 		6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */; };
@@ -123,6 +131,7 @@
 		637B0A281A81DC3500210900 /* Sparkle.framework in Copy Sparkle */ = {isa = PBXBuildFile; fileRef = 637B0A1D1A81DC2100210900 /* Sparkle.framework */; };
 		638164DE1C145CC100B59958 /* reactivate-tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */; };
 		638222211E287C0500A2BD87 /* updates_create_signature in Resources */ = {isa = PBXBuildFile; fileRef = 638222201E287C0500A2BD87 /* updates_create_signature */; };
+		638307E22BC0716E00384B38 /* NSFileHandle+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 638307E02BC0716E00384B38 /* NSFileHandle+TB.m */; };
 		638613271492C88B00C3DCCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6387F0F4135604240021E41B /* tunnelblick.sdef */; };
 		6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */; };
@@ -147,6 +156,8 @@
 		639B6119205BE7FD00BC2FF5 /* he.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 639B6118205BE7FD00BC2FF5 /* he.lproj */; };
 		639BCE5B1D07894C00A9111D /* ro.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 639BCE5A1D07894C00A9111D /* ro.lproj */; };
 		639C2F0E1D84812800DA3386 /* AuthIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 639C2F0D1D84812800DA3386 /* AuthIcon.png */; };
+		639DF6112BDD4DE80099921A /* TBDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 639DF6102BDD4DE80099921A /* TBDownloader.m */; };
+		639DF6132BDD4E200099921A /* TBDownloader.h in Sources */ = {isa = PBXBuildFile; fileRef = 639DF6122BDD4E200099921A /* TBDownloader.h */; };
 		639EC33E1C0E16A9001FE378 /* StatusWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */; };
 		639F0FBA1960EFA100A3090E /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
@@ -167,6 +178,7 @@
 		63BD86E81205BA39005B8E38 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BD86E41205BA39005B8E38 /* it.lproj */; };
 		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63BF3E1310A2ED7F00AC8A59 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* ca.lproj */; };
+		63BFA9392BBB6BD40006484A /* NSDate+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63097CDD22323E2B005F94CF /* NSDate+TB.m */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
 		63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */; };
 		63C2E19C18846D2A00ED0003 /* LeaseWatch.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */; };
@@ -183,6 +195,7 @@
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.m */; };
 		63D2658829940ACC00E1C3FF /* HI.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63D2658729940ACC00E1C3FF /* HI.lproj */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
+		63D436F32BA9AB1F00AFB2E7 /* TBUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D436F22BA9AB1F00AFB2E7 /* TBUpdater.m */; };
 		63D893F32124E5FE000E20E5 /* SetupImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F22124E5FE000E20E5 /* SetupImporter.m */; };
 		63D893F821258FAE000E20E5 /* ImportWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D893F621258FAE000E20E5 /* ImportWindowController.m */; };
 		63D893F921258FAE000E20E5 /* ImportWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D893F721258FAE000E20E5 /* ImportWindow.xib */; };
@@ -234,6 +247,8 @@
 		63F3C25A1A22A45C00CF0FFB /* tunnelblickd.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F3C2581A22A45C00CF0FFB /* tunnelblickd.m */; };
 		63F7497D1CB149820043C198 /* TBVersionString.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F7497C1CB149820043C198 /* TBVersionString.txt */; };
 		63FA09411D25E68500859556 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FA09401D25E68500859556 /* MAAttachedWindow.m */; };
+		63FA9CB62BFCE4E700DB0AD1 /* TBValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D15AB2BE8477300728E32 /* TBValidator.m */; };
+		63FA9CB72BFCE57800DB0AD1 /* TBValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D15AB2BE8477300728E32 /* TBValidator.m */; };
 		63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */; };
 		63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FFC3D81D3FDF5A00CBB289 /* DropConfigsView.m */; };
 		63FFD6541D0E9C8B00D4FFD9 /* Lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 63FFD6521D0E9C8B00D4FFD9 /* Lock.png */; };
@@ -302,6 +317,13 @@
 			remoteGlobalIDString = 635BF17E1501CCDF00D87717;
 			remoteInfo = ExternalBuildCleanScript;
 		};
+		636F48BB2BBA4430001C9EFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 636F48B32BBA4406001C9EFE;
+			remoteInfo = TunnelblickUpdateHelper;
+		};
 		638A200E135CC4C000FB932C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -361,6 +383,15 @@
 			name = "Copy Sparkle";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		636F48B22BBA4406001C9EFE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -414,8 +445,6 @@
 		630681042BA104A600563B9A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6306810D2BA109A800563B9A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		630681122BA13CD600563B9A /* Tunnelblick-Launcher-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Tunnelblick-Launcher-Info.plist"; sourceTree = SOURCE_ROOT; };
-		630681142BA6074300563B9A /* NSFileHandle+TB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFileHandle+TB.h"; sourceTree = SOURCE_ROOT; };
-		630681152BA6074300563B9A /* NSFileHandle+TB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSFileHandle+TB.m"; sourceTree = SOURCE_ROOT; };
 		6308EEE8222701E8003D974C /* ta.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ta.lproj; sourceTree = "<group>"; };
 		63097CDD22323E2B005F94CF /* NSDate+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TB.m"; sourceTree = "<group>"; };
 		63097CDE22323E2B005F94CF /* NSDate+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TB.h"; sourceTree = "<group>"; };
@@ -428,6 +457,10 @@
 		631BC42F1FC4496300730786 /* TBPopUpButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPopUpButton.m; sourceTree = "<group>"; };
 		631BC4301FC4496300730786 /* TBPopUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPopUpButton.h; sourceTree = "<group>"; };
 		631C2F201DF1A74B00DB1AE4 /* az.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = az.lproj; sourceTree = "<group>"; };
+		631D15AA2BE8477300728E32 /* TBValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBValidator.h; sourceTree = "<group>"; };
+		631D15AB2BE8477300728E32 /* TBValidator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBValidator.m; sourceTree = "<group>"; };
+		631D15AE2BEBFCC400728E32 /* TBUpdaterShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBUpdaterShared.h; sourceTree = "<group>"; };
+		631D15AF2BEBFCC400728E32 /* TBUpdaterShared.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBUpdaterShared.m; sourceTree = "<group>"; };
 		63206BC11D273CBD00019DFB /* info-icon-on-left-360x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-icon-on-left-360x40.png"; sourceTree = "<group>"; };
 		63206BC21D273CBD00019DFB /* info-icon-on-right-360x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-icon-on-right-360x40.png"; sourceTree = "<group>"; };
 		63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.down.tunnelblick.sh; sourceTree = "<group>"; };
@@ -491,6 +524,8 @@
 		63611FCD13CE2A8B000240F0 /* ru.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ru.lproj; sourceTree = "<group>"; };
 		6364DB8A1E3F5CB40089962B /* vi.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = vi.lproj; sourceTree = "<group>"; };
 		636A16711B0242490005DD0A /* lv.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lv.lproj; sourceTree = "<group>"; };
+		636F48B42BBA4406001C9EFE /* TunnelblickUpdateHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TunnelblickUpdateHelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		636F48B62BBA4406001C9EFE /* TunnelblickUpdateHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TunnelblickUpdateHelper.m; sourceTree = "<group>"; };
 		6372CDC81BFCCBC500FC04DC /* TBOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBOperationQueue.h; sourceTree = "<group>"; };
 		6372CDC91BFCCBC500FC04DC /* TBOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBOperationQueue.m; sourceTree = "<group>"; };
 		6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FreePublicDnsServersList.txt; sourceTree = "<group>"; };
@@ -504,6 +539,8 @@
 		637B0A1D1A81DC2100210900 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../third_party/products/sparkle/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "reactivate-tunnelblick.sh"; sourceTree = "<group>"; };
 		638222201E287C0500A2BD87 /* updates_create_signature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updates_create_signature; sourceTree = "<group>"; };
+		638307E02BC0716E00384B38 /* NSFileHandle+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileHandle+TB.m"; sourceTree = "<group>"; };
+		638307E12BC0716E00384B38 /* NSFileHandle+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileHandle+TB.h"; sourceTree = "<group>"; };
 		6387F0F4135604240021E41B /* tunnelblick.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = tunnelblick.sdef; sourceTree = "<group>"; };
 		6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassphraseWindowController.h; sourceTree = "<group>"; };
 		6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassphraseWindowController.m; sourceTree = "<group>"; };
@@ -529,6 +566,8 @@
 		639B6118205BE7FD00BC2FF5 /* he.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = he.lproj; sourceTree = "<group>"; };
 		639BCE5A1D07894C00A9111D /* ro.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ro.lproj; sourceTree = "<group>"; };
 		639C2F0D1D84812800DA3386 /* AuthIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AuthIcon.png; sourceTree = "<group>"; };
+		639DF6102BDD4DE80099921A /* TBDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBDownloader.m; sourceTree = "<group>"; };
+		639DF6122BDD4E200099921A /* TBDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBDownloader.h; sourceTree = "<group>"; };
 		639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StatusWindow-RTL.xib"; sourceTree = "<group>"; };
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
@@ -568,6 +607,8 @@
 		63D2658729940ACC00E1C3FF /* HI.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HI.lproj; sourceTree = "<group>"; };
 		63D39B4614F9860E002D1297 /* UtilitiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilitiesView.h; sourceTree = "<group>"; };
 		63D39B4714F9860E002D1297 /* UtilitiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilitiesView.m; sourceTree = "<group>"; };
+		63D436F12BA9AB1F00AFB2E7 /* TBUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBUpdater.h; sourceTree = "<group>"; };
+		63D436F22BA9AB1F00AFB2E7 /* TBUpdater.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBUpdater.m; sourceTree = "<group>"; };
 		63D893F12124E5F1000E20E5 /* SetupImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupImporter.h; sourceTree = "<group>"; };
 		63D893F22124E5FE000E20E5 /* SetupImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupImporter.m; sourceTree = "<group>"; };
 		63D893F521258FAE000E20E5 /* ImportWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportWindowController.h; sourceTree = "<group>"; };
@@ -687,6 +728,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				636F48AE2BB8DB63001C9EFE /* Security.framework in Frameworks */,
 				639A47B72168BA530019FBFD /* SystemConfiguration.framework in Frameworks */,
 				61BC4CE10E2FA02800F24255 /* Foundation.framework in Frameworks */,
 				63432577140D7F6F00015CE0 /* CoreServices.framework in Frameworks */,
@@ -724,6 +766,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		636F48B12BBA4406001C9EFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		638A1FFA135CC35100FB932C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -744,6 +793,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				636F48AF2BB8DCB4001C9EFE /* Security.framework in Frameworks */,
 				63C2E2E824AB8D6C00F79628 /* IOKit.framework in Frameworks */,
 				6329EA051A9B003700A0BFA8 /* SystemConfiguration.framework in Frameworks */,
 				63C375761A4510D000D51E81 /* Foundation.framework in Frameworks */,
@@ -792,6 +842,7 @@
 				B8407881170CE4B00002B941 /* Class Extensions & Subclasses */,
 				B8407880170CE44C0002B941 /* Configurations */,
 				B8407883170CE5400002B941 /* EasyRSA & AppleScript */,
+				63D436F42BA9AB3D00AFB2E7 /* TBUpdater */,
 				63ABFE901349E370003DEB64 /* UI */,
 				63E56ED51384831C007E39AB /* VPNService */,
 				61BC4B690E2F9EBC00F24255 /* MenuController.h */,
@@ -839,6 +890,7 @@
 				63ED8EE61A1E84560045D34E /* tunnelblickd */,
 				63C374391A4510AA00D51E81 /* tunnelblick-helper */,
 				630680FA2BA104A500563B9A /* Tunnelblick Launcher.app */,
+				636F48B42BBA4406001C9EFE /* TunnelblickUpdateHelper */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -884,6 +936,7 @@
 				638A1FE0135CB82500FB932C /* standardize-scutil-output.m */,
 				63F3C2581A22A45C00CF0FFB /* tunnelblickd.m */,
 				63C375781A4510F600D51E81 /* tunnelblick-helper.m */,
+				636F48B62BBA4406001C9EFE /* TunnelblickUpdateHelper.m */,
 				63B78AD41102419800734D73 /* dmgFiles */,
 			);
 			name = "Other Sources";
@@ -1009,6 +1062,21 @@
 				63CC72F81928C5CB00F81220 /* TBUIUpdater.m */,
 			);
 			name = "UI Updater";
+			sourceTree = "<group>";
+		};
+		63D436F42BA9AB3D00AFB2E7 /* TBUpdater */ = {
+			isa = PBXGroup;
+			children = (
+				63D436F12BA9AB1F00AFB2E7 /* TBUpdater.h */,
+				63D436F22BA9AB1F00AFB2E7 /* TBUpdater.m */,
+				639DF6122BDD4E200099921A /* TBDownloader.h */,
+				639DF6102BDD4DE80099921A /* TBDownloader.m */,
+				631D15AA2BE8477300728E32 /* TBValidator.h */,
+				631D15AB2BE8477300728E32 /* TBValidator.m */,
+				631D15AE2BEBFCC400728E32 /* TBUpdaterShared.h */,
+				631D15AF2BEBFCC400728E32 /* TBUpdaterShared.m */,
+			);
+			name = TBUpdater;
 			sourceTree = "<group>";
 		};
 		63D893F421258F4F000E20E5 /* Import Window */ = {
@@ -1239,8 +1307,8 @@
 				61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */,
 				63097CDE22323E2B005F94CF /* NSDate+TB.h */,
 				63097CDD22323E2B005F94CF /* NSDate+TB.m */,
-				630681142BA6074300563B9A /* NSFileHandle+TB.h */,
-				630681152BA6074300563B9A /* NSFileHandle+TB.m */,
+				638307E12BC0716E00384B38 /* NSFileHandle+TB.h */,
+				638307E02BC0716E00384B38 /* NSFileHandle+TB.m */,
 				63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */,
 				63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */,
 				63DEC28E13B890F70063CE11 /* NSString+TB.h */,
@@ -1495,6 +1563,23 @@
 			productReference = 6317943E118D7E820057ACAF /* atsystemstart */;
 			productType = "com.apple.product-type.tool";
 		};
+		636F48B32BBA4406001C9EFE /* TunnelblickUpdateHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 636F48B82BBA4406001C9EFE /* Build configuration list for PBXNativeTarget "TunnelblickUpdateHelper" */;
+			buildPhases = (
+				636F48B02BBA4406001C9EFE /* Sources */,
+				636F48B12BBA4406001C9EFE /* Frameworks */,
+				636F48B22BBA4406001C9EFE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TunnelblickUpdateHelper;
+			productName = TunnelblickUpdateHelper;
+			productReference = 636F48B42BBA4406001C9EFE /* TunnelblickUpdateHelper */;
+			productType = "com.apple.product-type.tool";
+		};
 		638A1FFB135CC35100FB932C /* standardize-scutil-output */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 638A2000135CC36F00FB932C /* Build configuration list for PBXNativeTarget "standardize-scutil-output" */;
@@ -1575,6 +1660,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				636F48BC2BBA4430001C9EFE /* PBXTargetDependency */,
 				630681102BA10EFA00563B9A /* PBXTargetDependency */,
 				631795DD118DC57E0057ACAF /* PBXTargetDependency */,
 				61BC4D960E2FA28700F24255 /* PBXTargetDependency */,
@@ -1600,6 +1686,9 @@
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					630680F92BA104A500563B9A = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					636F48B32BBA4406001C9EFE = {
 						CreatedOnToolsVersion = 15.3;
 					};
 				};
@@ -1629,8 +1718,9 @@
 				63AA8E571492C75200C791C9 /* process-network-changes */,
 				63ED8EE51A1E84560045D34E /* tunnelblickd */,
 				63C374381A4510AA00D51E81 /* tunnelblick-helper */,
-				635BF17E1501CCDF00D87717 /* ExternalBuildCleanScript */,
 				630680F92BA104A500563B9A /* Tunnelblick Launcher */,
+				636F48B32BBA4406001C9EFE /* TunnelblickUpdateHelper */,
+				635BF17E1501CCDF00D87717 /* ExternalBuildCleanScript */,
 			);
 		};
 /* End PBXProject section */
@@ -1831,13 +1921,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63097CE222340EF8005F94CF /* NSDate+TB.m in Sources */,
 				61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */,
-				63F2AD9D12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
-				63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */,
 				B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */,
 				B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
+				63097CE222340EF8005F94CF /* NSDate+TB.m in Sources */,
+				63F2AD9D12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
+				63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */,
 				B8045A0A161EF26700609C98 /* sharedRoutines.m in Sources */,
+				631D15B02BEBFCC400728E32 /* TBUpdaterShared.m in Sources */,
+				63FA9CB62BFCE4E700DB0AD1 /* TBValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1845,11 +1937,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6306810B2BA1096600563B9A /* sharedRoutines.m in Sources */,
-				6306810A2BA1095D00563B9A /* NSFileManager+TB.m in Sources */,
-				630681162BA6074300563B9A /* NSFileHandle+TB.m in Sources */,
-				630681052BA104A600563B9A /* main.m in Sources */,
 				630680FE2BA104A600563B9A /* AppDelegate.m in Sources */,
+				638307E22BC0716E00384B38 /* NSFileHandle+TB.m in Sources */,
+				6306810A2BA1095D00563B9A /* NSFileManager+TB.m in Sources */,
+				6306810B2BA1096600563B9A /* sharedRoutines.m in Sources */,
+				630681052BA104A600563B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1860,6 +1952,18 @@
 				63179444118D7EC20057ACAF /* atsystemstart.m in Sources */,
 				63F2AD9E12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				B8C7338C162219E400746C0D /* sharedRoutines.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		636F48B02BBA4406001C9EFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				631D15AD2BEAA3B300728E32 /* TBValidator.m in Sources */,
+				63BFA9392BBB6BD40006484A /* NSDate+TB.m in Sources */,
+				636F48BE2BBA5B4E001C9EFE /* NSFileManager+TB.m in Sources */,
+				636F48BD2BBA5B2B001C9EFE /* sharedRoutines.m in Sources */,
+				636F48B72BBA4406001C9EFE /* TunnelblickUpdateHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1875,8 +1979,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63097CE122340EC4005F94CF /* NSDate+TB.m in Sources */,
 				63AA8E5F1492C77700C791C9 /* process-network-changes.m in Sources */,
+				63097CE122340EC4005F94CF /* NSDate+TB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1884,11 +1988,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63097CE022340EA8005F94CF /* NSDate+TB.m in Sources */,
 				63C375791A4510F600D51E81 /* tunnelblick-helper.m in Sources */,
+				63097CE022340EA8005F94CF /* NSDate+TB.m in Sources */,
 				63C3757A1A45111700D51E81 /* NSFileManager+TB.m in Sources */,
 				63C3757B1A45112500D51E81 /* NSString+TB.m in Sources */,
 				63C3757C1A45113000D51E81 /* sharedRoutines.m in Sources */,
+				631D15B12BEBFCC400728E32 /* TBUpdaterShared.m in Sources */,
+				63FA9CB72BFCE57800DB0AD1 /* TBValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1905,36 +2011,63 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
-				61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */,
-				61BC4B7A0E2F9EBC00F24255 /* NSArray+cArray.m in Sources */,
+				632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */,
+				635ECE631378EA4000F67F8D /* AppearanceView.m in Sources */,
+				635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */,
+				61BC4B810E2F9EBC00F24255 /* AuthAgent.m in Sources */,
+				B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */,
+				633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */,
+				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,
+				B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
+				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
+				63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */,
+				635ECCF51378885600F67F8D /* DBPrefsWindowController.m in Sources */,
+				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
+				B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */,
+				635ECE601378EA1F00F67F8D /* GeneralView.m in Sources */,
+				6185E7400E76045D0009C2FD /* helper.m in Sources */,
+				61BC4B800E2F9EBC00F24255 /* KeyChain.m in Sources */,
+				63D893F821258FAE000E20E5 /* ImportWindowController.m in Sources */,
+				635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */,
+				639DF6112BDD4DE80099921A /* TBDownloader.m in Sources */,
+				B8C9FB48170C77A400BCA243 /* LeftNavItem.m in Sources */,
+				B8C9FB47170C77A400BCA243 /* LeftNavDataSource.m in Sources */,
+				B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */,
+				B86D13091811859000FDFB3B /* ListingWindowController.m in Sources */,
+				63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */,
+				63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */,
+				63FA09411D25E68500859556 /* MAAttachedWindow.m in Sources */,
+				63F0A8B11507D13700526AF9 /* MainIconView.m in Sources */,
 				61BC4B7B0E2F9EBC00F24255 /* MenuController.m in Sources */,
-				6395C2321E37B90000E3C176 /* TBButton.m in Sources */,
+				635ECCFA137888A800F67F8D /* MyPrefsWindowController.m in Sources */,
 				61BC4B7C0E2F9EBC00F24255 /* NetSocket.m in Sources */,
 				61BC4B7D0E2F9EBC00F24255 /* NetSocket+Text.m in Sources */,
 				61BC4B7E0E2F9EBC00F24255 /* NSApplication+LoginItem.m in Sources */,
-				61BC4B800E2F9EBC00F24255 /* KeyChain.m in Sources */,
-				61BC4B810E2F9EBC00F24255 /* AuthAgent.m in Sources */,
+				639DF6132BDD4E200099921A /* TBDownloader.h in Sources */,
+				61BC4B7A0E2F9EBC00F24255 /* NSArray+cArray.m in Sources */,
+				63097CDF22323E2B005F94CF /* NSDate+TB.m in Sources */,
+				63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
+				63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */,
+				B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */,
+				6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */,
+				6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */,
+				63D893F32124E5FE000E20E5 /* SetupImporter.m in Sources */,
+				B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */,
+				637A871913B74B81003C1871 /* SplashWindowController.m in Sources */,
+				639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */,
 				63FFD6581D0E9D9400D4FFD9 /* SystemAuth.m in Sources */,
-				6185E7400E76045D0009C2FD /* helper.m in Sources */,
+				6395C2321E37B90000E3C176 /* TBButton.m in Sources */,
+				6372CDCA1BFCCBC500FC04DC /* TBOperationQueue.m in Sources */,
+				B82DF4D8182704D800A121DE /* TBPerformer.m in Sources */,
 				631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */,
 				6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */,
-				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
+				63CC72F91928C5CB00F81220 /* TBUIUpdater.m in Sources */,
+				63D436F32BA9AB1F00AFB2E7 /* TBUpdater.m in Sources */,
 				638E69611097725500587933 /* TBUserDefaults.m in Sources */,
-				63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */,
-				63FA09411D25E68500859556 /* MAAttachedWindow.m in Sources */,
-				63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
-				635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */,
-				63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */,
-				633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */,
-				639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */,
-				63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */,
-				63D893F821258FAE000E20E5 /* ImportWindowController.m in Sources */,
-				6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */,
-				635ECCF51378885600F67F8D /* DBPrefsWindowController.m in Sources */,
-				635ECCFA137888A800F67F8D /* MyPrefsWindowController.m in Sources */,
-				635ECE601378EA1F00F67F8D /* GeneralView.m in Sources */,
-				635ECE631378EA4000F67F8D /* AppearanceView.m in Sources */,
-				635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */,
+				634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */,
+				635971421C06736B0055FBC5 /* UIHelper.m in Sources */,
+				63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */,
+				61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */,
 				63E56EE713848338007E39AB /* VPNService.m in Sources */,
 				63E56EE813848338007E39AB /* VPNServiceCreateAccountController.m in Sources */,
 				63E56EE913848338007E39AB /* VPNServiceIntroController.m in Sources */,
@@ -1943,32 +2076,9 @@
 				63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */,
 				63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */,
 				63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */,
-				634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */,
-				6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */,
-				635971421C06736B0055FBC5 /* UIHelper.m in Sources */,
 				63A66B7C2518F537002B1D9D /* WarningNote.m in Sources */,
-				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,
-				637A871913B74B81003C1871 /* SplashWindowController.m in Sources */,
-				63097CDF22323E2B005F94CF /* NSDate+TB.m in Sources */,
-				63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */,
-				63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */,
-				63F0A8B11507D13700526AF9 /* MainIconView.m in Sources */,
+				631D15AC2BE8477300728E32 /* TBValidator.m in Sources */,
 				B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */,
-				B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
-				B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */,
-				B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */,
-				B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */,
-				B8C9FB47170C77A400BCA243 /* LeftNavDataSource.m in Sources */,
-				B8C9FB48170C77A400BCA243 /* LeftNavItem.m in Sources */,
-				B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */,
-				B86D13091811859000FDFB3B /* ListingWindowController.m in Sources */,
-				B82DF4D8182704D800A121DE /* TBPerformer.m in Sources */,
-				B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */,
-				63CC72F91928C5CB00F81220 /* TBUIUpdater.m in Sources */,
-				63D893F32124E5FE000E20E5 /* SetupImporter.m in Sources */,
-				632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */,
-				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
-				6372CDCA1BFCCBC500FC04DC /* TBOperationQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1999,6 +2109,11 @@
 			isa = PBXTargetDependency;
 			target = 635BF17E1501CCDF00D87717 /* ExternalBuildCleanScript */;
 			targetProxy = 635BF19F1501CDAF00D87717 /* PBXContainerItemProxy */;
+		};
+		636F48BC2BBA4430001C9EFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 636F48B32BBA4406001C9EFE /* TunnelblickUpdateHelper */;
+			targetProxy = 636F48BB2BBA4430001C9EFE /* PBXContainerItemProxy */;
 		};
 		638A200F135CC4C000FB932C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2267,6 +2382,81 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = ExternalBuildCleanScript;
+			};
+			name = Release;
+		};
+		636F48B92BBA4406001C9EFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Z2SG5H3HC8;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		636F48BA2BBA4406001C9EFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Z2SG5H3HC8;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -2770,6 +2960,15 @@
 			buildConfigurations = (
 				635BF17F1501CCDF00D87717 /* Debug */,
 				635BF1811501CCDF00D87717 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		636F48B82BBA4406001C9EFE /* Build configuration list for PBXNativeTarget "TunnelblickUpdateHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				636F48B92BBA4406001C9EFE /* Debug */,
+				636F48BA2BBA4406001C9EFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

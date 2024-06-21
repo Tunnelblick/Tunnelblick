@@ -38,6 +38,7 @@
 @class SUUpdater;
 @class SystemAuth;
 @class TBUIUpdater;
+@class TBUpdater;
 @class VPNConnection;
 @class WelcomeController;
 
@@ -93,6 +94,8 @@ enum StatusIconPosition {
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
 	NSMenuItem              * reenableInternetItem;         // "Re-enable Network Access" item for menu
+    NSMenuItem              * tbUpdateAvailableItem;        // Displayed iff there is a Tunnelblick update available
+    NSMenuItem              * configUpdateAvailableItem;    // Displayed iff there is a configuration update available
     NSMenuItem              * warningsItem;                 // "Warnings..." item for menu
     NSMenuItem              * vpnDetailsItem;               // "VPN Details..." item for menu
     NSMenuItem              * addConfigurationItem;         // "Add a VPN..." menu item
@@ -164,7 +167,8 @@ enum StatusIconPosition {
 	
     NSTimer                 * statisticsWindowTimer;        // Used to check for stale statistics that must be cleared 
     
-    SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
+    TBUpdater               * tbupdater;                    // TBUpdater item used to check for updates to the program
+    NSDate                  * lastCheckNow;                 // Date/time Check Now button was last clicked
 
     ConfigurationMultiUpdater * myConfigMultiUpdater;       // Checks for configuration updates
 	
@@ -208,6 +212,11 @@ enum StatusIconPosition {
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
     
+    BOOL                      tbUpdatesAreAvailable;        // True if updates to the program are available
+    double                  tbUpdatePercentageDownloaded; // Percent of a program update that TBUpdater has downloaded
+
+    BOOL                      configUpdatesAreAvailable;    // True if updates to a VPN configuration are available
+
     enum StatusIconPosition   iconPosition;                 // Position of Tunnelblick icon in the status menu
     
     BOOL                      hotKeyEventHandlerIsInstalled;// The event handler for the hot key (keyboard shortcut to pop up the Tunnelblick menu) has been installed
@@ -232,6 +241,13 @@ enum StatusIconPosition {
     NSString                * vpnServiceConnectDisplayName; // Display name of connection that VPNService is trying to connect
 #endif
 }
+
+-(void) tbUpdateIsAvailable: (nonnull NSNumber *) isAvailable;
+-(void) tbUpdateErrorOccurredInAppUpdate: (NSNumber *) inAppUpdate;
+-(void) tbUpdateDownloadCompletePercentage: (double) percentage;
+-(void) tbUpdateWillInstallUpdate;
+-(void) tbUpdateDidInstallUpdate;
+-(void) tbUpdaterFailedToInstallUpdate;
 
 // Used to implement drag/drop of configuration files onto the Tunnelblick icon in the status bar or the configuration list in the 'VPN Details' window
 -(BOOL)             openFiles:                              (NSArray * )        filePaths;
@@ -312,6 +328,7 @@ enum StatusIconPosition {
                                 withTunnelblick: (BOOL) withTunnelblick;
 -(NSArray *)        sortedSounds;
 -(unsigned)         statusScreenIndex;
+-(void)             updateSettingsHaveChanged;
 -(void)				uninstall;
 -(void)             unloadKextsForce: (BOOL) force;
 -(void)				updateMenuAndDetailsWindowForceLeftNavigation: (BOOL) forceLeftNavigationUpdate;
@@ -356,7 +373,6 @@ enum StatusIconPosition {
 -(NSString *)       customRunOnConnectPath;
 -(void)             startOrStopUiUpdater;
 -(BOOL)             terminatingAtUserRequest;
--(SUUpdater *)      updater;
 -(BOOL volatile)    doingSetupOfUI;
 -(void)				setDoingSetupOfUI: (BOOL) value;
 
@@ -378,6 +394,7 @@ TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
 TBPROPERTY_READONLY(ConfigurationMultiUpdater *, myConfigMultiUpdater)
 TBPROPERTY_READONLY(NSArray *, knownPublicDnsServerAddresses)
+TBPROPERTY_READONLY(TBUpdater *, tbupdater)
 
 TBPROPERTY(SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
 TBPROPERTY(NSArray      *, cachedMenuItems,			  setCachedMenuItems)
@@ -402,5 +419,6 @@ TBPROPERTY(NSString       *, languageAtLaunch,        setLanguageAtLaunch)
 TBPROPERTY(NSString       *, publicIPAddress,         setPublicIPAddress)
 TBPROPERTY(NSString       *, tunnelblickVersionString, setTunnelblickVersionString)
 TBPROPERTY(BOOL            , showingImportSetupWindow, setShowingImportSetupWindow)
+TBPROPERTY(NSDate         *, lastCheckNow,             setLastCheckNow)
 
 @end
