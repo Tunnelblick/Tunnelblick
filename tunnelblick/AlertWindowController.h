@@ -26,6 +26,7 @@
 @interface AlertWindowController : NSWindowController <NSWindowDelegate> {
     
     NSString                    * headline;
+    double                        initialPercentage;
     NSString                    * message;
 	NSAttributedString			* messageAS;
 	NSString					* preferenceToSetTrue;
@@ -35,22 +36,36 @@
 	NSAttributedString			* checkboxInfoTitle;
 	BOOL					      checkboxIsChecked;
     
-	IBOutlet NSImageView        * iconIV;
-	
+    id                            responseTarget;
+    SEL                           defaultResponseSelector;
+    SEL                           alternateResponseSelector;
+    SEL                           otherResponseSelector;
+    SEL                           windowWillCloseSelector;
+
+    NSString                    * defaultButtonTitle;
+    NSString                    * alternateButtonTitle;
+    NSString                    * otherButtonTitle;
+
+    IBOutlet NSImageView        * iconIV;
+    
     IBOutlet NSTextField        * headlineTF;
     IBOutlet NSTextFieldCell    * headlineTFC;
     
 	IBOutlet NSScrollView       * messageSV;
 	IBOutlet NSTextView         * messageTV;
 
+    IBOutlet NSProgressIndicator * progressInd;
+
 	IBOutlet TBButton			* doNotWarnAgainCheckbox;
 
-    IBOutlet NSButton           * okButton;
-
+    IBOutlet NSButton           * defaultButton;
+    IBOutlet NSButton           * alternateButton;
+    IBOutlet NSButton           * otherButton;
 }
 
 
 TBPROPERTY(NSString *,           headline,            setHeadline)
+TBPROPERTY(double,               initialPercentage,   setInitialPercentage)
 TBPROPERTY(NSString *,           message,             setMessage)
 TBPROPERTY(NSAttributedString *, messageAS,           setMessageAS)
 TBPROPERTY(NSString *,           preferenceToSetTrue, setPreferenceToSetTrue)
@@ -60,6 +75,16 @@ TBPROPERTY(NSString *,           checkboxTitle,       setCheckboxTitle)
 TBPROPERTY(NSAttributedString *, checkboxInfoTitle,   setCheckboxInfoTitle)
 TBPROPERTY(BOOL,                 checkboxIsChecked,   setCheckboxIsChecked)
 
+TBPROPERTY(id,                   responseTarget,            setResponseTarget)
+TBPROPERTY(SEL,                  defaultResponseSelector,   setDefaultResponseSelector)
+TBPROPERTY(SEL,                  alternateResponseSelector, setAlternateResponseSelector)
+TBPROPERTY(SEL,                  otherResponseSelector,     setOtherResponseSelector)
+TBPROPERTY(SEL,                  windowWillCloseSelector,   setWindowWillCloseSelector)
+
+TBPROPERTY(NSString *,           defaultButtonTitle,        setDefaultButtonTitle)
+TBPROPERTY(NSString *,           alternateButtonTitle,      setAlternateButtonTitle)
+TBPROPERTY(NSString *,           otherButtonTitle,          setOtherButtonTitle)
+
 TBPROPERTY_READONLY(NSImageView     *, iconIV)
 
 TBPROPERTY_READONLY(NSTextField     *, headlineTF)
@@ -68,7 +93,16 @@ TBPROPERTY_READONLY(NSTextFieldCell *, headlineTFC)
 TBPROPERTY_READONLY(NSScrollView    *, messageSV)
 TBPROPERTY_READONLY(NSTextView      *, messageTV)
 
+TBPROPERTY_READONLY(NSProgressIndicator *, progressInd)
+
 TBPROPERTY_READONLY(TBButton        *, doNotWarnAgainCheckbox)
 
-TBPROPERTY_READONLY(NSButton        *, okButton)
+TBPROPERTY_READONLY(NSButton        *, defaultButton)
+TBPROPERTY_READONLY(NSButton        *, alternateButton)
+TBPROPERTY_READONLY(NSButton        *, otherButton)
+
+-(IBAction) defaultButtonWasClicked:   (id)  sender;
+-(IBAction) alternateButtonWasClicked: (id)  sender;
+-(IBAction) otherButtonWasClicked:     (id)  sender;
+
 @end

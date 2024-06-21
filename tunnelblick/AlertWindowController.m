@@ -37,6 +37,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 
 TBSYNTHESIZE_OBJECT(retain, NSString *,			  headline,			      setHeadline)
+TBSYNTHESIZE_NONOBJECT(double,                    initialPercentage,      setInitialPercentage)
 TBSYNTHESIZE_OBJECT(retain, NSString *,			  message,			      setMessage)
 TBSYNTHESIZE_OBJECT(retain, NSAttributedString *, messageAS,		      setMessageAS)
 TBSYNTHESIZE_OBJECT(retain, NSString *,			  preferenceToSetTrue,    setPreferenceToSetTrue)
@@ -44,8 +45,16 @@ TBSYNTHESIZE_OBJECT(retain, NSString *,			  preferenceName,         setPreferenc
 TBSYNTHESIZE_OBJECT(retain, id,					  preferenceValue,        setPreferenceValue)
 TBSYNTHESIZE_OBJECT(retain, NSString *,			  checkboxTitle,          setCheckboxTitle)
 TBSYNTHESIZE_OBJECT(retain, NSAttributedString *, checkboxInfoTitle,      setCheckboxInfoTitle)
-TBSYNTHESIZE_OBJECT(retain, TBButton *,           doNotWarnAgainCheckbox, setDoNotWarnAgainCheckbox)
 TBSYNTHESIZE_NONOBJECT(BOOL,                      checkboxIsChecked,      setCheckboxIsChecked)
+
+TBSYNTHESIZE_OBJECT(retain, id,                   responseTarget,          setResponseTarget)
+TBSYNTHESIZE_NONOBJECT(SEL,                       defaultResponseSelector, setDefaultResponseSelector)
+TBSYNTHESIZE_NONOBJECT(SEL,                       alternateResponseSelector,setAlternateResponseSelector)
+TBSYNTHESIZE_NONOBJECT(SEL,                       otherResponseSelector,   setOtherResponseSelector)
+TBSYNTHESIZE_NONOBJECT(SEL,                       windowWillCloseSelector, setWindowWillCloseSelector)
+TBSYNTHESIZE_OBJECT(retain, NSString *,           defaultButtonTitle,      setDefaultButtonTitle)
+TBSYNTHESIZE_OBJECT(retain, NSString *,           alternateButtonTitle,    setAlternateButtonTitle)
+TBSYNTHESIZE_OBJECT(retain, NSString *,           otherButtonTitle,        setOtherButtonTitle)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSImageView     *, iconIV)
 
@@ -54,11 +63,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, headlineTFC)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSScrollView    *, messageSV)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextView      *, messageTV)
+TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, progressInd)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, okButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton        *, doNotWarnAgainCheckbox)
 
--(id) init
-{
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, defaultButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, alternateButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
+
+-(id) init {
     self = [super initWithWindowNibName: [UIHelper appendRTLIfRTLLanguage: @"AlertWindow"]];
     if (  ! self  ) {
         return nil;
@@ -68,16 +81,22 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, okButton)
     return self;
 }
 
-- (void) dealloc {
+-(void) dealloc {
     
     [headline			    release]; headline				 = nil;
     [message			    release]; message				 = nil;
 	[messageAS			    release]; messageAS				 = nil;
-	[doNotWarnAgainCheckbox release]; doNotWarnAgainCheckbox = nil;
 	[preferenceToSetTrue    release]; preferenceToSetTrue	 = nil;
+    [preferenceName         release];
+    [preferenceValue        release];
 	[checkboxTitle          release]; checkboxTitle			 = nil;
 	[checkboxInfoTitle      release]; checkboxInfoTitle		 = nil;
-	
+    [responseTarget         release]; responseTarget         = nil;
+    [defaultButtonTitle     release]; defaultButtonTitle     = nil;
+    [alternateButtonTitle   release]; alternateButtonTitle   = nil;
+    [otherButtonTitle       release]; otherButtonTitle       = nil;
+    [defaultButtonTitle     release]; defaultButtonTitle     = nil;
+
 	[super dealloc];
 }
 
@@ -98,6 +117,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, okButton)
 
         [gMC recreateMenu];
 	}
+
+    if (  self.windowWillCloseSelector  ) {
+        [self.responseTarget performSelectorOnMainThread: self.windowWillCloseSelector withObject: nil waitUntilDone: NO];
+    }
+
 	[self autorelease];
 }
 
@@ -118,6 +142,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, okButton)
         windowFrame.size.width += widthChange;
 		[w setFrame: windowFrame display: NO];
     }
+}
+
+-(void) setupProgressInd {
+
+    [self.progressInd setMinValue: 0.0];
+    [self.progressInd setMaxValue: 100.0];
+    [self.progressInd setDoubleValue: self.initialPercentage];
+    [self.progressInd setHidden: (self.initialPercentage == 0.0)];
 }
 
 float heightForStringDrawing(NSString *myString,
@@ -208,7 +240,7 @@ float heightForStringDrawing(NSString *myString,
 }
 
 -(void) setupCheckboxWithHeightChange: (CGFloat) heightChange {
-	
+
 	if (   (   (! preferenceToSetTrue)
             || [preferenceToSetTrue hasSuffix: @"-NotAnActualPreference"]
             )
@@ -240,6 +272,39 @@ float heightForStringDrawing(NSString *myString,
 									   : NSOffState)];
 }
 
+-(IBAction) defaultButtonWasClicked: (id)  sender {
+
+    if (  defaultResponseSelector  ) {
+        [self.responseTarget performSelectorOnMainThread: self.defaultResponseSelector withObject: nil waitUntilDone: NO];
+        [self.progressInd setHidden: NO];
+        [self.defaultButton setEnabled: NO];
+        [self.alternateButton setEnabled: NO];
+        [self.otherButton setEnabled: NO];
+        return;
+    }
+
+    [self setWindowWillCloseSelector: NULL];
+    [self.window close];
+}
+
+-(IBAction) alternateButtonWasClicked: (id)  sender {
+
+    if (  alternateResponseSelector  ) {
+        [self.responseTarget performSelectorOnMainThread: self.alternateResponseSelector withObject: nil waitUntilDone: NO];
+    }
+    [self setWindowWillCloseSelector: NULL];
+    [self.window close];
+}
+
+-(IBAction) otherButtonWasClicked: (id)  sender {
+
+    if (  otherResponseSelector  ) {
+        [self.responseTarget performSelectorOnMainThread: self.otherResponseSelector withObject: nil waitUntilDone: NO];
+    }
+    [self setWindowWillCloseSelector: NULL];
+    [self.window close];
+}
+
 -(void) awakeFromNib {
 	
     [[self window] setDelegate: self];
@@ -250,19 +315,46 @@ float heightForStringDrawing(NSString *myString,
     
 	[self setupMessageAndCheckbox];
 	
+    [self setupProgressInd];
+
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
-    [UIHelper setTitle: NSLocalizedString(@"OK", @"Button") ofControl: [self okButton] shift: ( !rtl ) narrow: NO enable: YES];
-    
+
+    if (  ! defaultButtonTitle  ) {
+        defaultButtonTitle = NSLocalizedString(@"OK", @"Button");
+    }
+    CGFloat widthChange = [UIHelper setTitle: defaultButtonTitle ofControl: [self defaultButton] shift: ( !rtl ) narrow: NO enable: YES];
+    [UIHelper shiftControl: self.alternateButton by: (- widthChange) reverse: ( ! rtl)];
+
+    if (  self.alternateButtonTitle  ) {
+        [UIHelper setTitle: self.alternateButtonTitle   ofControl: self.alternateButton   shift: ( !rtl ) narrow: NO enable: YES];
+        [self.alternateButton setHidden: NO];
+    }
+
+    if (  self.otherButtonTitle  ) {
+        [UIHelper setTitle: self.otherButtonTitle ofControl: self.otherButton shift: ( rtl ) narrow: NO enable: YES];
+        [self.otherButton setHidden: NO];
+    }
+
 	NSWindow * w = [self window];
     
     [w setTitle: NSLocalizedString(@"Tunnelblick", @"Window title")];
     
-	[w setDefaultButtonCell: [okButton cell]];
-	
+	[w setDefaultButtonCell: [self.defaultButton cell]];
+
+    if (   self.responseTarget  ) {
+        if (  self.alternateResponseSelector  ) {
+            [self.alternateButton setHidden: FALSE];
+        }
+        if (  self.otherResponseSelector  ) {
+            [self.otherButton setHidden: FALSE];
+        }
+    }
+
 	[w center];
     [w display];
     [self showWindow: self];
-    
+    [w makeKeyAndOrderFront: nil];
+
     [gMC activateIgnoringOtherApps];
 
     [w makeKeyAndOrderFront: self];
