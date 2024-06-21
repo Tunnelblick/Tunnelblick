@@ -36,6 +36,7 @@
 
 #import "defines.h"
 #import "sharedRoutines.h"
+#import "TBUpdaterShared.h"
 
 #import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
@@ -56,6 +57,7 @@ NSString            * gStartArgs     = nil;     // String with an underscore-del
 //                                              // subcommand: useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
 
 uid_t                 gUidOfUser     = 0;       // User's uid (or 0 if started via 'sudo'
+gid_t                 gGidOfUser     = 0;       // User's gid (or 0 if started via 'sudo'
 NSString            * gUserName      = nil;
 NSString            * gUserHome      = nil;
 
@@ -71,7 +73,7 @@ NSString * gTemporaryDirectory = nil;			// Path to a temporary directory if one 
 //**************************************************************************************************************************
 
 void appendLog(NSString * msg) {
-    fprintf(stderr, "%s\n", [msg UTF8String]);
+    fprintf(stdout, "%s\n", [msg UTF8String]);
 }
 
 BOOL isOpenVPN_2_3(NSString *openvpnPath) {
@@ -93,7 +95,7 @@ const char * fileSystemRepresentationOrNULL(NSString * s) {
 
 void exitOpenvpnstart(OSStatus returnValue) {
 	
-	// returnValue: have used 162-245, plus the values in define.h (247-254)
+	// returnValue: have used 158-245, plus the values in define.h (247-254)
 
 	if (  gTemporaryDirectory  ) {
 		[[NSFileManager defaultManager] tbRemoveFileAtPath: gTemporaryDirectory handler: nil];
@@ -202,6 +204,9 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart reconnecting  configName  cfgLocCode\n\n"
             "               to run the reconnecting.sh script inside a .tblk.\n\n"
             
+            "./openvpnstart updateTunnelblick  updateSignature  username  versionAndBuildString  tunnelblickPidString\n\n"
+            "               to update Tunnelblick from /Users/username/Library/Application Support/Tunnelblick/tunnelblick-update.zip.\n\n"
+
             "./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  [bitMask  [leasewatchOptions [openvpnVersion] ]]  ]  ]  ]  ]\n\n"
             "               to load the net.tunnelblick.tun and/or net.tunnelblick.tap kexts and start OpenVPN with the specified configuration file and options.\n"
             "               foo.tun kext will be unloaded before loading net.tunnelblick.tun, and foo.tap will be unloaded before loading net.tunnelblick.tap.\n\n"
@@ -2315,7 +2320,7 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
     id obj = [[NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH] objectForKey:@"allowNonAdminSafeConfigurationReplacement"];
     if (  ! (   [obj respondsToSelector: @selector(boolValue)]
              && [obj boolValue])  ) {
-        fprintf(stderr, "safeUpdate/safeUpdateTest not been approved by an administrator\n");
+        fprintf(stderr, "safeUpdate/safeUpdateTest has not been approved by an administrator\n");
         exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
     }
     
@@ -2380,6 +2385,50 @@ void safeUpdate(NSString * displayName, BOOL doUpdate) {
     }
     
     exitOpenvpnstart(OPENVPNSTART_UPDATE_SAFE_OK);
+}
+
+//**************************************************************************************************************************
+
+OSStatus updateTunnelblickApp(int argc, char * argv[]) {
+
+    if (  argc != 6  ) {
+        appendLog(@"Wrong number of arguements");
+        exitOpenvpnstart(161);
+    }
+
+    // Make sure an admin has authorized safe updates
+    id obj = [[NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH] objectForKey:@"TBUpdaterAllowNonAdminToUpdateTunnelblick"];
+    if (  ! (   [obj respondsToSelector: @selector(boolValue)]
+             && [obj boolValue])  ) {
+        fprintf(stderr, "updateTunnelblickApp has not been approved by an administrator\n");
+        exitOpenvpnstart(158);
+    }
+
+    NSString * updateSignature       = [NSString stringWithUTF8String: argv[2]];
+    NSString * username              = [NSString stringWithUTF8String: argv[3]];
+    NSString * versionAndBuildString = [NSString stringWithUTF8String: argv[4]];
+    NSString * tunnelblickPidString  = [NSString stringWithUTF8String: argv[5]];
+
+    pid_t tunnelblickPid = [tunnelblickPidString intValue];
+
+    NSString * updateZipPath = [[[@"/Users/"
+                                   stringByAppendingPathComponent: username]
+                                  stringByAppendingPathComponent: L_AS_T]
+                                 stringByAppendingPathComponent: @"tunnelblick-update.zip"];
+    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: updateZipPath]  ) {
+        appendLog([NSString stringWithFormat: @"updateTunnelblickApp: No file at %@", updateZipPath]);
+        exitOpenvpnstart(160);
+    }
+
+    becomeRoot(@"run updateTunnelblick()");
+    BOOL result = updateTunnelblick(updateZipPath, updateSignature, versionAndBuildString, gUidOfUser, gGidOfUser, tunnelblickPid);
+    stopBeingRoot();
+
+    if (  ! result  ) {
+        exitOpenvpnstart(159);
+    }
+
+    return EXIT_SUCCESS;
 }
 
 //**************************************************************************************************************************
@@ -3331,15 +3380,19 @@ int main(int argc, char * argv[]) {
     //     When running as non-root: uid == 0 and euid == <user-id> (which may be 0, as noted above)
     
     uid_t originalUid  = getuid();	// Save user's uid, euid, short name, and home folder for later
+    gid_t originalGid  = getgid();
     uid_t originalEuid = geteuid();
+    gid_t originalEgid = getegid();
 	gUserName = [NSUserName() copy];
 	gUserHome = [NSHomeDirectory() copy];
 	
     if (  originalUid == 0  ) {
         // Started by tunnelblickd or 'sudo'
-        gUidOfUser = originalEuid; // User's uid or 0 if started by 'sudo'
+        gUidOfUser = originalEuid; // User's uid/gid or 0 if started by 'sudo'
+        gGidOfUser = originalEgid;
     } else if (  originalEuid == 0  ) {
-        gUidOfUser = originalUid;  // User's uid
+        gUidOfUser = originalUid;  // User's uid/gid
+        gGidOfUser = originalGid;
     } else {
         fprintf(stderr, "uid is not 0 and euid is not 0 --Tunnelblick has probably not been secured. Secure it by launching Tunnelblick.\n");
         exitOpenvpnstart(174);
@@ -3614,6 +3667,11 @@ int main(int argc, char * argv[]) {
             retCode = runScript(@"reconnecting.sh", argc, argv);
             syntaxError = FALSE;
             
+        } else if ( strcmp(command, "updateTunnelblickApp") == 0) {
+            // updateTunnelblickApp validates its own arguments
+            retCode = updateTunnelblickApp(argc, argv);
+            syntaxError = FALSE;
+
 		} else if( strcmp(command, "start") == 0 ) {
             
             NSString * configFile = @"X";
