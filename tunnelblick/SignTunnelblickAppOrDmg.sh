@@ -124,6 +124,7 @@ sign_app () {
         echo "Signing with signing identity '$SIGNING_IDENTITY': '$app_path'"
 
         codesign_v_t_or "$app_path/Contents/Resources/atsystemstart"
+        codesign_v_t_or "$app_path/Contents/Resources/TunnelblickUpdateHelper"
         codesign_v_t_or "$app_path/Contents/Resources/installer"
         codesign_v_t_or "$app_path/Contents/Resources/openvpnstart"
         codesign_v_t_or "$app_path/Contents/Resources/process-network-changes"
@@ -228,7 +229,7 @@ check_app_signature () {
     codesign_verify_verbose "$app_path" --deep
 
     # Check individual binaries
-    for f in tun-notarized.kext tap-notarized.kext atsystemstart installer openvpnstart process-network-changes standardize-scutil-output tunnelblickd tunnelblick-helper ; do
+    for f in tun-notarized.kext tap-notarized.kext atsystemstart TunnelblickUpdateHelper installer openvpnstart process-network-changes standardize-scutil-output tunnelblickd tunnelblick-helper ; do
         codesign_verify_verbose "$app_path/Contents/Resources/$f"
     done
 

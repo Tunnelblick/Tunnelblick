@@ -126,6 +126,7 @@ kext_products_folder="$( cd ../third_party/products/tuntap ; pwd )"
 
 # Copy helpers into Resources
   cp -a "build/${CONFIGURATION}/atsystemstart"              "${app_path}/Contents/Resources/"
+  cp -a "build/${CONFIGURATION}/TunnelblickUpdateHelper"    "${app_path}/Contents/Resources/"
   cp -a "build/${CONFIGURATION}/installer"                  "${app_path}/Contents/Resources/"
   cp -a "build/${CONFIGURATION}/openvpnstart"               "${app_path}/Contents/Resources/"
   cp -a "build/${CONFIGURATION}/process-network-changes"    "${app_path}/Contents/Resources/"
@@ -369,6 +370,7 @@ done
 
 # Change permissions from 755 to 744 on many executables in Resources (openvpn-down-root.so permissions were changed when setting up the OpenVPN folder structure)
 chmod 744 "${app_path}/Contents/Resources/atsystemstart"
+chmod 744 "${app_path}/Contents/Resources/TunnelblickUpdateHelper"
 chmod 744 "${app_path}/Contents/Resources/installer"
 chmod 744 "${app_path}/Contents/Resources/leasewatch"
 chmod 744 "${app_path}/Contents/Resources/leasewatch3"

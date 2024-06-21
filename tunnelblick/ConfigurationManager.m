@@ -4533,6 +4533,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_SENDER]]  ) {
                     if (   [string isEqualToString: @"Tunnelblick"]
                         || [string isEqualToString: @"atsystemstart"]
+                        || [string isEqualToString: @"TunnelblickUpdateHelper"]
                         || [string isEqualToString: @"installer"]
                         || [string isEqualToString: @"openvpnstart"]
                         || [string isEqualToString: @"process-network-changes"]
@@ -4547,6 +4548,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                         || [string containsString: @"tunnelblick"]
                         || [string containsString: @"Tunnel" "blick"]      // Include non-rebranded references to Tunnelblick
                         || [string containsString: @"atsystemstart"]
+                        || [string containsString: @"TunnelblickUpdateHelper"]
                         || [string containsString: @"installer"]
                         || [string containsString: @"openvpnstart"]
                         || [string containsString: @"Saved crash report for openvpn"]
