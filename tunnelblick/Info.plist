@@ -125,7 +125,7 @@
 	<key>SUEnableSystemProfiling</key>
 	<false/>
 	<key>SUFeedURL</key>
-	<string>https://tunnelblick.net/a136977b/appcast-v3.rss</string>
+	<string>https://tunnelblick.net/appcast-v3.rss</string>
 	<key>SUPublicDSAKey</key>
 	<string>-----BEGIN PUBLIC KEY-----
 MIIDOzCCAi0GByqGSM44BAEwggIgAoIBAQDZrbatW0npHNOW3JKIKWK6/MLWhYEo
