@@ -1,5 +1,5 @@
 #!/bin/sh -e
-# Copyright © 2015 by Jonathan K. Bullard. All rights reserved.
+# Copyright © 2015, 2024 by Jonathan K. Bullard. All rights reserved.
 #
 # This script downloads and installs new versions of the GNU "autotools" -- a set of
 # command line tools that are obsolete in Xcode 3 and are missing from Xcode 4 and higher.
@@ -17,11 +17,11 @@ readonly automake_version="automake-1.16.3"
 readonly libtool_version="libtool-2.4.6"
 
 # You can check for the latest version of each tool by examining the following:
-#     https://ftpmirror.gnu.org/autoconf
-#     https://ftpmirror.gnu.org/automake
-#     https://ftpmirror.gnu.org/libtool
+#     https://ftp.gnu.org/gnu/autoconf
+#     https://ftp.gnu.org/gnu/automake
+#     https://ftp.gnu.org/gnu/libtool
 # If you wish to install different versions, modify the variables above.
-# Note that it is possible (although unlikely) that later versions of the autotools may
+# Note that it is possible that later versions of the autotools will
 # not work properly for the third party build process.
 
 
@@ -37,9 +37,9 @@ readonly downloads_folder_path=~/"Downloads"
 
 
 # URLs for downloading the tools:
-readonly autoconf_url=https://ftpmirror.gnu.org/autoconf/${autoconf_version}.tar.gz
-readonly automake_url=https://ftpmirror.gnu.org/automake/${automake_version}.tar.gz
-readonly libtool_url=https://ftpmirror.gnu.org/libtool/${libtool_version}.tar.gz
+readonly autoconf_url=https://ftp.gnu.org/gnu/autoconf/${autoconf_version}.tar.gz
+readonly automake_url=https://ftp.gnu.org/gnu/automake/${automake_version}.tar.gz
+readonly  libtool_url=https://ftp.gnu.org/gnu/libtool/${libtool_version}.tar.gz
 
 if [ ! -d "${downloads_folder_path}" ] ; then
     echo "Downloads folder '${downloads_folder_path}' does not exist or is not a folder"
