@@ -626,7 +626,7 @@ extern TBUserDefaults * gTbDefaults;
         }
     }
 
-    appendLog(@"Could not find an appropriate appcast");
+    appendLog(@"No  appropriate update is available");
     [self appropriateUpdateIsAvailable: NO
                          errorOccurred: NO];
     return;
