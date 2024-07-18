@@ -299,9 +299,6 @@
 /* Menu item */
 "Add a VPN..." = "Προσθήκη νέου VPN…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "Έλεγχος ενημερώσεων τώρα";
-
 /* Menu item */
 "Connect %@%@" = "Σύνδεση στο %@%@";
 
@@ -394,9 +391,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Εμφάνιση στο μενού της εφαρμογής";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "Προτάσεις ή Αναφορά σφαλμάτων…";
 
 /* Menu item */
 "VPN Details..." = "Λεπτομέρειες VPN…";
@@ -697,9 +691,6 @@
 
 /* Window title */
 "No Credentials" = "Μη πιστοποιητικό";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Μόνο οι διαχειριστές του υπολογιστή πρέπει να ενημερώνουν το Tunnelblick";
 
 /* Window title */
 "OpenVPN is Not Responding" = "Το OpenVPN δεν ανταποκρίνεται";
@@ -1707,9 +1698,6 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Παρουσιάστηκαν προβλήματα κατά την εισαγωγή ρυθμίσεων του Tunnelblick.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Η παρούσα 'υπο ανάπτυξη' έκδοση του Tunnelblick δεν μπορεί να εκκινηθεί ή εγκατασταθεί επειδή δεν έχει επίσημα διατεθεί ή λείπουν οι πληροφορίες updateFeedURL ή SUFeedURL ή περιέχει το αρχείο 'tunnelblick.net' ή μπορεί να λείπει η πληροφορία CFBundleIdentifier ή να περιέχει το αρχείο 'net.tunnelblick'.\n\n";
-
-/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Η παρούσα 'υπο ανάπτυξη' έκδοση του Tunnelblick δεν μπορεί να εκκινηθεί ή εγκατασταθεί επειδή δεν έχει το αρχείο Info.plist.\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
@@ -1729,9 +1717,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Αυτό το αντίγραφο του Tunnelblick δεν έχει ψηφιακά υπογραφεί.\n\nΔεν υπάρχει τρόπος να πιστοποιηθεί οτι δεν έχει τροποποιηθεί.\n\n Ελέγξτε με τον πάροχο σας το αντίγραφο αυτό του Tunnelblick πριν το χρησιμοποιήσετε.\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Η παρούσα έκδοση του Tunnelblick δεν μπορεί να εκκινηθεί ή εγκατασταθεί επειδή έχει άκυρη ενημέρωση της URL.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Αυτή η έκδοση του Tunnelblick δεν μπορεί να εκκινηθεί ή εγκατασταθεί επειδή δεν είναι έκδοση 'υπο ανάπτυξη' και μια ή περισσότερες εκδόσεις 'υπο ανάπτυξη' του Tunnelblick είχαν εγκατασταθεί παλιότερα.\n\n";
@@ -1759,9 +1744,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Το Tunnelblick μπορεί να έχει πρόσβαση στο %@ για να ελέγχει ότι η φαινόμενη δημόσια IP διεύθυνση του υπολογιστή αλλάζει κάθε φορά που συνδέεστε στο VPN.\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Το Tunnelblick δεν θα μπόρεσε να ρυθμιστεί αυτόματα κατά την εκκίνηση, μετά την σύνδεση σας.  \n\nΑνατρέξτε στο αρχείο καταγραφής κονσόλα για λεπτομέρειες.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Το Tunnelblick δεν μπορεί να εκκινηθεί λόγο ενός προβλήματος στης παραμέτρους. Παρακαλούμε εξετάστε το ημερολόγιο Κονσόλας για πληροφορίες.";
@@ -2007,9 +1989,6 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Η ενημερώσιμη ρύθμιση '%@' αποθηκεύτηκε ως ενημερώσιμη γιατίο το info.plist δεν διαθέτει εγγραφή 'SUPublicDSAKey' ή η εγγραφή 'SUFeedURL' δεν περιγράφει τη χρήση https:\n";
 
 /* Window text */
-"Updates:" = "Ενημερώσεις:";
-
-/* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Η διαμόρφωση VPN %@ δεν θα εγκατασταθεί επειδή έχει παλιότερο αριθμό έκδοσης.";
 
 /* Window text */
@@ -2103,9 +2082,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Πρέπει να αποσυνδεθείτε από όλα τα VPNs πριν εγκαταστήσετε ή απεγκαταστήσετε τις επεκτάσεις συστήματος του Tunnelblick.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Δεν θα μπορείτε να ενημερώσετε το Tunnelblick εκτός αν έχετε δώσει την εξουσιοδότηση του διαχειριστή του υπολογιστή.\n\nΕίστε βέβαιοι ότι θέλετε να ελέγξετε για ενημερώσεις;";
-
-/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Ο υπολογιστής σας ίσως να μη μπορεί να το εμφανίσει αξιόπιστα το Tunnelblick δίπλα στο εικονίδιο του Spotlight.\n\nΑυτό ίσως προκαλέσει την απώλεια του Tunnelblick από μπάρα του μενού.\n\nΕίστε σίγουροι ότι θέλετε να τοποθετήσετε το Tunnelblick δίπλα στο εικονίδιο του Spotlight;\n\n";
 
 /* Window text */
@@ -2188,6 +2164,7 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Για την εισαγωγή Tunnelblick ρυθμίσεων σε έναν υπολογιστή που έχει παραπάνω από %u λογαριασμούς χρηστών, πρέπει να δημιουργήσετε ένα αρχείο κειμένου που να καθορίζει τα δεδομένα που θα εισαχθούν.</p>\n<p>Για περισσότερες πληροφορίες, δείτε <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p> Οι εκδόσεις του OpenVPN <strong> εκτός Tunnelblick </strong> δεν δημιουργήθηκαν από το έργο Tunnelblick και δεν αποτελούν μέρος του Tunnelblick. Έχουν εγκατασταθεί από τον διαχειριστή του υπολογιστή. </p>";
 
@@ -2233,9 +2210,6 @@
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το Tunnelblick θα ελέγξει για τυχόν ενημερώσεις δοκιμαστικών εκδόσεων (beta).</p><p><strong>Όταν δεν είναι επιλεγμένο</strong>, το Tunnelblick θα ελέγξει για τυχόν ενημερώσεις σταθερών εκδόσεων (stable).</p><p><strong>Αυτό το πλαίσιο πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> και επιλεγμένο όταν χρησιμοποιείται δοκιμαστική έκδοση (beta).</p>";
-
-/* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το Tunnelblick θα ελέγξει για τυχόν ενημερώσεις στην εκκίνηση και στη συνέχεια περιοδικά.</p><p><strong>Αυτό το πλαίσιο πλαίσιο ελέγχου είναι απενεργοποιημένο</strong> και μη επιλεγμένο όταν είναι επιλεγμένο το «Αναστολή ελέγχου αυτόματης ενημέρωσης και ελέγχου διεύθυνσης IP».</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το Tunnelblick θα διαπιστώσει τη δημόσια IP διεύθυνση του υπολογιστή πριν και μετά τη σύνδεση στο VPN και θα ειδοποιήσει εάν η IP διεύθυνση δεν αλλάξει.</p>\n<p>Η ιστοσελίδα tunnelblick.net θα χρησιμοποιηθεί για την εκτέλεση αυτής της λειτουργίας. Η πρόσβαση γίνεται συνήθως μέσω https: χρησιμοποιώντας το όνομα tunnelblick.net. Αν η πρόσβαση αποτύχει γίνεται προσπάθεια με χρήση http: και την IP διεύθυνση της ιστοσελίδας.</p>\n <p><strong>Όταν δεν είναι επιλεγμένο</strong>, το Tunnelblick δεν ελέγχει για αλλαγές στην IP διεύθυνση και δεν προειδοποιεί αν δεν αλλάξει η IP διεύθυνση μετά τη σύνδεση στο VPN.</p>\n";

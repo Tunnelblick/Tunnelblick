@@ -299,9 +299,6 @@
 /* Menu item */
 "Add a VPN..." = "Dodaj VPN…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "Provjeri nadogradnje";
-
 /* Menu item */
 "Connect %@%@" = "Spoji %@%@";
 
@@ -394,9 +391,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Prikaži u Tunnelblick izborniku";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "Prijava greške i savjeta…";
 
 /* Menu item */
 "VPN Details..." = "VPN detalji…";
@@ -697,9 +691,6 @@
 
 /* Window title */
 "No Credentials" = "Nema korisničkog imena i/ili lozinke";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Samo administrator bi trebao ažurirati Tunnelblick";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN ne reagira";
@@ -1707,9 +1698,6 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Prilikom uvoženja Tunnelblick podešavanja dogodio se neočekivani problem.\n\nZa više detalja posetite Konzolu.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Ova 'Primenjena' verzija Tunnelblicka ne može se pokrenuti ili instalirati jer nije rebrendirana ili nedostaju updateFeedURL ili SUFeedURL, ili sadrže 'tunnelblick.net', ili CFBundleIdentifier nedostaje ili sadrži 'net.tunnelblick'.\n\n";
-
-/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Ova 'Primenjena' verzija Tunnelblicka ne može se pokrenuti ili instalirati jer ne poseduje Info.plist.\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
@@ -1729,9 +1717,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Ova kopija Tunnelblicka nije digitalno potpisana.\n\nNe postoji način da proverimo da li je nelegalno modifikovana.\n\n Proverite sa dobavljačem ove kopije Tunnelblick-a pre nego je koristite.\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Ova verzija Tunnelblick-a se ne može pokrenuti ili instalirati jer sadrži neispravan URL za ažuriranje.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Ova verzija Tunnelblicka se ne može pokrenuti ili instalirati jer nije \"Primenjena\" verzija, a jedna ili više \"Primenjenih\" verzija Tunnelblick-a je prethodno instalirano.\n\n";
@@ -1759,9 +1744,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick može pristupiti %@ kako bi proverio da li se javna IP adresa vašeg računara menja svaki put kada se povežete sa VPN.\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Neuspešno podešavanja Tunnelblicka za automatsko pokretanje nakon prijave.\n\nPogledajte log konzole za detalje.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nije mogao biti pokrenut zbog problema sa konfiguracijom. Pogledajte log konzole za detalje.";
@@ -2007,9 +1989,6 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Konfiguracija koju je moguće osvežiti %@ nije sačuvana kao takva jer Info.plist nije imao 'SUPublicDSAKey' unos ili njegov 'SUFeedURL' unos nije precizirao upotrebu https:\n";
 
 /* Window text */
-"Updates:" = "Ažuriranja:";
-
-/* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN konfiguracija %@ NEĆE biti instalirana jer ima niži broj verzije.";
 
 /* Window text */
@@ -2103,9 +2082,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Morate prekinuti sve VPN konekcije pre nego instalirate ili deinstalirate Tunnelblickove sistemske ekstenzije.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Ažuriranje Tunnelblick nije moguće bez autorizacije administratora.\n\nDa li ste sigurni da želite da proverite dostupna ažuriranja?";
-
-/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Vaš računar možda neće uspeti da prikaže Tunnelblick ikonicu blizu Spotlight ikonice.\n\nOvo može da dovede do povremenog NESTANKA Tunnelblick ikonice sa linije menija.\n\nDa li ste sigurni da želite da postavite Tunnelblick ikonicu blizu Spotlight ikonice?\n\n";
 
 /* Window text */
@@ -2188,6 +2164,7 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Ukoliko želite da uvezete Tunnelblick konfiguraciju na računaru koji poseduje više od %u korisnička naloga, prvo je potrebno da kreirate datoteku sa specifikacijom podataka koji treba da budu uveženi. </p>\n<p>Za više informacija posetite <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>ne-Tunnelblick</strong>' verzije OpenVPN-a  nisu kreirane od strane Tunnelblick projekta i nisu dio Tunnelblick-a. One su instalirane od strane sistemskog administratora.</p>";
 
@@ -2233,9 +2210,6 @@
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Kada je uključeno</strong>, Tunnelblick će proveravati za nove beta verzije.</p>\n<p><strong>Kada je isključeno</strong>, Tunnelblick će proveravati za nove stabilne verzije.</p><p><strong>Ova opcija je onemogućena</strong> a uključena je kada se koristi beta verzija.</p>";
-
-/* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Kada je uključeno</strong>, Tunnelblick će proveravati za novu verziju prilikom pokretanja i periodično nakon toga.</p><p><strong>Ova opcija je onemogućena</strong> a isključena je kada je uključeno 'ISpreči automatske provere za nove verzije i IP adresu'.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Kada je čekirano</strong>, Tunnelblick će uporediti vidljivu javnu IP adresu računara pre i nakon povezivanja na VPN i upozoriti ako se nije promenila.</p>\n<p>Sajt tunnelblick.net će biti kontaktiran za ovu funkcionalnost. Najčešće putem https: protokola sem u slučaju da je neuspešan, onda će se pokušati korišćenjem http: protokola i IP adrese servera.</p>\n<p><strong>Kada nije čekirano</strong>, Tunnelblick ne proverava i ne upozorava ako nije došlo do promene IP adrese.</p>\n";

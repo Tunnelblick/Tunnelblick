@@ -106,6 +106,9 @@
 /* Button */
 "Do nothing" = "Gör ingenting";
 
+/* Button to install an update */
+"Download and Install" = "Ladda ned och installera";
+
 /* Button */
 "Export Tunnelblick Setup" = "Exportera Tunnelblick-inställningar";
 
@@ -120,6 +123,9 @@
 
 /* Button */
 "Ignore" = "Ignorera";
+
+/* Button to install an update */
+"Install and Relaunch" = "Installera och starta om";
 
 /* Button */
 "Install tun and tap system extensions..." = "Installera tun och tap systemtillägg…";
@@ -194,6 +200,9 @@
 /* Button */
 "Reinstall" = "Ominstallera";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "Påminn mig senare";
+
 /* Button */
 "Remove Credentials" = "Ta bort användaruppgifter";
 
@@ -241,6 +250,9 @@
 
 /* Button */
 "Show while connecting" = "Visa vid anslutning";
+
+/* Button to skip a particular update */
+"Skip This Version" = "Hoppa över den här versionen";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "Hoppa över den här uppdateringen";
@@ -296,11 +308,21 @@
 /* Button */
 "When computer starts" = "När datorn startar";
 
+/* Menu item
+   Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "En uppdatering av Tunnelblick är tillgänglig (%1.2f%% nedladdad)…";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "Det finns en uppdatering av Tunnelblick tillgänglig och nedladdad…";
+
+/* Menu item */
+"A Tunnelblick Update is Available..." = "En uppdatering av Tunnelblick är tillgänglig…";
+
+/* Menu item */
+"A VPN Configuration Update is Available..." = "En VPN-konfiguration är tillgänglig…";
+
 /* Menu item */
 "Add a VPN..." = "Lägg till VPN…";
-
-/* Menu item, Button */
-"Check For Updates Now" = "Sök efter uppdateringar nu";
 
 /* Menu item */
 "Connect %@%@" = "Anslut %@%@";
@@ -396,9 +418,6 @@
 "Show on Tunnelblick Menu" = "Visa i Tunnelblick-menyn";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "Förslag eller felrapport…";
-
-/* Menu item */
 "VPN Details..." = "VPN-inställningar…";
 
 /* Menu item */
@@ -421,6 +440,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Kontrollera om den synliga IP-adressen har förändrats";
+
+/* Checkbox name */
+"Check only when connected to a VPN" = "Kontrollera endast om ansluten till en VPN";
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Inaktivera IPv6 om inte VPN-servern ansluts via IPv6";
@@ -465,6 +487,9 @@
 "Do not warn about this again" = "Varna inte för detta igen";
 
 /* Checkbox name */
+"Download updates when found" = "Ladda ner uppdateringar när de upptäcks";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Aktivera IPv6 (endast tap)";
 
 /* Checkbox name */
@@ -493,6 +518,9 @@
 
 /* Checkbox name */
 "Require administrator authorization to install all configurations" = "Begär verifikation av en administratör för att installera alla konfigurationer";
+
+/* Checkbox name */
+"Require administrator authorization to update" = "Begär godkännande av en administratör för att uppdatera";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Vidarebefordra alla IPv4-trafik genom VPN";
@@ -615,6 +643,9 @@
 "'%@' has been disconnected" = "\"%@\" har kopplats från";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "En ny version av Tunnelblick är tillgänglig";
+
+/* Window title */
 "Active connection" = "Aktiv anslutning";
 
 /* Window title */
@@ -666,6 +697,12 @@
 "Do you wish to connect?" = "Vill du ansluta?";
 
 /* Window title */
+"Error getting Tunnelblick update..." = "Fel uppstod vid hämtning av uppdateringen för Tunnelblick…";
+
+/* WIndow title */
+"Error getting VPN update..." = "Ett fel uppstod vid hämtning av VPN-uppdateringen…";
+
+/* Window title */
 "File not found" = "Filen kan inte hittas";
 
 /* Window title */
@@ -676,6 +713,9 @@
 
 /* Window title */
 "Install Configuration For All Users?" = "Installera konfigurationen för alla användare?";
+
+/* Window title */
+"Installation Failed" = "Installationen misslyckades";
 
 /* Window title */
 "Installation failed" = "Installationen misslyckades";
@@ -697,9 +737,6 @@
 
 /* Window title */
 "No Credentials" = "Inga användaruppgifter";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Endast administratörer bör uppdatera Tunnelblick";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN svarar inte";
@@ -733,6 +770,9 @@
 
 /* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "Försöket att avinstallera Tunnelblick lyckades";
+
+/* Window title */
+"The Tunnelblick installation failed." = "Installationen av Tunnelblick misslyckades.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblickkonfigurationsproblem";
@@ -980,6 +1020,9 @@
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Nätverksinställningen kunde inte återställas korrekt efter frånkopplingen från %@.</p><p>Det här problemet orsakas vanligtvis vid användande av \"ingen användare\" och/eller \"ingen grupp\" OpenVPN alternativen.</p><p>För att återställa nätverksinställningen måste du starta om din dator.</p><p>För att förhindra det här felet i framtiden kan du ta bort \"ingen användare\" och \"ingen grupp\" linjerna från din OpenVPN konfigurationsfil.</p><p>Se <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">Användare och grupp OpenVPN alternativ</a> [tunnelblick.net] för mer information.</p></font>\n\n";
 
+/* Window text\nThe two %@ are descriptions of configuration versions (e.g. '1.2.3' */
+"<p><strong>VPN Configuration %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>VPN-konfiguration %1$@ är nu tillgänglig – du har %2$@.</strong></p>\n\n";
+
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick drabbades nyligen av ett eller flera allvarliga fel.</p>\n\n<p>Vänligen skicka en e-post till %1$@<br>och bifoga filen '%2$@' som har sparats på din dators skrivbord.</p>\n\n<p>Filen innehåller information som hjälper Tunnelblicks utvecklare att åtgärda problemen som skapade dessa fel. Filen innehåller ingen personlig information om dig eller information om dina VPN-anslutningar</p>\n\n<p>Om möjligt så beskriv gärna vad Tunnelblick gjorde när felet uppstod.</p>\n\n<p>Din hjälp med detta är till fördel för alla användare av Tunnelblick.</p>";
 
@@ -1054,6 +1097,12 @@
 
 /* Window text */
 "An error occurred getting the list of loaded system extensions." = "Ett fel inträffade när lista över systemtillägg hämtades.";
+
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Ett fel uppstod vid försök att ladda ner uppdateringen.\n\nFör mer information, se loggen på";
+
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Ett fel uppstod vid försök att hämta information om uppdateringar.\n\nFör mer information, se loggen på";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Ett fel uppstod under försöket att starta %@";
@@ -1707,7 +1756,7 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Det var problem att importera Tunnelblicks inställningar.\n\nSe konsolloggen för mer information.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Denna 'Distribuerade' version av Tunnelblick kan inte startas eller installeras eftersom den inte har blivit ommärkt, eller updateFeedURL eller SUFeedURL saknas eller att båda innehåller 'tunnelblick.net', eller CFBundleIdentifier saknas eller innehåller 'net.tunnelblick'.\n\n";
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Denna 'Distribuerade' version av Tunnelblick kan inte startas eller installeras eftersom den inte har blivit ommärkt, eller CFBundleIdentifier saknas eller innehåller 'net.tunnelblick'.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Denna 'Distribuerade' version av Tunnelblick kan inte startas eller installeras eftersom den inte har en Info.plist.\n\n";
@@ -1729,9 +1778,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Denna kopia av Tunnelblick är inte digitalt signerad.\n\nDet finns inget sätt att verifiera att denna kopia inte har blivit manipulerad.\n\n Fråga den som levererat denna kopia av Tunnelblick innan du använder den.\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Denna version av Tunnelblick kan inte startas eller installeras eftersom den har en ogiltig uppdaterings-URL.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Denna version av Tunnelblick kan inte startas eller installeras eftersom det inte är en 'Distribuerad' version, och en eller fler 'Distribuerade' versioner av Tunnelblick är installerade sen tidigare.\n\n";
@@ -1759,9 +1805,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick kan kontakta %@ för att kontrollera att din dators synliga publika IP-adress ändras varje gång du ansluter till ett VPN.\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Det gick inte att konfigurera Tunnelblick till att starta automatiskt vid inloggning.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kunde inte startas på grund av ett problem med konfigurationen. Var god undersök konsolloggen för detaljer.";
@@ -1833,6 +1876,12 @@
 "Tunnelblick is ready." = "Tunnelblick är redo.";
 
 /* Window text */
+"Tunnelblick is up to date" = "Tunnelblick är uppdaterad";
+
+/* Window text */
+"Tunnelblick needs a computer administrator's authorization to update.\n\nTunnelblick will be relaunched after the update." = "Tunnelblick behöver administratörsrättigheter för att uppdateras.\n\nTunnelblick kommer att startas om efter uppdateringen.";
+
+/* Window text */
 "Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick behöver rättigheter för att kopiera mappen '%@'";
 
 /* Window text */
@@ -1896,6 +1945,9 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick lyckades med att:\n\n";
 
 /* Window text */
+"Tunnelblick updates:" = "Uppdateringar för Tunnelblick:";
+
+/* Window text */
 "Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick kunde inte inaktivera systemtillägg. Testa att starta om din dator och försök sedan att inaktivera systemtilläggen igen.";
 
 /* Window text */
@@ -1930,6 +1982,9 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick kommer att ansluta till %@ för att kontrollera att den här datorns synliga publika IP-adress ändras varje gång du ansluter till ett VPN. Kontakta distributören av den här kopian av Tunnelblick för mer information.\n\n";
+
+/* Window text */
+"Tunnelblick will quit because a critical component has been disabled or is missing.\n\nTunnelblick cannot perform functions such as connecting a VPN unless the component is enabled.\n\nPlease re-enable the component in System Settings >> General >> Login Items.\n\nThe component is listed in the 'Runs in the background' section, is named 'Tunnelblick', and is labelled 'affects all users'.\n\nIt is recommended that you also enable the other listed Tunnelblick component if it is also disabled.\n\nNote: If the component is enabled and Tunnelblick still shows this message, please reinstall Tunnelblick.\n\nFor more information, go to https://tunnelblick.net/e2" = "Tunnelblick kommer att avslutas eftersom en kritisk komponent har inaktiverats eller saknas.\n\nTunnelblick kan inte utföra funktioner som att ansluta en VPN om inte komponenten är aktiverad.\n\nVänligen aktivera komponenten igen under Systeminställningar >> Allmänt >> Startobjekt.\n\nKomponenten finns listad med namnet ‘Tunnelblick’ under sektionen ‘Tillåt i bakgrunden’ och är märkt med ‘påverkar alla användare’.\n\nDet rekommenderas att du också aktiverar den andra listade Tunnelblick-komponenten om den också är inaktiverad.\n\nNotera: Om komponenten är aktiverad och Tunnelblick fortfarande visar detta meddelande, vänligen installera om Tunnelblick.\n\nFör mer information, gå till https://tunnelblick.net/e2";
 
 /* Window text */
 "Unable to Establish Communication" = "Kunde inte upprätta kommunikation";
@@ -2005,9 +2060,6 @@
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Den uppdateringsbara konfigurationen '%@' kunde inte sparas som uppdateringsbar, eftersom Info.plist saknar en 'SUPublicDSAKey', eller så är dess 'SUFeedURL' inte angiven med https:\n";
-
-/* Window text */
-"Updates:" = "Uppdateringar:";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN konfigurationen %@ kommer inte att installeras eftersom den har ett lägre versionsnummer.";
@@ -2103,9 +2155,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Du måste koppla ned alla VPN-anslutningar innan du kan installera eller avinstallera Tunnelblicks tillägg.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Du kommer inte att kunna uppdatera Tunnelblick om du inte kan få ett godkännande från en av datorns administratörer.\n\nÄr du säker på att du vill fortsätta?";
-
-/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Det är inte helt säkert att din dator kan placera Tunnelblick-ikonen intill Spotlight-ikonen.\n\nDetta kan medföra att Tunnelblick-ikonen ibland FÖRSVINNER från menyraden.\n\nÄr du säker på att du vill försöka placera Tunnelblick-ikonen intill Spotlight-ikonen?\n\n";
 
 /* Window text */
@@ -2188,6 +2237,12 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>För att importera en Tunnelblick-inställning på en dator som har fler än %u användarkonton måste du skapa n textfil som specificerar den data som ska importeras.</p>\n<p>För mer information, se <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML window text */
+"<hr><p><strong>One or more VPNs may be disconnected before the update.</strong></p>\n" = "<hr><p><strong>En eller flera VPN-förbindelser kan kopplas från före uppdateringen.</strong></p>\n";
+
+/* HTML window text */
+"<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Vill du uppdatera till den nya versionen nu?</strong></p>\n";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>icke-Tunnelblick</strong>' versioner av OpenVPN har inte skapats av TunnelBlick projektet och ingår inte i Tunnelblick. De har installerats av en datoradministratör.</p>";
 
@@ -2196,6 +2251,9 @@
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<a href=\"%@\">Mer information</a> [tunnelblick.net]";
+
+/* HTML window text */
+"<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Godkännande av en administratör behövs för att installera den här uppdateringen.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>En eller fler av dina konfigurationer kommer inte att kunna ansluta.</strong></p>\n<p>Konfigurationen/(rna) kräver en system-utökning men denna version av macOS tillåter inte Tunnelblick att använda dess system-utökningar. </p>";
@@ -2218,6 +2276,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Specificerar när Tunnelblick ska koppla upp mot VPN-tjänsten.</strong></p>\n<p>\"När datorn startar\" kan bara användas med \"Delade\" konfigurationer som inte har uppgifterna (användarnamn/lösenord/lösenfras) lagrade i nyckelringen och som inte använder sig av OpenVPN:s 'auth-user-pass'-val utan argument</p>";
 
+/* HTML window text\nThe two %@ are descriptions of Tunnelblick versions (e.g. '4.0.1 (build 5971)' */
+"<p><strong>Tunnelblick %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>Tunnelblick %1$@ är nu tillgänglig – du har %2$@.</strong></p>\n\n";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>När vald</strong> kommer IPv6 att inaktiveras om inte OpenVPN-servern ansluts via en IPv6-adress.</p>\n<p>Det rekommenderas ofta att inaktivera IPv6 då många VPN-konfigurationer inte skyddar mot informationsläckor när just IPv6 används. De flesta kopplingarna till Internet fungerar bra utan IPv6.</p>\n<p><strong>När inte vald</strong> kommer IPv6 att aktiveras.</p>\n<p><strong>Denna ruta är inaktiverad</strong> när du använder en 'tap'-anslutning då inställningen inte är kompatibel med den typen av anslutning.</p>";
@@ -2231,11 +2292,11 @@
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>När vald</strong> kommer OpenVPN köra tester för att avgöra maximala MTU för uppkopplingen. Testerna körs varje gång en uppkoppling initieras och kan ta flera minuter. Resultaten av testerna sparas i Tunnelblick-loggarna.</p>\n";
 
+/* HTML info for the 'Check only when connected to a VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates automatically only when connected to a VPN.</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>När markerad</strong>, kommer Tunnelblick att automatiskt söka efter uppdateringar endast när det är anslutet till en VPN.</p>\n<p><strong>Denna kryssruta är inaktiverad</strong> och inte markerad när 'Hindra automatisk uppdateringskontroll och IP-adresskontroll' är markerad, samt när användaren inte är en datoradministratör och endast datoradministratörer får installera uppdateringar.</p>";
+
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>När vald</strong> kommer Tunnelblick att söka efter uppdateringar bland beta-versioner.</p>\n<p><strong>När ej vald</strong> kommer Tunnelblick enbart att söka efter uppdateringar blad stabila versioner.</p><p><strong>Denna kryssruta är inaktiverad</strong> och vald när en beta-version används.</p>";
-
-/* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>När vald</strong> kommer Tunnelblick att söka efter uppdateringar vid start samt periodiskt efter det.</p><p><strong>Denna kryssruta är inaktiverad</strong> och ej vald när 'Förhindra automatiska uppdateringar och kontroll av IP-adress' är vald.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Om markerad</strong>, kommer Tunnelblick att avgöra datorns synliga publika IP adress före och efter VPN är ansluten och varna om IP adressen inte ändras.</p>\n<p>Websidan tunnelblick.net kommer att anslutas för att genomföra denna funktion. Anslutningen sker vanligtvis via https: och använder tunnelblick.net namet, förutom om den anslutningen fallerar, då försök till anslutning görs genom att använda http: och IP addressen för websidan.</p>\n<p><strong>Om ej markerad</strong>, kommer Tunnelblick inte att säkerställa att IP addressen ändras och varnar inte om IP adressen inte ändras efter anslutning av VPN.</p>\n";

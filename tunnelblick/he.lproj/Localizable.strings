@@ -288,9 +288,6 @@
 /* Menu item */
 "Add a VPN..." = "הוסף VPN…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "בדוק עדכונים כעת";
-
 /* Menu item */
 "Connect %@%@" = "התחבר %@%@";
 
@@ -380,9 +377,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "הצג בתפריט Tunnelblick";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "הצעה או דיווח על תקלה…";
 
 /* Menu item */
 "VPN Details..." = "פרטי VPN…";
@@ -683,9 +677,6 @@
 
 /* Window title */
 "No Credentials" = "פרטי הזדהות לא קיימים";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "עדכון Tunnelblick יכול להתבצע רק על ידי מנהל";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN אינו מגיב";
@@ -1579,9 +1570,6 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "עותק Tunnelblick זה אינו חתום דיגיטלית.\n\nאין דרך לאמת שלא בוצעו שינוים בגירסה זו.\n\nבדקו מול מקור הקובץ לפני השימוש בו.\n\n";
 
 /* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "לא ניתן להפעיל ו/או להתקין גירסת Tunnelblick זו, מכיון שכתובת הURL לעדכון המוגדרת בתוכנה איננה חוקית.\n\n";
-
-/* Window text */
 "Too many configuration files in '%@'" = "קיימים קבצי הגדרות רבים ב-׳%@׳";
 
 /* Window text. 'Copies' refers to copies of a configuration or a folder of configurations. */
@@ -1708,9 +1696,6 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "קובץ לא קריא ב%@";
 
 /* Window text */
-"Updates:" = "עדכונים:";
-
-/* Window text */
 "VPN status windows:" = "חלונות מצב VPN:";
 
 /* Window text */
@@ -1724,9 +1709,6 @@
 
 /* Window text */
 "You may not remove a folder unless it is empty." = "לא ניתן למחוק תיקייה אלא אם היא ריקה.";
-
-/* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "לא תוכל לעדכן את Tunnelblick ללא אישור של מנהל המחשב.\n\nהאם ברצונך לבדוק עדכונים?";
 
 /* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "שעון המערכת אינו תקין.\n\nחלק מקבצי ההגדרות שלך לא יתחברו אלא אם השעון מוגדר בתאריך ושעה הנכונים.";

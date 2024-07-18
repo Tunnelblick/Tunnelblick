@@ -285,9 +285,6 @@
 /* Menu item */
 "Add a VPN..." = "Bæta við VPN…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "Athuga með uppfærslur núna";
-
 /* Menu item */
 "Connect %@%@" = "Tengjast (%@%@)";
 
@@ -380,9 +377,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Birta í Tunnelblick valmyndinni";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "Tillaga eða villutilkynning…";
 
 /* Menu item */
 "VPN Details..." = "VPN-upplýsingar…";
@@ -677,9 +671,6 @@
 
 /* Window title */
 "No Credentials" = "Engin auðkennisgögn";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Eingöngu kerfisstjórar mega uppfæra Tunnelblick";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN svarar ekki";
@@ -1465,9 +1456,6 @@
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunneblick gæti sótt %@ til að athuga hvort sýnileg opinber IP–tala tölvunnar þinnar breytist þegar þú tengist VPN-neti.\n\n";
 
 /* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Ekki tókst að stilla Tunnelblick þannig að það ræsist sjálfkrafa við innskráningu.\n\nNánari upplýsingar má finna í atburðaskrá Console.";
-
-/* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Ekki tókst að ræsa Tunnelblick vegna vandamáls í samskipaninni. Nánari upplýsingar má finna í atburðaskrá Console.";
 
 /* Window text */
@@ -1598,9 +1586,6 @@
 
 /* Window text */
 "Unreadable file at %@\n\nSee the Console log for details." = "Ólæsileg skrá í %@\n\nNánari upplýsingar má finna í atburðaskrá Console.";
-
-/* Window text */
-"Updates:" = "Uppfærslur:";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Samskipanin „%@“ verður ekki sett upp því hún er í eldri útgáfu.";

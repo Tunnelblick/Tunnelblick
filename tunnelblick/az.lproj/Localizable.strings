@@ -258,9 +258,6 @@
 /* Menu item */
 "Add a VPN..." = "VPN əlavə et…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "Yenilənmələr olmasını indi yoxla";
-
 /* Menu item */
 "Connect %@%@" = "%@%@-a qoşul";
 
@@ -332,9 +329,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Tunnelblick Menyusunda göstər";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "Təklif və ya xəta barədə bildiriş…";
 
 /* Menu item */
 "VPN Details..." = "VPN Təfərrüatları…";
@@ -602,9 +596,6 @@
 
 /* Window title */
 "No Credentials" = "Etimadnamələr yoxdur";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Yalnız kompyuter administratorları Tunnelblick-i yeniləməlidir";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN cavab vermir";
@@ -1387,9 +1378,6 @@
 "Tunnelblick Internet Use:" = "Tunnelblick'in internet istifadəsi:";
 
 /* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick daxil olmaqdan sonra avtomatik başlamaq üçün konfiqurasiya edilə bilməz.\n\nTəfərrüatlar üçün konsol jurnalına baxın.";
-
-/* Window text */
 "Tunnelblick is based on %@." = "Tunnelblick %@ əsaslanır.";
 
 /* Window text */
@@ -1430,9 +1418,6 @@
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "'%@' konfigurasıyasını əvəz etmək mümkün deyil\n";
-
-/* Window text */
-"Updates:" = "Təzələmələr:";
 
 /* Window text */
 "WINS servers:" = "WINS serverləri:";

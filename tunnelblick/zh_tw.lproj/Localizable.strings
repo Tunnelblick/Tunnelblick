@@ -106,6 +106,9 @@
 /* Button */
 "Do nothing" = "不執行任何動作";
 
+/* Button to install an update */
+"Download and Install" = "下載並安裝";
+
 /* Button */
 "Export Tunnelblick Setup" = "匯出 Tunnelblick 的設置";
 
@@ -120,6 +123,9 @@
 
 /* Button */
 "Ignore" = "忽略";
+
+/* Button to install an update */
+"Install and Relaunch" = "安裝並重新啟動";
 
 /* Button */
 "Install tun and tap system extensions..." = "安裝 tun 及 tap 系統擴展．．．";
@@ -194,6 +200,9 @@
 /* Button */
 "Reinstall" = "重新安装";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "稍後提醒我";
+
 /* Button */
 "Remove Credentials" = "移除認證資訊";
 
@@ -241,6 +250,9 @@
 
 /* Button */
 "Show while connecting" = "當連線時顯示";
+
+/* Button to skip a particular update */
+"Skip This Version" = "跳過此版本更新";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "略過這個更新";
@@ -296,11 +308,21 @@
 /* Button */
 "When computer starts" = "當電腦啟動時";
 
+/* Menu item
+   Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "Tunnelblick 有可用的更新 (%1.2f%% 已下載)…";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "Tunnelblick 有可用的更新並已下載...";
+
+/* Menu item */
+"A Tunnelblick Update is Available..." = "Tunnelblick 有可用的更新...";
+
+/* Menu item */
+"A VPN Configuration Update is Available..." = "VPN 設定檔有可用的更新...";
+
 /* Menu item */
 "Add a VPN..." = "新增 VPN…";
-
-/* Menu item, Button */
-"Check For Updates Now" = "立即檢查更新";
 
 /* Menu item */
 "Connect %@%@" = "連接 %@%@";
@@ -396,9 +418,6 @@
 "Show on Tunnelblick Menu" = "在 Tunnelblick 選單上顯示";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "建議或問題回報⋯⋯";
-
-/* Menu item */
 "VPN Details..." = "VPN 詳情⋯";
 
 /* Menu item */
@@ -421,6 +440,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "檢查連接後外部 IP 地址是否改變";
+
+/* Checkbox name */
+"Check only when connected to a VPN" = "僅在連線到 VPN 的時候檢查";
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "除非以 IPv6 連線到 VPN 伺服器，否則停用 IPv6";
@@ -465,6 +487,9 @@
 "Do not warn about this again" = "不再顯示此警告";
 
 /* Checkbox name */
+"Download updates when found" = "當找到更新時下載";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "啟用 IPv6（tap only）";
 
 /* Checkbox name */
@@ -493,6 +518,9 @@
 
 /* Checkbox name */
 "Require administrator authorization to install all configurations" = "需要管理者權限以安裝所有設定";
+
+/* Checkbox name */
+"Require administrator authorization to update" = "需要管理員授權才可更新";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "使用 VPN 傳送所有 IPv4 的流量";
@@ -615,6 +643,9 @@
 "'%@' has been disconnected" = "已中斷 「%@」 的連線";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "有新版的 Tunnelblick 可供更新";
+
+/* Window title */
 "Active connection" = "活躍的連線";
 
 /* Window title */
@@ -666,6 +697,12 @@
 "Do you wish to connect?" = "你要連線嗎？";
 
 /* Window title */
+"Error getting Tunnelblick update..." = "Tunnelblick 更新下載錯誤...";
+
+/* WIndow title */
+"Error getting VPN update..." = "VPN 更新下載錯誤...";
+
+/* Window title */
 "File not found" = "找不到檔案";
 
 /* Window title */
@@ -676,6 +713,9 @@
 
 /* Window title */
 "Install Configuration For All Users?" = "為所有使用者安裝設定檔？";
+
+/* Window title */
+"Installation Failed" = "安裝失敗";
 
 /* Window title */
 "Installation failed" = "安裝失敗";
@@ -697,9 +737,6 @@
 
 /* Window title */
 "No Credentials" = "沒有認證資訊";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "只有電腦管理員可以更新 Tunnelblick";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN 沒有回應";
@@ -733,6 +770,9 @@
 
 /* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "測試解除安裝 Tunnelblick 成功";
+
+/* Window title */
+"The Tunnelblick installation failed." = "Tunnelblick 安裝失敗。";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 設定錯誤";
@@ -980,6 +1020,9 @@
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>在與 %@ 中斷連線後，並未正確地恢復網路設定。</p><p>這個問題通常是由於在 OpenVPN 選項中使用了「user nobody」或「group nobody」。</p><p>為了正確恢復網路設定，您應該重新啟動電腦。</p><p>要想避免這個問題再次發生，請在 OpenVPN 設定中移除「user nobody」或「group nobody」。</p><p>更多資訊可於<a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">OpenVPN 的使用者和群組選項</a> [tunnelblick.net] 取得。</p></font>\n\n";
 
+/* Window text\nThe two %@ are descriptions of configuration versions (e.g. '1.2.3' */
+"<p><strong>VPN Configuration %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>VPN 設定檔 %1$@ 已可使用 – 您有 %2$@.</strong></p>\n\n";
+
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>最近 Tunnelblick 經歷到一個或多個嚴重錯誤。</p>\n<p>請發送電子郵件至 %1$@ 並附帶上創建於您的桌面上的這個文件 <br>'%2$@'</p>\n<p>該文件包含的信息將幫助 Tunnelblick 開發人員修復導致此類錯誤的問題。它並不包括關於您的個人資料或關於您的 VPN 的資料。</p>\n<p>如果可以的話，請描述發生錯誤時 Tunnelblick 正在進行何種操作。</p>\n<p>您的幫助將裨益 Tunnelblick 的所有用戶。</p>";
 
@@ -1054,6 +1097,9 @@
 
 /* Window text */
 "An error occurred getting the list of loaded system extensions." = "獲取已載入的系統擴展列表時發生錯誤。 ";
+
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "嘗試下載更新時發生錯誤。\n\n若需更多資訊，請查看紀錄檔：\n\n%@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "當嘗試啟動 %@ 時發生錯誤";
@@ -1707,9 +1753,6 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "匯入Tunnelblick設定時發生問題。\n\n請參閱控制台日誌以獲取詳情。";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "由於它並沒有被重新命名，或 updateFeedURL 或 SUFeedURL 為空白或包含 'tunnelblick.net'，或 CFBundleIdentifier 為空白或包含 'tunnelblick.net'，這個已佈置版本的 Tunnelblick 不可以被啟動或被安裝。\n\n";
-
-/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "由於它並沒有一個 Info.plist 檔案，這個已佈置版本的 Tunnelblick 不可以被啟動或被安裝。\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
@@ -1729,9 +1772,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "這個 Tunnelblick 拷貝沒有數碼簽字。\n\n我們沒有辦法確認這個拷貝有沒有被篡改。\n\n 請在使用前與這個 Tunnelblick 拷貝的提供者查詢。\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "由於更新的 URL 無效，無法啟動或安裝這個版本的 Tunnelblick。\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "由於這並不是一個 '已部署' 的版本及一個或多個 '已部署' 的版本已在以前被安裝，所以無法啟動或安裝這個版本的 Tunnelblick。\n\n";
@@ -1759,9 +1799,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick 能訪問 %@ 查證你的電腦的公開 IP 地址每次連接 VPN 時都會改變。\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "無法將 Tunnelblick 設置至在你登入後自動啟用。\n\n詳情請查看控制台日誌。";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "由於設定出現問題 Tunnelblick 未能啟動。詳情請查看控制台日誌。";
@@ -1833,6 +1870,9 @@
 "Tunnelblick is ready." = "Tunnelblick 已準備就緒。";
 
 /* Window text */
+"Tunnelblick is up to date" = "Tunnelblick 已是最新版";
+
+/* Window text */
 "Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick 需要授權才能複製目錄 '%@'。";
 
 /* Window text */
@@ -1894,6 +1934,9 @@
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick 成功地：\n\n";
+
+/* Window text */
+"Tunnelblick updates:" = "Tunnelblick 更新：";
 
 /* Window text */
 "Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick 無法卸載其系統擴展。 請重新啟動你的電腦，並再次嘗試移除 Tunnelblick 的系統擴展。";
@@ -2007,9 +2050,6 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "可自動更新的配置'%@'沒有被儲存為可更新的配置，因為它的info.plist沒有「SUPublicDSAKey」的條目或者它的「SUFeedURL」沒有指明https的用法：\n";
 
 /* Window text */
-"Updates:" = "更新:";
-
-/* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "由於它有一個更低的版本號碼，無法安裝 VPN 設置 %@。";
 
 /* Window text */
@@ -2103,9 +2143,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "你必須先中斷所有 VPN 的連接，然後才能安裝或移除 Tunnelblick 的系統擴展。";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "你必須提供電腦管理員的用戶名和密碼，才能繼續升級 Tunnelblick。\n\n你確定想要查找更新嗎？";
-
-/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "你的電腦可能沒有辦法有效的在 Spotlight 圖示旁邊顯示 Tunnelblick 圖示。\n這可能造成 Tunnelblick 在目錄列當中消失。\n你確定要把 Tunnelblick 的圖示放在 Spotlight 圖示旁邊嗎？\n\n";
 
 /* Window text */
@@ -2188,6 +2225,7 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>要在有超過 %u 個使用者帳號的電腦中匯入 Tunnelblick 設定前，您必須建立一個文字檔以指定要匯入的資料。</p>\n<p>更多資訊請參閱： <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>。</p></font>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非 Tunnelblick</strong>' 版本的 OpenVPN 並非由 Tunnelblick 計畫所建立且不屬於 Tunnelblick 的一部分。它們已由系統管理員安裝完成。</p>";
 
@@ -2233,9 +2271,6 @@
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>若勾選</strong>，Tunnelblick 將檢查測試版的更新。</p>\n<p><strong>若未勾選</strong>，Tunnelblick 將只會檢查穩定版的更新。</p><p>在使用測試版時，<strong>此核取方塊會被禁用</strong>以及被勾選。";
-
-/* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>勾選時</strong>, Tunnelblick 就會在啟動的時候自動檢查更新, 同時會在日後進行週期性檢查.</p><p>當您設置了'禁止自動更新及檢查 IP 地址'後, <strong>則此核取方框會無效</strong>和取消勾選.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>若勾選</strong>，在 VPN 建立連線前後，Tunnelblick 會決定這台電腦的對外 IP 位址，如果 IP 位址沒改變，將會警告你。</p> <p>為了實現這個功能，將會以 tunnelblick.net 名稱，透過 https: 存取 tunnelblick.net 網站。除了，存取失敗時，會嘗試用 http: 及網站的 IP 位址存取。</p> <p><strong>當未勾選</strong>, 在 VPN 連線後，Tunnelblick 不會檢查、警告 IP 位址是否變更。</p>\n";

@@ -279,9 +279,6 @@
 /* Menu item */
 "Add a VPN..." = "Lisa VPN…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "Otsi uuendusi";
-
 /* Menu item */
 "Connect %@%@" = "Ühenda %@%@";
 
@@ -341,9 +338,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Näita Tunnelblick menüüs";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "Soovitus või vea raporteerimine…";
 
 /* Menu item */
 "VPN Details..." = "VPN-i detailid…";
@@ -569,9 +563,6 @@
 
 /* Window title */
 "No Credentials" = "Ligipääsuandmed puuduvad";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Ainult arvuti administraatorid peaks uuendama Tunnelblick'i";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN ei vasta";

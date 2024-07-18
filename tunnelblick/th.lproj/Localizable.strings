@@ -299,9 +299,6 @@
 /* Menu item */
 "Add a VPN..." = "เพิ่ม VPN";
 
-/* Menu item, Button */
-"Check For Updates Now" = "ตรวจสอบการอัพเดท";
-
 /* Menu item */
 "Connect %@%@" = "เชื่อมต่อกับ %@%@";
 
@@ -394,9 +391,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "แสดงในเมนูของ Tunnelblick";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "คำแนะนำหรือแจ้งบั๊ก";
 
 /* Menu item */
 "VPN Details..." = "รายละเอียด VPN";
@@ -697,9 +691,6 @@
 
 /* Window title */
 "No Credentials" = "ไม่มีข้อมูลยืนยันตัวตน";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "มีเพียงผู้ดูแลระบบของเครื่องนี้เท่านั้นที่สามารถอัปเดต Tunnelblick ได้";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN ไม่ตอบสนอง";
@@ -1707,9 +1698,6 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "มีปัญหาในการนำเข้าการตั้งค่าของ Tunnelblick\n\nดูรายละเอียดได้ที่ Console Log";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Tunnelblick รุ่น 'Deployed' นี้ไม่สามารถเปิดหรือติดตั้งได้เนื่องจากถูกรีเแบรนด์แล้ว หรือ updateFeedURL/SUFeedURL หายไปหรือมี 'tunnelblick.net' อยู่ หรือ CFBundleIdentifier หายไปหรือไม่มี 'net.tunnelblick' อยู่\n\n";
-
-/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Tunnelblick รุ่น 'Deployed' นี้ไม่สามารถเปิดหรือติดตั้งได้เนื่องจากไม่มีไฟล์​ Info.plist\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
@@ -1729,9 +1717,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "สำเนานี้ของ Tunnelblick ไม่ได้ถูกลงลายมือชื่อดิจิทัล\n\nไม่มีทางตรวจสอบได้ว่าสำเนานี้ถูกดัดแปลงจากเดิมหรือไม่\n\n โปรดตรวจสอบกับผู้ให้สำเนาของ Tunnelblick นี้ ก่อนจะใช้\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Tunnelblick รุ่นนี้ไม่สามารถเปิดหรือติดตั้งได้เนื่องจากมี update URL ที่ไม่ถูกต้อง\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Tunnelblick รุ่นนี้ไม่สามารถเปิดหรือติดตั้งได้เนื่องจากไม่ใช่รุ่น 'Deployed' และ Tunnelblick รุ่น 'Deployed' อย่างน้อย 1 รุ่นเคยถูกติดตั้งมาก่อนแล้ว\n\n";
@@ -1759,9 +1744,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick สามารถเข้าถึง %@ เพื่อตรวจสอนการเปลี่ยนแปลงหมายเลขไอพีสาธารณะของคอมพิวเตอร์ของคุณทุกครั้งที่คุณเชื่อมต่อ VPN\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "ไม่สามารถตั้ง Tunnelblick ให้เริ่มเปิดขึ้นทำงานโดยอัตโนมัติหลังจากคุณเข้าระบบ\n\nดูรายละเอียดได้ที่ Console Log";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "ไม่สามารถเริ่มเปิด Tunnelblick ขึ้นมาทำงานได้เนื่องจากปัญหาเกี่ยวกับคอนฟิกเกอเรชัน โปรดตรวจสอบรายละเอียดที่ Console Log";
@@ -2007,9 +1989,6 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "ไม่สามารถเก็บคอนฟิกเกอเรชันชื่อ '%@' ไว้เพื่อจะอัพเดทได้เพราะ Info.plist ไม่มีรายการ 'SUPublicDSAKey' หรือรายการ 'SUFeedURL' ไม่ได้ระบุว่าใช้ https:\n";
 
 /* Window text */
-"Updates:" = "อัปเดต:";
-
-/* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "คอนฟิกเกอเรชัน VPN %@ จะไม่ถูกติดตั้งเพราะมีเลขรุ่นต่ำกว่า";
 
 /* Window text */
@@ -2101,9 +2080,6 @@
 
 /* Window text */
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "คุณต้องตัดการเชื่อมต่อ VPN ทั้งหมดก่อนที่คุณจะติดตั้งหรือถอนการติดตั้งส่วนเสริมระบบของ Tunnelblick";
-
-/* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "คุณจะไม่สามารถอัปเดต Tunnelblick ได้เว้นแต่คุณจะให้การอนุญาตจากผู้ดูแลระบบคอมพิวเตอร์";
 
 /* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "คอมพิวเตอร์ของคุณอาจไม่สามารถแสดงไอคอน Tunnelblick ใกล้กับไอคอน Spotlight ได้อย่างน่าเชื่อถือ\n\nสิ่งนี้อาจทําให้ไอคอน Tunnelblick บางครั้งหายไปจากแถบเมนู\n\nคุณแน่ใจหรือไม่ว่าต้องการวางไอคอน Tunnelblick ใกล้กับไอคอน Spotlight?\n\n";

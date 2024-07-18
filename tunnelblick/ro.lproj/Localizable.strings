@@ -106,6 +106,9 @@
 /* Button */
 "Do nothing" = "Nicio acțiune";
 
+/* Button to install an update */
+"Download and Install" = "Descarcă și Instalează";
+
 /* Button */
 "Export Tunnelblick Setup" = "Exportă configurarea Tunnelblick";
 
@@ -120,6 +123,9 @@
 
 /* Button */
 "Ignore" = "Ignoră";
+
+/* Button to install an update */
+"Install and Relaunch" = "Instalează și Repornește";
 
 /* Button */
 "Install tun and tap system extensions..." = "Instalează extensiile de sistem tun și tap ";
@@ -194,6 +200,9 @@
 /* Button */
 "Reinstall" = "Reinstalează";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "Adu-mi aminte mai târziu";
+
 /* Button */
 "Remove Credentials" = "Șterge credențialele";
 
@@ -241,6 +250,9 @@
 
 /* Button */
 "Show while connecting" = "Arată în timpul conectării";
+
+/* Button to skip a particular update */
+"Skip This Version" = "Sari peste această versiune";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "Treci peste această actualizare";
@@ -298,9 +310,6 @@
 
 /* Menu item */
 "Add a VPN..." = "Adaugă configurație VPN…";
-
-/* Menu item, Button */
-"Check For Updates Now" = "Verifică acum actualizările disponibile";
 
 /* Menu item */
 "Connect %@%@" = "Conexiune %@%@";
@@ -396,9 +405,6 @@
 "Show on Tunnelblick Menu" = "Afișează în meniul Tunnelblick";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "Sfaturi și sugestii, raportează o eroare…";
-
-/* Menu item */
 "VPN Details..." = "Detalii VPN…";
 
 /* Menu item */
@@ -421,6 +427,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Verifică dacă adresa IP publică s-a schimbat după conectare";
+
+/* Checkbox name */
+"Check only when connected to a VPN" = "Bifează doar atunci când ești conectat la un VPN";
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Dezactivează IPv6 cu excepția cazului în care serverul VPN este accesat folosind IPv6";
@@ -463,6 +472,9 @@
 
 /* Checkbox name */
 "Do not warn about this again" = "Nu avertiza despre asta din nou";
+
+/* Checkbox name */
+"Download updates when found" = "Descarcă versiuni noi cand sunt disponibile";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "Activează IPv6 (doar tap)";
@@ -615,6 +627,9 @@
 "'%@' has been disconnected" = "%@' a fost deconectat";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "O nouă versiune a Tunnelblick este disponibilă";
+
+/* Window title */
 "Active connection" = "Conexiune activă";
 
 /* Window title */
@@ -678,6 +693,9 @@
 "Install Configuration For All Users?" = "Instalează configurația pentru toţi utilizatorii?";
 
 /* Window title */
+"Installation Failed" = "Instalarea a eșuat";
+
+/* Window title */
 "Installation failed" = "Instalarea a esuat";
 
 /* Window title */
@@ -697,9 +715,6 @@
 
 /* Window title */
 "No Credentials" = "Lipsesc credențialele";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Numai administratorii ar trebui să actualizeze Tunnelblick";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN nu răspunde";
@@ -733,6 +748,9 @@
 
 /* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "DEZINSTALAREA DE TEST A TUNNELBLICK S-A ÎNCHEIAT CU SUCCES";
+
+/* Window title */
+"The Tunnelblick installation failed." = "Instalarea Tunnelblick a eșuat.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Probleme cu configurarea Tunnelblick";
@@ -1707,9 +1725,6 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Au fost probleme cu importul setărilor Tunnelblick.\n\nConsultați Console log pentru detalii.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Această versiune \"Distribuită\" a Tunnelblick nu pot fi lansate sau instalate deoarece nu a fost rebranduit, sau updateFeedURL sau SUFeedURL care lipsesc sau conțin \"tunnelblick.net\", sau CFBundleIdentifier lipsește sau conține \"net.tunnelblick\".\n\n";
-
-/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Această versiune \"Distribuită\" a Tunnelblick nu poate fi lansată sau instalată, deoarece nu are un Info.plist.\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
@@ -1729,9 +1744,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Această copie a Tunnelblick nu este semnată digital.\n\nNu există nici o modalitate de a verifica dacă această copie nu a fost modificată.\n\n  Consultați-vă cu furnizorul de acestei copii a Tunnelblick înainte de a o utiliza.\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Această versiune a Tunnelblick nu poate fi lansată sau instalată, deoarece are o adresă URL de actualizare invalidă.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Această versiune a Tunnelblick nu poate fi lansată sau instalată, deoarece nu este o versiune \"Deployed\", și una sau mai multe versiuni \"Deployed\" ale Tunnelblick au fost instalate anterior.\n\n";
@@ -1759,9 +1771,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick poate accesa %@ pentru a verifica dacă adresa IP publică aparentă a computerului se va schimba de fiecare dată când va conectați la o rețea VPN.\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick nu a putut fi configurat pentru a se lansa automat după logare.\n\nConsultați Console Log pentru mai multe detalii.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nu a putut fi lansat din cauza unei probleme cu configurația. Vă rugăm să examinați Console Log pentru detalii.";
@@ -2007,9 +2016,6 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Configurația actualizabilă %@ nu a fost stocată ca actualizabilă deoarece Info.plist nu a avut o intrare \"SUPublicDSAKey\" sau intrarea sa \"SUFeedURL\" nu a specificat utilizarea https:\n";
 
 /* Window text */
-"Updates:" = "Actualizări:";
-
-/* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Configurarea VPN %@ NU va fi instalată, deoarece are un număr de versiune inferioară.";
 
 /* Window text */
@@ -2103,9 +2109,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Este necesar să deconectezi toate conexiunile VPN înainte de a instala sau dezinstala extensiile de sistem Tunnelblick.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Nu veți putea să actualizați Tunnelblick dacă nu furnizați autorizație de administrator de computer.\n\nSigur doriți să verificați actualizările?";
-
-/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Computerul dvs. poate să nu fie în măsură să arate pictograma Tunnelblick lângă pictograma Spotlight.\n\nAcest lucru poate determina pictograma Tunnelblick să dispară, uneori, din bara de meniu.\n\nSunteți sigur că doriți să plasați pictograma Tunnelblick lângă pictograma Spotlight?\n\n";
 
 /* Window text */
@@ -2188,6 +2191,7 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Pentru a importa configurația Tunnelblick pe un computer care are mai mult de %u conturi de utilizatori, trebuie creat un fișier text specificând informațiile ce trebuiesc importate.</p>\n<p>Pentru informații suplimentare, consultați <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "Versiunile <p>'<strong>non-Tunnelblick</strong>' de OpenVPN nu au fost create de proiectul Tunnelblick și nu fac parte din Tunnelblick. Elle au fost instalate de administratorul computerului.</p>";
 
@@ -2233,9 +2237,6 @@
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p> <strong> Când este bifată </strong>, Tunnelblick va verifica pentru actualizări la versiunile beta. </p>\n<p> <strong> Atunci când nu au fost bifate </strong>, Tunnelblick va verifica pentru actualizări la versiuni stabile. </p> <p> <strong> Această casetă este dezactivată </strong> și bifată atunci când se utilizează o versiune beta. </p>";
-
-/* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Când este bifată</strong>, Tunnelblick verifică versiuni noi când este pornit și apoi periodic.</p><p><strong>Această căsuță este inactivă</strong> și debifată când opțiunea 'Oprește verificarea automată de versiuni noi și schimbări de adresă IP' este bifată.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong> Când e bifat </strong>, Tunnelblick va determina adresa IP aparent publică a computerului înainte și după ce VPN-ul este conectat și vă va avertiza dacă adresa IP nu se schimbă. </p>\n<p> Site-ul tunnelblick.net va fi accesat pentru a efectua această funcție. Accesul se face de obicei prin intermediul https: folosind numele tunnelblick.net, cu excepția faptului că în cazul în care aceasta eșuează, accesul se încearcă utilizând http:. și adresa IP a site-ului </p>\n<p><strong> Atunci când nu au fost bifat </strong>, Tunnelblick nu verifică modificările adresei IP și nu avertizează în cazul în care adresa IP nu se schimbă după ce VPN-ul este conectat. </p>\n";

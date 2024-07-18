@@ -294,9 +294,6 @@
 /* Menu item */
 "Add a VPN..." = "Legg til VPN…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "Sjå etter oppdateringar no";
-
 /* Menu item */
 "Connect %@%@" = "Kopl til %@%@";
 
@@ -389,9 +386,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Vis på Tunnelblick-menyen";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "Forslag eller send feilrapport…";
 
 /* Menu item */
 "VPN Details..." = "VPN-detaljar…";
@@ -692,9 +686,6 @@
 
 /* Window title */
 "No Credentials" = "Ingen brukaropplysningar";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Berre administrator bør oppdatera Tunnelblick";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN svarer ikkje";
@@ -1591,9 +1582,6 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopien av Tunnelblick er ikkje signert digitalt.\n\nDet er ingen måte å finna ut om han har vorte tukla med.\n\n Vennligst sjekk med utgivar av denne versjonen av Tunnelblick før du nyttar han.\n\n";
 
 /* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Denne versjonen av Tunnelblick kan ikkje startast eller blir installert, då den har ei ugyldig oppdatering URL.\n\n";
-
-/* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Denne versjonen av Tunnelblick kan ikkje startast eller blir installert, då det ikkje er ein 'utrulla' versjon, og ein eller fleire 'utrulla' versjonar av Tunnelblick er tidlegare installerte.\n\n";
 
 /* Window text */
@@ -1619,9 +1607,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick kan få tilgang til %@ for å kontrollera at datamaskinas tilsynelatande offentlege IP-adresse vert endra kvar gong du koplar til ein VPN.\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick kunne ikkje konfigurerast til å automatisk starta seg sjølv etter du loggar inn.\n\nSe konsolloggen for detaljar.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kunne ikkje startast grunna konfigurasjonsproblem. Ver vennleg og undersøk konsolloggen for detaljar.";
@@ -1852,9 +1837,6 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Den oppdaterbare konfigurasjonen '%@' vart ikkje lagra som oppdaterbar fordi dens Info.plist ikkje kunne lagrast i .tlbk-stumpen\n";
 
 /* Window text */
-"Updates:" = "Oppdateringar:";
-
-/* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN-konfigurasjon %@ vert IKKJE installert, fordi han har eit lågare versjonsnummer.";
 
 /* Window text */
@@ -1948,9 +1930,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Du må kopla ned alle VPN-tunnelar før du kan du kan installera eller avinstallere Tunnelblicks systemutvidingar.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Tunnelblick kan ikkje oppdaterast med administratoren til mindre datamaskina gir autorisasjon.\n\ned du sikker på at du vil søkja etter oppdateringar?";
-
-/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Datamaskina di kan kanskje ikkje påliteleg vise Tunnelblick ikonet ved sida av Spotlight ikonet.\n\nDette kan føra til at Tunnelblick ikonet for å nokre gonger forsvinn frå menylinja.\n\ned du sikker at du vil plassera Tunnelblick ikonet ved sida av Spotlight ikonet?\n\n";
 
 /* Window text */
@@ -2021,6 +2000,7 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>For å importera eit Tunnelblick-oppsett på ei datamaskin med fleire enn %u brukarkontoar, må du først laga ei tekstfil som spesifiserer kva data som skal importerast..</p>\n<p>For meir informasjon, sjå <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>ikke-Tunnelblick</strong>'-versjonar av OpenVPN vart ikkje laga av Tunnelblick-prosjektet og er ikkje ein del av Tunnelblick. Desse har vorte installerte av ein datamaskinadministrator.</p>";
 
@@ -2057,9 +2037,6 @@
 
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Ved avkryssing</strong> vil OpenVPN køyra ein test for å avgjera maksimum MTU storleik for tilkoplinga. Testen startar kvar gong ei tilkopling blir gjord, og kan ta fleire minutt. Testresultata blir lagde i loggen til Tunnelblick.</p>\n";
-
-/* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Når skrudd på</strong>, vil Tunnelblick sjå etter oppdateringar når han blir starta, og vil halda fram med det periodisk deretter.</p><p><strong>Dette valet er utilgjengeleg</strong> og skrudd av når 'Hemme automatisk sjekk for oppdateringar og IP-adressesjekk er skrudd på.</p>";
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Når avkrysset</strong>, vil Tunnelblick instruera OpenVPN til å ruta all IPv4-trafikk gjennom VPN-serveren. </p>\n<p><strong>Når ikkje avkrysset</strong>, vil OpenVPN bruka VPN berre for trafikk som er bestemd for VPN-sambandet. All annan trafikk vil bruka den vanlege Internett-tilkoplinga utan å gå gjennom VPN. OpenVPNs standardinnstilling kan endrast i OpenVPN-konfigurasjonen eller VPN-serveren og bestemma at all IPv4 trafikk skal rutast gjennom VPN-serveren som om dette alternativet hadde vorte avkrysset. </p>\n";

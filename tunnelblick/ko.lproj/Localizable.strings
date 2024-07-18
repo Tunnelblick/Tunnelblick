@@ -288,9 +288,6 @@
 /* Menu item */
 "Add a VPN..." = "VPN 추가…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "지금 업데이트 확인";
-
 /* Menu item */
 "Connect %@%@" = "%@%@ 연결하기";
 
@@ -377,9 +374,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Tunnelblick 메뉴에서 보기";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "제안 또는 버그 보고…";
 
 /* Menu item */
 "VPN Details..." = "VPN 상세…";
@@ -674,9 +668,6 @@
 
 /* Window title */
 "No Credentials" = "인증이 없음";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "컴퓨터 관리자만 Tunnelblick을 업데이트 할 수 있습니다";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN 응답 없음";
@@ -1645,9 +1636,6 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Tunnelblick 설정을 불러오는 중 문제가 발생했습니다.\n\n자세한 사항은 콘솔 로그를 참고하십시오.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "이 '배포된' Tunnelblick 버전은 실행하거나 설치할 수 없습니다. 다시 만들어지지 않았거나 updateFeedURL 또는 SUFeedURL이 없거나 'tunnelblick.net'을 가지고 있기때문입니다. 또는 CFBundleIdentifier가 없거나 'net.tunnelblick'을 가지고 있기때문입니다.\n\n";
-
-/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "이 '배포된' Tunnelblick 버전은 Info.plist가 없어서 실행하거나 설치할 수 없습니다.\n\n";
 
 /* Window text */
@@ -1663,9 +1651,6 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "이 Tunnelblick 복사본은 디지털 서명이 안되어 있습니다.\n\n이 복사본이 조작되었는지 확인할 수 없습니다.\n\n 사용하기 전에 이 Tunnelblick 복사본의 제공자를 확인하십시오.\n\n";
 
 /* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "이 Tunnelblick 버전은 업데이트 URL이 올바르지 않아 실행하거나 설치할 수 없습니다.\n\n";
-
-/* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "이 Tunnelblick 버전은 '배포된' 버전이 아니기 때문에 실행하거나 설치할 수 없습니다. 그리고 1개 또는 이상의 '배포된' Tunnelblick 버전이 이전에 설치되었습니다.\n\n";
 
 /* Window text */
@@ -1679,9 +1664,6 @@
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick 인터넷 사용:";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "로그인 후 Tunnelblick이 자동으로 실행되도록 구성할 수 없습니다.\n\n자세한 내용은 콘솔 로그를 확인하십시오.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "설정에 문제가 있어서 Tunnelblick을 실행할 수 없습니다. 자세한 것은 콘솔 로그를 검토하십시오.";
@@ -1867,9 +1849,6 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "자동 업데이트 구성 '%@'은 업데이트 가능하게 저장될 수 없습니다. Info.plist의 'SUPublicDSAKey' 항목이 없거나 'SUFeedURL'이 https:를 사용하지 않았기 때문입니다.\n";
 
 /* Window text */
-"Updates:" = "업데이트:";
-
-/* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN 설정 %@ 은 버전이 낮기 때문에 설치 불가합니다.";
 
 /* Window text */
@@ -1946,9 +1925,6 @@
 
 /* Window text */
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Tunnelblick의 시스템 확장을 설치 또는 삭제 하기 전에 모든 VPN의 연결을 해제해야 합니다.";
-
-/* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "컴퓨터 관리자 권한을 얻기 전까지 Tunnelblick을 업데이트 할 수 없습니다.\n\n업데이트를 확인하겠습니까?";
 
 /* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "당신의 컴퓨터가 Tunnelblick 아이콘을 Spotlight 아이콘 근처에 보여주지 못할 수도 있습니다.\n\n가끔 메뉴 막대에서 아이콘이 사라지는 경우가 생길 수 있습니다.\n\nTunnelblick 아이콘을 Spotlight 아이콘 근처에 배치하시겠습니까?\n\n";
@@ -2036,9 +2012,6 @@
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>체크되었을 때</strong>, Tunnelblick이 베타 버전 업데이트를 확인할 것입니다.</p>\n<p><strong>체크되지 않았을 때</strong>, Tunnelblick이 안정화 버전을 확인할 것입니다.</p>\n<p>베타 버전을 사용하고 있다면 <strong>이 체크상자는 사용이 불가하며</strong> 체크되어 있을 것입니다.</p>";
-
-/* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>체크되어 있을 때</strong>, Tunnelblick이 실행할 때와 그 후 주기적으로 업데이트를 확인합니다.</p><p>'자동 업데이트 확인과 IP 주소 확인 금지'에 체크되어 있다면, <strong>이 체크상자는 사용이 불가하며</strong> 체크되지 않은 채 있을 것입니다.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>체크되었을 때</strong>, Tunnelblick이 VPN에 연결하기 전후로 컴퓨터의 공용 IP 주소를 결정하고 IP 주소가 변경되지 않을 경우 경고합니다.</p>\n<p>tunnelblick.net 웹사이트는 이 기능을 수행함으로서 접속될 것입니다. 이 접속은 https:와 tunnelblick.net 이름을 사용해 수행되며, 예외적으로 해당 접속이 실패할 경우 http:와 웹사이트의 IP 주소를 이용해 접속을 시도합니다.</p>\n<p><strong>체크되지 않았을 때</strong>, Tunnelblick은 IP 주소 변경을 확인하지 않고 IP 주소가 VPN에 연결하고 난 후 변경되지 않더라도 경고하지 않습니다.</p>\n";

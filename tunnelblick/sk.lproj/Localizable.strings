@@ -106,6 +106,9 @@
 /* Button */
 "Do nothing" = "Nerobiť nič";
 
+/* Button to install an update */
+"Download and Install" = "Stiahnuť a nainštalovať";
+
 /* Button */
 "Export Tunnelblick Setup" = "Exportovať nastavenie Tunnelblicku";
 
@@ -120,6 +123,9 @@
 
 /* Button */
 "Ignore" = "Ignorovať";
+
+/* Button to install an update */
+"Install and Relaunch" = "Inštalovať a znovu spustiť";
 
 /* Button */
 "Install tun and tap system extensions..." = "Inštalovať tun a tap systémové rozšírenia…";
@@ -194,6 +200,9 @@
 /* Button */
 "Reinstall" = "Preinštalovať";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "Pripomenúť neskôr";
+
 /* Button */
 "Remove Credentials" = "Odstrániť prístupové údaje";
 
@@ -241,6 +250,9 @@
 
 /* Button */
 "Show while connecting" = "Zobraziť počas pripájania";
+
+/* Button to skip a particular update */
+"Skip This Version" = "Preskočiť túto verziu";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "Preskočiť túto aktualizáciu";
@@ -296,11 +308,21 @@
 /* Button */
 "When computer starts" = "Po štarte systému";
 
+/* Menu item
+   Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "Tunnelblick aktualizácia je k dispozícii (%1.2f%% stiahnutých)…";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "Tunnelblick aktualizácia je k dispozícii a stiahnutá…";
+
+/* Menu item */
+"A Tunnelblick Update is Available..." = "Tunnelblick aktualizácia je k dispozícii…";
+
+/* Menu item */
+"A VPN Configuration Update is Available..." = "Aktualizácia VPN konfigurácie je k dispozícii…";
+
 /* Menu item */
 "Add a VPN..." = "Pridať VPN…";
-
-/* Menu item, Button */
-"Check For Updates Now" = "Skontrolovať novú verziu";
 
 /* Menu item */
 "Connect %@%@" = "Pripojiť %@%@";
@@ -396,9 +418,6 @@
 "Show on Tunnelblick Menu" = "Zobrazovať v menu Tunelblick";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "Vylepšenia a hlásenie chýb…";
-
-/* Menu item */
 "VPN Details..." = "Nastavenie VPN…";
 
 /* Menu item */
@@ -421,6 +440,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Kontrolovať, či sa po pripojení zmenila verejná IP adresa";
+
+/* Checkbox name */
+"Check only when connected to a VPN" = "Kontrolovat iba pri aktívnom pripojení VPN";
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Deaktivovať IPv6 v prípade že pripojenie VPN nepoužíva IPv6";
@@ -465,6 +487,9 @@
 "Do not warn about this again" = "Viac na toto neupozorňovať";
 
 /* Checkbox name */
+"Download updates when found" = "Stiahnuť nové aktualizácie ak nájdené";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Povoliť IPv6 (len zariadenie tap)";
 
 /* Checkbox name */
@@ -493,6 +518,9 @@
 
 /* Checkbox name */
 "Require administrator authorization to install all configurations" = "Pre inštaláciu všetkých konfiguracií je nutná autorizácia administrátora";
+
+/* Checkbox name */
+"Require administrator authorization to update" = "Požadovať schválenie administrátora pred aktualizáciou";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Smerovať všetok IPv4 dátový prenos cez VPN";
@@ -615,6 +643,9 @@
 "'%@' has been disconnected" = "'%@' odpojené";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "Je k dispozícii nová verzia Tunnelblicku";
+
+/* Window title */
 "Active connection" = "Aktívne spojenie";
 
 /* Window title */
@@ -666,6 +697,12 @@
 "Do you wish to connect?" = "Prajete si pripojiť sa?";
 
 /* Window title */
+"Error getting Tunnelblick update..." = "Chyba pri získavaní aktualizácie Tunnelblicku…";
+
+/* WIndow title */
+"Error getting VPN update..." = "Chyba pri získavaní aktualizácie VPN…";
+
+/* Window title */
 "File not found" = "Súbor sa nenašiel";
 
 /* Window title */
@@ -676,6 +713,9 @@
 
 /* Window title */
 "Install Configuration For All Users?" = "Nainštalovať konfiguráciu pre všetkých užívateľov systému?";
+
+/* Window title */
+"Installation Failed" = "Inštalácia zlyhala";
 
 /* Window title */
 "Installation failed" = "Inštalácia neúspešná";
@@ -697,9 +737,6 @@
 
 /* Window title */
 "No Credentials" = "Žiadne prístupové údaje";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Tunnelblick by mal aktualizovať iba správca systému";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN nereaguje";
@@ -733,6 +770,9 @@
 
 /* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TEST ODINŠTALOVANIA TUNNELBLICKU SA PODARIL";
+
+/* Window title */
+"The Tunnelblick installation failed." = "Inštalácia Tunnelblicku zlyhala.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Chyba konfigurácie Tunnelblick";
@@ -980,6 +1020,9 @@
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Nastavenia siete sa nepodarilo správne obnovit po odpojení od %@.</p><p>Tento problém je zvyčajne spôsobený použitím parametra 'user nobody' a/alebo 'group nobody' v OpenVPN konfigurácii.</p><p>Na obnovenie nastavenia siete sa odporúča reštartovať počítač.</p><p>Aby sa predišlo v budúcnosti tejto chybe, je potrebné odstránit parametre 'user nobody' a 'group nobody' z konfiguračného súboru OpenVPN.</p><p>Viac informácií nájdete na <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net].</p></font>\n\n";
 
+/* Window text\nThe two %@ are descriptions of configuration versions (e.g. '1.2.3' */
+"<p><strong>VPN Configuration %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>VPN konfigurácia %1$@ je teraz k dispozícii – aktuálna %2$@.</strong></p>\n\n";
+
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Vyskytla sa jedna alebo viaceré závažné chyby aplikácie Tunnelblick.</p>\n\n<p>Prosím zašlite email na %1$@ a pripojte súbor the<br>'%2$@', ktorý bol vytvorený na Vašej pracovnej ploche.</p>\n\n<p>Tento súbor obsahuje informácie, ktoré umožnia vývojárom Tunnelblick analyzovať a odstrániť tento problém. Tento súbor neobsahuje žiadne osobné uádaje ani žiadne informácie o Vašich VPN konfiguráciách.</p>\n\n<p>Ak je to možné, prosím tiež v krátkosti popíšte situáciu počas ktorej došlo k tejto vážnej chybe aplikácie Tunnelblick.</p>\n\n<p>Pomôžete tým všetkým užívateľom aplikácie Tunnelblick. Ďakujeme.</p>";
 
@@ -1054,6 +1097,12 @@
 
 /* Window text */
 "An error occurred getting the list of loaded system extensions." = "Vyskytol sa problém pri získavaní zoznamu načítaných systémových rozšírení.";
+
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Vyskytla sa chyba pri získávaní aktualizácie.\n\nPre viac informácií skontrolujte log súbor\n\n%@";
+
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Vyskytla sa chyba pri získávaní informácií o aktualizáciach.\n\nPre viac informácií skontrolujte log súbor\n\n%@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Pri spúšťaní %@ sa vyskytla chyba";
@@ -1707,7 +1756,7 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Nastala chyba pri importovaní nastavení.\n\nViď konzolu pre detaily.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Túto centrálne spravovovanú verziu aplikácie Tunnelblick nie je možné spustiť ani naištalovať. Možné príčiny tohto stavu sú: zmena značky, pod ktorou je aplikácia vydaná; položky nastavení updateFeedURL alebo SUFeedURL buď chýbajú, alebo obsahujú text 'tunnelblick.net'; alebo položka nastavení CFBundleIdentifier buď chýba, alebo obsahuje text 'net.tunnelblick'.\n\n";
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Túto 'Nasadenú' verziu Tunnelblicku nemožno spustiť alebo inštalovať pretože nebola rebrandovaná, alebo chýba CFBundleIdentifier alebo obsahuje 'net.tunnelblick'.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Túto centrálne spravovovanú verziu aplikácie Tunnelblick nie je možné spustiť ani nainštalovať, pretože neobsahuje súbor Info.plist.\n\n";
@@ -1729,9 +1778,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Táto kópia aplikácie Tunnelblick nie je digitálne podpísaná.\n\nNeexistuje možnosť overenia, či táto kópia nebolo neodborne upravená.\n\n Pred použitím tejto kópie aplikácie Tunnelblick, prosím, kontaktuje jej poskytovateľa.\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Túto verziu aplikácie Tunnelblick nie je možné spustiť ani nainštalovať, pretože URL pre aktualizácie je neplatná.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Túto verziu aplikácie Tunnelblick nie je možné spustiť ani nainštalovať, pretože táto verzia nie je centrálne spravovaná a v minulosti už bola jeden alebo viackrát inštalovaná centrálne spravovaná verzia.\n\n";
@@ -1759,9 +1805,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick môže pristupovať k %@ pre overenie zmeny verejnej IP adresy pri každom pripojení k VPN.\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Nebolo možné nakonfigurovať Tunnelblick na automatické spustenie po prihlásení.  Pozri Podrobnosti v denníku konzoly.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Nebolo možné spustiť Tunnelblick kvôli problému s konfiguráciou. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
@@ -1833,6 +1876,12 @@
 "Tunnelblick is ready." = "Tunnelblick je pripravený.";
 
 /* Window text */
+"Tunnelblick is up to date" = "Tunnelblick je aktuálny";
+
+/* Window text */
+"Tunnelblick needs a computer administrator's authorization to update.\n\nTunnelblick will be relaunched after the update." = "Tunnelblick potrebuje autorizáciu administrátora pre aktualizáciu.\n\nTunnelblick bude znovu spustený po aktualizácii.";
+
+/* Window text */
 "Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick potrebuje povolenie na kopírovanie adresára '%@'.";
 
 /* Window text */
@@ -1896,6 +1945,9 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick bol úspešne:  ";
 
 /* Window text */
+"Tunnelblick updates:" = "Aktualizácie Tunnelblicku:";
+
+/* Window text */
 "Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblicku sa nepodarilo odinštalovať jeho systémové rozšírenia. Prosím reštartujte svoj počítač a pokúste sa odinštalovať Tunneblick systémové rozšírenia ešte raz.";
 
 /* Window text */
@@ -1930,6 +1982,9 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick bude pristupovať k %@ pre overenie zmeny verejnej IP adresy pri každom pripojení k VPN. Kontaktujte distribútora tejto kópie programu Tunnelblicku pre získanie detailov.\n\n";
+
+/* Window text */
+"Tunnelblick will quit because a critical component has been disabled or is missing.\n\nTunnelblick cannot perform functions such as connecting a VPN unless the component is enabled.\n\nPlease re-enable the component in System Settings >> General >> Login Items.\n\nThe component is listed in the 'Runs in the background' section, is named 'Tunnelblick', and is labelled 'affects all users'.\n\nIt is recommended that you also enable the other listed Tunnelblick component if it is also disabled.\n\nNote: If the component is enabled and Tunnelblick still shows this message, please reinstall Tunnelblick.\n\nFor more information, go to https://tunnelblick.net/e2" = "Tunnelblick sa ukončí, pretože kritický komponent bol zakázaný alebo chýba.\n\nTunnelblick nemôže vykonávať funkcie, ako je pripojenie VPN, pokiaľ nie je komponent povolený.\n\nPovoľte, prosím, znova komponent v Nastaveniach systému >> Všeobecné >> Prihlásenie.\n\nKomponent je uvedený v časti 'Beží na pozadí', má názov 'Tunnelblick' a je označený 'týka sa všetkých používateľov'.\n\nOdporúča sa povoliť aj ďalší uvedený komponent Tunnelblick, ak je tiež zakázaný.\n\nPoznámka: Ak je komponent povolený a Tunnelblick stále zobrazuje túto správu, preinštalujte Tunnelblick.\n\nPre viac informácií, navštívte https://tunnelblick.net/e2";
 
 /* Window text */
 "Unable to Establish Communication" = "Nepodarilo sa zahájiť spojenie";
@@ -2005,9 +2060,6 @@
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Aktualizovateľná konfigurácia %@ sa neuložila ako aktualizovateľná, pretože súbor Info.plist neobsahoval záznam 'SUPublicDSAKey' alebo jeho záznam 'SUFeedURL' nešpecifikoval použitie https:\n";
-
-/* Window text */
-"Updates:" = "Aktualizácie:";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Konfigurácia VPN %@ nebude nainštalovaná, pretože má nižsie číslo verzie.";
@@ -2103,9 +2155,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Musíte odpojiť všetky VPN predtým ako budete môcť nainštalovať alebo odinštalovať Tunnelblick systémové rozšírenia.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Nemôžete aktualizovať Tunnelblick, kým nezadáte prihlasovacie údaje administrátora.\n\nNaozaj chcete skontrolovať aktualizácie?";
-
-/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Je možné, že Váš počítač nedokáže za každých okolností správne zobraziť ikonu Tunnelblick vedľa Spotlight ikony.\n\nTo sa môže prejaviť tak, že ikona Tunnelblick niekedy ZMIZNE z lišty v pravom hornom rohu.\n\nSkutočne si prajete zobraziť ikonu Tunnelblick vedľa Spotlight ikony?\n\n";
 
 /* Window text */
@@ -2188,6 +2237,12 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Aby bolo možné importovať nastavenia Tunnelblick na počítači s viac ako %u uživateľskými účtami, je potrebné vytvoriť textový súbor obsahujúci dáta ktoré sa majú importovať.</p>\n<p>Viacej informácií na <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML window text */
+"<hr><p><strong>One or more VPNs may be disconnected before the update.</strong></p>\n" = "<hr><p><strong>VPN pripojenie môže byť počas aktualizácie prerušené.</strong></p>\n";
+
+/* HTML window text */
+"<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Chcete teraz aktualizovať na novú verziu?</strong></p>\n";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>ne-Tunnelblick</strong>' verzie OpenVPN neboli vytvorené Tunnelblick projektom a nie sú súčasťou Tunnelblicku. Boli nainštalované administrátorom.</p>";
 
@@ -2196,6 +2251,9 @@
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Viac informacií</a>[tunnelblick.net]</p>";
+
+/* HTML window text */
+"<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>Na inštaláciu tejto aktualizácie sa vyžaduje autorizácia administrátora počítača.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Jednu alebo viaceré z Vašich konfigurácií nebude možné pripojiť.</strong></p>\n<p>Tieto konfigurácie vyžadujú systémove rozšírenia, ktoré táto verzia macOS nepovoľuje aplikácii Tunnelblick použiť.</p>\n";
@@ -2218,6 +2276,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Určuje podmienky kedy má Tunnelblick pripojiť VPN.</strong></p><p>\"Pri štarte počítača\" je možné použiť len pre  \"Zdielané\" konfigurácie, ktorých meno, heslo alebo passphrase nie sú uložené v Keychain a nepoužívajú nastavenie OpenVPN 'auth-user-pass' bez parametra.</p>";
 
+/* HTML window text\nThe two %@ are descriptions of Tunnelblick versions (e.g. '4.0.1 (build 5971)' */
+"<p><strong>Tunnelblick %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>Tunnelblick %1$@ je teraz k dispozícii – aktuálne %2$@.</strong></p>\n\n";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Ak zaškrtnuté</strong>, IPv6 bude deaktivované v prípade že spojenie OpenVPN nepoužíva IPv6.</p>\n<p>Deaktivácia IPv6 sa často odporúča, nakoľko mnohé konfigurácie VPN nechránia voči úniku informácií spôsobenému použitím IPv6. Pripojenie k Internetu vo väčšine prípadov správne funguje aj bez IPv6.</p>\n<p><strong>Ak nie zaškrtnuté</strong>, IPv6 nebude deaktivované.</p>\n<p><strong>Tento voľba je neaktívna</strong> pri použití pripojenia 'tap', pretože na tomto type pripojenia túto možnosť nie je možné aktivovať.</p>";
@@ -2231,11 +2292,11 @@
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Ak je zaškrtnuté</strong>, OpenVPN spustí test, ktorý určí maximálnu možnú MTU hodnotu pripojenia. Test sa spustí pri každom vytvorení pripojenia a môže trvať niekoľko minút. Výsledky testu sa zobrazia v zázname konzoly aplikácie.</p>\n";
 
+/* HTML info for the 'Check only when connected to a VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates automatically only when connected to a VPN.</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Pokiaľ zaškrtnuté</strong>, Tunnelblick bude automaticky kontrolovať dostupné aktualizácie iba pokiaľ je aktívne pripojenie k VPN.</p>\n<p><strong>Toto začiarkavacie políčko je deaktivované</strong> a nezačiarknuté, keď je začiarknuté políčko 'Zabrániť automatickej kontrole aktualizácií a IP adresy' a keď používateľ nie je administrátorom počítača a aktualizácie môžu inštalovať iba administrátori počítača.</p>";
+
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Ak je zaškrtnuté</strong>, Tunnelblick bude kontrolovať aktualizácie na beta verziu.</p>\n<p><strong>Ak nie je zaškrtnuté</strong>, Tunnelblick bude kontrolovať aktualizácie stabilnej verzie.</p><p><strong>Tento výber je zakázaný</strong> a zaškrtnutý v prípade použitia beta verzie.</p>";
-
-/* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Ak je zaškrtnuté</strong>, Tunnelblick bude kontrolovať aktualizácie vždy po spustení a tiež v pravidelných časových intervaloch.</p><p><strong>Tento výber je zakázaný</strong> a nie je zaškrtnutý, ak je povolená možnosť 'Zabrániť automatickej kontrole aktualizácií a IP adresy'.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Pokiaľ je zaškrtnuté</strong>, Tunnelblick bude zisťovať verejnú IP adresu pred a po pripojení k VPN a pokiaľ sa adresa nezmení, zobrazí varovanie.</p>\n<p>Stránka tunnelblick.net bude navštívená z dôvodu overenia tejto funkcie. Prístup je vo väčšine prípadou uskutočnený pomocí https protokolu a doménového mena tunnelblick.net, pokiaľ táto metóda zlyhá je použitý http protokol a IP adresa stránky.</p>\n<p><strong>Pokiaľ nie je zaškrtnuté</strong>, Tunnelblick nebude uskutočňovať kontrolu IP adresy po pripojení k VPN a nebude zobrazovať varovanie.</p>\n";

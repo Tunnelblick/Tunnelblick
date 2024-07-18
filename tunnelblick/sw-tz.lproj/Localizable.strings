@@ -299,9 +299,6 @@
 /* Menu item */
 "Add a VPN..." = "Ongeza VPN…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "Angalia Sasisho Sasa";
-
 /* Menu item */
 "Connect %@%@" = "Unganisha %@%@";
 
@@ -394,9 +391,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Onesha katika Menyu ya Tunnelblick";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "Mapendekezo au Ripoti ya Bug…";
 
 /* Menu item */
 "VPN Details..." = "Maelezo ya VPN…";
@@ -697,9 +691,6 @@
 
 /* Window title */
 "No Credentials" = "Hakuna sifa";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Wasimamizi wa kompyuta pekee wanapaswa kusasisha Tunnelblick";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN haijibu";

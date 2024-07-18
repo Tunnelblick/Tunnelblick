@@ -106,6 +106,9 @@
 /* Button */
 "Do nothing" = "Tidak melakukan apapun";
 
+/* Button to install an update */
+"Download and Install" = "Unduh dan Pasang";
+
 /* Button */
 "Export Tunnelblick Setup" = "Ekspor Pengaturan Tunnelblick";
 
@@ -193,6 +196,9 @@
 
 /* Button */
 "Reinstall" = "Install ulang";
+
+/* Button to be reminded about an update */
+"Remind Me Later" = "Ingatkan saya nanti";
 
 /* Button */
 "Remove Credentials" = "Hapus Kredensial";
@@ -299,9 +305,6 @@
 /* Menu item */
 "Add a VPN..." = "Tambahkan VPN...";
 
-/* Menu item, Button */
-"Check For Updates Now" = "Periksa Untuk Pembaruan Sekarang";
-
 /* Menu item */
 "Connect %@%@" = "Sambungkan %@%@";
 
@@ -394,9 +397,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Tampilkan pada Menu Tunnelblick";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "Saran atau Laporan Bug…";
 
 /* Menu item */
 "VPN Details..." = "Rincian VPN…";
@@ -678,6 +678,9 @@
 "Install Configuration For All Users?" = "Pasang Konfigurasi Bagi Semua Pengguna?";
 
 /* Window title */
+"Installation Failed" = "Pemasangan gagal";
+
+/* Window title */
 "Installation failed" = "Pemasangan gagal";
 
 /* Window title */
@@ -697,9 +700,6 @@
 
 /* Window title */
 "No Credentials" = "Tidak Ada Kredensial";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Hanya administrator komputer yang harus memperbarui Tunnelblick";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN tidak merespon";
@@ -1707,9 +1707,6 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Ada masalah saat mengimpor pengaturan Tunnelblick.\n\nLihat log Konsol untuk rinciannya.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Versi Tunnelblick yang 'Disebarkan' ini tidak dapat diluncurkan atau dipasang karena belum diubah merknya, atau kurang updateFeedURL atau SUFeedURL atau memuat 'tunnelblick.net', atau kurang CFBundleIdentifier atau memuat 'net.tunnelblick'.\n\n";
-
-/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Versi Tunnelblick yang 'Disebarkan' ini tidak dapat diluncurkan atau dipasang karena tidak memiliki suatu Info.plist.\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
@@ -1729,9 +1726,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Salinan Tunnelblick ini tidak ditandatangani secara digital.\n\nTidak ada cara untuk memastikan bahwa salinan ini belum dirusak.\n\nPeriksalah dengan penyedia salinan Tunnelblick ini sebelum memakainya.\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Versi Tunnelblick yang ini tidak bisa dijalankan atau dipasang karena ia memiliki URL pembaruan yang tidak valid.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Versi Tunnelblick ini tidak bisa dijalankan atau dipasang karena ini bukan versi yang dirilis, dan satu atau beberapa versi Tunnelblick yang dirilis telah dipasang sebelumnya.\n\n";
@@ -1759,9 +1753,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick dapat mengakses %@ untuk memeriksa bahwa alamat IP publik yang tampak, berubah setiap kali Anda menyambung ke VPN.\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick tidak dapat dikonfigurasi untuk memulai secara otomatis setelah Anda log in.\n\nLihat Console Log untuk lebih detil.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick tidak bisa memulai karena ada masalah konfigurasi. Silakan periksa Console Log untuk lebih detil.";
@@ -1896,6 +1887,9 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick telah sukses:\n\n";
 
 /* Window text */
+"Tunnelblick updates:" = "Pemutakhiran Tunnelblick:";
+
+/* Window text */
 "Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick tidak dapat membongkar ekstensi sistemnya. Harap mulai ulang komputer Anda dan coba bongkar pemasangan ekstensi sistem Tunnelblick lagi.";
 
 /* Window text */
@@ -2007,9 +2001,6 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Konfigurasi yang dapat dimutakhirkan '%@' tidak disimpan sebagai dapat dimutakhirkan karena Info.plist tidak punya suatu entri 'SUPublicDSAKey' atau entri 'SUFeedURL'-nya tidak menyatakan penggunaan https:\n";
 
 /* Window text */
-"Updates:" = "Pembaruan:";
-
-/* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "Konfigurasi VPN %@ TIDAK akan dipasang karena punya nomor versi lebih rendah.";
 
 /* Window text */
@@ -2103,9 +2094,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Anda harus memutuskan semua VPN yang berjalan sebelum Anda dapat menginstal atau menghapus ekstensi sistem Tunnelblick.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Anda tidak akan bisa memperbarui Tunnelblick kecuali Anda memberikan otorisasi administrator komputer.\n\nApakah Anda yakin hendak memeriksa pembaruan?";
-
-/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Komputer Anda mungkin tidak bisa secara handal menampilkan ikon Tunnelblick dekat ikon Spotlight.\n\nIni dapat menyebabkan ikon Tunnelblick kadang-kadang MENGHILANG dari bilah menu.\n\nApakah Anda yakin hendak menempatkan ikon Tunnelblick dekat ikon Spotlight?\n\n";
 
 /* Window text */
@@ -2188,6 +2176,7 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Untuk mengimpor sebuah setup Tunnelblick pada suatu komputer yang memiliki lebih dari %u akun pengguna, Anda mesti membuat sebuah berkas teks yang menyatakan data yang akan diimpor.</p>\n<p>Untuk informasi lebih lanjut, lihat <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a></p></font>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>bukan-Tunnelblick</strong>' versi OpenVPN tidak dibuat oleh proyek Tunnelblick dan bukan merupakan bagian dari Tunnelblick. Mereka telah dipasang oleh administrator komputer.</p>";
 
@@ -2233,9 +2222,6 @@
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan memeriksa pembaruan ke versi beta.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick akan memeriksa pembaruan ke versi stabil.</p><p><strong>Kotak centang ini dinonaktifkan</strong> dan dicentang ketika memakai versi beta.</p>";
-
-/* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan memeriksa pembaruan ketika diluncurkan dan secara periodik setelahnya.</p><p><strong>Kotak centang ini dinonaktifkan</strong> dan tidak dicentang ketika 'Cegah pemeriksaan pembaruan otomatis dan pemeriksaan Alamat IP' dicentang.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan menentukan alamat yang terlihat sebagai IP publik komputer sebelum dan setelah VPN tersambung dan memperingatkan bila alamat IP tidak berubah.</p>\n<p>Situs web tunnelblick.net akan diakses untuk melakukan fungsi ini. Akses biasanya dilakukan melalui https: memakai nama tunnelblick.net, kecuali bila akses tersebut gagal, akses dicoba memakai http: dan alamat IP dari situs web tersebut.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick tidak memeriksa perubahan alamat IP dan tidak memperingatkan bila alamat IP tidak berubah setelah VPN tersambung.</p>\n";

@@ -299,9 +299,6 @@
 /* Menu item */
 "Add a VPN..." = "Shto një VPN…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "Kontrollo për përditësime tani";
-
 /* Menu item */
 "Connect %@%@" = "Lidhu me %@%@";
 
@@ -394,9 +391,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Shfaq në menunë e Tunnelblick";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "Sugjerim ose Raportim gabimi…";
 
 /* Menu item */
 "VPN Details..." = "Detajet e VPN…";

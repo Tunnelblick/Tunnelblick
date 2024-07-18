@@ -299,9 +299,6 @@
 /* Menu item */
 "Add a VPN..." = "Pievienot VPN...";
 
-/* Menu item, Button */
-"Check For Updates Now" = "Pārbaudīt atjauninājumus";
-
 /* Menu item */
 "Connect %@%@" = "Pieslēgties %@%@";
 
@@ -394,9 +391,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Rādīt Tunnelblick izvēlnē";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "Ierosinājums vai ziņojums par kļūdu…";
 
 /* Menu item */
 "VPN Details..." = "VPN iestatījumi…";
@@ -697,9 +691,6 @@
 
 /* Window title */
 "No Credentials" = "Nav piekļuves datu";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Tikai datora administratori var atjaunināt Tunnelblick";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN neatbild";
@@ -1707,9 +1698,6 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Notikusi kļūda importējot Tunnelblick iestatījumus.\n\nSīkāka informācija atrodama Notikumu žurnāla.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Šī 'Izvietotā' Tunnelblick versija nevar tikt palaista vai uzstādīta, jo tai netika izmainīts zīmola marķējums, vai arī nav opciju 'updateFeedURL' vai 'SUFeedURL', vai tajās ir ierakstīts 'tunnelblick.net', vai nav opcijas 'CFBundleIdentifier'vai tajā ir 'net.tunnelblick'.\n\n";
-
-/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Šī 'Izvietotā' Tunnelblick versija nevar tikt palaista vai uzstādīta, jo tai nav datnes Info.plist.\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
@@ -1729,9 +1717,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Šī Tunnelblick kopija nav digitāli parakstīta.\n\nNav iespējams pārbaudīt, vai šī kopija nav bojāta.\n\nLūdzu, pārbaudiet šo Tunnelblick kopiju pie tās avota, pirms to izmantot.\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Šo Tunnelblick versiju nav iespējams palaist vai uzstādīt, jo atjauninājumu URL nav pareiza.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Šo Tunnelblick versiju nav iespējams palaist vai uzstādīt, jo tā nav 'Izvietotā' versija, un šeit jau bija uzstādīta viena vai vairākas 'Izvietotās' Tunnelblick versijas.\n\n";
@@ -1759,9 +1744,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick var piekļūt %@ lai pārbaudīt Jūsu datora publisku IP adreses izmaiņas katru reizi kad pieslēdzas pie VPN.\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick neizdevās konfigurēt automātisku pašpalaišanos līdz ar ielogošanos.\n\nVairāk informācijas notikumu žurnālā.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick neizdevās pašpalaisties dēl problēmām ar konfigurāciju. Vairāk informācijas notikumu žurnālā.";
@@ -2007,9 +1989,6 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Atjaunināmā konfigurācija '%@' netika saglabāta kā atjaunināma, jo Info.plist nesatur 'SUPublicDSAKey' ierakstu vai 'SUFeedURL' ieraksts nenosaka lietot https:\n";
 
 /* Window text */
-"Updates:" = "Atjauninājumi:";
-
-/* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN konfigurācija %@ NETIKS uzstādīta, jo tai ir zemāks versijas numurs.";
 
 /* Window text */
@@ -2103,9 +2082,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Jums jāatvieno visus VPN pirms Jūs varēsiet atinstalēt Tunnelblick sistēmas paplašinājumus.";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Jūs nevarēsiet veikt Tunnelblick atjaunināšanu bez datora administratora autorizācijas.\n\nVai tiešām vēlaties pārbaudīt atjauninājumus?";
-
-/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Iespējams ka jūsu dators nespēj uzticami parādīt Tunnelblick ikonu blakus Spotlight ikonai.\n\nŠī iemesla dēļ, Tunnelblick ikona var dažreiz PAZUST no izvēlnes joslas.\n\nVai tiešām vēlaties novietot Tunnelblick ikonu blakus Spotlight ikonai?\n\n";
 
 /* Window text */
@@ -2188,6 +2164,7 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Lai importēt Tunnelblick iestatījumus uz datora kur ir vairāk ka %u lietotāju konti, Jums jāizveido teksta failu ar aprakstu kādus datus ir jāimportē.</p>\n<p>Sīkāka informācija atrodama tīmekļa lapa <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Tunnelblick projekts neizstrādāja '<strong>ne-Tunnelblick</strong>' OpenVPN versijas un tas nav šī projekta sastāvdaļas. Tos instālēja datora administrators.</p>";
 

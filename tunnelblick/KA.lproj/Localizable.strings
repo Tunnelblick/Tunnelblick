@@ -101,9 +101,6 @@
 /* Menu item */
 "Add a VPN..." = "VPN-ის დამატება...";
 
-/* Menu item, Button */
-"Check For Updates Now" = "განახლების შემოწმება";
-
 /* Menu Item */
 "Rename Configuration" = "კონფიგურაციის გადარქმევა";
 
@@ -217,9 +214,6 @@
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick მზად არის.";
-
-/* Window text */
-"Updates:" = "განახლებები:";
 
 /* Window text */
 "ZB" = "ZB";

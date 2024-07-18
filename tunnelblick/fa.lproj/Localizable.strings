@@ -294,9 +294,6 @@
 /* Menu item */
 "Add a VPN..." = "اضافه کردن وی پی ان…";
 
-/* Menu item, Button */
-"Check For Updates Now" = "بررسی برای به روز رسانی";
-
 /* Menu item */
 "Connect %@%@" = "اتصال %@%@";
 
@@ -389,9 +386,6 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "نمایش در فهرست Tunnelblick";
-
-/* Menu item */
-"Suggestion or Bug Report..." = "پیشنهادات و گزارش اشکال…";
 
 /* Menu item */
 "VPN Details..." = "جزییات VPN…";
@@ -692,9 +686,6 @@
 
 /* Window title */
 "No Credentials" = "بدون اعتبار نامه";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "تنها مدیر رایانه امکان بروزرسانی Tunnelblick را دارد";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN پاسخگو نیست";
@@ -1603,9 +1594,6 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "در ورود تنظیمات Tunnelblick مشکلاتی وجود داشت.\n\nبرای جزئیات بیشتر به سیاهه کنسول مراجعه کنید.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "این نسخه عرضه شده Tunnelblick قابل نصب و یا اجرا نیست زیرا تغییر نام پیدا کرده، یا updateFeedURL و SUFeedURL وجود ندارند و یا دارای 'tunnelblick.net' هستند، و یا CFBundleIdentifier وجود ندارد و یا دارای 'net.tunnelblick' است.\n\n";
-
-/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "این نسخه عرضه شده Tunnelblick قابل نصب و یا اجرا نیست زیرا دارای فایل Info.plist نمی باشد.\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
@@ -1619,9 +1607,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "این رونوشت از Tunnelblick شناسه ی دیجیتالی ندارد.\nبرای بررسی صحت نرم افزار و اینکه دستکاری نشده هیچ راهی وجود ندارد.\nقبل از استفاده این مورد را با تامین کننده ی نرم افزار بررسی کنید.\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "این نسخه عرضه شده Tunnelblick قابل نصب و یا اجرا نیست زیرا دارای نشانی بروزرسانی نامعتبر است.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "این نسخه Tunnelblick قابل نصب و یا اجرا نیست زیرا نسخه عرضه شده نیست، و یک یا چند نسخه عرضه شده Tunnelblick پیشتر نصب شده است.\n\n";
@@ -1646,9 +1631,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick برای بررسی اینکه نشانی آی پی آشکار رایانه شما بعد از ارتباط وی پی ان تغییر پیدا کرده، به %@ دسترسی خواهد داشت.\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "پیکربندی Tunnelblick برای اجرای خودکار پس از ورود به رایانه امکان پذیر نبود.\n\nبرای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick به دلیل ایراد در پیکربندی اجرا نشد. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
@@ -1849,9 +1831,6 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "پیکربندی قابل بروزرسانی '%@' به صورت قابل بروزرسانی ذخیره نشد زیرا فایل Info.plist دارای مقدار 'SUPublicDSAKey' نیست و یا اینکه نشانی اینترنتی 'SUFeedURL' آن استفاده از https را مشخص نکرده:\n";
 
 /* Window text */
-"Updates:" = "بروزرسانی ها:";
-
-/* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "پیکربندی وی پی ان %@ نصب نخواهد شد زیرا دارای شماره نسخه پایین تری است.";
 
 /* Window text */
@@ -1922,9 +1901,6 @@
 
 /* Window text */
 "You may not remove a folder unless it is empty." = "شما اجازه ی پاک کردن پوشه را ندارید مگر اینکه خالی باشد.";
-
-/* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "در صورت عدم ارایه نام کاربری مدیر رایانه، قادر به بروزرسانی Tunnelblick نخواهید بود.\n\nآیا مایل به یررسی بروزرسانی هستید؟";
 
 /* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "رایانه شما قادر به نمایش درست آیکون Tunnelblick در کنار آیکون Spotlight نخواهد بود.\n\nاین باعث ناپدید شدن آیکون Tunnelblick از نوار فهرست خواهد شد.\n\nآیا مایل به قرار دادن آیکون Tunnelblick در کنار آیکون Spotlight هستید؟\n\n";

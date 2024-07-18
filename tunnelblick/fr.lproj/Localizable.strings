@@ -106,6 +106,9 @@
 /* Button */
 "Do nothing" = "Ne rien faire";
 
+/* Button to install an update */
+"Download and Install" = "Télécharger et installer";
+
 /* Button */
 "Export Tunnelblick Setup" = "Exporter la configuration de Tunnelblick";
 
@@ -120,6 +123,9 @@
 
 /* Button */
 "Ignore" = "Ignorer";
+
+/* Button to install an update */
+"Install and Relaunch" = "Installer et relancer";
 
 /* Button */
 "Install tun and tap system extensions..." = "Installer les extensions de système TUN et TAP...";
@@ -194,6 +200,9 @@
 /* Button */
 "Reinstall" = "Réinstaller";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "Me le rappeler plus tard";
+
 /* Button */
 "Remove Credentials" = "Supprimer les informations d’authentification";
 
@@ -241,6 +250,9 @@
 
 /* Button */
 "Show while connecting" = "Afficher pendant l’établissement de connexion";
+
+/* Button to skip a particular update */
+"Skip This Version" = "Ignorer cette version";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "Ignorer cette mise à jour";
@@ -296,11 +308,21 @@
 /* Button */
 "When computer starts" = "Quand l’ordinateur démarre";
 
+/* Menu item
+   Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "Une mise à jour de Tunnelblick est disponible (%1.2f%% téléchargé)…";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "Une mise à jour de Tunnelblick est disponible et téléchargée…";
+
+/* Menu item */
+"A Tunnelblick Update is Available..." = "Une mise à jour de Tunnelblick est disponible…";
+
+/* Menu item */
+"A VPN Configuration Update is Available..." = "Une mise à jour pour une configuration VPN est disponible…";
+
 /* Menu item */
 "Add a VPN..." = "Ajouter VPN…";
-
-/* Menu item, Button */
-"Check For Updates Now" = "Vérifier les mises à jour";
 
 /* Menu item */
 "Connect %@%@" = "Connecter %@%@";
@@ -396,9 +418,6 @@
 "Show on Tunnelblick Menu" = "Afficher dans le menu Tunnelblick";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "Faire une suggestion ou signaler un bug…";
-
-/* Menu item */
 "VPN Details..." = "Détails VPN…";
 
 /* Menu item */
@@ -421,6 +440,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Vérifier si l’adresse IP publique a changé après la connexion";
+
+/* Checkbox name */
+"Check only when connected to a VPN" = "Vérifier uniquement lorsqu'un VPN est connecté";
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Désactiver IPv6 sauf si le serveur VPN utilise une adresse IPv6";
@@ -465,6 +487,9 @@
 "Do not warn about this again" = "Ne plus me prévenir";
 
 /* Checkbox name */
+"Download updates when found" = "Télécharger les mises à jour lorsqu'elles existent";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Activer IPv6 (connexion \"tap\" uniquement)";
 
 /* Checkbox name */
@@ -493,6 +518,9 @@
 
 /* Checkbox name */
 "Require administrator authorization to install all configurations" = "Demander l'autorisation d'un administrateur pour installer toutes les configurations";
+
+/* Checkbox name */
+"Require administrator authorization to update" = "Demander une autorisation d'administrateur pour mettre à jour";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Router tout le trafic IPv4 à travers le VPN";
@@ -615,6 +643,9 @@
 "'%@' has been disconnected" = "'%@' a été déconnecté";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "Une nouvelle version de Tunnelblick est disponible";
+
+/* Window title */
 "Active connection" = "Connexion active";
 
 /* Window title */
@@ -666,6 +697,12 @@
 "Do you wish to connect?" = "Voulez-vous vous connecter ?";
 
 /* Window title */
+"Error getting Tunnelblick update..." = "Erreur avec la mise à jour de Tunnelblick…";
+
+/* WIndow title */
+"Error getting VPN update..." = "Erreur avec la mise à jour du VPN…";
+
+/* Window title */
 "File not found" = "Fichier introuvable";
 
 /* Window title */
@@ -676,6 +713,9 @@
 
 /* Window title */
 "Install Configuration For All Users?" = "Installer la configuration pour tous les utilisateurs ?";
+
+/* Window title */
+"Installation Failed" = "Echec de l'installation";
 
 /* Window title */
 "Installation failed" = "Installation échouée";
@@ -697,9 +737,6 @@
 
 /* Window title */
 "No Credentials" = "Pas d'accréditation";
-
-/* Window title */
-"Only computer administrators should update Tunnelblick" = "Seulement les administrateurs devraient mettre Tunnelblick à jour";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN ne répond pas";
@@ -733,6 +770,9 @@
 
 /* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "LE TEST DE DÉSINSTALLATION DE TUNNELBLICK A RÉUSSI";
+
+/* Window title */
+"The Tunnelblick installation failed." = "L'installation de Tunnelblick a échoué.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Problème de configuration de Tunnelblick";
@@ -980,6 +1020,9 @@
 /* Window text. The %@ is the name of a VPN configuration. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>The network setup was not restored properly after disconnecting from %@.</p><p>This problem is usually caused by using the 'user nobody' and/or 'group nobody' OpenVPN options.</p><p>To restore the network setup, you should restart your computer.</p><p>To prevent this error in the future, remove the 'user nobody' and 'group nobody' lines from your OpenVPN configuration file.</p><p>See <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] for more information.</p></font>\n\n" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Les réglages réseau n'ont pu être convenablement rétablis après la déconnexion de %@.</p><p>Ce problème est en général causé par l'utilisation des options OpenVPN 'user nobody' et/ou 'group nobody'.</p><p>Pour rétablir les réglages réseau, vous devriez redémarrer votre ordinateur.</p><p>Pour éviter cette erreur à l'avenir, retirez les lignes 'user nobody' et 'group nobody' de votre fichier de configuration OpenVPN.</p><p>Voir <a href=\"https://tunnelblick.net/cUserAndGroupOptions.html\">User and Group OpenVPN Options</a> [tunnelblick.net] pour plus d'information.</p></font>\n\n";
 
+/* Window text\nThe two %@ are descriptions of configuration versions (e.g. '1.2.3' */
+"<p><strong>VPN Configuration %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>La configuration VPN %1$@ est maintenant disponible – vous avez %2$@.</strong></p>\n\n";
+
 /* Window text. The first '%@' will be replaced with an email address. The second '%@' will be replaced with the name of a file */
 "<p>Recently Tunnelblick experienced one or more serious errors.</p>\n\n<p>Please email %@ and attach the<br>'%@' file that has been created on your Desktop.</p>\n\n<p>The file contains information that will help the Tunnelblick developers fix the problems that cause such errors. It does not include personal information about you or information about your VPNs.</p>\n\n<p>If you can, please also describe what Tunnelblick was doing when the error happened.</p>\n\n<p>Your help in this will benefit all users of Tunnelblick.</p>" = "<p>Tunnelblick a rencontré des erreurs sévères dernièrement.</p>\n\n<p>Veuillez envoyer un email à %1$@ et joindre le fichier <br>'%2$@' qui a été créé sur votre bureau.</p>\n\n<p>Le fichier contient des informations qui permettront aux développeurs de Tunnelblick de régler les problèmes qui ont causé ces erreurs. Le fichier ne contient aucune information personnelle ni aucune information sur vos VPNs.</p>\n\n<p>Si possible, merci de décrire ce que faisait Tunnelblick lorsque l'erreur est survenue.</p>\n\n<p>Votre aide bénéficiera à tous les utilisateurs de Tunnelblick.</p>";
 
@@ -1054,6 +1097,12 @@
 
 /* Window text */
 "An error occurred getting the list of loaded system extensions." = "Une erreur est survenue lors de la lecture de la liste des extensions de système chargées";
+
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Une erreur est survenue lors du téléchargement de la mise à jour. \n\nPour plus d'information, voyez les fichiers journaux ici :\n\n%@";
+
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Une erreur est survenue en cherchant les informations de mise à jour. \n\nPour plus d'information, voyez les fichiers journaux ici :\n\n%@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Une erreur s’est produite pendant le lancement de « %@ »";
@@ -1707,7 +1756,7 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Des problèmes ont été rencontrés lors de l'import des paramètres pour Tunnelblick.\n\nRegardez la console d'erreurs pour plus de détails.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Cette version 'Déployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas été rebaptisée, ou updateFeedURL ou SUFeedURL sont manquants ou contienent 'tunnelblick.net', ou CFBundleIdentifier manque ou contient 'net.tunnelblick'.\n\n";
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Cette version 'Déployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas été rebaptisée, ou CFBundleIdentifier manque ou contient 'net.tunnelblick'.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Cette version 'Déployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas de fichier Info.plist.\n\n";
@@ -1729,9 +1778,6 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Cette copie de Tunnelblick n’est pas signée numériquement.\n\nIl n’y a aucun moyen de vérifier que cette copie n’a pas été altérée.\n\n Vérifiez avec le fournisseur de cette copie de Tunnelblick avant de l’utiliser.\n\n";
-
-/* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Cette version de Tunnelblick ne peut être lancée ou installée car elle a une adresse URL non valide.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Cette version de Tunnelblick ne peut être lancée ou installée car ce n’est pas une version 'Déployée', et une ou plusieurs versions 'Déployée' de Tunnelblick ont été installées précédemment.\n\n";
@@ -1759,9 +1805,6 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick can access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN.\n\n" = "Tunnelblick peut accéder à %@ pour vérifier que l'IP publique de votre ordinateur change lorsque vous vous connecez à un VPN.\n\n";
-
-/* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick n'a pas pu être configuré pour se lancer automatiquement après la connexion.\n\nConsultez le journal des erreurs pour plus de détails.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick n'a pas pu se lancer pas parce qu’il y a un problème avec la configuration. Veuillez examiner les messages de la console pour les détails.";
@@ -1833,6 +1876,12 @@
 "Tunnelblick is ready." = "Tunnelblick est prêt.";
 
 /* Window text */
+"Tunnelblick is up to date" = "Tunnelblick est à jour";
+
+/* Window text */
+"Tunnelblick needs a computer administrator's authorization to update.\n\nTunnelblick will be relaunched after the update." = "Tunnelblick a besoin de l'autorisation d'un administrateur pour effectuer la mise à jour. \n\nTunnelblick sera relancé après la mise à jour.";
+
+/* Window text */
 "Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick a besoin d'autorisation pour copier le dossier '%@'.\n";
 
 /* Window text */
@@ -1896,6 +1945,9 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick a réussi avec succès :\n\n";
 
 /* Window text */
+"Tunnelblick updates:" = "Mises à jour de Tunnelblick :";
+
+/* Window text */
 "Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Tunnelblick n'a pas pu décharger ses extensions système. Veuillez redémarrer votre ordinateur et réessayer de décharger les extensions système de Tunnelblick.";
 
 /* Window text */
@@ -1930,6 +1982,9 @@
 
 /* Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
 "Tunnelblick will access %@ to check that your computer's apparent public IP address changes each time you connect to a VPN. Contact the distributor of this copy of Tunnelblick for details.\n\n" = "Tunnelblick accèdera à %@ pour vérifier que l'IP publique de votre ordinateur change lorsque vous vous connecez à un VPN. Contactez le distributeur de cette copie de Tunnelblick pour des détails.\n\n";
+
+/* Window text */
+"Tunnelblick will quit because a critical component has been disabled or is missing.\n\nTunnelblick cannot perform functions such as connecting a VPN unless the component is enabled.\n\nPlease re-enable the component in System Settings >> General >> Login Items.\n\nThe component is listed in the 'Runs in the background' section, is named 'Tunnelblick', and is labelled 'affects all users'.\n\nIt is recommended that you also enable the other listed Tunnelblick component if it is also disabled.\n\nNote: If the component is enabled and Tunnelblick still shows this message, please reinstall Tunnelblick.\n\nFor more information, go to https://tunnelblick.net/e2" = "Tunnelblick va quitter parce qu'un composant essentiel a été désactivé ou est manquant. \n\nTunnelblick ne peut fonctionner ni se connecter à un VPN tant que le composant n'est pas activé. \n\nVeuillez réactiver le composant dans les Réglages Système >> Général >> Ouverture. \n\nLe composant est listé sous 'Autoriser en arrière-plan', il s'appelle 'Tunnelblick' avec le commentaire 's’applique à tous les utilisateurs'. \n\nIl est recommandé d'activer aussi les autres composants Tunnelblick listés s'ils sont aussi désactivés. \n\nNote : Si le composant est activé et que Tunnelblick affiche toujours ce message, veuillez réinstaller Tunnelblick. \n\nPour plus d'information, allez sur https://tunnelblick.net/e2";
 
 /* Window text */
 "Unable to Establish Communication" = "Impossible d'établir la communication";
@@ -2005,9 +2060,6 @@
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "La configuration modifiable '%@' n'a pas été enregistrée comme modifiable parce que le fichier Info.plist n'avait pas d'entrée 'SUPublicDSAKey' ou que l'entrée 'SUFeedURL' ne demandait pas l'utilisation de https:\n";
-
-/* Window text */
-"Updates:" = "Mises à jour :";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "La configuration VPN %@ ne sera PAS installée parce qu'il a un numéro de version inférieur.";
@@ -2103,9 +2155,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Vous devez déconnecter tous les VPN avant de pouvoir installer ou désinstaller les extensions système de Tunnelblick. ";
 
 /* Window text */
-"You will not be able to update Tunnelblick unless you provide a computer administrator's authorization.\n\nAre you sure you wish to check for updates?" = "Vous ne pourrez pas mettre à jour Tunnelblick, à moins que vous fournissiez un nom et un mot de passe d’un compte d’administrateur.\n\nÊtes-vous vraiment certain de vouloir rechercher des mises à jour ?";
-
-/* Window text */
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Votre ordinateur pourrait ne pas être capable d'afficher correctement l'icône de Tunnelblick à côté de l'icône de Spotlight. \n\nCeci pourraît entraîner une DISPARITION occasionnelle de l'icône de Tunnelblick dans la barre de menu. \n\nÊtes-vous certain de vouloir placer l'icône de Tunnelblick près de l'icône de Spotlight&nbsp;?\n\n";
 
 /* Window text */
@@ -2188,6 +2237,12 @@
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Pour importer des réglages Tunnelblick sur un ordinateur qui a plus de %u comptes utilisateur, vous devez créer un fichier texte qui spécifie les données à importer.</p>\n<p>Pour plus d'information, voir <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
+/* HTML window text */
+"<hr><p><strong>One or more VPNs may be disconnected before the update.</strong></p>\n" = "<hr><p><strong>Une ou plusieurs connexions VPN pourraient être déconnectées avant la mise à jour.</strong></p>\n\n";
+
+/* HTML window text */
+"<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>Voulez-vous effectuer la mise à jour vers la nouvelle version?</strong></p>\n\n";
+
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>Les versions '<strong>non-Tunnelblick</strong>' de OpenVPN non pas été créées dans le cadre du projet Tunnelblick et n'en font donc pas partie. Elles ont été installées par un compte administrateur de cet ordinateur.\n</p>";
 
@@ -2196,6 +2251,9 @@
 
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "<p><a href=\"%@\">Plus d'information</a> [tunnelblick.net]</p>";
+
+/* HTML window text */
+"<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>L'autorisation d'un administrateur est requise pour installer cette mise à jour.</strong></p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Une ou plusieurs de vos configurations ne pourront se connecter.</strong></p>\n<p>La ou les configuration(s) requièrent une extension système mais cette version de macOS n'autorise pasTunnelblick à utiliser ses extensions système.</p>\n";
@@ -2218,6 +2276,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>Spécifie quand Tunnelblick devrait connecter au VPN.</strong></p><p>L'option \"Lors de démarrage de l'ordinateur\" ne peut sulement être utilisée avec des configurations 'Partage' qui n'ont pas d'accréditation (nom d'utilisateur / mot de passe / phrase de passe ) enregistrée dans la Keychain (porte-clés), et qui n'utilisent pas l'option 'auth-user-pass' de OpenVPN sans arguments.</p>";
 
+/* HTML window text\nThe two %@ are descriptions of Tunnelblick versions (e.g. '4.0.1 (build 5971)' */
+"<p><strong>Tunnelblick %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>Tunnelblick %1$@ est disponible – vous avez %2$@.</strong></p>\n\n";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>Si cette option est cochée</strong>, IPv6 sera désactivé sauf si un serveur OpenVPN est connecté via une adresse IPv6.</p>\n<p>Désactiver IPv6 est souvent recommandé parce que de nombreuses configurations VPN ne protègent pas contre les fuites d'informations causées par l'utilisation d'IPv6. La plupart des connexions à internet fonctionnent parfaitement sans IPv6.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, IPv6 ne sera pas désactivé.</p>\n<p><strong>Cette option est indisponible</strong> si vous utilisez une connexion 'tap' car elle ne peut pas être imposée sur une connexion 'tap' .</p>";
@@ -2231,14 +2292,20 @@
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Si cette option est cochée</strong>, OpenVPN lancera un test pour déterminer le MTU maximum pour la connexion. Le test est lancé à chaque connexion et peut prendre plusieurs minutes. Les résultats apparaissent dans le fichier journal de Tunnelblick.</p>\n";
 
+/* HTML info for the 'Check only when connected to a VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates automatically only when connected to a VPN.</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Lorsque ceci est coché</strong>, Tunnelblick vérifiera automatiquement les mises à jour seulement lorsqu'il est connecté à un VPN.</p>\n<p><strong>Cette case à cocher est désactivée</strong> et décochée lorsque 'Empêcher la vérification automatique des mises à jour et la vérification de l'adresse IP' est coché, et lorsque l'utilisateur n'est pas un administrateur de l'ordinateur et que seuls les administrateurs sont autorisés à installer les mises à jour.</p>";
+
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick cherchera les mises à jour en version beta.</p><p><strong>Si cette option n'est pas cochée</strong>, Tunnelblick cherchera uniquement les mises à jour en version stable.</p><p><strong>Cette option est indisponible</strong> et toujours activée lorsque vous utilisez une version beta.</p>";
 
 /* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick cherchera les mises à jour au démarrage et périodiquement ensuite.</p><p><strong>Cette option est indisponible</strong> et inactive lorsque 'Désactiver la vérification automatique des mises à jour et la vérification de l'adresse IP' est coché.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Lorsque ceci est coché</strong>, Tunnelblick vérifiera automatiquement les mises à jour au lancement et périodiquement ensuite.</p>\n<p><strong>Cette case à cocher est désactivée</strong> et décochée lorsque 'Empêcher la vérification automatique des mises à jour et la vérification de l'adresse IP' est coché, et lorsque l'utilisateur n'est pas un administrateur de l'ordinateur et que seuls les administrateurs sont autorisés à installer les mises à jour.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick déterminera l'adresse IP publique apparente de l'ordinateur avant et après que le VPN soit connecté et affichera un avertissement si l'adresse IP ne change pas.</p>\n<p>Le site web tunnelblick.net sera contacté à cette fin. L'accès se fait généralement via https: ave le nom tunnelblick.net, sauf si cet accès échoue, auquel cas une autre tentative d'accès sera faite avec http: et l'adresse IP du site web.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, Tunnelblick ne vérifie pas le changement d'adresse IP et n'affiche pas d'avertissement si l'adresse IP n'a pas changé après la connection du VPN.</p>\n";
+
+/* HTML info for the 'Download updates when found' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will download updates when they are detected (the user's permission will be required to install updates).</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>Lorsque ceci est coché</strong>, Tunnelblick téléchargera automatiquement les mises à jour lorsqu'elles sont disponibles (l'autorisation de l'utilisateur sera demandée pour installer les mises à jour).</p>\n<p><strong>Cette case à cocher est désactivée</strong> et décochée lorsque 'Empêcher la vérification automatique des mises à jour et la vérification de l'adresse IP' est coché, et lorsque l'utilisateur n'est pas un administrateur de l'ordinateur et que seuls les administrateurs sont autorisés à installer les mises à jour.</p>";
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick demandera à OpenVPN de router tout le trafic IPv4 à travers le serveur VPN.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, par defaut OpenVPN utilisera le VPN uniquement pour le trafic qui est destiné au réseau du VPN. Tout le reste du trafic utilisera la connexion internet normale sans passser par le VPN. Le comportement par défaut de OpenVPN peut être modifié dans la configuration OpenVPN ou dans le serveur VPN et peut faire que tout le trafic IPv4 soit routé vers le serveurVPN comme si cette option était cochée. </p>\n";
@@ -2248,6 +2315,9 @@
 
 /* HTML info for the 'Require administrator authorization to install all configurations' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to install or replace all configurations.</p>\n<p><strong>When not checked</strong>, a standard user will be allowed to install or replace \"restricted\" configurations.</p><p>A \"restricted\" configuration is one which does not contain or change commands or scripts or references to commands or scripts. Configurations with commands or scripts can enable <a href=\"https://en.wikipedia.org/wiki/Privilege_escalation\">vertical privilege escalation</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Details</a> [tunnelblick.net].</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Lorsque cette option est cochée</strong>, Tunnelblick demandera l'autorisation d'un administrateur pour installer ou remplacer toutes les configurations.</p>\n<p><strong>Lorsque cette option n'est pas cochée</strong>, un utilisateur standard pourra installer ou remplacer des configurations \"restreintes\".</p><p>Une configuration \"restreinte\" est une configuration qui ne contient pas ou ne modifie pas de commande ou de script ou des références à des commandes ou des scripts. Les configurations contenant des commandes ou des scripts peuvent permettre <a href=\"https://fr.wikipedia.org/wiki/Élévation_des_privilèges\">une élévation des privilèges</a> [wikipedia.org]. <a href=\"https://tunnelblick.net/cNonAdminInstalls.html\">Détails</a> [tunnelblick.net].</p><p><strong>Note: L'autorisation d'un administrateur est requise pour modifier ce réglage.</strong></p>";
+
+/* HTML info for the 'Require administrator authorization to update' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer adminstrator's authorization to update Tunnelblick.</p><p><strong>When not checked</strong>, a standard user will be allowed to update Tunnelblick.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick demandera des permissions d'administrateur pour installer des mises à jour.</p>\n<p><strong>Si elle n'est pas cochée</strong>, un utilisateur standard pourra installer les mises à jour.</p><p><strong>Note: L'autorisation d'un administrateur est requise pour modifier ce réglage.</strong></p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick va surveiller le réseau et réagir aux changements de réglages réseau (par exemple, des changements causés par un renouvellement de bail DHCP ou un changement de connexion internet) afin d'essayer de conserver la connexion au VPN. Les actions par défaut de Tunnelblick lorsque les configurations réseau changent fonctionnent bien en général, mais vous pouvez spécifier des actions différentes sur l'onglet 'Une fois connecté' de la fenêtre de réglages 'Avancé'.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, Tunnelblick will ignorera les changements de configuration réseau.</p>\n<p><strong>Cette option est indisponible</strong> lorsque 'Changer DNS/WINS' n'est pas réglé sur 'Changer serveur de noms' or 'Changer serveur de noms (3.1)'.</p>";
@@ -2312,6 +2382,9 @@
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations and on versions of macOS which do not allow Tunnelblick to load its Tun driver. For more information, see <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs on macOS [tunnelblick.net]</a>.</p>" = "<p>Un pilote 'tun' est nécessaire pour les connexions Tun. D'habitude, le pilote Tun du système est utilisé, mais Tunnelblick inclut aussi son propre pilote. Si vous avez installé un pilote Tun different, Tunnelblick pourrait être incapable de charger son propre pilote.</p>\n<p>OpenVPN utilisera le pilote du système sauf si la configuration OpenVPN inclut l'option 'dev-type tun'.</p>\n<p>Vous pouvez choisir si et quand Tunnelblick charge son pilote Tun:</p>\n<p><strong>Charger automatiquement le pilote Tun</strong>: Tunnelblick charge son pilote au besoin et le supprime lorsqu'il n'est plus nécessaire. (Tunnelblick chargera son pilote uniquement si la configuration OpenVPN inclut l'option 'dev-type tun'.)</p>\n<p><strong>Toujours charger le pilote Tun</strong>: Tunnelblick chargera son pilote lors de la connexion avec cette configuration, et le supprimera lorsqu'il n'est plus nécessaire.</p>\n<p><strong>Ne jamais charger le pilote Tun</strong>: Tunnelblick ne charge jamais son pilote.</p>\n<p><strong>Cette option est indisponible</strong> pour les configurations Tap et sur les versions de MacOS qui ne permet pas à Tunnelblick de charger son pilote Tun. Pour plus d'informations voir <a href=\"https://tunnelblick.net/cTunTapConnections.html\">Tun and Tap VPNs sur MacOS [tunnelblick.net]</a>.</p>";
 
+/* HTML window text */
+"<p>A Tunnelblick login item which runs in the background is disabled.</p>\n<p>If the login item is disabled, Tunnelblick will not launch when you log in, even if there are important reasons why it should be launched.</p><p>Please re-enable it in System Settings >> General >> Login Items.</p><p><a href=\"https://tunnelblick.net/cBackgroundPrograms.html\">More info.</a></p>" = "<p>Un élément Tunnelblick à autoriser en arrière-plan est désactivé.</p>\n<p>Si l'élément est désactivé, Tunnelblick ne se lancera pas à l'ouverture de session, même s'il devrait l'être pour des raisons importantes.</p><p>Veuillez le ré-activer dans les Règlages système >> Général >> Ouverture.</p><p><a href=\"https://tunnelblick.net/cBackgroundPrograms.html\">Plus d'info.</a></p>";
+
 /* HTML Info for security code checkbox */
 "<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n" = "<p>Permet d'ajouter un code de sécurité supplémentaire lorsqu'il est coché.</p>\n<p>Ce code ajoute un niveau de sécurité supplémentaire lors du processus d'authentification à votre compte. Cela permet l'utilisation simultanée de dispositifs d'authentification tels que des dongles et un trousseau de clés pour sécuriser le mot de passe.</p> ";
 
@@ -2336,6 +2409,9 @@
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Si vous ne voyez pas de bouton autorisant le chargement d'un logiciel système par le développeur 'Jonathan Bullard', essayer de connecter cette configuration (ce qui va échouer), puis regardez à nouveau dans l'onglet 'Général' de 'Sécurité et confidentialité' dans les Préférences Système. </p>";
 
+/* HTML window text */
+"<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>Un ou plusieurs problèmes sont survenus en cherchant les informations de mise à jour ou en effectuant une mise à jour.</p><p>Pour plus d'information, voyez les fichiers journaux :</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
+
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Ouvre une fenêtre avec des réglages supplémentaires</p><p>Tous les changements seront appliqués aux configurations sélectionnées dans la fenêtre 'Détails VPN'.</p>";
 
@@ -2343,7 +2419,7 @@
 "<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the macOS Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Quitte tous les processus OpenVPN, y compris ceux qui n'ont pas été lancés par Tunnelblick. Vous devriez utiliser les boutons et commandes 'Déconnecter' et 'Tout déconnecter' pour déconnecter les configurations connectées avec Tunnelblick.</p><p>Cliquer se bouton envoie un signal 'SIGTERM' à tous les processus nommés 'openvpn'. Normalement, ceci fermera toutes les connexions et quittera openvpn. Si ce bouton ne parvient pas à quitter tous les processus OpenVPN, vous pourriez être contraint d'utiliser le Moniteur d'activité de macOS pour forcer le processus à quitter.</p>";
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
-"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Rétablit les avertissements qui ont été supprimés par le choix de l'option 'Ne plus me prévenir'.</p>";
+"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Rétablit les avertissements qui ont été empêchés par le choix de l'option 'Ne plus me prévenir'.</p>";
 
 /* HTML text. The '[tunnelblick.net]' si to show the user that the link is to tunnelblick.net. */
 "<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>" = "<p>Voir <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installer des extensions système</a> [tunnelblick.net] pour plus d'information.</p>";
