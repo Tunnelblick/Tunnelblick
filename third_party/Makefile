@@ -26,7 +26,7 @@
 
 LZO_NAME         = lzo-2.10
 
-LZ4_NAME         = lz4-1.9.3
+LZ4_NAME         = lz4-1.10.0
 
 SPARKLE_NAME     = Sparkle-077c64419f9460263bad99ab24dff962a103b1e2
 
