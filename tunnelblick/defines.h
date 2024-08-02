@@ -443,7 +443,7 @@
 
 #define OPENVPNSTART_USE_SCRIPTS_MAX                0x0FFF
 
-
+#define OPENVPNSTART_COMMANDS_REQUIRING_NETWORK_REACHABILITY    @[@"route-pre-down", @"down", @"postDisconnect", @"preDisconnect", @"connected", @"reconnecting", @"start"]
 //*************************************************************************************************
 // Error return codes for openvpnstart
 #define OPENVPNSTART_COMPARE_CONFIG_SAME             0

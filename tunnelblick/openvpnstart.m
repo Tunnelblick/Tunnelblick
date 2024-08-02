@@ -19,6 +19,8 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+#import "defines.h"
+
 #import "sharedRoutines.h"
 
 
@@ -46,6 +48,9 @@ int main(int argc, char * argv[]) {
     BOOL errFound = FALSE;
     int i;
     
+    NSString * firstArgument = (  argc > 1
+                                ? [NSString stringWithCString: argv[1] encoding: NSUTF8StringEncoding]
+                                : nil);
     for (  i=1; i<argc; i++  ) {
         NSString * arg = [NSString stringWithCString: argv[i] encoding: NSUTF8StringEncoding];
         
@@ -82,13 +87,15 @@ int main(int argc, char * argv[]) {
     
     [command appendString: @"\n"];
     
+    if (   firstArgument
+        && [OPENVPNSTART_COMMANDS_REQUIRING_NETWORK_REACHABILITY containsObject: firstArgument]  ) {
+        // Wait until the Internet is reachable
+        while (  ! networkIsReachable()  ) {
+            fprintf(stderr, "Waiting for a network connection to be available.");
+            sleep(1);
+        }
+    }
 
-	// Wait until the Internet is reachable
-	while (  ! networkIsReachable()  ) {
-		fprintf(stderr, "Waiting for a network connection to be available.");
-		sleep(1);
-	}
-	
     // Send the command to tunnelblickd and return the results
     
     OSStatus status = -1;
