@@ -320,7 +320,7 @@ float heightForStringDrawing(NSString *myString,
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
 
     if (  ! defaultButtonTitle  ) {
-        defaultButtonTitle = NSLocalizedString(@"OK", @"Button");
+        [self setDefaultButtonTitle: NSLocalizedString(@"OK", @"Button")];
     }
     CGFloat widthChange = [UIHelper setTitle: defaultButtonTitle ofControl: [self defaultButton] shift: ( !rtl ) narrow: NO enable: YES];
     [UIHelper shiftControl: self.alternateButton by: (- widthChange) reverse: ( ! rtl)];
