@@ -71,7 +71,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     [replacementStrings   release]; replacementStrings   = nil;
     [linesToCommentOut    release]; linesToCommentOut    = nil;
     [pathsAlreadyCopied   release]; pathsAlreadyCopied   = nil;
-    [logString            release]; logString            = nil;
     
     [super dealloc];
 }
