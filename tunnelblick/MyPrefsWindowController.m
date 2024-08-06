@@ -652,7 +652,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     [self setPreviouslySelectedNameOnLeftNavList: [gTbDefaults stringForKey: @"leftNavSelectedDisplayName"]];
 
-    authorization = 0;
+    authorization = NULL;
     
 	[self setupLeftNavigationToDisplayName: previouslySelectedNameOnLeftNavList];
 	
