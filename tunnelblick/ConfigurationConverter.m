@@ -1834,7 +1834,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                                                                  fromTblk: (NSString *) tblkPath {
 
     configPath           = [path copy];
-    logFile              = nil;
+    logFile              = NULL;
     if (  tblkPath  ) {
         displayName = [[[tblkPath lastPathComponent] stringByDeletingPathExtension] copy];
     } else {
