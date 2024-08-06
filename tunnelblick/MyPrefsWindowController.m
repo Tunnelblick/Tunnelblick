@@ -652,8 +652,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     [self setPreviouslySelectedNameOnLeftNavList: [gTbDefaults stringForKey: @"leftNavSelectedDisplayName"]];
 
-    authorization = NULL;
-    
 	[self setupLeftNavigationToDisplayName: previouslySelectedNameOnLeftNavList];
 	
     // Right split view

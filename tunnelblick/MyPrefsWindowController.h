@@ -59,8 +59,6 @@
 
     SettingsSheetWindowController * settingsSheetWindowController;
     
-    AuthorizationRef               authorization;                    // Authorization reference for Shared/Deployed configuration manipulation
-    
     NSUInteger                     selectedWhenToConnectIndex;
     
     IBOutlet NSNumber            * selectedSetNameserverIndex;
