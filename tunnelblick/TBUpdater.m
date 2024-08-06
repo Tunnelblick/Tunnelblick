@@ -1515,7 +1515,6 @@ returnNO:
                              self.canDownloadUpdatesAutomaticallyPref, CSTRING_FROM_BOOL(result),
                              CSTRING_FROM_BOOL(gShuttingDownTunnelblick), CSTRING_FROM_BOOL(self.inhibitUpdating), CSTRING_FROM_BOOL(inhibitedByPref)]];
     return result;
-   return result;
 }
 
 -(BOOL) areConnectedToVPN {
