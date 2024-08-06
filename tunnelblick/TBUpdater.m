@@ -1652,7 +1652,7 @@ returnNO:
 -(NSString *) currentBuild {
 
     if (  ! currentBuild  ) {
-        currentBuild = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+        currentBuild = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] retain];
         if (  ! currentBuild  ) {
             if (  ! self.warnedNoCurrentBuild  ) {
                 [self notifyErrorMessage: @"Error getting Tunnelblick build number"];
@@ -1671,7 +1671,7 @@ returnNO:
 
     if (  ! currentArchitecture  ) {
 
-        currentArchitecture = architectureBeingUsed();
+        currentArchitecture = [architectureBeingUsed() retain];
         if (  ! currentArchitecture) {
             if (  ! self.warnedNoCurrentArchitecture  ) {
                 [self notifyErrorMessage: @"Error getting architecture being used"];
