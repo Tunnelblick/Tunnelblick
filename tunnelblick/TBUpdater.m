@@ -244,7 +244,7 @@ extern TBUserDefaults * gTbDefaults;
         } else if (  [_type isEqualToString: @"configuration"] ) {
             isAppUpdate = FALSE;
 
-            // JKB TODO fill in downloadedUpdatePath, etc. variables
+            // TODO fill in downloadedUpdatePath, etc. variables
             [self appendUpdaterLog: @"initFor: argument must be 'application' or 'configuration'"];
             return nil;
 
