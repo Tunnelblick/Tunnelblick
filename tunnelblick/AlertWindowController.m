@@ -87,15 +87,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, otherButton)
     [message			    release]; message				 = nil;
 	[messageAS			    release]; messageAS				 = nil;
 	[preferenceToSetTrue    release]; preferenceToSetTrue	 = nil;
-    [preferenceName         release];
-    [preferenceValue        release];
+    [preferenceName         release]; preferenceName         = nil;
+    [preferenceValue        release]; preferenceValue        = nil;
 	[checkboxTitle          release]; checkboxTitle			 = nil;
 	[checkboxInfoTitle      release]; checkboxInfoTitle		 = nil;
     [responseTarget         release]; responseTarget         = nil;
     [defaultButtonTitle     release]; defaultButtonTitle     = nil;
     [alternateButtonTitle   release]; alternateButtonTitle   = nil;
     [otherButtonTitle       release]; otherButtonTitle       = nil;
-    [defaultButtonTitle     release]; defaultButtonTitle     = nil;
 
 	[super dealloc];
 }
