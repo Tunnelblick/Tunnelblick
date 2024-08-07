@@ -73,8 +73,8 @@
                                 styleMask:NSBorderlessWindowMask 
                                   backing:NSBackingStoreBuffered 
                                     defer:NO])) {
-        _view = view;
-        _window = window;
+        _view = [view retain];
+        _window = [window retain];
         _point = point;
         _side = side;
         _distance = distance;
@@ -191,7 +191,9 @@
     [borderColor release];
     [_MABackgroundColor release];
     [_view removeFromSuperview];
-    
+    [_view release];
+    [_window release];
+
     [super dealloc];
 }
 
