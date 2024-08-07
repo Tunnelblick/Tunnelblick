@@ -5712,14 +5712,13 @@ static void signal_handler(int signalNumber)
     
     BOOL showCheckbox = ! [gTbDefaults boolForKey: @"doNotShowWelcomeDoNotShowAgainCheckbox"];
 	
-    welcomeScreen = [[[WelcomeController alloc]
-					  initWithDelegate:           self
-					  urlString:                  welcomeURLString
-					  windowWidth:                welcomeWidth
-					  windowHeight:               welcomeHeight
-					  showDoNotShowAgainCheckbox: showCheckbox]
-                     retain];
-	
+    welcomeScreen = [[WelcomeController alloc]
+                     initWithDelegate:           self
+                     urlString:                  welcomeURLString
+                     windowWidth:                welcomeWidth
+                     windowHeight:               welcomeHeight
+                     showDoNotShowAgainCheckbox: showCheckbox];
+
 	[welcomeScreen showWindow: self];
     
     return TRUE;
