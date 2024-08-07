@@ -106,7 +106,6 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL warnedNoCurrentTunnelblickVersion; // Have warned that the version of the current Tunnelblick could not be obtained
     BOOL warnedNoCurrentBuild;              // Have warned that the build of the current Tunnelblick could not be obtained
     BOOL warnedNoCurrentArchitecture;       // Have warned that the architecture of the current Tunnelblick could not be obtained
-    BOOL warnedNoMacOSVersion;              // Have warned that the version of macOS that is running could not be obtained
 }
 
 -(TBUpdater *) initFor: (NSString *) _type

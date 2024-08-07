@@ -1697,12 +1697,9 @@ returnNO:
         if (  status == EXIT_SUCCESS  ) {
             version = [NSString stringWithFormat: @"%u.%u.%u", major, minor, bugfix];
         } else {
-            if (  warnedNoMacOSVersion  ) {
-                [self notifyErrorMessage: @"Cannot obtain current macOS version"];
-                [self setWarnedNoMacOSVersion: TRUE];
-                [self setInhibitUpdating: TRUE];
-                currentMacOSVersion = @"0.0.0";
-            }
+            [self notifyErrorMessage: @"Cannot obtain current macOS version"];
+            [self setInhibitUpdating: TRUE];
+            version = @"0.0.0";
         }
 
         currentMacOSVersion = [version retain];
@@ -1790,7 +1787,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, warnedNoHttpsInAppcastURL,   setWarnedNoHttpsInAppc
 TBSYNTHESIZE_NONOBJECT(BOOL, warnedNoCurrentTunnelblickVersion, setWarnedNoCurrentTunnelblickVersion)
 TBSYNTHESIZE_NONOBJECT(BOOL, warnedNoCurrentBuild,        setWarnedNoCurrentBuild)
 TBSYNTHESIZE_NONOBJECT(BOOL, warnedNoCurrentArchitecture, setWarnedNoCurrentArchitecture)
-TBSYNTHESIZE_NONOBJECT(BOOL, warnedNoMacOSVersion,        setWarnedNoMacOSVersion)
 
 TBSYNTHESIZE_NONOBJECT(double,    percentDownloaded, setPercentDownloaded)
 TBSYNTHESIZE_NONOBJECT_GET(BOOL,  isAppUpdate)
