@@ -1110,12 +1110,14 @@ static NSString * privatePathFromUsername(NSString * username) {
 
 static void setupUserGlobalsFromGUsername(void) {
 
-    gHomeDirectory = [@"/Users" stringByAppendingPathComponent: gUsername];
-    gPrivatePath = [[[[gHomeDirectory
-                       stringByAppendingPathComponent: @"Library"]
-                      stringByAppendingPathComponent: @"Application Support"]
-                     stringByAppendingPathComponent: @"Tunnelblick"]
-                    stringByAppendingPathComponent: @"Configurations"];
+    gHomeDirectory = [[@"/Users" stringByAppendingPathComponent: gUsername]
+                      retain];
+    gPrivatePath = [[[[[gHomeDirectory
+                        stringByAppendingPathComponent: @"Library"]
+                       stringByAppendingPathComponent: @"Application Support"]
+                      stringByAppendingPathComponent: @"Tunnelblick"]
+                     stringByAppendingPathComponent: @"Configurations"]
+                    retain];
 
     getUidAndGidFromUsername(gUsername, &gUserID, &gGroupID);
     gGroupID = privateFolderGroup(gPrivatePath);
@@ -1130,13 +1132,14 @@ static void setupUserGlobals(int argc, char *argv[], unsigned operation) {
         // Calculate user info from uid
         //
         // (Already have gUserID)
-        gUsername = NSUserName();
-        gHomeDirectory = NSHomeDirectory();
-        gPrivatePath = [[[[gHomeDirectory
-                           stringByAppendingPathComponent: @"Library"]
-                          stringByAppendingPathComponent: @"Application Support"]
-                         stringByAppendingPathComponent: @"Tunnelblick"]
-                        stringByAppendingPathComponent: @"Configurations"];
+        gUsername = [NSUserName() retain];
+        gHomeDirectory = [NSHomeDirectory() retain];
+        gPrivatePath = [[[[[gHomeDirectory
+                            stringByAppendingPathComponent: @"Library"]
+                           stringByAppendingPathComponent: @"Application Support"]
+                          stringByAppendingPathComponent: @"Tunnelblick"]
+                         stringByAppendingPathComponent: @"Configurations"]
+                        retain];
         gGroupID = privateFolderGroup(gPrivatePath);
         appendLog([NSString stringWithFormat: @"Determined username '%@' from getuid(): %u", gUsername, gUserID]);
 
@@ -1150,7 +1153,7 @@ static void setupUserGlobals(int argc, char *argv[], unsigned operation) {
             errorExit();
         }
 
-        gUsername = [NSString stringWithCString: argv[2] encoding: NSASCIIStringEncoding];
+        gUsername = [[NSString stringWithCString: argv[2] encoding: NSASCIIStringEncoding] retain];
         if (   ( gUsername == nil )
             || ( ! usernameIsValid(gUsername) )  ) {
             appendLog(@"Second argument must be a valid username");
@@ -1167,7 +1170,7 @@ static void setupUserGlobals(int argc, char *argv[], unsigned operation) {
         //
         // Calculate user info from current working directory path if possible
         //
-        gUsername = usernameFromPossiblePrivatePath([gFileMgr currentDirectoryPath]);
+        gUsername = [usernameFromPossiblePrivatePath([gFileMgr currentDirectoryPath]) retain];
         if (  gUsername  ) {
             appendLog([NSString stringWithFormat: @"Determined username '%@' from current working directory", gUsername]);
             setupUserGlobalsFromGUsername();
@@ -1178,7 +1181,7 @@ static void setupUserGlobals(int argc, char *argv[], unsigned operation) {
             //
             for (  int i=2; i<argc; i++  ) {
                 NSString * path = [NSString stringWithCString: argv[i] encoding: NSUTF8StringEncoding];
-                gUsername = usernameFromPossiblePrivatePath(path);
+                gUsername = [usernameFromPossiblePrivatePath(path) retain];
                 if (  gUsername  ) {
                     break;
                 }
@@ -2783,7 +2786,7 @@ int main(int argc, char *argv[]) {
 #ifndef TBDebug
 	gDeployPath = @"/Applications/Tunnelblick.app/Contents/Resources/Deploy";
 #else
-	gDeployPath = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
+	gDeployPath = [[resourcesPath stringByAppendingPathComponent: @"Deploy"] retain];
 #endif
     
     // Set up globals that have to do with the user

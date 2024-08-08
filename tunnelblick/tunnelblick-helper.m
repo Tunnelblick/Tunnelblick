@@ -3435,8 +3435,9 @@ int main(int argc, char * argv[]) {
     }
 #endif
 	
-	gTemporaryDirectory = validateEnvironment();
-	
+    gTemporaryDirectory = [validateEnvironment()
+                           retain];
+
     // Process arguments
     
     BOOL	syntaxError	= TRUE;
@@ -3706,7 +3707,8 @@ int main(int argc, char * argv[]) {
                 validateLeasewatchOptions(leasewatchOptions);
                 validateOpenvpnVersion(openvpnVersion);
 				
-                gStartArgs = [[NSString stringWithFormat: @"%u_%u_%u_%u_%u", useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask] copy];
+                gStartArgs = [[NSString stringWithFormat: @"%u_%u_%u_%u_%u", useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask]
+                              retain];
                 if (  OPENVPNSTART_LOGNAME_ARG_COUNT != 5  ) {
                     fprintf(stderr, "openvpnstart internal error: openvpnstart expected OPENVPNSTART_LOGNAME_ARG_COUNT to be 5, but it is %u\n", OPENVPNSTART_LOGNAME_ARG_COUNT);
 
