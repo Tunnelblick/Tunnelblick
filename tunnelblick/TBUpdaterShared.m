@@ -630,7 +630,7 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
                 return FALSE;
             }
         } else {
-            appendLog(@"updateTunnelblick: The update is rejected");
+            appendLog(@"updateTunnelblick: The update DSA signature was not valid and the 'updateRelaxForgeryRule' preference has not been forced, so the update is rejected");
             return FALSE;
         }
     }
