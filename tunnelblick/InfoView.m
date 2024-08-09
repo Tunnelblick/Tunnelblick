@@ -330,6 +330,7 @@ extern TBUserDefaults * gTbDefaults;
                             @[@"Richárd Murvai",                NSLocalizedString(@"Hungarian translation",                @"Credit description")],
                             @[@"Andrejs Mors-Jaroslavcevs",     NSLocalizedString(@"Latvian translation",                  @"Credit description")],
 							@[@"Max Naylor",                    NSLocalizedString(@"Icelandic translation",                @"Credit description")],
+                            @[@"Kalan Nguyen",                  NSLocalizedString(@"Japanese translation",                 @"Credit description")],
                             @[@"Kurt Jarusutthirak Nielsen",    NSLocalizedString(@"Danish translation",                   @"Credit description")],
 							@[@"Nikki",                         NSLocalizedString(@"Azerbaijani translation",              @"Credit description")],
                             @[@"Johan Nilsson",                 NSLocalizedString(@"Swedish translation",                  @"Credit description")],
