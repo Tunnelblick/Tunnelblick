@@ -556,7 +556,8 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
     }
 
     // The .zip was downloaded from tunnelblick.net using https:, so it should be valid.
-    // We require that it's signature is valid, too,
+    //
+    // Usually, we require that it's DSA signature is valid, too,
     // AND we require that the .app was codesigned with the same Team ID that signed the current .app
     //
     // But if the "updateRelaxForgeryRule" preference is forced, we allow an update if either one of those
@@ -566,7 +567,7 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
     //
     // This allows changing the public key or changing the codesigning team ID in an update.
     //
-    // BUT it also allows forgeries if either the public key or the codesigning key is compromised
+    // BUT it also allows forgeries if either the public key or the codesigning key is compromised.
     //
     // If the preference is not forced
     //      * Both the public key and the codesigning team ID must be compromised to successfully forge an update.
