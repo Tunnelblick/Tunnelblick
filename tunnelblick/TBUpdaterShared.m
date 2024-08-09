@@ -385,11 +385,11 @@ static BOOL teamIDsMatch(NSString * path1, NSString * path2) {
         || ( ! teamID2)
         || ( ! [teamID1 isEqualToString: teamID2] )  ) {
         appendLog([NSString stringWithFormat:
-                   @"updateTunnelblick: Team IDs do not match: '%@' and '%@'", teamID1, teamID2]);
+                   @"updateTunnelblick: Code signature Team IDs do not match: '%@' and '%@'", teamID1, teamID2]);
         return NO;
     }
 
-    appendLog(@"updateTunnelblick: Verified the Team IDs match");
+    appendLog(@"updateTunnelblick: Verified the code signature Team IDs match");
     return YES;
 }
 
