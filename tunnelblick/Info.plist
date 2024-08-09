@@ -148,8 +148,6 @@ y2ZKq8vczfaplXUg4qjyO20jPJ1Rbp/rh+IMowKVpxu1tAtV1Lx+ZcGWy4F0fHg/
 oc6bOLFBXyEyrd3DpOjF
 -----END PUBLIC KEY-----
 </string>
-	<key>TBAppcastRequiresDSASignature</key>
-	<true/>
 	<key>TBBuildTimestamp</key>
 	<string>TBBUILDTIMESTAMP</string>
 	<key>TBGitHash</key>
