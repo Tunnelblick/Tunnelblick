@@ -106,6 +106,9 @@
 /* Button */
 "Do nothing" = "Ne poduzimaj ništa";
 
+/* Button to install an update */
+"Download and Install" = "Preuzmi i instaliraj";
+
 /* Button */
 "Export Tunnelblick Setup" = "Izvoz Tunnelblick konfiguracije";
 
@@ -120,6 +123,9 @@
 
 /* Button */
 "Ignore" = "Ignoriraj";
+
+/* Button to install an update */
+"Install and Relaunch" = "Instaliraj i ponovno pokreni";
 
 /* Button */
 "Install tun and tap system extensions..." = "Instaliraj tun i tap sistemske ekstenzije";
@@ -194,6 +200,9 @@
 /* Button */
 "Reinstall" = "Ponovna instalacija";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "Podsjeti me kasnije";
+
 /* Button */
 "Remove Credentials" = "Obriši korisničko ime i lozinku";
 
@@ -241,6 +250,9 @@
 
 /* Button */
 "Show while connecting" = "Prikaži dok se spaja";
+
+/* Button to skip a particular update */
+"Skip This Version" = "Preskoči ovu verziju";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "Preskoči ovu verziju";
@@ -670,6 +682,9 @@
 
 /* Window title */
 "Install Configuration For All Users?" = "Instaliraj konfiguraciju za sve korisnike?";
+
+/* Window title */
+"Installation Failed" = "Instalacija nije uspjela";
 
 /* Window title */
 "Installation failed" = "Instalacija nije uspjela";

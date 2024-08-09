@@ -328,7 +328,7 @@
 "Connect %@%@" = "%@%@ に接続";
 
 /* Menu item */
-"Copy Configuration into a New Folder..." = "接続先を新しいフォルダーをコピー";
+"Copy Configuration into a New Folder..." = "設定を新しいフォルダーにコピー";
 
 /* Menu item */
 "Copy Configurations into a New Folder..." = "設定を新しいフォルダーにコピー";
@@ -397,10 +397,10 @@
 "OpenVPN logging level set by the configuration" = "構成によって設定されたOpenVPNログレベル";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of Tunnelblick..." = "今後のTunnelblickバージョンを使用する際の問題…";
+"Problem using future versions of Tunnelblick..." = "Tunnelblickを更新する際の問題…";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS..." = "今後のmacOSバージョンを使用する際の問題…";
+"Problem using future versions of macOS..." = "macOSを更新する際の問題…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick を終了";
@@ -1168,13 +1168,13 @@
 "Cancelled trying to quit all OpenVPN processes" = "全てのOpenVPNプロセスの終了をキャンセルしました。";
 
 /* Window text */
-"Cannot find configuration file at %@" = "%@ で設定ファイルを見つからないです";
+"Cannot find configuration file at %@" = "%@ で設定ファイルが見つかれません";
 
 /* Window text */
-"Cannot install configurations to either shared or private locations" = "設定を共有パスまたはプライベートパスにインストールできない";
+"Cannot install configurations to either shared or private locations" = "設定を共有パスまたはプライベートパスにインストールできません。";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "設定 %@ はインストールされてないから削除できないです";
+"Cannot uninstall configuration '%@' because it is not installed." = "設定 %@ はインストールされていないので、削除できません。";
 
 /* Window text */
 "Click \"OK\" to disconnect all VPNs, quit Tunnelblick, and start uninstalling it.\n\nThere may be a delay of a few seconds before the first uninstaller window appears.\n\nIf you want to save a copy of your VPN configurations and all Tunnelblick settings, click \"Cancel\" and export the Tunnelblick setup first.\n\n" = "「OK」をクリックすると、全てのVPNが切断され、Tunnelblickが終了し、Tunnelblickのアンインストールが始まります。\n\nアンインストールのウィンドウが表示されるまでに数秒かかることがあります。\n\nもし、全てのVPN構成及びTunnelblick設定のコピーを保存しておきたい場合は、一旦「キャンセル」をクリックし、先に「Tunnelblick設定をエクスポート」してください。\n";

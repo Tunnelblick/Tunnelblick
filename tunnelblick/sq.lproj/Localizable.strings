@@ -106,6 +106,9 @@
 /* Button */
 "Do nothing" = "Mos bëj asgjë";
 
+/* Button to install an update */
+"Download and Install" = "Shkarko dhe instalo";
+
 /* Button */
 "Export Tunnelblick Setup" = "Eksporto konfigurimet e Tunnelblick";
 
@@ -120,6 +123,9 @@
 
 /* Button */
 "Ignore" = "Injoro";
+
+/* Button to install an update */
+"Install and Relaunch" = "Instalo dhe rihap";
 
 /* Button */
 "Install tun and tap system extensions..." = "Instalo shtesat e sistemit 'tun' dhe 'tap'…";
@@ -194,6 +200,9 @@
 /* Button */
 "Reinstall" = "Riinstalo";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "Më kujto më vonë";
+
 /* Button */
 "Remove Credentials" = "Hiq të dhënat e identifikimit";
 
@@ -241,6 +250,9 @@
 
 /* Button */
 "Show while connecting" = "Shfaqe ndërsa po lidhet";
+
+/* Button to skip a particular update */
+"Skip This Version" = "Kalo këtë version";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "Kapërce këtë përditësim";
@@ -295,6 +307,19 @@
 
 /* Button */
 "When computer starts" = "Kur nis kompjuteri";
+
+/* Menu item
+   Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "Një update për Tunnelblick është i disponueshëm (%1.2f%% i downloaduar)…";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "Një update për Tunnelblick është i disponueshëm dhe i shkarkuar…";
+
+/* Menu item */
+"A Tunnelblick Update is Available..." = "Një update Tunnelblick është i disponueshëm…";
+
+/* Menu item */
+"A VPN Configuration Update is Available..." = "Një update pë konfigurimin VPN është i disponueshem…";
 
 /* Menu item */
 "Add a VPN..." = "Shto një VPN…";
@@ -417,6 +442,9 @@
 "Check if the apparent public IP address changed after connecting" = "Kontrollo nëse IP e dukshme publike ndryshoi pas lidhjes";
 
 /* Checkbox name */
+"Check only when connected to a VPN" = "Dallo vetëm kur je lidhur ne një VPN";
+
+/* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Çaktivizo IPv6 përveç nëse serveri VPN është i aksesueshem me IPv6";
 
 /* Checkbox name */
@@ -451,6 +479,9 @@
 
 /* Checkbox name */
 "Do not warn about this again" = "Mos paralajmëro më për këtë";
+
+/* Checkbox name */
+"Download updates when found" = "Shkarko updatet kur janë gjetur";
 
 /* Checkbox name */
 "Enable IPv6 (tap only)" = "Aktivizo IPv6 (vetëm për tap)";
@@ -493,3 +524,42 @@
 
 /* Connection status, please translate "Waiting for password" */
 "PASSWORD_WAIT" = "Duke pritur për passwordin";
+
+/* Window title */
+"Tunnelblick Error" = "Error Tunnelblick";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: Detyrohet Identifikimi";
+
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: Detyorhet Fjalekalimi";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK FAILED" = "ÇINSTALIMI I TUNNELBLICK DËSHTOI";
+
+/* Window title */
+"UNINSTALL OF TUNNELBLICK SUCCEEDED" = "ÇINSTALIMI I TUNNELBLICK U KRYE ME SUKSES";
+
+/* Window title */
+"Unable to launch Tunnelblick" = "Tunnelblick nuk u mund të hapeshte";
+
+/* Window title */
+"Unavailable" = "I padisponueshem";
+
+/* Window title */
+"Use 'down-root' plugin for OpenVPN?" = "Përdor shtesën 'down-root' për \"OpenVPN\"?";
+
+/* Window title */
+"Utilities" = "Shërbimet";
+
+/* Window title */
+"VPN Configuration Installation Error" = "Instalimi i konfigurimit VPN dështoi";
+
+/* Window title */
+"VPN Configuration Installation" = "Instalimi i konfigurimit VPN";
+
+/* Window title */
+"VPN Credentials" = "Kredencialet VPN";

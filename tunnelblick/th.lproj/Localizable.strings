@@ -106,6 +106,9 @@
 /* Button */
 "Do nothing" = "ไม่ต้องทำอะไร";
 
+/* Button to install an update */
+"Download and Install" = "ดาวน์โหลดและติดตั้ง";
+
 /* Button */
 "Export Tunnelblick Setup" = "ส่งออกการติดตั้ง Tunnelblick";
 
@@ -120,6 +123,9 @@
 
 /* Button */
 "Ignore" = "ไม่ต้องทำอะไร";
+
+/* Button to install an update */
+"Install and Relaunch" = "ติดตั้งและเปิดโปรแกรม";
 
 /* Button */
 "Install tun and tap system extensions..." = "ติดตั้งส่วนเสริม tun และ tap ของระบบ";
@@ -194,6 +200,9 @@
 /* Button */
 "Reinstall" = "ติดตั้งใหม่";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "เตือนฉันในภายหลัง";
+
 /* Button */
 "Remove Credentials" = "ลบข้อมูลยืนยันตัวตน";
 
@@ -241,6 +250,9 @@
 
 /* Button */
 "Show while connecting" = "แสดงขณะกำลังเชื่อมต่อ";
+
+/* Button to skip a particular update */
+"Skip This Version" = "ข้ามเวอร์ชั่นนี้";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "ข้ามอัปเดตนี้";
@@ -295,6 +307,16 @@
 
 /* Button */
 "When computer starts" = "เมื่อคอมพิวเตอร์เริ่มทำงาน";
+
+/* Menu item
+   Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "มีเวอร์ชั่นใหม่ของ Tunnelblick (ดาวน์โหลดแล้ว %1.2f%%)…";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "มีเวอร์ชั่นใหมม่ของ Tunnelblick และอัปเดตได้ดาวน์โหลดแล้ว";
+
+/* Menu item */
+"A Tunnelblick Update is Available..." = "มีอัปเดตใหม่ของ Tunnelblick";
 
 /* Menu item */
 "Add a VPN..." = "เพิ่ม VPN";
