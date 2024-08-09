@@ -157,7 +157,7 @@ static BOOL verifySecureZipSignature(NSString * path, NSString * signature) {
     return result;
 }
 
-static BOOL checkSecureZip(NSString * inPath) {
+static BOOL checkSecureZipHasValidPaths(NSString * inPath) {
 
     // Returns TRUE iff all items in the .zip begin with "Tunnelblick.app/"
     // and no files in the .zip have paths that start with a "/" or contain ".."
@@ -169,7 +169,7 @@ static BOOL checkSecureZip(NSString * inPath) {
                             @"--file", inPath];
     if (  EXIT_SUCCESS != runTool(TOOL_PATH_FOR_TAR, arguments, &stdOut, &stdErr)  ) {
         appendLog([NSString stringWithFormat:
-                   @"checkSecureZip: Cannot check '%@'; stderr = '\n%@'\nstdout = '\n%@'",
+                   @"checkSecureZipHasValidPaths: Cannot check '%@'; stderr = '\n%@'\nstdout = '\n%@'",
                    inPath, stdErr, stdOut]);
         return FALSE;
     }
@@ -182,7 +182,7 @@ static BOOL checkSecureZip(NSString * inPath) {
         if (  filename.length != 0  ) {
             if (  ! [filename hasPrefix: @"Tunnelblick.app/"]  ) {
                 appendLog([NSString stringWithFormat:
-                           @"checkSecureZip: .zip '%@' is malformed ('%@' does not start with 'Tunnelblick.app/'; File list (stdout) = '\n%@'",
+                           @"checkSecureZipHasValidPaths: .zip '%@' is malformed ('%@' does not start with 'Tunnelblick.app/'; File list (stdout) = '\n%@'",
                            inPath, filename, stdOut]);
                 return FALSE;
             }
@@ -191,12 +191,12 @@ static BOOL checkSecureZip(NSString * inPath) {
 
     if (  [stdOut rangeOfString: @".."].length != 0  ) {
         appendLog([NSString stringWithFormat:
-                   @"checkSecureZip: .zip '%@' is malformed (contains '..'; File list (stdout) = '\n%@'",
+                   @"checkSecureZipHasValidPaths: .zip '%@' is malformed (contains '..'; File list (stdout) = '\n%@'",
                    inPath, stdOut]);
         return FALSE;
     }
 
-    appendLog(@"updateTunnelblick: Checked secured .zip for bad paths");
+    appendLog(@"checkSecureZipHasValidPaths: Checked secured .zip for bad paths");
     return TRUE;
 }
 
@@ -596,7 +596,7 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
             return FALSE;
         }
 
-        if (  ! checkSecureZip(secureZipPath)  ) {
+        if (  ! checkSecureZipHasValidPaths(secureZipPath)  ) {
             return FALSE;
         }
 
