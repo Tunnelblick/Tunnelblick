@@ -627,7 +627,7 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
                 appendLog(@"updateTunnelblick: The 'updateRelaxForgeryRule' preference has been forced, so the update is accepted");
             } else {
                 appendLog(@"updateTunnelblick: The 'updateRelaxForgeryRule' preference has not been forced, so the update is rejected");
-                return NO;
+                return FALSE;
             }
         } else {
             appendLog(@"updateTunnelblick: The update is rejected");
