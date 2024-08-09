@@ -613,7 +613,15 @@ static void securelyRename(NSString * sourcePath, NSString * targetPath) {
         if (  0 != renamex_np(fileSystemRepresentationFromPath(sourcePath), fileSystemRepresentationFromPath(targetPath), (RENAME_NOFOLLOW_ANY | RENAME_EXCL))  ){
             appendLog([NSString stringWithFormat: @"renamex_np() failed with error %d ('%s') trying to rename %@ to %@",
                        errno, strerror(errno), sourcePath, targetPath]);
-            errorExit();
+
+            // Source and target may be on different volumes. Try moving instead of renaming.
+            NSError * err = nil;
+            if (  [gFileMgr moveItemAtPath: sourcePath toPath: targetPath error: &err]  ) {
+                appendLog([NSString stringWithFormat: @"Used NSFileManager to move %@ to %@", sourcePath, targetPath]);
+            } else {
+                appendLog([NSString stringWithFormat: @"NSFileManager error moving %@ to %@: %@", sourcePath, targetPath, err]);
+                errorExit();
+            }
         } else {
             appendLog([NSString stringWithFormat: @"renamex_np() succeeded renaming %@ to %@", sourcePath, targetPath]);
         }
