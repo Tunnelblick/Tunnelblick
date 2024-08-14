@@ -1094,6 +1094,44 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     return contents;
 }
 
+-(NSString *) commandTypeForString: (NSString *) path {
+
+    // Returns "script", "executable", or an error message
+
+    // Executables must have absolute paths: if the path is not absolute it
+    // will be considered a script.
+
+    if (  ! path  ) {
+        NSString * errorMessage = [NSString stringWithFormat:
+                                   @"Internal error: commandTypeForString: nil; stack trace = %@",
+                                   callStack()];
+        return errorMessage;
+    }
+
+    if (  ! [path hasPrefix: @"/"]  ) {
+        return @"script";
+    }
+
+    NSString * stderrString = nil;
+    NSString * stdoutString = nil;
+    OSStatus status = runTool(TOOL_PATH_FOR_FILE, @[path], &stdoutString, &stderrString);
+
+    if (   (status != 0)
+        || (stderrString.length != 0)  ) {
+        NSString * errorMessage = [NSString stringWithFormat:
+                                 @"Error status %d from 'file %@'; stderr = '%@'",
+                                 status, path, stderrString];
+        return errorMessage;
+    }
+
+    BOOL isBinary = [stdoutString containsString:@"Mach-O"];
+    if ( isBinary  ) {
+        return @"executable";
+    }
+
+    return @"script";
+}
+
 -(NSString *) convertConfigPath: (NSString *) theConfigPath
 					 outputPath: (NSString *) theOutputPath
               replacingTblkPath: (NSString *) theReplacingTblkPath
@@ -1356,16 +1394,21 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 					}
                     [converter release];
                     
-                    // Set the length of the path of the command
-                    NSRange r3 = [[commandTokens objectAtIndex: 0] range];
-                    r2.length = r3.length;
-                    
-                    // copy the file and change the path in the configuration string if necessary
-                    NSString * errMsg3 = [self processPathRange: r2 removeBackslashes: YES needsShExtension: YES okIfNoFile: YES ignorePathInfo: (! outputPath)];
-                    if (  errMsg3  ) {
-                        return errMsg3;
+                    NSString * commandType = [self commandTypeForString: [[commandTokens firstObject] stringValue]];
+                    if (  [commandType isEqualToString: @"script"]  ) {
+                        // Set the length of the path of the command
+                        NSRange r3 = [[commandTokens objectAtIndex: 0] range];
+                        r2.length = r3.length;
+
+                        // copy the file and change the path in the configuration string if necessary
+                        NSString * errMsg3 = [self processPathRange: r2 removeBackslashes: YES needsShExtension: YES okIfNoFile: YES ignorePathInfo: (! outputPath)];
+                        if (  errMsg3  ) {
+                            return errMsg3;
+                        }
+                    } else if (  ! [commandType isEqualToString: @"executable"]  ) {
+                        return commandType; // Error message
                     }
-                    
+
                     tokenIx++;
                     
                 } else {
