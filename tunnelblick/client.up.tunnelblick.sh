@@ -254,24 +254,81 @@ disable_secondary_network_services() {
     # For each such service, outputs a line with the name of the service.
     # (A separate line is output for each name because a name may include spaces.)
     #
+    # This is done by parsing the output of 'networksetup  -listnetworkserviceorder'.
+    #
     # The 'restore_disabled_network_services' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
+    #
+    # Sample output from 'networksetup  -listnetworkserviceorder'.
+    #    The output consists of a header line followed by a three-line entry for
+    #    each network service (the third line is empty).
+    #    If the service is disabled, an asterisk will replace the service order number.
+    #
+    #    =========================================================
+    #        An asterisk (*) denotes that a network service is disabled.
+    #        (1) USB 10/100/1000 LAN
+    #        (Hardware Port: USB 10/100/1000 LAN, Device: en7)
+    #
+    #        (*) Wi-Fi
+    #        (Hardware Port: Wi-Fi, Device: en0)
+    #
+    #        (3) Thunderbolt Bridge
+    #        (Hardware Port: Thunderbolt Bridge, Device: bridge0)
+    #
+    #        (4) iPhone USB
+    #        (Hardware Port: iPhone USB, Device: en12)
+    #
+    #    =========================================================
 
-    # Get list of services and remove the first four lines, which contain a heading and the primary service
-    local services ; services="$( /usr/sbin/networksetup  -listnetworkserviceorder | sed -e '1,4d' ; true)"
+    # Get the name of the primary network service (e.g. "Wi-Fi", "USB 10/100/1000 LAN")
+    local primaryServiceName
+    primaryServiceName="$( echo_primary_network_service_name )"
 
-    # Go through the list disabling each service and outputting a line with the name of the service
-    # If first character of a line is an asterisk, the service is disabled, so we skip it
+    # Get list of network services and remove the first line, which contains the heading
+    local services ; services="$( /usr/sbin/networksetup  -listnetworkserviceorder | sed -e '1d' ; true)"
 
-    local service
-    printf %s "$services$LF"  |   while IFS= read -r service ; do
-		if [ -n "$service" ] \
-        && [ "${service:0:9}" != "(Hardware" ] \
-		&& [ "${service:0:1}" != "*" ] ; then
-            # Remove '(nnn) ' from start of line to get the service name
-            service="${service#* }"
-            /usr/sbin/networksetup -setnetworkserviceenabled "$service" off
-            echo "$service"
-		fi
+    # Go through the list disabling each service other than the primary service and echoing a line
+    # with the name of the service that was disabled.
+    # Skip already disabled services.
+
+    local isActive
+    isActive=false # Assume the next entry is inactive
+
+    printf %s "$services$LF"  |   while IFS= read -r line ; do
+        if [ -n "$line" ] \
+        && [ "${line:0:9}" != "(Hardware" ] ; then
+            if [ "${line:1:1}" != "*" ] ; then
+
+                # Have the first line of an active service listing, e.g. "(1) USB 10/100/1000 LAN"
+                # Indicate it is active
+                isActive=true
+            fi
+        elif [ "$isActive" = "true" ] \
+        &&   [ -n "$line" ] \
+        &&   [ "${line:0:9}" = "(Hardware" ] ; then
+
+            # Have the second line of an active service listing, e.g. "(Hardware Port: USB 10/100/1000 LAN, Device: en7)"
+            local match
+            match="(Hardware Port: $primaryServiceName,"
+            if [ "${line/$match/}" = "$line" ] ; then
+
+                # The service name in the line does not match the primary service name, so disable the service and echo the service name
+                # First, get the service name
+                # Remove '(Hardware Port: ' from start of the line to get the interface name followed by ", Device:..."
+                local serviceName
+                serviceName="${line#*: }"
+                # Remove the comma and everything after it
+                serviceName="${serviceName%,*}"
+
+                # If NOT the primary service, deactivate it and echo the service name
+                if [ "$serviceName" != "$primaryServiceName" ] ; then
+                    /usr/sbin/networksetup -setnetworkserviceenabled "$serviceName" off
+                    echo "$serviceName"
+                fi
+            fi
+        else
+            # Have the third line of a service listing. Assume next entry is inactive.
+            isActive=false
+        fi
     done
 }
 
