@@ -275,6 +275,197 @@ disable_secondary_network_services() {
     done
 }
 
+get_ServicePorts_and_ServiceNames_from_listnetworkservices() {
+
+    # Sets up two arrays:
+    #
+    #   $ServiceNames
+    #   $ServicePorts
+    #
+    # with the service name and hardware port of all active network services.
+    #
+    # The arrays are in the same order as the output from
+    #     'networksetup -listnetworkserviceorder'.
+    #
+    # Sample output from 'networksetup  -listnetworkserviceorder'.
+    #    The output consists of a header line followed by a three-line entry for
+    #    each network service (the third line is empty).
+    #    If the service is disabled, an asterisk will replace the service order number.
+    #
+    #    =========================================================
+    #        An asterisk (*) denotes that a network service is disabled.
+    #        (1) USB 10/100/1000 LAN
+    #        (Hardware Port: USB 10/100/1000 LAN, Device: en7)
+    #
+    #        (*) Wi-Fi
+    #        (Hardware Port: Wi-Fi, Device: en0)
+    #
+    #        (3) Thunderbolt Bridge
+    #        (Hardware Port: Thunderbolt Bridge, Device: bridge0)
+    #
+    #        (4) iPhone USB
+    #        (Hardware Port: iPhone USB, Device: en12)
+    #
+    #    =========================================================
+    # Get list of network services and remove the first line, which contains the heading
+    local services ; services="$( /usr/sbin/networksetup  -listnetworkserviceorder | sed -e '1d' ; true)"
+
+    # Go through the list disabling each service other than the primary service and echoing a line
+    # with the name of the service that was disabled.
+    # Skip already disabled services.
+
+    local isActive
+    local line
+    local name
+    local port
+
+    while IFS= read -r line ; do
+
+        if [ -n "$line" ] \
+        && [ "${line:0:9}" != "(Hardware" ] ; then
+            if [ "${line:1:1}" != "*" ] ; then
+
+                # Have the first line of an active service listing, e.g. "(1) USB 10/100/1000 LAN"
+                # Assume it is active and extract the service name into
+                isActive=true
+            else
+                isActive=false
+            fi
+
+        elif [ -n "$line" ] \
+        &&   [ "${line:0:9}" = "(Hardware" ] ; then
+
+            if [ "$isActive" = "true" ] ; then \
+
+                # Have the second line of an active service listing, e.g. "(Hardware Port: USB 10/100/1000 LAN, Device: en7)"
+
+                # Get the service name
+                # Remove '(Hardware Port: ' from the start of the line to get the interface name followed by ", Device:..."
+                line="${line#*: }"
+                # Remove the comma and everything after it
+                name="${line%,*}"
+
+                # Get the port
+                # Remove everything up to the last ", Device: "
+                port="${line##*, Device: }"
+                # Remove the ")"
+                port="${port%?}"
+
+                ServiceNames+=("$name")
+                ServicePorts+=("$port")
+            fi
+
+        else
+            # Have the third line of a service listing. Must be empty
+            if [ -n "$line" ] ; then
+                echo "ERROR: output of 'networksetup  -listnetworkserviceorder' not as expected:"
+                echo "'$services'"
+                exit 1
+            fi
+        fi
+
+    done <<-EOT
+"$services$LF$LF"
+EOT
+}
+
+get_ServiceStatuses_from_ifconfig() {
+
+    # Sets up the "ServiceStatuses" array, with each element corresponding to the status
+    # of an element in the "ServicesPorts" array, with a value of "active" or "inactive".
+
+    # The output of ifconfig should look like the following:
+    #       port:...
+    #       <tab>info
+    #       ...
+    #       <tab>info
+    #       port:...
+    #       <tab>info
+    #       ...
+    #       <tab>info
+
+    # Go through the output, creating an entry in the "active_interfaces" array for each active interface.
+    # The value of the array entry is the name of the port/interface.
+
+    local active_interfaces
+    local ifconfig_output
+    local line_number
+    local line
+    local name
+    local port
+    local status
+    local ix
+
+    declare -a active_interfaces
+
+    # Get ifconfig output
+    ifconfig_output="$( /sbin/ifconfig ; true)"
+
+    line_number=0
+    while IFS= read -r line ; do
+
+        line_number=$((line_number+1))
+
+        if [ -n "$line" ] ; then
+            if [ "${line:0:1}" != "$HT" ] ; then
+                name="${line%%:*}"
+            elif [ "${line:0:15}" = "	status: active" ] ; then
+                active_interfaces+=("$name")
+            fi
+        else
+            echo "ERROR: output of 'ifconfig' not as expected (at line $line_number):"
+            echo "'$ifconfig_output'"
+            exit 1
+        fi
+
+    done <<-EOT
+"$ifconfig_output$LF"
+EOT
+
+    # For each port, set it's status
+    for port in "${ServicePorts[@]}" ; do
+
+        status="inactive"
+        ix=0
+        while [ $ix -lt ${#active_interfaces[@]} ] ; do
+            if [ "${active_interfaces[$ix]}" = "$port" ] ; then
+                status="active"
+                ix=99999
+            else
+                ix=$((ix+1))
+            fi
+        done
+
+        ServiceStatuses+=("$status")
+
+    done
+}
+
+echo_primary_network_service_name() {
+
+    declare -a ServicePorts
+    declare -a ServiceNames
+    declare -a ServiceStatuses
+
+    get_ServicePorts_and_ServiceNames_from_listnetworkservices
+    get_ServiceStatuses_from_ifconfig
+
+    local ix
+
+    ix=0
+
+    while [ $ix -lt ${#ServicePorts[@]} ] ; do
+
+        if [ "${ServiceStatuses[$ix]}" = "active" ] ; then
+            echo "${ServiceNames[$ix]}"
+            return
+        fi
+
+        ix=$((ix+1))
+
+    done
+}
+
 disableIPv6AndSecondaryServices() {
 
     # Disables IPv6 and secondary services if appropriate.
@@ -1582,6 +1773,8 @@ readonly OUR_NAME="$( basename "${0}" )"
 
 logMessage "**********************************************"
 logMessage "Start of output from ${OUR_NAME}"
+
+logMessage "Primary network service: $( echo_primary_network_service_name )"
 
 # Check variables should have been set up by OpenVPN
 # shellcheck disable=SC2154
