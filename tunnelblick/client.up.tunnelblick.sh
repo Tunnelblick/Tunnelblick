@@ -234,8 +234,8 @@ disable_ipv6() {
     printf %s "$dipv6_services$LF"  |   while IFS= read -r dipv6_service ; do
 		if [ -n "$dipv6_service" ] ; then
 
-			# If first character of a line is an asterisk, the service is disabled, so we skip it
-			if [ "${dipv6_service:0:1}" != "*" ] ; then
+			# If the second character of a line is an asterisk, the service is disabled, so we skip it
+			if [ "${dipv6_service:1:1}" != "*" ] ; then
 				dipv6_ipv6_status="$( /usr/sbin/networksetup -getinfo "$dipv6_service" | grep 'IPv6: ' | sed -e 's/IPv6: //')"
 				if [ "$dipv6_ipv6_status" = "Automatic" ] ; then
 					/usr/sbin/networksetup -setv6off "$dipv6_service"
