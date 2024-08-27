@@ -279,10 +279,6 @@ disable_secondary_network_services() {
     #
     #    =========================================================
 
-    # Get the name of the primary network service (e.g. "Wi-Fi", "USB 10/100/1000 LAN")
-    local primaryServiceName
-    primaryServiceName="$( echo_primary_network_service_name )"
-
     # Get list of network services and remove the first line, which contains the heading
     local services ; services="$( /usr/sbin/networksetup  -listnetworkserviceorder | sed -e '1d' ; true)"
 
@@ -308,7 +304,7 @@ disable_secondary_network_services() {
 
             # Have the second line of an active service listing, e.g. "(Hardware Port: USB 10/100/1000 LAN, Device: en7)"
             local match
-            match="(Hardware Port: $primaryServiceName,"
+            match="(Hardware Port: $PRIMARY_SERVICE_NAME,"
             if [ "${line/$match/}" = "$line" ] ; then
 
                 # The service name in the line does not match the primary service name, so disable the service and echo the service name
@@ -320,7 +316,7 @@ disable_secondary_network_services() {
                 serviceName="${serviceName%,*}"
 
                 # If NOT the primary service, deactivate it and echo the service name
-                if [ "$serviceName" != "$primaryServiceName" ] ; then
+                if [ "$serviceName" != "$PRIMARY_SERVICE_NAME" ] ; then
                     /usr/sbin/networksetup -setnetworkserviceenabled "$serviceName" off
                     echo "$serviceName"
                 fi
@@ -1831,7 +1827,8 @@ readonly OUR_NAME="$( basename "${0}" )"
 logMessage "**********************************************"
 logMessage "Start of output from ${OUR_NAME}"
 
-logMessage "Primary network service: $( echo_primary_network_service_name )"
+PRIMARY_SERVICE_NAME="$( echo_primary_network_service_name )"
+logMessage "Primary network service: $PRIMARY_SERVICE_NAME"
 
 # Check variables should have been set up by OpenVPN
 # shellcheck disable=SC2154
