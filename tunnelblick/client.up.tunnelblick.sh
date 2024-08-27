@@ -474,6 +474,30 @@ disableIPv6AndSecondaryServices() {
     # Saves non-encoded lists of the services that were disabled in a file
     #       so they can be restored on shutdown or restart of the computer.
 
+    # Disable secondary services if requested and create a list of those that were disabled
+    secondary_disabled_services=""
+    if ${ARG_DISABLE_SECONDARY_SERVICES_ON_TUN} ; then
+        readonly secondary_disabled_services="$( disable_secondary_network_services )"
+        if [ "$secondary_disabled_services" != "" ] ; then
+            printf '%s\n' "$secondary_disabled_services" \
+            | while IFS= read -r service ; do
+                logMessage "Disabled '$service'"
+              done
+        fi
+    fi
+
+    # Save an encoded copy of the list in global SECONDARY_DISABLED_SERVICES_ENCODED so it can be used later
+    # Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
+    setGlobal SECONDARY_DISABLED_SERVICES_ENCODED "$( echo "$secondary_disabled_services" | tr '\n' '\t' )"
+    readonly  SECONDARY_DISABLED_SERVICES_ENCODED
+
+    # Save non-encoded list in file for use on shutdown or restart of the computer
+    if [ -n "$secondary_disabled_services" ] ; then
+        echo "$secondary_disabled_services" > "/Library/Application Support/Tunnelblick/restore-secondary.txt"
+    else
+        rm -f "/Library/Application Support/Tunnelblick/restore-secondary.txt"
+    fi
+
     # Disable IPv6 services if requested and the VPN server address is not an IPv6 address,
     # and create a list of those that were disabled.
 
@@ -505,30 +529,6 @@ disableIPv6AndSecondaryServices() {
     else
         rm -f "/Library/Application Support/Tunnelblick/restore-ipv6.txt"
     fi
-
-    # Disable secondary services if requested and create a list of those that were disabled
-    secondary_disabled_services=""
-    if ${ARG_DISABLE_SECONDARY_SERVICES_ON_TUN} ; then
-        readonly secondary_disabled_services="$( disable_secondary_network_services )"
-        if [ "$secondary_disabled_services" != "" ] ; then
-            printf '%s\n' "$secondary_disabled_services" \
-            | while IFS= read -r service ; do
-                logMessage "Disabled '$service'"
-              done
-        fi
-    fi
-
-    # Save an encoded copy of the list in global SECONDARY_DISABLED_SERVICES_ENCODED so it can be used later
-    # Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
-    setGlobal SECONDARY_DISABLED_SERVICES_ENCODED "$( echo "$secondary_disabled_services" | tr '\n' '\t' )"
-    readonly  SECONDARY_DISABLED_SERVICES_ENCODED
-
-    # Save non-encoded list in file for use on shutdown or restart of the computer
-	if [ -n "$secondary_disabled_services" ] ; then
-		echo "$secondary_disabled_services" > "/Library/Application Support/Tunnelblick/restore-secondary.txt"
-    else
-        rm -f "/Library/Application Support/Tunnelblick/restore-secondary.txt"
-	fi
 }
 
 willNotMonitorNetworkConfiguration() {
