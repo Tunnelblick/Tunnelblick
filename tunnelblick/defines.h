@@ -774,6 +774,7 @@ name = newValue;                                    \
 @"skipWarningAboutNotCheckingIPAddressChanges", \
 @"skipWarningAboutRosetta", \
 @"skipWarningThatTunnelblickLauncherIsDisabled", \
+@"skipWarningAboutOpenSSL_1_1_1", \
 \
 @"buildExpirationTimestamp",	\
 @"daysBeforeFirstWarningOfOldBuild",	\
