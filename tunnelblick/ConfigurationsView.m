@@ -413,7 +413,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 										@"<li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is"
 										@" included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li>"
 
-										@"<li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is"
+										@"<li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is"
 										@" included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li>"
 
 										@"<li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are"

@@ -5294,7 +5294,7 @@ static void signal_handler(int signalNumber)
 		NSString * useVersion = [self openvpnVersionToUseInsteadOfVersion: prefVersion];
         if (  [gTbDefaults canChangeValueForKey: @"*-openvpnVersion"]  ) {
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							 [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using %@ as the default.", @"Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3')"),
+							 [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using %@ as the default.", @"Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.6.12-openss3.0.14')"),
 							  prefVersion, useVersion]);
             NSLog(@"OpenVPN version %@ is not available. Using version %@ as the default", prefVersion, useVersion);
         } else {
