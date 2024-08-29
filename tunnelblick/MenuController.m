@@ -66,30 +66,29 @@
 #endif
 
 // These are global variables rather than class variables to make access to them easier
-MenuController        * gMC = nil;                    // This singleton instance
-NSThread              * gMainThread = nil;            // Used on 10.4 because [NSThread isMainThread] is not available
+volatile int32_t        gActiveInactiveState = active;// Describes active/inactive
 NSMutableArray        * gConfigDirs = nil;            // Array of paths to configuration directories currently in use
-NSString              * gPrivatePath = nil;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
-NSString              * gDeployPath = nil;            // Path to Tunnelblick.app/Contents/Resources/Deploy
-TBUserDefaults        * gTbDefaults = nil;            // Our preferences
-NSFileManager         * gFileMgr = nil;               // [NSFileManager defaultManager]
-NSArray               * gProgramPreferences = nil;    // E.g., 'placeIconInStandardPositionInStatusBar'
 NSArray               * gConfigurationPreferences = nil; // E.g., '-onSystemStart'
+NSTimeInterval          gDelayToShowStatistics = 0.0; // Time delay from mouseEntered icon or statistics window until showing the statistics window
+NSTimeInterval          gDelayToHideStatistics = 0.0; // Time delay from mouseExited icon or statistics window until hiding the statistics window
+NSString              * gDeployPath = nil;            // Path to Tunnelblick.app/Contents/Resources/Deploy
+NSFileManager         * gFileMgr = nil;               // [NSFileManager defaultManager]
+unsigned                gHookupTimeout = 0;           // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
+//                                                    // or zero to keep trying indefinitely
+NSThread              * gMainThread = nil;            // Used on 10.4 because [NSThread isMainThread] is not available
+unsigned                gMaximumLogSize = 0;          // Maximum size (bytes) of buffer used to display the log
+MenuController        * gMC = nil;                    // This singleton instance
+NSString              * gPrivatePath = nil;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
+NSArray               * gProgramPreferences = nil;    // E.g., 'placeIconInStandardPositionInStatusBar'
+NSArray               * gRateUnits = nil;             // Array of strings with localized data units      (KB/s, MB/s, GB/s, etc.)
 BOOL                    gShuttingDownTunnelblick = FALSE;// TRUE if applicationShouldTerminate: has been invoked
 BOOL                    gShuttingDownWorkspace = FALSE;
 BOOL                    gShuttingDownOrRestartingComputer = FALSE;
-unsigned                gHookupTimeout = 0;           // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
-//                                                    // or zero to keep trying indefinitely
-unsigned                gMaximumLogSize = 0;          // Maximum size (bytes) of buffer used to display the log
-NSArray               * gRateUnits = nil;             // Array of strings with localized data units      (KB/s, MB/s, GB/s, etc.)
-NSArray               * gTotalUnits = nil;            // Array of strings with localized data rate units (KB,   MB,   GB,   etc.)
-NSTimeInterval          gDelayToShowStatistics = 0.0; // Time delay from mouseEntered icon or statistics window until showing the statistics window
-NSTimeInterval          gDelayToHideStatistics = 0.0; // Time delay from mouseExited icon or statistics window until hiding the statistics window
-
 volatile int32_t        gSleepWakeState = noSleepState;// Describes sleep/wake state
-volatile int32_t        gActiveInactiveState = active;// Describes active/inactive
+TBUserDefaults        * gTbDefaults = nil;             // Our preferences
+NSArray               * gTotalUnits = nil;             // Array of strings with localized data rate units (KB,   MB,   GB,   etc.)
 
-enum TerminationReason  reasonForTermination;         // Why we are terminating execution
+enum TerminationReason  reasonForTermination;          // Why we are terminating execution
 
 UInt32 fKeyCode[16] = {0x7A, 0x78, 0x63, 0x76, 0x60, 0x61, 0x62, 0x64,        // KeyCodes for F1...F16
     0x65, 0x6D, 0x67, 0x6F, 0x69, 0x6B, 0x71, 0x6A};
