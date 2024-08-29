@@ -75,7 +75,6 @@ NSString              * gDeployPath = nil;            // Path to Tunnelblick.app
 NSFileManager         * gFileMgr = nil;               // [NSFileManager defaultManager]
 unsigned                gHookupTimeout = 0;           // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
 //                                                    // or zero to keep trying indefinitely
-NSThread              * gMainThread = nil;            // Used on 10.4 because [NSThread isMainThread] is not available
 unsigned                gMaximumLogSize = 0;          // Maximum size (bytes) of buffer used to display the log
 MenuController        * gMC = nil;                    // This singleton instance
 NSString              * gPrivatePath = nil;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
@@ -5119,17 +5118,6 @@ static void signal_handler(int signalNumber)
 
     [self installSignalHandler];
 	[self updateScreenList];
-    
-    // gMainThread is used on macOS 10.4 because [NSThread isMainThread] is not available.
-    // This use of gMainThread assumes that
-    //      (1) applicationDidFinishLaunching is launched on the main thread; and
-    //      (2) the main thread does not change in the course of the program's execution.
-    // Both of these assumptions appear true based on testing on macOS 10.4
-    if (  gMainThread  ) {
-        NSLog(@"Ignoring extra invocation of applicationDidFinishLaunching:");
-        return;
-    }
-    gMainThread = [NSThread currentThread];
     
     [self checkThatTunnelblickdIsEnabled];
 

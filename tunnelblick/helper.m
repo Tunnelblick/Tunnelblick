@@ -55,7 +55,6 @@ NSString     * TBShowWindowCacheKeyConverter(NSString * key, NSString * msg);
 extern NSMutableArray * gConfigDirs;
 extern NSString       * gDeployPath;
 extern NSFileManager  * gFileMgr;
-extern NSThread       * gMainThread;
 extern MenuController * gMC;
 extern NSString       * gPrivatePath;
 extern BOOL             gShuttingDownTunnelblick;
