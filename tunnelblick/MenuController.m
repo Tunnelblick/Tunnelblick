@@ -472,6 +472,122 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
         gMC = self;
 
+//      gActiveInactiveState              is already initialized
+//      gSleepWakeState                   is already initialized
+//      gShuttingDownTunnelblick          is already initialized
+//      gShuttingDownOrRestartingComputer is already initialized
+//      gShuttingDownWorkspace            is already initialized
+
+        gConfigurationPreferences = [CONFIGURATIONS_PREFERENCES_NSARRAY retain];
+        gDeployPath               = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
+        gFileMgr                  = [NSFileManager defaultManager];
+        gProgramPreferences       = [NON_CONFIGURATIONS_PREFERENCES_NSARRAY retain];
+
+        // Create private configurations folder if not running as root
+        if (  [NSHomeDirectory() hasPrefix: @"/var/root"]) {
+            gPrivatePath = nil;
+        } else {
+            gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
+            if (  createDir(gPrivatePath, privateFolderPermissions(gPrivatePath)) == -1  ) {
+                NSLog(@"Unable to create %@", gPrivatePath);
+                exit(1);
+            }
+        }
+
+        //
+        // From here on, we need gTbDefaults, so set them up
+        //
+
+        if (  ! [self setUpUserDefaults]  ) {
+            return nil; // An error was already logged
+        }
+
+        gMaximumLogSize = [gTbDefaults unsignedIntForKey: @"maxLogDisplaySize"
+                                                 default: DEFAULT_LOG_SIZE_BYTES
+                                                     min: MIN_LOG_SIZE_BYTES
+                                                     max: MAX_LOG_SIZE_BYTES];
+
+        gDelayToShowStatistics = [gTbDefaults timeIntervalForKey: @"delayToShowStatistics"
+                                                         default: 0.5
+                                                             min: 0.0
+                                                             max: 60.0];
+
+        gDelayToHideStatistics = [gTbDefaults timeIntervalForKey: @"delayToHideStatistics"
+                                                         default: 1.5
+                                                             min: 0.0
+                                                             max: 60.0];
+
+        gRateUnits = [@[NSLocalizedString(@"B/s", @"Window text"),
+                        NSLocalizedString(@"KB/s", @"Window text"),
+                        NSLocalizedString(@"MB/s", @"Window text"),
+                        NSLocalizedString(@"GB/s", @"Window text"),
+                        NSLocalizedString(@"TB/s", @"Window text"),
+                        NSLocalizedString(@"PB/s", @"Window text"),
+                        NSLocalizedString(@"EB/s", @"Window text"),
+                        NSLocalizedString(@"ZB/s", @"Window text"),
+                        @"***"]
+                      copy];
+
+        gTotalUnits = [@[NSLocalizedString(@"B", @"Window text"),
+                         NSLocalizedString(@"KB", @"Window text"),
+                         NSLocalizedString(@"MB", @"Window text"),
+                         NSLocalizedString(@"GB", @"Window text"),
+                         NSLocalizedString(@"TB", @"Window text"),
+                         NSLocalizedString(@"PB", @"Window text"),
+                         NSLocalizedString(@"EB", @"Window text"),
+                         NSLocalizedString(@"ZB", @"Window text")]
+                       copy];
+
+        // If gDeployPath exists and has one or more .tblk packages or .conf or .ovpn files,
+        // Then make it the first entry in gConfigDirs
+        gConfigDirs = [[NSMutableArray alloc] initWithCapacity: 2];
+        BOOL isDir;
+        if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
+            && isDir ) {
+            NSString * file;
+            NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: gDeployPath];
+            while (  (file = [dirEnum nextObject])  ) {
+                NSString * path = [gDeployPath stringByAppendingPathComponent: file];
+                if (  itemIsVisible(path)  ) {
+                    NSString * ext  = [file pathExtension];
+                    if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]
+                        && ( ! isDir)  ) {
+                        if ( [ext isEqualToString:@"conf"] || [ext isEqualToString:@"ovpn"]  ) {
+                            [gConfigDirs addObject: gDeployPath];
+                            break;
+                        }
+                    } else {
+                        if ( [ext isEqualToString:@"tblk"]  ) {
+                            [gConfigDirs addObject: gDeployPath];
+                            break;
+                        }
+                    }
+                }
+            }
+
+            [self setDeployLocalizationBundle: [NSBundle bundleWithPath: [gDeployPath stringByAppendingPathComponent: @"Localization.bundle"]]];
+        }
+
+        // If not Deployed, or if Deployed and it is specifically allowed,
+        // Then add /Library/Application Support/Tunnelblick/Shared
+        //      and ~/Library/Application Support/Tunnelblick/Configurations
+        //      to configDirs
+        if (  [gConfigDirs count] == 0  ) {
+            [gConfigDirs addObject: L_AS_T_SHARED];
+            [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
+        } else {
+            if (  ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
+                if (  [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
+                    [gConfigDirs addObject: L_AS_T_SHARED];
+                }
+            }
+            if (  ! [gTbDefaults canChangeValueForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
+                if (  [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
+                    [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
+                }
+            }
+        }
+
         reasonForTermination = terminatingForUnknownReason;
 
 		haveClearedQuitLog = FALSE;
@@ -483,9 +599,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         mouseIsInStatusWindow = FALSE;
 		signatureIsInvalid = FALSE;
 
-        gShuttingDownTunnelblick = FALSE;
-        gShuttingDownOrRestartingComputer = FALSE;
-        gShuttingDownWorkspace = FALSE;
 		quittingAfterAnInstall = FALSE;
 		
         noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
@@ -507,14 +620,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 		
 		iconTrackingRectTag = 0;
         
-        gProgramPreferences = [NON_CONFIGURATIONS_PREFERENCES_NSARRAY retain];
-        
-        gConfigurationPreferences = [CONFIGURATIONS_PREFERENCES_NSARRAY retain];
-        
         connectionsToRestoreOnWakeup = [[NSMutableArray alloc] initWithCapacity: 5];
         
-        gFileMgr    = [NSFileManager defaultManager];
-
         openLog();
 
         TBLog(@"DB-SU", @"init: 000")
@@ -530,19 +637,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                                 getuid(), geteuid(), getgid(), getegid(), [gFileMgr currentDirectoryPath]];
         NSLog(@"Tunnelblick: macOS %@%@; %@\n%@", osVersionString, oclpString, tunnelblickVersion([NSBundle mainBundle]), uidString);
 
-        // Create private configurations folder if not running as root
-        if (  [NSHomeDirectory() hasPrefix: @"/var/root"]) {
-            gPrivatePath = nil;
-        } else {
-            gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
-            if (  createDir(gPrivatePath, privateFolderPermissions(gPrivatePath)) == -1  ) {
-                NSLog(@"Unable to create %@", gPrivatePath);
-                exit(1);
-            }
-        }
 
-        gConfigDirs = [[NSMutableArray alloc] initWithCapacity: 2];
-        
 		[NSApp setDelegate: (id)self];
 		
         NSBundle * ourBundle   = [NSBundle mainBundle];
@@ -556,18 +651,13 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 		if (  [ourAppName hasSuffix: @".app"]  ) {
 			ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
 		}
-        gDeployPath = [[[ourBundle resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
-        
+
         [self checkPlist: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"] renameIfBad: NO];
 
 		// Remove any old "Launch Tunnelblick" link in the private configurations folder
 		NSString * tbLinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
 		[gFileMgr tbRemovePathIfItExists: tbLinkPath];
 
-        if (  ! [self setUpUserDefaults]  ) {
-            return nil; // An error was already logged
-        }
-        
         TBLog(@"DB-SU", @"init: 001")
         
 		NSDictionary * infoPlist = [self tunnelblickInfoDictionary];
@@ -596,95 +686,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         [self initialChecks: ourAppName];    // WE MAY NOT RETURN FROM THIS METHOD (it may install a new copy of Tunnelblick, launch it, and quit)
 		
         TBLog(@"DB-SU", @"init: 010")
-        // If gDeployPath exists and has one or more .tblk packages or .conf or .ovpn files,
-        // Then make it the first entry in gConfigDirs
-        BOOL isDir;
-        if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
-            && isDir ) {
-            NSString * file;
-            NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: gDeployPath];
-            while (  (file = [dirEnum nextObject])  ) {
-                NSString * path = [gDeployPath stringByAppendingPathComponent: file];
-                if (  itemIsVisible(path)  ) {
-                    NSString * ext  = [file pathExtension];
-                    if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]
-                        && ( ! isDir)  ) {
-                        if ( [ext isEqualToString:@"conf"] || [ext isEqualToString:@"ovpn"]  ) {
-                            [gConfigDirs addObject: gDeployPath];
-                            break;
-                        }
-                    } else {
-                        if ( [ext isEqualToString:@"tblk"]  ) {
-                            [gConfigDirs addObject: gDeployPath];
-                            break;
-                        }
-                    }
-                }
-            }
-			
-			[self setDeployLocalizationBundle: [NSBundle bundleWithPath: [gDeployPath stringByAppendingPathComponent: @"Localization.bundle"]]];
-        }
-        
-        TBLog(@"DB-SU", @"init: 011")
-        // If not Deployed, or if Deployed and it is specifically allowed,
-        // Then add /Library/Application Support/Tunnelblick/Shared
-        //      and ~/Library/Application Support/Tunnelblick/Configurations
-        //      to configDirs
-        if (  [gConfigDirs count] == 0  ) {
-            [gConfigDirs addObject: L_AS_T_SHARED];
-            [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
-        } else {
-            if (  ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
-                if (  [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
-                    [gConfigDirs addObject: L_AS_T_SHARED];
-                }
-            }
-            if (  ! [gTbDefaults canChangeValueForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
-                if (  [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
-                    [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
-                }
-            }
-        }
-        
-        gMaximumLogSize = [gTbDefaults unsignedIntForKey: @"maxLogDisplaySize"
-                                                 default: DEFAULT_LOG_SIZE_BYTES
-                                                     min: MIN_LOG_SIZE_BYTES
-                                                     max: MAX_LOG_SIZE_BYTES];
-        
-        gDelayToShowStatistics = [gTbDefaults timeIntervalForKey: @"delayToShowStatistics"
-                                                         default: 0.5
-                                                             min: 0.0
-                                                             max: 60.0];
-        
-        gDelayToHideStatistics = [gTbDefaults timeIntervalForKey: @"delayToHideStatistics"
-                                                         default: 1.5
-                                                             min: 0.0
-                                                             max: 60.0];
-        
-        gRateUnits = [[NSArray arrayWithObjects:
-                       NSLocalizedString(@"B/s", @"Window text"),
-                       NSLocalizedString(@"KB/s", @"Window text"),
-                       NSLocalizedString(@"MB/s", @"Window text"),
-                       NSLocalizedString(@"GB/s", @"Window text"),
-                       NSLocalizedString(@"TB/s", @"Window text"),
-                       NSLocalizedString(@"PB/s", @"Window text"),
-                       NSLocalizedString(@"EB/s", @"Window text"),
-                       NSLocalizedString(@"ZB/s", @"Window text"),
-                       @"***",
-                       nil] retain];
-        
-        gTotalUnits = [[NSArray arrayWithObjects:
-                        NSLocalizedString(@"B", @"Window text"),
-                        NSLocalizedString(@"KB", @"Window text"),
-                        NSLocalizedString(@"MB", @"Window text"),
-                        NSLocalizedString(@"GB", @"Window text"),
-                        NSLocalizedString(@"TB", @"Window text"),
-                        NSLocalizedString(@"PB", @"Window text"),
-                        NSLocalizedString(@"EB", @"Window text"),
-                        NSLocalizedString(@"ZB", @"Window text"),
-                        @"***",
-                        nil] retain];
-		
         connectionArray = [[NSArray alloc] init];
         
         TBLog(@"DB-SU", @"init: 012")
@@ -953,8 +954,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 		}
 	}
 	
-	gTbDefaults = [[TBUserDefaults alloc] initWithPrimaryDictionary: primaryForcedPreferencesDict
-									   andDeployedDictionary: deployedForcedPreferencesDict];
+    gTbDefaults = [[TBUserDefaults alloc] initWithPrimaryDictionary: primaryForcedPreferencesDict
+                                              andDeployedDictionary: deployedForcedPreferencesDict];
 	if (  ! gTbDefaults  ) {
 		return NO;
 	}
