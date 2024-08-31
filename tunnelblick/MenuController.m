@@ -74,8 +74,6 @@ NSTimeInterval          gDelayToShowStatistics = 0.0; // Time delay from mouseEn
 NSTimeInterval          gDelayToHideStatistics = 0.0; // Time delay from mouseExited icon or statistics window until hiding the statistics window
 NSString              * gDeployPath = nil;            // Path to Tunnelblick.app/Contents/Resources/Deploy
 NSFileManager         * gFileMgr = nil;               // [NSFileManager defaultManager]
-unsigned                gHookupTimeout = 0;           // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
-//                                                    // or zero to keep trying indefinitely
 unsigned                gMaximumLogSize = 0;          // Maximum size (bytes) of buffer used to display the log
 MenuController        * gMC = nil;                    // This singleton instance
 NSString              * gPrivatePath = nil;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
@@ -5582,16 +5580,16 @@ static void signal_handler(int signalNumber)
     }
     
     
-    gHookupTimeout = [gTbDefaults unsignedIntForKey: @"hookupTimeout"
-                                            default: 5
-                                                min: 0
-                                                max: 300];
-    if (  gHookupTimeout == 0  ) {
-		noUnknownOpenVPNsRunning = ([[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count] == 0);
+    NSTimeInterval timeout = [gTbDefaults unsignedIntForKey: @"hookupTimeout"
+                                                    default: 5
+                                                        min: 0
+                                                        max: 300];
+    if (  timeout == 0  ) {
+        noUnknownOpenVPNsRunning = ([[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count] == 0);
         return FALSE;
     }
-    
-    [self setHookupWatchdogTimer: [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) gHookupTimeout
+
+    [self setHookupWatchdogTimer: [NSTimer scheduledTimerWithTimeInterval: timeout
                                                                    target: self
                                                                  selector: @selector(hookupWatchdogHandler)
                                                                  userInfo: nil

@@ -56,7 +56,6 @@ extern volatile int32_t   gActiveInactiveState;
 extern NSMutableArray   * gConfigDirs;
 extern NSString         * gDeployPath;
 extern NSFileManager    * gFileMgr;
-extern unsigned           gHookupTimeout;
 extern MenuController   * gMC;
 extern NSString         * gPrivatePath;
 extern NSArray          * gRateUnits;
@@ -550,11 +549,10 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
             [self setPort: 0];
 			[self setRequestedState: @"EXITING"];
 
-            NSLog(@"Stopped trying to establish communications with an existing OpenVPN process for '%@' after %d seconds", [self localizedName], gHookupTimeout);
+            NSLog(@"Stopped trying to establish communications with an existing OpenVPN process for '%@'", [self localizedName]);
             NSString * msg = [NSString stringWithFormat:
-                              NSLocalizedString(@"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned.", @"Window text"),
-                              [self localizedName],
-                              gHookupTimeout];
+                              NSLocalizedString(@"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@'. The attempt to establish communications has been abandoned.", @"Window text"),
+                              [self localizedName]];
             NSString * prefKey = [NSString stringWithFormat: @"%@-skipWarningUnableToToEstablishOpenVPNLink", [self displayName]];
 
             TBRunAlertPanelExtended(NSLocalizedString(@"Unable to Establish Communication", @"Window text"),
