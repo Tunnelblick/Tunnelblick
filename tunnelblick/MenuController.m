@@ -52,6 +52,7 @@
 #import "SetupImporter.h"
 #import "SplashWindowController.h"
 #import "SystemAuth.h"
+#import "TunnelblickInfo.h"
 #import "TBUIUpdater.h"
 #import "TBUpdater.h"
 #import "TBUserDefaults.h"
@@ -85,6 +86,7 @@ BOOL                    gShuttingDownWorkspace = FALSE;
 BOOL                    gShuttingDownOrRestartingComputer = FALSE;
 volatile int32_t        gSleepWakeState = noSleepState;// Describes sleep/wake state
 TBUserDefaults        * gTbDefaults = nil;             // Our preferences
+TunnelblickInfo       * gTbInfo;                       // Info about Tunnelblick.app, hardware, system software, and the user
 NSArray               * gTotalUnits = nil;             // Array of strings with localized data rate units (KB,   MB,   GB,   etc.)
 
 enum TerminationReason  reasonForTermination;          // Why we are terminating execution
@@ -501,6 +503,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         if (  ! [self setUpUserDefaults]  ) {
             return nil; // An error was already logged
         }
+
+        gTbInfo = [[TunnelblickInfo alloc] initForAppAtPath: nil];
 
         gMaximumLogSize = [gTbDefaults unsignedIntForKey: @"maxLogDisplaySize"
                                                  default: DEFAULT_LOG_SIZE_BYTES

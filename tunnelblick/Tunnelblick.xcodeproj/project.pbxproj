@@ -54,6 +54,7 @@
 		631494A519FA7B9E009057D1 /* pt_pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631494A219FA7B9E009057D1 /* pt_pt.lproj */; };
 		63179444118D7EC20057ACAF /* atsystemstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 63179443118D7EC20057ACAF /* atsystemstart.m */; };
 		6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		6317AD942C80F681008D7CAA /* TunnelblickInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6317AD932C80F681008D7CAA /* TunnelblickInfo.m */; };
 		631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 631BC42F1FC4496300730786 /* TBPopUpButton.m */; };
 		631C2F211DF1A74B00DB1AE4 /* az.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631C2F201DF1A74B00DB1AE4 /* az.lproj */; };
 		631D15AC2BE8477300728E32 /* TBValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D15AB2BE8477300728E32 /* TBValidator.m */; };
@@ -157,7 +158,6 @@
 		639BCE5B1D07894C00A9111D /* ro.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 639BCE5A1D07894C00A9111D /* ro.lproj */; };
 		639C2F0E1D84812800DA3386 /* AuthIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 639C2F0D1D84812800DA3386 /* AuthIcon.png */; };
 		639DF6112BDD4DE80099921A /* TBDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 639DF6102BDD4DE80099921A /* TBDownloader.m */; };
-		639DF6132BDD4E200099921A /* TBDownloader.h in Sources */ = {isa = PBXBuildFile; fileRef = 639DF6122BDD4E200099921A /* TBDownloader.h */; };
 		639EC33E1C0E16A9001FE378 /* StatusWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */; };
 		639F0FBA1960EFA100A3090E /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
@@ -454,6 +454,8 @@
 		631494A219FA7B9E009057D1 /* pt_pt.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pt_pt.lproj; sourceTree = "<group>"; };
 		6317943E118D7E820057ACAF /* atsystemstart */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = atsystemstart; sourceTree = BUILT_PRODUCTS_DIR; };
 		63179443118D7EC20057ACAF /* atsystemstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = atsystemstart.m; sourceTree = "<group>"; };
+		6317AD922C80F681008D7CAA /* TunnelblickInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TunnelblickInfo.h; sourceTree = "<group>"; };
+		6317AD932C80F681008D7CAA /* TunnelblickInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TunnelblickInfo.m; sourceTree = "<group>"; };
 		631BC42F1FC4496300730786 /* TBPopUpButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPopUpButton.m; sourceTree = "<group>"; };
 		631BC4301FC4496300730786 /* TBPopUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPopUpButton.h; sourceTree = "<group>"; };
 		631C2F201DF1A74B00DB1AE4 /* az.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = az.lproj; sourceTree = "<group>"; };
@@ -1265,6 +1267,8 @@
 			isa = PBXGroup;
 			children = (
 				63DAFD5311CBA9F4002F9F91 /* defines.h */,
+				6317AD922C80F681008D7CAA /* TunnelblickInfo.h */,
+				6317AD932C80F681008D7CAA /* TunnelblickInfo.m */,
 				6185E73E0E76045D0009C2FD /* helper.h */,
 				6185E73F0E76045D0009C2FD /* helper.m */,
 				B8045A07161EF26700609C98 /* sharedRoutines.h */,
@@ -2017,9 +2021,9 @@
 				61BC4B810E2F9EBC00F24255 /* AuthAgent.m in Sources */,
 				B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */,
 				633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */,
+				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
 				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,
 				B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
-				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
 				63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */,
 				635ECCF51378885600F67F8D /* DBPrefsWindowController.m in Sources */,
 				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
@@ -2029,7 +2033,6 @@
 				61BC4B800E2F9EBC00F24255 /* KeyChain.m in Sources */,
 				63D893F821258FAE000E20E5 /* ImportWindowController.m in Sources */,
 				635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */,
-				639DF6112BDD4DE80099921A /* TBDownloader.m in Sources */,
 				B8C9FB48170C77A400BCA243 /* LeftNavItem.m in Sources */,
 				B8C9FB47170C77A400BCA243 /* LeftNavDataSource.m in Sources */,
 				B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */,
@@ -2043,7 +2046,6 @@
 				61BC4B7C0E2F9EBC00F24255 /* NetSocket.m in Sources */,
 				61BC4B7D0E2F9EBC00F24255 /* NetSocket+Text.m in Sources */,
 				61BC4B7E0E2F9EBC00F24255 /* NSApplication+LoginItem.m in Sources */,
-				639DF6132BDD4E200099921A /* TBDownloader.h in Sources */,
 				61BC4B7A0E2F9EBC00F24255 /* NSArray+cArray.m in Sources */,
 				63097CDF22323E2B005F94CF /* NSDate+TB.m in Sources */,
 				63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
@@ -2057,6 +2059,7 @@
 				639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */,
 				63FFD6581D0E9D9400D4FFD9 /* SystemAuth.m in Sources */,
 				6395C2321E37B90000E3C176 /* TBButton.m in Sources */,
+				639DF6112BDD4DE80099921A /* TBDownloader.m in Sources */,
 				6372CDCA1BFCCBC500FC04DC /* TBOperationQueue.m in Sources */,
 				B82DF4D8182704D800A121DE /* TBPerformer.m in Sources */,
 				631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */,
@@ -2064,7 +2067,9 @@
 				63CC72F91928C5CB00F81220 /* TBUIUpdater.m in Sources */,
 				63D436F32BA9AB1F00AFB2E7 /* TBUpdater.m in Sources */,
 				638E69611097725500587933 /* TBUserDefaults.m in Sources */,
+				631D15AC2BE8477300728E32 /* TBValidator.m in Sources */,
 				634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */,
+				6317AD942C80F681008D7CAA /* TunnelblickInfo.m in Sources */,
 				635971421C06736B0055FBC5 /* UIHelper.m in Sources */,
 				63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */,
 				61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */,
@@ -2077,7 +2082,6 @@
 				63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */,
 				63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */,
 				63A66B7C2518F537002B1D9D /* WarningNote.m in Sources */,
-				631D15AC2BE8477300728E32 /* TBValidator.m in Sources */,
 				B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
