@@ -158,8 +158,6 @@ BOOL           displaysHaveDifferentSpaces(void);
 BOOL           mustPlaceIconInStandardPositionInStatusBar(void);
 BOOL           shouldPlaceIconInStandardPositionInStatusBar(void);
 
-BOOL           runningOnElCapitanOrNewer(void);
-BOOL           runningOnSierraOrNewer(void);
 BOOL           runningOnHighSierraOrNewer(void);
 BOOL           runningOnMojaveOrNewer(void);
 BOOL           runningOnCatalinaOrNewer(void);

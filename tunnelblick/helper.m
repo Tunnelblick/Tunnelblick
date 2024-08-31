@@ -419,16 +419,6 @@ BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
 }
 
 
-BOOL runningOnElCapitanOrNewer(void)
-{
-    return runningOnNewerThan(10, 10);
-}
-
-BOOL runningOnSierraOrNewer(void)
-{
-    return runningOnNewerThan(10, 11);
-}
-
 BOOL runningOnHighSierraOrNewer(void)
 {
 	return runningOnNewerThan(10, 12);
@@ -603,37 +593,17 @@ BOOL displaysHaveDifferentSpaces(void) {
 
 BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
     
-    if (  runningOnSierraOrNewer()  ) {
-        return YES;
-    }
-    
-    NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    if (  ! [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]  ) {
-        return YES;
-    }
-    if (  ! [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]  ) {
-        return YES;
-    }
-    
-    if (   ([[NSScreen screens] count] != 1)
-        && displaysHaveDifferentSpaces()  ) {
-        return YES;
-    }
-    
-    return NO;
+    return YES;
 }
 
 BOOL shouldPlaceIconInStandardPositionInStatusBar(void) {
     
-    if (  mustPlaceIconInStandardPositionInStatusBar()  ) {
-        return YES;
-    }
-    
-    return displaysHaveDifferentSpaces();
+    return YES;
 }
 
 BOOL localAuthenticationIsAvailable(void) {
-    return runningOnSierraOrNewer();
+    
+    return YES;
 }
 
 NSString * rgbValues(BOOL foreground) {

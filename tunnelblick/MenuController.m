@@ -140,7 +140,6 @@ BOOL needToRepairPackages(void);
 -(void)             checkNoConfigurations;
 -(void)             deleteLogs;
 -(void)             initialChecks:							(NSString *)        ourAppName;
--(BOOL)             hasValidSignature;
 -(void)             hookupWatchdogHandler;
 -(void)             hookupWatchdog;
 -(void)             hookupToRunningOpenVPNs;
@@ -4238,84 +4237,6 @@ static void signal_handler(int signalNumber)
     return result;
 }
 
--(BOOL) hasValidSignature
-{
-    // Normal versions of Tunnelblick can be checked with codesign running as the user until macOS Sierra 10.12.0
-    //
-    // But Deployed versions need to run codesign as root, so codesign will "see" the .tblk contents that
-    // are owned by root and not accessible to other users (like keys and certificates). "openvpnstart checkSignature" runs codesign as
-    // root, but only if the Deployed Tunnelblick has been installed.
-    //
-    // So if a Deployed Tunnelblick hasn't been installed yet (e.g., it is running from .dmg), we don't check the signature here, and we assume it is valid.
-    //
-    // There could be a separate check for an invalid signature in installer, since installer could run codesign as root
-    // using the installer's authorization. However, installer runs without a UI, so it is complicated to provide the ability
-    // to report a failure and provide the option to continue. Considering that most Deployed Tunnelblick's are unsigned, this
-    // separate check has a low priority.
-    
-    // On Sierra or later, do digital signature checking without using codesign.
-    // This could be done on Lion or newer (with a minor change because anything earlier than 10.10.3 doesn't support the
-    // kSecCSStrictValidate flag), but for backward compatibility we're only doing this for Sierra (for now).
-    // If extended to other versions, we could do it for Deployed versions, too, because we don't require openvpnstart.
-    
-    if (  runningOnSierraOrNewer()  ) {
-        return appHasValidSignature();
-    }
-    
-    if (  [gFileMgr fileExistsAtPath: gDeployPath]  ) {
-        NSString * tunnelblickdPath = [[NSBundle mainBundle] pathForResource: @"tunnelblickd" ofType: nil];
-        if (  [tunnelblickdPath isNotEqualTo: @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd"]  ) {
-            return YES;
-        }
-        NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: tunnelblickdPath traverseLink: NO];
-        id obj = [attributes fileOwnerAccountID];
-        if (   ( ! obj)
-            || ( [obj unsignedLongValue] != 0)  ) {
-            return YES;     // tunnelblickd is not owned by root:wheel, so it can't check the signature properly
-        }
-        obj = [attributes fileGroupOwnerAccountID];
-        if (   ( ! obj)
-            || ( [obj unsignedLongValue] != 0)  ) {
-            return YES;     // tunnelblickd is not owned by root:wheel, so it can't check the signature properly
-        }
-        if (  needToReplaceLaunchDaemon()) {
-            return YES;     // tunnelblickd is not loaded
-        }
-
-        // Deployed and tunnelblickd has been installed, so we can run it to check the signature
-        OSStatus status = runOpenvpnstart([NSArray arrayWithObject: @"checkSignature"], nil, nil);
-        return (status == EXIT_SUCCESS);
-    }
-    
-	NSString * stdoutString = nil;
-	NSString * stderrString = nil;
-	
-    // Not a Deployed version of Tunnelblick, so we can run codesign as the user
-    if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
-        NSLog(@"Assuming digital signature invalid because '%@' does not exist", TOOL_PATH_FOR_CODESIGN);
-        return FALSE;
-    }
-    
-    NSString * appPath = [[NSBundle mainBundle] bundlePath];
-    NSArray *arguments = [NSArray arrayWithObjects: @"-v", @"-v", @"--deep", appPath, nil];
-    OSStatus status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, &stdoutString, &stderrString);
-
-    if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"'codesign -v -v [--deep]' returned status = %ld; stdout = '%@'; stderr = '%@'", (long)status, stdoutString, stderrString);
-		return FALSE;
-	}
-	
-    arguments = [NSArray arrayWithObjects: @"-dvv", appPath, nil];
-    status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, &stdoutString, &stderrString);
-    
-    if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"'codesign -dvv' returned status = %ld; stdout = '%@'; stderr = '%@'", (long)status, stdoutString, stderrString);
-        return FALSE;
-    }
-    
-    return [self checkSignatureIsOurs: stderrString];
-}
-
 - (NSURL *) getIPCheckURL
 {
     NSString * urlString = [gTbDefaults stringForKey: @"IPCheckURL"];
@@ -6669,7 +6590,7 @@ static BOOL runningHookupThread = FALSE;
 	
 	NSString * contentsPath = [currentPath stringByAppendingPathComponent: @"Contents"];
     if (   [gFileMgr fileExistsAtPath: [contentsPath stringByAppendingPathComponent: @"_CodeSignature"]]
-		&& ( ! [self hasValidSignature] )  ) {
+		&& ( ! appHasValidSignature() )  ) {
 		signatureIsInvalid = TRUE;
 	} else {
 		signatureIsInvalid = FALSE;	// (But it might not have one)
