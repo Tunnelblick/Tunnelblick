@@ -419,11 +419,6 @@ BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
 }
 
 
-BOOL runningOnHighSierraOrNewer(void)
-{
-	return runningOnNewerThan(10, 12);
-}
-
 BOOL runningOnMojaveOrNewer(void)
 {
 	return runningOnNewerThan(10, 13);

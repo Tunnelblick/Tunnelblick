@@ -4830,19 +4830,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 		// Get contents of kext policy database if available
 		NSString * kextPolicyData = @"Kext Policy database not available (available only on macOS High Sierra and later)";
-		if (  runningOnHighSierraOrNewer()  ) {
-			NSString * stdOut = @"";
-			NSString * stdErr = @"";
-			int status = runOpenvpnstart(@[@"printTunnelblickKextPolicy"], &stdOut, &stdErr);
-			if (   (status == 0)
-				&& [stdErr length] == 0  ) {
-				kextPolicyData = stdOut;
-			} else {
-				kextPolicyData = [NSString stringWithFormat:
-								  @"Error status %d attempting to access the Kext Policy database\nstdout =\n%@\nstderr =\n%@",
-								  status, stdOut, stdErr];
-			}
-		}
+    NSString * stdOut = @"";
+    NSString * stdErr = @"";
+    int status = runOpenvpnstart(@[@"printTunnelblickKextPolicy"], &stdOut, &stdErr);
+    if (   (status == 0)
+        && [stdErr length] == 0  ) {
+        kextPolicyData = stdOut;
+    } else {
+        kextPolicyData = [NSString stringWithFormat:
+                          @"Error status %d attempting to access the Kext Policy database\nstdout =\n%@\nstderr =\n%@",
+                          status, stdOut, stdErr];
+    }
 
         NSString * wildcardPreferencesContents      = [ConfigurationManager getPreferences: gConfigurationPreferences prefix: @"*"];
         

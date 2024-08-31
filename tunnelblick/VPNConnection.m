@@ -1473,10 +1473,6 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 	*policyFound = FALSE;
 
-	if (  ! runningOnHighSierraOrNewer()  ) {
-		return;
-	}
-
 	NSString * stdOut = @"";
 	NSString * stdErr = @"";
 	int status = runOpenvpnstart(@[@"printTunnelblickKextPolicy"], &stdOut, &stdErr);
@@ -1685,11 +1681,9 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 			return;
 		} else if (  status == OPENVPNSTART_COULD_NOT_LOAD_KEXT  ) {
 
-			NSString * link = (  runningOnHighSierraOrNewer()
-							   ? (  runningOnTen_Fourteen_FiveOrNewer()
+			NSString * link = (  runningOnTen_Fourteen_FiveOrNewer()
 								  ? @"https://tunnelblick.net/cCatalina.html"
-								  : @"https://tunnelblick.net/cHighSierraMojave.html")
-							   : @"https://tunnelblick.net/cKextLoadError.html");
+								  : @"https://tunnelblick.net/cHighSierraMojave.html");
 			NSString * linkMsg = [NSString stringWithFormat:
 								  NSLocalizedString(@"<p><a href=\"%@\">More information</a> [tunn" @"elblick.n" @"et]</p>",
 													@"HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL"

@@ -156,7 +156,6 @@ BOOL           runningWithSIPDisabled   (void);
 
 BOOL           displaysHaveDifferentSpaces(void);
 
-BOOL           runningOnHighSierraOrNewer(void);
 BOOL           runningOnMojaveOrNewer(void);
 BOOL           runningOnCatalinaOrNewer(void);
 BOOL           runningOnBigSurOrNewer(void);
