@@ -3353,27 +3353,10 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
--(void) setupAppearancePlaceIconNearSpotlightCheckbox {
-    
-    if (   mustPlaceIconInStandardPositionInStatusBar()  ) {
-        TBButton * checkbox = [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox];
-        [checkbox setState:   NO];
-        [checkbox setEnabled: NO];
-    } else {
-        [self setValueForCheckbox: [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox]
-                    preferenceKey: @"placeIconInStandardPositionInStatusBar"
-                         inverted: YES
-                       defaultsTo: FALSE];
-    }
-    
-}
-
 -(void) setupAppearanceView
 {
 	[self setupAppearanceIconSetButton];
     
-    [self setupAppearancePlaceIconNearSpotlightCheckbox];
-
     [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectionSubmenusCheckbox]
                 preferenceKey: @"doNotShowConnectionSubmenus"
                      inverted: YES
@@ -3413,18 +3396,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked: (NSButton *) sender
 {
 	[gTbDefaults setBool: ! [sender state] forKey:@"doNotShowSplashScreen"];
-}
-
--(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked: (NSButton *) sender
-{
-    BOOL wantIconNearSpotlightIcon = ! ( [sender state] == NSOffState );
-	[gTbDefaults setBool: ! wantIconNearSpotlightIcon forKey: @"placeIconInStandardPositionInStatusBar"];
-    [gMC moveStatusItemIfNecessary];
-    if (   wantIconNearSpotlightIcon
-        && shouldPlaceIconInStandardPositionInStatusBar()
-        ) {
-        [gMC showConfirmIconNearSpotlightIconDialog];
-    }
 }
 
 -(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked: (NSButton *) sender

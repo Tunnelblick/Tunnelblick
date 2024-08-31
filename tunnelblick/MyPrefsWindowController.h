@@ -99,7 +99,6 @@
 -(void) validateDetailsWindowControlsForConnection:           (VPNConnection *) connection;
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 -(void) setupAppearanceConnectionWindowScreenButton;
--(void) setupAppearancePlaceIconNearSpotlightCheckbox;
 -(void) setupInstallOrUninstallKextsButton;
 
 // Used by LogDisplay to scroll to the current point in the log
@@ -166,8 +165,6 @@
 
 
 // Methods for AppearanceView
-
--(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked:    (NSButton *) sender;
 
 -(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked:   (NSButton *) sender;

@@ -272,7 +272,6 @@ enum StatusIconPosition {
 -(void)             activateIgnoringOtherApps;
 -(void)             myReplyToOpenOrPrint:                   (NSNumber *)        delegateNotifyValue;
 -(BOOL)				askAndMaybeReenableNetworkAccessTryingToConnect;
--(void)             showConfirmIconNearSpotlightIconDialog;
 -(void)             recreateMenu;
 -(void)             recreateMainMenuClearCache:				(BOOL)				clearCache;
 -(void)             changedDisplayConnectionTimersSettings;
@@ -299,7 +298,6 @@ enum StatusIconPosition {
 -(NSString *)       localizedNameForDisplayName:            (NSString *)        displayName;
 -(NSString *)       localizedNameforDisplayName:            (NSString *)        displayName
                                        tblkPath:            (NSString *)        tblkPath;
--(void)             moveStatusItemIfNecessary;
 -(void)             mouseEnteredMainIcon:                   (id)                control
                                    event:                   (NSEvent *)         theEvent;
 -(void)             mouseExitedMainIcon:                    (id)                windowController

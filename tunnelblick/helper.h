@@ -155,8 +155,6 @@ BOOL           runningATunnelblickBeta  (void);
 BOOL           runningWithSIPDisabled   (void);
 
 BOOL           displaysHaveDifferentSpaces(void);
-BOOL           mustPlaceIconInStandardPositionInStatusBar(void);
-BOOL           shouldPlaceIconInStandardPositionInStatusBar(void);
 
 BOOL           runningOnHighSierraOrNewer(void);
 BOOL           runningOnMojaveOrNewer(void);

@@ -1399,35 +1399,13 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [self removeStatusItem];
     
     // Create new status item
-    if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
-        && [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]
-        && (  ! [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]  )
-        && (  ! mustPlaceIconInStandardPositionInStatusBar()  )
-        ) {
-        
-        // Force icon to the right in Status Bar
-        long long priority = 0x000000007FFFFFFDll;
-        
-        if (  ! ( statusItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
-            NSLog(@"Can't obtain status item near Spotlight icon");
-        }
-        TBLog(@"DB-SI", @"createStatusItem: Created status item near the Spotlight icon")
-        
-        // Re-insert item to place it correctly
-        [bar removeStatusItem: statusItem];
-        [bar _insertStatusItem: statusItem withPriority: priority];
-        TBLog(@"DB-SI", @"createStatusItem: Removed and reinserted status item to put it near the Spotlight icon")
-        iconPosition = iconNearSpotlight;
-
-    } else {
-        // Standard placement of icon in Status Bar
-        if (  ! (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
-            NSLog(@"Can't obtain status item in standard position");
-        }
-        TBLog(@"DB-SI", @"createStatusItem: Created status item placed normally (to the left of existing status items)")
-        iconPosition = iconNormal;
+    // Standard placement of icon in Status Bar
+    if (  ! (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
+        NSLog(@"Can't obtain status item in standard position");
     }
-	
+    TBLog(@"DB-SI", @"createStatusItem: Created status item")
+    iconPosition = iconNormal;
+
     if (  ! ourMainIconView  ) {
         [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
     }
@@ -1465,27 +1443,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     
     [statusItem setMenu: myVPNMenu];
     TBLog(@"DB-SI", @"createStatusItem: Set menu for status item")
-}
-
--(void) moveStatusItemIfNecessary {
-    
-    // "Move" the status item if it should be in a different place from its current location.
-    // Move it by recreating it so it is in the new place. That is necessary because a status item near the Spotlight icon is
-    // a different status item (because it has a "priority").
-    
-    enum StatusIconPosition whereIconShouldBe = (   [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]
-                                                 || mustPlaceIconInStandardPositionInStatusBar()
-                                                 ? iconNormal
-                                                 : iconNearSpotlight);
-    TBLog(@"DB-SI", @"moveStatusItemIfNecessary: iconPosition = %d; should be = %d", iconPosition, whereIconShouldBe)
-    
-    if (  iconPosition != whereIconShouldBe  ) {
-        [self createStatusItem];
-    }
-    
-    // Always re-set up the checkbox that controls the icon's position, update the icon image and status windows
-    [[self logScreen] setupAppearancePlaceIconNearSpotlightCheckbox];
-    [self updateIconImage];
 }
 
 -(void) updateScreenList {
@@ -1553,10 +1510,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     
     return (  (iconPosition == iconNotShown)
             ? @"status icon not being displayed"
-            : (  (iconPosition == iconNormal)
-               ? @"status icon on left"
-               : @"status icon near Spotlight icon"
-               )
+            : @"status icon on left"
             );
 }
 
@@ -1565,7 +1519,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     TBLog(@"DB-SI", @"screenParametersChanged: %@", [self iconPositionAsString])
     
     [self updateScreenList];
-    [self moveStatusItemIfNecessary];
     [[self logScreen] setupAppearanceConnectionWindowScreenButton];
 }
 
@@ -1574,20 +1527,14 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     TBLog(@"DB-SI", @"activeDisplayDidChange: %@", [self iconPositionAsString])
     
     [self updateScreenList];
-    [self moveStatusItemIfNecessary];
     [[self logScreen] setupAppearanceConnectionWindowScreenButton];
 }
 
 
 -(void) menuExtrasWereAdded {
-    
-    // If the icon is near the Spotlight icon, then redraw it there
-    TBLog(@"DB-SI", @"menuExtrasWereAdded: %@", [self iconPositionAsString])
-    if (  iconPosition == iconNearSpotlight  ) {
-        [self createStatusItem];
-        [[self logScreen] setupAppearancePlaceIconNearSpotlightCheckbox];
-        [self updateIconImage];
-    }
+
+    // Do nothing
+    ;
 }
 
 -(void) screenParametersChangedHandler: (NSNotification *) n {
@@ -4510,66 +4457,6 @@ static void signal_handler(int signalNumber)
     [myConfigMultiUpdater startAllUpdateCheckingWithUI: NO];    // Start checking for configuration updates in the background
 }
 
--(void) doPlaceIconNearSpotlightIcon: (NSNumber *) newPreferenceValueNumber {
-    
-    showingConfirmIconNearSpotlightIconDialog = FALSE;
-    
-    BOOL newPreferenceValue = [newPreferenceValueNumber boolValue];
-    BOOL currentPreferenceValue = [gTbDefaults boolForKey: @"placeIconInStandardPositionInStatusBar"];
-    
-    if (  currentPreferenceValue != newPreferenceValue  ) {
-        [gTbDefaults setBool: newPreferenceValue forKey: @"placeIconInStandardPositionInStatusBar"];
-        [gMC moveStatusItemIfNecessary];
-    }
-}
-
--(void) setSkipWarningAboutPlacingIconNearTheSpotlightIconToYes {
-    
-    [gTbDefaults setBool: YES forKey: @"skipWarningAboutPlacingIconNearTheSpotlightIcon"];
-}
-
--(void) confirmIconNearSpotlightIconIsOKThread {
-    
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
-    int result;
-    BOOL checkboxResult = NO;
-    do {
-        result = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                         NSLocalizedString(@"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\n"
-                                                           @"This may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\n"
-                                                           @"Are you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n", @"Window text"),
-                                         NSLocalizedString(@"Place Icon Normally",                @"Button"), // Default
-                                         NSLocalizedString(@"More Info", @"Button"),                          // Alternate
-                                         NSLocalizedString(@"Place Icon Near the Spotlight Icon", @"Button"), // Other
-                                         @"skipWarningAboutPlacingIconNearTheSpotlightIcon",
-                                         NSLocalizedString(@"Do not warn about this again",       @"Checkbox name"),
-                                         &checkboxResult,
-                                         NSAlertDefaultReturn);
-        if (  result == NSAlertAlternateReturn  ) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://tunnelblick.net/cIconPlacement.html"]];
-        }
-    } while (  result == NSAlertAlternateReturn  );
-    
-    if (  checkboxResult) {
-        [self performSelectorOnMainThread: @selector(setSkipWarningAboutPlacingIconNearTheSpotlightIconToYes) withObject: nil waitUntilDone: NO];
-    }
-    
-    NSNumber * newPreferenceValue = [NSNumber numberWithBool: (result != NSAlertOtherReturn)];
-    [self performSelectorOnMainThread: @selector(doPlaceIconNearSpotlightIcon:) withObject: newPreferenceValue waitUntilDone: NO];
-    
-    [pool drain];
-}
-
--(void) showConfirmIconNearSpotlightIconDialog {
-    
-    if (   ( ! showingConfirmIconNearSpotlightIconDialog)
-        && ( ! [gTbDefaults boolForKey: @"skipWarningAboutPlacingIconNearTheSpotlightIcon"])  ) {
-        showingConfirmIconNearSpotlightIconDialog = TRUE;
-        [NSThread detachNewThreadSelector: @selector(confirmIconNearSpotlightIconIsOKThread) toTarget: self withObject: nil];
-    }
-}
-
 -(NSString *) openvpnVersionToUseInsteadOfVersion: (NSString *) desiredVersion {
 
 	// Returns a string with an OpenVPN version that is the "closest match" to desiredVersion and is included in Tunnelblick:
@@ -5405,13 +5292,6 @@ static void signal_handler(int signalNumber)
     
     if (  [dotTblkFileList count] == 0  ) {
         [self checkNoConfigurations];
-    }
-    
-    if (   ( ! mustPlaceIconInStandardPositionInStatusBar() )
-        && ( ! [gTbDefaults boolForKey: @"placeIconInStandardPositionInStatusBar"] )
-        && ( shouldPlaceIconInStandardPositionInStatusBar() )
-        ) {
-        [self showConfirmIconNearSpotlightIconDialog];
     }
     
 	[NSThread detachNewThreadSelector: @selector(warnIfOnSystemStartConfigurationsAreNotConnectedThread) toTarget: self withObject: nil];

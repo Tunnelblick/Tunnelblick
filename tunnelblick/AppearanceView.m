@@ -59,7 +59,6 @@ extern MenuController * gMC;
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceIconSetArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,     appearanceIconSetButton)
-TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          appearancePlaceIconNearSpotlightCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectionSubmenusCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectionTimersCheckbox)
@@ -124,22 +123,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
 														   @"HTML info for the 'Icon' button."))];
     [UIHelper setTitle: nil ofControl: appearanceIconSetButton shift: rtl narrow: YES enable: YES];
     
-    // Icon placement checkbox
-    NSString * onRightImageTag = [UIHelper imgTagForImageName: @"info-icon-on-right-360x40" width: 360 height: 40];
-    NSString * onLeftImageTag  = [UIHelper imgTagForImageName: @"info-icon-on-left-360x40"  width: 360 height: 40];
-    NSAttributedString * infoTitle = attributedStringFromHTML([NSString stringWithFormat:
-                                                                          NSLocalizedString(@"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n"
-                                                                                            @"<p>%@</p>\n"
-                                                                                            @"<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n"
-                                                                                            @"<p>%@</p>\n"
-                                                                                            @"<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n"
-                                                                                            @"<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>",
-                                                                                            @"HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon."),
-                                                               onRightImageTag, onLeftImageTag]);
-	[appearancePlaceIconNearSpotlightCheckbox
-	 setTitle: NSLocalizedString(@"Place near Spotlight icon", @"Checkbox name")
-	 infoTitle: infoTitle];
-	
 	// Menu checkboxes
 	[appearanceMenuTFC setTitle: NSLocalizedString(@"Menu:", @"Window text")];
 	[appearanceDisplayConnectionSubmenusCheckbox

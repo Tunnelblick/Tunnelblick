@@ -591,16 +591,6 @@ BOOL displaysHaveDifferentSpaces(void) {
     return YES; // Error, so assume displays do have different spaces
 }
 
-BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
-    
-    return YES;
-}
-
-BOOL shouldPlaceIconInStandardPositionInStatusBar(void) {
-    
-    return YES;
-}
-
 NSString * rgbValues(BOOL foreground) {
 	
 	NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
