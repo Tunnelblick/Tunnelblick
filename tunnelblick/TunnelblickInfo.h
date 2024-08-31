@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSArray  * systemSounds;
 
+    NSNumber * runningOnMacOSBeta;
+
     NSNumber * userIsAnAdmin;
 }
 
@@ -80,6 +82,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *) systemVersionString;
 
 -(NSArray *) systemSounds;
+
+-(BOOL) runningOnMacOSBeta;
 
 // INFO ABOUT THE USER
 

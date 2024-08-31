@@ -164,8 +164,6 @@ BOOL           runningOn__Monterey__Successor__OrNewer(void);
 
 BOOL           runningOnTen_Fourteen_FiveOrNewer(void);
 
-BOOL           runningOnMacosBeta(void);
-
 BOOL           runningOnOCLP(void);
 
 BOOL           bothKextsAreInstalled(void);

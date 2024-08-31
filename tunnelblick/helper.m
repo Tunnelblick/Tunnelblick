@@ -385,22 +385,6 @@ BOOL runningWithSIPDisabled(void) {
     return result;
 }
 
-BOOL runningOnMacosBeta(void) {
-
-    NSString * stdOutString = nil;
-    NSString * stdErrString = nil;
-    OSStatus status = runTool(TOOL_PATH_FOR_SW_VERS, @[@"-buildVersion"], &stdOutString, &stdErrString);
-    if (   (status == EXIT_SUCCESS)
-        && ([stdOutString length] > 0)  ) {
-        NSString * lastCharacter = [stdOutString substringWithRange: NSMakeRange([stdOutString length] - 1, 1)];
-        BOOL isLetter = [@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" containsString: lastCharacter];
-        return isLetter;
-    }
-
-    NSLog(@"Error status %d from 'sw_vers -buildVersion'; stdout = '%@'; stderr = '%@'", status, stdOutString, stdErrString);
-    return NO;
-}
-
 BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
 {
     unsigned major, minor, bugFix;

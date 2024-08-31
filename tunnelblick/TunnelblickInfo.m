@@ -332,6 +332,30 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[systemSounds copy] autorelease];
 }
 
+-(BOOL) runningOnMacOSBeta {
+
+    if (  ! runningOnMacOSBeta  ) {
+
+        BOOL onBeta = NO;
+        NSString * stdOutString = nil;
+        NSString * stdErrString = nil;
+        OSStatus status = runTool(TOOL_PATH_FOR_SW_VERS, @[@"-buildVersion"], &stdOutString, &stdErrString);
+        if (   (status != EXIT_SUCCESS)
+            || ([stdOutString length] == 0)  ) {
+            NSLog(@"Error status %d from 'sw_vers -buildVersion'; stdout = '%@'; stderr = '%@'", status, stdOutString, stdErrString);
+            [gMC terminateBecause: terminatingBecauseOfError];
+            return NO; // Satisfy static analyzer
+        }
+
+        NSString * lastCharacter = [stdOutString substringWithRange: NSMakeRange([stdOutString length] - 1, 1)];
+        onBeta = [@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" containsString: lastCharacter];
+
+        runningOnMacOSBeta = [[NSNumber numberWithBool: onBeta] copy];
+    }
+
+    return runningOnMacOSBeta.boolValue;
+}
+
 -(BOOL) userIsAnAdmin {
 
     if (  ! userIsAnAdmin  ) {
