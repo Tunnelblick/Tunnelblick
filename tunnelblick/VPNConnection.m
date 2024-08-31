@@ -595,7 +595,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 -(BOOL) shouldAuthenticateOnConnect {
     NSString * authKey = [[self displayName] stringByAppendingString: @"-authenticateOnConnect"];
     BOOL authenicateOnConnct = [gTbDefaults boolForKey:authKey];
-    return authenicateOnConnct && localAuthenticationIsAvailable();
+    return authenicateOnConnct;
 }
 
 // Returns TRUE if this configuration will be connected when the system starts via a launchd .plist

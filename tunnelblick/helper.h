@@ -178,7 +178,6 @@ BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
 BOOL           tunnelblickTestAppInApplications(void);
 BOOL           tunnelblickTestDeployed(void);
 BOOL           tunnelblickTestHasDeployBackups(void);
-BOOL           localAuthenticationIsAvailable(void);
 
 NSString     * architectureBeingUsed(void);
 

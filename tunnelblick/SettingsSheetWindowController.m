@@ -1407,13 +1407,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 -(void) setupUpdatesAuthenticateOnConnectCheckbox {
     NSString *key = [configurationName stringByAppendingString:@"-authenticateOnConnect"];
     TBButton * checkbox = authenticateOnConnectCheckbox;
-    if (localAuthenticationIsAvailable()) {
-        [checkbox setEnabled:YES];
-    } else {
-        [checkbox setEnabled:NO];
-    }
+    [checkbox setEnabled:YES];
     BOOL answer = (   [gTbDefaults boolForKey: key]
-                   && ( ! [gTbDefaults canChangeValueForKey: key] && localAuthenticationIsAvailable())
+                   && ( ! [gTbDefaults canChangeValueForKey: key] )
                    );
     [checkbox setState: (  answer
                          ? NSOnState

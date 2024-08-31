@@ -601,11 +601,6 @@ BOOL shouldPlaceIconInStandardPositionInStatusBar(void) {
     return YES;
 }
 
-BOOL localAuthenticationIsAvailable(void) {
-    
-    return YES;
-}
-
 NSString * rgbValues(BOOL foreground) {
 	
 	NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
