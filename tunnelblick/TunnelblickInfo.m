@@ -240,6 +240,46 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[latestOpenvpnOpensslVersion copy] autorelease];
 }
 
+-(BOOL) runningWithSIPDisabled {
+
+    if (  ! runningWithSIPDisabled  ) {
+
+        BOOL isDisabled = YES;
+
+        if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_CSRUTIL]  ) {
+            NSLog(@"Assuming SIP is disabled (i.e., is not in effect) because '%@' does not exist", TOOL_PATH_FOR_CSRUTIL);
+        } else {
+
+            NSString * stdOutString = nil;
+            NSString * stdErrString = nil;
+            OSStatus status = runTool(TOOL_PATH_FOR_CSRUTIL, @[@"status"], &stdOutString, &stdErrString);
+            if (  status != EXIT_SUCCESS  ) {
+                NSLog(@"Error status %d from '%@ status'; assuming SIP is enabled. stdout = '%@'; stderr = '%@'",
+                      status, TOOL_PATH_FOR_ID, stdOutString, stdErrString);
+                isDisabled = NO;
+            } else {
+
+                BOOL disabled = [stdOutString containsString: @"System Integrity Protection status: disabled"];
+                BOOL enabled  = [stdOutString containsString: @"System Integrity Protection status: enabled"];
+                if (   disabled
+                    && ( ! enabled)  ) {
+                    isDisabled = YES;
+                } else if (   enabled
+                           && ( ! disabled) ) {
+                    isDisabled = NO;
+                } else {
+                    NSLog(@"Cannot determine SIP status; assuming SIP is enabled. stdout from '%@ status' = '%@'", TOOL_PATH_FOR_CSRUTIL, stdOutString);
+                    isDisabled = NO;
+                }
+            }
+        }
+
+        runningWithSIPDisabled = [[NSNumber numberWithBool: isDisabled] copy];
+    }
+
+    return runningWithSIPDisabled.boolValue;
+}
+
 -(NSString *) systemVersionString {
 
     // Returns a string like "14.6.1", i.e., the numeric version (not including a name such as "Sonoma")

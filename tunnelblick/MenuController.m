@@ -4717,7 +4717,7 @@ static void signal_handler(int signalNumber)
     BOOL alwaysLoadTun     = [self oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: @"tun"];
     BOOL configNeedsTap    = [self oneOrMoreConfigurationsMustLoad: @"tap"];
     BOOL configNeedsTun    = [self oneOrMoreConfigurationsMustLoad: @"tun"];
-    BOOL sipIsDisabled     = runningWithSIPDisabled();
+    BOOL sipIsDisabled     = [gTbInfo runningWithSIPDisabled];
 
     [self displayMessageAboutBigSurAndKextsAlwaysLoadTap: alwaysLoadTap
                                            alwaysLoadTun: alwaysLoadTun

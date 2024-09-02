@@ -4796,7 +4796,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                       ? [NSString stringWithFormat: @"The Tunnelblick.app process is being translated (%@)\n", architectureBeingUsed()]
                                       : [NSString stringWithFormat: @"The Tunnelblick.app process is not being translated (%@)\n", architectureBeingUsed()]);
 
-        NSString * sipStatusInfo = (  runningWithSIPDisabled()
+        NSString * sipStatusInfo = (  [gTbInfo runningWithSIPDisabled]
                                     ? @"System Integrity Protection is DISABLED\n"
                                     : @"System Integrity Protection is enabled\n");
 

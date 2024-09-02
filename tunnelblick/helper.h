@@ -150,8 +150,6 @@ BOOL           processIsTranslated(void);
 
 BOOL           runningATunnelblickBeta  (void);
 
-BOOL           runningWithSIPDisabled   (void);
-
 BOOL           displaysHaveDifferentSpaces(void);
 
 BOOL           bothKextsAreInstalled(void);
