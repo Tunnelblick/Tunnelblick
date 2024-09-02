@@ -1673,7 +1673,7 @@ returnNO:
 
     if (  ! currentArchitecture  ) {
 
-        currentArchitecture = [architectureBeingUsed() retain];
+        currentArchitecture = [[gTbInfo architectureBeingUsed] retain];
         if (  ! currentArchitecture) {
             if (  ! self.warnedNoCurrentArchitecture  ) {
                 [self notifyErrorMessage: @"Error getting architecture being used"];

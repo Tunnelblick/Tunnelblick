@@ -4793,8 +4793,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * gitInfo = [self gitInfo];
 		
         NSString * translationInfo = (  processIsTranslated()
-                                      ? [NSString stringWithFormat: @"The Tunnelblick.app process is being translated (%@)\n", architectureBeingUsed()]
-                                      : [NSString stringWithFormat: @"The Tunnelblick.app process is not being translated (%@)\n", architectureBeingUsed()]);
+                                      ? [NSString stringWithFormat: @"The Tunnelblick.app process is being translated (%@)\n", [gTbInfo architectureBeingUsed]]
+                                      : [NSString stringWithFormat: @"The Tunnelblick.app process is not being translated (%@)\n", [gTbInfo architectureBeingUsed]]);
 
         NSString * sipStatusInfo = (  [gTbInfo runningWithSIPDisabled]
                                     ? @"System Integrity Protection is DISABLED\n"

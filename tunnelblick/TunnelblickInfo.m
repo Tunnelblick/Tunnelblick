@@ -22,6 +22,7 @@
 // Provides instance methods to access information about a Tunnelblick.app,
 // the system, and the user.
 
+#import <sys/sysctl.h>
 
 #import "TunnelblickInfo.h"
 
@@ -251,6 +252,31 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     }
 
     return [[latestOpenvpnOpensslVersion copy] autorelease];
+}
+
+-(NSString *) architectureBeingUsed {
+
+    if (  ! architectureBeingUsed  ) {
+
+        NSString * arch;
+
+        char return_string[1000];
+        size_t size = 1000;
+        if (  sysctlbyname("machdep.cpu.brand_string", &return_string, &size, NULL, 0) == -1  ) {
+            NSLog(@"architectureBeingUsed: Error from sysctlbyname(\"machdep.cpu.brand_string\"): %d (%s), assuming '%@'",
+                  errno, strerror(errno), ARCH_X86);
+            arch = ARCH_X86;
+        } else {
+            BOOL isIntel = (  strstr(return_string, "Intel") != 0  );
+            arch = (  isIntel
+                    ? ARCH_X86
+                    : ARCH_ARM);
+        }
+
+        architectureBeingUsed = [arch retain];
+    }
+
+    return [[architectureBeingUsed copy] autorelease];
 }
 
 -(BOOL) runningWithSIPDisabled {

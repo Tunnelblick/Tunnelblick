@@ -158,8 +158,6 @@ BOOL           tunnelblickTestAppInApplications(void);
 BOOL           tunnelblickTestDeployed(void);
 BOOL           tunnelblickTestHasDeployBackups(void);
 
-NSString     * architectureBeingUsed(void);
-
 BOOL           thisArchitectureSupportsBinaryAtPath(NSString * path);
 
 OSStatus       MyGotoHelpPage           (NSString * pagePath,

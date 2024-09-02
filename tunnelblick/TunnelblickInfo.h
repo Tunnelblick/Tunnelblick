@@ -48,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSString * ipCheckURLString;
 
+    NSString * architectureBeingUsed;
     NSNumber * runningWithSIPDisabled;
 
     NSString * systemVersionString;
@@ -86,6 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *) ipCheckURLString;
 
 // INFO ABOUT THE SYSTEM
+
+-(NSString *) architectureBeingUsed;
 
 -(BOOL) runningWithSIPDisabled;
 

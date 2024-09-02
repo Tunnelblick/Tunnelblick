@@ -47,6 +47,7 @@
 #import "NSTimer+TB.h"
 #import "StatusWindowController.h"
 #import "SystemAuth.h"
+#import "TunnelblickInfo.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
@@ -63,6 +64,7 @@ extern volatile int32_t   gSleepWakeState;
 extern BOOL               gShuttingDownTunnelblick;
 extern BOOL               gShuttingDownOrRestartingComputer;
 extern TBUserDefaults   * gTbDefaults;
+extern TunnelblickInfo  * gTbInfo;
 extern NSArray          * gTotalUnits;
 
 @interface VPNConnection()          // PRIVATE METHODS
@@ -1506,7 +1508,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
                                                 @"<p>You can do that from Tunnelblick's 'Utilities' panel.</p>"
                                                 @"<p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>", @"HTML text.")];
 
-       if (  [architectureBeingUsed() isEqualToString: ARCH_ARM]  ) {
+       if (  [[gTbInfo architectureBeingUsed] isEqualToString: ARCH_ARM]  ) {
 		   [message appendString: NSLocalizedString(@"<p>'Allowing' the system extensions may require a change to a system security setting. The setting can be changed only in Recovery mode. You may need to restart in Recovery mode, make the change, then restart again normally. macOS should guide you through this process.</p>", @"HTML text, displayed after a message about getting Tunnelblick's system extensions approved by macOS.")];
        }
 

@@ -41,6 +41,7 @@
 #import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
+#import "TunnelblickInfo.h"
 #import "UIHelper.h"
 
 // PRIVATE FUNCTIONS:
@@ -59,6 +60,7 @@ extern MenuController * gMC;
 extern NSString       * gPrivatePath;
 extern BOOL             gShuttingDownTunnelblick;
 extern TBUserDefaults * gTbDefaults;
+extern TunnelblickInfo * gTbInfo;
 
 FILE * gLogFile = NULL;
 
@@ -421,36 +423,6 @@ NSString * rgbValues(BOOL foreground) {
 	return result;
 }
 
-NSString * architectureBeingUsed(void) {
-    
-    char return_string[1000];
-    size_t size = 1000;
-    if (  sysctlbyname("machdep.cpu.brand_string", &return_string, &size, NULL, 0) == -1  ) {
-        NSLog(@"architectureBeingUsed(): Error from sysctlbyname(\"machdep.cpu.brand_string\"): %d (%s), assuming '%@'",
-              errno, strerror(errno), ARCH_X86);
-        return ARCH_X86;
-    }
-
-    BOOL isIntel = (  strstr(return_string, "Intel") != 0  );
-    return (  isIntel
-            ? ARCH_X86
-            : ARCH_ARM);
-    
-/* Using the sysctl command
-    NSString * stdOutString = nil;
-    NSString * stdErrString = nil;
-    OSStatus status = runTool(TOOL_PATH_FOR_SYSCTL, @[@"-n", @"machdep.cpu.brand_string"], &stdOutString, &stdErrString);
-    if (   (status == EXIT_SUCCESS)
-        && ([stdOutString length] > 0)  ) {
-        return [stdOutString containsString: @"Intel"];
-    }
-
-    NSLog(@"Error status %d from 'sysctl -a'; stdout = '%@'; stderr = '%@'", status, stdOutString, stdErrString);
-    return NO;
-*/
-
-}
-
 NSString * architecturesForExecutable(NSString * path) {
     
     // Run "file <path>" to get a list of architectures that can run the executable at <path>
@@ -485,7 +457,7 @@ BOOL thisArchitectureSupportsBinaryAtPath(NSString * path) {
     // about it.
 
     NSString * archs = architecturesForExecutable(path);
-    NSString * currentArch = architectureBeingUsed();
+    NSString * currentArch = [gTbInfo architectureBeingUsed];
 
     if (  [currentArch isEqualToString: ARCH_ARM]) {
         return [archs containsString: ARCH_ARM];
