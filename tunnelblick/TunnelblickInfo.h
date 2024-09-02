@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSNumber * runningOnMacOSBeta;
 
+    NSNumber * runningOnOCLP;
+
     NSNumber * userIsAnAdmin;
 }
 
@@ -84,6 +86,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSArray *) systemSounds;
 
 -(BOOL) runningOnMacOSBeta;
+
+-(BOOL) runningOnOCLP;
 
 // INFO ABOUT THE USER
 

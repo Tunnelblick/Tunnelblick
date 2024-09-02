@@ -156,8 +156,6 @@ BOOL           runningWithSIPDisabled   (void);
 
 BOOL           displaysHaveDifferentSpaces(void);
 
-BOOL           runningOnOCLP(void);
-
 BOOL           bothKextsAreInstalled(void);
 BOOL           anyKextsAreLoaded(void);
 

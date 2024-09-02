@@ -624,7 +624,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         TBLog(@"DB-SU", @"init: 000")
         
         NSString * osVersionString = [gTbInfo systemVersionString];
-        NSString * oclpString = (  runningOnOCLP()
+        NSString * oclpString = (  [gTbInfo runningOnOCLP]
                                  ? @" (OLCP)"
                                  : @"");
         NSString * uidString = [NSMutableString stringWithFormat: @"getuid() = %d; geteuid() = %d; getgid() = %d; getegid() = %d\ncurrentDirectoryPath = '%@'",
@@ -2900,7 +2900,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
 		NSString * buildNumber   = [self extractItemFromSwVersWithOption: @"-buildVersion"];
 
-        NSString * oclpString = (  runningOnOCLP()
+        NSString * oclpString = (  [gTbInfo runningOnOCLP]
                                  ? @" (OLCP)"
                                  : @"");
 

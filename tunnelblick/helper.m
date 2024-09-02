@@ -385,63 +385,6 @@ BOOL runningWithSIPDisabled(void) {
     return result;
 }
 
-NSDictionary * nvramContents(void) {
-
-    static NSDictionary * contents = nil;
-
-    if (  contents  ) {
-        return [[contents retain] autorelease];
-    }
-
-    // Get contents
-
-    kern_return_t               result;
-    mach_port_t                 masterPort;
-    static io_registry_entry_t  gOptionsRef;
-
-    result = IOMasterPort(bootstrap_port, &masterPort);
-    if (result != KERN_SUCCESS) {
-        NSLog(@"nvramContents: Error getting the IOMaster port: %s", mach_error_string(result));
-        return nil;
-    }
-
-    gOptionsRef = IORegistryEntryFromPath(masterPort, "IODeviceTree:/options");
-    if (gOptionsRef == 0) {
-        NSLog(@"nvramContents: NVRAM is not supported on this system");
-        return nil;
-    }
-
-    // Get dictionary with NVRAM contents
-    CFMutableDictionaryRef dictCF;
-
-    result = IORegistryEntryCreateCFProperties(gOptionsRef, &dictCF, 0, 0);
-    if (result != KERN_SUCCESS) {
-        NSLog(@"nvramContents: Error getting the NVRAM: %s", mach_error_string(result));
-    }
-
-    NSDictionary * dict = (__bridge NSMutableDictionary *)dictCF;
-
-    NSMutableDictionary * dictM = [[NSMutableDictionary alloc] initWithCapacity: [dict count]];
-    [dict enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
-        [dictM setObject: obj forKey: key];
-        (void)stop;
-    }];
-    contents = [[NSDictionary dictionaryWithDictionary: dictM] retain];
-
-    [dictM release];
-    CFRelease(dictCF);
-    IOObjectRelease(gOptionsRef);
-
-    return contents;
-}
-
-BOOL runningOnOCLP(void) {
-
-    NSDictionary * nvram = nvramContents();
-    BOOL result = [nvram doesContain: @"4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102:opencore-version"];
-    return result;
-}
-
 BOOL bothKextsAreInstalled(void) {
     
     BOOL result = (   [gFileMgr fileExistsAtPath: @"/Library/Extensions/tunnelblick-tun.kext"]
