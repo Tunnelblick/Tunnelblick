@@ -1500,8 +1500,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
 	NSMutableString * message = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
 
-   if (   runningOnBigSurOrNewer()
-        && ( ! bothKextsAreInstalled() )  ) {
+   if (  ! bothKextsAreInstalled()  ) {
 
        [message appendString: NSLocalizedString(@"<p>You need to install Tunnelblick's system extensions to use this configuration.</p>"
                                                 @"<p>You can do that from Tunnelblick's 'Utilities' panel.</p>"
@@ -1513,7 +1512,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
        [message appendString: NSLocalizedString(@"<p>See <a href=\"https://tunnelblick.net/cKextsInstallation.html\">Installing System Extensions</a> [tunnelblick.net] for more information.</p>", @"HTML text. The '[tunnelblick.net]' is to show the user that the link is to tunnelblick.net.")];
 
-    } else if (  runningOnTen_Fourteen_FiveOrNewer()  ) {
+    } else {
 
         BOOL kextPolicyFound;
         BOOL tapEnabled;
@@ -1681,9 +1680,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 			return;
 		} else if (  status == OPENVPNSTART_COULD_NOT_LOAD_KEXT  ) {
 
-			NSString * link = (  runningOnTen_Fourteen_FiveOrNewer()
-								  ? @"https://tunnelblick.net/cCatalina.html"
-								  : @"https://tunnelblick.net/cHighSierraMojave.html");
+			NSString * link = @"https://tunnelblick.net/cCatalina.html";
 			NSString * linkMsg = [NSString stringWithFormat:
 								  NSLocalizedString(@"<p><a href=\"%@\">More information</a> [tunn" @"elblick.n" @"et]</p>",
 													@"HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL"
@@ -2781,15 +2778,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  ! [preference isEqualToString: @"never"]  ) {
 
 #if MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS
-        if (   runningOn__Monterey__Successor__OrNewer()  ) {
-            if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
-                NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
-            } else {
-				if (  preference  ) {
-                	NSLog(@"Will not try to load kexts on this version of macOS, so ignoring '%@' for '%@'", preference, preferenceKey);
-				}
-                preference = @"never";
+        if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
+            NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
+        } else {
+            if (  preference  ) {
+                NSLog(@"Will not try to load kexts on this version of macOS, so ignoring '%@' for '%@'", preference, preferenceKey);
             }
+            preference = @"never";
         }
 #endif
 
@@ -2811,15 +2806,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  ! [preference isEqualToString: @"never"]  ) {
 
 #if MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS
-        if (   runningOn__Monterey__Successor__OrNewer()  ) {
-            if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
-                NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
-            } else {
-				if (  preference  ) {
-               		NSLog(@"Will not try to load kexts on this version of macOS, so ignoring '%@' for '%@'", preference, preferenceKey);
-				}
-                preference = @"never";
+        if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
+            NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
+        } else {
+            if (  preference  ) {
+                NSLog(@"Will not try to load kexts on this version of macOS, so ignoring '%@' for '%@'", preference, preferenceKey);
             }
+            preference = @"never";
         }
 #endif
 
@@ -2876,9 +2869,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         bitMask = bitMask | OPENVPNSTART_EXTRA_LOGGING;
     }
 
-    if (  runningOnBigSurOrNewer()  ) {
-        bitMask = bitMask | OPENVPNSTART_ON_BIG_SUR_OR_NEWER;
-    }
+    bitMask = bitMask | OPENVPNSTART_ON_BIG_SUR_OR_NEWER;
 
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
 

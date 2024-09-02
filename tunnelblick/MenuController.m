@@ -445,11 +445,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 	
 	// Warn and offer to quit if the system folders Tunnelblick uses don't exist or aren't secure.
 	
-	gid_t gid_for_tmp = (   runningOnCatalinaOrNewer()
-                         && ( ! runningOnBigSurOrNewer() )
-				   ? ADMIN_GROUP_ID
-				   : 0);
-	[self checkTemporaryFolder: @"/tmp"         requiredPermissions: 00755 requiredOwner: 0 requiredGroupOwner: gid_for_tmp];
+	[self checkTemporaryFolder: @"/tmp"         requiredPermissions: 00755 requiredOwner: 0 requiredGroupOwner: 0];
 	[self checkTemporaryFolder: @"/private"     requiredPermissions: 00755 requiredOwner: 0 requiredGroupOwner: 0];
 	[self checkTemporaryFolder: @"/private/tmp" requiredPermissions: 01777 requiredOwner: 0 requiredGroupOwner: 0];
 	
@@ -4728,14 +4724,13 @@ static void signal_handler(int signalNumber)
     BOOL alwaysLoadTun     = [self oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: @"tun"];
     BOOL configNeedsTap    = [self oneOrMoreConfigurationsMustLoad: @"tap"];
     BOOL configNeedsTun    = [self oneOrMoreConfigurationsMustLoad: @"tun"];
-    BOOL onMontereySucessorOrNewer = runningOn__Monterey__Successor__OrNewer();
     BOOL sipIsDisabled     = runningWithSIPDisabled();
 
     [self displayMessageAboutBigSurAndKextsAlwaysLoadTap: alwaysLoadTap
                                            alwaysLoadTun: alwaysLoadTun
                                           configNeedsTap: configNeedsTap
                                           configNeedsTun: configNeedsTun
-                                 onMontereySucessorOrNewer: onMontereySucessorOrNewer
+                               onMontereySucessorOrNewer: TRUE
                                            sipIsDisabled: sipIsDisabled];
 }
 

@@ -240,18 +240,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[latestOpenvpnOpensslVersion copy] autorelease];
 }
 
--(void) getSystemVersionMajor: (unsigned *) major
-                        minor: (unsigned *) minor
-                       bugFix: (unsigned *) bugFix {
-
-    OSStatus status = getSystemVersion(major, minor, bugFix);
-    if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"ERROR: Could not get macOS version info");
-        [gMC terminateBecause: terminatingBecauseOfError];
-    }
-}
-
-
 -(NSString *) systemVersionString {
 
     // Returns a string like "14.6.1", i.e., the numeric version (not including a name such as "Sonoma")
@@ -266,33 +254,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     }
 
     return [[systemVersionString copy] autorelease];
-}
-
--(BOOL) isSystemVersionAtLeastMajor: (unsigned) major
-                              minor: (unsigned) minor
-                             bugfix: (unsigned) bugfix {
-
-    unsigned systemMajor, systemMinor, SystemBugfix;
-
-    getSystemVersion(&systemMajor, &systemMinor, &SystemBugfix);
-
-    if (  major > systemMajor) {
-        return YES;
-    }
-    if (  major < systemMajor) {
-        return NO;
-    }
-    if (  minor >systemMinor) {
-        return YES;
-    }
-    if (  minor < systemMinor) {
-        return NO;
-    }
-    if (  bugfix >= systemMajor) {
-        return YES;
-    }
-    
-    return NO;
 }
 
 -(NSArray *) systemSounds {

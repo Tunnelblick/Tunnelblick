@@ -385,77 +385,6 @@ BOOL runningWithSIPDisabled(void) {
     return result;
 }
 
-BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
-{
-    unsigned major, minor, bugFix;
-    OSStatus status = getSystemVersion(&major, &minor, &bugFix);
-    if (  status != 0) {
-        NSLog(@"getSystemVersion() failed");
-        [gMC terminateBecause: terminatingBecauseOfError];
-        return FALSE;
-    }
-    
-    return (   (major > majorVersion)
-			|| (   (major == majorVersion)
-				&& (minor >  minorVersion)
-				)
-			);
-}
-
-
-BOOL runningOnMojaveOrNewer(void)
-{
-	return runningOnNewerThan(10, 13);
-}
-
-BOOL runningOnCatalinaOrNewer(void)
-{
-	return runningOnNewerThan(10, 14);
-}
-
-BOOL runningOnBigSurOrNewer(void)
-{
-    return runningOnNewerThan(10, 15); // Handles 11.0, too
-}
-
-BOOL runningOnMontereyOrNewer(void) {
-
-    return runningOnNewerThan(11, 99999);
-}
-
-BOOL runningOn__Monterey__Successor__OrNewer(void) {
-    
-    return runningOnNewerThan(12, 99999);
-}
-
-BOOL runningOnNewerThanWithBugFix(unsigned majorVersion, unsigned minorVersion, unsigned bugfixVersion)
-{
-	unsigned major, minor, bugFix;
-	OSStatus status = getSystemVersion(&major, &minor, &bugFix);
-	if (  status != 0) {
-		NSLog(@"getSystemVersion() failed");
-		[gMC terminateBecause: terminatingBecauseOfError];
-		return FALSE;
-	}
-	
-	return (   (major >  majorVersion)
-			|| (   (major == majorVersion)
-				&& (   (minor >  minorVersion)
-					|| (   (minor == minorVersion
-							&& (bugFix > bugfixVersion)
-							)
-						)
-					)
-				)
-			);
-}
-
-BOOL runningOnTen_Fourteen_FiveOrNewer(void)
-{
-	BOOL result = runningOnNewerThanWithBugFix(10, 14, 4);
-	return result;
-}
-
 NSDictionary * nvramContents(void) {
 
     static NSDictionary * contents = nil;
@@ -1099,22 +1028,18 @@ AlertWindowController * TBShowAlertWindowExtended(NSString * title,
 	[awc setCheckboxIsChecked:   checkboxIsOn];
 	
 	if (  [[msg class] isSubclassOfClass: [NSString class]]  ) {
-		if ( runningOnNewerThanWithBugFix(10, 14, 4)  ) {
-			// Surround the msg with a span that sets text foreground/background colors for light or dark mode
-			NSMutableString * ms = [[[NSMutableString alloc]
-									 initWithFormat:
-									 @"<span style=\"color:%@;background-color:%@\">%@</span>",
-									 rgbValues(YES), rgbValues(NO), msg]
-									autorelease];
-			// Do simplest possible conversion of text to HTML by replacing newlines with <br>
-			//    and multiple spaces with multiple &nbsp;
-			[ms replaceOccurrencesOfString: @"\n" withString: @"<br>" options: 0 range: NSMakeRange(0, [ms length])];
-			[ms replaceOccurrencesOfString: @"  " withString: @"&nbsp;&nbsp;" options: 0 range: NSMakeRange(0, [ms length])];
-			NSAttributedString * result = attributedStringFromHTML(ms);
-			[awc setMessageAS: result];
-		} else {
-			[awc setMessage: msg];
-		}
+        // Surround the msg with a span that sets text foreground/background colors for light or dark mode
+        NSMutableString * ms = [[[NSMutableString alloc]
+                                 initWithFormat:
+                                     @"<span style=\"color:%@;background-color:%@\">%@</span>",
+                                 rgbValues(YES), rgbValues(NO), msg]
+                                autorelease];
+        // Do simplest possible conversion of text to HTML by replacing newlines with <br>
+        //    and multiple spaces with multiple &nbsp;
+        [ms replaceOccurrencesOfString: @"\n" withString: @"<br>" options: 0 range: NSMakeRange(0, [ms length])];
+        [ms replaceOccurrencesOfString: @"  " withString: @"&nbsp;&nbsp;" options: 0 range: NSMakeRange(0, [ms length])];
+        NSAttributedString * result = attributedStringFromHTML(ms);
+        [awc setMessageAS: result];
 	} else if (  [[msg class] isSubclassOfClass: [NSAttributedString class]]  ) {
 		[awc setMessageAS: msg];
 	} else {

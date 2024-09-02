@@ -140,13 +140,6 @@ extern TBUserDefaults * gTbDefaults;
             NSString * privateSharedDeployed = [connection displayLocation];
             NSString * state = localizeNonLiteral([connection state], @"Connection status");
             NSString * timeString = [connection connectTimeString];
-            if (   vpnDetailsWindow
-                && ( ! runningOnBigSurOrNewer() )  ) {
-                NSString * statusMsg = [NSString stringWithFormat: @"%@%@: %@%@ - Tunnelblick",
-                                        name, privateSharedDeployed, state, timeString];
-                [vpnDetailsWindow setTitle: statusMsg];
-                TBLog(@"DB-UU", @"TBUIUpdater timerTickHandler: set title of VPN Details... window to '%@'", statusMsg);
-            }
             if (   advancedWindow
                 && showingAdvancedWindow  ) {
                 NSString * statusMsg = [NSString stringWithFormat: @"%@%@: %@%@ - Advanced - Tunnelblick",

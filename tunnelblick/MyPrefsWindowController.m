@@ -1648,31 +1648,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(NSString *) windowTitle: (NSString *) currentItemLabel
 {
 	(void) currentItemLabel;
-	
-    NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
-    NSString *appName = [[NSFileManager defaultManager] displayNameAtPath: bundlePath];
-    if (  [appName hasSuffix: @".app"]  ) {
-        appName = [appName substringToIndex: [appName length] - 4];
-    }
-    
-    NSString * windowLabel = (  runningOnBigSurOrNewer()
-                              ? localizeNonLiteral(currentViewName, @"Window title")
-                              : [NSString stringWithFormat: @"%@ - Tunnelblick", localizeNonLiteral(currentViewName, @"Window title")]);
-
-    if (   [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]
-        && ( ! runningOnBigSurOrNewer() )  ) {
-        VPNConnection * connection = [self selectedConnection];
-        if (  connection  ) {
-            NSString * status = localizeNonLiteral([connection state], @"Connection status");
-            NSString * connectionTimeString = @"";
-            if (   [connection isConnected]
-                && [gTbDefaults boolWithDefaultYesForKey: @"showConnectedDurations"]  ) {
-				connectionTimeString = [connection connectTimeString];
-            }
-            windowLabel = [NSString stringWithFormat: NSLocalizedString(@"%@%@: %@%@ - %@", @"Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances"), [connection localizedName], [connection displayLocation], status, connectionTimeString, appName];
-        }
-    }
-    
+   
+    NSString * windowLabel = localizeNonLiteral(currentViewName, @"Window title");
     return windowLabel;
 }
 

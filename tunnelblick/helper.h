@@ -156,14 +156,6 @@ BOOL           runningWithSIPDisabled   (void);
 
 BOOL           displaysHaveDifferentSpaces(void);
 
-BOOL           runningOnMojaveOrNewer(void);
-BOOL           runningOnCatalinaOrNewer(void);
-BOOL           runningOnBigSurOrNewer(void);
-BOOL           runningOnMontereyOrNewer(void);
-BOOL           runningOn__Monterey__Successor__OrNewer(void);
-
-BOOL           runningOnTen_Fourteen_FiveOrNewer(void);
-
 BOOL           runningOnOCLP(void);
 
 BOOL           bothKextsAreInstalled(void);

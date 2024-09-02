@@ -379,8 +379,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     BOOL enabled = TRUE;
 
 #if MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS
-    BOOL donotLoadKext = (   runningOn__Monterey__Successor__OrNewer()
-                          && ( ! [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"] )  );
+    BOOL donotLoadKext = (  ! [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  );
 
     if (  donotLoadKext  ) {
         if (  index != 2  ) {

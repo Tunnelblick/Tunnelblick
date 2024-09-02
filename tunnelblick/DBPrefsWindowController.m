@@ -421,14 +421,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     }
     [self newViewWillAppear: newView identifier: identifier];
     
-	if (  runningOnMojaveOrNewer()  ) {
-		[viewAnimation setDuration: 0.0];
-	} else if (  [self shiftSlowsAnimation] && [[[self window] currentEvent] modifierFlags] & NSShiftKeyMask  ) {
-		[viewAnimation setDuration:1.25];
-	} else {
-		[viewAnimation setDuration:0.25];
-	}
-	
+	[viewAnimation setDuration: 0.0];
+
     NSDictionary * fadeOutDictionary = @{NSViewAnimationTargetKey: NSNullIfNil(oldView),
                                         NSViewAnimationEffectKey: NSViewAnimationFadeOutEffect};
 
