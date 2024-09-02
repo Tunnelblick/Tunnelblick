@@ -1418,26 +1418,6 @@ BOOL processIsTranslated(void) {
     return (BOOL) ret;
 }
 
-BOOL isUserAnAdmin(void)
-{
-    // Run "id -Gn" to get a list of names of the groups the user is a member of
-	NSString * stdoutString = nil;
-	NSArray  * arguments = [NSArray arrayWithObject: @"-Gn"];
-	OSStatus status = runTool(TOOL_PATH_FOR_ID, arguments, &stdoutString, nil);
-	if (  status != 0  ) {
-		NSLog(@"Assuming user is not an administrator because '%@ -Gn' returned status %ld", TOOL_PATH_FOR_ID, (long)status);
-		return NO;
-	}
-	
-    // If the "admin" group appears in the output, the user is a member of the "admin" group, so they are an admin.
-    // Group names don't include spaces and are separated by spaces, so this is easy. We just have to
-    // handle admin being at the start or end of the output by pre- and post-fixing a space.
-    
-    NSString * groupNames = [NSString stringWithFormat:@" %@ ", [stdoutString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-    NSRange rng = [groupNames rangeOfString:@" admin "];
-    return (rng.location != NSNotFound);
-}
-
 // Modified from http://developer.apple.com/library/mac/#documentation/Carbon/Conceptual/ProvidingUserAssitAppleHelp/using_ah_functions/using_ah_functions.html#//apple_ref/doc/uid/TP30000903-CH208-CIHFABIE
 OSStatus MyGotoHelpPage (NSString * pagePath, NSString * anchorName)
 {

@@ -47,6 +47,7 @@
 #import "TBOperationQueue.h"
 #import "TBPopUpButton.h"
 #import "TBUserDefaults.h"
+#import "TunnelblickInfo.h"
 #import "UIHelper.h"
 #import "UtilitiesView.h"
 #import "VPNConnection.h"
@@ -59,6 +60,7 @@ extern MenuController * gMC;
 extern NSString       * gPrivatePath;
 extern NSArray        * gProgramPreferences;
 extern TBUserDefaults * gTbDefaults;
+extern TunnelblickInfo * gTbInfo;
 
 @interface MyPrefsWindowController()
 
@@ -2795,7 +2797,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
     // Set values for the update checkboxes
 	
-    BOOL userCanUpdate = (   isUserAnAdmin()
+    BOOL userCanUpdate = (   [gTbInfo userIsAnAdmin]
                           || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"])  );
 
 	if (   ( ! userCanUpdate )

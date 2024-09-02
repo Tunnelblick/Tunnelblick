@@ -148,8 +148,6 @@ OSStatus       runOpenvpnstart          (NSArray  * arguments,
 
 BOOL           processIsTranslated(void);
 
-BOOL           isUserAnAdmin            (void);
-
 BOOL           runningATunnelblickBeta  (void);
 
 BOOL           runningWithSIPDisabled   (void);

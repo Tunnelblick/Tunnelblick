@@ -46,6 +46,7 @@
 #import "SystemAuth.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
+#import "TunnelblickInfo.h"
 #import "UIHelper.h"
 #import "VPNConnection.h"
 
@@ -56,6 +57,7 @@ extern NSString             * gPrivatePath;
 extern NSString             * gDeployPath;
 extern NSFileManager        * gFileMgr;
 extern MenuController       * gMC;
+extern TunnelblickInfo      * gTbInfo;
 
 extern TBUserDefaults       * gTbDefaults;
 
@@ -4784,7 +4786,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 		// Get OS and Tunnelblick version info
 		NSString * versionContents = [[gMC openVPNLogHeader] stringByAppendingString:
-                                      (isUserAnAdmin()
+                                      ([gTbInfo userIsAnAdmin]
                                        ? @"; Admin user\n"
                                        : @"; Standard user\n")];
         
@@ -5073,7 +5075,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 	// Get OS and Tunnelblick version info
 	NSString * versionContents = [[gMC openVPNLogHeader] stringByAppendingString:
-								  (isUserAnAdmin()
+								  ([gTbInfo userIsAnAdmin]
 								   ? @"; Admin user"
 								   : @"; Standard user")];
 	
