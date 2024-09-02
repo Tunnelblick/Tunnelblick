@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSString * tunnelblickBuildString;
     NSString * tunnelblickVersionString;
 
+    NSNumber * runningATunnelblickBeta;
+
     NSArray  * allOpenvpnOpenssslVersions;
     NSString * defaultOpenvpnOpensslVersion;
     NSString * latestOpenvpnOpensslVersion;
@@ -69,6 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSString *) tunnelblickBuildString;
 -(NSString *) tunnelblickVersionString;
+
+-(BOOL) runningATunnelblickBeta;
 
 -(NSArray *) allOpenvpnOpenssslVersions;
 -(NSString *) defaultOpenvpnOpensslVersion;

@@ -3846,7 +3846,7 @@ static void signal_handler(int signalNumber)
 
     // If running a beta version of Tunnelblick, don't catch other errors: let Tunnelblick crash and have macOS create a full crash report
     // A later launch of Tunnelblick will see the full crash report and ask the user to email it to the developers
-     if (  runningATunnelblickBeta()  ) {
+     if (  [gTbInfo runningATunnelblickBeta]  ) {
         return;
     }
 

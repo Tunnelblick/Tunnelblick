@@ -95,6 +95,19 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[tunnelblickBuildString copy] autorelease];
 }
 
+-(BOOL) runningATunnelblickBeta {
+
+    if (  ! runningATunnelblickBeta  ) {
+
+        NSString * version = [self tunnelblickVersionString];
+        BOOL isBeta = [version containsString: @"beta"];
+
+        runningATunnelblickBeta = [[NSNumber numberWithBool: isBeta] copy];
+    }
+
+    return runningATunnelblickBeta.boolValue;
+}
+
 -(NSString *) tunnelblickVersionString {
 
     if (  ! tunnelblickVersionString  ) {

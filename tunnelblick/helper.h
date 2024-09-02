@@ -148,8 +148,6 @@ OSStatus       runOpenvpnstart          (NSArray  * arguments,
 
 BOOL           processIsTranslated(void);
 
-BOOL           runningATunnelblickBeta  (void);
-
 BOOL           displaysHaveDifferentSpaces(void);
 
 BOOL           bothKextsAreInstalled(void);

@@ -346,12 +346,6 @@ NSData * base64Decode(NSString * input) {
 	return output;
 }
 
-BOOL runningATunnelblickBeta(void) {
-
-    NSString * version = [[gMC tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
-    return [version containsString: @"beta"];
-}
-
 BOOL bothKextsAreInstalled(void) {
     
     BOOL result = (   [gFileMgr fileExistsAtPath: @"/Library/Extensions/tunnelblick-tun.kext"]

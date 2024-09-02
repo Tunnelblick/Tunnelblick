@@ -1622,7 +1622,7 @@ returnNO:
         }
 
         NSString * urlWithoutExtension = urlString.stringByDeletingPathExtension;
-        NSString * suffix = (  runningATunnelblickBeta()
+        NSString * suffix = (  [gTbInfo runningATunnelblickBeta]
                              ? @"-b"
                              : @"-s");
         urlString = [NSString stringWithFormat:
