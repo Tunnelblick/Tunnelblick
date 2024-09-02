@@ -659,8 +659,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 		
 		[self checkSystemFoldersAreSecure];
 		
-		userIsAnAdmin = isUserAnAdmin();
-		
         if (  ! [gTbDefaults boolForKey: @"doNotShowSplashScreen"]  ) {
             splashScreen = [[SplashWindowController alloc] init];
             [splashScreen showWindow: self];
@@ -1299,11 +1297,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 #endif
     
     [super dealloc];
-}
-
--(BOOL) userIsAnAdmin
-{
-    return userIsAnAdmin;
 }
 
 -(BOOL) checkPlist: (NSString *) path renameIfBad: (BOOL) renameIfBad {
@@ -2918,7 +2911,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 - (void) checkForUpdates: (id) sender {
 
     if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
-        && ( ! userIsAnAdmin )  ) {
+        && ( ! [gTbInfo userIsAnAdmin] )  ) {
         NSLog(@"Check for updates was not performed because user is not an administator for this computer and 'onlyAdminCanUpdate' preference is set");
     } else {
         [[self tbupdater] nonAutomaticCheckIfAnUpdateIsAvailable];
@@ -4092,7 +4085,7 @@ static void signal_handler(int signalNumber)
     if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
         [myConfigMultiUpdater stopAllUpdateChecking];
     } else {
-        BOOL userIsAdminOrNonAdminsCanUpdate = (   userIsAnAdmin
+        BOOL userIsAdminOrNonAdminsCanUpdate = (   [gTbInfo userIsAnAdmin]
                                                 || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"])  );
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
             if (  [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {

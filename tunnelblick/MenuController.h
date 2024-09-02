@@ -182,8 +182,6 @@ enum StatusIconPosition {
 	
     BOOL volatile             launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
     
-    BOOL                      userIsAnAdmin;                // Indicates logged-in user is a member of the "admin" group, and can administer the computer
-    
     BOOL                      checkingForNoConfigs;         // Used to avoid infinite recursion
     
     BOOL                      noUnknownOpenVPNsRunning;     // Indicates that no unknown OpenVPN processes were left running after the TB launch
@@ -330,7 +328,6 @@ enum StatusIconPosition {
 -(void)				uninstall;
 -(void)             unloadKextsForce: (BOOL) force;
 -(void)				updateMenuAndDetailsWindowForceLeftNavigation: (BOOL) forceLeftNavigationUpdate;
--(BOOL)             userIsAnAdmin;
 -(void)             startCheckingForConfigurationUpdates;
 -(void)             statusWindowController:                 (id)                ctl
                         finishedWithChoice:                 (StatusWindowControllerChoice) choice
