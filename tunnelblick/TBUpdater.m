@@ -36,6 +36,7 @@
 #import "TBDownloader.h"
 #import "TBUserDefaults.h"
 #import "TBValidator.h"
+#import "TunnelblickInfo.h"
 
 // The following external global variables are used by functions in this file and must be declared and set elsewhere before the
 // functions in this file are called:
@@ -43,6 +44,7 @@ extern NSFileManager  * gFileMgr;
 extern MenuController * gMC;
 extern BOOL             gShuttingDownTunnelblick;
 extern TBUserDefaults * gTbDefaults;
+extern TunnelblickInfo * gTbInfo;
 
 //********************************************************************************
 //
@@ -1688,21 +1690,7 @@ returnNO:
 
     if (  ! currentMacOSVersion  ) {
 
-        NSString * version = nil;
-
-        unsigned major = 0;
-        unsigned minor = 0;
-        unsigned bugfix = 0;
-        OSStatus status = getSystemVersion(&major, &minor, &bugfix);
-        if (  status == EXIT_SUCCESS  ) {
-            version = [NSString stringWithFormat: @"%u.%u.%u", major, minor, bugfix];
-        } else {
-            [self notifyErrorMessage: @"Cannot obtain current macOS version"];
-            [self setInhibitUpdating: TRUE];
-            version = @"0.0.0";
-        }
-
-        currentMacOSVersion = [version retain];
+        currentMacOSVersion = [[gTbInfo systemVersionString] retain];
     }
 
     return [[currentMacOSVersion retain] autorelease];

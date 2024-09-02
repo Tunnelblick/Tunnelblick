@@ -88,7 +88,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
             [gMC terminateBecause: terminatingBecauseOfError];
             return @""; // Satisfy static analyzer
         }
-        
+
         tunnelblickBuildString = [buildString retain];
     }
 
@@ -254,15 +254,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
 
 -(NSString *) systemVersionString {
 
+    // Returns a string like "14.6.1", i.e., the numeric version (not including a name such as "Sonoma")
+
     if (  ! systemVersionString  ) {
 
-        unsigned major, minor, bugfix;
-
-        [self getSystemVersionMajor: &major
-                              minor: &minor
-                             bugFix: &bugfix];
-
-        NSString * versionString = [NSString stringWithFormat:@"%d.%d.%d", major, minor, bugfix];
+        NSOperatingSystemVersion  osVersion =[[NSProcessInfo processInfo] operatingSystemVersion];
+        NSString * versionString = [NSString stringWithFormat:@"%ld.%ld.%ld",
+                                    osVersion.majorVersion, osVersion.minorVersion, osVersion.patchVersion];
 
         systemVersionString = [versionString copy];
     }

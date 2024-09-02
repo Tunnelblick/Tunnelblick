@@ -627,10 +627,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
         TBLog(@"DB-SU", @"init: 000")
         
-        unsigned major, minor, bugFix;
-        NSString * osVersionString = (  getSystemVersion(&major, &minor, &bugFix) == EXIT_SUCCESS
-                                      ? [NSString stringWithFormat:@"%d.%d.%d", major, minor, bugFix]
-                                      : @"version is unknown");
+        NSString * osVersionString = [gTbInfo systemVersionString];
         NSString * oclpString = (  runningOnOCLP()
                                  ? @" (OLCP)"
                                  : @"");
@@ -3761,10 +3758,7 @@ NSString * fatalErrorData(const char * siglist, int signalNumber, NSString * sta
 	
 	NSString * dateMsg = [[NSDate date] tunnelblickUserLogRepresentation];
 
-	unsigned major, minor, bugFix;
-	NSString * osVersionString = (  getSystemVersion(&major, &minor, &bugFix) == EXIT_SUCCESS
-								  ? [NSString stringWithFormat:@"%d.%d.%d", major, minor, bugFix]
-								  : @"version is unknown");
+	NSString * osVersionString = [gTbInfo systemVersionString];
 
 	NSString * threadType = (  [NSThread isMainThread]
 							? @"main"
