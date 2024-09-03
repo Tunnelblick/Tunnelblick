@@ -553,7 +553,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
             NSLog(@"Stopped trying to establish communications with an existing OpenVPN process for '%@'", [self localizedName]);
             NSString * msg = [NSString stringWithFormat:
-                              NSLocalizedString(@"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@'. The attempt to establish communications has been abandoned.", @"Window text"),
+                              NSLocalizedString(@"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned.", @"Window text"),
                               [self localizedName]];
             NSString * prefKey = [NSString stringWithFormat: @"%@-skipWarningUnableToToEstablishOpenVPNLink", [self displayName]];
 

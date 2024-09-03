@@ -152,9 +152,6 @@
 "More Info [%@]" = "More Info [%@]";
 
 /* Button */
-"More Info" = "More Info";
-
-/* Button */
 "Never load Tap driver" = "Never load Tap driver";
 
 /* Button */
@@ -177,12 +174,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
-
-/* Button */
-"Place Icon Normally" = "Place Icon Normally";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
@@ -502,9 +493,6 @@
 "Monitor network settings" = "Monitor network settings";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Place near Spotlight icon";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "Prepend domain name to search domains";
 
 /* Checkbox name */
@@ -632,9 +620,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnected - Advanced Settings%3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' has been disconnected";
@@ -1966,7 +1951,7 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
 
 /* Window text */
-"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned.";
 
 /* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick was unable to make the change. See the Console Log for details.";
@@ -2152,9 +2137,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions.";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n";
-
-/* Window text */
 "Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email.";
 
 /* Window text */
@@ -2232,6 +2214,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit enabling and testing";
 
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML window text */
@@ -2259,7 +2244,7 @@
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>";
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>";
@@ -2343,9 +2328,6 @@
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>";
 
-/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%1$@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%2$@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
-
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>";
 
@@ -2405,6 +2387,9 @@
 
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>";
+
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n";
 
 /* HTML window text */
 "<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
@@ -2594,6 +2579,9 @@
 
 /* Credit description */
 "Indonesian translation" = "Indonesian translation";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "Insecure version of OpenSSL being used…";
 
 /* Credit description */
 "Italian translation" = "Italian translation";
