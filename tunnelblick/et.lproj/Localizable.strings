@@ -138,9 +138,6 @@
 "More Info [%@]" = "Rohkem informatsiooni [%@]";
 
 /* Button */
-"More Info" = "Lisainfo";
-
-/* Button */
 "Never load Tap driver" = "Ära kunagi lae Tap draiverit";
 
 /* Button */
@@ -163,12 +160,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Ava easy-rsa Terminalis";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "Aseta Spotlight ikooni kõrvale";
-
-/* Button */
-"Place Icon Normally" = "Aseta Ikoon Vaikimisi";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Peata kõik OpenVPN protsessid";
@@ -400,9 +391,6 @@
 "Monitor network settings" = "Jälgi võrgu seadeid";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Aseta Spotlight ikooni kõrvale";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "Lisa domeeni nimi otsinguks";
 
 /* Checkbox name */
@@ -479,9 +467,6 @@
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN seaded - Tunnelblick";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' on lahti ühendatud";

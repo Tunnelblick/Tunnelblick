@@ -149,9 +149,6 @@
 "More Info [%@]" = "Maelezo zaidi [%@]";
 
 /* Button */
-"More Info" = "Maelezo zaidi";
-
-/* Button */
 "Never load Tap driver" = "Kamwe usipakie Tepu kiendeshi";
 
 /* Button */
@@ -174,12 +171,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Fungua rsa-rahisi katika Temino";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "Weka Ikoni karibu na Ikoni ya Uangalizi";
-
-/* Button */
-"Place Icon Normally" = "Weka Ikoni kwa kawaida";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Ondoa  michakato yote ya OpenVPN";
@@ -474,9 +465,6 @@
 "Monitor network settings" = "Fuatilia mpangilio wa Mtandao";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Weka Ikoni karibu na Ikoni ya Uangalizi";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "Andaa jina la kikoa ili kutafuta vikoa";
 
 /* Checkbox name */
@@ -601,9 +589,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Imetenganishwa - Mipangilio ya Kina%3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "%1$@%2$@: %3$@%4$@ - %5$@'%@' imetenganishwa";

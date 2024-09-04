@@ -155,9 +155,6 @@
 "More Info [%@]" = "ข้อมูลเพิ่มเติม [%@]";
 
 /* Button */
-"More Info" = "ข้อมูลเพิ่มเติม";
-
-/* Button */
 "Never load Tap driver" = "ไม่โหลดไดร์เวอร์ Tap";
 
 /* Button */
@@ -180,12 +177,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "เปิด easy-rsa ในเทอร์มินอล";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "วางไอคอนใกล้ไอคอน Spotlight";
-
-/* Button */
-"Place Icon Normally" = "วางไอคอนตามปกติ";
 
 /* Button */
 "Quit All OpenVPN Processes" = "ปิดทุกโพรเซสของ OpenVPN";
@@ -496,9 +487,6 @@
 "Monitor network settings" = "เฝ้าดูการตั้งค่าเครือข่าย";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "วางใกล้ไอคอน Spotlight";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "ต่อชื่อ domain ไว้ข้างหน้า search domains";
 
 /* Checkbox name */
@@ -623,9 +611,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ ไม่ได้เชื่อมต่อ - การตั้งค่าขั้นสูง%3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' ได้ถูกตัดการเชื่อมต่อแล้ว";
@@ -1921,9 +1906,6 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick ถูกแทนที่สำเร็จแล้ว";
 
 /* Window text */
-"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick ไม่สามารถติดต่อกับโพรเซสของ OpenVPN ที่มีอยู่ได้ภายใน %2$d วินาทีสำหรับ '%1$@' ความพยายามที่จะติดต่อได้ถูกยกเลิกแล้ว";
-
-/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick ไม่สามารถทำงานแก้ไขได้ ดูรายละเอียดได้ที่ Console Log";
 
 /* Window text */
@@ -2102,9 +2084,6 @@
 
 /* Window text */
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "คุณต้องตัดการเชื่อมต่อ VPN ทั้งหมดก่อนที่คุณจะติดตั้งหรือถอนการติดตั้งส่วนเสริมระบบของ Tunnelblick";
-
-/* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "คอมพิวเตอร์ของคุณอาจไม่สามารถแสดงไอคอน Tunnelblick ใกล้กับไอคอน Spotlight ได้อย่างน่าเชื่อถือ\n\nสิ่งนี้อาจทําให้ไอคอน Tunnelblick บางครั้งหายไปจากแถบเมนู\n\nคุณแน่ใจหรือไม่ว่าต้องการวางไอคอน Tunnelblick ใกล้กับไอคอน Spotlight?\n\n";
 
 /* Window text */
 "Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "ความช่วยเหลือของคุณในเรื่องนี้จะเป็นประโยชน์ต่อผู้ใช้ Tunnelblick ทุกคน\n\nถ้าเป็นไปได้ โปรดอย่าคลิก \"ออก\" จนกว่าคุณจะส่งอีเมล";

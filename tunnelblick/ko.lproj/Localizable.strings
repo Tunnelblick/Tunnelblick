@@ -141,9 +141,6 @@
 "More Info [%@]" = "추가 정보 [%@]";
 
 /* Button */
-"More Info" = "추가 정보";
-
-/* Button */
 "Never load Tap driver" = "Tab 드라이버 로드 안함";
 
 /* Button */
@@ -166,12 +163,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "터미널에서 easy-rsa 열기";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "Spotlight 아이콘 근처에 배치";
-
-/* Button */
-"Place Icon Normally" = "원래 위치에 아이콘 배치";
 
 /* Button */
 "Quit All OpenVPN Processes" = "모든 OpenVPN 프로세스 종료";
@@ -454,9 +445,6 @@
 "Monitor network settings" = "네트워크 설정 감시";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Spotlight 아이콘 근처에 배치";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "검색 도메인 앞에 도메인 명을 추가";
 
 /* Checkbox name */
@@ -578,9 +566,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 연결 안됨 - 고급 설정%3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' 연결이 해제되었습니다";
@@ -1768,9 +1753,6 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick이 성공적으로 교체되었습니다.";
 
 /* Window text */
-"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick이 기존의 '%1$@' OpenVPN 프로세스와 %2$d 초안에 통신을 연결할 수 없었습니다. 통신 연결 시도가 취소되었습니다.";
-
-/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "변경할 수 없습니다. 자세한 내용은 콘솔 로그를 확인하십시오.";
 
 /* Window text */
@@ -1927,9 +1909,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Tunnelblick의 시스템 확장을 설치 또는 삭제 하기 전에 모든 VPN의 연결을 해제해야 합니다.";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "당신의 컴퓨터가 Tunnelblick 아이콘을 Spotlight 아이콘 근처에 보여주지 못할 수도 있습니다.\n\n가끔 메뉴 막대에서 아이콘이 사라지는 경우가 생길 수 있습니다.\n\nTunnelblick 아이콘을 Spotlight 아이콘 근처에 배치하시겠습니까?\n\n";
-
-/* Window text */
 "Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "당신의 도움은 모든 Tunnelblick 사용자들에게 큰 도움이 됩니다. \n가능하다면 이메일 전송이 완료될 때까지 종료 버튼을 누르지 마십시오.";
 
 /* Window text */
@@ -2042,9 +2021,6 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>체크되었을 때</strong>, 다른 설정에 관계없이 어떠한 자동 업데이트 확인 또는 IP 주소 변경 확인도 하지 않습니다. 주: 두 활동 모두 Tunnelblick 웹사이트에 접속합니다.</p>\n<p><strong>체크되지 않았을 때</strong>, 아래 활성화 되었다면 자동 업데이트 확인이 이루어지고, 만약 구성 설정에 활성화되었다면 구성에 연결되었을 때 IP 주소 변경 확인을 합니다.</p><p>자세한 사항은 [tunnelblick.net]의 <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> 항목을 보십시오.</p><p>&nbsp;</p>";
-
-/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>체크되었을 때</strong>, Tunnelblick 아이콘이 Spotlight 아이콘 근처에 위치합니다:</p>\n<p>%1$@</p>\n<p><strong>체크되지 않았을 때</strong>, Tunnelblick 아이콘이 원래 자리에 위치합니다:</p>\n<p>%2$@</p>\n<p><strong>이 체크상자가 비활성화된 경우</strong> 옵션이 필요가 없는 macOS Sierra와 그 이상이거나 문제를 일으키는 것으로 알려진 시스템입니다</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">추가 정보</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>체크되었을 때</strong>, 구성이 연결 해제되었더라도 VPN 상태창이 표시됩니다.</p><p>상단의 '보지 않기'가 선택되었다면 <strong>이 체크상자는 사용이 불가합니다.</strong></p>";

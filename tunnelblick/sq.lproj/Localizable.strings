@@ -155,9 +155,6 @@
 "More Info [%@]" = "Më shumë Informacion [%@]";
 
 /* Button */
-"More Info" = "Më shumë informacione";
-
-/* Button */
 "Never load Tap driver" = "Mos ngarko kurrë drajverin Tap";
 
 /* Button */
@@ -180,12 +177,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Hap easy-rsa në Terminal";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "Vendos Ikonën afër Ikonës së Ndriçimit";
-
-/* Button */
-"Place Icon Normally" = "Vendos Normalisht Ikonën";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Mbyll të gjithë proceset OpenVPN";
@@ -491,9 +482,6 @@
 
 /* Checkbox name */
 "Monitor network settings" = "Monitoro rregullat e rrjetit";
-
-/* Checkbox name */
-"Place near Spotlight icon" = "Vendos afër ikonës Spotlight";
 
 /* Checkbox name */
 "Save in Keychain" = "Ruaj në Keychain";

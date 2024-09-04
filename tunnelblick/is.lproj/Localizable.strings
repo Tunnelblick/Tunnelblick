@@ -141,9 +141,6 @@
 "More Info [%@]" = "Nánari upplýsingar [%@]";
 
 /* Button */
-"More Info" = "Nánar";
-
-/* Button */
 "Never load Tap driver" = "Aldrei hlaða inn Tap rekli";
 
 /* Button */
@@ -166,12 +163,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Opna easy-rsa í Terminal";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "Setja táknmynd við Spotlight-táknmyndina";
-
-/* Button */
-"Place Icon Normally" = "Setja táknmynd á venjulegan stað";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Hætta í öllum opnum OpenVPN-ferlum";
@@ -457,9 +448,6 @@
 "Monitor network settings" = "Fylgjast með netstillingum";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Setja við Spotlight-táknmyndina";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "Skjóta lénsnafni framan við leitarlén";
 
 /* Checkbox name */
@@ -581,9 +569,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ aftengt – Ítarlegar stillingar%3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ – %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "„%@“ hefur verið aftengt";

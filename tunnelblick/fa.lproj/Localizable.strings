@@ -144,9 +144,6 @@
 "More Info [%@]" = "اطلاعات بیشتر [%@]";
 
 /* Button */
-"More Info" = "اطلاعات بیشتر";
-
-/* Button */
 "Never load Tap driver" = "هرگز درایور Tap را بارگذاری نکن";
 
 /* Button */
@@ -169,12 +166,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "باز کردن easy-rsa در پایانه";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "در کنار آیکون Spotlight قرار بده";
-
-/* Button */
-"Place Icon Normally" = "آیکون را معمولی جایگزاری کن";
 
 /* Button */
 "Quit All OpenVPN Processes" = "بستن تمامی پردازش های OpenVPN";
@@ -469,9 +460,6 @@
 "Monitor network settings" = "زیر نظر گرفتن تنظیمات شبکه";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "در کنار آیکون Spotlight قرار بده";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "آماده‌نمودن نام‌دامنه برای جستجو دامنه‌ها";
 
 /* Checkbox name */
@@ -596,9 +584,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ اتصال قطع شده - تنظیمات پیشرفته%3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@:%3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' قظع شده است";
@@ -1741,9 +1726,6 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick با موفقیت جایگزین شد.";
 
 /* Window text */
-"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick موفق به برقراری ارتباط با یکی از پردازه های OpenVPN برای '%1$@' به مدت %2$d ثانیه نشد. تلاش برای برقراری ارتباط خاتمه یافت.";
-
-/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick موفق به ایجاد تغییرات نشد. برای جزییات بیشتر به میزفرمان گزارشات مراجعه نمایید.";
 
 /* Window text */
@@ -1903,9 +1885,6 @@
 "You may not remove a folder unless it is empty." = "شما اجازه ی پاک کردن پوشه را ندارید مگر اینکه خالی باشد.";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "رایانه شما قادر به نمایش درست آیکون Tunnelblick در کنار آیکون Spotlight نخواهد بود.\n\nاین باعث ناپدید شدن آیکون Tunnelblick از نوار فهرست خواهد شد.\n\nآیا مایل به قرار دادن آیکون Tunnelblick در کنار آیکون Spotlight هستید؟\n\n";
-
-/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "ساعت رایانه شما به درستی تنظیم نشد. \n\nیک یا برخی از پیکربندی ها تا زمان اصلاح زمان و تاریخ سامانه، قادر به ارتباط نخواهند بود.\n\n";
 
 /* Window text */
@@ -1964,9 +1943,6 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "فعال سازی و تست ۶۴ بیتی";
-
-/* HTML info for the 'OpenVPN version' button. */
-"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>نسخه OpenVPN و نرم افزار SSL برای ارتباط وی پی ان را مشخص می نماید.</strong<ul><li><strong>>تنظیمات \"پیش فرض\"</strong> از نسخه پیش فرض OpenVPN به همراه OpenSSL که در این نسخه از Tunnelblick گنجانده شده اند استفاده می کند. پیش فرض ها در نسخه های مختلف Tunnelblick با یکدیگر متفاوت هستند.<br></li<li><strong>> \"آخرین\" تنظیمات</strong>از آخرین نسخه OpenVPN به همراه LibreSSL که در این نسخه از Tunnelblick گنجانده شده اند استفاده می کند. آخرین نسخه ها در نسخه های مختلف Tunnelblick با یکدیگر متفاوت هستند.<br></li<li><strong>>تنظیمات دیگر</strong> از نسخه مشخض شده OpenVPN و نرم افزار SSL در صورت موجود بودن در نسخه از Tunnelblick استفاده می کنند. در صورت عدم وجود در بهترین تطابق استفاده خواهد شد.<br></li</ul>>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>در صورت انتخاب</strong>، پنجره ای جریان Tunnelblick در هنگام بارگزاری را نمایش می دهد.</p>";

@@ -155,9 +155,6 @@
 "More Info [%@]" = "Informații suplimentare [%@]";
 
 /* Button */
-"More Info" = "Informații suplimentare";
-
-/* Button */
 "Never load Tap driver" = "Nu încărca niciodată driver-ul Tap";
 
 /* Button */
@@ -180,12 +177,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Deschide easy-rsa în Terminal";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "Plasează iconița lângă iconița Spotlight";
-
-/* Button */
-"Place Icon Normally" = "Plasează iconița normal";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Închide toate procesele OpenVPN";
@@ -505,9 +496,6 @@
 "Monitor network settings" = "Monitorizarea setărilor de rețea";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Plasează lângă iconița Spotlight";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "Adaugă numele domeniului în fața domeniilor de căutare";
 
 /* Checkbox name */
@@ -635,9 +623,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Deconectat - Setări avansate%3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@:%3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "%@' a fost deconectat";
@@ -1969,9 +1954,6 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick a fost inlocuit cu succes.";
 
 /* Window text */
-"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick nu a putut să stabilească comunicația cu un proces OpenVPN existent pentru %1$@ în%2$d secunde. Încercarea de a stabili comunicații a fost abandonată.";
-
-/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick nu a putut să facă schimbarea. Consultați Console Log pentru detalii.";
 
 /* Window text */
@@ -2155,9 +2137,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Este necesar să deconectezi toate conexiunile VPN înainte de a instala sau dezinstala extensiile de sistem Tunnelblick.";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Computerul dvs. poate să nu fie în măsură să arate pictograma Tunnelblick lângă pictograma Spotlight.\n\nAcest lucru poate determina pictograma Tunnelblick să dispară, uneori, din bara de meniu.\n\nSunteți sigur că doriți să plasați pictograma Tunnelblick lângă pictograma Spotlight?\n\n";
-
-/* Window text */
 "Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "Ajutorul tău va fi util tuturor utilizatorilor Tunnelblick.\n\nDacă se poate, nu da clic pe \"Închide\" până când nu ai trimis email-ul.";
 
 /* Window text */
@@ -2235,6 +2214,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "trecerea la 64-biți și testarea";
 
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>Pentru mai multe informații, vezi\n<a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Folosirea versiunilor vechi de OpenVPN or OpenSSL</a> [tunnelblick.net] </p>";
+
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Pentru a importa configurația Tunnelblick pe un computer care are mai mult de %u conturi de utilizatori, trebuie creat un fișier text specificând informațiile ce trebuiesc importate.</p>\n<p>Pentru informații suplimentare, consultați <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML window text */
@@ -2260,9 +2242,6 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Una sau mai multe din configurările tale nu se vor putea conecta</strong> în versiunile viitoare ale macOS.</p>\n<p>Configurarea sau configurările necesită o extensie a sistemului dar versiunile viitoare de macOS nu vor permite Tunnelblick să folosească extensiile sistemului.</p>";
-
-/* HTML info for the 'OpenVPN version' button. */
-"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Specifică versiunea aplicațiilor OpenVPN și SSL care trebuiesc folosite pentru conectarea la rețeaua VPN.</strong><ul><li><strong>Opțiunea \"Implicit\"</strong> va folosi versiunea implicită a aplicației OpenVPN cu OpenSSL care este inclusă în această versiune a aplicației Tunnelblick. Versiunea implicită poate fi diferită în diferite versiuni ale aplicației Tunnelblick.<br></li><li><strong>Opțiunea \"Recent\"</strong> va folosi cea mai recentă versiune a aplicației OpenVPN cu LibreSSL care este inclusă în această versiune a aplicației Tunnelblick. Cea mai recentă versiune poate fi diferită în diferite versiuni ale aplicației Tunnelblick.<br></li><li><strong>Toate celelalte opțiuni</strong> vor folosi versiunea aleasă a aplicațiilor OpenVPN și SSL dacă ele sunt disponibile în această versiune a aplicației Tunnelblick. Dacă nu sunt disponibile, alternativele cele mai apropiate vor fi folosite.<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Specifică ce face (dacă e nevoie) Tunnelblick pentru a modifica setările DNS în timpul conexiunii la rețeaua VPN.</strong> Opțiunile sunt:<ul><li><strong>Nu setați nameserver</strong>: Nimic nu e schimbat.<br></li><li><strong>Setați nameserver</strong>: Tunnelblick folosește scriptul standard pentru modificarea setărilor DNS și WINS. Aceasta este în general cea mai bună opțiune. Setările DNS și WINS sunt schimbate în conformitate cu instrucțiunile obținute de la OpenVPN. Setările DNS și WINS care au fost configurate manual vor fi schimbate numai dacă opțiunea \"Permiteți modificări pentru setarea manuală a setărilor de rețea\" a fost selectată în fereastra de setări \"Opțiuni avansate\"<br></li><li><strong>Setați nameserver (3.1)</strong>: Tunnelblick folosește scriptul din Tunnelblick 3.1 pentru modificarea setărilor DNS și WINS.<br></li><li><strong>Setați nameserver (3.0b10)</strong>: Tunnelblick folosește scriptul din Tunnelblick 3.0b10 pentru modificarea setărilor DNS și WINS.<br></li><li><strong>Setați nameserver (alternativ 1)</strong>: Tunnelblick folosește un script alternativ pentru modificarea setărilor DNS și WINS.<br></li></ul>";
@@ -2346,9 +2325,6 @@
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Când este bifată</strong> nu se face verificare automată a versiunilor noi, nici a schimbării adresei de IP, indiferent de alte setări. Notă: aceste două funcționalități contactează site-ul Tunnelblick.</p>\n<p><strong>Când nu este bifată</strong>, verificarea automată a versiunilor noi se va face dacă este bifată mai jos, iar verificarea schimbării adresei de IP se face în momentul conectării la VPN, dacă configurația selectată are activă această opțiune.</p><p>Consultați secțiunea <a href=\"https://tunnelblick.net/cPrivacy.html\">Securitate și Intimitate</a> [tunnelblick.net] pentru detalii.</p><p>&nbsp;</p>";
 
-/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Când este bifată</strong>, iconița Tunnelblick e poziționată lângă iconița Spotlight:</p>\n<p>%1$@</p>\n<p><strong>Când nu este bifată</strong>, iconița Tunnelblick e în poziția normală:</p>\n<p>%2$@</p>\n<p><strong>Această casetă de selectare este dezactivată</strong> în macOS Sierra și superioare pentru că nu e necesară, și în sisteme în care poate provoca probleme.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Informații suplimentare</a></p>";
-
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Când este bifată</strong>, fereastra de stare a conexiunii VPN este afișată chiar când aplicația nu are o conexiune activă.</p><p><strong>Această bifă este inactivă</strong> când setarea ferestrei de stare de mai sus are selectată opțiunea 'Nu afișa niciodată'.</p>";
 
@@ -2408,6 +2384,9 @@
 
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Dacă nu vizualizezi opțiunea (butonul) care permite încărcarea aplicației dezvoltate de 'Jonathan Bullard', încearcă conectarea acestei configurații (care va eșua), apoi urmărește în tab-ul 'General' din secțiunea 'Security & Privacy' din 'Preferințe Sistem'.</p>";
+
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>Una sau mai multe configurații VPN folosesc OpenVPN cu OpenSSL 1.1.1, care conține vulnerabilități cunoscute și pentru care nu sunt remedieri publice.</p>\n<p>Recomandăm actualizarea următoarelor configurații să utilizeze OpenVPN cu a versiune mai noua a OpenSSL:</p>\n\n<p>\n";
 
 /* HTML window text */
 "<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>A apărut o problemă (sau mai multe) la obținerea informațiilor legate de noua versiune sau la actualizarea acesteia.</p><p>Pentru mai multe informații, accesați logurile la</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
@@ -2597,6 +2576,9 @@
 
 /* Credit description */
 "Indonesian translation" = "Traducere în limba Indoneziană";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "Versiune nesigură a OpenSSL utilizată…";
 
 /* Credit description */
 "Italian translation" = "Traducere în limba Italiană";

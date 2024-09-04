@@ -141,9 +141,6 @@
 "More Info [%@]" = "מידע נוסף [%@]";
 
 /* Button */
-"More Info" = "מידע נוסף";
-
-/* Button */
 "Never load Tap driver" = "אל תטען מנהל התקן Tap";
 
 /* Button */
@@ -166,12 +163,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "פתח את easy-rsa במסוף";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "מקם את הסמל ליד Spotlight";
-
-/* Button */
-"Place Icon Normally" = "מקם את הסמל כרגיל";
 
 /* Button */
 "Quit All OpenVPN Processes" = "צא מכל תהליכי OpenVPN";
@@ -460,9 +451,6 @@
 "Monitor network settings" = "נטר הגדרות רשת";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "מקם ליד האייקון של Spotlight";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "צרף את שם המתחם לשמות מתחם חיפוש";
 
 /* Checkbox name */
@@ -587,9 +575,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "הגדרות מתקדמות %3$@ - %1$@%2$@ מנותק";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%5$@ - %4$@ %3$@ %2$@ %1$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' התנתק בהצלחה";

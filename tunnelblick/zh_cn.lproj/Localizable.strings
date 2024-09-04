@@ -155,9 +155,6 @@
 "More Info [%@]" = "更多信息[%@]";
 
 /* Button */
-"More Info" = "更多信息";
-
-/* Button */
 "Never load Tap driver" = "从不加载 Tap 驱动程序";
 
 /* Button */
@@ -180,12 +177,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "在终端打开 Tunnelblick 的 easy-rsa 目录";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "将图标置于Spotlight图标附近";
-
-/* Button */
-"Place Icon Normally" = "图标置于正常的位置";
 
 /* Button */
 "Quit All OpenVPN Processes" = "退出所有 OpenVPN 进程";
@@ -505,9 +496,6 @@
 "Monitor network settings" = "监控网络配置";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "置于 Spotlight 的图标旁";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "准备用于搜索域名的域名后缀";
 
 /* Checkbox name */
@@ -635,9 +623,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 已断开连接 - 高级设置%3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' 已断开连接";
@@ -1969,7 +1954,7 @@
 "Tunnelblick was successfully replaced." = "成功替换 Tunnelblick.";
 
 /* Window text */
-"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick 已有 %2$d 秒未能与一个现有 OpenVPN 进程建立通讯, 该进程属于 '%1$@'. 已放弃建立通讯的努力.";
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick 未能与一个现有 OpenVPN 进程建立通讯, 该进程属于 '%@'. 已放弃建立通讯的努力.";
 
 /* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick 无法完成变更. 详情请查看控制台日志.";
@@ -2155,9 +2140,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "安装或卸载Tunnelblick的系统扩展前，您需要断开所有的VPN连接。";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "您的计算机或许无法保证 Tunnelblick 图标能在“聚焦”搜索图标附近显示。\n\n该选项或许导致 Tunnelblick 图标有时从菜单栏消失。\n\n您确定要设定 Tunnelblick 图标置于搜索图标附近吗？\n\n";
-
-/* Window text */
 "Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "您将会帮助到所有Tunnelblick的用户。\n\n如果可以，请不要在完成电子邮件发送前点击“退出”。";
 
 /* Window text */
@@ -2235,6 +2217,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "64位程序的实现和测试";
 
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>更多详情请访问\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">使用老版本的 OpenVPN or OpenSSL（英文）</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>要在具有超过 %u 个用户帐户的计算机上导入 Tunnelblick 设置，你必须创建一个文本文件，用于指定要导入的数据。</p><p>详情请参看<a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML window text */
@@ -2262,7 +2247,7 @@
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>至少一个以上的配置文件将会无法在未来版本的 macOS 中正常使用。</strong></p>\n<p>这些配置文件需要一个系统插件，但是未来版本的 macOS 将会不允许 Tunnelblick 使用其系统插件。</p>";
 
 /* HTML info for the 'OpenVPN version' button. */
-"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>指定连接 VPN 应该使用的 OpenVPN 和 SSL 软件版本。</strong><ul><li><strong>“默认”选项</strong>将使用这个 Tunnelblick 版本包含的默认 OpenVPN 与 OpenSSL 版本。不同的 Tunnelblick 版本的默认可能不一样。<br></li><li><strong>“最新”选项</strong>将使用这个 Tunnelblick 版本包含的最新 OpenVPN 与 LibreSSL 版本。不同的 Tunnelblick 版本的最新版本可能不一样。<br></li><li><strong>任何其他的选项</strong>将使用指定的 OpenVPN 与 SSL 软件，只要这个 Tunnelblick 版本有包含。如果没有包含的话，最接近的搭配将被使用。<br></li></ul>";
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>指定连接 VPN 应该使用的 OpenVPN 和 SSL 软件版本。</strong><ul><li><strong>“默认”选项</strong>将使用这个 Tunnelblick 版本包含的默认 OpenVPN 与 OpenSSL 版本。不同的 Tunnelblick 版本的默认可能不一样。<br></li><li><strong>“最新”选项</strong>将使用这个 Tunnelblick 版本包含的最新 OpenVPN 版本。不同的 Tunnelblick 版本的最新版本可能不一样。<br></li><li><strong>任何其他的选项</strong>将使用指定的 OpenVPN 与 SSL 软件，只要这个 Tunnelblick 版本有包含。如果没有包含的话，最接近的搭配将被使用。<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>指定 VPN 连接的时候 Tunnelblick 要做什么。</strong> 选项是：<ul><li><strong>不要设定域名服务器</strong>：什么都不做。<br></li><li><strong>设定域名服务器</strong>：Tunnelblick 采用标准的脚本处理 DNS 和 WINS 设置。这个一般是最好的选择。该脚本按照 OpenVPN 提供的指令改变 DNS 和 WINS 设置。手动设定的 DNS 和 WINS 设置不会改变，除非 “高级” 设置窗口里已经设定了 “允许改变手动设定的网络设置”。<br></li><li><strong>设定域名服务器 （3.1）</strong>：Tunnelblick 采用 3.1 版本的脚本处理 DNS 和 WINS 设置。<br></li><li><strong>设定域名服务器 （3.0b10）</strong>：Tunnelblick 采用 3.0b10 版本的脚本处理 DNS 和 WINS 设置。<br></li><li><strong>设定域名服务器 （备用 1）</strong>：Tunnelblick 采用另外的脚本处理 DNS 和 WINS 设置。<br></li></ul>";
@@ -2346,9 +2331,6 @@
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>选中时</strong>，自动检测更新和IP地址检查的相关修改都不会生效，无视其他相关设置。提示：这两项修改都会访问Tunnelblick网站。</p>\n<p><strong>不选中时</strong>，如果下面开启了，会开启自动更新，并且如果配置中开启了检查IP地址的设置，在连接配置的时候会进行IP地址检查。</p><p>参见 <a href=\"https://tunnelblick.net/cPrivacy.html\">隐私和安全</a> [tunnelblick.net] 获取详细说明。</p><p>&nbsp;</p>";
 
-/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>若打勾</strong>，Tunnelblick 图标位于“聚焦”搜索图标附近：</p>\n<p>%1$@</p>\n<p><strong>未打勾</strong>，Tunnelblick 图标位于正常的位置：</p>\n<p>%2$@</p>\n<p>macOS Sierra 或更高版本并不需要该选项，而且有的计算机已发现该选项会导致故障，两者情况下<strong>该复选框已被禁用</strong>。</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">了解详情</a></p>";
-
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>选中时</strong>，配置连接断开的时候也将展示VPN状态窗口。</p><p>如果选择了上面的‘永不显示’<strong>此复选框被禁用</strong>。</p>";
 
@@ -2408,6 +2390,9 @@
 
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>如果你看不到按钮允许载入开发者 ‘Jonathan Bullard’ 开发的系统软件，试试连接这个VPN（这个动作会失败）然后再次看看 ‘系统选项’ 中 ‘安全与隐私’ 中的 ‘一般’ 选项卡。";
+
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>有一个或多个 OpenVPN 配置正在使用 OpenSSL 1.1.1，该版本有已知的安全漏洞且没有公开补丁可用。</p>\n<p>我们建议您将如下的 OpenVPN  配置更新到新版本的 OpenSSL：</p>\n\n<p>\n";
 
 /* HTML window text */
 "<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>获取更新信息或更新Tunnelblick时出现了一个或多个错误。</p><p>如需详情，请查看日志：</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
@@ -2597,6 +2582,9 @@
 
 /* Credit description */
 "Indonesian translation" = "印尼语翻译";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "使用不安全的 OpenSSL 版本…";
 
 /* Credit description */
 "Italian translation" = "意大利语翻译";

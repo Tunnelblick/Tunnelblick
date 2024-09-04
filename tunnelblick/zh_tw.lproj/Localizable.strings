@@ -155,9 +155,6 @@
 "More Info [%@]" = "更多資訊 [%@]";
 
 /* Button */
-"More Info" = "更多資訊";
-
-/* Button */
 "Never load Tap driver" = "永遠不要載入 Tap 驅動程式";
 
 /* Button */
@@ -180,12 +177,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "在終端機中開啟 easy-rsa";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "圖示放在 Spotlight 圖示旁";
-
-/* Button */
-"Place Icon Normally" = "圖示放在一般的位置";
 
 /* Button */
 "Quit All OpenVPN Processes" = "結束所有 OpenVPN 程序";
@@ -505,9 +496,6 @@
 "Monitor network settings" = "監視網路設定";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "放置於 Spotlight 圖示旁";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "在搜索的網域中加上域名";
 
 /* Checkbox name */
@@ -635,9 +623,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 斷開連線 - 進階設定 %3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@：%3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "已中斷 「%@」 的連線";
@@ -1100,6 +1085,9 @@
 
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "嘗試下載更新時發生錯誤。\n\n若需更多資訊，請查看紀錄檔：\n\n%@";
+
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "嘗試下載更新時發生錯誤。\n\n若需更多資訊，請查看紀錄檔：\n\n%@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "當嘗試啟動 %@ 時發生錯誤";
@@ -1873,6 +1861,9 @@
 "Tunnelblick is up to date" = "Tunnelblick 已是最新版";
 
 /* Window text */
+"Tunnelblick needs a computer administrator's authorization to update.\n\nTunnelblick will be relaunched after the update." = "Tunnelblick 需要電腦管理員的授權以進行更新。\n\nTunnelblick 將會在更新後重新啟動。";
+
+/* Window text */
 "Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick 需要授權才能複製目錄 '%@'。";
 
 /* Window text */
@@ -1958,9 +1949,6 @@
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick 已被成功替換。";
-
-/* Window text */
-"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick 無法在 %2$d 秒內與已有 '%1$@' 的 OpenVPN 進程建立連結。建立連結的嘗試已被放棄。";
 
 /* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick 無法完成變更。詳情請查看控制台日誌。";
@@ -2143,9 +2131,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "你必須先中斷所有 VPN 的連接，然後才能安裝或移除 Tunnelblick 的系統擴展。";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "你的電腦可能沒有辦法有效的在 Spotlight 圖示旁邊顯示 Tunnelblick 圖示。\n這可能造成 Tunnelblick 在目錄列當中消失。\n你確定要把 Tunnelblick 的圖示放在 Spotlight 圖示旁邊嗎？\n\n";
-
-/* Window text */
 "Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "您的幫忙將嘉惠所有 Tunnelblick 的使用者。\n\n如果可以，請不要在送出 email 之前按下「離開」。";
 
 /* Window text */
@@ -2223,8 +2208,16 @@
 /* Credit description */
 "64-bit enabling and testing" = "64位元測試與支援";
 
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>更多資訊請參考：\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">使用\n   舊版的 OpenVPN 或 OpenSSL</a> [tunnelblick.net]。</p>";
+
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>要在有超過 %u 個使用者帳號的電腦中匯入 Tunnelblick 設定前，您必須建立一個文字檔以指定要匯入的資料。</p>\n<p>更多資訊請參閱： <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>。</p></font>";
+/* HTML window text */
+"<hr><p><strong>One or more VPNs may be disconnected before the update.</strong></p>\n" = "<hr><p><strong>一個或多個 VPN 可能在更新前會中止連線。</strong></p>\n";
+
+/* HTML window text */
+"<hr><p><strong>Would you like to update to the new version now?</strong></p>\n" = "<hr><p><strong>您希望現在更新至新版本嗎？</strong></p>\n";
 
 /* HTML info for the 'OpenVPN version' button. */
 "<p>'<strong>non-Tunnelblick</strong>' versions of OpenVPN were not created by the Tunnelblick project and are not part of Tunnelblick. They have been installed by a computer administrator.</p>" = "<p>'<strong>非 Tunnelblick</strong>' 版本的 OpenVPN 並非由 Tunnelblick 計畫所建立且不屬於 Tunnelblick 的一部分。它們已由系統管理員安裝完成。</p>";
@@ -2235,14 +2228,14 @@
 /* HTML text. Please translate only 'More information', which will be shown as a link. The '%@' will be replaced by a URL such as https://tunnelblick.net/kextLoadError.html. The '[tunnelblick.net]' is a way to show users that the link go to tunnelblick.net. */
 "<p><a href=\"%@\">More information</a> [tunnelblick.net]</p>" = "更多資訊";
 
+/* HTML window text */
+"<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n" = "<p><strong>安裝此更新需要電腦管理員的授權。</strong></p>\n";
+
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect.</strong></p>\n<p>The configuration(s) require a system extension but this version of macOS does not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>您的一個或多個設定檔將無法連線。</strong></p>\n<p>這些設定檔需要系統延伸功能，但此版本的 macOS 不允許 Tunnelblick 使用系統延伸功能。</p>\n";
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p>在未來版本的 macOS，<strong>您的一個或多個設定檔將無法連線。</strong></p>\n<p>這些設定檔需要系統延伸功能，但未來版本的 macOS 將不允許 Tunnelblick 使用系統延伸功能。</p>\n";
-
-/* HTML info for the 'OpenVPN version' button. */
-"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>指定連接 VPN 應該使用的 OpenVPN 和 SSL 軟件版本。</strong><ul><li><strong>「默認」選項</strong>將使用這個 Tunnelblick 版本包含的默認 OpenVPN 與 OpenSSL 版本。不同的 Tunnelblick 版本的默認可能不一樣。<br></li><li><strong>「最新」選項</strong>將使用這個 Tunnelblick 版本包含的最新 OpenVPN 與 LibreSSL 版本。不同的 Tunnelblick 版本的最新版本可能不一樣。<br></li><li><strong>任何其他的選項</strong>將使用指定的 OpenVPN 與 SSL 軟件，只要這個 Tunnelblick 版本有包含。如果沒有包含的話，最接近的搭配將被使用。<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>指定 VPN 連接的時候 Tunnelblick 要怎麼楊修改 DNS 配置。</strong> 選項是：<ul><li><strong>不要設定域名伺服器</strong>：什麼都不做。<br></li><li><strong>設定域名伺服器</strong>：Tunnelblick 採用標準的腳本處理 DNS 和 WINS 設置。這個一般是最好的選擇。該腳本按照 OpenVPN 提供的指令改變 DNS 和 WINS 設置。手動設定的 DNS 和 WINS 設置不會改變，除非 「高級」 設置視窗裡已經設定了 「允許改變手動設定的網絡設置」。<br></li><li><strong>設定域名伺服器 （3.1）</strong>：Tunnelblick 採用 3.1 版本的腳本處理 DNS 和 WINS 設置。<br></li><li><strong>設定域名伺服器 （3.0b10）</strong>：Tunnelblick 採用 3.0b10 版本的腳本處理 DNS 和 WINS 設置。<br></li><li><strong>設定域名服務器 （備用 1）</strong>：Tunnelblick 採用另外的腳本處理 DNS 和 WINS 設置。<br></li></ul>";
@@ -2256,6 +2249,9 @@
 /* HTML info for the 'Connect' button. */
 "<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p><p>\"When computer starts\" may only be used with \"Shared\" configurations that do not have credentials (username/password/passphrase) stored in Keychain and do not use the OpenVPN 'auth-user-pass' option without an argument.</p>" = "<p><strong>指定 Tunnelblick 應何時連線至 VPN 。</strong></p><p>\"當電腦啟動時\" 只能使用於鑰匙圈中不包含身份驗證資料（使用者名稱/密碼/密鑰）且不無參數使用 OpenVPN 'auth-user-pass' 選項的 \"共享\" 設定檔。</p>";
 
+/* HTML window text\nThe two %@ are descriptions of Tunnelblick versions (e.g. '4.0.1 (build 5971)' */
+"<p><strong>Tunnelblick %@ is now available – you have %@.</strong></p>\n\n" = "<p><strong>Tunnelblick %1$@ 已可使用 – 您的版本是 %2$@.</strong></p>\n\n";
+
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled unless the OpenVPN server is being accessed via an IPv6 address.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection.</p>" = "<p><strong>若勾選</strong>，除非正在透過 IPv6 連線至 OpenVPN 伺服器，否則 IPv6 將被停用。</p>\n<p>停用 IPv6 是經常被推薦的做法，因為許多 VPN 設定檔並未針對使用 IPv6 造成的資訊洩露進行防護。大多數的網路連線在沒有 IPv6 的情形下仍可正常運作。</p>\n<p><strong>若未勾選</strong><，IPv6 不會被停用</p>\n<p>由於在使用 'TAP' 連線時無法強制更改，<strong>這個勾選方塊將被停用</strong></p>";
@@ -2268,6 +2264,9 @@
 
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>若勾選</strong>，OpenVPN 將運行測試以確認連接最大 MTU 大小。測試將於每次設立連接時運行，並可能持續幾分鐘。測試結果將於 Tunnnelblock 日誌上顯示。</p>\n";
+
+/* HTML info for the 'Check only when connected to a VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates automatically only when connected to a VPN.</p>\n<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked, and when the user is not a computer administrator and only computer administrators are allowed to install updates.</p>" = "<p><strong>當勾選時</strong>，Tunnelblick 只有在連線到 VPN 時才會自動檢查更新。</p>\n<p>當「繼承自動更新檢查及 IP 位置檢查」被勾選，且使用者並非系統管理員，而僅有系統管理員被允許安裝更新時，<strong>此選項將被停用</strong>且取消勾選。</p>";
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>若勾選</strong>，Tunnelblick 將檢查測試版的更新。</p>\n<p><strong>若未勾選</strong>，Tunnelblick 將只會檢查穩定版的更新。</p><p>在使用測試版時，<strong>此核取方塊會被禁用</strong>以及被勾選。";
@@ -2310,9 +2309,6 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>已勾選</strong>，自動檢查更新和IP地址稽核的功能將會自動失效，並無視功能相關的其他設定。提示：這兩項功能都會存取Tunnelblick 的網絡服務。</p>\n<p><strong>若未勾選</strong>，則依照下面的用戶設定進行自動更新，及在應用配置文件時對IP地址進行稽核。</p><p>詳情可參閱 <a href=\"https://tunnelblick.net/cPrivacy.html\">隱私與安全性設定</a> [tunnelblick.net] 文件。</p><p>&nbsp;</p>";
-
-/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>若打勾</strong>，Tunnelblick 圖示位於搜索圖示附近：</p>\n<p>%1$@</p>\n<p><strong>未打勾</strong>，Tunnelblick 圖示位於正常的位置：</p>\n<p>%2$@</p>\n<p>macOS Sierra 或更高版本並不需要該選項，而且有的計算機已發現該選項會導致故障，兩者情況下<strong>該復選框已被禁用</strong>。</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">了解詳情</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>若勾選</strong>，即使當這個設定中斷時，也顯示 VPN 狀態視窗。</p><p>當選擇了上面的「永不顯示」<strong>此核取方塊被停用</strong>。</p>";
@@ -2370,6 +2366,12 @@
 
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>如果您沒有看到允許載入由開發者 'Jonathan Bullard' 開發的系統軟體的按鈕，試著連線到這個設定檔（會失敗），然後再檢查一次「系統偏好設定」裡「安全性與隱私權」中的「一般」頁面。</p>";
+
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>一個或多個 VPN 設定檔使用了帶有 OpenSSL 1.1.1 的 OpenvVPN，其內含\n   已知的安全漏洞且尚無公開修補檔。</p>\n<p>我們建議您更新以下設定檔(們)\n   以使用含有較新版本 OpenSSL 的 OpenVPN：</p>\n\n<p>\n";
+
+/* HTML window text */
+"<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>在下載更新資訊或進行更新時發生了一個或多個問題。</p><p>如需更多資訊，請參考紀錄檔：</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
 
 /* HTML info for the 'Advanced...' button. */
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>打開額外設定的視窗。</p><p>任何變更將會套用到在「VPN 詳情」視窗中所選擇的設定。</p>";
@@ -2556,6 +2558,9 @@
 
 /* Credit description */
 "Indonesian translation" = "印度文翻譯";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "正在使用不安全的 OpenSSL 版本...";
 
 /* Credit description */
 "Italian translation" = "意大利語翻譯";

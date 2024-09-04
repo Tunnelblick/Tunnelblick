@@ -135,9 +135,6 @@
 "More Info [%@]" = "Daha ətraflı [%@]";
 
 /* Button */
-"More Info" = "Daha artıq məlumat";
-
-/* Button */
 "Never load Tap driver" = "Heç vaxt Tap drayveri yükləmə";
 
 /* Button */
@@ -160,12 +157,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Terminalda easy-rsa aç";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "İkonanı Spotlight İkonasının yanında yerləşdir";
-
-/* Button */
-"Place Icon Normally" = "İkonanı Normal Yerləşdir";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Bütün OpenVPN proseslərini dayandır";
@@ -397,9 +388,6 @@
 "Monitor network settings" = "Şəbəkə parametrlərini izlə";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Spotlight İkonasının yanında yerləşdir";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "Domen adının başlığında domen axtarışını yazdır";
 
 /* Checkbox name */
@@ -512,9 +500,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Xətdə deyil - Əlavə Parametrlər%3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' bağlantısı kəsilib";

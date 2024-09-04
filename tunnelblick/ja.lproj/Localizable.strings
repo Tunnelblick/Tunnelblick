@@ -155,9 +155,6 @@
 "More Info [%@]" = "詳しい情報[%@]";
 
 /* Button */
-"More Info" = "詳しくはこちら";
-
-/* Button */
 "Never load Tap driver" = "Tap ドライバーを読み込まない";
 
 /* Button */
@@ -180,12 +177,6 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "ターミナルで easy-rsa を開く";
-
-/* Button */
-"Place Icon Near the Spotlight Icon" = "Spotlight アイコンの隣に配置する";
-
-/* Button */
-"Place Icon Normally" = "適当な位置に配置される";
 
 /* Button */
 "Quit All OpenVPN Processes" = "全ての OpenVPN プロセスを終了";
@@ -505,9 +496,6 @@
 "Monitor network settings" = "ネットワーク設定を監視する";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Spotlight アイコンの近くに配置される";
-
-/* Checkbox name */
 "Prepend domain name to search domains" = "名前を検索する時にドメイン名をつける";
 
 /* Checkbox name */
@@ -635,9 +623,6 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 切断 - 詳細設定 %3$@";
-
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "「%@」を切断しました";
@@ -1387,7 +1372,7 @@
 "Installation finished successfully." = "インストールは正しく終了しました。";
 
 /* Window text */
-"Installing and securing Tunnelblick..." = "Tunnelblick をインストール中…";
+"Installing and securing Tunnelblick..." = "Tunnelblick をインストールしながら保護中…";
 
 /* Window text */
 "Installing configurations is not allowed" = "設定のインストールが許可されていません";
@@ -1519,7 +1504,7 @@
 "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "更新される設定の中にはVPNに接続する時に管理者として起動されるプログラムが含まれています。このプログラムは完全にパソコンを管理することができます。\n\nこの設定の作者を信用できなければ、絶対にインストールしないで下さい。\n\n設定の作者を信頼して、インストールしますか？\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "更新される設定の中にはVPNに接続する時に管理者として起動されるプログラムが含まれています。このプログラムは完全にパソコンをコントロールすることができます。\n\nこの設定の作者を信用できなければ、絶対にインストールしないで下さい。\n\n設定の作者を信頼して、インストールしますか？\n\n";
+"One or more VPN configurations that are being updated include programs which will run when you connect to a VPN. These programs are part of the configuration and are not part of the Tunnelblick application.\n\nYou should install these configurations only if you trust their author.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "更新される設定の中にはVPNに接続する時に管理者として起動されるプログラムが含まれています。このプログラムは完全にパソコンをコントロールすることができます。\n\nこの設定の作者を信用できなければ、絶対にインストールすべきではありません。\n\n設定の作者を信頼して、インストールされて欲しいですか？\n\n";
 
 /* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "VPNが接続中です。処理を続ける前に、全てのVPNを切断しTunnelblick を終了してください。";
@@ -1969,9 +1954,6 @@
 "Tunnelblick was successfully replaced." = "Tunnelblickの上書きに成功しました。";
 
 /* Window text */
-"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "存在するはずの「%1$@」の OpenVPN プロセスと%2$d秒の間、通信できませんでした。通信をあきらめます。";
-
-/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "変更できません。詳細はコンソールログを参照してください。";
 
 /* Window text */
@@ -2155,9 +2137,6 @@
 "You must disconnect all VPNs before you can install or uninstall Tunnelblick's system extensions." = "Tunnelblickのシステム拡張機能をインストールまたはアンインストールする前に、すべてのVPNを切断する必要があります。";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "このコンピュータでは、Tunnelblick アイコンを Spotlight アイコンの近くに配置することはできません。\n\nメニューバーにTunnelblick アイコンが表示されなくなる場合がありますが、unnelblick アイコンを Spotlight アイコンの近くに配置するようにしますか？\n";
-
-/* Window text */
 "Your help in this will benefit all users of Tunnelblick.\n\nIf possible, please do not click \"Quit\" until you have sent the email." = "あなたの助けがすべての Tunnelblick ユーザの役に立ちます。\n\nどうかメールを送る前に \"Quit\" をクリックせず、ご協力をお願いします。";
 
 /* Window text */
@@ -2261,9 +2240,6 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p>将来のバージョンのmacOSでは<strong>1つまたは複数の接続先には接続することができません。</strong></p>\n<p>これらの接続先にはシステム拡張設定が必要ですが、将来のバージョンのmacOSではTunnelblickのシステム拡張設定を使うことができないためです。</p>";
 
-/* HTML info for the 'OpenVPN version' button. */
-"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>このVPNに接続するときに使うOpenVPNとSSLのバージョンを指定してください。</strong><ul><li><strong>デフォルトの設定</strong> はこのTunnelBlickバージョンで提供されたOpenSSLのバージョンを使ったOpenVPNのデフォルト設定を使います。デフォルト設定はTunnelBlickのバージョンによって変わることがあります。<br></li><li><strong>「最新」設定</strong>はこのTunnelBlickのバージョンで提供されたLibreSSLのバージョンを使っている最新版のOpenVPNを使います。「最新」の設定はTunnelBlickのバージョンによって変わることがあります。<br></li><li><strong>他の設定</strong> は指定されたOpenVPNとSSLのバージョンを使います。 （このTunnelBlickのバージョンで利用可能な場合）。利用可能でなければ、選択の設定に一番近い利用可能の設定を利用してVPNに接続します。<br></li></ul>";
-
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>VPN接続中に、TunnelblickがDNS設定を変更するために何を行うかを指定します（もしあれば）。</strong>選択肢としては、<ul><li><strong>ネームサーバーを変更しない</strong>: 何もしません。<br></li><li><strong>ネームサーバーを設定</strong>: 標準スクリプトを使用してDNSおよびWINS設定を処理します。 通常はこれがベストの選択となります。 OpenVPNの指示に従い、DNSおよびWINS設定を変更します。 手動で設定されたDNSおよびWINS設定は、[詳細設定]ウィンドウの[手動でセットされたネットワーク設定への変更を許可する]が選択されていない限り変更されません。<br></li><li><strong>ネームサーバーを設定 (3.1)</strong>: Tunnelblick 3.1のスクリプトを使用して、DNSおよびWINS設定を処理します。<br></li><li><strong>ネームサーバーを設定 (3.0b10)</strong>: Tunnelblick 3.0b10のスクリプトを使用して、DNSおよびWINS設定を処理します。<br></li><li><strong>ネームサーバーを設定 (alternate 1)</strong>: 代替スクリプトを使用して、DNSおよびWINS設定を処理します。<br></li></ul>";
 
@@ -2345,9 +2321,6 @@
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p> <strong>チェックすると</strong>、他の設定に関係なく、更新の自動チェックやIPアドレスの変更のチェックは行われません。 注：これらのアクティビティはいずれもTunnelblickWebサイトにアクセスします。</p>\n<p> <strong>チェックされていない場合</strong>、以下で有効にすると更新の自動チェックが実行され、構成の設定が有効になっている場合は、構成の接続時にIPアドレスの変更のチェックが実行されます。</p> <p>詳細については、<a href=\"https://tunnelblick.net/cPrivacy.html\">プライバシーとセキュリティ</a> [tunnelblick.net]を参照してください。</p> <p>＆nbsp; </p>";
-
-/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra and higher because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p> <strong>チェックすると</strong>、TunnelblickアイコンはSpotlightアイコンの近くに配置されます：</p>\n<p>％1$@</p>\n<p> <strong>チェックされていない場合</ strong>、Tunnelblickアイコンは正常に配置されます：</p>\n<p>％2$@</p>\n<p> <strong>このチェックボックスは、macOS Sierra以降では不要であるため無効になっています</strong>。また、問題を引き起こすことがわかっているシステムでは無効になっています。</p>\n<p> <a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">詳細</a> </p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
 "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>チェックすると</strong>、構成が切断されている場合でもVPNステータスウィンドウが表示されます。</p><p> 上で[表示しない]が選択されている場合、<strong>このチェックボックスは無効になっています</strong>。</p>";
