@@ -26,6 +26,7 @@
 
 #import "TunnelblickInfo.h"
 
+#import "helper.h"
 #import "MenuController.h"
 #import "NSFileManager+TB.h"
 #import "sharedRoutines.h"
@@ -199,23 +200,91 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[ipCheckURLString copy] autorelease];
 }
 
+-(void) setUpOpenVPNNames: (NSMutableArray *) nameArray
+         fromFolderAtPath: (NSString *)       openvpnDirPath
+                   suffix: (NSString *)       suffix {
+
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnDirPath];
+    NSString * dirName;
+    while (  (dirName = [dirEnum nextObject])  ) {
+        [dirEnum skipDescendents];
+        if (   ( [dirName hasPrefix: @"openvpn-"] )  ) {
+            NSString * versionWithSslSuffix = [dirName substringFromIndex: [@"openvpn-" length]];
+            NSArray * parts = [versionWithSslSuffix componentsSeparatedByString: @"-"];
+            NSString * versionWithoutSslSuffix = [parts objectAtIndex: 0];
+
+            NSString * openvpnPath = [[openvpnDirPath stringByAppendingPathComponent: dirName ]
+                                      stringByAppendingPathComponent: @"openvpn"];
+
+            // Skip this binary if it cannot be run on this processor
+            if (  ! thisArchitectureSupportsBinaryAtPath(openvpnPath)) {
+                NSLog(@"This Mac cannot run the program at '%@'", openvpnPath);
+                continue;
+            }
+
+            // Use ./openvpn --version to get the version information
+            NSString * stdoutString = @"";
+            NSString * stderrString = @"";
+            OSStatus status = runTool(openvpnPath, [NSArray arrayWithObject: @"--version"], &stdoutString, &stderrString);
+            if (   (status != EXIT_SUCCESS)
+                && (status != 1)  ) {    //OpenVPN returns a status of 1 when the --version option is used
+                NSLog(@"openvpnstart returned %lu trying to run '%@ --version'; stderr was '%@'; stdout was '%@'",
+                      (unsigned long)status, openvpnPath, stderrString, stdoutString);
+                [gMC terminateBecause: terminatingBecauseOfError];
+                return;
+            }
+
+            NSRange rng1stSpace = [stdoutString rangeOfString: @" "];
+            if (  rng1stSpace.length != 0  ) {
+                NSRange rng2ndSpace = [stdoutString rangeOfString: @" " 
+                                                          options: 0
+                                                            range: NSMakeRange(rng1stSpace.location + 1, [stdoutString length] - rng1stSpace.location - 1)];
+                if ( rng2ndSpace.length != 0  ) {
+                    NSString * versionString = [stdoutString
+                                                substringWithRange: NSMakeRange(rng1stSpace.location + 1, rng2ndSpace.location - rng1stSpace.location -1)];
+                    if (  ! [versionString isEqualToString: versionWithoutSslSuffix]  ) {
+                        NSLog(@"OpenVPN version ('%@') reported by the program is not consistent with the version ('%@') derived from the name of folder '%@' in %@",
+                              versionString, versionWithoutSslSuffix, dirName, openvpnDirPath);
+                        [gMC terminateBecause: terminatingBecauseOfError];
+                        return;
+                    }
+                    [nameArray addObject: [versionWithSslSuffix stringByAppendingString: suffix]];
+                    continue;
+                }
+            }
+
+            NSLog(@"Error getting info from '%@ --version': stdout was '%@'", openvpnPath, stdoutString);
+            [gMC terminateBecause: terminatingBecauseOfError];
+            return;
+        }
+    }
+
+    return;
+}
+
 -(NSArray *) allOpenvpnOpenssslVersions {
 
     if (  ! allOpenvpnOpenssslVersions ) {
 
-        NSMutableArray * versions = [[NSMutableArray alloc] initWithCapacity: 6];
+        // The names are the folder names in Tunnelblick.app/Contents/Resources/openvpn and /Library/Application Support/Tunnelblick/Openvpn
+        // that hold openvpn binaries, except that names from /Library... are suffixed by SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN
+        // so they can be distinguished from the others.
 
-        NSString * openvpnFolderPath = [self.appPath stringByAppendingPathComponent:
-                                        @"Contents/Resources/openvpn"];
-        NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: openvpnFolderPath];
-        NSString * name = nil;
-        while (  (name = [dirE nextObject])  ) {
-            if (  ! [name isEqualToString: @"default"]  ) {
-                [dirE skipDescendants];
-                [versions addObject: name];
-            }
+        NSMutableArray * versions = [[[NSMutableArray alloc] initWithCapacity: 5] autorelease];
+
+        // Get names from Tunnelblick.app/Contents/Resources/openvpn
+        NSString * dirPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"openvpn"];
+        [self setUpOpenVPNNames: versions
+               fromFolderAtPath: dirPath
+                         suffix: @""];
+
+        if (  versions.count == 0  ) {
+            NSLog(@"There are no versions of OpenVPN in this copy of Tunnelblick or in /Library/Application Support/Tunnelblick/Openvpn");
+            [gMC terminateBecause: terminatingBecauseOfError];
+            return @[]; // Satisfy static analyzer
         }
 
+        // Sort the array
         allOpenvpnOpenssslVersions = [[versions sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)] copy];
     }
 
