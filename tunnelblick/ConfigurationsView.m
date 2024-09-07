@@ -31,11 +31,13 @@
 #import "NSString+TB.h"
 #import "TBButton.h"
 #import "TBUserDefaults.h"
+#import "TunnelblickInfo.h"
 #import "UIHelper.h"
 
 extern NSFileManager  * gFileMgr;
 extern MenuController * gMC;
 extern TBUserDefaults * gTbDefaults;
+extern TunnelblickInfo * gTbInfo;
 
 
 @implementation ConfigurationsView
@@ -367,8 +369,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
     
     CGFloat pcovWidthChange = [UIHelper setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text") ofControl: perConfigOpenvpnVersionTFC frameHolder: perConfigOpenvpnVersionTF shift: ( !rtl ) narrow: YES enable: YES];
     
-    NSArray  * versionNames  = [gMC openvpnVersionNames];
-    
+    NSArray  * versionNames  = [gTbInfo allOpenvpnOpenssslVersions];
+
     NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: [versionNames count] + 2];
     
 	NSString * folderName = defaultOpenVpnFolderName();

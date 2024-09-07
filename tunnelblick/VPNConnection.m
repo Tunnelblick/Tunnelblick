@@ -2303,7 +2303,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(NSUInteger) getOpenVPNVersionIxToUseConnecting: (BOOL) connecting {
 
-	// Decides what version of OpenVPN to use with the configuration and returns its index in MenuController's "openvpnVersionNames" array.
+	// Decides what version of OpenVPN to use with the configuration and returns its index in gTbInfo's "allOpenvpnOpenssslVersions" array.
 	//
 	// Returns NSNotFound if no version of OpenVPN in this copy of Tunnelblick can be used with the configuration (because the OpenVPN
 	// configuration file contains options that are not included in any version of OpenVPN in this copy of Tunnelblick).
@@ -2319,7 +2319,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	// We first decide what version the user would like, and then try to get as close a match to that version as possible, then adjust that if
 	// the configuration requires a different version (because it contains options that are not included in that version).
 
-	NSArray  * versionNames = [gMC openvpnVersionNames];
+	NSArray  * versionNames = [gTbInfo allOpenvpnOpenssslVersions];
 
 	// Get info about the version that the user has specified (or defaulted to)
     NSString * prefKey = [[self displayName] stringByAppendingString: @"-openvpnVersion"];
@@ -2898,7 +2898,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		return nil;
 	}
 
-    NSString * ourOpenVPNVersion = [[gMC openvpnVersionNames] objectAtIndex: finalOpenvpnIx];
+    NSString * ourOpenVPNVersion = [[gTbInfo allOpenvpnOpenssslVersions] objectAtIndex: finalOpenvpnIx];
 
     NSArray * args = [NSArray arrayWithObjects:
                       @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, ourOpenVPNVersion, [self managementPassword], nil];

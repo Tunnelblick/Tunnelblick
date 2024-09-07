@@ -4448,8 +4448,9 @@ static void signal_handler(int signalNumber)
 	//           Else return our latest version with the same SSL
 	//
 	// Assumes that openvpnVersionNames is sorted from earliest to latest.
-	
-	NSArray  * versionNames = [gMC openvpnVersionNames];
+	// Assumes that allOpenvpnOpenssslVersions is sorted from earliest to latest.
+
+	NSArray  * versionNames = [gTbInfo allOpenvpnOpenssslVersions];
 
 	BOOL wantLibressl = [desiredVersion containsString: @"libressl"];
 	NSString * majorMinor = [desiredVersion substringToIndex: 3];
@@ -4915,10 +4916,6 @@ static void signal_handler(int signalNumber)
     [self checkThatTunnelblickdIsEnabled];
 
     // Get names and version info for all copies of OpenVPN in ../Resources/openvpn
-    if (  ! [self setUpOpenVPNNames]) {
-        return; // Error already put in log and app terminated
-    }
-    
     if (   [gTbDefaults objectForKey: @"installationUID"]
         && [gTbDefaults canChangeValueForKey: @"installationUID"]  ) {
         [gTbDefaults removeObjectForKey: @"installationUID"];
@@ -5120,7 +5117,7 @@ static void signal_handler(int signalNumber)
     NSString * prefVersion = [gTbDefaults stringForKey: @"*-openvpnVersion"];
     if (   [prefVersion length]
         && ( ! [prefVersion isEqualToString: @"-"] )
-        && ( ! [[self openvpnVersionNames] containsObject: prefVersion] )  ) {
+        && ( ! [[gTbInfo allOpenvpnOpenssslVersions] containsObject: prefVersion] )  ) {
 		NSString * useVersion = [self openvpnVersionToUseInsteadOfVersion: prefVersion];
         if (  [gTbDefaults canChangeValueForKey: @"*-openvpnVersion"]  ) {
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
