@@ -278,6 +278,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
                fromFolderAtPath: dirPath
                          suffix: @""];
 
+        // Add the names from /Library/Application Support/Tunnelblick/Openvpn if it exists
+        dirPath = L_AS_T_OPENVPN;
+        if (   [gFileMgr fileExistsAtPath: dirPath]  ) {
+            [self setUpOpenVPNNames: versions
+                   fromFolderAtPath: dirPath
+                             suffix: SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN]; // Suffix indicates openvpn binary external to Tunnelblick
+        }
+
         if (  versions.count == 0  ) {
             NSLog(@"There are no versions of OpenVPN in this copy of Tunnelblick or in /Library/Application Support/Tunnelblick/Openvpn");
             [gMC terminateBecause: terminatingBecauseOfError];
