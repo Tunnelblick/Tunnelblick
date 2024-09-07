@@ -905,7 +905,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * prefVersion = [gTbDefaults stringForKey: key];
     NSUInteger listIx;                              // Default to the first entry -- "Default (x.y.z)"
 
-	NSArray  * versionNames = [gTbInfo allOpenvpnOpenssslVersions];
+	NSArray  * versionNames = gTbInfo.allOpenvpnOpenssslVersions;
 	NSUInteger versionIx = [connection getOpenVPNVersionIxToUseConnecting: NO];
     if (  [prefVersion length] == 0  ) {
 		if (  versionIx == [connection defaultVersionIxFromVersionNames: versionNames]  ) {

@@ -247,7 +247,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
 
     if (  ! latestOpenvpnOpensslVersion ) {
 
-        NSArray * openvpnVersions = [self allOpenvpnOpenssslVersions];
+        NSArray * openvpnVersions = self.allOpenvpnOpenssslVersions;
         latestOpenvpnOpensslVersion = [[openvpnVersions lastObject] copy];
     }
 

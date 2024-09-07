@@ -4344,7 +4344,7 @@ static void signal_handler(int signalNumber)
 	//
 	// Assumes that allOpenvpnOpenssslVersions is sorted from earliest to latest.
 
-	NSArray  * versionNames = [gTbInfo allOpenvpnOpenssslVersions];
+	NSArray  * versionNames = gTbInfo.allOpenvpnOpenssslVersions;
 
 	BOOL wantLibressl = [desiredVersion containsString: @"libressl"];
 	NSString * majorMinor = [desiredVersion substringToIndex: 3];
@@ -5011,7 +5011,7 @@ static void signal_handler(int signalNumber)
     NSString * prefVersion = [gTbDefaults stringForKey: @"*-openvpnVersion"];
     if (   [prefVersion length]
         && ( ! [prefVersion isEqualToString: @"-"] )
-        && ( ! [[gTbInfo allOpenvpnOpenssslVersions] containsObject: prefVersion] )  ) {
+        && ( ! [gTbInfo.allOpenvpnOpenssslVersions containsObject: prefVersion] )  ) {
 		NSString * useVersion = [self openvpnVersionToUseInsteadOfVersion: prefVersion];
         if (  [gTbDefaults canChangeValueForKey: @"*-openvpnVersion"]  ) {
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),

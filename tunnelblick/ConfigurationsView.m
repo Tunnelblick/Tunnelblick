@@ -369,7 +369,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
     
     CGFloat pcovWidthChange = [UIHelper setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text") ofControl: perConfigOpenvpnVersionTFC frameHolder: perConfigOpenvpnVersionTF shift: ( !rtl ) narrow: YES enable: YES];
     
-    NSArray  * versionNames  = [gTbInfo allOpenvpnOpenssslVersions];
+    NSArray  * versionNames  = gTbInfo.allOpenvpnOpenssslVersions;
 
     NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: [versionNames count] + 2];
     

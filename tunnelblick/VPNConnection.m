@@ -2319,7 +2319,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	// We first decide what version the user would like, and then try to get as close a match to that version as possible, then adjust that if
 	// the configuration requires a different version (because it contains options that are not included in that version).
 
-	NSArray  * versionNames = [gTbInfo allOpenvpnOpenssslVersions];
+	NSArray  * versionNames = gTbInfo.allOpenvpnOpenssslVersions;
 
 	// Get info about the version that the user has specified (or defaulted to)
     NSString * prefKey = [[self displayName] stringByAppendingString: @"-openvpnVersion"];
@@ -2898,7 +2898,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		return nil;
 	}
 
-    NSString * ourOpenVPNVersion = [[gTbInfo allOpenvpnOpenssslVersions] objectAtIndex: finalOpenvpnIx];
+    NSString * ourOpenVPNVersion = [gTbInfo.allOpenvpnOpenssslVersions objectAtIndex: finalOpenvpnIx];
 
     NSArray * args = [NSArray arrayWithObjects:
                       @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, ourOpenVPNVersion, [self managementPassword], nil];
