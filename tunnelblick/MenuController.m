@@ -204,7 +204,6 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, cachedMenuItems,		   setCachedMenuIt
 TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
-TBSYNTHESIZE_OBJECT(retain, NSArray      *, openvpnVersionNames,       setOpenvpnVersionNames)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnectionArray)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
@@ -4285,110 +4284,6 @@ static void signal_handler(int signalNumber)
                nil]  );
 }
 
--(BOOL) setUpOpenVPNNames: (NSMutableArray *) nameArray
-		 fromFolderAtPath: (NSString *)       openvpnDirPath
-				   suffix: (NSString *)       suffix {
-
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnDirPath];
-    NSString * dirName;
-    while (  (dirName = [dirEnum nextObject])  ) {
-        [dirEnum skipDescendents];
-        if (   ( [dirName hasPrefix: @"openvpn-"] )  ) {
-			NSString * versionWithSslSuffix = [dirName substringFromIndex: [@"openvpn-" length]];
-            NSArray * parts = [versionWithSslSuffix componentsSeparatedByString: @"-"];
-			NSString * versionWithoutSslSuffix = [parts objectAtIndex: 0];
-            
-            NSString * openvpnPath = [[openvpnDirPath stringByAppendingPathComponent: dirName ]
-                                      stringByAppendingPathComponent: @"openvpn"];
-            
-            // Skip this binary if it cannot be run on this processor
-            if (  ! thisArchitectureSupportsBinaryAtPath(openvpnPath)) {
-                NSLog(@"This Mac cannot run the program at '%@'", openvpnPath);
-                continue;
-            }
-            
-            // Use ./openvpn --version to get the version information
-            NSString * stdoutString = @"";
-            NSString * stderrString = @"";
-            OSStatus status = runTool(openvpnPath, [NSArray arrayWithObject: @"--version"], &stdoutString, &stderrString);
-            if (   (status != EXIT_SUCCESS)
-				&& (status != 1)  ) {	//OpenVPN returns a status of 1 when the --version option is used
-                NSLog(@"openvpnstart returned %lu trying to run '%@ --version'; stderr was '%@'; stdout was '%@'", (unsigned long)status, openvpnPath, stderrString, stdoutString);
-                [self terminateBecause: terminatingBecauseOfError];
-                return FALSE;
-            }
-            
-            NSRange rng1stSpace = [stdoutString rangeOfString: @" "];
-            if (  rng1stSpace.length != 0  ) {
-                NSRange rng2ndSpace = [stdoutString rangeOfString: @" " options: 0 range: NSMakeRange(rng1stSpace.location + 1, [stdoutString length] - rng1stSpace.location - 1)];
-                if ( rng2ndSpace.length != 0  ) {
-                    NSString * versionString = [stdoutString substringWithRange: NSMakeRange(rng1stSpace.location + 1, rng2ndSpace.location - rng1stSpace.location -1)];
-					if (  ! [versionString isEqualToString: versionWithoutSslSuffix]  ) {
-						NSLog(@"OpenVPN version ('%@') reported by the program is not consistent with the version ('%@') derived from the name of folder '%@' in %@", versionString, versionWithoutSslSuffix, dirName, openvpnDirPath);
-						[self terminateBecause: terminatingBecauseOfError];
-						return FALSE;
-					}
-                    [nameArray addObject: [versionWithSslSuffix stringByAppendingString: suffix]];
-                    continue;
-                }
-            }
-            
-            NSLog(@"Error getting info from '%@ --version': stdout was '%@'", openvpnPath, stdoutString);
-            [self terminateBecause: terminatingBecauseOfError];
-            return FALSE;
-        }
-    }
-
-	return TRUE;
-}
-
--(void) replace: (NSString *) old with: (NSString *) new in: (NSMutableArray *) names {
-    
-    NSUInteger ix;
-    for (  ix=0; ix<[names count]; ix++  ) {
-        NSMutableString * name = [[[names objectAtIndex: ix] mutableCopy] autorelease];
-        [name replaceOccurrencesOfString: old withString: new options: 0 range: NSMakeRange(0, [name length])];
-        [names replaceObjectAtIndex: ix withObject: [NSString stringWithString: name]];
-    }
-}
-
--(BOOL) setUpOpenVPNNames {
-
-	// The names are the folder names in Tunnelblick.app/Contents/Resources/openvpn and /Library/Application Support/Tunnelblick/Openvpn
-	// that hold openvpn binaries, except that names from /Library... are suffixed by SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN so they can be distinguished from the others.
-
-	NSMutableArray * nameArray = [[[NSMutableArray alloc] initWithCapacity: 5] autorelease];
-
-	// Get names from Tunnelblick.app/Contents/Resources/openvpn
-	NSString * dirPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"openvpn"];
-	if ( ! [self setUpOpenVPNNames: nameArray fromFolderAtPath: dirPath suffix: @""]  ) {
-		return FALSE;
-	}
-
-	// Add the names from /Library/Application Support/Tunnelblick/openvpn if it exists
-	dirPath = L_AS_T_OPENVPN;
-	if (   [gFileMgr fileExistsAtPath: dirPath]  ) {
-		if ( ! [self setUpOpenVPNNames: nameArray fromFolderAtPath: dirPath suffix: SUFFIX_FOR_OPENVPN_BINARY_IN_L_AS_T_OPENVPN]  ) { // Suffix indicates openvpn binary external to Tunnelblick
-			return FALSE;
-		}
-	}
-
-	if (  [nameArray count] == 0  ) {
-		NSLog(@"There are no versions of OpenVPN in this copy of Tunnelblick");
-		[self terminateBecause: terminatingBecauseOfError];
-		return FALSE;
-	}
-    
-    // Sort the array but so OpenSSL comes before LibreSSL
-    [self replace: @"openssl" with: @"OPENSSL" in: nameArray];
-    [nameArray sortUsingSelector:@selector(compare:)];
-    [self replace: @"OPENSSL" with: @"openssl" in: nameArray];
-
-    [self setOpenvpnVersionNames: [NSArray arrayWithArray: nameArray]];
-
-    return TRUE;
-}
-
 -(NSArray *) uninstalledConfigurationUpdates {
 	
 	NSDictionary * highestEditions = highestEditionForEachBundleIdinL_AS_T();
@@ -4447,7 +4342,6 @@ static void signal_handler(int signalNumber)
 	//      Else if desired version is earlier than all our versions, return our earliest version with the same SSL
 	//           Else return our latest version with the same SSL
 	//
-	// Assumes that openvpnVersionNames is sorted from earliest to latest.
 	// Assumes that allOpenvpnOpenssslVersions is sorted from earliest to latest.
 
 	NSArray  * versionNames = [gTbInfo allOpenvpnOpenssslVersions];

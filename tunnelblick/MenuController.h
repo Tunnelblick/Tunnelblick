@@ -123,8 +123,6 @@ enum StatusIconPosition {
     NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
     
-    NSArray                 * openvpnVersionNames;          // A sorted array of the names of versions of OpenVPN that are available
-    
     SystemAuth              * startupInstallAuth;           // Authorization when starting up Tunnelblick
     
     MyPrefsWindowController * logScreen;                    // Log window ("VPN Details..." window)
@@ -397,7 +395,6 @@ TBPROPERTY(NSArray      *, screenList,                setScreenList)
 TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
-TBPROPERTY(NSArray      *, openvpnVersionNames,       setOpenvpnVersionNames)
 TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
 TBPROPERTY(NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
 TBPROPERTY(NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
