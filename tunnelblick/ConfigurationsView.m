@@ -39,7 +39,6 @@ extern MenuController * gMC;
 extern TBUserDefaults * gTbDefaults;
 extern TunnelblickInfo * gTbInfo;
 
-
 @implementation ConfigurationsView
 
 - (id)initWithFrame:(NSRect)frame {
@@ -373,12 +372,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 
     NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: [versionNames count] + 2];
     
-	NSString * folderName = defaultOpenVpnFolderName();
-	if (  [folderName hasPrefix: @"openvpn-"]  ) {
-		folderName = [folderName substringFromIndex: [@"openvpn-" length]];
-	} else {
-		NSLog(@"defaultOpenVpnFolderName() result '%@' did not start with 'openvpn-", folderName);
-	}
+	NSString * folderName = [gTbInfo.defaultOpenvpnOpensslVersion substringFromIndex: [@"openvpn-" length]];
 	NSString * displayedVersion = displayNameForOpenvpnName(folderName, nil);
 	if (  displayedVersion) {
 		[ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:

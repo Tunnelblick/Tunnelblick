@@ -2230,18 +2230,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	// Use the default version of OpenVPN, from the "default" link
 	NSUInteger useVersionIx;
-	NSString * folderName = defaultOpenVpnFolderName();
-	if (  [folderName hasPrefix: @"openvpn-"]  ) {
-		NSString * versionName = [folderName substringFromIndex: [@"openvpn-" length]];
-		useVersionIx = [versionNames indexOfObject: versionName];
-		if (  useVersionIx == NSNotFound  ) {
-			NSLog(@"Default OpenVPN '%@' not found. Using '%@'", versionName, [versionNames firstObject]);
-			useVersionIx = 0;
-		}
-	} else {
-		NSLog(@"Default OpenVPN '%@' not prefixed by '-openvpn'. Using '%@'", folderName, [versionNames firstObject]);
-		useVersionIx = 0;
-	}
+	NSString * folderName = gTbInfo.defaultOpenvpnOpensslVersion;
+    NSString * versionName = [folderName substringFromIndex: [@"openvpn-" length]];
+    useVersionIx = [versionNames indexOfObject: versionName];
+    if (  useVersionIx == NSNotFound  ) {
+        NSLog(@"Default OpenVPN '%@' not found. Using '%@'", versionName, [versionNames firstObject]);
+        useVersionIx = 0;
+    }
 
 	return useVersionIx;
 }
@@ -4800,6 +4795,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     userWantsState = userWantsUndecided;
 
     BOOL echoResponse = FALSE;
+    BOOL concatenateResponseToPassword = FALSE;
     NSString * staticChallengePrompt = nil;
 
     if (   [line rangeOfString: @" SC:0,"].length

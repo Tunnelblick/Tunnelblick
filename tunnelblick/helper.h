@@ -86,8 +86,6 @@ NSString     * pathWithNumberSuffixIfItemExistsAtPath(NSString * path, BOOL incl
 NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSString     * localizeNonLiteral        (NSString * status,
                                          NSString * type);
-NSString	 * defaultOpenVpnFolderName	(void);
-
 // from http://clang-analyzer.llvm.org/faq.html#unlocalized_string
 __attribute__((annotate("returns_localized_nsstring")))
 static inline NSString * LocalizationNotNeeded(NSString *s) {
