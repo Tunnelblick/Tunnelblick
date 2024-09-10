@@ -55,6 +55,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, authMode,        setAuthMode)
 TBSYNTHESIZE_OBJECT(retain, NSString *, username,        setUsername)
 TBSYNTHESIZE_OBJECT(retain, NSString *, password,        setPassword)
 TBSYNTHESIZE_OBJECT(retain, NSString *, passphrase,      setPassphrase)
+TBSYNTHESIZE_OBJECT(retain, NSString *, challenge,       setChallenge)
+TBSYNTHESIZE_OBJECT(retain, NSString *, challengeResponse, setChallengeResponse)
 TBSYNTHESIZE_OBJECT(retain, NSString *, displayName,     setDisplayName)
 TBSYNTHESIZE_OBJECT(retain, NSString *, group,           setGroup)
 TBSYNTHESIZE_OBJECT(retain, NSString *, credentialsName, setCredentialsName)
@@ -217,7 +219,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     return nil;
 }
 
-// Returns an array with a username and password obtained from the Keychain or by asking the user
+// Returns an array with a username and password obtained from the Keychain or by asking the user, and, perhaps, a security token entered by the user
 // Returns nil if cancelled by user or error
 -(NSArray *)getUsernameAndPassword
 {
@@ -230,7 +232,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     
     NSString * usernameLocal = nil;
     NSString * passwordLocal = nil;
-    NSString * securityTokenLocal = nil;
+    NSString * securityTokenLocal = @"";
 
     if (  [self usernameIsInKeychain]  ) {
         usernameLocal = [usernameKeychain password];
@@ -257,6 +259,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     NSString * tokenKey = [[self displayName] stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
     if (   (! passwordLocal)
         || (! usernameLocal)
+        || challenge
         || [gTbDefaults boolForKey: tokenKey]  ) {
         
         // Ask for password and username
@@ -277,6 +280,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 		}
         
 		showingLoginWindow = TRUE;
+        [loginScreen setChallenge: challenge];
         NSInteger result = [NSApp runModalForWindow: [loginScreen window]];
 		showingLoginWindow = FALSE;
         
@@ -292,7 +296,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 
         usernameLocal = [[loginScreen username] stringValue];
         passwordLocal = [[loginScreen password] stringValue];
-        securityTokenLocal = [loginScreen useSecurityTokenChecked] ? [[loginScreen securityToken] stringValue] : nil;
+        securityTokenLocal = [loginScreen useSecurityTokenChecked] ? [[loginScreen securityToken] stringValue] : @"";
 
         if (  ! usernameLocal  ) {
             NSLog(@"username is nil for Keychain '%@'", [usernameKeychain description]);
@@ -347,8 +351,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         [[loginScreen window] close];
     }
     
-    NSString * passwordAndToken = [passwordLocal stringByAppendingString: ( securityTokenLocal ? securityTokenLocal : @"" )];
-    NSArray * array = [NSArray arrayWithObjects: usernameLocal, passwordAndToken, nil];
+    NSArray * array = @[usernameLocal, passwordLocal, securityTokenLocal];
     return array;
 }
 
@@ -356,6 +359,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 {
     [self setUsername:nil];
     [self setPassword:nil];
+    [self setChallengeResponse: nil];
 
     if (  ! [authMode isEqualToString:@"password"]  ) {
         NSLog(@"Invalid authmode '%@' in performPasswordAuthentication", [self authMode]);
@@ -363,12 +367,13 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     }
     
 	NSArray *authArray = [self getUsernameAndPassword];
-	if([authArray count]) {                
-		NSString *usernameLocal = [authArray objectAtIndex:0];
-        [self setUsername:usernameLocal];
-        if ([authArray count] > 1) {
-            NSString *passwordLocal = [authArray objectAtIndex:1];
-            [self setPassword:passwordLocal];
+	if (  authArray.count  ) {
+        [self setUsername: authArray[0]];
+        if (  [authArray count] > 1  ) {
+            [self setPassword: authArray[1]];
+            if (  authArray.count > 2  ) {
+                [self setChallengeResponse: authArray[2]];
+            }
         }
 	}
 }

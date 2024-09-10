@@ -53,6 +53,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSImage *, eyeRedSlash)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
 
+TBSYNTHESIZE_OBJECT_SET(NSString *, challenge, setChallenge)
+
 -(id) initWithDelegate: (id) theDelegate
 {
     self = [super initWithWindowNibName: [UIHelper appendRTLIfRTLLanguage: @"LoginWindow"]];
@@ -121,7 +123,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
 
 //                                                                                   @"HTML Info for security code checkbox"))];
 
-	[useSecurityTokenCheckbox setTitle: NSLocalizedString(@"Security code:", @"Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle.")];
+    NSString * securityTokenRequestTitle = (  (challenge.length != 0)
+                                            ? [challenge stringByAppendingString: @":"]
+                                            : NSLocalizedString(@"Security code:", @"Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle."));
+	[useSecurityTokenCheckbox setTitle: securityTokenRequestTitle];
 	[useSecurityTokenCheckbox sizeToFit];
 
 	[savePasswordInKeychainCheckbox setState:   NSOffState];
@@ -197,14 +202,18 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSView *, securityTokenView)
                                                         : NSOnState)];
 	[[self savePasswordInKeychainCheckbox] setEnabled: setSaveUsernameCheckbox];  // Enabled only if saving username
 
-	NSString * key = [displayName stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
-	[[self useSecurityTokenCheckbox] setState:( [gTbDefaults boolForKey:key] ? NSOnState : NSOffState)];
-	[[self securityEyeButton] setEnabled:[gTbDefaults boolForKey:key]];
-	[[self securityEyeButton] setHidden:![gTbDefaults boolForKey:key]];
-	[self setInputBoxAndSecurityToken:@"" exposed: FALSE];
+    NSString * key = [displayName stringByAppendingString: @"-loginWindowSecurityTokenCheckboxIsChecked"];
+    BOOL requireSecurityToken = (   (challenge.length != 0)
+                                 || [gTbDefaults boolForKey: key]);
+    [[self useSecurityTokenCheckbox] setState: ( requireSecurityToken ? NSOnState : NSOffState)];
+    [[self securityEyeButton] setEnabled: requireSecurityToken];
+    [[self securityEyeButton] setHidden:  !requireSecurityToken];
+    [self setInputBoxAndSecurityToken: @"" exposed: FALSE];
 
     key = [displayName stringByAppendingString: @"-loginWindowSecurityTokenIsHidden"];
-    [[self securityTokenView] setHidden:[gTbDefaults boolForKey:key]];
+    BOOL hideSecurityTokenView = (   (challenge.length == 0)
+                                  && [gTbDefaults boolForKey:key]);
+    [[self securityTokenView] setHidden: hideSecurityTokenView];
 
     [cancelButton setEnabled: YES];
     [OKButton setEnabled: YES];

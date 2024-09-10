@@ -51,6 +51,8 @@
 
     id                            delegate;
 
+    NSString                    * challenge;
+
     NSImage                     * eyeNormal;
     NSImage                     * eyeRedSlash;
 }
@@ -82,5 +84,7 @@ TBPROPERTY_READONLY(NSButton *,    saveUsernameInKeychainCheckbox)
 TBPROPERTY_READONLY(NSButton *,    savePasswordInKeychainCheckbox)
 
 TBPROPERTY_READONLY(id, delegate)
+
+TBPROPERTY_WRITEONLY(NSString *, challenge, setChallenge)
 
 @end
