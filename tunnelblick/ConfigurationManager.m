@@ -3404,8 +3404,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  ! connection  ) {
         NSLog(@"changeToSharedFromPath: Internal error: cannot find connection for '%@', unable to ", displayName);
     }
-    
-    [connection invalidateConfigurationParse];
 }
 
 +(void) makeConfigurationsShared: (BOOL)      shared

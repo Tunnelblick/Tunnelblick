@@ -2395,17 +2395,21 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         i = [self indexOfFirstConnectionItemInMenu: theMenu];
         for (  ; i < [theMenu numberOfItems]; i++  ) {
             id menuItem = [theMenu itemAtIndex: i];
-            NSString * menuItemTitle;
+            NSString * menuItemTitle = nil;
             if (  [menuItem isSeparatorItem]  ) {
                 break;                              // A separator marks the end of list of connection items
             }
             if (   [menuItem submenu]  ) {          // item is a submenu
                 menuItemTitle = [menuItem title];
             } else {                                // item is a connection item
-                menuItemTitle = [[menuItem target] displayName];
+                id target = [menuItem target];
+                if (  [target respondsToSelector: @selector(displayName)]  ) {
+                    menuItemTitle = [target displayName];
+                }
             }
             
-            if (  [menuItemTitle caseInsensitiveCompare: theName] == NSOrderedSame  ) {
+            if (   menuItemTitle
+                && [menuItemTitle caseInsensitiveCompare: theName] == NSOrderedSame  ) {
                 [theMenu removeItemAtIndex: i];
                 return;
             }

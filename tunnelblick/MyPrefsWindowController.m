@@ -1798,6 +1798,15 @@ static BOOL firstTimeShowingWindow = TRUE;
     [ConfigurationManager addConfigurationGuideInNewThread];
 }
 
+-(void) cacheSanitizedConfigFileContentsForDisplayNames: (NSArray *) displayNames {
+
+    NSEnumerator * enu = [displayNames objectEnumerator];
+    NSString * displayName;
+    while (  (displayName = [enu nextObject])  ) {
+        VPNConnection * connection = [[gMC myVPNConnectionDictionary] objectForKey: displayName];
+        [connection sanitizedConfigurationFileContents];
+    }
+}
 
 -(IBAction) makePrivateMenuItemWasClicked: (id) sender
 {
@@ -1806,6 +1815,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSArray * displayNames = [self displayNamesOfSelection];
     
     if (  [displayNames count] != 0  ) {
+        [self cacheSanitizedConfigFileContentsForDisplayNames: displayNames];
 		[ConfigurationManager makeConfigurationsPrivateInNewThreadWithDisplayNames: displayNames];
     }
 }
@@ -1817,6 +1827,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSArray * displayNames = [self displayNamesOfSelection];
     
     if (  [displayNames count] != 0  ) {
+        [self cacheSanitizedConfigFileContentsForDisplayNames: displayNames];
 		[ConfigurationManager makeConfigurationsSharedInNewThreadWithDisplayNames: displayNames];
     }
 }
