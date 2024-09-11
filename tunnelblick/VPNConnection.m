@@ -2427,8 +2427,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSDictionary * removedAndDeprecatedOptionsInfo = [self removedAndDeprecatedOptionsInfoForConfigurationFile: configString];
 	NSString * removedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"removedInOpenvpnVersion"];
 
-    BOOL alreadyWarnedAboutUsingDifferentVersionOfOpenVPN = FALSE;
-
 	if (  removedInMajorMinor  ) {
 
 		while (  [[versionToTry substringToIndex: 3] compare: removedInMajorMinor] != NSOrderedAscending  ) {
@@ -2500,7 +2498,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                                                      @" The third '%@' will be replaced by the name of a configuration."
                                                      @" The fourth '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed."),
                                    versionToTry, versionWanted, [self displayName], problematicOptions]);
-                alreadyWarnedAboutUsingDifferentVersionOfOpenVPN = TRUE;
 
                 [gTbDefaults setObject: versionToTry forKey: [[self displayName] stringByAppendingString: @"-openvpnVersion"]];
             }
@@ -2572,7 +2569,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	NSString * key = [[self displayName] stringByAppendingString: @"-skipWarningThatNotUsingSpecifiedOpenVPN"];
 
-	NSString * warningMessage1 = @"";
+	NSString * warningMessage = nil;
 
 	NSString * deprecatedInMajorMinor = [removedAndDeprecatedOptionsInfo objectForKey: @"deprecatedInOpenvpnVersion"];
 
@@ -2582,61 +2579,54 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				NSLog(@"Connecting %@ using OpenVPN %@ which has deprecated options. To see them, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
 					  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry));
 			}
-            if (  ! alreadyWarnedAboutUsingDifferentVersionOfOpenVPN  ) {
-                NSString * problematicOptions = [removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
-                warningMessage1 = [NSString stringWithFormat:
-                                   NSLocalizedString(@"This VPN works now, but may not work in a future version of Tunnelblick.\n\n"
+            NSString * problematicOptions = [removedAndDeprecatedOptionsInfo objectForKey: @"problematicOptions"];
+            warningMessage = [NSString stringWithFormat:
+                              NSLocalizedString(@"This VPN works now, but may not work in a future version of Tunnelblick.\n\n"
 
-                                                     @"The OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n"
+                                                @"The OpenVPN configuration file for '%@' should be updated so it can be used with modern versions of OpenVPN. It contains these OpenVPN options:\n\n"
 
-                                                     @"%@\n"
+                                                @"%@\n"
 
-                                                     @"Tunnelblick will use OpenVPN %@ to connect this configuration.\n\n"
+                                                @"Tunnelblick will use OpenVPN %@ to connect this configuration.\n\n"
 
-                                                     @"However, you will not be able to connect to this VPN with future versions of"
-                                                     @" Tunnelblick that do not include a version of OpenVPN that accepts the options.",
+                                                @"However, you will not be able to connect to this VPN with future versions of"
+                                                @" Tunnelblick that do not include a version of OpenVPN that accepts the options.",
 
-                                                     @"Window text."
-                                                     @" The first '%@' will be replaced by the name of a configuration."
-                                                     @" The second '%@' will be replaced by a list of names of OpenVPN options, one on each line."
-                                                     @" The third '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
-                                   [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry, versionToTry)];
-                alreadyWarnedAboutUsingDifferentVersionOfOpenVPN = TRUE;
-            }
-		}
-	}
-
-	NSString * warningMessage2 = @"";
-
-	if (  [versionWanted isNotEqualTo: versionToTry]  ) {
-		NSLog(@"Configuration %@ will use OpenVPN %@ instead of %@. To see why, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
-			  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry), [self openvpnVersionMayBeUnavailable: versionWanted]);
-        if ( ! alreadyWarnedAboutUsingDifferentVersionOfOpenVPN  ) {
-            warningMessage2 = [NSString stringWithFormat:
-                               NSLocalizedString(@"'%@' will connect using OpenVPN %@ instead of the requested version (%@).",
-                                                 @"Window text."
-                                                 @" The first '%@' will be replaced by the name of a configuration."
-                                                 @" The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n"),
-                               [self displayName],
-                               displayNameForOpenvpnName(versionToTry, versionToTry),
-                               [self openvpnAndVersionLocalized: versionWanted]];
+                                                @"Window text."
+                                                @" The first '%@' will be replaced by the name of a configuration."
+                                                @" The second '%@' will be replaced by a list of names of OpenVPN options, one on each line."
+                                                @" The third '%@' will be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n'"),
+                              [self displayName], problematicOptions, displayNameForOpenvpnName(versionToTry, versionToTry)];
         }
 	}
 
-	NSString * warningMessage = (  ([warningMessage2 length] != 0)
-								 ? (  ([warningMessage1 length] != 0)
-									? [NSString stringWithFormat: @"%@\n\n%@", warningMessage2, warningMessage1]
-									: warningMessage2)
-								 : (  ([warningMessage1 length] != 0)
-									? warningMessage1
-									: nil)
-								 );
-
-	if (  warningMessage  ) {
+    if (  warningMessage  ) {
         [gMC addWarningNoteWithHeadline: NSLocalizedString(@"Problem using future versions of Tunnelblick...",
                                                            @"Menu item. Translate it to be as short as possible. When clicked, will display the full warning.")
                                 message: attributedLightDarkStringFromHTML( [self linesToHTML: warningMessage] )
                           preferenceKey: key];
+    }
+
+	warningMessage = nil;
+
+	if (  [versionWanted isNotEqualTo: versionToTry]  ) {
+		NSLog(@"Configuration %@ will use OpenVPN %@ instead of %@. To see why, reset disabled warnings on the 'Preferences' panel of the 'VPN Details' window and then try again.",
+			  [self displayName], displayNameForOpenvpnName(versionToTry, versionToTry), [self openvpnVersionMayBeUnavailable: versionWanted]);
+        warningMessage = [NSString stringWithFormat:
+                          NSLocalizedString(@"'%@' will connect using OpenVPN %@ instead of the requested version (%@).",
+                                            @"Window text."
+                                            @" The first '%@' will be replaced by the name of a configuration."
+                                            @" The second and third '%@' will each be replaced by the name of a version of OpenVPN, e.g. '2.3 - OpenSSL v1.0.2n"),
+                          [self displayName],
+                          displayNameForOpenvpnName(versionToTry, versionToTry),
+                          [self openvpnAndVersionLocalized: versionWanted]];
+    }
+
+	if (  warningMessage  ) {
+        [gMC addWarningNoteWithHeadline: NSLocalizedString(@"Using a different version of OpenVPN/OpenSSL...",
+                                                           @"Menu item. Translate it to be as short as possible. When clicked, will display the full warning.")
+                                message: attributedLightDarkStringFromHTML( [self linesToHTML: warningMessage] )
+                          preferenceKey: [key stringByAppendingString: @"-2"]];
 	}
 
 	return [versionNames indexOfObject: versionToTry];
