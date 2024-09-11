@@ -1267,8 +1267,6 @@
 			isa = PBXGroup;
 			children = (
 				63DAFD5311CBA9F4002F9F91 /* defines.h */,
-				6317AD922C80F681008D7CAA /* TunnelblickInfo.h */,
-				6317AD932C80F681008D7CAA /* TunnelblickInfo.m */,
 				6185E73E0E76045D0009C2FD /* helper.h */,
 				6185E73F0E76045D0009C2FD /* helper.m */,
 				B8045A07161EF26700609C98 /* sharedRoutines.h */,
@@ -1277,6 +1275,8 @@
 				6372CDC91BFCCBC500FC04DC /* TBOperationQueue.m */,
 				638E695F1097725500587933 /* TBUserDefaults.h */,
 				638E69601097725500587933 /* TBUserDefaults.m */,
+				6317AD922C80F681008D7CAA /* TunnelblickInfo.h */,
+				6317AD932C80F681008D7CAA /* TunnelblickInfo.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
