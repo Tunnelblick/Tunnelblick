@@ -1954,6 +1954,9 @@
 "Tunnelblick was successfully replaced." = "Pomyślnie zastąpiono Tunnelblick.";
 
 /* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick nie był w stanie nawiązać komunikacji z istniejącym procesem OpenVPN dla konfiguracji '%@'. Próba nawiązania komunikacji została przerwana.";
+
+/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick nie był w stanie zastosować zmian. Zobacz szczegóły w logu konsoli.";
 
 /* Window text */
@@ -2214,6 +2217,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "implementacja i testowanie wersji 64-bitowej";
 
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>Więcej informacji znajdziesz w\n<a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Używanie\nstarych wersji OpenVPN lub OpenSSL</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Aby zaimportować konfigurację Tunnelblicka na komputerze, na którym liczba kont użytkowników jest większa niż %u, musisz utworzyć plik tekstowy wskazujący dane do zaimportowania.</p><p>Więcej informacji znajdziesz na stronie <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML window text */
@@ -2239,6 +2245,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Co najmniej jedna konfiguracja nie będzie mogła nawiązać połączenia</strong> w przyszłych wersjach systemu macOS.</p>\n<p>Wymagane jest bowiem rozszerzenie systemowe, jednak przyszłe wersje systemu macOS nie zezwolą Tunnelblickowi na używanie rozszerzeń systemowych.</p>";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Określa wersję OpenVPN i oprogramowania SSL, które powinny być używane do łączenia się z VPN.</strong><ul><li><strong>Ustawienie „Domyślne”</strong> użyje domyślnej wersji OpenVPN z OpenSSL, która jest zawarta w tej wersji Tunnelblick. Domyślna wersja może być inna w różnych wersjach Tunnelblick.<br></li><li><strong>Ustawienie „Najnowsze”</strong> użyje najnowszej wersji OpenVPN z OpenSSL, która jest zawarta w tej wersji Tunnelblick. Najnowsza wersja może być inna w różnych wersjach Tunnelblick.<br></li><li><strong>Wszelkie inne ustawienia</strong> użyją określonej wersji oprogramowania OpenVPN i SSL, jeśli są dostępne w tej wersji Tunnelblick. Jeśli nie są dostępne, zostanie użyte najbliższe dopasowanie.<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Określa co (o ile w ogóle) robi Tunnelblick w celu modyfikacji ustawień DNS, gdy połączenie VPN jest aktywne.</strong> Dostępne są następujące opcje:<ul><li><strong> Nie ustawiaj serwera DNS</strong>: nic nie jest zmieniane.<br></li><li><strong>Ustaw serwer DNS</strong>: Tunnelblick używa swojego standardowego skryptu do zarządzania ustawieniami DNS i WINS. To przeważnie jest najlepsza opcja. Ustawienia DNS i WINS są zmieniane zgodnie z instrukcjami OpenVPN. Ręcznie zmienione ustawienia DNS i WINS nie zostaną zmodyfikowane, chyba że zaznaczono opcję „Zezwalaj na zmiany ręcznie zmodyfikowanych ustawień sieci” w oknie ustawień „Zaawansowane”<br></li><li><strong>Ustaw serwer DNS (3.1)</strong>: Tunnelblick używa skryptu ze swej wersji 3.1 do zarządzania ustawieniami DNS i WINS.<br></li><li><strong>Ustaw serwer DNS (3.0.b10)</strong>: Tunnelblick używa skryptu ze swej wersji 3.0b10 do zarządzania ustawieniami DNS i WINS.<br></li><li><strong>Ustaw serwer DNS (alternatywny nr 1)</strong>: Tunnelblick używa alternatywnego skryptu do zarządzania ustawieniami DNS i WINS.<br></li></ul>";
@@ -2381,6 +2390,9 @@
 
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Jeśli nie widzisz przycisku umożliwiającego załadowanie oprogramowania systemowego od twórcy „Jonathan Bullard”, spróbuj nawiązać połączenie z użyciem tej konfiguracji VPN (co się nie powiedzie), a następnie ponownie otwórz kartę „Ogólne” obszaru „Bezpieczeństwo i prywatność” w „Preferencjach systemowych”. </p>";
+
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>Jedna lub więcej konfiguracji VPN używa OpenVPN z OpenSSL 1.1.1, który zawiera\nznane luki w zabezpieczeniach, dla których poprawki nie są publicznie dostępne.</p>\n<p>Zalecamy zaktualizowanie następujących konfiguracji, aby\nużywać OpenVPN z nowszą wersją OpenSSL:</p>\n";
 
 /* HTML window text */
 "<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "167 / 5,000\n<p>Wystąpił jeden lub więcej problemów podczas próby uzyskania informacji lub przeprowadzenia aktualizacji.</p><p>Więcej informacji można znaleźć w logu</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@ </p>";
@@ -2570,6 +2582,9 @@
 
 /* Credit description */
 "Indonesian translation" = "Indonezyjskie tłumaczenie";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "Używana jest niebezpieczna wersja OpenSSL…";
 
 /* Credit description */
 "Italian translation" = "Włoskie tłumaczenie";

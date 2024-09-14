@@ -1954,6 +1954,9 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick đã được thay thế thành công.";
 
 /* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick không thể thiết lập giao tiếp với tiến trình OpenVPN hiện có cho cấu hình '%@'. Nỗ lực thiết lập giao tiếp đã bị hủy bỏ.";
+
+/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick không thể thực hiện thay đổi. Xem Nhật Ký Điều Khiển để biết chi tiết.";
 
 /* Window text */
@@ -2214,6 +2217,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "Kích hoạt và thử nghiệm 64-bit";
 
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>Để biết thêm thông tin, hãy xem\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Sử dụng\n   phiên bản cũ của OpenVPN hoặc OpenSSL</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Để thiết lập Tunnelblick trên máy tính có nhiều hơn %u tài khoản người dùng, bạn phải tạo một tệp văn bản chỉ định dữ liệu sẽ được nhập.</p>\n<p>Để biết thêm chi tiết, xem <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML window text */
@@ -2239,6 +2245,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Một hoặc nhiều cấu hình của bạn sẽ không thể kết nối</strong>trên các phiên bản macOS trong tương lai.</p>\n<p>(Các) cấu hình yêu cầu phần mở rộng hệ thống nhưng các phiên bản macOS trong tương lai sẽ không cho phép Tunnelblick sử dụng phần mở rộng hệ thống của nó.</p>";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Chỉ định phiên bản OpenVPN và phần mềm SSL được sử dụng để kết nối VPN.</strong><ul><li><strong>Cài đặt \"Mặc định\"</strong> sẽ sử dụng phiên bản mặc định của OpenVPN với OpenSSL được kèm theo phiên bản Tunnelblick này. Giá trị mặc định có thể khác nhau ở các phiên bản Tunnelblick khác nhau.<br></li><li><strong>Cài đặt \"Mới nhất\"</strong> sẽ sử dụng phiên bản mới nhất của OpenVPN với OpenSSL được kèm theo phiên bản Tunnelblick này. Phiên bản mới nhất có thể khác nhau ở các phiên bản Tunnelblick khác nhau.<br></li><li><strong>Thiết lập khác bất kỳ</strong> sẽ sử dụng phiên bản phần mềm OpenVPN và SSL đã chỉ định nếu chúng có sẵn trong phiên bản Tunnelblick này. Nếu không có, phiên bản phù hợp nhất sẽ được sử dụng.<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Chỉ định những gì (nếu có) Tunnelblick thực hiện để sửa đổi cài đặt DNS trong khi VPN được kết nối.</strong>Các lựa chọn sau:<ul><li><strong>Không đặt máy chủ định danh</strong>: Không làm gì.<br></li><li><strong>Đặt máy chủ định danh</strong>: Tunnelblick sử dụng tập lệnh chuẩn của nó để xử lý các cài đặt DNS và WINS. Đây thường là sự lựa chọn tốt nhất. Nó thay đổi cài đặt DNS và WINS theo hướng dẫn được cung cấp bởi OpenVPN. Cài đặt DNS và WINS đã được đặt theo cách thủ công sẽ không bị thay đổi trừ khi \"Cho phép thay đổi đối với cài đặt mạng được đặt theo cách thủ công\" được chọn trong cửa sổ cài đặt \"Nâng cao\"<br></li><li><strong>Đặt máy chủ định danh (3.1)</strong>: Tunnelblick sử dụng tập lệnh từ Tunnelblick 3.1 để xử lý cài đặt DNS và WINS.<br></li><li><strong>Đặt máy chủ định danh (3.0b10)</strong>: Tunnelblick sử dụng tập lệnh từ Tunnelblick 3.0b10 để xử lý cài đặt DNS và WINS.<br></li><li><strong>Đặt máy chủ định danh (luân phiên 1)</strong>: Tunnelblick sử dụng tập lệnh thay thế để xử lý cài đặt DNS và WINS.<br></li></ul>";
@@ -2381,6 +2390,9 @@
 
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>INếu bạn không thấy nút cho phép tải phần mềm hệ thống của nhà phát triển 'Jonathan Bullard', hãy thử kết nối cấu hình này (sẽ không thành công), sau đó xem trên tab 'Chung' của 'Bảo mật & Quyền riêng tư' trong 'Tùy chọn Hệ thống' lần nữa.</p>";
+
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>Một hoặc nhiều cấu hình VPN sử dụng OpenVPN với OpenSSL 1.1.1, chứa\n   các lỗ hổng bảo mật đã biết mà bản sửa lỗi không được công bố rộng rãi.</p>\n<p>Chúng tôi khuyến cáo bạn nên cập nhật các cấu hình sau để\n   sử dụng OpenVPN với phiên bản OpenSSL mới hơn:</p>\n\n<p>\n";
 
 /* HTML window text */
 "<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>Một hay nhiều lỗi đã xảy ra khi lấy thông tin bản cập nhật hoặc tiến hành cập nhật.</p><p>Để biết thêm chi tiết, xem nhật ký tại</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
@@ -2570,6 +2582,9 @@
 
 /* Credit description */
 "Indonesian translation" = "Bản dịch tiếng Indonesia";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "Phiên bản OpenSSL không an toàn đang được sử dụng…";
 
 /* Credit description */
 "Italian translation" = "Bản dịch tiếng Ý";

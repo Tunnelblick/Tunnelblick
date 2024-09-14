@@ -152,7 +152,7 @@
 "Monochrome icon" = "Монохромная иконка";
 
 /* Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'. */
-"More Info [%@]" = "Информация [%@]";
+"More Info [%@]" = "Подробнее [%@]";
 
 /* Button */
 "Never load Tap driver" = "Никогда не загружать драйвер Tap";
@@ -213,7 +213,7 @@
 "Restore" = "Восстановить";
 
 /* Button text */
-"Retry with manual response" = "Повторить еще с ручным ответом";
+"Retry with manual response" = "Повторить попытку с ручным ответом";
 
 /* Button */
 "Retry" = "Повторить";
@@ -520,7 +520,7 @@
 "Save in Keychain" = "Сохранить в Связке ключей";
 
 /* Checkbox name. This checkbox allows the user to type in a security code as shown on an authentication device such as a dongle. */
-"Security code:" = "Защитный код:";
+"Security code:" = "Код безопасности:";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Установить DNS после установления маршрутов";
@@ -1952,6 +1952,9 @@
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick успешно заменён.";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick не удается установить соединение с существующим OpenVPN процессом для конфигурации '%@'. Попытка установить соединение сброшена.";
 
 /* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick не смог внести изменения. Подробности в журнале Консоли.";

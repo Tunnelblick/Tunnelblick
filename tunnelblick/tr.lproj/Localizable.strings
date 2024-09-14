@@ -1954,6 +1954,9 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick başarı ile değiştirildi.";
 
 /* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick '%@' yapılandırması için var olan OpenVPN işlemi aracılığıyla bir bağlantı kuramıyor. Bağlantı kurma girişimleri sonlandırıldı.";
+
+/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick değişiklik yapamıyor. Detaylar için Konsol Kayıtlarına bakın.";
 
 /* Window text */
@@ -2214,6 +2217,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit etkinleştirme ve test etme";
 
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>Daha fazla bilgi için, bkz:\n  <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">OpenVPN veya OpenSSL'in eski sürümlerini kullanma</a>[tunnelblick.net].</p>";
+
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\">%u 'dan daha fazla kullanıcı hesabı olan bilgisayara Tunnelblick ayarı aktarmak için, hangi verinin aktarılacağını belirten metin dosyası oluşturmalısınız.</p><p>Daha fazla bilgi için<a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML window text */
@@ -2239,6 +2245,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p>macOS'un ileriki sürümlerinde <strong>bir veya daha fazla yapılandırmanız bağlantı sağlayamayacak.</strong></p>\n<p>Bu yapılandırma(lar) bir sistem genişletmesine ihtiyaç duyuyor ama macOS'un ileriki sürümleri Tunnelblick'in sistem genişletmelerini kullanmasına izin vermeyecek.</p>";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>VPN'e bağlanmak için kullanılacak OpenVPN ve SSL yazılımı versiyonunu belirtir.</strong><ul><li><strong>\"Varsayılan\" ayarı</strong> Tunnelblick'in bu sürümündeki OpenVPN ile OpenSSL'in varsayılan versiyonlarını kullanır. Tunnelblick'in farklı sürümlerinde varsayılan farklı olabilir.<br></li><li><strong>\"Son sürüm\" ayarı</strong> Tunnelblick'in bu sürümüne dahil edilmiş OpenVPN ile OpenSSL'in en son versiyonunu kullanır. En son versiyon Tunnelblick'in farklı sürümleri arasında değişkenlik gösterebilir.<br></li><li><strong>Diğer bütün ayarlar</strong> eğer Tunnelblick'in bu sürümünde mevcutsa OpenVPN ile SSL yazılımının belirtilen versiyonunu kullanır. Eğer mevcut değilse, en yakın eşleşme kullanılır.<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>VPN bağlantısı gerçekleşmişken DNS ayarlarının nasıl ayarlanacağını (eğer bir şey varsa) belirtir.</strong>Seçenekler:<ul><li><strong>Ad sunucusunu değiştirme</strong>Hiçbir şey yapma<br></li><li><strong>Ad sunucusunu değiştir</strong>Tunnelblick, DNS ve WINS ayarlarını yönetmek için standart betiği kullanır. Bu genellikle en iyi seçimdir. DNS ve WINS ayarlarını Open VPN tarafından sağlanan talimatlara göre değiştirir. \"Gelişmiş\" penceresinde \"Ağ ayarlarını manuel ayarlamaya izin ver \" seçilmedikçe, manuel ayarlanan DNS ve WINS ayarları değiştirilmez.<br></li><li><strong>Ad sunucusunu ayarla (3.1)</strong>: Tunnelblick, DNS ve WINS ayarlarını düzenlemek için Tunnelblick 3.1 betiğini kullanır.<br></li><li><strong>Ad sunucusunu ayarla (3.0b10)</strong>: Tunnelblick, DNS ve WINS ayarlarını düzenlemek için Tunnelblick (3.0b10) betiğini kullanır.<br></li><li><strong>Ad sunucusunu ayarla (alternatif 1)</strong>: Tunnelblick, DNS ve WINS ayarlarını düzenlemek için alternatif bir betik kullanır.<br></li></ul>";
@@ -2381,6 +2390,9 @@
 
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Geliştirici 'Jonathan Bullard' tarafından sağlanan sistem yazılımını yüklemeye izin veren bir düğme görmüyorsanız, bu yapılandırmayla bağlanmayı deneyin (başarısız olacaktır), sonra 'Sistem Tercihleri'ndeki 'Güvenlik ve Gizlilik'in 'Genel' sekmesine tekrar bakın.</p>";
+
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>Bir veya daha fazla VPN yapılandırması, herkese açık çözümü olmayan güvenlik açıkları içerdiği bilinen OpenSSL 1.1.1 ile OpenVPN kullanıyor.</p>\n<p>Aşağıdaki yapılandırma(lar)ı OpenSSL'in daha yeni bir versiyonunu kullanacak şekilde güncellemenizi tavsiye ederiz:</p>\n\n<p>\n";
 
 /* HTML window text */
 "<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>Güncellemeleri almaya veya güncelleme yapmaya çalışırken bir veya daha fazla sorun meydana geldi.</p><p>Daha fazla bilgi için log dosyasına bakabilirsiniz:</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
@@ -2570,6 +2582,9 @@
 
 /* Credit description */
 "Indonesian translation" = "Endonezyaca çeviri";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "OpenSSL'in güvenli olmayan versiyonu kullanımda…";
 
 /* Credit description */
 "Italian translation" = "İtalyanca çeviri";

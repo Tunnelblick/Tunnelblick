@@ -125,7 +125,7 @@
 "Ignore" = "Ignorer";
 
 /* Button to install an update */
-"Install and Relaunch" = "Install and Relaunch";
+"Install and Relaunch" = "Installer et relancer";
 
 /* Button */
 "Install tun and tap system extensions..." = "Installer les extensions de système TUN et TAP...";
@@ -1952,6 +1952,9 @@
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick a été correctement remplacé.";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick n'a pas pu établir de communication avec un process OpenVPN existant pour '%@'. La tentative a été abandonnée.";
 
 /* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Le changement n'a pas pu être appliqué par Tunnelblick. Voyez les messages de la console pour les détails.";

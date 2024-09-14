@@ -1954,6 +1954,9 @@
 "Tunnelblick was successfully replaced." = "Tunnelblickの上書きに成功しました。";
 
 /* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblickは設定「%@」に、存在されているOpenVPNプロセスとの通信を確立できませんでした。通信を確立する試行を止められました。";
+
+/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "変更できません。詳細はコンソールログを参照してください。";
 
 /* Window text */
@@ -2570,6 +2573,9 @@
 
 /* Credit description */
 "Indonesian translation" = "インドネシア語翻訳";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "OpenSSLの不安全なバージョンを使っています…";
 
 /* Credit description */
 "Italian translation" = "イタリア語翻訳";

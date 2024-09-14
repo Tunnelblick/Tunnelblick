@@ -1954,7 +1954,7 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick wurde erfolgreich ersetzt.";
 
 /* Window text */
-"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick konnte die Verbindung zum OpenVPN-Prozess für die Konfiguration „%@“ nicht herstellen. Der Versuch wird abgebrochen.";
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick konnte die Verbindung zu einem bestehenden OpenVPN-Prozess für die Konfiguration „%@“ nicht herstellen. Der Verbindungsversuch wird abgebrochen.";
 
 /* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick konnte die Veränderung nicht durchführen. Details sind im Konsolen-Log zu finden.";

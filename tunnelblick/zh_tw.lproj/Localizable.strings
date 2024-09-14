@@ -23,7 +23,7 @@
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
-"(None available)" = "(無)";
+"(None available)" = "（無）";
 
 /* Button */
 "1 MB" = "1 MB";

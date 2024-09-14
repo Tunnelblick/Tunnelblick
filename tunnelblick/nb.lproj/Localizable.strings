@@ -1741,6 +1741,9 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Det oppstod problemer med å importere Tunnelblick-innstillinger.";
 
 /* Window text */
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Denne 'utrullede' versionen av Tunnelblick kan ikke startes eller installeres fordi den ikke har fått ny identitet, eller CFBundleIdentifier mangler eller inneholder 'net.tunnelblick'.\n\n";
+
+/* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Denne 'utrullede' versjonen av Tunnelblick kan ikke startes eller installeres siden den mangler Info.plist.\n\n";
 
 /* Window text. The first '%@' will be replaced by the name of a configuration. The second '%@' will be replaced by a list of names of OpenVPN options and when each was deprecated and removed. */
@@ -1861,6 +1864,9 @@
 "Tunnelblick is up to date" = "Tunnelblick er oppdatert";
 
 /* Window text */
+"Tunnelblick needs a computer administrator's authorization to update.\n\nTunnelblick will be relaunched after the update." = "Tunnelblick trenger en administrators godkjennelse for å oppdatere.\n\nTunnelblick vil starte på nytt etter oppgraderingen.";
+
+/* Window text */
 "Tunnelblick needs authorization to copy folder '%@'." = "Tunnelblick trenger autorisasjon til å kopiere katalogen '%@'.";
 
 /* Window text */
@@ -1946,6 +1952,9 @@
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick ble erstattet.";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick kunne ikke etablere kontakt med en eksisterende OpenVPN prosess for konfigurasjon '%@'. Forsøk på å etablere kontakt har blitt avbrutt.";
 
 /* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick kunne ikke gjøre endringen. Se konsolloggen for detaljer.";
