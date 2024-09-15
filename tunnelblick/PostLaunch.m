@@ -269,14 +269,11 @@ extern TunnelblickInfo * gTbInfo;
     BOOL alwaysLoadTun     = [self oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: @"tun"];
     BOOL configNeedsTap    = [self oneOrMoreConfigurationsMustLoad: @"tap"];
     BOOL configNeedsTun    = [self oneOrMoreConfigurationsMustLoad: @"tun"];
-    BOOL sipIsDisabled     = [gTbInfo runningWithSIPDisabled];
 
     [self displayMessageAboutBigSurAndKextsAlwaysLoadTap: alwaysLoadTap
                                            alwaysLoadTun: alwaysLoadTun
                                           configNeedsTap: configNeedsTap
-                                          configNeedsTun: configNeedsTun
-                               onMontereySucessorOrNewer: TRUE
-                                           sipIsDisabled: sipIsDisabled];
+                                          configNeedsTun: configNeedsTun];
 }
 
     -(BOOL) oneOrMoreConfigurationsHavePreferenceSetToAlwaysLoad: (NSString * ) tapOrTun {
@@ -337,11 +334,7 @@ extern TunnelblickInfo * gTbInfo;
     -(void) displayMessageAboutBigSurAndKextsAlwaysLoadTap: (BOOL) alwaysLoadTap
                                              alwaysLoadTun: (BOOL) alwaysLoadTun
                                             configNeedsTap: (BOOL) configNeedsTap
-                                            configNeedsTun: (BOOL) configNeedsTun
-                                 onMontereySucessorOrNewer: (BOOL) onMontereySucessorOrNewer
-                                             sipIsDisabled: (BOOL) sipIsDisabled {
-
-        (void)sipIsDisabled;
+                                            configNeedsTun: (BOOL) configNeedsTun {
 
         BOOL needtapOrTun = (   alwaysLoadTap
                              || alwaysLoadTun
