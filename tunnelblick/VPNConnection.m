@@ -4785,7 +4785,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     userWantsState = userWantsUndecided;
 
     BOOL echoResponse = FALSE;
-    BOOL concatenateResponseToPassword = FALSE;
+    BOOL concatenateResponseToPassword = TRUE;  // Default to concatenate (if no static challenge)
     NSString * staticChallengePrompt = nil;
 
 // TO TEST FORMAT parameter of static challenge, uncomment the following line:
