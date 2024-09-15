@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString * appPath;
 
     NSDictionary * infoDictionary;
-    
+
     NSString * tunnelblickBuildString;
     NSString * tunnelblickVersionString;
 
@@ -95,6 +95,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *) systemVersionString;
 
 -(NSArray *) systemSounds;
+
+-(BOOL) systemVersionCanLoadKexts;
 
 -(BOOL) runningOnMacOSBeta;
 

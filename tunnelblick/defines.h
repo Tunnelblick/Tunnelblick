@@ -22,7 +22,7 @@
 //*************************************************************************************************
 // Misc:
 
-#define MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS FALSE
+#define LOWEST_MACOS_THAT_CANNOT_LOAD_KEXTS @"9999.99"
 
 // Set to TRUE to allow Tunnelblick to use openvpnstart's kill and killall subcommands
 #define ALLOW_OPENVPNSTART_KILL    TRUE

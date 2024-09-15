@@ -2763,23 +2763,19 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSString * preferenceKey = [displayName stringByAppendingString: @"-loadTap"];
 	NSString * preference = [gTbDefaults stringForKey: preferenceKey];
     if (  ! [preference isEqualToString: @"never"]  ) {
-
-#if MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS
-        if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
-            NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
-        } else {
-            if (  preference  ) {
-                NSLog(@"Will not try to load kexts on this version of macOS, so ignoring '%@' for '%@'", preference, preferenceKey);
+        if (  ! gTbInfo.systemVersionCanLoadKexts  ) {
+            if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
+                NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
+            } else {
+                if (  preference.length == 0  ) {
+                    NSLog(@"Will not try to load kexts on this version of macOS, so ignoring '%@' for '%@'", preference, preferenceKey);
+                }
+                preference = @"never";
             }
-            preference = @"never";
         }
-#endif
-
     }
 	if (  [preference isEqualToString: @"always"]  ) {
 		bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
-    } else if (   (! preference)
-               || ( [preference length] == 0)  ) {
         // "automatic", so load our tap kext if it is a tap connection
         if (  [tunOrTap isEqualToString: @"tap"]  ) {
             bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
@@ -2791,23 +2787,20 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	preferenceKey = [displayName stringByAppendingString: @"-loadTun"];
 	preference = [gTbDefaults stringForKey: preferenceKey];
     if (  ! [preference isEqualToString: @"never"]  ) {
-
-#if MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS
-        if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
-            NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
-        } else {
-            if (  preference  ) {
-                NSLog(@"Will not try to load kexts on this version of macOS, so ignoring '%@' for '%@'", preference, preferenceKey);
+        if (  ! gTbInfo.systemVersionCanLoadKexts  ) {
+            if (  [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
+                NSLog(@"Will try to load kexts on this version of macOS, so allowing '%@' for '%@'", preference, preferenceKey);
+            } else {
+                if (  preference.length == 0  ) {
+                    NSLog(@"Will not try to load kexts on this version of macOS, so ignoring '%@' for '%@'", preference, preferenceKey);
+                }
+                preference = @"never";
             }
-            preference = @"never";
         }
-#endif
-
     }
 	if (  [preference isEqualToString: @"always"]  ) {
 		bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
-	} else if (   (! preference)
-               || ( [preference length] == 0)  ) {
+	} else if (  preference.length == 0  ) {
 		// "automatic", so if an "dev-type tun" OpenVPN option was seen we must load our tun kext, otherwise we let OpenVPN use the utun device
         if (  [tunOrTap isEqualToString: @"tun"]  ) {
             bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;

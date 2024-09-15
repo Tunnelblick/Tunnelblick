@@ -29,6 +29,7 @@
 #import "ConfigurationManager.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
+#import "NSFileManager+TB.h"
 #import "TBButton.h"
 #import "TBOperationQueue.h"
 #import "TBPopUpButton.h"
@@ -36,14 +37,13 @@
 #import "UIHelper.h"
 #import "VPNConnection.h"
 #import "SystemAuth.h"
-#import "NSFileManager+TB.h"
-
+#import "TunnelblickInfo.h"
 
 extern NSFileManager  * gFileMgr;
 extern MenuController * gMC;
 extern NSString       * gPrivatePath;
 extern TBUserDefaults * gTbDefaults;
-
+extern TunnelblickInfo * gTbInfo;
 
 @interface SettingsSheetWindowController()    // Private methods
 
@@ -361,7 +361,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	NSString * key   = [configurationName stringByAppendingString: rawPreferenceKey];
 	NSString * value = [gTbDefaults stringForKey: key];
 
-    NSInteger index;
+    NSInteger index; // 0 = automatic; 1 = always; 2 = never
+    
 	if (  [value length] == 0  ) {
 		index = 0;
 	} else if (  [value isEqualToString: @"always"]  ) {
@@ -373,25 +374,20 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 		index = 1;
 	}
 
-    // Assume that the next version of macOS will not allow installing or loading our kexts.
-    // But let users change that assumption by setting the "tryToLoadKextsOnThisVersionOfMacOS" preference to true
+    // Some future version of macOS may not allow installing our kexts, and presumably won't allow loading/unloading of them.
+    // But let users override and try to install/load/unload kexts by setting the "tryToLoadKextsOnThisVersionOfMacOS" preference to true
 
     BOOL enabled = TRUE;
 
-#if MONTEREY_SUCCESSOR_CANNOT_LOAD_KEXTS
-    BOOL donotLoadKext = (  ! [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  );
-
-    if (  donotLoadKext  ) {
+    if (  ! gTbInfo.systemVersionCanLoadKexts  ) {
         if (  index != 2  ) {
-			if (  value  ) {
-            	NSLog(@"Not loading kexts on this version of macOS, so showing 'never' and ignoring '%@' for '%@' for '%@' and disabling the button", value, rawPreferenceKey, key);
-			}
-            index = 2;
+            if (  ! [gTbDefaults boolForKey: @"tryToLoadKextsOnThisVersionOfMacOS"]  ) {
+                NSLog(@"Not loading kexts on this version of macOS, so showing 'never' and ignoring '%@' for '%@' for '%@' and disabling the button", value, rawPreferenceKey, key);
+                index = 2;
+                enabled = FALSE;
+            }
         }
-
-        enabled = FALSE;
     }
-#endif
 
     [button selectItemAtIndex: index];
     [button setEnabled: enabled];

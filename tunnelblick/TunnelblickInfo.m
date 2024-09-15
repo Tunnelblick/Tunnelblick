@@ -36,7 +36,6 @@ extern TBUserDefaults * gTbDefaults;
 extern NSFileManager  * gFileMgr;
 extern MenuController * gMC;
 
-
 @implementation TunnelblickInfo
 
 -(TunnelblickInfo *) initForAppAtPath: (NSString *) path {
@@ -445,6 +444,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     }
 
     return [[systemSounds copy] autorelease];
+}
+
+-(BOOL) systemVersionCanLoadKexts {
+
+    BOOL result = [self.systemVersionString compare: LOWEST_MACOS_THAT_CANNOT_LOAD_KEXTS]  == NSOrderedAscending;
+    return result;
 }
 
 -(BOOL) runningOnMacOSBeta {
