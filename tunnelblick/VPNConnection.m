@@ -2066,7 +2066,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSString *) tapOrTun {
 
 	// This is the externally-referenced 'tunOrTap'
-	return [self setTunOrTapAndHasAuthUserPassAndAuthRetryParameter];
+
+    if (  [NSThread isMainThread]  ) {
+        return [self setTunOrTapAndHasAuthUserPassAndAuthRetryParameter];
+    }
+
+    [self performSelectorOnMainThread:@selector(setTunOrTapAndHasAuthUserPassAndAuthRetryParameter) withObject: self waitUntilDone: YES];
+    return tunOrTap;
 }
 
 -(BOOL) hasAuthUserPass {

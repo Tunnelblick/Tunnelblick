@@ -118,7 +118,6 @@ extern TunnelblickInfo * gTbInfo;
         return crashReportPaths;
     }
 
-
     -(void) writeCrashReportsTarGzToTheDesktop: (NSArray *) paths {
 
         NSString * tarGzPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Desktop/Tunnelblick Error Data.tar.gz"];
@@ -320,11 +319,7 @@ extern TunnelblickInfo * gTbInfo;
 
         // requirement must be "tun" or "tap". Returns true if the configuration requires the specified kext.
 
-        NSString * tunTapOrUtun = (  connection.tapOrTun
-                                   ? connection.tapOrTun
-                                   : [ConfigurationManager parseConfigurationForTunTapForConnection: connection]);
-
-        if (   [tunTapOrUtun isEqualToString: requirement]  ) {
+        if (   [connection.tapOrTun isEqualToString: requirement]  ) {
             return YES;
         }
 
