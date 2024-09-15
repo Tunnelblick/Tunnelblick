@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Tunnelblickメニューに表示する";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "OpenVPN/OpenSSL別のバージョンが使われています…";
+
 /* Menu item */
 "VPN Details..." = "VPN の詳細…";
 
@@ -2216,6 +2219,9 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "64ビット化とテスト";
+
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>追加情報に<a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">をご覧ください\n   旧バージョンのOpenVPNやOpenSSLの使用</a>[tunnelblick.net]</p>";
 
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Tunnelblick setupをユーザーアカウント数が%u以上のあるコンピューターにインポートするには, インポートするデータを説明するテキストファイルの作成が必要です</p>\n<p>もっと知りたいなら、 <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>をご覧ください。</p></font>";

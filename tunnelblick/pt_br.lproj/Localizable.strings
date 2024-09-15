@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Exibir no Menu do Tunnelblick";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Usando uma versão diferente do OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "Detalhes da VPN…";
 
@@ -1952,6 +1955,9 @@
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "O Tunnelblick foi substituído com sucesso.";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick não conseguiu estabelecer comunicações com um processo OpenVPN existente para a configuração '%@'. A tentativa de estabelecer comunicações foi abandonada.";
 
 /* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "O Tunnelblick não conseguiu efetuar a mudança. Consulte o Registro da Consola para mais detalhes.";

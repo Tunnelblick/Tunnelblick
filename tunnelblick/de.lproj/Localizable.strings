@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Im Tunnelblick Menü zeigen";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Verwenden einer anderen Version von OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "VPN-Details…";
 
