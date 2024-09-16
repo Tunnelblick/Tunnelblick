@@ -4464,7 +4464,6 @@ static void signal_handler(int signalNumber)
     
     [self checkThatTunnelblickdIsEnabled];
 
-    // Get names and version info for all copies of OpenVPN in ../Resources/openvpn
     if (   [gTbDefaults objectForKey: @"installationUID"]
         && [gTbDefaults canChangeValueForKey: @"installationUID"]  ) {
         [gTbDefaults removeObjectForKey: @"installationUID"];
