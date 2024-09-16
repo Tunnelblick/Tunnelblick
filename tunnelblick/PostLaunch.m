@@ -65,6 +65,8 @@ extern TunnelblickInfo * gTbInfo;
 
     @autoreleasepool {
 
+        [self warnIfOnSystemStartConfigurationsAreNotConnected];
+
         [self askAboutSendingCrashReports];
 
         [self displayMessageAboutRosetta];
@@ -75,6 +77,33 @@ extern TunnelblickInfo * gTbInfo;
 
         [self pruneTracesFolder];
 
+    }
+}
+
+-(void) warnIfOnSystemStartConfigurationsAreNotConnected {
+
+    // Create a list of configurations that should be connected when the system starts but aren't connected
+
+    NSMutableString * badConfigurations = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+
+    NSEnumerator * e = [gMC.myVPNConnectionDictionary objectEnumerator];
+    VPNConnection * conn;
+    while (  (conn = [e nextObject])  ) {
+        NSString * name = [conn displayName];
+        if (   [gTbDefaults boolForKey: [name stringByAppendingString: @"-onSystemStart"]]
+            && [gTbDefaults boolForKey: [name stringByAppendingString: @"autoConnect"]]
+            && [[conn state] isNotEqualTo: @"CONNECTED"]  ) {
+            [badConfigurations appendFormat: @"     %@\n", name];
+        }
+    }
+
+    if (  [badConfigurations length] != 0  ) {
+        TBShowAlertWindowExtended(@"Tunnelblick",
+                                  [NSString stringWithFormat:
+                                   NSLocalizedString(@"Warning: The following configurations, which should connect when the computer starts, are not connected:\n\n%@\n",
+                                                     @"Window text. The %@ will be replaced with a list of the names of configurations, one per line"),
+                                   badConfigurations],
+                                  @"skipWarningAboutWhenSystemStartsConfigurationsThatAreNotConnected", nil, nil, nil, nil, NO);
     }
 }
 
