@@ -29,6 +29,7 @@
 #import "ConfigurationManager.h"
 #import "helper.h"
 #import "MenuController.h"
+#import "MyPrefsWindowController.h"
 #import "NSDate+TB.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
@@ -81,6 +82,18 @@ extern TunnelblickInfo * gTbInfo;
 }
 
 -(void) warnIfOnSystemStartConfigurationsAreNotConnected {
+
+    // Make sure the '-onSystemStart' preferences for all connections are consistent with the /Library/LaunchDaemons/...plist file for the connection
+
+    [gMC performSelectorOnMainThread: @selector(createPreferencesWindow) withObject: nil waitUntilDone: YES];
+
+    NSEnumerator * connEnum = [gMC.myVPNConnectionDictionary objectEnumerator];
+    VPNConnection * connection;
+    while (  (connection = [connEnum nextObject])  ) {
+        if (  ! [connection tryingToHookup]  ) {
+            [gMC.logScreen validateWhenConnectingForConnection: connection];
+        }
+    }
 
     // Create a list of configurations that should be connected when the system starts but aren't connected
 

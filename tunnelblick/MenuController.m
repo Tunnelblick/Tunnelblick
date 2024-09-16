@@ -4520,14 +4520,6 @@ static void signal_handler(int signalNumber)
     [self setupHookupWatchdogTimer];
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 008")
-    // Make sure the '-onSystemStart' preferences for all connections are consistent with the /Library/LaunchDaemons/...plist file for the connection
-    NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
-    VPNConnection * connection;
-    while (  (connection = [connEnum nextObject])  ) {
-        if (  ! [connection tryingToHookup]  ) {
-           [[self logScreen] validateWhenConnectingForConnection: connection];
-        }
-    }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 009")
     activeIPCheckThreads = [[NSMutableArray alloc] initWithCapacity: 4];

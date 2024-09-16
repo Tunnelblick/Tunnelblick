@@ -280,6 +280,7 @@ enum StatusIconPosition {
 -(NSArray *)        connectionsNotDisconnected;
 -(void)             connectionStateDidChange:                  (id)              connection;
 -(VPNConnection *)  connectionForDisplayName:               (NSString *)         displayName;
+-(void)             createPreferencesWindow;
 -(unsigned)         decrementTapCount;
 -(NSURL *)          getIPCheckURL;
 -(NSNumber *)       haveConfigurations;
