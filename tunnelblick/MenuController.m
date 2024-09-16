@@ -3334,17 +3334,23 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
 {
 	(void) sender;
 	
-	if (  ! logScreen  ) {
-		logScreen = (MyPrefsWindowController *)[[MyPrefsWindowController sharedPrefsWindowController] retain];
-	}
-	
+    [self createPreferencesWindow];
+	[logScreen showWindow: nil];
+    [self activateIgnoringOtherApps];
+}
+
+-(void) createPreferencesWindow {
+
+    if (  logScreen  ) {
+        return;
+    }
+
+    logScreen = (MyPrefsWindowController *)[[MyPrefsWindowController sharedPrefsWindowController] retain];
+
     NSUInteger flags = [[NSApp currentEvent] modifierFlags];
     if (  flags & NSAlternateKeyMask  ) {
         [[logScreen window] center];
     }
-
-	[logScreen showWindow: nil];
-    [self activateIgnoringOtherApps];
 }
 
 -(IBAction) reEnableInternetAccess:(id)sender {
