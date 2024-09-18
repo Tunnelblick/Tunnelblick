@@ -20,7 +20,7 @@
 # or see http://www.gnu.org/licenses/.
 #
 #
-# This script is the final step in creating Tunnelblick. It creates Tunnelblick.app, Tunnelblick Uninstaller.app, and the disk images for each of them.
+# This script is the final step in creating Tunnelblick. It creates Tunnelblick.app and the Tunnelblick disk image.
 
 changeEntry()
 {
@@ -48,7 +48,6 @@ touch build
 # Set paths in the build folder
 readonly         app_path="build/${CONFIGURATION}/${PROJECT_NAME}.app"
 readonly         dmg_path="build/${CONFIGURATION}/${PROJECT_NAME}.dmg"
-readonly uninstaller_path="build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app"
 
 readonly signed_app_path="build/${CONFIGURATION}/Signed/${PROJECT_NAME}.app"
 readonly signed_dmg_path="build/${CONFIGURATION}/Signed/${PROJECT_NAME}.dmg"
@@ -72,23 +71,6 @@ if [ "$lprojs_in_source" != "$lprojs_in_app" ] ; then
   exit 1
 fi
 
-
-# Compile Tunnelblick Uninstaller
-  rm -r -f      "${uninstaller_path}"
-  osacompile -o "${uninstaller_path}" -x "tunnelblick-uninstaller.applescript"
-
-  mv "${uninstaller_path}/Contents/MacOS/droplet" "${uninstaller_path}/Contents/MacOS/Tunnelblick Uninstaller"
-
-  # Add the Uninstaller .app's Info.plist and its icon, script, and localization resources
-  cp -p -f "tunnelblick-uninstaller.Info.plist"   "${uninstaller_path}/Contents/Info.plist"
-
-  cp -p "tunnelblick-uninstaller.icns"               "${uninstaller_path}/Contents/Resources/droplet.icns"
-  cp -p "tunnelblick-uninstaller.sh"                 "${uninstaller_path}/Contents/Resources/tunnelblick-uninstaller.sh"
-
-  for d in `ls "tunnelblick-uninstaller-localization"`
-  do
-    cp -p -f -R tunnelblick-uninstaller-localization/${d} "${uninstaller_path}/Contents/Resources"
-  done
 
 # Copy easy-rsa-tunnelblick, removing .DS_Store files
   rm -r -f                                     "${app_path}/Contents/Resources/easy-rsa-tunnelblick"
@@ -142,7 +124,7 @@ kext_products_folder="$( cd ../third_party/products/tuntap ; pwd )"
   cp -a "$kext_products_folder/$tap_name" "${app_path}/Contents/Resources/"
   cp -a "$kext_products_folder/$tun_name" "${app_path}/Contents/Resources/"
 
-# Set the type of configuration ("Debug" or "Unsigned") (inside CFBundleShortVersionString) for the app (only the app; the uninstaller has its own versioning)
+# Set the type of configuration ("Debug" or "Unsigned") (inside CFBundleShortVersionString) for the app (only the app
 if [ "${CONFIGURATION}" = "Debug" ]; then
     readonly tbconfig="Debug"
 elif [ "${CONFIGURATION}" = "Release" ]; then
@@ -152,14 +134,13 @@ else
 fi
 changeEntry "${app_path}/Contents/Info.plist" TBCONFIGURATION "${tbconfig}"
 
-# Set the version number (e.g. '3.6.2beta02') from TBVersionString.txt (inside CFBundleShortVersionString) for the app (only the app; the uninstaller has its own versioning)
+# Set the version number (e.g. '3.6.2beta02') from TBVersionString.txt (inside CFBundleShortVersionString) for the app
 readonly tbvs="$(cat TBVersionString.txt)"
 changeEntry "${app_path}/Contents/Info.plist" TBVERSIONSTRING "${tbvs}"
 
-# Set the build number (CFBundleVersion) from TBBuildNumber.txt (inside CFBundleShortVersionString) in the app and uninstaller
+# Set the build number (CFBundleVersion) from TBBuildNumber.txt (inside CFBundleShortVersionString) in the app
 readonly tbbn="$(cat TBBuildNumber.txt)"
 changeEntry "${app_path}/Contents/Info.plist"         TBBUILDNUMBER "${tbbn}"
-changeEntry "${uninstaller_path}/Contents/Info.plist" TBBUILDNUMBER "${tbbn}"
 
 # Set the CFBundleVersion from TBKextVersionNumber.txt in any kexts that have not been notarized
 # Kexts must have small numbers as the second and optional 3rd part of CFBundleVersion.
@@ -401,7 +382,7 @@ cp -a -f "$app_path" "$signed_app_path"
 changeEntry "$signed_app_path/Contents/Info.plist" " Unsigned</string>" " Signed (local)</string>"
 ./SignTunnelblickAppOrDmg.sh "$signed_app_path"
 
-# Create the Tunnelblick .dmg and the Uninstaller .dmg except if Debug
+# Create the Tunnelblick .dmg except if Debug
 if [ "${CONFIGURATION}" != "Debug" ]; then
 
 	# Staging folder
@@ -449,35 +430,8 @@ if [ "${CONFIGURATION}" != "Debug" ]; then
 
 	# Leave the staging folder so customized .dmgs can be easily created
 
-	# Uninstaller Staging folder
-	TMPDMG="build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller"
-
-	# Folder with files for the uninstaller .dmg (.DS_Store and background folder which contains background.png background image)
-	DMG_FILES="uninstaller-dmgFiles"
-
-	# Remove the existing "staging" folder and copy the uninstaller into it
-	rm -r -f "$TMPDMG"
-	mkdir -p "$TMPDMG"
-	cp -p -R "${uninstaller_path}" "$TMPDMG"
-
-	# Copy link to documentation to the staging folder
-	cp -p "Online Documentation.webloc" "$TMPDMG"
-
-	# Remove any existing .dmg and create a new one. Specify "-noscrub" so that .DS_Store is copied to the image
-	rm -r -f "build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg"
-	hdiutil create -noscrub -srcfolder "$TMPDMG" "build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg"
-    status=$?
-    if [ "${status}" -ne "0" ]; then
-        echo "ERROR creating uninstaller .dmg"
-		exit ${status}
-    fi
-
-	# Leave the staging folder so customized .dmgs can be easily created
-
-    touch "build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg"
     touch "$app_path"
     touch "$dmg_path"
 fi
 
-touch "${uninstaller_path}"
 touch "${app_path}"
