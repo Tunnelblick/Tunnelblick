@@ -216,7 +216,7 @@ codesign_verify_verbose () {
 
 check_app_signature () {
 
-    # Checks codesign signatures of Tunnelblick application at $1 and does spctl to check it, too.
+    # Checks codesign signatures of Tunnelblick application at $1 and does spctl to check it, too if the signing identity is not "-".
     #
     # Checks signatures of the application, all of its binaries, and the Sparkle framework.
     #
@@ -269,16 +269,18 @@ check_app_signature () {
 	fi
 	codesign_verify_verbose "${sparkle_framework}"
 
-    set +e
-        spctl --assess --verbose --no-cache "$app_path"
-        local status=$?
-        if [  status = 0 ] ; then
-            echo "Passed spctl assessment: '$app_path'"
-        else
-            echo "Error: Failed spctl assessment: '$app_path'"
-            EXIT_VALUE=1
-        fi
-    set -e
+    if [  "$SIGNING_IDENTITY" != "-" ] ; then
+        set +e
+            spctl --assess --verbose --no-cache "$app_path"
+            local status=$?
+            if [  status = 0 ] ; then
+                echo "Passed spctl assessment: '$app_path'"
+            else
+                echo "Error: Failed spctl assessment: '$app_path'"
+                EXIT_VALUE=1
+            fi
+        set -e
+    fi
 }
 
 ##########################################################################################
