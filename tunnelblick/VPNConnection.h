@@ -234,8 +234,6 @@ struct Statistics {
 -(BOOL)             tryingToHookup;
 -(BOOL)             isHookedup;
 
--(BOOL)             mustLoad:                   (NSString *)    requirement;
-
 -(BOOL)             isConnected;
 
 -(BOOL)             isDisconnected;

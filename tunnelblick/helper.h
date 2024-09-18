@@ -144,6 +144,8 @@ OSStatus       runOpenvpnstart          (NSArray  * arguments,
                                          NSString ** stdoutString,
                                          NSString ** stderrString);
 
+NSString     * tracesFolderPath(void);
+
 BOOL           processIsTranslated(void);
 
 BOOL           displaysHaveDifferentSpaces(void);

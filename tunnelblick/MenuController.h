@@ -253,6 +253,8 @@ enum StatusIconPosition {
 -(IBAction)         openPreferencesWindow:                  (id)                sender;
 -(IBAction)         quit:                                   (id)                sender;
 
+-(void) addWarningNote: (NSDictionary *) dict;
+
 -(void)             addWarningNoteWithHeadline:             (NSString *)            headline
                                        message:             (NSAttributedString *)  message
                                  preferenceKey:             (NSString *)            preferenceKey;

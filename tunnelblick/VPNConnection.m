@@ -2632,26 +2632,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return [versionNames indexOfObject: versionToTry];
 }
 
--(BOOL) mustLoad: (NSString *) requirement {
-
-    // requirement must be "tun" or "tap". Returns true if the configuration requires the specified kext.
-    if ( [@"tap" isEqualToString: requirement] ) {
-        // TAP can be handled with IOUserEthernetController now
-        return NO;
-    }
-
-
-    NSString * tunTapOrUtun = (  tunOrTap
-                               ? tunOrTap
-                               : [ConfigurationManager parseConfigurationForTunTapForConnection: self]);
-
-    if (   [tunTapOrUtun isEqualToString: requirement]  ) {
-        return YES;
-    }
-
-    return NO;
-}
-
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow userKnows: (BOOL) userKnows {
 
 	// Returns nil if user cancelled, must revert or secure shadow copy, or an error message has been shown to the user
@@ -2776,6 +2756,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 	if (  [preference isEqualToString: @"always"]  ) {
 		bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
+    } else if (  preference.length == 0  ) {
         // "automatic", so load our tap kext if it is a tap connection
         if (  [tunOrTap isEqualToString: @"tap"]  ) {
             bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;

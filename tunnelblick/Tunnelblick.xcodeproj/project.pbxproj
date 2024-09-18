@@ -98,6 +98,7 @@
 		6356C51E2036244800A7792A /* lt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6356C51C2036244800A7792A /* lt.lproj */; };
 		635713A61A6709D800709670 /* ar.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635713A31A6709D800709670 /* ar.lproj */; };
 		6357DADB214FC229003A7196 /* ImportWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6357DADA214FC229003A7196 /* ImportWindow-RTL.xib */; };
+		63596F5F2C93343B00541604 /* PostLaunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 63596F5E2C93343B00541604 /* PostLaunch.m */; };
 		635971421C06736B0055FBC5 /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 635971411C06736B0055FBC5 /* UIHelper.m */; };
 		635971461C0673A10055FBC5 /* Preferences-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635971431C0673A10055FBC5 /* Preferences-RTL.xib */; };
 		635BF1AF1501CE4E00D87717 /* ExternalBuildCleanScript.sh in Resources */ = {isa = PBXBuildFile; fileRef = 635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */; };
@@ -502,6 +503,8 @@
 		6356C51C2036244800A7792A /* lt.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lt.lproj; sourceTree = "<group>"; };
 		635713A31A6709D800709670 /* ar.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ar.lproj; sourceTree = "<group>"; };
 		6357DADA214FC229003A7196 /* ImportWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ImportWindow-RTL.xib"; sourceTree = "<group>"; };
+		63596F5D2C93343B00541604 /* PostLaunch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostLaunch.h; sourceTree = "<group>"; };
+		63596F5E2C93343B00541604 /* PostLaunch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostLaunch.m; sourceTree = "<group>"; };
 		635971401C06736B0055FBC5 /* UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIHelper.h; sourceTree = "<group>"; };
 		635971411C06736B0055FBC5 /* UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHelper.m; sourceTree = "<group>"; };
 		635971431C0673A10055FBC5 /* Preferences-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Preferences-RTL.xib"; sourceTree = "<group>"; };
@@ -844,6 +847,7 @@
 				B8407881170CE4B00002B941 /* Class Extensions & Subclasses */,
 				B8407880170CE44C0002B941 /* Configurations */,
 				B8407883170CE5400002B941 /* EasyRSA & AppleScript */,
+				63596F5C2C93341000541604 /* PostLaunch */,
 				63D436F42BA9AB3D00AFB2E7 /* TBUpdater */,
 				63ABFE901349E370003DEB64 /* UI */,
 				63E56ED51384831C007E39AB /* VPNService */,
@@ -1001,6 +1005,15 @@
 				632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */,
 			);
 			name = "Alert Window";
+			sourceTree = "<group>";
+		};
+		63596F5C2C93341000541604 /* PostLaunch */ = {
+			isa = PBXGroup;
+			children = (
+				63596F5D2C93343B00541604 /* PostLaunch.h */,
+				63596F5E2C93343B00541604 /* PostLaunch.m */,
+			);
+			name = PostLaunch;
 			sourceTree = "<group>";
 		};
 		635ECCF71378886E00F67F8D /* Preferences */ = {
@@ -2052,6 +2065,7 @@
 				63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */,
 				B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */,
 				6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */,
+				63596F5F2C93343B00541604 /* PostLaunch.m in Sources */,
 				6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */,
 				63D893F32124E5FE000E20E5 /* SetupImporter.m in Sources */,
 				B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */,
