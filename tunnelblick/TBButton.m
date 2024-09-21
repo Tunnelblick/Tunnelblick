@@ -19,7 +19,7 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-// THIS FILE IS IDENTICAL TO TBButton.h except for the class and base class and the import of TBPopUpButton.h instead of TBButton.h
+// THIS FILE IS IDENTICAL TO TBButton.m except it substitutes TBButton for TBPopUpButton
 
 #import "helper.h"
 #import "sharedRoutines.h"
