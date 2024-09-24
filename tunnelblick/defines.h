@@ -272,7 +272,7 @@
                             @[@"2.3", @"2.5",  @"compat-names", @"no-name-remapping"], \
                             @[@"2.4", @"2.4",  @"tun-ipv6"], \
                             @[@"2.4", @"2.5",  @"client-cert-not-required", @"no-iv", @"secret"], \
-                            @[@"2.4", @"2.5?", @"comp-lzo", @"comp-noadapt", @"dhcp-release", @"key-method", @"max-routes", @"no-replay", @"ns-cert-type"], \
+                            @[@"2.4", @"2.5?", @"comp-lzo", @"comp-noadapt", @"dhcp-release", @"key-method", @"max-routes", @"no-replay"], \
                             @[@"2.4", @"2.6",  @"keysize"], \
                             @[@"2.4", @"2.6?", @"ns-cert-type"], \
                             @[@"2.5", @"2.6",  @"inetd", @"management-client-pf", @"ncp-disable", @"prng"], \
