@@ -39,6 +39,103 @@ changeEntry()
     fi
 }
 
+createLocalizedInfoPlistStringsFiles() {
+
+    # Create a UTF-8 InfoPlist.strings file in each .lproj folder of the built app which has a translation of the copyright notice (but not in en.lproj).
+    # The file will have a single line like the following (except the string to the right of the equal sign will be the translated line):
+    #   NSHumanReadableCopyright = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved."
+    #
+    # If there is no translation, we don't create the file. macOS will use the English version.
+    #
+    # Do nothing for the en.lproj folder. Xcode copies tunnelblick/en.lproj/InfoPlist.strings there, converted to UTF-16LE, because, for English,
+    #  Finder >> File >> Get Info displays the copyright notice only for UTF-16LE files.
+    #
+    # We create the file for languages other than English as UTF-8 because for those languages Finder >> File >> Get Info displays the copyright notice only for UTF-8 files.
+    #
+    # >>>>> Yes, that's correct: The English InfoPlist.strings file must be UTF-16LE, but for all other languages it must be UTF-8 !!!!!
+
+    local d
+    local outPath
+    local temp
+    local outputLine
+
+    for d in *.lproj ; do
+
+        outPath="${app_path}/Contents/Resources/$d/InfoPlist.strings"
+
+        if [ "$d" != "en.lproj" ] ; then
+
+            # Read $d/Localizable.strings and get the **LAST** line with TUNNELBLICK_COPYRIGHT_NOTICE_YEAR into $temp
+            grep 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' < "$d/Localizable.strings" | tail -n 1 > "temp.strings"
+            temp="$( cat "temp.strings" )"
+
+            # If there is a translation, copy it to the InfoPlist.strings file
+            if [ -n "$temp" ] ; then
+
+                # Remove everything except the translation (remove the double-quotes around the translation, too)
+                temp="${temp#*\=}"  # Remove everything up to and including the first (only) equal-sign
+                temp="${temp#*\"}"  # Remove everything up to and including the first double-quote
+                temp="${temp%\"*}"  # Remove the last double-quote and everything after it
+
+                # Set outputLine to the new contents of the localized InfoPlist.strings file without a terminating LF
+                outputLine="NSHumanReadableCopyright = \"$temp\";"
+
+                # Write out the contents plus a terminating LF to Resources/$d/InfoPlist.strings file in the built app
+                echo "$outputLine" > "$outPath"
+            fi
+        fi
+
+        rm -f "temp.strings"
+    done
+}
+
+updateLocalizedInfoPlistStringsFilesWithCurrentYear() {
+
+    # Replace TUNNELBLICK_COPYRIGHT_NOTICE_YEAR with the current 4-digit year
+    # in Resources/*.lproj/InfoPlist.strings files in the built app.
+    #
+    # The file in en.lproj/InfoPlist.strings is created by Xcode as a UTF-16LE file,
+    # and Finder >> File >> Get Info displays the copyright info from it ONLY if it is a UTF-16LE file.
+    #
+    # We create (in createLocalizedInfoPlistStringsFiles) all other InfoPlist.strings files as UTF-8 files,
+    # and Finder >> File >> Get Info displays the copyright info from them ONLY if they are UTF-8 files.
+    #
+    # sed only edits UTF-8 files
+    #
+    # So, to edit en.lproj/InfoPlist.strings, we convert it to UTF-8, edit that UTF-8 file with sed, then convert it back to UTF-16LE.
+    #
+    # For all other InfoPlist.strings files, we just edit them in sed as they are (UTF-8).
+
+    local yyyy
+    local filePath
+
+    yyyy="$( date -j +%Y )"
+
+    pushd "${app_path}/Contents/Resources" > /dev/null
+
+    for d in *.lproj ; do
+
+        filePath="$d/InfoPlist.strings"
+
+        if [  -f "$filePath" ] ; then
+
+            if [ "$d" = "en.lproj" ] ; then
+                iconv -f UTF-16LE -t UTF-8-MAC "$filePath" > temp.strings
+                mv -f temp.strings "$filePath"
+            fi
+
+            # Note: the -i '' on macOS edits the file in place.
+            sed -i '' -e "s|TUNNELBLICK_COPYRIGHT_NOTICE_YEAR|$yyyy|g" "$filePath"
+
+            if [ "$d" = "en.lproj" ] ; then
+                iconv -f UTF-8-MAC -t UTF-16LE "$filePath" > temp.strings
+                mv -f temp.strings "$filePath"
+            fi
+        fi
+    done
+    popd
+}
+
 # Save the working directory so we can cd to it easily
 original_wd="$( pwd )"
 
@@ -279,11 +376,9 @@ else
   echo "error: Could not find a version of OpenVPN to use by default; default_openvpn_version_prefix = '$default_openvpn_version_prefix'"
 fi
 
-# Copy en.lproj/Localizable.strings (It isn't copied in Debug builds using recent versions of Xcode, probably because it is the primary language)
-if test ! -f "${app_path}/Contents/Resources/en.lproj/Localizable.strings" ; then
-  cp -p -f "en.lproj/Localizable.strings" "${app_path}/Contents/Resources/en.lproj/Localizable.strings"
-  echo "warning: Copied en.lproj/Localizable.strings from source code into .app"
-fi
+createLocalizedInfoPlistStringsFiles
+
+updateLocalizedInfoPlistStringsFilesWithCurrentYear
 
 # Rename the .plist files if this is a rebranded version of Tunnelblick
 ntt="net.tunnelblick"

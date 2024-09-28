@@ -1723,6 +1723,10 @@ void localizableStrings(void)
 	NSLocalizedString(@"PRIVATE_KEY_WAIT", @"Connection status");
     NSLocalizedString(@"DISCONNECTING",    @"Connection status");
 	NSLocalizedString(@"NETWORK_ACCESS",   @"Connection status");
+
+    // This is the copyright string stored in Resources/LANGUAGE.lproj/InfoPlist.strings
+    NSLocalizedString(@"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved.",
+                      @"Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired.");
 }
 
 BOOL appHasValidSignature(void) {

@@ -1,3 +1,12 @@
 /* Localized versions of Info.plist keys */
 
-NSHumanReadableCopyright = "© 2004-2020 Angelo Laub and others";
+/* NOTES:
+
+    1. If the NSHumanReadableCopyright string is changed, corresponding changes must be made in helper.m and BuildAppsAndDmgs.sh.
+       To facilitate this, search the project in Xcode for TUNNELBLICK_COPYRIGHT_NOTICE_YEAR.
+
+    2. Because the string is localized, the new string must be uploaded to Crowdin for translation with the upbase script.
+ 
+ */
+
+NSHumanReadableCopyright = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved.";
