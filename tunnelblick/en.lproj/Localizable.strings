@@ -1221,8 +1221,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Copied %@, removing CR characters";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Could not copy %1$@ to %2$@";

@@ -1523,7 +1523,8 @@ NSString * copyrightNotice(void)
     [dateFormat setDateFormat:@"YYYY"];
     NSString * year = [dateFormat stringFromDate: [NSDate date]];
     return [NSString stringWithFormat:
-            NSLocalizedString(@"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others.", @"Window text"),
+            NSLocalizedString(@"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved.",
+                              @"Window text. The '%@' will be replaced by a four-digit year such as 2024."),
             year];
 }
 
