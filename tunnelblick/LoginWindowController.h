@@ -19,7 +19,7 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#include "defines.h"
+#import "defines.h"
 #import "TBButton.h"
 
 @interface LoginWindowController : NSWindowController <NSWindowDelegate>
