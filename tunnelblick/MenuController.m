@@ -331,6 +331,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     if (  ! infoDict  ) {
         NSLog(@"Info.plist invalid at path %@", plistPath);
         [self terminateBecause: terminatingBecauseOfFatalError];
+        return @{};
     }
     return infoDict;
 }
