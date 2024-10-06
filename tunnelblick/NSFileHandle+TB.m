@@ -50,7 +50,7 @@
     return YES;
 }
 
--(NSData * _Nullable ) tbReadDataToEndOfFileAndReturnError: (out NSError * _Nullable *) error {
+-(NSData * _Nullable ) tbReadDataToEndOfFileAndReturnError: (out NSError * _Nullable * _Nullable) error {
 
     NSData * data = nil;
 

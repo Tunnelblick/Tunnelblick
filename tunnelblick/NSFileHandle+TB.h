@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
--(NSData * _Nullable ) tbReadDataToEndOfFileAndReturnError: (out NSError * _Nullable * _Nonnull) error;
+-(NSData * _Nullable ) tbReadDataToEndOfFileAndReturnError: (out NSError * _Nullable * _Nullable) error;
 
 NS_ASSUME_NONNULL_BEGIN
 
