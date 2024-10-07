@@ -837,8 +837,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
 -(void) addWarningNote: (NSDictionary *) dict {
 
-    [self addWarningNoteWithHeadline: nilIfNSNull([dict objectForKey: @"headline"])
-                             message: nilIfNSNull([dict objectForKey: @"message"])
+    [self addWarningNoteWithHeadline: [dict objectForKey: @"headline"]
+                             message: [dict objectForKey: @"message"]
                        preferenceKey: nilIfNSNull([dict objectForKey: @"preferenceKey"])];
 }
 
