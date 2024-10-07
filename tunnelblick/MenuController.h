@@ -79,8 +79,8 @@ enum StatusIconPosition {
 };
 
 @interface NSStatusBar (NSStatusBar_Private)
-- (id)_statusItemWithLength:(CGFloat)l withPriority:(long long)p;
-- (id)_insertStatusItem:(NSStatusItem *)i withPriority:(long long)p;
+- (nullable id)_statusItemWithLength:(CGFloat)l withPriority:(long long)p;
+- (nullable id)_insertStatusItem:(nonnull NSStatusItem *)i withPriority:(long long)p;
 @end
 
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate,NSUserNotificationCenterDelegate>
@@ -239,134 +239,134 @@ enum StatusIconPosition {
 }
 
 -(void) tbUpdateIsAvailable: (nonnull NSNumber *) isAvailable;
--(void) tbUpdateErrorOccurredInAppUpdate: (NSNumber *) inAppUpdate;
+-(void) tbUpdateErrorOccurredInAppUpdate: (nonnull NSNumber *) inAppUpdate;
 -(void) tbUpdateDownloadCompletePercentage: (double) percentage;
 -(void) tbUpdateWillInstallUpdate;
 -(void) tbUpdateDidInstallUpdate;
 -(void) tbUpdaterFailedToInstallUpdate;
 
 // Used to implement drag/drop of configuration files onto the Tunnelblick icon in the status bar or the configuration list in the 'VPN Details' window
--(BOOL)             openFiles:                              (NSArray * )        filePaths;
+-(BOOL)             openFiles:                              (nonnull NSArray * )        filePaths;
 
 // Menu actions
--(IBAction)         contactTunnelblickWasClicked:           (id)                sender;
--(IBAction)         openPreferencesWindow:                  (id)                sender;
--(IBAction)         quit:                                   (id)                sender;
+-(IBAction)         contactTunnelblickWasClicked:           (nonnull id)                sender;
+-(IBAction)         openPreferencesWindow:                  (nonnull id)                sender;
+-(IBAction)         quit:                                   (nonnull id)                sender;
 
--(void) addWarningNote: (NSDictionary *) dict;
+-(void) addWarningNote: (nonnull NSDictionary *) dict;
 
--(void)             addWarningNoteWithHeadline:             (NSString *)            headline
-                                       message:             (NSAttributedString *)  message
-                                 preferenceKey:             (NSString *)            preferenceKey;
+-(void)             addWarningNoteWithHeadline:             (nonnull NSString *)            headline
+                                       message:             (nonnull NSAttributedString *)  message
+                                 preferenceKey:             (nullable NSString *)            preferenceKey;
 
--(void)             removeWarningNoteAtIndex:               (NSString *)        index;
+-(void)             removeWarningNoteAtIndex:               (nonnull NSString *)        index;
 
 // General methods
--(void)             addConnection:                          (VPNConnection *)   connection;
--(void)             addNonconnection:                       (VPNConnection *)   connection;
--(void)             setBooleanPreferenceForSelectedConnectionsWithKey: (NSString *)	key
+-(void)             addConnection:                          (nonnull VPNConnection *)   connection;
+-(void)             addNonconnection:                       (nonnull VPNConnection *)   connection;
+-(void)             setBooleanPreferenceForSelectedConnectionsWithKey: (nonnull NSString *)	key
 																   to: (BOOL)       newValue
 															 inverted: (BOOL)		inverted;
 -(void)             activateIgnoringOtherApps;
--(void)             myReplyToOpenOrPrint:                   (NSNumber *)        delegateNotifyValue;
+-(void)             myReplyToOpenOrPrint:                   (nonnull NSNumber *)        delegateNotifyValue;
 -(BOOL)				askAndMaybeReenableNetworkAccessTryingToConnect;
 -(void)             recreateMenu;
 -(void)             recreateMainMenuClearCache:				(BOOL)				clearCache;
 -(void)             changedDisplayConnectionTimersSettings;
--(void)             checkForUpdates:                        (id)                sender;
+-(void)             checkForUpdates:                        (nonnull id)                sender;
 -(BOOL)             cleanup;
 -(void)             configurationsChanged;
 -(void)             configurationsChangedForceLeftNavigationUpdate;
--(NSArray *)        connectionsNotDisconnected;
--(void)             connectionStateDidChange:                  (id)              connection;
--(VPNConnection *)  connectionForDisplayName:               (NSString *)         displayName;
+-(nonnull NSArray *)connectionsNotDisconnected;
+-(void)             connectionStateDidChange:                  (nonnull VPNConnection *)              connection;
+-(nullable VPNConnection *) connectionForDisplayName:               (nonnull NSString *)         displayName;
 -(void)             createPreferencesWindow;
 -(unsigned)         decrementTapCount;
--(NSURL *)          getIPCheckURL;
--(NSNumber *)       haveConfigurations;
--(void)             installConfigurationsUpdateInBundleAtPathMainThread: (NSString *)path;
+-(nullable NSURL *) getIPCheckURL;
+-(nonnull NSNumber *)       haveConfigurations;
+-(void)             installConfigurationsUpdateInBundleAtPathMainThread: (nonnull NSString *)path;
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
 -(void)             installOrUninstallKexts;
 -(BOOL)             loadMenuIconSet;
--(BOOL)             loadMenuIconSet:                        (NSString *)        iconSetName
-                               main:                        (NSImage **)        ptrMainImage
-                         connecting:                        (NSImage **)        ptrConnectedImage
-                               anim:                        (NSMutableArray **) ptrAnimImages;
--(NSString *)       localizedNameForDisplayName:            (NSString *)        displayName;
--(NSString *)       localizedNameforDisplayName:            (NSString *)        displayName
-                                       tblkPath:            (NSString *)        tblkPath;
--(void)             mouseEnteredMainIcon:                   (id)                control
-                                   event:                   (NSEvent *)         theEvent;
--(void)             mouseExitedMainIcon:                    (id)                windowController
-                                  event:                    (NSEvent *)         theEvent;
--(void)             mouseEnteredStatusWindow:               (id)                control
-                                       event:               (NSEvent *)         theEvent;
--(void)             mouseExitedStatusWindow:                (id)                windowController
-                                      event:                (NSEvent *)         theEvent;
+-(BOOL)             loadMenuIconSet:                        (NSString * _Nonnull) iconSetName
+                               main:                        (NSImage * _Nonnull * _Nonnull) ptrMainImage
+                         connecting:                        (NSImage * _Nonnull * _Nonnull)ptrConnectedImage
+                               anim:                        (NSMutableArray * _Nonnull * _Nonnull) ptrAnimImages;
+-(nonnull NSString *)       localizedNameForDisplayName:            (nonnull NSString *)        displayName;
+-(nonnull NSString *)       localizedNameforDisplayName:            (nonnull NSString *)        displayName
+                                       tblkPath:            (nonnull NSString *)        tblkPath;
+-(void)             mouseEnteredMainIcon:                   (nonnull id)                control
+                                   event:                   (nullable NSEvent *)         theEvent;
+-(void)             mouseExitedMainIcon:                    (nonnull id)                windowController
+                                  event:                    (nullable NSEvent *)         theEvent;
+-(void)             mouseEnteredStatusWindow:               (nonnull id)                control
+                                       event:               (nullable NSEvent *)         theEvent;
+-(void)             mouseExitedStatusWindow:                (nonnull id)                windowController
+                                      event:                (nullable NSEvent *)         theEvent;
 -(BOOL)             mouseIsInsideAnyView;
--(void)             openvpnConfigurationFileChangedForDisplayName: (NSString *) displayName;
--(NSString *)       openVPNLogHeader;
--(NSString *)		openvpnVersionToUseInsteadOfVersion: (NSString *) prefVersion;
+-(void)             openvpnConfigurationFileChangedForDisplayName: (nonnull NSString *) displayName;
+-(nonnull NSString *)       openVPNLogHeader;
+-(nullable NSString *)		openvpnVersionToUseInsteadOfVersion: (nonnull NSString *) prefVersion;
 -(void)             reactivateTunnelblick;
 -(void)             reconnectAfterBecomeActiveUser;
--(void)             removeConnection:                       (VPNConnection *)   connection;
+-(void)             removeConnection:                       (nonnull VPNConnection *)   connection;
 -(NSInteger)        runInstaller: (unsigned)           installFlags
-                  extraArguments: (NSArray *)          extraArguments
-                 usingSystemAuth: (SystemAuth *)       auth
-                    installTblks: (NSArray *)          tblksToInstall;
+                  extraArguments: (nullable NSArray *)          extraArguments
+                 usingSystemAuth: (nullable SystemAuth *)       auth
+                    installTblks: (nullable NSArray *)          tblksToInstall;
 -(void)             saveConnectionsToRestoreOnRelaunch;
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
--(void)             setState:                               (NSString *)        newState;
--(void)             setPreferenceForSelectedConfigurationsWithDict: (NSDictionary * ) dict;
+-(void)             setState:                               (nonnull NSString *)        newState;
+-(void)             setPreferenceForSelectedConfigurationsWithDict: (nonnull NSDictionary * ) dict;
 -(void)             setupUpdaterAutomaticChecks;
--(BOOL)             shouldInstallConfigurations: (NSArray *) filePaths
+-(BOOL)             shouldInstallConfigurations: (nonnull NSArray *) filePaths
                                 withTunnelblick: (BOOL) withTunnelblick;
--(NSArray *)        sortedSounds;
+-(nullable NSArray *)        sortedSounds;
 -(unsigned)         statusScreenIndex;
 -(void)             updateSettingsHaveChanged;
 -(void)				uninstall;
 -(void)             unloadKextsForce: (BOOL) force;
 -(void)				updateMenuAndDetailsWindowForceLeftNavigation: (BOOL) forceLeftNavigationUpdate;
 -(void)             startCheckingForConfigurationUpdates;
--(void)             statusWindowController:                 (id)                ctl
+-(void)             statusWindowController:                 (nonnull id)                ctl
                         finishedWithChoice:                 (StatusWindowControllerChoice) choice
-                            forDisplayName:                 (NSString *)        theName;
+                            forDisplayName:                 (nonnull NSString *)        theName;
 -(void)             showStatisticsWindows;
 -(void)             hideStatisticsWindows;
--(NSDictionary *)   tunnelblickInfoDictionary;
+-(nonnull NSDictionary *)   tunnelblickInfoDictionary;
 -(void)             updateIconImage;
 -(void)             updateUI;
 -(void)             terminateBecause:                       (enum TerminationReason) reason;
 -(void) welcomeOKButtonWasClicked;
 
--(void) addActiveIPCheckThread: (NSString *) threadID;
--(void) cancelIPCheckThread: (NSString *) threadID;
--(void) cancelAllIPCheckThreadsForConnection: (VPNConnection *) connection;
--(BOOL) isOnCancellingListIPCheckThread: (NSString *) threadID;
--(void) haveFinishedIPCheckThread: (NSString *) threadID;
+-(void) addActiveIPCheckThread: (nonnull NSString *) threadID;
+-(void) cancelIPCheckThread: (nonnull NSString *) threadID;
+-(void) cancelAllIPCheckThreadsForConnection: (nonnull VPNConnection *) connection;
+-(BOOL) isOnCancellingListIPCheckThread: (nonnull NSString *) threadID;
+-(void) haveFinishedIPCheckThread: (nonnull NSString *) threadID;
 
--(void) renameConfigurationUsingConfigurationManager: (NSDictionary *) dict;
--(void) renameConfigurationFolderUsingConfigurationManager: (NSDictionary *) dict;
--(void) moveOrCopyOneConfigurationUsingConfigurationManager: (NSDictionary *) dict;
+-(void) renameConfigurationUsingConfigurationManager: (nonnull NSDictionary *) dict;
+-(void) renameConfigurationFolderUsingConfigurationManager: (nonnull NSDictionary *) dict;
+-(void) moveOrCopyOneConfigurationUsingConfigurationManager: (nonnull NSDictionary *) dict;
 
 // AppleScript support
 
--(BOOL)             application:                            (NSApplication *)   sender
-             delegateHandlesKey:                            (NSString *)        key;
--(NSArray *)        applescriptConfigurationList;
+-(BOOL)             application:                            (nonnull NSApplication *)   sender
+             delegateHandlesKey:                            (nonnull NSString *)        key;
+-(nullable NSArray *)        applescriptConfigurationList;
 
 // Getters and Setters
 
--(NSArray *)        animImages;
--(NSImage *)        connectedImage;
--(NSImage *)        mainImage;
--(NSMutableArray *) largeAnimImages;
--(NSImage *)        largeConnectedImage;
--(NSImage *)        largeMainImage;
--(MyPrefsWindowController *) logScreen;
--(NSString *)       customRunOnConnectPath;
+-(nullable NSArray *)        animImages;
+-(nullable NSImage *)        connectedImage;
+-(nullable NSImage *)        mainImage;
+-(nullable NSMutableArray *) largeAnimImages;
+-(nullable NSImage *)        largeConnectedImage;
+-(nullable NSImage *)        largeMainImage;
+-(nullable MyPrefsWindowController *) logScreen;
+-(nullable NSString *)       customRunOnConnectPath;
 -(void)             startOrStopUiUpdater;
 -(BOOL)             terminatingAtUserRequest;
 -(BOOL volatile)    doingSetupOfUI;
@@ -381,39 +381,39 @@ enum StatusIconPosition {
 -(void)             setVPNServiceConnectDisplayName:        (NSString *)        newValue;
 #endif
 
-TBPROPERTY_READONLY(NSStatusItem *, statusItem)
+TBPROPERTY_READONLY(nullable NSStatusItem *, statusItem)
 TBPROPERTY_READONLY(BOOL volatile, menuIsOpen)
 TBPROPERTY_READONLY(BOOL volatile, launchFinished)
 TBPROPERTY_READONLY(BOOL         , languageAtLaunchWasRTL)
-TBPROPERTY_READONLY(NSMenu *,		myVPNMenu)
-TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
-TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
-TBPROPERTY_READONLY(ConfigurationMultiUpdater *, myConfigMultiUpdater)
-TBPROPERTY_READONLY(NSArray *, knownPublicDnsServerAddresses)
-TBPROPERTY_READONLY(TBUpdater *, tbupdater)
+TBPROPERTY_READONLY(nullable NSMenu *,		myVPNMenu)
+TBPROPERTY_READONLY(nullable NSMutableArray *, activeIPCheckThreads)
+TBPROPERTY_READONLY(nullable NSMutableArray *, cancellingIPCheckThreads)
+TBPROPERTY_READONLY(nullable ConfigurationMultiUpdater *, myConfigMultiUpdater)
+TBPROPERTY_READONLY(nullable NSArray *, knownPublicDnsServerAddresses)
+TBPROPERTY_READONLY(nullable TBUpdater *, tbupdater)
 
-TBPROPERTY(SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
-TBPROPERTY(NSArray      *, cachedMenuItems,			  setCachedMenuItems)
-TBPROPERTY(NSArray      *, screenList,                setScreenList)
-TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
-TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
-TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
-TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
-TBPROPERTY(NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
-TBPROPERTY(NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
-TBPROPERTY(TBUIUpdater  *, uiUpdater,                 setUiUpdater)
-TBPROPERTY(NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
-TBPROPERTY(NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
-TBPROPERTY(NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
-TBPROPERTY(NSImage      *, highlightedMainImage,      setHighlightedMainImage)
-TBPROPERTY(NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
-TBPROPERTY(NSMutableArray *, connectionsToRestoreOnWakeup, setConnectionsToRestoreOnWakeup)
-TBPROPERTY(NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
-TBPROPERTY(NSBundle       *, deployLocalizationBundle, setDeployLocalizationBundle)
-TBPROPERTY(NSString       *, languageAtLaunch,        setLanguageAtLaunch)
-TBPROPERTY(NSString       *, publicIPAddress,         setPublicIPAddress)
-TBPROPERTY(NSString       *, tunnelblickVersionString, setTunnelblickVersionString)
+TBPROPERTY(nullable SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
+TBPROPERTY(nullable NSArray      *, cachedMenuItems,			  setCachedMenuItems)
+TBPROPERTY(nullable NSArray      *, screenList,                setScreenList)
+TBPROPERTY(nullable MainIconView *, ourMainIconView,           setOurMainIconView)
+TBPROPERTY(nullable NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
+TBPROPERTY(nullable NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
+TBPROPERTY(nullable NSArray      *, connectionArray,           setConnectionArray)
+TBPROPERTY(nullable NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
+TBPROPERTY(nullable NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
+TBPROPERTY(nullable TBUIUpdater  *, uiUpdater,                 setUiUpdater)
+TBPROPERTY(nullable NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
+TBPROPERTY(nullable NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
+TBPROPERTY(nullable NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
+TBPROPERTY(nullable NSImage      *, highlightedMainImage,      setHighlightedMainImage)
+TBPROPERTY(nullable NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
+TBPROPERTY(nullable NSMutableArray *, connectionsToRestoreOnWakeup, setConnectionsToRestoreOnWakeup)
+TBPROPERTY(nullable NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
+TBPROPERTY(nullable NSBundle       *, deployLocalizationBundle, setDeployLocalizationBundle)
+TBPROPERTY(nullable NSString       *, languageAtLaunch,        setLanguageAtLaunch)
+TBPROPERTY(nullable NSString       *, publicIPAddress,         setPublicIPAddress)
+TBPROPERTY(nullable NSString       *, tunnelblickVersionString, setTunnelblickVersionString)
 TBPROPERTY(BOOL            , showingImportSetupWindow, setShowingImportSetupWindow)
-TBPROPERTY(NSDate         *, lastCheckNow,             setLastCheckNow)
+TBPROPERTY(nullable NSDate         *, lastCheckNow,             setLastCheckNow)
 
 @end
