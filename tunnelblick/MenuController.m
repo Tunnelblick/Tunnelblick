@@ -2762,7 +2762,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
-- (void)connectionStateDidChange:(id)connection
+- (void)connectionStateDidChange:(VPNConnection *)connection
 {
 	[self updateUI];
     [[self logScreen] validateConnectAndDisconnectButtonsForConnection: connection];
