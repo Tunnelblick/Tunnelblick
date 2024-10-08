@@ -1312,7 +1312,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     
     if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_PLUTIL]  ) {
         NSLog(@"No 'plutil at %@", TOOL_PATH_FOR_PLUTIL);
-        return YES;
+        return NO;
     }
     
     NSArray *  arguments = [NSArray arrayWithObject: path];
