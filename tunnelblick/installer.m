@@ -1718,11 +1718,14 @@ static void copyTheApp(void) {
     errorExitIfAnySymlinkInPath(targetPath);
 
 	if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 		if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
 														   source: @"/Applications"
 													  destination: @""
 															files: [NSArray arrayWithObject: @"Tunnelblick.app"]
 															  tag: nil]  ) {
+#pragma clang diagnostic pop
 			appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", targetPath]);
 		} else {
 			appendLog([NSString stringWithFormat: @"Unable to move %@ to the Trash", targetPath]);
