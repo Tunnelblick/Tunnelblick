@@ -175,8 +175,11 @@ static NSString * privatePathFromUsername(NSString * username);
 // LOGGING AND ERROR HANDLING
 
 #ifdef TBDebug
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
 static void debugLog(NSString * string) {
-	
+#pragma clang diagnostic pop
+
 	// Call this function to create files in /tmp to show progress through this program
 	// when there are problems that cause the log not to be available
 	// For example, if this installer hangs.
