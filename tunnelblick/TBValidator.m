@@ -334,11 +334,14 @@ withEncodedDSASignature: (NSString *) encodedSignature
         return NO;
     }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     __block SecGroupTransformRef group = SecTransformCreateGroupTransform();
     __block SecTransformRef dataReadTransform = NULL;
     __block SecTransformRef dataDigestTransform = NULL;
     __block SecTransformRef dataVerifyTransform = NULL;
     __block CFErrorRef error = NULL;
+#pragma clang diagnostic pop
 
     BOOL (^cleanupVerifyStreamSignatureWithPublicDSAKey)(void) = ^{
         if (group) CFRelease(group);
@@ -349,19 +352,26 @@ withEncodedDSASignature: (NSString *) encodedSignature
         return NO;
     };
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     dataReadTransform = SecTransformCreateReadTransformWithReadStream((__bridge CFReadStreamRef)stream);
+#pragma clang diagnostic pop
     if (!dataReadTransform) {
         [logger appendLog: @"File containing update archive could not be read (failed to create SecTransform for input stream)"];
         return cleanupVerifyStreamSignatureWithPublicDSAKey();
     }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     dataDigestTransform = SecDigestTransformCreate(kSecDigestSHA1, CC_SHA1_DIGEST_LENGTH, NULL);
+#pragma clang diagnostic pop
     if (!dataDigestTransform) {
         return cleanupVerifyStreamSignatureWithPublicDSAKey();
     }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdirect-ivar-access"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     dataVerifyTransform = SecVerifyTransformCreate(_secKey, (__bridge CFDataRef)signature, &error);
 #pragma clang diagnostic pop
     if (!dataVerifyTransform || error) {
@@ -371,7 +381,10 @@ withEncodedDSASignature: (NSString *) encodedSignature
         return cleanupVerifyStreamSignatureWithPublicDSAKey();
     }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     SecTransformConnectTransforms(dataReadTransform, kSecTransformOutputAttributeName, dataDigestTransform, kSecTransformInputAttributeName, group, &error);
+#pragma clang diagnostic pop
     if (error) {
         [logger appendLog: [NSString stringWithFormat:
                    @"SecTransformConnectTransforms #1: Error: %@",
@@ -379,7 +392,10 @@ withEncodedDSASignature: (NSString *) encodedSignature
         return cleanupVerifyStreamSignatureWithPublicDSAKey();
     }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     SecTransformConnectTransforms(dataDigestTransform, kSecTransformOutputAttributeName, dataVerifyTransform, kSecTransformInputAttributeName, group, &error);
+#pragma clang diagnostic pop
     if (error) {
         [logger appendLog: [NSString stringWithFormat:
                    @"SecTransformConnectTransforms #2: Error: %@",
@@ -387,7 +403,10 @@ withEncodedDSASignature: (NSString *) encodedSignature
         return cleanupVerifyStreamSignatureWithPublicDSAKey();
     }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     NSNumber *result = CFBridgingRelease(SecTransformExecute(group, &error));
+#pragma clang diagnostic pop
     if (error) {
         [logger appendLog: [NSString stringWithFormat:
                    @"DSA signature verification failed: %@",
