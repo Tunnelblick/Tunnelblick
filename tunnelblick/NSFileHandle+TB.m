@@ -38,7 +38,10 @@
 
     if (  [self respondsToSelector: @selector(closeAndReturnError:)]  ) {
         // macOS 10.15 and higher
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
         if (  ! [self closeAndReturnError: error]  ) {
+#pragma clang diagnostic pop
             NSLog(@"FileHandle closeAndReturnError returned error: %@", (id)error);
             return NO;
         }
@@ -56,7 +59,10 @@
 
     if (  [self respondsToSelector: @selector(readDataToEndOfFileAndReturnError:)]  ) {
         // macOS 10.15 and higher
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
         if (  ! (data = [self readDataToEndOfFileAndReturnError: error])  ) {
+#pragma clang diagnostic pop
             NSLog(@"FileHandle readDataToEndOfFileAndReturnError returned error: %@", (id)error);
             return nil;
         }
@@ -74,7 +80,10 @@
 
     if (  [self respondsToSelector: @selector(seekToEndReturningOffset:error:)]  ) {
         // macOS 10.15 and higher only
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
         if (  ! [self seekToEndReturningOffset: &offset error: error]  ) {
+#pragma clang diagnostic pop
             NSLog(@"FileHandle seekToEndReturningOffset:error: returned error: %@", (id)error);
             return NO;
         }
@@ -91,7 +100,10 @@
 
     if (  [self respondsToSelector: @selector(seekToOffset:error:)]  ) {
         // macOS 10.15 and higher only
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
         if (  ! [self seekToOffset: offset error: error]  ) {
+#pragma clang diagnostic pop
             NSLog(@"FileHandle seekToOffset:error: returned error: %@", (id)error);
             return NO;
         }
@@ -108,7 +120,10 @@
 
     if (  [self respondsToSelector: @selector(truncateAtOffset:error:)]  ) {
         // macOS 10.15 and higher only
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
         if (  ! [self truncateAtOffset: offset error: error]  ) {
+#pragma clang diagnostic pop
             NSLog(@"FileHandle truncateAtOffset:error: returned error: %@", (id)error);
             return NO;
         }
@@ -125,7 +140,10 @@
 
     if (  [self respondsToSelector: @selector(writeData:error:)]  ) {
         // macOS 10.15 and higher only
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
         if (  ! [self writeData: data error: error]  ) {
+#pragma clang diagnostic pop
             NSLog(@"FileHandle writeData:error: returned error: %@", (id)error);
             return NO;
         }
