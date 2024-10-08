@@ -2569,6 +2569,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z2SG5H3HC8;
+				DISABLE_MANUAL_TARGET_ORDER_BUILD_WARNING = Yes;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../third_party/products/sparkle\"",
@@ -2848,6 +2849,7 @@
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DISABLE_MANUAL_TARGET_ORDER_BUILD_WARNING = Yes;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../third_party/products/sparkle\"",
