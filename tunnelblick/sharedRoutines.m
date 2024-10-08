@@ -77,7 +77,10 @@ BOOL networkIsReachable(void) {
     zeroIPAddress.sin_family = AF_INET;
 
     // Recover reachability flags
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     SCNetworkReachabilityRef reachabilityRef = SCNetworkReachabilityCreateWithAddress(NULL, (const struct sockaddr *)(&zeroIPAddress));
+#pragma clang diagnostic pop
     if (  reachabilityRef == NULL  ) {
         appendLog(@"SCNetworkReachabilityCreateWithAddress failed");
         return NO;
@@ -85,7 +88,10 @@ BOOL networkIsReachable(void) {
 
     SCNetworkReachabilityFlags flags;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     Boolean haveFlags = SCNetworkReachabilityGetFlags(reachabilityRef, &flags);
+#pragma clang diagnostic pop
 
     CFRelease(reachabilityRef);
 
