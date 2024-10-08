@@ -93,6 +93,8 @@ static NSDictionary * getSafeEnvironment(NSString * userName,
     return env;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 static void becomeTheClient(uid_t      client_euid,
                             gid_t      client_egid,
                             aslclient  asl,
@@ -816,7 +818,7 @@ int main(void) {
 		//***************************************************************************************
 		//***************************************************************************************
 	}
-	
+
 done:
 	if (  asl != NULL ) {
 		asl_close(asl);
@@ -826,3 +828,4 @@ done:
 	
 	return retval;
 }
+#pragma clang diagnostic pop
