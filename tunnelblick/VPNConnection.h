@@ -259,6 +259,8 @@ struct Statistics {
 
 -(pid_t)            pid;
 
+-(void)             validateWhenToConnect;
+
 -(void)             reInitialize;
 
 -(NSString *)       requestedState;

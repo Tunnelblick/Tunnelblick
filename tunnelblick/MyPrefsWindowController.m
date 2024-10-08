@@ -101,8 +101,6 @@ extern TunnelblickInfo * gTbInfo;
 
 -(void) updateLastCheckedDate;
 
--(void) validateWhenToConnect: (VPNConnection *) connection;
-
 @end
 
 @implementation MyPrefsWindowController
@@ -1318,8 +1316,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // Right split view - settings tab
         
-        [self validateWhenToConnect:					connection];
-		
+        [connection validateWhenToConnect];
+
 		[self setupPerConfigOpenvpnVersion:				connection];
 		
 		[self setupSetNameserver:						connection];
@@ -1664,14 +1662,6 @@ static BOOL firstTimeShowingWindow = TRUE;
             && [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
             [theConnection startMonitoringLogFiles];
         }
-    }
-}
-
-
--(void) validateWhenConnectingForConnection: (VPNConnection *) theConnection
-{
-    if (  theConnection  ) {
-        [self validateWhenToConnect: theConnection];
     }
 }
 
@@ -2577,8 +2567,8 @@ static BOOL firstTimeShowingWindow = TRUE;
                            [gMC localizedNameForDisplayName: displayName]]);
     }
     
-    [self performSelectorOnMainThread: @selector(validateWhenToConnect:) withObject: connection waitUntilDone: NO];
-    
+    [connection performSelectorOnMainThread: @selector(validateWhenToConnect) withObject: nil waitUntilDone: NO];
+
     [pool drain];
 }
 
@@ -2610,7 +2600,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         if (   (oldValue != 2)
             && (newValue != 2)  ) {
-            [self validateWhenConnectingForConnection: connection];
+            [connection validateWhenToConnect];
         } else {
              [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)oldValue];
             selectedWhenToConnectIndex = oldValue;

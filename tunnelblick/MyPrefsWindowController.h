@@ -94,12 +94,12 @@
 -(void) indicateNotWaitingForLogDisplay:                      (VPNConnection *) theConnection;
 -(void) hookedUpOrStartedConnection:                          (VPNConnection *) theConnection;
 -(void) lockTheLockIcon;
--(void) validateWhenConnectingForConnection:                  (VPNConnection *) theConnection;
 -(void) validateConnectAndDisconnectButtonsForConnection:     (VPNConnection *) theConnection;
 -(void) validateDetailsWindowControlsForConnection:           (VPNConnection *) connection;
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 -(void) setupAppearanceConnectionWindowScreenButton;
 -(void) setupInstallOrUninstallKextsButton;
+-(void) rawSetWhenToConnect;
 
 // Used by LogDisplay to scroll to the current point in the log
 -(NSTextView *) logView;

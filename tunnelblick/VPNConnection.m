@@ -574,11 +574,84 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     if (  vpnDetails  ) {
         TBLog(@"DB-HU", @"['%@'] didHookup invoked; informing VPN Details window", displayName)
 		[vpnDetails hookedUpOrStartedConnection: self];
-		[vpnDetails validateWhenConnectingForConnection: self];
+        [self validateWhenToConnect];
     } else {
         TBLog(@"DB-HU", @"['%@'] didHookup invoked; VPN Details window does not exist", displayName)
     }
     [self addToLog: @"Established communication with OpenVPN"];
+}
+
+-(void) validateWhenToConnect {
+
+    // Verifies that
+    //       * The autoConnect and -onSystemStart preferences
+    //       * The configuration location (private/shared/deployed)
+    //       * Any launchd .plist for the configuration
+    // are all consistent.
+    // Does this by modifying the preferences to reflect the existence of the launchd .plist if necessary
+    //      and, if the VPN Details window is open, sets the index for the 'Connect when' drop-down appropriately
+    //
+    // Returns TRUE normally, or FALSE if there was a problem setting the preferences (because of forced preferences, presumably)
+
+    NSString * displayName = self.displayName;
+
+    BOOL enableWhenComputerStarts = [self mayConnectWhenComputerStarts];
+
+    NSString * autoConnectKey = [displayName stringByAppendingString: @"autoConnect"];
+    NSString * ossKey         = [displayName stringByAppendingString: @"-onSystemStart"];
+    BOOL       autoConnect    = [gTbDefaults boolForKey: autoConnectKey];
+    BOOL       onSystemStart  = [gTbDefaults boolForKey: ossKey];
+
+    BOOL launchdPlistWillConnectOnSystemStart = [self launchdPlistWillConnectOnSystemStart];
+
+    //Keep track of what we need to do with the preferences
+    BOOL changeToManual = FALSE;
+    BOOL changeToWhenComputerStarts = FALSE;
+
+    if (  autoConnect && onSystemStart  ) {
+        if (  launchdPlistWillConnectOnSystemStart  ) {
+            if (  ! enableWhenComputerStarts  ) {
+                NSLog(@"Warning: ''%@' may not be set to connect 'When computer starts'", displayName);
+                changeToManual = TRUE;
+            }
+        } else {
+            NSLog(@"Warning: ''%@' will not connect 'When computer starts' because the launchd .plist does not exist", displayName);
+            changeToManual = TRUE;
+        }
+    } else {
+        if (  launchdPlistWillConnectOnSystemStart  ) {
+            NSLog(@"Warning: ''%@' will connect 'When computer starts' because the .plist exists", displayName);
+            if (  ! enableWhenComputerStarts  ) {
+                NSLog(@"Warning: ''%@' will connect 'When computer starts' but that should not be enabled", displayName);
+            }
+            changeToWhenComputerStarts = TRUE;
+        }
+    }
+
+    if (  changeToManual  ) {
+        [gTbDefaults removeObjectForKey: autoConnectKey];
+        [gTbDefaults removeObjectForKey: ossKey];
+        autoConnect   = [gTbDefaults boolForKey: autoConnectKey];
+        onSystemStart = [gTbDefaults boolForKey: ossKey];
+        if (  autoConnect || onSystemStart  ) {
+            NSLog(@"Warning: Failed to set '%@' to connect manually; 'When computer starts' is %@enabled", displayName, (enableWhenComputerStarts ? @"" : @"NOT "));
+        } else {
+            NSLog(@"Warning: Set '%@' to connect manually because 'When computer starts' is not available and/or the launchd .plist did not exist", displayName);
+        }
+    } else if (  changeToWhenComputerStarts  )  {
+        [gTbDefaults setBool: TRUE forKey: autoConnectKey];
+        [gTbDefaults setBool: TRUE forKey: ossKey];
+        autoConnect   = [gTbDefaults boolForKey: autoConnectKey];
+        onSystemStart = [gTbDefaults boolForKey: ossKey];
+        if (  autoConnect && onSystemStart  ) {
+            NSLog(@"Warning: Set '%@' to connect 'When computer starts' because the launchd .plist exists; 'When computer starts is %@enabled", displayName, (enableWhenComputerStarts ? @"" : @"NOT "));
+        } else {
+            NSLog(@"Warning: Failed to set preferences of '%@' to connect 'When computer starts'", displayName);
+        }
+    }
+
+    [gMC.logScreen rawSetWhenToConnect];
+    return;
 }
 
 -(BOOL) shouldDisconnectWhenBecomeInactiveUser
