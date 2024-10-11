@@ -127,6 +127,7 @@ BOOL needToRepairPackages(void);
                                      toMenu:                (NSMenu *)          theMenu;
 -(BOOL)             canRunFromVolume:                       (NSString *)        path;
 -(BOOL)             checkPlist:                             (NSString *)        path
+                mustBeWritable:                             (BOOL)              mustBeWritable
                    renameIfBad:                             (BOOL)              renameIfBad;
 -(NSURL *)          contactURL;
 -(void)             createMenu;
@@ -647,7 +648,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 			ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
 		}
 
-        [self checkPlist: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"] renameIfBad: NO];
+        [self checkPlist: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]
+          mustBeWritable: NO
+             renameIfBad: NO];
 
 		// Remove any old "Launch Tunnelblick" link in the private configurations folder
 		NSString * tbLinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
@@ -927,9 +930,13 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 	}
 	
 	// Check that the preferences are OK or don't exist
-	[self checkPlist: @"/Library/Preferences/net.tunnelblick.tunnelblick.plist" renameIfBad: NO];
-	[self checkPlist: [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Preferences/net.tunnelblick.tunnelblick.plist"] renameIfBad: YES];
-	
+	[self checkPlist: @"/Library/Preferences/net.tunnelblick.tunnelblick.plist"
+      mustBeWritable: NO
+         renameIfBad: NO];
+	[self checkPlist: [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Preferences/net.tunnelblick.tunnelblick.plist"]
+      mustBeWritable: YES
+         renameIfBad: YES];
+
 	// Set up to override user preferences with preferences from L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH and Deploy/forced-permissions.plist
 	NSDictionary * primaryForcedPreferencesDict = nil;
 	NSDictionary * deployedForcedPreferencesDict = nil;
@@ -1300,16 +1307,34 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [super dealloc];
 }
 
--(BOOL) checkPlist: (NSString *) path renameIfBad: (BOOL) renameIfBad {
-    
+-(BOOL) checkPlist: (NSString *) path
+    mustBeWritable: (BOOL)       mustBeWritable
+       renameIfBad: (BOOL)       renameIfBad {
+
     // Checks the syntax of a .plist using plutil.
+    // If 'mustBeWritable' is true,  log if .plist isn't writable.
+    // If 'mustBeWritable' is false, log if .plist is    writable.
     // If 'renameIfBad' is set and the .plist is bad, renames the .plist to be xxx.plist.bad and displays a warning dialog
     
     if (  ! [gFileMgr fileExistsAtPath: path]  ) {
         TBLog(@"DB-SU", @"No file to check at %@", path)
         return YES;
     }
-    
+
+    BOOL isWritable = [gFileMgr isWritableFileAtPath: path];
+
+    if (  mustBeWritable  ) {
+        if (  ! isWritable  ) {
+            NSLog(@"File is not writable at %@", path);
+            return NO;
+        }
+    } else {
+        if (  isWritable  ) {
+            NSLog(@"File is writable at %@", path);
+            return NO;
+        }
+    }
+
     if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_PLUTIL]  ) {
         NSLog(@"No 'plutil at %@", TOOL_PATH_FOR_PLUTIL);
         return NO;
