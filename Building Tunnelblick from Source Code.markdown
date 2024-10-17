@@ -15,16 +15,16 @@ with sufficient technical skills and resources can create their own
 binary and use it as they see fit under the terms of the license. This
 document describes how to do that.
 
-Tunnelblick runs on macOS 10.13 and higher when built with Xcode 15 as described
-in this document.
+Tunnelblick runs on macOS High Sierra (10.13) and higher when built with Xcode 16
+as described in this document.
 
-When running on recent versions of macOS, Tunnelblick's tun and tap system extensions
-are restricted:
+When running on recent versions of macOS, Tunnelblick's tun and tap system
+extensions are restricted:
 
- * On macOS 10.15 ("Catalina"), the computer must be restarted after loading the
+ * On macOS Catalina (10.15), the computer must be restarted after loading the
    system extensions for the first time.
 
- * On macOS 10.16 ("Big Sur"), Tunnelblick's tun and tap system extensions can be
+ * On macOS Big Sur (10.16), Tunnelblick's tun and tap system extensions can be
    used only after being installed and approved by an administrator;
    the installation process involves restarting the computer.
 
@@ -40,10 +40,13 @@ To build Tunnelblick from the source code:
  1. You need a supported version of macOS and Xcode;
  2. You need a copy of the Tunnelblick source code;
  3. You need to have installed the GNU autotools;
- 4. You need to have set up Xcode to build Tunnelblick;
- 5. You need to select the type of build you want to create;
- 6. On Apple Silicon Macs, you need to install Rosetta.
- 
+ 4. If you want to build a release version, you need to give Xcode "Full Disk Access";
+ 5. If building on an Apple Silicon Mac, you need to install Rosetta;
+ 6. You need to install Xcode command line tools;
+ 7. You need to have set up Xcode to build Tunnelblick;
+ 8. You need to select the type of build you want to create; and then
+ 9. You can (finally!) build Tunnelblick.
+
 This document has a section about each of these steps.
 
 Interspersed with these are sections on **Using a Virtual Machine**,
@@ -54,7 +57,7 @@ and the Other Third-Party Software**.
 **Using a Virtual Machine**
 
 Using a virtual machine to build Tunnelblick is fine – Tunnelblick
-releases are sometimes built using 
+releases are sometimes built using
 [Viable](https://eclecticlight.co/virtualisation-on-apple-silicon/).
 However, there have been unreproducible errors when the Tunnelblick source
 code is located on a network device or the host computer, so copying the source
@@ -64,7 +67,7 @@ to the virtual machine's hard drive and building there is recommended.
 **1. Supported Versions of macOS and Xcode**
 
 The current version of Tunnelblick should be built using:
- * Xcode 15.4  on macOS 14.5 on an Intel or Apple Silicon Mac; Rosetta is required
+ * Xcode 16.0  on macOS 14.7 on an Intel or Apple Silicon Mac; Rosetta is required
 on Apple Silicon Macs because of a bug in Apple's "files" command line utility.
 
 Tunnelblick will be a Universal binary and run natively on Intel or Apple Silicon
@@ -131,7 +134,31 @@ Notes:
 
   **TBS**/third_party/ShellScriptToInstallAutomake1.16.3.sh
 
-**4. Setting up Xcode to Build Tunnelblick**
+**4. (Optional) Giving Xcode "Full Disk Access"**
+
+If you are building a "Release" version of Tunnelblick, you must give
+Xcode "Full Disk Access" so it can build disk images. "Debug" versions do not
+build disk images and thus do not need "Full Disk Access".
+
+To give Xcode "Full Disk Access", set:
+
+System Settings >> Privacy and Security >> Full Disk Access >> Xcode
+
+**5. Installing Rosetta**
+
+On an Apple Silicon Mac, Tunnelblick's build process requires Rosetta because
+it uses Apple's "files" command line program, which has a bug which requires
+Rosetta to work properly. Install Rosetta by typing the following into Terminal:
+
+softwareupdate --install-rosetta
+
+**6. Installing Xcode command line tools**
+
+Xcode needs to have the command line tools installed. You can
+do that in Terminal with the following command:
+```xcode-select --install```
+
+**7. Setting up Xcode to Build Tunnelblick**
 
 Double-click **TBS**/tunnelblick/Tunnelblick.xcodeproj to
 open the Tunnelblick source code in Xcode.
@@ -142,11 +169,7 @@ usually takes a minute or two. Xcode does indexing at various times, and if you
 click a button while Xcode is indexing it may crash. (This is an Xcode
 problem, not a Tunnelblick problem.)
 
-Xcode needs to have the command line tools installed. You can
-do that in Terminal with the following command:
-```xcode-select --install```
-
-Xcode also needs to be built using "Manual Order", which is _not_ the default. To
+Xcode needs to be built using "Manual Order", which is _not_ the default. To
 change the default, click Product >> Scheme >> Edit Scheme, then "Build" on the left,
 then set "Build Order" to "Manual Order". You should also un-check "Find Implicit
 Dependencies".
@@ -154,11 +177,17 @@ Dependencies".
 Xcode also needs to be set to build in "legacy" locations; in Xcode >> Settings
 >> Locations >> Advanced >> set "Build Location" to "Legacy".
 
-**5. Selecting  the Type of Build You Want to Create**
+**8. Selecting the Type of Build You Want to Create**
 
-There are two different types of builds. Unfortunately Xcode defaults to
-using the one you shouldn't use, "Debug". You should use the "Release"
-build instead.
+There are two different types of builds:
+
+ * Debug: Used to debug Tunnelblick. Builds only for the current CPU architecture
+   and does not build disk images.
+
+ * Release: Used for distribution. Builds for all available CPU architectures
+   and creates both unsigned and ad hoc signed Tunnelblick.app and Tunnelblick.dmg.
+
+Xcode defaults to "Debug", so you probably want to change it to "Release".
 
 To select the type of build in Xcode:
 
@@ -169,16 +198,7 @@ To select the type of build in Xcode:
  4. Select build type "Release" in the drop-down list to the right of "Build
  Configuration" on the right.
 
-**6. Install Rosetta**
-
-On an Apple Silicon Mac, Tunnelblick's build process requires Rosetta because
-it uses Apple's "files" command line program, which has a bug which requires
-Rosetta to work properly. Install Rosetta by typing the following into Terminal:
-
-softwareupdate --install-rosetta
-
-
-**7. Finally, Build Tunnelblick!**
+**9. Finally, Building Tunnelblick!**
 
 Do a "Product >> Clean build folder" before building.
 
@@ -193,15 +213,26 @@ of the Build Results window. In some situations it may take another
 30-60 seconds to finish creating the .dmg file after "Build succeeded"
 appears.
 
-There should not be any errors, but there may be many warnings (over a thousand!),
-which can be ignored. Building some old versions of OpenVPN and OpenSSL that are
-included in Tunnelblick generates most of these warnings.
+There should not be any errors, but there may be many warnings (over a thousand!)
+the first time Tunnelblick is built. You can ignore them: some old versions of
+OpenVPN and OpenSSL that are included in Tunnelblick generate these warnings.
+
+Note: the first build of Tunnelblick after updating Xcode may cause a warning about
+suggested changes to build settings, caused by changes in Xcode. You can accept
+all of the changes except those that would cause Xcode to codesign binaries.
+
+DO NOT ACCEPT THE CHANGES TO CODE SIGN BINARIES.
+
+Tunnelblick's structure is unusual and Xcode isn't able to properly sign it.
+Tunnelblick's build process signs Tunnelblick, so Xcode should not sign it.
 
 At this point, you might want to make a copy of your current
 Tunnelblick.app in case the new one doesn't work for you.
 
 Your .dmg file is at
+
 **TBS**/tunnelblick/build/Release/Tunnelblick.dmg.
+
 Double-click it to open the disk image and, in the resulting window,
 double-click the Tunnelblick icon to install Tunnelblick to
 /Applications.
@@ -216,7 +247,10 @@ Building OpenVPN and the Other Third-Party Software
 
 The normal Tunnelblick build process only builds the third-party software (OpenVPN,
 OpenSSL, LZO, Sparkle, pkcs11-helper, and tuntap) **once**, using third_party/Makefile.
-Subsequent builds normally skip this, and build only the Tunnelblick code.
+Subsequent builds normally skip this, and build only the Tunnelblick code. This
+is done because building the third-party software takes a long time (tens of minutes,
+even on a fast computer), and because most debugging is done on Tunnelblick, not
+the third-party programs.
 
 Unlike the usual "Make" procedure, the third_party/Makefile creates
 special "built-xxx" files to indicate that each of the components has
@@ -229,5 +263,9 @@ If you modify any of the third-party source after building Tunnelblick,
 you must delete the corresponding "built-xxx" file so that Tunnelblick
 will rebuild that software when you next build Tunnelblick.
 
+To re-build all of the third-party software when Tunnelblick is built, delete
+the "third_party/do-not-clean file", the "third_party/built-..." files, and the
+"third_party/product" and "third_party/build" folders.
+
 **TBS**/third_party/README.txt contains detailed
-information about modifying the third-party software.
+information about modifying and updating the third-party software.
