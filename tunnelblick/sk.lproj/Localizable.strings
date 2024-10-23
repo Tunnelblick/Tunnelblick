@@ -1222,9 +1222,6 @@
 "Copied %@, removing CR characters" = "Skopírované %@, odstránené znaky CR";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub. Jonathan Bullard, a ďalší.";
-
-/* Window text */
 "Could not copy %@ to %@" = "Nie je možné kopírovať %1$@ do %2$@";
 
 /* Window text */
@@ -1954,6 +1951,9 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick bol úspešne nahradený.";
 
 /* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick nebol schopný naviazať komunikáciu s bežiacim OpenVPN procesom pre konfiguráciu '%@'. Naväzovanie komunikácie bolo prerušené.";
+
+/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblicku sa nepodarilo uskutočniť zmeny. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
@@ -2214,6 +2214,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "Beh a testovanie 64-bit";
 
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>Pre viac informacií navštívte stránku\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Používanie\n   Starších verzií OpenVPN alebo OpenSSL</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Aby bolo možné importovať nastavenia Tunnelblick na počítači s viac ako %u uživateľskými účtami, je potrebné vytvoriť textový súbor obsahujúci dáta ktoré sa majú importovať.</p>\n<p>Viacej informácií na <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML window text */
@@ -2445,9 +2448,6 @@
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblicku sa nepodarilo načítať systémové rozšírenie, ktoré je požadované na pripojenie k %@.</p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Môžete nastaviť Tunnelblick nastavenie tak, aby sa pokúsil načítat jeho systémové rozšírenia.</p>";
-
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Musíte nainštalovať Tunnelblick systémové rozšírenia, aby ste mohli použiť túto konfiguráciu.</p><p>Môžete tak urobiť v záložke 'Nástroje'.</p><p>Po nainštalovaní systémových rozšírení Vás macOS prevedie procesom ich povolenia, čo zahŕňa aj reštart Vášho počítača.</p>";
 
@@ -2570,6 +2570,9 @@
 
 /* Credit description */
 "Indonesian translation" = "Indonézsky preklad";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "Používate zraniteľnú verziu OpenSSL…";
 
 /* Credit description */
 "Italian translation" = "Taliansky preklad";

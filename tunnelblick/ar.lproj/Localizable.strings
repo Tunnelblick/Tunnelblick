@@ -1164,9 +1164,6 @@
 "Copied %@, removing CR characters" = "تم نسخ %@, يتم الان مسح أحرف 'الإعادة الى السطر'";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "الحقوق محفوظة  © 2004 - ٪@  أنجيلو لوب و جوناثان بولارد و اخرين.";
-
-/* Window text */
 "Could not copy %@ to %@" = "لايمكن نسخ %1$@ إلى %2$@";
 
 /* Window text */
@@ -2342,9 +2339,6 @@
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p> تُنلـبليك غير قادر على تحميل إضافة النظام الضرورية لربط الإتصال ب ٪@ </p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>يمكنك تعيين تفضيل في Tunnelblock لكي يحاول تحميل ملحقات النظام.</p>";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>تحتاج إلى تثبيت امتدادات نظام تُنلـبليك لاستخدام هذه الإعدادات.</p><p>يمكنك القيام بذلك من خلال لوحة \"خدمات\" في تُنلـبليك.</p><p>بعد تثبيت امتدادات النظام، سيرشدك نظام macOS على كيفية عملية \"السماح\" لهذا التمديد، والتي ستتضمن إعادة تشغيل جهاز الحاسوب الخاص بك.</p>";

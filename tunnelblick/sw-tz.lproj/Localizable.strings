@@ -1119,9 +1119,6 @@
 "Copied %@, removing CR characters" = "Imenakiliwa %@, na kuondoa vibambo vya CR";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Hakimiliki © 2004-%@ Angelo Laub, Jonathan Bullard, na wengine.";
-
-/* Window text */
 "Could not copy %@ to %@" = "Haikuweza kunakili %1$@ hadi %2$@";
 
 /* Window text */

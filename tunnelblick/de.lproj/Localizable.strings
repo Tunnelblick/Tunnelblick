@@ -1224,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "%@ kopiert, CR-Zeichen wurden entfernt";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard und weitere.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard und weitere. Alle Rechte vorbehalten.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Konnte %1$@ nicht nach %2$@ kopieren";
@@ -2461,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick konnte keine Systemerweiterung laden, die zum Herstellen einer Verbindung mit %@ erforderlich ist.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Sie können eine Tunnelblick Einstellung so setzen, dass es versuchen wird, seine Systemerweiterungen zu laden.</p>";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Sie können die \"tryToLoadKextsOnThisVersionOfMacOS\" Tunnelblick Einstellung so setzen, dass es versuchen wird, seine Systemerweiterungen zu laden.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Sie müssen Tunnelblicks Systemerweiterungen installieren, um diese Konfiguration nutzen zu können.</p><p>Sie können dies von Tunnelblicks \"Dienstprogramme\" Fenster aus tun.</p><p>Nachdem Sie die Systemerweiterungen installiert haben, wird macOS Sie durch seinen Prozess führen, diese zu \"erlauben\", was einen Neustart Ihres Computers beinhaltet.</p>\n";
@@ -2516,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Hat zum frühen Code beigetragen";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard und weitere. Alle Rechte vorbehalten.";
 
 /* Credit description */
 "Croatian translation" = "Kroatische Übersetzung";

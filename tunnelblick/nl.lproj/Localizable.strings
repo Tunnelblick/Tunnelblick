@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Toon in Tunnelblick menu";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Andere versie van OpenVPN/OpenSSL in gebruik…";
+
 /* Menu item */
 "VPN Details..." = "VPN Details…";
 
@@ -1221,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "%@ gekopieerd, CR tekens verwijderen";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, en anderen.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, en anderen. Alle rechten voorbehouden.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Kon %1$@ niet naar %2$@ kopiëren";
@@ -2458,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick was niet in staat om een systeemextensie te laden die nodig is om verbinding te maken met %@.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Je kunt een Tunnelblick-voorkeur instellen zodat het zal proberen de benodigde systeemextensies te laden.</p>\n";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Stel de 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick-voorkeur in, zodat het de benodigde systeemextensies zal proberen in te laden.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Om deze configuratie te gebruiken moet je Tunnelblicks systeemextensie installeren.</p><p>Dat kun je doen in Tunnelblicks 'Gereedschap' paneel.</p><p>Nadat je de systeemextensie hebt geïnstalleerd, zal macOS je begeleiden in het proces van 'toestemming geven', wat een herstart van je computer inhoudt. </p>";
@@ -2513,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Bijgedragen aan eerste code";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard en anderen. Alle rechten voorbehouden.";
 
 /* Credit description */
 "Croatian translation" = "Kroatische vertaling";

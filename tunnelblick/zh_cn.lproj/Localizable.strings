@@ -2,7 +2,7 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) IP: %@" = "断开所有连接 (%1$@) IP: %2$@";
+"Disconnect All (%@) IP: %@" = "断开 (%1$@) IP: %2$@ 的所有连接";
 
 /* Status message */
 "Disconnect All (%@)" = "断开所有连接 (%@)";
@@ -407,6 +407,9 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "在 Tunnelblick 的菜单栏显示";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "使用其他版本的 OpenVPN/OpenSSL...";
 
 /* Menu item */
 "VPN Details..." = "VPN 详情…";
@@ -1221,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "复制了 %@，删除 CR 字符";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "版权所有 © 2004-%@ Angelo Laub，Jonathan Bullard，以及其他开发成员。";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "版权所有 © 2004-%@ Angelo Laub，Jonathan Bullard，以及其他开发成员。所有权利保留。";
 
 /* Window text */
 "Could not copy %@ to %@" = "不能将 %1$@ 复制到 %2$@";
@@ -2458,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick无法载入一个联系到%@需要的系统扩展。</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>您可以设定一个Tunnelblick喜好，让Tunnelblick试试载入系统扩展。</p>";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>您可以设定一个Tunnelblick设定'tryToLoadKextsOnThisVersionOfMacOS'，让Tunnelblick尝试载入它的系统扩展。</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>使用这个VPN配置前需要安装Tunnelblick的系统扩展。</p><p>您可以在Tunnelblick的 ‘工具集’ 面板上开始这个过程。</p><p>安装系统扩展以后，macOS会指导您完成 ‘允许’ 系统扩展的过程，这个过程中包括重启计算机。</p>";
@@ -2513,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "早期代码";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "版权所有 © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub，Jonathan Bullard，以及其他开发成员。所有权利保留。";
 
 /* Credit description */
 "Croatian translation" = "克罗地亚语翻译";

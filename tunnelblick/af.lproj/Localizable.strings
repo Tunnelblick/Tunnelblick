@@ -1167,9 +1167,6 @@
 "Copied %@, removing CR characters" = "%@ is gekopieerd, CR karakters word op die oomblik verwyderd";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Kopiereg © 2004-%@ Angelo Laub, Jonathan Bullard, en andere.";
-
-/* Window text */
 "Could not copy %@ to %@" = "%1$@ kon nie na %2$@ gekopieerd word nie";
 
 /* Window text */
@@ -2345,9 +2342,6 @@
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick kon nie 'n stelseluitbreiding laai wat nodig is om aan %@ te koppel nie.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p> U kan 'n Tunnelblick-voorkeur instel, sodat dit sal probeer om sy stelseluitbreidings te laai. </p>";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>U moet die stelseluitbreidings van Tunnelblick installeer om hierdie konfigurasie te gebruik. </p> <p>U kan dit doen vanaf die 'Utilities'-paneel van Tunnelblick. </p> <p>Nadat u die stelseluitbreidings geïnstalleer het, sal macOS lei u deur die proses om dit toe te laat, wat 'n herbegin van u rekenaar sal insluit. </p>";

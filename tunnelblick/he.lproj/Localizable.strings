@@ -1,6 +1,8 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) IP: %@" = "ניתוק מכל (%1$@) כתובת: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "נתק הכל (%@)";
@@ -101,6 +103,9 @@
 /* Button */
 "Do nothing" = "אל תעשה כלום";
 
+/* Button to install an update */
+"Download and Install" = "הורד והתקן";
+
 /* Button */
 "Export Tunnelblick Setup" = "ייצוא הגדרות Tunnelblick";
 
@@ -115,6 +120,9 @@
 
 /* Button */
 "Ignore" = "התעלם";
+
+/* Button to install an update */
+"Install and Relaunch" = "התקנה והפעלה מחדש";
 
 /* Button */
 "Install" = "התקן";
@@ -177,6 +185,9 @@
 /* Button */
 "Reinstall" = "התקן מחדש";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "שלח תזכורת מאוחר יותר";
+
 /* Button */
 "Remove Credentials" = "הסר פרטי הזדהות";
 
@@ -224,6 +235,9 @@
 
 /* Button */
 "Show while connecting" = "הצג בזמן ההתחברות";
+
+/* Button to skip a particular update */
+"Skip This Version" = "דלג על גרסה זו";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "דלג על עדכון זה\n";
@@ -275,6 +289,19 @@
 
 /* Button */
 "When computer starts" = "כאשר המחשב מופעל";
+
+/* Menu item
+   Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "עדכון גרסה של טנלבליק (%1.2f%% ירד)…";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "עדכון גרסה של טנלבליק הורדה…";
+
+/* Menu item */
+"A Tunnelblick Update is Available..." = "עדכון גרסה זמין…";
+
+/* Menu item */
+"A VPN Configuration Update is Available..." = "עדכון תצורת VPN זמינה…";
 
 /* Menu item */
 "Add a VPN..." = "הוסף VPN…";
@@ -350,6 +377,9 @@
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "רמת הרישום של OpenVPN תקבע על ידי התצורה";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Problem using future versions of Tunnelblick..." = "בעיה בשימוש בגירסאות חדשות…";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
 "Problem using future versions of macOS..." = "\"בעיה בשימוש בגירסאות חדשות של macOS…\"";
@@ -436,6 +466,9 @@
 "Do not warn about this again" = "אל תציג אזהרה זו שוב";
 
 /* Checkbox name */
+"Download updates when found" = "הורד עדכונים כאשר זמינים";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "אפשר IPv6 (tap בלבד(";
 
 /* Checkbox name */
@@ -461,6 +494,9 @@
 
 /* Checkbox name */
 "Require administrator authorization to install all configurations" = "דרוש אישור מנהל על מנת להתקין את כל ההגדרות";
+
+/* Checkbox name */
+"Require administrator authorization to update" = "דרוש אישור מנהל לעדכן";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "נתב את כל תעבורת IPv4 דרך VPN";
@@ -580,6 +616,9 @@
 "'%@' has been disconnected" = "'%@' התנתק בהצלחה";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "גרסה חדשה של טנלבליק זמינה";
+
+/* Window title */
 "Active connection" = "אין חיבורים פעילים";
 
 /* Window title */
@@ -631,6 +670,12 @@
 "Do you wish to connect?" = "האם ברצונך להתחבר?";
 
 /* Window title */
+"Error getting Tunnelblick update..." = "בעיה בעת הורדת עדכון לטנלבליק…";
+
+/* WIndow title */
+"Error getting VPN update..." = "בעיה בעדכון VPN…";
+
+/* Window title */
 "File not found" = "קובץ לא נמצא";
 
 /* Window title */
@@ -641,6 +686,9 @@
 
 /* Window title */
 "Install Configuration For All Users?" = "להתקין את הקונפיגורציה הזאת לכל המשתמשים?";
+
+/* Window title */
+"Installation Failed" = "התקנה נכשלה";
 
 /* Window title */
 "Installation failed" = "התקנה נכשלה";
@@ -695,6 +743,9 @@
 
 /* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "בדיקת ניסיון הסרת TUNNELBLICK הצליחה";
+
+/* Window title */
+"The Tunnelblick installation failed." = "התקנת טנלבליק נכשלה.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "בעייה בהגדרות Tunnelblick";

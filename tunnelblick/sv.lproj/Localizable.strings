@@ -1224,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Kopierade %@, tog bort radbrytningar (CR-tecken)";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard med flera.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard med flera. Med ensamrätt.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Kunde inte kopiera %1$@ till %2$@";
@@ -2461,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick kunde inte ladda ett systemtillägg som är nödvändigt för att skapa en förbindelse till %@.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Du kan göra en Tunnelblick-inställning så att den försöker ladda systemtilläggen.</p>\n";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Du kan göra Tunnelblick-inställningen 'tryToLoadKextsOnThisVersionOfMacOS' så att den försöker ladda systemtilläggen.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Du måste installera Tunnelblicks systemtillägg för att använda denna konfiguration.</p><p>Du kan göra det via Tunnelblicks panel \"Verktyg\".</p><p>När du har installerat systemtilläggen kommer macOS att guida dig genom processen för att \"tillåta\" dem, vilket inkluderar en omstart av din dator.</p>";
@@ -2516,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Bidrog till den tidiga koden";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_MEDDELANDE_ÅR Angelo Laub, Jonathan Bullard med flera. Med ensamrätt.";
 
 /* Credit description */
 "Croatian translation" = "Kroatisk översättning";

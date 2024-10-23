@@ -1164,9 +1164,6 @@
 "Copied %@, removing CR characters" = "Nokopēts %@, dzēstas rakstatgriezes rakstzīmes";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Autori: Angelo Laub, Jonathan Bullard un citi. Visas tiesības aizsargātas. © 2004-%@.";
-
-/* Window text */
 "Could not copy %@ to %@" = "Nevarēja nokopēt %1$@ uz %2$@";
 
 /* Window text */

@@ -1224,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "%@ をコピーしました、CRキャラクターを削除してます";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard 他.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved.";
 
 /* Window text */
 "Could not copy %@ to %@" = "%1$@ から %2$@ へコピーできません";
@@ -2249,6 +2249,9 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p>将来のバージョンのmacOSでは<strong>1つまたは複数の接続先には接続することができません。</strong></p>\n<p>これらの接続先にはシステム拡張設定が必要ですが、将来のバージョンのmacOSではTunnelblickのシステム拡張設定を使うことができないためです。</p>";
 
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>OpenVPNとSSLソフトのバージョンでVPNに接続するべきことを特定します。</strong><ul><li><strong>このTunnelblickバージョンで、「 デフォルト」設定</strong>がOpenVPNのデフォルトのバージョンとのOpenSSLを使用されます。デフォルトは、Tunnelblickの異なるバージョンによって使用されます。<br></li><li><strong>「最新」設定が</strong>Tunnelblickのバージョンに組み込んだOpenVPNとのOpenSSLを使用されます。最新設定は、Tunnelblickの異なるバージョンによって異なります。<br></li><li><strong>その他の設定が</strong>このTunnelblickバージョンで利用可能なら特定のOpenVPNとSSLソフトのバージョンを使用されます。不可能なら一番近いマッチを使用されます。<br></li></ul>";
+
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>VPN接続中に、TunnelblickがDNS設定を変更するために何を行うかを指定します（もしあれば）。</strong>選択肢としては、<ul><li><strong>ネームサーバーを変更しない</strong>: 何もしません。<br></li><li><strong>ネームサーバーを設定</strong>: 標準スクリプトを使用してDNSおよびWINS設定を処理します。 通常はこれがベストの選択となります。 OpenVPNの指示に従い、DNSおよびWINS設定を変更します。 手動で設定されたDNSおよびWINS設定は、[詳細設定]ウィンドウの[手動でセットされたネットワーク設定への変更を許可する]が選択されていない限り変更されません。<br></li><li><strong>ネームサーバーを設定 (3.1)</strong>: Tunnelblick 3.1のスクリプトを使用して、DNSおよびWINS設定を処理します。<br></li><li><strong>ネームサーバーを設定 (3.0b10)</strong>: Tunnelblick 3.0b10のスクリプトを使用して、DNSおよびWINS設定を処理します。<br></li><li><strong>ネームサーバーを設定 (alternate 1)</strong>: 代替スクリプトを使用して、DNSおよびWINS設定を処理します。<br></li></ul>";
 
@@ -2391,6 +2394,9 @@
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>開発者「Jonathan Bullard」によるシステムソフトウェアのロードを許可するボタンが表示されない場合は、再度この構成で接続してみて（失敗しますが）、「システム環境設定」の「セキュリティとプライバシー」にある「一般」タブを確認して下さい。 </p>";
 
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>一つ以上のVPNはOpenVPNとのOpenSSL 1.1.1を利用しています。既知のセキュリティホール が含まれて、修正が公開されていません。</p>\n<p>OpenVPNとのOpenSSLの新しいバージョンを使用するのにのに、以下の設定をアップデートするのはおすすめ：</p>\n";
+
 /* HTML window text */
 "<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>アップデートの情報を取得またはアップデート実行中に、一つ以上の問題が発生しました。</p><p>追加情報に</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@のログをご覧ください</p>";
 
@@ -2455,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblickは、%@に接続するために必要なシステム拡張機能を読み込むことができませんでした。</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p> Tunnelblickのプリファレンスを設定することで、システム拡張機能を読み込むことができます。</p> ";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>システム拡張機能を読み込もうと試行するのに、Tunnelblickの設定「tryToLoadKextsOnThisVersionOfMacOS」をセットできます。</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>この構成を使用するには、Tunnelblickのシステム拡張機能をインストールする必要があります。</p> <p> Tunnelblickの[ユーティリティ]パネルからインストールできます。</p> <p>システム拡張機能をインストールすると、それらを「許可」するプロセスを（コンピュータの再起動を含む）macOSのガイドに従って行って下さい。</p> ";
@@ -2510,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "初期のコードへの貢献";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved.";
 
 /* Credit description */
 "Croatian translation" = "クロアチア語翻訳";

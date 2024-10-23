@@ -1221,8 +1221,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Copiado %@, a remover carateres CR";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, e outros.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, e outros. Reservados todos os direitos.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Não foi possível copiar %1$@ para %2$@";
@@ -2456,9 +2456,6 @@
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>O Tunnelblick não conseguiu carregar uma extensão de sistema necessária para efetuar a ligação a %1$@.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Pode definir uma preferência Tunnelblick para tentar carregar as suas extensões de sistema.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Tem de instalar as extensões de sistema do Tunnelblick para usar esta configuração.</p><p>Pode fazê-lo a partir do painel 'Utilidades' do Tunnelblick.</p><p>Após instalar as extensões de sistema, o macOS irá guiá-lo durente o processo de 'permissão', que inclui reiniciar o seu computador.</p>";

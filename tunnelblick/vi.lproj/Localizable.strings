@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Hiển thị trên menu Tunnelblick";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Sử dùng một phiên bản khác của OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "Chi tiết VPN…";
 
@@ -1221,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Sao chép %@, bỏ ký tự CR";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Bản quyền © 2004 -%@ Angelo Laub, Jonathan Bullard và những người khác.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Bản quyền © 2004 -%@ Angelo Laub, Jonathan Bullard và những người khác. Mọi quyền được bảo lưu.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Không thể sao chép %1$@ tới %2$@";
@@ -2458,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick không thể tải tiện ích mở rộng hệ thống cần kết nối với %@.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Bạn có thể đặt tùy chọn Tunnelblick để nó sẽ cố gắng tải các tiện ích mở rộng hệ thống của mình.</p>";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Bạn có thể thiết lập tùy chọn 'tryToLoadKextsOnThisVersionOfMacOS' của Tunnelblick và nó sẽ cố gắng tải các tiện ích mở rộng hệ thống của mình.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Bạn cần cài đặt các tiện ích mở rộng hệ thống của Tunnelblick để sử dụng cấu hình này.</p><p>Bạn có thể thực hiện việc đó từ bảng điều khiển 'Tiện ích' của Tunnelblick.</p><p>Sau khi bạn cài đặt các tiện ích mở rộng hệ thống, macOS sẽ hướng dẫn bạn thực hiện quá trình 'cho phép' chúng, bao gồm việc khởi động lại máy tính của bạn.</p>";
@@ -2513,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Đã đóng góp cho quá trình lập trình sơ khai";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Bản quyền © 2004 -TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard và những người khác. Mọi quyền được bảo lưu.";
 
 /* Credit description */
 "Croatian translation" = "Bản dịch tiếng Croatia";

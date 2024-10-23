@@ -490,7 +490,7 @@
 "Flush DNS cache after connecting or disconnecting" = "Vider le cache DNS après la connexion ou la déconnexion";
 
 /* Checkbox name */
-"Inhibit automatic update checking and IP Address checking" = "Désactiver la vérification automatique des mises à jour et la vérification de l'adresse IP";
+"Inhibit automatic update checking and IP Address checking" = "Empêcher la vérification automatique des mises à jour et la vérification de l'adresse IP";
 
 /* Checkbox name */
 "Keep connected" = "Rester connecté";
@@ -685,7 +685,7 @@
 "Do you wish to connect?" = "Voulez-vous vous connecter ?";
 
 /* Window title */
-"Error getting Tunnelblick update..." = "Erreur avec la mise à jour de Tunnelblick…";
+"Error getting Tunnelblick update..." = "Erreur de téléchargement de la mise à jour de Tunnelblick…";
 
 /* WIndow title */
 "Error getting VPN update..." = "Erreur avec la mise à jour du VPN…";
@@ -1224,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Copié %@, suppression des caractères CR";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, et d'autres.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, et d'autres. Tous droits réservés.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Impossible de copier %1$@ vers %2$@";
@@ -2461,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick n'a pas pu charger une extension système nécessaire pour se connecter à %@.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Vous pouvez régler les préférences de Tunnelblick pour qu'il essaye de charger ses extensions système.</p>";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Vous pouvez régler 'tryToLoadKextsOnThisVersionOfMacOS' dans les préférences de Tunnelblick pour qu'il essaye de charger ses extensions système.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Vous devez installer les extensions système de Tunnelblick pour utiliser cette configuration.</p><p>Vous pouvez le faire à partir du panneau 'Utilitaires' de Tunnelblick.</p><p>Après avoir installé les extensions système, macOS vous guidera tout au long du processus d'autorisation, qui nécessitera un redémarrage de votre ordinateur.</p>";
@@ -2516,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Contributions au code source original";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, et autres. Tous droits réservés.";
 
 /* Credit description */
 "Croatian translation" = "Traduction croate";

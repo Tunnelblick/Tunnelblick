@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Tunnelblick Menüsünde Göster";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Farklı OpenVPN/OpenSLL sürümü…";
+
 /* Menu item */
 "VPN Details..." = "VPN Detayları...";
 
@@ -1221,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "%@ kopyalandı, satırbaşı karakterleri kaldırılıyor";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, ve diğerleri.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Telif Hakkı © 2004-%@ Angelo Laub, Jonathan Bullard ve diğerleri. Tüm hakları saklıdır.";
 
 /* Window text */
 "Could not copy %@ to %@" = "%1$@ %2$@'e kopyalanamıyor";
@@ -2458,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick %@ yapılandırmasına bağlanmak için gereken bir sistem genişletmesini yükleyemiyor.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Bir Tunnelblick tercihi oluşturabilirsiniz, böylece kendi sistem genişletmelerini yüklemeyi deneyecektir.</p>";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick tercihini ayarlayarak, sistem eklentilerini yüklemeye çalışmasını sağlayabilirsiniz.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Bu yapılandırmayı kullanabilmek için Tunnelblick'in sistem genişletmelerini kurmalısınız.</p><p>Bunu Tunnelblick'in 'Araçlar' panelinden yapabilirsiniz.</p><p>Sistem genişletmelerini kurduktan sonra macOS size, bir yeniden başlatma gerektiren 'izin verme' işlemi boyunca yol gösterecektir.</p>";
@@ -2513,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "İlk koda katkıda bulunanlar";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Telif Hakkı © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard ve diğerleri. Tüm hakları saklıdır.";
 
 /* Credit description */
 "Croatian translation" = "Hırvatça çeviri";

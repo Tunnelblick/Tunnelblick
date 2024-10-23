@@ -1159,9 +1159,6 @@
 "Copied %@, removing CR characters" = "Kopirao %@, uklonio CR karaktere";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Autorska prava © 2004-%@ Angelo Laub, Jonathan Bullard, i drugi.";
-
-/* Window text */
 "Could not copy %@ to %@" = "Neuspešno kopiranje %1$@ u %2$@";
 
 /* Window text */
@@ -2337,9 +2334,6 @@
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick nije bio u mogućnosti da učita sistemsku ekstenziju koja je neophonda kako bi se ostvarila konekcija ka %1$@.</p><p>%2$@</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Možete podesiti Tunnelblick kako bi pokušao da učita sistemske ekstenzije.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Morate da instalirate Tunnelblick sistemske ekstenzije kako biste mogli da koristite ovu konfiguraciju.</p><p>To možete učiniti iz  'Utilities' panela.</p><p>Nakon što instalirate sistemske ekstenzije, macOS će vas sprovesti kroz proces njihovog omogućavanja koji uključuje restart računara.</p>";

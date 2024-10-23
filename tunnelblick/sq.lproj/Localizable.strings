@@ -439,6 +439,9 @@
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Çaktivizo IPv6 përveç nëse serveri VPN është i aksesueshem me IPv6";
 
 /* Checkbox name */
+"Disable secondary network interfaces" = "Çaktiviso interfaqen dytësore të internetit";
+
+/* Checkbox name */
 "Disconnect when computer goes to sleep" = "Shkëput kur kompjuteri shkon të flejë";
 
 /* Checkbox name */

@@ -391,7 +391,7 @@
 "Problem using future versions of Tunnelblick..." = "Ongelma tulevien Tunnelblick-versioiden kanssa";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Problem using future versions of macOS..." = "Ongelma tulevien macOS-versioiden kanssa";
+"Problem using future versions of macOS..." = "Ongelma tulevien macOS-versioiden kanssa…";
 
 /* Menu item */
 "Quit Tunnelblick" = "Lopeta Tunnelblick";
@@ -407,6 +407,9 @@
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Näytä Tunnelblickin valikossa";
+
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Käytä eri OpenVPN-/OpenSSL-versiota…";
 
 /* Menu item */
 "VPN Details..." = "VPN-yksityiskohdat…";
@@ -1221,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Kopioitiin %@, poistettiin rivinvaihtomerkit";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard ja muita.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, ja muita. Kaikki oikeudet pidätetään.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Objektin %1$@ kopiointi kohteeseen %2$@ epäonnistui";
@@ -1954,6 +1957,9 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick korvattiin onnistuneesti.";
 
 /* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick ei pystynyt muodostamaan yhteyttä olemassa olevan OpenVPN -prosessin kanssa määrityksillä %@. Yhteyttä ei yritetä muodostaa enää uudelleen.";
+
+/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick ei pystynyt tekemään muutosta. Katso lokista lisätietoja.";
 
 /* Window text */
@@ -2214,6 +2220,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit tuki ja testaus";
 
+/* HTML warning message */
+"</p>\n<p>For more information, see\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Using\n   Old Versions of OpenVPN or OpenSSL</a> [tunnelblick.net].</p>" = "</p>\n<p>Lisätietoja, katso\n   <a href=\"https://tunnelblick.net/cUsingOldVersionsOfOpenVPNOrOpenSSL.html\">Aiempien\n   OpenVPN ja OpenSSL käyttäminen</a> [tunnelblick.net].</p>";
+
 /* HTML error message. The  '%u' will be replaced a number such as '32'. */
 "<font face=\"Helvetica,Arial,sans-serif\"><p>To import a Tunnelblick setup on a computer that has more than %u user accounts, you must create a text file that specifies the data to be imported.</p>\n<p>For more information, see <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>" = "<font face=\"Helvetica,Arial,sans-serif\"><p>Tuodaksesi Tunnelblick asetuksia tietokoneeseen, jossa on enemmän kuin %u käyttäjätiliä, tulee luoda tekstitiedosto joka määrittää tuotavat tiedot.</p>\n<p>Katso lisätietoja <a href=\"https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html\">https://tunnelblick.net/cExportingAndImportingTunnelblickSetups.html</a>.</p></font>";
 /* HTML window text */
@@ -2239,6 +2248,9 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Yksi tai useampi konfiguraatiosi ei pysty muodostamaan yhteyttä</strong> käytettäessä macOS:n tulevia versioita.</p>\n<p>Konfiguraatio(i)lle tarvitaan järjestelmälaajennus, mutta macOS:n tulevat versiot, eivät salli Tunnelblickin käyttää järjestelmälaajennuksiaan.</p>\n";
+
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Määrittää käytettävän OpenVPN ja SSL ohjelmiston version VPN yhteyden muodostamiseen.</strong><ul><li><strong>\"Oletus\"</strong> oletuksena käytetään OpenVPN ja OpenSSL versioita, jotka on sisällytetty tähän Tunnelblick versioon ja tulevat sen mukana. Oletus voi olla eri Tunnelblickin eri versioissa.<br></li><li><strong>\"Viimeisin\"</strong> käyttää viimeisintä OpenVPN ja OpenSSL versiota jotka ovat sisällytetty tähän Tunnelblick versioon. Viimeisin voi olla eri Tunnelblickin eri versioissa.<br></li><li><strong>Muu valinta</strong> käyttää valittua OpenVPN ja SSL ohjelmiston versiota mikäli ne ovat käytettävissä tässä Tunnelblick versiossa. Mikälivalittu versio ei ole käytettävissä, käytetään lähintä mahdollista versiota.<br></li></ul>";
 
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Määrittää mitä (mikäli jotain) DNS asetuksia Tunnelblick muokkaa, kun VPN yhteys on muodostettu.</strong> Vaihtoehdot ovat:<ul><li><strong>Älä aseta nimipalvelimia</strong>: Ei muutoksia nimipalvelinasetuksiin.<br></li><li><strong>Aseta nimipalvelimet</strong>: Tunnelblick käyttää standardia komentojonoa asettamaan DNS ja WINS asetukset. Tämä on yleensä paras vaihtoehto. Se asettaa DNS ja WINS asetukset OpenVPN ohjelmiston mukaisesti. DNS ja WINS jotka ovat asetettu manuaalisesti ei muuteta mikäli \"Salli muutokset manuaalisesti asetettuihin verkkoasetuksiin\" ei ole valittu \"Laajennettu\" asetuksissa. <br></li><li><strong>Aseta nimipalvelimet (3.1)</strong>: Käytetään Tunnelblick 3.1 version komentojonoa asettamaan DNS ja WINS asetukset.<br></li><li><strong>Aseta nimipalvelimet (3.0b10)</strong>: Käytetään Tunnelblick 3.0b10 version komentojonoa asettamaan DNS ja WINS asetukset.<br></li><li><strong>Aseta nimipalvelimet (vaihtoehtoinen 1)</strong>: Tunnelblick käyttää vaihtoehtoista komentojonoa asettamaan DNS ja WINS asetukset.<br></li></ul>";
@@ -2382,6 +2394,9 @@
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Mikäli et näe painiketta salliaksesi ohjelmistokehittäjä 'Jonathan Bullard':in järjestelmäohjelmiston lataamisen, yritä yhdistää tämä konfiguraatio (joka epäonnistuu), katso sitten 'Yleiset'-kohdan alle 'Turvallisuus & Yksityisyys'-välilehdelle 'Järjestelmäasetuksissa' uudelleen.</p>";
 
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>Yksi tai useampia VPN määrityksiä käyttää OpenVPN yhteyttä OpenSSL 1.1.1 versiolla, missä on tunnettuja tietoturvahaavoittuvuuksia ja korjauksia näihin ei ole yleisesti saatavilla.</p>\n<p>Suosittelemme, että muutat seuraavat OpenVPN -yhteysmääritykset käyttämään uudempaa OpenSSL versiota:</p>\n\n<p>\n";
+
 /* HTML window text */
 "<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>Yksi tai useampia ongelmia tapahtui, kun yritettiin saada tietoa päivityksistä tai suorittaa päivitys.</p><p>Lisätietojen saamiseksi katso lokia</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
 
@@ -2446,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick ei pystynyt lataamaan järjestelmälaajennosta, joka tarvitaan yhteyden muodostamiseen kohteeseen %@.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Voit asettaa Tunnelblickin asetuksissa siten, että se pyritään suorittamaan järjestelmän laajennuksena.</p>";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Voit asettaa Tunnelblick-asetuksen 'tryToLoadKextsOnThisVersionOfMacOS', niin että se yrittää ladata järjestelmälaajennuksensa.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Sinun on asennettava Tunnelblickin järjestelmälaajennokset käyttääksesi tätä konfiguraatiota.</p><p>Voit tehdä sen Tunnelblickin 'Järjestelmätyökalut'-paneelissa.</p><p>Sen jälkeen, kun olet asentanut järjestelmälaajennokset, macOS ohjaa sinut prosessin halki niiden 'sallimiseksi', mihin sisältyy tietokoneesi uudelleenkäynnistys.</p>";
@@ -2501,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Tuottanut koodia alkuaikoina";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, ja muita. Kaikki oikeudet pidätetään.";
 
 /* Credit description */
 "Croatian translation" = "Kroatialainen käännös";

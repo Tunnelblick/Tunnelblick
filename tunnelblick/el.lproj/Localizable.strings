@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Εμφάνιση στο μενού της εφαρμογής";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Σε χρήση άλλη έκδοση των OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "Λεπτομέρειες VPN…";
 
@@ -431,6 +434,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Έλεγχος αν η εμφανιζόμενη διεύθυνση IP άλλαξε μετά την σύνδεση";
+
+/* Checkbox name */
+"Check only when connected to a VPN" = "Έλεγχος μόνο όταν υπάρχει ενεργή VPN σύνδεση";
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Απενεργοποίηση του IPv6 εκτός αν ο διακομιστής VPN συνδέεται μέσω IPv6";
@@ -475,6 +481,9 @@
 "Do not warn about this again" = "Μην ειδοποιηθώ για αυτό ξανά";
 
 /* Checkbox name */
+"Download updates when found" = "Να γίνεται κατέβασμα των διαθέσιμων ενημερώσεων";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Ενεργοποίηση IPv6 (μόνο tap)";
 
 /* Checkbox name */
@@ -500,6 +509,9 @@
 
 /* Checkbox name */
 "Require administrator authorization to install all configurations" = "Απαίτησε εξουσιοδότηση διαχειριστή για την εγκατάσταση όλων των ρυθμίσεων";
+
+/* Checkbox name */
+"Require administrator authorization to update" = "Να απαιτείται έγκριση διαχειριστή για την ενημέρωση";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Δρομολόγιση όλης της κίνησης του IPv4 μέσω του VPN";
@@ -619,6 +631,9 @@
 "'%@' has been disconnected" = "'%@' έχει αποσυνδεθεί";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "Μια νέα έκδοση του Tunnelblick είναι διαθέσιμη";
+
+/* Window title */
 "Active connection" = "Ενεργή σύνδεση";
 
 /* Window title */
@@ -670,6 +685,12 @@
 "Do you wish to connect?" = "Θέλετε να συνδεθείτε";
 
 /* Window title */
+"Error getting Tunnelblick update..." = "Σφάλμα στη λήψη ενημέρωσης του Tunnelblick…";
+
+/* WIndow title */
+"Error getting VPN update..." = "Σφάλμα στη λήψη ενημέρωσης του VPN…";
+
+/* Window title */
 "File not found" = "Δεν βρέθηκε αρχείο";
 
 /* Window title */
@@ -680,6 +701,9 @@
 
 /* Window title */
 "Install Configuration For All Users?" = "Εγκατάσταση παραμέτρων για όλους τους χρήστες;";
+
+/* Window title */
+"Installation Failed" = "Η εγκατάσταση απέτυχε";
 
 /* Window title */
 "Installation failed" = "Αποτυχία εγκατάστασης";
@@ -734,6 +758,9 @@
 
 /* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "ΕΠΙΤΥΧΙΑ ΔΟΚΙΜΑΣΤΙΚΗΣ ΑΠΕΓΚΑΤΑΣΤΑΣΗΣ TUNNELBLICK";
+
+/* Window title */
+"The Tunnelblick installation failed." = "Η εγκατάσταση του Tunnelblick απέτυχε.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Πρόβλημα παραμέτρων του Tunnelblick";
@@ -1056,6 +1083,9 @@
 /* Window text */
 "An error occurred getting the list of loaded system extensions." = "Σφάλμα κατά την ανάκτηση της λίστας των ενεργών επεκτάσεων συστήματος.";
 
+/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Προέκυψε σφάλμα κατά τη λήψη πληροφοριών για ενημερώσεις.\n\nΓια περισσότερες πληροφορίες δείτε το παρακάτω αρχείο καταγραφής\n\n%@";
+
 /* Window text */
 "An error occurred while trying to launch %@" = "Παρουσιάστηκε σφάλμα κατά την εκκίνηση του %@";
 
@@ -1188,8 +1218,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Αντιγραφή %@, αφαίρεση χαρακτήρων CR";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Πνευματικά δικαιώματα © 2004-%@ Angelo Laub, Jonathan Bullard και άλλοι.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Πνευματικά δικαιώματα © 2004-%@ Angelo Laub, Jonathan Bullard και άλλοι. All rights reserved.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Αδυναμία αντιγραφής %1$@ στο %2$@";
@@ -1825,6 +1855,12 @@
 "Tunnelblick is ready." = "Το Tunnelblick είναι διαθέσιμο.";
 
 /* Window text */
+"Tunnelblick is up to date" = "Το Tunnelblick είναι ενημερωμένο";
+
+/* Window text */
+"Tunnelblick needs a computer administrator's authorization to update.\n\nTunnelblick will be relaunched after the update." = "Το Tunnelblick χρειάζεται την έγκριση του διαχειριστή του υπολογιστή για να ενημερωθεί. \n\nΤο Tunnelblick θα ξανά ξεκινήσει μετά την ενημέρωση του.";
+
+/* Window text */
 "Tunnelblick needs authorization to copy folder '%@'." = "Απαιτείται εξουσιοδότηση για να αντιγραφεί ο φάκελος '%@'.";
 
 /* Window text */
@@ -1886,6 +1922,9 @@
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Το Tunnelblick πραγματοποίησε επιτυχώς:\n\n";
+
+/* Window text */
+"Tunnelblick updates:" = "Ενημερώσεις του Tunnelblick:";
 
 /* Window text */
 "Tunnelblick was not able to unload its system extensions. Please restart your computer and try to uninstall Tunnelblick's system extensions again." = "Το Tunnelblick δεν μπόρεσε να ξεφορτώσει τις δικές του επεκτάσεις συστήματος. Κάντε επανεκκίνηση και προσπαθήστε πάλι να απεγκαταστήσετε τις επεκτάσεις συστήματος του Tunnelblick.";
@@ -2368,9 +2407,6 @@
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Το Tunnelblick δεν μπόρεσε να φορτώσει μια επέκταση του συστήματος που απαιτείται για τη σύνδεση με %@.</p>";
 
-/* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Μπορείτε να ρυθμίσετε το Tunnelblick ώστε να προσπαθήσει να φορτώσει τις επεκτάσεις συστήματος.</p>\n";
-
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Πρέπει να εγκαταστήσετε τις επεκτάσεις συστήματος του Tunnelblick για να χρησιμοποιήσετε αυτή τη διαμόρφωση.</p><p>Αυτό μπορεί να γίνει από τον πίνακα 'Βοηθήματα' του Tunnelblick.</p><p>Αφού εγκαταστήσετε τις επεκτάσεις συστήματος, το macOS θα σας καθοδηγήσει στη διαδικασία 'αποδοχής' τους, πράγμα που θα απαιτήσει επανεκκίνηση στον υπολογιστή σας.</p>";
 
@@ -2424,6 +2460,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Συνεισφορά σε νεότερο κώδικα";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Πνευματικά Δικαιώματα © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, και άλλοι. All rights reserved.";
 
 /* Credit description */
 "Croatian translation" = "Κροάτικη μετάφραση";
@@ -2493,6 +2532,9 @@
 
 /* Credit description */
 "Indonesian translation" = "Ινδονησιακή μετάφραση";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "Μη ασφαλής έκδοση του OpenSSL είναι σε χρήση…";
 
 /* Credit description */
 "Italian translation" = "Ιταλική μετάφραση";

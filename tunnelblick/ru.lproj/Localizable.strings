@@ -1224,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Скопировано %@, удаление символов перевода строк (CR)";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Все права защищены © 2004-%@ Анджело Лауб, Джонатан Буллард и другие.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Авторское право © 2004-%@ Анджело Лауб, Джонатан Буллард и другие. Все права защищены.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Не могу скопировать %1$@ в %2$@";
@@ -2461,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick не смог загрузить системное расширение, необходимое для подключения к %@.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Вы можете установить опцию загрузки системных расширений в настройках программы.</p>";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Вы можете установить настройку Tunnelblick 'tryToLoadKextsOnThisVersionOfMacOS' для попытки загрузки системного расширения.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Для использования этой конфигурации вам необходимо установить системные расширения Tunnelblick.</p><p>Вы можете сделать это из панели «утилиты» программы.</p><p>После установки системных расширений, macOS запросит подтверждение их активации (процедура требует перезагрузки компьютера).</p>";
@@ -2516,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Вклад в ранний код";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Авторское право © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Анджело Лауб, Джонатан Буллард и другие. Все права защищены.";
 
 /* Credit description */
 "Croatian translation" = "Хорватский перевод";

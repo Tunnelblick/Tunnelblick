@@ -1,9 +1,14 @@
 /* THIS FILE SHOULD NOT BE EDITED. IT IS GENERATED AUTOMATICALLY. */
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) IP: %@" = "Kople frå alle (%1$@) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Kople frå alle (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) IP: %@" = "Kople frå alle (%1$d tilkoplingar) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Kople frå alle (%d tilkoplingar)";
@@ -101,6 +106,9 @@
 /* Button */
 "Do nothing" = "Ikkje gjer noko";
 
+/* Button to install an update */
+"Download and Install" = "Last ned og installer";
+
 /* Button */
 "Export Tunnelblick Setup" = "Eksporter Tunnelblick-oppsett";
 
@@ -115,6 +123,9 @@
 
 /* Button */
 "Ignore" = "Ignorer";
+
+/* Button to install an update */
+"Install and Relaunch" = "Installer og start på nytt";
 
 /* Button */
 "Install tun and tap system extensions..." = "Installer tun og tap systemutvidingar";
@@ -180,6 +191,9 @@
 /* Button */
 "Reinstall" = "Installer på nytt";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "Påminn meg seinare";
+
 /* Button */
 "Remove Credentials" = "Fjern brukarinfo";
 
@@ -227,6 +241,9 @@
 
 /* Button */
 "Show while connecting" = "Vis medan oppkopling";
+
+/* Button to skip a particular update */
+"Skip This Version" = "Hopp over denne versjonen";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "Hopp over denne oppdateringa";
@@ -281,6 +298,19 @@
 
 /* Button */
 "When computer starts" = "Når datamaskin startar";
+
+/* Menu item
+   Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "Ei Tunnelblick-oppdatering er tilgjengeleg (%1.2f%% nedlasta)…";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "Ei Tunnelblick-oppdatering er tilgjengeleg og lasta ned…";
+
+/* Menu item */
+"A Tunnelblick Update is Available..." = "Ei Tunnelblick-oppdatering er tilgjengeleg…";
+
+/* Menu item */
+"A VPN Configuration Update is Available..." = "Ei VPN-konfigurasjonsoppdatering er tilgjengeleg…";
 
 /* Menu item */
 "Add a VPN..." = "Legg til VPN…";
@@ -378,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Vis på Tunnelblick-menyen";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Brukar ein annan versjon av OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "VPN-detaljar…";
 
@@ -401,6 +434,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Sjekk om den offentlege IP-adressa har endra seg etter oppkopling";
+
+/* Checkbox name */
+"Check only when connected to a VPN" = "Kontroller berre når du er tilkopla eit VPN";
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "Deaktiver IPv6 med mindre VPN-serveren er tilkopla med IPv6";
@@ -445,6 +481,9 @@
 "Do not warn about this again" = "Ikkje åtvar meg om dette igjen";
 
 /* Checkbox name */
+"Download updates when found" = "Last ned oppdateringar når funne";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Aktiver IPv6 (berre tap)";
 
 /* Checkbox name */
@@ -470,6 +509,9 @@
 
 /* Checkbox name */
 "Require administrator authorization to install all configurations" = "Spør etter administratorgodkjenning for å installera alle konfigurasjonar";
+
+/* Checkbox name */
+"Require administrator authorization to update" = "Krev administratorautorisasjon for å oppdatera";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "Styr all IPv4-trafikk gjennom VPN-oppkoplinga";
@@ -1115,9 +1157,6 @@
 
 /* Window text */
 "Copied %@, removing CR characters" = "Kopierte %@, fjernar CR-teikn";
-
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, med fleire.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Kunne ikkje kopierer %1$@ til %2$@";
@@ -2136,9 +2175,6 @@
 
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick kunne ikkje lasta ei systemutviding som er naudsynt for oppkopling til %@.</p>";
-
-/* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Du kan setja ein Tunnelblick-preferanse slik at han prøver å lasta systemutvidingane.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Du må installera Tunnelblicks systemutvidingar for å bruka denne konfigurasjonen.</p><p>Du kan gjera det frå Tunnelblicks 'Verktøy'-panel.</p><p>Etter at du har installert systemutvidingane, vil macOS rettleia deg gjennom prosessen med å 'tillata' dei, som vil omfatta ein omstart av datamaskina.</p>";

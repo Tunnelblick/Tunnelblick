@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Показувати в меню Tunnelblick";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Використовується інша версія OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "Деталі VPN…";
 
@@ -1221,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Скопійовано %@, видалення символів переводу рядків (CR)";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Авторське право © 2004-%@ Angelo Laub, Jonathan Bullard, та інші.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Авторське право © 2004-%@ Angelo Laub, Jonathan Bullard, та інші. Всі права захищені.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Неможливо скопіювати %1$@ до %2$@";
@@ -1954,6 +1957,9 @@
 "Tunnelblick was successfully replaced." = "Tunnelblick успішно замінений.";
 
 /* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick не вдалося встановити звʼязок з існуючим процессом OpenVPN для конфігурації '%@'. Спроби встановити звʼязок припинено.";
+
+/* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick не вдалося внести зміни. Детальніше в звіті Консолі.";
 
 /* Window text */
@@ -2455,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick не зміг завантажити системне розширення, необхідне для з'єднання з %@.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Ви можете налаштувати Tunnelblick таким чином, що він намагатиметься завантажити власні системні розширення.</p>\n";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Ви можете встановити параметр Tunnelblick 'tryToLoadKextsOnThisVersionOfMacOS' для спроби завантаження власних системних розширень.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Для використання цієї конфігурації потрібно встановити системні розширення Tunnelblick.</p><p>Це можна зробити на закладці 'Інструменти'.</p><p>Після встановлення системних розширень, macOS супроводить вас через процес їх активації, що вимагатиме перезавантаження компьютера.</p>";
@@ -2510,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Внески до раннього коду";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Авторське право © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, та інші. Всі права захищені.";
 
 /* Credit description */
 "Croatian translation" = "Хорватський переклад";

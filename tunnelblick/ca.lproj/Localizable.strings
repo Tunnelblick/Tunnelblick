@@ -1224,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Copiat %@, eliminant caràcters CR";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, i altres.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard i altres. Tots els drets reservats.";
 
 /* Window text */
 "Could not copy %@ to %@" = "No s'ha pogut copiar %1$@ a %2$@";
@@ -2461,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick no ha pogut carregar una extensió del sistema necessària per connectar-se a %@.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Podeu establir una preferència de Tunnelblick perquè intenti carregar les seves extensions del sistema.</p>";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Podeu establir la preferència de Tunnelblick 'tryToLoadKextsOnThisVersionOfMacOS' perquè intenti carregar les seves extensions del sistema.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Cal instal·lar les extensions del sistema de Tunnelblick per utilitzar aquesta configuració.</p><p>Podeu fer-ho des del tauler 'Utilitats' de Tunnelblick.</p><p>Després d'instal·lar les extensions del sistema, macOS us guiarà a través del seu procés d'autorització', que inclourà un reinici de l'ordinador.</p>";
@@ -2516,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Contribució al codi inicial";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard i altres. Tots els drets reservats.";
 
 /* Credit description */
 "Croatian translation" = "Traducció al Croat";

@@ -1186,9 +1186,6 @@
 "Copied %@, removing CR characters" = "ทำสำเนา %@ แล้ว กำลังลบการขึ้นบรรทัดใหม่ (CR)";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "สงวนลิขสิทธิ์ © 2004-%@ Angelo Laub, Jonathan Bullard และท่านอื่นๆ";
-
-/* Window text */
 "Could not copy %@ to %@" = "ไม่สามารถคัดลอก %1$@ ไปที่ %2$@";
 
 /* Window text */

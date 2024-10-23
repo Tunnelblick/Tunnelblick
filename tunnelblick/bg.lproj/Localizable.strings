@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Показвай в Tunnelblick менюто";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Използване на различна версия на OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "VPN детайли…";
 
@@ -1221,8 +1224,8 @@
 /* Window text */
 "Copied %@, removing CR characters" = "Копирани %@, премахване на CR символи";
 
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard и други.";
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Търг. марка © 2004-%@ Angelo Laub, Jonathan Bullard, и други. Всички права запазени.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Не може да копира %1$@ в %2$@";
@@ -2458,7 +2461,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick не успя да зареди системно разширение, което е необходимо за връзка с %@.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set a Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Може да зададете настройка на Tunnelblick да се опита да зареди системните си разширения..</p>\n";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p> Може да активирате опцията 'tryToLoadKextsOnThisVersionOfMacOS' в Tunnelblick, за да опита да зареди системните разширения.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Трябва да инсталирате системните разширения на Tunnelblick, за да използвате тази конфигурация.</p><p>Може да направите това от панел 'Инструменти'.</p><p>След инсталирането на системните разширения macOS ще ви води през прооцеса на разрешаването им, което включва и рестартиране на компютъра ви.</p>";
@@ -2513,6 +2516,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Допринася за ранния код";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Търг. марка © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, и други. Всички права запазени.";
 
 /* Credit description */
 "Croatian translation" = "Хърватска локализация";
