@@ -21,6 +21,10 @@
 
 #import "TBDownloader.h"
 
+#import "TunnelblickInfo.h"
+
+extern TunnelblickInfo * gTbInfo;
+
 @implementation TBDownloader
 
 //********************************************************************************
@@ -69,13 +73,21 @@
         return;
     }
 
-    NSURLRequest * request = [NSURLRequest requestWithURL: url];
-    if (  ! request  ) {
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: url
+                                                            cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                        timeoutInterval: 30.0];
+     if (  ! request  ) {
         [self indicateFinishedWithMessage: [NSString stringWithFormat:
                                             @"ERROR: startDownload: Cannot get NSURLRequest from '%@'",
                                             self.urlString]];
         return;
     }
+
+    NSString * userAgent = [NSString
+                            stringWithFormat: @"Tunnelblick updateChecker %@",
+                            [gTbInfo tunnelblickVersionString]];
+    [request setValue: userAgent  forHTTPHeaderField:@"User-Agent"];
+    [request setValue: [url host] forHTTPHeaderField: @"Host"];
 
     [self indicateProgress];
 
