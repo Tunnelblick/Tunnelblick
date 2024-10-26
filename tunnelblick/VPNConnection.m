@@ -1082,14 +1082,15 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     NSString * tbVersion = [[gMC tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
 
     NSString * userAgent = [NSString stringWithFormat: @"Tunnelblick ipInfoChecker: %@", tbVersion];
-    NSMutableURLRequest * req = [[[NSMutableURLRequest alloc] initWithURL: url] autorelease];
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL: url
+                                                        cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                    timeoutInterval: 30.0];
     if ( ! req  ) {
         NSLog(@"%@: req == nil", logHeader);
         return nil;
     }
     [req setValue: userAgent forHTTPHeaderField: @"User-Agent"];
 	[req setValue: hostName  forHTTPHeaderField: @"Host"];
-    [req setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
 
 	// Make the request synchronously. Make it asynchronous (in effect) by invoking this method from a separate thread.
     //
