@@ -503,7 +503,7 @@ if [ "${uninstall_remove_data}" != "true" ] ; then
   log ""
 fi
 
-if [ "${uninstall_use_insecure_rm}" ≠ "true" ] ; then
+if [ "${uninstall_use_insecure_rm}" != "true" ] ; then
   log ""
   log "Secure erase ('rm -P') will be used to delete files."
   log ""
