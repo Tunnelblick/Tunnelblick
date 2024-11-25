@@ -2640,7 +2640,7 @@ int startVPN(NSString * configFile,
 
     [arguments addObject: @"--setenv"];
     [arguments addObject: @"IV_SSO"];
-    [arguments addObject: @"webauth"];
+    [arguments addObject: @"webauth,crtext"];
 
 	if (  (bitMask & OPENVPNSTART_TEST_MTU) != 0  ) {
         [arguments addObject: @"--mtu-test"];
