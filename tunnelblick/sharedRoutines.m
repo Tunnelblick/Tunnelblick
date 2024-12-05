@@ -1949,7 +1949,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
         goto error2;
     }
 
-    NSString * output = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    NSString * output = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     if (  ! output  ) {
         appendLog([NSString stringWithFormat: @"runTunnelblickd: Data from tunnelblickd was not valid UTF-8; data was '%@'", data]);
         goto error2;
