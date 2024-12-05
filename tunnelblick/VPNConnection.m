@@ -4190,31 +4190,29 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 	// Use a script to get the response if one is available
 	if (  ! useManualChallengeResponseOnce ) {
-		if (  [[configPath pathExtension] isEqualToString: @"tblk"]) {
-			NSString * scriptFilename = (  isStatic
-										 ? @"static-challenge-response.user.sh"
-										 : @"dynamic-challenge-response.user.sh");
-			NSString * scriptPath = [[[secureTblkPathForTblkPath(configPath)
-                                       stringByAppendingPathComponent: @"Contents"]
-									  stringByAppendingPathComponent: @"Resources"]
-									 stringByAppendingPathComponent: scriptFilename];
-			if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
+        NSString * scriptFilename = (  isStatic
+                                     ? @"static-challenge-response.user.sh"
+                                     : @"dynamic-challenge-response.user.sh");
+        NSString * scriptPath = [[[secureTblkPathForTblkPath(configPath)
+                                   stringByAppendingPathComponent: @"Contents"]
+                                  stringByAppendingPathComponent: @"Resources"]
+                                 stringByAppendingPathComponent: scriptFilename];
+        if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
 
-				NSArray * arguments = [NSArray arrayWithObjects: challenge,
-									   [self displayName],
-									   [self localizedName],
-									   (echoResponse ? @"echo" : @"noecho"),
-									   nil];
-				NSString * response = [self responseFromChallengeResponseScriptAtPath: scriptPath arguments: arguments];
-				if (  response  ) {
-					[self addToLog: [NSString stringWithFormat: @"Received response to challenge from %@", scriptFilename]];
-				} else {
-					[self addToLog: [NSString stringWithFormat: @"User cancelled the response to challenge from %@", scriptFilename]];
-				}
+            NSArray * arguments = [NSArray arrayWithObjects: challenge,
+                                   [self displayName],
+                                   [self localizedName],
+                                   (echoResponse ? @"echo" : @"noecho"),
+                                   nil];
+            NSString * response = [self responseFromChallengeResponseScriptAtPath: scriptPath arguments: arguments];
+            if (  response  ) {
+                [self addToLog: [NSString stringWithFormat: @"Received response to challenge from %@", scriptFilename]];
+            } else {
+                [self addToLog: [NSString stringWithFormat: @"User cancelled the response to challenge from %@", scriptFilename]];
+            }
 
-				return response;
-			}
-		}
+            return response;
+        }
 	} else {
 		useManualChallengeResponseOnce = FALSE;
 	}
