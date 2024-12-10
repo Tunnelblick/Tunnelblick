@@ -1079,7 +1079,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
     [self setIpCheckLastHostWasIPAddress: [[url host] containsOnlyCharactersInString: @"0123456789."]];
 
     // Create an NSURLRequest
-    NSString * tbVersion = [[gMC tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
+    NSString * tbVersion = gTbInfo.tunnelblickVersionString;
 
     NSString * userAgent = [NSString stringWithFormat: @"Tunnelblick ipInfoChecker: %@", tbVersion];
     NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL: url

@@ -172,8 +172,6 @@ enum StatusIconPosition {
 	
 	NSString                * languageAtLaunch;				// Lower-case version of the language we are using. Passed on to runOnConnect, runOnLaunch, and Menu command scripts
     
-	NSString                * tunnelblickVersionString;		// Copy of CFBundleShortVersionString
-	
     NSTrackingRectTag         iconTrackingRectTag;          // Used to track mouseEntered and mouseExited events for statusItemButton
     
 	BOOL					  languageAtLaunchWasRTL;		// Used to load RTL xibs and adjust spacing of controls as needed
@@ -411,7 +409,6 @@ TBPROPERTY(nullable NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, se
 TBPROPERTY(nullable NSBundle       *, deployLocalizationBundle, setDeployLocalizationBundle)
 TBPROPERTY(nullable NSString       *, languageAtLaunch,        setLanguageAtLaunch)
 TBPROPERTY(nullable NSString       *, publicIPAddress,         setPublicIPAddress)
-TBPROPERTY(nullable NSString       *, tunnelblickVersionString, setTunnelblickVersionString)
 TBPROPERTY(BOOL            , showingImportSetupWindow, setShowingImportSetupWindow)
 TBPROPERTY(nullable NSDate         *, lastCheckNow,             setLastCheckNow)
 

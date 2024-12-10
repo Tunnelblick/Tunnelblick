@@ -220,7 +220,6 @@ TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToWaitForDisconnectOnWa
 TBSYNTHESIZE_OBJECT(retain, NSBundle     *, deployLocalizationBundle,  setDeployLocalizationBundle)
 TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLanguageAtLaunch)
 TBSYNTHESIZE_OBJECT(retain, NSString     *, publicIPAddress,           setPublicIPAddress)
-TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnelblickVersionString)
 TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCheckNow)
 
 
@@ -658,9 +657,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
         TBLog(@"DB-SU", @"init: 001")
         
-		NSDictionary * infoPlist = [self tunnelblickInfoDictionary];
-		[self setTunnelblickVersionString: [infoPlist objectForKey: @"CFBundleShortVersionString"]];
-		
 		[self checkSystemFoldersAreSecure];
 		
         if (  ! [gTbDefaults boolForKey: @"doNotShowSplashScreen"]  ) {
@@ -4739,28 +4735,26 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 016")
     // Add this Tunnelblick version to the start of the tunnelblickVersionHistory preference array if it isn't already the first entry
-    if (  tunnelblickVersionString  ) {
-        BOOL dirty = FALSE;
-        NSMutableArray * versions = [[[gTbDefaults arrayForKey: @"tunnelblickVersionHistory"] mutableCopy] autorelease];
-        if (  ! versions  ) {
-            versions = [[[NSArray array] mutableCopy] autorelease];
-            dirty = TRUE;
-        }
-        
-        if (   (  [versions count] == 0  )
-            || (! [[versions objectAtIndex: 0] isEqualToString: tunnelblickVersionString])  ) {
-            [versions insertObject: tunnelblickVersionString atIndex: 0];
-            dirty = TRUE;
-        }
+    BOOL dirty = FALSE;
+    NSMutableArray * versions = [[[gTbDefaults arrayForKey: @"tunnelblickVersionHistory"] mutableCopy] autorelease];
+    if (  ! versions  ) {
+        versions = [[[NSArray array] mutableCopy] autorelease];
+        dirty = TRUE;
+    }
 
-        while (  [versions count] > MAX_VERSIONS_IN_HISTORY  ) {
-            [versions removeLastObject];
-            dirty = TRUE;
-        }
-        
-        if (  dirty  ) {
-            [gTbDefaults setObject: versions forKey: @"tunnelblickVersionHistory"];
-        }
+    if (   (  [versions count] == 0  )
+        || (! [[versions objectAtIndex: 0] isEqualToString: gTbInfo.tunnelblickVersionString])  ) {
+        [versions insertObject: gTbInfo.tunnelblickVersionString atIndex: 0];
+        dirty = TRUE;
+    }
+
+    while (  [versions count] > MAX_VERSIONS_IN_HISTORY  ) {
+        [versions removeLastObject];
+        dirty = TRUE;
+    }
+
+    if (  dirty  ) {
+        [gTbDefaults setObject: versions forKey: @"tunnelblickVersionHistory"];
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 016.1")
@@ -4828,8 +4822,7 @@ static void signal_handler(int signalNumber)
     
     if (  [gTbDefaults boolForKey: @"haveStartedAnUpdateOfTheApp"]  ) {
         [gTbDefaults removeObjectForKey: @"haveStartedAnUpdateOfTheApp"];
-        NSString * tbVersion = [[self tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
-        NSString * message = [NSString stringWithFormat: NSLocalizedString(@"Updated to %@.", "Notification text"), tbVersion];
+        NSString * message = [NSString stringWithFormat: NSLocalizedString(@"Updated to %@.", "Notification text"), gTbInfo.tunnelblickVersionString];
         [UIHelper showSuccessNotificationTitle: @"Tunnelblick" msg: message];
     }
     

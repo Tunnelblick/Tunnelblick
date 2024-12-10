@@ -27,9 +27,11 @@
 
 #import "MenuController.h"
 #import "NSTimer+TB.h"
+#import "TunnelblickInfo.h"
 
 extern MenuController * gMC;
 extern BOOL             gShuttingDownWorkspace;
+extern TunnelblickInfo * gTbInfo;
 
 @implementation SplashWindowController
 
@@ -53,7 +55,7 @@ extern BOOL             gShuttingDownWorkspace;
     NSString * tunnelblickName = NSLocalizedString(@"Tunnelblick", @"Window title");
 	[tbNameTFC setTitle: tunnelblickName];
 
-    NSMutableString * versionString = [[[gMC tunnelblickVersionString] mutableCopy] autorelease];
+    NSMutableString * versionString = [[gTbInfo.tunnelblickVersionString mutableCopy] autorelease];
     NSString * programNameAndSpace = [tunnelblickName stringByAppendingString: @""];
     [versionString replaceOccurrencesOfString: programNameAndSpace
                                    withString: @""

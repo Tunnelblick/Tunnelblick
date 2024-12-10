@@ -85,7 +85,7 @@ extern TunnelblickInfo * gTbInfo;
 
     NSString * userAgent = [NSString
                             stringWithFormat: @"Tunnelblick updateChecker %@",
-                            [gTbInfo tunnelblickVersionString]];
+                            gTbInfo.tunnelblickVersionString];
     [request setValue: userAgent  forHTTPHeaderField:@"User-Agent"];
     [request setValue: [url host] forHTTPHeaderField: @"Host"];
 
