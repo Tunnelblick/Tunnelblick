@@ -19,10 +19,10 @@ quit
 EOF
 )
 
-if [ ! -e /Library/Application Support/Tunnelblick/openvpn_dns_${PSID} ]; then
+if [ ! -e "/Library/Application Support/Tunnelblick/openvpn_dns_${PSID}" ]; then
 	exit 0
 fi
-if [ ! -e /Library/Application Support/Tunnelblick/openvpn_domain_${PSID} ]; then
+if [ ! -e "/Library/Application Support/Tunnelblick/openvpn_domain_${PSID}" ]; then
 	exit 0
 fi
 
@@ -30,12 +30,12 @@ fi
 scutil << EOF
 open
 d.init
-d.add ServerAddresses * `cat /Library/Application Support/Tunnelblick/openvpn_dns_${PSID}`
-d.add DomainName `cat /Library/Application Support/Tunnelblick/openvpn_domain_${PSID}`
+d.add ServerAddresses * `cat "/Library/Application Support/Tunnelblick/openvpn_dns_${PSID}"`
+d.add DomainName `cat "/Library/Application Support/Tunnelblick/openvpn_domain_${PSID}"`
 set State:/Network/Service/${PSID}/DNS
 quit
 EOF
 
 
-rm /Library/Application Support/Tunnelblick/openvpn_dns_${PSID} /Library/Application Support/Tunnelblick/openvpn_domain_${PSID}
+rm "/Library/Application Support/Tunnelblick/openvpn_dns_${PSID}" "/Library/Application Support/Tunnelblick/openvpn_domain_${PSID}"
 
