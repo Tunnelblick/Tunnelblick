@@ -38,8 +38,9 @@ built-openvpn-prepare:
 			cp -a "$(SOURCES_DIR)/IOUserEthernetController.h" "IOUserEthernetController.h" ; \
 			echo "Using IOUserEthernetController.h in $(SOURCES_DIR)" ; \
 		else \
-			curl -o IOUserEthernetController.h https://opensource.apple.com/source/IOKitUser/IOKitUser-1845.120.6/network.subproj/IOUserEthernetController.h; \
-			echo "Downloaded https://opensource.apple.com/source/IOKitUser/IOKitUser-1845.120.6/network.subproj/IOUserEthernetController.h" ; \
+		    iouec_url="https://raw.githubusercontent.com/apple-oss-distributions/IOKitUser/refs/heads/main/network.subproj/IOUserEthernetController.h" ; \
+			curl -o IOUserEthernetController.h "$$iouec_url"; \
+			echo "Downloaded '$$iouec_url'" ; \
 		fi ; \
 		expected_sha256="afc703ffb49fd732dd388f2edb7b058607c95d125ddee58e000db5135367e0fb" ; \
 		sha256="$$( shasum -a 256 IOUserEthernetController.h )" ; \
