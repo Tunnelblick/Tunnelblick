@@ -631,6 +631,9 @@
 "'%@' has been disconnected" = "'%@' har vorte kopla frå";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "Ein ny versjon av Tunnelblick er tilgjengeleg";
+
+/* Window title */
 "Active connection" = "Aktiv oppkopling";
 
 /* Window title */

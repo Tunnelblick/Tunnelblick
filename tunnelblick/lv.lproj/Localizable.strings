@@ -106,6 +106,9 @@
 /* Button */
 "Do nothing" = "Neveikt nekādas darbības";
 
+/* Button to install an update */
+"Download and Install" = "Lejupielādēt un Instalēt";
+
 /* Button */
 "Export Tunnelblick Setup" = "Eksportēt Tunnelblick uzstādījumus";
 
@@ -120,6 +123,9 @@
 
 /* Button */
 "Ignore" = "Ignorēt";
+
+/* Button to install an update */
+"Install and Relaunch" = "Instalēt un palaist vēlreiz";
 
 /* Button */
 "Install tun and tap system extensions..." = "Instalēt tun un tap sistēmas paplašinājumus…";
@@ -185,6 +191,9 @@
 /* Button */
 "Reinstall" = "Pārinstalēt";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "Atgādināt vēlāk";
+
 /* Button */
 "Remove Credentials" = "Noņemt piekļuves datus";
 
@@ -232,6 +241,9 @@
 
 /* Button */
 "Show while connecting" = "Rādīt, kamēr tiek veidots savienojums";
+
+/* Button to skip a particular update */
+"Skip This Version" = "Izlaist šo versiju";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "Izlaist šo jauninājumu";
@@ -450,6 +462,9 @@
 "Do not warn about this again" = "Vairs nebrīdināt par šo";
 
 /* Checkbox name */
+"Download updates when found" = "Lejupielādējiet atjauninājumus, kad tie ir atrasti";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "Iespējot IPv6 (tikai tap)";
 
 /* Checkbox name */
@@ -594,6 +609,9 @@
 "'%@' has been disconnected" = "'%@' tika atvienots";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "Ir pieejama jauna Tunnelblick versija";
+
+/* Window title */
 "Active connection" = "Aktīvs savienojums";
 
 /* Window title */
@@ -657,6 +675,9 @@
 "Install Configuration For All Users?" = "Vai uzstādīt konfigurāciju visiem lietotājiem?";
 
 /* Window title */
+"Installation Failed" = "Instalēšana neizdevās";
+
+/* Window title */
 "Installation failed" = "Uzstādīšana neizdevās";
 
 /* Window title */
@@ -709,6 +730,9 @@
 
 /* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "TUNNELBLICK ATINSTALĒŠANAS PĀRBAUDE VEIKSMĪGA";
+
+/* Window title */
+"The Tunnelblick installation failed." = "Tunnelblick instalēšana neizdevās.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick konfigurācijas problēma";
@@ -2222,6 +2246,9 @@
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS kešatmiņa satur DNS (Domain Name System) informācijas kopijas.</p>\n<p><strong>Kad atzīmēta</strong>, DNS kešatmiņa tiks dzēsta pēc savienojuma vai atvienojuma. Visi DNS meklējumi tiks veikti caur DNS serveri, kurš norādīt VPN konfigurācijā.</p>\n<p><strong>Kad neatzīmēta</strong>, DNS kešatmiņa netiks dzēsta. Tas var izraisīt problēmas, ja ir vārdu konflikts VPN konfigurācijā norādītajā DNS serverī un DNS serverī, kas tika izmantots pirms pieslēgšanās VPN.</p>";
 
+/* Toolbar text for 'Lock' item. The '%@' is a time such as '3:45' meaning 3 minutes, 45 seconds. */
+"Admin mode %@ remaining" = "Adminstratora režīms beigsies pēc %@";
+
 /* Credit description */
 "Afrikaans translation" = "Tulkojums afrikandu valodā";
 
@@ -2326,6 +2353,9 @@
 
 /* Credit description */
 "Indonesian translation" = "Tulkojums indonēziešu valodā";
+
+/* Headline for warning */
+"Insecure version of OpenSSL being used..." = "Tiek izmantota nedroša OpenSSL versija…";
 
 /* Credit description */
 "Italian translation" = "Tulkojums itāļu valodā";

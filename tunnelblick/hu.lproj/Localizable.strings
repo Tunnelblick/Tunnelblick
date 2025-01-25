@@ -2518,7 +2518,7 @@
 "Contributed to early code" = "A fejlesztés korai szakaszában résztvett";
 
 /* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
-"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "A szerzői jog tulajdonosa @ 2004 -%@ Angelo Laub, Jonathan Bullard és további szerzők. Minden jog fenntartva.";
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "A szerzői jog tulajdonosa @ 2004 -TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard és tovabbi szerzők. Minden jog fenntartva.";
 
 /* Credit description */
 "Croatian translation" = "Horvát fordítás";

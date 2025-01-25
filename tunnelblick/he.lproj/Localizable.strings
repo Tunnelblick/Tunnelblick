@@ -2,10 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) IP: %@" = "ניתוק מכל (%1$@) כתובת: %2$@";
+"Disconnect All (%@) IP: %@" = "נתק הכל (%1$@) כתובת: %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "נתק הכל (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) IP: %@" = "נתק הכל (%1$d חיבורים) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "נתק הכל (%d חיבורים)";
@@ -80,7 +83,7 @@
 "Delete Credentials" = "מחק פרטי הזדהות";
 
 /* Button */
-"Delete saved passphrase and try again" = "מחק ביטוי סיסמא שמורה ונסה שנית";
+"Delete saved passphrase and try again" = "מחק סיסמא שמורה ונסה שנית";
 
 /* Button */
 "Delete saved password and try again" = "מחק סיסמא שמורה ונסה שנית";
@@ -123,6 +126,9 @@
 
 /* Button to install an update */
 "Install and Relaunch" = "התקנה והפעלה מחדש";
+
+/* Button */
+"Install tun and tap system extensions..." = "התקן הרחבות מערכת tun וtap…";
 
 /* Button */
 "Install" = "התקן";
@@ -281,6 +287,9 @@
 /* Button */
 "Uninstall Tunnelblick..." = "הסר את Tunnelblick";
 
+/* Button */
+"Uninstall tun and tap system extensions..." = "הסר הרחבות מערכת tun וtap…";
+
 /* Button. 'Update' refers to the update of a configuration. */
 "Update" = "עדכן";
 
@@ -422,6 +431,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "בדוק אם כתובת IP ציבורית גלויה השתנתה לאחר ההתחברות";
+
+/* Checkbox name */
+"Check only when connected to a VPN" = "בדוק רק כאשר מחובר לVPN";
 
 /* Checkbox name */
 "Disable IPv6 unless the VPN server is accessed using IPv6" = "בטל תמיכה ב-IPv6 אלא אם שרת גישה לשרת הVPN מתבצעת באמצעות IPV6";
@@ -1182,6 +1194,9 @@
 /* Window text */
 "Copied %@, removing CR characters" = "%@ הועתקו, מסיר תווי CR";
 
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "תחת זכויות יוצרים © 2004-%@ אנחלו לאוב, ג׳ונתן בולארד ואחרים. כל הזכויות שמורות.";
+
 /* Window text */
 "Could not copy %@ to %@" = "התגלתה שגיעה במהלך העתקת %1$@ ל%2$@";
 
@@ -1651,6 +1666,9 @@
 "Tunnelblick is ready." = "Tunnelblick מוכן לפעולה";
 
 /* Window text */
+"Tunnelblick is up to date" = "גרסת Tunnelblick היא העדכנית";
+
+/* Window text */
 "Tunnelblick needs authorization to copy or move configurations." = "Tunnelblick זקוק לאישור על מנת להעתיק או להעביר הגדרות";
 
 /* Window text */
@@ -1661,6 +1679,9 @@
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick סיים בהצלחה:";
+
+/* Window text */
+"Tunnelblick updates:" = "עדכוני Tunnelblick:";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick הותקן בהצלחה והגדרות %ld הותקנו או הוחלפו.";
