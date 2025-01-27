@@ -5691,8 +5691,29 @@ static BOOL runningHookupThread = FALSE;
 	BOOL updateChecksForced    = (updateChecksForcedOnOrOff    &&   [gTbDefaults boolForKey:@"updateCheckAutomatically"]);
 	BOOL ipAddressChecksForced = (ipAddressChecksForcedOnOrOff && ! [gTbDefaults boolForKey:@"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"]);
 
-	NSString * updateChecksHost    = [[NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"SUFeedURL"]]  host];
-	NSString * ipAddressCheckHost = [[NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"IPCheckURL"]] host];
+    NSString * updateCheckURLString = gTbInfo.updateFeedURLString;
+    NSURL * updateCheckURL    = [NSURL URLWithString: updateCheckURLString];
+    if (  ! updateCheckURL  ) {
+        NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: SUFeedURL cannot be parsed: %@", updateCheckURLString);
+        return NO;
+    }
+    NSString * updateCheckHost = updateCheckURL.host;
+    if (  ! updateCheckHost  ) {
+        NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: Cannot get host for: %@", updateCheckURLString);
+        return NO;
+    }
+
+    NSString * ipAddressCheckURLString = gTbInfo.ipCheckURLString;
+    NSURL * ipAddressCheckURL  = [NSURL URLWithString: ipAddressCheckURLString];
+    if (  ! ipAddressCheckURL  ) {
+        NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: IPCheckURL cannot be parsed: %@", ipAddressCheckURLString);
+        return NO;
+    }
+    NSString * ipAddressCheckHost = ipAddressCheckURL.host;
+    if (  ! ipAddressCheckHost  ) {
+        NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: Cannot get host for: %@", ipAddressCheckURLString);
+        return NO;
+    }
 
 	NSMutableString * message = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
 	
@@ -5705,16 +5726,16 @@ static BOOL runningHookupThread = FALSE;
 	if (  updateChecksForced  ) {
 		[message appendFormat: NSLocalizedString(@"Tunnelblick will access %@ to check for updates when it is launched and periodically"
 												 @" while it is running. Contact the distributor of this copy of Tunnelblick for details.\n\n",
-		 updateChecksHost];
 												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick.net'."),
+		 updateCheckHost];
 	} else if (  ! updateChecksForcedOnOrOff  ) {
 		[checkboxLabels  addObject: NSLocalizedString(@"Check for updates", @"Checkbox text")];
 		[checkboxResults addObject: @YES];
 		updateChecksCheckboxIx = [checkboxResults count] - 1;
 		[message appendFormat: NSLocalizedString(@"Tunnelblick can access %@ to check for updates when it is launched"
 												 @" and periodically while it is running.\n\n",
-		 updateChecksHost];
 												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick.net'."),
+		 updateCheckHost];
 	} // else checking for udpates is being forced off, so don't need to ask or inform the user about it
 	
 	if (  ipAddressChecksForced  ) {
@@ -5750,8 +5771,12 @@ static BOOL runningHookupThread = FALSE;
 	BOOL rebranded = (  ! [@"Tunnelblick" isEqualToString: @"Tu" @"nne" @"lb" @"li" @"ck"]  );
 	
 	NSString * privacyURLString = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"TBPrivacyURL"];
-	NSString * privacyHostString = (  privacyURLString
-									? [[NSURL URLWithString: privacyURLString] host]
+    NSURL * privacyURL = [NSURL URLWithString: privacyURLString];
+    if (  ! privacyURL  ) {
+        NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: TBPrivacyURL cannot be parsed: %@", privacyURLString);
+    }
+	NSString * privacyHostString = (  privacyURL
+									? privacyURL.host
 									: @"");
 
 	// Show "More Info" button if not rebranded, or if it goes to somewhere other than tunnelblick.net
@@ -5797,7 +5822,12 @@ static BOOL runningHookupThread = FALSE;
                 
                 // "More Info" button
                 if (  privacyURLString  ) {
-                    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: privacyURLString]];
+                    NSURL * privacyURL = [NSURL URLWithString: privacyURLString];
+                    if (  ! privacyURL  ) {
+                        NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: TBPrivacyURL cannot be parsed: %@", privacyURLString);
+                        return NO;
+                    }
+                    [[NSWorkspace sharedWorkspace] openURL: privacyURL];
                 }
                 
                 // Fall through to loop to display the dialog again
