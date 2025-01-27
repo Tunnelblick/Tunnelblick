@@ -5705,23 +5705,23 @@ static BOOL runningHookupThread = FALSE;
 	if (  updateChecksForced  ) {
 		[message appendFormat: NSLocalizedString(@"Tunnelblick will access %@ to check for updates when it is launched and periodically"
 												 @" while it is running. Contact the distributor of this copy of Tunnelblick for details.\n\n",
-												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'."),
 		 updateChecksHost];
+												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick.net'."),
 	} else if (  ! updateChecksForcedOnOrOff  ) {
 		[checkboxLabels  addObject: NSLocalizedString(@"Check for updates", @"Checkbox text")];
 		[checkboxResults addObject: @YES];
 		updateChecksCheckboxIx = [checkboxResults count] - 1;
 		[message appendFormat: NSLocalizedString(@"Tunnelblick can access %@ to check for updates when it is launched"
 												 @" and periodically while it is running.\n\n",
-												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'."),
 		 updateChecksHost];
+												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick.net'."),
 	} // else checking for udpates is being forced off, so don't need to ask or inform the user about it
 	
 	if (  ipAddressChecksForced  ) {
 		[message appendFormat: NSLocalizedString(@"Tunnelblick will access %@ to check that your computer's apparent public"
 												 @" IP address changes each time you connect to a VPN. Contact the distributor"
 												 @" of this copy of Tunnelblick for details.\n\n",
-												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'."),
+												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick.net'."),
 		 ipAddressCheckHost];
 	} else if (  ! ipAddressChecksForcedOnOrOff  ) {
 		[checkboxLabels  addObject: NSLocalizedString(@"Check for IP address changes", @"Checkbox text")];
@@ -5729,7 +5729,7 @@ static BOOL runningHookupThread = FALSE;
 		ipAddressChecksCheckboxIx = [checkboxResults count] - 1;
 		[message appendFormat: NSLocalizedString(@"Tunnelblick can access %@ to check that your computer's apparent public"
 												 @" IP address changes each time you connect to a VPN.\n\n",
-												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'."),
+												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick.net'."),
 		 ipAddressCheckHost];
 	} // else checking for IP address changes is being forced off, so don't need to ask or inform about it
 	
@@ -5759,7 +5759,7 @@ static BOOL runningHookupThread = FALSE;
 							   && (   ( ! rebranded )
 								   || [privacyHostString isNotEqualTo: @"tu" @"nne" @"lb" @"li" @"ck" @".n" @"et"]));
 	
-	NSString * privacyButton = [NSString stringWithFormat: NSLocalizedString(@"More Info [%@]", @"Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'."),
+	NSString * privacyButton = [NSString stringWithFormat: NSLocalizedString(@"More Info [%@]", @"Button. The %@ will be replaced by an Internet address like 'tunnelblick.net'."),
 								privacyHostString];
 
 	while (  TRUE  ) {
