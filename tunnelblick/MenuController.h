@@ -247,7 +247,6 @@ enum StatusIconPosition {
 -(BOOL)             openFiles:                              (nonnull NSArray * )        filePaths;
 
 // Menu actions
--(IBAction)         contactTunnelblickWasClicked:           (nonnull id)                sender;
 -(IBAction)         openPreferencesWindow:                  (nonnull id)                sender;
 -(IBAction)         quit:                                   (nonnull id)                sender;
 

@@ -129,7 +129,6 @@ BOOL needToRepairPackages(void);
 -(BOOL)             checkPlist:                             (NSString *)        path
                 mustBeWritable:                             (BOOL)              mustBeWritable
                    renameIfBad:                             (BOOL)              renameIfBad;
--(NSURL *)          contactURL;
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(NSString *)       deconstructOpenVPNLogPath:              (NSString *)        logPath
@@ -3328,28 +3327,6 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
             [connection startDisconnectingUserKnows: @YES];
         }
     }
-}
-
--(IBAction) contactTunnelblickWasClicked: (id) sender
-{
-	(void) sender;
-	
-    NSURL * url = [self contactURL];
-    if (  url  ) {
-        [[NSWorkspace sharedWorkspace] openURL: url];
-    }
-}
-
--(NSURL *) contactURL
-{
-    NSString * string = [NSString stringWithFormat: @"https://tunnelblick.net/contact?v=%@", tunnelblickVersion([NSBundle mainBundle])];
-    string = [string stringByAddingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
-    NSURL * url = [NSURL URLWithString: string];
-    if (  ! url  ) {
-        NSLog(@"Invalid contactURL");
-    }
-    
-    return url;
 }
 
 -(IBAction) openPreferencesWindow: (id) sender
