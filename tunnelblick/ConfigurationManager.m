@@ -4051,13 +4051,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(NSData *) getDataFromUrlString: (NSString *) urlString {
 
-	NSString * escapedUrlString = [urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
-	if (  ! escapedUrlString  ) {
-		NSLog(@"getDataFromUrlString: UpdateURL entry cannot be percent-escaped: %@", urlString);
-		return nil;
-	}
-
-	NSURL * updateUrl = [NSURL URLWithString: escapedUrlString];
+	NSURL * updateUrl = [NSURL URLWithString: urlString];
 	if (  ! updateUrl  ) {
 		NSLog(@"getDataFromUrlString: UpdateURL cannot be parsed: %@", urlString);
 		return nil;
