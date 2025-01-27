@@ -4563,7 +4563,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             NSString *urlString = [line substringWithRange:[match rangeAtIndex:2]];
             [self addToLog: [NSString stringWithFormat: @"WEB_AUTH URL: %@", urlString]];
 
-            NSURL *webAuthUrl = [NSURL URLWithString:urlString];
+            NSURL *webAuthUrl = [NSURL URLWithString: urlString];
+            if ( ! webAuthUrl) {
+                [self addToLog: [NSString stringWithFormat: @"Could not parse WEB_AUTH URL: %@", urlString]];
+            }
 
             // Get the default NSWorkspace instance
             NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
