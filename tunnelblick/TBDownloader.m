@@ -123,7 +123,6 @@ extern TunnelblickInfo * gTbInfo;
 
 -(void) indicateFinishedWithMessage: (nullable NSString *) message {
 
-    [self setCurrentlyDownloading: NO];
     [self.delegate performSelector: self.finishedSelector withObject: message];
 }
 
@@ -241,6 +240,8 @@ didReceiveResponse: (NSHTTPURLResponse *) response {
 
     [self indicateProgress];
 
+    [self setCurrentlyDownloading: NO];
+
     long long length = (long long)self.contents.length;
 
     NSString * message = (   (self.expectedLength == 0)
@@ -266,6 +267,8 @@ didReceiveResponse: (NSHTTPURLResponse *) response {
     }
 
     [self indicateProgress];
+
+    [self setCurrentlyDownloading: NO];
 
     [self indicateFinishedWithMessage: [NSString stringWithFormat: @"connection:didFailWithError: %@", err]];
 }
