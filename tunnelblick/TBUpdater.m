@@ -566,14 +566,8 @@ extern TunnelblickInfo * gTbInfo;
         [self notifyDownloadCompletePercentage: 0.0];
 
         if (  ! [message isEqualToString: @"Cancelled"]  ) {
-            [self notifyErrorMessage: message];
-            if (  self.appcastDownloadIsForced  ) {
-                TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                  [NSString stringWithFormat:
-                                   NSLocalizedString(@"An error occurred trying to get information about updates.\n\n"
-                                                     @"For more information, see the log at\n\n"
-                                                     @"%@",
-                                                     @"Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename'"), TUNNELBLICK_UPDATER_LOG_PATH]);
+            if (  ! self.appcastDownloadIsForced  ) {
+                [self notifyErrorMessage: message];
             }
         }
 
