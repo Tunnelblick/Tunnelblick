@@ -789,6 +789,8 @@ name = newValue;                                    \
 @"delayBeforeReconnectingAfterSleep",	\
 @"delayBeforeReconnectingAfterSleepAndIpaFetchError",	\
 @"delayBeforeIPAddressCheckAfterConnection",	\
+@"delayBeforeRetryingUpdateCheckBecauseInternetIsOffline",    \
+@"delayBeforeComplainingAboutFailedUpdateCheckBecauseInternetIsOffline",    \
 @"delayBeforeSlowDisconnectDialog",	\
 @"delayBeforePopupHelp",	\
 @"delayBeforeConnectingAfterReenablingNetworkServices", \

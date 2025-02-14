@@ -71,6 +71,9 @@ extern TunnelblickInfo * gTbInfo;
 //      updateCheckBetas                             (from checkbox)
 //      updateCheckInterval                          (defaults to 24 hours, can set via preference)
 //      updateFeedURL                                (must be forced)
+
+//      delayBeforeRetryingUpdateCheckBecauseInternetIsOffline               (seconds; defaults to 60 seconds, can set via preference)
+//      delayBeforeComplainingAboutFailedUpdateCheckBecauseInternetIsOffline (seconds; defaults to 7 days, can set via preference)
 //
 //      TBUpdaterAllowNonAdminToUpdateTunnelblick    (from checkbox, must be forced)
 //      TBUpdaterCheckOnlyWhenConnectedToVPN         (from checkbox)
@@ -484,31 +487,41 @@ extern TunnelblickInfo * gTbInfo;
     if (  self.currentlyUpdating  ) {
         [self appendUpdaterLog: [NSString stringWithFormat:
                                  @"checkIfAnUpdateIsAvailableForcingCheck: %s ignored because currently updating",
-                                 CSTRING_FROM_BOOL([forced boolValue])]];
+                                 CSTRING_FROM_BOOL(forced.boolValue)]];
         return;
     }
 
     if (  self.currentlyChecking ) {
         [self appendUpdaterLog: [NSString stringWithFormat:
                                  @"checkIfAnUpdateIsAvailableForcingCheck: %s ignored because currently checking",
-                                 CSTRING_FROM_BOOL([forced boolValue])]];
-        if (  [forced boolValue]  ) {
-            [self appendUpdaterLog: @"checkIfAnUpdateIsAvailableForcingCheck: YES invoked but currentlyChecking = YES, so changing to a forced check"];
-            [self setAppcastDownloadIsForced: YES];
+                                 CSTRING_FROM_BOOL(forced.boolValue)]];
+        if (  forced.boolValue  ) {
+            [self appendUpdaterLog: @"checkIfAnUpdateIsAvailableForcingCheck: YES invoked but currentlyChecking = YES, so aborting and starting a forced check"];
+            [self abortDownloadingAppcast];
+            [self startDownloadingAppcastForcingCheck: @YES];
+
         } else {
             [self appendUpdaterLog: @"checkIfAnUpdateIsAvailableForcingCheck: NO invoked but currentlyChecking = YES, so ignoring it and continuing the non-forced check"];
         }
         return;
     }
 
-    if (   ! [forced boolValue]
-        && ( ! [self canCheckForUpdates: [forced boolValue]] )  ) {
+    if (   ! forced.boolValue
+        && ( ! [self canCheckForUpdates: forced.boolValue] )  ) {
         [self appendUpdaterLog: @"checkIfAnUpdateIsAvailableForcingCheck: NO ignored because can't check for updates automatically"];
         return;
     }
 
     [self setCurrentlyChecking: YES];
     [self startDownloadingAppcastForcingCheck: forced];
+}
+
+-(void) abortDownloadingAppcast {
+
+    if (  appcastDownloader  ) {
+        [appcastDownloader abortDownload];
+        [self setAppcastDownloader: nil];
+    }
 }
 
 -(BOOL) canCheckForUpdates: (BOOL) forced {
@@ -527,13 +540,13 @@ extern TunnelblickInfo * gTbInfo;
     if (  ! feedURLString  ) {
         [self appendUpdaterLog: [NSString stringWithFormat:
                                  @"startDownloadingAppcastForcingCheck: %s: No URL string! (internal error: inhibitUpdating should be false so this method should not be executed)",
-                                 CSTRING_FROM_BOOL([forced boolValue])]];
+                                 CSTRING_FROM_BOOL(forced.boolValue)]];
         return;
     }
 
     [self appendUpdaterLog: [NSString stringWithFormat:
                              @"startDownloadingAppcastForcingCheck: %s: Will load appcast from '%@'",
-                             CSTRING_FROM_BOOL([forced boolValue]), feedURLString]];
+                             CSTRING_FROM_BOOL(forced.boolValue), feedURLString]];
 
     appcastDownloader = [[TBDownloader alloc] init];    // RELEASED in appcastDownloadFinishedWithMesssage:
     [appcastDownloader setUrlString: feedURLString];
@@ -545,7 +558,7 @@ extern TunnelblickInfo * gTbInfo;
     [appcastDownloader setContents: appcastContents];
     [appcastDownloader setMaximumLength: TB_APPCAST_MAX_FILE_SIZE];
 
-    [self setAppcastDownloadIsForced: [forced boolValue]];
+    [self setAppcastDownloadIsForced: forced.boolValue];
 
     [appcastDownloader startDownload];
 }
@@ -571,7 +584,9 @@ extern TunnelblickInfo * gTbInfo;
             }
         }
 
-        [self appropriateUpdateIsAvailable: NO errorOccurred: YES];
+        [self appropriateUpdateIsAvailable: NO
+                             errorOccurred: YES
+                              errorMessage: message];
         return;
     }
 
@@ -819,18 +834,35 @@ doneReturnErr:
 -(void) appropriateUpdateIsAvailable: (BOOL) isAvailable
                        errorOccurred: (BOOL) errorOccurred {
 
+    [self appropriateUpdateIsAvailable: isAvailable
+                         errorOccurred: errorOccurred
+                          errorMessage: nil];
+}
+
+-(void) appropriateUpdateIsAvailable: (BOOL)       isAvailable
+                       errorOccurred: (BOOL)       errorOccurred
+                        errorMessage: (NSString *) message {
+
     [self appendUpdaterLog: [NSString stringWithFormat:
-                             @"appropriateUpdateIsAvailable: %s errorOccurred: %s invoked",
-                             CSTRING_FROM_BOOL(isAvailable), CSTRING_FROM_BOOL(errorOccurred)]];
+                             @"appropriateUpdateIsAvailable: %s errorOccurred: %s message: '%@'",
+                             CSTRING_FROM_BOOL(isAvailable), CSTRING_FROM_BOOL(errorOccurred), message]];
 
     if (  errorOccurred  ) {
         if (  self.appcastDownloadIsForced  ) {
+            NSString * messageString = (  (   errorOccurred
+                                           && message)
+                                        ? [NSString stringWithFormat: NSLocalizedString(@"The error was '%@'.\n\n",
+                                                                                        @"Window text. The '%@' will be replaced by an already-translated error message."),
+                                           message]
+                                        : @"");
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                               [NSString stringWithFormat:
                                NSLocalizedString(@"An error occurred trying to get information about updates.\n\n"
+                                                 @"%@"
                                                  @"For more information, see the log at\n\n"
                                                  @"%@",
-                                                 @"Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename'"), TUNNELBLICK_UPDATER_LOG_PATH]);
+                                                 @"Window text. The first '%@' will be replaced with either nothing or an already-translated error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename'"),
+                               messageString, TUNNELBLICK_UPDATER_LOG_PATH]);
         }
         return;
     }
@@ -849,9 +881,7 @@ doneReturnErr:
         [self startDownloadingUpdate];
     }
 
-    [self appendUpdaterLog: [NSString stringWithFormat:
-                             @"appropriateUpdateIsAvailable: %s errorOccurred: %s invoking notifyTbUpdateIsAvailable: YES in one second",
-                             CSTRING_FROM_BOOL(isAvailable), CSTRING_FROM_BOOL(errorOccurred)]];
+    [self appendUpdaterLog: @"appropriateUpdateIsAvailable: invoking notifyTbUpdateIsAvailable: YES in one second"];
 
     [self performSelector: @selector(notifyTbUpdateIsAvailable:)
                withObject: @YES

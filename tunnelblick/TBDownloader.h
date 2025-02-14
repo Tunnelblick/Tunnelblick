@@ -52,6 +52,9 @@
  * If the cancellation occurred without error, the error message sent to the
  * finishedSelector method of the delegate will be "Cancelled".
  *
+ * At any point, the "abortDownload" method may be invoked to cancel the download.
+ * No user-visible notice of the abort will be done.
+ *
  */
 
 
@@ -81,6 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     BOOL              currentlyDownloading;   // TRUE iff downloading
     NSURLConnection * connection;             // Our connection
+    NSTimer         * retryTimer;             // Timer to retry download later
 }
 
 -(TBDownloader *) init;
@@ -88,6 +92,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) startDownload;
 
 -(void) stopDownload;
+
+-(void) abortDownload;
 
 TBPROPERTY(NSString *,      urlString,        setUrlString)
 TBPROPERTY(long long,       expectedLength,   setExpectedLength)

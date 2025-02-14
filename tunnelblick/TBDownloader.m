@@ -21,8 +21,11 @@
 
 #import "TBDownloader.h"
 
+#import "TBUpdater.h"
+#import "TBUserDefaults.h"
 #import "TunnelblickInfo.h"
 
+extern TBUserDefaults  * gTbDefaults;
 extern TunnelblickInfo * gTbInfo;
 
 @implementation TBDownloader
@@ -116,6 +119,20 @@ extern TunnelblickInfo * gTbInfo;
     [self indicateFinishedWithMessage: @"Cancelled"];
 }
 
+-(void) abortDownload {
+
+    if (  self.currentlyDownloading  ) {
+        [connection cancel];
+
+        [self appendUpdaterLog: [NSString stringWithFormat:
+                                 @"aborted downloading %@",
+                                 self.urlString]];
+   }
+
+    [self.retryTimer invalidate];
+    [self setRetryTimer: nil];
+ }
+
 
 //********************************************************************************
 //
@@ -157,6 +174,56 @@ extern TunnelblickInfo * gTbInfo;
     return tooLarge;
 }
 
+-(BOOL) shouldRetryOnError: (NSError *) err {
+
+    if (  err.code == NSURLErrorNotConnectedToInternet  ) {
+        if (   [self.delegate currentlyChecking]
+            && ( ! [self.delegate appcastDownloadIsForced] )
+            ) {
+            NSDate * lastCheckedDate = [gTbDefaults dateForKey: @"SULastCheckTime"];
+            if (  lastCheckedDate) {
+                NSTimeInterval deadlineDelay = [gTbDefaults timeIntervalForKey: @"delayBeforeComplainingAboutFailedUpdateCheckBecauseInternetIsOffline"
+                                                                       default: 7 * SECONDS_PER_DAY
+                                                                           min: 0
+                                                                           max: 7 * 30 * SECONDS_PER_DAY];
+                NSDate * deadlineDate = [NSDate dateWithTimeInterval: deadlineDelay
+                                                           sinceDate: lastCheckedDate];
+                if (  [[NSDate date] compare: deadlineDate] != NSOrderedDescending  ) {
+                    return YES;
+                }
+            }
+        }
+    }
+
+    return NO;
+}
+
+-(void) retryLater {
+
+    NSTimeInterval delay = [gTbDefaults timeIntervalForKey: @"delayBeforeRetryingUpdateCheckBecauseInternetIsOffline"
+                                                   default: 60
+                                                       min: 10
+                                                       max: SECONDS_BETWEEN_CHECKS_FOR_TUNNELBLICK_UPDATES];
+
+    [self appendUpdaterLog: [NSString stringWithFormat:
+                             @"No Internet connection so in %f seconds will retry download of %@",
+                             delay, self.urlString]];
+    NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: delay
+                                                       target: self
+                                                     selector: @selector(startRetry)
+                                                     userInfo: nil
+                                                      repeats: NO];
+    [self setRetryTimer: timer];
+}
+
+-(void) startRetry {
+
+    [self appendUpdaterLog: [NSString stringWithFormat:
+                             @"Starting retry of download of %@",
+                             self.urlString]];
+    [self setRetryTimer: nil];
+    [self startDownload];
+}
 
 //********************************************************************************
 //
@@ -270,7 +337,13 @@ didReceiveResponse: (NSHTTPURLResponse *) response {
 
     [self setCurrentlyDownloading: NO];
 
-    [self indicateFinishedWithMessage: [NSString stringWithFormat: @"connection:didFailWithError: %@", err]];
+    if (  [self shouldRetryOnError: err]  ) {
+        [self retryLater];
+        return;
+    }
+
+    [self appendUpdaterLog: [NSString stringWithFormat: @"connection:didFailWithError: error = '%@'", err]];
+    [self indicateFinishedWithMessage: err.localizedDescription];
 }
 
 
@@ -288,6 +361,7 @@ TBSYNTHESIZE_OBJECT(retain, id,              delegate,         setDelegate)
 
 TBSYNTHESIZE_NONOBJECT(     BOOL,              currentlyDownloading, setCurrentlyDownloading)
 TBSYNTHESIZE_OBJECT(retain, NSURLConnection *, connection,           setConnection)
+TBSYNTHESIZE_OBJECT(retain, NSTimer *,         retryTimer,           setRetryTimer)
 
 @end
 

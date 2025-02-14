@@ -114,6 +114,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Stop all updating activity, regardless of preferences (usually when Tunnelblick is about to quit).
 -(void) stopAllUpdateActivity;
 
+-(BOOL) currentlyChecking;
+-(BOOL) appcastDownloadIsForced;
+
 -(BOOL) currentlyUpdating;
 
 // Invoked to force an update check (even if **automatic** checks are not allowed).
