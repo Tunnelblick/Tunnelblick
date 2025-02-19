@@ -2491,10 +2491,10 @@ static void mergeGlobalUsersFolder(NSString * tblkSetupPath, NSDictionary * name
 	
 	NSString * inFolder  = [[tblkSetupPath
 							 stringByAppendingPathComponent: @"Global"]
-							stringByAppendingString: @"Users"];
+                            stringByAppendingPathComponent: @"Users"];
 	NSString * outFolder = L_AS_T_USERS;
 	
-	// Create enclosing folder(s) if necessary
+    // Create enclosing folder(s) if necessary
 	if (  ! [gFileMgr fileExistsAtPath: outFolder]  ) {
 					securelyCreateFolderAndParents(outFolder);
 	}
