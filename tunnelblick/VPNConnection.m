@@ -4855,34 +4855,20 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     userWantsState = userWantsUndecided;
 
     BOOL echoResponse = FALSE;
-    BOOL concatenateResponseToPassword = TRUE;  // Default to concatenate (if no static challenge)
+    BOOL concatenateResponseToPassword = FALSE;
     NSString * staticChallengePrompt = nil;
 
-// TO TEST FORMAT parameter of static challenge, uncomment the following line:
-// line = @"PASSWORD:Need 'Auth' username/password SC:2,This Is The Prompt";
-    NSRange rngStartChallenge = [line rangeOfString: @" SC:"];
-    if (  rngStartChallenge.length != 0  ) {
+    if (   [line rangeOfString: @" SC:0,"].length
+        || [line rangeOfString: @" SC:1,"].length  ) {
         TBLog(@"DB-AU", @"processLine: Server asking for Static Challenge");
+
+        NSRange rngStartChallenge = [line rangeOfString: @" SC:"];
+
         NSString * afterStartChallenge = [line substringFromIndex: rngStartChallenge.location + rngStartChallenge.length];
-        NSRange rngEndFlags = [afterStartChallenge rangeOfString: @","];
-        NSString * flagsString = [afterStartChallenge substringToIndex: rngEndFlags.location];
-        if (  flagsString.length != 1  ) {
-            flagsString = @"0";
-            [self addToLog: [NSString stringWithFormat:
-                             @"Static challenge flags value of '%@' is empty or too long; assuming flags of 0 (do not echo; do not concatenate response to password); line was '%@'",
-                             flagsString, line]];
-        }
-        unsigned flags = flagsString.unsignedIntValue;
-        if (  flags > 3  ) {
-            [self addToLog: [NSString stringWithFormat:
-                             @"Static challenge flags value of %u includes unknown flags (only the low order two bits are known by Tunnelblick); line was '%@'",
-                             flags, line]];
-        }
-        echoResponse = flags & 1;
-        (void)echoResponse; // We don't echo the response, by default, but have a button to display it.
-        concatenateResponseToPassword = (flags >> 1) & 1;
-		staticChallengePrompt = [afterStartChallenge substringFromIndex: rngEndFlags.location + 1];
-    }
+        NSString * echoResponseStr = [afterStartChallenge substringToIndex: 1]; // take "0" or "1"
+        echoResponse = [echoResponseStr isEqualToString:@"1"];
+		staticChallengePrompt = [afterStartChallenge substringFromIndex: 2]; // drop "0," or "1,"
+     }
 
     // Find out whether the server wants a private key or user/auth:
     NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
@@ -4930,23 +4916,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 
         [myAuthAgent setAuthMode:@"password"];
-        if (  staticChallengePrompt  ) {
-            [myAuthAgent setChallenge: staticChallengePrompt];
-        }
         [myAuthAgent performAuthenticationAllowingInteraction: YES];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {
             [self addToLog: @"Obtained VPN username and password from the Keychain"];
         }
-        NSString *myPassword = myAuthAgent.password;
-        NSString *myUsername = myAuthAgent.username;
-        NSString *myResponse = myAuthAgent.challengeResponse;
-
+        NSString *myPassword = [myAuthAgent password];
+        NSString *myUsername = [myAuthAgent username];
         if(   (myUsername != nil)
            && (myPassword != nil)  ){
-
-            if (  concatenateResponseToPassword  ) {
-                myPassword = [myPassword stringByAppendingString: myResponse];
-            }
 
             TBLog(@"DB-PM", @"Length of password before manipulation is %lu",[myPassword length]);
 			myPassword = [self passwordAsModifed: myPassword];
@@ -4964,14 +4941,27 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 [self addToLog: [NSString stringWithFormat: @"Disconnecting; after escaping, username is %ld bytes long and password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
                 [self startDisconnectingUserKnows: @NO];
             } else {
+                NSString * response = nil;
+                if (  staticChallengePrompt  ) {
+                    response = [self getResponseToChallenge: staticChallengePrompt
+												 echoResponse: echoResponse
+											 responseRequired: YES
+													 isStatic: YES];
+					if (  response  ) {
+						[self addToLog: [NSString stringWithFormat: @"User responded to static challenge: '%@'", staticChallengePrompt]];
+					} else {
+						[self addToLog: [NSString stringWithFormat: @"Disconnecting: User cancelled when presented with static challenge: '%@'", staticChallengePrompt]];
+						[self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
+					}
+                }
                 [self sendStringToManagementSocket:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUTF8StringEncoding];
-                if (  concatenateResponseToPassword  ) {
-                    [self sendStringToManagementSocket:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
+                if (  response  ) {
+					[self sendStringToManagementSocket: [NSString stringWithFormat:@"password \"Auth\" \"SCRV1:%@:%@\"\r\n",
+														 base64Encode([myPassword dataUsingEncoding: NSUTF8StringEncoding]),
+														 base64Encode([response   dataUsingEncoding: NSUTF8StringEncoding])]
+											  encoding: NSASCIIStringEncoding];
                 } else {
-                    [self sendStringToManagementSocket: [NSString stringWithFormat:@"password \"Auth\" \"SCRV1:%@:%@\"\r\n",
-                                                         base64Encode([myPassword dataUsingEncoding: NSUTF8StringEncoding]),
-                                                         base64Encode([myResponse dataUsingEncoding: NSUTF8StringEncoding])]
-                                              encoding: NSASCIIStringEncoding];
+                    [self sendStringToManagementSocket:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
                 }
             }
         } else {

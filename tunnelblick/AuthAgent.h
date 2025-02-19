@@ -51,10 +51,6 @@
 	NSString * passphrase;
 	NSString * password;
 	NSString * username;
-    NSString * challengeResponse;
-
-    // Static challenge to present to user, or nil
-    NSString * challenge;
 
     // Keychains to access passphrase, username, and password, respectively, if they are stored in the Keychain
     // We create these at initialization of each AuthAgent, and keep them around for efficiency and to make the code easier
@@ -106,12 +102,11 @@ TBPROPERTY(NSString *, authMode,        setAuthMode)
 TBPROPERTY(NSString *, username,        setUsername)
 TBPROPERTY(NSString *, password,        setPassword)
 TBPROPERTY(NSString *, passphrase,      setPassphrase)
-TBPROPERTY(NSString *, challenge,       setChallenge)
-TBPROPERTY(NSString *, challengeResponse, setChallengeResponse)
 
 TBPROPERTY_READONLY(NSString *, displayName)
 TBPROPERTY_READONLY(BOOL,       authenticationWasFromKeychain)
 TBPROPERTY_READONLY(BOOL,       showingLoginWindow)
 TBPROPERTY_READONLY(BOOL,       showingPassphraseWindow)
+
 
 @end
