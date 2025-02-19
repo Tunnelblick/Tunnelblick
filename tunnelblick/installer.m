@@ -2438,44 +2438,49 @@ static void safeCopyPathToPathAndSetUidAndGid(NSString * sourcePath, NSString * 
 
 static void mergeConfigurations(NSString * sourcePath, NSString * targetPath, uid_t uid, gid_t gid, BOOL mergeIconSets) {
 	
-	// Adds folders in the source folder to the target folder, replacing existing folders in the target folder if they exist, and
-	// setting the ownership to uid:gid. If enclosing folders need to be created, set their permissions to permissions.
+	// Copies .tblk configurations in the folder at sourcePath into the folder at targetPath, enclosing them in subfolders as necessary,
+    // setting their ownership to uid:gid and their permissions appropriately.
 	//
-	// If "mergeIconSets" is TRUE, handles folders named "IconSets" similarly (that is, adding the subfolders of "IconSets",
-	// not replacing the entire "IconSets" folder).
+	// If "mergeIconSets" is TRUE, handles .TBMenuIcons similarly.
 	//
-	// This routine is used to merge both
-	//		.tblkSettings/Global/Users         (with "mergeIconSets" TRUE) and
-	//		.tblkSettings/Users/Configurations (with "mergeIconSets" FALSE).
-	
-	NSString * name;
-	NSDirectoryEnumerator * e = [gFileMgr enumeratorAtPath: sourcePath];
-	while (  (name = [e nextObject])  ) {
-		[e skipDescendants];
-		
-		if (  ! [name hasPrefix: @"."]  ) {
-			
-			if (   mergeIconSets
-				&& [name isEqualToString: @"IconSets"]  ) {
+	// This routine is used to merge
+	//		.tblkSettings/Global/Users/<user>  to L_AS_T/Users/<user>     (with "mergeIconSets" FALSE)
+	//		.tblkSettings/Users/Configurations to ~/L_AS_T/Configurations (with "mergeIconSets" FALSE)
+    //      .tblkSettings/Global/Shared        to L_AS_T/Shared           (with "mergeIconSets" TRUE)
 
-				// Handle IconSets folder similarly, that is, copy each icon set individually (note use of recursion)
-				NSString * sourceIconSetFolderPath = [sourcePath stringByAppendingPathComponent: @"IconSets"];
-				NSString * targetIconSetFolderPath = [targetPath stringByAppendingPathComponent: @"IconSets"];
-				mergeConfigurations(sourceIconSetFolderPath, targetIconSetFolderPath, uid, gid, NO);
+    NSString * name;
+    NSDirectoryEnumerator * e = [gFileMgr enumeratorAtPath: sourcePath];
+    while (  (name = [e nextObject])  ) {
 
-			} else {
+        if (  ! [name hasPrefix: @"."]  ) {
+            NSString * sourceFullPath = [sourcePath stringByAppendingPathComponent: name];
+            NSString * targetFullPath = [targetPath stringByAppendingPathComponent: name];
 
-				// Create enclosing folder(s) if necessary
-				if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
-					securelyCreateFolderAndParents(targetPath);
-				}
-				
-				NSString * sourceFullPath = [sourcePath stringByAppendingPathComponent: name];
-				NSString * targetFullPath = [targetPath stringByAppendingPathComponent: name];
-				safeCopyPathToPathAndSetUidAndGid(sourceFullPath, targetFullPath, uid, gid);
-			}
-		}
-	}
+            if (   [targetFullPath hasSuffix: @".tblk"]
+                || (   mergeIconSets
+                    && [targetFullPath hasSuffix: @".TBMenuIcons"] )  ) {
+
+                // Create enclosing folder(s) if necessary
+                NSString * folderEnclosingTargetPath = [targetFullPath stringByDeletingLastPathComponent];
+                if (  ! [gFileMgr fileExistsAtPath: folderEnclosingTargetPath]  ) {
+                    securelyCreateFolderAndParents(folderEnclosingTargetPath);
+                }
+
+                // Copy the .tblk or .TBMenuIcons
+                safeCopyPathToPathAndSetUidAndGid(sourceFullPath, targetFullPath, uid, gid);
+                // Secure the .tblk or .TBMenuIcons
+                BOOL isPrivate = isPathPrivate(targetFullPath);
+                if (  ! secureOneFolder(targetFullPath, isPrivate, uid)  ) {
+                    appendLog([NSString stringWithFormat: @"Failed: secureOneFolder('%@', %s, %d)",
+                               targetFullPath, CSTRING_FROM_BOOL(isPrivate), uid]);
+                    errorExit();
+                }
+
+                // DO NOT do further processing within the .tblk or .TBMenuIcons folder
+                [e skipDescendants];
+            }
+        }
+    }
 }
 
 static void mergeGlobalUsersFolder(NSString * tblkSetupPath, NSDictionary * nameMap) {
