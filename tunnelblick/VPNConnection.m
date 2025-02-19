@@ -4855,20 +4855,34 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     userWantsState = userWantsUndecided;
 
     BOOL echoResponse = FALSE;
-    BOOL concatenateResponseToPassword = FALSE;
+    BOOL openvpnConcatenateResponseToPassword = FALSE;
     NSString * staticChallengePrompt = nil;
 
-    if (   [line rangeOfString: @" SC:0,"].length
-        || [line rangeOfString: @" SC:1,"].length  ) {
+// TO TEST FORMAT parameter of static challenge, uncomment the following line:
+// line = @"PASSWORD:Need 'Auth' username/password SC:2,This Is The Prompt";
+    NSRange rngStartChallenge = [line rangeOfString: @" SC:"];
+    if (  rngStartChallenge.length != 0  ) {
         TBLog(@"DB-AU", @"processLine: Server asking for Static Challenge");
-
-        NSRange rngStartChallenge = [line rangeOfString: @" SC:"];
-
         NSString * afterStartChallenge = [line substringFromIndex: rngStartChallenge.location + rngStartChallenge.length];
-        NSString * echoResponseStr = [afterStartChallenge substringToIndex: 1]; // take "0" or "1"
-        echoResponse = [echoResponseStr isEqualToString:@"1"];
-		staticChallengePrompt = [afterStartChallenge substringFromIndex: 2]; // drop "0," or "1,"
-     }
+        NSRange rngEndFlags = [afterStartChallenge rangeOfString: @","];
+        NSString * flagsString = [afterStartChallenge substringToIndex: rngEndFlags.location];
+        if (  flagsString.length != 1  ) {
+            flagsString = @"0";
+            [self addToLog: [NSString stringWithFormat:
+                             @"Static challenge flags value of '%@' is empty or too long; assuming flags of 0 (do not echo; do not concatenate response to password); line was '%@'",
+                             flagsString, line]];
+        }
+        unsigned flags = flagsString.unsignedIntValue;
+        if (  flags > 3  ) {
+            [self addToLog: [NSString stringWithFormat:
+                             @"Static challenge flags value of %u includes unknown flags (only the low order two bits are known by Tunnelblick); line was '%@'",
+                             flags, line]];
+        }
+        echoResponse = flags & 1;
+        (void)echoResponse; // We don't echo the response, by default, but have a button to display it.
+        openvpnConcatenateResponseToPassword = ( (flags >> 1) & 1 ) == 1;
+        staticChallengePrompt = [afterStartChallenge substringFromIndex: rngEndFlags.location + 1];
+    }
 
     // Find out whether the server wants a private key or user/auth:
     NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
@@ -4944,22 +4958,33 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 NSString * response = nil;
                 if (  staticChallengePrompt  ) {
                     response = [self getResponseToChallenge: staticChallengePrompt
-												 echoResponse: echoResponse
-											 responseRequired: YES
-													 isStatic: YES];
-					if (  response  ) {
-						[self addToLog: [NSString stringWithFormat: @"User responded to static challenge: '%@'", staticChallengePrompt]];
-					} else {
-						[self addToLog: [NSString stringWithFormat: @"Disconnecting: User cancelled when presented with static challenge: '%@'", staticChallengePrompt]];
-						[self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
-					}
+                                               echoResponse: echoResponse
+                                           responseRequired: YES
+                                                   isStatic: YES];
+                    if (  response  ) {
+                        [self addToLog: [NSString stringWithFormat: @"User responded to static challenge: '%@'", staticChallengePrompt]];
+                    } else {
+                        [self addToLog: [NSString stringWithFormat: @"Disconnecting: User cancelled when presented with static challenge: '%@'", staticChallengePrompt]];
+                        [self startDisconnectingUserKnows: @YES];      // (User requested it by cancelling)
+                        return;
+                    }
                 }
                 [self sendStringToManagementSocket:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUTF8StringEncoding];
+
                 if (  response  ) {
-					[self sendStringToManagementSocket: [NSString stringWithFormat:@"password \"Auth\" \"SCRV1:%@:%@\"\r\n",
-														 base64Encode([myPassword dataUsingEncoding: NSUTF8StringEncoding]),
-														 base64Encode([response   dataUsingEncoding: NSUTF8StringEncoding])]
-											  encoding: NSASCIIStringEncoding];
+                    if (  openvpnConcatenateResponseToPassword  ) {
+                        NSString * passwordAndResponse = [myPassword stringByAppendingString: response];
+                        [self sendStringToManagementSocket:[NSString
+                                                            stringWithFormat:@"password \"Auth\" \"%@\"\r\n",
+                                                            escaped(passwordAndResponse)]
+                                                  encoding:NSUTF8StringEncoding];
+                    } else {
+                        [self sendStringToManagementSocket: [NSString
+                                                             stringWithFormat:@"password \"Auth\" \"SCRV1:%@:%@\"\r\n",
+                                                             base64Encode([myPassword dataUsingEncoding: NSUTF8StringEncoding]),
+                                                             base64Encode([response   dataUsingEncoding: NSUTF8StringEncoding])]
+                                                  encoding: NSASCIIStringEncoding];
+                    }
                 } else {
                     [self sendStringToManagementSocket:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
                 }
