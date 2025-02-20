@@ -1089,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Chyba při stahování aktualizace.\n\nPro detaily zkontrolujte log\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Chyba při kontrole aktualizací.\n\nPro detaily zkontrolujte log\n\n%@";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Při pokusu o získání informace o aktualizaci nastala chyba.\n\n%1$@Pro více informací viz log na %2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Nastala chyba při pokusu o spuštění %@";
@@ -1685,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Přístupové údaje nazvané %1$@ není možné odstranit:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Chyba byla \"%@\".\n\n";
 
 /* Window text */
 "The file %@ is empty" = "Soubor %@ je prázdný";

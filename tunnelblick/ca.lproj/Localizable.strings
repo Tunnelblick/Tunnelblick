@@ -1089,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "S'ha produït un error en descarregar l'actualització.\n\nPer a més informació, consulta els registres a\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "S'ha produït un error en obtenir la informació de les actualitzacions.\n\nPer a més informació, consulta els registres a\n\n%@";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "S'ha produït un error en obtenir la informació de les actualitzacions.\n\nPer a més informació, consulta els registres a\n\n%@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "S'ha produït un error mentre s'intentava executar %@";
@@ -1685,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Les credencials %1$@ no s'han pogut eliminar:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "L'error ha estat '%@'\n\n";
 
 /* Window text */
 "The file %@ is empty" = "L'arxiu %@ és buit";

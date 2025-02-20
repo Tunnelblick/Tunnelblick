@@ -1089,9 +1089,6 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Виникла помилка під час завантаження оновлення.\n\nДодаткова інформація в журналі\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Виникла помилка під час отримання інформації про оновлення.\n\nДодаткова інформація в журналі\n\n%@";
-
 /* Window text */
 "An error occurred while trying to launch %@" = "Сталася помилка під час спроби запуску %@";
 

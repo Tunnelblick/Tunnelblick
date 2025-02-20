@@ -1089,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "下载更新时出现错误。\n\n如需详情，请查看日志：\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "获取更新信息时出现错误。\n\n如需详情，请查看日志：\n\n%@";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "获取更新信息时发生了一个或多个错误：\n\n%1$@详情请参考日志%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "启动 %@ 时发生错误";

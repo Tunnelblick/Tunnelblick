@@ -1089,9 +1089,6 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Terjadi kesalahan saat mencoba mengunduh pemutakhiran.\n\nUntuk informasi lebih lanjut, lihat log di\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Terjadi kesalahan saat mencoba mendapatkan informasi tentang pemutakhiran.\n\nUntuk informasi lebih lanjut, lihat log di\n\n%@";
-
 /* Window text */
 "An error occurred while trying to launch %@" = "Terjadi kesalahan ketika mencoba membuka %@";
 

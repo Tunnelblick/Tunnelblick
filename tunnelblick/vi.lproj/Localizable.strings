@@ -652,7 +652,7 @@
 "All configuration files removed" = "Đã xoá tất cả file cấu hình";
 
 /* Window title */
-"Appearance" = "Diện mạo";
+"Appearance" = "Giao diện";
 
 /* Window title */
 "Authentication failed" = "Xác thực thất bại";
@@ -1089,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Xảy ra lỗi khi đang tải xuống bản cập nhật.\n\nĐể biết thêm chi tiết, xem nhật ký tại\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Xảy ra lỗi khi đang lấy thông tin các bản cập nhật.\n\nĐể biết thêm chi tiết, xem nhật ký tại\n\n%@";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Một lỗi đã xảy ra khi lấy thông tin về những cập nhật.\n\n%1$@Thông tin chi tiết, xem tại log\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Một lỗi xuất hiện trong khi cố gắng khởi động %@";
@@ -1685,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Không thể xóa thông tin đăng nhập có tên %1$@:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Lỗi '%@'.\n\n";
 
 /* Window text */
 "The file %@ is empty" = "Tập tin %@ rỗng";

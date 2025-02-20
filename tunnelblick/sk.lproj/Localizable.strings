@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Zobrazovať v menu Tunelblick";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Použitie inej verzie OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "Nastavenie VPN…";
 
@@ -1086,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Vyskytla sa chyba pri získávaní aktualizácie.\n\nPre viac informácií skontrolujte log súbor\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Vyskytla sa chyba pri získávaní informácií o aktualizáciach.\n\nPre viac informácií skontrolujte log súbor\n\n%@";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Vyskytla sa chyba pri získávaní informácií o aktualizáciach.\n\n%1$@Pre viac informácií skontrolujte log súbor\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Pri spúšťaní %@ sa vyskytla chyba";
@@ -1220,6 +1223,9 @@
 
 /* Window text */
 "Copied %@, removing CR characters" = "Skopírované %@, odstránené znaky CR";
+
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard a ďalší. Všetky práva vyhradené.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Nie je možné kopírovať %1$@ do %2$@";
@@ -1679,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Prístupové údaje s názvom %1$@ nebolo možné odstrániť:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Chyba bola '%@'.\n\n";
 
 /* Window text */
 "The file %@ is empty" = "Súbor %@ je prázdny";
@@ -2243,6 +2252,9 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Jednu alebo viaceré z Vašich konfigurácií nebude možné pripojiť.</strong>v budúcich verziách macOS.</p>\n<p>Tieto konfigurácie vyžadujú systémove rozšírenia, ktore budúce verzie macOS nepovoľujú aplikácii Tunnelblick použiť.</p>\n";
 
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Špecifikuje verziu OpenVPN a OpenSSL ktorá ma byť použitá na vytvorenie VPN pripojenia.</strong><ul><li><strong>Nastavenie \"Predvolená\"</strong> použije štandartnú verziu OpenVPN a OpenSSL ktorá je obsiahnutá v aktuálne nainštalovanej verzii programu Tunnelblick. Táto štandartná verzia sa môže líšit podľa toho ktorá verzia programu Tunnelbick je nainštalovaná.<br></li><li><strong>Nastavenie \"Najnovšia\"</strong> použije najnovšiu verziu OpenVPN a OpenSSL ktorá je obsiahnutá v aktuálne nainštalovanej verzii programu Tunnelblick. Táto najnovšia verzia sa môže líšit podľa toho ktorá verzia programu Tunnelbick je nainštalovaná.<br></li><li><strong>Iné nasvanie</strong> použije zvolenú verziu OpenVPN a OpenSSL, ak je táto nainštalovaná v aktuálne nainštalovanej verzii programu Tunnelblick. V pripade že zvolená verzia nie je dostupná, bude použitá najbližšia možná verzia.<br></li></ul>";
+
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Určuje, čo (ak vôbec niečo) má Tunnelblick povolené upravovať v nastaveniach DNS keď je VPN pripojené.</strong> možnosti sú:<ul><li><strong>Nenastavuj nameserver</strong>: žiadne zmeny.<br></li><li><strong>Nastav nameserver</strong>: Tunnelblick použije svoj štandardný skript na nastavenie DNS a WINS. Toto je zvyčajne najlepšou voľbou. Zmení DNS a WINS nastavenia podľa pokynov poskytnutých OpenVPN. Nastavenia DNS a WINS, ktoré boli nastavené ručne sa zmenia iba v prípade pokiaľ ak bola v pokročilých nasteveniach zvolená možnosť \"Povoliť zmeny nastavenia manuálne nastavenie siete\"<br></li><li><strong>Nastavenie nameserver (3.1)</strong>: Tunnelblick použije skript Tunnelblick 3.1 na nastavenie DNS a WINS.<br></li><li><strong>Nastavenie nameserver (3.0b10)</strong>: Tunnelblick použije skript Tunnelblick 3.0b10 na nastavenie DNS a WINS.<br></li><li><strong>nastavenie nameserver (alternatívne 1)</strong>: Tunnelblick použije alternatívny skript na nastavenie DNS a WINS.<br></li></ul>";
 
@@ -2385,6 +2397,9 @@
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Ak nevidíte tlačidlo na povolenie načítania systémového softvéru od 'Jonathan Bullard', pokúste sa  pripojiť túto konfiguráciu (ktorej pripojenie sa nepodarí) a potom sa pozrite do záložky 'Všeobecné' v 'Bezpečnosť a súkromie' v rámci 'Systémové nastavenia'.</p>";
 
+/* HTML warning message */
+"<p>One or more VPN configurations use OpenVPN with OpenSSL 1.1.1, which contains\n   known security vulnerabilities for which fixes are not publicly available.</p>\n<p>We recommend that you update the following configuration(s) to\n   use OpenVPN with a newer version of OpenSSL:</p>\n\n<p>\n" = "<p>Jedna alebo viac VPN konfigurácií používajú OpenVPN s OpenSSL 1.1.1, ktoré obsahuje\n   známé bezpečnostné zraniteľnosti, pre ktoré neexistuje oprava.</p>\n<p>Doporučujeme upraviť nasledujúce konfigurácie, aby\n   používali OpenVPN s novšou verziou OpenSSL:</p>\n\n<p>\n";
+
 /* HTML window text */
 "<p>One or more problems occurred trying to get update information or perform an update.</p><p>For more information, see the log at</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>" = "<p>Pri hľadaní dostupných aktualizácií alebo ich inštalácii sa vyskytol jeden alebo viac problémov.</p><p>Pre detaily skontrolujte log</p><p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>";
 
@@ -2448,6 +2463,9 @@
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblicku sa nepodarilo načítať systémové rozšírenie, ktoré je požadované na pripojenie k %@.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Môžete nastaviť nastavenie 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblicku tak, aby sa pokúsil načítať jeho systémové rozšírenia.</p>\n";
+
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Musíte nainštalovať Tunnelblick systémové rozšírenia, aby ste mohli použiť túto konfiguráciu.</p><p>Môžete tak urobiť v záložke 'Nástroje'.</p><p>Po nainštalovaní systémových rozšírení Vás macOS prevedie procesom ich povolenia, čo zahŕňa aj reštart Vášho počítača.</p>";
 
@@ -2501,6 +2519,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Prispel k pôvodnému kódu";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard a ďalší. Všetky práva vyhradené.";
 
 /* Credit description */
 "Croatian translation" = "Chorvátsky preklad";

@@ -1089,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Güncellemeyi indirmeye çalışırken bir hata oluştu. \n\nDaha fazla bilgi için log dosyasına bakın;\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Güncellemeler hakkında bilgi almaya çalışırken bir hata oluştu. \n\nDaha fazla bilgi için log dosyasına bakın: \n\n%@";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Güncellemeler hakkında bilgi edinmeye çalışırken bir hata oluştu.\n\n%1$@Daha fazla bilgi için şuradaki günlüğe bakın:\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "%@ çalıştırılırken bir hata oluştu";
@@ -1685,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "%1$@ isimli kimlik bilgileri kaldırılamadı:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Hata açıklaması: '%@'.\n\n";
 
 /* Window text */
 "The file %@ is empty" = "%@ dosyası boş";

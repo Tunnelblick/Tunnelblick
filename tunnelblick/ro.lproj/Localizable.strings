@@ -1086,9 +1086,6 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "A intervenit o eroare la descărcarea noii versiuni.\n\nPentru mai multe informații, consultați fișierul de loguri la\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "A intervenit o eroare la verificarea informațiilor legate de noua versiune.\n\nMai multe detalii găsiți in loguri la \n\n%@";
-
 /* Window text */
 "An error occurred while trying to launch %@" = "A apărut o eroare în timp ce se încerca lansarea %@";
 

@@ -1089,9 +1089,6 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Hiba történt a frissítés letöltésekor.\n\nTovábbi információért lásd a naplót a következő helyen:\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Hiba történt a frissítéshez kapcsolódó információk letöltésekor.\n\nTovábbi információért lásd a naplót a következő helyen:\n\n%@";
-
 /* Window text */
 "An error occurred while trying to launch %@" = "Hiba történt az indítás során %@";
 
@@ -1685,6 +1682,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "A(z) %1$@ nevű hitelesítőadat nem távolítható el:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "A hiba a következő volt '%@'.\n\n";
 
 /* Window text */
 "The file %@ is empty" = "A(z) %@ fájl üres";

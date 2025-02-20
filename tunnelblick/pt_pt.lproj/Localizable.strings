@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Mostrar no Menu";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Usando outra versão do OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "Detalhes da VPN…";
 
@@ -1086,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Ocorreu um erro ao descarregar a atualização.\n\nPara mais informação, ver o histórico de registos em\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Ocorreu um erro ao tentar obter informações sobre as actualizações.\n\nPara mais informações, consulte o registo em\n\n%@";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Ocorreu um erro ao tentar obter a informação sobre as atualizações.\n\n%1$@Para informação adicional, ver o log em\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Ocorreu um erro enquanto na tentativa de iniciar %@";
@@ -1682,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "As credenciais chamadas %1$@ não puderam ser removidas:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Este erro era '%@'.\n\n";
 
 /* Window text */
 "The file %@ is empty" = "O ficheiro %@ está vazio";
@@ -2457,6 +2463,9 @@
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>O Tunnelblick não conseguiu carregar uma extensão de sistema necessária para efetuar a ligação a %1$@.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Pode definir a opção 'tryToLoadKextsOnThisVersionOfMacOS' do Tunnelblick para tentar carregar as extensões do sistema.</p>\n";
+
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Tem de instalar as extensões de sistema do Tunnelblick para usar esta configuração.</p><p>Pode fazê-lo a partir do painel 'Utilidades' do Tunnelblick.</p><p>Após instalar as extensões de sistema, o macOS irá guiá-lo durente o processo de 'permissão', que inclui reiniciar o seu computador.</p>";
 
@@ -2510,6 +2519,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Contribuiu para o código inicial";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. Todos os direitos reservados.";
 
 /* Credit description */
 "Croatian translation" = "Tradução para Croata";

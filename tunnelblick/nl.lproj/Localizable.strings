@@ -1089,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Fout bij het downloaden van de update.\n\nVoor meer informatie, zie de log op\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Fout bij het opvragen van informatie over updates.\n\nVoor meer informatie, zie log op\n\n%@";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Fout bij het opvragen van informatie over updates\n\n%1$@Meer informatie, zie de log op\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Er trad een fout op bij het opstarten van %@";
@@ -1686,6 +1686,9 @@
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "De aanmeldgegevens %1$@ konden niet verwijderd worden:\n\n%2$@";
 
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "De foutmelding was '%@'\n\n";
+
 /* Window text */
 "The file %@ is empty" = "Het bestand %@ is leeg";
 
@@ -1744,7 +1747,7 @@
 "There were problems importing Tunnelblick settings.\n\nSee the Console log for details." = "Er waren problemen met het importeren van Tunnelblick-instellingen.\n\nRaadpleeg de Console log voor details.";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Deze geïmplementeerde versie van Tunnelblick kan niet gestart of geïnstalleerd worden omdat het nog het oude merk bevat, of de CFBundleIdentifier ontbreekt of bevat 'net.tunnelblick'.\n\n";
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Deze 'geïmplementeerde' versie van Tunnelblick kan niet gestart of geïnstalleerd worden omdat het nog de oude merk-stijl bevat, of de CFBundleIdentifier ontbreekt of het bevat 'net.tunnelblick'.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Deze 'verspreide' versie van Tunnelblick kan niet opgestart of geïnstalleerd worden, omdat het geen Info.plist bevat.\n\n";
@@ -2461,7 +2464,7 @@
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick was niet in staat om een systeemextensie te laden die nodig is om verbinding te maken met %@.</p>";
 
 /* HTML text. May be combined with other paragraphs. */
-"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Stel de 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick-voorkeur in, zodat het de benodigde systeemextensies zal proberen in te laden.</p>\n";
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Stel de 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick-voorkeur in, zodat de benodigde systeemextensies worden laden.</p>\n";
 
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Om deze configuratie te gebruiken moet je Tunnelblicks systeemextensie installeren.</p><p>Dat kun je doen in Tunnelblicks 'Gereedschap' paneel.</p><p>Nadat je de systeemextensie hebt geïnstalleerd, zal macOS je begeleiden in het proces van 'toestemming geven', wat een herstart van je computer inhoudt. </p>";

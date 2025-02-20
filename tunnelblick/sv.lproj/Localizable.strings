@@ -1089,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Ett fel uppstod vid försök att ladda ner uppdateringen.\n\nFör mer information, se loggen på";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Ett fel uppstod vid försök att hämta information om uppdateringar.\n\nFör mer information, se loggen på";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Ett fel uppstod vid försök att hämta information om uppdateringar.\n\n%1$@För mer information, se loggen på\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Ett fel uppstod under försöket att starta %@";
@@ -1685,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Uppgifterna med namnet %1$@ kunde inte tas bort:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Felet var '%@'.\n\n";
 
 /* Window text */
 "The file %@ is empty" = "Filen %@ är tom";

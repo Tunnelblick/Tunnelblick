@@ -1089,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "アップデートをダウンロード中にエラーが発生しました。\n\n追加情報にログをご覧ください\n\n%@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "アップデートの情報を取得中にエラーが発生しました。\n\n追加情報にログをご覧ください\n\n%@";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "アップデートの情報を取得中にエラーが発生しました。 \n%1$@追加の情報、ログは\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "%@ の起動中にエラーがおきました。";
@@ -1685,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "認証名 %1$@ は削除できませんでした:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "エラーは「%@」でした\n\n";
 
 /* Window text */
 "The file %@ is empty" = "ファイル %@ は空です";

@@ -1089,8 +1089,8 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Si è verificato un errore nel tentativo di scaricare l'aggiornamento.\n\nPer ulteriori informazioni, consultare il registro in %@";
 
-/* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
-"An error occurred trying to get information about updates.\n\nFor more information, see the log at\n\n%@" = "Si è verificato un errore nel tentativo di ottenere informazioni sugli aggiornamenti.\n\nPer ulteriori informazioni, vedere il registro in %@";
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Si è verificato un errore nel tentativo di ottenere informazioni sugli aggiornamenti.\n\nPer ulteriori informazioni, vedere il registro in %@\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Un errore è avvenuto tentando di avviare %@";
@@ -1685,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Le credenziali con il nome %1$@ non possono essere rimosse:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Errore rilevato: '%@'.\n\n";
 
 /* Window text */
 "The file %@ is empty" = "Il file %@ è vuoto";
