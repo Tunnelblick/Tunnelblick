@@ -2,13 +2,13 @@
 /* See https://tunnelblick.net/cLocalizeTranslate.html.           */
 
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) IP: %@" = "Minden IP kapcsolat megszakítása (%1$@): %@";
+"Disconnect All (%@) IP: %@" = "Minden kapcsolat megszakítása (%1$@) IP: %@";
 
 /* Status message */
 "Disconnect All (%@)" = "Minden kapcsolat megszakítása (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) IP: %@" = "Minden kapcsolat megszakítása (%d kapcsolat) IP: %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Mind a (%d kapcsolat) megszakítása IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Minden kapcsolat megszakítása (%d Kapcsolat)";
@@ -92,19 +92,19 @@
 "Delete" = "Törlés";
 
 /* Button */
-"Disable network access" = "Hálózati hozzáférés kikapcsolása";
+"Disable network access" = "Hálózati hozzáférés tiltása";
 
 /* Button */
 "Disconnect" = "Megszakítás";
 
 /* Button */
-"Do Not Re-enable Network Access" = "Ne kapcsolja vissza a hálózati kapcsolatot";
+"Do Not Re-enable Network Access" = "Ne engedélyezze vissza a hálózati hozzáférést";
 
 /* Button */
 "Do not use the plugin" = "Ne használja a plugin-t";
 
 /* Button */
-"Do nothing" = "Ne tegyen semmit";
+"Do nothing" = "Nincs művelet";
 
 /* Button to install an update */
 "Download and Install" = "Letöltés és telepítés";
@@ -1088,6 +1088,9 @@
 
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Hiba történt a frissítés letöltésekor.\n\nTovábbi információért lásd a naplót a következő helyen:\n\n%@";
+
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Hiba történt a frissítést információk letöltésekor.\n\n%1$@További információk a következő logfile-ban:\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Hiba történt az indítás során %@";
