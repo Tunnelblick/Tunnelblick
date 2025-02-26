@@ -1575,88 +1575,86 @@ returnNO:
 -(NSString *) appcastURLString {
 
     // Returns the string representation for the appcast URL, modified to insert "-b" or "-s" to get beta or stable update version
+    // Because the string depends on the checkForBetas preference, it cannot be cached.
 
-    if (  ! appcastURLString  ) {
+    NSString * urlString = nil;
 
-        NSString * urlString = nil;
-
-        // If the 'updateFeedURL' preference is being forced, use it
-        if (  ! [gTbDefaults canChangeValueForKey: self.appcastURLPref]  ) {
-            urlString = [gTbDefaults stringForKey: self.appcastURLPref];
-            if (  urlString  ) {
-                if (  [NSURL URLWithString: urlString]  ) {
-                    [self appendUpdaterLog: [NSString stringWithFormat:
-                                             @"Using %@ forced preference '%@'",
-                                             self.appcastURLPref, urlString]];
-                } else {
-                    [self appendUpdaterLog: [NSString stringWithFormat:
-                                             @"Ignoring %@ preference '%@' from 'forced-preferences.plist' because it could not be converted to a URL",
-                                             self.appcastURLPref, urlString]];
-                    urlString = nil;
-                }
-            }
-        }
-
-        // Otherwise, use the SUFeedURL entry in Info.plist
-        if (  ! urlString  ) {
-            urlString = [self.infoPlistDictionary objectForKey: self.appcastURLInInfoPlist];
-            if (  urlString ) {
-                if (  ! [[urlString class] isSubclassOfClass: [NSString class]]  ) {
-                    [self appendUpdaterLog:  [NSString stringWithFormat:
-                                              @"Ignoring %@ in Info.plist because it is not a string",
-                                              self.appcastURLInInfoPlist]];
-                    urlString = nil;
-                }
-                if (  ! [NSURL URLWithString: urlString]  ) {
-                    [self appendUpdaterLog: [NSString stringWithFormat:
-                                             @"Ignoring %@ in Info.plist because it could not be converted to a URL: %@",
-                                             self.appcastURLInInfoPlist,
-                                             urlString]];
-                    urlString = nil;
-                }
+    // If the 'updateFeedURL' preference is being forced, use it
+    if (  ! [gTbDefaults canChangeValueForKey: self.appcastURLPref]  ) {
+        urlString = [gTbDefaults stringForKey: self.appcastURLPref];
+        if (  urlString  ) {
+            if (  [NSURL URLWithString: urlString]  ) {
+                [self appendUpdaterLog: [NSString stringWithFormat:
+                                         @"Using %@ forced preference '%@'",
+                                         self.appcastURLPref, urlString]];
             } else {
-                [self appendUpdaterLog: @"Missing 'SUFeedURL' item in Info.plist"];
+                [self appendUpdaterLog: [NSString stringWithFormat:
+                                         @"Ignoring %@ preference '%@' from 'forced-preferences.plist' because it could not be converted to a URL",
+                                         self.appcastURLPref, urlString]];
+                urlString = nil;
             }
         }
-
-        if (  ! urlString  ) {
-            if (  ! self.warnedNoAppcastURL  ) {
-                [self notifyErrorMessage: @"Error finding URL for checking updates"];
-                [self setWarnedNoAppcastURL: TRUE];
-                [self setInhibitUpdating: TRUE];
-                return nil;
-            }
-        }
-
-        // Add -b or -s before extension (for beta or stable version, respectively)
-        //
-        // Strip https:// and add it back in later because stringByDeletingPathExtension changes the "//" to "/"
-        if (  [urlString hasPrefix: @"https://"]  ) {
-            urlString = [urlString substringFromIndex: @"https://".length];
-        } else {
-            if (  ! self.warnedNoHttpsInAppcastURL  ) {
-                [self notifyErrorMessage: [NSString stringWithFormat:
-                                           @"Tunnelblick appcast URL does not start with 'https://': %@",
-                                           urlString]];
-                [self setWarnedNoHttpsInAppcastURL: TRUE];
-                [self setInhibitUpdating: TRUE];
-            }
-
-            return nil;
-        }
-
-        NSString * urlWithoutExtension = urlString.stringByDeletingPathExtension;
-        NSString * suffix = (  [gTbInfo runningATunnelblickBeta]
-                             ? @"-b"
-                             : @"-s");
-        urlString = [NSString stringWithFormat:
-                     @"https://%@%@.%@",
-                     urlWithoutExtension, suffix, urlString.pathExtension];
-
-        appcastURLString = [urlString retain];
     }
 
-    return [[appcastURLString retain] autorelease];
+    // Otherwise, use the SUFeedURL entry in Info.plist
+    if (  ! urlString  ) {
+        urlString = [self.infoPlistDictionary objectForKey: self.appcastURLInInfoPlist];
+        if (  urlString ) {
+            if (  ! [[urlString class] isSubclassOfClass: [NSString class]]  ) {
+                [self appendUpdaterLog:  [NSString stringWithFormat:
+                                          @"Ignoring %@ in Info.plist because it is not a string",
+                                          self.appcastURLInInfoPlist]];
+                urlString = nil;
+            }
+            if (  ! [NSURL URLWithString: urlString]  ) {
+                [self appendUpdaterLog: [NSString stringWithFormat:
+                                         @"Ignoring %@ in Info.plist because it could not be converted to a URL: %@",
+                                         self.appcastURLInInfoPlist,
+                                         urlString]];
+                urlString = nil;
+            }
+        } else {
+            [self appendUpdaterLog: @"Missing 'SUFeedURL' item in Info.plist"];
+        }
+    }
+
+    if (  ! urlString  ) {
+        if (  ! self.warnedNoAppcastURL  ) {
+            [self notifyErrorMessage: @"Error finding URL for checking updates"];
+            [self setWarnedNoAppcastURL: TRUE];
+            [self setInhibitUpdating: TRUE];
+            return nil;
+        }
+    }
+
+    // Add -b or -s before extension (for beta or stable version, respectively)
+    //
+    // Strip https:// and add it back in later because stringByDeletingPathExtension changes the "//" to "/"
+    if (  [urlString hasPrefix: @"https://"]  ) {
+        urlString = [urlString substringFromIndex: @"https://".length];
+    } else {
+        if (  ! self.warnedNoHttpsInAppcastURL  ) {
+            [self notifyErrorMessage: [NSString stringWithFormat:
+                                       @"Tunnelblick appcast URL does not start with 'https://': %@",
+                                       urlString]];
+            [self setWarnedNoHttpsInAppcastURL: TRUE];
+            [self setInhibitUpdating: TRUE];
+        }
+
+        return nil;
+    }
+
+    NSString * urlWithoutExtension = urlString.stringByDeletingPathExtension;
+    BOOL checkForBeta = (   [gTbInfo runningATunnelblickBeta]
+                         || [gTbDefaults boolForKey: @"updateCheckBetas"]);
+    NSString * suffix = (  checkForBeta
+                         ? @"-b"
+                         : @"-s");
+    urlString = [NSString stringWithFormat:
+                 @"https://%@%@.%@",
+                 urlWithoutExtension, suffix, urlString.pathExtension];
+
+    return urlString;
 }
 
 -(NSString *) currentTunnelblickVersionString {
