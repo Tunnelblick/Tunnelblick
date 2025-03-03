@@ -604,8 +604,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         
 		didFinishLaunching = FALSE;
         
-        iconPosition = iconNotShown;
-        
         dotTblkFileList = [[NSMutableArray arrayWithCapacity: 10] retain];
         uiUpdater = nil;
         customRunOnLaunchPath = nil;
@@ -1385,7 +1383,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         [bar removeStatusItem: statusItem];
         [statusItem release];
         statusItem = nil;
-        iconPosition = iconNotShown;
     }
 }
 
@@ -1409,7 +1406,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     } else {
         NSLog(@"Can't obtain status item");
     }
-    iconPosition = iconNormal;
 
     if (  ! ourMainIconView  ) {
         [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
@@ -1492,17 +1488,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [statusItem setMenu: myVPNMenu];
 }
 
--(NSString *) iconPositionAsString {
-    
-    return (  (iconPosition == iconNotShown)
-            ? @"status icon not being displayed"
-            : @"status icon on left"
-            );
-}
-
 -(void) screenParametersChanged {
     
-    TBLog(@"DB-SI", @"screenParametersChanged: %@", [self iconPositionAsString])
+    TBLog(@"DB-SI", @"screenParametersChanged")
     
     [self updateScreenList];
     [[self logScreen] setupAppearanceConnectionWindowScreenButton];
@@ -1510,7 +1498,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 
 -(void) activeDisplayDidChange {
     
-    TBLog(@"DB-SI", @"activeDisplayDidChange: %@", [self iconPositionAsString])
+    TBLog(@"DB-SI", @"activeDisplayDidChange")
     
     [self updateScreenList];
     [[self logScreen] setupAppearanceConnectionWindowScreenButton];

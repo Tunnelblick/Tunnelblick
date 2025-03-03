@@ -72,12 +72,6 @@ enum ActiveInactiveState {
     gettingReadyforActive   = 3
 };
 
-enum StatusIconPosition {
-    iconNotShown        = 0,
-    iconNearSpotlight   = 1,
-    iconNormal          = 2
-};
-
 @interface NSStatusBar (NSStatusBar_Private)
 - (nullable id)_statusItemWithLength:(CGFloat)l withPriority:(long long)p;
 - (nullable id)_insertStatusItem:(nonnull NSStatusItem *)i withPriority:(long long)p;
@@ -211,8 +205,6 @@ enum StatusIconPosition {
 
     BOOL                      configUpdatesAreAvailable;    // True if updates to a VPN configuration are available
 
-    enum StatusIconPosition   iconPosition;                 // Position of Tunnelblick icon in the status menu
-    
     BOOL                      hotKeyEventHandlerIsInstalled;// The event handler for the hot key (keyboard shortcut to pop up the Tunnelblick menu) has been installed
     EventHotKeyRef            hotKeyRef;                    // Reference for the current hot key
     UInt32                    hotKeyKeyCode;                // Current hot key: Virtual key code
