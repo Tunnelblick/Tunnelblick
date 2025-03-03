@@ -1404,48 +1404,29 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [self removeStatusItem];
     
     // Create new status item
-    // Standard placement of icon in Status Bar
-    if (  ! (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
-        NSLog(@"Can't obtain status item in standard position");
+    if (  (statusItem = [[bar statusItemWithLength: 16] retain])  ) {
+        TBLog(@"DB-SI", @"createStatusItem: Created status item");
+    } else {
+        NSLog(@"Can't obtain status item");
     }
-    TBLog(@"DB-SI", @"createStatusItem: Created status item")
     iconPosition = iconNormal;
 
     if (  ! ourMainIconView  ) {
         [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
     }
-    
-/* Removed but left in for when the deprecated 'setView:' method of NSStatusItem is removed from macOS
-     if (   [statusItem respondsToSelector: @selector(button)]  ) {
-        
-        [self setStatusItemButton: [statusItem performSelector: @selector(button) withObject: nil]];
-        if (  statusItemButton  ) {
-            [statusItemButton setImage: mainImage];  // Set image so that frame is set up so we can set the tracking rectangle
-            NSRect frame = [statusItemButton frame];
-            NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
-            iconTrackingRectTag = [statusItemButton addTrackingRect: trackingRect
-                                                              owner: self
-                                                           userData: nil
-                                                       assumeInside: NO];
-            TBLog(@"DB-SI", @"createStatusItem: Added tracking rectangle (%f,%f, %f, %f) for status item",
-                  trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
-            [statusItem setView: [self ourMainIconView]];
-        } else {
-            TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item because there was no statusItemButton");
-            [statusItem setView: [self ourMainIconView]];
-        }
-        [[self ourMainIconView] setupTrackingRect];
-    } else {
- */
-    if (  [self statusItemButton]  ) {
-            [self setStatusItemButton: nil];
-        }
-        TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item because it does not respond to 'button'")
-        [statusItem setView: [self ourMainIconView]];
-        [[self ourMainIconView] setupTrackingRect];
-/*  }
- */
-    
+
+    [self setStatusItemButton: statusItem.button];
+    [statusItemButton setImage: mainImage];  // Set image so that frame is set up so we can set the tracking rectangle
+    NSRect frame = [statusItemButton frame];
+    NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
+    iconTrackingRectTag = [statusItemButton addTrackingRect: trackingRect
+                                                      owner: self
+                                                   userData: nil
+                                               assumeInside: NO];
+    TBLog(@"DB-SI", @"createStatusItem: Added tracking rectangle (%f,%f, %f, %f) for status item",
+          trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
+
+    [[self ourMainIconView] setupTrackingRect];
     [statusItem setMenu: myVPNMenu];
     TBLog(@"DB-SI", @"createStatusItem: Set menu for status item")
 }
