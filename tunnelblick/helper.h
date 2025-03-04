@@ -22,8 +22,6 @@
 
 @class AlertWindowController;
 
-NSString * rgbValues(BOOL foreground);
-
 NSAttributedString * attributedLightDarkStringFromHTML(NSString * html);
 
 NSAttributedString * attributedStringFromHTML(NSString * html);
