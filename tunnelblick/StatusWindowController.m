@@ -648,20 +648,17 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
                                            [self connectedSince]]];
     
     if (   [theStatus isEqualToString: @"EXITING"]  ) {
-        [configurationNameTFC setTextColor: [NSColor redColor]];
-        [statusTFC            setTextColor: [NSColor redColor]];
+        [statusTFC            setTextColor: NSColor.redColor];
         [theAnim stopAnimation];
         [animationIV setImage: [gMC largeMainImage]];
         
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
-        [configurationNameTFC setTextColor: [NSColor greenColor]];
-        [statusTFC            setTextColor: [NSColor greenColor]];
+        [statusTFC            setTextColor: NSColor.greenColor];
         [theAnim stopAnimation];
         [animationIV setImage: [gMC largeConnectedImage]];
 
     } else {
-        [configurationNameTFC setTextColor: [NSColor yellowColor]];
-        [statusTFC            setTextColor: [NSColor yellowColor]];
+        [statusTFC            setTextColor: NSColor.controlTextColor];
         [theAnim startAnimation];
     }
 	
