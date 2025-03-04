@@ -407,9 +407,8 @@ BOOL displaysHaveDifferentSpaces(void) {
 
 NSString * rgbValues(BOOL foreground) {
 	
-	NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-	BOOL darkMode = (   [osxMode isEqualToString: @"dark"]
-					 || [osxMode isEqualToString: @"Dark"]  );
+    BOOL darkMode = gTbInfo.runningInDarkMode;
+
 	NSString * result = (  foreground
 						 ? (  darkMode
 							? @"rgb(224,224,224)"

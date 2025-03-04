@@ -34,6 +34,7 @@
 #import "NSString+TB.h"
 #import "NSTimer+TB.h"
 #import "TBUserDefaults.h"
+#import "TunnelblickInfo.h"
 #import "VPNConnection.h"
 
 #define NUMBER_OF_LINES_TO_KEEP_AT_START_OF_LOG 10
@@ -44,6 +45,7 @@ extern unsigned         gMaximumLogSize;
 extern MenuController * gMC;
 extern BOOL             gShuttingDownWorkspace;
 extern TBUserDefaults * gTbDefaults;
+extern TunnelblickInfo * gTbInfo;
 
 @interface LogDisplay() // PRIVATE METHODS
 
@@ -161,31 +163,23 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
     return nil;
 }
 
-+(BOOL) inDarkMode {
-
-	NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-	BOOL darkMode = (   [osxMode isEqualToString: @"dark"]
-					 || [osxMode isEqualToString: @"Dark"]  );
-	return darkMode;
-}
-
 +(NSColor *) redColorForHighlighting {
 	
-	return [NSColor colorWithCalibratedRed: 1.0 green: 0.0 blue: 0.0 alpha: (  [LogDisplay inDarkMode]
+	return [NSColor colorWithCalibratedRed: 1.0 green: 0.0 blue: 0.0 alpha: (  gTbInfo.runningInDarkMode
 																			 ? 0.7
 																			 : 0.4)];
 }
 
 +(NSColor *) yellowColorForHighlighting {
 	
-	return [NSColor colorWithCalibratedRed: 1.0 green: 1.0 blue: 0.0 alpha: (  [LogDisplay inDarkMode]
+	return [NSColor colorWithCalibratedRed: 1.0 green: 1.0 blue: 0.0 alpha: (  gTbInfo.runningInDarkMode
 																			 ? 0.6
 																			 : 0.4)];
 }
 
 +(NSColor *) blueColorForHighlighting {
 	
-	return [NSColor colorWithCalibratedRed: 0.0 green: 1.0 blue: 1.0 alpha: (  [LogDisplay inDarkMode]
+    return [NSColor colorWithCalibratedRed: 0.0 green: 1.0 blue: 1.0 alpha: (  gTbInfo.runningInDarkMode
 																			 ? 0.7
 																			 : 0.2)];
 }
@@ -202,7 +196,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 
 +(NSColor *) blueColorForFont {
 
-	NSColor * blue = (  [LogDisplay inDarkMode]
+    NSColor * blue = (  gTbInfo.runningInDarkMode
 					  ? [LogDisplay lightBlueColorForFont]
 					  : [LogDisplay darkBlueColorForFont]);
 	return blue;
@@ -215,8 +209,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 		 useYellowHighlighting: (BOOL) useYellowHighlighting
 		   useBlueHighlighting: (BOOL) useBlueHighlighting {
 
-	BOOL inDarkMode = [LogDisplay inDarkMode];
-
 	*backgroundColor = (  useRedHighlighting
 						? [LogDisplay redColorForHighlighting]
 						: (  useYellowHighlighting
@@ -226,7 +218,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *,         lastEntryTime)
 							  : [NSColor textBackgroundColor]  )  )  );
 
 	*foregroundColor = (  useBlueText
-						? (  inDarkMode
+						? (  gTbInfo.runningInDarkMode
 						   ? (  (   useRedHighlighting
 								 || useYellowHighlighting
 								 || useBlueHighlighting)

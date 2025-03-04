@@ -539,6 +539,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return runningOnOCLP.boolValue;
 }
 
+-(BOOL) runningInDarkMode {
+
+    // Cannot be cached
+    
+    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+    BOOL darkMode = (   [osxMode isEqualToString: @"dark"]
+                     || [osxMode isEqualToString: @"Dark"]  );
+    return darkMode;
+}
+
 -(BOOL) userIsAnAdmin {
 
     if (  ! userIsAnAdmin  ) {

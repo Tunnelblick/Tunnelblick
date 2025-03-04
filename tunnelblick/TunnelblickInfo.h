@@ -102,6 +102,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(BOOL) runningOnOCLP;
 
+-(BOOL) runningInDarkMode;
+
 // INFO ABOUT THE USER
 
 -(BOOL) userIsAnAdmin;
