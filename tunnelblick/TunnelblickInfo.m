@@ -125,38 +125,41 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[tunnelblickVersionString copy] autorelease];
 }
 
--(NSString *) infoPlistStringOrPreferenceString: (NSString *) name {
+-(NSString *) forcedPreferenceStringOrInfoPlistStringForKey: (NSString *) key {
 
-    // "name" is the key for an item in Info.plist, which is also
-    // the key for an optional item in forced preferences.
-    //
-    // The forced preference's value will be used if it the key is present,
-    // otherwise the Info.plist's value will be used.
+    // The forced preference's value for the key will be returned if it is present
+    // and the value is a string, otherwise the Info.plist's value for the key will
+    // be returned if it is present and the value is a string.
+    // Otherwise, logs an error, terminates Tunnelblick, and returns nil.
 
-    NSString * urlString = nil;
-    if (  ! [gTbDefaults canChangeValueForKey: name]  ) {
-        urlString = [gTbDefaults stringForKey: name];
+    NSString * value = [gTbDefaults forcedStringForKey: key];
+
+    if (  ! value) {
+        id thing = [self.infoDictionary objectForKey: key];
+        value = valueIfStringOtherwiseNil(thing);
+        if (  ! value  ) {
+            NSLog(@"ERROR: Could not find '%@' as a string in forced preferences or Info.plist", key);
+            [gMC terminateBecause: terminatingBecauseOfError];
+        }
     }
 
-    if (  ! urlString) {
-        urlString = [self.infoDictionary objectForKey: name];
-    }
-
-    if (  ! urlString  ) {
-        NSLog(@"ERROR: Could not get %@", name);
-        [gMC terminateBecause: terminatingBecauseOfError];
-    }
-
-    return urlString;
+    return value;
 }
 
--(void) crashIfNotAValidURL: (NSString *) urlString {
+-(BOOL)   isString: (NSString *) urlString
+  aValidURLWithKey: (NSString *) key {
+
+    // Returns YES if urlString is a valid URL.
+    // Otherwise, logs an error, terminates Tunnelblick, and returns NO.
 
     NSURL * url = [NSURL URLWithString: urlString];
     if (  ! url  ) {
-        NSLog(@"Unable to make into a URL: %@", urlString);
+        NSLog(@"Error: Unable to make %@ (%@) into a URL", key, urlString);
         [gMC terminateBecause: terminatingBecauseOfError];
+        return NO;
     }
+
+    return YES;
 }
 
 -(NSString *) updateFeedURLString {
@@ -164,10 +167,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     // Info.plist SUFeedURL value, which may be overridden by a forced preference
 
     if (  ! updateFeedURLString  ) {
-
-        NSString * urlString = [self infoPlistStringOrPreferenceString: @"SUFeedURL"];
-        [self crashIfNotAValidURL: urlString];
-        updateFeedURLString = [urlString retain];
+        NSString * urlString = [self forcedPreferenceStringOrInfoPlistStringForKey: @"SUFeedURL"];
+        if (   urlString
+            && [self isString: urlString aValidURLWithKey: @"SUFeedURL"]  ) {
+            updateFeedURLString = [urlString retain];
+        }
     }
 
     return [[updateFeedURLString copy] autorelease];
@@ -179,7 +183,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
 
     if (  ! updatePublicDSAKey  ) {
 
-        NSString * key = [self infoPlistStringOrPreferenceString: @"SUPublicDSAKey"];
+        NSString * key = [self forcedPreferenceStringOrInfoPlistStringForKey: @"SUPublicDSAKey"];
         updatePublicDSAKey = [key retain];
     }
 
@@ -191,9 +195,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     // Info.plist IPCheckURL value, which may be overridden by a forced preference
 
     if (  ! ipCheckURLString  ) {
-        NSString * urlString = [self infoPlistStringOrPreferenceString: @"IPCheckURL"];
-        ipCheckURLString = [urlString retain];
-        [self crashIfNotAValidURL: urlString];
+        NSString * urlString = [self forcedPreferenceStringOrInfoPlistStringForKey: @"IPCheckURL"];
+        if (   urlString
+            && [self isString: urlString aValidURLWithKey: @"IPCheckURL"]  ) {
+            ipCheckURLString = [urlString retain];
+        }
     }
 
     return [[ipCheckURLString copy] autorelease];
