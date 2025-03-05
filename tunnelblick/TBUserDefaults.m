@@ -205,18 +205,12 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     
     // Returns the NSString object associated with a key, or nil if no object exists for the key or the object is not an NSString OR IT IS AN EMPTY STRING.
     
-    id obj = [self objectForKey: key];
-	
-	if (  obj  ) {
-		if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
-			if (  [obj length] != 0  ) {
-				return (NSString *)obj;
-			}
-		} else {
-			NSLog(@"Preference '%@' must be a string; it is a %@ and will be ignored", key, [[obj class] description]);
-		}
-	}
-	
+    NSString * value = valueIfStringOtherwiseNil([self objectForKey: key]);
+
+    if (  value.length != 0  ) {
+        return value;
+    }
+
     return nil;
 }
 

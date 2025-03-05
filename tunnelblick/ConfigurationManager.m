@@ -155,7 +155,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     // Returns TRUE if the CFBundleVersion is a valid version number, FALSE otherwise
     
-    return (   [[bundleIdentifier class] isSubclassOfClass: [NSString class]]
+    return (   valueIfStringOtherwiseNil(bundleIdentifier)
             && ([bundleIdentifier length] != 0)
 			&& [bundleIdentifier containsOnlyCharactersInString: ALLOWED_DOMAIN_NAME_CHARACTERS]
             && ( 0 == [bundleIdentifier rangeOfString: @".."].length )
@@ -167,7 +167,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     // Returns TRUE if the CFBundleVersion is a valid version number, FALSE otherwise
 	
-	if (   [[bundleVersion class] isSubclassOfClass: [NSString class]]
+    if (   valueIfStringOtherwiseNil(bundleVersion)
         && [bundleVersion containsOnlyCharactersInString: @"01234567890."]
 		&& ([bundleVersion length] != 0)
 		&& ( ! [bundleVersion hasPrefix: @"."])

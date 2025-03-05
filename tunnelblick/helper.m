@@ -753,11 +753,12 @@ BOOL displayNameIsValid(NSString * newName, BOOL doBeepOnError) {
 // Returns a string with the version # for Tunnelblick, e.g., "Tunnelbick 3.0b12 (build 157)"
 NSString * tunnelblickVersion(NSBundle * bundle)
 {
-    NSString * infoVersion = [bundle objectForInfoDictionaryKey:@"CFBundleVersion"];
-    NSString * infoShort   = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    NSString * infoBuild   = [bundle objectForInfoDictionaryKey:@"Build"];
-    
-    if (  [[infoVersion class] isSubclassOfClass: [NSString class]] && [infoVersion rangeOfString: @"3.0b"].location == NSNotFound  ) {
+    NSString * infoVersion = valueIfStringOtherwiseNil([bundle objectForInfoDictionaryKey:@"CFBundleVersion"]);
+    NSString * infoShort   = valueIfStringOtherwiseNil([bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+    NSString * infoBuild   = valueIfStringOtherwiseNil([bundle objectForInfoDictionaryKey:@"Build"]);
+
+    if (   infoVersion
+        && [infoVersion rangeOfString: @"3.0b"].location == NSNotFound  ) {
         // No "3.0b" in CFBundleVersion, so it is a build number, which means that the CFBundleShortVersionString has what we want
         return [NSString stringWithFormat: @"Tunnelblick %@", infoShort];
     }
