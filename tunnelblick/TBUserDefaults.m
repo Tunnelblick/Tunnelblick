@@ -362,6 +362,35 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     return YES;
 }
 
+-(NSString *) forcedStringForKey: (NSString *) key {
+
+    // Returns the string value of a forced preference, or nil if there is no forced preference for the key or if the value is not a string.
+
+    id value = [forcedDefaults objectForKey: key];
+    if (  value  ) {
+        return valueIfStringOtherwiseNil(value);
+    }
+
+    return nil;
+}
+
+-(BOOL) isTrueForcedForKey: (NSString *) key {
+
+    // Returns TRUE if it is there is a forced preference for the key and it is TRUE, FALSE otherwise
+    // (i.e., not found, doesn't have a boolValue, or the boolValue is FALSE.
+
+    id value = [forcedDefaults objectForKey: key];
+    if (  value  ) {
+        if (  [value respondsToSelector: @selector(boolValue)]  ) {
+            return [value boolValue];
+        }
+
+        NSLog(@"'%@' must be able to be converted to a BOOL, it is a %@", value, [value class]);
+    }
+
+    return FALSE;
+}
+
 -(void) setBool: (BOOL) value forKey: (NSString *) key {
     
 	id primaryValue = [self primaryObjectForKey: key];
