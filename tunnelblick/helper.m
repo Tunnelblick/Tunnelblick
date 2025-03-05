@@ -372,16 +372,12 @@ BOOL anyKextsAreLoaded(void) {
 }
 
 BOOL okToUpdateConfigurationsWithoutAdminApproval(void) {
-    BOOL answer = (   [gTbDefaults boolForKey: @"allowNonAdminSafeConfigurationReplacement"]
-				   && ( ! [gTbDefaults canChangeValueForKey: @"allowNonAdminSafeConfigurationReplacement"] )
-				   );
+    BOOL answer = [gTbDefaults isTrueForcedForKey: @"allowNonAdminSafeConfigurationReplacement"];
 	return answer;
 }
 
 BOOL okToUpdateAppWithoutAdminApproval(void) {
-    BOOL answer = (   [gTbDefaults boolForKey: @"TBUpdaterAllowNonAdminToUpdateTunnelblick"]
-                   && ( ! [gTbDefaults canChangeValueForKey: @"TBUpdaterAllowNonAdminToUpdateTunnelblick"] )
-                   );
+    BOOL answer = [gTbDefaults isTrueForcedForKey: @"TBUpdaterAllowNonAdminToUpdateTunnelblick"];
     return answer;
 }
 

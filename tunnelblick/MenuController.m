@@ -573,15 +573,11 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             [gConfigDirs addObject: L_AS_T_SHARED];
             [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
         } else {
-            if (  ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
-                if (  [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
-                    [gConfigDirs addObject: L_AS_T_SHARED];
-                }
+            if (  [gTbDefaults isTrueForcedForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
+                [gConfigDirs addObject: L_AS_T_SHARED];
             }
-            if (  ! [gTbDefaults canChangeValueForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
-                if (  [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
-                    [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
-                }
+            if (  [gTbDefaults isTrueForcedForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
+                [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
             }
         }
 
@@ -5015,9 +5011,7 @@ static void signal_handler(int signalNumber)
 		if (  [gFileMgr fileExistsAtPath: welcomeIndexHtmlPath]  ) {
 			welcomeURLString = [@"file://" stringByAppendingString: welcomeIndexHtmlPath];
 		} else {
-			if (  ! [gTbDefaults canChangeValueForKey: @"welcomeURL"]  ) {
-				welcomeURLString = [gTbDefaults stringForKey: @"welcomeURL"];
-			}
+            welcomeURLString = [gTbDefaults forcedStringForKey: @"welcomeURL"];
 		}
 	}
 	

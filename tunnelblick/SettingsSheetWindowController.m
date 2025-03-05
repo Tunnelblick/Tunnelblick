@@ -1403,10 +1403,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     NSString *key = [configurationName stringByAppendingString:@"-authenticateOnConnect"];
     TBButton * checkbox = authenticateOnConnectCheckbox;
     [checkbox setEnabled:YES];
-    BOOL answer = (   [gTbDefaults boolForKey: key]
-                   && ( ! [gTbDefaults canChangeValueForKey: key] )
-                   );
-    [checkbox setState: (  answer
+    [checkbox setState: (  [gTbDefaults isTrueForcedForKey: key]
                          ? NSOnState
                          : NSOffState)];
 }
