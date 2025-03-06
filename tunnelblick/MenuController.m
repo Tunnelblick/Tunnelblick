@@ -4139,28 +4139,6 @@ static void signal_handler(int signalNumber)
     return result;
 }
 
-- (NSURL *) getIPCheckURL
-{
-    NSString * urlString = [gTbDefaults stringForKey: @"IPCheckURL"];
-	if (   ( ! urlString)
-        || [gTbDefaults canChangeValueForKey: @"IPCheckURL"]  ) {
-        NSDictionary * infoPlist = [self tunnelblickInfoDictionary];
-        urlString = [infoPlist objectForKey: @"IPCheckURL"];
-    }
-    
-    NSURL * url = nil;
-    if (  urlString  ) {
-        url = [NSURL URLWithString: urlString];
-        if (  ! url  ) {
-            NSLog(@"Unable to make into a URL: %@", urlString);
-        }
-    } else {
-        NSLog(@"No IPCheckURL forced preference or Info.plist entry");
-    }
-    
-    return url;
-}
-
 -(BOOL)applicationShouldHandleReopen: (NSApplication *) theApp hasVisibleWindows: (BOOL) hasWindows
 {
 	// Invoked when the Dock item is clicked to relaunch Tunnelblick, or the application is double-clicked.
@@ -5670,15 +5648,14 @@ static BOOL runningHookupThread = FALSE;
         return NO;
     }
 
-    NSString * ipAddressCheckURLString = gTbInfo.ipCheckURLString;
-    NSURL * ipAddressCheckURL  = [NSURL URLWithString: ipAddressCheckURLString];
+    NSURL * ipAddressCheckURL  = gTbInfo.ipCheckURL;
     if (  ! ipAddressCheckURL  ) {
-        NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: IPCheckURL cannot be parsed: %@", ipAddressCheckURLString);
+        NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: IPCheckURL cannot be found/parsed: %@", ipAddressCheckURL.absoluteString);
         return NO;
     }
     NSString * ipAddressCheckHost = ipAddressCheckURL.host;
     if (  ! ipAddressCheckHost  ) {
-        NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: Cannot get host for: %@", ipAddressCheckURLString);
+        NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: Cannot get host for: %@", ipAddressCheckURL.absoluteString);
         return NO;
     }
 

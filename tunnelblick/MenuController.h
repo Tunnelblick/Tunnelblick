@@ -270,7 +270,6 @@ enum ActiveInactiveState {
 -(void)             connectionStateDidChange:                  (nonnull VPNConnection *)              connection;
 -(nullable VPNConnection *) connectionForDisplayName:               (nonnull NSString *)         displayName;
 -(unsigned)         decrementTapCount;
--(nullable NSURL *) getIPCheckURL;
 -(nonnull NSNumber *)       haveConfigurations;
 -(void)             installConfigurationsUpdateInBundleAtPathMainThread: (nonnull NSString *)path;
 -(unsigned)         decrementTunCount;

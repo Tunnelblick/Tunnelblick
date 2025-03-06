@@ -1057,7 +1057,7 @@ TBPROPERTY(          NSMutableArray *,         messagesIfConnectionFails,       
 
     NSString * logHeader = [NSString stringWithFormat:@"currentIPInfo(%@)", (useIPAddress ? @"Address" : @"Name")];
 
-    NSURL * url = [gMC getIPCheckURL];
+    NSURL * url = gTbInfo.ipCheckURL;
     if (  ! url  ) {
         NSLog(@"%@: url == nil #1", logHeader);
         return nil;
