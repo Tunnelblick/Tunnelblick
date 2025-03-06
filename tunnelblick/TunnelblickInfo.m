@@ -192,7 +192,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
 
 -(NSString *) ipCheckURLString {
 
-    // Info.plist IPCheckURL value, which may be overridden by a forced preference
+    // String from forced preference IPCheckURL (which is a string) if present, otherwise
+    // string from Info.plist IPCheckURL (also a string).
 
     if (  ! ipCheckURLString  ) {
         NSString * urlString = [self forcedPreferenceStringOrInfoPlistStringForKey: @"IPCheckURL"];
@@ -205,6 +206,26 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[ipCheckURLString copy] autorelease];
 }
 
+-(NSURL    *) ipCheckURL {
+
+    // URL from forced preference IPCheckURL (which is a string) if present, otherwise
+    // URL from Info.plist IPCheckURL (also a string).
+
+    if (  ! ipCheckURL  ) {
+        NSString * urlString = [self forcedPreferenceStringOrInfoPlistStringForKey: @"IPCheckURL"];
+        if (  urlString  ) {
+            NSURL * url = [NSURL URLWithString: urlString];
+            if (  url  ) {
+                ipCheckURL = [url retain];
+            } else {
+                NSLog(@"Error: Unable to make IPCheckURL (%@) into a URL", urlString);
+                [gMC terminateBecause: terminatingBecauseOfError];
+            }
+        }
+    }
+
+    return [[ipCheckURL copy] autorelease];
+}
 -(void) setUpOpenVPNNames: (NSMutableArray *) nameArray
          fromFolderAtPath: (NSString *)       openvpnDirPath
                    suffix: (NSString *)       suffix {

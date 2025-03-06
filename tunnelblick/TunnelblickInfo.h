@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString * updatePublicDSAKey;
 
     NSString * ipCheckURLString;
+    NSURL    * ipCheckURL;
 
     NSString * architectureBeingUsed;
     NSNumber * runningWithSIPDisabled;
@@ -85,6 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *) updatePublicDSAKey;
 
 -(NSString *) ipCheckURLString;
+-(NSURL *)    ipCheckURL;
 
 // INFO ABOUT THE SYSTEM
 
