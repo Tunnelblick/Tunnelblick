@@ -1574,6 +1574,10 @@ returnNO:
 
     // Returns the string representation for the appcast URL, modified to insert "-b" or "-s" to get beta or stable update version
     // Because the string depends on the checkForBetas preference, it cannot be cached.
+    //
+    // Note that this is similar to TunnelblickInfo.updateFeedURLString, however:
+    //      1. It is used for both app updates and (potentially) for configuration updates; and
+    //      2. It inserts "-b" or "-s" into the URL.
 
     NSString * urlString = nil;
 
