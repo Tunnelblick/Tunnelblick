@@ -255,9 +255,100 @@
 
 //*************************************************************************************************
 // OpenVPN options that cannot appear in a "safe" configuration
-#define OPENVPN_OPTIONS_THAT_ARE_UNSAFE @[@"auth-user-pass-verify", @"config", @"client-connect", @"client-crresponse", @"client-disconnect", \
-                                          @"down", @"ipchange", @"iproute", @"learn-address", \
-                                          @"plugin", @"route-pre-down", @"route-up", @"tls-verify",  @"up"]
+#define OPENVPN_OPTIONS_THAT_ARE_UNSAFE @[ \
+@"auth-user-pass-verify", @"client-connect", @"client-crresponse", @"client-disconnect", \
+@"config",@"dns-script", @"down", @"ipchange", @"iproute", @"learn-address", \
+@"plugin", @"route-pre-down", @"route-up", @"tls-verify", @"up" \
+]
+
+//*************************************************************************************************
+// OpenVPN options that can appear in a "safe" configuration
+#define OPENVPN_OPTIONS_THAT_ARE_SAFE @[ \
+@"allow-compression", @"allow-nonadmin", @"allow-pull-fqdn", @"allow-recursive-routing", @"askpass", \
+@"auth-gen-token",@"auth-nocache",@"auth-retry",@"auth-token",@"auth-token-user",@"auth-user-pass-optional", \
+/* UNSAFE: @"auth-user-pass-verify", */ \
+@"auth-user-pass", @"auth", @"auth-gen-token-secret", \
+@"bcast-buffers", @"bind", @"bind-dev", @"block-ipv6", @"block-outside-dns", \
+@"ca", @"capath", @"ccd-exclusive", @"cd", @"cert", @"chroot", @"cipher", @"client-cert-not-required", \
+@"client-config-dir", \
+/* UNSAFE: @"client-connect", */ \
+/* UNSAFE: @"client-crresponse", */ \
+/* UNSAFE: @"client-disconnect", */ \
+@"client-nat", @"client-to-client", @"client", @"comp-lzo", @"comp-noadapt", @"compat-names", \
+@"compress", \
+/* UNSAFE: @"config",  */ \
+@"connect-freq", @"connect-retry-max", @"connect-retry", @"connect-timeout", @"connection", \
+@"crl-verify", @"cryptoapicert", @"daemon", @"data-ciphers", @"data-ciphers-fallback", \
+@"dev-node", @"dev-type", @"dev", @"dh", @"dhcp-internal", @"dhcp-option", @"dhcp-pre-release", \
+@"dhcp-release", @"dhcp-renew", @"disable-occ", @"disable", \
+/* UNSAFE: @"dns-script", */ \
+@"down-pre", \
+/* UNSAFE: @"down", */ \
+@"duplicate-cn", \
+@"ecdh-curve", @"echo", @"engine", @"errors-to-stderr", @"explicit-exit-notify", @"extra-certs", \
+@"fast-io", @"float", @"force-tls-key-material-export", @"foreign-option", @"fragment", \
+@"genkey", @"gremlin", @"group", \
+@"hand-window", @"hash-size", @"help", @"http-proxy-option", @"http-proxy-override", \
+@"http-proxy-retry", @"http-proxy-timeout", @"http-proxy-user-pass", @"http-proxy", \
+@"ifconfig-ipv6-pool", @"ifconfig-ipv6-push", @"ifconfig-ipv6", @"ifconfig-noexec", \
+@"ifconfig-nowarn", @"ifconfig-pool-linear", @"ifconfig-pool-persist", @"ifconfig-pool"\
+@"ifconfig-push-constraint", @"ifconfig-push", @"ifconfig", @"ignore-unknown-option", \
+@"inactive", @"inetd", @"ip-remote-hint", @"ip-win32", \
+/* UNSAFE: @"ipchange", */ \
+/* UNSAFE: @"iproute", */ \
+@"iroute-ipv6", @"iroute", \
+@"keepalive", @"key-direction", @"key-method", @"key", @"key-derivation", \
+@"keying-material-exporter", @"keysize", \
+/* UNSAFE: @"learn-address", */ \
+@"link-mtu", @"lladdr", @"local", @"log-append", @"log", @"lport", \
+@"machine-readable-output", @"management-client-auth", @"management-client-group", \
+@"management-client-pf", @"management-client-user", @"management-client", \
+@"management-external-cert", @"management-external-key", @"management-forget-disconnect", \
+@"management-hold", @"management-log-cache", @"management-query-passwords", @"management-query-proxy", \
+@"management-query-remote", @"management-signal", @"management-up-down", @"management", @"mark", \
+@"max-clients", @"max-routes-per-client", @"max-routes", @"memstats", @"mktun", @"mlock", @"mode", \
+@"msg-channel", @"mssfix", @"mtu-disc", @"mtu-dynamic", @"mtu-test", @"multihome", \
+@"mute-replay-warnings", @"mute", \
+@"ncp-ciphers", @"ncp-disable", @"nice", @"no-iv", @"no-name-remapping", @"no-replay", \
+@"nobind", @"ns-cert-type", \
+@"opt-verify", \
+@"parameter", @"passtos", @"pause-exit", @"peer-fingerprint", @"peer-id", @"persist-key", \
+@"persist-local-ip", @"persist-remote-ip", @"persist-tun", @"ping-exit", @"ping-restart", \
+@"ping-timer-rem", @"ping", @"pkcs11-cert-private", @"pkcs11-id-management", @"pkcs11-id", \
+@"pkcs11-pin-cache", @"pkcs11-private-mode", @"pkcs11-protected-authentication", \
+@"pkcs11-providers", @"pkcs12", \
+/* UNSAFE: @"plugin", */ \
+@"port-share", @"port", @"preresolve", @"prng", @"proto-force", @"proto", @"pull", \
+@"push-continuation", @"pull-filter", @"push-peer-info", @"push-remove", @"push-reset", @"push", \
+@"rcvbuf", @"rdns-internal", @"redirect-gateway", @"redirect-private", @"register-dns", \
+@"remap-usr1", @"remote-cert-eku", @"remote-cert-ku", @"remote-cert-tls", @"remote-random-hostname", \
+@"remote-random", @"remote", @"reneg-bytes", @"reneg-pkts", @"reneg-sec", @"replay-persist", \
+@"replay-window", @"resolv-retry", @"rmtun", @"route-delay", @"route-gateway", @"route-ipv6", \
+@"route-ipv6-gateway", @"route-method", @"route-metric", @"route-noexec", @"route-nopull", \
+/* UNSAFE: @"route-pre-down", */ \
+/* UNSAFE: @"route-up", */ \
+@"route", @"rport", \
+@"scramble", @"script-security", @"secret", @"server-bridge", @"server-ipv6", @"server-poll-timeout", \
+@"server", @"service", @"setcon", @"setenv-safe", @"setenv", @"shaper", @"show-adapters", \
+@"show-ciphers", @"show-curves", @"show-digests", @"show-engines", @"show-gateway", @"show-groups", \
+@"show-net-up", @"show-net", @"show-pkcs11-ids", @"show-tls", @"show-valid-subnets", \
+@"single-session", @"sndbuf", @"socket-flags", @"socks-proxy-retry", @"socks-proxy", \
+@"stale-routes-check", @"static-challenge", @"status-version", @"status", @"suppress-timestamps", \
+@"syslog", \
+@"tap-sleep", @"tcp-nodelay", @"tcp-queue-limit", @"test-crypto", @"tls-auth", @"tls-cert-profile", \
+@"tls-cipher", @"tls-ciphersuites", @"tls-client", @"tls-crypt", @"tls-crypt-v2", \
+@"tls-crypt-v2-verify", @"tls-exit", @"tls-export-cert", @"tls-groups", @"tls-remote", \
+@"tls-server", @"tls-timeout", \
+/* UNSAFE: @"tls-verify", */ \
+@"tls-version-max", @"tls-version-min", @"tmp-dir", @"topology", @"tran-window", @"tun-ipv6", \
+@"tun-mtu-extra", @"tun-mtu", @"txqueuelen", @"udp-mtu", \
+/* UNSAFE: @"up", */ \
+@"up-delay", @"up-restart", @"use-prediction-resistance", @"user", @"username-as-common-name", \
+@"verb", @"verify-client-cert", @"verify-hash", @"verify-x509-name", @"version", @"vlan-accept", \
+@"vlan-pvid", @"vlan-tagging", \
+@"windows-driver", @"win-sys", @"writepid", \
+@"x509-track", @"x509-username-field" \
+]
 
 //*************************************************************************************************
 // Array of arrays with info about deprecated and removed options. Each array entry is an array with:
