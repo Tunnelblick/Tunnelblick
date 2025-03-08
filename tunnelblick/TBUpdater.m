@@ -548,10 +548,10 @@ extern TunnelblickInfo * gTbInfo;
                              @"startDownloadingAppcastForcingCheck: %s: Will load appcast from '%@'",
                              CSTRING_FROM_BOOL(forced.boolValue), feedURLString]];
 
-    appcastDownloader = [[TBDownloader alloc] init];    // RELEASED in appcastDownloadFinishedWithMesssage:
     [appcastDownloader setUrlString: feedURLString];
+    appcastDownloader = [[TBDownloader alloc] init];    // RELEASED in appcastDownloadFinishedWithMessage:
     [appcastDownloader setDelegate: self];
-    [appcastDownloader setFinishedSelector: @selector(appcastDownloadFinishedWithMesssage:)];
+    [appcastDownloader setFinishedSelector: @selector(appcastDownloadFinishedWithMessage:)];
 
     appcastContents = [[NSMutableData alloc] init]; // RELEASED in processDownloadedAppcast
 
@@ -563,10 +563,10 @@ extern TunnelblickInfo * gTbInfo;
     [appcastDownloader startDownload];
 }
 
--(void) appcastDownloadFinishedWithMesssage: (NSString *) message {
+-(void) appcastDownloadFinishedWithMessage: (NSString *) message {
 
     [self appendUpdaterLog: [NSString stringWithFormat:
-                             @"appcastDownloadFinishedWithMesssage: '%@' invoked",
+                             @"appcastDownloadFinishedWithMessage: '%@' invoked",
                              message]];
 
     [self setCurrentlyChecking: NO];
