@@ -508,7 +508,7 @@ extern TunnelblickInfo * gTbInfo;
     }
 
     if (   ! forced.boolValue
-        && ( ! [self canCheckForUpdates: forced.boolValue] )  ) {
+        && ( ! [self canCheckForUpdatesForced: forced.boolValue] )  ) {
         [self appendUpdaterLog: @"checkIfAnUpdateIsAvailableForcingCheck: NO ignored because can't check for updates automatically"];
         return;
     }
@@ -525,7 +525,7 @@ extern TunnelblickInfo * gTbInfo;
     }
 }
 
--(BOOL) canCheckForUpdates: (BOOL) forced {
+-(BOOL) canCheckForUpdatesForced: (BOOL) forced {
 
     NSString * name = (  forced
                        ? nil
