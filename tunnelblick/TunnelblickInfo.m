@@ -162,21 +162,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return YES;
 }
 
--(NSString *) updateFeedURLString {
-
-    // Info.plist SUFeedURL value, which may be overridden by a forced preference
-
-    if (  ! updateFeedURLString  ) {
-        NSString * urlString = [self forcedPreferenceStringOrInfoPlistStringForKey: @"SUFeedURL"];
-        if (   urlString
-            && [self isString: urlString aValidURLWithKey: @"SUFeedURL"]  ) {
-            updateFeedURLString = [urlString retain];
-        }
-    }
-
-    return [[updateFeedURLString copy] autorelease];
-}
-
 -(nullable NSString *) updateTunnelblickAppcastURLString {
 
     // Appcast URL string for updating the Tunnelblick application,
