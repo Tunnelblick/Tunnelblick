@@ -249,7 +249,7 @@ extern TunnelblickInfo * gTbInfo;
             isAppUpdate = FALSE;
 
             // TODO fill in downloadedUpdatePath, etc. variables
-            [self appendUpdaterLog: @"initFor: argument must be 'application' or 'configuration'"];
+            [self appendUpdaterLog: @"initFor: argument must be 'application': have not set up for updating configurations"];
             return nil;
 
         } else {
@@ -1557,7 +1557,9 @@ returnNO:
 -(NSString *) publicKey {
 
     if (  ! publicKey  ) {
-        publicKey = [[self.infoPlistDictionary objectForKey: appcastPubKeyInInfoPlist] retain];
+        publicKey = (  self.isAppUpdate
+                     ? [gTbInfo.updateTunnelblickPublicDSAKey retain]
+                     : nil);
         if (  ! publicKey  ) {
             if (  ! self.warnedNoPublicKey  ) {
                 [self notifyErrorMessage: @"Cannot get public key"];
@@ -1565,7 +1567,6 @@ returnNO:
                 [self setInhibitUpdating: TRUE];
             }
         }
-
     }
 
     return [[publicKey retain] autorelease];

@@ -212,17 +212,17 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return urlString;
 }
 
--(NSString *) updatePublicDSAKey {
+-(nullable NSString *) updateTunnelblickPublicDSAKey {
 
     // Info.plist SUPublicDSAKey value, which may be overridden by a forced preference
 
-    if (  ! updatePublicDSAKey  ) {
+    if (  ! updateTunnelblickPublicDSAKey  ) {
 
         NSString * key = [self forcedPreferenceStringOrInfoPlistStringForKey: @"SUPublicDSAKey"];
-        updatePublicDSAKey = [key retain];
+        updateTunnelblickPublicDSAKey = [key retain];
     }
 
-    return [[updatePublicDSAKey copy] autorelease];
+    return [[updateTunnelblickPublicDSAKey copy] autorelease];
 }
 
 -(NSString *) ipCheckURLString {

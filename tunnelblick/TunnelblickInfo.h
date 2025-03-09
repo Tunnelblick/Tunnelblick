@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString * defaultOpenvpnOpensslVersion;
     NSString * latestOpenvpnOpensslVersion;
 
-    NSString * updatePublicDSAKey;
+    NSString * updateTunnelblickPublicDSAKey;
 
     NSString * ipCheckURLString;
     NSURL    * ipCheckURL;
@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 // INFO ABOUT TUNNELBLICK.APP which might be overridden by a forced preference
 
 -(nullable NSString *) updateTunnelblickAppcastURLString;
--(NSString *) updatePublicDSAKey;
+-(nullable NSString *) updateTunnelblickPublicDSAKey;
 
 -(NSString *) ipCheckURLString;
 -(NSURL *)    ipCheckURL;
