@@ -5636,7 +5636,7 @@ static BOOL runningHookupThread = FALSE;
 	BOOL updateChecksForced    = (updateChecksForcedOnOrOff    &&   [gTbDefaults boolForKey:@"updateCheckAutomatically"]);
 	BOOL ipAddressChecksForced = (ipAddressChecksForcedOnOrOff && ! [gTbDefaults boolForKey:@"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"]);
 
-    NSString * updateCheckURLString = gTbInfo.updateFeedURLString;
+    NSString * updateCheckURLString = gTbInfo.updateTunnelblickAppcastURLString;
     NSURL * updateCheckURL    = [NSURL URLWithString: updateCheckURLString];
     if (  ! updateCheckURL  ) {
         NSLog(@"shouldContinueAfterAskingOrInformingAboutInternetAccess: SUFeedURL cannot be parsed: %@", updateCheckURLString);

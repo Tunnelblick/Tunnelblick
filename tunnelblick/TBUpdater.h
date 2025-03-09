@@ -61,10 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSDictionary * infoPlistDictionary; // This app's Info.plist data
 
-    NSString * appcastURLString;        // Obtain update information from this URL
-    //                                  // (From updateFeedURL preference, which must be forced
-    //                                  //  or from SUFeedURL in Info.plist)
-
     NSString * publicKey;               // Public key for the appcast and update signatures
     //                                  // (From SUPublicDSAKey in Info.plist)
 
