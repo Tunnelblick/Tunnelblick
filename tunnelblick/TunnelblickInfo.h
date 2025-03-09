@@ -83,6 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 // INFO ABOUT TUNNELBLICK.APP which might be overridden by a forced preference
 
 -(NSString *) updateFeedURLString;
+-(nullable NSString *) updateTunnelblickAppcastURLString;
 -(NSString *) updatePublicDSAKey;
 
 -(NSString *) ipCheckURLString;

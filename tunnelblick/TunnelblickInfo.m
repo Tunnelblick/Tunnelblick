@@ -177,6 +177,56 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[updateFeedURLString copy] autorelease];
 }
 
+-(nullable NSString *) updateTunnelblickAppcastURLString {
+
+    // Appcast URL string for updating the Tunnelblick application,
+    // including a -b or -s suffix for the beta or stable version.
+    //
+    // Cannot be cached because it depends on the "updateCheckBetas" preference,
+    // which can change at any time.
+
+    NSString * urlString = [gTbDefaults forcedStringForKey: @"updateFeedURL"];
+    if (  ! urlString  ) {
+        urlString = [self forcedPreferenceStringOrInfoPlistStringForKey: @"SUFeedURL"];
+    }
+
+    BOOL checkBeta = (   self.runningATunnelblickBeta
+                      || [gTbDefaults boolForKey: @"updateCheckBetas"]);
+
+    urlString = [self modifiedURLString: urlString forBeta: checkBeta];
+
+    return urlString;
+}
+
+-(nullable NSString *) modifiedURLString: (nullable NSString *) urlString
+                                 forBeta: (BOOL)                forBeta {
+
+    // Returns a URL string with a "-b" or "-s" inserted to get the
+    // beta or stable version of an appcast.
+
+    if (  ! [urlString hasPrefix: @"https://"]  ) {
+        if (  urlString) {
+            NSLog(@"URL not 'https://': %@", urlString);
+        }
+        return nil;
+    }
+
+    // Strip https:// because stringByDeletingPathExtension changes the "//" to "/"
+    urlString = [urlString substringFromIndex: @"https://".length];
+
+    // Modify to insert "-b" or "-s" to get beta or stable update version
+    // And restore "https://"
+    NSString * urlWithoutExtension = [urlString stringByDeletingPathExtension];
+    NSString * suffix = (  forBeta
+                         ? @"-b"
+                         : @"-s");
+    urlString = [NSString stringWithFormat:
+                 @"https://%@%@.%@",
+                 urlWithoutExtension, suffix, urlString.pathExtension];
+
+    return urlString;
+}
+
 -(NSString *) updatePublicDSAKey {
 
     // Info.plist SUPublicDSAKey value, which may be overridden by a forced preference
