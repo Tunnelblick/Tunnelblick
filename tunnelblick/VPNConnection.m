@@ -3809,6 +3809,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 
+    if (  expected.count == 1  ) {
+        NSString * first = expected.firstObject;
+        if (  first.length == 0  ) {
+            [self addToLog: @"Warning: Empty expected DNS address. It is likely that no DNS address was pushed by the VPN server."];
+            return;
+        }
+    }
+
     // Make sure all expected addresses are present
     NSString * address;
     NSEnumerator * e = [expected objectEnumerator];
