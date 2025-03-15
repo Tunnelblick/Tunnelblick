@@ -67,6 +67,8 @@ BOOL displayNameIsValid(NSString * newName, BOOL doBeepOnError);
 
 NSMutableString * encodeSlashesAndPeriods(NSString * s);
 
+NSString     * valueIfStringOtherwiseNil(id value);
+
 NSString     * stringForLog             (NSString * outputString,
                                          NSString * header);
 

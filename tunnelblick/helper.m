@@ -1515,6 +1515,19 @@ NSMutableString * encodeSlashesAndPeriods(NSString * s)
     return result;
 }
 
+NSString * valueIfStringOtherwiseNil(id value) {
+
+    if (  [[value class] isSubclassOfClass: [NSString class]]  ) {
+        return value;
+    }
+
+    if (  value  ) {
+        NSLog(@"'%@' must be a string, it is a %@", value, [value class]);
+    }
+
+    return nil;
+}
+
 NSString * copyrightNotice(void)
 {
     NSDateFormatter * dateFormat = [[[NSDateFormatter alloc] init] autorelease];
