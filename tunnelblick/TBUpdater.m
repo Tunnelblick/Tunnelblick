@@ -549,8 +549,8 @@ extern TunnelblickInfo * gTbInfo;
                              @"startDownloadingAppcastForcingCheck: %s: Will load appcast from '%@'",
                              CSTRING_FROM_BOOL(forced.boolValue), feedURLString]];
 
-    [appcastDownloader setUrlString: feedURLString];
     appcastDownloader = [[TBDownloader alloc] init];    // RELEASED in appcastDownloadFinishedWithMessage:
+    [appcastDownloader setUrlString: feedURLString];
     [appcastDownloader setDelegate: self];
     [appcastDownloader setFinishedSelector: @selector(appcastDownloadFinishedWithMessage:)];
 
