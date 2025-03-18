@@ -4990,9 +4990,11 @@ static void signal_handler(int signalNumber)
 			welcomeURLString = [@"file://" stringByAppendingString: welcomeIndexHtmlPath];
 		} else {
             welcomeURLString = [gTbDefaults forcedStringForKey: @"welcomeURL"];
-            if (  ! [NSURL URLWithString: welcomeURLString]  ) {
-                NSLog(@"Unable to parse as a URL: %@", welcomeURLString);
-                welcomeURLString = nil;
+            if (  welcomeURLString  ) {
+                if (  ! [NSURL URLWithString: welcomeURLString]  ) {
+                    NSLog(@"Unable to parse as a URL: %@", welcomeURLString);
+                    welcomeURLString = nil;
+                }
             }
 		}
 	}
