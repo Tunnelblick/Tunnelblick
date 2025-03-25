@@ -25,17 +25,16 @@
  
  It is a modified version of SampleD.c, a sample program supplied by Apple.
 
- It is normally invoked with no arguments, when it is invoked because data is available on the socket.
+ It is invoked with no arguments.
 
- However, it is called with one argument, "load", when first loaded (via a "RunAtLoad" entry in a different launchd .plist).
- That would usually happen only once when the system boots but also happens during installation when tunnelblickd is loaded.
-
- When the "load" argument is present:
-    1. tunnelblickd checks for the presence of a file, /Library/Application Support/Tunnelblick/restore-secondary.txt.
+ When tunnelblickd detects that it is on the first run since boot:
+    1. it checks for the presence of a file, /Library/Application Support/Tunnelblick/restore-secondary.txt.
        if present, tunnelblickd will enable each service listed in a separate line in the file and then delete the file.
     2. tunnelblickd checks for the presence of a file, /Library/Application Support/Tunnelblick/restore-ipv6.txt.
        if present, tunnelblickd will restore IPv6 to "Automatic" for each service listed in a separate line in the file and then delete the file.
-
+    3. It deletes the contents of the folder at L_AS_T_EXPECT_DISCONNECT_FOLDER_PATH.
+    4. It deletes /Library/Application Support/Tunnelblick/shutting-down-computer.txt.
+ 
  */
 
 #import <arpa/inet.h>
