@@ -137,6 +137,8 @@
 
 #define L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH        @"/Library/Application Support/Tunnelblick/forced-preferences.plist"
 
+#define L_AS_T_DEBUG_APP_RESOURCES_PATH               @"/Library/Application Support/Tunnelblick/debug-app-resources-path.txt"
+
 #define L_AS_T_TUNNELBLICKD_HASH_PATH                 @"/Library/Application Support/Tunnelblick/tunnelblickd-hash.txt"
 #define L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH @"/Library/Application Support/Tunnelblick/tunnelblickd-launchctl-plist-hash.txt"
 

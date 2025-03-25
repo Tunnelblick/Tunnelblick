@@ -2875,6 +2875,32 @@ int main(int argc, char *argv[]) {
 
     securelyDeleteItemIfItExists(@"/Library/Application Support/tunnelblickd");
 
+    // Create or delete L_AS_T_DEBUG_APP_RESOURCES_PATH
+#ifdef TBDebug
+    // A debug version of Tunnelblick.app can be anywhere, a non-debug version can only be in /Applications.
+    // So when securing a debug version, store the absolute path to the app's Resources
+    // folder, so tunnelblickd can retrieve it to construct a path to tunnelblick-helper.
+    NSError * err;
+    BOOL success = [appResourcesPath writeToFile: L_AS_T_DEBUG_APP_RESOURCES_PATH
+                                      atomically: YES
+                                        encoding: NSUTF8StringEncoding
+                                           error: &err];
+    if (  success  ) {
+        appendLog([NSString stringWithFormat: @"Wrote '%@' to %@", appResourcesPath, L_AS_T_DEBUG_APP_RESOURCES_PATH]);
+    } else {
+        appendLog([NSString stringWithFormat: @"Could not write %@", L_AS_T_DEBUG_APP_RESOURCES_PATH]);
+        errorExit();
+    }
+    appendLog([NSString stringWithFormat: @"Wrote '%@' to %@", appResourcesPath, L_AS_T_DEBUG_APP_RESOURCES_PATH]);
+#else
+    // A non-debug version of Tunnelblick.app is always in /Applications by the time it starts using tunnelblickd.
+    // A non-debug version of tunnelblickd can thus always find tunnelblick-helper in /Applications/Tunnelblick.app/Contents/Resources.
+    if (  [gFileMgr fileExistsAtPath: L_AS_T_DEBUG_APP_RESOURCES_PATH]  ) {
+        securelyDeleteItem(L_AS_T_DEBUG_APP_RESOURCES_PATH);
+        appendLog([NSString stringWithFormat: @"Deleted %@", L_AS_T_DEBUG_APP_RESOURCES_PATH]);
+    }
+#endif
+
     //**************************************************************************************************************************
     // (2) If INSTALLER_COPY_APP is set:
     //     Then move /Applications/XXXXX.app to the Trash, then copy this app to /Applications/XXXXX.app
