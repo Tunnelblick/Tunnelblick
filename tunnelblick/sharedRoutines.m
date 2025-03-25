@@ -310,12 +310,12 @@ BOOL needToReplaceLaunchDaemon(void) {
     BOOL tunnelblickdPlistOK = (   [fm fileExistsAtPath:    TUNNELBLICKD_PLIST_PATH]
                                 && checkOwnerAndPermissions(TUNNELBLICKD_PLIST_PATH,  0, 0, PERMS_SECURED_READABLE));
 
-    BOOL socketOK = [fm fileExistsAtPath: TUNNELBLICKD_SOCKET_PATH];
+    BOOL socketExists = [fm fileExistsAtPath: TUNNELBLICKD_SOCKET_PATH];
 
     if (   tunnelblickdHashOK
         && launchctlPlistHashOK
         && tunnelblickdPlistOK
-        && socketOK  ) {
+        && socketExists  ) {
         NSString * previousDaemonHash = [[[NSString alloc] initWithData: previousDaemonHashData encoding: NSUTF8StringEncoding] autorelease];
         if (  previousDaemonHash == nil  ) {
             previousDaemonHash = @"yyy";
@@ -334,12 +334,12 @@ BOOL needToReplaceLaunchDaemon(void) {
                      && activePlistMatches  );
         if (  ! daemonOk  ) {
             NSString * msg = [NSString stringWithFormat: @"Need to replace and/or reload 'tunnelblickd':\n"
-                              @"    daemonHashesMatch  = %@\n"
-                              @"    plistHashesMatch   = %@\n"
-                              @"    activePlistMatches = %@",
-                              (daemonHashesMatch  ? @"YES" : @"NO"),
-                              (plistHashesMatch      ? @"YES" : @"NO"),
-                              (activePlistMatches ? @"YES" : @"NO")];
+                              @"    daemonHashesMatch  = %s\n"
+                              @"    plistHashesMatch   = %s\n"
+                              @"    activePlistMatches = %s",
+                              CSTRING_FROM_BOOL(daemonHashesMatch),
+                              CSTRING_FROM_BOOL(plistHashesMatch),
+                              CSTRING_FROM_BOOL(activePlistMatches)];
             appendLog(msg);
             return TRUE;
         }
@@ -347,14 +347,14 @@ BOOL needToReplaceLaunchDaemon(void) {
 
     if (  ! daemonOk  ) {
         NSString * msg = [NSString stringWithFormat: @"Need to replace and/or reload 'tunnelblickd':\n"
-                          @"    tunnelblickdHashOK   = %@\n"
-                          @"    launchctlPlistHashOK = %@\n"
-                          @"    tunnelblickdPlistOK  = %@\n"
-                          @"    socketOK             = %@",
-                          (tunnelblickdHashOK    ? @"YES" : @"NO"),
-                          (launchctlPlistHashOK    ? @"YES" : @"NO"),
-                          (tunnelblickdPlistOK    ? @"YES" : @"NO"),
-                          (socketOK                ? @"YES" : @"NO")];
+                          @"    tunnelblickdHashOK   = %s\n"
+                          @"    launchctlPlistHashOK = %s\n"
+                          @"    tunnelblickdPlistOK  = %s\n"
+                          @"    socketExists         = %s",
+                          CSTRING_FROM_BOOL(tunnelblickdHashOK),
+                          CSTRING_FROM_BOOL(launchctlPlistHashOK),
+                          CSTRING_FROM_BOOL(tunnelblickdPlistOK),
+                          CSTRING_FROM_BOOL(socketExists)];
         appendLog(msg);
         return TRUE;
     }
