@@ -84,8 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(nullable NSString *) updateTunnelblickAppcastURLString;
 -(nullable NSString *) updateTunnelblickPublicDSAKey;
 
--(NSString *) ipCheckURLString;
--(NSURL *)    ipCheckURL;
+-(nullable NSString *) ipCheckURLString;
+-(nullable NSURL *)    ipCheckURL;
 
 // INFO ABOUT THE SYSTEM
 

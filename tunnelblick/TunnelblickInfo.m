@@ -225,7 +225,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[updateTunnelblickPublicDSAKey copy] autorelease];
 }
 
--(NSString *) ipCheckURLString {
+-(nullable NSString *) ipCheckURLString {
 
     // String from forced preference IPCheckURL (which is a string) if present, otherwise
     // string from Info.plist IPCheckURL (also a string).
@@ -241,7 +241,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     return [[ipCheckURLString copy] autorelease];
 }
 
--(NSURL    *) ipCheckURL {
+-(nullable NSURL    *) ipCheckURL {
 
     // URL from forced preference IPCheckURL (which is a string) if present, otherwise
     // URL from Info.plist IPCheckURL (also a string).
