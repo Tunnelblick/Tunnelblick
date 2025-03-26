@@ -6075,7 +6075,7 @@ static BOOL runningHookupThread = FALSE;
         [self terminateBecause: terminatingBecauseOfError];
     }
     
-    NSString * prompt = [[[NSLocalizedString(@" Tunnelblick must be installed in Applications.\n\n", @"Window text")
+    NSString * prompt = [[[NSLocalizedString(@" Tunnelblick must be installed.\n\n", @"Window text")
                            stringByAppendingString: authorizationText]
                           stringByAppendingString: signatureWarningText]
                          stringByAppendingString: plistMsg];
@@ -6240,7 +6240,7 @@ static BOOL runningHookupThread = FALSE;
     BOOL appended = FALSE;
 	NSUInteger operation = installFlags | INSTALLER_OPERATION_MASK;
     NSMutableString * msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
-    if (  installFlags & INSTALLER_COPY_APP                   ) { [msg appendString: NSLocalizedString(@"  • Be installed in /Applications as Tunnelblick\n",				  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
+    if (  installFlags & INSTALLER_COPY_APP                   ) { [msg appendString: NSLocalizedString(@"  • Be installed\n",				                                  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
     if (  installFlags & INSTALLER_SECURE_APP                 ) { [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
 	if (  installFlags & INSTALLER_SECURE_TBLKS               ) { [msg appendString: NSLocalizedString(@"  • Secure configurations\n",										  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
     if (  tblksToInstall                                      ) { [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n",							  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }

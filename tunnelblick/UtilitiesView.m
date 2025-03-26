@@ -133,7 +133,7 @@ extern TBUserDefaults * gTbDefaults;
 	[utilitiesUninstallButton
 	  setTitle: NSLocalizedString(@"Uninstall Tunnelblick...", @"Button")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Click to uninstall Tunnelblick.</p>\n\n"
-                                                           @"<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>",
+                                                           @"<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>",
 														   @"HTML info for the 'Uninstall Tunnelblick...' button."))];
     BOOL tunnelblickIsInApplicationsFolder = [[[NSBundle mainBundle] bundlePath] isEqualToString: @"/Applications/Tunnelblick.app"];
     [utilitiesUninstallButton setEnabled: tunnelblickIsInApplicationsFolder];
