@@ -891,8 +891,8 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • Деинсталира една конфигурация\n";
 
-/* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Да се инсталира в /Applications като Tunnelblick\n";
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • да бъде инсталиран\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Промени притежанието и правата на програмата за да я подсигури\n";
@@ -931,7 +931,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = " Принудителните настройки също ще бъдат инсталирани или заменени.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick трябва да бъде инсталиран в Applications.\n\n";
+" Tunnelblick must be installed.\n\n" = " Tunnelblick трябва да бъде инсталиран.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick се нуждае от администраторски достъп, за да може автоматично да се свързва с '%@' когато компютъра се стартира.";
@@ -2377,7 +2377,7 @@
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Изберете за да инсталирате/деинсталирате 'tun' и 'tap' системни разширения.</p>\n\n<p>Виж <a href=\"https://tunnelblick.net/cInstallKexts\">Инсталиране на 'tun' и 'tap' системни разширения.</a> [tunnelblick.net] за повече детайли.</p><p><strong>Неактивна опция</strong> освеен ако Tunnelblick е инсталиран на macOS Big Sur или по-нова версия.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Натиснете за да деинсталирате Tunnelblick.</p>\n\n<p><strong>Неактивна опция</strong> ако Tunnelblick не е инсталиран в /Applications.</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Избери, за да деинсталираш Tunnelblick.</p>\n\n<p><strong>Неактивно</strong> ако Tunnelblick не е инсталиран.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Копира информация в клипборда, за да се помогне анализа на проблеми.</p><p>Информацията включва версия на софтуера и настройките му, конфигурационният файл на OpenVPN, мрежови настройки и други.</p><p>Чувствителна информация за сертификата не се включва, но данни като IP адреси и URL, които <em>може</em> да са конфиденциални се включват. Добре е да прегледате информацията и да премахнете информация, която искате да запазите в тайна преди да изпратите email или да публикувате публично.</p>";

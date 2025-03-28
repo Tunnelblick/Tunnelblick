@@ -891,8 +891,8 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • 移除了一个配置\n";
 
-/* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • 采用 Tunnelblick 的名字安装到 /应用程序 中\n";
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • 被安装\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • 改变程序的所有权和访问权限以保护此程序\n";
@@ -931,7 +931,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = "系统内建的固定偏好设置也将被安装或者替换.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick 必须安装在应用程序里.\n\n";
+" Tunnelblick must be installed.\n\n" = " Tunnelblick 必须已经安装\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick 需要计算机管理员的授权才可在计算机启动时自动连接到 '%@'.";
@@ -2383,7 +2383,7 @@
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>点击以安装或卸载Tunnelblick的tun和tap系统扩展。</p>\n\n<p>另见<a href=\"https://tunnelblick.net/cInstallKexts.html\">安装Tunnelblick的tun和tap系统扩展</a> [tunnelblick.net] 的详情。</p><p><strong>禁用</strong>除非Tunnelblick在macOS Big Sur或以后版本上运行。</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>点击来卸载 Tunnelblick 。</p>\n\n<p><strong>此动作已被禁用</strong>，如果 Tunnelblick 没有被安装到 “/应用程序” 文件夹下。</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>点击来卸载 Tunnelblick 。</p>\n\n<p><strong>此动作已被禁用</strong>，如果 Tunnelblick 没有被安装。</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>复制信息到剪贴板以帮助诊断问题。</p><p>这些信息中包含软件版本和设置，OpenVPN配置文件，网络设置等。</p><p>不会包含敏感的信息，但是诸如IP和URL等<em>可能</em>私密的信息将会被包含。您应该在通过电子邮件发送或公开发表它们之前仔细检查这些信息并移除任何您希望保持保密的信息。</p>";

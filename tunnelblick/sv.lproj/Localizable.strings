@@ -891,8 +891,8 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • Avinstallera en konfiguration\n";
 
-/* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Installeras i /Applications som Tunnelblick\n";
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • Installeras\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Ändra ägarrättigheter och tillstånd för programmet för att säkra det\n";
@@ -931,7 +931,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = " Även tvingande inställningar kommer att installeras eller ersättas.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick måste installeras i Program.\n\n";
+" Tunnelblick must be installed.\n\n" = " Tunnelblick måste installeras.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick behöver administratörsrättigheter för att automatiskt kunna ansluta till '%@' när datorn startas.";
@@ -2383,7 +2383,7 @@
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Klicka för att installera eller avinstallera Tunnelblicks tun- och tap-tillägg.</p>\n\n<p>Se <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installerar Tunnelblicks tun- och tap-tillägg</a> [tunnelblick.net] för detaljer.</p><p><strong>Inaktiverad</strong> om inte Tunnelblick körs på macOS Big Sur eller senare version.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klicka för att avinstallera Tunnelblick.</p>\n\n<p><strong>Ej tillgängligt</strong> om Tunnelblick inte är installerat i /Applications.</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Klicka för att avinstallera Tunnelblick.</p>\n\n<p><strong>Ej tillgängligt</strong> om Tunnelblick inte är installerat.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopierar information till Utklippshanteraren för att underlätta felsökning av problem.</p><p>Informationen inkluderar versioner av mjukvara, inställningar, konfigurationsfilen för OpenVPN, nätverksinställningar och annat.</p><p>Känslig information om certifikat inkluderas inte, men data som IP-adresser och URL: er som <em>kan</em> vara konfidentiella inkluderas. Du bör gå igenom informationen och ta bort allt som du vill hålla hemligt innan du skickar den per e-post eller postar den offentligt.</p>";

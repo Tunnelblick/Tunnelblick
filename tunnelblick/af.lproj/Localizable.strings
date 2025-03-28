@@ -843,9 +843,6 @@
 "    • Uninstall one configuration\n" = "    • Verwyder een konfigurasie\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Geinstalleer word in /Applications as Tunnelblick\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Verander eienaarskap en toestemmings van die program om dit te verseker\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -880,9 +877,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Gedwingde voorkeure sal ook geinstalleer of vervang word.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick moet in Applications geinstalleer word.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick benodig rekenaar administrateur magtiging so dat dit kan verbind automaties '%@' waneer die rekenaar begin.";
@@ -2267,9 +2261,6 @@
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Klik om Tunnelblick se tun- en tikstelseluitbreidings te installeer of te verwyder.</p>\n\n<p>Sien <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installering van Tunnelblick se Tun and Tap System Extensions </a> [tunnelblick.net] vir besonderhede.</p><p><strong>Uitgeskakel</strong> tensy Tunnelblick op MacOS Big Sur of later werk.</p>";
-
-/* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klik om Tunnelblick te verwyder.</p><p>\n\n<strong>Deaktiveer</strong> as Tunnelblick nie in /Applications geïnstalleer is nie.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p> Kopieer inligting na die klembord om probleme te diagnoseer. </p><p> Die inligting bevat sagteware weergawes en instellings, die OpenVPN-konfigurasielêer, netwerkinstellings en meer. </p><p> Informasie oor sensitiewe sertifikate is nie ingesluit nie, maar data soos IP-adresse en URL's wat vertroulik <em>mag</em> wees, is ingesluit. U moet die inligting ondersoek en alles verwyder wat u geheim wil hou voordat u dit in 'n e-pos of in die openbaar stuur. </p>";

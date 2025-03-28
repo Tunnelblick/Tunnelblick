@@ -891,8 +891,8 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • Видалено одну конфігурацію\n";
 
-/* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • бути встановлений до /Applications як Tunnelblick\n";
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • Бути інстальованим\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Змінити власника і дозволи програми, щоб зберегти її\n";
@@ -931,7 +931,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = " Примусові параметри теж будуть встановлені або замінені.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick повинен бути встановлений в 'Програмах'.\n\n";
+" Tunnelblick must be installed.\n\n" = " Tunnelblick має бути інстальованим.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick потребує авторизації адміністратора для автоматичного з'єднання '%@' під час запуску комп'ютера.";
@@ -1088,6 +1088,9 @@
 
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Виникла помилка під час завантаження оновлення.\n\nДодаткова інформація в журналі\n\n%@";
+
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Виникла помилка під час отримання інформації про оновлення.\n\n%1$@Додаткова інформація в журналі\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Сталася помилка під час спроби запуску %@";
@@ -1682,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Облікові дані з ім'ям %1$@ не можуть бути видалені:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Виникла помилка '%@'.\n\n";
 
 /* Window text */
 "The file %@ is empty" = "Порожній файл %@";
@@ -2377,7 +2383,7 @@
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Натисніть щоб встановити або видалити системні розширення Tunnelblick tun і tap.</p>\n\n<p>Для додаткової інформації дивись <a href=\"https://tunnelblick.net/cInstallKexts.html\">Встановлення системних розширень Tunnelblick's Tun і Tap</a> [tunnelblick.net]</p><p><strong>Не активні</strong> поки Tunnelblick не запущений в середовищі macOS Big Sur або новіше.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Натисніть для видалення Tunnelblick.</p>\n\n<p><strong>Не активно</strong> якщо Tunnelblick не встановлено в /Applications.</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Натисніть для видалення Tunnelblick</p>\n\n<p><strong>Не активно</strong> якщо Tunnelblick не встановлено.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Копіює інформацію в Буферу обміну для допомоги в діагностуванні проблем.</p><p>Інформація містить версію программи та її налаштування, файл конфігурації OpenVPN, мережеві налаштування та інше.</p><p>Чуттєва інформація сертифікату виключена, проте IP адреса та URL, які <em>можуть</em> бути конфіденційними присутні. Ви повинні перевірити інформацію та видалити те, що бажаєте залишити в секреті перед відправкою електронною поштою або оприлюдненням.</p>";

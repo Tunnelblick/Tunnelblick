@@ -840,9 +840,6 @@
 "    • Uninstall one configuration\n" = "    • Sanidua usanidi mmoja\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Sakinishwa katika /Programu kama Tunnelblick\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Badilisha umiliki na ruhusa za programu ili kuilinda\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -877,9 +874,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Mapendeleo ya kulazimishwa pia yatasakinishwa au kubadilishwa.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick lazima isakinishwe katika Programu.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick inahitaji uidhinishaji wa msimamizi wa kompyuta ili iweze kuunganisha kiotomatiki '%@' kompyuta inapoanza.";

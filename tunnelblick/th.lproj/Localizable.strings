@@ -862,9 +862,6 @@
 "    • Uninstall one configuration\n" = "    • ถอนการติดตั้งคอนฟิกเกอเรชันจำนวน 1 ชุด\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • แอปปลิเคชั่นนี้ได้ถูกติดตั้งแล้ว มีชื่อว่า Tunnelblick\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • เพื่อความปลอดภัยของแอปปลิเคชั่น ให้เปลี่ยนการเป็นเจ้าของและสิทธ์การเข้าถึง\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -899,9 +896,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " การตั้งค่าบังคับจะถูกติดตั้งหรือแทนที่ด้วย\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " จะต้องติดตั้ง Tunnelblick ในไดเรกทอร์รี่ Applications เท่านั้น\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick ต้องใช้สิทธิ์ของผู้ดูแลระบบคอมพิวเตอร์เพื่อให้สามารถเชื่อมต่อ '%@' โดยอัตโนมัติเมื่อคอมพิวเตอร์เริ่มต้นทำงานหรือเปิดเครื่อง";

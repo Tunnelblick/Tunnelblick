@@ -301,7 +301,7 @@
 
 /* Menu item
    Menu item. '%1.2f' will be replaced with a decimal number such as '45.5', and the '%%' will be replaced by a single percentage sign ('%'). */
-"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "Ein Tunnelblick-Update ist verfügbar (zu %1.2f%% heruntergeladen)…";
+"A Tunnelblick Update is Available (%1.2f%% downloaded)..." = "Ein Tunnelblick Update ist verfügbar (zu %1.2f%% heruntergeladen)…";
 
 /* Menu item */
 "A Tunnelblick Update is Available and Downloaded..." = "Ein Tunnelblick-Update ist verfügbar und heruntergeladen…";
@@ -891,8 +891,8 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • Eine Konfiguration deinstallieren\n";
 
-/* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • In /Applications als Tunnelblick installiert werden\n";
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • installiert sein\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • zur Absicherung Eigentümer und Rechte des Programms ändern\n";
@@ -931,7 +931,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = " Erzwungene Einstellungen werden ebenfalls installiert oder ersetzt.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick muss im Programme-Ordner installiert sein.\n\n";
+" Tunnelblick must be installed.\n\n" = " Tunnelblick muss installiert sein.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick benötigt Administrator-Rechte, um beim Hochfahren des Computers automatisch „%@“ zu verbinden.";
@@ -2383,7 +2383,7 @@
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Klicken um Tunnelblicks Tun- und Tap-Systemerweiterungen zu installieren oder zu deinstallieren.</p>\n\n<p>Siehe <a href=\"https://tunnelblick.net/cInstallKexts\">Tunnelblicks Tun- und Tap-Systemerweiterungen installieren</a> [tunnelblick.net] für weitere Informationen.</p><p><strong>Deaktiviert</strong>, außer Tunnelblick läuft unter macOS Big Sur oder neuer.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klicken, um Tunnelblick zu deinstallieren.</p>\n\n<p><strong>Deaktiviert</strong>,  wenn Tunnelblick nicht unter /Programme installiert ist.</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Klicken um Tunnelblick zu deinstallieren.</p>\n\n<p><strong>Deaktiviert</strong>, wenn Tunnelblick nicht installiert ist.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopiert Informationen zur Fehlersuche in die Zwischenablage.</p><p>Diese Informationen beinhalten unter anderem Softwareversionen und Einstellungen, die OpenVPN Konfigurationsdatei und Netzwerkeinstellung.</p><p>Vertrauliche Informationen zu Zertifikaten sind nicht beinhaltet, jedoch Daten wie IP-Adressen und URLs, die <em>möglicherweise</em> vertraulich sind. Sie sollten die Informationen prüfen und alles, was Sie geheimhalten möchten, vor dem Versenden per E-Mail oder dem Veröffentlichen löschen.</p>";

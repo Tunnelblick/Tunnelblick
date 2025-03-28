@@ -883,9 +883,6 @@
 "    • Uninstall one configuration\n" = "    הסר קונפיגורציה אחת\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  להיות מותקן בApplications/ בתור Tunnelblick\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  לשנות בעלות ואישורים על מנת לאבטח את האפליקציה\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -920,9 +917,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " העדפות מאולצות גם כן יותקנו או יוחלפו.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick מוכרח להיות מותקן באפליקציות.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick זקוק לקבל הרשאה כדי שהחיבור ל%@ יתחבר באופן אוטומטי כשהמחשב עולה.";

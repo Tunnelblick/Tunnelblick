@@ -835,9 +835,6 @@
 "    • Uninstall one configuration\n" = "    • Deinstaliraj jednu konfiguraciju\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Biće instaliran u /Applications kao Tunnelblick\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Izvrši promenu vlasništva i dozvola na aplikaciji kako bi je obezbedio\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -872,9 +869,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Forsirana podešavanja će takođe biti instalirana ili izmenjena.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick mora biti instaliran u okviru Applications direktorijuma.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunneblick zahteva autorizaciju od strane administratora kako bi mogao da se automatski poveže na '%@' prilikom pokretanja računara.";
@@ -2259,9 +2253,6 @@
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Klikni kako bi instalirao ili obrisao Tunnelblick tun i tap sistemske ekstenzije.</p>\n\n<p>Posetite <a href=\"https://tunnelblick.net/cInstallKexts.html\">Instaliranje Tunnelblick Tun i Tap System ekstenzija</a> [tunnelblick.net] za dodatne informacije.</p><p><strong>Onemogućeno</strong> sve dok se Tunnelblickne bude izvršavao na macOS Big Sur sistemu.</p>";
-
-/* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klikni kako bi obrisao Tunnelblick.</p>\n\n<p><strong>Onemogućeno</strong> ukoliko Tunnelblick nije instaliran u /Applications.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Vrši kopiranje informacija u Clipboard zarad dijagnostike problema.</p><p>Informacije ukuljučuju verziju softvera i konfiguraciju, OpenVPN konfiguracioni fajl, podešavanja mreže i drugo.</p><p>Poverljive informacije o sertifikactu neće biti uključene, ali podaci poput IP adrese i adrese koje <em>mogu</em> biti od poverljive prirode će biti uključene. Pre nego što pošaljete e-mail ili omogućite javni pristup, potrebno je da izvršite proveru kopiranih informacija i uklonite ono što ne želite da podelite.</p>";

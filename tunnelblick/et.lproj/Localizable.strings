@@ -690,9 +690,6 @@
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Nõutud seadistused installeeritakse või asendatakse.\n\n";
 
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick peab olema installeeritud asukohas Applications.\n\n";
-
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick vajab administraatori nõusolekut automaatseks ühenduseks '%@' arvuti käivitamisel.";
 

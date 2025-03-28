@@ -891,8 +891,8 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • Odinštalovať jednu konfiguráciu\n";
 
-/* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Byť nainštalovaný v /Applications ako Tunnelblick\n";
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • Byť nainštalovaný\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Zmeniť vlastníctvo a prístupové práva k aplikácii pre väčšiu bezpečnosť\n";
@@ -931,7 +931,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = " Vynútené nastavenia budú tiež nainštalované alebo nahradené.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick musí byť nainštalovný do priečinku Aplikácie.\n\n";
+" Tunnelblick must be installed.\n\n" = " Tunnelblick musí byť nainštalovaný.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick vyžaduje autorizáciu správcu počítača, aby bolo možné automaticky pripojiť '%@' pri štarte počítača.";
@@ -2383,7 +2383,7 @@
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Kliknutím nainštalujete alebo odinštalujete Tunnelblick tun a tap systémové rozšírenia.</p>\n\n<p>Viď <a href=\"https://tunnelblick.net/cInstallKexts.html\">Inštalovanie Tunnelblick Tun a Tap systémových rozšírení</a> [tunnelblick.net] pre viac informácií.</p><p><strong>Zablokované</strong> pokiaľ Tunnelblick beží na macOS Big Sur alebo neskorších verziách.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Kliknite na odinštalovanie Tunnelblicku.</p>\n\n<p><strong>Zablokované</strong> pokiaľ Tunnelblick nie je nainštalovaný v /Applications.</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Kliknite na odinštalovanie Tunnelblicku.</p>\n\n<p><strong>Zablokované</strong> pokiaľ Tunnelblick nie je nainštalovaný.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Informácie budú skopírované do schránky, aby bolo možné diagnostikovať problém.</p><p>Skopírované informácie obsahujú verzie nainštalovaného softwaru, nastavenia a configuračné súbory OpenVPN, nastavenia siete a ďalšie informácie.</p><p>Senzitívne informácie ako certifikáty nie sú skopírované, je ale možné že informácie ako IP a URL adresy ktoré skopírované sú, <em>môžu</em> byť považované za dôverné. Prosím skontrolujte skopírované informácie a odstránte všetky vaše dôverné alebo tajné informácie predtým ako pošlete text alebo ho zverejníte.</p>";

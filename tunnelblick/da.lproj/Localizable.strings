@@ -892,9 +892,6 @@
 "    • Uninstall one configuration\n" = "    • Afinstaller en konfiguration\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Installer i /Applikationer som Tunnelblick\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Skift ejerskab og tilladelser til programmet for at sikre det\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -929,9 +926,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Tvungne indstillinger vil også blive tilføjet eller erstattet.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick skal installeres i Applikationer.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick kræver tilladelse fra computerens administrator for at forbinde automatisk '%@' når computeren starter.";
@@ -1088,6 +1082,9 @@
 
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Der opstod en fejl under forsøget på at downloade opdateringen.\n\nFor mere information, se loggen på\n\n%@";
+
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Der opstod en fejl under forsøget på at få oplysninger om opdateringer.\n\n%1$@For mere information, se loggen på\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Der opstod en fejl under et forsøg på at starte %@";
@@ -1682,6 +1679,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "De legitimationsoplysninger, navngivet %1$@ kunne ikke slettes:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Fejlen var '%@'\n\n";
 
 /* Window text */
 "The file %@ is empty" = "Filen %@ er tom";
@@ -2375,9 +2375,6 @@
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Klik for at installere eller afinstallere Tunnelblicks tun og tap systemudvidelser.</p>\n\n<p>Se <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installation af Tunnelblicks Tun & Tap systemudvidelser</a> [tunnelblick.net] for detaljer.</p><p><strong>Deaktiveret</strong> medmindre Tunnelblick kører på macOS Big Sur eller senere.</p>";
-
-/* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klik for at afinstallere Tunnelblick.</p>\n\n<p><strong>Deaktiveret</strong>, hvis Tunnelblick ikke er installeret i /Applications.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Kopierer informationen til udklipsholderen, for at hjælpe med at diagnostisere problemerne</p><p>Informationen inkluderer software versionen og indstillingerne, OpenVPN konfigurationsfilen, netværksindstillingerne og mere.</p><p>Sensitive certifikat informationer er ikke inkluderet, men data så som IP adresse og URL's som <em>kan</em> være fortrolige er inkluderet. Du bør undersøge informationerne, og fjerne det du ønsker skal holdes fortroligt, før du sender det i en email, eller publicerer det offentligt.</p>";

@@ -880,9 +880,6 @@
 "    • Uninstall one configuration\n" = "    • Avinstaller éin konfigurasjon\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Installerast i /Programmer som Tunnelblick ";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Endre eigarskap og rettar på programmet for å sikra det\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -917,9 +914,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Tvungne innstillingar vil også installerast eller vert erstatta.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick lyt innstallerast i programmappa.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick treng administratortilgang slik at han kan kopla '%@' automatisk når datamaskina startar.";
@@ -2115,9 +2109,6 @@
 
 /* HTML Info for security code checkbox */
 "<p>Allows for the additional entry of a security code when checked.</p>\n<p>This code is appended to the password during the authentication process. This enables the simultaneous use of authentication devices such as dongles together with the keychain to secure the password.</p>\n" = "<p>Tillater inntasting av ekstra tryggingskode når valet er markert.</p>\n<p>Denne koden blir lagt til passordet under autentiseringsprosessen. Dette mogleggjer samtidig bruk av eksterne autentiseringseiningar (dongles) saman med nøkkelringen for å sikra passordet.</p>\n";
-
-/* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Klikk for å avinstallere Tunnelblick.</p>\n\n<p><strong>Ikkje tilgjengeleg</strong> viss Tunnelblick ikkje er installert under /Applikasjoner.</p>";
 
 /* HTML text. */
 "<p>If you do not see a button to allow loading of system software by developer 'Jonathan Bullard', try to connect this configuration (which will fail), then look on the 'General' tab of 'Security & Privacy' in 'System Preferences' again.</p>" = "<p>Viss du ikkje ser ein knapp som tillèt innlasting av systemprogramvare av utviklar 'Jonathan Bullard', kan du prøva å kopla til denne konfigurasjonen (som vil mislykkast), så sjå på 'Generelt' -fana i 'Tryggleik og personvern' i Systemvalg 'igjen. </p>";

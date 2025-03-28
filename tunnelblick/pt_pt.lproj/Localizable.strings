@@ -397,7 +397,7 @@
 "Quit Tunnelblick" = "Sair do Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration" = "Renomear Pasta";
+"Rename Configuration" = "Renomear Configuração";
 
 /* Menu Item */
 "Revert Configuration..." = "Reverter Configuração…";
@@ -409,7 +409,7 @@
 "Show on Tunnelblick Menu" = "Mostrar no Menu";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
-"Using a different version of OpenVPN/OpenSSL..." = "Usando outra versão do OpenVPN/OpenSSL…";
+"Using a different version of OpenVPN/OpenSSL..." = "A usar uma versão diferente do OpenVPN/OpenSSL…";
 
 /* Menu item */
 "VPN Details..." = "Detalhes da VPN…";
@@ -424,7 +424,7 @@
 "Apply to all" = "Aplicar a todos";
 
 /* Checkbox Name */
-"Authenticate before connecting" = "Autentique antes de conectar-se";
+"Authenticate before connecting" = "Autentique-se antes de se conectar";
 
 /* Checkbox name */
 "Check for updates automatically" = "Verificar se existem atualizações automaticamente";
@@ -891,8 +891,8 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • Desinstalar uma configuração\n";
 
-/* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Ser instalado em /Aplicações como Tunnelblick\n";
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • Ser instalado\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Alterar as propriedades e permissões do programa para o proteger\n";
@@ -931,7 +931,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = " Preferências protegidas também vão ser instaladas ou substituídas.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " O Tunnelblick deve ser instalado em Aplicações.\n\n";
+" Tunnelblick must be installed.\n\n" = " Tunnelblick deverá ser instalado.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " O Tunnelblick precisa de autorização administrativa do computador para que possa automaticamente conectar '%@' quando o computador iniciar.";
@@ -2383,7 +2383,7 @@
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Clique para instalar ou desinstalar as extensões de sistema tun e tap do Tunnelblick.</p>\n\n<p>Ver <a href=\"https://tunnelblick.net/cInstallKexts.html\">Instalação de Extensões de Sistema Tun e Tap do Tunnelblick</a> [tunnelblick.net] para detalhes.</p><p><strong>Desativado</strong> caso o Tunnelblick esteja a correr em macOS Big Sur ou posterior.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Clique para desinstalar o Tunnelblick.</p>\n\n<p><strong>Desativado</strong> se o Tunnelblick não estiver instalado em /Applications.</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Clique para desinstalar o Tunnelblick.</p>\n\n<p><strong>Desativado</strong> se o Tunnelblick não estiver instalado.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Copia informação para o Clipboard para ajudar a diagnosticar problemas</p><p>Esta informação inclui versões de software e definições. a configuração OpenVPN, definições de rede, entre outros detalhes.</p><p>Informação sensível, como por exemplo certificados não é incluída, porém endereços de IP e URLs que <em>podem</em> ser confidenciais serão também incluídos. Deve examinar esta informação cuidadosamente e remover o que pretender manter secreto antes de nos enviar um email ou postar publicamente.</p>";

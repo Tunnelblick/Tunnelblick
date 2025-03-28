@@ -23,7 +23,7 @@
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
-"(None available)" = "（無）";
+"(None available)" = "(無)";
 
 /* Button */
 "1 MB" = "1 MB";
@@ -367,7 +367,7 @@
 "OpenVPN level %lu" = "OpenVPN %lu 級";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPN 等級 0 —— 除了很嚴重的問題，其餘都不輸出";
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN 日誌等級0 — 除了很嚴重的問題，其餘都不輸出";
 
 /* Menu Item */
 "OpenVPN level 11 - extremely verbose output" = "OpenVPN 11 級 —— 非常口語化的輸出";
@@ -376,16 +376,16 @@
 "OpenVPN level 3 - normal output" = "OpenVPN 等級 3—— 一般輸出";
 
 /* Menu Item */
-"OpenVPN level 4 - values for all options" = "OpenVPN 4 級 —— 輸出所有選項的值";
+"OpenVPN level 4 - values for all options" = "OpenVPN 日誌等級4 — 輸出所有選項的值";
 
 /* Menu Item */
-"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN 等級 5 —— 每個封包同時輸出「R」或「W」";
+"OpenVPN level 5 - \"R\" or \"W\" for each packet" = "OpenVPN 日誌等級5 — 每個封包同時輸出「R」或「W」";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN 等級 6 —— 非常口語化的輸出";
+"OpenVPN level 6 - very verbose output" = "OpenVPN 日誌等級6 — 非常詳細的輸出";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "OpenVPN 日誌等級依設定檔";
+"OpenVPN logging level set by the configuration" = "依設定檔設定OpenVPN 日誌等級";
 
 /* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
 "Problem using future versions of Tunnelblick..." = "使用未來版本 Tunnelblick 的問題...";
@@ -430,7 +430,7 @@
 "Check for updates automatically" = "自動檢查更新";
 
 /* Checkbox name */
-"Check for updates to beta versions" = "檢查更新至測試版";
+"Check for updates to beta versions" = "檢查更新至Beta測試版";
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "檢查連接後外部 IP 地址是否改變";
@@ -484,7 +484,7 @@
 "Download updates when found" = "當找到更新時下載";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "啟用 IPv6（tap only）";
+"Enable IPv6 (tap only)" = "啟用 IPv6(僅支援tap)";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "連線或斷線後清空 DNS 緩存";
@@ -547,7 +547,7 @@
 "Set nameserver (alternate 1)" = "設定域名解析伺服器 (替代選擇 1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 2)" = "設定域名解析伺服器（替代選擇 2）";
+"Set nameserver (alternate 2)" = "設定域名解析伺服器(替代選擇 2)";
 
 /* PopUpButton, System profile item */
 "Set nameserver" = "設定域名解析器";
@@ -892,9 +892,6 @@
 "    • Uninstall one configuration\n" = "    • 移除一個設定檔\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • 被安裝在 /Applications";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • 更改程式的擁有人及權限以加固此程序";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -929,9 +926,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " 内建的固定偏好設定也將被安裝或取代。\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick 必須被安裝在 Applications 資料夾內。\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick 需要有電腦管理員授權，才能在電腦啟動時自動連接 「%@」。";
@@ -1088,6 +1082,9 @@
 
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "嘗試下載更新時發生錯誤。\n\n若需更多資訊，請查看紀錄檔：\n\n%@";
+
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "嘗試下載更新時發生錯誤。\n\n錯誤訊息為: %1$@。若需要更多資訊，請查看紀錄檔：\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "當嘗試啟動 %@ 時發生錯誤";
@@ -1682,6 +1679,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "無法移除名為 %1$@ 的認證訊息：\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "發生的錯誤為:'%@'\n\n";
 
 /* Window text */
 "The file %@ is empty" = "檔案 %@ 是空白的";
@@ -2375,9 +2375,6 @@
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>點擊以安裝或解除安裝 Tunnelblick 的 tun 及 tap 系統擴充功能。</p>\n\n<p>詳情請見 <a href=\"https://tunnelblick.net/cInstallKexts.html\">安裝 Tunnelblick 的 Tun 及 Tap 系統擴充功能</a> [tunnelblick.net] 。</p><p>除非 Tunnelblick 執行在 macOS Big Sur 或之後的版本否則此按鈕將被<strong>停用</strong>。</p>";
-
-/* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>點擊以解除安裝 Tunnelblick。</p>\n\n<p>如果 Tunnelblick 並非被安裝在 /Applications 將<strong>被停用</strong> 。</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>複製有助診斷問題的訊息到剪貼簿。</p><p>該訊息包括軟體版本與選項、OpenVPN 設定檔、網路選項…等等。</p><p>敏感的的憑證訊息不會包含在內，但是<em>也許</em>會包含一些機密的訊息：例如 IP 位址和網址。你應該在寄送電子郵件或公開發佈前檢查這個訊息，並去除需要保密的部分。</p>";

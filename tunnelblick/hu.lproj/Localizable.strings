@@ -237,7 +237,7 @@
 "Show when connection status changes" = "Mutassa, ha a kapcsolat státusza megváltozott";
 
 /* Button */
-"Show while connecting and connected" = "Mutassa a kapcsolódás és a kapcsolat alatt";
+"Show while connecting and connected" = "Mutassa a kapcsolódási kísérlet és a csatlakozás ideje alatt";
 
 /* Button */
 "Show while connecting" = "Mutassa, kapcsolat közben";
@@ -631,7 +631,7 @@
 "'%@' has been disconnected" = "'%@' leválasztva";
 
 /* Window title */
-"A new version of Tunnelblick is available" = "Egy új Tunnelblick verzió elérhető";
+"A new version of Tunnelblick is available" = "Újabb Tunnelblick verzió elérhető";
 
 /* Window title */
 "Active connection" = "Aktív kapcsolat";
@@ -688,7 +688,7 @@
 "Error getting Tunnelblick update..." = "Hiba a Tunnelblick frissítés letöltésekor…";
 
 /* WIndow title */
-"Error getting VPN update..." = "Hiba a VPN frissítés letöltésénél…";
+"Error getting VPN update..." = "Hiba a VPN frissítés letöltésekor…";
 
 /* Window title */
 "File not found" = "Fájl nem található";
@@ -891,8 +891,8 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • Egy konfiguráció eltávolítása\n";
 
-/* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • A Tunnelblick az /Alkalmazások-ba lett telepítve\n";
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • Telepítése szükséges\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Tulajdonosok és jogosultságok lecserélése a programon, annak biztonságossá tételéhez\n";
@@ -931,7 +931,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = " A kényszerített beállításokat is telepítjük vagy felülírjuk.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " A Tunnelblick csak az Alkalmazások közé telepíthető.\n\n";
+" Tunnelblick must be installed.\n\n" = " A Tunnelblick telepítése szükséges.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " A Tunnelblicknek rendszergazdai jogosultságra van szüksége, hogy a számítógép bekapcsolásakor automatikusan csatlakozzon a(z) '%@' kapcsolathoz.";
@@ -2383,7 +2383,7 @@
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Kattintson a Tunnelblick tun és tap rendszerkiegészítőinek telepítéséhez vagy eltávolításához</p>\n\n<p>Nézze meg a <a href=\"https://tunnelblick.net/cInstallKexts.html\">Tunnelblick Tun és Tap Rendszerkiegészítők telepítése</a>[tunnelblick.net] linket a részletekért. </p><p><strong>Kikapcsolva</strong>kivéve ha a Tunnelblick a macOS Big Sur vagy későbbi verzióján fut.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Kattintson ide a Tunnelblick eltávolításához.</p>\n\n<p><strong>Inaktív</strong>, amennyiben a Tunnelblick nem az /Alkalmazások mappában került telepítésre</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Kattintson a Tunnelblick eltávolításához.</p>\n\n<p><strong>Nem elérhető</strong> ha a Tunnelblick nincs telepítve.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Információk másolása a vágólapra a probléma diagnosztizálásának segítéséhez.</p><p>Az információ tartalmazza a software verzióját és beállításait, az OpenVPN konfigurációs fájlt, hálózati beállításokat stb.</p><p>Érzékeny tanúsítvány információkat nem tartalmaz, de IP címeket és URL-eket, amik <em>esetlegesen</em> bizalmas adatok, tartalmazhat. Mielőtt elküldi e-mailben, vagy nyilvánossá teszi, át kell néznie és törölnie azokat, amiket titokban kíván tartani.</p>";

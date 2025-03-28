@@ -892,9 +892,6 @@
 "    • Uninstall one configuration\n" = "    • Удалить одну конфигурацию\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • быть установлен в папке /Applications, имя файла должно быть Tunnelblick\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Смена владельцев программых файлов и прав доступа для увеличения её безопасности\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -929,9 +926,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Принудительные параметры также будут установлены или заменены.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick должен быть установлен в Программы.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick требуются права администратора для автоматического подключения к '%@' при запуске компьютера.";
@@ -2381,9 +2375,6 @@
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Нажмите для установки или удаления системных раcширений tun и tap Tunnelblick</p>\n\n<p>Информация доступна по ссылке  <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net].</p><p><strong>Отключены</strong> если Tunellblick не запущен на macOS Big Sur или более поздних.</p>";
-
-/* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Нажмите для удаления Tunnelblick.</p>\n\n<p><strong>Отключено</strong>, если Tunnelblick не установлен /Applications.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Копирует информацию в Буфер Обмена для помощи в диагностике проблем.</p><p>Информация включает в себя версию и настройки программного обеспечения, конфигурационный файл OpenVPN, сетевые настройки и прочее.</p><p>Конфиденциальные данные сертификатов не включаются в отчёт, однако такая информация, как IP адреса и URL, которые <em>могут</em> быть приватными, включается. Вам следует изучить отчёт и убрать всё, что вы считаете конфиденциальным, перед отправкой его по электронной почте или общедоступной публикации</p>";

@@ -700,9 +700,6 @@
 "    • Uninstall one configuration\n" = "    • Bir konfiqurasiya silməlidir\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • /Proqramlar -da Tunnelblick adı altında quraşdırımalıdır\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Proqramın təhlükəsizliyini təmin etmək üçün sahiblik və icazəni dəyişməlidi\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -725,9 +722,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Məcburi üstünlüklər də ya əlavə olunacaq ya da əvəz ediləcək.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick Proqramlarda quraşdırılmalıdır.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick kompyuter başlayanda '%@'-i avtomatik qoşmaq üçün kompyuter administratorunun icazəsini tələb edir.";

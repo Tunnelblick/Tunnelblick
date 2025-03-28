@@ -891,8 +891,8 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "• Xoá bỏ một cấu hình\n";
 
-/* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "• Cài đặt Tunnelblock vào thư mục /Applications";
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • Được cài đặt\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "• Thay người dùng sở hữu và quyền của chương trình để bảo mật hơn";
@@ -931,7 +931,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = "Thiết đặt bắt buộc cũng sẽ được cài hoặc thay thế.";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = "Tunnelblick phải được cài đặt vào thư mục Application.\n\n";
+" Tunnelblick must be installed.\n\n" = " Tunnelblick phải được cài đặt.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = "Tunnelblick cần xác thực quyền điều hành máy tính để có thể tự động kết nối '%@' khi máy tính khởi động";
@@ -2383,7 +2383,7 @@
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Nhấp để cài đặt hoặc gỡ cài đặt Tun của Tunnelblick và nhấn vào tiện ích mở rộng hệ thống.</p>\n\n<p>Xem <a href=\"https://tunnelblick.net/cInstallKexts.html\">Cài đặt Tiện ích mở rộng hệ thống Tun và Tap của Tunnelblick</a> [tunnelblick.net]  để biết chi tiết.</p><p><strong>Tắt</strong> trừ khi Tunnelblick đang chạy trên macOS Big Sur trở lên.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Nhấp để gỡ cài đặt Tunnelblick.</p>\n\n<p><strong>Tắt</strong> nếu Tunnelblick không được cài đặt trong /Ứng dụng.</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Nhấp để gỡ cài đặt Tunnelblick.</p>\n\n<p><strong>Bị vô hiệu hóa</strong> nếu Tunnelblick chưa được cài đặt.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Sao chép thông tin vào Clipboard để giúp chẩn đoán sự cố.</p><p>Thông tin bao gồm các phiên bản và cài đặt phần mềm, tệp cấu hình OpenVPN, cài đặt mạng và hơn thế nữa.</p><p>Thông tin chứng chỉ nhạy cảm không được bao gồm, nhưng dữ liệu như địa chỉ IP và URL <em>có thể</em> được bảo mật. Bạn nên kiểm tra thông tin và xóa bất kỳ thứ gì bạn muốn giữ bí mật trước khi gửi nó trong email hoặc đăng công khai.</p>";

@@ -802,9 +802,6 @@
 "    • Uninstall one configuration\n" = "    • 1개 설정 삭제\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • /Applications 플더에 Tunnelblick 으로 설치 되어야 한다\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • 보안을 위해 프로그램의 소유자와 권한을 변경한다\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -839,9 +836,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " 강제된 환경설정이 설치되거나 교체될 것입니다.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick은 Applications에 설치되어야 합니다.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick이 컴퓨터가 시작할 때 자동으로 '%@'에 연결하기 위해서는 컴퓨터 관리자 권한이 필요합니다.";

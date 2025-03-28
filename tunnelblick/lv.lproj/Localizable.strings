@@ -864,9 +864,6 @@
 "    • Uninstall one configuration\n" = "    • Noņemt vienu konfigurāciju\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Instalēties mapē /Applications kā Tunnelblick\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Mainīt programmas īpašnieku un tiesības, lai uzlabotu drošību\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -901,9 +898,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Piespiedu iestatījumi arī tiks instalēti vai aizvietoti.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick ir jāuzstāda Lietotnēs.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick nepieciešama administratora autorizācija, lai varētu automātiski pieslēgties '%@', kad dators uzsāk darbu.";
@@ -2230,9 +2224,6 @@
 
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>You can modify the configurations so that they will be able to connect.</strong></p>\n" = "<p><strong>Jūs varat labot konfigurāciju tā, lai ar viņu varētu izveidot savienojumu..</strong></p>";
-
-/* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Spied, lai atiestatītu Tunnelblick.</p>\n\n<p><strong>Nav pieejams</strong> ja Tunnelblick nav instalēts /Applications mapē.</p>";
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p> Nokopē pēdējo sadaļu no konsoles log faila, lai pēc tam to varētu ielīmēt epstā vai jebkurā citā dokumentā. </p>\n<p> Log fails satur detaļas par Tunnelblick un OpenVPN darbību. Tas sevī iekļauj statusa ziņas un kļūdu paziņojumus, kas ir par garu, lai attēlotu lietotāja saskarnē. </p>";

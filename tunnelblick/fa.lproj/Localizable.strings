@@ -814,9 +814,6 @@
 "    • Uninstall one configuration\n" = "    • حذف یک پیکربندی\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  در پوشه /برنامه ها با نام Tunnelblick نصب شود\n";
-
-/* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • مالکیت و دسترسی برنامه را تغییر دهید تا آنرا امن نمایید\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
@@ -851,9 +848,6 @@
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " تنظیمات اجباری هم نصب یا جایگزین میشوند.\n\n";
-
-/* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " برنامه Tunnelblick باید در پوشه برنامه ها نصب شود.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " برنامه Tunnelblick نیاز به اجازه مدیر برای اتصال به '%@' در هنگام بارگزاری رایانه دارد.";

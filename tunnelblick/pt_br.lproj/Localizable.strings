@@ -891,8 +891,8 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • Desinstalar uma configuração\n";
 
-/* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Ser instalado na pasta /Aplicativos como Tunnelblick\n";
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • Seja instalado\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Mudar propriedade e permissões do programa para protegê-lo\n";
@@ -931,7 +931,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = " Preferências forçadas também serão instaladas ou substituídas.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick deve ser instalado em Aplicativos.\n\n";
+" Tunnelblick must be installed.\n\n" = " Tunnelblick deve ser instalado.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " O Tunnelblick precisa de autorização administrativa do computador para que possa automaticamente conectar '%@' quando o computador iniciar.";
@@ -1088,6 +1088,9 @@
 
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Um erro ocorreu ao tentar baixar a atualização.\n\nPara mais informações veja o log em\n\n%@";
+
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Um erro ocorreu ao tentar obter novas atualizações.\n\n%1$@Para mais informações veja o log em\n\n%2$@";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Ocorreu um erro enquanto tentava iniciar %@";
@@ -2380,7 +2383,7 @@
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Clique para instalar ou desinstalar as extensões de sistema tun and tap do Tunnelblick.</p>\n\n<p>Veja <a href=\"https://tunnelblick.net/cInstallKexts.html\">Instalando Extensões de Sistema Tun e Tap do Tunnelblick</a> [tunnelblick.net] para detalhes.</p><p><strong>Desativado</strong> a não ser que o Tunnelblick esteja sendo executado no macOS Big Sur ou posterior.</p>";
 
 /* HTML info for the 'Uninstall Tunnelblick...' button. */
-"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed in /Applications.</p>" = "<p>Clique para desinstalar o Tunnelblick.</p>\n\n<p><strong>Desabilitado</strong> se o Tunnelblick não estiver instalado em /Aplicativos.</p>";
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Clique para desinstalar o Tunnelblick.</p>\n\n<p><strong>Desativado</strong> se Tunnelblick não está instalado.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Copiar informações para a Área de Transferência para ajudar a diagnosticar problemas.</p><p>As informações incluem versões de software e configurações, o arquivo de configuração do OpenVPN, configurações de rede e mais.</p><p>Informações sensíveis como certificado não estão inclusas, mas dados como endereços IP e URLs que <em>podem</em>podem informações confidenciais estão inclusas. Você deve examinar as informações e remover qualquer coisa que deseja manter seguro antes de enviá-las por e-mail ou postá-las publicamente.</p>";
