@@ -2906,7 +2906,12 @@ int main(int argc, char *argv[]) {
     //     Then move /Applications/XXXXX.app to the Trash, then copy this app to /Applications/XXXXX.app
     
     if (  doCopyApp  ) {
-		copyTheApp();
+        // Don't copy the app to /Applications if it's already there.
+        // But secure it and do everything else as if it had been copied.
+        NSString * appPath = [[resourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+        if (  ! [appPath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+            copyTheApp();
+        }
     }
     
 	//**************************************************************************************************************************
