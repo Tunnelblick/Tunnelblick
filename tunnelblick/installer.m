@@ -655,6 +655,52 @@ static void securelyCreateFileOrDirectoryEntry(BOOL isDir, NSString * path) {
     }
 }
 
+static void securelyCreateAbsoluteSymlink(NSString * source, NSString * target) {
+
+    // Create a symlink with absolute paths owned by root with 0744 permissions from source to target
+
+    errorExitIfAnySymlinkInPath(source);
+    errorExitIfAnySymlinkInPath(target);
+
+    if (   ( ! [source hasPrefix: @"/"] )
+        || ( ! [target hasPrefix: @"/"] )  ) {
+        appendLog([NSString stringWithFormat: @"Both must be absolute paths: %@ => %@", source, target]);
+        errorExit();
+    }
+    int result = symlink(target.fileSystemRepresentation, source.fileSystemRepresentation);
+    if (  result != 0  ) {
+        appendLog([NSString stringWithFormat: @"symlink() returned error: '%s' for %@ => %@",
+                   strerror(errno), source, target]);
+        errorExit();
+    }
+
+    // Make sure link is owned by 0:0
+    struct stat status;
+    if (  lstat(source.fileSystemRepresentation, &status) != 0  ) {
+        appendLog([NSString stringWithFormat: @"lstat() failed with error %d ('%s') for %@",
+                   errno, strerror(errno), source]);
+        errorExit();
+    }
+
+    appendLog([NSString stringWithFormat: @"Created symlink from %@ to %@",
+               source, target]);
+
+    uid_t uid = status.st_uid;
+    gid_t gid = status.st_gid;
+
+    if (   (uid != 0)
+        || (gid != 0)  ) {
+        int result = lchown(source.fileSystemRepresentation, 0, 0);
+        if (  result != 0  ) {
+            appendLog([NSString stringWithFormat: @"chown() from %u:%u to 0:0 returned error: '%s' for %@",
+                       uid, gid, strerror(errno), source]);
+            errorExit();
+        }
+        appendLog([NSString stringWithFormat: @"Changed ownership of %@ from %u:%u to 0:0",
+                   source, uid, gid]);
+    }
+}
+
 static void securelyCreateFolderAndParents(NSString * path) {
 
     errorExitIfAnySymlinkInPath(path);
