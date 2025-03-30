@@ -667,7 +667,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         [self checkSymbolicLink];
         
         TBLog(@"DB-SU", @"init: 009")
-        // Check that we can run Tunnelblick from this volume, that it is in /Applications, and that it is secured
+        // Check that we can run Tunnelblick from this volume, that it is in /Library/Application Support/Tunnelblick, and that it is secured
         [self initialChecks: ourAppName];    // WE MAY NOT RETURN FROM THIS METHOD (it may install a new copy of Tunnelblick, launch it, and quit)
 		
         TBLog(@"DB-SU", @"init: 010")
@@ -4425,7 +4425,7 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 06")
     
-    // If we got here, we are running from /Applications (or are a debug version), so we can eject the Tunnelblick disk image
+    // If we got here, we are running from /Library/Application Support/Tunnelblick (or are a debug version), so we can eject the Tunnelblick disk image
 	// We want to do this before we give instructions about how to add configurations so double-clicks don't start the copy
 	// of Tunnelblick.app that is on the disk image.
     if (   ( ! [gTbDefaults boolForKey: @"doNotEjectTunnelblickVolume"] )
@@ -4802,16 +4802,16 @@ static void signal_handler(int signalNumber)
 		exit(0);
 	}
 
-    NSArray * arguments = @[@"/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.applescript"];
+    NSArray * arguments = @[@"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.applescript"];
     runTool(TOOL_PATH_FOR_OSASCRIPT, arguments, nil, nil);
 
-    if (  ! [gFileMgr fileExistsAtPath: @"/Applications/Tunnelblick.app"]  ) {
+    if (  ! [gFileMgr fileExistsAtPath: @"/Library/Application Support/Tunnelblick/Tunnelblick.app"]  ) {
         // Remove from Dock
         // Slightly modifed version of code from http://www.danandcheryl.com/2011/02/how-to-modify-the-dock-or-login-items-on-os-x
         NSUserDefaults * defaults = [[[NSUserDefaults alloc] init] autorelease];
         NSDictionary * domain = [defaults persistentDomainForName:@"com.apple.dock"];
         NSArray * apps = [domain objectForKey:@"persistent-apps"];
-        NSArray *newApps = [apps filteredArrayUsingPredicate: [NSPredicate predicateWithFormat: @"not %K CONTAINS %@", @"tile-data.file-data._CFURLString", @"/Applications/Tunnelblick.app/"]];
+        NSArray *newApps = [apps filteredArrayUsingPredicate: [NSPredicate predicateWithFormat: @"not %K CONTAINS %@", @"tile-data.file-data._CFURLString", @"/Library/Application Support/Tunnelblick/Tunnelblick.app/"]];
         if (  ! [apps isEqualToArray:newApps]  ) {
             NSMutableDictionary * newDomain = [[domain mutableCopy] autorelease];
             [newDomain setObject: newApps forKey: @"persistent-apps"];
@@ -5553,7 +5553,7 @@ static BOOL runningHookupThread = FALSE;
     TBLog(@"DB-SU", @"initialChecks: 003")
 
     TBLog(@"DB-SU", @"initialChecks: 004")
-    // If necessary, (re)install Tunnelblick in /Applications
+    // If necessary, (re)install Tunnelblick in /Library/Application Support/Tunnelblick
     [self relaunchIfNecessary];  // (May not return from this)
     
     TBLog(@"DB-SU", @"initialChecks: 005")
@@ -5966,7 +5966,7 @@ static BOOL runningHookupThread = FALSE;
 	}
 	
     TBLog(@"DB-SU", @"relaunchIfNecessary: 002")
-    // Move or copy Tunnelblick.app to /Applications if it isn't already there
+    // Move or copy Tunnelblick.app to /Library/Application Support/Tunnelblick if it isn't already there
     
     BOOL canRunOnThisVolume = [self canRunFromVolume: currentPath];
     
@@ -5976,18 +5976,18 @@ static BOOL runningHookupThread = FALSE;
         [self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
         return;
 #else
-        if (  [currentPath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+        if (  [currentPath isEqualToString: @"/Library/Application Support/Tunnelblick/Tunnelblick.app"]  ) {
 			[self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
             return;
         } else {
-            NSLog(@"Tunnelblick can only run when it is /Applications/Tunnelblick.app; path = %@.", currentPath);
+            NSLog(@"Tunnelblick can only run when it is /Library/Application Support/Tunnelblick/Tunnelblick.app; path = %@.", currentPath);
         }
 #endif
     } else {
         NSLog(@"Tunnelblick cannot run when it is on /%@ because the volume has the MNT_NOSUID statfs flag set.", [[currentPath pathComponents] objectAtIndex: 1]);
     }
     
-    // Not installed in /Applications on a runnable volume. Need to move/install to /Applications
+    // Not installed in /Library/Application Support/Tunnelblick on a runnable volume. Need to move/install to /Library/Application Support/Tunnelblick
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 003")
 	[self warnIfInvalidOrNoSignatureAllowCheckbox: NO];
@@ -5998,7 +5998,7 @@ static BOOL runningHookupThread = FALSE;
 		return;
 	}
 	
-    //Install into /Applications
+    //Install into /Library/Application Support/Tunnelblick
 	
     // Set up message about installing .tblks on the .dmg
     NSString * tblksMsg;
@@ -6020,8 +6020,8 @@ static BOOL runningHookupThread = FALSE;
     
     // Set up messages to get authorization and notify of success
 	NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);	
-    NSString * tbInApplicationsPath = @"/Applications/Tunnelblick.app";
-    NSString * applicationsPath = @"/Applications";
+    NSString * tbInApplicationsPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
+    NSString * applicationsPath = @"/Library/Application Support/Tunnelblick";
     NSString * tbInApplicationsDisplayName = [[gFileMgr componentsToDisplayForPath: tbInApplicationsPath] componentsJoinedByString: @"/"];
     NSString * applicationsDisplayName = [[gFileMgr componentsToDisplayForPath: applicationsPath] componentsJoinedByString: @"/"];
     
@@ -6092,7 +6092,7 @@ static BOOL runningHookupThread = FALSE;
     TBLog(@"DB-SU", @"relaunchIfNecessary: 005")
     
     // Make sure there are no Tunnelblicks or OpenVPNs running
-    BOOL openvpns          = ( [NSApp pidsOfProcessesWithPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/openvpn"] != nil );
+    BOOL openvpns          = ( [NSApp pidsOfProcessesWithPrefix: @"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/openvpn"] != nil );
     BOOL otherTunnelblicks = ( [NSApp countOtherInstances] > 0 );
     
     while (   openvpns
@@ -6128,7 +6128,7 @@ static BOOL runningHookupThread = FALSE;
         }
         
         otherTunnelblicks = ( [NSApp countOtherInstances] > 0 );
-		openvpns          = ( [NSApp pidsOfProcessesWithPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/openvpn"] != nil );
+		openvpns          = ( [NSApp pidsOfProcessesWithPrefix: @"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/openvpn"] != nil );
     }
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 006")
@@ -6166,7 +6166,7 @@ static BOOL runningHookupThread = FALSE;
     [splashScreen fadeOutAndClose];
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 011")
-	// Launch the program in /Applications
+	// Launch the program in /Library/Application Support/Tunnelblick
 	if (  ! [[NSWorkspace sharedWorkspace] launchApplication: tbInApplicationsPath]  ) {
 		TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
 						[NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to launch %@", @"Window text"), tbInApplicationsDisplayName],
@@ -6598,7 +6598,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 								  stringByDeletingLastPathComponent]	// Remove "/Contents"
 								 lastPathComponent];
 								  
-        resourcesPath = [NSString stringWithFormat: @"/Applications/%@/Contents/Resources", ourAppName];
+        resourcesPath = [NSString stringWithFormat: @"/Library/Application Support/Tunnelblick/%@/Contents/Resources", ourAppName];
 	}
     
 	NSString *contentsPath			    = [resourcesPath stringByDeletingLastPathComponent];
