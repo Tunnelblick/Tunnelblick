@@ -50,7 +50,7 @@ NSString			* gConfigPath    = nil;     // Path to configuration file
 //                                                 in ~/Library/Application Support/Tunnelblick/Configurations/
 //                                                 or /Library/Application Support/Tunnelblick/Users/<username>/
 //                                                 or /Library/Application Support/Tunnelblick/Shared
-//                                                 or /Applications/XXXXX.app/Contents/Resources/Deploy
+//                                                 or /Library/Application Support/Tunnelblick/XXXXX.app/Contents/Resources/Deploy
 NSString			* gResourcesPath = nil;     // Path to Tunnelblick.app/Contents/Resources
 NSString            * gDeployPath    = nil;     // Path to Tunnelblick.app/Contents/Resources/Deploy
 NSString            * gStartArgs     = nil;     // String with an underscore-delimited list of the following arguments to openvpnstart's start
@@ -311,7 +311,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "                     G - Workgroup changed to some other value\n"
             "                     W - WINSAddresses changed to some other value\n\n"
             
-            "openvpnVersion is a string with the name of the subfolder of /Applications/Tunnelblick.app/Contents/Resources/openvpn\n"
+            "openvpnVersion is a string with the name of the subfolder of /Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/openvpn\n"
             "               that contains the openvpn and openvpn-down-root.so binaries to be used for the connection. The string may\n"
             "               contain only lower-case letters, hyphen, underscore, period, and the digits 0-9.\n"
             "               If not present, the lowest (in lexicographical order) subfolder of openvpn will be used.\n"
@@ -804,26 +804,28 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
 	
 	if (  ! [path isEqualToString: @"INVALID"]  ) {
 
-		if (  [path hasPrefix: @"/A"]  ) {
+		if (  [path hasPrefix: @"/Library"]  ) {
             NSArray  * pathComponents = [path pathComponents];
             if (   (   [[pathComponents objectAtIndex: 0] isEqualToString: @"/"]
-                    && [[pathComponents objectAtIndex: 1] isEqualToString: @"Applications"]
-                    && [[pathComponents objectAtIndex: 2] isEqualToString: @"Tunnelblick.app"]
-                    && [[pathComponents objectAtIndex: 3] isEqualToString: @"Contents"]
-                    && [[pathComponents objectAtIndex: 4] isEqualToString: @"Resources"]
-                    && (   (   ([pathComponents count] == 8)
-                            && [[pathComponents objectAtIndex: 5] isEqualToString: @"openvpn"]
-                            && [[pathComponents objectAtIndex: 6] hasPrefix:       @"openvpn-"]
+                    && [[pathComponents objectAtIndex: 1] isEqualToString: @"Library"]
+                    && [[pathComponents objectAtIndex: 2] isEqualToString: @"Application Support"]
+                    && [[pathComponents objectAtIndex: 3] isEqualToString: @"Tunnelblick"]
+                    && [[pathComponents objectAtIndex: 4] isEqualToString: @"Tunnelblick.app"]
+                    && [[pathComponents objectAtIndex: 5] isEqualToString: @"Contents"]
+                    && [[pathComponents objectAtIndex: 6] isEqualToString: @"Resources"]
+                    && (   (   ([pathComponents count] == 10)
                             && [[pathComponents objectAtIndex: 7] isEqualToString: @"openvpn"]
+                            && [[pathComponents objectAtIndex: 8] hasPrefix:       @"openvpn-"]
+                            && [[pathComponents objectAtIndex: 9] isEqualToString: @"openvpn"]
                             )
-                        || (   ([pathComponents count] == 6)
-                            && (   [[pathComponents objectAtIndex: 5] isEqualToString: @"client.down.tunnelblick.sh"]
-                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.1.down.tunnelblick.sh"]
-                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.2.down.tunnelblick.sh"]
-                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.3.down.tunnelblick.sh"]
-								|| [[pathComponents objectAtIndex: 5] isEqualToString: @"client.4.down.tunnelblick.sh"]
-                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.route-pre-down.tunnelblick.sh"]
-                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"re-enable-network-services.sh"]
+                        || (   ([pathComponents count] == 8)
+                            && (   [[pathComponents objectAtIndex: 7] isEqualToString: @"client.down.tunnelblick.sh"]
+                                || [[pathComponents objectAtIndex: 7] isEqualToString: @"client.1.down.tunnelblick.sh"]
+                                || [[pathComponents objectAtIndex: 7] isEqualToString: @"client.2.down.tunnelblick.sh"]
+                                || [[pathComponents objectAtIndex: 7] isEqualToString: @"client.3.down.tunnelblick.sh"]
+								|| [[pathComponents objectAtIndex: 7] isEqualToString: @"client.4.down.tunnelblick.sh"]
+                                || [[pathComponents objectAtIndex: 7] isEqualToString: @"client.route-pre-down.tunnelblick.sh"]
+                                || [[pathComponents objectAtIndex: 7] isEqualToString: @"re-enable-network-services.sh"]
                                 )
                             )
                         )
@@ -832,7 +834,10 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
                 notOk = FALSE;
             }
 
-		} else if (  [path hasPrefix: @"/u"]  ) {
+		}
+
+        if (   notOk
+            && [path hasPrefix: @"/u"]  ) {
 			if (   [path isEqualToString: TOOL_PATH_FOR_ARCH     ]
                 || [path isEqualToString: TOOL_PATH_FOR_CODESIGN ]
 		   	 	|| [path isEqualToString: TOOL_PATH_FOR_KEXTSTAT ]
@@ -842,12 +847,18 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
                 notOk = FALSE;
             }
 
-		} else if (   [path hasPrefix: [L_AS_T_OPENVPN
+		}
+
+        if (   notOk
+            && [path hasPrefix: [L_AS_T_OPENVPN
 										stringByAppendingString: @"/"] ]
 				   && [path hasSuffix: @"/openvpn"]  ) {
 			notOk = FALSE;
 
-		} else if (  [path hasPrefix: @"/L"]  ) {
+		}
+
+        if (   notOk
+            && [path hasPrefix: @"/Library/Application/Support/"]  ) {
             if (   (   [path hasSuffix: @".tblk/Contents/Resources/pre-connect.sh"      ]
 					|| [path hasSuffix: @".tblk/Contents/Resources/pre-disconnect.sh"   ]
 					|| [path hasSuffix: @".tblk/Contents/Resources/post-tun-tap-load.sh"]
@@ -866,7 +877,10 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
 					)  ) {
 					notOk = FALSE;
 				}
-        } else if (  [path isEqualToString: TOOL_PATH_FOR_KEXTUNLOAD]  ) {
+        }
+
+        if (   notOk
+            && [path isEqualToString: TOOL_PATH_FOR_KEXTUNLOAD]  ) {
             notOk = FALSE;
         }
 	}
@@ -3416,14 +3430,16 @@ int main(int argc, char * argv[]) {
 	gDeployPath = [[gResourcesPath stringByAppendingPathComponent: @"Deploy"] copy];
 	
 #ifndef TBDebug
-    if (   ([execComponents count] != 5)
+    if (   ([execComponents count] != 7)
         || [[execComponents objectAtIndex: 0] isNotEqualTo: @"/"]
-        || [[execComponents objectAtIndex: 1] isNotEqualTo: @"Applications"]
-        //                                                  Allow any name for Tunnelblick.app
-        || [[execComponents objectAtIndex: 3] isNotEqualTo: @"Contents"]
-        || [[execComponents objectAtIndex: 4] isNotEqualTo: @"Resources"]
+        || [[execComponents objectAtIndex: 1] isNotEqualTo: @"Library"]
+        || [[execComponents objectAtIndex: 2] isNotEqualTo: @"Application Support"]
+        || [[execComponents objectAtIndex: 3] isNotEqualTo: @"Tunnelblick"]
+        || [[execComponents objectAtIndex: 4] isNotEqualTo: @"Tunnelblick.app"]
+        || [[execComponents objectAtIndex: 5] isNotEqualTo: @"Contents"]
+        || [[execComponents objectAtIndex: 6] isNotEqualTo: @"Resources"]
         ) {
-        fprintf(stderr, "Tunnelblick must be in /Applications (bundlePath = %s)\n", [gResourcesPath UTF8String]);
+        fprintf(stderr, "Tunnelblick must be in /Library/Application Support/Tunnelblick (bundlePath = %s)\n", [gResourcesPath UTF8String]);
         exitOpenvpnstart(243);
 		return -1; // Make analyzer happy
     }
