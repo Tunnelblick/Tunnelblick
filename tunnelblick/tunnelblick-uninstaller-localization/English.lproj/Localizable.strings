@@ -26,7 +26,7 @@
 "There is a problem. The uninstaller shell script does not exist at %s" = "There is a problem. The uninstaller shell script does not exist at %s";
 
 /* Window text */
-"There is no application named 'Tunnelblick' in %s (/Applications).\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller." = "There is no application named 'Tunnelblick' in %s (/Applications).\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller.";
+"There is no application named 'Tunnelblick' in %s (/Library/Application Support/Tunnelblick).\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller." = "There is no application named 'Tunnelblick' in %s (/Library/Application Support/Tunnelblick).\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller.";
 
 /* Window text */
 "Although the next window will ask for a computer administrator username and password and say \"Tunnelblick Uninstaller wants to make changes\", no changes will be made.\n\nThe uninstaller needs administrator access so it can read the %s preferences of other users." = "Although the next window will ask for a computer administrator username and password and say \"Tunnelblick Uninstaller wants to make changes\", no changes will be made.\n\nThe uninstaller needs administrator access so it can read the %s preferences of other users.";
@@ -35,7 +35,7 @@
 "The next window will ask for a computer administrator username and password.\n\nThe uninstaller needs administrator access so it make the changes required to uninstall %s." = "The next window will ask for a computer administrator username and password.\n\nThe uninstaller needs administrator access so it can make the changes required to uninstall %s.";
 
 /* Window text */
-"%s\n\ndoes not exist.\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller, or double-click the installer to uninstall /Applications/Tunnelblick." = "%s\n\ndoes not exist.\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller, or double-click the installer to uninstall /Applications/Tunnelblick.";
+"%s\n\ndoes not exist.\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller, or double-click the installer to uninstall /Library/Application Support/Tunnelblick/Tunnelblick." = "%s\n\ndoes not exist.\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller, or double-click the installer to uninstall /Library/Application Support/Tunnelblick/Tunnelblick.";
 
 /* Window text */
 "%s\n\nis damaged or is not a Tunnelblick-based application.\n\nDo you wish to use the Tunnelblick Uninstaller to try to uninstall it?" = "%s\n\nis damaged or is not a Tunnelblick-based application.\n\nDo you wish to use the Tunnelblick Uninstaller to try to uninstall it?";
