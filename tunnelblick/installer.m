@@ -98,7 +98,7 @@
 //			Creates the .mip file if it does not already exist
 //          Updates Tunnelblick kexts in /Library/Extensions (unless kexts are being uninstalled)
 
-//      (2) If INSTALLER_COPY_APP is set, this app is copied to /Applications and the com.apple.quarantine extended attribute is removed from the app and all items within it
+//      (2) If INSTALLER_COPY_APP is set, this app is copied to /Library/Application Support/Tunnelblick and the com.apple.quarantine extended attribute is removed from the app and all items within it
 
 //      (3) If INSTALLER_SECURE_APP is set, secures Tunnelblick.app by setting the ownership and permissions of its components.
 
@@ -134,7 +134,7 @@
 static FILE          * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
-static BOOL     renamex_npWorks = NO;         // renamex_np() works as needed for /Applications and L_AS_T, and home folder if it is available
+static BOOL     renamex_npWorks = NO;         // renamex_np() works as needed for /Library/Application Support/Tunnelblick and L_AS_T, and home folder if it is available
 
 
 // The following variables contain info about the user. They may be zero or nil if not needed.
@@ -1361,7 +1361,7 @@ static void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
     NSString * resourcesPath = thisAppResourcesPath(); // (installer itself is in Resources, so this works)
     NSString * tunnelblickdPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
 #else
-    NSString * tunnelblickdPath = @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
+    NSString * tunnelblickdPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/tunnelblickd";
 #endif
     NSData   * daemonData = [gFileMgr contentsAtPath: tunnelblickdPath];
     if (  ! daemonData  ) {
@@ -1751,7 +1751,7 @@ static void setupUser_Library_Application_Support_Tunnelblick(void) {
 static void copyTheApp(void) {
 	
 	NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-	NSString * targetPath  = @"/Applications/Tunnelblick.app";
+	NSString * targetPath  = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
 
     errorExitIfAnySymlinkInPath(targetPath);
 
@@ -1759,7 +1759,7 @@ static void copyTheApp(void) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 		if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
-														   source: @"/Applications"
+														   source: @"/Library/Application Support/Tunnelblick"
 													  destination: @""
 															files: [NSArray arrayWithObject: @"Tunnelblick.app"]
 															  tag: nil]  ) {
@@ -1777,6 +1777,17 @@ static void copyTheApp(void) {
     } else {
         appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
     }
+
+    // Create symlink: /Applications/Tunnelblick.app ==> /Library/Application Support/Tunnelblick/Tunnelblick.app
+    NSString * symlinkSource = @"/Applications/Tunnelblick.app";
+    NSString * symlinkTarget = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
+
+    if (  [gFileMgr fileExistsAtPath: symlinkSource]  ) {
+        securelyDeleteItem(symlinkSource);
+        appendLog([NSString stringWithFormat: @"Deleted %@", symlinkSource]);
+    }
+
+    securelyCreateAbsoluteSymlink(symlinkSource, symlinkTarget);
 }
 
 static void secureTheApp(NSString * appResourcesPath) {
@@ -2839,9 +2850,9 @@ int main(int argc, char *argv[]) {
         errorExit();
     }
     
-    // We use Deploy located in the Tunnelblick in /Applications, even if we are running from some other location and are copying the application there
+    // We use Deploy located in the Tunnelblick in /Library/Application Support/Tunnelblick, even if we are running from some other location and are copying the application there
 #ifndef TBDebug
-	gDeployPath = @"/Applications/Tunnelblick.app/Contents/Resources/Deploy";
+	gDeployPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/Deploy";
 #else
 	gDeployPath = [[resourcesPath stringByAppendingPathComponent: @"Deploy"] retain];
 #endif
@@ -2849,7 +2860,7 @@ int main(int argc, char *argv[]) {
     // Set up globals that have to do with the user
     setupUserGlobals(argc, argv, operation);
 
-    renamex_npWorks = (   testRenamex_np(@"/Applications")
+    renamex_npWorks = (   testRenamex_np(@"/Library/Application Support/Tunnelblick")
                        && testRenamex_np(L_AS_T)  );
     if (   renamex_npWorks
         && gHomeDirectory  ) {
@@ -2862,10 +2873,10 @@ int main(int argc, char *argv[]) {
         renamex_npWorks = testRenamex_np(path);
     }
 
-    // If we copy the .app to /Applications, other changes to the .app affect THAT copy, otherwise they affect the currently running copy
+    // If we copy the .app to /Library/Application Support/Tunnelblick, other changes to the .app affect THAT copy, otherwise they affect the currently running copy
     NSString * appResourcesPath = (  doCopyApp
                                    
-                                   ? [[[@"/Applications"
+                                   ? [[[@"/Library/Application Support/Tunnelblick"
                                         stringByAppendingPathComponent: @"Tunnelblick.app"]
                                        stringByAppendingPathComponent: @"Contents"]
                                       stringByAppendingPathComponent: @"Resources"]
@@ -2915,7 +2926,7 @@ int main(int argc, char *argv[]) {
 
     // Create or delete L_AS_T_DEBUG_APP_RESOURCES_PATH
 #ifdef TBDebug
-    // A debug version of Tunnelblick.app can be anywhere, a non-debug version can only be in /Applications.
+    // A debug version of Tunnelblick.app can be anywhere, a non-debug version can only be in /Library/Application Support/Tunnelblick.
     // So when securing a debug version, store the absolute path to the app's Resources
     // folder, so tunnelblickd can retrieve it to construct a path to tunnelblick-helper.
     NSError * err;
@@ -2931,8 +2942,8 @@ int main(int argc, char *argv[]) {
     }
     appendLog([NSString stringWithFormat: @"Wrote '%@' to %@", appResourcesPath, L_AS_T_DEBUG_APP_RESOURCES_PATH]);
 #else
-    // A non-debug version of Tunnelblick.app is always in /Applications by the time it starts using tunnelblickd.
-    // A non-debug version of tunnelblickd can thus always find tunnelblick-helper in /Applications/Tunnelblick.app/Contents/Resources.
+    // A non-debug version of Tunnelblick.app is always in /Library/Application Support/Tunnelblick by the time it starts using tunnelblickd.
+    // A non-debug version of tunnelblickd can thus always find tunnelblick-helper in /Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources.
     if (  [gFileMgr fileExistsAtPath: L_AS_T_DEBUG_APP_RESOURCES_PATH]  ) {
         securelyDeleteItem(L_AS_T_DEBUG_APP_RESOURCES_PATH);
         appendLog([NSString stringWithFormat: @"Deleted %@", L_AS_T_DEBUG_APP_RESOURCES_PATH]);
@@ -2941,17 +2952,17 @@ int main(int argc, char *argv[]) {
 
     //**************************************************************************************************************************
     // (2) If INSTALLER_COPY_APP is set:
-    //     Then move /Applications/XXXXX.app to the Trash, then copy this app to /Applications/XXXXX.app
+    //     Then move /Library/Application Support/Tunnelblick/XXXXX.app to the Trash, then copy this app to /Library/Application Support/Tunnelblick/XXXXX.app
     
     if (  doCopyApp  ) {
-        // Don't copy the app to /Applications if it's already there.
+        // Don't copy the app to /Library/Application Support/Tunnelblick if it's already there.
         // But secure it and do everything else as if it had been copied.
         NSString * appPath = [[resourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-        if (  ! [appPath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+        if (  ! [appPath isEqualToString: @"/Library/Application Support/Tunnelblick/Tunnelblick.app"]  ) {
             copyTheApp();
         }
     }
-    
+
 	//**************************************************************************************************************************
 	// (3) If requested, secure Tunnelblick.app by setting the ownership and permissions of it and all its components
 
@@ -2962,7 +2973,7 @@ int main(int argc, char *argv[]) {
     if (  doCopyApp  ) {
         // Make sure the app was not modified before it was secured
         NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-        NSString * targetPath = @"/Applications/Tunnelblick.app";
+        NSString * targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
         if ( ! [gFileMgr contentsEqualAtPath: sourcePath
                                      andPath: targetPath]  ) {
             securelyDeleteItem(targetPath);
