@@ -437,7 +437,7 @@
 //                             /Library/Application Support/Tunnelblick/Tblks,
 //                             /Library/Application Support/Tunnelblick/Users/username/,
 //                             /Library/Application Support/Tunnelblick/Backup/
-//                             /Applications/XXXXX.app/Contents/Resources/Deploy/
+//                             /Library/Application Support/Tunnelblick/XXXXX.app/Contents/Resources/Deploy/
 //                             (These folders are owned by root:wheel)
 //
 // _FOLDER      entries are for folders
@@ -584,7 +584,7 @@
 // doing anything else
 #define INSTALLER_CLEAR_LOG				     0x0001u
 
-// Set to copy this app to /Applications
+// Set to copy this app to /Library/Application Support/Tunnelblick
 // (any existing app will be moved to
 // the Trash)
 #define INSTALLER_COPY_APP                   0x0002u

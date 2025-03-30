@@ -16,7 +16,7 @@ ARG_MONITOR_NETWORK_CONFIGURATION="false"
 ARG_RESTORE_ON_DNS_RESET="false"
 ARG_RESTORE_ON_WINS_RESET="false"
 ARG_TAP="false"
-ARG_TB_PATH="/Applications/Tunnelblick.app"
+ARG_TB_PATH="/Library/Application Support/Tunnelblick/Tunnelblick.app"
 
 while [ $# -ne 0 ] ; do
     if [  "$1" = "-m" ] ; then                              # Handle the arguments we know about
@@ -77,7 +77,7 @@ trim() {
 
 readonly TB_RESOURCES_PATH="${ARG_TB_PATH}/Contents/Resources"
 
-if [ "${ARG_TB_PATH}" = "/Applications/Tunnelblick.app" ] ; then
+if [ "${ARG_TB_PATH}" = "/Library/Application Support/Tunnelblick/Tunnelblick.app" ] ; then
     readonly LEASEWATCHER_PLIST_PATH="${TB_RESOURCES_PATH}/LeaseWatch3.plist"
     readonly LEASEWATCHER_TEMPLATE_PATH=""
     readonly REMOVE_LEASEWATCHER_PLIST="false"
@@ -356,7 +356,7 @@ echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: Saved t
 
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
     if [ "${LEASEWATCHER_TEMPLATE_PATH}" != "" ] ; then
-        sed -e "s|/Applications/Tunnelblick/.app/Contents/Resources|${TB_RESOURCES_PATH}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
+        sed -e "s|/Library/Application Support/Tunnelblick/Tunnelblick/.app/Contents/Resources|${TB_RESOURCES_PATH}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
     fi
     launchctl load "${LEASEWATCHER_PLIST_PATH}"
     echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: Set up to monitor system configuration with leasewatch" >> "${SCRIPT_LOG_FILE}"

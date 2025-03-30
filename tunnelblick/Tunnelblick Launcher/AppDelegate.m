@@ -271,7 +271,7 @@ void LauncherLogOneString(NSString * message) {
 void launchTunnelblick(NSString * message) {
 
     LauncherLog(@"%@", message);
-    startTool(TOOL_PATH_FOR_OPEN, @[@"/Applications/Tunnelblick.app"]);
+    startTool(TOOL_PATH_FOR_OPEN, @[@"/Library/Application Support/Tunnelblick/Tunnelblick.app"]);
 }
 
 NSString * GetProcesses(void) {
@@ -330,7 +330,7 @@ NSString * GetProcesses(void) {
         goto finished; // Have already logged an error
     }
 
-    BOOL tunnelblick_is_running = [processes containsString: @"/Applications/Tunnelblick.app/Contents/MacOS/Tunnelblick"];
+    BOOL tunnelblick_is_running = [processes containsString: @"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/MacOS/Tunnelblick"];
     if (  tunnelblick_is_running  ) {
         LauncherLog(@"Not launching Tunnelblick because it is already runnning");
         goto finished;

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Program</key>
-	<string>/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd</string>
+	<string>/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/tunnelblickd</string>
 	<key>UserName</key>
 	<string>root</string>
 	<key>GroupName</key>

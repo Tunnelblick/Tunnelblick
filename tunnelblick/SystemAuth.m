@@ -52,7 +52,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     // One would think that we could always use an image in Resources, but that doesn't work if the path to it is
     // too long because the icon doesn't get displayed.
     //
-    // The path to the icon is short when running in /Applications or from a disk image, so this usually only happens
+    // The path to the icon is short when running in /Library/Application Support/Tunnelblick or from a disk image, so this usually only happens
     // when running a Tunnelblick.app in a deeply nested folder, for example while debugging.
     //
     // So if this is a debug build we create the icon dynamically and store it in /tmp.

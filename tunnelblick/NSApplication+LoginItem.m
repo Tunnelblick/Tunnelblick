@@ -293,7 +293,7 @@ extern TBUserDefaults * gTbDefaults;
 -(NSArray *) pidsOfProcessesWithPrefix: (NSString *) prefix {
 
     // Returns an array with the PID of each process whose command line start with the given prefix.
-    // For example, "/Applications/Tunnelblick.app/Contents/Resources/openvpn" would return the PID of any running
+    // For example, "/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/openvpn" would return the PID of any running
     // instance of "openvpnstart" as well as the PID of each instance of Tunnelblick's OpenVPN
     //
     // Returns nil if there are no such processes
@@ -339,7 +339,7 @@ extern TBUserDefaults * gTbDefaults;
 
     // This is a modified version of a method from http://blog.originate.com/blog/2013/10/07/answers-to-common-questions-in-cocoa-development/
 
-    NSURL * ourURL = [NSURL fileURLWithPath: @"/Applications/Tunnelblick.app/"];
+    NSURL * ourURL = [NSURL fileURLWithPath: @"/Library/Application Support/Tunnelblick/Tunnelblick.app/"];
 
     OSStatus status;
     LSSharedFileListItemRef existingItem = NULL;

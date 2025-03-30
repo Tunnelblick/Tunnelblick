@@ -1655,7 +1655,7 @@ BOOL tunnelblickTestPrivateOnlyHasTblks(void)
 BOOL tunnelblickTestAppInApplications(void)
 {
     NSString * appContainer = [[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent];
-    return [appContainer isEqualToString: @"/Applications"];
+    return [appContainer isEqualToString: @"/Library/Application Support/Tunnelblick"];
 }
 
 BOOL tunnelblickTestDeployed(void)

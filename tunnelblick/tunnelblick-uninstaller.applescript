@@ -8,7 +8,7 @@
 --     'tunnelblick-uninstaller.sh' bash script. This AppleScript acts as a "front end" for that
 --     bash script, which is invoked by this AppleScript "with authorization" so it runs as root.
 --
---     The application may be double-clicked to uninstall /Applications/Tunnelblick.app, or
+--     The application may be double-clicked to uninstall /Library/Application Support/Tunnelblick/Tunnelblick.app, or
 --     a Tunnelblick (or rebranded) application may be dropped on it.
 --
 ------------------------------------------------------------------------------------------------------------------
@@ -481,7 +481,7 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 		end if
 	end if
 
-    if myScriptPath = "/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
+    if myScriptPath = "/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
         set osascriptMessage to localized string of "\n\nThe authorization request will be made by the macOS program 'osascript' because that program is being used to run the uninstaller."
     else
         set osascriptMessage to ""
@@ -505,7 +505,7 @@ on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (Strin
 		end if
 	end if
 
-    if myScriptPath = "/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
+    if myScriptPath = "/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
         set uninstallingFromWithinTunnelblick to true
     else
         set uninstallingFromWithinTunnelblick to false
@@ -632,7 +632,7 @@ on ProcessFile(fullPath) -- (POSIX path)
         return
     end if
     
-    if scriptPath ­ "/Applications/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
+    if scriptPath ­ "/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/tunnelblick-uninstaller.sh" then
         if not QuitApplication(TBName) then
             return
         end if
@@ -724,7 +724,7 @@ on open theFileList
 end open
 
 ------------------------------------------------------------------------------------------------------------------
--- Start of script: If no file was dropped, uninstall /Applications/Tunnelblick.app
+-- Start of script: If no file was dropped, uninstall /Library/Application Support/Tunnelblick/Tunnelblick.app
 ------------------------------------------------------------------------------------------------------------------
 
 activate
@@ -738,7 +738,7 @@ end try
 
 if not IsDefined then
 	try
-		ProcessFile(POSIX path of "/Applications/Tunnelblick.app")
+		ProcessFile(POSIX path of "/Library/Application Support/Tunnelblick/Tunnelblick.app")
 	on error errorMessage number errorNumber
         if errorNumber ­ -128 then
             display alert "Error in ProcessFile(): '" & errorMessage & "' (" & errorNumber & ")\n\nPlease see https://tunnelblick.net/e1"

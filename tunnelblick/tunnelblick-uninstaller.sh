@@ -312,7 +312,7 @@ usage_message="Error: Usage:
 
      Examples:
 
-     ./tunnelblick-uninstaller.sh -u   Tunnelblick   net.tunnelblick.tunnelblick   /Applications/Tunnelblick.app
+     ./tunnelblick-uninstaller.sh -u   Tunnelblick   net.tunnelblick.tunnelblick   /Library/Application Support/Tunnelblick/Tunnelblick.app
      This is the normal use. It will remove the application and all files and folders associated with it.
 
      ./tunnelblick-uninstaller.sh -u   Tunnelblick   net.tunnelblick.tunnelblick
@@ -320,9 +320,9 @@ usage_message="Error: Usage:
      It will remove files and folders associated with Tunnelblick and net.tunnelblick.tunnelblick, but will not
      remove the application itself.
 
-     ./tunnelblick-uninstaller.sh -t   RebrandedTB   com.example.rebrandedtb /Applications/RebrandedTB.app
+     ./tunnelblick-uninstaller.sh -t   RebrandedTB   com.example.rebrandedtb /Library/Application Support/Tunnelblick/RebrandedTB.app
      This will test the removal of a \"rebranded\" Tunnelblick which is named \"RebrandedTB\", has
-	 CFBundleIdentifier \"com.example.rebrandedtb\", and is located at \"/Applications/RebrandedTB.app\"
+	 CFBundleIdentifier \"com.example.rebrandedtb\", and is located at \"/Library/Application Support/Tunnelblick/RebrandedTB.app\"
 "
 
 show_usage_message="false"
@@ -614,7 +614,7 @@ for user in $( dscl . list /users ) ; do
 
     if [ "${uninstall_tb_app_name}" != "" ] ; then
       uninstall_tb_remove_item_at_path "/Users/${user}/Library/Application Support/${uninstall_tb_app_name}"
-	  tunnelblick_dock_prefs="$( sudo -n -u "${user}" defaults read com.apple.dock | grep "/Applications/${uninstall_tb_app_name}" )"
+	  tunnelblick_dock_prefs="$( sudo -n -u "${user}" defaults read com.apple.dock | grep "/Library/Application Support/Tunnelblick/${uninstall_tb_app_name}" )"
 	  if [ "$tunnelblick_dock_prefs" != "" ] \
       && [ "$user" != "$USER" ] ; then
 		remove_dock_items="${remove_dock_items}You need to manually remove one or more ${uninstall_tb_app_name} items from the Dock for user ${user}

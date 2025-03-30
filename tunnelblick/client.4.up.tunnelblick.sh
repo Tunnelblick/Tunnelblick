@@ -941,7 +941,7 @@ EOF
             logMessage "Setting up to monitor system configuration with leasewatch"
         fi
         if [ "${LEASEWATCHER_TEMPLATE_PATH}" != "" ] ; then
-            sed -e "s|/Applications/Tunnelblick\.app/Contents/Resources|${TB_RESOURCES_PATH}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
+            sed -e "s|/Library/Application Support/Tunnelblick/Tunnelblick\.app/Contents/Resources|${TB_RESOURCES_PATH}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
 		fi
         launchctl load "${LEASEWATCHER_PLIST_PATH}"
 	fi
@@ -1386,7 +1386,7 @@ ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS="false"
 ARG_PREPEND_DOMAIN_NAME="false"
 ARG_IGNORE_OPTION_FLAGS="false"
 ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
-ARG_TB_PATH="/Applications/Tunnelblick.app"
+ARG_TB_PATH="/Library/Application Support/Tunnelblick/Tunnelblick.app"
 ARG_RESTORE_ON_WINS_RESET="false"
 
 # Handle the arguments we know about by setting ARG_ script variables to their values, then shift them out
@@ -1481,9 +1481,9 @@ readonly FREE_PUBLIC_DNS_SERVERS_LIST_PATH="${TB_RESOURCES_PATH}/FreePublicDnsSe
 
 # These scripts use a launchd .plist to set up to monitor the network configuration.
 #
-# If Tunnelblick.app is located in /Applications, we load the launchd .plist directly from within the .app.
+# If Tunnelblick.app is located in /Library/Application Support/Tunnelblick, we load the launchd .plist directly from within the .app.
 #
-# If Tunnelblick.app is not located in /Applications (i.e., we are debugging), we create a modified version of the launchd .plist and use
+# If Tunnelblick.app is not located in /Library/Application Support/Tunnelblick (i.e., we are debugging), we create a modified version of the launchd .plist and use
 # that modified copy in the 'launchctl load' command. (The modification is that the path to process-network-changes or leasewatch program
 # in the .plist is changed to point to the copy of the program that is inside the running Tunnelblick.)
 #
@@ -1502,7 +1502,7 @@ if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-p" ] ; then
 else
     readonly LEASEWATCHER_PLIST="LeaseWatch.plist"
 fi
-if [ "${ARG_TB_PATH}" = "/Applications/Tunnelblick.app" ] ; then
+if [ "${ARG_TB_PATH}" = "/Library/Application Support/Tunnelblick/Tunnelblick.app" ] ; then
     readonly LEASEWATCHER_PLIST_PATH="${TB_RESOURCES_PATH}/${LEASEWATCHER_PLIST}"
     readonly LEASEWATCHER_TEMPLATE_PATH=""
     readonly REMOVE_LEASEWATCHER_PLIST="false"

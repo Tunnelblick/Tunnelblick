@@ -42,12 +42,12 @@
 //
 //  * Waits until there is no process named "Tunnelblick" running
 //    (terminating any Tunnelblick launched by any other user);
-//  * Renames /Applications/Tunnelblick.app as Tunnelblick-old.app
+//  * Renames /Library/Application Support/Tunnelblick/Tunnelblick.app as Tunnelblick-old.app
 //    (replacing any existing Tunnelblick-old.app);
-//  * Renames /Applications/Tunnelblick.new.app as Tunnelblick.app;
+//  * Renames /Library/Application Support/Tunnelblick/Tunnelblick.new.app as Tunnelblick.app;
 //  * If necessary, runs THAT .app's installer as root to update tunnelblickd.plist
 //    so Tunnelblick is ready to be launched;
-//  * Launches the updated /Applications/Tunnelblick.app;
+//  * Launches the updated /Library/Application Support/Tunnelblick/Tunnelblick.app;
 //  * Exits.
 //
 // PHASE 1 IS DONE BY TUNNELBLICK, primarily in the TBUpdater class. It:
@@ -71,7 +71,7 @@
 //    (i.e. everything owned by root:wheel, nothing with "other" write;
 //  * Verifies that the .app is signed properly;
 //  * Verifies that the .app is the specified version;
-//  * Renames it (i.e. moved it) to /Applications/Tunnelblick.new.app;
+//  * Renames it (i.e. moved it) to /Library/Application Support/Tunnelblick/Tunnelblick.new.app;
 //  * Copies THIS app's TunnelblickUpdateHelper program into /Library/Application Support/Tunnelblick;
 //  * Starts it as root;
 //  * Returns indicating success (TRUE) or failure (FALSE), having output
@@ -246,19 +246,19 @@ static const char * fileSystemRepresentationFromPath(NSString * path) {
 
 static void doRenames(void) {
 
-    NSString * appPath = @"/Applications/Tunnelblick.app";
-    NSString * oldPath = @"/Applications/Tunnelblick-old.app";
-    NSString * newPath = @"/Applications/Tunnelblick.new.app";
+    NSString * appPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
+    NSString * oldPath = @"/Library/Application Support/Tunnelblick/Tunnelblick-old.app";
+    NSString * newPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.new.app";
 
     if (  [gFileMgr fileExistsAtPath: oldPath]  ) {
         if (  ! [gFileMgr tbRemoveFileAtPath: oldPath handler: nil]  ) {
             errorExit();
         }
-        appendLog(@"Deleted /Applications/Tunnelblick-old.app");
+        appendLog(@"Deleted /Library/Application Support/Tunnelblick/Tunnelblick-old.app");
     }
 
     if (  0 == rename(fileSystemRepresentationFromPath(appPath), fileSystemRepresentationFromPath(oldPath))  ){
-        appendLog(@"Renamed /Applications/Tunnelblick.app to Tunnelblick-old.app");
+        appendLog(@"Renamed /Library/Application Support/Tunnelblick/Tunnelblick.app to Tunnelblick-old.app");
     } else {
         appendLog([NSString stringWithFormat: @"Warning: rename() failed with error %d ('%s') trying to rename %@ to %@",
                    errno, strerror(errno), appPath, oldPath]);
@@ -271,17 +271,17 @@ static void doRenames(void) {
         // Try to get Tunnelblick.app back
         [gFileMgr tbRemovePathIfItExists: appPath];
         if (  0 == rename(fileSystemRepresentationFromPath(oldPath), fileSystemRepresentationFromPath(appPath))  ){
-            appendLog(@"Renamed /Applications/Tunnelblick-old.app to Tunnelblick.app");
+            appendLog(@"Renamed /Library/Application Support/Tunnelblick/Tunnelblick-old.app to Tunnelblick.app");
             appendLog(@"Failed to update Tunnelblick");
         } else {
             appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
                        errno, strerror(errno), oldPath, appPath]);
-            appendLog(@"installer failed and could not restore /Applications/Tunnelblick.app from /Applications/Tunnelblick-old.app");
+            appendLog(@"installer failed and could not restore /Library/Application Support/Tunnelblick/Tunnelblick.app from /Library/Application Support/Tunnelblick/Tunnelblick-old.app");
         }
         errorExit();
     }
 
-    appendLog(@"Renamed /Applications/Tunnelblick.new.app to Tunnelblick.app");
+    appendLog(@"Renamed /Library/Application Support/Tunnelblick/Tunnelblick.new.app to Tunnelblick.app");
 }
 
 static void updateTunnelblickdPlist(void) {
@@ -294,7 +294,7 @@ static void updateTunnelblickdPlist(void) {
 
     NSString * stdoutString = @"";
     NSString * stderrString = @"";
-    OSStatus status = runTool(@"/Applications/Tunnelblick.app/Contents/Resources/installer", arguments, &stdoutString, &stderrString);
+    OSStatus status = runTool(@"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/installer", arguments, &stdoutString, &stderrString);
 
     NSString * message = @"";
     if (  stdoutString.length != 0  ) {
@@ -317,15 +317,15 @@ static void updateTunnelblickdPlist(void) {
 
     if (  status != 0  ) {
         // Try to get Tunnelblick.app back
-        if (  ! [gFileMgr tbRemoveFileAtPath: @"/Applications/Tunnelblick.app" handler: nil]  ) {
-            appendLog(@"Failed to update tunnelblickd.plist and could not delete /Applications/Tunnelblick.app before restoring the old version");
+        if (  ! [gFileMgr tbRemoveFileAtPath: @"/Library/Application Support/Tunnelblick/Tunnelblick.app" handler: nil]  ) {
+            appendLog(@"Failed to update tunnelblickd.plist and could not delete /Library/Application Support/Tunnelblick/Tunnelblick.app before restoring the old version");
             errorExit();
         }
-        if (  ! [gFileMgr tbForceRenamePath: @"/Applications/Tunnelblick-old.app" toPath: @"/Applications/Tunnelblick.app"]  ) {
-            appendLog(@"Failed to update tunnelblickd.plist and could not restore /Applications/Tunnelblick.app");
+        if (  ! [gFileMgr tbForceRenamePath: @"/Library/Application Support/Tunnelblick/Tunnelblick-old.app" toPath: @"/Library/Application Support/Tunnelblick/Tunnelblick.app"]  ) {
+            appendLog(@"Failed to update tunnelblickd.plist and could not restore /Library/Application Support/Tunnelblick/Tunnelblick.app");
             errorExit();
         }
-        appendLog(@"Failed to update tunnelblickd.plistinstaller failed but restored the original /Applications/Tunnelblick.app");
+        appendLog(@"Failed to update tunnelblickd.plistinstaller failed but restored the original /Library/Application Support/Tunnelblick/Tunnelblick.app");
         // OK to return because we've restored the original app, so the original app will be relaunched.
     }
 }
@@ -368,7 +368,7 @@ static void launchUpdatedProgram(uid_t uid, gid_t gid) {
     NSTask * task = [[[NSTask alloc] init] autorelease];
     [task setLaunchPath: TOOL_PATH_FOR_OPEN];
     [task setArguments:  @[@"-a",
-                           @"/Applications/Tunnelblick.app"]];
+                           @"/Library/Application Support/Tunnelblick/Tunnelblick.app"]];
     [task setCurrentDirectoryPath: @"/private/tmp"];
     [task setEnvironment: getSafeEnvironment(nil, 0, nil)];
     [task launchAndReturnError: nil];
