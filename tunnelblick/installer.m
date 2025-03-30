@@ -2912,7 +2912,19 @@ int main(int argc, char *argv[]) {
     if ( doSecureApp ) {
 		secureTheApp(appResourcesPath);
     }
-    
+
+    if (  doCopyApp  ) {
+        // Make sure the app was not modified before it was secured
+        NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+        NSString * targetPath = @"/Applications/Tunnelblick.app";
+        if ( ! [gFileMgr contentsEqualAtPath: sourcePath
+                                     andPath: targetPath]  ) {
+            securelyDeleteItem(targetPath);
+            appendLog(@"Copy/secure of app failed");
+            errorExit();
+        }
+    }
+
     //**************************************************************************************************************************
     // (4) If INSTALLER_COPY_APP, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
 
