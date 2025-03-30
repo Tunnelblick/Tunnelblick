@@ -550,16 +550,7 @@ static void securelyDeleteFolder(NSString * path) {
     NSString * file;
     while (  (file = dirE.nextObject)  ) {
         NSString * fullPath = [path stringByAppendingPathComponent: file];
-        BOOL isDir;
-        if (  [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
-            && isDir  ) {
-            securelyDeleteFolder(fullPath);
-        } else {
-            if (  0 != unlink(fileSystemRepresentationFromPath(fullPath))  ) {
-                appendLog([NSString stringWithFormat: @"unlink() failed with error %d ('%s') for path %@", errno, strerror(errno), path]);
-                errorExit();
-            }
-        }
+        securelyDeleteItem(fullPath);
     }
 
     // Now that the folder is empty, remove it
@@ -571,7 +562,7 @@ static void securelyDeleteFolder(NSString * path) {
 
 static void securelyDeleteItem(NSString * path) {
 
-    errorExitIfAnySymlinkInPath(path);
+    errorExitIfAnySymlinkInPath(path.stringByDeletingLastPathComponent);
 
     const char * pathC = fileSystemRepresentationFromPath(path);
 
@@ -582,7 +573,8 @@ static void securelyDeleteItem(NSString * path) {
         errorExit();
     }
 
-    if (  S_ISDIR(status.st_mode)  ) {
+    if (   ( ! S_ISLNK(status.st_mode) )
+        && S_ISDIR(status.st_mode)  ) {
         securelyDeleteFolder(path);
     } else {
         if (  0 != unlink(pathC)  ) {
