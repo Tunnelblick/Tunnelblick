@@ -234,8 +234,7 @@ Your .dmg file is at
 **TBS**/tunnelblick/build/Release/Tunnelblick.dmg.
 
 Double-click it to open the disk image and, in the resulting window,
-double-click the Tunnelblick icon to install Tunnelblick to
-/Applications.
+double-click the Tunnelblick icon to install Tunnelblick.
 
 Good luck!
 

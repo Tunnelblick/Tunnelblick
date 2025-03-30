@@ -135,8 +135,8 @@ extern TBUserDefaults * gTbDefaults;
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Click to uninstall Tunnelblick.</p>\n\n"
                                                            @"<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>",
 														   @"HTML info for the 'Uninstall Tunnelblick...' button."))];
-    BOOL tunnelblickIsInApplicationsFolder = [[[NSBundle mainBundle] bundlePath] isEqualToString: @"/Applications/Tunnelblick.app"];
-    [utilitiesUninstallButton setEnabled: tunnelblickIsInApplicationsFolder];
+    BOOL tunnelblickIsInApplicationSupportFolder = [[[NSBundle mainBundle] bundlePath] isEqualToString: @"/Library/Application Support/Tunnelblick/Tunnelblick.app"];
+    [utilitiesUninstallButton setEnabled: tunnelblickIsInApplicationSupportFolder];
 	
     [self setupInstallOrUninstallKextsButton];
     
