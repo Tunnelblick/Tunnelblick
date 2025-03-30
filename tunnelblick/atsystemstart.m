@@ -72,14 +72,16 @@ int main(int argc, char* argv[])
 #ifdef TBDebug
     NSLog(@"Tunnelblick: WARNING: This is an insecure copy of atsystemstart to be used for debugging only!");
 #else
-    if (   ([execComponents count] != 5)
+    if (   ([execComponents count] != 7)
         || [[execComponents objectAtIndex: 0] isNotEqualTo: @"/"]
-        || [[execComponents objectAtIndex: 1] isNotEqualTo: @"Applications"]
-        //                                                  Allow any name for Tunnelblick.app
-        || [[execComponents objectAtIndex: 3] isNotEqualTo: @"Contents"]
-        || [[execComponents objectAtIndex: 4] isNotEqualTo: @"Resources"]
+        || [[execComponents objectAtIndex: 1] isNotEqualTo: @"Library"]
+        || [[execComponents objectAtIndex: 2] isNotEqualTo: @"Application Support"]
+        || [[execComponents objectAtIndex: 3] isNotEqualTo: @"Tunnelblick"]
+        || [[execComponents objectAtIndex: 4] isNotEqualTo: @"Tunnelblick.app"]
+        || [[execComponents objectAtIndex: 5] isNotEqualTo: @"Contents"]
+        || [[execComponents objectAtIndex: 6] isNotEqualTo: @"Resources"]
         ) {
-        NSLog(@"Tunnelblick must be in /Applications (bundlePath = %@)", resourcesPath);
+        NSLog(@"Tunnelblick must be in /Library/Application Support/Tunnelblick (bundlePath = %@)", resourcesPath);
         errorExit();
     }
 #endif
