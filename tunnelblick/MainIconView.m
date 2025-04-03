@@ -70,20 +70,17 @@ extern TBUserDefaults * gTbDefaults;
     }
 }
 
--(void) setupTrackingRect
-{
+-(void) setupTrackingRectangleWithFrame: (NSRect) frame {
+
 	[self removeTrackingRectangle];
     
-    NSRect frame = [self frame];
-    NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
-    mainIconTrackingRectTag = [self addTrackingRect: trackingRect
+    mainIconTrackingRectTag = [self addTrackingRect: frame
                                               owner: self
                                            userData: nil
                                        assumeInside: NO];
     mainIconTrackingRectTagIsValid = TRUE;
-    TBLog(@"DB-SI", @"setupTrackingRect: Added main tracking rectangle (%f,%f, %f, %f) for MainIconView",
-          trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
 }
+
 -(void) drawRect: (NSRect) rect {
 
     NSStatusItem * statusI = [gMC statusItem];
@@ -100,10 +97,15 @@ extern TBUserDefaults * gTbDefaults;
 
     self = [super initWithFrame: frame];
     if (self) {
-        mainIconTrackingRectTagIsValid = FALSE;
+
+        [self setupTrackingRectangleWithFrame: frame];
+        TBLog(@"DB-SI", @"MainIconView: Setup icon tracking rectangle (%f,%f, %f, %f)",
+              frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+
         [self registerForDraggedTypes: [NSArray arrayWithObject: NSFilenamesPboardType]];
-	}
-	
+        TBLog(@"DB-SI", @"MainIconView: Setup icon for dragging");
+    }
+
     return self;
 }
 

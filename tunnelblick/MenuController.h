@@ -161,8 +161,6 @@ enum ActiveInactiveState {
 	
 	NSString                * languageAtLaunch;				// Lower-case version of the language we are using. Passed on to runOnConnect, runOnLaunch, and Menu command scripts
     
-    NSTrackingRectTag         iconTrackingRectTag;          // Used to track mouseEntered and mouseExited events for statusItemButton
-    
 	BOOL					  languageAtLaunchWasRTL;		// Used to load RTL xibs and adjust spacing of controls as needed
 	
     BOOL volatile             launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
