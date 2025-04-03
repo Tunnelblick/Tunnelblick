@@ -72,11 +72,6 @@ enum ActiveInactiveState {
     gettingReadyforActive   = 3
 };
 
-@interface NSStatusBar (NSStatusBar_Private)
-- (nullable id)_statusItemWithLength:(CGFloat)l withPriority:(long long)p;
-- (nullable id)_insertStatusItem:(nonnull NSStatusItem *)i withPriority:(long long)p;
-@end
-
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate,NSUserNotificationCenterDelegate>
 
 {
