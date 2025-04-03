@@ -2883,7 +2883,6 @@ int main(int argc, char *argv[]) {
         appendLog([NSString stringWithFormat: @"Could not write %@", L_AS_T_DEBUG_APP_RESOURCES_PATH]);
         errorExit();
     }
-    appendLog([NSString stringWithFormat: @"Wrote '%@' to %@", appResourcesPath, L_AS_T_DEBUG_APP_RESOURCES_PATH]);
 #else
     // A non-debug version of Tunnelblick.app is always in /Applications by the time it starts using tunnelblickd.
     // A non-debug version of tunnelblickd can thus always find tunnelblick-helper in /Applications/Tunnelblick.app/Contents/Resources.
