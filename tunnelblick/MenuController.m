@@ -610,7 +610,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         tapCount = 0;
 		
 		iconTrackingRectTag = 0;
-        
+
         connectionsToRestoreOnWakeup = [[NSMutableArray alloc] initWithCapacity: 5];
         
         openLog();
