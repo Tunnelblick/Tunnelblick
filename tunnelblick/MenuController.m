@@ -199,7 +199,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationMultiUpdater *, myConfigMultiUpdate
 
 
 TBSYNTHESIZE_OBJECT(retain, SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
-TBSYNTHESIZE_OBJECT(retain, NSStatusBarButton *, statusItemButton,     setStatusItemButton)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, screenList,                setScreenList)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, cachedMenuItems,		   setCachedMenuItems)
 TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
@@ -1355,47 +1354,32 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 }
 
 - (void) removeStatusItem {
-    
-    NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    if (  ! bar  ) {
-        NSLog(@"removeStatusItem: Could not get system status bar");
-    }
-    
+
     if (  statusItem  ) {
         [NSStatusBar.systemStatusBar removeStatusItem: (NSStatusItem *)statusItem];
         [statusItem release];
         statusItem = nil;
+        TBLog(@"DB-SI", @"removeStatusItem: Removing status item from status bar")
     }
 }
 
 - (void) createStatusItem {
     
-    // Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
-    // By default, it uses an undocumented hack to place the icon on the right side, next to SpotLight
-    // Otherwise ("placeIconInStandardPositionInStatusBar" preference or hack not available), it places it normally (on the left)
-    // On Mavericks & higher with multiple displays and "Displays have different spaces" enabled in Mission Control System Preferences, it always places it normally (on the left)
+    // Places an item with our icon in the Status Bar, replacing any existing item
 
-	NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    if (  ! bar  ) {
-        NSLog(@"createStatusItem: Could not get system status bar");
-    }
-    
     [self removeStatusItem];
     
     // Create new status item
-    if (  (statusItem = [[bar statusItemWithLength: 16] retain])  ) {
+    statusItem = [[NSStatusBar.systemStatusBar statusItemWithLength: 16] retain];
+    if (  statusItem  ) {
         TBLog(@"DB-SI", @"createStatusItem: Created status item");
     } else {
         NSLog(@"Can't obtain status item");
     }
-
-    if (  ! ourMainIconView  ) {
-        [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
-    }
-
-    [self setStatusItemButton: statusItem.button];
-    [statusItemButton setImage: mainImage];  // Set image so that frame is set up so we can set the tracking rectangle
-    NSRect frame = [statusItemButton frame];
+    NSStatusBarButton * button = statusItem.button;
+    [button setImage: mainImage];
+    ourMainIconView = [[MainIconView alloc] initWithFrame: button.frame];
+    [button addSubview: ourMainIconView];
     [statusItem setMenu: myVPNMenu];
     TBLog(@"DB-SI", @"createStatusItem: Set menu for status item")
 }
@@ -2014,8 +1998,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [myVPNMenu addItem: quitItem];
     
-    if (  statusItemButton  ) {
-        [statusItemButton setImage: [self badgedImageIfUpdateAvailableOrWarnings: mainImage]];
+    if (  statusItem.button  ) {
+        [statusItem.button setImage: [self badgedImageIfUpdateAvailableOrWarnings: mainImage]];
         [statusItem setMenu: myVPNMenu];
     }
 	
@@ -2730,11 +2714,11 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 			[theAnim stopAnimation];
 		}
         
-		if (  statusItemButton  ) {
+		if (  statusItem.button  ) {
 			if (  [lastState isEqualToString:@"CONNECTED"]  ) {
-				[statusItemButton setImage: [self badgedImageIfUpdateAvailableOrWarnings: connectedImage]];
+				[statusItem.button setImage: [self badgedImageIfUpdateAvailableOrWarnings: connectedImage]];
 			} else {
-				[statusItemButton setImage: [self badgedImageIfUpdateAvailableOrWarnings: mainImage]];
+				[statusItem.button setImage: [self badgedImageIfUpdateAvailableOrWarnings: mainImage]];
 			}
 		} else {
 			if (  [lastState isEqualToString:@"CONNECTED"]  ) {
@@ -2775,15 +2759,15 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
 	if (animation == theAnim) {
-        NSMutableArray * images = (  statusItemButton
+        NSMutableArray * images = (  statusItem.button
                                    ? animImages
                                    : (  menuIsOpen
                                       ? highlightedAnimImages
                                       : animImages)
                                    );
         NSImage * img = [images objectAtIndex: (unsigned) (lround(progress * [images count]) - 1)];
-		if (  statusItemButton  ) {
-			[statusItemButton performSelectorOnMainThread:@selector(setImage:) withObject: img waitUntilDone:YES];
+		if (  statusItem.button  ) {
+			[statusItem.button performSelectorOnMainThread:@selector(setImage:) withObject: img waitUntilDone:YES];
 		} else {
 			[[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:img waitUntilDone:YES];
 		}
@@ -7443,7 +7427,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 	
     // When the hotKey is pressed, pop up the Tunnelblick menu from the Status Bar
     MenuController * menuC = gMC;
-	NSStatusBarButton * statusButton = [menuC statusItemButton];
+	NSStatusBarButton * statusButton = menuC.statusItem.button;
 	if (  statusButton  ) {
 		[statusButton performClick: nil];
 	} else {
