@@ -608,8 +608,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                 
         tunCount = 0;
         tapCount = 0;
-		
-		iconTrackingRectTag = 0;
 
         connectionsToRestoreOnWakeup = [[NSMutableArray alloc] initWithCapacity: 5];
         
@@ -1364,19 +1362,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     }
     
     if (  statusItem  ) {
-        if (   iconTrackingRectTag != 0  ) {
-            if (  statusItemButton  ) {
-                TBLog(@"DB-SI", @"removeStatusItem: Removing tracking rectangle for status item")
-                [statusItemButton removeTrackingRect: iconTrackingRectTag];
-            } else {
-                NSLog(@"removeStatusItem: Did not remove tracking rectangle for status item because there was no statusItemButton");
-            }
-            iconTrackingRectTag = 0;
-        } else {
-            TBLog(@"DB-SI", @"removeStatusItem: No tracking rectangle to remove")
-        }
-        TBLog(@"DB-SI", @"removeStatusItem: Removing status item from status bar")
-        [bar removeStatusItem: statusItem];
+        [NSStatusBar.systemStatusBar removeStatusItem: (NSStatusItem *)statusItem];
         [statusItem release];
         statusItem = nil;
     }
@@ -1410,15 +1396,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [self setStatusItemButton: statusItem.button];
     [statusItemButton setImage: mainImage];  // Set image so that frame is set up so we can set the tracking rectangle
     NSRect frame = [statusItemButton frame];
-    NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
-    iconTrackingRectTag = [statusItemButton addTrackingRect: trackingRect
-                                                      owner: self
-                                                   userData: nil
-                                               assumeInside: NO];
-    TBLog(@"DB-SI", @"createStatusItem: Added tracking rectangle (%f,%f, %f, %f) for status item",
-          trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
-
-    [[self ourMainIconView] setupTrackingRect];
     [statusItem setMenu: myVPNMenu];
     TBLog(@"DB-SI", @"createStatusItem: Set menu for status item")
 }
@@ -2073,33 +2050,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 // *******************************************************************************************
-// Event Handlers for the main icon on Yosemite
-
--(void) mouseEntered: (NSEvent *) theEvent
-{
-    // Event handler; NOT on MainThread
-    // Mouse entered the tracking area of the Tunnelblick icon
-	
-    if (   gShuttingDownWorkspace
-        || [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"]  ) {
-        TBLog(@"DB-SI", @"Mouse entered tracking rectangle for main icon but not showing notification windows");
-        return;
-    }
-    
-    [self mouseEnteredMainIcon: self event: theEvent];
-}
-
--(void) mouseExited: (NSEvent *) theEvent
-{
-    // Event handler; NOT on MainThread
-    // Mouse exited the tracking area of the Tunnelblick icon
-	
-    if (  gShuttingDownWorkspace  ) {
-        return;
-    }
-    
-    [self mouseExitedMainIcon: self event: theEvent];
-}
+// Menu Items
 
 // LOCK configModifyMutex BEFORE INVOKING THIS METHOD
 -(void) insertConnectionMenuItem: (NSMenuItem *) theItem IntoMenu: (NSMenu *) theMenu afterIndex: (int) theIndex withName: (NSString *) theName
@@ -3478,8 +3429,6 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
             UnregisterEventHotKey(hotKeyRef);
         }
         
-		[ourMainIconView removeTrackingRectangle];
-		
         if (  statusItem  ) {
             TBLog(@"DB-SD", @"cleanup: Removing status bar item")
             [self removeStatusItem];

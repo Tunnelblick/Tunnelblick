@@ -27,7 +27,4 @@
 	BOOL				   mainIconTrackingRectTagIsValid;
 }
 
--(void) setupTrackingRect;
--(void) removeTrackingRectangle;
-
 @end
