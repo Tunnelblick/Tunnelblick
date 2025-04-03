@@ -35,10 +35,10 @@ extern TBUserDefaults * gTbDefaults;
 // *******************************************************************************************
 // General Methods
 
--(void) mouseDownMainThread: (NSEvent *) theEvent
-{
+-(void) mouseDownMainThread: (NSEvent *) theEvent {
+
     // Invoked in the main thread only
-	
+
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -62,7 +62,7 @@ extern TBUserDefaults * gTbDefaults;
 }
 
 -(void) removeTrackingRectangle {
-	
+
     if (  mainIconTrackingRectTagIsValid  ) {
         [self removeTrackingRect: mainIconTrackingRectTag];
         mainIconTrackingRectTagIsValid = FALSE;
@@ -84,9 +84,8 @@ extern TBUserDefaults * gTbDefaults;
     TBLog(@"DB-SI", @"setupTrackingRect: Added main tracking rectangle (%f,%f, %f, %f) for MainIconView",
           trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
 }
+-(void) drawRect: (NSRect) rect {
 
--(void) drawRect: (NSRect) rect
-{
     NSStatusItem * statusI = [gMC statusItem];
     BOOL menuIsOpen = [gMC menuIsOpen];
     [statusI drawStatusBarBackgroundInRect: rect withHighlight: menuIsOpen];
@@ -94,13 +93,11 @@ extern TBUserDefaults * gTbDefaults;
     [super drawRect: rect];
 }
 
-
 // *******************************************************************************************
 // init and dealloc
 
--(id) initWithFrame: (NSRect) frame
-{
-	
+-(id) initWithFrame: (NSRect) frame {
+
     self = [super initWithFrame: frame];
     if (self) {
         mainIconTrackingRectTagIsValid = FALSE;
@@ -130,12 +127,12 @@ extern TBUserDefaults * gTbDefaults;
 	return [UIHelper canAcceptFileTypesInPasteboard: pboard ];
 }
 
-- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
+-(NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
 
 	return [UIHelper draggingEntered: sender];
 }
 
-- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
+-(BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
     
 	return [UIHelper performDragOperation: sender];
 }
@@ -143,8 +140,8 @@ extern TBUserDefaults * gTbDefaults;
 // *******************************************************************************************
 // Mouse Event Handlers
 
--(void) mouseEntered: (NSEvent *) theEvent
-{
+-(void) mouseEntered: (NSEvent *) theEvent {
+
     // Event handler; NOT on MainThread
     // Mouse entered the tracking area of the Tunnelblick icon
 	
@@ -158,8 +155,8 @@ extern TBUserDefaults * gTbDefaults;
     [gMC mouseEnteredMainIcon: self event: theEvent];
 }
 
--(void) mouseExited: (NSEvent *) theEvent
-{
+-(void) mouseExited: (NSEvent *) theEvent {
+
     // Event handler; NOT on MainThread
     // Mouse exited the tracking area of the Tunnelblick icon
 	
@@ -171,8 +168,8 @@ extern TBUserDefaults * gTbDefaults;
     [gMC mouseExitedMainIcon: self event: theEvent];
 }
 
--(void) mouseDown: (NSEvent *) theEvent
-{
+-(void) mouseDown: (NSEvent *) theEvent {
+
     // Event handler; NOT on MainThread
 
     if (  gShuttingDownWorkspace  ) {
@@ -183,8 +180,8 @@ extern TBUserDefaults * gTbDefaults;
     [self performSelectorOnMainThread: @selector(mouseDownMainThread:) withObject: theEvent waitUntilDone: NO];
 }
 
--(void) mouseUp: (NSEvent *) theEvent
-{
+-(void) mouseUp: (NSEvent *) theEvent {
+
     // Event handler; NOT on MainThread
 	
 	(void) theEvent;	// We don't do anything

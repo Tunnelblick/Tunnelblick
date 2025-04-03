@@ -82,7 +82,7 @@ enum ActiveInactiveState {
 {
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
 	NSArray                 * cachedMenuItems;				// Cached copy of configuration items and folders for menu
-    NSStatusItem            * statusItem;                   // Our place in the Status Bar
+    NSStatusItem            * statusItem;                   // Our item in the Status Bar
     NSStatusBarButton       * statusItemButton;             // Or nil if not on 10.10 or higher
     MainIconView            * ourMainIconView;              // View for the main icon
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
