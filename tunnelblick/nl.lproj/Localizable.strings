@@ -892,7 +892,7 @@
 "    • Uninstall one configuration\n" = "    • één configuratie vervangen\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Be installed\n" = "  Geïnstalleerd worden\n";
+"  • Be installed\n" = "  • Geïnstalleerd worden\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Wijzig de eigenaar en rechten van het programma om het te beveiligen\n";

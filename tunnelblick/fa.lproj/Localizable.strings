@@ -101,6 +101,9 @@
 /* Button */
 "Do nothing" = "كاری انجام نشود";
 
+/* Button to install an update */
+"Download and Install" = "دریافت و نصب";
+
 /* Button */
 "Export Tunnelblick Setup" = "استخراج تنظیمات Tunnelblick";
 
@@ -115,6 +118,9 @@
 
 /* Button */
 "Ignore" = "نادیده گرفتن";
+
+/* Button to install an update */
+"Install and Relaunch" = "نصب و اجرای مجدد";
 
 /* Button */
 "Install tun and tap system extensions..." = "افزونه Tun & Tap را نصب کنید.";
@@ -180,6 +186,9 @@
 /* Button */
 "Reinstall" = "نصب مجدد";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "بعدا یادآوری کن";
+
 /* Button */
 "Remove Credentials" = "پاک کردن اعتیارنامه ها";
 
@@ -227,6 +236,9 @@
 
 /* Button */
 "Show while connecting" = "نمایش حین اتصال";
+
+/* Button to skip a particular update */
+"Skip This Version" = "این نسخه را رد کن";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "این بروزرسانی را از قلم بیانداز";
@@ -281,6 +293,15 @@
 
 /* Button */
 "When computer starts" = "زمان روشن شدن رایانه";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "یک به‌روز رسانی بارگذاری شده و موجود است…";
+
+/* Menu item */
+"A Tunnelblick Update is Available..." = "یک به‌روز رسانی برای Tunnelblick موجود است…";
+
+/* Menu item */
+"A VPN Configuration Update is Available..." = "یک به‌روز رسانی برای پیکربندی وی‌پی‌ان موجود است…";
 
 /* Menu item */
 "Add a VPN..." = "اضافه کردن وی پی ان…";
@@ -445,6 +466,9 @@
 "Do not warn about this again" = "درباره ی این دیگر به من هشدار نده";
 
 /* Checkbox name */
+"Download updates when found" = "بارگذاری به‌روز رسانی در صورت پیدا شدن";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "فعال نمودن IPv6 (فقط در tap)";
 
 /* Checkbox name */
@@ -589,6 +613,9 @@
 "'%@' has been disconnected" = "'%@' قظع شده است";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "نسخه ی جدیدی از Tunnelblick موجود است";
+
+/* Window title */
 "Active connection" = "اتصال فعال";
 
 /* Window title */
@@ -640,6 +667,12 @@
 "Do you wish to connect?" = "آیا مایل به برقرار اتصال هستید؟";
 
 /* Window title */
+"Error getting Tunnelblick update..." = "خطا در درسافت به‌روز رسانی Tunnelblick…";
+
+/* WIndow title */
+"Error getting VPN update..." = "خطا در دریافت به‌روز رسانی وی‌پی‌ان…";
+
+/* Window title */
 "File not found" = "فایل یافت نشد";
 
 /* Window title */
@@ -650,6 +683,9 @@
 
 /* Window title */
 "Install Configuration For All Users?" = "پیکربندی برای تمامی کابران نصب شود؟";
+
+/* Window title */
+"Installation Failed" = "نصب موفقیت آمیز نبود";
 
 /* Window title */
 "Installation failed" = "نصب موفقیت آمیز نبود";
@@ -704,6 +740,9 @@
 
 /* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "حذف آزمایشی TUNNELBLICK با موفقیت انجام شد.";
+
+/* Window title */
+"The Tunnelblick installation failed." = "نصب Tunnelblick موفقیت‌آمیز نبود.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "خطا در پیکربندی Tunnelblick";

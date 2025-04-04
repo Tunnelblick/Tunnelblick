@@ -5,10 +5,10 @@
 "Disconnect All (%@) IP: %@" = "Desligar Tudo (%1$@) IP: %2$@";
 
 /* Status message */
-"Disconnect All (%@)" = "Desligar Tudo (%@)";
+"Disconnect All (%@)" = "Desligar Todas(%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) IP: %@" = "Desligar Tudo (%1$d Ligações) IP: %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Desligar Todas (%1$d Ligações) IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Desligar Todas (%d Ligações)";

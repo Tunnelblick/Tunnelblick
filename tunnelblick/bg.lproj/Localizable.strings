@@ -1089,6 +1089,9 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Възникна грешка при сваляне на актуализацията.\n\nЗа повече информация, вижте лога";
 
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Възникна грешка при достъп на информацията за актуализаците.\n\n%1$@За повече информация, вижте лога\n\n%2$@";
+
 /* Window text */
 "An error occurred while trying to launch %@" = "Възникнала е грешка при опит да се стартира %@";
 
@@ -1682,6 +1685,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Идентификационните данни %1$@ не може да се премахнат:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Грешката беше '%@'.\n\n";
 
 /* Window text */
 "The file %@ is empty" = "Файлът %@ е празен";

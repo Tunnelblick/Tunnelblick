@@ -8,7 +8,7 @@
 "Disconnect All (%@)" = "Minden kapcsolat megszakítása (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) IP: %@" = "Mind a (%d kapcsolat) megszakítása IP: %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Mind a (%1$d kapcsolat) megszakítása IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Minden kapcsolat megszakítása (%d Kapcsolat)";
