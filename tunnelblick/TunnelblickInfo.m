@@ -172,7 +172,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
 
     NSString * urlString = [gTbDefaults forcedStringForKey: @"updateFeedURL"];
     if (  ! urlString  ) {
-        urlString = [self forcedPreferenceStringOrInfoPlistStringForKey: @"SUFeedURL"];
+        urlString = [gTbDefaults forcedStringForKey: @"SUFeedURL"];
+        if (  ! urlString  ) {
+            urlString = [self forcedPreferenceStringOrInfoPlistStringForKey: @"SUFeedURL"];
+        }
     }
 
     BOOL checkBeta = (   self.runningATunnelblickBeta
