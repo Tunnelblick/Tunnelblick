@@ -42,9 +42,10 @@
 //
 //  * Waits until there is no process named "Tunnelblick" running
 //    (terminating any Tunnelblick launched by any other user);
-//  * Renames /Library/Application Support/Tunnelblick/Tunnelblick.app as Tunnelblick-old.app
+//  * Renames /Library/Application Support/Tunnelblick/Tunnelblick.app as Tunnelblick-old.app;
 //    (replacing any existing Tunnelblick-old.app);
-//  * Renames /Library/Application Support/Tunnelblick/Tunnelblick.new.app as Tunnelblick.app;
+//  * Renames /Library/Application Support/Tunnelblick/update/Tunnelblick.new.app as /L_AS_T/Tunnelblick.app;
+//    (replacing any existing Tunnelblick.app);
 //  * If necessary, runs THAT .app's installer as root to update tunnelblickd.plist
 //    so Tunnelblick is ready to be launched;
 //  * Launches the updated /Library/Application Support/Tunnelblick/Tunnelblick.app;
@@ -63,15 +64,15 @@
 //
 // The routine must run as root, either in installer or in tunnelblick-helper. It:
 //
-//  * Copies the .zip to /Library/Application Support/Tunnelblick/Tunnelblick.zip so it is owned by root:wheel and is secure;
+//  * Copies the .zip to /Library/Application Support/Tunnelblick/update/Tunnelblick.zip so it is owned by root:wheel and is secure;
 //  * Verifies the signature of the .zip;
-//  * Expands the .zip into /Library/Application Support/Tunnelblick/Tunnelblick.app;
+//  * Expands the .zip into /Library/Application Support/Tunnelblick/update/Tunnelblick.app;
 //    so that the .app and everything within it is owned by root:wheel;
 //  * Verifies that the .app has reasonable ownership and permissions
 //    (i.e. everything owned by root:wheel, nothing with "other" write;
 //  * Verifies that the .app is signed properly;
 //  * Verifies that the .app is the specified version;
-//  * Renames it (i.e. moved it) to /Library/Application Support/Tunnelblick/Tunnelblick.new.app;
+//  * Renames it (i.e. moves it) to /Library/Application Support/Tunnelblick/Tunnelblick.new.app;
 //  * Copies THIS app's TunnelblickUpdateHelper program into /Library/Application Support/Tunnelblick;
 //  * Starts it as root;
 //  * Returns indicating success (TRUE) or failure (FALSE), having output

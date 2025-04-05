@@ -34,9 +34,9 @@
 //
 // The routine must run as root, either in installer or in tunnelblick-helper. It:
 //
-//  * Copies the .zip to /Library/Application Support/Tunnelblick/Tunnelblick.zip so it is owned by root:wheel and is secure;
+//  * Copies the .zip to /Library/Application Support/Tunnelblick/update/Tunnelblick.zip so it is owned by root:wheel and is secure;
 //  * Verifies the signature of the .zip;
-//  * Expands the .zip into /Library/Application Support/Tunnelblick/Tunnelblick.app;
+//  * Expands the .zip into /Library/Application Support/Tunnelblick/update/Tunnelblick.app;
 //    so that the .app and everything within it is owned by root:wheel;
 //  * Verifies that the .app has reasonable ownership and permissions
 //    (i.e. everything owned by root:wheel, nothing with "other" write;
@@ -50,11 +50,15 @@
 //
 // Phase 3 is done by the TunnelblickUpdateHelper program copied into /Library/Application Support/Tunnelblick by phase 2. It:
 //
-//  * Waits until there is no process named "Tunnelblick" running;
+//  * Waits until there is no process named "Tunnelblick" running
+//    (terminating any Tunnelblick launched by any other user);
 //  * Renames /Library/Application Support/Tunnelblick/Tunnelblick.app as Tunnelblick-old.app;
-//  * Renames /Library/Application Support/Tunnelblick/Tunnelblick.new.app as Tunnelblick.app;
-//  * Runs THAT .app's installer as root to update tunnelblickd.plist, etc.;
-//  * Launches /Library/Application Support/Tunnelblick/Tunnelblick.app;
+//    (replacing any existing Tunnelblick-old.app);
+//  * Renames /Library/Application Support/Tunnelblick/update/Tunnelblick.new.app as /L_AS_T/Tunnelblick.app;
+//    (replacing any existing Tunnelblick.app);
+//  * If necessary, runs THAT .app's installer as root to update tunnelblickd.plist
+//    so Tunnelblick is ready to be launched;
+//  * Launches the updated /Library/Application Support/Tunnelblick/Tunnelblick.app;
 //  * Exits.
 
 #import "TBUpdaterShared.h"
@@ -543,9 +547,14 @@ BOOL updateTunnelblick(NSString * insecureZipPath, NSString * updateSignature, N
                @"     TB pid    = %u",
                insecureZipPath, updateSignature, versionBuildString, uid, gid, tunnelblickPid]);
 
-    NSString * secureZipPath = [L_AS_T stringByAppendingPathComponent: @"Tunnelblick.zip"];
+    NSString * secureZipDir = [L_AS_T stringByAppendingPathComponent: @"update"];
+    if (  EXIT_SUCCESS != createDir(secureZipDir, PERMS_SECURED_FOLDER)  ) {
+        return FALSE;
+    }
 
-    NSString * secureUpdatedAppPath = [L_AS_T stringByAppendingPathComponent: @"Tunnelblick.app"];
+    NSString * secureZipPath = [secureZipDir stringByAppendingPathComponent: @"Tunnelblick.zip"];
+
+    NSString * secureUpdatedAppPath = [secureZipDir stringByAppendingPathComponent: @"Tunnelblick.app"];
 
     if (  ! [[NSFileManager defaultManager] tbRemovePathIfItExists: secureZipPath]  ) {
         return FALSE;
