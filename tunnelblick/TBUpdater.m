@@ -924,7 +924,7 @@ doneReturnErr:
                                                     @"Window text\nThe two %@ are descriptions of configuration versions (e.g. '1.2.3'"),
                                   self.updateInfo[@"versionString"], self.currentTunnelblickVersionString]);
 
-    NSString * adminMessage = (  [gTbDefaults isTrueForcedForKey: self.nonAdminCanUpdateAppPref]
+    NSString * adminMessage = (  [gTbDefaults isTrueReadOnlyForKey: self.nonAdminCanUpdateAppPref]
                                ? @""
                                : NSLocalizedString(@"<p><strong>A computer administrator's authorization is required to install this update.</strong></p>\n", @"HTML window text"));
 
@@ -1334,7 +1334,7 @@ returnNO:
     [self setCurrentlyUpdating: YES];
 
     int result;
-    if (  [gTbDefaults isTrueForcedForKey: self.nonAdminCanUpdateAppPref]  ) {
+    if (  [gTbDefaults isTrueReadOnlyForKey: self.nonAdminCanUpdateAppPref]  ) {
         result = [self installUsingOpenvpnstartWithTunnelblickPid: tunnelblickPidString];
     } else {
         result = [self installUsingInstallerWithTunnelblickPid: tunnelblickPidString];

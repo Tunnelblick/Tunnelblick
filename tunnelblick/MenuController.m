@@ -572,10 +572,10 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
             [gConfigDirs addObject: L_AS_T_SHARED];
             [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
         } else {
-            if (  [gTbDefaults isTrueForcedForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
+            if (  [gTbDefaults isTrueReadOnlyForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
                 [gConfigDirs addObject: L_AS_T_SHARED];
             }
-            if (  [gTbDefaults isTrueForcedForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
+            if (  [gTbDefaults isTrueReadOnlyForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
                 [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
             }
         }
@@ -4922,7 +4922,7 @@ static void signal_handler(int signalNumber)
 		if (  [gFileMgr fileExistsAtPath: welcomeIndexHtmlPath]  ) {
 			welcomeURLString = [@"file://" stringByAppendingString: welcomeIndexHtmlPath];
 		} else {
-            welcomeURLString = [gTbDefaults forcedStringForKey: @"welcomeURL"];
+            welcomeURLString = [gTbDefaults readOnlyStringForKey: @"welcomeURL"];
             if (  welcomeURLString  ) {
                 if (  ! [NSURL URLWithString: welcomeURLString]  ) {
                     NSLog(@"Unable to parse as a URL: %@", welcomeURLString);

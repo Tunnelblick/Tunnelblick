@@ -356,11 +356,21 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     return YES;
 }
 
--(NSString *) forcedStringForKey: (NSString *) key {
+-(id) readOnlyObjectForKey: (NSString *) key {
 
-    // Returns the string value of a forced preference, or nil if there is no forced preference for the key or if the value is not a string.
+    id value = [primaryDefaults objectForKey: key];
+    if (  value  ) {
+        return value;
+    }
 
-    id value = [forcedDefaults objectForKey: key];
+    return [forcedDefaults objectForKey: key];
+}
+
+-(NSString *) readOnlyStringForKey: (NSString *) key {
+
+    // Returns the string value of a forced or deployed preference, or nil if there is no forced or deployed preference for the key or if the value is not a string.
+
+    id value = [self readOnlyObjectForKey: key];
     if (  value  ) {
         return valueIfStringOtherwiseNil(value);
     }
@@ -368,18 +378,18 @@ TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
     return nil;
 }
 
--(BOOL) isTrueForcedForKey: (NSString *) key {
+-(BOOL) isTrueReadOnlyForKey: (NSString *) key {
 
-    // Returns TRUE if it is there is a forced preference for the key and it is TRUE, FALSE otherwise
+    // Returns TRUE if it is there is a forced or deployed preference for the key and it is TRUE, FALSE otherwise
     // (i.e., not found, doesn't have a boolValue, or the boolValue is FALSE.
 
-    id value = [forcedDefaults objectForKey: key];
+    id value = [self readOnlyObjectForKey: key];
     if (  value  ) {
         if (  [value respondsToSelector: @selector(boolValue)]  ) {
             return [value boolValue];
         }
 
-        NSLog(@"'%@' must be able to be converted to a BOOL, it is a %@", value, [value class]);
+        NSLog(@"Value '%@' for '%@' must be able to be converted to a BOOL, it is a %@", value, key, [value class]);
     }
 
     return FALSE;

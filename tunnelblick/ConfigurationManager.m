@@ -3027,9 +3027,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		
     BOOL isDeployed = [gFileMgr fileExistsAtPath: gDeployPath];
     [self setInstallToPrivateOK: (   (! isDeployed)
-                                  || [gTbDefaults isTrueForcedForKey: @"usePrivateConfigurationsWithDeployedOnes"] )];
+                                  || [gTbDefaults isTrueReadOnlyForKey: @"usePrivateConfigurationsWithDeployedOnes"] )];
     [self setInstallToSharedOK: (   (! isDeployed)
-                                 || [gTbDefaults isTrueForcedForKey: @"useSharedConfigurationsWithDeployedOnes"] )];
+                                 || [gTbDefaults isTrueReadOnlyForKey: @"useSharedConfigurationsWithDeployedOnes"] )];
     if (  privateFromApplescript  ) {
         [self setInstallToSharedOK: FALSE];
         if (  ! [self installToPrivateOK]  ) {
