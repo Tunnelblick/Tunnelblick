@@ -132,7 +132,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     // be returned if it is present and the value is a string.
     // Otherwise, logs an error, terminates Tunnelblick, and returns nil.
 
-    NSString * value = [gTbDefaults forcedStringForKey: key];
+    NSString * value = [gTbDefaults readOnlyStringForKey: key];
 
     if (  ! value) {
         id thing = [self.infoDictionary objectForKey: key];
@@ -170,9 +170,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, appPath)
     // Cannot be cached because it depends on the "updateCheckBetas" preference,
     // which can change at any time.
 
-    NSString * urlString = [gTbDefaults forcedStringForKey: @"updateFeedURL"];
+    NSString * urlString = [gTbDefaults readOnlyStringForKey: @"updateFeedURL"];
     if (  ! urlString  ) {
-        urlString = [gTbDefaults forcedStringForKey: @"SUFeedURL"];
+        urlString = [gTbDefaults readOnlyStringForKey: @"SUFeedURL"];
         if (  ! urlString  ) {
             urlString = [self forcedPreferenceStringOrInfoPlistStringForKey: @"SUFeedURL"];
         }

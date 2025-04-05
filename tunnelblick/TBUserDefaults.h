@@ -71,9 +71,9 @@
 
 -(BOOL) canChangeValueForKey:                 (NSString *) key;    // Returns TRUE if key can be modified, FALSE if it can't (because it being overridden)
 
--(NSString *) forcedStringForKey:             (NSString *) key;    // Returns the value of a forced preference if it is a string, nil otherwise
+-(NSString *) readOnlyStringForKey:             (NSString *) key;    // Returns the value of a forced or deployed preference if it is a string, nil otherwise
 
--(BOOL) isTrueForcedForKey:                   (NSString *) key;    // Returns TRUE if a preference for the key is forced to TRUE, false otherwise
+-(BOOL) isTrueReadOnlyForKey:                   (NSString *) key;    // Returns TRUE if a forced or deployed preference for the key is TRUE, false otherwise
 
 -(BOOL) copyPreferencesFrom:                  (NSString *) sourceDisplayName
                          to:                  (NSString *) targetDisplayName;
