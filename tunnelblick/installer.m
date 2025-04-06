@@ -1956,7 +1956,6 @@ static void secureTheApp(NSString * appResourcesPath) {
 	okSoFar = checkSetPermissions(tunnelblickHelperPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
 	
     NSString * appPath = [[appResourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-    removeQuarantineBit(appPath);
 
 	if (  ! okSoFar  ) {
 		appendLog(@"Unable to secure Tunnelblick.app");
@@ -2971,14 +2970,20 @@ int main(int argc, char *argv[]) {
 
     if (  doCopyApp  ) {
         // Make sure the app was not modified before it was secured
-        NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+        NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath]
+                                  stringByDeletingLastPathComponent]
+                                 stringByDeletingLastPathComponent];
         NSString * targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
-        if ( ! [gFileMgr contentsEqualAtPath: sourcePath
-                                     andPath: targetPath]  ) {
+        if ( [gFileMgr contentsEqualAtPath: sourcePath
+                                   andPath: targetPath]  ) {
+            appendLog([NSString stringWithFormat: @"Verified secure copy\nfrom %@\n  to %@", sourcePath, targetPath]);
+        } else {
+            appendLog([NSString stringWithFormat: @"Secure copy resulted in different contents\nfor %@\nand %@", sourcePath, targetPath]);
             securelyDeleteItem(targetPath);
-            appendLog(@"Copy/secure of app failed");
             errorExit();
         }
+
+        removeQuarantineBit(targetPath);
     }
 
     //**************************************************************************************************************************
