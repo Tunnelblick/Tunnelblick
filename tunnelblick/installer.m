@@ -171,6 +171,8 @@ static NSString * usernameFromPossiblePrivatePath(NSString * path);
 
 static NSString * privatePathFromUsername(NSString * username);
 
+static void secureTheApp(NSString * appResourcesPath);
+
 //**************************************************************************************************************************
 // LOGGING AND ERROR HANDLING
 
@@ -498,40 +500,134 @@ static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * pa
     errorExit();
 }
 
-BOOL removeQuarantineBitWorker(NSString * path) {
+//**************************************************************************************************************************
+// EXTENDED ATTRIBUTE ROUTINES
 
-    const char * fullPathC = fileSystemRepresentationFromPath(path);
-    const char * quarantineBitNameC = "com.apple.quarantine";
-    int status = removexattr(fullPathC, quarantineBitNameC, XATTR_NOFOLLOW);
-    if (   (status != 0)
-        && (errno != ENOATTR)) {
-        appendLog([NSString stringWithFormat: @"Failed to remove '%s' from %s; errno = %ld; error was '%s'", quarantineBitNameC, fullPathC, (long)errno, strerror(errno)]);
-        return FALSE;
+static NSArray * extendedAttributeNames(NSString * path) {
+
+    // Return an array with the names of all extended attributes for the item at path
+
+    const char * filePath = path.fileSystemRepresentation;
+
+    // get size of buffer needed
+    ssize_t bufferLength = listxattr(filePath, NULL, 0, XATTR_NOFOLLOW_ANY);
+
+    if (  bufferLength == -1  ) {
+        appendLog([NSString stringWithFormat: @"listxattr() failed for '%@'; error was %ld ('%s')",
+                   path, (long)errno, strerror(errno)]);
+        errorExit();
     }
 
-    return TRUE;
+    // return immediately if there are no extended attributes
+    if (  bufferLength == 0  ) {
+        return nil;
+    }
+
+    // make sure the size is reasonable
+    if (  bufferLength > 1000000  ) {
+        appendLog([NSString stringWithFormat: @"Extended attributes list too large: %lu bytes", bufferLength]);
+        errorExit();
+    }
+
+    // make a buffer of sufficient length
+    char * buffer = malloc(bufferLength);
+    if (  buffer == NULL ) {
+        appendLog([NSString stringWithFormat: @"Could not malloc %lu bytes", bufferLength]);
+        errorExit();
+    }
+
+    // now actually get the attribute strings
+    ssize_t newBufferLength = listxattr(filePath, buffer, bufferLength, XATTR_NOFOLLOW_ANY);
+
+    // make sure the size is the same or smaller
+    if (  newBufferLength > bufferLength  ) {
+        appendLog([NSString stringWithFormat: @"Extended attributes list became larger. Was %lu bytes, is now %lu bytes",
+                   bufferLength, newBufferLength]);
+        errorExit();
+    }
+
+    // Construct the array. Estimate size using 6 bytes per entry
+    NSMutableArray * array = [[[NSMutableArray alloc] initWithCapacity: newBufferLength/6] autorelease];
+    char * next = buffer;
+    char * end  = buffer + newBufferLength;
+    while (  next < end  ) {
+        NSString * name = [[[NSString alloc] initWithCString: next encoding: NSUTF8StringEncoding] autorelease];
+        if (  name.length == 0  ) {
+            break;
+        } else {
+            [array addObject: name];
+            next += strlen(next) + 1; // Skip C string and NUL byte which terminates it
+        }
+    }
+
+    // release buffer
+    free(buffer);
+
+    return [NSArray arrayWithArray: array];
 }
 
-void removeQuarantineBit(NSString * tunnelblickAppPath) {
+BOOL clearExtendedAttributes(NSString * path, NSArray * attributeNames) {
 
-    if (  ! removeQuarantineBitWorker(tunnelblickAppPath)  ) {
+    // Clears the extended attributes listed in the array for the item at path
+
+    const char * filePath = path.fileSystemRepresentation;
+
+    NSString * name = nil;
+    NSEnumerator * e = attributeNames.objectEnumerator;
+    while (  (name = e.nextObject)  ) {
+        int status = removexattr(filePath, name.UTF8String, XATTR_NOFOLLOW_ANY);
+        if (  status == 0  ) {
+            appendLog([NSString stringWithFormat: @"     Removed '%@' extended attribute from %@", name, path]);
+        } else {
+            appendLog([NSString stringWithFormat: @"Failed to remove '%@' xattr from %@; error was %ld ('%s')",
+                       name, path, (long)errno, strerror(errno)]);
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
+
+BOOL removeExtendedAttributesWorker(NSString * path) {
+
+    // Removes all extended attributes for the item at path
+
+    NSArray * list = extendedAttributeNames(path);
+    if (  list  ) {
+        BOOL status = clearExtendedAttributes(path, list);
+        return status;
+    }
+
+    return YES;
+}
+
+void removeExtendedAttributes(NSString * tunnelblickAppPath) {
+
+    // Removes all extended attributes from the directory structure rooted at tunnelblickAppPath
+
+    appendLog([NSString stringWithFormat: @"Removing all extended attributes from '%@'", tunnelblickAppPath]);
+
+    // Remove from the folder itself
+    if (  ! removeExtendedAttributesWorker(tunnelblickAppPath)  ) {
         goto fail;
     }
 
+    // Remove from contents
     NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tunnelblickAppPath];
     NSString * file;
-    while (  (file = [dirE nextObject])  ) {
+    while (  (file = dirE.nextObject)  ) {
         NSString * fullPath = [tunnelblickAppPath stringByAppendingPathComponent: file];
-        if (  ! removeQuarantineBitWorker(fullPath)  ) {
+        if (  ! removeExtendedAttributesWorker(fullPath)  ) {
             goto fail;
         }
     }
 
-    appendLog([NSString stringWithFormat: @"Removed any 'com.apple.quarantine' extended attributes from '%@'", tunnelblickAppPath]);
+    appendLog([NSString stringWithFormat: @"Removed all extended attributes from '%@'", tunnelblickAppPath]);
     return;
 
 fail:
-    appendLog([NSString stringWithFormat: @"Unable to remove all 'com.apple.quarantine' extended attributes from '%@'", tunnelblickAppPath]);
+    appendLog([NSString stringWithFormat: @"Unable to remove all extended attributes from '%@'", tunnelblickAppPath]);
     errorExit();
 }
 
@@ -977,8 +1073,6 @@ static BOOL testRenamex_np(NSString * folder) {
     }
 
     securelyDeleteItemIfItExists(test2Path);    // test1 was succcesfully renamed to test2, so delete test2
-
-    appendLog([NSString stringWithFormat: @"renamex_np() tests succeeded for %@", folder]);
 
     return TRUE;
  }
@@ -1755,28 +1849,40 @@ static void copyTheApp(void) {
 
     errorExitIfAnySymlinkInPath(targetPath);
 
-	if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+    if (  [sourcePath isEqualToString: targetPath]  ) {
+        appendLog(@"Not copying app because this copy is already where it should be copied");
+    } else {
+        if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-		if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
-														   source: @"/Library/Application Support/Tunnelblick"
-													  destination: @""
-															files: [NSArray arrayWithObject: @"Tunnelblick.app"]
-															  tag: nil]  ) {
+            if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
+                                                               source: @"/Library/Application Support/Tunnelblick"
+                                                          destination: @""
+                                                                files: [NSArray arrayWithObject: @"Tunnelblick.app"]
+                                                                  tag: nil]  ) {
 #pragma clang diagnostic pop
-			appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", targetPath]);
-		} else {
-			appendLog([NSString stringWithFormat: @"Unable to move %@ to the Trash", targetPath]);
-			errorExit();
-		}
-	}
+                appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", targetPath]);
+            } else {
+                appendLog([NSString stringWithFormat: @"Unable to move %@ to the Trash", targetPath]);
+                errorExit();
+            }
+        } else {
+            appendLog([NSString stringWithFormat: @"Does not exist, so not moving to the Trash: %@", targetPath]);
+        }
 
-    if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
-        errorExit();
-    } else {
-        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+        if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
+            appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
+            errorExit();
+        } else {
+            appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+        }
     }
+
+    removeExtendedAttributes(targetPath);
+
+    secureTheApp([[targetPath
+                   stringByAppendingPathComponent: @"Contents"]
+                  stringByAppendingPathComponent: @"Resources"]);
 
     // Create symlink: /Applications/Tunnelblick.app ==> /Library/Application Support/Tunnelblick/Tunnelblick.app
     NSString * symlinkSource = @"/Applications/Tunnelblick.app";
@@ -1954,8 +2060,6 @@ static void secureTheApp(NSString * appResourcesPath) {
 	}
 	
 	okSoFar = checkSetPermissions(tunnelblickHelperPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
-	
-    NSString * appPath = [[appResourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 
 	if (  ! okSoFar  ) {
 		appendLog(@"Unable to secure Tunnelblick.app");
@@ -2811,36 +2915,58 @@ int main(int argc, char *argv[]) {
         errorExit();
 	}
 
+    // Set up booleans that describe what operations are to be done
+
     unsigned opsAndFlags = (unsigned) strtol(argv[1], NULL, 0);
 
-    BOOL doClearLog = (opsAndFlags & INSTALLER_CLEAR_LOG) != 0;
+    BOOL doClearLog              = (opsAndFlags & INSTALLER_CLEAR_LOG)       != 0;
+    BOOL doCopyApp               = (opsAndFlags & INSTALLER_COPY_APP)        != 0;
+    BOOL doSecureApp             = (opsAndFlags & INSTALLER_SECURE_APP)      != 0;
+    BOOL doForceLoadLaunchDaemon = (opsAndFlags & INSTALLER_REPLACE_DAEMON)  != 0;
+    BOOL doUninstallKexts        = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS) != 0;
+    BOOL doSecureTblks           = (opsAndFlags & INSTALLER_SECURE_TBLKS)    != 0;
+    // Uninstall kexts overrides install kexts
+    BOOL doInstallKexts          = (   ( ! doUninstallKexts )
+                                    && ( (opsAndFlags & INSTALLER_INSTALL_KEXTS) != 0 )  );
+
     openLog(doClearLog);
 
     // Log the arguments installer was started with
+
+    NSMutableString * bitMaskDescription = [[[NSMutableString alloc] initWithCapacity: 100] autorelease];
+
+    if (  doClearLog              ) { [bitMaskDescription appendString: @" ClearLog"];       }
+    if (  doCopyApp               ) { [bitMaskDescription appendString: @" CopyApp"];        }
+    if (  doSecureApp             ) { [bitMaskDescription appendString: @" SecureApp"];      }
+    if (  doForceLoadLaunchDaemon ) { [bitMaskDescription appendString: @" ReplaceDaemon"];  }
+    if (  doInstallKexts          ) { [bitMaskDescription appendString: @" InstallKexts"];   }
+    if (  doUninstallKexts        ) { [bitMaskDescription appendString: @" UninstallKexts"]; }
+    if (  doSecureTblks           ) { [bitMaskDescription appendString: @" SecureTblks"];    }
+
+    unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK);
+
+    if (   (operation == INSTALLER_COPY)
+        && (argc > 3)                                       ) { [bitMaskDescription appendString: @" CopyConfig"           ]; }
+    if (  operation == INSTALLER_MOVE                       ) { [bitMaskDescription appendString: @" MoveConfig"           ]; }
+    if (  operation == INSTALLER_DELETE                     ) { [bitMaskDescription appendString: @" Delete"               ]; }
+    if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES ) { [bitMaskDescription appendString: @" InstallForcedPrefs"   ]; }
+    if (  operation == INSTALLER_EXPORT_ALL                 ) { [bitMaskDescription appendString: @" ExportAll"            ]; }
+    if (  operation == INSTALLER_IMPORT                     ) { [bitMaskDescription appendString: @" Import"               ]; }
+    if (  operation == INSTALLER_INSTALL_PRIVATE_CONFIG     ) { [bitMaskDescription appendString: @" InstallPrivateConfig" ]; }
+    if (  operation == INSTALLER_INSTALL_SHARED_CONFIG      ) { [bitMaskDescription appendString: @" InstallSharedConfig"  ]; }
+    if (  operation == INSTALLER_UPDATE_TUNNELBLICK         ) { [bitMaskDescription appendString: @" UpdateTunnelblick"    ]; }
+
+    // Remove leading space
+    [bitMaskDescription deleteCharactersInRange: NSMakeRange(0, 1)];
+
     NSMutableString * logString = [NSMutableString stringWithFormat: @"Tunnelblick installer getuid() = %d; geteuid() = %d; getgid() = %d; getegid() = %d\ncurrentDirectoryPath = '%@'; %d arguments:\n",
                                    getuid(), geteuid(), getgid(), getegid(), [gFileMgr currentDirectoryPath], argc - 1];
-    [logString appendFormat:@"     0x%04x", opsAndFlags];
+    [logString appendFormat: @"     0x%04x (%@)", opsAndFlags, bitMaskDescription];
     int i;
     for (  i=2; i<argc; i++  ) {
         [logString appendFormat: @"\n     %@", [NSString stringWithUTF8String: argv[i]]];
     }
     appendLog(logString);
-
-    unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK);
-
-    // Set up booleans that describe what operations are to be done
-
-    BOOL doCopyApp                = (opsAndFlags & INSTALLER_COPY_APP) != 0;
-    BOOL doSecureApp              = (   doCopyApp
-								     || ( (opsAndFlags & INSTALLER_SECURE_APP) != 0 )
-                                     );
-    BOOL doForceLoadLaunchDaemon  = (opsAndFlags & INSTALLER_REPLACE_DAEMON) != 0;
-    BOOL doUninstallKexts         = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS) != 0;
-    BOOL doSecureTblks            = (opsAndFlags & INSTALLER_SECURE_TBLKS) != 0;
-
-    // Uninstall kexts overrides install kexts
-    BOOL doInstallKexts           = (   ( ! doUninstallKexts )
-                                     && (opsAndFlags & INSTALLER_INSTALL_KEXTS)  );
 
 	NSString * resourcesPath = thisAppResourcesPath(); // (installer itself is in Resources)
     NSArray  * execComponents = [resourcesPath pathComponents];
@@ -2950,15 +3076,12 @@ int main(int argc, char *argv[]) {
 
     //**************************************************************************************************************************
     // (2) If INSTALLER_COPY_APP is set:
-    //     Then move /Library/Application Support/Tunnelblick/XXXXX.app to the Trash, then copy this app to /Library/Application Support/Tunnelblick/XXXXX.app
-    
+    //     Then move /Library/Application Support/Tunnelblick/XXXXX.app to the Trash,
+    //          copy this app into /Library/Application Support/Tunnelblick
+    //      and secure the copy
+
     if (  doCopyApp  ) {
-        // Don't copy the app to /Library/Application Support/Tunnelblick if it's already there.
-        // But secure it and do everything else as if it had been copied.
-        NSString * appPath = [[resourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-        if (  ! [appPath isEqualToString: @"/Library/Application Support/Tunnelblick/Tunnelblick.app"]  ) {
-            copyTheApp();
-        }
+        copyTheApp();
     }
 
 	//**************************************************************************************************************************
@@ -2966,24 +3089,6 @@ int main(int argc, char *argv[]) {
 
     if ( doSecureApp ) {
 		secureTheApp(appResourcesPath);
-    }
-
-    if (  doCopyApp  ) {
-        // Make sure the app was not modified before it was secured
-        NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath]
-                                  stringByDeletingLastPathComponent]
-                                 stringByDeletingLastPathComponent];
-        NSString * targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
-        if ( [gFileMgr contentsEqualAtPath: sourcePath
-                                   andPath: targetPath]  ) {
-            appendLog([NSString stringWithFormat: @"Verified secure copy\nfrom %@\n  to %@", sourcePath, targetPath]);
-        } else {
-            appendLog([NSString stringWithFormat: @"Secure copy resulted in different contents\nfor %@\nand %@", sourcePath, targetPath]);
-            securelyDeleteItem(targetPath);
-            errorExit();
-        }
-
-        removeQuarantineBit(targetPath);
     }
 
     //**************************************************************************************************************************
