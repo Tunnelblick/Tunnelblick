@@ -315,7 +315,7 @@ static void updateTunnelblickdPlist(void) {
         message = [NSString stringWithFormat: @"stdout = '\n%@'\n", stdoutString];
     }
     if (  stderrString.length != 0  ) {
-        message = [NSString stringWithFormat: @"%@stderr = '\n%@", message, stderrString];
+        message = [NSString stringWithFormat: @"%@stderr = '\n%@'", message, stderrString];
     }
     if (  message.length != 0  ) {
         message = [NSString stringWithFormat: @"status from installer(INSTALLER_REPLACE_DAEMON) = %d; %@", status, message];
