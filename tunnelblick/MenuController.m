@@ -5954,9 +5954,6 @@ static BOOL runningHookupThread = FALSE;
     // Set up messages to get authorization and notify of success
 	NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);	
     NSString * tbInApplicationsPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
-    NSString * applicationsPath = @"/Library/Application Support/Tunnelblick";
-    NSString * tbInApplicationsDisplayName = [[gFileMgr componentsToDisplayForPath: tbInApplicationsPath] componentsJoinedByString: @"/"];
-    NSString * applicationsDisplayName = [[gFileMgr componentsToDisplayForPath: applicationsPath] componentsJoinedByString: @"/"];
     
     NSString * launchWindowText;
     NSString * authorizationText;
@@ -5972,8 +5969,10 @@ static BOOL runningHookupThread = FALSE;
         NSBundle * previousBundle = [NSBundle bundleWithPath: tbInApplicationsPath];
         NSString * previousVersion = tunnelblickVersion(previousBundle);
         authorizationText = [NSString stringWithFormat:
-                             NSLocalizedString(@" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n", @"Window text"),
-                             previousVersion, applicationsDisplayName, appVersion, tblksMsg];
+                             NSLocalizedString(@" Do you wish to replace\n    %@\n with \n%@%@?\n\n",
+                                               @"Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)')."
+                                               @" The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line."),
+                             previousVersion, appVersion, tblksMsg];
         if (  configurationInstallsBeingDone == 0 ) {
             launchWindowText = NSLocalizedString(@"Tunnelblick was successfully replaced.", @"Window text");
         } else if (  configurationInstallsBeingDone == 1 ) {
@@ -5983,8 +5982,10 @@ static BOOL runningHookupThread = FALSE;
        }
     } else {
         authorizationText = [NSString stringWithFormat:
-                             NSLocalizedString(@" Do you wish to install %@ to %@%@?\n\n", @"Window text"),
-                             appVersion, applicationsDisplayName, tblksMsg];
+                             NSLocalizedString(@" Do you wish to install %@%@?\n\n",
+                                               @"Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)')."
+                                               @" The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line."),
+                             appVersion, tblksMsg];
         if (  configurationInstallsBeingDone == 0 ) {
             launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed.", @"Window text");
         } else if (  configurationInstallsBeingDone == 1 ) {
@@ -6102,7 +6103,7 @@ static BOOL runningHookupThread = FALSE;
 	// Launch the program in /Library/Application Support/Tunnelblick
 	if (  ! [[NSWorkspace sharedWorkspace] launchApplication: tbInApplicationsPath]  ) {
 		TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
-						[NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to launch %@", @"Window text"), tbInApplicationsDisplayName],
+						NSLocalizedString(@"An error occurred while trying to launch Tunnelblick.", @"Window text"),
 						nil, nil, nil);
 	}
     
