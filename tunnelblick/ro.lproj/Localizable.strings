@@ -916,12 +916,6 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ este un program gratuit: se poate redistribui sau modifica sub condițiile termenilor %2$@ publicate de %3$@.\n\n%4$@ este o marcă registrată a OpenVPN Inc.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Doriți să instalați %1$@ în %2$@%3$@?\n\n";
-
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Doriti sa inlocuiti\n    %1$@\nin %2$@\ncu %3$@%4$@?\n\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Preferințele obligatorii vor fi deasemenea instalate sau înlocuite.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
@@ -1079,9 +1073,6 @@
 
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "A intervenit o eroare la descărcarea noii versiuni.\n\nPentru mai multe informații, consultați fișierul de loguri la\n\n%@";
-
-/* Window text */
-"An error occurred while trying to launch %@" = "A apărut o eroare în timp ce se încerca lansarea %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "A apărut o eroare în timp ce se încearcă revenirea la copia securizată. Consultați Console Log pentru detalii.\n\n";

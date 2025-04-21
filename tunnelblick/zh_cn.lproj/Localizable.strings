@@ -921,11 +921,11 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ 是免费软件: 你可以在 %3$@ 发布的 %2$@ 的条例下重新分发和/或修改它\n\n%4$@ 是 OpenVPN 有限责任公司的注册商标.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " 你希望把 %1$@ 安装到 %2$@%3$@ 吗?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " 你希望安装 %1$@%2$@ 吗?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " 你确定需要使用在\n  %1$@ 中  \n  使用 %3$@%4$@  \n 替换 %2$@ 吗 ?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " 你希望将\n    %1$@\n 替换为 \n%2$@%3$@ 吗?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = "系统内建的固定偏好设置也将被安装或者替换.\n\n";
@@ -1093,7 +1093,7 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "获取更新信息时发生了一个或多个错误：\n\n%1$@详情请参考日志%2$@";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "启动 %@ 时发生错误";
+"An error occurred while trying to launch Tunnelblick." = "Tunnelblick启动故障。";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "在尝试重置到安全副本的时候发生错误.详情请查看控制台日志.\n\n";

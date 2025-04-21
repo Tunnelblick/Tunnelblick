@@ -921,11 +921,11 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ - вільне програмне забезпечення: Ви можете розповсюджувати або змінювати його код у відповідності до умов %2$@, що були опубліковані %3$@.\n\n%4$@ — зареєстрована торгівельна марка OpenVPN Technologies Inc.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Ви бажаєте встановити %1$@ в %2$@%3$@?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Ви бажаєте встановити %1$@%2$@?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Ви бажаєте замінити\n    %1$@\n    в %2$@\nз %3$@%4$@?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Ви бажаєте замінити\n    %1$@\n на \n%2$@%3$@?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Примусові параметри теж будуть встановлені або замінені.\n\n";
@@ -1093,7 +1093,7 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Виникла помилка під час отримання інформації про оновлення.\n\n%1$@Додаткова інформація в журналі\n\n%2$@";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "Сталася помилка під час спроби запуску %@";
+"An error occurred while trying to launch Tunnelblick." = "Сталася помилка під час спроби запуску Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Сталася помилка під час спроби повернутися до збереженої (тіньової) копії. Перегляньте журнал консолі для отримання додаткової інформації.\n\n";
@@ -2381,6 +2381,9 @@
 
 /* HTML info for the 'Install tun and tap system extensions...' button. */
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Натисніть щоб встановити або видалити системні розширення Tunnelblick tun і tap.</p>\n\n<p>Для додаткової інформації дивись <a href=\"https://tunnelblick.net/cInstallKexts.html\">Встановлення системних розширень Tunnelblick's Tun і Tap</a> [tunnelblick.net]</p><p><strong>Не активні</strong> поки Tunnelblick не запущений в середовищі macOS Big Sur або новіше.</p>";
+
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Натисніть для видалення Tunnelblick</p>\n\n<p><strong>Не активно</strong> якщо Tunnelblick не встановлено.</p>";
 
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Копіює інформацію в Буферу обміну для допомоги в діагностуванні проблем.</p><p>Інформація містить версію программи та її налаштування, файл конфігурації OpenVPN, мережеві налаштування та інше.</p><p>Чуттєва інформація сертифікату виключена, проте IP адреса та URL, які <em>можуть</em> бути конфіденційними присутні. Ви повинні перевірити інформацію та видалити те, що бажаєте залишити в секреті перед відправкою електронною поштою або оприлюдненням.</p>";

@@ -921,11 +921,11 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ jest darmowym oprogramowaniem: można je rozpowszechniać i/lub modyfikować zgodnie z warunkami %2$@ opublikowanej przez %3$@.\n\n%4$@ jest zastrzeżonym znakiem towarowym firmy OpenVPN, Inc.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Czy chcesz zainstalować %1$@ w %2$@%3$@?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Czy chcesz zainstalować %1$@%2$@?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Czy chcesz zastąpić\n    %1$@\n    w %2$@\n wartością %3$@%4$@?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Czy chcesz zastąpić\n    %1$@\n z \n%2$@%3$@?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Wymuszone ustawienia również zostaną zainstalowane bądź zastąpione.\n\n";
@@ -1093,7 +1093,7 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Wystąpił błąd podczas próby pobrania informacji o aktualizacjach.\n\n%1$@Więcej informacji znajdziesz w pliku log:\n\n%2$@";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "Wystąpił błąd podczas uruchamiania %@";
+"An error occurred while trying to launch Tunnelblick." = "Wystąpił błąd podczas uruchamiania Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Napotkano błąd przy próbie przywrócenia bezpiecznej (ukrytej) kopii. Szczegóły dostępne są w logu konsoli.\n\n";
@@ -1198,7 +1198,7 @@
 "Configuration changes:" = "Zmiany konfiguracji:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfiguracje są instalowane zplików dostarczonych przez Twojego administratora sieci zdalnej lub dostawcę usługi VPN. \n\nPliki konfiguracyjne mogą mieć następujące rozszerzenia: .tblk, .ovpn, or .conf.\n\n(Mogą też pojawić się inne pliki skojażone z konfiguracją Tunnelblick, ale poprostu je zignoruj.)\n\nAby zainstalować konfigurację przeciągnij ją na ikonę aplikacji Tunnelblick do menu (górna część ekranu) lub do Listy konfiguracji w szczegółach połączeń VPN w oknie aplikacji\n\nAby zainstalować wiele konfiguracji na raz, zaznacz je i przeciągnij wszystkie tak jak by to był jeden plik konfiguracyjny.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfiguracje są instalowane z plików dostarczonych przez Twojego administratora sieci zdalnej lub dostawcę usługi VPN. \n\nPliki konfiguracyjne mogą mieć następujące rozszerzenia: .tblk, .ovpn, lub .conf.\n\n(Mogą też pojawić się inne pliki skojarzone z konfiguracją Tunnelblick, albo po prostu je zignoruj.)\n\nAby zainstalować konfigurację przeciągnij ją na ikonę aplikacji Tunnelblick do menu (górna część ekranu) lub do Listy konfiguracji w szczegółach połączeń VPN w oknie aplikacji.\n\nAby zainstalować wiele konfiguracji naraz, zaznacz je i przeciągnij wszystkie tak jakby to był jeden plik konfiguracyjny.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Istnieją ustawienia konfiguracyjne które chcą się zainstalować razem z programem Tunnelblick, a które nie są jego częścią.\n\n";

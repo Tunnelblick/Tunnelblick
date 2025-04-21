@@ -862,12 +862,6 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ je besplatan softver: možete ga deliti i menjati pod uslovima %2$@ licence objavljenim od strane %3$@.\n\n%4$@ je registrovana marka OpenVPN Inc.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Da li želiš da instaliraš %1$@ u %2$@%3$@?\n\n";
-
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Da li želiš da zameniš\n    %1$@\n    u %2$@\nsa %3$@%4$@?\n\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Forsirana podešavanja će takođe biti instalirana ili izmenjena.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
@@ -1019,9 +1013,6 @@
 
 /* Window text */
 "An error occurred getting the list of loaded system extensions." = "Dogodila se greška prilikom učitanja sistemske ekstenzije. ";
-
-/* Window text */
-"An error occurred while trying to launch %@" = "Došlo je do greške tokom pokretanja %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Došlo je do greške prilikom pokušaja vraćanja bezbedne kopije. Pogledajte Log konzole za detalje.\n\n";

@@ -891,12 +891,6 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ ir atvērta koda programmatūra: Jūs to varat izplatīt un/vai modificēt to saskaņā ar %2$@ kā to publicējis %3$@. \n\n%4$@ ir reģistrēta preču zīme, kas pieder OpenVPN, Inc.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Vai vēlaties instalēt %1$@ uz %2$@%3$@?\n\n";
-
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Vai vēlaties aizvietot\n     %1$@,     \n     kas atrodas  %2$@\nar %3$@%4$@?\n\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Piespiedu iestatījumi arī tiks instalēti vai aizvietoti.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
@@ -1048,9 +1042,6 @@
 
 /* Window text */
 "An error occurred getting the list of loaded system extensions." = "Mēģinot dabūt ielādēto sistēmas paplašinājumu sarakstu, notikusi kļūme.";
-
-/* Window text */
-"An error occurred while trying to launch %@" = "Notika kļūda, startējot %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Ir notikusi drošo (ēnas) iestatījumu atjaunošanas kļūda. Vairāk informācijas notikumu žurnālā.\n\n";

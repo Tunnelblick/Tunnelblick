@@ -835,12 +835,6 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ er opið forrit: þú mátt dreifa því víðar og/eða breyta því samkvæmt skilmálum %2$@ sem eru gefnar út af %3$@.\n\n%4$@ er skráð vörumerki OpenVPN Inc.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Vilt þú setja upp %1$@ í %2$@%3$@?\n\n";
-
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Vilt þú skipta \n%1$@ í \n%2$@ \nút fyrir %3$@%4$@?\n\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Óbreytanlegar stillingar verða einnig settar upp eða þeim skipt út.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
@@ -932,9 +926,6 @@
 
 /* Window text */
 "All configurations use %@ credentials" = "Allar samskipanir nota %@ auðkennisgögn";
-
-/* Window text */
-"An error occurred while trying to launch %@" = "Villa kom upp þegar reynt var að ræsa %@";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Innri villa kom upp í Tunnelblick%1$@%2$@";

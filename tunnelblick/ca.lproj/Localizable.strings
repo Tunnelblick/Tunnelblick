@@ -921,11 +921,11 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ és programari lliure: podeu redistribuir-lo o modificar-lo sota els termes de la %2$@ tal i com es publica per %3$@.\n\n%4$@ és una marca comercial registrada d'OpenVPN Inc.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Desitges instal·lar %1$@ a %2$@%3$@?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Vols instal·lar %1$@%2$@?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Desitges substituir\n    %1$@\n    a %2$@\nper %3$@%4$@?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Desitges substituir\n    %1$@\n    amb\n%2$@%3$@?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Les preferències forçades també s'instal·laran o es substituiran.\n\n";
@@ -1093,7 +1093,7 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "S'ha produït un error en obtenir la informació de les actualitzacions.\n\nPer a més informació, consulta els registres a\n\n%@";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "S'ha produït un error mentre s'intentava executar %@";
+"An error occurred while trying to launch Tunnelblick." = "S'ha produït un error mentre s'intentava executar Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "S'ha produït un error mentre s'intentava revertir a la còpia shadow. Comprova la Consola per a obtenir més detalls.\n\n";
