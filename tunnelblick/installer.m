@@ -510,10 +510,10 @@ static NSArray * extendedAttributeNames(NSString * path) {
     const char * filePath = path.fileSystemRepresentation;
 
     // get size of buffer needed
-    ssize_t bufferLength = listxattr(filePath, NULL, 0, XATTR_NOFOLLOW_ANY);
+    ssize_t bufferLength = listxattr(filePath, NULL, 0, XATTR_NOFOLLOW);
 
     if (  bufferLength == -1  ) {
-        appendLog([NSString stringWithFormat: @"listxattr() failed for '%@'; error was %ld ('%s')",
+        appendLog([NSString stringWithFormat: @"listxattr() getting length of attribute strings failed for '%@'; error was %ld ('%s')",
                    path, (long)errno, strerror(errno)]);
         errorExit();
     }
@@ -532,20 +532,33 @@ static NSArray * extendedAttributeNames(NSString * path) {
     // make a buffer of sufficient length
     char * buffer = malloc(bufferLength);
     if (  buffer == NULL ) {
-        appendLog([NSString stringWithFormat: @"Could not malloc %lu bytes", bufferLength]);
+        appendLog([NSString stringWithFormat: @"Could not malloc %lu bytes for extended attributes list", bufferLength]);
         errorExit();
     }
 
     // now actually get the attribute strings
-    ssize_t newBufferLength = listxattr(filePath, buffer, bufferLength, XATTR_NOFOLLOW_ANY);
+    ssize_t newBufferLength = listxattr(filePath, buffer, bufferLength, XATTR_NOFOLLOW);
 
     // make sure the size is the same or smaller
+    if (  newBufferLength == -1  ) {
+        appendLog([NSString stringWithFormat: @"listxattr() getting attribute strings failed for '%@'; error was %ld ('%s')",
+                   path, (long)errno, strerror(errno)]);
+        free(buffer);
+        errorExit();
+    }
     if (  newBufferLength > bufferLength  ) {
         appendLog([NSString stringWithFormat: @"Extended attributes list became larger. Was %lu bytes, is now %lu bytes",
                    bufferLength, newBufferLength]);
+        free(buffer);
         errorExit();
     }
 
+    if (  newBufferLength == 0 ) {
+        appendLog([NSString stringWithFormat: @"All extended attributes disappeared. List was %lu bytes long",
+                   bufferLength]);
+        free(buffer);
+        return nil;
+    }
     // Construct the array. Estimate size using 6 bytes per entry
     NSMutableArray * array = [[[NSMutableArray alloc] initWithCapacity: newBufferLength/6] autorelease];
     char * next = buffer;
@@ -575,7 +588,7 @@ BOOL clearExtendedAttributes(NSString * path, NSArray * attributeNames) {
     NSString * name = nil;
     NSEnumerator * e = attributeNames.objectEnumerator;
     while (  (name = e.nextObject)  ) {
-        int status = removexattr(filePath, name.UTF8String, XATTR_NOFOLLOW_ANY);
+        int status = removexattr(filePath, name.UTF8String, XATTR_NOFOLLOW);
         if (  status == 0  ) {
             appendLog([NSString stringWithFormat: @"     Removed '%@' extended attribute from %@", name, path]);
         } else {
