@@ -1473,7 +1473,14 @@ static void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
     NSData   * daemonData = [gFileMgr contentsAtPath: tunnelblickdPath];
     if (  ! daemonData  ) {
         appendLog([NSString stringWithFormat: @"Could not find tunnelblickd at '%@'", tunnelblickdPath]);
-        errorExit();
+        tunnelblickdPath = @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
+        daemonData = [gFileMgr contentsAtPath: tunnelblickdPath];
+        if (  daemonData  ) {
+            appendLog([NSString stringWithFormat: @"Creating hash from tunnelblickd at '%@'", tunnelblickdPath]);
+        } else {
+            appendLog([NSString stringWithFormat: @"Could not find tunnelblickd at '%@'", tunnelblickdPath]);
+            errorExit();
+        }
     }
     NSString * daemonHash = sha256HexStringForData(daemonData);
     NSData * daemonHashData = [NSData dataWithBytes: [daemonHash UTF8String] length: [daemonHash length]];
