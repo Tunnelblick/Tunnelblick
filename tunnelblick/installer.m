@@ -932,8 +932,6 @@ static BOOL testRenamex_np(NSString * folder) {
 
     securelyDeleteItemIfItExists(test2Path);    // test1 was succcesfully renamed to test2, so delete test2
 
-    appendLog([NSString stringWithFormat: @"renamex_np() tests succeeded for %@", folder]);
-
     return TRUE;
  }
 
