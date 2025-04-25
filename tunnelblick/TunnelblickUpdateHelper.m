@@ -247,41 +247,52 @@ static const char * fileSystemRepresentationFromPath(NSString * path) {
 static void doRenames(void) {
 
     NSString * appPath = @"/Applications/Tunnelblick.app";
-    NSString * oldPath = @"/Applications/Tunnelblick-old.app";
+    NSString * oldPath = @"/Applications/Tunnelblick.old.app";
     NSString * newPath = @"/Applications/Tunnelblick.new.app";
 
+    // Delete any existing .old.app
     if (  [gFileMgr fileExistsAtPath: oldPath]  ) {
         if (  ! [gFileMgr tbRemoveFileAtPath: oldPath handler: nil]  ) {
             errorExit();
         }
-        appendLog(@"Deleted /Applications/Tunnelblick-old.app");
+        appendLog([NSString stringWithFormat: @"Deleted %@", oldPath]);
     }
 
+    // Rename .app to be .old.app
     if (  0 == rename(fileSystemRepresentationFromPath(appPath), fileSystemRepresentationFromPath(oldPath))  ){
-        appendLog(@"Renamed /Applications/Tunnelblick.app to Tunnelblick-old.app");
+        appendLog([NSString stringWithFormat: @"Renamed %@ to %@", appPath, oldPath]);
     } else {
         appendLog([NSString stringWithFormat: @"Warning: rename() failed with error %d ('%s') trying to rename %@ to %@",
                    errno, strerror(errno), appPath, oldPath]);
-    }
-
-    if (  0 != rename(fileSystemRepresentationFromPath(newPath), fileSystemRepresentationFromPath(appPath))  ){
-        appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
-                   errno, strerror(errno), newPath, appPath]);
-
-        // Try to get Tunnelblick.app back
-        [gFileMgr tbRemovePathIfItExists: appPath];
-        if (  0 == rename(fileSystemRepresentationFromPath(oldPath), fileSystemRepresentationFromPath(appPath))  ){
-            appendLog(@"Renamed /Applications/Tunnelblick-old.app to Tunnelblick.app");
-            appendLog(@"Failed to update Tunnelblick");
-        } else {
-            appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
-                       errno, strerror(errno), oldPath, appPath]);
-            appendLog(@"installer failed and could not restore /Applications/Tunnelblick.app from /Applications/Tunnelblick-old.app");
-        }
+        appendLog(@"Failed to update Tunnelblick");
         errorExit();
     }
 
-    appendLog(@"Renamed /Applications/Tunnelblick.new.app to Tunnelblick.app");
+    // Rename .new to .app
+    if (  0 == rename(fileSystemRepresentationFromPath(newPath), fileSystemRepresentationFromPath(appPath))  ){
+        appendLog([NSString stringWithFormat: @"Renamed %@ to %@", newPath, appPath]);
+        return; // Succeeded
+    }
+
+    appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
+               errno, strerror(errno), newPath, appPath]);
+
+    // Try to get Tunnelblick.app back
+    if (  ! [gFileMgr tbRemovePathIfItExists: appPath]  ) {
+        appendLog([NSString stringWithFormat: @"Failed to remove %@", appPath]);
+        appendLog([NSString stringWithFormat: @"installer failed and could not restore %@ to %@",
+                   oldPath, appPath]);
+    } else if (  0 == rename(fileSystemRepresentationFromPath(oldPath), fileSystemRepresentationFromPath(appPath))  ){
+        appendLog([NSString stringWithFormat: @"Renamed %@ to %@", oldPath, appPath]);
+        appendLog(@"Failed to update Tunnelblick");
+    } else {
+        appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
+                   errno, strerror(errno), oldPath, appPath]);
+        appendLog([NSString stringWithFormat: @"installer failed and could not restore %@ to %@",
+                   oldPath, appPath]);
+    }
+
+    errorExit();
 }
 
 static void updateTunnelblickdPlist(void) {
@@ -391,7 +402,8 @@ int main(int argc, const char * argv[]) {
         gid_t gid = (unsigned) strtol(argv[2], NULL, 0);
         pid_t pid = (unsigned) strtol(argv[3], NULL, 0);
 
-        appendLog([NSString stringWithFormat: @"TunnelblickUpdateHelper entered with arguments: uid = %u; gid = %u; Tunnelblick pid = %u", uid, gid, pid]);
+        appendLog([NSString stringWithFormat: @"TunnelblickUpdateHelper entered as %d:%d (effective %d:%d) with arguments: uid = %u; gid = %u; Tunnelblick pid = %u",
+                   getuid(), getgid(), geteuid(), getegid(), uid, gid, pid]);
 
         if (   (uid == 0)
             || (gid == 0)
