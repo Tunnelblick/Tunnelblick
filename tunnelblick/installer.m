@@ -1395,10 +1395,10 @@ static void loadLaunchDaemonUsingLaunchctl(void) {
 
 static void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
 	
-    (void) newPlistContents;  // Can remove this if the above lines are un-commmented
+    (void) newPlistContents;
+
     loadLaunchDaemonUsingLaunchctl();
-    //	    }
-    
+
     // Store the hash of the .plist and the daemon in files owned by root:wheel
     NSDictionary * hashFileAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                          [NSNumber numberWithUnsignedLong: 0],               NSFileOwnerAccountID,
