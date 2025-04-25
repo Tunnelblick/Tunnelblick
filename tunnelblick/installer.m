@@ -2754,36 +2754,58 @@ int main(int argc, char *argv[]) {
         errorExit();
 	}
 
+    // Set up booleans that describe what operations are to be done
+
     unsigned opsAndFlags = (unsigned) strtol(argv[1], NULL, 0);
 
-    BOOL doClearLog = (opsAndFlags & INSTALLER_CLEAR_LOG) != 0;
+    BOOL doClearLog              = (opsAndFlags & INSTALLER_CLEAR_LOG)       != 0;
+    BOOL doCopyApp               = (opsAndFlags & INSTALLER_COPY_APP)        != 0;
+    BOOL doSecureApp             = (opsAndFlags & INSTALLER_SECURE_APP)      != 0;
+    BOOL doForceLoadLaunchDaemon = (opsAndFlags & INSTALLER_REPLACE_DAEMON)  != 0;
+    BOOL doUninstallKexts        = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS) != 0;
+    BOOL doSecureTblks           = (opsAndFlags & INSTALLER_SECURE_TBLKS)    != 0;
+    // Uninstall kexts overrides install kexts
+    BOOL doInstallKexts          = (   ( ! doUninstallKexts )
+                                    && ( (opsAndFlags & INSTALLER_INSTALL_KEXTS) != 0 )  );
+
     openLog(doClearLog);
 
     // Log the arguments installer was started with
+
+    NSMutableString * bitMaskDescription = [[[NSMutableString alloc] initWithCapacity: 100] autorelease];
+
+    if (  doClearLog              ) { [bitMaskDescription appendString: @" ClearLog"];       }
+    if (  doCopyApp               ) { [bitMaskDescription appendString: @" CopyApp"];        }
+    if (  doSecureApp             ) { [bitMaskDescription appendString: @" SecureApp"];      }
+    if (  doForceLoadLaunchDaemon ) { [bitMaskDescription appendString: @" ReplaceDaemon"];  }
+    if (  doInstallKexts          ) { [bitMaskDescription appendString: @" InstallKexts"];   }
+    if (  doUninstallKexts        ) { [bitMaskDescription appendString: @" UninstallKexts"]; }
+    if (  doSecureTblks           ) { [bitMaskDescription appendString: @" SecureTblks"];    }
+
+    unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK);
+
+    if (   (operation == INSTALLER_COPY)
+        && (argc > 3)                                       ) { [bitMaskDescription appendString: @" CopyConfig"           ]; }
+    if (  operation == INSTALLER_MOVE                       ) { [bitMaskDescription appendString: @" MoveConfig"           ]; }
+    if (  operation == INSTALLER_DELETE                     ) { [bitMaskDescription appendString: @" Delete"               ]; }
+    if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES ) { [bitMaskDescription appendString: @" InstallForcedPrefs"   ]; }
+    if (  operation == INSTALLER_EXPORT_ALL                 ) { [bitMaskDescription appendString: @" ExportAll"            ]; }
+    if (  operation == INSTALLER_IMPORT                     ) { [bitMaskDescription appendString: @" Import"               ]; }
+    if (  operation == INSTALLER_INSTALL_PRIVATE_CONFIG     ) { [bitMaskDescription appendString: @" InstallPrivateConfig" ]; }
+    if (  operation == INSTALLER_INSTALL_SHARED_CONFIG      ) { [bitMaskDescription appendString: @" InstallSharedConfig"  ]; }
+    if (  operation == INSTALLER_UPDATE_TUNNELBLICK         ) { [bitMaskDescription appendString: @" UpdateTunnelblick"    ]; }
+
+    // Remove leading space
+    [bitMaskDescription deleteCharactersInRange: NSMakeRange(0, 1)];
+
     NSMutableString * logString = [NSMutableString stringWithFormat: @"Tunnelblick installer getuid() = %d; geteuid() = %d; getgid() = %d; getegid() = %d\ncurrentDirectoryPath = '%@'; %d arguments:\n",
                                    getuid(), geteuid(), getgid(), getegid(), [gFileMgr currentDirectoryPath], argc - 1];
-    [logString appendFormat:@"     0x%04x", opsAndFlags];
+    [logString appendFormat: @"     0x%04x (%@)", opsAndFlags, bitMaskDescription];
     int i;
     for (  i=2; i<argc; i++  ) {
         [logString appendFormat: @"\n     %@", [NSString stringWithUTF8String: argv[i]]];
     }
     appendLog(logString);
-
-    unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK);
-
-    // Set up booleans that describe what operations are to be done
-
-    BOOL doCopyApp                = (opsAndFlags & INSTALLER_COPY_APP) != 0;
-    BOOL doSecureApp              = (   doCopyApp
-								     || ( (opsAndFlags & INSTALLER_SECURE_APP) != 0 )
-                                     );
-    BOOL doForceLoadLaunchDaemon  = (opsAndFlags & INSTALLER_REPLACE_DAEMON) != 0;
-    BOOL doUninstallKexts         = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS) != 0;
-    BOOL doSecureTblks            = (opsAndFlags & INSTALLER_SECURE_TBLKS) != 0;
-
-    // Uninstall kexts overrides install kexts
-    BOOL doInstallKexts           = (   ( ! doUninstallKexts )
-                                     && (opsAndFlags & INSTALLER_INSTALL_KEXTS)  );
 
 	NSString * resourcesPath = thisAppResourcesPath(); // (installer itself is in Resources)
     NSArray  * execComponents = [resourcesPath pathComponents];
