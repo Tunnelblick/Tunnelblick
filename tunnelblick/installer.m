@@ -1701,9 +1701,9 @@ static void setupUser_Library_Application_Support_Tunnelblick(void) {
 }
 
 static void copyTheApp(void) {
-	
-	NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-	NSString * targetPath  = @"/Applications/Tunnelblick.app";
+
+    NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+    NSString * targetPath  = @"/Applications/Tunnelblick.app";
 
     errorExitIfAnySymlinkInPath(targetPath);
 
