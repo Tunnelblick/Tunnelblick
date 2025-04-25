@@ -98,7 +98,7 @@
 //			Creates the .mip file if it does not already exist
 //          Updates Tunnelblick kexts in /Library/Extensions (unless kexts are being uninstalled)
 
-//      (2) If INSTALLER_COPY_APP is set, this app is copied to /Applications and the com.apple.quarantine extended attribute is removed from the app and all items within it
+//      (2) If INSTALLER_COPY_APP is set, this app is copied to /Applications and all extended attributes are removed from the copy and all items within it
 
 //      (3) If INSTALLER_SECURE_APP is set, secures Tunnelblick.app by setting the ownership and permissions of its components.
 
@@ -170,6 +170,8 @@ static void securelyDeleteItem(NSString * path);
 static NSString * usernameFromPossiblePrivatePath(NSString * path);
 
 static NSString * privatePathFromUsername(NSString * username);
+
+static void secureTheApp(NSString * appResourcesPath);
 
 //**************************************************************************************************************************
 // LOGGING AND ERROR HANDLING
@@ -498,40 +500,147 @@ static void errorExitIfSymlinksOrDoesNotExistOrIsNotReadableAtPath(NSString * pa
     errorExit();
 }
 
-BOOL removeQuarantineBitWorker(NSString * path) {
+//**************************************************************************************************************************
+// EXTENDED ATTRIBUTE ROUTINES
 
-    const char * fullPathC = fileSystemRepresentationFromPath(path);
-    const char * quarantineBitNameC = "com.apple.quarantine";
-    int status = removexattr(fullPathC, quarantineBitNameC, XATTR_NOFOLLOW);
-    if (   (status != 0)
-        && (errno != ENOATTR)) {
-        appendLog([NSString stringWithFormat: @"Failed to remove '%s' from %s; errno = %ld; error was '%s'", quarantineBitNameC, fullPathC, (long)errno, strerror(errno)]);
-        return FALSE;
+static NSArray * extendedAttributeNames(NSString * path) {
+
+    // Return an array with the names of all extended attributes for the item at path
+
+    const char * filePath = path.fileSystemRepresentation;
+
+    // get size of buffer needed
+    ssize_t bufferLength = listxattr(filePath, NULL, 0, XATTR_NOFOLLOW);
+
+    if (  bufferLength == -1  ) {
+        appendLog([NSString stringWithFormat: @"listxattr() getting length of attribute strings failed for '%@'; error was %ld ('%s')",
+                   path, (long)errno, strerror(errno)]);
+        errorExit();
     }
 
-    return TRUE;
+    // return immediately if there are no extended attributes
+    if (  bufferLength == 0  ) {
+        return nil;
+    }
+
+    // make sure the size is reasonable
+    if (  bufferLength > 1000000  ) {
+        appendLog([NSString stringWithFormat: @"Extended attributes list too large: %lu bytes", bufferLength]);
+        errorExit();
+    }
+
+    // make a buffer of sufficient length
+    char * buffer = malloc(bufferLength);
+    if (  buffer == NULL ) {
+        appendLog([NSString stringWithFormat: @"Could not malloc %lu bytes for extended attributes list", bufferLength]);
+        errorExit();
+    }
+
+    // now actually get the attribute strings
+    ssize_t newBufferLength = listxattr(filePath, buffer, bufferLength, XATTR_NOFOLLOW);
+
+    // make sure the size is the same or smaller
+    if (  newBufferLength == -1  ) {
+        appendLog([NSString stringWithFormat: @"listxattr() getting attribute strings failed for '%@'; error was %ld ('%s')",
+                   path, (long)errno, strerror(errno)]);
+        free(buffer);
+        errorExit();
+    }
+
+    if (  newBufferLength > bufferLength  ) {
+        appendLog([NSString stringWithFormat: @"Extended attributes list became larger. Was %lu bytes, is now %lu bytes",
+                   bufferLength, newBufferLength]);
+        free(buffer);
+        errorExit();
+    }
+
+    if (  newBufferLength == 0 ) {
+        appendLog([NSString stringWithFormat: @"All extended attributes disappeared. List was %lu bytes long",
+                   bufferLength]);
+        free(buffer);
+        return nil;
+    }
+
+    // Construct the array. Estimate size using 6 bytes per entry
+    NSMutableArray * array = [[[NSMutableArray alloc] initWithCapacity: newBufferLength/6] autorelease];
+    char * next = buffer;
+    char * end  = buffer + newBufferLength;
+    while (  next < end  ) {
+        NSString * name = [[[NSString alloc] initWithCString: next encoding: NSUTF8StringEncoding] autorelease];
+        if (  name.length == 0  ) {
+            break;
+        } else {
+            [array addObject: name];
+            next += strlen(next) + 1; // Skip C string and NUL byte which terminates it
+        }
+    }
+
+    // release buffer
+    free(buffer);
+
+    return [NSArray arrayWithArray: array];
 }
 
-void removeQuarantineBit(NSString * tunnelblickAppPath) {
+BOOL clearExtendedAttributes(NSString * path, NSArray * attributeNames) {
 
-    if (  ! removeQuarantineBitWorker(tunnelblickAppPath)  ) {
+    // Clears the extended attributes listed in the array for the item at path
+
+    const char * filePath = path.fileSystemRepresentation;
+
+    NSString * name = nil;
+    NSEnumerator * e = attributeNames.objectEnumerator;
+    while (  (name = e.nextObject)  ) {
+        int status = removexattr(filePath, name.UTF8String, XATTR_NOFOLLOW);
+        if (  status == 0  ) {
+            appendLog([NSString stringWithFormat: @"     Removed '%@' extended attribute from %@", name, path]);
+        } else {
+            appendLog([NSString stringWithFormat: @"Failed to remove '%@' xattr from %@; error was %ld ('%s')",
+                       name, path, (long)errno, strerror(errno)]);
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
+
+BOOL removeExtendedAttributesWorker(NSString * path) {
+
+    // Removes all extended attributes for the item at path
+
+    NSArray * list = extendedAttributeNames(path);
+    if (  list  ) {
+        BOOL status = clearExtendedAttributes(path, list);
+        return status;
+    }
+
+    return YES;
+}
+
+void removeExtendedAttributes(NSString * tunnelblickAppPath) {
+
+    // Removes all extended attributes from the directory structure rooted at tunnelblickAppPath
+
+    // Remove from the folder itself
+    if (  ! removeExtendedAttributesWorker(tunnelblickAppPath)  ) {
         goto fail;
     }
 
+    // Remove from contents
     NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tunnelblickAppPath];
     NSString * file;
-    while (  (file = [dirE nextObject])  ) {
+    while (  (file = dirE.nextObject)  ) {
         NSString * fullPath = [tunnelblickAppPath stringByAppendingPathComponent: file];
-        if (  ! removeQuarantineBitWorker(fullPath)  ) {
+        if (  ! removeExtendedAttributesWorker(fullPath)  ) {
             goto fail;
         }
     }
 
-    appendLog([NSString stringWithFormat: @"Removed any 'com.apple.quarantine' extended attributes from '%@'", tunnelblickAppPath]);
+    appendLog([NSString stringWithFormat: @"Removed all extended attributes from '%@'", tunnelblickAppPath]);
     return;
 
 fail:
-    appendLog([NSString stringWithFormat: @"Unable to remove all 'com.apple.quarantine' extended attributes from '%@'", tunnelblickAppPath]);
+    appendLog([NSString stringWithFormat: @"Unable to remove all extended attributes from '%@'", tunnelblickAppPath]);
     errorExit();
 }
 
@@ -1707,28 +1816,40 @@ static void copyTheApp(void) {
 
     errorExitIfAnySymlinkInPath(targetPath);
 
-	if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+    if (  [sourcePath isEqualToString: targetPath]  ) {
+        appendLog(@"Not copying app because this copy is already where it should be copied");
+    } else {
+        if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-		if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
-														   source: @"/Applications"
-													  destination: @""
-															files: [NSArray arrayWithObject: @"Tunnelblick.app"]
-															  tag: nil]  ) {
+            if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
+                                                               source: @"/Applications"
+                                                          destination: @""
+                                                                files: [NSArray arrayWithObject: @"Tunnelblick.app"]
+                                                                  tag: nil]  ) {
 #pragma clang diagnostic pop
-			appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", targetPath]);
-		} else {
-			appendLog([NSString stringWithFormat: @"Unable to move %@ to the Trash", targetPath]);
-			errorExit();
-		}
-	}
+                appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", targetPath]);
+            } else {
+                appendLog([NSString stringWithFormat: @"Unable to move %@ to the Trash", targetPath]);
+                errorExit();
+            }
+        } else {
+            appendLog([NSString stringWithFormat: @"Does not exist, so not moving to the Trash: %@", targetPath]);
+        }
 
-    if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
-        errorExit();
-    } else {
-        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+        if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
+            appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
+            errorExit();
+        } else {
+            appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+        }
     }
+
+    removeExtendedAttributes(targetPath);
+
+    secureTheApp([[targetPath
+                   stringByAppendingPathComponent: @"Contents"]
+                  stringByAppendingPathComponent: @"Resources"]);
 }
 
 static void secureTheApp(NSString * appResourcesPath) {
@@ -2911,15 +3032,12 @@ int main(int argc, char *argv[]) {
 
     //**************************************************************************************************************************
     // (2) If INSTALLER_COPY_APP is set:
-    //     Then move /Applications/XXXXX.app to the Trash, then copy this app to /Applications/XXXXX.app
-    
+    //     Then move /Applications/XXXXX.app to the Trash,
+    //          copy this app to /Applications/XXXXX.app,
+    //      and secure the copy.
+
     if (  doCopyApp  ) {
-        // Don't copy the app to /Applications if it's already there.
-        // But secure it and do everything else as if it had been copied.
-        NSString * appPath = [[resourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-        if (  ! [appPath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
-            copyTheApp();
-        }
+        copyTheApp();
     }
     
 	//**************************************************************************************************************************
@@ -2927,24 +3045,6 @@ int main(int argc, char *argv[]) {
 
     if ( doSecureApp ) {
 		secureTheApp(appResourcesPath);
-    }
-
-    if (  doCopyApp  ) {
-        // Make sure the app was not modified before it was secured
-        NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath]
-                                  stringByDeletingLastPathComponent]
-                                 stringByDeletingLastPathComponent];
-        NSString * targetPath = @"/Applications/Tunnelblick.app";
-        if ( [gFileMgr contentsEqualAtPath: sourcePath
-                                   andPath: targetPath]  ) {
-            appendLog([NSString stringWithFormat: @"Verified secure copy\nfrom %@\n  to %@", sourcePath, targetPath]);
-        } else {
-            appendLog([NSString stringWithFormat: @"Secure copy resulted in different contents\nfor %@\nand %@", sourcePath, targetPath]);
-            securelyDeleteItem(targetPath);
-            errorExit();
-        }
-
-        removeQuarantineBit(targetPath);
     }
 
     //**************************************************************************************************************************
