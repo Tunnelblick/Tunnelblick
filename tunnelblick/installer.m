@@ -1895,8 +1895,6 @@ static void secureTheApp(NSString * appResourcesPath) {
 	}
 	
 	okSoFar = checkSetPermissions(tunnelblickHelperPath, PERMS_SECURED_EXECUTABLE, YES) && okSoFar;
-	
-    NSString * appPath = [[appResourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 
 	if (  ! okSoFar  ) {
 		appendLog(@"Unable to secure Tunnelblick.app");
