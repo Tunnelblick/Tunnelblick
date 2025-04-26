@@ -81,6 +81,36 @@ static BOOL sanityChecks(aslclient  asl,
                 (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
         return FALSE;
     }
+
+#ifndef TBDebug
+    // Make sure we are in L_AS_T and an identical copy is in /Applications
+    NSString * ourPath = nil;
+    NSString * bundlePath = NSBundle.mainBundle.bundlePath;
+    if (  [bundlePath.lastPathComponent isEqualToString: @"Resources"]  ) {
+        ourPath = [bundlePath stringByAppendingPathComponent: @"tunnelblickd"];
+    } else if (  [bundlePath.pathExtension isEqualToString: @"app"]  ) {
+        ourPath = [[[bundlePath
+                     stringByAppendingPathComponent: @"Contents"]
+                    stringByAppendingPathComponent: @"Resources"]
+                   stringByAppendingPathComponent: @"tunnelblickd"];
+    } else {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Not as expected: bundlePath = %s", bundlePath.UTF8String);
+        return FALSE;
+    }
+
+    if (  ! [@"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/tunnelblickd" isEqualToString: ourPath]  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "tunnelblickd is not located where expected: %s", ourPath.UTF8String);
+        return FALSE;
+    }
+
+    NSString * tunnelblickdInApplicationsPath = @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
+    if (  ! [NSFileManager.defaultManager contentsEqualAtPath: ourPath andPath: tunnelblickdInApplicationsPath]  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "tunnelblickd copies are not identical");
+        return FALSE;
+    }
+#endif
+
+    return TRUE;
 }
 
 static void signal_handler(int signalNumber) {
