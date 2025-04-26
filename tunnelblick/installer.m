@@ -1439,7 +1439,36 @@ static void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
     }
 }
 
+static void copyAppToL_AS_T(NSString * sourcePath) {
+
+    // Don't copy app to L_AS_T more than once per install!
+    static BOOL appHasBeenCopiedToL_AS_T = false;
+
+    if (  appHasBeenCopiedToL_AS_T  ) {
+        appendLog(@"Have already copied the app to L_AS_T, not doing it again");
+        return;
+    }
+
+    NSString * targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
+
+    if (  ! [gFileMgr tbRemovePathIfItExists: targetPath]  ) {
+        errorExit();
+    }
+    if (  [gFileMgr tbCopyItemAtPath: sourcePath toBeOwnedByRootWheelAtPath: targetPath]) {
+        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+    } else {
+        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
+        errorExit();
+    }
+
+    appendLog(@"Copied the app to L_AS_T");
+
+    appHasBeenCopiedToL_AS_T = true;
+}
+
 static void setupLaunchDaemon(void) {
+
+    copyAppToL_AS_T(@"/Applications/Tunnelblick.app");
 
     // If we are reloading the LaunchDaemon, we make sure it is up-to-date by copying its .plist into /Library/LaunchDaemons
 
@@ -1808,21 +1837,6 @@ static void setupUser_Library_Application_Support_Tunnelblick(void) {
                                                     permissions, userUID(), userGID())  ) {
             errorExit();
         }
-    }
-}
-
-static void copyAppToL_AS_T(NSString * sourcePath) {
-
-    NSString * targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
-
-    if (  ! [gFileMgr tbRemovePathIfItExists: targetPath]  ) {
-        errorExit();
-    }
-    if (  [gFileMgr tbCopyItemAtPath: sourcePath toBeOwnedByRootWheelAtPath: targetPath]) {
-        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
-    } else {
-        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
-        errorExit();
     }
 }
 
@@ -2886,7 +2900,7 @@ int main(int argc, char *argv[]) {
 	pool = [NSAutoreleasePool new];
 	
     gFileMgr = [NSFileManager defaultManager];
-	
+
     setupLibrary_Application_Support_Tunnelblick();
 
     if (  argc < 2  ) {
@@ -2910,12 +2924,6 @@ int main(int argc, char *argv[]) {
     // Uninstall kexts overrides install kexts
     BOOL doInstallKexts          = (   ( ! doUninstallKexts )
                                     && ( (opsAndFlags & INSTALLER_INSTALL_KEXTS) != 0 )  );
-
-    // Copying or securing the app will copy it to L_AS_T
-    if (   doCopyApp
-        || doSecureApp  ) {
-        doCopyAppToL_AS_T = false;
-    }
 
     openLog(doClearLog);
 
