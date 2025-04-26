@@ -4347,8 +4347,6 @@ static void signal_handler(int signalNumber)
     [self installSignalHandler];
 	[self updateScreenList];
     
-    [self checkThatTunnelblickdIsEnabled];
-
     if (   [gTbDefaults objectForKey: @"installationUID"]
         && [gTbDefaults canChangeValueForKey: @"installationUID"]  ) {
         [gTbDefaults removeObjectForKey: @"installationUID"];
@@ -5501,6 +5499,9 @@ static BOOL runningHookupThread = FALSE;
     
     TBLog(@"DB-SU", @"initialChecks: 005")
 	[self secureIfNecessary];
+
+    [self checkThatTunnelblickdIsEnabled];
+
     TBLog(@"DB-SU", @"initialChecks: 006 - LAST")
 }
 
