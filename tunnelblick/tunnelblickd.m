@@ -63,6 +63,9 @@
 
 #import "defines.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 static BOOL sigtermReceived = FALSE;
 
 static void signal_handler(int signalNumber) {
@@ -92,8 +95,6 @@ static NSDictionary * getSafeEnvironment(NSString * userName,
     return env;
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 static void becomeTheClient(uid_t      client_euid,
                             gid_t      client_egid,
                             aslclient  asl,
