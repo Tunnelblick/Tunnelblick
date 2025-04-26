@@ -2039,6 +2039,10 @@ static void secureTheApp(NSString * appResourcesPath) {
 		appendLog(@"Unable to secure Tunnelblick.app");
 		errorExit();
 	}
+
+    // Copy the app to L_AS_T. File copies will be clones, so they won't take up much space.
+    NSString * appPath = appResourcesPath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
+    copyAppToL_AS_T(appPath);
 }
 
 static void secureAllTblks(void) {
