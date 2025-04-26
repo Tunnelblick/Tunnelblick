@@ -1850,6 +1850,22 @@ static void copyTheApp(void) {
     secureTheApp([[targetPath
                    stringByAppendingPathComponent: @"Contents"]
                   stringByAppendingPathComponent: @"Resources"]);
+
+    // Copy the app to L_AS_T to have the tunnelblickd there used but still is listed as Tunnelblick by macOS Sonoma+
+    // Because it is an exact copy, the files should all be clones, and not take up a lot of space.
+
+    sourcePath = targetPath;    // From /Applications
+    targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
+
+    if (  ! [gFileMgr tbRemovePathIfItExists: targetPath]  ) {
+        errorExit();
+    }
+    if (  [gFileMgr tbCopyItemAtPath: sourcePath toBeOwnedByRootWheelAtPath: targetPath]) {
+        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+    } else {
+        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
+        errorExit();
+    }
 }
 
 static void secureTheApp(NSString * appResourcesPath) {

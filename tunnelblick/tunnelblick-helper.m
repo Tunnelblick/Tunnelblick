@@ -3406,23 +3406,11 @@ int main(int argc, char * argv[]) {
     
     stopBeingRoot();			// Stop being root
 	
-    NSBundle * ourBundle = [NSBundle mainBundle];
-    gResourcesPath  = [[ourBundle bundlePath] copy];
-    NSArray  * execComponents = [gResourcesPath pathComponents];
-    if (  [execComponents count] < 3  ) {
-        fprintf(stderr, "Too few execComponents; gResourcesPath = %s\n", [gResourcesPath UTF8String]);
-        exitOpenvpnstart(242);
-    }
+    gResourcesPath  = [NSBundle.mainBundle.bundlePath copy];
 	gDeployPath = [[gResourcesPath stringByAppendingPathComponent: @"Deploy"] copy];
 	
 #ifndef TBDebug
-    if (   ([execComponents count] != 5)
-        || [[execComponents objectAtIndex: 0] isNotEqualTo: @"/"]
-        || [[execComponents objectAtIndex: 1] isNotEqualTo: @"Applications"]
-        //                                                  Allow any name for Tunnelblick.app
-        || [[execComponents objectAtIndex: 3] isNotEqualTo: @"Contents"]
-        || [[execComponents objectAtIndex: 4] isNotEqualTo: @"Resources"]
-        ) {
+    if (  ! [gResourcesPath isEqualToString: @"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources"]  ) {
         fprintf(stderr, "Tunnelblick must be in /Applications (bundlePath = %s)\n", [gResourcesPath UTF8String]);
         exitOpenvpnstart(243);
 		return -1; // Make analyzer happy
