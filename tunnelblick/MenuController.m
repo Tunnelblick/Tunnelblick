@@ -6187,7 +6187,8 @@ static BOOL runningHookupThread = FALSE;
     NSMutableString * msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
     if (  installFlags & INSTALLER_COPY_APP                   ) { [msg appendString: NSLocalizedString(@"  • Be installed\n",				                                  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
     if (  installFlags & INSTALLER_SECURE_APP                 ) { [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
-	if (  installFlags & INSTALLER_SECURE_TBLKS               ) { [msg appendString: NSLocalizedString(@"  • Secure configurations\n",										  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
+    if (  installFlags & INSTALLER_SECURE_TBLKS               ) { [msg appendString: NSLocalizedString(@"  • Secure configurations\n",                                        @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
+    if (  installFlags & INSTALLER_COPY_APP_TO_L_AS_T         ) { [msg appendString: NSLocalizedString(@"  • Complete the installation\n",                                    @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
     if (  tblksToInstall                                      ) { [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n",							  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
     if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES   ) { [msg appendString: NSLocalizedString(@"  • Install forced preferences\n",									  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
 	if (  operation == INSTALLER_DELETE                       ) { [msg appendString: NSLocalizedString(@"  • Remove a configuration\n",										  @"Window text. Item in a list prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
@@ -6348,6 +6349,7 @@ static BOOL runningHookupThread = FALSE;
                            & (  INSTALLER_COPY_APP
                               | INSTALLER_SECURE_APP
                               | INSTALLER_SECURE_TBLKS
+                              | INSTALLER_COPY_APP_TO_L_AS_T
                               | INSTALLER_REPLACE_DAEMON
                               )
                            )
@@ -6408,7 +6410,7 @@ unsigned needToRunInstaller(BOOL inApplications)
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
     if (  needToReplaceLaunchDaemon()                            ) flags = flags | INSTALLER_REPLACE_DAEMON;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
-
+    if (  needToCopyToL_AS_T()                                   ) flags = flags | INSTALLER_COPY_APP_TO_L_AS_T;
     return flags;
 }
 
@@ -6811,6 +6813,28 @@ BOOL needToRepairPackages(void)
         }
     }
     
+    return NO;
+}
+
+BOOL needToCopyToL_AS_T(void) {
+
+    // Always return NO if debugging, because when secured the app we copied it to L_AS_T
+
+#ifndef TBDebug
+    NSString * sourcePath = @"/Applications/Tunnelblick.app";
+    NSString * targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
+
+    if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
+        NSLog(@"Does not exist: %@", targetPath);
+        return YES;
+    }
+
+    if (  ! [gFileMgr contentsEqualAtPath: sourcePath andPath: targetPath]  ) {
+        NSLog(@"Contents not identical:\n     %@\nand\n     %@", sourcePath, targetPath);
+        return YES;
+    }
+#endif
+
     return NO;
 }
 

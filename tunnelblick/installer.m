@@ -97,36 +97,38 @@
 //			Repairs ownership/permissions of L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
 //			Creates the .mip file if it does not already exist
 //          Updates Tunnelblick kexts in /Library/Extensions (unless kexts are being uninstalled)
-
+//
 //      (2) If INSTALLER_COPY_APP is set, this app is copied to /Applications and all extended attributes are removed from the copy and all items within it
-
+//
 //      (3) If INSTALLER_SECURE_APP is set, secures Tunnelblick.app by setting the ownership and permissions of its components.
-
-//      (4) If INSTALLER_COPY_APP is set, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
-
-//      (5) If INSTALLER_SECURE_TBLKS is set, then secures all .tblk packages in the following folders:
+//
+//      (4) If requested, copy app to L_AS_T
+//
+//      (5) If INSTALLER_COPY_APP is set, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
+//
+//      (6) If INSTALLER_SECURE_TBLKS is set, then secures all .tblk packages in the following folders:
 //				/Library/Application Support/Tunnelblick/Shared
 //				~/Library/Application Support/Tunnelblick/Configurations
 //				/Library/Application Support/Tunnelblick/Users/<username>
 //
-//      (6) if the operation is INSTALLER_INSTALL_FORCED_PREFERENCES and targetPath is given and is a .plist and there is no secondPath
+//      (7) if the operation is INSTALLER_INSTALL_FORCED_PREFERENCES and targetPath is given and is a .plist and there is no secondPath
 //             installs the .plist at targetPath in L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
 //
-//      (7) If the operation is INSTALLER_COPY or INSTALLER_MOVE and both targetPath and sourcePath are given,
+//      (8) If the operation is INSTALLER_COPY or INSTALLER_MOVE and both targetPath and sourcePath are given,
 //             copies or moves sourcePath to targetPath. Copies unless INSTALLER_MOVE is set.  (Also copies or moves the shadow copy if deleting a private configuration)
 //
-//     (8) If the operation is INSTALLER_DELETE and only targetPath is given,
+//      (9) If the operation is INSTALLER_DELETE and only targetPath is given,
 //             deletes the .ovpn or .conf file or .tblk package at targetPath (also deletes the shadow copy if deleting a private configuration)
 //
-//     (9) If not installing a configuration, sets up tunnelblickd
+//     (10) If not installing a configuration, sets up tunnelblickd
 //
-//	   (10) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
+//	   (11) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
 //
-//	   (11) If requested, import settings from the .tblkSetup at targetPath
+//	   (12) If requested, import settings from the .tblkSetup at targetPath
 //
-//     (12) If requested, install or uninstall kexts
+//     (13) If requested, install or uninstall kexts
 //
-//     (13) If requested, update Tunnelblick
+//     (14) If requested, update Tunnelblick
 
 // When finished (or if an error occurs), the file at AUTHORIZED_DONE_PATH is written to indicate the program has finished
 
@@ -2897,15 +2899,23 @@ int main(int argc, char *argv[]) {
 
     unsigned opsAndFlags = (unsigned) strtol(argv[1], NULL, 0);
 
-    BOOL doClearLog              = (opsAndFlags & INSTALLER_CLEAR_LOG)       != 0;
-    BOOL doCopyApp               = (opsAndFlags & INSTALLER_COPY_APP)        != 0;
-    BOOL doSecureApp             = (opsAndFlags & INSTALLER_SECURE_APP)      != 0;
-    BOOL doForceLoadLaunchDaemon = (opsAndFlags & INSTALLER_REPLACE_DAEMON)  != 0;
-    BOOL doUninstallKexts        = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS) != 0;
-    BOOL doSecureTblks           = (opsAndFlags & INSTALLER_SECURE_TBLKS)    != 0;
+    BOOL doClearLog              = (opsAndFlags & INSTALLER_CLEAR_LOG)          != 0;
+    BOOL doCopyApp               = (opsAndFlags & INSTALLER_COPY_APP)           != 0;
+    BOOL doSecureApp             = (opsAndFlags & INSTALLER_SECURE_APP)         != 0;
+    BOOL doForceLoadLaunchDaemon = (opsAndFlags & INSTALLER_REPLACE_DAEMON)     != 0;
+    BOOL doUninstallKexts        = (opsAndFlags & INSTALLER_UNINSTALL_KEXTS)    != 0;
+    BOOL doSecureTblks           = (opsAndFlags & INSTALLER_SECURE_TBLKS)       != 0;
+    BOOL doCopyAppToL_AS_T       = (opsAndFlags & INSTALLER_COPY_APP_TO_L_AS_T) != 0;
+
     // Uninstall kexts overrides install kexts
     BOOL doInstallKexts          = (   ( ! doUninstallKexts )
                                     && ( (opsAndFlags & INSTALLER_INSTALL_KEXTS) != 0 )  );
+
+    // Copying or securing the app will copy it to L_AS_T
+    if (   doCopyApp
+        || doSecureApp  ) {
+        doCopyAppToL_AS_T = false;
+    }
 
     openLog(doClearLog);
 
@@ -2913,13 +2923,14 @@ int main(int argc, char *argv[]) {
 
     NSMutableString * bitMaskDescription = [[[NSMutableString alloc] initWithCapacity: 100] autorelease];
 
-    if (  doClearLog              ) { [bitMaskDescription appendString: @" ClearLog"];       }
-    if (  doCopyApp               ) { [bitMaskDescription appendString: @" CopyApp"];        }
-    if (  doSecureApp             ) { [bitMaskDescription appendString: @" SecureApp"];      }
-    if (  doForceLoadLaunchDaemon ) { [bitMaskDescription appendString: @" ReplaceDaemon"];  }
-    if (  doInstallKexts          ) { [bitMaskDescription appendString: @" InstallKexts"];   }
-    if (  doUninstallKexts        ) { [bitMaskDescription appendString: @" UninstallKexts"]; }
-    if (  doSecureTblks           ) { [bitMaskDescription appendString: @" SecureTblks"];    }
+    if (  doClearLog              ) { [bitMaskDescription appendString: @" ClearLog"];        }
+    if (  doCopyApp               ) { [bitMaskDescription appendString: @" CopyApp"];         }
+    if (  doSecureApp             ) { [bitMaskDescription appendString: @" SecureApp"];       }
+    if (  doForceLoadLaunchDaemon ) { [bitMaskDescription appendString: @" ReplaceDaemon"];   }
+    if (  doInstallKexts          ) { [bitMaskDescription appendString: @" InstallKexts"];    }
+    if (  doUninstallKexts        ) { [bitMaskDescription appendString: @" UninstallKexts"];  }
+    if (  doSecureTblks           ) { [bitMaskDescription appendString: @" SecureTblks"];     }
+    if (  doCopyAppToL_AS_T       ) { [bitMaskDescription appendString: @" CopyAppToL_AS_T"]; }
 
     unsigned operation = (opsAndFlags & INSTALLER_OPERATION_MASK);
 
@@ -3070,28 +3081,35 @@ int main(int argc, char *argv[]) {
     }
 
     //**************************************************************************************************************************
-    // (4) If INSTALLER_COPY_APP, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
+    // (4) If requested, copy app to L_AS_T
+
+    if (  doCopyAppToL_AS_T) {
+        copyAppToL_AS_T(@"/Applications/Tunnelblick.app");
+    }
+
+    //**************************************************************************************************************************
+    // (5) If INSTALLER_COPY_APP, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
 
     if (  doCopyApp  ) {
         pruneL_AS_T_TBLKS();
     }
     
     //**************************************************************************************************************************
-    // (5) If requested, secure all .tblk packages
+    // (6) If requested, secure all .tblk packages
 
     if (  doSecureTblks  ) {
 		secureAllTblks();
     }
     
     //**************************************************************************************************************************
-    // (6) Install the .plist at secondArg to L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
-    
+    // (7) Install the .plist at secondArg to L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+
     if (  operation == INSTALLER_INSTALL_FORCED_PREFERENCES  ) {
 		installForcedPreferences(secondArg, thirdArg);
     }
     
     //**************************************************************************************************************************
-    // (7) If requested, install a configuration.
+    // (8) If requested, install a configuration.
     // Copy or move a single .tblk package (without any nested .tblks).
     // Also moves/coies/creates a shadow copy if a private configuration.
     // Like the NSFileManager "movePath:toPath:handler" method, we move by copying, then deleting.
@@ -3151,7 +3169,7 @@ int main(int argc, char *argv[]) {
     }
     
     //**************************************************************************************************************************
-    // (8)
+    // (9)
     // If requested, delete a single file or .tblk package (also deletes the shadow copy if deleting a private configuration)
 	
     if (  operation == INSTALLER_DELETE  ) {
@@ -3159,8 +3177,8 @@ int main(int argc, char *argv[]) {
     }
     
     //**************************************************************************************************************************
-    // (9) Set up tunnelblickd to load when the computer starts
-	
+    // (10) Set up tunnelblickd to load when the computer starts
+
     BOOL installingAConfiguration = (  (argc == 4) || (argc == 5)  ); // (Installing or importing configurations)
 
     if (  ( ! doForceLoadLaunchDaemon )  ) {
@@ -3184,7 +3202,7 @@ int main(int argc, char *argv[]) {
     }
 	
 	//**************************************************************************************************************************
-	// (10) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
+	// (11) If requested, exports all settings and configurations for all users to a file at targetPath, deleting the file if it already exists
 
 	if (   secondArg
 		&& ( ! thirdArg   )
@@ -3193,7 +3211,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	//**************************************************************************************************************************
-	// (11) If requested, import settings from the .tblkSetup at secondArg using username mapping in the string in "thirdArg"
+	// (12) If requested, import settings from the .tblkSetup at secondArg using username mapping in the string in "thirdArg"
 	//
 	//		NOTE: "thirdArg" is a string that specifies the username mapping to use when importing.
 
@@ -3204,7 +3222,7 @@ int main(int argc, char *argv[]) {
 	}
 	
     //**************************************************************************************************************************
-    // (12) If requested, uninstall, install kexts, otherwise update them if they are installed
+    // (13) If requested, uninstall, install kexts, otherwise update them if they are installed
 
     if (   doUninstallKexts  ) {
         uninstallKexts();
@@ -3215,7 +3233,7 @@ int main(int argc, char *argv[]) {
     }
     
     //**************************************************************************************************************************
-    // (13) If requested, update Tunnelblick
+    // (14) If requested, update Tunnelblick
     //
 
     if (  operation == INSTALLER_UPDATE_TUNNELBLICK  ) {

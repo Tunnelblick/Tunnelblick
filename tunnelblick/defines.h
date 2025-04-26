@@ -602,8 +602,9 @@
 // alternate configuration path
 #define INSTALLER_SECURE_TBLKS               0x0010u
 
-// UNUSED
-//                                           0x0020u
+// Set to copy /Applications/Tunnelblick.app
+// to /Library/Application Support/Tunnelblick/Tunnelblick.app
+#define INSTALLER_COPY_APP_TO_L_AS_T         0x0020u
 
 // UNUSED
 //                                           0x0040u
