@@ -295,6 +295,27 @@ static void doRenames(void) {
     errorExit();
 }
 
+static void copyAppToL_AS_T(void) {
+
+    NSString * appPath       = @"/Applications/Tunnelblick.app";
+    NSString * L_AS_TAppPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
+
+    // Delete any existing L_AS_T .app
+    if (  [gFileMgr fileExistsAtPath: L_AS_TAppPath]  ) {
+        if (  ! [gFileMgr tbRemoveFileAtPath: L_AS_TAppPath handler: nil]  ) {
+            errorExit();
+        }
+        appendLog([NSString stringWithFormat: @"Deleted %@", L_AS_TAppPath]);
+    }
+
+    // Copy app to L_AS_T
+    if (  [gFileMgr tbCopyItemAtPath:appPath toBeOwnedByRootWheelAtPath: L_AS_TAppPath]  ) {
+        appendLog(@"Copied Tunnelblick.app into /Library/Application Support/Tunnelblick");
+    } else {
+        errorExit();
+    }
+}
+
 static void updateTunnelblickdPlist(void) {
 
     // Update and reload the tunnelblickd .plist.
@@ -426,6 +447,8 @@ int main(int argc, const char * argv[]) {
         waitUntilNoProcessWithName(@"tunnelblickd");
 
         doRenames();
+
+        copyAppToL_AS_T();
 
         updateTunnelblickdPlist();
 
