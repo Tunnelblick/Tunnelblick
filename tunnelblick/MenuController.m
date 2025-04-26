@@ -464,6 +464,16 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 {	
     if (  (self = [super init])  ) {
 
+        if (  [NSBundle.mainBundle.bundlePath isEqualToString: @"/Library/Application Support/Tunnelblick/Tunnelblick.app"]  ) {
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                            NSLocalizedString(@"The copy of Tunnelblick in /Library/Application Support/Tunnelblick"
+                                              @" is to be used only internally by Tunnelblick. Please launch the"
+                                              @" copy of Tunnelblick in /Applications.", @"Window text"),
+                            NSLocalizedString(@"Quit", @"Button"), nil, nil);
+            [super dealloc];
+            return nil;
+        }
+
         gMC = self;
 
 //      gActiveInactiveState              is already initialized
@@ -5954,7 +5964,7 @@ static BOOL runningHookupThread = FALSE;
     // Set up messages to get authorization and notify of success
 	NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);	
     NSString * tbInApplicationsPath = @"/Applications/Tunnelblick.app";
-    
+
     NSString * launchWindowText;
     NSString * authorizationText;
     
