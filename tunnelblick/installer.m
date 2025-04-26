@@ -1809,6 +1809,21 @@ static void setupUser_Library_Application_Support_Tunnelblick(void) {
     }
 }
 
+static void copyAppToL_AS_T(NSString * sourcePath) {
+
+    NSString * targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
+
+    if (  ! [gFileMgr tbRemovePathIfItExists: targetPath]  ) {
+        errorExit();
+    }
+    if (  [gFileMgr tbCopyItemAtPath: sourcePath toBeOwnedByRootWheelAtPath: targetPath]) {
+        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+    } else {
+        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
+        errorExit();
+    }
+}
+
 static void copyTheApp(void) {
 
     NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
@@ -1851,21 +1866,8 @@ static void copyTheApp(void) {
                    stringByAppendingPathComponent: @"Contents"]
                   stringByAppendingPathComponent: @"Resources"]);
 
-    // Copy the app to L_AS_T to have the tunnelblickd there used but still is listed as Tunnelblick by macOS Sonoma+
-    // Because it is an exact copy, the files should all be clones, and not take up a lot of space.
-
-    sourcePath = targetPath;    // From /Applications
-    targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
-
-    if (  ! [gFileMgr tbRemovePathIfItExists: targetPath]  ) {
-        errorExit();
-    }
-    if (  [gFileMgr tbCopyItemAtPath: sourcePath toBeOwnedByRootWheelAtPath: targetPath]) {
-        appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
-    } else {
-        appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
-        errorExit();
-    }
+    // Copy the app to L_AS_T. File copies will be clones, so they won't take up much space.
+    copyAppToL_AS_T(targetPath); // Copy from target, which has had extended attributes already removed
 }
 
 static void secureTheApp(NSString * appResourcesPath) {
