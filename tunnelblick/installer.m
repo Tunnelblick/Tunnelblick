@@ -1829,7 +1829,7 @@ static void copyTheApp(void) {
     NSString * sourcePath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
     NSString * targetPath  = @"/Applications/Tunnelblick.app";
 
-    errorExitIfAnySymlinkInPath(targetPath);
+    errorExitIfAnySymlinkInPath(@"/Applications");
 
     if (  [sourcePath isEqualToString: targetPath]  ) {
         appendLog(@"Not copying app because this copy is already where it should be copied");
