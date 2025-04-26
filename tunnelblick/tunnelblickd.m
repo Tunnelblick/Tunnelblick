@@ -68,6 +68,21 @@
 
 static BOOL sigtermReceived = FALSE;
 
+static BOOL sanityChecks(aslclient  asl,
+                         aslmsg     log_msg) {
+
+    // Make sure we are root:wheel
+    if (   (getuid()  != 0)
+        || (getgid()  != 0)
+        || (geteuid() != 0)
+        || (getegid() != 0)
+        ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Not root:wheel; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu",
+                (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
+        return FALSE;
+    }
+}
+
 static void signal_handler(int signalNumber) {
 	
 	if (  signalNumber == SIGTERM  ) {
@@ -528,16 +543,9 @@ int main(void) {
 		return EXIT_FAILURE;
 	}
 		
-	// Make sure we are root:wheel
-	if (   (getuid()  != 0)
-		|| (getgid()  != 0)
-		|| (geteuid() != 0)
-		|| (getegid() != 0)
-		) {
-		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Not root:wheel; our uid = %lu; our euid = %lu; our gid = %lu; our egid = %lu",
-				(unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-		goto done;
-	}
+    if (  ! sanityChecks(asl, log_msg)  ) {
+        goto done;
+    }
 
 	if (  isFirstRunAfterBoot(asl, log_msg)  ) {
 
