@@ -173,7 +173,7 @@ static NSString * usernameFromPossiblePrivatePath(NSString * path);
 
 static NSString * privatePathFromUsername(NSString * username);
 
-static void secureTheApp(NSString * appResourcesPath);
+static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T);
 
 //**************************************************************************************************************************
 // LOGGING AND ERROR HANDLING
@@ -1880,14 +1880,12 @@ static void copyTheApp(void) {
 
     secureTheApp([[targetPath
                    stringByAppendingPathComponent: @"Contents"]
-                  stringByAppendingPathComponent: @"Resources"]);
-
-    // Copy the app to L_AS_T. File copies will be clones, so they won't take up much space.
-    copyAppToL_AS_T(targetPath); // Copy from target, which has had extended attributes already removed
+                  stringByAppendingPathComponent: @"Resources"],
+                 TRUE);
 }
 
-static void secureTheApp(NSString * appResourcesPath) {
-	
+static void secureTheApp(NSString * appResourcesPath, BOOL copyToL_AS_T) {
+
 	NSString *contentsPath				= [appResourcesPath stringByDeletingLastPathComponent];
 	NSString *infoPlistPath				= [contentsPath stringByAppendingPathComponent: @"Info.plist"];
 	NSString *openvpnstartPath          = [appResourcesPath stringByAppendingPathComponent:@"openvpnstart"                                   ];
@@ -2056,9 +2054,11 @@ static void secureTheApp(NSString * appResourcesPath) {
 		errorExit();
 	}
 
-    // Copy the app to L_AS_T. File copies will be clones, so they won't take up much space.
-    NSString * appPath = appResourcesPath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
-    copyAppToL_AS_T(appPath);
+    if (  copyToL_AS_T  ) {
+        // Copy the app to L_AS_T. File copies will be clones, so they won't take up much space.
+        NSString * appPath = appResourcesPath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
+        copyAppToL_AS_T(appPath);
+    }
 }
 
 static void secureAllTblks(void) {
@@ -3090,7 +3090,7 @@ int main(int argc, char *argv[]) {
 	// (3) If requested, secure Tunnelblick.app by setting the ownership and permissions of it and all its components
 
     if ( doSecureApp ) {
-		secureTheApp(appResourcesPath);
+		secureTheApp(appResourcesPath, TRUE);
     }
 
     //**************************************************************************************************************************
