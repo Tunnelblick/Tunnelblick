@@ -2929,6 +2929,11 @@ int main(int argc, char *argv[]) {
 
     // Log the arguments installer was started with
 
+    NSString * infoPlistPath = [NSBundle.mainBundle.resourcePath.stringByDeletingLastPathComponent
+                                stringByAppendingPathComponent: @"Info.plist"];
+    NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: infoPlistPath];
+    NSString * build = [infoPlist objectForKey: @"CFBundleVersion"];
+
     NSMutableString * bitMaskDescription = [[[NSMutableString alloc] initWithCapacity: 100] autorelease];
 
     if (  doClearLog              ) { [bitMaskDescription appendString: @" ClearLog"];        }
@@ -2956,8 +2961,8 @@ int main(int argc, char *argv[]) {
     // Remove leading space
     [bitMaskDescription deleteCharactersInRange: NSMakeRange(0, 1)];
 
-    NSMutableString * logString = [NSMutableString stringWithFormat: @"Tunnelblick installer getuid() = %d; geteuid() = %d; getgid() = %d; getegid() = %d\ncurrentDirectoryPath = '%@'; %d arguments:\n",
-                                   getuid(), geteuid(), getgid(), getegid(), [gFileMgr currentDirectoryPath], argc - 1];
+    NSMutableString * logString = [NSMutableString stringWithFormat: @"Tunnelblick installer (build %s) getuid() = %d; geteuid() = %d; getgid() = %d; getegid() = %d\ncurrentDirectoryPath = '%@'; %d arguments:\n",
+                                   build.UTF8String, getuid(), geteuid(), getgid(), getegid(), [gFileMgr currentDirectoryPath], argc - 1];
     [logString appendFormat: @"     0x%04x (%@)", opsAndFlags, bitMaskDescription];
     int i;
     for (  i=2; i<argc; i++  ) {
