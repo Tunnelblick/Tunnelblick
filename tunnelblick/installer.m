@@ -1451,11 +1451,46 @@ static void copyAppToL_AS_T(NSString * sourcePath) {
 
     NSString * targetPath = @"/Library/Application Support/Tunnelblick/Tunnelblick.app";
 
+    // If this was an update from Tunnelblick 7.0, the new .app is in L_AS_T and /Applications has a symlink to L_AS_T/Tunnelblick.app
+    // In that situation, delete the symlink and swap the source and target, i.e., copy from L_AS_T to /Applications
+    // Check  (1) sourcePath is /Applications/Tunnelblick.app
+    //        (2) targetPath exists, and
+    //        (3) sourcePath is a symlink
+    BOOL updateFrom7 = FALSE;
+    if (  [sourcePath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+        if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+            NSError * err = nil;
+            NSDictionary * dict = [gFileMgr attributesOfItemAtPath: sourcePath error: &err];
+            if (  [dict.fileType isEqualToString: NSFileTypeSymbolicLink]  ) {
+                appendLog(@"Updating from 7.0:");
+                // Delete the symlink
+                int result = unlink(sourcePath.fileSystemRepresentation);
+                if (  result != 0 ) {
+                    appendLog([NSString stringWithFormat: @"Error %u ('%s') trying to delete symlink at %@", errno, strerror(errno), sourcePath]);
+                    errorExit();
+                }
+                appendLog([NSString stringWithFormat: @"    Deleted the symlink at %@", sourcePath]);
+                NSString * temp = targetPath;
+                targetPath = sourcePath;
+                sourcePath = temp;
+                appendLog(@"    Swapped source and target paths");
+                secureTheApp([[sourcePath stringByAppendingPathComponent: @"Contents"]
+                              stringByAppendingPathComponent: @"Resources"], NO);
+                updateFrom7 = TRUE;
+            }
+        }
+    }
+
     if (  ! [gFileMgr tbRemovePathIfItExists: targetPath]  ) {
         errorExit();
     }
     if (  [gFileMgr tbCopyItemAtPath: sourcePath toBeOwnedByRootWheelAtPath: targetPath]) {
         appendLog([NSString stringWithFormat: @"Copied %@ to %@", sourcePath, targetPath]);
+        if (  updateFrom7  ) {
+            secureTheApp([[targetPath stringByAppendingPathComponent: @"Contents"]
+                          stringByAppendingPathComponent: @"Resources"], NO);
+            appendLog([NSString stringWithFormat: @"Secured %@", targetPath]);
+        }
     } else {
         appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", sourcePath, targetPath]);
         errorExit();

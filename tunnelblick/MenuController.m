@@ -464,12 +464,20 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
 {	
     if (  (self = [super init])  ) {
 
+        // If this is an instance of the app in /Library/Application Support/Tunnelblick,
+        // Then start an instance of the app in /Applications instead, and then and quit
         if (  [NSBundle.mainBundle.bundlePath isEqualToString: @"/Library/Application Support/Tunnelblick/Tunnelblick.app"]  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            NSLocalizedString(@"The copy of Tunnelblick in /Library/Application Support/Tunnelblick"
-                                              @" is to be used only internally by Tunnelblick. Please launch the"
-                                              @" copy of Tunnelblick in /Applications.", @"Window text"),
-                            NSLocalizedString(@"Quit", @"Button"), nil, nil);
+
+            NSWorkspace * ws = NSWorkspace.sharedWorkspace;
+            NSURL * url = [NSURL fileURLWithPath: @"/Applications/Tunnelblick.app"];
+            NSWorkspaceOpenConfiguration * config = NSWorkspaceOpenConfiguration.configuration;
+            [config setAllowsRunningApplicationSubstitution: NO]; // Don't use this instance of the app!
+            [config setEnvironment: NSProcessInfo.processInfo.environment];
+            [ws openApplicationAtURL: url
+                       configuration: config
+                   completionHandler: nil];
+
+            NSLog(@"Tunnelblick.app instance in /Library/Application Support/Tunnelblick has started an instance in /Applications and will quit");
             [super dealloc];
             return nil;
         }
