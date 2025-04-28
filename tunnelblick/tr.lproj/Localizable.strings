@@ -897,6 +897,9 @@
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Programı güvenli hale getirmek için sahiplik ve izinlerini değiştirme\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Complete the installation\n" = "  • Kurulumu tamamla\n";
+
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  Güncellemeyi tamamlamaya\n";
 
@@ -921,11 +924,11 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ özgür bir yazılımdır: %3$@ tarafından yayınlanan %2$@'de belirtilen koşullar altında yeniden dağıtılabilir ve/veya değiştirebilirsiniz.\n\n%4$@, OpenVPN Inc'in tescilli bir markasıdır.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " %1$@'i %2$@%3$@'e yüklemek istiyor musunuz?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Şunu yüklemek istiyor musunuz: %1$@%2$@?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Do you wish to replace\n%2$@ \n   içerisindeki \n %1$@\n %3$@%4$@ ile değiştirilsin mi?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Şunu:\n    %1$@\n şununla:\n%2$@%3$@ değiştirmek istiyor musunuz?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = "Zorunlu ayarlar ayrıca yüklenecek veya değiştirilecek.\n\n";
@@ -1093,7 +1096,7 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Güncellemeler hakkında bilgi edinmeye çalışırken bir hata oluştu.\n\n%1$@Daha fazla bilgi için şuradaki günlüğe bakın:\n\n%2$@";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "%@ çalıştırılırken bir hata oluştu";
+"An error occurred while trying to launch Tunnelblick." = "Tunnelblick'i başlatmaya çalışırken bir hata oluştu.";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Güvenli (gölge) kopyaya dönmeye çalışırken bir hata oluştu. Ayrıntılar için Konsol Günlüğü'ne bakın.\n\n";

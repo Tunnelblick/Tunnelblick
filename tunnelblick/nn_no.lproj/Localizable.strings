@@ -907,12 +907,6 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ er gratis programvare: Du kan redistribuere ho og/eller endra ho under vilkåra i %2$@ som publisert av %3$@.\n\n%4$@ er eit registrert varemerke av OpenVPN Technologies, Inc.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Vil du innstallera %1$@ i %2$@%3$@?\n\n";
-
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Vel du erstatta\n    %1$@\n    i %2$@\nmed %3$@%4$@?\n\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Tvungne innstillingar vil også installerast eller vert erstatta.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
@@ -1034,9 +1028,6 @@
 
 /* Window text */
 "An error occurred getting the list of loaded system extensions." = "Det oppstod ein feil ved henting av lista over aktive systemutvidingar";
-
-/* Window text */
-"An error occurred while trying to launch %@" = "Ein feil oppstod ved forsøk på å starta %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Ein feil oppstod når det skulle tilbakestillast til sikker (skugge)kopi. Sjå konsolloggen for detaljar.\n\n";

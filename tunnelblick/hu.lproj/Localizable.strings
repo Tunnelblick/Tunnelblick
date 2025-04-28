@@ -8,7 +8,7 @@
 "Disconnect All (%@)" = "Minden kapcsolat megszakítása (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) IP: %@" = "Mind a (%d kapcsolat) megszakítása IP: %2$@";
+"Disconnect All (%d Connections) IP: %@" = "Mind a (%1$d kapcsolat) megszakítása IP: %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Minden kapcsolat megszakítása (%d Kapcsolat)";
@@ -897,6 +897,9 @@
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Tulajdonosok és jogosultságok lecserélése a programon, annak biztonságossá tételéhez\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Complete the installation\n" = "  • Be kell fejeznie a telepítést\n";
+
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  A frissítés befejezése\n";
 
@@ -921,11 +924,11 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ egy ingyenes szoftver: terjesztheti és/vagy módosíthatja a %2$@ feltételei szerint, amely alapján a %3$@ publikálta.\n\n%4$@ egy bejegyzett védjegye az OpenVPN Inc.-nek.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Telepíteni szeretné a(z) %1$@ a(z) %2$@%3$@ helyre?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Szeretnéd telepíteni a(z) %1$@%2$@-t?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Lecseréli a(z)\n    %1$@\n    a(z) %2$@ helyen\nezzel: %3$@%4$@?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Szeretnéd felülírni a(z)\n    %1$@ -t\n \n%2$@%3$@-el?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " A kényszerített beállításokat is telepítjük vagy felülírjuk.\n\n";
@@ -1093,7 +1096,7 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Hiba történt a frissítést információk letöltésekor.\n\n%1$@További információk a következő logfile-ban:\n\n%2$@";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "Hiba történt az indítás során %@";
+"An error occurred while trying to launch Tunnelblick." = "Hiba történt a Tunnelblick indítása során.";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Hiba történt a biztonsági másolatból történő helyreállítás során. További információk a Konzol naplóban.\n\n";

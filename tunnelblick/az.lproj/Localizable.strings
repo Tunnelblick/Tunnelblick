@@ -715,12 +715,6 @@
 "  • Secure configurations\n" = "  Konfiqurasiyanın təhlükəsizliyini təmin etməlidir\n";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Siz %2$@%3$@-i %1$@-ə quraşdırmaq istəyirsiniz?\n\n";
-
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Siz\n    %2$@-da olan\n    %1$@-i\n%3$@%4$@-ə əvəz etmək istəyirsiniz?\n\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Məcburi üstünlüklər də ya əlavə olunacaq ya da əvəz ediləcək.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
@@ -824,9 +818,6 @@
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ konfiqurasiyasının təhlükəsizliyinin yoxlaması zamanı səhv (%1$ld status) baş vermişdi.\n\nLütfən Tunnelblicki bağlayıb yenidən başlayın. Əgər problem davam edərsə Tunnelblicki yenidən yükləyib quraşdırın.";
-
-/* Window text */
-"An error occurred while trying to launch %@" = "%@ başlayanda səhv baş verdi";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Təhlükəsiz (kölgə) surətə döndermək cəhdi zamanı səhv baş verdi. Təfərrüatlar üçün parametr jurnalına baxın.\n\n";

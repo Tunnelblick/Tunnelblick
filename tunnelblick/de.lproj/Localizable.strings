@@ -897,6 +897,9 @@
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • zur Absicherung Eigentümer und Rechte des Programms ändern\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Complete the installation\n" = "  • Installation abschließen\n";
+
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  Update vervollständigen\n";
 
@@ -921,11 +924,11 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ ist freie Software: Sie können sie gemäß den Nutzungsbedingungen der %2$@, wie von der %3$@ herausgegeben, weiterverteilen und/oder modifizieren. \n\n%4$@ ist ein eingetragenes Markenzeichen von OpenVPN Inc.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Möchten Sie %1$@ nach %2$@%3$@ installieren?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Möchten Sie %1$@%2$@ installieren?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Möchten Sie\n    %1$@\n    in %2$@\ndurch %3$@%4$@ ersetzen?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Möchten Sie\n    %1$@\n durch \n%2$@%3$@ ersetzen?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Erzwungene Einstellungen werden ebenfalls installiert oder ersetzt.\n\n";
@@ -1093,7 +1096,7 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Beim Versuch, Informationen über Updates abzurufen, ist ein Fehler aufgetreten.\n\n%1$@Weitere Informationen sind im Log zu finden unter\n\n%2$@";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "Beim Versuch, %@ zu starten, ist ein Fehler aufgetreten";
+"An error occurred while trying to launch Tunnelblick." = "Beim Versuch, Tunnelblick zu starten, ist ein Fehler aufgetreten.";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Beim Versuch, zu einer sicheren (Schatten-) Kopie zurückzusetzen, trat ein Fehler auf. Details sind im Konsolen-Log zu finden.\n\n";

@@ -889,12 +889,6 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ เป็นซอฟต์แวร์ฟรีสำหรับคุณ: คุณสามารถเผยแพร่ และ/หรือ แก้ไขภายไต้เงื่อนไขของ %2$@ เป็น การเผยแพร่โดย %3$@.\n\n%4$@ เป็นเครื่องหมายการค้าของบริษัท OpenVPN Inc.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " คุณประสงค์จะติดตั้ง %1$@ ไปยัง %2$@%3$@?\n\n";
-
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " คุณประสงค์จะแทนที่\n    %1$@\n    ใน %2$@\nด้วย %3$@%4$@?\n\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " การตั้งค่าบังคับจะถูกติดตั้งหรือแทนที่ด้วย\n\n";
 
 /* Window text; '%@' is the name of a configuration */
@@ -1046,9 +1040,6 @@
 
 /* Window text */
 "An error occurred getting the list of loaded system extensions." = "เกิดข้อผิดพลาดเกิดขึ้นขณะดึงรายการส่วนขยายระบบ";
-
-/* Window text */
-"An error occurred while trying to launch %@" = "เกิดข้อผิดพลาดขณะพยายามเปิด %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "เกิดข้อผิดพลาดขณะพยายามแก้ไขกลับไปสู่สำเนาเดิมที่ปลอดภัย ดูรายละเอียดได้ที่ Console Log\n\n";

@@ -682,12 +682,6 @@
 "  • Secure configurations\n" = "  Turvalised konfiguratsioonid\n";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Kas soovite %1$@ installeerida %2$@%3$@?\n\n";
-
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Kas soovite\n    %1$@\n    asukoht %2$@\nasendada %3$@%4$@?\n\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Nõutud seadistused installeeritakse või asendatakse.\n\n";
 
 /* Window text; '%@' is the name of a configuration */

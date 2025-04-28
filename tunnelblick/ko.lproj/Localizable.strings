@@ -829,12 +829,6 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ 은 무료 소프트웨어 입니다: %3$@ 의 %2$@ 사용건 조건 아래 배포 및 수정을 허용합니다.\n\n%4$@ 은 OpenVPN Technologies, Inc. 의 등록상표입니다.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " %1$@를 %2$@%3$@에 설치하겠습니까?\n\n";
-
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " %2$@의\n    %1$@을\n    %3$@%4$@로\n 교체하겠습니까?\n\n";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " 강제된 환경설정이 설치되거나 교체될 것입니다.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
@@ -977,9 +971,6 @@
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ 설정의 보안을 확인하는 동안 오류 (상태 %1$ld)가 발생했습니다.\n\n종료 후 Tunnelblick 다시 실행하십시오. 이 문제가 지속되면 Tunnelblick을 다시 설치하십시오.";
-
-/* Window text */
-"An error occurred while trying to launch %@" = "%@을 실행하는 동안 오류가 발생했습니다";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "보안 (복제) 복사본으로 복원하는 동안 오류가 발생했습니다. 자세한 것은 콘솔 로그를 보십시오.\n\n";

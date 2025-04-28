@@ -897,6 +897,9 @@
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Промени притежанието и правата на програмата за да я подсигури\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Complete the installation\n" = "  • Завършете инсталацията\n";
+
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Завършване на актуализация\n";
 
@@ -921,11 +924,11 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ е безплатен софтуер: Вие можете да го разпространявате и/или променяте под общите условия на %2$@ публикувани от %3$@.\n\n%4$@ е регистрирата търговска марка на OpenVPN Inc.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Желаете ли да инсталирате %1$@ към %2$@%3$@?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Желаете ли да инсталирате %1$@ %2$@?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Желаете ли да замените \n    %1$@\n    в %2$@ \nс %3$@%4$@?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Желаете ли да замените \n    %1$@\n    с %2$@ %3$@?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Принудителните настройки също ще бъдат инсталирани или заменени.\n\n";
@@ -1089,8 +1092,11 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "Възникна грешка при сваляне на актуализацията.\n\nЗа повече информация, вижте лога";
 
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Възникна грешка при достъп на информацията за актуализаците.\n\n%1$@За повече информация, вижте лога\n\n%2$@";
+
 /* Window text */
-"An error occurred while trying to launch %@" = "Възникнала е грешка при опит да се стартира %@";
+"An error occurred while trying to launch Tunnelblick." = "Възникна грешка при опит да се стартира Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Възникна грешка при опит за връщане към подсигуреното (скрито) копие. Моля, вижте конзолния лог за подробности.\n\n";
@@ -1682,6 +1688,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Идентификационните данни %1$@ не може да се премахнат:\n\n%2$@";
+
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Грешката беше '%@'.\n\n";
 
 /* Window text */
 "The file %@ is empty" = "Файлът %@ е празен";

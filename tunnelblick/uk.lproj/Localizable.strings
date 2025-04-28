@@ -897,6 +897,9 @@
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Змінити власника і дозволи програми, щоб зберегти її\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Complete the installation\n" = "  • Завершити інсталяцію\n";
+
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  Завершити оновлення\n";
 
@@ -921,11 +924,11 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ - вільне програмне забезпечення: Ви можете розповсюджувати або змінювати його код у відповідності до умов %2$@, що були опубліковані %3$@.\n\n%4$@ — зареєстрована торгівельна марка OpenVPN Technologies Inc.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Ви бажаєте встановити %1$@ в %2$@%3$@?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Ви бажаєте встановити %1$@%2$@?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Ви бажаєте замінити\n    %1$@\n    в %2$@\nз %3$@%4$@?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Ви бажаєте замінити\n    %1$@\n на \n%2$@%3$@?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Примусові параметри теж будуть встановлені або замінені.\n\n";
@@ -1093,7 +1096,7 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Виникла помилка під час отримання інформації про оновлення.\n\n%1$@Додаткова інформація в журналі\n\n%2$@";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "Сталася помилка під час спроби запуску %@";
+"An error occurred while trying to launch Tunnelblick." = "Сталася помилка під час спроби запуску Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Сталася помилка під час спроби повернутися до збереженої (тіньової) копії. Перегляньте журнал консолі для отримання додаткової інформації.\n\n";

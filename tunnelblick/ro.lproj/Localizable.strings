@@ -408,6 +408,9 @@
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Afișează în meniul Tunnelblick";
 
+/* Menu item. Translate it to be as short as possible. When clicked, will display the full warning. */
+"Using a different version of OpenVPN/OpenSSL..." = "Folosește o versiune diferită de OpenVPN/OpenSSL…";
+
 /* Menu item */
 "VPN Details..." = "Detalii VPN…";
 
@@ -888,8 +891,14 @@
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall one configuration\n" = "    • Dezinstalează o configurare\n";
 
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Be installed\n" = "  • A fi instalat\n\n";
+
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Înlocuiește proprietarul și permisiunile programului pentru siguranță\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Complete the installation\n" = "  • Termină instalarea\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Finalizează actualizarea\n";
@@ -915,14 +924,17 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ este un program gratuit: se poate redistribui sau modifica sub condițiile termenilor %2$@ publicate de %3$@.\n\n%4$@ este o marcă registrată a OpenVPN Inc.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Doriți să instalați %1$@ în %2$@%3$@?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Vrei să instalezi %1$@%2$@?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Doriti sa inlocuiti\n    %1$@\nin %2$@\ncu %3$@%4$@?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Vrei să înlocuiești\n    %1$@\n cu \n%2$@%3$@?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Preferințele obligatorii vor fi deasemenea instalate sau înlocuite.\n\n";
+
+/* Window text */
+" Tunnelblick must be installed.\n\n" = " Tunnelblick trebuie să fie instalat.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnleblick necesită drepturi de administrator pentru a conecta automat '%@' atunci când se pornește computerul.";
@@ -1080,8 +1092,11 @@
 /* Window text. The '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
 "An error occurred trying to download the update.\n\nFor more information, see the log at\n\n%@" = "A intervenit o eroare la descărcarea noii versiuni.\n\nPentru mai multe informații, consultați fișierul de loguri la\n\n%@";
 
+/* Window text. The first '%@' will be replaced with an error message. The second '%@' will be replaced with a file path such as '/Library/Application Support/filename' */
+"An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "A intervenit o eroare la verificarea informațiilor legate de actualizare.\n\n%1$@Mai multe detalii găsiți în loguri la\n\n%2$@";
+
 /* Window text */
-"An error occurred while trying to launch %@" = "A apărut o eroare în timp ce se încerca lansarea %@";
+"An error occurred while trying to launch Tunnelblick." = "A apărut o eroare în timp ce se încerca lansarea Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "A apărut o eroare în timp ce se încearcă revenirea la copia securizată. Consultați Console Log pentru detalii.\n\n";
@@ -1211,6 +1226,9 @@
 
 /* Window text */
 "Copied %@, removing CR characters" = "Copiat %@, eliminarea caracterelor CR";
+
+/* Window text. The '%@' will be replaced by a four-digit year such as 2024. */
+"Copyright © 2004-%@ Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-%@ Angelo Laub, Jonathan Bullard și alții. Toate drepturile rezervate.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Nu am putut copia %1$@ până la %2$@";
@@ -1671,6 +1689,9 @@
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Acreditările numite %1$@ nu au putut fi şterse:\n\n%2$@";
 
+/* Window text. The '%@' will be replaced by an already-translated error message. */
+"The error was '%@'.\n\n" = "Eroarea a fost '%@'.\n\n";
+
 /* Window text */
 "The file %@ is empty" = "Fișierul %@ este gol";
 
@@ -1940,6 +1961,9 @@
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick a fost inlocuit cu succes.";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for configuration '%@'. The attempt to establish communications has been abandoned." = "Tunnelblick nu a putut să stabilească o comunicare cu procesul OpenVPN existent pentru configurația '%@'. Tentativa de stabilire a comunicării a fost abandonată.";
 
 /* Window text */
 "Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick nu a putut să facă schimbarea. Consultați Console Log pentru detalii.";
@@ -2231,6 +2255,9 @@
 /* HTML text. May be combined with other paragraphs. */
 "<p><strong>One or more of your configurations will not be able to connect</strong> on future versions of macOS.</p>\n<p>The configuration(s) require a system extension but future versions of macOS will not allow Tunnelblick to use its system extensions.</p>\n" = "<p><strong>Una sau mai multe din configurările tale nu se vor putea conecta</strong> în versiunile viitoare ale macOS.</p>\n<p>Configurarea sau configurările necesită o extensie a sistemului dar versiunile viitoare de macOS nu vor permite Tunnelblick să folosească extensiile sistemului.</p>";
 
+/* HTML info for the 'OpenVPN version' button. */
+"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to connect the VPN.</strong><ul><li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li><li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with OpenSSL that is included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li><li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are available in this version of Tunnelblick. If not available, the closest match will be used.<br></li></ul>" = "<p><strong>Specifică versiunea aplicațiilor OpenVPN și SSL care trebuiesc folosite pentru conectarea la rețeaua VPN.</strong><ul><li><strong>Opțiunea \"Implicit\"</strong> va folosi versiunea implicită a aplicației OpenVPN cu OpenSSL care este inclusă în această versiune a aplicației Tunnelblick. Versiunea implicită poate fi diferită în diferite versiuni ale aplicației Tunnelblick.<br></li><li><strong>Opțiunea \"Recent\"</strong> va folosi cea mai recentă versiune a aplicației OpenVPN cu OpenSSL care este inclusă în această versiune a aplicației Tunnelblick. Cea mai recentă versiune poate fi diferită în diferite versiuni ale aplicației Tunnelblick.<br></li><li><strong>Toate celelalte opțiuni</strong> vor folosi versiunea aleasă a aplicațiilor OpenVPN și SSL dacă ele sunt disponibile în această versiune a aplicației Tunnelblick. Dacă nu sunt disponibile, alternativele cele mai apropiate vor fi folosite.<br></li></ul>";
+
 /* HTML info for the 'Set DNS/WINS' button. */
 "<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the VPN is connected.</strong> The choices are:<ul><li><strong>Do not set nameserver</strong>: Nothing is done.<br></li><li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS and WINS settings. This is usually the best choice. It changes DNS and WINS settings according to instructions provided by OpenVPN. DNS and WINS settings that have been set manually will not be changed unless \"Allow changes to manually-set network settings\" has been selected in the \"Advanced\" settings window<br></li><li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick 3.0b10 to handle DNS and WINS settings.<br></li><li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to handle DNS and WINS settings.<br></li></ul>" = "<p><strong>Specifică ce face (dacă e nevoie) Tunnelblick pentru a modifica setările DNS în timpul conexiunii la rețeaua VPN.</strong> Opțiunile sunt:<ul><li><strong>Nu setați nameserver</strong>: Nimic nu e schimbat.<br></li><li><strong>Setați nameserver</strong>: Tunnelblick folosește scriptul standard pentru modificarea setărilor DNS și WINS. Aceasta este în general cea mai bună opțiune. Setările DNS și WINS sunt schimbate în conformitate cu instrucțiunile obținute de la OpenVPN. Setările DNS și WINS care au fost configurate manual vor fi schimbate numai dacă opțiunea \"Permiteți modificări pentru setarea manuală a setărilor de rețea\" a fost selectată în fereastra de setări \"Opțiuni avansate\"<br></li><li><strong>Setați nameserver (3.1)</strong>: Tunnelblick folosește scriptul din Tunnelblick 3.1 pentru modificarea setărilor DNS și WINS.<br></li><li><strong>Setați nameserver (3.0b10)</strong>: Tunnelblick folosește scriptul din Tunnelblick 3.0b10 pentru modificarea setărilor DNS și WINS.<br></li><li><strong>Setați nameserver (alternativ 1)</strong>: Tunnelblick folosește un script alternativ pentru modificarea setărilor DNS și WINS.<br></li></ul>";
 
@@ -2358,6 +2385,9 @@
 /* HTML info for the 'Install tun and tap system extensions...' button. */
 "<p>Click to install or uninstall Tunnelblick's tun and tap system extensions.</p>\n\n<p>See <a href=\"https://tunnelblick.net/cInstallKexts.html\">Installing Tunnelblick's Tun and Tap System Extensions</a> [tunnelblick.net] for details.</p><p><strong>Disabled</strong> unless Tunnelblick is running on macOS Big Sur or later.</p>" = "<p>Click pentru a instala sau dezinstala extensiile tun și tap ale Tunnelblick.</p> \n\n<p>Vezi <a href=\"https://tunnelblick.net/cInstallKexts.html\">Instalarea extensiilor de sistem tun și tap ale Tunnelblick</a> [tunnelblick.net] pentru detalii.</p> <p> <strong>Dezactivat</strong> pentru versiuni mai vechi de macOS Big Sur</p>";
 
+/* HTML info for the 'Uninstall Tunnelblick...' button. */
+"<p>Click to uninstall Tunnelblick.</p>\n\n<p><strong>Disabled</strong> if Tunnelblick is not installed.</p>" = "<p>Apăsați pentru a dezinstala Tunnelblick.</p>\n\n<p><strong>Dezactivat</strong> dacă Tunnelblick nu e instalat.</p>";
+
 /* HTML info for the 'Copy Diagnostic Info to Clipboard' button. */
 "<p>Copies information to the Clipboard to help diagnose problems.</p><p>The information includes software versions and settings, the OpenVPN configuration file, network settings and more.</p><p>Sensitive certificate information is not included, but data such as IP addresses and URLs which <em>may</em> be confidential are included. You should examine the information and remove anything you want kept secret before sending it in an email or posting it publicly.</p>" = "<p>Copiază informația în Clipboard pentru a facilita diagnosticarea problemelor.</p><p>Informația include versiunile și setările software-ului, fișierul de configurație pentru OpenVPN, parametrii de rețea și altele.</p><p>Informații confidențiale despre certificat nu sunt incluse, dar informații ca adresa IP și adresele URL care <em>pot</em> fi confidențiale sunt incluse. Ar trebui să analizați informația și să ștergeți tot ce vreți să păstrați confidențial înainte de a o trimite prin email sau de a o posta în mod public.</p>";
 
@@ -2436,6 +2466,9 @@
 /* HTML error message. The '%@' is a configuration name. */
 "<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>" = "<p>Tunnelblick nu a putut să încarce o extensie sistem necesară pentru conectare la %@.</p>";
 
+/* HTML text. May be combined with other paragraphs. */
+"<p>You can set the 'tryToLoadKextsOnThisVersionOfMacOS' Tunnelblick preference so it will attempt to load its system extensions.</p>\n" = "<p>Poți seta opțiunea 'tryToLoadKextsOnThisVersionOfMacOS' în preferințele Tunnelblick pentru a încerca să încarce extensiile sale de sistem.</p>\n";
+
 /* HTML text. */
 "<p>You need to install Tunnelblick's system extensions to use this configuration.</p><p>You can do that from Tunnelblick's 'Utilities' panel.</p><p>After you install the system extensions, macOS will guide you through its process of 'allowing' them, which will include a restart of your computer.</p>" = "<p>Pentru a utiliza această configurație, este necesară instalarea extensiilor de sistem necesare Tunnelblick.</p><p>Poți efectua această operațiune din panoul 'Utilități' din cadrul Tunnelblick.</p><p>Ulterior realizării procesului de instalare a extensiilor de sistem, macOS te va ghida în procesul de acordare permisiuni pentru respectivele extensii de sistem care poate presupune și reinițializarea (repornirea) sistemului.</p>";
 
@@ -2489,6 +2522,9 @@
 
 /* Credit description */
 "Contributed to early code" = "A contribuit la codul incipient";
+
+/* Copyright notice. 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' will be replaced by four-digit year such as '2024' after you have translated the string. Please do not change 'TUNNELBLICK_COPYRIGHT_NOTICE_YEAR' except to change its position in the string if desired. */
+"Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, and others. All rights reserved." = "Copyright © 2004-TUNNELBLICK_COPYRIGHT_NOTICE_YEAR Angelo Laub, Jonathan Bullard, și alții. Toate drepturile rezervate.";
 
 /* Credit description */
 "Croatian translation" = "Traducere în limba Croată";

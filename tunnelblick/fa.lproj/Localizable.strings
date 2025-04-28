@@ -101,6 +101,9 @@
 /* Button */
 "Do nothing" = "كاری انجام نشود";
 
+/* Button to install an update */
+"Download and Install" = "دریافت و نصب";
+
 /* Button */
 "Export Tunnelblick Setup" = "استخراج تنظیمات Tunnelblick";
 
@@ -115,6 +118,9 @@
 
 /* Button */
 "Ignore" = "نادیده گرفتن";
+
+/* Button to install an update */
+"Install and Relaunch" = "نصب و اجرای مجدد";
 
 /* Button */
 "Install tun and tap system extensions..." = "افزونه Tun & Tap را نصب کنید.";
@@ -180,6 +186,9 @@
 /* Button */
 "Reinstall" = "نصب مجدد";
 
+/* Button to be reminded about an update */
+"Remind Me Later" = "بعدا یادآوری کن";
+
 /* Button */
 "Remove Credentials" = "پاک کردن اعتیارنامه ها";
 
@@ -227,6 +236,9 @@
 
 /* Button */
 "Show while connecting" = "نمایش حین اتصال";
+
+/* Button to skip a particular update */
+"Skip This Version" = "این نسخه را رد کن";
 
 /* Button. 'Update' refers to the update of a configuration. */
 "Skip this Update" = "این بروزرسانی را از قلم بیانداز";
@@ -281,6 +293,15 @@
 
 /* Button */
 "When computer starts" = "زمان روشن شدن رایانه";
+
+/* Menu item */
+"A Tunnelblick Update is Available and Downloaded..." = "یک به‌روز رسانی بارگذاری شده و موجود است…";
+
+/* Menu item */
+"A Tunnelblick Update is Available..." = "یک به‌روز رسانی برای Tunnelblick موجود است…";
+
+/* Menu item */
+"A VPN Configuration Update is Available..." = "یک به‌روز رسانی برای پیکربندی وی‌پی‌ان موجود است…";
 
 /* Menu item */
 "Add a VPN..." = "اضافه کردن وی پی ان…";
@@ -445,6 +466,9 @@
 "Do not warn about this again" = "درباره ی این دیگر به من هشدار نده";
 
 /* Checkbox name */
+"Download updates when found" = "بارگذاری به‌روز رسانی در صورت پیدا شدن";
+
+/* Checkbox name */
 "Enable IPv6 (tap only)" = "فعال نمودن IPv6 (فقط در tap)";
 
 /* Checkbox name */
@@ -589,6 +613,9 @@
 "'%@' has been disconnected" = "'%@' قظع شده است";
 
 /* Window title */
+"A new version of Tunnelblick is available" = "نسخه ی جدیدی از Tunnelblick موجود است";
+
+/* Window title */
 "Active connection" = "اتصال فعال";
 
 /* Window title */
@@ -640,6 +667,12 @@
 "Do you wish to connect?" = "آیا مایل به برقرار اتصال هستید؟";
 
 /* Window title */
+"Error getting Tunnelblick update..." = "خطا در درسافت به‌روز رسانی Tunnelblick…";
+
+/* WIndow title */
+"Error getting VPN update..." = "خطا در دریافت به‌روز رسانی وی‌پی‌ان…";
+
+/* Window title */
 "File not found" = "فایل یافت نشد";
 
 /* Window title */
@@ -650,6 +683,9 @@
 
 /* Window title */
 "Install Configuration For All Users?" = "پیکربندی برای تمامی کابران نصب شود؟";
+
+/* Window title */
+"Installation Failed" = "نصب موفقیت آمیز نبود";
 
 /* Window title */
 "Installation failed" = "نصب موفقیت آمیز نبود";
@@ -704,6 +740,9 @@
 
 /* Window title */
 "TEST OF UNINSTALL OF TUNNELBLICK SUCCEEDED" = "حذف آزمایشی TUNNELBLICK با موفقیت انجام شد.";
+
+/* Window title */
+"The Tunnelblick installation failed." = "نصب Tunnelblick موفقیت‌آمیز نبود.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "خطا در پیکربندی Tunnelblick";
@@ -841,12 +880,6 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ یک نرم افزار مجانی است: شما می توانید آن را بازنشر نمایید و یا حتی آنرا با توجه به مقررات %2$@ که در %3$@ منتشر شده تغییر دهید. \n\n%4$@ نام ثبت شده تجاری شرکت OpenVPN Inc. می باشد.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " آیا مایلید %1$@ را در %2$@%3$@ نصب نمایید؟\n\n";
-
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " آیا میخواهید\n    %1$@\n    در %2$@\nبا%3$@%4$@ جایگزین شود؟";
-
-/* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " تنظیمات اجباری هم نصب یا جایگزین میشوند.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
@@ -968,9 +1001,6 @@
 
 /* Window text */
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "خطایی (کد وضعیت %1$ld) در حین تلاش برای بررسی امنیت پیکربندی %2$@ رخ داد.\nلطفا از برنامه Tunnelblick خارج شده و مجددا اجرا نمایید. اگر مشکل همچنان پابرجا بود Tunnelblick رو مجددا نصب نمایید.";
-
-/* Window text */
-"An error occurred while trying to launch %@" = "خطایی در هنگام تلاش برای اجرای %@ رخ داده است";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "خطایی در حین بازگردانی به رونوشت (سایه) امن رخ داد. برای اطلاعات بیشتر به میزفرمان گزارشات مراجعه نمایید.\n\n";

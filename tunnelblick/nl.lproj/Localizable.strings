@@ -892,10 +892,13 @@
 "    • Uninstall one configuration\n" = "    • één configuratie vervangen\n";
 
 /* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
-"  • Be installed\n" = "  Geïnstalleerd worden\n";
+"  • Be installed\n" = "  • Geïnstalleerd worden\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Wijzig de eigenaar en rechten van het programma om het te beveiligen\n";
+
+/* Window text. Item in a list prefixed by 'Tunnelblick needs to:' */
+"  • Complete the installation\n" = "  • De installatie voltooien\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • Update afronden\n";
@@ -921,11 +924,11 @@
 /* Window text */
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Inc." = " %1$@ is gratis software, het is mogelijk om het te verspreiden en/of te wijzigen onder de gebruikersvoorwaarden van de %2$@, zoals gepubliceerd door de %3$@.\n\n%4$@ is een geregistreerd handelsmerk van OpenVPN Inc.";
 
-/* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Wilt u %1$@ in %2$@%3$@ installeren?\n\n";
+/* Window text. The first  %@ will be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The second %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to install %@%@?\n\n" = " Wilt u %1$@ installeren%2$@?\n\n";
 
-/* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Wilt u\n    %1$@\n    in %2$@\nvervangen door %3$@%4$@?\n\n";
+/* Window text. The first two %@s will each be replaced with a Tunnelblick version (e.g., 'Tunnelblick 1.2.3 (build 5678)'). The last %@ will be replaced by an already translated string which starts with '\n' to force it to be shown on a new line. */
+" Do you wish to replace\n    %@\n with \n%@%@?\n\n" = " Wil je \n    %1$@\n vervangen door \n%2$@%3$@?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Afgedwongen instellingen zullen ook geïnstalleerd of vervangen worden.\n\n";
@@ -1093,7 +1096,7 @@
 "An error occurred trying to get information about updates.\n\n%@For more information, see the log at\n\n%@" = "Fout bij het opvragen van informatie over updates\n\n%1$@Meer informatie, zie de log op\n\n%2$@";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "Er trad een fout op bij het opstarten van %@";
+"An error occurred while trying to launch Tunnelblick." = "Er is een fout opgetreden bij het opstarten van Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Er is een fout opgetreden tijdens het herstellen van de beveiligde (schaduw) kopie. Bekijk het Console Log voor details.\n\n";
