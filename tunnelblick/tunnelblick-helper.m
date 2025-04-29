@@ -788,98 +788,115 @@ void exitIfOvpnNeedsRepair(void) {
     exitIfPathIsNotSecure(gConfigPath, PERMS_SECURED_OTHER, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
 }
 
+BOOL okToRunAsRootInAppResources(NSString * path, NSString * resourcesPath) {
+
+    // Try in Deploy first, then in Tunnelblick.app Resources
+    NSRange r = [path rangeOfString: [resourcesPath stringByAppendingString: @"/Deploy/"]];
+    if (  r.location != 0  ) {
+        r = [path rangeOfString: [resourcesPath stringByAppendingString: @"/"]];
+    }
+    if (  r.location != 0  ) {
+        return NO;
+    }
+
+    NSString * restOfPath = [path substringFromIndex: r.length];
+    NSArray * allowedScripts = @[@"client.down.tunnelblick.sh",
+                                 @"client.1.down.tunnelblick.sh",
+                                 @"client.2.down.tunnelblick.sh",
+                                 @"client.3.down.tunnelblick.sh",
+                                 @"client.4.down.tunnelblick.sh",
+                                 @"client.route-pre-down.tunnelblick.sh",
+                                 @"re-enable-network-services.sh"];
+    if (  [allowedScripts containsObject: restOfPath]  ) {
+        return YES;
+    }
+
+    NSArray * rest = [restOfPath componentsSeparatedByString: @"/"];
+    if (   (rest.count == 3)
+        && [rest[0] isEqualToString: @"openvpn"]
+        && [rest[1] hasPrefix:       @"openvpn-"]
+        && [rest[2] isEqualToString: @"openvpn"]  ) {
+        return YES;
+    }
+
+    return NO;
+}
+
 void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
     
     // We allow only certain programs to be run as root. These are:
-    //    * Scripts and copies of OpenVPN built into Tunnelblick
-    //    * Certain system programs such as kextload and dsacacheutil
-    //    * User-supplied scripts inside a .tblk that is located in a shared, deployed, or shandow configuration folder
+    //    * Scripts and copies of OpenVPN built into Tunnelblick (perhaps in Deploy)
+    //    * Certain system programs such as kextunload and arch
+    //    * User-supplied copies of OpenVPN in L_AS_T_OPENVPN
+    //    * User-supplied scripts inside a .tblk that is located in a shadow, shared, or deployed configuration folder
     //
     // This routine only checks the path string itself. It does not verify there are no symlinks
+
 #ifdef TBDebug
-    return;
-#endif
-    
-    BOOL notOk = TRUE;
-	
-	if (  ! [path isEqualToString: @"INVALID"]  ) {
 
-		if (  [path hasPrefix: @"/A"]  ) {
-            NSArray  * pathComponents = [path pathComponents];
-            if (   (   [[pathComponents objectAtIndex: 0] isEqualToString: @"/"]
-                    && [[pathComponents objectAtIndex: 1] isEqualToString: @"Applications"]
-                    && [[pathComponents objectAtIndex: 2] isEqualToString: @"Tunnelblick.app"]
-                    && [[pathComponents objectAtIndex: 3] isEqualToString: @"Contents"]
-                    && [[pathComponents objectAtIndex: 4] isEqualToString: @"Resources"]
-                    && (   (   ([pathComponents count] == 8)
-                            && [[pathComponents objectAtIndex: 5] isEqualToString: @"openvpn"]
-                            && [[pathComponents objectAtIndex: 6] hasPrefix:       @"openvpn-"]
-                            && [[pathComponents objectAtIndex: 7] isEqualToString: @"openvpn"]
-                            )
-                        || (   ([pathComponents count] == 6)
-                            && (   [[pathComponents objectAtIndex: 5] isEqualToString: @"client.down.tunnelblick.sh"]
-                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.1.down.tunnelblick.sh"]
-                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.2.down.tunnelblick.sh"]
-                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.3.down.tunnelblick.sh"]
-								|| [[pathComponents objectAtIndex: 5] isEqualToString: @"client.4.down.tunnelblick.sh"]
-                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.route-pre-down.tunnelblick.sh"]
-                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"re-enable-network-services.sh"]
-                                )
-                            )
-                        )
-                    )
-                ) {
-                notOk = FALSE;
-            }
+    (void)path;
 
-		} else if (  [path hasPrefix: @"/u"]  ) {
-			if (   [path isEqualToString: TOOL_PATH_FOR_ARCH     ]
-                || [path isEqualToString: TOOL_PATH_FOR_CODESIGN ]
-		   	 	|| [path isEqualToString: TOOL_PATH_FOR_KEXTSTAT ]
-                || [path isEqualToString: TOOL_PATH_FOR_KILLALL  ]
-				|| [path isEqualToString: TOOL_PATH_FOR_SQLITE3  ]
-			    ) {
-                notOk = FALSE;
-            }
-
-		} else if (   [path hasPrefix: [L_AS_T_OPENVPN
-										stringByAppendingString: @"/"] ]
-				   && [path hasSuffix: @"/openvpn"]  ) {
-			notOk = FALSE;
-
-		} else if (  [path hasPrefix: @"/L"]  ) {
-            if (   (   [path hasSuffix: @".tblk/Contents/Resources/pre-connect.sh"      ]
-					|| [path hasSuffix: @".tblk/Contents/Resources/pre-disconnect.sh"   ]
-					|| [path hasSuffix: @".tblk/Contents/Resources/post-tun-tap-load.sh"]
-					|| [path hasSuffix: @".tblk/Contents/Resources/connected.sh"        ]
-					|| [path hasSuffix: @".tblk/Contents/Resources/reconnecting.sh"     ]
-					|| [path hasSuffix: @".tblk/Contents/Resources/post-disconnect.sh"  ]
-					)
-				&& (   (   (gUidOfUser != 0)	// Allow alternate only if not root
-						&& [path hasPrefix: [[L_AS_T_USERS
-										  stringByAppendingPathComponent: gUserName]
-										 stringByAppendingString: @"/"] ])
-					|| [path hasPrefix: [L_AS_T_SHARED
-										 stringByAppendingString: @"/"] ]
-					|| [path hasPrefix: [gDeployPath
-										 stringByAppendingString: @"/"] ]
-					)  ) {
-					notOk = FALSE;
-				}
-        } else if (  [path isEqualToString: TOOL_PATH_FOR_KEXTUNLOAD]  ) {
-            notOk = FALSE;
-        }
-	}
-	
-    if (  notOk  ) {
-        fprintf(stderr, "Path %s may not be run as root\n", [path UTF8String]);
-        exitOpenvpnstart(208);
+#else
+    if (  [path isEqualToString: @"INVALID"]  ) {
+        goto notOkay;
     }
-    
-	if (  ! fileExistsForRootAtPath(path)  ) {
+
+    if (  okToRunAsRootInAppResources(path, @"/Applications/Tunnelblick.app/Contents/Resources")  ) {
+        goto okay;
+    }
+
+    if (  okToRunAsRootInAppResources(path, @"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources")  ) {
+        goto okay;
+    }
+
+    if (   [path isEqualToString: TOOL_PATH_FOR_ARCH      ]
+        || [path isEqualToString: TOOL_PATH_FOR_CODESIGN  ]
+        || [path isEqualToString: TOOL_PATH_FOR_KEXTSTAT  ]
+        || [path isEqualToString: TOOL_PATH_FOR_KILLALL   ]
+        || [path isEqualToString: TOOL_PATH_FOR_SQLITE3   ]
+        || [path isEqualToString: TOOL_PATH_FOR_KEXTUNLOAD]
+        ) {
+        goto okay;
+    }
+
+    if (   [path hasPrefix: [L_AS_T_OPENVPN stringByAppendingString: @"/"]]
+        && [path hasSuffix: @"/openvpn"]  ) {
+        goto okay;
+    }
+
+    if (   (   [path hasSuffix: @".tblk/Contents/Resources/pre-connect.sh"      ]
+            || [path hasSuffix: @".tblk/Contents/Resources/pre-disconnect.sh"   ]
+            || [path hasSuffix: @".tblk/Contents/Resources/post-tun-tap-load.sh"]
+            || [path hasSuffix: @".tblk/Contents/Resources/connected.sh"        ]
+            || [path hasSuffix: @".tblk/Contents/Resources/reconnecting.sh"     ]
+            || [path hasSuffix: @".tblk/Contents/Resources/post-disconnect.sh"  ]
+            )
+        && (   (   (gUidOfUser != 0)    // Allow shadow to run as root only if have a non-root username
+                && [path hasPrefix: [[L_AS_T_USERS
+                                      stringByAppendingPathComponent: gUserName]
+                                     stringByAppendingString: @"/"] ])
+            || [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]
+            || [path hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
+            || [path hasPrefix: @"/Library/Application Support/Tunnelblick/Tunnelblick.app/Contents/Resources/Deploy/"]
+            )  ) {
+        goto okay;
+    }
+
+notOkay:
+
+    fprintf(stderr, "Path %s may not be run as root\n", [path UTF8String]);
+    exitOpenvpnstart(208);
+    return;
+
+okay:
+
+    if (  ! fileExistsForRootAtPath(path)  ) {
 		fprintf(stderr, "File %s does not exist\n", [path UTF8String]);
 		exitOpenvpnstart(209);
 	}
+
+#endif
+
 }
 
 //**************************************************************************************************************************
