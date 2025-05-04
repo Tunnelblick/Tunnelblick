@@ -519,7 +519,7 @@ static void clearExpectedDisconnectFolder(aslclient  asl,
 	}
 }
 
-static void removeShutdownFlagFile (aslclient  asl,
+static void removeShutdownFlagFile(aslclient  asl,
 							 aslmsg     log_msg) {
 
 	NSError * error;
@@ -535,7 +535,7 @@ static void removeShutdownFlagFile (aslclient  asl,
 }
 
 int main(void) {
-	
+
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];
 	
     unsigned int event_count = 0;
