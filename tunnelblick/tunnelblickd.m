@@ -83,7 +83,7 @@ static BOOL sanityChecks(aslclient  asl,
     }
 
 #ifndef TBDebug
-    // Make sure we are in L_AS_T and an identical copy is in /Applications
+    // Make sure we are in L_AS_T
     NSString * ourPath = nil;
     NSString * bundlePath = NSBundle.mainBundle.bundlePath;
     if (  [bundlePath.lastPathComponent isEqualToString: @"Resources"]  ) {
