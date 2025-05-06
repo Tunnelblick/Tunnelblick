@@ -563,14 +563,14 @@ int main(void) {
     // Create a new ASL log
     asl = asl_open("tunnelblickd", "Daemon", ASL_OPT_STDERR);
 	if (  asl == NULL  ) {
-		return EXIT_FAILURE;
+        goto done;
 	}
     log_msg = asl_new(ASL_TYPE_MSG);
 	if (  log_msg == NULL  ) {
-		return EXIT_FAILURE;
+        goto done;;
 	}
 	if (  asl_set(log_msg, ASL_KEY_SENDER, "tunnelblickd") != 0  ) {
-		return EXIT_FAILURE;
+		goto done;
 	}
 		
     if (  ! sanityChecks(asl, log_msg)  ) {
