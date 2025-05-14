@@ -156,13 +156,9 @@ static void becomeTheClient(uid_t      client_euid,
     if (  getegid() == client_egid  ) {
         asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: setegid(%lu) unnecessary: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
                 (unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-        ;
     } else if (  setegid(client_egid)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeTheClient: setegid(%lu) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
                 (unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-//        } else {
-//            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: setegid(%lu) succeeded: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//                    (unsigned long)client_egid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
     }
     if (  geteuid() == client_euid  ) {
         asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: seteuid(%lu) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
@@ -171,13 +167,7 @@ static void becomeTheClient(uid_t      client_euid,
     } else if (  seteuid(client_euid)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeTheClient: seteuid(%lu) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
                 (unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-//        } else {
-//            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: seteuid(%lu) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//                    (unsigned long)client_euid, (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
     }
-
-//    asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeTheClient: at exit: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//            (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
 }
 
 static void becomeRoot(aslclient  asl,
@@ -189,10 +179,6 @@ static void becomeRoot(aslclient  asl,
     } else if (  seteuid(0)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeRoot: seteuid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
                 (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-//    } else {
-//            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeRoot: seteuid(0) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//                    (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-        ;
     }
     if (   getegid() == 0  ) {
         asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeRoot: setegid(0) unnecessary; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
@@ -200,13 +186,7 @@ static void becomeRoot(aslclient  asl,
     } else if (  setegid(0)  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "becomeRoot: setegid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
                 (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-//        } else {
-//            asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeRoot: setegid(0) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//                    (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
     }
-
-//    asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "becomeRoot: at exit: uid = %lu; euid = %lu; gid = %lu; egid = %lu",
-//            (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
 }
 
 static NSFileHandle *  getStdOutOrStdErrFileHandle(NSString * path,
