@@ -606,6 +606,7 @@ int main(void) {
 	}
 		
     if (  ! sanityChecks(asl, log_msg)  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Terminating tunnelblickd because sanityChecks() failed");
         goto done;
     }
 
