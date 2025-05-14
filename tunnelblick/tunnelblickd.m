@@ -103,6 +103,13 @@ static BOOL sanityChecks(aslclient  asl,
         return FALSE;
     }
 
+    if (  tunnelblickNotInApplications(aslclient  asl,
+                                       aslmsg     log_msg)  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Tunnelblick is not in /Applications. Removing tunnelblickd .plist");
+        [NSFileManager.defaultManager removeItemAtPath: @"/Library/LaunchDaemons/net.tunnelblick.tunnelblick.tunnelblickd.plist" error: nil];
+        return FALSE;
+    }
+
     NSString * tunnelblickdInApplicationsPath = @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
     if (  ! [NSFileManager.defaultManager contentsEqualAtPath: ourPath andPath: tunnelblickdInApplicationsPath]  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "tunnelblickd copies are not identical");
