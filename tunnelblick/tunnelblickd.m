@@ -521,8 +521,8 @@ static void removeShutdownFlagFile(aslclient  asl,
 	}
 }
 
-BOOL tunnelblickNotInApplications(aslclient  asl,
-                                  aslmsg     log_msg) {
+BOOL tunnelblickNotInApplications(aslclient __unused asl,
+                                  aslmsg    __unused log_msg) {
 
     // Returns TRUE if /Applications/Tunnelblick.app does not (or did not) exist for two seconds.
 
