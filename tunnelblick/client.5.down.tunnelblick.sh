@@ -1,14 +1,20 @@
 #!/bin/bash
 # Note: must be bash; uses bash-specific tricks
 #
-# ******************************************************************************************************************
-# This Tunnelblick script does everything! It handles TUN and TAP interfaces,
-# pushed configurations and DHCP leases. :)
+# ******************************************************************************
+#
+# This Tunnelblick script does everything when the VPN is torn down, EXCEPT DNS.
+#
+# It _does_ flush the DNS cache, if requested.
+#
+# It should be used only when --dns-updown scripts are used.
 #
 # This is the "Down" version of the script, executed after the connection is
 # closed.
 #
 # Created by: Nick Williams (using original code and parts of old Tblk scripts)
+# Modified by: Jonathan K. Bullard to remove DNS changes, for use when OpenVPN's
+#                                  --dns-updown is used
 #
 # ******************************************************************************
 
@@ -323,110 +329,6 @@ release_dhcp() {
 	fi
 }
 
-restore_network_settings() {
-
-    if [ "$MADE_DNS_CHANGES" = "false" ] ; then
-        log_message "MADE_DNS_CHANGES is false, so not restoring network_settings"
-        return 0
-    fi
-
-    log_debug_message "Restoring network settings because MADE_DNS_CHANGES = '$MADE_DNS_CHANGES'"
-
-	local no_such_key="<dictionary> {
-  TunnelblickNoSuchKey : true
-}"
-
-	local dns_old ; dns_old="$( scutil <<-EOF
-		open
-		show State:/Network/OpenVPN/OldDNS
-		quit
-EOF
-	)"
-	local status=$?
-	log_message_if_nonzero $status "ERROR: status = $status trying to read State:/Network/OpenVPN/OldDNS"
-
-	local smb_old ; smb_old="$( scutil <<-EOF
-		open
-		show State:/Network/OpenVPN/OldSMB
-		quit
-EOF
-	)"
-	local status=$?
-	log_message_if_nonzero $status "ERROR: status = $status trying to read State:/Network/OpenVPN/OldSMB"
-
-	if [ "${dns_old}" = "${no_such_key}" ] ; then
-		execute_command "Removed State:DNS" \
-						"Error happened while trying to remove State:DNS" \
-						scutil <<-EOF
-							open
-							remove State:/Network/Service/${PSID}/DNS
-							quit
-EOF
-	else
-		execute_command "Restored State:DNS" \
-						"Error happened while trying to restore State:DNS" \
-						scutil <<-EOF
-							open
-							get State:/Network/OpenVPN/OldDNS
-							set State:/Network/Service/${PSID}/DNS
-							quit
-EOF
-	fi
-
-	if ${ALSO_USING_SETUP_KEYS} ; then
-		local dns_old_setup ; dns_old_setup="$( scutil <<-EOF
-			open
-			show State:/Network/OpenVPN/OldDNSSetup
-			quit
-EOF
-		)"
-		local status=$?
-		log_message_if_nonzero $status "ERROR: status = $status trying to read State:/Network/OpenVPN/OldDNSSetup"
-
-		if [ "${dns_old_setup}" = "${no_such_key}" ] ; then
-			execute_command "Removed Setup:DNS" \
-							"Error happened while trying to remove Setup:DNS" \
-							scutil <<-EOF
-								open
-								remove Setup:/Network/Service/${PSID}/DNS
-								quit
-EOF
-		else
-			execute_command "Restored Setup:DNS" \
-							"Error happened while trying to restore Setup:DNS" \
-							scutil <<-EOF
-								open
-								get State:/Network/OpenVPN/OldDNSSetup
-								set Setup:/Network/Service/${PSID}/DNS
-								quit
-	EOF
-		fi
-	else
-		log_debug_message "Not restoring Setup:DNS"
-	fi
-
-	if [ "${smb_old}" = "${no_such_key}" ] ; then
-		execute_command "Removed State:SMB" \
-						"Error happened while trying to remove State:SMB" \
-						scutil > /dev/null <<-EOF
-							open
-							remove State:/Network/Service/${PSID}/SMB
-							quit
-EOF
-	else
-		execute_command "Restored State:SMB" \
-						"Error happened while trying to restore State:SMB" \
-						scutil > /dev/null <<-EOF
-							open
-							get State:/Network/OpenVPN/OldSMB
-							set State:/Network/Service/${PSID}/SMB
-							quit
-EOF
-	fi
-
-	log_message "Restored DNS and SMB settings"
-}
-
 restore_ipv6() {
 
     # Undoes the actions performed by the disable_ipv6() routine in client.up.tunnelblick.sh by restoring
@@ -729,7 +631,7 @@ do_log_rollover
 readonly OUR_NAME=$(basename "${0}")
 
 log_message "**********************************************"
-log_message "Start of output from ${OUR_NAME}"
+log_message "Start of output from ${OUR_NAME}, which does not make any changes to DNS"
 
 rm -f "/Library/Application Support/Tunnelblick/downscript-needs-to-be-run.txt"
 
@@ -752,8 +654,6 @@ else
 	profile_or_execute release_dhcp
 
 	profile_or_execute restore_disabled_network_services
-
-	profile_or_execute restore_network_settings
 
 	profile_or_execute restore_ipv6
 
