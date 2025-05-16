@@ -10,9 +10,8 @@
 #
 # Created by: Nick Williams (using original code and parts of old Tblk scripts)
 #
-# ******************************************************************************************************************
+# ******************************************************************************
 
-##########################################################################################
 do_log_rollover() {
 
 	# Copy the log to DownLog.previous.txt and clear the log
@@ -22,24 +21,24 @@ do_log_rollover() {
 	rm -f "/Library/Application Support/Tunnelblick/DownLog.txt"
 }
 
-##########################################################################################
-# @param String message - The message to log
 log_message_no_header() {
+
+# @param String message - The message to log
 
 	echo "${@}" | tee -a "/Library/Application Support/Tunnelblick/DownLog.txt"
 }
 
-##########################################################################################
-# @param String message - The message to log
 log_message() {
+
+# @param String message - The message to log
 
 	log_message_no_header "$( date -j +'%H:%M:%S' ) *Tunnelblick: " "${@}"
 }
 
-##########################################################################################
+log_message_if_nonzero() {
+
 # @param Number - The number to test
 # @param String message - The message to log
-log_message_if_nonzero() {
 
 	if [ "$1" -ne 0 ] ; then
 		shift
@@ -47,9 +46,9 @@ log_message_if_nonzero() {
 	fi
 }
 
-##########################################################################################
-# @param String message - The message to log
 log_debug_message() {
+
+# @param String message - The message to log
 
 	if $ARG_EXTRA_LOGGING ; then
 		if [ -z "$1" ] ; then
@@ -60,7 +59,6 @@ log_debug_message() {
 	fi
 }
 
-##########################################################################################
 profile_or_execute() {
 
 	# If debugging, profiles a command by running it and printing the elapsed, user CPU, and system CPU times
@@ -110,7 +108,6 @@ profile_or_execute() {
 	return $status
 }
 
-##########################################################################################
 execute_command() {
 
 	# Executes a command with its arguments, printing an optional success or failure message.
@@ -145,9 +142,8 @@ execute_command() {
 	return $status
 }
 
-##########################################################################################
-run_prefix_or_suffix()
-{
+run_prefix_or_suffix() {
+
 # @param String 'down-prefix.sh' or 'down-suffix.sh'
 #
 # Execute the specified script (if it exists) in a subshell with the arguments with which this script was called.
@@ -182,7 +178,6 @@ run_prefix_or_suffix()
 	fi
 }
 
-##########################################################################################
 get_info_saved_by_up_script() {
 
 	# Sets GLOBALS from info saved by the 'up' script in State:/Network/OpenVPN
@@ -263,7 +258,6 @@ get_item() {
 	echo "${tmp#* : }"
 }
 
-##########################################################################################
 get_primary_service_id_and_warn_if_it_changed() {
 
 	local ipv4 ; ipv4="$( scutil <<-EOF |
@@ -278,7 +272,6 @@ EOF
 	fi
 }
 
-##########################################################################################
 remove_leasewatcher() {
 
     if [ "$INHIBIT_NETWORK_MONITORING" = "true" ] ; then
@@ -302,7 +295,6 @@ remove_leasewatcher() {
 	fi
 }
 
-##########################################################################################
 release_dhcp() {
 
 	if ${ARG_TAP} ; then
@@ -331,7 +323,6 @@ release_dhcp() {
 	fi
 }
 
-##########################################################################################
 restore_network_settings() {
 
     if [ "$MADE_DNS_CHANGES" = "false" ] ; then
@@ -436,7 +427,6 @@ EOF
 	log_message "Restored DNS and SMB settings"
 }
 
-##########################################################################################
 restore_ipv6() {
 
     # Undoes the actions performed by the disable_ipv6() routine in client.up.tunnelblick.sh by restoring
@@ -462,7 +452,6 @@ restore_ipv6() {
     done
 }
 
-##########################################################################################
 restore_disabled_network_services() {
 
     # Undoes the actions performed by the disable_secondary_network_services() routine in client.up.tunnelblick.sh by enabling
@@ -488,7 +477,6 @@ restore_disabled_network_services() {
     done
 }
 
-##########################################################################################
 debug_log_current_network_settings() {
 
 	if $ARG_EXTRA_LOGGING ; then
@@ -509,9 +497,8 @@ debug_log_current_network_settings() {
 	fi
 }
 
-##########################################################################################
-flushDNSCache()
-{
+flushDNSCache() {
+
     if ${ARG_FLUSH_DNS_CACHE} ; then
 		if [ -f /usr/bin/dscacheutil ] ; then
 			execute_command "Flushed the DNS cache with dscacheutil -flushcache" \
@@ -553,9 +540,7 @@ flushDNSCache()
     fi
 }
 
-##########################################################################################
-resetPrimaryInterface()
-{
+resetPrimaryInterface() {
 
 	local should_reset="$ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED"
 	local expected_folder_path="/Library/Application Support/Tunnelblick/expect-disconnect"
@@ -647,7 +632,6 @@ EOF
     fi
 }
 
-##########################################################################################
 remove_system_configuration_items() {
 
 	# Ignore errors trying to delete items in the system configuration database.
@@ -667,22 +651,20 @@ remove_system_configuration_items() {
 EOF
 }
 
-#########################################################################################
+################################################################################
 #
 # START OF SCRIPT
 #
-#########################################################################################
+################################################################################
 
 trap "" TSTP
 trap "" HUP
 trap "" INT
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
-#########################################################################################
+################################################################################
 #
 # PROCESS ARGUMENTS
-#
-#########################################################################################
 
 # Get options from our command line. We would get these values from State:/Network/OpenVPN, but that key
 # may not exist (for example, because there were no DNS changes, or because the system is shutting down).
@@ -735,11 +717,9 @@ readonly ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT
 readonly ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED
 readonly ARGS_FROM_OPENVPN
 
-#########################################################################################
+################################################################################
 #
 # DO THE WORK OF THIS SCRIPT
-#
-#########################################################################################
 
 readonly LF="
 "
