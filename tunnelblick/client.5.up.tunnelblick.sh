@@ -1818,39 +1818,9 @@ trap "" HUP
 trap "" INT
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
-readonly LF="
-"
-readonly HT="$( printf '\t' )"
-
-readonly OUR_NAME="$( basename "${0}" )"
-
-logMessage "**********************************************"
-logMessage "Start of output from ${OUR_NAME}"
-
-PRIMARY_SERVICE_NAME="$( echo_primary_network_service_name )"
-logMessage "Primary network service: $PRIMARY_SERVICE_NAME"
-
-# Check variables should have been set up by OpenVPN
-# shellcheck disable=SC2154
-if [ -z "$dev" ] ; then
-	dev=''
-	echo "WARNING: \$dev is empty"
-fi
-# shellcheck disable=SC2154
-if [ -z "$config" ] ; then
-	config=''
-	echo "WARNING: \$config is empty"
-fi
-# shellcheck disable=SC2154
-if [ -z "$route_vpn_gateway" ] ; then
-	route_vpn_gateway=''
-	echo "WARNING: \$route_vpn_gateway is empty"
-fi
-# shellcheck disable=SC2154
-if [ -z "$script_type" ] ; then
-	script_type=''
-	echo "WARNING: \$script_type is empty"
-fi
+################################################################################
+#
+# PROCESS ARGUMENTS
 
 # Process optional arguments (if any) for the script
 # Each one begins with a "-"
@@ -1945,6 +1915,46 @@ while [ $# -ne 0 ] ; do
 	fi
 done
 
+readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_PREPEND_DOMAIN_NAME ARG_FLUSH_DNS_CACHE ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED ARG_IGNORE_OPTION_FLAGS
+
+################################################################################
+#
+# DO THE WORK OF THIS SCRIPT
+
+readonly LF="
+"
+readonly HT="$( printf '\t' )"
+
+readonly OUR_NAME="$( basename "${0}" )"
+
+logMessage "**********************************************"
+logMessage "Start of output from ${OUR_NAME}, which does not make any changes to DNS"
+
+PRIMARY_SERVICE_NAME="$( echo_primary_network_service_name )"
+logMessage "Primary network service: $PRIMARY_SERVICE_NAME"
+
+# Check variables should have been set up by OpenVPN
+# shellcheck disable=SC2154
+if [ -z "$dev" ] ; then
+	dev=''
+	echo "WARNING: \$dev is empty"
+fi
+# shellcheck disable=SC2154
+if [ -z "$config" ] ; then
+	config=''
+	echo "WARNING: \$config is empty"
+fi
+# shellcheck disable=SC2154
+if [ -z "$route_vpn_gateway" ] ; then
+	route_vpn_gateway=''
+	echo "WARNING: \$route_vpn_gateway is empty"
+fi
+# shellcheck disable=SC2154
+if [ -z "$script_type" ] ; then
+	script_type=''
+	echo "WARNING: \$script_type is empty"
+fi
+
 # Remember the OpenVPN arguments this script was started with so that run_prefix_or_suffix can pass them on to 'up-prefix.sh' and 'up-suffix.sh'
 declare -a SCRIPT_ARGS
 SCRIPT_ARGS_COUNT=$#
@@ -1954,10 +1964,9 @@ for ((SCRIPT_ARGS_INDEX=0; SCRIPT_ARGS_INDEX<SCRIPT_ARGS_COUNT; ++SCRIPT_ARGS_IN
 	shift
 done
 
-readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_PREPEND_DOMAIN_NAME ARG_FLUSH_DNS_CACHE ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT_UNEXPECTED ARG_IGNORE_OPTION_FLAGS SCRIPT_ARGS
+readonly SCRIPT_ARGS
 
 run_prefix_or_suffix 'up-prefix.sh'
-
 
 # Note: The script log path name is constructed from the path of the regular config file, not the shadow copy
 # if the config is shadow copy, e.g. /Library/Application Support/Tunnelblick/Users/Jonathan/Folder/Subfolder/config.ovpn
