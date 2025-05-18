@@ -53,7 +53,7 @@ extern TunnelblickInfo * gTbInfo;
 //      For Tunnelblick.app updates: gMC (on the main thread)
 //      For configuration upates, ????????:
 //
-//          -(void) tbUpdateErrorOccurredInAppUpdate: (NSNumber *) inAppUpdate; (use [inAppUpdate boolValue])
+//          -(void) tbUpdateErrorOccurredInAppUpdate: (NSNumber *) inAppUpdate; (use [isAppUpdate boolValue])
 //
 //          -(void) tbUpdateIsAvailable: (NSNumber *) isAvailable; (use [isAvailable boolValue])
 //
