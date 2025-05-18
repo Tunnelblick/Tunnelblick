@@ -247,10 +247,29 @@ static const char * fileSystemRepresentationFromPath(NSString * path) {
 static void doRenames(void) {
 
     NSString * appPath = @"/Applications/Tunnelblick.app";
-    NSString * oldPath = @"/Applications/Tunnelblick.old.app";
+    NSString * oldPath = @"/Applications/Tunnelblick-old.app";
     NSString * newPath = @"/Applications/Tunnelblick.new.app";
 
-    // Delete any existing .old.app
+    // Handle .old.app: Rename it to -old.app if -old.app doesn't exist
+    // Some Tunnelblick 8.* versions used .old.app instead of -old.app,
+    // but that causes problems because Finder won't report the version
+    // of a .old.app, either with QuickLook or with File >> Get Info,
+    // and that can be confusing to users who want to know what version
+    // a .old.app is.
+    NSString * dotOldPath = @"/Applications/Tunnelblick.old.app";
+    if (  [gFileMgr fileExistsAtPath: dotOldPath]  ) {
+        if (  ! [gFileMgr fileExistsAtPath: oldPath]  ) {
+            if (  0 == rename(fileSystemRepresentationFromPath(dotOldPath), fileSystemRepresentationFromPath(oldPath))  ){
+                appendLog([NSString stringWithFormat: @"Renamed %@ to %@", dotOldPath, oldPath]);
+            } else {
+                appendLog([NSString stringWithFormat: @"rename() failed with error %d ('%s') trying to rename %@ to %@",
+                           errno, strerror(errno), dotOldPath, oldPath]);
+                errorExit();
+            }
+        }
+    }
+
+    // Delete any existing -old.app
     if (  [gFileMgr fileExistsAtPath: oldPath]  ) {
         if (  ! [gFileMgr tbRemoveFileAtPath: oldPath handler: nil]  ) {
             errorExit();
@@ -258,7 +277,7 @@ static void doRenames(void) {
         appendLog([NSString stringWithFormat: @"Deleted %@", oldPath]);
     }
 
-    // Rename .app to be .old.app
+    // Rename .app to be -old.app
     if (  0 == rename(fileSystemRepresentationFromPath(appPath), fileSystemRepresentationFromPath(oldPath))  ){
         appendLog([NSString stringWithFormat: @"Renamed %@ to %@", appPath, oldPath]);
     } else {
@@ -361,6 +380,7 @@ static void updateTunnelblickdPlist(void) {
         // OK to return because we've restored the original app, so the original app will be relaunched.
     }
 }
+
 
 static void launchUpdatedProgram(uid_t uid, gid_t gid) {
 
