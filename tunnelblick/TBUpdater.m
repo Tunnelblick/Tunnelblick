@@ -879,6 +879,7 @@ doneReturnErr:
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                               NSLocalizedString(@"Tunnelblick is up to date", @"Window text"));
         }
+        [self notifyTbUpdateIsAvailable: @NO];
         return;
     }
 
