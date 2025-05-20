@@ -849,9 +849,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                        preferenceKey: nilIfNSNull([dict objectForKey: @"preferenceKey"])];
 }
 
--(void) addWarningNoteWithHeadline: (NSString *)            headline
-                           message: (NSAttributedString *)  message
-                     preferenceKey: (NSString *)            preferenceKey {
+-(void) addWarningNoteWithHeadline: (nonnull  NSString *)            headline
+                           message: (nonnull  NSAttributedString *)  message
+                     preferenceKey: (nullable NSString *)            preferenceKey {
 
     // Adds a warning note to warningNotes. Does not add if a note with the same preferenceKey already exists.
     //
