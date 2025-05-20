@@ -1087,6 +1087,7 @@ doneReturnErr:
     [gFileMgr tbRemovePathIfItExists: self.downloadedUpdatePath];
 
     [self notifyTbUpdateIsAvailable: @NO];
+    [gMC tbUpdateClearErrorInAppUpdate: [NSNumber numberWithBool: self.isAppUpdate]];
 }
 
 -(void) remindLater {
@@ -1098,6 +1099,7 @@ doneReturnErr:
                              self.updateInfo[@"versionString"]]];
 
     [self notifyTbUpdateIsAvailable: @NO];
+    [gMC tbUpdateClearErrorInAppUpdate: [NSNumber numberWithBool: self.isAppUpdate]];
 }
 
 -(void) cancelDownload {
