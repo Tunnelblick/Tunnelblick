@@ -239,9 +239,7 @@ enum ActiveInactiveState {
 
 -(void)             addWarningNoteWithHeadline:             (nonnull NSString *)            headline
                                        message:             (nonnull NSAttributedString *)  message
-                                 preferenceKey:             (nullable NSString *)            preferenceKey;
-
--(void)             removeWarningNoteAtIndex:               (nonnull NSString *)        index;
+                                 preferenceKey:             (nullable NSString *)           preferenceKey;
 
 // General methods
 -(void)             addConnection:                          (nonnull VPNConnection *)   connection;

@@ -890,11 +890,19 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
     [self recreateMenu];
 }
 
--(void) removeWarningNoteAtIndex: (NSString *) index {
+-(void) removeWarningNoteWithPreferenceKey: (nonnull NSString *) preferenceKey {
 
-    [warningNotes removeObjectForKey: index];
+    NSUInteger ix;
+    for (  ix=0; ix<warningNotes.count; ix++  ) {
+        WarningNote * note = [warningNotes objectAtIndex: ix];
+        if (  [preferenceKey isEqualToString: note.preferenceKey]  ) {
+            [warningNotes removeObjectAtIndex: ix];
+            [self recreateMenu];
+            return;
+        }
+    }
 
-    [self recreateMenu];
+    NSLog(@"Did not find preferenceKey '%@' in WarningNotes", preferenceKey);
 }
 
 -(BOOL) setUpUserDefaults {
