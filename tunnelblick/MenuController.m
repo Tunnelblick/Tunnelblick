@@ -7899,8 +7899,8 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) tbUpdateIsAvailable: (NSNumber *) isAvailable {
 
-    NSLog(@"tbUpdateIsAvailable: %s invoked", CSTRING_FROM_BOOL([isAvailable boolValue]));
     tbUpdatesAreAvailable = [isAvailable boolValue];
+    NSLog(@"tbUpdateIsAvailable: %s invoked", CSTRING_FROM_BOOL(tbUpdatesAreAvailable));
     [logScreen updateLastCheckedDate];
     [self recreateMenu];
 }
