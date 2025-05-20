@@ -7904,7 +7904,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 
     NSLog(@"tbUpdateErrorOccurredInAppUpdate: %s invoked", CSTRING_FROM_BOOL([inAppUpdate boolValue]));
 
-    NSString * headline = (  [inAppUpdate boolValue]
+    NSString * headline = (  inAppUpdate.boolValue
                            ? NSLocalizedString(@"Error getting Tunnelblick update...", @"Window title")
                            : NSLocalizedString(@"Error getting VPN update...",         @"WIndow title"));
 
@@ -7912,10 +7912,13 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
                               NSLocalizedString(@"<p>One or more problems occurred trying to get update information or perform an update.</p>"
                                                 @"<p>For more information, see the log at</p>"
                                                 @"<p>&nbsp;&nbsp;&nbsp;&nbsp;%@</p>", @"HTML window text"), TUNNELBLICK_UPDATER_LOG_PATH];
+    NSString * preferenceKey = (  inAppUpdate.boolValue
+                                ? @"-skipWarningAboutAppUpdate"
+                                : @"-skipWarningAboutVpnUpdate");
 
     NSAttributedString * messageAS = attributedLightDarkStringFromHTML(htmlMessage);
 
-    [self addWarningNoteWithHeadline: headline message: messageAS preferenceKey: nil];
+    [self addWarningNoteWithHeadline: headline message: messageAS preferenceKey: preferenceKey];
 }
 
 -(void) tbUpdateDownloadCompletePercentage: (double) percentage {

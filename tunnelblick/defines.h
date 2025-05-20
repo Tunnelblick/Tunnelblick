@@ -826,6 +826,8 @@ name = newValue;                                    \
 \
 @"allowNonAdminSafeConfigurationReplacement",  /* Must be forced; regular preference is ignored */	\
 \
+@"-skipWarningAboutAppUpdateError", \
+@"-skipWarningAboutVpnUpdateError", \
 @"skipWarningAboutReprotectingConfigurationFile",	\
 @"skipWarningAboutSimultaneousConnections",	\
 @"skipWarningAboutConvertingToTblks",	\
