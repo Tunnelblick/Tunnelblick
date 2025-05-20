@@ -223,6 +223,7 @@ enum ActiveInactiveState {
 
 -(void) tbUpdateIsAvailable: (nonnull NSNumber *) isAvailable;
 -(void) tbUpdateErrorOccurredInAppUpdate: (nonnull NSNumber *) inAppUpdate;
+-(void) tbUpdateClearErrorInAppUpdate: (nonnull NSNumber *) inAppUpdate;
 -(void) tbUpdateDownloadCompletePercentage: (double) percentage;
 -(void) tbUpdateWillInstallUpdate;
 -(void) tbUpdateDidInstallUpdate;

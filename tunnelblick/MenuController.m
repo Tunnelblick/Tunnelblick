@@ -7929,6 +7929,14 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     [self addWarningNoteWithHeadline: headline message: messageAS preferenceKey: preferenceKey];
 }
 
+-(void) tbUpdateClearErrorInAppUpdate: (nonnull NSNumber *) inAppUpdate {
+
+    NSString * preferenceKey = (  inAppUpdate
+                                ? @"-skipWarningAboutAppUpdate"
+                                : @"-skipWarningAboutVpnUpdate");
+    [self removeWarningNoteWithPreferenceKey: preferenceKey];
+}
+
 -(void) tbUpdateDownloadCompletePercentage: (double) percentage {
 
     tbUpdatePercentageDownloaded = percentage;
