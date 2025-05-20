@@ -870,6 +870,8 @@ doneReturnErr:
         return;
     }
 
+    [gMC tbUpdateClearErrorInAppUpdate: [NSNumber numberWithBool: self.isAppUpdate]];
+
     [gTbDefaults setObject: [NSDate date] forKey: @"SULastCheckTime"];
 
     if (  ! isAvailable  ) {
