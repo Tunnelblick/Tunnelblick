@@ -854,9 +854,6 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                      preferenceKey: (nullable NSString *)            preferenceKey {
 
     // Adds a warning note to warningNotes. Does not add if a note with the same preferenceKey already exists.
-    //
-    // warningNotes is an NSDictionary with keys that are integers and objects that are WarningNotes
-    // It is a dictionary instead of an array so entries can be efficiently removed out of order.
 
     static unsigned long notificationIndex = 0;
 
@@ -868,19 +865,16 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
         return;
     }
 
-    if (  warningNotes) {
-        NSEnumerator * e = [warningNotes keyEnumerator];
-        NSString * key;
-        while (  (key = [e nextObject])  )  {
-            WarningNote * note = [warningNotes objectForKey: key];
-            if (  [preferenceKey isEqualToString: [note preferenceKey]]  ) {
-                return;
-            }
+    NSUInteger ix;
+    for (  ix=0; ix<warningNotes.count; ix++  ) {
+        WarningNote * note = [warningNotes objectAtIndex: ix];
+        if (  [preferenceKey isEqualToString: note.preferenceKey]  ) {
+            return;
         }
     }
 
-    if (  ! warningNotes) {
-        warningNotes = [[NSMutableDictionary dictionaryWithCapacity: 10] retain];
+    if (  ! warningNotes  ) {
+        warningNotes = [[NSMutableArray arrayWithCapacity: 10] retain];
     }
 
     NSString * index = [NSString stringWithFormat: @"%lu", notificationIndex++];
@@ -891,7 +885,7 @@ TBSYNTHESIZE_OBJECT(retain, NSDate       *, lastCheckNow,              setLastCh
                                                           index: index]
                           autorelease];
 
-    [warningNotes setObject: note forKey: index];
+    [warningNotes addObject: note];
 
     [self recreateMenu];
 }
@@ -1874,14 +1868,11 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     NSMenu * warningsSubmenu = [[[NSMenu alloc] initWithTitle: NSLocalizedString(@"Tunnelblick", @"Window title")] autorelease];
 
     // Add up to 20 warnings to the submenu
-    NSEnumerator * notesKeysEnum = [warningNotes keyEnumerator];
-    NSString * warningIndex;
-    NSInteger warningItemsAdded = 0;
-    while (   (warningItemsAdded < 20)
-           && (warningIndex = [notesKeysEnum nextObject])  ) {
-
-        WarningNote * warningNote = [warningNotes objectForKey: warningIndex];
-        NSString * preferenceKey = (NSString *)nilIfNSNull( (id)[warningNote preferenceKey] );
+    NSUInteger warningItemsAdded = 0;
+    NSUInteger ix;
+    for (  ix=0; ix<warningNotes.count; ix++  ) {
+        WarningNote * warningNote = warningNotes[ix];
+        NSString * preferenceKey = (NSString *)nilIfNSNull( (id)warningNote.preferenceKey );
         if (   ( ! preferenceKey )
             || ( ! [gTbDefaults boolForKey: preferenceKey])  ) {
 
@@ -1892,6 +1883,9 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
             [warningsSubmenu addItem: item];
             warningItemsAdded++;
+            if (  warningItemsAdded == 20) {
+                break;
+            }
         }
     }
 

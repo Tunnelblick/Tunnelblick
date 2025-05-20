@@ -140,7 +140,7 @@ enum ActiveInactiveState {
     NSMutableArray          * activeIPCheckThreads;         // List of threadIDs of active IPCheck threads that have not been queued for cancellation
     NSMutableArray          * cancellingIPCheckThreads;     // List of threadIDs of IPCheck threads that have been queued for cancellation
 
-    NSMutableDictionary     * warningNotes;                 // One entry for each pending warning, keys are strings with integers
+    NSMutableArray          * warningNotes;                 // One entry for each pending warning
 
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
